@@ -44,6 +44,11 @@ jest.mock('@sudoku-web/template/utils/playerColors', () => ({
 jest.mock('@sudoku-web/sudoku/helpers/calculateSeconds', () => ({
   calculateSeconds: jest.fn(() => 120),
 }));
+jest.mock('@capacitor/share', () => ({
+  Share: {
+    canShare: jest.fn().mockResolvedValue({ value: false }),
+  },
+}));
 
 const mockUseParties = usePartiesModule.useParties as jest.Mock;
 
