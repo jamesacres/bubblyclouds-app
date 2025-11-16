@@ -2,20 +2,20 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Sudoku from './Sudoku';
-import { useGameState } from '@sudoku-web/sudoku/hooks/gameState';
+import { useGameState } from '../hooks/gameState';
 import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
 import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
 import { useRouter } from 'next/navigation';
 
-jest.mock('@sudoku-web/sudoku/hooks/gameState');
+jest.mock('../hooks/gameState');
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
 jest.mock('@sudoku-web/template/providers/SessionsProvider', () => ({
   useSessions: jest.fn(),
 }));
-jest.mock('@sudoku-web/sudoku/hooks/useDrag', () => ({
+jest.mock('../hooks/useDrag', () => ({
   useDrag: jest.fn(() => ({})),
 }));
 
@@ -25,7 +25,7 @@ jest.mock('react-feather', () => ({
   Sidebar: () => <svg data-testid="sidebar-icon" />,
 }));
 
-jest.mock('@sudoku-web/sudoku/components/SudokuBox', () => {
+jest.mock('../components/SudokuBox', () => {
   const DummySudokuBox = function DummySudokuBox() {
     return <div data-testid="sudoku-box">Sudoku Box</div>;
   };
@@ -35,7 +35,7 @@ jest.mock('@sudoku-web/sudoku/components/SudokuBox', () => {
   };
 });
 
-jest.mock('@sudoku-web/sudoku/components/SudokuControls', () => {
+jest.mock('../components/SudokuControls', () => {
   return function DummySudokuControls() {
     return <div data-testid="sudoku-controls">Sudoku Controls</div>;
   };
@@ -45,7 +45,7 @@ jest.mock('@sudoku-web/ui/components/TimerDisplay', () => ({
   TimerDisplay: () => <div data-testid="timer-display">Timer</div>,
 }));
 
-jest.mock('@sudoku-web/sudoku/components/SudokuSidebar', () => {
+jest.mock('../components/SudokuSidebar', () => {
   return function DummySudokuSidebar() {
     return <div data-testid="sudoku-sidebar">Sidebar</div>;
   };
@@ -105,16 +105,16 @@ jest.mock('@sudoku-web/template/helpers/capacitor', () => ({
   isCapacitor: jest.fn(() => false),
 }));
 
-jest.mock('@sudoku-web/sudoku/helpers/cheatDetection', () => ({
+jest.mock('../helpers/cheatDetection', () => ({
   isPuzzleCheated: jest.fn(() => false),
 }));
 
-jest.mock('@sudoku-web/sudoku/helpers/puzzleTextToPuzzle', () => ({
+jest.mock('../helpers/puzzleTextToPuzzle', () => ({
   puzzleTextToPuzzle: jest.fn((_text) => Array(81).fill(0)),
   puzzleToPuzzleText: jest.fn(() => '0'.repeat(81)),
 }));
 
-jest.mock('@sudoku-web/sudoku/helpers/checkAnswer', () => ({
+jest.mock('../helpers/checkAnswer', () => ({
   isInitialCell: jest.fn(() => false),
 }));
 
@@ -122,7 +122,7 @@ jest.mock('@sudoku-web/template/helpers/calculateSeconds', () => ({
   calculateSeconds: jest.fn(() => 120),
 }));
 
-jest.mock('@sudoku-web/sudoku/utils/dailyPuzzleCounter', () => ({
+jest.mock('../utils/dailyPuzzleCounter', () => ({
   addDailyPuzzleId: jest.fn(),
   getDailyPuzzleCount: jest.fn(() => 1),
 }));

@@ -30,7 +30,7 @@ jest.mock('@sudoku-web/sudoku/components/SimpleSudoku', () => ({
   },
 }));
 
-jest.mock('@sudoku-web/template/hooks/useParties');
+jest.mock('../hooks/useParties');
 jest.mock('@sudoku-web/sudoku/helpers/cheatDetection', () => ({
   isPuzzleCheated: jest.fn(() => false),
 }));
@@ -42,8 +42,8 @@ jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage', () => ({
   calculateCompletionPercentage: jest.fn(() => 50),
 }));
 
-jest.mock('@sudoku-web/template/providers/SessionsProvider');
-jest.mock('@sudoku-web/template/helpers/calculateSeconds');
+jest.mock('../providers/SessionsProvider');
+jest.mock('../helpers/calculateSeconds');
 
 jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
   buildPuzzleUrl: jest.fn(() => '/puzzle?id=test'),

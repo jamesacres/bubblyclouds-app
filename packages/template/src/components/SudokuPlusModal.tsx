@@ -1,16 +1,16 @@
 'use client';
 
-import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
-import { isElectron } from '@sudoku-web/template/helpers/electron';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
+import { isCapacitor } from '../helpers/capacitor';
+import { isElectron } from '../helpers/electron';
+import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
-import { PREMIUM_FEATURES } from '@sudoku-web/template/config/premiumFeatures';
+import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { PurchasesPackage as CapacitorPackage } from '@revenuecat/purchases-capacitor';
 import { Package as WebPackage } from '@revenuecat/purchases-js';
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 import { X, Check } from 'react-feather';
-import { SUBSCRIPTION_CONTEXT_MESSAGES } from '@sudoku-web/template/config/subscriptionMessages';
+import { SUBSCRIPTION_CONTEXT_MESSAGES } from '../config/subscriptionMessages';
 
 const SudokuPlusModal = () => {
   const {

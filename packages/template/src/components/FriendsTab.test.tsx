@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { FriendsTab } from './FriendsTab';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
+import { useSessions } from '../providers/SessionsProvider';
 import { UserProfile } from '@sudoku-web/types/userProfile';
 import { Party } from '@sudoku-web/types/serverTypes';
 jest.mock('react-feather', () => ({
@@ -24,7 +24,7 @@ jest.mock('@sudoku-web/games/components/Leaderboard', () => ({
   __esModule: true,
   default: () => <div data-testid="leaderboard" />,
 }));
-jest.mock('@sudoku-web/template/providers/SessionsProvider', () => ({
+jest.mock('../providers/SessionsProvider', () => ({
   useSessions: jest.fn(),
 }));
 

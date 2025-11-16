@@ -3,10 +3,10 @@
 import { useContext } from 'react';
 import Header from '@sudoku-web/ui/components/Header';
 import HeaderUser from '@sudoku-web/auth/components/HeaderUser';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
-import { useOnline } from '@sudoku-web/template/hooks/online';
-import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { RevenueCatContext } from '../providers/RevenueCatProvider';
+import { useOnline } from '../hooks/online';
+import { isCapacitor } from '../helpers/capacitor';
+import { useServerStorage } from '../hooks/serverStorage';
 
 export default function HeaderWrapper() {
   const revenueCatContext = useContext(RevenueCatContext);

@@ -14,7 +14,6 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   testTimeout: 10000,
   moduleNameMapper: {
-    '^@sudoku-web/template/(.*)$': '<rootDir>/src/$1',
     '^@sudoku-web/games/(.*)$': '<rootDir>/../games/src/$1',
     '^@sudoku-web/sudoku/(.*)$': '<rootDir>/../sudoku/src/$1',
     '^@sudoku-web/auth/(.*)$': '<rootDir>/../auth/src/$1',

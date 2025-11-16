@@ -11,14 +11,14 @@ import {
   puzzleToPuzzleText,
 } from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
 import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
+import { useParties } from '../hooks/useParties';
 import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
 import {
   UserContext,
   UserContextInterface,
 } from '@sudoku-web/auth/providers/AuthProvider';
-import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
+import { calculateSeconds } from '../helpers/calculateSeconds';
+import { useSessions } from '../providers/SessionsProvider';
 import { Award, Loader } from 'react-feather';
 import Link from 'next/link';
 import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';

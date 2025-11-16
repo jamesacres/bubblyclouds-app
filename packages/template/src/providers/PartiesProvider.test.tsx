@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import PartiesProvider, { PartiesContext } from './PartiesProvider';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useServerStorage } from '../hooks/serverStorage';
 import {
   UserContext,
   UserContextInterface,
 } from '@sudoku-web/auth/providers/AuthProvider';
 import { Party } from '@sudoku-web/types/serverTypes';
 
-jest.mock('@sudoku-web/template/hooks/serverStorage');
+jest.mock('../hooks/serverStorage');
 
 const mockUseServerStorage = useServerStorage as jest.Mock;
 

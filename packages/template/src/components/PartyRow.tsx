@@ -1,25 +1,22 @@
 import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
 import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
 import { TimerDisplay } from '@sudoku-web/ui/components/TimerDisplay';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
+import { useParties } from '../hooks/useParties';
 import { Party, SessionParty, Session } from '@sudoku-web/types/serverTypes';
-import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
+import { calculateSeconds } from '../helpers/calculateSeconds';
 import {
   UserContext,
   UserContextInterface,
 } from '@sudoku-web/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
+import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
-import {
-  getPlayerColor,
-  getAllUserIds,
-} from '@sudoku-web/template/utils/playerColors';
+import { getPlayerColor, getAllUserIds } from '../utils/playerColors';
 import { PartyInviteButton } from './PartyInviteButton';
 import { CopyButton } from '@sudoku-web/ui/components/CopyButton';
 import { useContext, useState } from 'react';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
 import { LogOut, Trash, UserMinus, Edit3, Users } from 'react-feather';
-import { isIOS } from '@sudoku-web/template/helpers/capacitor';
+import { isIOS } from '../helpers/capacitor';
 import { BaseServerState } from '../types/gameState';
 
 const DEFAULT_MAX_SIZE = 5;

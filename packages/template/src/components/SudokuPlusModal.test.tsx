@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SudokuPlusModal from './SudokuPlusModal';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
-import { PREMIUM_FEATURES } from '@sudoku-web/template/config/premiumFeatures';
+import { RevenueCatContext } from '../providers/RevenueCatProvider';
+import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 
 // Mock dependencies
-jest.mock('@sudoku-web/template', () => ({
+jest.mock('../index', () => ({
   RevenueCatContext: React.createContext({}),
   SubscriptionContext: {
     UNDO: 'undo',

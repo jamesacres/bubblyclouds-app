@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import SudokuInputNotes from './SudokuInputNotes';
-import { Notes } from '@sudoku-web/sudoku/types/notes';
+import { Notes } from '../types/notes';
 
 describe('SudokuInputNotes', () => {
   describe('rendering', () => {

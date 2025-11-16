@@ -2,7 +2,7 @@ import { memo, useContext } from 'react';
 import { Loader, RefreshCw, Users, X } from 'react-feather';
 import { PartyRow } from '@sudoku-web/template/components/PartyRow';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { ServerState } from '@sudoku-web/sudoku/types/state';
+import { ServerState } from '../types/state';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import {
   UserContext,

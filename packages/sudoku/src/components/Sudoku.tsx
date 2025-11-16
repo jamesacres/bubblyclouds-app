@@ -1,22 +1,22 @@
 'use client';
-import { Puzzle, PuzzleRowOrColumn } from '@sudoku-web/sudoku/types/puzzle';
-import { calculateBoxId } from '@sudoku-web/sudoku/helpers/calculateId';
+import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
+import { calculateBoxId } from '../helpers/calculateId';
 import { TimerDisplay } from '@sudoku-web/ui/components/TimerDisplay';
-import { GameState, GameStateMetadata } from '@sudoku-web/sudoku/types/state';
-import { puzzleToPuzzleText } from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
-import SudokuBox from '@sudoku-web/sudoku/components/SudokuBox';
+import { GameState, GameStateMetadata } from '../types/state';
+import { puzzleToPuzzleText } from '../helpers/puzzleTextToPuzzle';
+import SudokuBox from '../components/SudokuBox';
 import RaceTrack from '@sudoku-web/games/components/RaceTrack';
-import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
-import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
-import { isInitialCell } from '@sudoku-web/sudoku/helpers/checkAnswer';
+import { isPuzzleCheated } from '../helpers/cheatDetection';
+import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
+import { isInitialCell } from '../helpers/checkAnswer';
 import {
   addDailyPuzzleId,
   getDailyPuzzleCount,
-} from '@sudoku-web/sudoku/utils/dailyPuzzleCounter';
-import { useGameState } from '@sudoku-web/sudoku/hooks/gameState';
-import SudokuControls from '@sudoku-web/sudoku/components/SudokuControls';
+} from '../utils/dailyPuzzleCounter';
+import { useGameState } from '../hooks/gameState';
+import SudokuControls from '../components/SudokuControls';
 import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
-import SudokuSidebar from '@sudoku-web/sudoku/components/SudokuSidebar';
+import SudokuSidebar from '../components/SudokuSidebar';
 import {
   useCallback,
   useContext,
@@ -25,7 +25,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useDrag } from '@sudoku-web/sudoku/hooks/useDrag';
+import { useDrag } from '../hooks/useDrag';
 import {
   UserContext,
   UserContextInterface,

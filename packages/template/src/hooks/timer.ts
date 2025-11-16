@@ -1,10 +1,10 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import { useDocumentVisibility } from '@sudoku-web/template/hooks/documentVisibility';
-import { useLocalStorage } from '@sudoku-web/template/hooks/localStorage';
+import { useDocumentVisibility } from '../hooks/documentVisibility';
+import { useLocalStorage } from '../hooks/localStorage';
 import { StateType } from '@sudoku-web/types/stateType';
-import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
-import { Timer } from '@sudoku-web/template/types/timer';
+import { calculateSeconds } from '../helpers/calculateSeconds';
+import { Timer } from '../types/timer';
 
 // eslint-disable-next-line no-undef
 let interval: NodeJS.Timeout;

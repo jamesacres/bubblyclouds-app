@@ -2,9 +2,9 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { PartyInviteButton } from './PartyInviteButton';
-import * as serverStorageModule from '@sudoku-web/template/hooks/serverStorage';
+import * as serverStorageModule from '../hooks/serverStorage';
 
-jest.mock('@sudoku-web/template/hooks/serverStorage', () => ({
+jest.mock('../hooks/serverStorage', () => ({
   __esModule: true,
   useServerStorage: jest.fn(),
 }));

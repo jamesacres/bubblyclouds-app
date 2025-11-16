@@ -9,10 +9,10 @@ import {
 import {
   RevenueCatContextInterface,
   RevenueCatContext,
-} from '@sudoku-web/template/providers/RevenueCatProvider';
-import * as usePartiesModule from '@sudoku-web/template/hooks/useParties';
+} from '../providers/RevenueCatProvider';
+import * as usePartiesModule from '../hooks/useParties';
 
-jest.mock('@sudoku-web/template/hooks/useParties');
+jest.mock('../hooks/useParties');
 jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage', () => ({
   calculateCompletionPercentage: jest.fn(() => 50),
 }));
@@ -37,11 +37,11 @@ jest.mock('./PartyInviteButton', () => ({
 jest.mock('@sudoku-web/ui', () => ({
   CopyButton: () => <div data-testid="copy-button">Copy</div>,
 }));
-jest.mock('@sudoku-web/template/utils/playerColors', () => ({
+jest.mock('../utils/playerColors', () => ({
   getPlayerColor: jest.fn(() => 'bg-blue-500'),
   getAllUserIds: jest.fn(() => ['userId1', 'userId2']),
 }));
-jest.mock('@sudoku-web/template/helpers/calculateSeconds', () => ({
+jest.mock('../helpers/calculateSeconds', () => ({
   calculateSeconds: jest.fn(() => 120),
 }));
 jest.mock('@capacitor/share', () => ({

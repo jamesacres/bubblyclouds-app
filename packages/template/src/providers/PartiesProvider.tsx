@@ -10,7 +10,7 @@ import {
   UserContext,
   UserContextInterface,
 } from '@sudoku-web/auth/providers/AuthProvider';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useServerStorage } from '../hooks/serverStorage';
 import { Party } from '@sudoku-web/types/serverTypes';
 
 interface PartiesContextInterface {

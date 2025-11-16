@@ -21,7 +21,7 @@ jest.mock('@sudoku-web/ui', () => {
 });
 
 // Mock @sudoku-web/sudoku components
-jest.mock('@sudoku-web/sudoku', () => {
+jest.mock('../index', () => {
   const React = require('react');
   const actual = jest.requireActual('@sudoku-web/sudoku');
   return {

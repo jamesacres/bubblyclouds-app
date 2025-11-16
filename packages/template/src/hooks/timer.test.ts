@@ -2,11 +2,11 @@
 
 import { renderHook, act } from '@testing-library/react';
 import { useTimer } from './timer';
-import { Timer } from '@sudoku-web/template/types/timer';
+import { Timer } from '../types/timer';
 
 // Mock template hooks (must be before imports to avoid hoisting issues)
-jest.mock('@sudoku-web/template/hooks/documentVisibility');
-jest.mock('@sudoku-web/template/hooks/localStorage');
+jest.mock('../hooks/documentVisibility');
+jest.mock('../hooks/localStorage');
 jest.mock('../helpers/calculateSeconds');
 jest.mock('@sudoku-web/types/stateType', () => ({
   StateType: { TIMER: 'timer' },
