@@ -16,7 +16,7 @@ jest.mock('@sudoku-web/template/hooks/useWakeLock', () => ({
   })),
 }));
 
-jest.mock('@/components/Sudoku', () => {
+jest.mock('@sudoku-web/sudoku/components/Sudoku', () => {
   return function MockSudoku({
     alreadyCompleted,
     showRacingPrompt,
@@ -47,13 +47,13 @@ jest.mock('@sudoku-web/sudoku', () => ({
 
 // useWakeLock is mocked as part of @sudoku-web/template mock
 
-jest.mock('@/helpers/buildPuzzleUrl', () => ({
+jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
   buildPuzzleUrl: jest.fn((initial, final, _metadata) => {
     return `/puzzle?initial=${initial}&final=${final}`;
   }),
 }));
 
-jest.mock('@/helpers/sha256', () => ({
+jest.mock('@sudoku-web/sudoku/helpers/sha256', () => ({
   sha256: jest.fn((text) => Promise.resolve('mocked-hash-' + text)),
 }));
 

@@ -20,7 +20,7 @@ jest.mock('./IntegratedSessionRow', () => ({
     <div data-testid={`session-${session.sessionId}`} />
   ),
 }));
-jest.mock('./Leaderboard', () => ({
+jest.mock('@sudoku-web/games/components/Leaderboard', () => ({
   __esModule: true,
   default: () => <div data-testid="leaderboard" />,
 }));

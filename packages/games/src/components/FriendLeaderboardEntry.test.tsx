@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import FriendLeaderboardEntry from './FriendLeaderboardEntry';
 import { FriendsLeaderboardScore } from '@sudoku-web/sudoku/types/scoringTypes';
 
-jest.mock('./ScoreBreakdown', () => {
+jest.mock('@sudoku-web/sudoku/components/ScoreBreakdown', () => {
   return function MockScoreBreakdown({ breakdown }: any) {
     return (
       <div data-testid="score-breakdown">

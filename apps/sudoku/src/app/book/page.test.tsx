@@ -12,7 +12,7 @@ jest.mock('react-feather', () => ({
   ArrowUp: () => <div data-testid="arrow-up-icon">Arrow Up</div>,
 }));
 
-jest.mock('@/components/BookCover', () => ({
+jest.mock('@sudoku-web/sudoku/components/BookCover', () => ({
   __esModule: true,
   default: function MockBookCover({ size }: { size?: string }) {
     return (
@@ -21,7 +21,7 @@ jest.mock('@/components/BookCover', () => ({
   },
 }));
 
-jest.mock('@/components/IntegratedSessionRow', () => {
+jest.mock('@sudoku-web/template/components/IntegratedSessionRow', () => {
   return function MockIntegratedSessionRow({
     session: _session,
     bookPuzzle,
@@ -72,7 +72,7 @@ jest.mock('@sudoku-web/auth/providers/AuthProvider', () => ({
   }),
 }));
 
-jest.mock('@/helpers/sha256', () => ({
+jest.mock('@sudoku-web/sudoku/helpers/sha256', () => ({
   sha256: jest.fn((text) => Promise.resolve('hash-' + text)),
 }));
 

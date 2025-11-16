@@ -13,6 +13,12 @@ const config = {
   ],
   setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   testTimeout: 10000,
+  moduleNameMapper: {
+    '^@sudoku-web/games/(.*)$': '<rootDir>/src/$1',
+    '^@sudoku-web/sudoku/(.*)$': '<rootDir>/../sudoku/src/$1',
+    '^@sudoku-web/types/(.*)$': '<rootDir>/../types/src/$1',
+    '^@sudoku-web/shared/(.*)$': '<rootDir>/../shared/src/$1',
+  },
   transform: {
     '^.+\\.tsx?$': [
       'ts-jest',

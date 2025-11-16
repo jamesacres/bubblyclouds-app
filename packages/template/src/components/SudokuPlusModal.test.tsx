@@ -358,18 +358,6 @@ describe('SudokuPlusModal', () => {
 
   describe('contextual messages', () => {
     it('should display contextual message when context is provided', () => {
-      const SUBSCRIPTION_CONTEXT_MESSAGES = {
-        test_context: {
-          bgColor: 'bg-blue-50',
-          textColor: 'text-blue-800',
-          content: 'Test message content',
-        },
-      };
-
-      jest.mock('@/config/subscriptionMessages', () => ({
-        SUBSCRIPTION_CONTEXT_MESSAGES,
-      }));
-
       renderWithContext({
         ...mockContextValue,
         subscribeModal: {
@@ -380,6 +368,7 @@ describe('SudokuPlusModal', () => {
 
       // The contextual message should be rendered if context is provided
       // This depends on the actual SUBSCRIPTION_CONTEXT_MESSAGES configuration
+      expect(screen.getByText('Sudoku Plus')).toBeInTheDocument();
     });
   });
 

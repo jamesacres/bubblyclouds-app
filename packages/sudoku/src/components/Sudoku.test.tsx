@@ -76,7 +76,7 @@ jest.mock('@sudoku-web/games/components/RaceTrack', () => {
   };
 });
 
-jest.mock('@/components/RacingPromptModal', () => {
+jest.mock('@sudoku-web/template/components/RacingPromptModal', () => {
   return function DummyRacingPromptModal({ onRace, onSolo }: any) {
     return (
       <div data-testid="racing-prompt">
@@ -127,7 +127,7 @@ jest.mock('@sudoku-web/sudoku/utils/dailyPuzzleCounter', () => ({
   getDailyPuzzleCount: jest.fn(() => 1),
 }));
 
-jest.mock('../config/dailyLimits', () => ({
+jest.mock('@sudoku-web/template/config/dailyLimits', () => ({
   DAILY_LIMITS: {
     FREE_DAILY_PUZZLES: 3,
   },

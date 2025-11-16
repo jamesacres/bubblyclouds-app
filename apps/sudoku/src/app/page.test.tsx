@@ -9,25 +9,25 @@ jest.mock('next/navigation', () => ({
   useSearchParams: jest.fn(),
 }));
 
-jest.mock('@/components/MyPuzzlesTab', () => {
+jest.mock('@sudoku-web/template/components/MyPuzzlesTab', () => {
   return function MockMyPuzzlesTab() {
     return <div data-testid="my-puzzles-tab">My Puzzles Tab</div>;
   };
 });
 
-jest.mock('@/components/FriendsTab', () => {
+jest.mock('@sudoku-web/template/components/FriendsTab', () => {
   return function MockFriendsTab() {
     return <div data-testid="friends-tab">Friends Tab</div>;
   };
 });
 
-jest.mock('@/components/ActivityWidget', () => {
+jest.mock('@sudoku-web/games/components/ActivityWidget', () => {
   return function MockActivityWidget() {
     return <div data-testid="activity-widget">Activity Widget</div>;
   };
 });
 
-jest.mock('@/components/BookCover', () => {
+jest.mock('@sudoku-web/sudoku/components/BookCover', () => {
   return function MockBookCover() {
     return <div data-testid="book-cover">Book Cover</div>;
   };

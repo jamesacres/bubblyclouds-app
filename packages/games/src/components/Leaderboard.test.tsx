@@ -32,7 +32,7 @@ jest.mock('./FriendLeaderboardEntry', () => {
   };
 });
 
-jest.mock('./ScoringLegend', () => {
+jest.mock('@sudoku-web/sudoku/components/ScoringLegend', () => {
   return {
     __esModule: true,
     default: ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =>

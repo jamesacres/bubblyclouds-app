@@ -14,6 +14,13 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   testTimeout: 10000,
   moduleNameMapper: {
+    '^@sudoku-web/template/(.*)$': '<rootDir>/src/$1',
+    '^@sudoku-web/games/(.*)$': '<rootDir>/../games/src/$1',
+    '^@sudoku-web/sudoku/(.*)$': '<rootDir>/../sudoku/src/$1',
+    '^@sudoku-web/auth/(.*)$': '<rootDir>/../auth/src/$1',
+    '^@sudoku-web/ui/(.*)$': '<rootDir>/../ui/src/$1',
+    '^@sudoku-web/types/(.*)$': '<rootDir>/../types/src/$1',
+    '^@sudoku-web/shared/(.*)$': '<rootDir>/../shared/src/$1',
     '^react-feather$': '<rootDir>/../../jest.setup.featherIcons.js',
     '^next/image$': '<rootDir>/../../jest.setup.nextImage.js',
     '^@headlessui/react$': '<rootDir>/../../jest.setup.headlessui.js',

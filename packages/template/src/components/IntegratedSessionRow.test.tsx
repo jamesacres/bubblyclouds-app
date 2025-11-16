@@ -45,7 +45,7 @@ jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage', () => ({
 jest.mock('@sudoku-web/template/providers/SessionsProvider');
 jest.mock('@sudoku-web/sudoku/helpers/calculateSeconds');
 
-jest.mock('@/helpers/buildPuzzleUrl', () => ({
+jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
   buildPuzzleUrl: jest.fn(() => '/puzzle?id=test'),
 }));
 
