@@ -19,7 +19,7 @@ jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage', () => ({
 jest.mock('@sudoku-web/sudoku/components/SimpleSudoku', () => ({
   default: () => <div data-testid="simple-sudoku">Sudoku</div>,
 }));
-jest.mock('@sudoku-web/games/components/TimerDisplay', () => ({
+jest.mock('@sudoku-web/ui/components/TimerDisplay', () => ({
   default: () => <div data-testid="timer">Timer</div>,
 }));
 jest.mock('./PartyConfirmationDialog', () => ({

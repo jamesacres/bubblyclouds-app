@@ -6,7 +6,7 @@ import {
   getPlayerColor,
   getAllUserIds,
 } from '@sudoku-web/template/utils/playerColors';
-import { formatSeconds } from '@sudoku-web/template/helpers/formatSeconds';
+import { formatSeconds } from '@sudoku-web/ui/helpers/formatSeconds';
 import { Tab } from '@sudoku-web/types/tabs';
 import TrafficLight from './TrafficLight';
 import Link from 'next/link';

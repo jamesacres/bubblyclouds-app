@@ -2,20 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { TimerDisplay } from './TimerDisplay';
 
-// Mock the formatSeconds helper from template package
-jest.mock('@sudoku-web/template', () => ({
-  formatSeconds: (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-
-    if (hours > 0) {
-      return `${hours}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    }
-    return `${minutes}:${String(secs).padStart(2, '0')}`;
-  },
-}));
-
 describe('TimerDisplay', () => {
   describe('rendering', () => {
     it('should render a paragraph element', () => {

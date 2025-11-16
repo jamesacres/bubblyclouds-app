@@ -1,7 +1,7 @@
 'use client';
 import { Puzzle, PuzzleRowOrColumn } from '@sudoku-web/sudoku/types/puzzle';
 import { calculateBoxId } from '@sudoku-web/sudoku/helpers/calculateId';
-import { TimerDisplay } from '@sudoku-web/games/components/TimerDisplay';
+import { TimerDisplay } from '@sudoku-web/ui/components/TimerDisplay';
 import { GameState, GameStateMetadata } from '@sudoku-web/sudoku/types/state';
 import { puzzleToPuzzleText } from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
 import SudokuBox from '@sudoku-web/sudoku/components/SudokuBox';

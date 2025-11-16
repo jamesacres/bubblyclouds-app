@@ -41,7 +41,7 @@ jest.mock('@sudoku-web/sudoku/components/SudokuControls', () => {
   };
 });
 
-jest.mock('@sudoku-web/games/components/TimerDisplay', () => ({
+jest.mock('@sudoku-web/ui/components/TimerDisplay', () => ({
   TimerDisplay: () => <div data-testid="timer-display">Timer</div>,
 }));
 

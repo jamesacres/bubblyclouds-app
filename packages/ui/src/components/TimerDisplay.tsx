@@ -1,4 +1,4 @@
-import { formatSeconds } from '@sudoku-web/template/helpers/formatSeconds';
+import { formatSeconds } from '../helpers/formatSeconds';
 import { Watch } from 'react-feather';
 
 const TimerDisplay = ({
