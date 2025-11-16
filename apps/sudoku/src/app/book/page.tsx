@@ -21,7 +21,7 @@ import { GameState, ServerState } from '@sudoku-web/sudoku/types/state';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { useBook } from '@sudoku-web/sudoku/providers/BookProvider';
 import IntegratedSessionRow from '@sudoku-web/template/components/IntegratedSessionRow';
-import { sha256 } from '@sudoku-web/sudoku/helpers/sha256';
+import { sha256 } from '@sudoku-web/template/helpers/sha256';
 
 export default function BookPage() {
   const router = useRouter();

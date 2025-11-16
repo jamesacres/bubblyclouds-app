@@ -72,7 +72,7 @@ jest.mock('@sudoku-web/auth/providers/AuthProvider', () => ({
   }),
 }));
 
-jest.mock('@sudoku-web/sudoku/helpers/sha256', () => ({
+jest.mock('@sudoku-web/template/helpers/sha256', () => ({
   sha256: jest.fn((text) => Promise.resolve('hash-' + text)),
 }));
 

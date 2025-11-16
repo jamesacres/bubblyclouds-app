@@ -5,6 +5,7 @@ ensure config for sudoku app all in one file, so we can them make a proper templ
 
 
 
+
 review all changes
 fix electron auth
 make template actually build and run

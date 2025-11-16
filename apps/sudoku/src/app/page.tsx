@@ -15,6 +15,7 @@ import MyPuzzlesTab from '@sudoku-web/template/components/MyPuzzlesTab';
 import FriendsTab from '@sudoku-web/template/components/FriendsTab';
 import ActivityWidget from '@sudoku-web/games/components/ActivityWidget';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
+import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Suspense,
@@ -425,6 +426,7 @@ function HomeComponent() {
                 parties={parties}
                 mySessions={sessions || []}
                 onRefresh={refreshLeaderboard}
+                isPuzzleCheated={(state) => isPuzzleCheated(state as any)}
               />
             )}
           </div>

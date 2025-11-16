@@ -43,7 +43,7 @@ jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage', () => ({
 }));
 
 jest.mock('@sudoku-web/template/providers/SessionsProvider');
-jest.mock('@sudoku-web/sudoku/helpers/calculateSeconds');
+jest.mock('@sudoku-web/template/helpers/calculateSeconds');
 
 jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
   buildPuzzleUrl: jest.fn(() => '/puzzle?id=test'),
@@ -98,7 +98,7 @@ describe('IntegratedSessionRow', () => {
     // Setup calculateSeconds mock
     const {
       calculateSeconds: mockCalculateSeconds,
-    } = require('@sudoku-web/sudoku/helpers/calculateSeconds');
+    } = require('@sudoku-web/template/helpers/calculateSeconds');
     (mockCalculateSeconds as jest.Mock).mockReturnValue(120);
   });
 

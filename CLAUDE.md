@@ -11,3 +11,5 @@ Rules:
 - Ensure md files are updated if they reference something which is no longer
   true.
 - imports from within the same package should use relative imports.
+- remember package.json should include all packages it
+ depends on, including local packages.

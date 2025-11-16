@@ -1,9 +1,9 @@
 'use client';
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'react-feather';
-import { FriendsLeaderboardScore } from '@sudoku-web/sudoku/types/scoringTypes';
-import { formatTime } from '@sudoku-web/sudoku/helpers/scoringUtils';
-import ScoreBreakdown from '@sudoku-web/sudoku/components/ScoreBreakdown';
+import { FriendsLeaderboardScore } from '../types/scoringTypes';
+import { formatTime } from '../helpers/scoringUtils';
+import ScoreBreakdown from './ScoreBreakdown';
 
 interface FriendLeaderboardEntryProps {
   entry: FriendsLeaderboardScore;

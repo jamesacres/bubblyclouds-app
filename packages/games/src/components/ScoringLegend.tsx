@@ -5,7 +5,7 @@ import {
   Difficulty,
   BookPuzzleDifficulty,
 } from '@sudoku-web/types/serverTypes';
-import { SCORING_CONFIG } from '@sudoku-web/sudoku/helpers/scoringConfig';
+import { SCORING_CONFIG } from '../helpers/scoringConfig';
 
 interface ScoringLegendProps {
   isOpen: boolean;

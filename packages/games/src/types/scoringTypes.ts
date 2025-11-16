@@ -1,5 +1,5 @@
 import { ServerStateResult } from '@sudoku-web/types/serverTypes';
-import { ServerState } from './state';
+import { BaseServerState } from '@sudoku-web/template/types/gameState';
 
 export interface FriendsLeaderboardScore {
   userId: string;
@@ -40,5 +40,5 @@ export interface ScoringResult {
 
 export type AllFriendsSessionsMap = Record<
   string,
-  ServerStateResult<ServerState>[]
+  ServerStateResult<BaseServerState>[]
 >;

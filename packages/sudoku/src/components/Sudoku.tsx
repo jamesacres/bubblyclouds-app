@@ -14,7 +14,7 @@ import {
 } from '@sudoku-web/sudoku/utils/dailyPuzzleCounter';
 import { useGameState } from '@sudoku-web/sudoku/hooks/gameState';
 import SudokuControls from '@sudoku-web/sudoku/components/SudokuControls';
-import { calculateSeconds } from '@sudoku-web/sudoku/helpers/calculateSeconds';
+import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
 import SudokuSidebar from '@sudoku-web/sudoku/components/SudokuSidebar';
 import {
   useCallback,

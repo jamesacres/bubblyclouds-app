@@ -2,6 +2,7 @@
 
 import { renderHook, act } from '@testing-library/react';
 import { useTimer } from './timer';
+import { Timer } from '@sudoku-web/template/types/timer';
 
 // Mock template hooks (must be before imports to avoid hoisting issues)
 jest.mock('@sudoku-web/template/hooks/documentVisibility');
@@ -39,7 +40,7 @@ describe('useTimer', () => {
       getValue: jest.fn(() => undefined),
       saveValue: jest.fn(),
     });
-    mockCalculateSeconds.mockImplementation((timer) => {
+    mockCalculateSeconds.mockImplementation((timer: Timer) => {
       // Preserve the timer's seconds value if it exists (for session restoration)
       if (timer && typeof timer === 'object' && 'seconds' in timer) {
         return timer.seconds;

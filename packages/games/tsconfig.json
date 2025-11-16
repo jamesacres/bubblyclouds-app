@@ -3,14 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@sudoku-web/games": ["./src"],
-      "@sudoku-web/games/*": ["./src/*"],
-      "@sudoku-web/sudoku": ["../sudoku/src"],
-      "@sudoku-web/sudoku/*": ["../sudoku/src/*"],
       "@sudoku-web/types": ["../types/src"],
       "@sudoku-web/types/*": ["../types/src/*"],
-      "@sudoku-web/shared": ["../shared/src"],
-      "@sudoku-web/shared/*": ["../shared/src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

@@ -41,7 +41,7 @@ jest.mock('@sudoku-web/template/utils/playerColors', () => ({
   getPlayerColor: jest.fn(() => 'bg-blue-500'),
   getAllUserIds: jest.fn(() => ['userId1', 'userId2']),
 }));
-jest.mock('@sudoku-web/sudoku/helpers/calculateSeconds', () => ({
+jest.mock('@sudoku-web/template/helpers/calculateSeconds', () => ({
   calculateSeconds: jest.fn(() => 120),
 }));
 jest.mock('@capacitor/share', () => ({

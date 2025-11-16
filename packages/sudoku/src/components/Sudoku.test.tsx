@@ -118,7 +118,7 @@ jest.mock('@sudoku-web/sudoku/helpers/checkAnswer', () => ({
   isInitialCell: jest.fn(() => false),
 }));
 
-jest.mock('@sudoku-web/sudoku/helpers/calculateSeconds', () => ({
+jest.mock('@sudoku-web/template/helpers/calculateSeconds', () => ({
   calculateSeconds: jest.fn(() => 120),
 }));
 

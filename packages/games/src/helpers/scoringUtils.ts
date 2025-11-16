@@ -1,6 +1,5 @@
 import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
-import { ServerState } from '../types/state';
-import { isPuzzleCheated } from './cheatDetection';
+import { BaseServerState } from '@sudoku-web/template/types/gameState';
 import { SCORING_CONFIG } from './scoringConfig';
 import {
   PuzzleType,
@@ -9,7 +8,7 @@ import {
 } from '../types/scoringTypes';
 
 export const getPuzzleType = (
-  session: ServerStateResult<ServerState>
+  session: ServerStateResult<BaseServerState>
 ): PuzzleType => {
   if (session.state.metadata?.sudokuId?.includes('oftheday')) return 'daily';
   if (session.state.metadata?.sudokuBookPuzzleId) return 'book';
@@ -18,7 +17,7 @@ export const getPuzzleType = (
 };
 
 export const getPuzzleIdentifier = (
-  session: ServerStateResult<ServerState>
+  session: ServerStateResult<BaseServerState>
 ): string => {
   if (session.state.metadata?.sudokuId) return session.state.metadata.sudokuId;
   if (session.state.metadata?.sudokuBookPuzzleId)
@@ -43,7 +42,7 @@ export const calculateSpeedBonus = (completionTimeSeconds: number): number => {
 };
 
 export const calculateRacingBonus = (
-  userSession: ServerStateResult<ServerState>,
+  userSession: ServerStateResult<BaseServerState>,
   allFriendsSessions: AllFriendsSessionsMap,
   currentUserId: string
 ): { bonus: number; wins: number } => {
@@ -78,10 +77,13 @@ export const calculateRacingBonus = (
   };
 };
 
-export const calculateUserScore = (
-  userSessions: ServerStateResult<ServerState>[],
+export const calculateUserScore = <
+  TState extends BaseServerState = BaseServerState,
+>(
+  userSessions: ServerStateResult<TState>[],
   allFriendsSessions: AllFriendsSessionsMap,
-  currentUserId: string
+  currentUserId: string,
+  isPuzzleCheated: (state: TState) => boolean
 ): ScoringResult => {
   const recent30DaySessions = userSessions.filter(
     (session) => session.state.completed && !isPuzzleCheated(session.state)

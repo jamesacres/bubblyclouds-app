@@ -3,34 +3,39 @@ import React, { useState, useMemo } from 'react';
 import { Award } from 'react-feather';
 import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
 import { UserProfile } from '@sudoku-web/types/userProfile';
-import { GameState, ServerState } from '@sudoku-web/sudoku/types/state';
 import {
   FriendsLeaderboardScore,
   AllFriendsSessionsMap,
-} from '@sudoku-web/sudoku/types/scoringTypes';
+} from '../types/scoringTypes';
 import {
   calculateUserScore,
   getUsernameFromParties,
-} from '@sudoku-web/sudoku/helpers/scoringUtils';
+} from '../helpers/scoringUtils';
 import FriendLeaderboardEntry from './FriendLeaderboardEntry';
-import ScoringLegend from '@sudoku-web/sudoku/components/ScoringLegend';
+import ScoringLegend from './ScoringLegend';
 import { UserSessions } from '@sudoku-web/types/userSessions';
+import {
+  BaseGameState,
+  BaseServerState,
+} from '@sudoku-web/template/types/gameState';
 
-interface LeaderboardProps {
-  sessions: ServerStateResult<ServerState>[] | null;
-  friendSessions: UserSessions<GameState>;
+interface LeaderboardProps<TState extends BaseServerState = BaseServerState> {
+  sessions: ServerStateResult<TState>[] | null;
+  friendSessions: UserSessions<BaseGameState>;
   parties: Party[];
   user: UserProfile;
   selectedParty?: Party;
+  isPuzzleCheated: (state: TState) => boolean;
 }
 
-const Leaderboard: React.FC<LeaderboardProps> = ({
+function Leaderboard<TState extends BaseServerState = BaseServerState>({
   sessions,
   friendSessions,
   parties,
   user,
   selectedParty,
-}) => {
+  isPuzzleCheated,
+}: LeaderboardProps<TState>) {
   const [showScoringLegend, setShowScoringLegend] = useState(false);
 
   // Calculate leaderboard data
@@ -66,7 +71,8 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
       const userScore = calculateUserScore(
         sessions,
         allFriendsSessions,
-        user.sub
+        user.sub,
+        isPuzzleCheated
       );
       const totalScore =
         userScore.volumeScore +
@@ -102,9 +108,10 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
         (!selectedParty || partyUserIds.has(userId))
       ) {
         const friendScore = calculateUserScore(
-          userSession.sessions,
+          userSession.sessions as ServerStateResult<TState>[],
           allFriendsSessions,
-          userId
+          userId,
+          isPuzzleCheated
         );
         const totalScore =
           friendScore.volumeScore +
@@ -208,6 +215,6 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
       />
     </div>
   );
-};
+}
 
 export default Leaderboard;

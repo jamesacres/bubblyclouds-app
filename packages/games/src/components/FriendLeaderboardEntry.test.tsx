@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import FriendLeaderboardEntry from './FriendLeaderboardEntry';
-import { FriendsLeaderboardScore } from '@sudoku-web/sudoku/types/scoringTypes';
+import { FriendsLeaderboardScore } from '../types/scoringTypes';
 
-jest.mock('@sudoku-web/sudoku/components/ScoreBreakdown', () => {
+jest.mock('./ScoreBreakdown', () => {
   return function MockScoreBreakdown({ breakdown }: any) {
     return (
       <div data-testid="score-breakdown">
@@ -14,7 +14,7 @@ jest.mock('@sudoku-web/sudoku/components/ScoreBreakdown', () => {
   };
 });
 
-jest.mock('@sudoku-web/sudoku/helpers/scoringUtils', () => ({
+jest.mock('../helpers/scoringUtils', () => ({
   formatTime: jest.fn((seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;

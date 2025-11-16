@@ -7,6 +7,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./components/*": "./src/components/*.tsx",
+    "./helpers/*": "./src/helpers/*.ts",
     "./types/*": "./src/types/*.ts"
   },
   "scripts": {
@@ -15,9 +16,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@sudoku-web/template": "*",
     "@sudoku-web/types": "*",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-feather": "^2.0.10"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.5",

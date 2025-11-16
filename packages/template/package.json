@@ -14,6 +14,8 @@
     "./config/premiumFeatures": "./src/config/premiumFeatures.tsx",
     "./services/*": "./src/services/*.ts",
     "./types/*": "./src/types/*.ts",
+    "./types/gameState": "./src/types/gameState.ts",
+    "./types/timer": "./src/types/timer.ts",
     "./utils/*": "./src/utils/*.ts"
   },
   "scripts": {

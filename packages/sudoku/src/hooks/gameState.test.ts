@@ -13,7 +13,7 @@ jest.mock('@sudoku-web/template/hooks/serverStorage', () => ({
     saveValue: jest.fn().mockResolvedValue(undefined),
   }),
 }));
-jest.mock('./timer', () => ({
+jest.mock('@sudoku-web/template/hooks/timer', () => ({
   useTimer: () => ({
     timer: {},
     setTimerNewSession: jest.fn(),

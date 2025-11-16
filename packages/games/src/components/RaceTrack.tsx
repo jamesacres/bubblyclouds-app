@@ -1,6 +1,5 @@
 'use client';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { GameState, ServerState } from '@sudoku-web/sudoku/types/state';
 import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { memo, useMemo } from 'react';
@@ -15,16 +14,20 @@ import Link from 'next/link';
 import { RefreshCw } from 'react-feather';
 import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
 import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
+import {
+  BaseGameState,
+  BaseServerState,
+} from '@sudoku-web/template/types/gameState';
 
 interface Arguments {
-  sessionParties: Parties<Session<ServerState>>;
+  sessionParties: Parties<Session<BaseServerState>>;
   initial: any;
   final: any;
   answer: any;
   userId?: string;
   onClick?: () => void;
   countdown?: number;
-  completed?: GameState['completed'];
+  completed?: BaseGameState['completed'];
   refreshSessionParties: () => void;
   isPolling: boolean;
   answerStack: Puzzle[];
@@ -94,9 +97,11 @@ const RaceTrack = ({
 
           const percentage = session
             ? calculateCompletionPercentage(
-                session.state.initial,
-                session.state.final,
-                session.state.answerStack[session.state.answerStack.length - 1]
+                session.state.initial as any,
+                session.state.final as any,
+                session.state.answerStack[
+                  session.state.answerStack.length - 1
+                ] as any
               )
             : 0;
 
@@ -120,7 +125,7 @@ const RaceTrack = ({
               isPuzzleCheated:
                 percentage === 100 &&
                 !!session &&
-                isPuzzleCheated(session.state.answerStack),
+                isPuzzleCheated(session.state.answerStack as any),
             };
           }
         });

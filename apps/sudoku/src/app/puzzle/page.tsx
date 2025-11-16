@@ -4,7 +4,7 @@ import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
 import { GameStateMetadata } from '@sudoku-web/sudoku/types/state';
 import Sudoku from '@sudoku-web/sudoku/components/Sudoku';
 import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
-import { sha256 } from '@sudoku-web/sudoku/helpers/sha256';
+import { sha256 } from '@sudoku-web/template/helpers/sha256';
 import { useWakeLock } from '@sudoku-web/template/hooks/useWakeLock';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';

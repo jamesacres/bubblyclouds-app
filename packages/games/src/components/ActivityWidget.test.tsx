@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ActivityWidget from './ActivityWidget';
-import { ServerState } from '@sudoku-web/sudoku/types/state';
+import { BaseServerState } from '@sudoku-web/template/types/gameState';
 import { ServerStateResult } from '@sudoku-web/types/serverTypes';
 
 // Mock react-feather
@@ -13,13 +13,13 @@ jest.mock('react-feather', () => ({
 describe('ActivityWidget', () => {
   const createMockSession = (
     daysAgo: number
-  ): ServerStateResult<ServerState> => {
+  ): ServerStateResult<BaseServerState> => {
     const date = new Date();
     date.setDate(date.getDate() - daysAgo);
     return {
       updatedAt: date,
       sessionId: `session-${daysAgo}`,
-      state: {} as ServerState,
+      state: {} as BaseServerState,
     };
   };
 

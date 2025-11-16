@@ -1,13 +1,21 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Leaderboard from './Leaderboard';
-import * as scoringUtils from '@sudoku-web/sudoku/helpers/scoringUtils';
 import { UserProfile } from '@sudoku-web/types/userProfile';
 import { UserSessions } from '@sudoku-web/types/userSessions';
-import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
-import { ServerState } from '@sudoku-web/sudoku/types/state';
-import { FriendsLeaderboardScore } from '@sudoku-web/sudoku/types/scoringTypes';
+import { Puzzle } from '../types/puzzle';
+import { BaseServerState } from '@sudoku-web/template/types/gameState';
+import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
+import * as scoringUtils from '../helpers/scoringUtils';
+
+const isPuzzleCheated = jest.fn().mockReturnValue(false);
+
+// Mock the scoring utils
+jest.mock('../helpers/scoringUtils', () => ({
+  calculateUserScore: jest.fn(),
+  getUsernameFromParties: jest.fn(),
+}));
 
 // Mock child components
 jest.mock('./FriendLeaderboardEntry', () => {
@@ -32,7 +40,7 @@ jest.mock('./FriendLeaderboardEntry', () => {
   };
 });
 
-jest.mock('@sudoku-web/sudoku/components/ScoringLegend', () => {
+jest.mock('./ScoringLegend', () => {
   return {
     __esModule: true,
     default: ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =>
@@ -44,8 +52,6 @@ jest.mock('@sudoku-web/sudoku/components/ScoringLegend', () => {
       ) : null,
   };
 });
-
-jest.mock('@sudoku-web/sudoku/helpers/scoringUtils');
 
 const createEmptyPuzzle = (): Puzzle<number> => {
   const createBox = () => ({
@@ -76,7 +82,7 @@ const createEmptyPuzzle = (): Puzzle<number> => {
 const createSession = (
   userId: string,
   completed: boolean
-): ServerStateResult<ServerState> => ({
+): ServerStateResult<BaseServerState> => ({
   sessionId: `session-${userId}`,
   updatedAt: new Date(),
   state: {
@@ -145,7 +151,7 @@ describe('Leaderboard', () => {
   it('should render leaderboard with data', () => {
     const user = createUser('user-1', 'Alice');
     const sessions = [createSession('user-1', true)];
-    const friendSessions: UserSessions<ServerState> = {
+    const friendSessions: UserSessions<BaseServerState> = {
       'user-2': {
         isLoading: false,
         sessions: [createSession('user-2', true)],
@@ -153,10 +159,11 @@ describe('Leaderboard', () => {
     };
     render(
       <Leaderboard
-        sessions={sessions}
-        friendSessions={friendSessions}
+        sessions={sessions as any}
+        friendSessions={friendSessions as any}
         parties={[]}
         user={user}
+        isPuzzleCheated={isPuzzleCheated}
       />
     );
     expect(screen.getByText('Leaderboard')).toBeInTheDocument();
@@ -171,7 +178,7 @@ describe('Leaderboard', () => {
       { userId: 'user-2', memberNickname: 'Bob' },
     ]);
     const sessions = [createSession('user-1', true)];
-    const friendSessions: UserSessions<ServerState> = {
+    const friendSessions: UserSessions<BaseServerState> = {
       'user-2': {
         isLoading: false,
         sessions: [createSession('user-2', true)],
@@ -183,11 +190,12 @@ describe('Leaderboard', () => {
     };
     render(
       <Leaderboard
-        sessions={sessions}
-        friendSessions={friendSessions}
+        sessions={sessions as any}
+        friendSessions={friendSessions as any}
         parties={[party]}
         user={user}
         selectedParty={party}
+        isPuzzleCheated={isPuzzleCheated}
       />
     );
     expect(screen.getByTestId('username-user-2')).toBeInTheDocument();
@@ -199,10 +207,11 @@ describe('Leaderboard', () => {
     const sessions = [createSession('user-1', true)];
     render(
       <Leaderboard
-        sessions={sessions}
+        sessions={sessions as any}
         friendSessions={{}}
         parties={[]}
         user={user}
+        isPuzzleCheated={isPuzzleCheated}
       />
     );
     fireEvent.click(screen.getByText(/How scoring works/));

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ScoringLegend from './ScoringLegend';
-import { SCORING_CONFIG } from '@sudoku-web/sudoku/helpers/scoringConfig';
+import { SCORING_CONFIG } from '../helpers/scoringConfig';
 import {
   Difficulty,
   BookPuzzleDifficulty,

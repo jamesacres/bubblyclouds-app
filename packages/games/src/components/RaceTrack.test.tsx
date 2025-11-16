@@ -6,7 +6,7 @@ import * as playerColorsModule from '@sudoku-web/template/utils/playerColors';
 import * as completionModule from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
 import * as cheatDetectionModule from '@sudoku-web/sudoku/helpers/cheatDetection';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { ServerState } from '@sudoku-web/sudoku/types/state';
+import { BaseServerState } from '@sudoku-web/template/types/gameState';
 
 jest.mock('@sudoku-web/template/hooks/useParties');
 jest.mock('@sudoku-web/template/utils/playerColors');
@@ -27,7 +27,7 @@ const mockCalculateCompletionPercentage =
 const mockIsPuzzleCheated = cheatDetectionModule.isPuzzleCheated as jest.Mock;
 
 describe('RaceTrack', () => {
-  const mockSessionParties: Parties<Session<ServerState>> = {
+  const mockSessionParties: Parties<Session<BaseServerState>> = {
     party1: {
       memberSessions: {
         userId2: {

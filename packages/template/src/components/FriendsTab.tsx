@@ -3,16 +3,17 @@ import React, { useState } from 'react';
 import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
 import { UserProfile } from '@sudoku-web/types/userProfile';
 import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
-import { GameState, ServerState } from '@sudoku-web/sudoku/types/state';
 import { Loader, ChevronDown, ChevronRight, RotateCcw } from 'react-feather';
 import IntegratedSessionRow from './IntegratedSessionRow';
 import Leaderboard from '@sudoku-web/games/components/Leaderboard';
+import { BaseGameState, BaseServerState } from '../types/gameState';
 
 interface FriendsTabProps {
   user: UserProfile | undefined;
   parties: Party[] | undefined;
-  mySessions: ServerStateResult<ServerState>[] | undefined;
+  mySessions: ServerStateResult<BaseServerState>[] | undefined;
   onRefresh?: () => Promise<void>;
+  isPuzzleCheated: (state: BaseServerState) => boolean;
 }
 
 export const FriendsTab = ({
@@ -20,8 +21,9 @@ export const FriendsTab = ({
   parties,
   mySessions,
   onRefresh,
+  isPuzzleCheated,
 }: FriendsTabProps) => {
-  const { sessions, friendSessions } = useSessions<GameState>();
+  const { sessions, friendSessions } = useSessions<BaseGameState>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
   const [selectedPartyId, setSelectedPartyId] = useState<string | 'all'>('all');
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -123,6 +125,7 @@ export const FriendsTab = ({
             parties={parties}
             user={user}
             selectedParty={selectedParty}
+            isPuzzleCheated={isPuzzleCheated}
           />
         </div>
       )}

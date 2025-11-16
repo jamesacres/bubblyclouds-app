@@ -53,7 +53,7 @@ jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
   }),
 }));
 
-jest.mock('@sudoku-web/sudoku/helpers/sha256', () => ({
+jest.mock('@sudoku-web/template/helpers/sha256', () => ({
   sha256: jest.fn((text) => Promise.resolve('mocked-hash-' + text)),
 }));
 

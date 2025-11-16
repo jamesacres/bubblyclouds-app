@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ScoreBreakdown from './ScoreBreakdown';
-import { FriendsLeaderboardScore } from '@sudoku-web/sudoku/types/scoringTypes';
+import { FriendsLeaderboardScore } from '../types/scoringTypes';
 
-jest.mock('@sudoku-web/sudoku/helpers/scoringUtils', () => ({
+jest.mock('../helpers/scoringUtils', () => ({
   formatTime: jest.fn((seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;

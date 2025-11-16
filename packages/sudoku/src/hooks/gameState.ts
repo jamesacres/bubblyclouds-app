@@ -20,8 +20,8 @@ import { useLocalStorage } from '@sudoku-web/template/hooks/localStorage';
 import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
 import { checkCell, checkGrid } from '../helpers/checkAnswer';
 import { StateType } from '@sudoku-web/types/stateType';
-import { useTimer } from './timer';
-import { calculateSeconds } from '../helpers/calculateSeconds';
+import { useTimer } from '@sudoku-web/template/hooks/timer';
+import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
 import {
   Parties,
   ServerStateResult,
@@ -101,7 +101,7 @@ function useGameState({
       type: StateType.PUZZLE,
     });
   const { parties } = useParties();
-  const { getSessionParties, patchFriendSessions } = useSessions<GameState>();
+  const { getSessionParties, patchFriendSessions } = useSessions<ServerState>();
 
   const [isNotesMode, setIsNotesMode] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -192,7 +192,7 @@ function useGameState({
       isSaveServerValue: boolean = true
     ): {
       localValue: { lastUpdated: number; state: GameState } | undefined;
-      serverValuePromise?: Promise<ServerStateResult<GameState> | undefined>;
+      serverValuePromise?: Promise<ServerStateResult<ServerState> | undefined>;
     } => {
       if (state.answerStack.length > 0) {
         // Get current answer (last item in answerStack)
@@ -238,7 +238,7 @@ function useGameState({
   const handleServerResponse = useCallback(
     (
       active: boolean,
-      serverValue: ServerStateResult<GameState> | undefined
+      serverValue: ServerStateResult<ServerState> | undefined
     ) => {
       if (
         active &&

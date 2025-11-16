@@ -7,9 +7,11 @@ import {
   getUsernameFromParties,
 } from './scoringUtils';
 import { SCORING_CONFIG } from './scoringConfig';
-import { ServerState } from '../types/state';
-import { Puzzle } from '../types/puzzle';
+import { ServerState } from '@sudoku-web/sudoku/types/state';
+import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
 import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
+
+const isPuzzleCheated = jest.fn().mockReturnValue(false);
 
 // Helper to create empty puzzle
 const createEmptyPuzzle = (): Puzzle<number> => {
@@ -200,7 +202,7 @@ describe('scoringUtils', () => {
 
   describe('calculateUserScore', () => {
     it('should return zero score for no sessions', () => {
-      const result = calculateUserScore([], {}, 'user-1');
+      const result = calculateUserScore([], {}, 'user-1', isPuzzleCheated);
       expect(result.volumeScore).toBe(0);
       expect(result.stats.totalPuzzles).toBe(0);
     });
@@ -210,7 +212,12 @@ describe('scoringUtils', () => {
         createSession({}, 100) as any,
         createSession({}, 150) as any,
       ];
-      const result = calculateUserScore(sessions, {}, 'user-1');
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
 
       expect(result.volumeScore).toBe(
         sessions.length * SCORING_CONFIG.VOLUME_MULTIPLIER
@@ -223,7 +230,12 @@ describe('scoringUtils', () => {
         createSession({}, 60) as any,
         createSession({}, 120) as any,
       ];
-      const result = calculateUserScore(sessions, {}, 'user-1');
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
 
       expect(result.stats.averageTime).toBe(90);
     });
@@ -234,7 +246,12 @@ describe('scoringUtils', () => {
         createSession({}, 60) as any,
         createSession({}, 180) as any,
       ];
-      const result = calculateUserScore(sessions, {}, 'user-1');
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
 
       expect(result.stats.fastestTime).toBe(60);
     });
@@ -246,7 +263,12 @@ describe('scoringUtils', () => {
           SCORING_CONFIG.SPEED_THRESHOLDS.LIGHTNING - 10
         ) as any,
       ];
-      const result = calculateUserScore(sessions, {}, 'user-1');
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
 
       expect(result.speedBonus).toBeGreaterThan(0);
     });
@@ -257,7 +279,12 @@ describe('scoringUtils', () => {
         createSession({ sudokuBookPuzzleId: 'book-1' }, 120) as any,
         createSession({ scannedAt: '2024-01-01' }, 150) as any,
       ];
-      const result = calculateUserScore(sessions, {}, 'user-1');
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
 
       expect(result.stats.dailyPuzzles).toBe(1);
       expect(result.stats.bookPuzzles).toBe(1);
@@ -267,14 +294,19 @@ describe('scoringUtils', () => {
     it('should exclude cheated puzzles', () => {
       // Note: This test would need mock for isPuzzleCheated
       const sessions = [createSession({}, 100) as any];
-      const result = calculateUserScore(sessions, {}, 'user-1');
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
 
       // Should include non-cheated puzzle
       expect(result.stats.totalPuzzles).toBe(1);
     });
 
     it('should handle empty session list', () => {
-      const result = calculateUserScore([], {}, 'user-1');
+      const result = calculateUserScore([], {}, 'user-1', isPuzzleCheated);
 
       expect(result.stats.fastestTime).toBe(0);
       expect(result.stats.averageTime).toBe(0);

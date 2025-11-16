@@ -1,31 +1,28 @@
 import { Notes } from './notes';
 import { Puzzle } from './puzzle';
-import { Timer } from './timer';
+import {
+  BaseGameState,
+  BaseServerState,
+  GameStateMetadata,
+  SelectNumber,
+  SetSelectedCell,
+  BaseSetAnswer,
+} from '@sudoku-web/template/types/gameState';
+import { Timer } from '@sudoku-web/template/types/timer';
 
-export type SelectNumber = (_value: number, forceNotes?: boolean) => void;
+// Re-export generic types
+export type { SelectNumber, SetSelectedCell, GameStateMetadata };
 
-export type SetSelectedCell = (_cell: string | null) => void;
+// Sudoku-specific type
+export type SetAnswer = BaseSetAnswer<number | Notes>;
 
-export type SetAnswer = (_value: number | Notes) => void;
-
-export interface GameStateMetadata {
-  difficulty: string;
-  sudokuId: string;
-  sudokuBookPuzzleId: string;
-  scannedAt: string;
-}
-
-export interface GameState {
+// Sudoku-specific GameState and ServerState
+export interface GameState extends BaseGameState<Puzzle> {
   answerStack: Puzzle[];
   initial: Puzzle<number>;
   final: Puzzle<number>;
-  completed?: {
-    at: string;
-    seconds: number;
-  };
-  metadata?: Partial<GameStateMetadata>;
 }
 
-export interface ServerState extends GameState {
+export interface ServerState extends BaseServerState<Puzzle> {
   timer?: Timer;
 }

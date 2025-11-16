@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@sudoku-web/auth": "*",
+    "@sudoku-web/games": "*",
     "@sudoku-web/template": "*",
     "@sudoku-web/types": "*",
     "mathjs": "^13.0.2",

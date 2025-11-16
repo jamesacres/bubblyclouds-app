@@ -2,9 +2,8 @@ import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calcul
 import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
 import { TimerDisplay } from '@sudoku-web/games/components/TimerDisplay';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
-import { ServerState } from '@sudoku-web/sudoku/types/state';
 import { Party, SessionParty, Session } from '@sudoku-web/types/serverTypes';
-import { calculateSeconds } from '@sudoku-web/sudoku/helpers/calculateSeconds';
+import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
 import {
   UserContext,
   UserContextInterface,
@@ -21,6 +20,7 @@ import { useContext, useState } from 'react';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
 import { LogOut, Trash, UserMinus, Edit3, Users } from 'react-feather';
 import { isIOS } from '@sudoku-web/template/helpers/capacitor';
+import { BaseServerState } from '../types/gameState';
 
 const DEFAULT_MAX_SIZE = 5;
 
@@ -33,7 +33,7 @@ const PartyRow = ({
   party: Party;
   puzzleId: string;
   redirectUri: string;
-  sessionParty?: SessionParty<Session<ServerState>>;
+  sessionParty?: SessionParty<Session<BaseServerState>>;
 }) => {
   const { parties, leaveParty, removeMember, deleteParty, updateParty } =
     useParties();
@@ -295,11 +295,11 @@ const PartyRow = ({
             const memberSession = sessionParty?.memberSessions[userId];
             const completionPercentage = memberSession
               ? calculateCompletionPercentage(
-                  memberSession.state.initial,
-                  memberSession.state.final,
+                  memberSession.state.initial as any,
+                  memberSession.state.final as any,
                   memberSession.state.answerStack[
                     memberSession.state.answerStack.length - 1
-                  ]
+                  ] as any
                 )
               : 0;
 
@@ -422,15 +422,18 @@ const PartyRow = ({
                 {!isUser && sessionParty?.memberSessions[userId] && (
                   <div className="mt-3 rounded-lg bg-stone-50 p-2 shadow-sm dark:bg-zinc-800">
                     <SimpleSudoku
-                      final={sessionParty.memberSessions[userId]!.state.final}
+                      final={
+                        sessionParty.memberSessions[userId]!.state.final as any
+                      }
                       initial={
-                        sessionParty.memberSessions[userId]!.state.initial
+                        sessionParty.memberSessions[userId]!.state
+                          .initial as any
                       }
                       latest={
                         sessionParty.memberSessions[userId]!.state.answerStack[
                           sessionParty.memberSessions[userId]!.state.answerStack
                             .length - 1
-                        ]
+                        ] as any
                       }
                     />
                   </div>
