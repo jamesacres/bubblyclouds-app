@@ -1,12 +1,10 @@
 
 
-move remaining sudoku components into package
+review all changes
+
 ensure config for sudoku app all in one file, so we can them make a proper template + crossword
 
 
-
-
-review all changes
 fix electron auth
 make template actually build and run
 
