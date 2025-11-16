@@ -7,24 +7,19 @@ import {
   getUsernameFromParties,
 } from './scoringUtils';
 import { SCORING_CONFIG } from './scoringConfig';
-import { ServerState } from '@sudoku-web/sudoku/types/state';
-import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
-import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
+import { Party } from '@sudoku-web/types/serverTypes';
 
 const isPuzzleCheated = jest.fn().mockReturnValue(false);
 
 // Helper to create empty puzzle
-const createEmptyPuzzle = (): Puzzle<number> => {
+const createEmptyPuzzle = () => {
   const emptyRow = { 0: [0, 0, 0], 1: [0, 0, 0], 2: [0, 0, 0] };
   const emptyBox = { 0: emptyRow, 1: emptyRow, 2: emptyRow };
   return { 0: emptyBox, 1: emptyBox, 2: emptyBox };
 };
 
 // Helper to create server state result
-const createSession = (
-  metadata?: any,
-  seconds?: number
-): ServerStateResult<ServerState> => {
+const createSession = (metadata?: any, seconds?: number) => {
   return {
     sessionId: 'test-session',
     userId: 'user-1',

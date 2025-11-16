@@ -3,15 +3,11 @@ import { render, screen } from '@testing-library/react';
 import RaceTrack from './RaceTrack';
 import * as usePartiesModule from '@sudoku-web/template/hooks/useParties';
 import * as playerColorsModule from '@sudoku-web/template/utils/playerColors';
-import * as completionModule from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
-import * as cheatDetectionModule from '@sudoku-web/sudoku/helpers/cheatDetection';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
 import { BaseServerState } from '@sudoku-web/template/types/gameState';
 
 jest.mock('@sudoku-web/template/hooks/useParties');
 jest.mock('@sudoku-web/template/utils/playerColors');
-jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage');
-jest.mock('@sudoku-web/sudoku/helpers/cheatDetection');
 jest.mock('./TrafficLight', () => ({
   __esModule: true,
   default: function MockTrafficLight() {
@@ -22,9 +18,8 @@ jest.mock('./TrafficLight', () => ({
 const mockUseParties = usePartiesModule.useParties as jest.Mock;
 const mockGetPlayerColor = playerColorsModule.getPlayerColor as jest.Mock;
 const mockGetAllUserIds = playerColorsModule.getAllUserIds as jest.Mock;
-const mockCalculateCompletionPercentage =
-  completionModule.calculateCompletionPercentage as jest.Mock;
-const mockIsPuzzleCheated = cheatDetectionModule.isPuzzleCheated as jest.Mock;
+const mockCalculateCompletionPercentage = jest.fn().mockResolvedValue(0);
+const mockIsPuzzleCheated = jest.fn().mockResolvedValue(false);
 
 describe('RaceTrack', () => {
   const mockSessionParties: Parties<Session<BaseServerState>> = {
@@ -56,6 +51,8 @@ describe('RaceTrack', () => {
     refreshSessionParties: jest.fn(),
     isPolling: false,
     answerStack: [],
+    calculateCompletionPercentage: mockCalculateCompletionPercentage,
+    isPuzzleCheated: mockIsPuzzleCheated,
   };
 
   beforeEach(() => {

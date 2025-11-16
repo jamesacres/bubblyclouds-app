@@ -7,6 +7,7 @@ import { puzzleToPuzzleText } from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzl
 import SudokuBox from '@sudoku-web/sudoku/components/SudokuBox';
 import RaceTrack from '@sudoku-web/games/components/RaceTrack';
 import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
+import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
 import { isInitialCell } from '@sudoku-web/sudoku/helpers/checkAnswer';
 import {
   addDailyPuzzleId,
@@ -418,6 +419,8 @@ const Sudoku = ({
                   isPolling={isPolling}
                   refreshSessionParties={refreshSessionParties}
                   answerStack={answerStack}
+                  calculateCompletionPercentage={calculateCompletionPercentage}
+                  isPuzzleCheated={isPuzzleCheated}
                 />
               )}
             </div>

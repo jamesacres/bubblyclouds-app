@@ -1,6 +1,5 @@
 'use client';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { memo, useMemo } from 'react';
 import {
@@ -12,8 +11,6 @@ import { Tab } from '@sudoku-web/types/tabs';
 import TrafficLight from './TrafficLight';
 import Link from 'next/link';
 import { RefreshCw } from 'react-feather';
-import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
-import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
 import {
   BaseGameState,
   BaseServerState,
@@ -30,7 +27,13 @@ interface Arguments {
   completed?: BaseGameState['completed'];
   refreshSessionParties: () => void;
   isPolling: boolean;
-  answerStack: Puzzle[];
+  answerStack: any[];
+  calculateCompletionPercentage: (
+    initial: any,
+    final: any,
+    latest: any
+  ) => number;
+  isPuzzleCheated: (answerStack: any[]) => boolean;
 }
 
 interface PlayerProgress {
@@ -54,6 +57,8 @@ const RaceTrack = ({
   refreshSessionParties,
   isPolling,
   answerStack,
+  calculateCompletionPercentage,
+  isPuzzleCheated,
 }: Arguments) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
@@ -146,6 +151,8 @@ const RaceTrack = ({
     refreshParties,
     completed,
     answerStack,
+    calculateCompletionPercentage,
+    isPuzzleCheated,
   ]);
 
   const finishedPlayers = useMemo(() => {
