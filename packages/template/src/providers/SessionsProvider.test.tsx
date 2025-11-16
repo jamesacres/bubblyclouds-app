@@ -3,7 +3,7 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import { SessionsProvider, useSessions } from './SessionsProvider';
 import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
 import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
-import { ServerState } from '@sudoku-web/sudoku/types/gameState';
+import { ServerState } from '@sudoku-web/sudoku/types/state';
 import { useServerStorage } from '../hooks/serverStorage';
 import { StateType } from '@sudoku-web/types/stateType';
 

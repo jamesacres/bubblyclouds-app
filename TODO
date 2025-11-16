@@ -1,4 +1,9 @@
 
+
+move remaining sudoku components into package
+ensure config for sudoku app all in one file, so we can them make a proper template + crossword
+
+
 update constitution with new repo structure
 
 review all changes
@@ -7,7 +12,6 @@ make template actually build and run
 
 Add contact + manage subscription link https://www.revenuecat.com/docs/subscription-guidance/managing-subscriptions#using-the-managementurl-to-help-customers-cancel-a-subscription
 
-move remaining sudoku components into package
 fix next config file generation vercel
 
 rename to bubbly-app deploy separately to vercel

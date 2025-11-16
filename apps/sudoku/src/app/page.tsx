@@ -30,7 +30,7 @@ import Image from 'next/image';
 import BookCover from '@/components/BookCover';
 import { buildPuzzleUrl } from '@/helpers/buildPuzzleUrl';
 import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
-import { GameState } from '@sudoku-web/sudoku/types/gameState';
+import { GameState } from '@sudoku-web/sudoku/types/state';
 
 function HomeComponent() {
   const searchParams = useSearchParams();

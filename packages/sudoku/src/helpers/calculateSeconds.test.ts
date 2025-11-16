@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals';
 import { calculateSeconds } from './calculateSeconds';
-import type { Timer } from '../types/gameState';
+import type { Timer } from '../types/timer';
 
 describe('calculateSeconds', () => {
   describe('basic functionality', () => {

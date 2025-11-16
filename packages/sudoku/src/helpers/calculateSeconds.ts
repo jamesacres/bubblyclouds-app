@@ -1,4 +1,4 @@
-import type { Timer } from '../types/gameState';
+import type { Timer } from '../types/timer';
 
 const calculateSeconds = (timer: Timer | null) => {
   let nextSeconds = 0;
