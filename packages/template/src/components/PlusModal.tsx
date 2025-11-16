@@ -4,15 +4,41 @@ import { isCapacitor } from '../helpers/capacitor';
 import { isElectron } from '../helpers/electron';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
-import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { PurchasesPackage as CapacitorPackage } from '@revenuecat/purchases-capacitor';
 import { Package as WebPackage } from '@revenuecat/purchases-js';
 import Image from 'next/image';
-import { useContext, useState } from 'react';
+import {
+  ReactElement,
+  ReactNode,
+  cloneElement,
+  useContext,
+  useState,
+} from 'react';
 import { X, Check } from 'react-feather';
-import { SUBSCRIPTION_CONTEXT_MESSAGES } from '../config/subscriptionMessages';
 
-const SudokuPlusModal = () => {
+interface PremiumFeature {
+  icon: ReactElement;
+  title: string;
+  description?: string;
+}
+
+interface ContextMessage {
+  bgColor: string;
+  textColor: string;
+  content: ReactNode;
+}
+
+interface PlusModalProps {
+  features: PremiumFeature[];
+  description: ReactNode;
+  contextMessages: Record<SubscriptionContext, ContextMessage>;
+}
+
+const PlusModal = ({
+  features,
+  description,
+  contextMessages,
+}: PlusModalProps) => {
   const {
     isLoading,
     isSubscribed,
@@ -25,7 +51,7 @@ const SudokuPlusModal = () => {
   const getContextualMessage = (context?: SubscriptionContext) => {
     if (!context) return null;
 
-    const messageConfig = SUBSCRIPTION_CONTEXT_MESSAGES[context];
+    const messageConfig = contextMessages[context];
     if (!messageConfig) return null;
 
     return (
@@ -66,8 +92,6 @@ const SudokuPlusModal = () => {
 
   if (!modal?.isOpen || isLoading || isSubscribed) return null;
 
-  const features = PREMIUM_FEATURES;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
@@ -100,21 +124,12 @@ const SudokuPlusModal = () => {
             <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full">
               <Image
                 src="/icons/icon-512.webp"
-                alt="Sudoku Icon"
+                alt="App Icon"
                 width={512}
                 height={512}
               />
             </div>
-            <p className="text-gray-600 dark:text-gray-400">
-              Join{' '}
-              <span className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-3 py-1 text-sm font-semibold text-white shadow-lg">
-                <span className="mr-1">✨</span>Sudoku Plus
-                <span className="ml-1">✨</span>
-              </span>{' '}
-              to <span className="font-semibold">remove all speed limits</span>!{' '}
-              Challenge friends, climb leaderboards, and improve your solving
-              speed. Keep it ad free! Your support is much appreciated.
-            </p>
+            {description}
           </div>
 
           {/* Contextual Message */}
@@ -189,7 +204,7 @@ const SudokuPlusModal = () => {
                   className="flex items-start space-x-3 rounded-lg bg-white p-3 dark:bg-gray-700"
                 >
                   <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white">
-                    {feature.icon}
+                    {cloneElement(feature.icon, { className: 'h-6 w-6' })}
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white">
@@ -265,4 +280,4 @@ const SudokuPlusModal = () => {
   );
 };
 
-export default SudokuPlusModal;
+export default PlusModal;

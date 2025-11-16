@@ -9,6 +9,7 @@ import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
 import { Tab } from '@sudoku-web/types/tabs';
 import SocialProof from '@sudoku-web/template/components/SocialProof';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
+import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { Difficulty } from '@sudoku-web/types/serverTypes';
 import Footer from '@sudoku-web/ui/components/Footer';
 import MyPuzzlesTab from '@sudoku-web/template/components/MyPuzzlesTab';
@@ -406,7 +407,11 @@ function HomeComponent() {
           </div>
 
           {/* Premium Features Section */}
-          <PremiumFeatures />
+          <PremiumFeatures
+            features={PREMIUM_FEATURES}
+            title="🏁 Premium Features"
+            subtitle="Unlock the full Sudoku Race experience"
+          />
 
           {/* Bottom padding to ensure content doesn't get hidden behind footer */}
           <div className="pb-24"></div>

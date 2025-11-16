@@ -1,8 +1,65 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import SudokuPlusModal from './SudokuPlusModal';
+import PlusModal from './PlusModal';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
-import { PREMIUM_FEATURES } from '../config/premiumFeatures';
+
+const mockFeatures = [
+  {
+    icon: <div data-testid="icon1">Icon1</div>,
+    title: '🏁 Unlimited play and race',
+    description: 'Race friends in real-time more than once a day',
+  },
+  {
+    icon: <div data-testid="icon2">Icon2</div>,
+    title: 'Create and join multiple racing teams',
+    description: 'Host private competitions with friends and family',
+  },
+];
+
+const mockDescription = <p>Test description</p>;
+
+const mockContextMessages = {
+  undo: {
+    bgColor: 'bg-orange-50',
+    textColor: 'text-orange-800',
+    content: <>Test undo message</>,
+  },
+  check_grid: {
+    bgColor: 'bg-orange-50',
+    textColor: 'text-orange-800',
+    content: <>Test check grid message</>,
+  },
+  reveal: {
+    bgColor: 'bg-blue-50',
+    textColor: 'text-blue-800',
+    content: <>Test reveal message</>,
+  },
+  theme_color: {
+    bgColor: 'bg-purple-50',
+    textColor: 'text-purple-800',
+    content: <>Test theme message</>,
+  },
+  daily_puzzle_limit: {
+    bgColor: 'bg-green-50',
+    textColor: 'text-green-800',
+    content: <>Test puzzle limit message</>,
+  },
+  remove_member: {
+    bgColor: 'bg-purple-50',
+    textColor: 'text-purple-800',
+    content: <>Test remove member message</>,
+  },
+  multiple_parties: {
+    bgColor: 'bg-blue-50',
+    textColor: 'text-blue-800',
+    content: <>Test multiple parties message</>,
+  },
+  party_max_size: {
+    bgColor: 'bg-purple-50',
+    textColor: 'text-purple-800',
+    content: <>Test party size message</>,
+  },
+} as any;
 
 // Mock dependencies
 jest.mock('../index', () => ({
@@ -12,32 +69,6 @@ jest.mock('../index', () => ({
     CHECK_GRID: 'check_grid',
     REVEAL: 'reveal',
   },
-  PREMIUM_FEATURES: [
-    {
-      title: '🏁 Unlimited play and race',
-      description: 'Race friends in real-time more than once a day',
-    },
-    {
-      title: 'Create and join multiple racing teams',
-      description: 'Host private competitions with friends and family',
-    },
-    {
-      title: 'Racing team management',
-      description:
-        'Create large parties up to 15 people, and remove members from your team.',
-    },
-    {
-      title: 'All themes unlocked',
-      description: 'Personalise your racing experience',
-    },
-    {
-      title: 'Unlimited undo, check and reveal',
-      description: 'Remove daily undo, check and reveal limits',
-    },
-  ],
-  DAILY_LIMITS: { UNDO: 5, CHECK_GRID: 5, PUZZLE: 1 },
-  isCapacitor: jest.fn(() => false),
-  isElectron: jest.fn(() => false),
 }));
 
 // Mock RevenueCat and related dependencies
@@ -53,7 +84,7 @@ jest.mock('next/image', () => ({
   },
 }));
 
-describe('SudokuPlusModal', () => {
+describe('PlusModal', () => {
   const mockHideModal = jest.fn();
   const mockCallback = jest.fn();
   const mockCancelCallback = jest.fn();
@@ -91,7 +122,11 @@ describe('SudokuPlusModal', () => {
   const renderWithContext = (contextValue: any = mockContextValue) => {
     return render(
       <RevenueCatContext.Provider value={contextValue}>
-        <SudokuPlusModal />
+        <PlusModal
+          features={mockFeatures}
+          description={mockDescription}
+          contextMessages={mockContextMessages}
+        />
       </RevenueCatContext.Provider>
     );
   };
@@ -103,7 +138,7 @@ describe('SudokuPlusModal', () => {
   describe('visibility', () => {
     it('should render when modal is open and user is not subscribed', () => {
       renderWithContext();
-      expect(screen.getByText('Sudoku Plus')).toBeInTheDocument();
+      expect(screen.getByText('Test description')).toBeInTheDocument();
       expect(
         screen.getByRole('button', { name: /Continue/i })
       ).toBeInTheDocument();
@@ -114,7 +149,7 @@ describe('SudokuPlusModal', () => {
         ...mockContextValue,
         subscribeModal: { ...mockContextValue.subscribeModal, isOpen: false },
       });
-      expect(screen.queryByText('Sudoku Plus')).not.toBeInTheDocument();
+      expect(screen.queryByText('Test description')).not.toBeInTheDocument();
     });
 
     it('should not render when user is already subscribed', () => {
@@ -122,7 +157,7 @@ describe('SudokuPlusModal', () => {
         ...mockContextValue,
         isSubscribed: true,
       });
-      expect(screen.queryByText('Sudoku Plus')).not.toBeInTheDocument();
+      expect(screen.queryByText('Test description')).not.toBeInTheDocument();
     });
 
     it('should not render when loading', () => {
@@ -130,12 +165,18 @@ describe('SudokuPlusModal', () => {
         ...mockContextValue,
         isLoading: true,
       });
-      expect(screen.queryByText('Sudoku Plus')).not.toBeInTheDocument();
+      expect(screen.queryByText('Test description')).not.toBeInTheDocument();
     });
 
     it('should not render when context is undefined', () => {
-      render(<SudokuPlusModal />);
-      expect(screen.queryByText('Sudoku Plus')).not.toBeInTheDocument();
+      render(
+        <PlusModal
+          features={mockFeatures}
+          description={mockDescription}
+          contextMessages={mockContextMessages}
+        />
+      );
+      expect(screen.queryByText('Test description')).not.toBeInTheDocument();
     });
   });
 
@@ -163,7 +204,7 @@ describe('SudokuPlusModal', () => {
         expect(mockCancelCallback).toHaveBeenCalled();
       } else {
         // If backdrop selector doesn't work, just verify modal renders
-        expect(screen.getByText('Sudoku Plus')).toBeInTheDocument();
+        expect(screen.getByText('Test description')).toBeInTheDocument();
       }
     });
   });
@@ -213,14 +254,14 @@ describe('SudokuPlusModal', () => {
       const featuresHeading = screen.getByText(/What's Included/i);
       expect(featuresHeading).toBeInTheDocument();
 
-      PREMIUM_FEATURES.forEach((feature) => {
+      mockFeatures.forEach((feature) => {
         expect(screen.getByText(feature.title)).toBeInTheDocument();
       });
     });
 
     it('should display feature descriptions when available', () => {
       renderWithContext();
-      PREMIUM_FEATURES.forEach((feature) => {
+      mockFeatures.forEach((feature) => {
         if (feature.description) {
           expect(screen.getByText(feature.description)).toBeInTheDocument();
         }
@@ -368,14 +409,14 @@ describe('SudokuPlusModal', () => {
 
       // The contextual message should be rendered if context is provided
       // This depends on the actual SUBSCRIPTION_CONTEXT_MESSAGES configuration
-      expect(screen.getByText('Sudoku Plus')).toBeInTheDocument();
+      expect(screen.getByText('Test description')).toBeInTheDocument();
     });
   });
 
   describe('responsive design', () => {
     it('should render modal content responsively', () => {
       renderWithContext();
-      expect(screen.getByText('Sudoku Plus')).toBeInTheDocument();
+      expect(screen.getByText('Test description')).toBeInTheDocument();
       expect(
         screen.getByRole('button', { name: /Continue/i })
       ).toBeInTheDocument();
@@ -384,7 +425,7 @@ describe('SudokuPlusModal', () => {
     it('should render scrollable content area with features', () => {
       renderWithContext();
       expect(screen.getByText(/What's Included/i)).toBeInTheDocument();
-      PREMIUM_FEATURES.forEach((feature) => {
+      mockFeatures.forEach((feature) => {
         expect(screen.getByText(feature.title)).toBeInTheDocument();
       });
     });

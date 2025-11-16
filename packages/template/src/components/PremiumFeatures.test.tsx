@@ -17,6 +17,19 @@ jest.mock('react-feather', () => ({
   RotateCcw: () => <div data-testid="rotate-icon" />,
 }));
 
+const mockFeatures = [
+  {
+    icon: <div data-testid="calendar-icon" />,
+    title: '🏁 Unlimited play and race',
+    description: 'Race friends in real-time more than once a day',
+  },
+  {
+    icon: <div data-testid="watch-icon" />,
+    title: 'Create and join multiple racing teams',
+    description: 'Host private competitions with friends and family',
+  },
+];
+
 describe('PremiumFeatures', () => {
   const mockShowModal = jest.fn();
 
@@ -39,7 +52,12 @@ describe('PremiumFeatures', () => {
           } as unknown as RevenueCatContextInterface
         }
       >
-        <PremiumFeatures {...props} />
+        <PremiumFeatures
+          features={mockFeatures}
+          title="🏁 Premium Features"
+          subtitle="Unlock the full Sudoku Race experience"
+          {...props}
+        />
       </RevenueCatContext.Provider>
     );
   };

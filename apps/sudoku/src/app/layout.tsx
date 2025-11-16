@@ -5,8 +5,23 @@ import React from 'react';
 import { Providers } from './providers';
 import ErrorBoundary from '@sudoku-web/template/components/ErrorBoundary';
 import GlobalErrorHandler from '@sudoku-web/template/components/GlobalErrorHandler';
-import SudokuPlusModal from '@sudoku-web/template/components/SudokuPlusModal';
+import PlusModal from '@sudoku-web/template/components/PlusModal';
 import HeaderWrapper from '@sudoku-web/template/components/HeaderWrapper';
+import { PREMIUM_FEATURES } from '../config/premiumFeatures';
+import { SUBSCRIPTION_CONTEXT_MESSAGES } from '../config/subscriptionMessages';
+
+const PLUS_DESCRIPTION = (
+  <p className="text-gray-600 dark:text-gray-400">
+    Join{' '}
+    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-3 py-1 text-sm font-semibold text-white shadow-lg">
+      <span className="mr-1">✨</span>Sudoku Plus
+      <span className="ml-1">✨</span>
+    </span>{' '}
+    to <span className="font-semibold">remove all speed limits</span>! Challenge
+    friends, climb leaderboards, and improve your solving speed. Keep it ad
+    free! Your support is much appreciated.
+  </p>
+);
 
 const inter = Inter({ subsets: ['latin'] });
 const orbitron = Orbitron({
@@ -94,7 +109,11 @@ export default function RootLayout({
           <Providers>
             <HeaderWrapper />
             <div className="mb-24">{children}</div>
-            <SudokuPlusModal />
+            <PlusModal
+              features={PREMIUM_FEATURES}
+              description={PLUS_DESCRIPTION}
+              contextMessages={SUBSCRIPTION_CONTEXT_MESSAGES}
+            />
           </Providers>
         </ErrorBoundary>
       </body>

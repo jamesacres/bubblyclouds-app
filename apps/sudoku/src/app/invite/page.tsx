@@ -7,6 +7,7 @@ import {
 import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
+import { PREMIUM_FEATURES } from '../../config/premiumFeatures';
 import {
   PublicInvite,
   EntitlementDuration,
@@ -388,6 +389,7 @@ function InviteComponent() {
                       </div>
 
                       <PremiumFeatures
+                        features={PREMIUM_FEATURES}
                         title=""
                         subtitle=""
                         compact={true}
