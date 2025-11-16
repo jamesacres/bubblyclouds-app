@@ -3,8 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@sudoku-web/template": ["./src"],
-      "@sudoku-web/template/*": ["./src/*"],
       "@sudoku-web/auth": ["../auth/src"],
       "@sudoku-web/auth/*": ["../auth/src/*"],
       "@sudoku-web/ui": ["../ui/src"],
@@ -15,6 +13,6 @@
       "@sudoku-web/shared/*": ["../shared/src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "../ui/src/helpers/formatSeconds.test.ts", "../ui/src/helpers/formatSeconds.ts"],
   "exclude": ["node_modules", "dist"]
 }
