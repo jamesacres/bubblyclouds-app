@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'react-feather';
 import { FriendsLeaderboardScore } from '@sudoku-web/sudoku/types/scoringTypes';
 import { formatTime } from '@sudoku-web/sudoku/helpers/scoringUtils';
-import ScoreBreakdown from './ScoreBreakdown';
+import ScoreBreakdown from '@sudoku-web/sudoku/components/ScoreBreakdown';
 
 interface FriendLeaderboardEntryProps {
   entry: FriendsLeaderboardScore;

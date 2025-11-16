@@ -1,7 +1,7 @@
 'use client';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { GameState, ServerState } from '../types/state';
-import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
+import { GameState, ServerState } from '@sudoku-web/sudoku/types/state';
+import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { memo, useMemo } from 'react';
 import {
@@ -13,8 +13,8 @@ import { Tab } from '@sudoku-web/types/tabs';
 import TrafficLight from './TrafficLight';
 import Link from 'next/link';
 import { RefreshCw } from 'react-feather';
-import { Puzzle } from '../types/puzzle';
-import { isPuzzleCheated } from '../helpers/cheatDetection';
+import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
+import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
 
 interface Arguments {
   sessionParties: Parties<Session<ServerState>>;

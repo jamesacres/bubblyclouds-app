@@ -22,7 +22,7 @@ import { calculateSeconds } from '@sudoku-web/sudoku/helpers/calculateSeconds';
 import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
 import { Award, Loader } from 'react-feather';
 import Link from 'next/link';
-import { buildPuzzleUrl } from '@/helpers/buildPuzzleUrl';
+import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
 import { UserSessions } from '@sudoku-web/types/userSessions';
 
 // Function to get game status text

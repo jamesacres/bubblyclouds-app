@@ -5,8 +5,8 @@ import React from 'react';
 import { Providers } from './providers';
 import ErrorBoundary from '@sudoku-web/template/components/ErrorBoundary';
 import GlobalErrorHandler from '@sudoku-web/template/components/GlobalErrorHandler';
-import SudokuPlusModal from '@/components/SudokuPlusModal';
-import HeaderWrapper from '@/components/HeaderWrapper';
+import SudokuPlusModal from '@sudoku-web/template/components/SudokuPlusModal';
+import HeaderWrapper from '@sudoku-web/template/components/HeaderWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 const orbitron = Orbitron({

@@ -2,9 +2,9 @@
 import { puzzleTextToPuzzle } from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
 import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
 import { GameStateMetadata } from '@sudoku-web/sudoku/types/state';
-import Sudoku from '@/components/Sudoku';
-import { buildPuzzleUrl } from '@/helpers/buildPuzzleUrl';
-import { sha256 } from '@/helpers/sha256';
+import Sudoku from '@sudoku-web/sudoku/components/Sudoku';
+import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
+import { sha256 } from '@sudoku-web/sudoku/helpers/sha256';
 import { useWakeLock } from '@sudoku-web/template/hooks/useWakeLock';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';

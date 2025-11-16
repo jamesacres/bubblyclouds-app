@@ -10,7 +10,7 @@
     "./providers/*": "./src/providers/*.tsx",
     "./hooks/*": "./src/hooks/*.ts",
     "./helpers/*": "./src/helpers/*.ts",
-    "./config/*": "./src/config/*.ts",
+    "./config/*": ["./src/config/*.ts", "./src/config/*.tsx"],
     "./config/premiumFeatures": "./src/config/premiumFeatures.tsx",
     "./services/*": "./src/services/*.ts",
     "./types/*": "./src/types/*.ts",

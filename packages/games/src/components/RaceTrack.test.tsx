@@ -3,15 +3,15 @@ import { render, screen } from '@testing-library/react';
 import RaceTrack from './RaceTrack';
 import * as usePartiesModule from '@sudoku-web/template/hooks/useParties';
 import * as playerColorsModule from '@sudoku-web/template/utils/playerColors';
-import * as completionModule from '../helpers/calculateCompletionPercentage';
-import * as cheatDetectionModule from '../helpers/cheatDetection';
+import * as completionModule from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
+import * as cheatDetectionModule from '@sudoku-web/sudoku/helpers/cheatDetection';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { ServerState } from '@sudoku-web/types/state';
+import { ServerState } from '@sudoku-web/sudoku/types/state';
 
 jest.mock('@sudoku-web/template/hooks/useParties');
 jest.mock('@sudoku-web/template/utils/playerColors');
-jest.mock('../helpers/calculateCompletionPercentage');
-jest.mock('../helpers/cheatDetection');
+jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage');
+jest.mock('@sudoku-web/sudoku/helpers/cheatDetection');
 jest.mock('./TrafficLight', () => ({
   __esModule: true,
   default: function MockTrafficLight() {

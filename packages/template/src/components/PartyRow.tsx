@@ -1,6 +1,6 @@
 import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
 import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
-import { TimerDisplay } from '@sudoku-web/sudoku/components/TimerDisplay';
+import { TimerDisplay } from '@sudoku-web/games/components/TimerDisplay';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { ServerState } from '@sudoku-web/sudoku/types/state';
 import { Party, SessionParty, Session } from '@sudoku-web/types/serverTypes';

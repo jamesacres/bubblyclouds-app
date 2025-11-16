@@ -1,11 +1,11 @@
 'use client';
 import { Puzzle, PuzzleRowOrColumn } from '@sudoku-web/sudoku/types/puzzle';
 import { calculateBoxId } from '@sudoku-web/sudoku/helpers/calculateId';
-import { TimerDisplay } from '@sudoku-web/sudoku/components/TimerDisplay';
+import { TimerDisplay } from '@sudoku-web/games/components/TimerDisplay';
 import { GameState, GameStateMetadata } from '@sudoku-web/sudoku/types/state';
 import { puzzleToPuzzleText } from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
 import SudokuBox from '@sudoku-web/sudoku/components/SudokuBox';
-import RaceTrack from '@sudoku-web/sudoku/components/RaceTrack';
+import RaceTrack from '@sudoku-web/games/components/RaceTrack';
 import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
 import { isInitialCell } from '@sudoku-web/sudoku/helpers/checkAnswer';
 import {
@@ -13,9 +13,9 @@ import {
   getDailyPuzzleCount,
 } from '@sudoku-web/sudoku/utils/dailyPuzzleCounter';
 import { useGameState } from '@sudoku-web/sudoku/hooks/gameState';
-import SudokuControls from '@/components/SudokuControls';
+import SudokuControls from '@sudoku-web/sudoku/components/SudokuControls';
 import { calculateSeconds } from '@sudoku-web/sudoku/helpers/calculateSeconds';
-import SudokuSidebar from '@/components/SudokuSidebar';
+import SudokuSidebar from '@sudoku-web/sudoku/components/SudokuSidebar';
 import {
   useCallback,
   useContext,
@@ -31,14 +31,14 @@ import {
 } from '@sudoku-web/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
-import { DAILY_LIMITS } from '../config/dailyLimits';
+import { DAILY_LIMITS } from '@sudoku-web/template/config/dailyLimits';
 import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
 import { AppDownloadModal } from '@sudoku-web/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@sudoku-web/ui/components/CelebrationAnimation';
 import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
-import MemoisedSidebarButton from '@/components/SidebarButton';
+import MemoisedSidebarButton from '@sudoku-web/games/components/SidebarButton';
 import { useRouter } from 'next/navigation';
-import RacingPromptModal from '@/components/RacingPromptModal';
+import RacingPromptModal from '@sudoku-web/template/components/RacingPromptModal';
 
 const Sudoku = ({
   puzzle: { initial, final, puzzleId, redirectUri, metadata },

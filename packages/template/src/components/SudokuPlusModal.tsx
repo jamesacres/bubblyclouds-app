@@ -10,7 +10,7 @@ import { Package as WebPackage } from '@revenuecat/purchases-js';
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 import { X, Check } from 'react-feather';
-import { SUBSCRIPTION_CONTEXT_MESSAGES } from '@/config/subscriptionMessages';
+import { SUBSCRIPTION_CONTEXT_MESSAGES } from '@sudoku-web/template/config/subscriptionMessages';
 
 const SudokuPlusModal = () => {
   const {

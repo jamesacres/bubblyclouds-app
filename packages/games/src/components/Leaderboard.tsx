@@ -13,7 +13,7 @@ import {
   getUsernameFromParties,
 } from '@sudoku-web/sudoku/helpers/scoringUtils';
 import FriendLeaderboardEntry from './FriendLeaderboardEntry';
-import ScoringLegend from './ScoringLegend';
+import ScoringLegend from '@sudoku-web/sudoku/components/ScoringLegend';
 import { UserSessions } from '@sudoku-web/types/userSessions';
 
 interface LeaderboardProps {

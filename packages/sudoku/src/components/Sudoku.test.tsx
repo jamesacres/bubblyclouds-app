@@ -35,23 +35,23 @@ jest.mock('@sudoku-web/sudoku/components/SudokuBox', () => {
   };
 });
 
-jest.mock('@/components/SudokuControls', () => {
+jest.mock('@sudoku-web/sudoku/components/SudokuControls', () => {
   return function DummySudokuControls() {
     return <div data-testid="sudoku-controls">Sudoku Controls</div>;
   };
 });
 
-jest.mock('@sudoku-web/sudoku/components/TimerDisplay', () => ({
+jest.mock('@sudoku-web/games/components/TimerDisplay', () => ({
   TimerDisplay: () => <div data-testid="timer-display">Timer</div>,
 }));
 
-jest.mock('@/components/SudokuSidebar', () => {
+jest.mock('@sudoku-web/sudoku/components/SudokuSidebar', () => {
   return function DummySudokuSidebar() {
     return <div data-testid="sudoku-sidebar">Sidebar</div>;
   };
 });
 
-jest.mock('@/components/SidebarButton', () => {
+jest.mock('@sudoku-web/games/components/SidebarButton', () => {
   const DummySidebarButton = function DummySidebarButton() {
     return <div data-testid="sidebar-button">Button</div>;
   };
@@ -66,7 +66,7 @@ jest.mock('@sudoku-web/ui/components/CelebrationAnimation', () => ({
   CelebrationAnimation: () => <div data-testid="celebration">Celebration</div>,
 }));
 
-jest.mock('@sudoku-web/sudoku/components/RaceTrack', () => {
+jest.mock('@sudoku-web/games/components/RaceTrack', () => {
   const DummyRaceTrack = function DummyRaceTrack() {
     return <div data-testid="race-track">Race Track</div>;
   };

@@ -14,10 +14,10 @@ import {
   Square,
   Unlock,
 } from 'react-feather';
-import { NumberPad } from '@sudoku-web/sudoku/components/NumberPad';
+import { NumberPad } from '@sudoku-web/games/components/NumberPad';
 import { Toggle as NotesToggle } from '@sudoku-web/ui/components/NotesToggle';
 import React, { memo, useState, useRef, useCallback, useEffect } from 'react';
-import { HintBox } from './HintBox';
+import { HintBox } from '@sudoku-web/games/components/HintBox';
 import {
   canUseUndo,
   canUseCheckGrid,

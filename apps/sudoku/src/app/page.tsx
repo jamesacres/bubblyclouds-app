@@ -11,9 +11,9 @@ import SocialProof from '@sudoku-web/template/components/SocialProof';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
 import { Difficulty } from '@sudoku-web/types/serverTypes';
 import Footer from '@sudoku-web/ui/components/Footer';
-import MyPuzzlesTab from '@/components/MyPuzzlesTab';
-import FriendsTab from '@/components/FriendsTab';
-import ActivityWidget from '@/components/ActivityWidget';
+import MyPuzzlesTab from '@sudoku-web/template/components/MyPuzzlesTab';
+import FriendsTab from '@sudoku-web/template/components/FriendsTab';
+import ActivityWidget from '@sudoku-web/games/components/ActivityWidget';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -27,8 +27,8 @@ import {
 import { Users, Zap, Award, Camera } from 'react-feather';
 import Link from 'next/link';
 import Image from 'next/image';
-import BookCover from '@/components/BookCover';
-import { buildPuzzleUrl } from '@/helpers/buildPuzzleUrl';
+import BookCover from '@sudoku-web/sudoku/components/BookCover';
+import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
 import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
 import { GameState } from '@sudoku-web/sudoku/types/state';
 
