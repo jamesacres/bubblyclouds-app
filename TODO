@@ -4,7 +4,6 @@ move remaining sudoku components into package
 ensure config for sudoku app all in one file, so we can them make a proper template + crossword
 
 
-update constitution with new repo structure
 
 review all changes
 fix electron auth

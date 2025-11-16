@@ -1,30 +1,32 @@
 <!--
 SYNC IMPACT REPORT
 =================
-Version Change: Template (v0.0.0) → v1.0.0 (Initial ratification)
-Added Principles: (5)
-  1. Test-First Development
-  2. Full TypeScript Type Safety
-  3. Component-Driven Architecture
-  4. Multi-Platform Compatibility
-  5. User-Centric Design & Accessibility
+Version Change: v1.0.0 → v1.1.0 (MINOR - New principle added + expanded guidance)
+
+Modified Principles:
+  - Principle III: Component-Driven Architecture → renamed to "Modular Package Architecture"
+    (Expanded to cover turborepo package structure, dependency rules, and import conventions)
 
 Added Sections:
-  - Core Principles (5 detailed principles)
-  - Quality Standards
-  - Development Workflow
-  - Governance
+  - New package dependency rules (apps vs packages, dependency injection over coupling)
+  - Import conventions (relative imports within packages, no barrel exports)
+  - Package.json export patterns (Just-in-Time pattern)
 
-Templates Requiring Review:
-  ⚠ .specify/templates/spec-template.md (ensure section requirements align)
-  ⚠ .specify/templates/plan-template.md (verify Constitution Check section)
-  ⚠ .specify/templates/tasks-template.md (ensure task types reflect principles)
+Updated Sections:
+  - Quality Standards: Added monorepo-specific linting rules
+  - Development Workflow: Added package development guidelines
+  - Code Style & Formatting: Integrated CLAUDE.md rules
+
+Templates Requiring Updates:
+  ✅ .specify/templates/spec-template.md (updated to reference package boundaries)
+  ✅ .specify/templates/plan-template.md (updated Constitution Check section)
+  ✅ .specify/templates/tasks-template.md (updated to reflect package structure)
 
 Follow-up Items:
   - None - all placeholders filled with concrete values
-  - Review amendment procedure in Governance section for future changes
+  - CLAUDE.md rules now integrated into constitution
 
-Ratified: 2025-11-01 | Version: 1.0.0
+Ratified: 2025-11-01 | Last Amended: 2025-11-16 | Version: 1.1.0
 -->
 
 # Sudoku Web Constitution
@@ -42,6 +44,7 @@ Every feature must be testable and tested. The codebase maintains >99% test pass
 - All component tests use React Testing Library patterns
 - Hook tests must verify state changes and side effects
 - Skipped tests are permitted ONLY for manual/exploratory test suites that cannot be automated reliably
+- When moving or changing files, test files MUST be updated to reflect the changes
 
 **Rationale:** With 1987 passing tests across 88 test suites, this project has proven that comprehensive testing prevents regressions, documents expected behavior, and enables confident refactoring. Test coverage protects the multi-platform experience.
 
@@ -59,20 +62,36 @@ Every source file must be valid TypeScript with strict type checking enabled. No
 
 **Rationale:** This multi-platform project (web, iOS, Android, Electron) requires robust type safety to prevent platform-specific bugs. Strong typing makes component props and API contracts explicit and maintainable across different deployment targets.
 
-### III. Component-Driven Architecture
+### III. Modular Package Architecture
 
-The codebase is organized around reusable, self-contained React components following Next.js App Router conventions.
+The codebase follows a turborepo monorepo structure with strict package boundaries. Packages contain reusable functionality; apps consume packages to build applications.
 
 **Non-negotiable rules:**
+
+**Package Dependency Rules:**
+- Apps MUST NOT be imported by packages (unidirectional dependency: packages ← apps)
+- Packages MUST NOT import from other packages if dependency injection can be used instead
+- Core packages (shared, types) MUST have no dependencies on feature packages (auth, template, sudoku, ui)
+- Template package MUST remain game-agnostic (no sudoku-specific code)
+- Sudoku package contains all game-specific logic
+- Package dependency violations MUST be resolved by refactoring or extracting shared code to a lower-level package
+
+**Import Conventions:**
+- Imports from within the same package MUST use relative imports (e.g., `import { foo } from '../utils/foo'`)
+- Imports from other packages MUST use package names (e.g., `import { Header } from '@sudoku-web/ui'`)
+- Barrel exports (index.ts files) MUST NOT be created - import directly from source files instead
+- All package exports MUST be declared in package.json using the Just-in-Time package export pattern
+
+**Component Structure:**
 - React components must be functional components with hooks (no class components)
 - Component files must use PascalCase naming (e.g., `SudokuInput.tsx`)
 - Each component should have a single responsibility and clear prop interface
-- Shared components live in `/src/components`, page-specific components in page directories
+- Shared components live in packages, app-specific components in app directories
 - Styling must use Tailwind CSS utility classes; no inline styles except dynamic values
-- Custom hooks live in `/src/hooks` and are testable in isolation
-- Type definitions live in `/src/types`
+- Custom hooks live in package or app `/hooks` directories and are testable in isolation
+- Type definitions live in package or app `/types` directories
 
-**Rationale:** Clear component boundaries make the codebase maintainable across multiple platforms and easier to test. Consistent naming and organization reduces cognitive load and enables rapid feature development.
+**Rationale:** Clear package boundaries enable code reuse across multiple applications while preventing circular dependencies. The modular architecture allows the template app to remain game-agnostic while the sudoku app extends it with game-specific features. Dependency injection over tight coupling makes packages more testable and maintainable.
 
 ### IV. Multi-Platform Compatibility
 
@@ -110,6 +129,7 @@ The application must be accessible and intuitive for all users, including those 
 - New components require ≥80% line coverage in test files
 - Breaking changes require test updates and documentation
 - Integration tests required for: multi-platform features, state management changes, API contract changes
+- After running build, all tests must pass and any issues must be fixed
 
 ### Code Style & Formatting
 
@@ -117,6 +137,9 @@ The application must be accessible and intuitive for all users, including those 
 - TypeScript strict mode enabled in tsconfig.json
 - No console.log or console.error in production code; use structured logging if needed
 - Dead code must be removed; unused imports flagged by linter
+- At the end of each task: run `npm run lint:fix` to fix linting issues
+- Do not add unnecessary comments - code should be self-documenting with clear naming
+- Markdown files must be updated if they reference something which is no longer true
 
 ### Performance Expectations
 
@@ -125,36 +148,54 @@ The application must be accessible and intuitive for all users, including those 
 - Component render should not trigger excessive re-renders
 - Bundle size monitoring recommended for third-party dependencies
 
+### Monorepo-Specific Standards
+
+- Turborepo cache must remain valid (no cache-busting changes without justification)
+- Package builds must be deterministic and cacheable
+- Shared dependencies managed at workspace root; package-specific deps in package package.json
+- Build order determined by Turborepo based on dependency graph
+
 ## Development Workflow
 
 ### Code Review Requirements
 
 - All changes require PR review before merge
-- Reviewers must verify: test coverage, TypeScript compliance, accessibility, multi-platform compatibility
+- Reviewers must verify: test coverage, TypeScript compliance, accessibility, multi-platform compatibility, package dependency rules
 - Approval from code owner or designated reviewer required
 - Automated checks (linting, tests, build) must pass
 
 ### Version Management
 
-- Semantic Versioning: MAJOR.MINOR.BUILD
+- Semantic Versioning: MAJOR.MINOR.PATCH
 - MAJOR: Breaking changes (breaking API, removed features, type changes affecting public interfaces)
-- MINOR: New features or enhancements (new components, new hooks, new pages)
+- MINOR: New features or enhancements (new components, new hooks, new pages, new packages)
 - PATCH: Bug fixes, test improvements, documentation updates, refactoring without behavior change
 - Version bumps documented in commit messages and CHANGELOG
 
+### Package Development
+
+When creating or modifying packages:
+
+1. **Define clear responsibilities**: Each package should have a single, well-defined purpose
+2. **Document public API**: Maintain README.md with exported types, components, hooks, and utilities
+3. **Export configuration**: Use package.json exports field with Just-in-Time pattern
+4. **Minimize dependencies**: Prefer dependency injection over hard dependencies between packages
+5. **Test in isolation**: Package tests should not require importing from apps
+6. **Version independently**: Packages can have different version numbers if using independent versioning
+
 ### Feature Development
 
-1. Specification phase: Define requirements, acceptance criteria, platform considerations
+1. Specification phase: Define requirements, acceptance criteria, platform considerations, package boundaries
 2. Test phase: Write tests covering the specification
-3. Implementation phase: Build components and integrate into app
-4. Review phase: Code review for compliance with Constitution principles
+3. Implementation phase: Build components and integrate into appropriate package or app
+4. Review phase: Code review for compliance with Constitution principles (especially package dependency rules)
 5. Validation phase: Verify on all platforms (web, iOS, Android, desktop)
 
 ## Governance
 
 ### Constitution Precedence
 
-This Constitution supersedes all other guidelines, coding standards, and project practices. In case of conflict between Constitution principles and other documentation, Constitution principles take priority.
+This Constitution supersedes all other guidelines, coding standards, and project practices. In case of conflict between Constitution principles and other documentation (including CLAUDE.md), Constitution principles take priority.
 
 ### Amendment Procedure
 
@@ -175,13 +216,14 @@ This Constitution supersedes all other guidelines, coding standards, and project
 ### Runtime Guidance
 
 For day-to-day development decisions, refer to:
-- **Code Style**: See `code_style` memory for specific conventions
-- **Project Structure**: See `project_structure` memory for file organization
+- **Code Style**: Integrated into this Constitution (Quality Standards section)
+- **Project Structure**: See `project_structure` memory for directory organization
 - **Tech Stack**: See `tech_stack` memory for approved libraries and tools
+- **Package Dependencies**: See `dependency_structure` memory for current dependency graph
 - **Testing**: Refer to test suite patterns in existing components for examples
 
 Ambiguities not covered by Constitution should be resolved by code owners in consultation with reviewers.
 
 ---
 
-**Version**: 1.0.0 | **Ratified**: 2025-11-01 | **Last Amended**: 2025-11-01
+**Version**: 1.1.0 | **Ratified**: 2025-11-01 | **Last Amended**: 2025-11-16
