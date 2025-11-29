@@ -1,10 +1,7 @@
 'use client';
 import React from 'react';
 import { Award } from 'react-feather';
-import {
-  Difficulty,
-  BookPuzzleDifficulty,
-} from '@sudoku-web/types/serverTypes';
+import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
 
 interface ScoringLegendProps {

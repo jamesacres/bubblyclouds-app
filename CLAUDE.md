@@ -15,3 +15,4 @@ Rules:
 - imports from within the same package should use relative imports.
 - remember package.json should include all packages it
  depends on, including local packages.
+- do not re-export anything for convenience, all imports should be from the source even after refactor

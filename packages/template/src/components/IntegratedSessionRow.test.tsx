@@ -275,7 +275,13 @@ describe('IntegratedSessionRow', () => {
 
       renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
-          <IntegratedSessionRow session={session} />
+          <IntegratedSessionRow
+            session={session}
+            getDifficultyDisplay={() => ({
+              name: 'Challenging',
+              badgeColor: 'red',
+            })}
+          />
         </UserContext.Provider>
       );
       const badge =
@@ -298,6 +304,10 @@ describe('IntegratedSessionRow', () => {
           <IntegratedSessionRow
             session={createMockSession()}
             bookPuzzle={bookPuzzle as any}
+            getDifficultyDisplay={() => ({
+              name: 'Very Easy',
+              badgeColor: 'green',
+            })}
           />
         </UserContext.Provider>
       );
@@ -521,6 +531,22 @@ describe('IntegratedSessionRow', () => {
           <IntegratedSessionRow
             session={createMockSession()}
             bookPuzzle={bookPuzzle as any}
+            getTechniquesDisplay={() => [
+              {
+                name: 'Naked Single',
+                count: 2,
+                color: 'red',
+                category: 'basic',
+                categoryOrder: 1,
+              },
+              {
+                name: 'Last Digit',
+                count: 1,
+                color: 'red',
+                category: 'basic',
+                categoryOrder: 1,
+              },
+            ]}
           />
         </UserContext.Provider>
       );
@@ -542,6 +568,7 @@ describe('IntegratedSessionRow', () => {
           <IntegratedSessionRow
             session={createMockSession()}
             bookPuzzle={bookPuzzle as any}
+            getTechniquesDisplay={() => []}
           />
         </UserContext.Provider>
       );

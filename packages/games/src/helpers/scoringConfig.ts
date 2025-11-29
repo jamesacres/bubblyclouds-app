@@ -1,7 +1,4 @@
-import {
-  Difficulty,
-  BookPuzzleDifficulty,
-} from '@sudoku-web/types/serverTypes';
+import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
 
 // Use a function to defer enum evaluation and avoid circular dependency issues in tests
 const getDifficultyMultipliers = () =>

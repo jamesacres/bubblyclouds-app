@@ -1,11 +1,8 @@
 import { renderHook, act } from '@testing-library/react';
 import { useSudokuServerStorage } from './useSudokuServerStorage';
 import { StateType } from '@sudoku-web/types/stateType';
-import {
-  Difficulty,
-  SudokuBookOfTheMonth,
-  SudokuOfTheDay,
-} from '@sudoku-web/types/serverTypes';
+import { SudokuBookOfTheMonth, SudokuOfTheDay } from '../types/serverTypes';
+import { Difficulty } from '@sudoku-web/games/types/difficulty';
 
 const createMockBaseStorage = (overrides = {}) => ({
   getValue: jest.fn().mockResolvedValue(undefined),

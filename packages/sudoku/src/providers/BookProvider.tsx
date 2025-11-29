@@ -7,7 +7,7 @@ import {
   useEffect,
   ReactNode,
 } from 'react';
-import { SudokuBookOfTheMonth } from '@sudoku-web/types/serverTypes';
+import { SudokuBookOfTheMonth } from '../types/serverTypes';
 import { useSudokuServerStorage } from '../hooks/useSudokuServerStorage';
 import { useOnline } from '@sudoku-web/template/hooks/online';
 

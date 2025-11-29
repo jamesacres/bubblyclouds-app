@@ -1,10 +1,6 @@
 'use client';
 import { ComponentType, useContext } from 'react';
-import {
-  Party,
-  ServerStateResult,
-  SudokuBookPuzzle,
-} from '@sudoku-web/types/serverTypes';
+import { Party, ServerStateResult } from '@sudoku-web/types/serverTypes';
 import { useParties } from '../hooks/useParties';
 import {
   UserContext,
@@ -147,188 +143,33 @@ const extractMetadataInfo = (
   return info;
 };
 
-// Helper function to get difficulty display information
-const getDifficultyDisplay = (difficulty: string) => {
-  // Map both Difficulty enum and BookPuzzleDifficulty enum values
-  const difficultyMap: {
-    [key: string]: { name: string; badgeColor: string };
-  } = {
-    // Standard difficulties (from Difficulty enum)
-    simple: { name: '⚡️ Tricky', badgeColor: 'bg-green-500 text-white' },
-    easy: { name: '🔥 Challenging', badgeColor: 'bg-yellow-500 text-white' },
-    intermediate: {
-      name: '🚀 Hard',
-      badgeColor: 'bg-red-500 text-white',
-    },
-    expert: { name: '🔴 Expert', badgeColor: 'bg-red-500 text-white' },
-
-    // Book difficulties (from BookPuzzleDifficulty enum)
-    '1-very-easy': {
-      name: '🟢 Very Easy',
-      badgeColor: 'bg-green-400 text-white',
-    },
-    '2-easy': { name: '🟢 Easy', badgeColor: 'bg-green-500 text-white' },
-    '3-moderately-easy': {
-      name: '🟡 Moderately Easy',
-      badgeColor: 'bg-lime-600 text-white',
-    },
-    '4-moderate': {
-      name: '🟡 Moderate',
-      badgeColor: 'bg-yellow-600 text-white',
-    },
-    '5-moderately-hard': {
-      name: '🟠 Moderately Hard',
-      badgeColor: 'bg-orange-500 text-white',
-    },
-    '6-hard': { name: '🔴 Hard', badgeColor: 'bg-red-500 text-white' },
-    '7-vicious': { name: '🔥 Vicious', badgeColor: 'bg-red-600 text-white' },
-    '8-fiendish': { name: '🔥 Fiendish', badgeColor: 'bg-red-700 text-white' },
-    '9-devilish': { name: '🔥 Devilish', badgeColor: 'bg-red-800 text-white' },
-    '10-hell': { name: '🔥🔥 Hell', badgeColor: 'bg-red-900 text-white' },
-    '11-beyond-hell': {
-      name: '🔥🔥🔥 Beyond Hell',
-      badgeColor: 'bg-black text-white',
-    },
-  };
-
-  return (
-    difficultyMap[difficulty] || {
-      name: difficulty,
-      badgeColor: 'bg-gray-500 text-white',
-    }
-  );
-};
-
-// Helper function to extract and display techniques from book puzzle
-const getTechniquesDisplay = (techniques?: SudokuBookPuzzle['techniques']) => {
-  if (!techniques) return [];
-
-  const techniqueNames: { [key: string]: string } = {
-    // Basic
-    lastDigit: 'Last Digit',
-    hiddenSingleBox: 'Hidden Single (Box)',
-    hiddenSingleLine: 'Hidden Single (Line)',
-    hiddenSingleVariantRegion: 'Hidden Single (Variant Region)',
-    nakedSingle: 'Naked Single',
-    // Simple
-    hiddenPair: 'Hidden Pair',
-    lockedCandidate: 'Locked Candidate',
-    hiddenTriple: 'Hidden Triple',
-    hiddenQuadruple: 'Hidden Quadruple',
-    nakedPair: 'Naked Pair',
-    nakedTriple: 'Naked Triple',
-    nakedQuadruple: 'Naked Quadruple',
-    // Advanced
-    xWing: 'X-Wing',
-    swordfish: 'Swordfish',
-    skyscraper: 'Skyscraper',
-    twoStringKite: 'Two-String-Kite',
-    crane: 'Crane',
-    simpleColoring: 'Simple Coloring',
-    yWing: 'Y-Wing',
-    xYZWing: 'XYZ-Wing',
-    wWing: 'W-Wing',
-    finnedSashimiXWing: 'Finned/Sashimi X-Wing',
-    emptyRectangle: 'Empty Rectangle',
-    uniqueRectangleType1: 'Unique Rectangle Type 1',
-    uniqueRectangleType2: 'Unique Rectangle Type 2',
-    uniqueRectangleType3: 'Unique Rectangle Type 3',
-    uniqueRectangleType4: 'Unique Rectangle Type 4',
-    uniqueRectangleType5: 'Unique Rectangle Type 5',
-    // Hard
-    finnedSashimiSwordfish: 'Finned/Sashimi Swordfish',
-    jellyfish: 'Jellyfish',
-    bugBinaryUniversalGrave: 'BUG (Binary Universal Grave)',
-    xChain: 'X-Chain',
-    groupedXChain: 'Grouped X-Chain',
-    YWing4WXYZWing: '4-Y-Wing (WXYZ-Wing)',
-    yWing5: '5-Y-Wing',
-    yWing6: '6-Y-Wing',
-    yWing7: '7-Y-Wing',
-    yWing8: '8-Y-Wing',
-    yWing9: '9-Y-Wing',
-    finnedSashimiJellyfish: 'Finned/Sashimi Jellyfish',
-    // Brutal
-    medusa3D: '3D Medusa',
-    xyChain: 'XY-Chain',
-    alternatingInferenceChainAIC: 'Alternating Inference Chain (AIC)',
-    groupedAlternatingInferenceChainAIC:
-      'Grouped Alternating Inference Chain (AIC)',
-    // Beyond Brutal
-    nishioForcingChain: 'Nishio Forcing Chain',
-    nishioForcingNet: 'Nishio Forcing Net',
-  };
-
-  const categoryColors: { [key: string]: string } = {
-    beyondBrutal: 'bg-black text-white',
-    brutal: 'bg-red-600 text-white',
-    hard: 'bg-red-500 text-white',
-    advanced: 'bg-yellow-500 text-white',
-    simple: 'bg-blue-500 text-white',
-    basic: 'bg-green-500 text-white',
-  };
-
-  // Define the order of categories from hardest to easiest
-  const categoryOrder: { [key: string]: number } = {
-    beyondBrutal: 0,
-    brutal: 1,
-    hard: 2,
-    advanced: 3,
-    simple: 4,
-    basic: 5,
-  };
-
-  const allTechniques: Array<{
-    name: string;
-    count: number;
-    color: string;
-    category: string;
-    categoryOrder: number;
-  }> = [];
-
-  Object.entries(techniques || {}).forEach(([category, categoryTechniques]) => {
-    if (typeof categoryTechniques === 'object' && categoryTechniques !== null) {
-      const color = categoryColors[category] || 'bg-gray-500 text-white';
-      const order = categoryOrder[category] ?? 999; // Default to end if unknown category
-      Object.entries(categoryTechniques as any).forEach(
-        ([technique, count]) => {
-          if (count && (count as number) > 0) {
-            const humanName = techniqueNames[technique] || technique;
-            allTechniques.push({
-              name: humanName,
-              count: count as number,
-              color,
-              category,
-              categoryOrder: order,
-            });
-          }
-        }
-      );
-    }
-  });
-
-  // Sort by category order (hardest first), then by count within category (highest first)
-  return allTechniques.sort((a, b) => {
-    // First sort by category order (hardest first)
-    if (a.categoryOrder !== b.categoryOrder) {
-      return a.categoryOrder - b.categoryOrder;
-    }
-    // Then sort by count within the same category (highest first)
-    return b.count - a.count;
-  });
-};
-
 interface IntegratedSessionRowProps<
   TState extends BaseServerState = BaseServerState,
+  TBookPuzzle extends { initial: string; final: string } = {
+    initial: string;
+    final: string;
+  },
 > {
   session: ServerStateResult<TState>;
   userSessions?: ServerStateResult<TState>[]; // Optional: user's sessions for cross-referencing
   // Book-specific props
   bookPuzzle?: {
-    puzzle: SudokuBookPuzzle;
+    puzzle: TBookPuzzle;
     index: number;
     sudokuBookId: string;
   };
+  // Helper functions for displaying difficulty and techniques (required when bookPuzzle is provided)
+  getDifficultyDisplay?: (difficulty: string) => {
+    name: string;
+    badgeColor: string;
+  };
+  getTechniquesDisplay?: (techniques?: any) => Array<{
+    name: string;
+    count: number;
+    color: string;
+    category: string;
+    categoryOrder: number;
+  }>;
   SimpleState: ComponentType<{ state: TState }>;
   calculateCompletionPercentageFromState: (state: TState) => number;
   isPuzzleCheated: (state: TState) => boolean;
@@ -418,6 +259,10 @@ const getFriendSessions = <TState extends BaseServerState = BaseServerState>(
 
 export const IntegratedSessionRow = <
   TState extends BaseServerState = BaseServerState,
+  TBookPuzzle extends { initial: string; final: string } = {
+    initial: string;
+    final: string;
+  },
 >({
   session,
   userSessions,
@@ -426,7 +271,9 @@ export const IntegratedSessionRow = <
   calculateCompletionPercentageFromState,
   isPuzzleCheated,
   buildPuzzleUrlFromState,
-}: IntegratedSessionRowProps<TState>) => {
+  getDifficultyDisplay,
+  getTechniquesDisplay,
+}: IntegratedSessionRowProps<TState, TBookPuzzle>) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
   const { friendSessions, isFriendSessionsLoading } = useSessions<TState>();
@@ -439,21 +286,18 @@ export const IntegratedSessionRow = <
 
   // Get difficulty information
   const difficultyInfo = (() => {
-    // Prefer book puzzle difficulty if available
-    if (bookPuzzle?.puzzle.difficulty.coach) {
-      return getDifficultyDisplay(bookPuzzle.puzzle.difficulty.coach);
-    }
-    // Otherwise use metadata difficulty
-    if (metadataInfo?.difficulty) {
+    // Use metadata difficulty
+    if (metadataInfo?.difficulty && getDifficultyDisplay) {
       return getDifficultyDisplay(metadataInfo.difficulty);
     }
     return null;
   })();
 
   // Get techniques if from book puzzle
-  const techniques = bookPuzzle
-    ? getTechniquesDisplay(bookPuzzle.puzzle.techniques)
-    : [];
+  const techniques =
+    bookPuzzle && getTechniquesDisplay
+      ? getTechniquesDisplay((bookPuzzle.puzzle as any)?.techniques)
+      : [];
 
   // Get puzzle title
   const puzzleTitle = (() => {

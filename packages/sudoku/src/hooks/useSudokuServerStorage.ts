@@ -5,10 +5,10 @@ import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
 import {
   SudokuOfTheDay,
   SudokuBookOfTheMonth,
-  Difficulty,
   SudokuOfTheDayResponse,
   SudokuBookOfTheMonthResponse,
-} from '@sudoku-web/types/serverTypes';
+} from '../types/serverTypes';
+import { Difficulty } from '@sudoku-web/games/types/difficulty';
 import { StateType } from '@sudoku-web/types/stateType';
 import { useFetch } from '@sudoku-web/auth/hooks/useFetch';
 import { useOnline } from '@sudoku-web/template/hooks/online';

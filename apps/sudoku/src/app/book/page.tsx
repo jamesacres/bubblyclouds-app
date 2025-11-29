@@ -9,10 +9,8 @@ import {
 } from '@sudoku-web/auth/providers/AuthProvider';
 import { useOnline } from '@sudoku-web/template/hooks/online';
 import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
-import {
-  SudokuBookPuzzle,
-  ServerStateResult,
-} from '@sudoku-web/types/serverTypes';
+import { ServerStateResult } from '@sudoku-web/types/serverTypes';
+import { SudokuBookPuzzle } from '@sudoku-web/sudoku/types/serverTypes';
 import {
   puzzleTextToPuzzle,
   puzzleToPuzzleText,
@@ -21,6 +19,8 @@ import { GameState, ServerState } from '@sudoku-web/sudoku/types/state';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { useBook } from '@sudoku-web/sudoku/providers/BookProvider';
 import IntegratedSessionRow from '@sudoku-web/template/components/IntegratedSessionRow';
+import { getDifficultyDisplay } from '@sudoku-web/games/helpers/getDifficultyDisplay';
+import { getTechniquesDisplay } from '@sudoku-web/games/helpers/getTechniquesDisplay';
 import { sha256 } from '@sudoku-web/template/helpers/sha256';
 import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
@@ -387,6 +387,8 @@ export default function BookPage() {
                       index,
                       sudokuBookId: bookData?.sudokuBookId || 'unknown',
                     }}
+                    getDifficultyDisplay={getDifficultyDisplay}
+                    getTechniquesDisplay={getTechniquesDisplay}
                     SimpleState={SimpleStateWrapper}
                     calculateCompletionPercentageFromState={
                       calculateCompletionPercentageFromState

@@ -10,7 +10,7 @@ import { Tab } from '@sudoku-web/types/tabs';
 import SocialProof from '@sudoku-web/template/components/SocialProof';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
-import { Difficulty } from '@sudoku-web/types/serverTypes';
+import { Difficulty } from '@sudoku-web/games/types/difficulty';
 import Footer from '@sudoku-web/ui/components/Footer';
 import MyPuzzlesTab from '@sudoku-web/template/components/MyPuzzlesTab';
 import FriendsTab from '@sudoku-web/template/components/FriendsTab';
