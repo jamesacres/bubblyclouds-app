@@ -7,8 +7,10 @@ import {
   AllFriendsSessionsMap,
 } from '../types/scoringTypes';
 
-export const getPuzzleType = (
-  session: ServerStateResult<BaseServerState>
+export const getPuzzleType = <
+  TMetadata extends Record<string, string> = Record<string, string>,
+>(
+  session: ServerStateResult<BaseServerState<unknown, unknown, TMetadata>>
 ): PuzzleType => {
   if (session.state.metadata?.sudokuId?.includes('oftheday')) return 'daily';
   if (session.state.metadata?.sudokuBookPuzzleId) return 'book';
@@ -16,8 +18,10 @@ export const getPuzzleType = (
   return 'unknown';
 };
 
-export const getPuzzleIdentifier = (
-  session: ServerStateResult<BaseServerState>
+export const getPuzzleIdentifier = <
+  TMetadata extends Record<string, string> = Record<string, string>,
+>(
+  session: ServerStateResult<BaseServerState<unknown, unknown, TMetadata>>
 ): string => {
   if (session.state.metadata?.sudokuId) return session.state.metadata.sudokuId;
   if (session.state.metadata?.sudokuBookPuzzleId)
@@ -41,8 +45,10 @@ export const calculateSpeedBonus = (completionTimeSeconds: number): number => {
   return 0;
 };
 
-export const calculateRacingBonus = (
-  userSession: ServerStateResult<BaseServerState>,
+export const calculateRacingBonus = <
+  TMetadata extends Record<string, string> = Record<string, string>,
+>(
+  userSession: ServerStateResult<BaseServerState<unknown, unknown, TMetadata>>,
   allFriendsSessions: AllFriendsSessionsMap,
   currentUserId: string
 ): { bonus: number; wins: number } => {
@@ -78,7 +84,12 @@ export const calculateRacingBonus = (
 };
 
 export const calculateUserScore = <
-  TState extends BaseServerState = BaseServerState,
+  TMetadata extends Record<string, string> = Record<string, string>,
+  TState extends BaseServerState<unknown, unknown, TMetadata> = BaseServerState<
+    unknown,
+    unknown,
+    TMetadata
+  >,
 >(
   userSessions: ServerStateResult<TState>[],
   allFriendsSessions: AllFriendsSessionsMap,

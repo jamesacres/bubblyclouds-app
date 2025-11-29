@@ -6,14 +6,11 @@ export type SetSelectedCell = (_cell: string | null) => void;
 
 export type BaseSetAnswer<TAnswer> = (_value: TAnswer) => void;
 
-export interface GameStateMetadata {
-  difficulty?: string;
-  sudokuId?: string;
-  sudokuBookPuzzleId?: string;
-  scannedAt?: string;
-}
-
-export interface BaseGameState<TAnswer = unknown, TStackItem = TAnswer> {
+export interface BaseGameState<
+  TAnswer = unknown,
+  TStackItem = TAnswer,
+  TMetadata = Record<string, string>,
+> {
   answerStack: TStackItem[];
   initial: TAnswer;
   final: TAnswer;
@@ -21,10 +18,13 @@ export interface BaseGameState<TAnswer = unknown, TStackItem = TAnswer> {
     at: string;
     seconds: number;
   };
-  metadata?: Partial<GameStateMetadata>;
+  metadata?: Partial<TMetadata>;
 }
 
-export interface BaseServerState<TAnswer = unknown, TStackItem = TAnswer>
-  extends BaseGameState<TAnswer, TStackItem> {
+export interface BaseServerState<
+  TAnswer = unknown,
+  TStackItem = TAnswer,
+  TMetadata = Record<string, string>,
+> extends BaseGameState<TAnswer, TStackItem, TMetadata> {
   timer?: Timer;
 }
