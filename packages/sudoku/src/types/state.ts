@@ -17,12 +17,12 @@ export type { SelectNumber, SetSelectedCell, GameStateMetadata };
 export type SetAnswer = BaseSetAnswer<number | Notes>;
 
 // Sudoku-specific GameState and ServerState
-export interface GameState extends BaseGameState<Puzzle> {
+export interface GameState extends BaseGameState<Puzzle<number>, Puzzle> {
   answerStack: Puzzle[];
   initial: Puzzle<number>;
   final: Puzzle<number>;
 }
 
-export interface ServerState extends BaseServerState<Puzzle> {
+export interface ServerState extends BaseServerState<Puzzle<number>, Puzzle> {
   timer?: Timer;
 }

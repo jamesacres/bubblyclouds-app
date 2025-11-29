@@ -147,7 +147,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
     return leaderboard
       .filter((entry) => entry.stats.totalPuzzles > 0)
       .sort((a, b) => b.totalScore - a.totalScore);
-  }, [sessions, friendSessions, parties, user, selectedParty]);
+  }, [sessions, friendSessions, parties, user, selectedParty, isPuzzleCheated]);
 
   if (leaderboardData.length === 0) {
     return null;

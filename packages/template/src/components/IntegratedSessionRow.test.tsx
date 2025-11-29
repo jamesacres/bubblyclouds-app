@@ -1,6 +1,6 @@
 // @ts-nocheck
 'use client';
-import React from 'react';
+import { cloneElement, ReactElement } from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntegratedSessionRow } from './IntegratedSessionRow';
 import { ServerState } from '@sudoku-web/sudoku/types/state';
@@ -47,11 +47,22 @@ jest.mock('../helpers/calculateSeconds');
 
 jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
   buildPuzzleUrl: jest.fn(() => '/puzzle?id=test'),
+  buildPuzzleUrlFromState: jest.fn(() => '/puzzle?id=test'),
 }));
 
 // Mock context
 const mockUserContext = {
   user: { sub: 'user-123' },
+};
+
+// Mock injected dependencies for testing
+const mockInjectedProps = {
+  SimpleState: function DummySimpleSudoku() {
+    return <div data-testid="simple-sudoku">Simple Sudoku</div>;
+  },
+  calculateCompletionPercentageFromState: jest.fn(() => 50),
+  isPuzzleCheated: jest.fn(() => false),
+  buildPuzzleUrlFromState: jest.fn(() => '/puzzle?id=test'),
 };
 
 describe('IntegratedSessionRow', () => {
@@ -102,9 +113,27 @@ describe('IntegratedSessionRow', () => {
     (mockCalculateSeconds as jest.Mock).mockReturnValue(120);
   });
 
+  const renderWithProps = (element: ReactElement) => {
+    // Element already has UserContext.Provider wrapper, so we just need to clone
+    // the IntegratedSessionRow component within it with injected props
+    const provider = element;
+    const integratedSessionRow = provider.props.children;
+
+    return render(
+      cloneElement(
+        provider,
+        {},
+        cloneElement(integratedSessionRow, {
+          ...integratedSessionRow.props,
+          ...mockInjectedProps,
+        })
+      )
+    );
+  };
+
   describe('rendering', () => {
     it('should render without crashing', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -113,7 +142,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should render puzzle title for daily puzzle', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -122,7 +151,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should render simple sudoku component', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -131,7 +160,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should render puzzle link', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -140,7 +169,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should render progress section', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -149,7 +178,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should render list item element', () => {
-      const { container } = render(
+      const { container } = renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -160,7 +189,7 @@ describe('IntegratedSessionRow', () => {
 
   describe('game status text', () => {
     it('should display status for incomplete puzzle', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -181,7 +210,7 @@ describe('IntegratedSessionRow', () => {
         } as any,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -204,7 +233,7 @@ describe('IntegratedSessionRow', () => {
         } as any,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -225,7 +254,7 @@ describe('IntegratedSessionRow', () => {
         } as any,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -245,7 +274,7 @@ describe('IntegratedSessionRow', () => {
         } as any,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -267,7 +296,7 @@ describe('IntegratedSessionRow', () => {
         } as ServerState,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -287,7 +316,7 @@ describe('IntegratedSessionRow', () => {
         sudokuBookId: 'book-123',
       };
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow
             session={createMockSession()}
@@ -303,7 +332,7 @@ describe('IntegratedSessionRow', () => {
 
   describe('styling and layout', () => {
     it('should have rounded border styling', () => {
-      const { container } = render(
+      const { container } = renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -314,7 +343,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should have dark mode support', () => {
-      const { container } = render(
+      const { container } = renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -324,7 +353,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should have progress section with border', () => {
-      const { container } = render(
+      const { container } = renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -334,7 +363,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should have proper spacing and padding', () => {
-      const { container } = render(
+      const { container } = renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -357,7 +386,7 @@ describe('IntegratedSessionRow', () => {
         } as ServerState,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow
             session={createMockSession()}
@@ -369,7 +398,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should display "You" label for current user', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -389,7 +418,7 @@ describe('IntegratedSessionRow', () => {
         } as ServerState,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -398,7 +427,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should render game status for incomplete puzzle', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -418,7 +447,7 @@ describe('IntegratedSessionRow', () => {
         isFriendSessionsLoading: false,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -446,7 +475,7 @@ describe('IntegratedSessionRow', () => {
         ],
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -464,7 +493,7 @@ describe('IntegratedSessionRow', () => {
         parties: [],
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -484,7 +513,7 @@ describe('IntegratedSessionRow', () => {
         sudokuBookId: 'book-123',
       };
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow
             session={createMockSession()}
@@ -510,7 +539,7 @@ describe('IntegratedSessionRow', () => {
         sudokuBookId: 'book-123',
       };
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow
             session={createMockSession()}
@@ -531,7 +560,7 @@ describe('IntegratedSessionRow', () => {
         sudokuBookId: 'book-123',
       };
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow
             session={createMockSession()}
@@ -557,7 +586,7 @@ describe('IntegratedSessionRow', () => {
         } as ServerState,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -577,7 +606,7 @@ describe('IntegratedSessionRow', () => {
         } as ServerState,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -589,7 +618,7 @@ describe('IntegratedSessionRow', () => {
 
   describe('accessibility', () => {
     it('should have semantic link structure', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -598,7 +627,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should have readable labels', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -607,7 +636,7 @@ describe('IntegratedSessionRow', () => {
     });
 
     it('should display puzzle link visibly', () => {
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={createMockSession()} />
         </UserContext.Provider>
@@ -629,7 +658,7 @@ describe('IntegratedSessionRow', () => {
         } as ServerState,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -649,7 +678,7 @@ describe('IntegratedSessionRow', () => {
         } as ServerState,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>
@@ -669,7 +698,7 @@ describe('IntegratedSessionRow', () => {
         } as ServerState,
       });
 
-      render(
+      renderWithProps(
         <UserContext.Provider value={mockUserContext as any}>
           <IntegratedSessionRow session={session} />
         </UserContext.Provider>

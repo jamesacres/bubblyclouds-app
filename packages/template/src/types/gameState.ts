@@ -13,8 +13,8 @@ export interface GameStateMetadata {
   scannedAt?: string;
 }
 
-export interface BaseGameState<TAnswer = unknown> {
-  answerStack: TAnswer[];
+export interface BaseGameState<TAnswer = unknown, TStackItem = TAnswer> {
+  answerStack: TStackItem[];
   initial: TAnswer;
   final: TAnswer;
   completed?: {
@@ -24,7 +24,7 @@ export interface BaseGameState<TAnswer = unknown> {
   metadata?: Partial<GameStateMetadata>;
 }
 
-export interface BaseServerState<TAnswer = unknown>
-  extends BaseGameState<TAnswer> {
+export interface BaseServerState<TAnswer = unknown, TStackItem = TAnswer>
+  extends BaseGameState<TAnswer, TStackItem> {
   timer?: Timer;
 }

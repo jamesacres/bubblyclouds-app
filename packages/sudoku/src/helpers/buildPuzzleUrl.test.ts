@@ -1,6 +1,8 @@
 import { describe, it, expect } from '@jest/globals';
-import { buildPuzzleUrl } from './buildPuzzleUrl';
+import { buildPuzzleUrl, buildPuzzleUrlFromState } from './buildPuzzleUrl';
 import { GameStateMetadata } from '../types/state';
+import { Puzzle } from '../types/puzzle';
+import { BaseGameState } from '@sudoku-web/template/types/gameState';
 
 describe('buildPuzzleUrl', () => {
   describe('basic functionality', () => {
@@ -367,5 +369,71 @@ describe('buildPuzzleUrl', () => {
       expect(url).toContain('sudokuBookPuzzleId=');
       expect(url).toContain('difficulty=hard');
     });
+  });
+});
+
+describe('buildPuzzleUrlFromState', () => {
+  const createEmptyPuzzle = (): Puzzle<number> => {
+    const emptyRow = { 0: [0, 0, 0], 1: [0, 0, 0], 2: [0, 0, 0] };
+    const emptyBox = { 0: emptyRow, 1: emptyRow, 2: emptyRow };
+    return { 0: emptyBox, 1: emptyBox, 2: emptyBox };
+  };
+
+  it('should build URL from state object', () => {
+    const state: BaseGameState<Puzzle<number>> = {
+      initial: createEmptyPuzzle(),
+      final: createEmptyPuzzle(),
+      answerStack: [],
+      metadata: {},
+    };
+
+    const url = buildPuzzleUrlFromState(state);
+
+    expect(url).toContain('/puzzle?');
+    expect(url).toContain('initial=');
+    expect(url).toContain('final=');
+  });
+
+  it('should include metadata from state', () => {
+    const state: BaseGameState<Puzzle<number>> = {
+      initial: createEmptyPuzzle(),
+      final: createEmptyPuzzle(),
+      answerStack: [],
+      metadata: {
+        difficulty: 'hard',
+        sudokuId: 'test-123',
+      },
+    };
+
+    const url = buildPuzzleUrlFromState(state);
+
+    expect(url).toContain('difficulty=hard');
+    expect(url).toContain('sudokuId=test-123');
+  });
+
+  it('should include isCompleted flag when provided', () => {
+    const state: BaseGameState<Puzzle<number>> = {
+      initial: createEmptyPuzzle(),
+      final: createEmptyPuzzle(),
+      answerStack: [],
+      metadata: {},
+    };
+
+    const url = buildPuzzleUrlFromState(state, true);
+
+    expect(url).toContain('alreadyCompleted=true');
+  });
+
+  it('should not include alreadyCompleted when not provided', () => {
+    const state: BaseGameState<Puzzle<number>> = {
+      initial: createEmptyPuzzle(),
+      final: createEmptyPuzzle(),
+      answerStack: [],
+      metadata: {},
+    };
+
+    const url = buildPuzzleUrlFromState(state);
+
+    expect(url).not.toContain('alreadyCompleted');
   });
 });

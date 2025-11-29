@@ -1,18 +1,11 @@
 'use client';
-import { useContext } from 'react';
+import { ComponentType, useContext } from 'react';
 import {
   Party,
   ServerStateResult,
   SudokuBookPuzzle,
 } from '@sudoku-web/types/serverTypes';
-import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
-import {
-  puzzleTextToPuzzle,
-  puzzleToPuzzleText,
-} from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
-import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
 import { useParties } from '../hooks/useParties';
-import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
 import {
   UserContext,
   UserContextInterface,
@@ -21,19 +14,20 @@ import { calculateSeconds } from '../helpers/calculateSeconds';
 import { useSessions } from '../providers/SessionsProvider';
 import { Award, Loader } from 'react-feather';
 import Link from 'next/link';
-import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
 import { UserSessions } from '@sudoku-web/types/userSessions';
 import { BaseServerState } from '../types/gameState';
 
 // Function to get game status text
-const getGameStatusText = (
-  session: ServerStateResult<BaseServerState>,
-  _userSessions?: ServerStateResult<BaseServerState>[]
+const getGameStatusText = <TState extends BaseServerState = BaseServerState>(
+  session: ServerStateResult<TState>,
+  isPuzzleCheated: (state: TState) => boolean,
+  calculateCompletionPercentageFromState: (state: TState) => number,
+  _userSessions?: ServerStateResult<TState>[]
 ): string => {
   const { state } = session;
 
   if (state.completed) {
-    if (isPuzzleCheated(state as any)) {
+    if (isPuzzleCheated(state)) {
       return 'Cheated';
     }
     const seconds = state.completed.seconds;
@@ -43,12 +37,7 @@ const getGameStatusText = (
   }
 
   // Calculate completion percentage for incomplete puzzles
-  const latest = state.answerStack[state.answerStack.length - 1];
-  const percentage = calculateCompletionPercentage(
-    state.initial as any,
-    state.final as any,
-    latest as any
-  );
+  const percentage = calculateCompletionPercentageFromState(state);
   return `${percentage}% complete`;
 };
 
@@ -329,21 +318,28 @@ const getTechniquesDisplay = (techniques?: SudokuBookPuzzle['techniques']) => {
   });
 };
 
-interface IntegratedSessionRowProps {
-  session: ServerStateResult<BaseServerState>;
-  userSessions?: ServerStateResult<BaseServerState>[]; // Optional: user's sessions for cross-referencing
+interface IntegratedSessionRowProps<
+  TState extends BaseServerState = BaseServerState,
+> {
+  session: ServerStateResult<TState>;
+  userSessions?: ServerStateResult<TState>[]; // Optional: user's sessions for cross-referencing
   // Book-specific props
   bookPuzzle?: {
     puzzle: SudokuBookPuzzle;
     index: number;
     sudokuBookId: string;
   };
+  SimpleState: ComponentType<{ state: TState }>;
+  calculateCompletionPercentageFromState: (state: TState) => number;
+  isPuzzleCheated: (state: TState) => boolean;
+  buildPuzzleUrlFromState: (state: TState, isCompleted?: boolean) => string;
 }
 
 // Helper to get user's session data for display
-const useUserSessionData = (
-  session: ServerStateResult<BaseServerState>,
-  userSessions?: ServerStateResult<BaseServerState>[]
+const useUserSessionData = <TState extends BaseServerState = BaseServerState>(
+  session: ServerStateResult<TState>,
+  userSessions?: ServerStateResult<TState>[],
+  calculateCompletionPercentageFromState?: (state: TState) => number
 ) => {
   const userSession = userSessions?.find(
     (s) => s.sessionId === session.sessionId
@@ -356,13 +352,10 @@ const useUserSessionData = (
       ]
     : session.state.initial;
 
-  const percentage = actualSession
-    ? calculateCompletionPercentage(
-        actualSession.state.initial as any,
-        actualSession.state.final as any,
-        latest as any
-      )
-    : 0;
+  const percentage =
+    actualSession && calculateCompletionPercentageFromState
+      ? calculateCompletionPercentageFromState(actualSession.state)
+      : 0;
 
   return {
     actualSession,
@@ -373,11 +366,13 @@ const useUserSessionData = (
 };
 
 // Helper to process friend sessions
-const getFriendSessions = (
-  friendSessions: UserSessions<BaseServerState>,
-  session: ServerStateResult<BaseServerState>,
+const getFriendSessions = <TState extends BaseServerState = BaseServerState>(
+  friendSessions: UserSessions<TState>,
+  session: ServerStateResult<TState>,
   currentUserId: string | undefined,
-  parties: Party[]
+  parties: Party[],
+  isPuzzleCheated: (state: TState) => boolean,
+  calculateCompletionPercentageFromState: (state: TState) => number
 ) => {
   const friendSessionData: Array<{
     nickname: string;
@@ -403,14 +398,8 @@ const getFriendSessions = (
           .find((member) => member?.userId === userId)?.memberNickname ||
         'Unknown';
 
-      const latest =
-        matchingSession.state.answerStack[
-          matchingSession.state.answerStack.length - 1
-        ];
-      const completionPercentage = calculateCompletionPercentage(
-        matchingSession.state.initial as any,
-        matchingSession.state.final as any,
-        latest as any
+      const completionPercentage = calculateCompletionPercentageFromState(
+        matchingSession.state
       );
 
       friendSessionData.push({
@@ -419,7 +408,7 @@ const getFriendSessions = (
         completionPercentage,
         completionTime: matchingSession.state.completed?.seconds || null,
         isCompleted: !!matchingSession.state.completed,
-        isCheated: isPuzzleCheated(matchingSession.state as any),
+        isCheated: isPuzzleCheated(matchingSession.state),
       });
     }
   });
@@ -427,19 +416,22 @@ const getFriendSessions = (
   return friendSessionData;
 };
 
-export const IntegratedSessionRow = ({
+export const IntegratedSessionRow = <
+  TState extends BaseServerState = BaseServerState,
+>({
   session,
   userSessions,
   bookPuzzle,
-}: IntegratedSessionRowProps) => {
+  SimpleState,
+  calculateCompletionPercentageFromState,
+  isPuzzleCheated,
+  buildPuzzleUrlFromState,
+}: IntegratedSessionRowProps<TState>) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
-  const { friendSessions, isFriendSessionsLoading } =
-    useSessions<BaseServerState>();
+  const { friendSessions, isFriendSessionsLoading } = useSessions<TState>();
   const { parties } = useParties();
 
-  const initial = puzzleToPuzzleText(session.state.initial as any);
-  const final = puzzleToPuzzleText(session.state.final as any);
   const metadata = session.state.metadata;
 
   // Extract metadata information
@@ -497,10 +489,13 @@ export const IntegratedSessionRow = ({
 
   const {
     actualSession,
-    latest,
     percentage: myPercentage,
     isCompleted,
-  } = useUserSessionData(session, userSessions);
+  } = useUserSessionData<TState>(
+    session,
+    userSessions,
+    calculateCompletionPercentageFromState
+  );
 
   // Helper function to get all player sessions for this puzzle, sorted by performance
   const getAllPlayerSessionsForPuzzle = () => {
@@ -525,20 +520,20 @@ export const IntegratedSessionRow = ({
         completionPercentage: myPercentage,
         completionTime: actualSession?.state.completed?.seconds || null,
         isCompleted,
-        isCheated: actualSession
-          ? isPuzzleCheated(actualSession.state as any)
-          : false,
+        isCheated: actualSession ? isPuzzleCheated(actualSession.state) : false,
         isCurrentUser: true,
         isWinner: false, // Will be determined later
       });
     }
 
     // Add friends' sessions
-    const friendData = getFriendSessions(
+    const friendData = getFriendSessions<TState>(
       friendSessions,
       session,
       user?.sub,
-      parties || []
+      parties || [],
+      isPuzzleCheated,
+      calculateCompletionPercentageFromState
     );
 
     friendData.forEach((friend) => {
@@ -615,25 +610,19 @@ export const IntegratedSessionRow = ({
       key={session.sessionId}
       className="rounded-lg border-2 border-stone-200 bg-stone-50/80 hover:bg-stone-100 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:bg-zinc-700"
     >
-      <Link
-        href={buildPuzzleUrl(
-          initial,
-          final,
-          session.state.metadata,
-          isCompleted
-        )}
-      >
+      <Link href={buildPuzzleUrlFromState(session.state, isCompleted)}>
         <div>
-          <SimpleSudoku
-            initial={puzzleTextToPuzzle(initial)}
-            final={puzzleTextToPuzzle(final)}
-            latest={latest as any}
-          />
+          <SimpleState state={session.state} />
           <div className="space-y-2 px-4 py-2">
             <div className="text-center text-gray-900 dark:text-white">
               <h3 className="text-sm font-semibold">{puzzleTitle}</h3>
               <p className="text-xs opacity-75">
-                {getGameStatusText(session, userSessions)}
+                {getGameStatusText<TState>(
+                  session,
+                  isPuzzleCheated,
+                  calculateCompletionPercentageFromState,
+                  userSessions
+                )}
               </p>
             </div>
 
@@ -750,14 +739,12 @@ export const IntegratedSessionRow = ({
                     <>
                       <span
                         className={
-                          actualSession &&
-                          isPuzzleCheated(actualSession.state as any)
+                          actualSession && isPuzzleCheated(actualSession.state)
                             ? 'text-orange-600 dark:text-orange-400'
                             : 'text-green-600 dark:text-green-400'
                         }
                       >
-                        {actualSession &&
-                        isPuzzleCheated(actualSession.state as any)
+                        {actualSession && isPuzzleCheated(actualSession.state)
                           ? '❌'
                           : '✅'}
                       </span>

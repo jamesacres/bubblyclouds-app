@@ -1,4 +1,7 @@
+import { BaseGameState } from '@sudoku-web/template/types/gameState';
+import { Puzzle } from '../types/puzzle';
 import { GameStateMetadata } from '../types/state';
+import { puzzleToPuzzleText } from './puzzleTextToPuzzle';
 
 export const buildPuzzleUrl = (
   initial: string,
@@ -18,4 +21,13 @@ export const buildPuzzleUrl = (
     redirectQuery.set('alreadyCompleted', alreadyCompleted ? 'true' : 'false');
   }
   return `/puzzle?${redirectQuery.toString()}`;
+};
+
+export const buildPuzzleUrlFromState = (
+  state: BaseGameState<Puzzle>,
+  isCompleted?: boolean
+): string => {
+  const initial = puzzleToPuzzleText(state.initial);
+  const final = puzzleToPuzzleText(state.final);
+  return buildPuzzleUrl(initial, final, state.metadata, isCompleted);
 };

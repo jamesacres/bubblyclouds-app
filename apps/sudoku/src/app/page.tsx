@@ -17,6 +17,9 @@ import FriendsTab from '@sudoku-web/template/components/FriendsTab';
 import ActivityWidget from '@sudoku-web/games/components/ActivityWidget';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
+import { calculateCompletionPercentageFromState } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
+import { buildPuzzleUrlFromState } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
+import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Suspense,
@@ -33,6 +36,10 @@ import BookCover from '@sudoku-web/sudoku/components/BookCover';
 import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
 import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
 import { GameState } from '@sudoku-web/sudoku/types/state';
+
+const SimpleStateWrapper = ({ state }: { state: GameState }) => (
+  <SimpleSudoku state={state} />
+);
 
 function HomeComponent() {
   const searchParams = useSearchParams();
@@ -423,15 +430,28 @@ function HomeComponent() {
               <ActivityWidget sessions={sessions || []} />
             </div>
             {tab === Tab.MY_PUZZLES && (
-              <MyPuzzlesTab sessions={sessions || []} />
+              <MyPuzzlesTab<GameState>
+                sessions={sessions || []}
+                SimpleState={SimpleStateWrapper}
+                calculateCompletionPercentageFromState={
+                  calculateCompletionPercentageFromState
+                }
+                isPuzzleCheated={isPuzzleCheated}
+                buildPuzzleUrlFromState={buildPuzzleUrlFromState}
+              />
             )}
             {tab === Tab.FRIENDS && (
-              <FriendsTab
+              <FriendsTab<GameState>
                 user={user}
                 parties={parties}
                 mySessions={sessions || []}
                 onRefresh={refreshLeaderboard}
-                isPuzzleCheated={(state) => isPuzzleCheated(state as any)}
+                SimpleState={SimpleStateWrapper}
+                calculateCompletionPercentageFromState={
+                  calculateCompletionPercentageFromState
+                }
+                isPuzzleCheated={isPuzzleCheated}
+                buildPuzzleUrlFromState={buildPuzzleUrlFromState}
               />
             )}
           </div>

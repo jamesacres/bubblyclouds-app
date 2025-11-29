@@ -13,12 +13,6 @@ import {
 import * as usePartiesModule from '../hooks/useParties';
 
 jest.mock('../hooks/useParties');
-jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage', () => ({
-  calculateCompletionPercentage: jest.fn(() => 50),
-}));
-jest.mock('@sudoku-web/sudoku/components/SimpleSudoku', () => ({
-  default: () => <div data-testid="simple-sudoku">Sudoku</div>,
-}));
 jest.mock('@sudoku-web/ui/components/TimerDisplay', () => ({
   default: () => <div data-testid="timer">Timer</div>,
 }));
@@ -117,6 +111,10 @@ describe('PartyRow', () => {
       isSubscribed: false,
       subscribeModal: { showModalIfRequired: jest.fn() } as any,
     };
+    const defaultInjectedProps = {
+      SimpleState: () => <div data-testid="simple-sudoku">Sudoku</div>,
+      calculateCompletionPercentageFromState: jest.fn(() => 50),
+    };
     return render(
       <UserContext.Provider
         value={userContext as unknown as UserContextInterface}
@@ -124,7 +122,7 @@ describe('PartyRow', () => {
         <RevenueCatContext.Provider
           value={revenueCatContext as unknown as RevenueCatContextInterface}
         >
-          <PartyRow {...defaultProps} {...props} />
+          <PartyRow {...defaultProps} {...defaultInjectedProps} {...props} />
         </RevenueCatContext.Provider>
       </UserContext.Provider>
     );

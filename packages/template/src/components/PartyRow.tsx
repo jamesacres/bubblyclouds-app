@@ -1,5 +1,3 @@
-import { calculateCompletionPercentage } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
-import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
 import { TimerDisplay } from '@sudoku-web/ui/components/TimerDisplay';
 import { useParties } from '../hooks/useParties';
 import { Party, SessionParty, Session } from '@sudoku-web/types/serverTypes';
@@ -13,7 +11,7 @@ import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
 import { getPlayerColor, getAllUserIds } from '../utils/playerColors';
 import { PartyInviteButton } from './PartyInviteButton';
 import { CopyButton } from '@sudoku-web/ui/components/CopyButton';
-import { useContext, useState } from 'react';
+import { ComponentType, useContext, useState } from 'react';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
 import { LogOut, Trash, UserMinus, Edit3, Users } from 'react-feather';
 import { isIOS } from '../helpers/capacitor';
@@ -21,17 +19,23 @@ import { BaseServerState } from '../types/gameState';
 
 const DEFAULT_MAX_SIZE = 5;
 
-const PartyRow = ({
+interface PartyRowProps<TState extends BaseServerState = BaseServerState> {
+  party: Party;
+  puzzleId: string;
+  redirectUri: string;
+  sessionParty?: SessionParty<Session<TState>>;
+  SimpleState: ComponentType<{ state: TState }>;
+  calculateCompletionPercentageFromState: (state: TState) => number;
+}
+
+const PartyRow = <TState extends BaseServerState = BaseServerState>({
   party: { partyName, isOwner, members, partyId, maxSize },
   puzzleId,
   redirectUri,
   sessionParty,
-}: {
-  party: Party;
-  puzzleId: string;
-  redirectUri: string;
-  sessionParty?: SessionParty<Session<BaseServerState>>;
-}) => {
+  SimpleState,
+  calculateCompletionPercentageFromState,
+}: PartyRowProps<TState>) => {
   const { parties, leaveParty, removeMember, deleteParty, updateParty } =
     useParties();
   const context = useContext(UserContext) as UserContextInterface | undefined;
@@ -291,13 +295,7 @@ const PartyRow = ({
             // Calculate completion percentage if session data exists
             const memberSession = sessionParty?.memberSessions[userId];
             const completionPercentage = memberSession
-              ? calculateCompletionPercentage(
-                  memberSession.state.initial as any,
-                  memberSession.state.final as any,
-                  memberSession.state.answerStack[
-                    memberSession.state.answerStack.length - 1
-                  ] as any
-                )
+              ? calculateCompletionPercentageFromState(memberSession.state)
               : 0;
 
             // Get the player color for consistency with RaceTrack
@@ -418,20 +416,8 @@ const PartyRow = ({
 
                 {!isUser && sessionParty?.memberSessions[userId] && (
                   <div className="mt-3 rounded-lg bg-stone-50 p-2 shadow-sm dark:bg-zinc-800">
-                    <SimpleSudoku
-                      final={
-                        sessionParty.memberSessions[userId]!.state.final as any
-                      }
-                      initial={
-                        sessionParty.memberSessions[userId]!.state
-                          .initial as any
-                      }
-                      latest={
-                        sessionParty.memberSessions[userId]!.state.answerStack[
-                          sessionParty.memberSessions[userId]!.state.answerStack
-                            .length - 1
-                        ] as any
-                      }
+                    <SimpleState
+                      state={sessionParty.memberSessions[userId]!.state}
                     />
                   </div>
                 )}

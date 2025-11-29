@@ -6,24 +6,30 @@ import { useSessions } from '../providers/SessionsProvider';
 import { Loader, ChevronDown, ChevronRight, RotateCcw } from 'react-feather';
 import IntegratedSessionRow from './IntegratedSessionRow';
 import Leaderboard from '@sudoku-web/games/components/Leaderboard';
-import { BaseGameState, BaseServerState } from '../types/gameState';
+import { BaseServerState } from '../types/gameState';
 
-interface FriendsTabProps {
+interface FriendsTabProps<TState extends BaseServerState = BaseServerState> {
   user: UserProfile | undefined;
   parties: Party[] | undefined;
-  mySessions: ServerStateResult<BaseServerState>[] | undefined;
+  mySessions: ServerStateResult<TState>[] | undefined;
   onRefresh?: () => Promise<void>;
-  isPuzzleCheated: (state: BaseServerState) => boolean;
+  SimpleState: React.ComponentType<{ state: TState }>;
+  calculateCompletionPercentageFromState: (state: TState) => number;
+  isPuzzleCheated: (state: TState) => boolean;
+  buildPuzzleUrlFromState: (state: TState, isCompleted?: boolean) => string;
 }
 
-export const FriendsTab = ({
+export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
   user,
   parties,
   mySessions,
   onRefresh,
+  SimpleState,
+  calculateCompletionPercentageFromState,
   isPuzzleCheated,
-}: FriendsTabProps) => {
-  const { sessions, friendSessions } = useSessions<BaseGameState>();
+  buildPuzzleUrlFromState,
+}: FriendsTabProps<TState>) => {
+  const { sessions, friendSessions } = useSessions<TState>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
   const [selectedPartyId, setSelectedPartyId] = useState<string | 'all'>('all');
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -200,10 +206,18 @@ export const FriendsTab = ({
                                           new Date(a.updatedAt).getTime()
                                       )
                                       ?.map((userSession) => (
-                                        <IntegratedSessionRow
+                                        <IntegratedSessionRow<TState>
                                           key={userSession.sessionId}
                                           session={userSession}
                                           userSessions={mySessions}
+                                          SimpleState={SimpleState}
+                                          calculateCompletionPercentageFromState={
+                                            calculateCompletionPercentageFromState
+                                          }
+                                          isPuzzleCheated={isPuzzleCheated}
+                                          buildPuzzleUrlFromState={
+                                            buildPuzzleUrlFromState
+                                          }
                                         />
                                       ))}
                                   </ul>

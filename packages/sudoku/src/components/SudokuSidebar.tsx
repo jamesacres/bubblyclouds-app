@@ -10,6 +10,12 @@ import {
 } from '@sudoku-web/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
+import SimpleSudoku from '../components/SimpleSudoku';
+import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
+
+const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
+  <SimpleSudoku state={state} />
+);
 
 interface Arguments {
   showSidebar: boolean;
@@ -216,12 +222,16 @@ const SudokuSidebar = ({
                     )
                     .map((party) => {
                       return (
-                        <PartyRow
+                        <PartyRow<ServerState>
                           key={party.partyId}
                           party={party}
                           puzzleId={puzzleId}
                           redirectUri={redirectUri}
                           sessionParty={sessionParties[party.partyId]}
+                          SimpleState={SimpleStateWrapper}
+                          calculateCompletionPercentageFromState={
+                            calculateCompletionPercentageFromState
+                          }
                         />
                       );
                     })}

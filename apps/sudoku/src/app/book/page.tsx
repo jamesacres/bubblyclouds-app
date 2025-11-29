@@ -22,6 +22,14 @@ import { useParties } from '@sudoku-web/template/hooks/useParties';
 import { useBook } from '@sudoku-web/sudoku/providers/BookProvider';
 import IntegratedSessionRow from '@sudoku-web/template/components/IntegratedSessionRow';
 import { sha256 } from '@sudoku-web/template/helpers/sha256';
+import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
+import { calculateCompletionPercentageFromState } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
+import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
+import { buildPuzzleUrlFromState } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
+
+const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
+  <SimpleSudoku state={state} />
+);
 
 export default function BookPage() {
   const router = useRouter();
@@ -372,13 +380,19 @@ export default function BookPage() {
 
               return (
                 <div key={index} id={`puzzle-${index}`}>
-                  <IntegratedSessionRow
+                  <IntegratedSessionRow<ServerState>
                     session={mockSession}
                     bookPuzzle={{
                       puzzle,
                       index,
                       sudokuBookId: bookData?.sudokuBookId || 'unknown',
                     }}
+                    SimpleState={SimpleStateWrapper}
+                    calculateCompletionPercentageFromState={
+                      calculateCompletionPercentageFromState
+                    }
+                    isPuzzleCheated={isPuzzleCheated}
+                    buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                   />
                 </div>
               );
