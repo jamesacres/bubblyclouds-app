@@ -181,9 +181,7 @@ describe('AppDownloadModal', () => {
         />
       );
 
-      expect(
-        screen.getByText(mockProps.mobileDescription)
-      ).toBeInTheDocument();
+      expect(screen.getByText(mockProps.mobileDescription)).toBeInTheDocument();
     });
 
     it('should display desktop message on desktop', () => {
@@ -201,7 +199,9 @@ describe('AppDownloadModal', () => {
         />
       );
 
-      expect(screen.getByText(mockProps.desktopDescription)).toBeInTheDocument();
+      expect(
+        screen.getByText(mockProps.desktopDescription)
+      ).toBeInTheDocument();
     });
   });
 
@@ -223,10 +223,7 @@ describe('AppDownloadModal', () => {
       const appStoreLink = screen.getByAltText(/App Store/i);
       fireEvent.click(appStoreLink);
 
-      expect(window.open).toHaveBeenCalledWith(
-        mockProps.appStoreUrl,
-        '_blank'
-      );
+      expect(window.open).toHaveBeenCalledWith(mockProps.appStoreUrl, '_blank');
     });
   });
 
@@ -292,7 +289,9 @@ describe('AppDownloadModal', () => {
         />
       );
 
-      expect(screen.queryByText(mockProps.openInAppLabel)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(mockProps.openInAppLabel)
+      ).not.toBeInTheDocument();
     });
 
     it('should have open in app button', () => {
@@ -444,7 +443,9 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(screen.getByText(mockProps.desktopDescription)).toBeInTheDocument();
+      expect(
+        screen.getByText(mockProps.desktopDescription)
+      ).toBeInTheDocument();
       expect(screen.getByAltText(/Google Play/i)).toBeInTheDocument();
     });
   });

@@ -103,8 +103,16 @@ jest.mock('@sudoku-web/types/tabs', () => ({
 }));
 
 jest.mock('@sudoku-web/template/components/SocialProof', () => {
-  return function MockSocialProof() {
-    return <div data-testid="social-proof">Social Proof</div>;
+  return function MockSocialProof({
+    motivationalMessages,
+  }: {
+    motivationalMessages: string[];
+  }) {
+    return (
+      <div data-testid="social-proof">
+        Social Proof - {motivationalMessages.length} messages
+      </div>
+    );
   };
 });
 

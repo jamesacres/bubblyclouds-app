@@ -1,4 +1,7 @@
-import { Difficulty, BookPuzzleDifficulty } from '@sudoku-web/games/types/difficulty';
+import {
+  Difficulty,
+  BookPuzzleDifficulty,
+} from '@sudoku-web/games/types/difficulty';
 
 export interface SudokuOfTheDayResponse {
   sudokuId: string;

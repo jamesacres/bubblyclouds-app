@@ -92,7 +92,16 @@ jest.mock('@sudoku-web/template/components/RacingPromptModal', () => {
 });
 
 jest.mock('@sudoku-web/template/components/AppDownloadModal', () => ({
-  AppDownloadModal: ({ onClose, appName, appStoreUrl, googlePlayUrl, deepLinkScheme, mobileDescription, desktopDescription, openInAppLabel }: any) => (
+  AppDownloadModal: ({
+    onClose,
+    appName,
+    appStoreUrl,
+    googlePlayUrl,
+    deepLinkScheme,
+    mobileDescription,
+    desktopDescription,
+    openInAppLabel,
+  }: any) => (
     <div data-testid="app-download-modal">
       <div data-testid="app-name">{appName}</div>
       <div data-testid="app-store-url">{appStoreUrl}</div>
@@ -421,12 +430,24 @@ describe('Sudoku', () => {
 
       await waitFor(() => {
         expect(screen.getByTestId('app-name')).toHaveTextContent('Sudoku Race');
-        expect(screen.getByTestId('app-store-url')).toHaveTextContent('https://apps.apple.com/app/sudoku-race/id6517357180');
-        expect(screen.getByTestId('google-play-url')).toHaveTextContent('https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku');
-        expect(screen.getByTestId('deep-link-scheme')).toHaveTextContent('com.bubblyclouds.sudoku');
-        expect(screen.getByTestId('mobile-description')).toHaveTextContent('Get the best racing experience with our Sudoku Race app!');
-        expect(screen.getByTestId('desktop-description')).toHaveTextContent('Download Sudoku Race');
-        expect(screen.getByTestId('open-in-app-label')).toHaveTextContent('Open Puzzle');
+        expect(screen.getByTestId('app-store-url')).toHaveTextContent(
+          'https://apps.apple.com/app/sudoku-race/id6517357180'
+        );
+        expect(screen.getByTestId('google-play-url')).toHaveTextContent(
+          'https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku'
+        );
+        expect(screen.getByTestId('deep-link-scheme')).toHaveTextContent(
+          'com.bubblyclouds.sudoku'
+        );
+        expect(screen.getByTestId('mobile-description')).toHaveTextContent(
+          'Get the best racing experience with our Sudoku Race app!'
+        );
+        expect(screen.getByTestId('desktop-description')).toHaveTextContent(
+          'Download Sudoku Race'
+        );
+        expect(screen.getByTestId('open-in-app-label')).toHaveTextContent(
+          'Open Puzzle'
+        );
       });
     });
 

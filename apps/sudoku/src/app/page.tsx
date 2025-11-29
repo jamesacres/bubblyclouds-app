@@ -10,6 +10,7 @@ import { Tab } from '@sudoku-web/types/tabs';
 import SocialProof from '@sudoku-web/template/components/SocialProof';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
+import { motivationalMessages } from '../config/motivationalMessages';
 import { Difficulty } from '@sudoku-web/games/types/difficulty';
 import Footer from '@sudoku-web/ui/components/Footer';
 import MyPuzzlesTab from '@sudoku-web/template/components/MyPuzzlesTab';
@@ -218,7 +219,7 @@ function HomeComponent() {
               </p>
 
               {/* Social Proof - Motivational Message */}
-              <SocialProof />
+              <SocialProof motivationalMessages={motivationalMessages} />
 
               {/* Daily Streak Section - Compact */}
               <div className="mb-4 md:mb-6">
