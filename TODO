@@ -1,4 +1,7 @@
 
+fix infinite loop on useWakeLock.ts:31 Screen wake lock activated
+fix racetrack styles missing again
+
 pass sudoku as a prop to packages/auth files
 and packages/ui
 move all sudoku app config to a file
