@@ -15,7 +15,6 @@ const config = {
   testTimeout: 10000,
   moduleNameMapper: {
     '^@sudoku-web/games/(.*)$': '<rootDir>/../games/src/$1',
-    '^@sudoku-web/sudoku/(.*)$': '<rootDir>/../sudoku/src/$1',
     '^@sudoku-web/auth/(.*)$': '<rootDir>/../auth/src/$1',
     '^@sudoku-web/ui/(.*)$': '<rootDir>/../ui/src/$1',
     '^@sudoku-web/types/(.*)$': '<rootDir>/../types/src/$1',

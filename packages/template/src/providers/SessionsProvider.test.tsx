@@ -3,7 +3,7 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import { SessionsProvider, useSessions } from './SessionsProvider';
 import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
 import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
-import { ServerState } from '@sudoku-web/sudoku/types/state';
+import { BaseServerState } from '../types/gameState';
 import { useServerStorage } from '../hooks/serverStorage';
 import { StateType } from '@sudoku-web/types/stateType';
 
@@ -355,7 +355,7 @@ describe('SessionsProvider', () => {
 
   describe('state updates', () => {
     it('should update sessions with setSessions', async () => {
-      let sessions: ServerStateResult<ServerState>[] | null = null;
+      let sessions: ServerStateResult<BaseServerState>[] | null = null;
       let setSessions: any;
 
       const TestComponent = () => {
@@ -373,7 +373,7 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      const mockSessions: ServerStateResult<ServerState>[] = [
+      const mockSessions: ServerStateResult<BaseServerState>[] = [
         {
           sessionId: 'session-1',
           state: { answerStack: [], initial: {}, final: {} } as any,
@@ -391,7 +391,7 @@ describe('SessionsProvider', () => {
     });
 
     it('should clear sessions with clearSessions', async () => {
-      let sessions: ServerStateResult<ServerState>[] | null = [
+      let sessions: ServerStateResult<BaseServerState>[] | null = [
         {
           sessionId: 'session-1',
           state: { answerStack: [], initial: {}, final: {} } as any,
@@ -642,7 +642,7 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      const mockSessions: ServerStateResult<ServerState>[] = [
+      const mockSessions: ServerStateResult<BaseServerState>[] = [
         {
           sessionId: 'session-1',
           state: { answerStack: [], initial: {}, final: {} } as any,
@@ -829,7 +829,7 @@ describe('SessionsProvider', () => {
       const yesterday = new Date(now.getTime() - 86400000);
       const twoDaysAgo = new Date(now.getTime() - 172800000);
 
-      const sessionsToSet: ServerStateResult<ServerState>[] = [
+      const sessionsToSet: ServerStateResult<BaseServerState>[] = [
         {
           sessionId: 'old',
           state: { answerStack: [], initial: {}, final: {} } as any,
@@ -876,7 +876,7 @@ describe('SessionsProvider', () => {
       const now = new Date();
       const earlier = new Date(now.getTime() - 1000);
 
-      const duplicateSessions: ServerStateResult<ServerState>[] = [
+      const duplicateSessions: ServerStateResult<BaseServerState>[] = [
         {
           sessionId: 'session-1',
           state: { answerStack: [], initial: {}, final: {} } as any,

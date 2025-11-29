@@ -1,4 +1,5 @@
 
+remove puzzle and game from template
 template should not have any dependencies on sudoku, move tabs and integration session row OR inject
 
 review all changes for 004 into 003, merge, then review all 003 changes

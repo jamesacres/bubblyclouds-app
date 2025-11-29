@@ -3,7 +3,7 @@
 import { cloneElement, ReactElement } from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntegratedSessionRow } from './IntegratedSessionRow';
-import { ServerState } from '@sudoku-web/sudoku/types/state';
+import { BaseServerState } from '../types/gameState';
 import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
 import { ServerStateResult } from '@sudoku-web/types/serverTypes';
 
@@ -23,32 +23,10 @@ jest.mock('next/link', () => {
   return MockLink;
 });
 
-jest.mock('@sudoku-web/sudoku/components/SimpleSudoku', () => ({
-  __esModule: true,
-  default: function DummySimpleSudoku() {
-    return <div data-testid="simple-sudoku">Simple Sudoku</div>;
-  },
-}));
-
 jest.mock('../hooks/useParties');
-jest.mock('@sudoku-web/sudoku/helpers/cheatDetection', () => ({
-  isPuzzleCheated: jest.fn(() => false),
-}));
-jest.mock('@sudoku-web/sudoku/helpers/puzzleTextToPuzzle', () => ({
-  puzzleTextToPuzzle: jest.fn((_text) => ({ cells: [] })),
-  puzzleToPuzzleText: jest.fn(() => '123456789' + '0'.repeat(73)),
-}));
-jest.mock('@sudoku-web/sudoku/helpers/calculateCompletionPercentage', () => ({
-  calculateCompletionPercentage: jest.fn(() => 50),
-}));
 
 jest.mock('../providers/SessionsProvider');
 jest.mock('../helpers/calculateSeconds');
-
-jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
-  buildPuzzleUrl: jest.fn(() => '/puzzle?id=test'),
-  buildPuzzleUrlFromState: jest.fn(() => '/puzzle?id=test'),
-}));
 
 // Mock context
 const mockUserContext = {
@@ -67,8 +45,8 @@ const mockInjectedProps = {
 
 describe('IntegratedSessionRow', () => {
   const createMockSession = (
-    overrides?: Partial<ServerStateResult<ServerState>>
-  ): ServerStateResult<ServerState> => {
+    overrides?: Partial<ServerStateResult<BaseServerState>>
+  ): ServerStateResult<BaseServerState> => {
     return {
       sessionId: 'session-123',
       updatedAt: new Date(),
@@ -77,7 +55,6 @@ describe('IntegratedSessionRow', () => {
         final: Array(81).fill(0),
         answerStack: [Array(81).fill(0)],
         completed: undefined,
-        timer: { startTime: 0, pausedTime: 0 } as any,
         metadata: {
           sudokuId: 'oftheday-20240101-easy',
         },
@@ -293,7 +270,7 @@ describe('IntegratedSessionRow', () => {
           completed: undefined,
           timer: { startTime: 0, pausedTime: 0 } as any,
           metadata: { difficulty: 'easy' },
-        } as ServerState,
+        } as BaseServerState,
       });
 
       renderWithProps(
@@ -383,7 +360,7 @@ describe('IntegratedSessionRow', () => {
           completed: { seconds: 300 },
           timer: { startTime: 0, pausedTime: 0 } as any,
           metadata: {},
-        } as ServerState,
+        } as BaseServerState,
       });
 
       renderWithProps(
@@ -415,7 +392,7 @@ describe('IntegratedSessionRow', () => {
           completed: { seconds: 300 },
           timer: { startTime: 0, pausedTime: 0 } as any,
           metadata: {},
-        } as ServerState,
+        } as BaseServerState,
       });
 
       renderWithProps(
@@ -583,7 +560,7 @@ describe('IntegratedSessionRow', () => {
           completed: undefined,
           timer: { startTime: 0, pausedTime: 0 } as any,
           metadata: { sudokuId: 'oftheday-20240115-easy' },
-        } as ServerState,
+        } as BaseServerState,
       });
 
       renderWithProps(
@@ -603,7 +580,7 @@ describe('IntegratedSessionRow', () => {
           completed: undefined,
           timer: { startTime: 0, pausedTime: 0 } as any,
           metadata: { sudokuId: 'oftheday-invalid-easy' },
-        } as ServerState,
+        } as BaseServerState,
       });
 
       renderWithProps(
@@ -655,7 +632,7 @@ describe('IntegratedSessionRow', () => {
           completed: undefined,
           timer: { startTime: 0, pausedTime: 0 } as any,
           metadata: {},
-        } as ServerState,
+        } as BaseServerState,
       });
 
       renderWithProps(
@@ -675,7 +652,7 @@ describe('IntegratedSessionRow', () => {
           completed: undefined,
           timer: { startTime: 0, pausedTime: 0 } as any,
           metadata: {},
-        } as ServerState,
+        } as BaseServerState,
       });
 
       renderWithProps(
@@ -695,7 +672,7 @@ describe('IntegratedSessionRow', () => {
           completed: { seconds: 36000 }, // 10 hours
           timer: { startTime: 0, pausedTime: 0 } as any,
           metadata: {},
-        } as ServerState,
+        } as BaseServerState,
       });
 
       renderWithProps(
