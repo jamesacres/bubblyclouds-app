@@ -3,7 +3,6 @@
 import { isCapacitor } from '../helpers/capacitor';
 import { isElectron } from '../helpers/electron';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
 import { PurchasesPackage as CapacitorPackage } from '@revenuecat/purchases-capacitor';
 import { Package as WebPackage } from '@revenuecat/purchases-js';
 import Image from 'next/image';
@@ -31,7 +30,7 @@ interface ContextMessage {
 interface PlusModalProps {
   features: PremiumFeature[];
   description: ReactNode;
-  contextMessages: Record<SubscriptionContext, ContextMessage>;
+  contextMessages: Record<string, ContextMessage>;
 }
 
 const PlusModal = ({
@@ -48,7 +47,7 @@ const PlusModal = ({
     subscribeModal: modal,
   } = useContext(RevenueCatContext) || {};
 
-  const getContextualMessage = (context?: SubscriptionContext) => {
+  const getContextualMessage = (context?: string) => {
     if (!context) return null;
 
     const messageConfig = contextMessages[context];
