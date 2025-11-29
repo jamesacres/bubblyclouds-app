@@ -8,10 +8,10 @@ import { useOnline } from '../hooks/online';
 import { isCapacitor } from '../helpers/capacitor';
 import { useServerStorage } from '../hooks/serverStorage';
 
-export default function HeaderWrapper() {
+export default function HeaderWrapper({ app }: { app: string }) {
   const revenueCatContext = useContext(RevenueCatContext);
   const { isOnline } = useOnline();
-  const { deleteAccount } = useServerStorage({ app: 'sudoku' });
+  const { deleteAccount } = useServerStorage({ app });
 
   const handleShowSubscribeModal = (onSuccess: () => void) => {
     revenueCatContext?.subscribeModal?.showModalIfRequired(onSuccess);

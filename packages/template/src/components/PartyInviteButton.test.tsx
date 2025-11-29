@@ -47,6 +47,7 @@ describe('PartyInviteButton', () => {
     redirectUri: '/puzzle/123',
     partyId: 'party1',
     partyName: 'Test Party',
+    app: 'mockApp',
   };
 
   let mockCreateInvite: jest.Mock;
@@ -82,7 +83,7 @@ describe('PartyInviteButton', () => {
     await waitFor(() => {
       expect(copyButton).toHaveAttribute(
         'data-text',
-        'https://sudoku.bubblyclouds.com/invite?inviteId=invite123'
+        'https://mockApp.bubblyclouds.com/invite?inviteId=invite123'
       );
     });
   });

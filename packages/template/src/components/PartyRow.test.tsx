@@ -50,7 +50,7 @@ describe('PartyRow', () => {
   const mockParty: Party = {
     partyId: 'party1',
     partyName: 'Test Party',
-    appId: 'sudoku',
+    appId: 'mockApp',
     createdBy: 'userId1',
     isOwner: true,
     members: [
@@ -112,7 +112,7 @@ describe('PartyRow', () => {
       subscribeModal: { showModalIfRequired: jest.fn() } as any,
     };
     const defaultInjectedProps = {
-      SimpleState: () => <div data-testid="simple-sudoku">Sudoku</div>,
+      SimpleState: () => <div data-testid="simple-mockApp">mockApp</div>,
       calculateCompletionPercentageFromState: jest.fn(() => 50),
     };
     return render(
@@ -122,7 +122,12 @@ describe('PartyRow', () => {
         <RevenueCatContext.Provider
           value={revenueCatContext as unknown as RevenueCatContextInterface}
         >
-          <PartyRow {...defaultProps} {...defaultInjectedProps} {...props} />
+          <PartyRow
+            {...defaultProps}
+            {...defaultInjectedProps}
+            {...props}
+            app="mockApp"
+          />
         </RevenueCatContext.Provider>
       </UserContext.Provider>
     );

@@ -26,6 +26,7 @@ interface PartyRowProps<TState extends BaseServerState = BaseServerState> {
   sessionParty?: SessionParty<Session<TState>>;
   SimpleState: ComponentType<{ state: TState }>;
   calculateCompletionPercentageFromState: (state: TState) => number;
+  app: string;
 }
 
 const PartyRow = <TState extends BaseServerState = BaseServerState>({
@@ -35,6 +36,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
   sessionParty,
   SimpleState,
   calculateCompletionPercentageFromState,
+  app,
 }: PartyRowProps<TState>) => {
   const { parties, leaveParty, removeMember, deleteParty, updateParty } =
     useParties();
@@ -271,6 +273,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
               redirectUri={redirectUri}
               partyId={partyId}
               partyName={partyName}
+              app={app}
             />
           </div>
         )}
@@ -282,7 +285,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
             </p>
             <CopyButton
               getText={() =>
-                `https://sudoku.bubblyclouds.com${window.location.pathname}${window.location.search}`
+                `https://${app}.bubblyclouds.com${window.location.pathname}${window.location.search}`
               }
               partyName={partyName}
               isIOS={isIOS}
@@ -371,12 +374,13 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
                         partyId={partyId}
                         partyName={partyName}
                         extraSmall={true}
+                        app={app}
                       />
                     ) : (
                       <div className="mt-1">
                         <CopyButton
                           getText={() =>
-                            `https://sudoku.bubblyclouds.com${window.location.pathname}${window.location.search}`
+                            `https://${app}.bubblyclouds.com${window.location.pathname}${window.location.search}`
                           }
                           extraSmall={true}
                           partyName={partyName}

@@ -9,16 +9,18 @@ const PartyInviteButton = ({
   partyId,
   partyName,
   extraSmall = false,
+  app,
 }: {
   puzzleId: string;
   redirectUri: string;
   partyId: string;
   partyName: string;
   extraSmall?: boolean;
+  app: string;
 }) => {
   const sessionId = `sudoku-${puzzleId}`;
   const [inviteUrl, setInviteUrl] = useState('');
-  const { createInvite } = useServerStorage({ app: 'sudoku' });
+  const { createInvite } = useServerStorage({ app });
 
   const getInviteUrl = async (): Promise<string> => {
     let latestInviteUrl = inviteUrl;
@@ -33,7 +35,7 @@ const PartyInviteButton = ({
         resourceId: `party-${partyId}`,
       });
       if (invite) {
-        latestInviteUrl = `https://sudoku.bubblyclouds.com/invite?inviteId=${invite.inviteId}`;
+        latestInviteUrl = `https://${app}.bubblyclouds.com/invite?inviteId=${invite.inviteId}`;
         setInviteUrl(latestInviteUrl);
       }
     }

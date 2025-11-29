@@ -40,8 +40,8 @@ export function Providers({ children }: PropsWithChildren) {
         <CapacitorProvider>
           <UserProvider platformServices={platformServices}>
             <RevenueCatProvider>
-              <PartiesProvider>
-                <SessionsProvider stateType={StateType.PUZZLE}>
+              <PartiesProvider app="sudoku">
+                <SessionsProvider stateType={StateType.PUZZLE} app="sudoku">
                   <BookProvider>
                     <ThemeProvider attribute="class">
                       <ThemeColorProvider>{children}</ThemeColorProvider>

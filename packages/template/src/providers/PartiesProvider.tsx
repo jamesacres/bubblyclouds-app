@@ -50,8 +50,9 @@ export const PartiesContext = createContext<
   PartiesContextInterface | undefined
 >(undefined);
 
-const PartiesProvider: React.FC<{ children: React.ReactNode }> = ({
+const PartiesProvider: React.FC<{ children: React.ReactNode; app: string }> = ({
   children,
+  app,
 }) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
@@ -62,7 +63,7 @@ const PartiesProvider: React.FC<{ children: React.ReactNode }> = ({
     leaveParty,
     removeMember,
     deleteParty,
-  } = useServerStorage({ app: 'sudoku' });
+  } = useServerStorage({ app });
 
   // Party state
   const [parties, setParties] = useState<Party[]>([]);

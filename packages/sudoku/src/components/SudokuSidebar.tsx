@@ -232,6 +232,7 @@ const SudokuSidebar = ({
                           calculateCompletionPercentageFromState={
                             calculateCompletionPercentageFromState
                           }
+                          app="sudoku"
                         />
                       );
                     })}

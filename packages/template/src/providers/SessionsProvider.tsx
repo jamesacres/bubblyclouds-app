@@ -51,11 +51,13 @@ const SessionsContext = createContext<SessionsContextType | null>(null);
 interface SessionsProviderProps {
   children: ReactNode;
   stateType: StateType;
+  app: string;
 }
 
 export const SessionsProvider = <T extends {}>({
   children,
   stateType,
+  app,
 }: SessionsProviderProps) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
@@ -70,7 +72,7 @@ export const SessionsProvider = <T extends {}>({
   const friendSessionsRef = useRef<UserSessions<T>>({});
   const isLoadingRef = useRef(false);
   const sessionsRef = useRef<ServerStateResult<T>[] | null>(null);
-  const { listValues: listServerValues } = useServerStorage({ app: 'sudoku' });
+  const { listValues: listServerValues } = useServerStorage({ app });
 
   // Update refs whenever state changes
   friendSessionsRef.current = friendSessions;

@@ -55,7 +55,7 @@ describe('PremiumFeatures', () => {
         <PremiumFeatures
           features={mockFeatures}
           title="🏁 Premium Features"
-          subtitle="Unlock the full Sudoku Race experience"
+          subtitle="Unlock the full experience"
           {...props}
         />
       </RevenueCatContext.Provider>
@@ -69,9 +69,7 @@ describe('PremiumFeatures', () => {
   it('renders default title and subtitle', () => {
     renderComponent();
     expect(screen.getByText(/🏁 Premium Features/)).toBeInTheDocument();
-    expect(
-      screen.getByText(/Unlock the full Sudoku Race experience/)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Unlock the full experience/)).toBeInTheDocument();
   });
 
   it('renders custom title and subtitle', () => {

@@ -26,9 +26,9 @@ const CapacitorProvider: React.FC<{ children: React.ReactNode }> = ({
           if (event.url) {
             // For auth and other links
             // Note this is also used for the iOS/Android auth redirect with custom url schemes
-            // com.bubblyclouds.sudoku://-/auth
+            // com.bubblyclouds.app://-/auth
             // capacitor://localhost/auth
-            // In addition to https://sudoku.bubblyclouds.com/auth
+            // In addition to https://app.bubblyclouds.com/auth
             const url = new URL(event.url);
             url.protocol = window.location.protocol;
             url.host = window.location.host;
