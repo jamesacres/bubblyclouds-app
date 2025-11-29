@@ -10,12 +10,26 @@ interface AppDownloadModalProps {
   isOpen: boolean;
   onClose: () => void;
   onContinueWeb: () => void;
+  appName: string;
+  appStoreUrl: string;
+  googlePlayUrl: string;
+  deepLinkScheme: string;
+  mobileDescription: string;
+  desktopDescription: string;
+  openInAppLabel: string;
 }
 
 export const AppDownloadModal = ({
   isOpen,
   onClose,
   onContinueWeb,
+  appName,
+  appStoreUrl,
+  googlePlayUrl,
+  deepLinkScheme,
+  mobileDescription,
+  desktopDescription,
+  openInAppLabel,
 }: AppDownloadModalProps) => {
   // Don't show if already in the app
   if (isCapacitor()) {
@@ -29,21 +43,11 @@ export const AppDownloadModal = ({
   const isMobileWeb = isIOSWeb || isAndroidWeb;
 
   const handleAppStoreClick = () => {
-    // Replace with actual App Store URL
-    window.open(
-      // 'https://apps.apple.com/app/sudoku-race/id6517357180',
-      'https://apps.apple.com/app/sudoku-race/id6517357180',
-      '_blank'
-    );
+    window.open(appStoreUrl, '_blank');
   };
 
   const handleGooglePlayClick = () => {
-    // Replace with actual Google Play URL
-    window.open(
-      // 'https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku',
-      'https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku',
-      '_blank'
-    );
+    window.open(googlePlayUrl, '_blank');
   };
 
   const handleContinueWeb = () => {
@@ -53,7 +57,7 @@ export const AppDownloadModal = ({
 
   const handleOpenInApp = () => {
     const currentPath = window.location.pathname + window.location.search;
-    const deepLink = `com.bubblyclouds.sudoku://-${currentPath}`;
+    const deepLink = `${deepLinkScheme}://-${currentPath}`;
 
     // Try to open the deep link
     window.location.href = deepLink;
@@ -106,9 +110,7 @@ export const AppDownloadModal = ({
                   </Dialog.Title>
 
                   <p className="text-lg text-gray-600 dark:text-gray-300">
-                    {isMobileWeb
-                      ? 'Get the best racing experience with our Sudoku Race app!'
-                      : 'Download Sudoku Race'}
+                    {isMobileWeb ? mobileDescription : desktopDescription}
                   </p>
                 </div>
 
@@ -157,7 +159,7 @@ export const AppDownloadModal = ({
                       onClick={handleOpenInApp}
                       className="w-full cursor-pointer rounded-xl bg-blue-100 px-4 py-3 text-sm font-medium text-blue-700 transition-all duration-200 hover:bg-blue-200 active:scale-95 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50"
                     >
-                      Open Puzzle
+                      {openInAppLabel}
                     </button>
                   </div>
                 )}

@@ -290,6 +290,13 @@ const Sudoku = ({
         isOpen={showAppDownload}
         onClose={handleAppDownloadClose}
         onContinueWeb={handleContinueWeb}
+        appName="Sudoku Race"
+        appStoreUrl="https://apps.apple.com/app/sudoku-race/id6517357180"
+        googlePlayUrl="https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku"
+        deepLinkScheme="com.bubblyclouds.sudoku"
+        mobileDescription="Get the best racing experience with our Sudoku Race app!"
+        desktopDescription="Download Sudoku Race"
+        openInAppLabel="Open Puzzle"
       />
 
       {/* Racing mode selection modal */}

@@ -8,6 +8,41 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
     <div
       data-testid="app-download-modal"
     >
+      <div
+        data-testid="app-name"
+      >
+        Sudoku Race
+      </div>
+      <div
+        data-testid="app-store-url"
+      >
+        https://apps.apple.com/app/sudoku-race/id6517357180
+      </div>
+      <div
+        data-testid="google-play-url"
+      >
+        https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku
+      </div>
+      <div
+        data-testid="deep-link-scheme"
+      >
+        com.bubblyclouds.sudoku
+      </div>
+      <div
+        data-testid="mobile-description"
+      >
+        Get the best racing experience with our Sudoku Race app!
+      </div>
+      <div
+        data-testid="desktop-description"
+      >
+        Download Sudoku Race
+      </div>
+      <div
+        data-testid="open-in-app-label"
+      >
+        Open Puzzle
+      </div>
       <button
         data-testid="close-modal"
       >
