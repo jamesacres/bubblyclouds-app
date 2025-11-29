@@ -18,7 +18,7 @@ const PartyInviteButton = ({
 }) => {
   const sessionId = `sudoku-${puzzleId}`;
   const [inviteUrl, setInviteUrl] = useState('');
-  const { createInvite } = useServerStorage({});
+  const { createInvite } = useServerStorage({ app: 'sudoku' });
 
   const getInviteUrl = async (): Promise<string> => {
     let latestInviteUrl = inviteUrl;

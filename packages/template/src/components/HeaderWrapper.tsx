@@ -11,7 +11,7 @@ import { useServerStorage } from '../hooks/serverStorage';
 export default function HeaderWrapper() {
   const revenueCatContext = useContext(RevenueCatContext);
   const { isOnline } = useOnline();
-  const { deleteAccount } = useServerStorage();
+  const { deleteAccount } = useServerStorage({ app: 'sudoku' });
 
   const handleShowSubscribeModal = (onSuccess: () => void) => {
     revenueCatContext?.subscribeModal?.showModalIfRequired(onSuccess);

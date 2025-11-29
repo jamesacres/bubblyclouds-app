@@ -70,7 +70,7 @@ export const SessionsProvider = <T extends {}>({
   const friendSessionsRef = useRef<UserSessions<T>>({});
   const isLoadingRef = useRef(false);
   const sessionsRef = useRef<ServerStateResult<T>[] | null>(null);
-  const { listValues: listServerValues } = useServerStorage();
+  const { listValues: listServerValues } = useServerStorage({ app: 'sudoku' });
 
   // Update refs whenever state changes
   friendSessionsRef.current = friendSessions;

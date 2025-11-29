@@ -7,8 +7,8 @@ import type { GameStateMetadata } from '../types/state';
 jest.mock('@sudoku-web/template/hooks/localStorage', () => ({
   useLocalStorage: () => ({ getValue: jest.fn(), saveValue: jest.fn() }),
 }));
-jest.mock('@sudoku-web/template/hooks/serverStorage', () => ({
-  useServerStorage: () => ({
+jest.mock('./useSudokuServerStorage', () => ({
+  useSudokuServerStorage: () => ({
     getValue: jest.fn().mockResolvedValue(undefined),
     saveValue: jest.fn().mockResolvedValue(undefined),
   }),

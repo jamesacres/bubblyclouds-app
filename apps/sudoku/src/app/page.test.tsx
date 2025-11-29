@@ -40,8 +40,8 @@ jest.mock('@sudoku-web/template/hooks/online', () => ({
   })),
 }));
 
-jest.mock('@sudoku-web/template/hooks/serverStorage', () => ({
-  useServerStorage: jest.fn(() => ({
+jest.mock('@sudoku-web/sudoku/hooks/useSudokuServerStorage', () => ({
+  useSudokuServerStorage: jest.fn(() => ({
     getSudokuOfTheDay: jest.fn(),
     listParties: jest.fn(() => Promise.resolve([])),
   })),

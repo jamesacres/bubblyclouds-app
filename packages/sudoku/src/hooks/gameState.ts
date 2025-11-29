@@ -17,7 +17,7 @@ import {
   SetAnswer,
 } from '../types/state';
 import { useLocalStorage } from '@sudoku-web/template/hooks/localStorage';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from './useSudokuServerStorage';
 import { checkCell, checkGrid } from '../helpers/checkAnswer';
 import { StateType } from '@sudoku-web/types/stateType';
 import { useTimer } from '@sudoku-web/template/hooks/timer';
@@ -96,7 +96,7 @@ function useGameState({
       type: StateType.PUZZLE,
     });
   const { getValue: getServerValue, saveValue: saveServerValue } =
-    useServerStorage({
+    useSudokuServerStorage({
       id: puzzleId,
       type: StateType.PUZZLE,
     });

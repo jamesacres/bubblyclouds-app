@@ -62,7 +62,7 @@ const PartiesProvider: React.FC<{ children: React.ReactNode }> = ({
     leaveParty,
     removeMember,
     deleteParty,
-  } = useServerStorage({});
+  } = useServerStorage({ app: 'sudoku' });
 
   // Party state
   const [parties, setParties] = useState<Party[]>([]);

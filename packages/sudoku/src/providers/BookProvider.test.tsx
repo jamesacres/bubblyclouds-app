@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { BookProvider, useBook } from './BookProvider';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from '../hooks/useSudokuServerStorage';
 import { useOnline } from '@sudoku-web/template/hooks/online';
 import { SudokuBookOfTheMonth } from '@sudoku-web/types/serverTypes';
 
-jest.mock('@sudoku-web/template/hooks/serverStorage');
+jest.mock('../hooks/useSudokuServerStorage');
 jest.mock('@sudoku-web/template/hooks/online');
 
-const mockUseServerStorage = useServerStorage as jest.Mock;
+const mockUseSudokuServerStorage = useSudokuServerStorage as jest.Mock;
 const mockUseOnline = useOnline as jest.Mock;
 
 const TestComponent = () => {
@@ -35,7 +35,7 @@ describe('BookProvider', () => {
 
   beforeEach(() => {
     mockGetSudokuBookOfTheMonth = jest.fn();
-    mockUseServerStorage.mockReturnValue({
+    mockUseSudokuServerStorage.mockReturnValue({
       getSudokuBookOfTheMonth: mockGetSudokuBookOfTheMonth,
     });
     mockUseOnline.mockReturnValue({ isOnline: true });

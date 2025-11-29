@@ -1,5 +1,5 @@
 'use client';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from '@sudoku-web/sudoku/hooks/useSudokuServerStorage';
 import {
   UserContext,
   UserContextInterface,
@@ -27,7 +27,7 @@ function InviteComponent() {
   const { isLoggingIn, user, loginRedirect } = context || {};
   const { isSubscribed, subscribeModal, refreshEntitlements } =
     useContext(RevenueCatContext) || {};
-  const { getPublicInvite, createMember } = useServerStorage({});
+  const { getPublicInvite, createMember } = useSudokuServerStorage();
   const {
     parties: userParties,
     isLoading: partiesLoading,

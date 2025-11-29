@@ -8,7 +8,7 @@ import {
   ReactNode,
 } from 'react';
 import { SudokuBookOfTheMonth } from '@sudoku-web/types/serverTypes';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from '../hooks/useSudokuServerStorage';
 import { useOnline } from '@sudoku-web/template/hooks/online';
 
 interface BookContextType {
@@ -105,7 +105,7 @@ export const BookProvider = ({ children }: BookProviderProps) => {
   const [bookData, setBookData] = useState<SudokuBookOfTheMonth | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { getSudokuBookOfTheMonth } = useServerStorage();
+  const { getSudokuBookOfTheMonth } = useSudokuServerStorage();
   const { isOnline } = useOnline();
 
   const fetchBookData = useCallback(async () => {

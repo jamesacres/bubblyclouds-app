@@ -1,6 +1,6 @@
 'use client';
 import { useOnline } from '@sudoku-web/template/hooks/online';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from '@sudoku-web/sudoku/hooks/useSudokuServerStorage';
 import {
   UserContext,
   UserContextInterface,
@@ -55,7 +55,7 @@ function HomeComponent() {
   const { user, loginRedirect } = context || {};
   useOnline();
   const [isLoading, setIsLoading] = useState(false);
-  const { getSudokuOfTheDay } = useServerStorage();
+  const { getSudokuOfTheDay } = useSudokuServerStorage();
   const { parties, refreshParties } = useParties({});
   const {
     sessions,
