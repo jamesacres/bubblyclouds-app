@@ -43,10 +43,10 @@ jest.mock('./FriendLeaderboardEntry', () => {
 jest.mock('./ScoringLegend', () => {
   return {
     __esModule: true,
-    default: ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) =>
+    default: ({ isOpen, onClose, gameName }: { isOpen: boolean; onClose: () => void; gameName: string }) =>
       isOpen ? (
         <div data-testid="scoring-legend" onClick={onClose} role="dialog">
-          Scoring Legend
+          Scoring Legend - {gameName}
           <button onClick={onClose}>Close</button>
         </div>
       ) : null,

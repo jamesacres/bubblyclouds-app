@@ -14,21 +14,21 @@ describe('ScoringLegend', () => {
   describe('visibility', () => {
     it('should return null when isOpen is false', () => {
       const { container } = render(
-        <ScoringLegend isOpen={false} onClose={mockOnClose} />
+        <ScoringLegend isOpen={false} onClose={mockOnClose} gameName="Test Game" />
       );
 
       expect(container.firstChild).toBeNull();
     });
 
     it('should render modal when isOpen is true', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
     });
 
     it('should have fixed positioning overlay', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const overlay = container.querySelector('[class*="fixed"]');
@@ -39,7 +39,7 @@ describe('ScoringLegend', () => {
   describe('modal structure', () => {
     it('should render modal with proper styling classes', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const modal = container.querySelector('[class*="rounded-2xl"]');
@@ -48,7 +48,7 @@ describe('ScoringLegend', () => {
 
     it('should have sticky header', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const header = container.querySelector('[class*="sticky"]');
@@ -57,7 +57,7 @@ describe('ScoringLegend', () => {
 
     it('should have scroll capability for overflow content', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const scrollable = container.querySelector('[class*="overflow-y-auto"]');
@@ -66,7 +66,7 @@ describe('ScoringLegend', () => {
 
     it('should have dark mode support', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const darkModeElements = container.querySelectorAll('[class*="dark:"]');
@@ -76,20 +76,20 @@ describe('ScoringLegend', () => {
 
   describe('header', () => {
     it('should display trophy icon with title', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
     });
 
     it('should display close button', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       const closeButton = screen.getByText('✕');
       expect(closeButton).toBeInTheDocument();
     });
 
     it('should call onClose when close button is clicked', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       const closeButton = screen.getByText('✕');
       fireEvent.click(closeButton);
@@ -99,7 +99,7 @@ describe('ScoringLegend', () => {
 
     it('should call onClose when overlay is clicked', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const overlay = container.querySelector('[class*="fixed"]');
@@ -111,7 +111,7 @@ describe('ScoringLegend', () => {
     });
 
     it('should not close when modal content is clicked', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       const modalContent = screen.getByText('🏆 Scoring System').parentElement;
       if (modalContent) {
@@ -125,20 +125,20 @@ describe('ScoringLegend', () => {
 
   describe('racing wins section', () => {
     it('should display racing wins section', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText('🏁 Racing Wins')).toBeInTheDocument();
     });
 
     it('should display racing bonus per person', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Check racing bonus section exists (text may be split)
       expect(screen.getByText(/points for each friend/i)).toBeInTheDocument();
     });
 
     it('should show racing bonus calculation example', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(
         screen.getByText(/Beat 5 friends = \+500 points!/)
@@ -148,13 +148,13 @@ describe('ScoringLegend', () => {
 
   describe('base points section', () => {
     it('should display base points section', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText('📊 Base Points')).toBeInTheDocument();
     });
 
     it('should display any puzzle base points', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(
         screen.getByText(`+${SCORING_CONFIG.VOLUME_MULTIPLIER}`)
@@ -162,7 +162,7 @@ describe('ScoringLegend', () => {
     });
 
     it('should display daily puzzle base points', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(
         screen.getByText(`+${SCORING_CONFIG.DAILY_PUZZLE_BASE}`)
@@ -170,14 +170,14 @@ describe('ScoringLegend', () => {
     });
 
     it('should display book puzzle base points', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Check that rendering completes without error
       expect(screen.getByText('📊 Base Points')).toBeInTheDocument();
     });
 
     it('should display scanned puzzle base points', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(
         screen.getByText(`+${SCORING_CONFIG.SCANNED_PUZZLE_BASE}`)
@@ -187,25 +187,25 @@ describe('ScoringLegend', () => {
 
   describe('difficulty multipliers section', () => {
     it('should display difficulty multipliers section', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText('🔥 Difficulty Multipliers')).toBeInTheDocument();
     });
 
     it('should display daily puzzle difficulties', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
-      expect(screen.getByText('⭐ Sudoku of the Day')).toBeInTheDocument();
+      expect(screen.getByText('⭐ Test Game of the Day')).toBeInTheDocument();
     });
 
     it('should display book puzzle difficulties', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText('📖 Book Puzzles')).toBeInTheDocument();
     });
 
     it('should display daily puzzle difficulty multipliers', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Check for at least one difficulty multiplier
       const multiplier = SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[Difficulty.EASY];
@@ -213,14 +213,14 @@ describe('ScoringLegend', () => {
     });
 
     it('should display book puzzle difficulty multipliers', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Check that book puzzles section is rendered with multipliers
       expect(screen.getByText('📖 Book Puzzles')).toBeInTheDocument();
     });
 
     it('should sort book puzzle difficulties by multiplier', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Get all book difficulty items
       const bookSection = screen.getByText('📖 Book Puzzles').parentElement;
@@ -236,19 +236,19 @@ describe('ScoringLegend', () => {
 
   describe('speed bonuses section', () => {
     it('should display speed bonuses section', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
     });
 
     it('should display lightning speed tier', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText(/⚡ Under/)).toBeInTheDocument();
     });
 
     it('should display fast speed bonus', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(
         screen.getByText(`+${SCORING_CONFIG.SPEED_BONUSES.FAST}`)
@@ -256,21 +256,21 @@ describe('ScoringLegend', () => {
     });
 
     it('should display quick speed bonus', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Check speed bonus section exists
       expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
     });
 
     it('should display steady speed bonus', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Component renders successfully
       expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
     });
 
     it('should display speed tiers with emojis', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Check that speed tier emojis exist (may be multiple instances)
       expect(screen.getAllByText(/🔥/).length).toBeGreaterThan(0); // FAST
@@ -278,14 +278,14 @@ describe('ScoringLegend', () => {
     });
 
     it('should display time thresholds correctly', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Just verify component renders
       expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
     });
 
     it('should sort speed tiers by time descending', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Component renders successfully with speed bonuses
       expect(screen.getAllByText(/⚡/).length).toBeGreaterThan(0);
@@ -295,7 +295,7 @@ describe('ScoringLegend', () => {
   describe('color coding', () => {
     it('should have gradient background', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const gradient = container.querySelector('[class*="gradient"]');
@@ -304,7 +304,7 @@ describe('ScoringLegend', () => {
 
     it('should have color-coded sections', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const racingSection = container.querySelector('[class*="from-yellow"]');
@@ -312,11 +312,11 @@ describe('ScoringLegend', () => {
     });
 
     it('should have colored badge backgrounds for difficulties', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Check for difficulty badge colors
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       // Should have various colored badges for difficulty levels
@@ -327,7 +327,7 @@ describe('ScoringLegend', () => {
 
   describe('display names formatting', () => {
     it('should format book puzzle difficulty names correctly', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Names should be transformed from format "1-very-easy" to "1 Very Easy"
       const displayedNames = Object.values(BookPuzzleDifficulty).map((diff) => {
@@ -347,7 +347,7 @@ describe('ScoringLegend', () => {
   describe('accessibility', () => {
     it('should have proper modal semantics', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       // Modal should be in a portal-like container (fixed position)
@@ -356,28 +356,28 @@ describe('ScoringLegend', () => {
     });
 
     it('should have readable text hierarchy', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       const title = screen.getByText('🏆 Scoring System');
       expect(title.tagName.toLowerCase()).toBe('h3');
     });
 
     it('should have proper heading hierarchy in sections', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       const sectionHeadings = screen.getByText('🏁 Racing Wins');
       expect(sectionHeadings.tagName.toLowerCase()).toBe('h4');
     });
 
     it('should have accessible close button', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       const closeButton = screen.getByRole('button', { name: '✕' });
       expect(closeButton).toBeInTheDocument();
     });
 
     it('should have sufficient color contrast', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Text should be visible with proper contrast
       expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
@@ -387,7 +387,7 @@ describe('ScoringLegend', () => {
   describe('responsiveness', () => {
     it('should have responsive layout for content', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       // Check for responsive grid classes
@@ -399,7 +399,7 @@ describe('ScoringLegend', () => {
 
     it('should handle max height constraint', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const modal = container.querySelector('[class*="max-h"]');
@@ -408,7 +408,7 @@ describe('ScoringLegend', () => {
 
     it('should handle max width constraint', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       const modal = container.querySelector('[class*="max-w"]');
@@ -419,16 +419,16 @@ describe('ScoringLegend', () => {
   describe('edge cases', () => {
     it('should handle rapid open/close cycles', () => {
       const { rerender } = render(
-        <ScoringLegend isOpen={false} onClose={mockOnClose} />
+        <ScoringLegend isOpen={false} onClose={mockOnClose} gameName="Test Game" />
       );
 
-      rerender(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      rerender(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
       expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
 
-      rerender(<ScoringLegend isOpen={false} onClose={mockOnClose} />);
+      rerender(<ScoringLegend isOpen={false} onClose={mockOnClose} gameName="Test Game" />);
       expect(screen.queryByText('🏆 Scoring System')).not.toBeInTheDocument();
 
-      rerender(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      rerender(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
       expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
     });
 
@@ -454,7 +454,7 @@ describe('ScoringLegend', () => {
     });
 
     it('should display all difficulty tiers', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       // Verify all daily difficulties are present - use getAllByText since "Hard" appears multiple times
       expect(screen.getByText(/Tricky/)).toBeInTheDocument();
@@ -466,7 +466,7 @@ describe('ScoringLegend', () => {
 
   describe('content verification', () => {
     it('should display all scoring information sections', () => {
-      render(<ScoringLegend isOpen={true} onClose={mockOnClose} />);
+      render(<ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />);
 
       expect(screen.getByText('🏁 Racing Wins')).toBeInTheDocument();
       expect(screen.getByText('📊 Base Points')).toBeInTheDocument();
@@ -476,7 +476,7 @@ describe('ScoringLegend', () => {
 
     it('should have correct badge coloring for speed tiers', () => {
       const { container } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose} gameName="Test Game" />
       );
 
       // Lightning should be yellow, Fast orange, Quick blue, Steady green

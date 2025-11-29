@@ -7,9 +7,10 @@ import { SCORING_CONFIG } from '../helpers/scoringConfig';
 interface ScoringLegendProps {
   isOpen: boolean;
   onClose: () => void;
+  gameName: string;
 }
 
-const ScoringLegend: React.FC<ScoringLegendProps> = ({ isOpen, onClose }) => {
+const ScoringLegend: React.FC<ScoringLegendProps> = ({ isOpen, onClose, gameName }) => {
   if (!isOpen) return null;
 
   return (
@@ -92,7 +93,7 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({ isOpen, onClose }) => {
                 {/* Daily Puzzle Difficulties */}
                 <div>
                   <h5 className="mb-3 text-sm font-semibold text-red-700 dark:text-red-300">
-                    ⭐ Sudoku of the Day
+                    ⭐ {gameName} of the Day
                   </h5>
                   <div className="grid grid-cols-1 gap-2">
                     {[

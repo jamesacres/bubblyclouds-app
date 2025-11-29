@@ -212,6 +212,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
       <ScoringLegend
         isOpen={showScoringLegend}
         onClose={() => setShowScoringLegend(false)}
+        gameName="Sudoku"
       />
     </div>
   );
