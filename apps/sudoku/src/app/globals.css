@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @source "../../../../node_modules/@sudoku-web/auth";
+@source "../../../../node_modules/@sudoku-web/games";
 @source "../../../../node_modules/@sudoku-web/shared";
 @source "../../../../node_modules/@sudoku-web/sudoku";
 @source "../../../../node_modules/@sudoku-web/template";
