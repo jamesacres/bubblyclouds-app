@@ -74,6 +74,7 @@ export function useWakeLock() {
       }
     };
 
+    console.info('listening to visibilitychange');
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
@@ -85,7 +86,7 @@ export function useWakeLock() {
     return () => {
       releaseWakeLock();
     };
-  }, []);
+  }, [releaseWakeLock]);
 
   return {
     requestWakeLock,
