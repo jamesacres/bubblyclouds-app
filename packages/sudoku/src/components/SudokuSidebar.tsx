@@ -13,6 +13,8 @@ import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
 import SimpleSudoku from '../components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 
+const app = 'sudoku';
+
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
 );
@@ -225,14 +227,14 @@ const SudokuSidebar = ({
                         <PartyRow<ServerState>
                           key={party.partyId}
                           party={party}
-                          puzzleId={puzzleId}
+                          sessionId={`${app}-${puzzleId}`}
                           redirectUri={redirectUri}
                           sessionParty={sessionParties[party.partyId]}
                           SimpleState={SimpleStateWrapper}
                           calculateCompletionPercentageFromState={
                             calculateCompletionPercentageFromState
                           }
-                          app="sudoku"
+                          app={app}
                         />
                       );
                     })}

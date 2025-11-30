@@ -4,7 +4,7 @@ import RaceTrack from './RaceTrack';
 import * as usePartiesModule from '@sudoku-web/template/hooks/useParties';
 import * as playerColorsModule from '@sudoku-web/template/utils/playerColors';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { BaseServerState } from '@sudoku-web/template/types/gameState';
+import { BaseServerState } from '@sudoku-web/template/types/state';
 
 jest.mock('@sudoku-web/template/hooks/useParties');
 jest.mock('@sudoku-web/template/utils/playerColors');

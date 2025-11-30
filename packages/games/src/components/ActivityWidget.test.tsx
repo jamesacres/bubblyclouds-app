@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ActivityWidget from './ActivityWidget';
-import { BaseServerState } from '@sudoku-web/template/types/gameState';
+import { BaseServerState } from '@sudoku-web/template/types/state';
 import { ServerStateResult } from '@sudoku-web/types/serverTypes';
 
 // Mock react-feather

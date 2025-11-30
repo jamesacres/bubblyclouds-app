@@ -1,5 +1,5 @@
 import { ServerStateResult } from '@sudoku-web/types/serverTypes';
-import { BaseServerState } from '@sudoku-web/template/types/gameState';
+import { BaseServerState } from '@sudoku-web/template/types/state';
 
 export interface FriendsLeaderboardScore {
   userId: string;

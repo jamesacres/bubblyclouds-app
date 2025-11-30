@@ -1,13 +1,13 @@
 import { calculateBoxId, calculateCellId } from '../helpers/calculateId';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
-import { BaseGameState } from '@sudoku-web/template/types/gameState';
+import { BaseState } from '@sudoku-web/template/types/state';
 
 interface SimpleSudokuProps {
   initial?: Puzzle<number>;
   final?: Puzzle<number>;
   latest?: Puzzle | undefined;
   transparent?: boolean;
-  state?: BaseGameState<Puzzle<number>, Puzzle>;
+  state?: BaseState<Puzzle<number>, Puzzle>;
 }
 
 const SimpleSudoku = (props: SimpleSudokuProps) => {

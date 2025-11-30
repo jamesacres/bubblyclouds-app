@@ -2,7 +2,7 @@
 import { ComponentType } from 'react';
 import { ServerStateResult } from '@sudoku-web/types/serverTypes';
 import IntegratedSessionRow from './IntegratedSessionRow';
-import { BaseServerState } from '../types/gameState';
+import { BaseServerState } from '../types/state';
 
 interface MyPuzzlesTabProps<TState extends BaseServerState = BaseServerState> {
   sessions?: ServerStateResult<TState>[];

@@ -14,14 +14,11 @@ import {
 import FriendLeaderboardEntry from './FriendLeaderboardEntry';
 import ScoringLegend from './ScoringLegend';
 import { UserSessions } from '@sudoku-web/types/userSessions';
-import {
-  BaseGameState,
-  BaseServerState,
-} from '@sudoku-web/template/types/gameState';
+import { BaseState, BaseServerState } from '@sudoku-web/template/types/state';
 
 interface LeaderboardProps<TState extends BaseServerState = BaseServerState> {
   sessions: ServerStateResult<TState>[] | null;
-  friendSessions: UserSessions<BaseGameState>;
+  friendSessions: UserSessions<BaseState>;
   parties: Party[];
   user: UserProfile;
   selectedParty?: Party;

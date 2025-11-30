@@ -11,10 +11,7 @@ import { Tab } from '@sudoku-web/types/tabs';
 import TrafficLight from './TrafficLight';
 import Link from 'next/link';
 import { RefreshCw } from 'react-feather';
-import {
-  BaseGameState,
-  BaseServerState,
-} from '@sudoku-web/template/types/gameState';
+import { BaseState, BaseServerState } from '@sudoku-web/template/types/state';
 
 interface Arguments {
   sessionParties: Parties<Session<BaseServerState>>;
@@ -24,7 +21,7 @@ interface Arguments {
   userId?: string;
   onClick?: () => void;
   countdown?: number;
-  completed?: BaseGameState['completed'];
+  completed?: BaseState['completed'];
   refreshSessionParties: () => void;
   isPolling: boolean;
   answerStack: any[];

@@ -4,21 +4,20 @@ import { useState } from 'react';
 import { isIOS } from '../helpers/capacitor';
 
 const PartyInviteButton = ({
-  puzzleId,
+  sessionId,
   redirectUri,
   partyId,
   partyName,
   extraSmall = false,
   app,
 }: {
-  puzzleId: string;
+  sessionId: string;
   redirectUri: string;
   partyId: string;
   partyName: string;
   extraSmall?: boolean;
   app: string;
 }) => {
-  const sessionId = `sudoku-${puzzleId}`;
   const [inviteUrl, setInviteUrl] = useState('');
   const { createInvite } = useServerStorage({ app });
 

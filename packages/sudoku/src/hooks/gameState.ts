@@ -65,7 +65,7 @@ function useGameState({
 
   const { timer, setTimerNewSession, stopTimer, setPauseTimer, isPaused } =
     useTimer({
-      puzzleId,
+      id: puzzleId,
     });
 
   // Reference to timer value to use without triggering re-renders

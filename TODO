@@ -1,4 +1,5 @@
 
+move SudokuSidebar into template as Sidebar with app as prop
 pass sudoku as a prop to packages/auth files
 and packages/ui
 move all sudoku app config to a file

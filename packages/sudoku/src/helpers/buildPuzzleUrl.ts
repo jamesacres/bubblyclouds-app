@@ -1,4 +1,4 @@
-import { BaseGameState } from '@sudoku-web/template/types/gameState';
+import { BaseState } from '@sudoku-web/template/types/state';
 import { Puzzle } from '../types/puzzle';
 import { GameStateMetadata } from '../types/state';
 import { puzzleToPuzzleText } from './puzzleTextToPuzzle';
@@ -24,7 +24,7 @@ export const buildPuzzleUrl = (
 };
 
 export const buildPuzzleUrlFromState = (
-  state: BaseGameState<Puzzle>,
+  state: BaseState<Puzzle>,
   isCompleted?: boolean
 ): string => {
   const initial = puzzleToPuzzleText(state.initial);

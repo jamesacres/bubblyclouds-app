@@ -15,13 +15,13 @@ import { ComponentType, useContext, useState } from 'react';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
 import { LogOut, Trash, UserMinus, Edit3, Users } from 'react-feather';
 import { isIOS } from '../helpers/capacitor';
-import { BaseServerState } from '../types/gameState';
+import { BaseServerState } from '../types/state';
 
 const DEFAULT_MAX_SIZE = 5;
 
 interface PartyRowProps<TState extends BaseServerState = BaseServerState> {
   party: Party;
-  puzzleId: string;
+  sessionId: string;
   redirectUri: string;
   sessionParty?: SessionParty<Session<TState>>;
   SimpleState: ComponentType<{ state: TState }>;
@@ -31,7 +31,7 @@ interface PartyRowProps<TState extends BaseServerState = BaseServerState> {
 
 const PartyRow = <TState extends BaseServerState = BaseServerState>({
   party: { partyName, isOwner, members, partyId, maxSize },
-  puzzleId,
+  sessionId,
   redirectUri,
   sessionParty,
   SimpleState,
@@ -269,7 +269,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
         {isOwner && members.length < (maxSize || DEFAULT_MAX_SIZE) && (
           <div className="mt-2">
             <PartyInviteButton
-              puzzleId={puzzleId}
+              sessionId={sessionId}
               redirectUri={redirectUri}
               partyId={partyId}
               partyName={partyName}
@@ -369,7 +369,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
                     </p>
                     {isOwner ? (
                       <PartyInviteButton
-                        puzzleId={puzzleId}
+                        sessionId={sessionId}
                         redirectUri={redirectUri}
                         partyId={partyId}
                         partyName={partyName}

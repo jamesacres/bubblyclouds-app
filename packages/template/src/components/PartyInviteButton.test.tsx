@@ -43,7 +43,7 @@ const mockUseServerStorage = serverStorageModule.useServerStorage as jest.Mock;
 
 describe('PartyInviteButton', () => {
   const defaultProps = {
-    puzzleId: 'puzzle123',
+    sessionId: 'sudoku-puzzle123',
     redirectUri: '/puzzle/123',
     partyId: 'party1',
     partyName: 'Test Party',
@@ -72,7 +72,7 @@ describe('PartyInviteButton', () => {
 
     await waitFor(() => {
       expect(mockCreateInvite).toHaveBeenCalledWith({
-        sessionId: `sudoku-${defaultProps.puzzleId}`,
+        sessionId: defaultProps.sessionId,
         redirectUri: defaultProps.redirectUri,
         expiresAt: new Date('2024-01-08').toISOString(),
         description: defaultProps.partyName,

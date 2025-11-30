@@ -3,7 +3,7 @@
 import { cloneElement, ReactElement } from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntegratedSessionRow } from './IntegratedSessionRow';
-import { BaseServerState } from '../types/gameState';
+import { BaseServerState } from '../types/state';
 import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
 import { ServerStateResult } from '@sudoku-web/types/serverTypes';
 

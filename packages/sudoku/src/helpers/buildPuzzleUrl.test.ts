@@ -2,7 +2,7 @@ import { describe, it, expect } from '@jest/globals';
 import { buildPuzzleUrl, buildPuzzleUrlFromState } from './buildPuzzleUrl';
 import { GameStateMetadata } from '../types/state';
 import { Puzzle } from '../types/puzzle';
-import { BaseGameState } from '@sudoku-web/template/types/gameState';
+import { BaseState } from '@sudoku-web/template/types/state';
 
 describe('buildPuzzleUrl', () => {
   describe('basic functionality', () => {
@@ -380,7 +380,7 @@ describe('buildPuzzleUrlFromState', () => {
   };
 
   it('should build URL from state object', () => {
-    const state: BaseGameState<Puzzle<number>> = {
+    const state: BaseState<Puzzle<number>> = {
       initial: createEmptyPuzzle(),
       final: createEmptyPuzzle(),
       answerStack: [],
@@ -395,7 +395,7 @@ describe('buildPuzzleUrlFromState', () => {
   });
 
   it('should include metadata from state', () => {
-    const state: BaseGameState<Puzzle<number>> = {
+    const state: BaseState<Puzzle<number>> = {
       initial: createEmptyPuzzle(),
       final: createEmptyPuzzle(),
       answerStack: [],
@@ -412,7 +412,7 @@ describe('buildPuzzleUrlFromState', () => {
   });
 
   it('should include isCompleted flag when provided', () => {
-    const state: BaseGameState<Puzzle<number>> = {
+    const state: BaseState<Puzzle<number>> = {
       initial: createEmptyPuzzle(),
       final: createEmptyPuzzle(),
       answerStack: [],
@@ -425,7 +425,7 @@ describe('buildPuzzleUrlFromState', () => {
   });
 
   it('should not include alreadyCompleted when not provided', () => {
-    const state: BaseGameState<Puzzle<number>> = {
+    const state: BaseState<Puzzle<number>> = {
       initial: createEmptyPuzzle(),
       final: createEmptyPuzzle(),
       answerStack: [],

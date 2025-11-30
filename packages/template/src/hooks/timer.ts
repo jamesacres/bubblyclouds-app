@@ -9,11 +9,11 @@ import { Timer } from '../types/timer';
 // eslint-disable-next-line no-undef
 let interval: NodeJS.Timeout;
 
-function useTimer({ puzzleId }: { puzzleId: string }) {
+function useTimer({ id }: { id: string }) {
   const isDocumentVisible = useDocumentVisibility();
   const [isPaused, setPauseTimer] = useState(false);
   const { getValue, saveValue } = useLocalStorage({
-    id: puzzleId,
+    id,
     type: StateType.TIMER,
   });
   const [timer, setTimer] = useState<null | Timer>(null);
@@ -109,12 +109,12 @@ function useTimer({ puzzleId }: { puzzleId: string }) {
     if (savedTimer) {
       setTimerNewSession(savedTimer);
     }
-  }, [puzzleId, getValue, setTimerNewSession]);
+  }, [id, getValue, setTimerNewSession]);
   useEffect(() => {
     if (timer) {
       saveValue(timer);
     }
-  }, [puzzleId, timer, saveValue]);
+  }, [id, timer, saveValue]);
 
   return {
     setTimerNewSession,

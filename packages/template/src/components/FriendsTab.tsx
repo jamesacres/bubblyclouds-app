@@ -6,7 +6,7 @@ import { useSessions } from '../providers/SessionsProvider';
 import { Loader, ChevronDown, ChevronRight, RotateCcw } from 'react-feather';
 import IntegratedSessionRow from './IntegratedSessionRow';
 import Leaderboard from '@sudoku-web/games/components/Leaderboard';
-import { BaseServerState } from '../types/gameState';
+import { BaseServerState } from '../types/state';
 
 interface FriendsTabProps<TState extends BaseServerState = BaseServerState> {
   user: UserProfile | undefined;

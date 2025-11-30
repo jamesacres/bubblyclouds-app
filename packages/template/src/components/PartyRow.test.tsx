@@ -80,7 +80,7 @@ describe('PartyRow', () => {
 
   const defaultProps = {
     party: mockParty,
-    puzzleId: 'puzzle123',
+    sessionId: `sudoku-puzzle123`,
     redirectUri: '/puzzle/123',
   };
 

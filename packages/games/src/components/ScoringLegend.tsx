@@ -10,7 +10,11 @@ interface ScoringLegendProps {
   gameName: string;
 }
 
-const ScoringLegend: React.FC<ScoringLegendProps> = ({ isOpen, onClose, gameName }) => {
+const ScoringLegend: React.FC<ScoringLegendProps> = ({
+  isOpen,
+  onClose,
+  gameName,
+}) => {
   if (!isOpen) return null;
 
   return (

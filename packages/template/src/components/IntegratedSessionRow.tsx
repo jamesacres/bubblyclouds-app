@@ -11,7 +11,7 @@ import { useSessions } from '../providers/SessionsProvider';
 import { Award, Loader } from 'react-feather';
 import Link from 'next/link';
 import { UserSessions } from '@sudoku-web/types/userSessions';
-import { BaseServerState } from '../types/gameState';
+import { BaseServerState } from '../types/state';
 
 // Function to get game status text
 const getGameStatusText = <TState extends BaseServerState = BaseServerState>(

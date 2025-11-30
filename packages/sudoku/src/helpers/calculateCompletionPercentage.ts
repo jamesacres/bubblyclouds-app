@@ -1,6 +1,6 @@
 import { Notes } from '../types/notes';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
-import { BaseGameState } from '@sudoku-web/template/types/gameState';
+import { BaseState } from '@sudoku-web/template/types/state';
 
 export const calculateCompletionPercentage = (
   initial: Puzzle<number | Notes>,
@@ -41,7 +41,7 @@ export const calculateCompletionPercentage = (
 };
 
 export const calculateCompletionPercentageFromState = (
-  state: BaseGameState<Puzzle<number | Notes>>
+  state: BaseState<Puzzle<number | Notes>>
 ): number => {
   const latest =
     state.answerStack.length > 0

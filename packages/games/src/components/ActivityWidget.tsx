@@ -1,6 +1,6 @@
 'use client';
 import { ServerStateResult } from '@sudoku-web/types/serverTypes';
-import { BaseServerState } from '@sudoku-web/template/types/gameState';
+import { BaseServerState } from '@sudoku-web/template/types/state';
 import { Calendar, Activity } from 'react-feather';
 
 interface ActivityWidgetProps {

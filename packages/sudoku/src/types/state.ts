@@ -1,16 +1,15 @@
 import { Notes } from './notes';
 import { Puzzle } from './puzzle';
 import {
-  BaseGameState,
+  BaseState,
   BaseServerState,
-  SelectNumber,
-  SetSelectedCell,
   BaseSetAnswer,
-} from '@sudoku-web/template/types/gameState';
+} from '@sudoku-web/template/types/state';
 import { Timer } from '@sudoku-web/template/types/timer';
 
-// Re-export generic types
-export type { SelectNumber, SetSelectedCell };
+export type SelectNumber = (_value: number, forceNotes?: boolean) => void;
+
+export type SetSelectedCell = (_cell: string | null) => void;
 
 // Sudoku-specific metadata type
 export interface GameStateMetadata {
@@ -25,7 +24,7 @@ export type SetAnswer = BaseSetAnswer<number | Notes>;
 
 // Sudoku-specific GameState and ServerState
 export interface GameState
-  extends BaseGameState<Puzzle<number>, Puzzle, GameStateMetadata> {
+  extends BaseState<Puzzle<number>, Puzzle, GameStateMetadata> {
   answerStack: Puzzle[];
   initial: Puzzle<number>;
   final: Puzzle<number>;
