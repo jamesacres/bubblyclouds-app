@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface WakeLockSentinel {
   released: boolean;
@@ -19,7 +19,7 @@ export function useWakeLock() {
   const wakeLockRef = useRef<WakeLockSentinel | null>(null);
   const [, setUpdateTrigger] = useState(0);
 
-  const requestWakeLock = async () => {
+  const requestWakeLock = useCallback(async () => {
     try {
       // Check if Wake Lock API is supported
       if ('wakeLock' in navigator) {
@@ -45,9 +45,9 @@ export function useWakeLock() {
       console.error('Failed to activate screen wake lock:', error);
     }
     return null;
-  };
+  }, []);
 
-  const releaseWakeLock = async () => {
+  const releaseWakeLock = useCallback(async () => {
     if (wakeLockRef.current && !wakeLockRef.current.released) {
       try {
         await wakeLockRef.current.release();
@@ -58,7 +58,7 @@ export function useWakeLock() {
         console.error('Failed to release screen wake lock:', error);
       }
     }
-  };
+  }, []);
 
   // Compute isActive based on current ref state
   const isActive = wakeLockRef.current ? !wakeLockRef.current.released : false;
@@ -78,7 +78,7 @@ export function useWakeLock() {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [requestWakeLock]);
 
   // Cleanup on unmount
   useEffect(() => {
