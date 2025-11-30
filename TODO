@@ -18,7 +18,7 @@ make template actually build and run
 
 Add contact + manage subscription link https://www.revenuecat.com/docs/subscription-guidance/managing-subscriptions#using-the-managementurl-to-help-customers-cancel-a-subscription
 
-fix next config file generation vercel
+fix next config file generation vercel https://vercel.com/docs/monorepos/turborepo
 
 rename to bubbly-app deploy separately to vercel
 render template, other apps
