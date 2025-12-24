@@ -16,7 +16,10 @@ import {
 import { useGameState } from '../hooks/gameState';
 import SudokuControls from '../components/SudokuControls';
 import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
-import SudokuSidebar from '../components/SudokuSidebar';
+import Sidebar from '@sudoku-web/template/components/Sidebar';
+import SimpleSudoku from '../components/SimpleSudoku';
+import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
+import { ServerState } from '../types/state';
 import {
   useCallback,
   useContext,
@@ -40,6 +43,12 @@ import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
 import MemoisedSidebarButton from '@sudoku-web/games/components/SidebarButton';
 import { useRouter } from 'next/navigation';
 import RacingPromptModal from '@sudoku-web/template/components/RacingPromptModal';
+
+const app = 'sudoku';
+
+const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
+  <SimpleSudoku state={state} />
+);
 
 const Sudoku = ({
   puzzle: { initial, final, puzzleId, redirectUri, metadata },
@@ -307,13 +316,18 @@ const Sudoku = ({
         onSoloMode={handleSoloMode}
       />
 
-      <SudokuSidebar
+      <Sidebar
         showSidebar={showSidebar}
         setShowSidebar={setShowSidebar}
         puzzleId={puzzleId}
         redirectUri={redirectUri}
         refreshSessionParties={refreshSessionParties}
         sessionParties={sessionParties}
+        app={app}
+        SimpleState={SimpleStateWrapper}
+        calculateCompletionPercentageFromState={
+          calculateCompletionPercentageFromState
+        }
       />
 
       {/* Display celebration animation when completed */}

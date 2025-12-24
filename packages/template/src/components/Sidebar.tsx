@@ -1,41 +1,39 @@
-import { memo, useContext } from 'react';
+import { memo, useContext, ComponentType, ReactElement } from 'react';
 import { Loader, RefreshCw, Users, X } from 'react-feather';
-import { PartyRow } from '@sudoku-web/template/components/PartyRow';
+import { PartyRow } from './PartyRow';
 import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { ServerState } from '../types/state';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
+import { useParties } from '../hooks/useParties';
 import {
   UserContext,
   UserContextInterface,
 } from '@sudoku-web/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
+import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
-import SimpleSudoku from '../components/SimpleSudoku';
-import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
+import { BaseServerState } from '../types/state';
 
-const app = 'sudoku';
-
-const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
-  <SimpleSudoku state={state} />
-);
-
-interface Arguments {
+interface Arguments<ServerState extends BaseServerState> {
   showSidebar: boolean;
   setShowSidebar: (showSidebar: boolean) => void;
   puzzleId: string;
   redirectUri: string;
   refreshSessionParties: () => Promise<void>;
   sessionParties: Parties<Session<ServerState>>;
+  app: string;
+  SimpleState: ComponentType<{ state: ServerState }>;
+  calculateCompletionPercentageFromState: (state: ServerState) => number;
 }
 
-const SudokuSidebar = ({
+const Sidebar = <ServerState extends BaseServerState>({
   showSidebar,
   setShowSidebar,
   puzzleId,
   redirectUri,
   refreshSessionParties,
   sessionParties,
-}: Arguments) => {
+  app,
+  SimpleState,
+  calculateCompletionPercentageFromState,
+}: Arguments<ServerState>) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user, loginRedirect } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
@@ -70,7 +68,6 @@ const SudokuSidebar = ({
         aria-label="Sidebar"
       >
         <div className="flex h-full flex-col rounded-r-3xl bg-stone-50/90 drop-shadow-lg backdrop-blur-md dark:bg-zinc-900/95">
-          {/* Fixed Header */}
           <div className="sticky top-0 z-10 rounded-tr-3xl px-4 pt-5 pb-3 backdrop-blur-md dark:bg-zinc-900/95">
             <div
               className={`mb-4 flex-nowrap items-center`}
@@ -102,7 +99,6 @@ const SudokuSidebar = ({
                     return;
                   }
 
-                  // Check if user already has parties and is not subscribed
                   if (parties.length > 0 && !isSubscribed) {
                     subscribeModal?.showModalIfRequired(
                       () => setShowCreateParty(true),
@@ -125,7 +121,6 @@ const SudokuSidebar = ({
             )}
           </div>
 
-          {/* Scrollable Content */}
           <div className="pb-safe flex-grow overflow-y-auto px-4">
             {showCreateParty && (
               <div className="border-theme-primary/20 mt-4 rounded-2xl border bg-stone-50/50 p-4 shadow-sm backdrop-blur-sm dark:bg-zinc-800/50">
@@ -230,7 +225,7 @@ const SudokuSidebar = ({
                           sessionId={`${app}-${puzzleId}`}
                           redirectUri={redirectUri}
                           sessionParty={sessionParties[party.partyId]}
-                          SimpleState={SimpleStateWrapper}
+                          SimpleState={SimpleState}
                           calculateCompletionPercentageFromState={
                             calculateCompletionPercentageFromState
                           }
@@ -248,11 +243,12 @@ const SudokuSidebar = ({
   );
 };
 
-// Prevent re-render on timer change
-const MemoisedSudokuSidebar = memo(function MemoisedSudokuSidebar(
-  args: Arguments
-) {
-  return SudokuSidebar(args);
-});
+const MemoisedSidebar = memo(function MemoisedSidebar<
+  ServerState extends BaseServerState,
+>(args: Arguments<ServerState>) {
+  return Sidebar(args);
+}) as <ServerState extends BaseServerState>(
+  args: Arguments<ServerState>
+) => ReactElement;
 
-export default MemoisedSudokuSidebar;
+export default MemoisedSidebar;

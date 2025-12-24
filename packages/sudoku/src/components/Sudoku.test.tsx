@@ -45,8 +45,8 @@ jest.mock('@sudoku-web/ui/components/TimerDisplay', () => ({
   TimerDisplay: () => <div data-testid="timer-display">Timer</div>,
 }));
 
-jest.mock('../components/SudokuSidebar', () => {
-  return function DummySudokuSidebar() {
+jest.mock('@sudoku-web/template/components/Sidebar', () => {
+  return function DummySidebar() {
     return <div data-testid="sudoku-sidebar">Sidebar</div>;
   };
 });

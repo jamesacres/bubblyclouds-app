@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import SudokuSidebar from './SudokuSidebar';
+import Sidebar from './Sidebar';
 import {
   UserContext,
   UserContextInterface,
@@ -8,18 +8,24 @@ import {
 import {
   RevenueCatContextInterface,
   RevenueCatContext,
-} from '@sudoku-web/template/providers/RevenueCatProvider';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
+} from '../providers/RevenueCatProvider';
+import { useParties } from '../hooks/useParties';
 
-jest.mock('@sudoku-web/template/hooks/useParties');
-jest.mock('@sudoku-web/template/components/PartyRow', () => ({
+jest.mock('../hooks/useParties');
+jest.mock('./PartyRow', () => ({
   __esModule: true,
   PartyRow: () => <div data-testid="party-row">Party Row</div>,
 }));
 
 const mockUseParties = useParties as jest.MockedFunction<typeof useParties>;
 
-describe('SudokuSidebar', () => {
+const MockSimpleState = ({ state: _state }: { state: unknown }) => (
+  <div data-testid="simple-state">Simple State</div>
+);
+
+const mockCalculateCompletion = () => 50;
+
+describe('Sidebar', () => {
   const defaultProps = {
     showSidebar: true,
     setShowSidebar: jest.fn(),
@@ -27,10 +33,13 @@ describe('SudokuSidebar', () => {
     redirectUri: '/puzzle/123',
     refreshSessionParties: jest.fn(),
     sessionParties: {},
+    app: 'testapp',
+    SimpleState: MockSimpleState,
+    calculateCompletionPercentageFromState: mockCalculateCompletion,
   };
 
   const renderComponent = (
-    props: Partial<React.ComponentProps<typeof SudokuSidebar>> = {},
+    props: Partial<React.ComponentProps<typeof Sidebar>> = {},
     context: {
       user?: Partial<UserContextInterface>;
       revenueCat?: Partial<RevenueCatContextInterface>;
@@ -58,7 +67,7 @@ describe('SudokuSidebar', () => {
         <RevenueCatContext.Provider
           value={revenueCatContext as unknown as RevenueCatContextInterface}
         >
-          <SudokuSidebar {...defaultProps} {...props} />
+          <Sidebar {...defaultProps} {...props} />
         </RevenueCatContext.Provider>
       </UserContext.Provider>
     );
