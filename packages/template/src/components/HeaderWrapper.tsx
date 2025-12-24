@@ -8,7 +8,13 @@ import { useOnline } from '../hooks/online';
 import { isCapacitor } from '../helpers/capacitor';
 import { useServerStorage } from '../hooks/serverStorage';
 
-export default function HeaderWrapper({ app }: { app: string }) {
+export default function HeaderWrapper({
+  app,
+  appName,
+}: {
+  app: string;
+  appName: string;
+}) {
   const revenueCatContext = useContext(RevenueCatContext);
   const { isOnline } = useOnline();
   const { deleteAccount } = useServerStorage({ app });
@@ -30,6 +36,7 @@ export default function HeaderWrapper({ app }: { app: string }) {
           : undefined,
         deleteAccount,
       }}
+      appName={appName}
     />
   );
 }

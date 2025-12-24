@@ -19,6 +19,7 @@ interface Arguments<ServerState extends BaseServerState> {
   refreshSessionParties: () => Promise<void>;
   sessionParties: Parties<Session<ServerState>>;
   app: string;
+  appName: string;
   SimpleState: ComponentType<{ state: ServerState }>;
   calculateCompletionPercentageFromState: (state: ServerState) => number;
 }
@@ -31,6 +32,7 @@ const Sidebar = <ServerState extends BaseServerState>({
   refreshSessionParties,
   sessionParties,
   app,
+  appName,
   SimpleState,
   calculateCompletionPercentageFromState,
 }: Arguments<ServerState>) => {
@@ -230,6 +232,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                             calculateCompletionPercentageFromState
                           }
                           app={app}
+                          appName={appName}
                         />
                       );
                     })}

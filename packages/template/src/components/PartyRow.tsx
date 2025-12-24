@@ -27,6 +27,7 @@ interface PartyRowProps<TState extends BaseServerState = BaseServerState> {
   SimpleState: ComponentType<{ state: TState }>;
   calculateCompletionPercentageFromState: (state: TState) => number;
   app: string;
+  appName: string;
 }
 
 const PartyRow = <TState extends BaseServerState = BaseServerState>({
@@ -37,6 +38,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
   SimpleState,
   calculateCompletionPercentageFromState,
   app,
+  appName,
 }: PartyRowProps<TState>) => {
   const { parties, leaveParty, removeMember, deleteParty, updateParty } =
     useParties();
@@ -274,6 +276,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
               partyId={partyId}
               partyName={partyName}
               app={app}
+              appName={appName}
             />
           </div>
         )}
@@ -289,6 +292,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
               }
               partyName={partyName}
               isIOS={isIOS}
+              appName={appName}
             />
           </div>
         )}
@@ -375,6 +379,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
                         partyName={partyName}
                         extraSmall={true}
                         app={app}
+                        appName={appName}
                       />
                     ) : (
                       <div className="mt-1">
@@ -385,6 +390,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
                           extraSmall={true}
                           partyName={partyName}
                           isIOS={isIOS}
+                          appName={appName}
                         />
                       </div>
                     )}

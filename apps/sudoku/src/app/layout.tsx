@@ -107,7 +107,7 @@ export default function RootLayout({
         <GlobalErrorHandler />
         <ErrorBoundary>
           <Providers>
-            <HeaderWrapper app="sudoku" />
+            <HeaderWrapper app="sudoku" appName="Sudoku Race" />
             <div className="mb-24">{children}</div>
             <PlusModal
               features={PREMIUM_FEATURES}

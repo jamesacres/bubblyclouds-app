@@ -10,6 +10,7 @@ const PartyInviteButton = ({
   partyName,
   extraSmall = false,
   app,
+  appName,
 }: {
   sessionId: string;
   redirectUri: string;
@@ -17,6 +18,7 @@ const PartyInviteButton = ({
   partyName: string;
   extraSmall?: boolean;
   app: string;
+  appName: string;
 }) => {
   const [inviteUrl, setInviteUrl] = useState('');
   const { createInvite } = useServerStorage({ app });
@@ -47,6 +49,7 @@ const PartyInviteButton = ({
       extraSmall={extraSmall}
       partyName={partyName}
       isIOS={isIOS}
+      appName={appName}
     />
   );
 };

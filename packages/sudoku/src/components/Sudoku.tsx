@@ -45,6 +45,7 @@ import { useRouter } from 'next/navigation';
 import RacingPromptModal from '@sudoku-web/template/components/RacingPromptModal';
 
 const app = 'sudoku';
+const appName = 'Sudoku Race';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -324,6 +325,7 @@ const Sudoku = ({
         refreshSessionParties={refreshSessionParties}
         sessionParties={sessionParties}
         app={app}
+        appName={appName}
         SimpleState={SimpleStateWrapper}
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
