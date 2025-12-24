@@ -15,6 +15,7 @@ export interface UserContextInterface {
   logout: () => void;
   handleAuthUrl: (options: { active: boolean }) => void;
   handleRestoreState: () => void;
+  app: string;
 }
 
 export const UserContext = React.createContext<
@@ -31,15 +32,16 @@ export interface AuthFetchHook {
 
 const buildRedirectUri = (
   isElectron: () => boolean,
-  isCapacitor: () => boolean
+  isCapacitor: () => boolean,
+  app: string
 ) => {
   if (isElectron()) {
     // Deep link
-    const scheme = 'com.bubblyclouds.sudoku';
+    const scheme = `com.bubblyclouds.${app}`;
     return `${scheme}://-/auth.html`;
   } else if (isCapacitor()) {
     // iOS/Android needs custom URL scheme to be able to redirect from our browser back
-    const scheme = 'com.bubblyclouds.sudoku';
+    const scheme = `com.bubblyclouds.${app}`;
     return `${scheme}://-/auth`;
   }
   return `${window.location.origin}/auth`;
@@ -68,10 +70,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const router = useRouter();
 
   const iss = 'https://auth.bubblyclouds.com';
-  const { isElectron, isCapacitor, openBrowser, getCapacitorState } =
+  const { isElectron, isCapacitor, openBrowser, getCapacitorState, app } =
     platformServices;
   const clientId =
-    isElectron() || isCapacitor() ? 'bubbly-sudoku-native' : 'bubbly-sudoku';
+    isElectron() || isCapacitor() ? `bubbly-${app}-native` : `bubbly-${app}`;
 
   const restoreCapacitorState = React.useCallback(
     async (
@@ -146,7 +148,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const { codeChallenge, codeVerifier, codeChallengeMethod } = await pkce();
       localStorage.setItem('code_verifier', codeVerifier);
 
-      const redirectUri = buildRedirectUri(isElectron, isCapacitor);
+      const redirectUri = buildRedirectUri(isElectron, isCapacitor, app);
       const scope = [
         'openid',
         'profile',
@@ -186,7 +188,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsLoggingIn(false);
       }, 10000);
     },
-    [clientId, isElectron, isCapacitor, openBrowser]
+    [clientId, isElectron, isCapacitor, openBrowser, app]
   );
 
   const handleUser = React.useCallback(
@@ -240,7 +242,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             const query = new URLSearchParams(window.location.search);
             const code = query.get('code') || '';
             const state = query.get('state') || '';
-            const redirectUri = buildRedirectUri(isElectron, isCapacitor);
+            const redirectUri = buildRedirectUri(isElectron, isCapacitor, app);
 
             const codeVerifier = localStorage.getItem('code_verifier');
             if (state === localStorage.getItem('state') && codeVerifier) {
@@ -305,7 +307,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       };
       await codeExchange();
     },
-    [clientId, router, handleUser, fetch, isElectron, isCapacitor]
+    [clientId, router, handleUser, fetch, isElectron, isCapacitor, app]
   );
 
   const handleRestoreState = React.useCallback(async () => {
@@ -379,6 +381,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         handleAuthUrl,
         handleRestoreState,
         logout: handleLogout,
+        app,
       }}
     >
       {children}

@@ -31,11 +31,16 @@ let isRefreshing = false;
 function useFetch() {
   const [stateRef, setState] = useContext(FetchContext)!;
   const platformServices = useContext(PlatformServicesContext)!;
-  const { isElectron, isCapacitor, saveElectronState, saveCapacitorState } =
-    platformServices;
+  const {
+    isElectron,
+    isCapacitor,
+    saveElectronState,
+    saveCapacitorState,
+    app,
+  } = platformServices;
 
   const clientId =
-    isElectron() || isCapacitor() ? 'bubbly-sudoku-native' : 'bubbly-sudoku';
+    isElectron() || isCapacitor() ? `bubbly-${app}-native` : `bubbly-${app}`;
 
   const saveState = useCallback(
     async (newState: State, isRestoreState: boolean = false) => {

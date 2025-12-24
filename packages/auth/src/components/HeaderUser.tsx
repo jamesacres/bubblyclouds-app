@@ -18,16 +18,17 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
   showSubscribeModal,
   deleteAccount,
 }) => {
-  const { isLoggingIn, loginRedirect, logout, user } =
+  const { isLoggingIn, loginRedirect, logout, user, app } =
     (React.useContext(UserContext) as UserContextInterface | undefined) || {};
 
-  return user && logout ? (
+  return user && logout && app ? (
     <UserButton
       user={user}
       logout={logout}
       isSubscribed={isSubscribed}
       showSubscribeModal={showSubscribeModal}
       deleteAccount={deleteAccount}
+      app={app}
     />
   ) : (
     isOnline && (

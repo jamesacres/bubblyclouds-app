@@ -31,6 +31,7 @@ const platformServices: PlatformServices = {
   saveCapacitorState,
   getCapacitorState,
   saveElectronState,
+  app: 'sudoku',
 };
 
 export function Providers({ children }: PropsWithChildren) {

@@ -18,6 +18,7 @@ interface UserPanelProps extends UserPanelDependencies {
   logout: () => void;
   onClose?: () => void;
   isMobile?: boolean;
+  app: string;
 }
 
 export const UserPanel = ({
@@ -28,6 +29,7 @@ export const UserPanel = ({
   deleteAccount,
   isSubscribed = false,
   showSubscribeModal,
+  app,
 }: UserPanelProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
@@ -73,7 +75,7 @@ export const UserPanel = ({
         <div className="rounded-full border border-gray-600 bg-gray-700 px-6 py-3 text-center">
           <span className="inline-flex items-center text-sm font-medium">
             <span className="mr-2">✨</span>
-            Sudoku Plus Active
+            {app.charAt(0).toUpperCase() + app.slice(1)} Plus Active
             <span className="ml-2">✓</span>
           </span>
         </div>
@@ -82,7 +84,7 @@ export const UserPanel = ({
           onClick={() => showSubscribeModal?.(() => {})}
           className="w-full cursor-pointer rounded-full border border-gray-600 bg-gray-700 px-6 py-3 text-sm font-medium transition-colors hover:bg-gray-600"
         >
-          Join Sudoku Plus
+          Join {app.charAt(0).toUpperCase() + app.slice(1)} Plus
         </button>
       )}
     </>
