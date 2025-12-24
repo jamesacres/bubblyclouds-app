@@ -50,10 +50,11 @@ export const PartiesContext = createContext<
   PartiesContextInterface | undefined
 >(undefined);
 
-const PartiesProvider: React.FC<{ children: React.ReactNode; app: string }> = ({
-  children,
-  app,
-}) => {
+const PartiesProvider: React.FC<{
+  children: React.ReactNode;
+  app: string;
+  apiUrl: string;
+}> = ({ children, app, apiUrl }) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
   const {
@@ -63,7 +64,7 @@ const PartiesProvider: React.FC<{ children: React.ReactNode; app: string }> = ({
     leaveParty,
     removeMember,
     deleteParty,
-  } = useServerStorage({ app });
+  } = useServerStorage({ app, apiUrl });
 
   // Party state
   const [parties, setParties] = useState<Party[]>([]);

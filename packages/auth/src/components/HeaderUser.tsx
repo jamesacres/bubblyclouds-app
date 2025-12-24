@@ -10,6 +10,9 @@ export interface HeaderUserDependencies {
   isSubscribed?: boolean;
   showSubscribeModal?: (onSuccess: () => void) => void;
   deleteAccount?: () => Promise<boolean>;
+  privacyUrl: string;
+  termsUrl: string;
+  companyUrl: string;
 }
 
 const HeaderUser: React.FC<HeaderUserDependencies> = ({
@@ -17,6 +20,9 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
   isSubscribed = false,
   showSubscribeModal,
   deleteAccount,
+  privacyUrl,
+  termsUrl,
+  companyUrl,
 }) => {
   const { isLoggingIn, loginRedirect, logout, user, app } =
     (React.useContext(UserContext) as UserContextInterface | undefined) || {};
@@ -29,6 +35,9 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
       showSubscribeModal={showSubscribeModal}
       deleteAccount={deleteAccount}
       app={app}
+      privacyUrl={privacyUrl}
+      termsUrl={termsUrl}
+      companyUrl={companyUrl}
     />
   ) : (
     isOnline && (

@@ -52,11 +52,15 @@ function useGameState({
   initial,
   puzzleId,
   metadata,
+  app,
+  apiUrl,
 }: {
   final: Puzzle<number>;
   initial: Puzzle<number>;
   puzzleId: string;
   metadata: Partial<GameStateMetadata>;
+  app: string;
+  apiUrl: string;
 }) {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
@@ -97,6 +101,8 @@ function useGameState({
     });
   const { getValue: getServerValue, saveValue: saveServerValue } =
     useSudokuServerStorage({
+      app,
+      apiUrl,
       id: puzzleId,
       type: StateType.PUZZLE,
     });

@@ -205,6 +205,21 @@ describe('Sudoku', () => {
     metadata: {},
   } as any;
 
+  const mockAppProps = {
+    app: 'sudoku',
+    appName: 'Sudoku Race',
+    apiUrl: 'https://api.bubblyclouds.com',
+    appUrl: 'https://sudoku.bubblyclouds.com',
+    appStoreUrl: 'https://apps.apple.com/app/sudoku-race/id6517357180',
+    googlePlayUrl:
+      'https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku',
+    deepLinkScheme: 'com.bubblyclouds.sudoku',
+    mobileDescription:
+      'Get the best racing experience with our Sudoku Race app!',
+    desktopDescription: 'Download Sudoku Race',
+    openInAppLabel: 'Open Puzzle',
+  };
+
   const mockUserContext = {
     user: { sub: 'user-123' },
   };
@@ -228,7 +243,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -239,7 +254,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -250,7 +265,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -261,7 +276,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -277,7 +292,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -290,7 +305,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -300,6 +315,8 @@ describe('Sudoku', () => {
         initial: mockPuzzle.initial,
         puzzleId: mockPuzzle.puzzleId,
         metadata: mockPuzzle.metadata,
+        app: mockAppProps.app,
+        apiUrl: mockAppProps.apiUrl,
       });
     });
 
@@ -312,7 +329,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={puzzleWithMetadata} />
+            <Sudoku puzzle={puzzleWithMetadata} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -335,7 +352,11 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} showRacingPrompt={true} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              showRacingPrompt={true}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -349,7 +370,11 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} alreadyCompleted={true} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              alreadyCompleted={true}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -361,7 +386,11 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} showRacingPrompt={false} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              showRacingPrompt={false}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -373,7 +402,11 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} showRacingPrompt={true} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              showRacingPrompt={true}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -390,7 +423,11 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} showRacingPrompt={true} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              showRacingPrompt={true}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -409,7 +446,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -423,7 +460,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -455,7 +492,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -479,7 +516,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -498,7 +535,11 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} alreadyCompleted={true} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              alreadyCompleted={true}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -518,7 +559,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -535,7 +576,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -549,7 +590,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -566,7 +607,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -580,7 +621,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -597,7 +638,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -623,7 +664,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -636,7 +677,7 @@ describe('Sudoku', () => {
     it('should render without user context', () => {
       render(
         <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-          <Sudoku puzzle={mockPuzzle} />
+          <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
         </RevenueCatContext.Provider>
       );
 
@@ -646,7 +687,7 @@ describe('Sudoku', () => {
     it('should render without RevenueCat context', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <Sudoku puzzle={mockPuzzle} />
+          <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
         </UserContext.Provider>
       );
 
@@ -659,7 +700,7 @@ describe('Sudoku', () => {
       const { rerender } = render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -667,7 +708,11 @@ describe('Sudoku', () => {
       rerender(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} alreadyCompleted={true} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              alreadyCompleted={true}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -684,7 +729,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={puzzleNoMetadata} />
+            <Sudoku puzzle={puzzleNoMetadata} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -701,7 +746,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={puzzleWithNullId} />
+            <Sudoku puzzle={puzzleWithNullId} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -715,7 +760,11 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} alreadyCompleted={true} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              alreadyCompleted={true}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -727,7 +776,11 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} showRacingPrompt={false} />
+            <Sudoku
+              puzzle={mockPuzzle}
+              showRacingPrompt={false}
+              {...mockAppProps}
+            />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -739,7 +792,7 @@ describe('Sudoku', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
@@ -753,7 +806,7 @@ describe('Sudoku', () => {
       const { container } = render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku puzzle={mockPuzzle} />
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );

@@ -22,8 +22,6 @@ import {
   PublicInvite,
 } from '@sudoku-web/types/serverTypes';
 
-const apiUrl = 'https://api.bubblyclouds.com';
-
 const responseToResult = <T>(
   response: StateResponse<T>
 ): ServerStateResult<T> => {
@@ -95,10 +93,12 @@ const memberResponseToResult = (
 
 function useServerStorage({
   app,
+  apiUrl,
   type: initialType,
   id: initialId,
 }: {
   app: string;
+  apiUrl: string;
   type?: StateType;
   id?: string;
 }) {
@@ -183,7 +183,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isLoggedIn, isOnline, app]
+    [fetch, isLoggedIn, isOnline, app, apiUrl]
   );
 
   const getValue = useCallback(async <T>(): Promise<
@@ -204,7 +204,7 @@ function useServerStorage({
       }
     }
     return undefined;
-  }, [getStateKey, fetch, isLoggedIn, isOnline]);
+  }, [getStateKey, fetch, isLoggedIn, isOnline, apiUrl]);
 
   const saveValue = useCallback(
     async <T>(state: T): Promise<ServerStateResult<T> | undefined> => {
@@ -235,7 +235,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [getStateKey, fetch, isLoggedIn, isOnline]
+    [getStateKey, fetch, isLoggedIn, isOnline, apiUrl]
   );
 
   const listParties = useCallback(async (): Promise<Party[] | undefined> => {
@@ -269,7 +269,7 @@ function useServerStorage({
       }
     }
     return undefined;
-  }, [fetch, isLoggedIn, isOnline, user, app]);
+  }, [fetch, isLoggedIn, isOnline, user, app, apiUrl]);
 
   const createParty = useCallback(
     async ({
@@ -320,7 +320,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isLoggedIn, isOnline, user, app]
+    [fetch, isLoggedIn, isOnline, user, app, apiUrl]
   );
 
   const createInvite = useCallback(
@@ -369,7 +369,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, apiUrl]
   );
 
   const getPublicInvite = useCallback(
@@ -390,7 +390,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isOnline]
+    [fetch, isOnline, apiUrl]
   );
 
   const createMember = useCallback(
@@ -431,7 +431,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, apiUrl]
   );
 
   const removeMember = useCallback(
@@ -457,7 +457,7 @@ function useServerStorage({
       }
       return false;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, apiUrl]
   );
 
   const leaveParty = useCallback(
@@ -490,7 +490,7 @@ function useServerStorage({
       }
       return false;
     },
-    [fetch, isLoggedIn, isOnline, app]
+    [fetch, isLoggedIn, isOnline, app, apiUrl]
   );
 
   const updateParty = useCallback(
@@ -517,7 +517,7 @@ function useServerStorage({
       }
       return false;
     },
-    [fetch, isLoggedIn, isOnline, app]
+    [fetch, isLoggedIn, isOnline, app, apiUrl]
   );
 
   const deleteAccount = useCallback(async (): Promise<boolean> => {
@@ -538,7 +538,7 @@ function useServerStorage({
       }
     }
     return false;
-  }, [fetch, isLoggedIn, isOnline, user]);
+  }, [fetch, isLoggedIn, isOnline, user, apiUrl]);
 
   return {
     setIdAndType,

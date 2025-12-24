@@ -48,6 +48,13 @@ jest.mock('react-feather', () => ({
   X: (props: any) => <div data-testid="close-icon" {...props} />,
 }));
 
+const mockUserPanelProps = {
+  app: 'testapp',
+  privacyUrl: 'https://example.com/privacy',
+  termsUrl: 'https://example.com/terms',
+  companyUrl: 'https://example.com',
+};
+
 describe('UserPanel', () => {
   const mockUser: UserProfile = {
     sub: 'test-user-id',
@@ -73,6 +80,7 @@ describe('UserPanel', () => {
     it('should render user info', () => {
       render(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}
@@ -86,6 +94,7 @@ describe('UserPanel', () => {
     it('should render differently for mobile and desktop', () => {
       const { rerender } = render(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}
@@ -96,6 +105,7 @@ describe('UserPanel', () => {
 
       rerender(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}
@@ -110,6 +120,7 @@ describe('UserPanel', () => {
     it('should show "Join" button when not subscribed', () => {
       render(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}
@@ -118,12 +129,13 @@ describe('UserPanel', () => {
           showSubscribeModal={mockShowSubscribeModal}
         />
       );
-      expect(screen.getByText(/Join Sudoku Plus/)).toBeInTheDocument();
+      expect(screen.getByText(/Join Testapp Plus/)).toBeInTheDocument();
     });
 
     it('should show "Active" status when subscribed', () => {
       render(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}
@@ -132,12 +144,13 @@ describe('UserPanel', () => {
           showSubscribeModal={mockShowSubscribeModal}
         />
       );
-      expect(screen.getByText(/Sudoku Plus Active/)).toBeInTheDocument();
+      expect(screen.getByText(/Testapp Plus Active/)).toBeInTheDocument();
     });
 
     it('should call subscribe modal on click', () => {
       render(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}
@@ -146,7 +159,7 @@ describe('UserPanel', () => {
           showSubscribeModal={mockShowSubscribeModal}
         />
       );
-      fireEvent.click(screen.getByText(/Join Sudoku Plus/));
+      fireEvent.click(screen.getByText(/Join Testapp Plus/));
       expect(mockShowSubscribeModal).toHaveBeenCalled();
     });
   });
@@ -155,6 +168,7 @@ describe('UserPanel', () => {
     it('should call logout on sign out click', () => {
       render(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}
@@ -168,6 +182,7 @@ describe('UserPanel', () => {
     it('should open delete dialog on delete account click', async () => {
       render(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}
@@ -187,6 +202,7 @@ describe('UserPanel', () => {
     it('should call deleteAccount and logout on dialog confirm', async () => {
       render(
         <UserPanel
+          {...mockUserPanelProps}
           user={mockUser}
           logout={mockLogout}
           onClose={mockOnClose}

@@ -69,9 +69,16 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isInitialised, setIsInitialised] = React.useState(false);
   const router = useRouter();
 
-  const iss = 'https://auth.bubblyclouds.com';
-  const { isElectron, isCapacitor, openBrowser, getCapacitorState, app } =
-    platformServices;
+  const {
+    isElectron,
+    isCapacitor,
+    openBrowser,
+    getCapacitorState,
+    app,
+    authUrl,
+    apiUrl,
+  } = platformServices;
+  const iss = authUrl;
   const clientId =
     isElectron() || isCapacitor() ? `bubbly-${app}-native` : `bubbly-${app}`;
 
@@ -158,7 +165,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         'invites.write',
         'sessions.write',
       ];
-      const resource = 'https://api.bubblyclouds.com';
+      const resource = apiUrl;
 
       const params = new URLSearchParams();
       params.set('state', state);
@@ -188,7 +195,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsLoggingIn(false);
       }, 10000);
     },
-    [clientId, isElectron, isCapacitor, openBrowser, app]
+    [clientId, isElectron, isCapacitor, openBrowser, app, iss, apiUrl]
   );
 
   const handleUser = React.useCallback(
@@ -307,7 +314,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       };
       await codeExchange();
     },
-    [clientId, router, handleUser, fetch, isElectron, isCapacitor, app]
+    [clientId, router, handleUser, fetch, isElectron, isCapacitor, app, iss]
   );
 
   const handleRestoreState = React.useCallback(async () => {

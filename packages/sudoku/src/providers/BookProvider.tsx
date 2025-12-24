@@ -23,6 +23,8 @@ const BookContext = createContext<BookContextType | null>(null);
 
 interface BookProviderProps {
   children: ReactNode;
+  app: string;
+  apiUrl: string;
 }
 
 // Helper to get current month key for caching
@@ -101,11 +103,11 @@ const saveCachedBookData = (data: SudokuBookOfTheMonth): void => {
   }
 };
 
-export const BookProvider = ({ children }: BookProviderProps) => {
+export const BookProvider = ({ children, app, apiUrl }: BookProviderProps) => {
   const [bookData, setBookData] = useState<SudokuBookOfTheMonth | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { getSudokuBookOfTheMonth } = useSudokuServerStorage();
+  const { getSudokuBookOfTheMonth } = useSudokuServerStorage({ app, apiUrl });
   const { isOnline } = useOnline();
 
   const fetchBookData = useCallback(async () => {

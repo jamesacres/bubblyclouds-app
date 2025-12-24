@@ -8,6 +8,7 @@ import { sha256 } from '@sudoku-web/template/helpers/sha256';
 import { useWakeLock } from '@sudoku-web/template/hooks/useWakeLock';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
+import { APP_CONFIG } from '../../../app.config.js';
 
 function PuzzlePageComponent() {
   const searchParams = useSearchParams();
@@ -63,6 +64,16 @@ function PuzzlePageComponent() {
           puzzle={puzzle}
           alreadyCompleted={alreadyCompleted}
           showRacingPrompt={showRacingPrompt}
+          app={APP_CONFIG.app}
+          appName={APP_CONFIG.appName}
+          apiUrl={APP_CONFIG.apiUrl}
+          appUrl={APP_CONFIG.appUrl}
+          appStoreUrl={APP_CONFIG.appStoreUrl}
+          googlePlayUrl={APP_CONFIG.googlePlayUrl}
+          deepLinkScheme={APP_CONFIG.deepLinkScheme}
+          mobileDescription={APP_CONFIG.mobileDescription}
+          desktopDescription={APP_CONFIG.desktopDescription}
+          openInAppLabel={APP_CONFIG.openInAppLabel}
         />
       )}
     </div>

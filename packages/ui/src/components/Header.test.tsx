@@ -56,6 +56,13 @@ const MockHeaderUser = function MockHeaderUser(props: any) {
   );
 };
 
+// Mock header user props with required fields
+const mockHeaderUserProps = {
+  privacyUrl: 'https://example.com/privacy',
+  termsUrl: 'https://example.com/terms',
+  companyUrl: 'https://example.com',
+};
+
 describe('Header', () => {
   describe('rendering', () => {
     it('should render header navigation', () => {
@@ -80,7 +87,7 @@ describe('Header', () => {
       const { findByTestId } = render(
         <Header
           HeaderUser={MockHeaderUser}
-          headerUserProps={{ isSubscribed: true }}
+          headerUserProps={{ ...mockHeaderUserProps, isSubscribed: true }}
         />
       );
 
@@ -231,7 +238,12 @@ describe('Header', () => {
     });
 
     it('should render HeaderUser when injected', async () => {
-      const { findByTestId } = render(<Header HeaderUser={MockHeaderUser} />);
+      const { findByTestId } = render(
+        <Header
+          HeaderUser={MockHeaderUser}
+          headerUserProps={mockHeaderUserProps}
+        />
+      );
       const headerUser = await findByTestId('header-user');
       expect(headerUser.textContent).toContain('Header User');
     });
@@ -252,6 +264,7 @@ describe('Header', () => {
   describe('HeaderUser injection', () => {
     it('should render injected HeaderUser with props', async () => {
       const headerUserProps = {
+        ...mockHeaderUserProps,
         isSubscribed: true,
         showSubscribeModal: jest.fn(),
         deleteAccount: jest.fn(),
@@ -306,7 +319,10 @@ describe('Header', () => {
       expect(queryByTestId('header-user')).not.toBeInTheDocument();
 
       const { findByTestId: findByTestIdWithUser } = render(
-        <Header HeaderUser={MockHeaderUser} />
+        <Header
+          HeaderUser={MockHeaderUser}
+          headerUserProps={mockHeaderUserProps}
+        />
       );
       const headerUser = await findByTestIdWithUser('header-user');
       expect(headerUser).toBeInTheDocument();

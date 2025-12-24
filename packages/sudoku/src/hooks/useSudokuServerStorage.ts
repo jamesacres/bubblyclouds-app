@@ -14,11 +14,19 @@ import { useFetch } from '@sudoku-web/auth/hooks/useFetch';
 import { useOnline } from '@sudoku-web/template/hooks/online';
 
 function useSudokuServerStorage({
+  app,
+  apiUrl,
   type: initialType,
   id: initialId,
-}: { type?: StateType; id?: string } = {}) {
+}: {
+  app: string;
+  apiUrl: string;
+  type?: StateType;
+  id?: string;
+}) {
   const baseStorage = useServerStorage({
-    app: 'sudoku',
+    app,
+    apiUrl,
     type: initialType,
     id: initialId,
   });

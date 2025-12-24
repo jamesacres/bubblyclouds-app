@@ -60,7 +60,12 @@ describe('useSudokuServerStorage', () => {
 
   describe('initialization', () => {
     it('should initialize with default parameters', () => {
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       expect(result.current).toBeDefined();
       expect(result.current.getSudokuOfTheDay).toBeDefined();
@@ -70,6 +75,8 @@ describe('useSudokuServerStorage', () => {
     it('should initialize with custom type and id', () => {
       const { result } = renderHook(() =>
         useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
           type: StateType.PUZZLE,
           id: 'test-puzzle-123',
         })
@@ -79,7 +86,12 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should include all base storage methods', () => {
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       expect(result.current.getValue).toBeDefined();
       expect(result.current.saveValue).toBeDefined();
@@ -89,14 +101,20 @@ describe('useSudokuServerStorage', () => {
       expect(result.current.apiUrl).toBe('https://api.bubblyclouds.com');
     });
 
-    it('should pass app as sudoku to base storage', () => {
+    it('should pass app and apiUrl to base storage', () => {
       const {
         useServerStorage,
       } = require('@sudoku-web/template/hooks/serverStorage');
-      renderHook(() => useSudokuServerStorage());
+      renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       expect(useServerStorage).toHaveBeenCalledWith({
         app: 'sudoku',
+        apiUrl: 'https://api.bubblyclouds.com',
         type: undefined,
         id: undefined,
       });
@@ -112,7 +130,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuOfTheDay: SudokuOfTheDay | undefined;
       await act(async () => {
@@ -133,7 +156,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuOfTheDay: SudokuOfTheDay | undefined;
       await act(async () => {
@@ -150,7 +178,12 @@ describe('useSudokuServerStorage', () => {
       const { useOnline } = require('@sudoku-web/template/hooks/online');
       useOnline.mockReturnValue({ isOnline: false });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuOfTheDay;
       await act(async () => {
@@ -172,7 +205,12 @@ describe('useSudokuServerStorage', () => {
         })
       );
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuOfTheDay;
       await act(async () => {
@@ -192,7 +230,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuOfTheDay;
       await act(async () => {
@@ -209,7 +252,12 @@ describe('useSudokuServerStorage', () => {
       const mockFetch = jest.fn().mockRejectedValue(new Error('Network error'));
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuOfTheDay;
       await act(async () => {
@@ -230,7 +278,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       await act(async () => {
         await result.current.getSudokuOfTheDay(Difficulty.EXPERT);
@@ -251,7 +304,12 @@ describe('useSudokuServerStorage', () => {
       const mockFetch = jest.fn().mockRejectedValue(testError);
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       await act(async () => {
         await result.current.getSudokuOfTheDay(Difficulty.EXPERT);
@@ -272,7 +330,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuBook: SudokuBookOfTheMonth | undefined;
       await act(async () => {
@@ -291,7 +354,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuBook: SudokuBookOfTheMonth | undefined;
       await act(async () => {
@@ -306,7 +374,12 @@ describe('useSudokuServerStorage', () => {
       const { useOnline } = require('@sudoku-web/template/hooks/online');
       useOnline.mockReturnValue({ isOnline: false });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuBook;
       await act(async () => {
@@ -326,7 +399,12 @@ describe('useSudokuServerStorage', () => {
         })
       );
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuBook;
       await act(async () => {
@@ -344,7 +422,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuBook;
       await act(async () => {
@@ -359,7 +442,12 @@ describe('useSudokuServerStorage', () => {
       const mockFetch = jest.fn().mockRejectedValue(new Error('Network error'));
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuBook;
       await act(async () => {
@@ -378,7 +466,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       await act(async () => {
         await result.current.getSudokuBookOfTheMonth();
@@ -398,7 +491,12 @@ describe('useSudokuServerStorage', () => {
       const mockFetch = jest.fn().mockRejectedValue(testError);
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       await act(async () => {
         await result.current.getSudokuBookOfTheMonth();
@@ -425,7 +523,12 @@ describe('useSudokuServerStorage', () => {
         });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuOfTheDay, sudokuBook;
       await act(async () => {
@@ -452,7 +555,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       let sudokuOfTheDay: SudokuOfTheDay | undefined;
       await act(async () => {
@@ -482,7 +590,12 @@ describe('useSudokuServerStorage', () => {
       });
       useFetch.mockReturnValue({ fetch: mockFetch });
 
-      const { result } = renderHook(() => useSudokuServerStorage());
+      const { result } = renderHook(() =>
+        useSudokuServerStorage({
+          app: 'sudoku',
+          apiUrl: 'https://api.bubblyclouds.com',
+        })
+      );
 
       await act(async () => {
         await result.current.getSudokuOfTheDay(Difficulty.EXPERT);

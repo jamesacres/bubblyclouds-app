@@ -11,6 +11,7 @@ import SocialProof from '@sudoku-web/template/components/SocialProof';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { motivationalMessages } from '../config/motivationalMessages';
+import { APP_CONFIG } from '../../app.config.js';
 import { Difficulty } from '@sudoku-web/games/types/difficulty';
 import Footer from '@sudoku-web/ui/components/Footer';
 import MyPuzzlesTab from '@sudoku-web/template/components/MyPuzzlesTab';
@@ -56,7 +57,10 @@ function HomeComponent() {
   const { user, loginRedirect } = context || {};
   useOnline();
   const [isLoading, setIsLoading] = useState(false);
-  const { getSudokuOfTheDay } = useSudokuServerStorage();
+  const { getSudokuOfTheDay } = useSudokuServerStorage({
+    app: APP_CONFIG.app,
+    apiUrl: APP_CONFIG.apiUrl,
+  });
   const { parties, refreshParties } = useParties({});
   const {
     sessions,

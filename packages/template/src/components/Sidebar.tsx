@@ -20,6 +20,8 @@ interface Arguments<ServerState extends BaseServerState> {
   sessionParties: Parties<Session<ServerState>>;
   app: string;
   appName: string;
+  apiUrl: string;
+  appUrl: string;
   SimpleState: ComponentType<{ state: ServerState }>;
   calculateCompletionPercentageFromState: (state: ServerState) => number;
 }
@@ -33,6 +35,8 @@ const Sidebar = <ServerState extends BaseServerState>({
   sessionParties,
   app,
   appName,
+  apiUrl,
+  appUrl,
   SimpleState,
   calculateCompletionPercentageFromState,
 }: Arguments<ServerState>) => {
@@ -233,6 +237,8 @@ const Sidebar = <ServerState extends BaseServerState>({
                           }
                           app={app}
                           appName={appName}
+                          apiUrl={apiUrl}
+                          appUrl={appUrl}
                         />
                       );
                     })}

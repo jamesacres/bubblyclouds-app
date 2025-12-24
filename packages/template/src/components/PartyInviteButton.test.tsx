@@ -15,10 +15,12 @@ jest.mock('@sudoku-web/ui/components/CopyButton', () => ({
     getText,
     partyName,
     extraSmall,
+    appName,
   }: {
     getText: () => Promise<string>;
     partyName: string;
     extraSmall?: boolean;
+    appName: string;
   }) => {
     const [text, setText] = React.useState('');
     const handleClick = async () => {
@@ -31,6 +33,7 @@ jest.mock('@sudoku-web/ui/components/CopyButton', () => ({
         data-party={partyName}
         data-extra-small={extraSmall}
         data-text={text}
+        data-app-name={appName}
         onClick={handleClick}
       >
         Copy: {partyName}
@@ -48,6 +51,9 @@ describe('PartyInviteButton', () => {
     partyId: 'party1',
     partyName: 'Test Party',
     app: 'mockApp',
+    appName: 'Sudoku Race',
+    apiUrl: 'https://api.mockApp.bubblyclouds.com',
+    appUrl: 'https://mockApp.bubblyclouds.com',
   };
 
   let mockCreateInvite: jest.Mock;
@@ -83,7 +89,7 @@ describe('PartyInviteButton', () => {
     await waitFor(() => {
       expect(copyButton).toHaveAttribute(
         'data-text',
-        'https://mockApp.bubblyclouds.com/invite?inviteId=invite123'
+        `${defaultProps.appUrl}/invite?inviteId=invite123`
       );
     });
   });

@@ -11,6 +11,8 @@ const PartyInviteButton = ({
   extraSmall = false,
   app,
   appName,
+  apiUrl,
+  appUrl,
 }: {
   sessionId: string;
   redirectUri: string;
@@ -19,9 +21,11 @@ const PartyInviteButton = ({
   extraSmall?: boolean;
   app: string;
   appName: string;
+  apiUrl: string;
+  appUrl: string;
 }) => {
   const [inviteUrl, setInviteUrl] = useState('');
-  const { createInvite } = useServerStorage({ app });
+  const { createInvite } = useServerStorage({ app, apiUrl });
 
   const getInviteUrl = async (): Promise<string> => {
     let latestInviteUrl = inviteUrl;
@@ -36,7 +40,7 @@ const PartyInviteButton = ({
         resourceId: `party-${partyId}`,
       });
       if (invite) {
-        latestInviteUrl = `https://${app}.bubblyclouds.com/invite?inviteId=${invite.inviteId}`;
+        latestInviteUrl = `${appUrl}/invite?inviteId=${invite.inviteId}`;
         setInviteUrl(latestInviteUrl);
       }
     }

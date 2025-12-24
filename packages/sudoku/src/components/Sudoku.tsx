@@ -44,9 +44,6 @@ import MemoisedSidebarButton from '@sudoku-web/games/components/SidebarButton';
 import { useRouter } from 'next/navigation';
 import RacingPromptModal from '@sudoku-web/template/components/RacingPromptModal';
 
-const app = 'sudoku';
-const appName = 'Sudoku Race';
-
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
 );
@@ -55,6 +52,16 @@ const Sudoku = ({
   puzzle: { initial, final, puzzleId, redirectUri, metadata },
   alreadyCompleted,
   showRacingPrompt: showRacingPromptProp = true,
+  app,
+  appName,
+  apiUrl,
+  appUrl,
+  appStoreUrl,
+  googlePlayUrl,
+  deepLinkScheme,
+  mobileDescription,
+  desktopDescription,
+  openInAppLabel,
 }: {
   puzzle: {
     initial: Puzzle<number>;
@@ -65,6 +72,16 @@ const Sudoku = ({
   };
   alreadyCompleted?: boolean;
   showRacingPrompt?: boolean;
+  app: string;
+  appName: string;
+  apiUrl: string;
+  appUrl: string;
+  appStoreUrl: string;
+  googlePlayUrl: string;
+  deepLinkScheme: string;
+  mobileDescription: string;
+  desktopDescription: string;
+  openInAppLabel: string;
 }) => {
   const router = useRouter();
   const context = useContext(UserContext) as UserContextInterface | undefined;
@@ -107,6 +124,8 @@ const Sudoku = ({
     initial,
     puzzleId,
     metadata,
+    app,
+    apiUrl,
   });
   const friendsOnClick = useCallback(() => {
     setShowSidebar((showSidebar) => !showSidebar);
@@ -300,13 +319,13 @@ const Sudoku = ({
         isOpen={showAppDownload}
         onClose={handleAppDownloadClose}
         onContinueWeb={handleContinueWeb}
-        appName="Sudoku Race"
-        appStoreUrl="https://apps.apple.com/app/sudoku-race/id6517357180"
-        googlePlayUrl="https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku"
-        deepLinkScheme="com.bubblyclouds.sudoku"
-        mobileDescription="Get the best racing experience with our Sudoku Race app!"
-        desktopDescription="Download Sudoku Race"
-        openInAppLabel="Open Puzzle"
+        appName={appName}
+        appStoreUrl={appStoreUrl}
+        googlePlayUrl={googlePlayUrl}
+        deepLinkScheme={deepLinkScheme}
+        mobileDescription={mobileDescription}
+        desktopDescription={desktopDescription}
+        openInAppLabel={openInAppLabel}
       />
 
       {/* Racing mode selection modal */}
@@ -326,6 +345,8 @@ const Sudoku = ({
         sessionParties={sessionParties}
         app={app}
         appName={appName}
+        apiUrl={apiUrl}
+        appUrl={appUrl}
         SimpleState={SimpleStateWrapper}
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
@@ -350,7 +371,7 @@ const Sudoku = ({
               <div className="mr-auto ml-auto max-w-xl px-4 pb-1 lg:mr-0">
                 <div className="text-right">
                   <span className="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent">
-                    Sudoku Race
+                    {appName}
                   </span>
                 </div>
               </div>

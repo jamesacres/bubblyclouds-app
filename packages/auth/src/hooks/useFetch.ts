@@ -1,7 +1,7 @@
 import { FetchContext, State } from '../providers/FetchProvider';
 import { PlatformServicesContext } from '../providers/PlatformServicesContext';
 import { UserProfile } from '../types/UserProfile';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 
 const jwtDecode = (token: string) =>
   JSON.parse(
@@ -12,19 +12,8 @@ const jwtDecode = (token: string) =>
         .join('')
     )
   );
-const iss = 'https://auth.bubblyclouds.com';
-const apiUrls = ['https://api.bubblyclouds.com'];
-const authUrls = ['https://auth.bubblyclouds.com'];
 const publicApiPathPatterns = [new RegExp('^/invites/[^/]+$')];
 const tokenUrls = ['/oidc/token'];
-const isApiUrl = (destURL: URL) => apiUrls.includes(destURL.origin);
-const isPublicUrl = (method: string, destURL: URL) =>
-  method === 'GET' &&
-  publicApiPathPatterns.some((path) => {
-    return path.test(destURL.pathname);
-  });
-const isTokenUrl = (destURL: URL) =>
-  authUrls.includes(destURL.origin) && tokenUrls.includes(destURL.pathname);
 
 let isRefreshing = false;
 
@@ -37,7 +26,30 @@ function useFetch() {
     saveElectronState,
     saveCapacitorState,
     app,
+    apiUrl,
+    authUrl,
   } = platformServices;
+
+  const iss = authUrl;
+  const apiUrls = useMemo(() => [apiUrl], [apiUrl]);
+  const authUrls = useMemo(() => [authUrl], [authUrl]);
+  const isApiUrl = useCallback(
+    (destURL: URL) => apiUrls.includes(destURL.origin),
+    [apiUrls]
+  );
+  const isPublicUrl = useCallback(
+    (method: string, destURL: URL) =>
+      method === 'GET' &&
+      publicApiPathPatterns.some((path) => {
+        return path.test(destURL.pathname);
+      }),
+    []
+  );
+  const isTokenUrl = useCallback(
+    (destURL: URL) =>
+      authUrls.includes(destURL.origin) && tokenUrls.includes(destURL.pathname),
+    [authUrls]
+  );
 
   const clientId =
     isElectron() || isCapacitor() ? `bubbly-${app}-native` : `bubbly-${app}`;
@@ -159,7 +171,7 @@ function useFetch() {
     }
 
     isRefreshing = false;
-  }, [handleTokenSuccess, stateRef, clientId]);
+  }, [handleTokenSuccess, stateRef, clientId, iss]);
 
   const hasValidUser = useCallback(
     () =>
@@ -249,7 +261,15 @@ function useFetch() {
       }
       return fetch(request);
     },
-    [checkRefresh, handleTokenSuccess, resetState, stateRef]
+    [
+      checkRefresh,
+      handleTokenSuccess,
+      resetState,
+      stateRef,
+      isApiUrl,
+      isTokenUrl,
+      isPublicUrl,
+    ]
   );
 
   return {

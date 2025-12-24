@@ -29,6 +29,13 @@ jest.mock('./UserAvatar', () => ({
   ),
 }));
 
+const mockUserButtonProps = {
+  app: 'testapp',
+  privacyUrl: 'https://example.com/privacy',
+  termsUrl: 'https://example.com/terms',
+  companyUrl: 'https://example.com',
+};
+
 describe('UserButton', () => {
   const mockUser: UserProfile = {
     sub: 'test-user-id',
@@ -46,20 +53,38 @@ describe('UserButton', () => {
 
   describe('rendering', () => {
     it('should render UserAvatar', () => {
-      render(<UserButton user={mockUser} logout={mockLogout} />);
+      render(
+        <UserButton
+          user={mockUser}
+          logout={mockLogout}
+          {...mockUserButtonProps}
+        />
+      );
       expect(screen.getByTestId('user-avatar')).toBeInTheDocument();
       expect(screen.getByText(`Avatar - ${mockUser.name}`)).toBeInTheDocument();
     });
 
     it('should render desktop UserPanel (hidden by default)', () => {
-      render(<UserButton user={mockUser} logout={mockLogout} />);
+      render(
+        <UserButton
+          user={mockUser}
+          logout={mockLogout}
+          {...mockUserButtonProps}
+        />
+      );
       expect(screen.queryByTestId('user-panel')).not.toBeInTheDocument();
     });
   });
 
   describe('interaction', () => {
     it('should open desktop popover on click', () => {
-      render(<UserButton user={mockUser} logout={mockLogout} />);
+      render(
+        <UserButton
+          user={mockUser}
+          logout={mockLogout}
+          {...mockUserButtonProps}
+        />
+      );
       const button = screen.getByRole('button');
       fireEvent.click(button);
       expect(screen.getByTestId('user-panel')).toBeInTheDocument();
@@ -72,7 +97,13 @@ describe('UserButton', () => {
         value: 500,
       });
 
-      render(<UserButton user={mockUser} logout={mockLogout} />);
+      render(
+        <UserButton
+          user={mockUser}
+          logout={mockLogout}
+          {...mockUserButtonProps}
+        />
+      );
       const button = screen.getByRole('button');
       fireEvent.click(button);
 

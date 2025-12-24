@@ -11,6 +11,12 @@ jest.mock('./UserButton', () => ({
   ),
 }));
 
+const mockHeaderUserProps = {
+  privacyUrl: 'https://example.com/privacy',
+  termsUrl: 'https://example.com/terms',
+  companyUrl: 'https://example.com',
+};
+
 describe('HeaderUser', () => {
   const mockUser: UserProfile = {
     sub: 'test-user-id',
@@ -33,8 +39,15 @@ describe('HeaderUser', () => {
     contextValue: Partial<UserContextInterface> | null
   ) => {
     return render(
-      <UserContext.Provider value={contextValue as UserContextInterface}>
-        <HeaderUser />
+      <UserContext.Provider
+        value={
+          {
+            app: 'testapp',
+            ...contextValue,
+          } as UserContextInterface
+        }
+      >
+        <HeaderUser {...mockHeaderUserProps} />
       </UserContext.Provider>
     );
   };
@@ -110,12 +123,13 @@ describe('HeaderUser', () => {
         <UserContext.Provider
           value={
             {
+              app: 'testapp',
               user: mockUser,
               logout: mockLogout,
             } as unknown as UserContextInterface
           }
         >
-          <HeaderUser />
+          <HeaderUser {...mockHeaderUserProps} />
         </UserContext.Provider>
       );
 
@@ -131,7 +145,7 @@ describe('HeaderUser', () => {
     });
 
     it('should not show sign-in button when isOnline is false', () => {
-      render(<HeaderUser isOnline={false} />);
+      render(<HeaderUser isOnline={false} {...mockHeaderUserProps} />);
       expect(screen.queryByText('Sign in')).not.toBeInTheDocument();
     });
   });

@@ -429,7 +429,7 @@ describe('Home Page', () => {
   describe('Content padding', () => {
     it('should have bottom padding to avoid footer overlap', () => {
       const { container } = render(<Home />);
-      const paddingDiv = container.querySelector('.pb-24');
+      const paddingDiv = container.querySelector('.h-32');
       expect(paddingDiv).toBeInTheDocument();
     });
   });

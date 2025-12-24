@@ -8,6 +8,7 @@ import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProv
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
 import { PREMIUM_FEATURES } from '../../config/premiumFeatures';
+import { APP_CONFIG } from '../../../app.config.js';
 import {
   PublicInvite,
   EntitlementDuration,
@@ -27,7 +28,10 @@ function InviteComponent() {
   const { isLoggingIn, user, loginRedirect } = context || {};
   const { isSubscribed, subscribeModal, refreshEntitlements } =
     useContext(RevenueCatContext) || {};
-  const { getPublicInvite, createMember } = useSudokuServerStorage();
+  const { getPublicInvite, createMember } = useSudokuServerStorage({
+    app: APP_CONFIG.app,
+    apiUrl: APP_CONFIG.apiUrl,
+  });
   const {
     parties: userParties,
     isLoading: partiesLoading,

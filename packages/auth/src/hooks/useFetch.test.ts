@@ -19,6 +19,9 @@ describe('useFetch', () => {
     saveElectronState: jest.fn(),
     getCapacitorState: jest.fn(() => Promise.resolve('')),
     saveCapacitorState: jest.fn(),
+    app: 'test',
+    apiUrl: 'https://api.bubblyclouds.com',
+    authUrl: 'https://auth.bubblyclouds.com',
   };
 
   const createWrapper = () => {

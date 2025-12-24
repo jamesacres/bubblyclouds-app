@@ -52,12 +52,14 @@ interface SessionsProviderProps {
   children: ReactNode;
   stateType: StateType;
   app: string;
+  apiUrl: string;
 }
 
 export const SessionsProvider = <T extends {}>({
   children,
   stateType,
   app,
+  apiUrl,
 }: SessionsProviderProps) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
@@ -72,7 +74,7 @@ export const SessionsProvider = <T extends {}>({
   const friendSessionsRef = useRef<UserSessions<T>>({});
   const isLoadingRef = useRef(false);
   const sessionsRef = useRef<ServerStateResult<T>[] | null>(null);
-  const { listValues: listServerValues } = useServerStorage({ app });
+  const { listValues: listServerValues } = useServerStorage({ app, apiUrl });
 
   // Update refs whenever state changes
   friendSessionsRef.current = friendSessions;

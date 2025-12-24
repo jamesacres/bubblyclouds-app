@@ -11,13 +11,21 @@ import { useServerStorage } from '../hooks/serverStorage';
 export default function HeaderWrapper({
   app,
   appName,
+  apiUrl,
+  privacyUrl,
+  termsUrl,
+  companyUrl,
 }: {
   app: string;
   appName: string;
+  apiUrl: string;
+  privacyUrl: string;
+  termsUrl: string;
+  companyUrl: string;
 }) {
   const revenueCatContext = useContext(RevenueCatContext);
   const { isOnline } = useOnline();
-  const { deleteAccount } = useServerStorage({ app });
+  const { deleteAccount } = useServerStorage({ app, apiUrl });
 
   const handleShowSubscribeModal = (onSuccess: () => void) => {
     revenueCatContext?.subscribeModal?.showModalIfRequired(onSuccess);
@@ -35,6 +43,9 @@ export default function HeaderWrapper({
           ? handleShowSubscribeModal
           : undefined,
         deleteAccount,
+        privacyUrl,
+        termsUrl,
+        companyUrl,
       }}
       appName={appName}
     />

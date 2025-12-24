@@ -10,6 +10,9 @@ interface HeaderUserProps {
   isSubscribed?: boolean;
   showSubscribeModal?: (onSuccess: () => void) => void;
   deleteAccount?: () => Promise<boolean>;
+  privacyUrl: string;
+  termsUrl: string;
+  companyUrl: string;
 }
 
 interface HeaderProps {
@@ -36,7 +39,9 @@ const Header = ({
         <div className="block flex grow items-center">
           <div className="grow text-center font-medium"></div>
           <div className="flex h-12 items-center">
-            {HeaderUser && <HeaderUser {...headerUserProps} />}
+            {HeaderUser && headerUserProps && (
+              <HeaderUser {...(headerUserProps as HeaderUserProps)} />
+            )}
             <ThemeControls isCapacitor={isCapacitor} />
             <HeaderOnline isOnline={isOnline} />
           </div>

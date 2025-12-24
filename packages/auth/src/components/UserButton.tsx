@@ -13,6 +13,9 @@ interface UserButtonProps {
   showSubscribeModal?: (onSuccess: () => void) => void;
   deleteAccount?: () => Promise<boolean>;
   app: string;
+  privacyUrl: string;
+  termsUrl: string;
+  companyUrl: string;
 }
 
 export const UserButton = ({
@@ -22,6 +25,9 @@ export const UserButton = ({
   showSubscribeModal,
   deleteAccount,
   app,
+  privacyUrl,
+  termsUrl,
+  companyUrl,
 }: UserButtonProps) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -67,6 +73,9 @@ export const UserButton = ({
                     showSubscribeModal={showSubscribeModal}
                     deleteAccount={deleteAccount}
                     app={app}
+                    privacyUrl={privacyUrl}
+                    termsUrl={termsUrl}
+                    companyUrl={companyUrl}
                   />
                 </Dialog.Panel>
               </Transition.Child>
@@ -113,6 +122,9 @@ export const UserButton = ({
                   showSubscribeModal={showSubscribeModal}
                   deleteAccount={deleteAccount}
                   app={app}
+                  privacyUrl={privacyUrl}
+                  termsUrl={termsUrl}
+                  companyUrl={companyUrl}
                 />
               </Popover.Panel>
             </Transition>

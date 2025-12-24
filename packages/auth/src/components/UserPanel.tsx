@@ -19,6 +19,9 @@ interface UserPanelProps extends UserPanelDependencies {
   onClose?: () => void;
   isMobile?: boolean;
   app: string;
+  privacyUrl: string;
+  termsUrl: string;
+  companyUrl: string;
 }
 
 export const UserPanel = ({
@@ -30,6 +33,9 @@ export const UserPanel = ({
   isSubscribed = false,
   showSubscribeModal,
   app,
+  privacyUrl,
+  termsUrl,
+  companyUrl,
 }: UserPanelProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
@@ -117,19 +123,11 @@ export const UserPanel = ({
   // Shared footer links component
   const FooterLinks = () => (
     <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
-      <a
-        href="https://bubblyclouds.com/privacy"
-        target="_blank"
-        className="hover:text-white"
-      >
+      <a href={privacyUrl} target="_blank" className="hover:text-white">
         Privacy policy
       </a>
       <span>•</span>
-      <a
-        href="https://bubblyclouds.com/terms"
-        target="_blank"
-        className="hover:text-white"
-      >
+      <a href={termsUrl} target="_blank" className="hover:text-white">
         Terms of Service
       </a>
     </div>
@@ -149,11 +147,7 @@ export const UserPanel = ({
   const PoweredBy = () => (
     <div className="border-t border-gray-700 px-6 py-3 text-center text-xs text-gray-500">
       Powered by{' '}
-      <a
-        href="https://bubblyclouds.com/"
-        target="_blank"
-        className="hover:text-gray-300"
-      >
+      <a href={companyUrl} target="_blank" className="hover:text-gray-300">
         Bubbly Clouds
       </a>
     </div>
