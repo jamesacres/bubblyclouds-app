@@ -1,7 +1,7 @@
 # Framework
 
 - review and merge 003 into 004
-- rename repo and config from sudoku-web to bubbly-app
+- rename repo and config from sudoku-web to bubblyclouds-app
 
 - remove template app
 - move bubblyclouds repo (main website) into apps directory then delete separate
