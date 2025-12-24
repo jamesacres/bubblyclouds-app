@@ -212,7 +212,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                   to start solving! They can join now or in their own time.
                 </p>
 
-                <ul className="space-y-4 pb-16">
+                <ul className="space-y-4 pb-32">
                   {parties
                     .sort(
                       (a, b) => b.createdAt.getTime() - a.createdAt.getTime()

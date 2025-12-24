@@ -159,7 +159,7 @@ export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
 
       {displayParties?.length ? (
         <>
-          <ul className="space-y-4 pb-16">
+          <ul className="space-y-4">
             {displayParties?.map(({ partyId, members, partyName }) => (
               <li key={partyId}>
                 <div className="rounded-2xl border border-stone-200 bg-stone-50/80 p-4 shadow-sm backdrop-blur-sm dark:border-gray-700 dark:bg-zinc-800/80">

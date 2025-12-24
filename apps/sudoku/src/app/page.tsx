@@ -194,7 +194,7 @@ function HomeComponent() {
   return (
     <>
       {tab === Tab.START_PUZZLE ? (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pb-32">
           {/* Racing Hero Section */}
           <div className="pt-safe relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 px-6">
             <div className="absolute inset-0 bg-black/10"></div>
@@ -422,12 +422,12 @@ function HomeComponent() {
           />
 
           {/* Bottom padding to ensure content doesn't get hidden behind footer */}
-          <div className="pb-24"></div>
+          <div className="h-32"></div>
         </div>
       ) : (
-        <div className="pt-safe min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-          <div className="container mx-auto max-w-4xl px-6 pb-24">
-            <div className="flex justify-center">
+        <div className="pt-safe min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pb-32">
+          <div className="container mx-auto max-w-4xl px-6">
+            <div className="flex justify-center pt-6">
               <ActivityWidget sessions={sessions || []} />
             </div>
             {tab === Tab.MY_PUZZLES && (
