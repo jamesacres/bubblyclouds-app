@@ -22,6 +22,7 @@ interface UserPanelProps extends UserPanelDependencies {
   privacyUrl: string;
   termsUrl: string;
   companyUrl: string;
+  companyName: string;
 }
 
 export const UserPanel = ({
@@ -36,6 +37,7 @@ export const UserPanel = ({
   privacyUrl,
   termsUrl,
   companyUrl,
+  companyName,
 }: UserPanelProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
@@ -148,7 +150,7 @@ export const UserPanel = ({
     <div className="border-t border-gray-700 px-6 py-3 text-center text-xs text-gray-500">
       Powered by{' '}
       <a href={companyUrl} target="_blank" className="hover:text-gray-300">
-        Bubbly Clouds
+        {companyName}
       </a>
     </div>
   );

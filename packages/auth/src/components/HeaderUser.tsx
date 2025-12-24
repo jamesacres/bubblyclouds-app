@@ -13,6 +13,7 @@ export interface HeaderUserDependencies {
   privacyUrl: string;
   termsUrl: string;
   companyUrl: string;
+  companyName: string;
 }
 
 const HeaderUser: React.FC<HeaderUserDependencies> = ({
@@ -23,6 +24,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
   privacyUrl,
   termsUrl,
   companyUrl,
+  companyName,
 }) => {
   const { isLoggingIn, loginRedirect, logout, user, app } =
     (React.useContext(UserContext) as UserContextInterface | undefined) || {};
@@ -38,6 +40,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
       privacyUrl={privacyUrl}
       termsUrl={termsUrl}
       companyUrl={companyUrl}
+      companyName={companyName}
     />
   ) : (
     isOnline && (

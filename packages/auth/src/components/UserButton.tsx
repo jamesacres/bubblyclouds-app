@@ -16,6 +16,7 @@ interface UserButtonProps {
   privacyUrl: string;
   termsUrl: string;
   companyUrl: string;
+  companyName: string;
 }
 
 export const UserButton = ({
@@ -28,6 +29,7 @@ export const UserButton = ({
   privacyUrl,
   termsUrl,
   companyUrl,
+  companyName,
 }: UserButtonProps) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -76,6 +78,7 @@ export const UserButton = ({
                     privacyUrl={privacyUrl}
                     termsUrl={termsUrl}
                     companyUrl={companyUrl}
+                    companyName={companyName}
                   />
                 </Dialog.Panel>
               </Transition.Child>
@@ -125,6 +128,7 @@ export const UserButton = ({
                   privacyUrl={privacyUrl}
                   termsUrl={termsUrl}
                   companyUrl={companyUrl}
+                  companyName={companyName}
                 />
               </Popover.Panel>
             </Transition>

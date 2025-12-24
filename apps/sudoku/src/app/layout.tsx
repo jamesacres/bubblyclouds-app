@@ -115,6 +115,7 @@ export default function RootLayout({
               privacyUrl={APP_CONFIG.privacyUrl}
               termsUrl={APP_CONFIG.termsUrl}
               companyUrl={APP_CONFIG.companyUrl}
+              companyName={APP_CONFIG.companyName}
             />
             <div className="mb-24">{children}</div>
             <PlusModal

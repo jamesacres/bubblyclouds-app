@@ -2,6 +2,7 @@ const APP = 'sudoku';
 const APP_NAME = 'Sudoku Race';
 const DOMAIN = 'bubblyclouds.com';
 const REVERSE_DOMAIN = 'com.bubblyclouds';
+const COMPANY_NAME = 'Bubbly Clouds';
 const APP_CONFIG = {
   app: APP,
   appName: APP_NAME,
@@ -10,6 +11,7 @@ const APP_CONFIG = {
   apiUrl: `https://api.${DOMAIN}`,
   authUrl: `https://auth.${DOMAIN}`,
   companyUrl: `https://${DOMAIN}`,
+  companyName: COMPANY_NAME,
   privacyUrl: `https://${DOMAIN}/privacy`,
   termsUrl: `https://${DOMAIN}/terms`,
   appStoreUrl: 'https://apps.apple.com/app/sudoku-race/id6517357180',

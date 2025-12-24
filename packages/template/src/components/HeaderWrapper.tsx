@@ -15,6 +15,7 @@ export default function HeaderWrapper({
   privacyUrl,
   termsUrl,
   companyUrl,
+  companyName,
 }: {
   app: string;
   appName: string;
@@ -22,6 +23,7 @@ export default function HeaderWrapper({
   privacyUrl: string;
   termsUrl: string;
   companyUrl: string;
+  companyName: string;
 }) {
   const revenueCatContext = useContext(RevenueCatContext);
   const { isOnline } = useOnline();
@@ -46,6 +48,7 @@ export default function HeaderWrapper({
         privacyUrl,
         termsUrl,
         companyUrl,
+        companyName,
       }}
       appName={appName}
     />

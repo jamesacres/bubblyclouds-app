@@ -13,6 +13,7 @@ interface HeaderUserProps {
   privacyUrl: string;
   termsUrl: string;
   companyUrl: string;
+  companyName: string;
 }
 
 interface HeaderProps {

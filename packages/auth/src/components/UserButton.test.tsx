@@ -34,6 +34,7 @@ const mockUserButtonProps = {
   privacyUrl: 'https://example.com/privacy',
   termsUrl: 'https://example.com/terms',
   companyUrl: 'https://example.com',
+  companyName: 'Bubbly Clouds',
 };
 
 describe('UserButton', () => {
