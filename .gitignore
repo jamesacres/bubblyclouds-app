@@ -7,11 +7,13 @@ node_modules
 .yarn/install-state.gz
 
 # testing
-/coverage
+coverage
 
 # next.js
-/.next/
+.next/
 /out/
+apps/*/.next/
+apps/*/out/
 
 # production
 /build
@@ -35,10 +37,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/dist
-/app
+dist
+app
 
 .serena
 .claude
 
 android/app/release
+
+# turborepo
+.turbo

@@ -20,7 +20,16 @@ description: "Task list template for feature implementation"
 - **Single project**: `src/`, `tests/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
+- **Turborepo monorepo**: `packages/[package-name]/src/`, `apps/[app-name]/src/`
 - Paths shown below assume single project - adjust based on plan.md structure
+
+## Monorepo-Specific Considerations
+For turborepo projects, ensure:
+- Tasks respect package boundaries (no apps imported by packages)
+- Import conventions followed (relative within package, package names across packages)
+- No barrel exports (index.ts files) created
+- Package.json exports configured with Just-in-Time pattern
+- Prefer dependency injection over tight package coupling
 
 <!-- 
   ============================================================================

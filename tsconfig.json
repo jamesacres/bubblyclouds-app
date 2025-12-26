@@ -30,7 +30,19 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "@sudoku-web/auth": ["./packages/auth/src"],
+      "@sudoku-web/auth/*": ["./packages/auth/src/*"],
+      "@sudoku-web/ui": ["./packages/ui/src"],
+      "@sudoku-web/ui/*": ["./packages/ui/src/*"],
+      "@sudoku-web/sudoku": ["./packages/sudoku/src"],
+      "@sudoku-web/sudoku/*": ["./packages/sudoku/src/*"],
+      "@sudoku-web/template": ["./packages/template/src"],
+      "@sudoku-web/template/*": ["./packages/template/src/*"],
+      "@sudoku-web/types": ["./packages/types/src"],
+      "@sudoku-web/types/*": ["./packages/types/src/*"],
+      "@sudoku-web/shared": ["./packages/shared/src"],
+      "@sudoku-web/shared/*": ["./packages/shared/src/*"]
     }
   },
   "include": [
