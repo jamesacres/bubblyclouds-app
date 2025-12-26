@@ -258,6 +258,6 @@ const MemoisedSidebar = memo(function MemoisedSidebar<
   return Sidebar(args);
 }) as <ServerState extends BaseServerState>(
   args: Arguments<ServerState>
-) => ReactElement;
+) => ReactElement<any>;
 
 export default MemoisedSidebar;

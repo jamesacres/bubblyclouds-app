@@ -135,7 +135,7 @@ describe('Invite Page', () => {
     } as unknown as RevenueCatContextInterface;
   });
 
-  const renderWithProviders = (ui: React.ReactElement) => {
+  const renderWithProviders = (ui: React.ReactElement<any>) => {
     return render(
       <FetchProvider>
         <UserContext.Provider value={mockUserContext}>

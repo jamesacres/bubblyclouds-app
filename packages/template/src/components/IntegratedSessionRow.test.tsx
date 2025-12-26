@@ -90,7 +90,7 @@ describe('IntegratedSessionRow', () => {
     (mockCalculateSeconds as jest.Mock).mockReturnValue(120);
   });
 
-  const renderWithProps = (element: ReactElement) => {
+  const renderWithProps = (element: ReactElement<any>) => {
     // Element already has UserContext.Provider wrapper, so we just need to clone
     // the IntegratedSessionRow component within it with injected props
     const provider = element;

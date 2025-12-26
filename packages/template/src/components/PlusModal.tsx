@@ -16,7 +16,7 @@ import {
 import { X, Check } from 'react-feather';
 
 interface PremiumFeature {
-  icon: ReactElement;
+  icon: ReactElement<any>;
   title: string;
   description?: string;
 }

@@ -5,7 +5,7 @@ import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
 import { Star, CheckCircle, Lock } from 'react-feather';
 
 interface PremiumFeature {
-  icon: ReactElement;
+  icon: ReactElement<any>;
   title: string;
   description?: string;
 }

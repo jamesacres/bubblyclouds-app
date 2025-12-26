@@ -12,7 +12,7 @@ import { splitCellId } from '../helpers/calculateId';
 interface UseDragOptions {
   isZoomMode: boolean;
   selectedCell: string | null;
-  gridRef: RefObject<HTMLDivElement>;
+  gridRef: RefObject<HTMLDivElement | null>;
 }
 
 export const useDrag = ({
