@@ -19,7 +19,30 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
 
   // Complete month data extracted from original HTML
   const getMonthData = (monthName: string) => {
-    const monthsData: Record<string, any> = {
+    const monthsData: Record<
+      string,
+      {
+        icon: string;
+        background: string;
+        beforeBg: string;
+        beforeBgSize?: string;
+        beforeOpacity?: number;
+        animation: string;
+        titleFont: string;
+        titleFontFamily?: string;
+        titleColor: string;
+        titleSize: number;
+        titleWeight: string | number;
+        titleTransform?: React.CSSProperties['textTransform'] | undefined;
+        fontStyle?: string;
+        sudokuData: string[];
+        stats: {
+          line1: string;
+          line2: string;
+          line3: string;
+        };
+      }
+    > = {
       January: {
         icon: '❄️',
         background: `

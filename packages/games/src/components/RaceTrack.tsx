@@ -13,22 +13,22 @@ import Link from 'next/link';
 import { RefreshCw } from 'react-feather';
 import { BaseState, BaseServerState } from '@sudoku-web/template/types/state';
 
-interface Arguments {
-  sessionParties: Parties<Session<BaseServerState>>;
-  initial: any;
-  final: any;
-  answer: any;
+interface Arguments<T> {
+  sessionParties: Parties<Session<BaseServerState<T>>>;
+  initial: T;
+  final: T;
+  answer: T;
   userId?: string;
   onClick?: () => void;
   countdown?: number;
   completed?: BaseState['completed'];
   refreshSessionParties: () => void;
   isPolling: boolean;
-  answerStack: any[];
+  answerStack: T[];
   calculateCompletionPercentage: (
-    initial: any,
-    final: any,
-    latest: any
+    initial: T,
+    final: T,
+    latest: T | undefined
   ) => number;
   isPuzzleCheated: (answerStack: any[]) => boolean;
 }
@@ -42,7 +42,7 @@ interface PlayerProgress {
   isPuzzleCheated: boolean;
 }
 
-const RaceTrack = ({
+const RaceTrack = <T,>({
   sessionParties,
   initial,
   final,
@@ -56,7 +56,7 @@ const RaceTrack = ({
   answerStack,
   calculateCompletionPercentage,
   isPuzzleCheated,
-}: Arguments) => {
+}: Arguments<T>) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
   // Get consistent ordering of all user IDs for color assignment
@@ -99,11 +99,9 @@ const RaceTrack = ({
 
           const percentage = session
             ? calculateCompletionPercentage(
-                session.state.initial as any,
-                session.state.final as any,
-                session.state.answerStack[
-                  session.state.answerStack.length - 1
-                ] as any
+                session.state.initial,
+                session.state.final,
+                session.state.answerStack[session.state.answerStack.length - 1]
               )
             : 0;
 
@@ -127,7 +125,7 @@ const RaceTrack = ({
               isPuzzleCheated:
                 percentage === 100 &&
                 !!session &&
-                isPuzzleCheated(session.state.answerStack as any),
+                isPuzzleCheated(session.state.answerStack),
             };
           }
         });
@@ -398,8 +396,6 @@ const RaceTrack = ({
 };
 
 // Prevent re-render on timer change
-const MemoisedRaceTrack = memo(function MemoisedRaceTrack(args: Arguments) {
-  return RaceTrack(args);
-});
+const MemoisedRaceTrack = memo(RaceTrack) as typeof RaceTrack;
 
 export default MemoisedRaceTrack;

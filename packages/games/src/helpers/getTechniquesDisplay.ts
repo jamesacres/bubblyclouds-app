@@ -96,20 +96,18 @@ export const getTechniquesDisplay = (
     if (typeof categoryTechniques === 'object' && categoryTechniques !== null) {
       const color = categoryColors[category] || 'bg-gray-500 text-white';
       const order = categoryOrder[category] ?? 999;
-      Object.entries(categoryTechniques as any).forEach(
-        ([technique, count]) => {
-          if (count && (count as number) > 0) {
-            const humanName = techniqueNames[technique] || technique;
-            allTechniques.push({
-              name: humanName,
-              count: count as number,
-              color,
-              category,
-              categoryOrder: order,
-            });
-          }
+      Object.entries(categoryTechniques).forEach(([technique, count]) => {
+        if (count && (count as number) > 0) {
+          const humanName = techniqueNames[technique] || technique;
+          allTechniques.push({
+            name: humanName,
+            count: count as number,
+            color,
+            category,
+            categoryOrder: order,
+          });
         }
-      );
+      });
     }
   });
 

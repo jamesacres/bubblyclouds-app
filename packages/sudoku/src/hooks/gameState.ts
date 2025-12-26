@@ -672,7 +672,7 @@ function useGameState({
   useEffect(() => {
     const ignoreKeyboard = (e: KeyboardEvent) => {
       const insideForm = /^(?:input|textarea|select|button)$/i.test(
-        (<any>e.target)?.tagName
+        (<HTMLElement>e.target)?.tagName
       );
       return completed || showSidebar || insideForm;
     };
