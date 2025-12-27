@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 
 import { ChevronLeft } from 'react-feather';
 
-const HeaderBack = () => {
+const HeaderBack = ({ appName }: { appName: string }) => {
   const router = useRouter();
   const pathname = usePathname();
   return pathname === '/' ? (
@@ -13,7 +13,7 @@ const HeaderBack = () => {
         className="inline-flex cursor-pointer items-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-sm font-semibold text-transparent transition-opacity active:opacity-70"
         onClick={() => router.replace('/?tab=START_PUZZLE')}
       >
-        Sudoku Race
+        {appName}
       </button>
     </div>
   ) : (

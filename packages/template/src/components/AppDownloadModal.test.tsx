@@ -12,6 +12,15 @@ const { isCapacitor } = require('../helpers/capacitor');
 describe('AppDownloadModal', () => {
   const mockOnClose = jest.fn();
   const mockOnContinueWeb = jest.fn();
+  const mockProps = {
+    appName: 'Test App',
+    appStoreUrl: 'https://apps.apple.com/app/test-app/id123456',
+    googlePlayUrl: 'https://play.google.com/store/apps/details?id=com.test.app',
+    deepLinkScheme: 'com.test.app',
+    mobileDescription: 'Get the best experience with our Test App!',
+    desktopDescription: 'Download Test App',
+    openInAppLabel: 'Open App',
+  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -25,6 +34,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -38,6 +48,7 @@ describe('AppDownloadModal', () => {
           isOpen={false}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -52,6 +63,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -67,6 +79,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -80,6 +93,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -105,6 +119,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
@@ -123,6 +138,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
@@ -141,6 +157,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
@@ -160,14 +177,11 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
-      expect(
-        screen.getByText(
-          /Get the best racing experience with our Sudoku Race app/i
-        )
-      ).toBeInTheDocument();
+      expect(screen.getByText(mockProps.mobileDescription)).toBeInTheDocument();
     });
 
     it('should display desktop message on desktop', () => {
@@ -181,10 +195,13 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
-      expect(screen.getByText(/Download Sudoku Race/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(mockProps.desktopDescription)
+      ).toBeInTheDocument();
     });
   });
 
@@ -199,16 +216,14 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
       const appStoreLink = screen.getByAltText(/App Store/i);
       fireEvent.click(appStoreLink);
 
-      expect(window.open).toHaveBeenCalledWith(
-        'https://apps.apple.com/app/sudoku-race/id6517357180',
-        '_blank'
-      );
+      expect(window.open).toHaveBeenCalledWith(mockProps.appStoreUrl, '_blank');
     });
   });
 
@@ -223,6 +238,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
@@ -230,7 +246,7 @@ describe('AppDownloadModal', () => {
       fireEvent.click(playStoreLink);
 
       expect(window.open).toHaveBeenCalledWith(
-        'https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku',
+        mockProps.googlePlayUrl,
         '_blank'
       );
     });
@@ -245,19 +261,20 @@ describe('AppDownloadModal', () => {
       });
     });
 
-    it('should display "Open Puzzle" button on mobile', () => {
+    it('should display open in app button on mobile', () => {
       render(
         <AppDownloadModal
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
-      expect(screen.getByText(/Open Puzzle/i)).toBeInTheDocument();
+      expect(screen.getByText(mockProps.openInAppLabel)).toBeInTheDocument();
     });
 
-    it('should not display "Open Puzzle" button on desktop', () => {
+    it('should not display open in app button on desktop', () => {
       Object.defineProperty(window.navigator, 'userAgent', {
         value: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
         writable: true,
@@ -268,10 +285,13 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
-      expect(screen.queryByText(/Open Puzzle/i)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(mockProps.openInAppLabel)
+      ).not.toBeInTheDocument();
     });
 
     it('should have open in app button', () => {
@@ -286,10 +306,11 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
-      const openButton = screen.getByText(/Open Puzzle/i);
+      const openButton = screen.getByText(mockProps.openInAppLabel);
       expect(openButton).toBeInTheDocument();
 
       // Clicking the button will attempt to set window.location.href
@@ -310,6 +331,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
@@ -327,6 +349,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
@@ -339,6 +362,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
 
@@ -359,6 +383,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -372,6 +397,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -385,6 +411,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(screen.getByAltText(/App Store/i)).toBeInTheDocument();
@@ -398,6 +425,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -412,9 +440,12 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
-      expect(screen.getByText(/Download Sudoku Race/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(mockProps.desktopDescription)
+      ).toBeInTheDocument();
       expect(screen.getByAltText(/Google Play/i)).toBeInTheDocument();
     });
   });
@@ -426,6 +457,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -448,6 +480,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(screen.getByAltText(/App Store/i)).toBeInTheDocument();
@@ -460,6 +493,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -475,6 +509,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       expect(
@@ -488,6 +523,7 @@ describe('AppDownloadModal', () => {
           isOpen={true}
           onClose={mockOnClose}
           onContinueWeb={mockOnContinueWeb}
+          {...mockProps}
         />
       );
       const appStoreLink = screen.getByAltText(/App Store/i);

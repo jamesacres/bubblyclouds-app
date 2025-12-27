@@ -8,6 +8,9 @@ export interface PlatformServices {
   saveElectronState: (state: any) => Promise<void>;
   getCapacitorState: () => Promise<string>;
   saveCapacitorState: (state: any) => Promise<void>;
+  app: string;
+  apiUrl: string;
+  authUrl: string;
 }
 
 export const PlatformServicesContext = React.createContext<

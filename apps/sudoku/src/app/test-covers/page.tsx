@@ -1,5 +1,5 @@
 'use client';
-import BookCover from '@/components/BookCover';
+import BookCover from '@sudoku-web/sudoku/components/BookCover';
 
 export default function TestCoversPage() {
   const months = [

@@ -80,4 +80,25 @@ describe('SimpleSudoku', () => {
     const cell = container.querySelector('.bg-red-500');
     expect(cell).toBeInTheDocument();
   });
+
+  it('works with state prop', () => {
+    const initial = createPuzzle();
+    const final = createPuzzle();
+    const latest = createPuzzle();
+    initial[0][0][0][0] = 5;
+
+    const { container } = render(
+      <SimpleSudoku
+        state={{
+          initial,
+          final,
+          answerStack: [latest],
+          metadata: {},
+        }}
+      />
+    );
+    const cells = container.querySelectorAll('.flex.aspect-square');
+    expect(cells.length).toBe(81);
+    expect(screen.getByText('5')).toBeInTheDocument();
+  });
 });

@@ -9,25 +9,25 @@ jest.mock('next/navigation', () => ({
   useSearchParams: jest.fn(),
 }));
 
-jest.mock('@/components/MyPuzzlesTab', () => {
+jest.mock('@sudoku-web/template/components/MyPuzzlesTab', () => {
   return function MockMyPuzzlesTab() {
     return <div data-testid="my-puzzles-tab">My Puzzles Tab</div>;
   };
 });
 
-jest.mock('@/components/FriendsTab', () => {
+jest.mock('@sudoku-web/template/components/FriendsTab', () => {
   return function MockFriendsTab() {
     return <div data-testid="friends-tab">Friends Tab</div>;
   };
 });
 
-jest.mock('@/components/ActivityWidget', () => {
+jest.mock('@sudoku-web/games/components/ActivityWidget', () => {
   return function MockActivityWidget() {
     return <div data-testid="activity-widget">Activity Widget</div>;
   };
 });
 
-jest.mock('@/components/BookCover', () => {
+jest.mock('@sudoku-web/sudoku/components/BookCover', () => {
   return function MockBookCover() {
     return <div data-testid="book-cover">Book Cover</div>;
   };
@@ -40,8 +40,8 @@ jest.mock('@sudoku-web/template/hooks/online', () => ({
   })),
 }));
 
-jest.mock('@sudoku-web/template/hooks/serverStorage', () => ({
-  useServerStorage: jest.fn(() => ({
+jest.mock('@sudoku-web/sudoku/hooks/useSudokuServerStorage', () => ({
+  useSudokuServerStorage: jest.fn(() => ({
     getSudokuOfTheDay: jest.fn(),
     listParties: jest.fn(() => Promise.resolve([])),
   })),
@@ -103,8 +103,16 @@ jest.mock('@sudoku-web/types/tabs', () => ({
 }));
 
 jest.mock('@sudoku-web/template/components/SocialProof', () => {
-  return function MockSocialProof() {
-    return <div data-testid="social-proof">Social Proof</div>;
+  return function MockSocialProof({
+    motivationalMessages,
+  }: {
+    motivationalMessages: string[];
+  }) {
+    return (
+      <div data-testid="social-proof">
+        Social Proof - {motivationalMessages.length} messages
+      </div>
+    );
   };
 });
 
@@ -124,7 +132,7 @@ jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: any) => {
     const { ...rest } = props;
-    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+    // eslint-disable-next-line @next/next/no-img-element
     return <img {...rest} />;
   },
 }));
@@ -421,7 +429,7 @@ describe('Home Page', () => {
   describe('Content padding', () => {
     it('should have bottom padding to avoid footer overlap', () => {
       const { container } = render(<Home />);
-      const paddingDiv = container.querySelector('.pb-24');
+      const paddingDiv = container.querySelector('.h-32');
       expect(paddingDiv).toBeInTheDocument();
     });
   });

@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Suspense } from 'react';
 import Invite from './page';
-import * as serverStorageHook from '@sudoku-web/template/hooks/serverStorage';
+import * as sudokuServerStorageHook from '@sudoku-web/sudoku/hooks/useSudokuServerStorage';
 import * as usePartiesHook from '@sudoku-web/template/hooks/useParties';
 import {
   UserContext,
@@ -28,11 +28,11 @@ jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: any) => {
     const { ...rest } = props;
-    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+    // eslint-disable-next-line @next/next/no-img-element
     return <img {...rest} />;
   },
 }));
-jest.mock('@sudoku-web/template/hooks/serverStorage');
+jest.mock('@sudoku-web/sudoku/hooks/useSudokuServerStorage');
 jest.mock('@sudoku-web/template/components/PremiumFeatures', () => ({
   PremiumFeatures: function MockPremiumFeatures() {
     return <div data-testid="premium-features">Premium Features Mock</div>;
@@ -41,7 +41,8 @@ jest.mock('@sudoku-web/template/components/PremiumFeatures', () => ({
 
 const mockUseRouter = useRouter as jest.Mock;
 const mockUseSearchParams = useSearchParams as jest.Mock;
-const mockUseServerStorage = serverStorageHook.useServerStorage as jest.Mock;
+const mockUseSudokuServerStorage =
+  sudokuServerStorageHook.useSudokuServerStorage as jest.Mock;
 const mockUseParties = usePartiesHook.useParties as jest.Mock;
 
 describe('Invite Page', () => {
@@ -81,7 +82,7 @@ describe('Invite Page', () => {
 
     mockGetPublicInvite = jest.fn().mockResolvedValue(mockPublicInvite);
     mockCreateMember = jest.fn();
-    mockUseServerStorage.mockReturnValue({
+    mockUseSudokuServerStorage.mockReturnValue({
       getPublicInvite: mockGetPublicInvite,
       createMember: mockCreateMember,
     });
@@ -134,7 +135,7 @@ describe('Invite Page', () => {
     } as unknown as RevenueCatContextInterface;
   });
 
-  const renderWithProviders = (ui: React.ReactElement) => {
+  const renderWithProviders = (ui: React.ReactElement<any>) => {
     return render(
       <FetchProvider>
         <UserContext.Provider value={mockUserContext}>

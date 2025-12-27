@@ -19,7 +19,7 @@ jest.mock('@headlessui/react', () => {
 
   // Filter out HeadlessUI-specific animation and control props that React doesn't recognize
   const filterHeadlessUIProps = (props) => {
-    const { children, as, ...rest } = props;
+    const { children: _children, as: _as, ...rest } = props;
     const filtered = {};
     const headlessUIProps = new Set([
       'enter',
@@ -302,7 +302,7 @@ jest.mock(
 
 // Base WebPlugin class for Capacitor plugins
 class WebPlugin {
-  constructor(options) {
+  constructor(_options) {
     this.listeners = {};
   }
   addListener(eventName, listenerFunc) {
@@ -675,7 +675,7 @@ if (
     } else {
       throw new Error('webcrypto not available');
     }
-  } catch (e) {
+  } catch (_e) {
     // Fallback - still try to use Node's crypto for digest operations
     try {
       const nodeCrypto = require('crypto');
@@ -714,7 +714,7 @@ if (
           },
         },
       };
-    } catch (innerE) {
+    } catch (_innerE) {
       // Final fallback - basic mock
       cryptoMock = {
         getRandomValues: (arr) => {
@@ -724,7 +724,7 @@ if (
           return arr;
         },
         subtle: {
-          digest: async (algorithm, data) => {
+          digest: async (_algorithm, _data) => {
             return new ArrayBuffer(32);
           },
         },

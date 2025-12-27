@@ -1,7 +1,9 @@
+const { APP_CONFIG } = require('./app.config');
+
 module.exports = {
   electronVersion: require('electron/package.json').version,
-  appId: 'io.github.jamesacres.sudoku-web',
-  productName: 'Sudoku Race',
+  appId: APP_CONFIG.appId,
+  productName: APP_CONFIG.appName,
   copyright: 'Copyright (c) 2024 James Acres',
   win: {
     target: ['dir', 'portable', 'zip'],
@@ -14,10 +16,10 @@ module.exports = {
   mac: {
     target: ['dir', 'dmg', 'zip'],
     icon: 'resources/icon.icns',
-    extendInfo: 'com.bubblyclouds.sudoku',
+    extendInfo: APP_CONFIG.appId,
   },
   protocols: {
-    name: 'com.bubblyclouds.sudoku',
-    schemes: ['com.bubblyclouds.sudoku'],
+    name: APP_CONFIG.appId,
+    schemes: [APP_CONFIG.appId],
   },
 };

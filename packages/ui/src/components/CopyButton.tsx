@@ -16,12 +16,14 @@ const CopyButton = ({
   className = '',
   partyName,
   isIOS = () => false,
+  appName,
 }: {
   getText: () => Promise<string> | string;
   extraSmall?: boolean;
   className?: string;
   partyName?: string;
   isIOS?: () => boolean;
+  appName: string;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
@@ -52,7 +54,7 @@ const CopyButton = ({
         setShowCopied(true);
         if (canShare) {
           await Share.share({
-            title: `You're invited to a Sudoku Race!`,
+            title: `You're invited to a ${appName}!`,
             text: `Join the${partyName ? ` ${partyName}` : ''} racing team`,
             url: text,
             dialogTitle: 'Share invite',

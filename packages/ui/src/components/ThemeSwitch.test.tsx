@@ -32,7 +32,7 @@ describe('ThemeSwitch', () => {
   });
 
   describe('initial render', () => {
-    it('should not render before mounting', () => {
+    it('should not render before mounting', async () => {
       (useTheme as jest.Mock).mockReturnValue({
         theme: undefined,
         setTheme: mockSetTheme,
@@ -40,9 +40,10 @@ describe('ThemeSwitch', () => {
       });
 
       const { container } = render(<ThemeSwitch />);
-      // Before mounting, nothing should render
-      // The button will be rendered but let's check the SVG path
-      expect(container.querySelector('button')).toBeInTheDocument();
+
+      await waitFor(() => {
+        expect(container.querySelector('button')).toBeInTheDocument();
+      });
     });
 
     it('should render button after mounting', async () => {
@@ -103,14 +104,12 @@ describe('ThemeSwitch', () => {
         resolvedTheme: 'dark',
       });
 
-      const { container, rerender } = render(<ThemeSwitch />);
+      const { container } = render(<ThemeSwitch />);
 
       await waitFor(() => {
-        rerender(<ThemeSwitch />);
+        const paths = container.querySelectorAll('path');
+        expect(paths.length).toBeGreaterThan(0);
       });
-
-      const paths = container.querySelectorAll('path');
-      expect(paths.length).toBeGreaterThan(0);
     });
 
     it('should have dark mode styling', async () => {
@@ -429,7 +428,9 @@ describe('ThemeSwitch', () => {
     it('should have descriptive aria-label', async () => {
       render(<ThemeSwitch />);
 
-      expect(screen.getByLabelText('Toggle Dark Mode')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByLabelText('Toggle Dark Mode')).toBeInTheDocument();
+      });
     });
 
     it('should be clickable with keyboard Enter', async () => {

@@ -34,14 +34,14 @@ describe('CopyButton', () => {
 
   describe('rendering', () => {
     it('should render button with copy icon and text', async () => {
-      render(<CopyButton getText={() => 'test text'} />);
+      render(<CopyButton getText={() => 'test text'} appName="Sudoku Race" />);
       await waitFor(() => {
         expect(screen.getByRole('button')).toBeInTheDocument();
       });
     });
 
     it('should render with default styling', () => {
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
       const button = screen.getByRole('button');
       expect(button).toHaveClass('text-theme-primary');
       expect(button).toHaveClass('dark:text-theme-primary-light');
@@ -50,7 +50,13 @@ describe('CopyButton', () => {
     });
 
     it('should render with extra small sizing when extraSmall prop is true', () => {
-      render(<CopyButton getText={() => 'test'} extraSmall={true} />);
+      render(
+        <CopyButton
+          getText={() => 'test'}
+          extraSmall={true}
+          appName="Sudoku Race"
+        />
+      );
       const button = screen.getByRole('button');
       expect(button).toHaveClass('px-2');
       expect(button).toHaveClass('py-1');
@@ -58,7 +64,13 @@ describe('CopyButton', () => {
     });
 
     it('should render with default sizing when extraSmall is false', () => {
-      render(<CopyButton getText={() => 'test'} extraSmall={false} />);
+      render(
+        <CopyButton
+          getText={() => 'test'}
+          extraSmall={false}
+          appName="Sudoku Race"
+        />
+      );
       const button = screen.getByRole('button');
       expect(button).toHaveClass('w-full');
       expect(button).toHaveClass('px-4');
@@ -68,7 +80,13 @@ describe('CopyButton', () => {
 
     it('should use custom className when provided', () => {
       const customClass = 'custom-test-class';
-      render(<CopyButton getText={() => 'test'} className={customClass} />);
+      render(
+        <CopyButton
+          getText={() => 'test'}
+          className={customClass}
+          appName="Sudoku Race"
+        />
+      );
       const button = screen.getByRole('button');
       expect(button).toHaveClass(customClass);
     });
@@ -77,7 +95,7 @@ describe('CopyButton', () => {
   describe('copy functionality', () => {
     it('should copy text to clipboard when clicked', async () => {
       const getText = jest.fn(() => 'invite link');
-      render(<CopyButton getText={getText} />);
+      render(<CopyButton getText={getText} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -92,7 +110,7 @@ describe('CopyButton', () => {
 
     it('should handle promise-based getText function', async () => {
       const getText = jest.fn(() => Promise.resolve('async text'));
-      render(<CopyButton getText={getText} />);
+      render(<CopyButton getText={getText} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -105,7 +123,7 @@ describe('CopyButton', () => {
     });
 
     it('should show "Copied to clipboard!" feedback after successful copy', async () => {
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -117,7 +135,7 @@ describe('CopyButton', () => {
 
     it('should hide "Copied" message after 5 seconds', async () => {
       jest.useFakeTimers();
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -146,7 +164,7 @@ describe('CopyButton', () => {
         clipboardError
       );
 
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -165,7 +183,7 @@ describe('CopyButton', () => {
       const getText: jest.Mock<Promise<string>, []> = jest.fn(
         () => new Promise((resolve) => setTimeout(() => resolve('text'), 100))
       );
-      render(<CopyButton getText={getText} />);
+      render(<CopyButton getText={getText} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -176,7 +194,7 @@ describe('CopyButton', () => {
     });
 
     it('should enable button after operation completes', async () => {
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -190,7 +208,7 @@ describe('CopyButton', () => {
   describe('share functionality', () => {
     it('should check if sharing is available on mount', async () => {
       const { Share } = require('@capacitor/share');
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
 
       await waitFor(() => {
         expect(Share.canShare).toHaveBeenCalled();
@@ -202,7 +220,11 @@ describe('CopyButton', () => {
       Share.canShare.mockResolvedValue({ value: true });
 
       render(
-        <CopyButton getText={() => 'test link'} partyName="Racing Team" />
+        <CopyButton
+          getText={() => 'test link'}
+          partyName="Racing Team"
+          appName="Sudoku Race"
+        />
       );
 
       // Wait for the useEffect to complete and canShare state to be set
@@ -229,7 +251,11 @@ describe('CopyButton', () => {
       Share.canShare.mockResolvedValue({ value: true });
 
       render(
-        <CopyButton getText={() => 'invite link'} partyName="Dragon Team" />
+        <CopyButton
+          getText={() => 'invite link'}
+          partyName="Dragon Team"
+          appName="Sudoku Race"
+        />
       );
 
       // Wait for the useEffect to complete and canShare state to be set
@@ -252,7 +278,9 @@ describe('CopyButton', () => {
     it('should not include party name in share text when not provided', async () => {
       Share.canShare.mockResolvedValue({ value: true });
 
-      render(<CopyButton getText={() => 'invite link'} />);
+      render(
+        <CopyButton getText={() => 'invite link'} appName="Sudoku Race" />
+      );
 
       // Wait for the useEffect to complete and canShare state to be set
       await waitFor(() => {
@@ -276,7 +304,7 @@ describe('CopyButton', () => {
       const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
       Share.canShare.mockRejectedValueOnce(new Error('Share check failed'));
 
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
 
       await waitFor(() => {
         expect(consoleWarnSpy).toHaveBeenCalled();
@@ -286,7 +314,13 @@ describe('CopyButton', () => {
     });
 
     it('should show copy icon on non-iOS when canShare is false', async () => {
-      render(<CopyButton getText={() => 'test'} isIOS={() => false} />);
+      render(
+        <CopyButton
+          getText={() => 'test'}
+          isIOS={() => false}
+          appName="Sudoku Race"
+        />
+      );
 
       await waitFor(() => {
         expect(screen.getByText(/Copy Invite Link/i)).toBeInTheDocument();
@@ -299,7 +333,7 @@ describe('CopyButton', () => {
         () => new Promise((resolve) => setTimeout(() => resolve('test'), 1000))
       );
 
-      render(<CopyButton getText={getText} />);
+      render(<CopyButton getText={getText} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -316,7 +350,7 @@ describe('CopyButton', () => {
 
   describe('edge cases', () => {
     it('should handle empty string from getText', async () => {
-      render(<CopyButton getText={() => ''} />);
+      render(<CopyButton getText={() => ''} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -328,7 +362,7 @@ describe('CopyButton', () => {
 
     it('should handle multiple rapid clicks', async () => {
       const getText = jest.fn(() => 'text');
-      render(<CopyButton getText={getText} />);
+      render(<CopyButton getText={getText} appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
 
@@ -345,13 +379,13 @@ describe('CopyButton', () => {
 
   describe('accessibility', () => {
     it('should be keyboard accessible', () => {
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
     });
 
     it('should have proper button role for screen readers', () => {
-      render(<CopyButton getText={() => 'test'} />);
+      render(<CopyButton getText={() => 'test'} appName="Sudoku Race" />);
       const button = screen.getByRole('button');
       expect(button.tagName).toBe('BUTTON');
     });

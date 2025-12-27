@@ -61,7 +61,7 @@ jest.mock('@sudoku-web/sudoku/types/puzzle', () => ({
   },
 }));
 
-jest.mock('@/helpers/buildPuzzleUrl', () => ({
+jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
   buildPuzzleUrl: jest.fn((initial, final, _metadata) => {
     return `/puzzle?initial=${initial}&final=${final}`;
   }),

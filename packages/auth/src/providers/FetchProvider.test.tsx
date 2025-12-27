@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useContext } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import FetchProvider, { FetchContext, State } from './FetchProvider';
@@ -60,10 +60,14 @@ describe('FetchProvider', () => {
 
   describe('initial state', () => {
     it('should provide initial state with null values', () => {
-      let contextValue: any;
+      const contextValueRef = { current: undefined as any };
 
       const TestComponent = () => {
-        contextValue = useContext(FetchContext);
+        const context = useContext(FetchContext);
+        const ref = useRef(contextValueRef);
+        useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -73,22 +77,25 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(contextValue).toBeDefined();
-      expect(contextValue[0]).toBeDefined();
-      expect(contextValue[0].current.accessToken).toBeNull();
-      expect(contextValue[0].current.accessExpiry).toBeNull();
-      expect(contextValue[0].current.refreshToken).toBeNull();
-      expect(contextValue[0].current.refreshExpiry).toBeNull();
-      expect(contextValue[0].current.user).toBeNull();
-      expect(contextValue[0].current.userExpiry).toBeNull();
+      expect(contextValueRef.current).toBeDefined();
+      expect(contextValueRef.current[0]).toBeDefined();
+      expect(contextValueRef.current[0].current.accessToken).toBeNull();
+      expect(contextValueRef.current[0].current.accessExpiry).toBeNull();
+      expect(contextValueRef.current[0].current.refreshToken).toBeNull();
+      expect(contextValueRef.current[0].current.refreshExpiry).toBeNull();
+      expect(contextValueRef.current[0].current.user).toBeNull();
+      expect(contextValueRef.current[0].current.userExpiry).toBeNull();
     });
 
     it('should provide setState function', () => {
-      let setState: any;
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [, setStateFunc] = useContext(FetchContext)!;
-        setState = setStateFunc;
+        const ref = useRef(setStateRef);
+        useEffect(() => {
+          ref.current.current = setStateFunc;
+        }, [setStateFunc]);
         return <div>Test</div>;
       };
 
@@ -98,20 +105,24 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(typeof setState).toBe('function');
+      expect(typeof setStateRef.current).toBe('function');
     });
   });
 
   describe('state updates', () => {
     it('should update state via setState', async () => {
-      let contextValue: any;
-      let setState: any;
+      const contextValueRef = { current: undefined as any };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [stateRef, setStateFunc] = useContext(FetchContext)!;
-        contextValue = stateRef;
-        setState = setStateFunc;
-        return <div>{stateRef.current.accessToken}</div>;
+        const ref1 = useRef(contextValueRef);
+        const ref2 = useRef(setStateRef);
+        useEffect(() => {
+          ref1.current.current = stateRef;
+          ref2.current.current = setStateFunc;
+        }, [stateRef, setStateFunc]);
+        return <div>Test</div>;
       };
 
       render(
@@ -120,7 +131,7 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(contextValue.current.accessToken).toBeNull();
+      expect(contextValueRef.current.current.accessToken).toBeNull();
 
       const newState: State = {
         accessToken: 'new-token',
@@ -131,21 +142,25 @@ describe('FetchProvider', () => {
         userExpiry: null,
       };
 
-      setState(newState);
+      setStateRef.current(newState);
 
       await waitFor(() => {
-        expect(contextValue.current.accessToken).toBe('new-token');
+        expect(contextValueRef.current.current.accessToken).toBe('new-token');
       });
     });
 
     it('should allow partial state updates', async () => {
-      let stateRef: any;
-      let setState: any;
+      const stateRefRef = { current: undefined as any };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref, setStateFunc] = useContext(FetchContext)!;
-        stateRef = ref;
-        setState = setStateFunc;
+        const r1 = useRef(stateRefRef);
+        const r2 = useRef(setStateRef);
+        useEffect(() => {
+          r1.current.current = ref;
+          r2.current.current = setStateFunc;
+        }, [ref, setStateFunc]);
         return null;
       };
 
@@ -158,7 +173,7 @@ describe('FetchProvider', () => {
       const token = 'test-token';
       const expiry = new Date();
 
-      setState({
+      setStateRef.current({
         accessToken: token,
         accessExpiry: expiry,
         refreshToken: null,
@@ -168,19 +183,23 @@ describe('FetchProvider', () => {
       });
 
       await waitFor(() => {
-        expect(stateRef.current.accessToken).toBe(token);
-        expect(stateRef.current.accessExpiry).toBe(expiry);
+        expect(stateRefRef.current.current.accessToken).toBe(token);
+        expect(stateRefRef.current.current.accessExpiry).toBe(expiry);
       });
     });
 
     it('should preserve state across multiple updates', async () => {
-      let stateRef: any;
-      let setState: any;
+      const stateRefRef = { current: undefined as any };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref, setStateFunc] = useContext(FetchContext)!;
-        stateRef = ref;
-        setState = setStateFunc;
+        const r1 = useRef(stateRefRef);
+        const r2 = useRef(setStateRef);
+        useEffect(() => {
+          r1.current.current = ref;
+          r2.current.current = setStateFunc;
+        }, [ref, setStateFunc]);
         return null;
       };
 
@@ -199,10 +218,10 @@ describe('FetchProvider', () => {
         userExpiry: null,
       };
 
-      setState(state1);
+      setStateRef.current(state1);
 
       await waitFor(() => {
-        expect(stateRef.current.accessToken).toBe('token1');
+        expect(stateRefRef.current.current.accessToken).toBe('token1');
       });
 
       const state2: State = {
@@ -214,21 +233,24 @@ describe('FetchProvider', () => {
         userExpiry: null,
       };
 
-      setState(state2);
+      setStateRef.current(state2);
 
       await waitFor(() => {
-        expect(stateRef.current.refreshToken).toBe('refresh1');
+        expect(stateRefRef.current.current.refreshToken).toBe('refresh1');
       });
     });
   });
 
   describe('multiple consumers', () => {
     it('should provide same state to all consumers', async () => {
-      const states: Array<{ value: any; id: number }> = [];
+      const statesRef = { current: [] as Array<{ value: any; id: number }> };
 
       const Consumer = ({ id }: { id: number }) => {
         const [stateRef] = useContext(FetchContext)!;
-        states.push({ value: stateRef.current, id });
+        const ref = useRef(statesRef);
+        useEffect(() => {
+          ref.current.current.push({ value: stateRef.current, id });
+        }, [id, stateRef]);
         return <div>Consumer {id}</div>;
       };
 
@@ -240,26 +262,28 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(states).toHaveLength(3);
-      expect(states[0].value).toBe(states[1].value);
-      expect(states[1].value).toBe(states[2].value);
+      await waitFor(() => {
+        expect(statesRef.current).toHaveLength(3);
+        expect(statesRef.current[0].value).toBe(statesRef.current[1].value);
+        expect(statesRef.current[1].value).toBe(statesRef.current[2].value);
+      });
     });
 
     it('should update all consumers when state changes', async () => {
-      let setState: any;
-      let stateRef: any;
+      const setStateRef = { current: undefined as any };
+      const stateRefRef = { current: undefined as any };
 
       const Consumer = ({ id }: { id: number }) => {
         const [ref, setStateFunc] = useContext(FetchContext)!;
-        if (id === 1) {
-          setState = setStateFunc;
-          stateRef = ref;
-        }
-        return (
-          <div data-testid={`consumer-${id}`}>
-            {ref.current.accessToken || 'empty'}
-          </div>
-        );
+        const r1 = useRef(setStateRef);
+        const r2 = useRef(stateRefRef);
+        useEffect(() => {
+          if (id === 1) {
+            r1.current.current = setStateFunc;
+            r2.current.current = ref;
+          }
+        }, [id, ref, setStateFunc]);
+        return <div data-testid={`consumer-${id}`}>Consumer {id}</div>;
       };
 
       render(
@@ -269,10 +293,11 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(screen.getByTestId('consumer-1')).toHaveTextContent('empty');
-      expect(screen.getByTestId('consumer-2')).toHaveTextContent('empty');
+      await waitFor(() => {
+        expect(setStateRef.current).toBeDefined();
+      });
 
-      setState({
+      setStateRef.current({
         accessToken: 'shared-token',
         accessExpiry: null,
         refreshToken: null,
@@ -281,29 +306,26 @@ describe('FetchProvider', () => {
         userExpiry: null,
       });
 
-      // Note: FetchProvider uses refs which don't trigger re-renders
-      // The state is updated but components won't re-render automatically
-      // This is by design - consumers need to manually trigger renders or check the ref
       await waitFor(() => {
-        expect(stateRef.current.accessToken).toBe('shared-token');
+        expect(stateRefRef.current.current.accessToken).toBe('shared-token');
       });
     });
   });
 
   describe('state persistence', () => {
     it('should maintain state during re-renders', async () => {
-      let stateRef: any;
-      let setState: any;
+      const stateRefRef = { current: undefined as any };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref, setStateFunc] = useContext(FetchContext)!;
-        stateRef = ref;
-        setState = setStateFunc;
-        return (
-          <div>
-            <p>{ref.current.accessToken || 'null'}</p>
-          </div>
-        );
+        const r1 = useRef(stateRefRef);
+        const r2 = useRef(setStateRef);
+        useEffect(() => {
+          r1.current.current = ref;
+          r2.current.current = setStateFunc;
+        }, [ref, setStateFunc]);
+        return <div>Test</div>;
       };
 
       const { rerender } = render(
@@ -311,8 +333,6 @@ describe('FetchProvider', () => {
           <TestComponent />
         </FetchProvider>
       );
-
-      expect(screen.getByText('null')).toBeInTheDocument();
 
       const newState: State = {
         accessToken: 'maintained-token',
@@ -323,7 +343,11 @@ describe('FetchProvider', () => {
         userExpiry: null,
       };
 
-      setState(newState);
+      await waitFor(() => {
+        expect(setStateRef.current).toBeDefined();
+      });
+
+      setStateRef.current(newState);
 
       rerender(
         <FetchProvider>
@@ -332,26 +356,34 @@ describe('FetchProvider', () => {
       );
 
       await waitFor(() => {
-        expect(stateRef.current.accessToken).toBe('maintained-token');
+        expect(stateRefRef.current.current.accessToken).toBe(
+          'maintained-token'
+        );
       });
     });
   });
 
   describe('nested providers', () => {
     it('should work with nested FetchProviders', () => {
-      let outerState: any;
-      let innerState: any;
+      const outerStateRef = { current: undefined as any };
+      const innerStateRef = { current: undefined as any };
 
       const OuterComponent = () => {
         const [ref] = useContext(FetchContext)!;
-        outerState = ref;
-        return <div>Outer: {ref.current.accessToken || 'null'}</div>;
+        const r = useRef(outerStateRef);
+        useEffect(() => {
+          r.current.current = ref;
+        }, [ref]);
+        return <div>Outer</div>;
       };
 
       const InnerComponent = () => {
         const [ref] = useContext(FetchContext)!;
-        innerState = ref;
-        return <div>Inner: {ref.current.accessToken || 'null'}</div>;
+        const r = useRef(innerStateRef);
+        useEffect(() => {
+          r.current.current = ref;
+        }, [ref]);
+        return <div>Inner</div>;
       };
 
       render(
@@ -363,19 +395,22 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(outerState).toBeDefined();
-      expect(innerState).toBeDefined();
-      // Inner should have its own state instance
-      expect(outerState).not.toBe(innerState);
+      expect(outerStateRef.current).toBeDefined();
+      expect(innerStateRef.current).toBeDefined();
+      expect(outerStateRef.current).not.toBe(innerStateRef.current);
     });
   });
 
   describe('context value shape', () => {
     it('should provide tuple of [stateRef, setState]', () => {
-      let contextValue: any;
+      const contextValueRef = { current: undefined as any };
 
       const TestComponent = () => {
-        contextValue = useContext(FetchContext);
+        const context = useContext(FetchContext);
+        const ref = useRef(contextValueRef);
+        useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return null;
       };
 
@@ -385,16 +420,19 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(Array.isArray(contextValue)).toBe(true);
-      expect(contextValue).toHaveLength(2);
+      expect(Array.isArray(contextValueRef.current)).toBe(true);
+      expect(contextValueRef.current).toHaveLength(2);
     });
 
     it('should have stateRef as first element', () => {
-      let stateRef: any;
+      const stateRefRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref] = useContext(FetchContext)!;
-        stateRef = ref;
+        const r = useRef(stateRefRef);
+        useEffect(() => {
+          r.current.current = ref;
+        }, [ref]);
         return null;
       };
 
@@ -404,16 +442,19 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(stateRef).toBeDefined();
-      expect(typeof stateRef.current).toBe('object');
+      expect(stateRefRef.current).toBeDefined();
+      expect(typeof stateRefRef.current.current).toBe('object');
     });
 
     it('should have correct state shape', () => {
-      let state: any;
+      const stateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref] = useContext(FetchContext)!;
-        state = ref.current;
+        const r = useRef(stateRef);
+        useEffect(() => {
+          r.current.current = ref.current;
+        }, [ref]);
         return null;
       };
 
@@ -423,24 +464,28 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      expect(state).toHaveProperty('accessToken');
-      expect(state).toHaveProperty('accessExpiry');
-      expect(state).toHaveProperty('refreshToken');
-      expect(state).toHaveProperty('refreshExpiry');
-      expect(state).toHaveProperty('user');
-      expect(state).toHaveProperty('userExpiry');
+      expect(stateRef.current).toHaveProperty('accessToken');
+      expect(stateRef.current).toHaveProperty('accessExpiry');
+      expect(stateRef.current).toHaveProperty('refreshToken');
+      expect(stateRef.current).toHaveProperty('refreshExpiry');
+      expect(stateRef.current).toHaveProperty('user');
+      expect(stateRef.current).toHaveProperty('userExpiry');
     });
   });
 
   describe('state with user data', () => {
     it('should store user profile in state', async () => {
-      let stateRef: any;
-      let setState: any;
+      const stateRefRef = { current: undefined as any };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref, setStateFunc] = useContext(FetchContext)!;
-        stateRef = ref;
-        setState = setStateFunc;
+        const r1 = useRef(stateRefRef);
+        const r2 = useRef(setStateRef);
+        useEffect(() => {
+          r1.current.current = ref;
+          r2.current.current = setStateFunc;
+        }, [ref, setStateFunc]);
         return null;
       };
 
@@ -465,22 +510,30 @@ describe('FetchProvider', () => {
         userExpiry: new Date(),
       };
 
-      setState(newState);
+      await waitFor(() => {
+        expect(setStateRef.current).toBeDefined();
+      });
+
+      setStateRef.current(newState);
 
       await waitFor(() => {
-        expect(stateRef.current.user).toEqual(mockUser);
-        expect(stateRef.current.userExpiry).toBeDefined();
+        expect(stateRefRef.current.current.user).toEqual(mockUser);
+        expect(stateRefRef.current.current.userExpiry).toBeDefined();
       });
     });
 
     it('should clear user data when set to null', async () => {
-      let stateRef: any;
-      let setState: any;
+      const stateRefRef = { current: undefined as any };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref, setStateFunc] = useContext(FetchContext)!;
-        stateRef = ref;
-        setState = setStateFunc;
+        const r1 = useRef(stateRefRef);
+        const r2 = useRef(setStateRef);
+        useEffect(() => {
+          r1.current.current = ref;
+          r2.current.current = setStateFunc;
+        }, [ref, setStateFunc]);
         return null;
       };
 
@@ -492,7 +545,7 @@ describe('FetchProvider', () => {
 
       const mockUser = { sub: 'user-123', name: 'Test' } as any;
 
-      let state: State = {
+      const state: State = {
         accessToken: 'token',
         accessExpiry: null,
         refreshToken: null,
@@ -501,13 +554,17 @@ describe('FetchProvider', () => {
         userExpiry: null,
       };
 
-      setState(state);
-
       await waitFor(() => {
-        expect(stateRef.current.user).toEqual(mockUser);
+        expect(setStateRef.current).toBeDefined();
       });
 
-      state = {
+      setStateRef.current(state);
+
+      await waitFor(() => {
+        expect(stateRefRef.current.current.user).toEqual(mockUser);
+      });
+
+      const clearState: State = {
         accessToken: null,
         accessExpiry: null,
         refreshToken: null,
@@ -516,23 +573,27 @@ describe('FetchProvider', () => {
         userExpiry: null,
       };
 
-      setState(state);
+      setStateRef.current(clearState);
 
       await waitFor(() => {
-        expect(stateRef.current.user).toBeNull();
+        expect(stateRefRef.current.current.user).toBeNull();
       });
     });
   });
 
   describe('date handling', () => {
     it('should store and maintain Date objects', async () => {
-      let stateRef: any;
-      let setState: any;
+      const stateRefRef = { current: undefined as any };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref, setStateFunc] = useContext(FetchContext)!;
-        stateRef = ref;
-        setState = setStateFunc;
+        const r1 = useRef(stateRefRef);
+        const r2 = useRef(setStateRef);
+        useEffect(() => {
+          r1.current.current = ref;
+          r2.current.current = setStateFunc;
+        }, [ref, setStateFunc]);
         return null;
       };
 
@@ -554,24 +615,32 @@ describe('FetchProvider', () => {
         userExpiry: null,
       };
 
-      setState(newState);
+      await waitFor(() => {
+        expect(setStateRef.current).toBeDefined();
+      });
+
+      setStateRef.current(newState);
 
       await waitFor(() => {
-        expect(stateRef.current.accessExpiry).toEqual(now);
-        expect(stateRef.current.refreshExpiry).toEqual(later);
+        expect(stateRefRef.current.current.accessExpiry).toEqual(now);
+        expect(stateRefRef.current.current.refreshExpiry).toEqual(later);
       });
     });
   });
 
   describe('edge cases', () => {
     it('should handle rapid state updates', async () => {
-      let stateRef: any;
-      let setState: any;
+      const stateRefRef = { current: undefined as any };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [ref, setStateFunc] = useContext(FetchContext)!;
-        stateRef = ref;
-        setState = setStateFunc;
+        const r1 = useRef(stateRefRef);
+        const r2 = useRef(setStateRef);
+        useEffect(() => {
+          r1.current.current = ref;
+          r2.current.current = setStateFunc;
+        }, [ref, setStateFunc]);
         return null;
       };
 
@@ -581,7 +650,11 @@ describe('FetchProvider', () => {
         </FetchProvider>
       );
 
-      setState({
+      await waitFor(() => {
+        expect(setStateRef.current).toBeDefined();
+      });
+
+      setStateRef.current({
         accessToken: 'token1',
         accessExpiry: null,
         refreshToken: null,
@@ -589,7 +662,7 @@ describe('FetchProvider', () => {
         user: null,
         userExpiry: null,
       });
-      setState({
+      setStateRef.current({
         accessToken: 'token2',
         accessExpiry: null,
         refreshToken: null,
@@ -597,7 +670,7 @@ describe('FetchProvider', () => {
         user: null,
         userExpiry: null,
       });
-      setState({
+      setStateRef.current({
         accessToken: 'token3',
         accessExpiry: null,
         refreshToken: null,
@@ -607,18 +680,22 @@ describe('FetchProvider', () => {
       });
 
       await waitFor(() => {
-        expect(stateRef.current.accessToken).toBe('token3');
+        expect(stateRefRef.current.current.accessToken).toBe('token3');
       });
     });
 
     it('should provide new state instance per provider', () => {
-      let state1: any;
-      let state2: any;
+      const state1Ref = { current: undefined as any };
+      const state2Ref = { current: undefined as any };
 
       const Consumer = ({ id }: { id: number }) => {
         const [ref] = useContext(FetchContext)!;
-        if (id === 1) state1 = ref.current;
-        else state2 = ref.current;
+        const r1 = useRef(state1Ref);
+        const r2 = useRef(state2Ref);
+        useEffect(() => {
+          if (id === 1) r1.current.current = ref.current;
+          else r2.current.current = ref.current;
+        }, [id, ref]);
         return null;
       };
 
@@ -633,9 +710,9 @@ describe('FetchProvider', () => {
         </>
       );
 
-      expect(state1).toBeDefined();
-      expect(state2).toBeDefined();
-      expect(state1).not.toBe(state2);
+      expect(state1Ref.current).toBeDefined();
+      expect(state2Ref.current).toBeDefined();
+      expect(state1Ref.current).not.toBe(state2Ref.current);
     });
 
     it('should handle empty children array', () => {

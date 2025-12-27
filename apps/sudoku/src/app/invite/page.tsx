@@ -1,5 +1,5 @@
 'use client';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from '@sudoku-web/sudoku/hooks/useSudokuServerStorage';
 import {
   UserContext,
   UserContextInterface,
@@ -7,6 +7,8 @@ import {
 import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
+import { PREMIUM_FEATURES } from '../../config/premiumFeatures';
+import { APP_CONFIG } from '../../../app.config.js';
 import {
   PublicInvite,
   EntitlementDuration,
@@ -26,13 +28,16 @@ function InviteComponent() {
   const { isLoggingIn, user, loginRedirect } = context || {};
   const { isSubscribed, subscribeModal, refreshEntitlements } =
     useContext(RevenueCatContext) || {};
-  const { getPublicInvite, createMember } = useServerStorage({});
+  const { getPublicInvite, createMember } = useSudokuServerStorage({
+    app: APP_CONFIG.app,
+    apiUrl: APP_CONFIG.apiUrl,
+  });
   const {
     parties: userParties,
     isLoading: partiesLoading,
     refreshParties,
   } = useParties({});
-  const [inviteLoading, setInviteLoading] = useState(true);
+  const [inviteLoading, setInviteLoading] = useState(!!inviteId);
   const [publicInvite, setPublicInvite] = useState<PublicInvite | undefined>(
     undefined
   );
@@ -139,8 +144,6 @@ function InviteComponent() {
         }
       };
       serverPromise();
-    } else if (!inviteId) {
-      setInviteLoading(false);
     }
 
     return () => {
@@ -388,6 +391,7 @@ function InviteComponent() {
                       </div>
 
                       <PremiumFeatures
+                        features={PREMIUM_FEATURES}
                         title=""
                         subtitle=""
                         compact={true}

@@ -4,7 +4,7 @@ import { InAppReview } from '@capacitor-community/in-app-review';
 
 interface CelebrationAnimationProps {
   isVisible: boolean;
-  gridRef?: React.RefObject<HTMLDivElement>;
+  gridRef?: React.RefObject<HTMLDivElement | null>;
   completedGamesCount?: number;
   isCapacitor?: () => boolean;
 }

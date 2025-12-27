@@ -68,7 +68,9 @@ describe('CapacitorProvider', () => {
     await act(async () => {});
 
     act(() => {
-      urlOpenCallback({ url: 'https://sudoku.bubblyclouds.com/puzzle?id=123' });
+      urlOpenCallback({
+        url: 'https://mockApp.bubblyclouds.com/puzzle?id=123',
+      });
     });
 
     expect(mockRouterPush).toHaveBeenCalledWith('/puzzle?id=123');

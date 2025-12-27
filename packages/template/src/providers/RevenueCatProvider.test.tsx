@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import RevenueCatProvider, { RevenueCatContext } from './RevenueCatProvider';
 import {
@@ -71,9 +71,13 @@ describe('RevenueCatProvider', () => {
 
   it('provides a function to purchase a package', async () => {
     mockPurchases.purchasePackage.mockResolvedValue({} as any);
-    let context: any;
+    const contextRef = { current: undefined as any };
     const Consumer = () => {
-      context = useContext(RevenueCatContext);
+      const context = useContext(RevenueCatContext);
+      const ref = useRef(contextRef);
+      useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
     render(
@@ -85,11 +89,11 @@ describe('RevenueCatProvider', () => {
     );
 
     await waitFor(() => {
-      expect(context.purchasePackage).toBeDefined();
+      expect(contextRef.current.purchasePackage).toBeDefined();
     });
 
     await act(async () => {
-      await context.purchasePackage('test_package');
+      await contextRef.current.purchasePackage('test_package');
     });
 
     expect(mockPurchases.purchasePackage).toHaveBeenCalledWith({

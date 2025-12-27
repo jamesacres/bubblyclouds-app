@@ -23,6 +23,7 @@ import {
 import { ThemeProvider } from 'next-themes';
 import { PropsWithChildren } from 'react';
 import { StateType } from '@sudoku-web/types/stateType';
+import { APP_CONFIG } from '../../app.config.js';
 
 const platformServices: PlatformServices = {
   isCapacitor,
@@ -31,6 +32,9 @@ const platformServices: PlatformServices = {
   saveCapacitorState,
   getCapacitorState,
   saveElectronState,
+  app: APP_CONFIG.app,
+  apiUrl: APP_CONFIG.apiUrl,
+  authUrl: APP_CONFIG.authUrl,
 };
 
 export function Providers({ children }: PropsWithChildren) {
@@ -40,9 +44,13 @@ export function Providers({ children }: PropsWithChildren) {
         <CapacitorProvider>
           <UserProvider platformServices={platformServices}>
             <RevenueCatProvider>
-              <PartiesProvider>
-                <SessionsProvider stateType={StateType.PUZZLE}>
-                  <BookProvider>
+              <PartiesProvider app={APP_CONFIG.app} apiUrl={APP_CONFIG.apiUrl}>
+                <SessionsProvider
+                  stateType={StateType.PUZZLE}
+                  app={APP_CONFIG.app}
+                  apiUrl={APP_CONFIG.apiUrl}
+                >
+                  <BookProvider app={APP_CONFIG.app} apiUrl={APP_CONFIG.apiUrl}>
                     <ThemeProvider attribute="class">
                       <ThemeColorProvider>{children}</ThemeColorProvider>
                     </ThemeProvider>

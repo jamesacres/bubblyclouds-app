@@ -5,8 +5,24 @@ import React from 'react';
 import { Providers } from './providers';
 import ErrorBoundary from '@sudoku-web/template/components/ErrorBoundary';
 import GlobalErrorHandler from '@sudoku-web/template/components/GlobalErrorHandler';
-import SudokuPlusModal from '@/components/SudokuPlusModal';
-import HeaderWrapper from '@/components/HeaderWrapper';
+import PlusModal from '@sudoku-web/template/components/PlusModal';
+import HeaderWrapper from '@sudoku-web/template/components/HeaderWrapper';
+import { PREMIUM_FEATURES } from '../config/premiumFeatures';
+import { SUBSCRIPTION_CONTEXT_MESSAGES } from '../config/subscriptionMessages';
+import { APP_CONFIG } from '../../app.config.js';
+
+const PLUS_DESCRIPTION = (
+  <p className="text-gray-600 dark:text-gray-400">
+    Join{' '}
+    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-3 py-1 text-sm font-semibold text-white shadow-lg">
+      <span className="mr-1">✨</span>Sudoku Plus
+      <span className="ml-1">✨</span>
+    </span>{' '}
+    to <span className="font-semibold">remove all speed limits</span>! Challenge
+    friends, climb leaderboards, and improve your solving speed. Keep it ad
+    free! Your support is much appreciated.
+  </p>
+);
 
 const inter = Inter({ subsets: ['latin'] });
 const orbitron = Orbitron({
@@ -80,7 +96,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Pacifico&family=Orbitron:wght@400;700&family=Creepster&display=swap"
           rel="stylesheet"
@@ -92,9 +107,21 @@ export default function RootLayout({
         <GlobalErrorHandler />
         <ErrorBoundary>
           <Providers>
-            <HeaderWrapper />
+            <HeaderWrapper
+              app={APP_CONFIG.app}
+              appName={APP_CONFIG.appName}
+              apiUrl={APP_CONFIG.apiUrl}
+              privacyUrl={APP_CONFIG.privacyUrl}
+              termsUrl={APP_CONFIG.termsUrl}
+              companyUrl={APP_CONFIG.companyUrl}
+              companyName={APP_CONFIG.companyName}
+            />
             <div className="mb-24">{children}</div>
-            <SudokuPlusModal />
+            <PlusModal
+              features={PREMIUM_FEATURES}
+              description={PLUS_DESCRIPTION}
+              contextMessages={SUBSCRIPTION_CONTEXT_MESSAGES}
+            />
           </Providers>
         </ErrorBoundary>
       </body>

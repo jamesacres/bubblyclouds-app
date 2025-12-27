@@ -4,7 +4,7 @@ import { useFetch } from '../hooks/useFetch';
 import { PlatformServicesContext } from './PlatformServicesContext';
 import { UserProfile } from '../types/UserProfile';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { Browser } from '@capacitor/browser';
 
 export interface UserContextInterface {
@@ -15,6 +15,7 @@ export interface UserContextInterface {
   logout: () => void;
   handleAuthUrl: (options: { active: boolean }) => void;
   handleRestoreState: () => void;
+  app: string;
 }
 
 export const UserContext = React.createContext<
@@ -31,15 +32,16 @@ export interface AuthFetchHook {
 
 const buildRedirectUri = (
   isElectron: () => boolean,
-  isCapacitor: () => boolean
+  isCapacitor: () => boolean,
+  app: string
 ) => {
   if (isElectron()) {
     // Deep link
-    const scheme = 'com.bubblyclouds.sudoku';
+    const scheme = `com.bubblyclouds.${app}`;
     return `${scheme}://-/auth.html`;
   } else if (isCapacitor()) {
     // iOS/Android needs custom URL scheme to be able to redirect from our browser back
-    const scheme = 'com.bubblyclouds.sudoku';
+    const scheme = `com.bubblyclouds.${app}`;
     return `${scheme}://-/auth`;
   }
   return `${window.location.origin}/auth`;
@@ -67,11 +69,30 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isInitialised, setIsInitialised] = React.useState(false);
   const router = useRouter();
 
-  const iss = 'https://auth.bubblyclouds.com';
-  const { isElectron, isCapacitor, openBrowser, getCapacitorState } =
-    platformServices;
+  const {
+    isElectron,
+    isCapacitor,
+    openBrowser,
+    getCapacitorState,
+    app,
+    authUrl,
+    apiUrl,
+  } = platformServices;
+  const iss = authUrl;
   const clientId =
-    isElectron() || isCapacitor() ? 'bubbly-sudoku-native' : 'bubbly-sudoku';
+    isElectron() || isCapacitor() ? `bubbly-${app}-native` : `bubbly-${app}`;
+
+  // Create refs early to avoid circular dependency issues
+  const restoreCapacitorStateRef = useRef<
+    (
+      handleUser: (
+        user?: UserProfile,
+        isRestoreState?: boolean
+      ) => Promise<void>,
+      restoreState: (stateString: string) => Promise<UserProfile | undefined>,
+      attempt?: number
+    ) => Promise<void>
+  >(async () => {});
 
   const restoreCapacitorState = React.useCallback(
     async (
@@ -114,7 +135,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           );
           new Promise((res) => {
             setTimeout(async () => {
-              await restoreCapacitorState(
+              await restoreCapacitorStateRef.current(
                 handleUser,
                 restoreState,
                 attempt + 1
@@ -129,6 +150,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     },
     [user, getCapacitorState]
   );
+
+  // Keep restoreCapacitorStateRef updated
+  useEffect(() => {
+    restoreCapacitorStateRef.current = restoreCapacitorState;
+  }, [restoreCapacitorState]);
 
   const loginRedirect = React.useCallback(
     async ({ userInitiated }: { userInitiated: boolean }) => {
@@ -146,7 +172,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const { codeChallenge, codeVerifier, codeChallengeMethod } = await pkce();
       localStorage.setItem('code_verifier', codeVerifier);
 
-      const redirectUri = buildRedirectUri(isElectron, isCapacitor);
+      const redirectUri = buildRedirectUri(isElectron, isCapacitor, app);
       const scope = [
         'openid',
         'profile',
@@ -156,7 +182,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         'invites.write',
         'sessions.write',
       ];
-      const resource = 'https://api.bubblyclouds.com';
+      const resource = apiUrl;
 
       const params = new URLSearchParams();
       params.set('state', state);
@@ -186,8 +212,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsLoggingIn(false);
       }, 10000);
     },
-    [clientId, isElectron, isCapacitor, openBrowser]
+    [clientId, isElectron, isCapacitor, openBrowser, app, iss, apiUrl]
   );
+
+  // Create a ref to break the circular dependency where handleUser passes itself to restoreCapacitorState
+  const handleUserRef = useRef<
+    (user?: UserProfile, isRestoreState?: boolean) => Promise<void>
+  >(async () => {});
 
   const handleUser = React.useCallback(
     async (user?: UserProfile, isRestoreState: boolean = false) => {
@@ -206,7 +237,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       } else if (!isRestoreState) {
         if (isCapacitor()) {
-          await restoreCapacitorState(handleUser, restoreState);
+          await restoreCapacitorStateRef.current(
+            handleUserRef.current,
+            restoreState
+          );
         }
         if (
           localStorage.getItem('recoverSession') === 'true' &&
@@ -219,14 +253,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       }
     },
-    [
-      loginRedirect,
-      restoreState,
-      restoreCapacitorState,
-      isCapacitor,
-      isElectron,
-    ]
+    [loginRedirect, restoreState, isCapacitor, isElectron]
   );
+
+  // Keep handleUserRef updated
+  useEffect(() => {
+    handleUserRef.current = handleUser;
+  }, [handleUser]);
 
   const handleAuthUrl = React.useCallback(
     async (options: { active: boolean }) => {
@@ -240,7 +273,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             const query = new URLSearchParams(window.location.search);
             const code = query.get('code') || '';
             const state = query.get('state') || '';
-            const redirectUri = buildRedirectUri(isElectron, isCapacitor);
+            const redirectUri = buildRedirectUri(isElectron, isCapacitor, app);
 
             const codeVerifier = localStorage.getItem('code_verifier');
             if (state === localStorage.getItem('state') && codeVerifier) {
@@ -305,7 +338,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       };
       await codeExchange();
     },
-    [clientId, router, handleUser, fetch, isElectron, isCapacitor]
+    [clientId, router, handleUser, fetch, isElectron, isCapacitor, app, iss]
   );
 
   const handleRestoreState = React.useCallback(async () => {
@@ -379,6 +412,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         handleAuthUrl,
         handleRestoreState,
         logout: handleLogout,
+        app,
       }}
     >
       {children}

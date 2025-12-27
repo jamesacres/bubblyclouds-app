@@ -1,6 +1,6 @@
 'use client';
 import { useOnline } from '@sudoku-web/template/hooks/online';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from '@sudoku-web/sudoku/hooks/useSudokuServerStorage';
 import {
   UserContext,
   UserContextInterface,
@@ -9,12 +9,19 @@ import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
 import { Tab } from '@sudoku-web/types/tabs';
 import SocialProof from '@sudoku-web/template/components/SocialProof';
 import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
-import { Difficulty } from '@sudoku-web/types/serverTypes';
+import { PREMIUM_FEATURES } from '../config/premiumFeatures';
+import { motivationalMessages } from '../config/motivationalMessages';
+import { APP_CONFIG } from '../../app.config.js';
+import { Difficulty } from '@sudoku-web/games/types/difficulty';
 import Footer from '@sudoku-web/ui/components/Footer';
-import MyPuzzlesTab from '@/components/MyPuzzlesTab';
-import FriendsTab from '@/components/FriendsTab';
-import ActivityWidget from '@/components/ActivityWidget';
+import MyPuzzlesTab from '@sudoku-web/template/components/MyPuzzlesTab';
+import FriendsTab from '@sudoku-web/template/components/FriendsTab';
+import ActivityWidget from '@sudoku-web/games/components/ActivityWidget';
 import { useParties } from '@sudoku-web/template/hooks/useParties';
+import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
+import { calculateCompletionPercentageFromState } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
+import { buildPuzzleUrlFromState } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
+import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Suspense,
@@ -27,10 +34,14 @@ import {
 import { Users, Zap, Award, Camera } from 'react-feather';
 import Link from 'next/link';
 import Image from 'next/image';
-import BookCover from '@/components/BookCover';
-import { buildPuzzleUrl } from '@/helpers/buildPuzzleUrl';
+import BookCover from '@sudoku-web/sudoku/components/BookCover';
+import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
 import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
 import { GameState } from '@sudoku-web/sudoku/types/state';
+
+const SimpleStateWrapper = ({ state }: { state: GameState }) => (
+  <SimpleSudoku state={state} />
+);
 
 function HomeComponent() {
   const searchParams = useSearchParams();
@@ -39,6 +50,7 @@ function HomeComponent() {
   // Update tab when search params change (only from external navigation)
   useEffect(() => {
     const tabFromUrl = searchParams.get('tab') || Tab.START_PUZZLE;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTab(tabFromUrl);
   }, [searchParams]);
   const router = useRouter();
@@ -46,7 +58,10 @@ function HomeComponent() {
   const { user, loginRedirect } = context || {};
   useOnline();
   const [isLoading, setIsLoading] = useState(false);
-  const { getSudokuOfTheDay } = useServerStorage();
+  const { getSudokuOfTheDay } = useSudokuServerStorage({
+    app: APP_CONFIG.app,
+    apiUrl: APP_CONFIG.apiUrl,
+  });
   const { parties, refreshParties } = useParties({});
   const {
     sessions,
@@ -184,7 +199,7 @@ function HomeComponent() {
   return (
     <>
       {tab === Tab.START_PUZZLE ? (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pb-32 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
           {/* Racing Hero Section */}
           <div className="pt-safe relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 px-6">
             <div className="absolute inset-0 bg-black/10"></div>
@@ -209,7 +224,7 @@ function HomeComponent() {
               </p>
 
               {/* Social Proof - Motivational Message */}
-              <SocialProof />
+              <SocialProof motivationalMessages={motivationalMessages} />
 
               {/* Daily Streak Section - Compact */}
               <div className="mb-4 md:mb-6">
@@ -405,26 +420,44 @@ function HomeComponent() {
           </div>
 
           {/* Premium Features Section */}
-          <PremiumFeatures />
+          <PremiumFeatures
+            features={PREMIUM_FEATURES}
+            title="🏁 Premium Features"
+            subtitle="Unlock the full Sudoku Race experience"
+          />
 
           {/* Bottom padding to ensure content doesn't get hidden behind footer */}
-          <div className="pb-24"></div>
+          <div className="h-32"></div>
         </div>
       ) : (
-        <div className="pt-safe min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-          <div className="container mx-auto max-w-4xl px-6 pb-24">
-            <div className="flex justify-center">
+        <div className="pt-safe min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pb-32 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+          <div className="container mx-auto max-w-4xl px-6">
+            <div className="flex justify-center pt-6">
               <ActivityWidget sessions={sessions || []} />
             </div>
             {tab === Tab.MY_PUZZLES && (
-              <MyPuzzlesTab sessions={sessions || []} />
+              <MyPuzzlesTab<GameState>
+                sessions={sessions || []}
+                SimpleState={SimpleStateWrapper}
+                calculateCompletionPercentageFromState={
+                  calculateCompletionPercentageFromState
+                }
+                isPuzzleCheated={isPuzzleCheated}
+                buildPuzzleUrlFromState={buildPuzzleUrlFromState}
+              />
             )}
             {tab === Tab.FRIENDS && (
-              <FriendsTab
+              <FriendsTab<GameState>
                 user={user}
                 parties={parties}
                 mySessions={sessions || []}
                 onRefresh={refreshLeaderboard}
+                SimpleState={SimpleStateWrapper}
+                calculateCompletionPercentageFromState={
+                  calculateCompletionPercentageFromState
+                }
+                isPuzzleCheated={isPuzzleCheated}
+                buildPuzzleUrlFromState={buildPuzzleUrlFromState}
               />
             )}
           </div>

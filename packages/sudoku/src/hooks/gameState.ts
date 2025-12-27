@@ -17,11 +17,11 @@ import {
   SetAnswer,
 } from '../types/state';
 import { useLocalStorage } from '@sudoku-web/template/hooks/localStorage';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from './useSudokuServerStorage';
 import { checkCell, checkGrid } from '../helpers/checkAnswer';
 import { StateType } from '@sudoku-web/types/stateType';
-import { useTimer } from './timer';
-import { calculateSeconds } from '../helpers/calculateSeconds';
+import { useTimer } from '@sudoku-web/template/hooks/timer';
+import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
 import {
   Parties,
   ServerStateResult,
@@ -52,11 +52,15 @@ function useGameState({
   initial,
   puzzleId,
   metadata,
+  app,
+  apiUrl,
 }: {
   final: Puzzle<number>;
   initial: Puzzle<number>;
   puzzleId: string;
   metadata: Partial<GameStateMetadata>;
+  app: string;
+  apiUrl: string;
 }) {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
@@ -65,7 +69,7 @@ function useGameState({
 
   const { timer, setTimerNewSession, stopTimer, setPauseTimer, isPaused } =
     useTimer({
-      puzzleId,
+      id: puzzleId,
     });
 
   // Reference to timer value to use without triggering re-renders
@@ -96,12 +100,14 @@ function useGameState({
       type: StateType.PUZZLE,
     });
   const { getValue: getServerValue, saveValue: saveServerValue } =
-    useServerStorage({
+    useSudokuServerStorage({
+      app,
+      apiUrl,
       id: puzzleId,
       type: StateType.PUZZLE,
     });
   const { parties } = useParties();
-  const { getSessionParties, patchFriendSessions } = useSessions<GameState>();
+  const { getSessionParties, patchFriendSessions } = useSessions<ServerState>();
 
   const [isNotesMode, setIsNotesMode] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -192,7 +198,7 @@ function useGameState({
       isSaveServerValue: boolean = true
     ): {
       localValue: { lastUpdated: number; state: GameState } | undefined;
-      serverValuePromise?: Promise<ServerStateResult<GameState> | undefined>;
+      serverValuePromise?: Promise<ServerStateResult<ServerState> | undefined>;
     } => {
       if (state.answerStack.length > 0) {
         // Get current answer (last item in answerStack)
@@ -238,7 +244,7 @@ function useGameState({
   const handleServerResponse = useCallback(
     (
       active: boolean,
-      serverValue: ServerStateResult<GameState> | undefined
+      serverValue: ServerStateResult<ServerState> | undefined
     ) => {
       if (
         active &&
@@ -666,7 +672,7 @@ function useGameState({
   useEffect(() => {
     const ignoreKeyboard = (e: KeyboardEvent) => {
       const insideForm = /^(?:input|textarea|select|button)$/i.test(
-        (<any>e.target)?.tagName
+        (<HTMLElement>e.target)?.tagName
       );
       return completed || showSidebar || insideForm;
     };

@@ -11,7 +11,9 @@ import Store from 'electron-store';
 import path from 'path';
 const __dirname = import.meta.dirname;
 
-const scheme = 'com.bubblyclouds.sudoku';
+const { APP_CONFIG } = require('../app.config.js');
+
+const scheme = APP_CONFIG.deepLinkScheme;
 
 const store = new Store({
   state: {

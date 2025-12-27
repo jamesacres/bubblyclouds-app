@@ -13,6 +13,6 @@
       "@sudoku-web/shared/*": ["../shared/src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "../ui/src/helpers/formatSeconds.test.ts", "../ui/src/helpers/formatSeconds.ts"],
   "exclude": ["node_modules", "dist"]
 }
