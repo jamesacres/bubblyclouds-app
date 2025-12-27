@@ -8,13 +8,13 @@ interface SocialProofProps {
 export default function SocialProof({
   motivationalMessages,
 }: SocialProofProps) {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(() => {
+    // Select a random message on initial render
+    const randomIndex = Math.floor(Math.random() * motivationalMessages.length);
+    return motivationalMessages[randomIndex];
+  });
 
   useEffect(() => {
-    // Select a random message when component mounts (app opens)
-    const randomIndex = Math.floor(Math.random() * motivationalMessages.length);
-    setMessage(motivationalMessages[randomIndex]);
-
     // Set up interval to change message every 10 seconds
     const interval = setInterval(() => {
       const newRandomIndex = Math.floor(
@@ -24,7 +24,7 @@ export default function SocialProof({
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [motivationalMessages]);
 
   if (!message) return null;
 

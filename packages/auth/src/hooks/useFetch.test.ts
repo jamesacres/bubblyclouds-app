@@ -400,7 +400,7 @@ describe('useFetch', () => {
       await act(async () => {
         try {
           await result.current.fetch(new Request('https://example.com/test'));
-        } catch (e) {
+        } catch (_e) {
           // Expected
         }
       });

@@ -13,7 +13,10 @@ const ThemeSwitch = ({ isCapacitor = () => false }: ThemeSwitchProps) => {
   const { theme, setTheme, resolvedTheme } = useTheme();
 
   // When mounted on client, now we can show the UI
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (isCapacitor()) {

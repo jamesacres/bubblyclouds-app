@@ -94,20 +94,26 @@ function useTimer({ id }: { id: string }) {
 
   useEffect(() => {
     console.info('isDocumentVisible', isDocumentVisible, 'isPaused', isPaused);
-    if (isDocumentVisible && !isPaused) {
-      // Document now visible, start a new session
-      setTimerNewSession();
-    } else {
-      // Document now invisible, set lastInteraction to now
-      updateTimer();
-    }
+    const timeout = setTimeout(() => {
+      if (isDocumentVisible && !isPaused) {
+        // Document now visible, start a new session
+        setTimerNewSession();
+      } else {
+        // Document now invisible, set lastInteraction to now
+        updateTimer();
+      }
+    }, 0);
+    return () => clearTimeout(timeout);
   }, [isDocumentVisible, isPaused, setTimerNewSession, updateTimer]);
 
   // Save and Restore state
   useEffect(() => {
     const { state: savedTimer } = getValue<Timer>() || {};
     if (savedTimer) {
-      setTimerNewSession(savedTimer);
+      const timeout = setTimeout(() => {
+        setTimerNewSession(savedTimer);
+      }, 0);
+      return () => clearTimeout(timeout);
     }
   }, [id, getValue, setTimerNewSession]);
   useEffect(() => {

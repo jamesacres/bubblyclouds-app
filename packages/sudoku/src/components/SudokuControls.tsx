@@ -33,7 +33,7 @@ interface Arguments {
   isRedoDisabled: boolean;
   undo: () => void;
   redo: () => void;
-  // eslint-disable-next-line no-unused-vars
+
   selectNumber: (number: number) => void;
   isNotesMode: boolean;
   setIsNotesMode: (_value: boolean) => void;

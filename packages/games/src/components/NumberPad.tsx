@@ -2,7 +2,6 @@ export const NumberPad = ({
   selectNumber,
   isInputDisabled,
 }: {
-  // eslint-disable-next-line no-unused-vars
   selectNumber: (number: number) => void;
   isInputDisabled: boolean;
 }) => (

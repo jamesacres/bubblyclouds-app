@@ -281,7 +281,7 @@ describe('useServerStorage', () => {
     await act(async () => {
       try {
         await result.current.getValue();
-      } catch (e) {
+      } catch (_e) {
         // Error expected
       }
     });

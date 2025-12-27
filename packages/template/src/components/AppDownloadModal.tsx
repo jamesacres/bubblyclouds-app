@@ -23,7 +23,7 @@ export const AppDownloadModal = ({
   isOpen,
   onClose,
   onContinueWeb,
-  appName,
+  appName: _appName,
   appStoreUrl,
   googlePlayUrl,
   deepLinkScheme,

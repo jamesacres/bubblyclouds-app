@@ -156,34 +156,34 @@ const Sudoku = ({
     });
   }, [sessionParties, user?.sub]);
 
-  // State for racing prompt modal
-  const [showRacingPrompt, setShowRacingPrompt] = useState(false);
-  const [hasSelectedMode, setHasSelectedMode] = useState(false);
-
-  // State for app download modal
-  const [showAppDownload, setShowAppDownload] = useState(false);
   const [hasShownAppDownload, setHasShownAppDownload] = useState(false);
+  const [hasDismissedRacingPrompt, setHasDismissedRacingPrompt] =
+    useState(false);
+  const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(false);
 
-  // Update racing prompt visibility when conditions change
-  useEffect(() => {
+  const showAppDownload = useMemo(
+    () => !isCapacitor() && !hasShownAppDownload,
+    [hasShownAppDownload]
+  );
+
+  const showRacingPrompt = useMemo(() => {
     const shouldShowRacingPrompt =
       !alreadyCompleted && showRacingPromptProp && !hasOtherPlayers;
-
-    // Only show racing prompt if app download modal is not showing/hasn't been dismissed yet
-    setShowRacingPrompt(shouldShowRacingPrompt && !showAppDownload);
-    setHasSelectedMode(alreadyCompleted || hasOtherPlayers);
+    return (
+      shouldShowRacingPrompt && !showAppDownload && !hasDismissedRacingPrompt
+    );
   }, [
     alreadyCompleted,
     showRacingPromptProp,
     hasOtherPlayers,
     showAppDownload,
+    hasDismissedRacingPrompt,
   ]);
 
-  // Update app download modal visibility - only for web users who haven't seen it yet
-  useEffect(() => {
-    const shouldShowAppDownload = !isCapacitor() && !hasShownAppDownload;
-    setShowAppDownload(shouldShowAppDownload);
-  }, [hasShownAppDownload]);
+  const hasSelectedMode = useMemo(
+    () => alreadyCompleted || hasOtherPlayers || hasManuallySelectedMode,
+    [alreadyCompleted, hasOtherPlayers, hasManuallySelectedMode]
+  );
 
   // Calculate completed games count for rating prompt
   const completedGamesCount = useMemo(() => {
@@ -202,33 +202,28 @@ const Sudoku = ({
 
   // Racing prompt handlers
   const handleRaceMode = useCallback(() => {
-    setHasSelectedMode(true);
-    setShowSidebar(true); // Show friends sidebar immediately
+    setHasManuallySelectedMode(true);
+    setShowSidebar(true);
   }, [setShowSidebar]);
 
   const handleSoloMode = useCallback(() => {
-    setHasSelectedMode(true);
+    setHasManuallySelectedMode(true);
   }, []);
 
   // App download modal handlers
   const handleAppDownloadClose = useCallback(() => {
-    setShowAppDownload(false);
     setHasShownAppDownload(true);
-    // Racing prompt will show automatically via useEffect if conditions are met
   }, []);
 
   const handleContinueWeb = useCallback(() => {
-    setShowAppDownload(false);
     setHasShownAppDownload(true);
-    // Racing prompt will show automatically via useEffect if conditions are met
   }, []);
 
-  // Show animation when the puzzle is completed
   useEffect(() => {
     if (completed && !alreadyCompleted && !isPuzzleCheated(answerStack)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Legitimate side effect: triggering timed animation on completion
       setShowAnimation(true);
 
-      // Reset animation after it completes - extended to 10 seconds to match the animation duration
       const timer = setTimeout(() => {
         setShowAnimation(false);
       }, 10000);
@@ -331,7 +326,7 @@ const Sudoku = ({
       {/* Racing mode selection modal */}
       <RacingPromptModal
         isOpen={showRacingPrompt}
-        onClose={() => setShowRacingPrompt(false)}
+        onClose={() => setHasDismissedRacingPrompt(true)}
         onRaceMode={handleRaceMode}
         onSoloMode={handleSoloMode}
       />

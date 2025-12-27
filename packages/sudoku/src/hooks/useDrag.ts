@@ -58,9 +58,9 @@ export const useDrag = ({
     }
   }, [selectedCell, isZoomMode, isDragging, getZoomOrigin]);
 
-  // Reset drag offset when zoom mode is disabled or cell changes
   useEffect(() => {
     if (!isZoomMode) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Cleanup effect: reset drag state when zoom mode is disabled
       setDragOffset({ x: 0, y: 0 });
       setZoomOrigin('center center');
     }

@@ -1,9 +1,11 @@
 # Framework
 
+- finish lint issues following upgrade
+- ensure lint and test runs on push
+- upgrade mac, xcode then capacitor to v8
 - review and merge 003 into 004
-- rename repo and config from sudoku-web to bubblyclouds-app
+- rename package and turbo config from sudoku-web to bubblyclouds-app
 
-- remove template app
 - move bubblyclouds repo (main website) into apps directory then delete separate
   repo
 

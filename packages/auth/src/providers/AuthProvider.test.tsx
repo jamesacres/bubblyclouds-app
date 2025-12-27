@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import AuthProvider, {
   UserContext,
@@ -72,10 +72,16 @@ describe('AuthProvider', () => {
     });
 
     it('should provide UserContext', async () => {
-      let contextValue: UserContextInterface | undefined;
+      const contextValueRef = {
+        current: undefined as UserContextInterface | undefined,
+      };
 
       const TestComponent = () => {
-        contextValue = useContext(UserContext);
+        const context = useContext(UserContext);
+        const ref = useRef(contextValueRef);
+        useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -86,19 +92,22 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(contextValue).toBeDefined();
+        expect(contextValueRef.current).toBeDefined();
       });
     });
   });
 
   describe('initial state', () => {
     it('should initialize with no user', async () => {
-      let user: any;
+      const userRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        user = context?.user;
-        return <div>User: {user ? user.name : 'None'}</div>;
+        const ref = useRef(userRef);
+        useEffect(() => {
+          ref.current.current = context?.user;
+        }, [context?.user]);
+        return <div>User: {context?.user ? context.user.name : 'None'}</div>;
       };
 
       render(
@@ -108,17 +117,20 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(user).toBeUndefined();
+        expect(userRef.current).toBeUndefined();
       });
     });
 
     it('should initialize isLoggingIn as false', async () => {
-      let isLoggingIn: boolean = true;
+      const isLoggingInRef = { current: true };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        isLoggingIn = context?.isLoggingIn ?? false;
-        return <div>Logging in: {isLoggingIn ? 'yes' : 'no'}</div>;
+        const ref = useRef(isLoggingInRef);
+        useEffect(() => {
+          ref.current.current = context?.isLoggingIn ?? false;
+        }, [context?.isLoggingIn]);
+        return <div>Logging in: {context?.isLoggingIn ? 'yes' : 'no'}</div>;
       };
 
       render(
@@ -128,15 +140,21 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(isLoggingIn).toBe(false);
+        expect(isLoggingInRef.current).toBe(false);
       });
     });
 
     it('should provide all required context methods', async () => {
-      let context: UserContextInterface | undefined;
+      const contextRef = {
+        current: undefined as UserContextInterface | undefined,
+      };
 
       const TestComponent = () => {
-        context = useContext(UserContext);
+        const context = useContext(UserContext);
+        const ref = useRef(contextRef);
+        useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -147,24 +165,28 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(context?.loginRedirect).toBeDefined();
-        expect(context?.logout).toBeDefined();
-        expect(context?.handleAuthUrl).toBeDefined();
-        expect(context?.handleRestoreState).toBeDefined();
+        expect(contextRef.current?.loginRedirect).toBeDefined();
+        expect(contextRef.current?.logout).toBeDefined();
+        expect(contextRef.current?.handleAuthUrl).toBeDefined();
+        expect(contextRef.current?.handleRestoreState).toBeDefined();
       });
     });
   });
 
   describe('loginRedirect', () => {
     it('should set isLoggingIn to true', async () => {
-      let isLoggingIn: boolean = false;
-      let loginRedirect: any;
+      const isLoggingInRef = { current: false };
+      const loginRedirectRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        isLoggingIn = context?.isLoggingIn ?? false;
-        loginRedirect = context?.loginRedirect;
-        return <div>Logging in: {isLoggingIn ? 'yes' : 'no'}</div>;
+        const isLoggingInLocalRef = useRef(isLoggingInRef);
+        const loginRedirectLocalRef = useRef(loginRedirectRef);
+        useEffect(() => {
+          isLoggingInLocalRef.current.current = context?.isLoggingIn ?? false;
+          loginRedirectLocalRef.current.current = context?.loginRedirect;
+        }, [context?.isLoggingIn, context?.loginRedirect]);
+        return <div>Logging in: {context?.isLoggingIn ? 'yes' : 'no'}</div>;
       };
 
       render(
@@ -174,22 +196,25 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(loginRedirect).toBeDefined();
+        expect(loginRedirectRef.current).toBeDefined();
       });
 
-      if (loginRedirect) {
-        loginRedirect({ userInitiated: true });
+      if (loginRedirectRef.current) {
+        loginRedirectRef.current({ userInitiated: true });
         // Don't await - just check that it's called
-        expect(isLoggingIn).toBeDefined();
+        expect(isLoggingInRef.current).toBeDefined();
       }
     });
 
     it('should store pathname in localStorage', async () => {
-      let loginRedirect: any;
+      const loginRedirectRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        loginRedirect = context?.loginRedirect;
+        const ref = useRef(loginRedirectRef);
+        useEffect(() => {
+          ref.current.current = context?.loginRedirect;
+        }, [context?.loginRedirect]);
         return <div>Test</div>;
       };
 
@@ -200,11 +225,11 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(loginRedirect).toBeDefined();
+        expect(loginRedirectRef.current).toBeDefined();
       });
 
-      if (loginRedirect) {
-        loginRedirect({ userInitiated: true });
+      if (loginRedirectRef.current) {
+        loginRedirectRef.current({ userInitiated: true });
 
         await waitFor(() => {
           expect(localStorage.getItem('restorePathname')).toBeDefined();
@@ -213,11 +238,14 @@ describe('AuthProvider', () => {
     });
 
     it('should store random state in localStorage', async () => {
-      let loginRedirect: any;
+      const loginRedirectRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        loginRedirect = context?.loginRedirect;
+        const ref = useRef(loginRedirectRef);
+        useEffect(() => {
+          ref.current.current = context?.loginRedirect;
+        }, [context?.loginRedirect]);
         return <div>Test</div>;
       };
 
@@ -228,11 +256,11 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(loginRedirect).toBeDefined();
+        expect(loginRedirectRef.current).toBeDefined();
       });
 
-      if (loginRedirect) {
-        loginRedirect({ userInitiated: true });
+      if (loginRedirectRef.current) {
+        loginRedirectRef.current({ userInitiated: true });
 
         await waitFor(() => {
           expect(localStorage.getItem('state')).toBeDefined();
@@ -241,11 +269,14 @@ describe('AuthProvider', () => {
     });
 
     it('should store code verifier in localStorage', async () => {
-      let loginRedirect: any;
+      const loginRedirectRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        loginRedirect = context?.loginRedirect;
+        const ref = useRef(loginRedirectRef);
+        useEffect(() => {
+          ref.current.current = context?.loginRedirect;
+        }, [context?.loginRedirect]);
         return <div>Test</div>;
       };
 
@@ -256,11 +287,11 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(loginRedirect).toBeDefined();
+        expect(loginRedirectRef.current).toBeDefined();
       });
 
-      if (loginRedirect) {
-        loginRedirect({ userInitiated: true });
+      if (loginRedirectRef.current) {
+        loginRedirectRef.current({ userInitiated: true });
 
         await waitFor(() => {
           expect(localStorage.getItem('code_verifier')).toBeDefined();
@@ -271,14 +302,18 @@ describe('AuthProvider', () => {
 
   describe('logout', () => {
     it('should clear user', async () => {
-      let logout: any;
-      let user: any;
+      const logoutRef = { current: undefined as any };
+      const userRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        logout = context?.logout;
-        user = context?.user;
-        return <div>User: {user ? 'exists' : 'none'}</div>;
+        const logoutLocalRef = useRef(logoutRef);
+        const userLocalRef = useRef(userRef);
+        useEffect(() => {
+          logoutLocalRef.current.current = context?.logout;
+          userLocalRef.current.current = context?.user;
+        }, [context?.logout, context?.user]);
+        return <div>User: {context?.user ? 'exists' : 'none'}</div>;
       };
 
       render(
@@ -288,24 +323,27 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(logout).toBeDefined();
+        expect(logoutRef.current).toBeDefined();
       });
 
-      if (logout) {
-        logout();
+      if (logoutRef.current) {
+        logoutRef.current();
 
         await waitFor(() => {
-          expect(user).toBeUndefined();
+          expect(userRef.current).toBeUndefined();
         });
       }
     });
 
     it('should set recoverSession to false', async () => {
-      let logout: any;
+      const logoutRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        logout = context?.logout;
+        const ref = useRef(logoutRef);
+        useEffect(() => {
+          ref.current.current = context?.logout;
+        }, [context?.logout]);
         return <div>Test</div>;
       };
 
@@ -316,11 +354,11 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(logout).toBeDefined();
+        expect(logoutRef.current).toBeDefined();
       });
 
-      if (logout) {
-        logout();
+      if (logoutRef.current) {
+        logoutRef.current();
 
         expect(localStorage.getItem('recoverSession')).toBe('false');
       }
@@ -329,11 +367,14 @@ describe('AuthProvider', () => {
 
   describe('handleAuthUrl', () => {
     it('should be defined', async () => {
-      let handleAuthUrl: any;
+      const handleAuthUrlRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        handleAuthUrl = context?.handleAuthUrl;
+        const ref = useRef(handleAuthUrlRef);
+        useEffect(() => {
+          ref.current.current = context?.handleAuthUrl;
+        }, [context?.handleAuthUrl]);
         return <div>Test</div>;
       };
 
@@ -344,20 +385,24 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(handleAuthUrl).toBeDefined();
-        expect(typeof handleAuthUrl).toBe('function');
+        expect(handleAuthUrlRef.current).toBeDefined();
+        expect(typeof handleAuthUrlRef.current).toBe('function');
       });
     });
 
     it('should set isLoggingIn when called', async () => {
-      let handleAuthUrl: any;
-      let isLoggingIn: boolean = false;
+      const handleAuthUrlRef = { current: undefined as any };
+      const isLoggingInRef = { current: false };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        handleAuthUrl = context?.handleAuthUrl;
-        isLoggingIn = context?.isLoggingIn ?? false;
-        return <div>Logging in: {isLoggingIn ? 'yes' : 'no'}</div>;
+        const handleAuthUrlLocalRef = useRef(handleAuthUrlRef);
+        const isLoggingInLocalRef = useRef(isLoggingInRef);
+        useEffect(() => {
+          handleAuthUrlLocalRef.current.current = context?.handleAuthUrl;
+          isLoggingInLocalRef.current.current = context?.isLoggingIn ?? false;
+        }, [context?.handleAuthUrl, context?.isLoggingIn]);
+        return <div>Logging in: {context?.isLoggingIn ? 'yes' : 'no'}</div>;
       };
 
       render(
@@ -367,24 +412,27 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(handleAuthUrl).toBeDefined();
+        expect(handleAuthUrlRef.current).toBeDefined();
       });
 
-      if (handleAuthUrl) {
-        handleAuthUrl({ active: true });
+      if (handleAuthUrlRef.current) {
+        handleAuthUrlRef.current({ active: true });
         // Check that it's called without errors
-        expect(handleAuthUrl).toBeDefined();
+        expect(handleAuthUrlRef.current).toBeDefined();
       }
     });
   });
 
   describe('handleRestoreState', () => {
     it('should be defined', async () => {
-      let handleRestoreState: any;
+      const handleRestoreStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        handleRestoreState = context?.handleRestoreState;
+        const ref = useRef(handleRestoreStateRef);
+        useEffect(() => {
+          ref.current.current = context?.handleRestoreState;
+        }, [context?.handleRestoreState]);
         return <div>Test</div>;
       };
 
@@ -395,19 +443,22 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(handleRestoreState).toBeDefined();
-        expect(typeof handleRestoreState).toBe('function');
+        expect(handleRestoreStateRef.current).toBeDefined();
+        expect(typeof handleRestoreStateRef.current).toBe('function');
       });
     });
   });
 
   describe('context methods', () => {
     it('should provide loginRedirect function', async () => {
-      let loginRedirect: any;
+      const loginRedirectRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        loginRedirect = context?.loginRedirect;
+        const ref = useRef(loginRedirectRef);
+        useEffect(() => {
+          ref.current.current = context?.loginRedirect;
+        }, [context?.loginRedirect]);
         return <div>Test</div>;
       };
 
@@ -418,16 +469,19 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(typeof loginRedirect).toBe('function');
+        expect(typeof loginRedirectRef.current).toBe('function');
       });
     });
 
     it('should provide logout function', async () => {
-      let logout: any;
+      const logoutRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        logout = context?.logout;
+        const ref = useRef(logoutRef);
+        useEffect(() => {
+          ref.current.current = context?.logout;
+        }, [context?.logout]);
         return <div>Test</div>;
       };
 
@@ -438,16 +492,19 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(typeof logout).toBe('function');
+        expect(typeof logoutRef.current).toBe('function');
       });
     });
 
     it('should provide handleAuthUrl function', async () => {
-      let handleAuthUrl: any;
+      const handleAuthUrlRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        handleAuthUrl = context?.handleAuthUrl;
+        const ref = useRef(handleAuthUrlRef);
+        useEffect(() => {
+          ref.current.current = context?.handleAuthUrl;
+        }, [context?.handleAuthUrl]);
         return <div>Test</div>;
       };
 
@@ -458,16 +515,19 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(typeof handleAuthUrl).toBe('function');
+        expect(typeof handleAuthUrlRef.current).toBe('function');
       });
     });
 
     it('should provide handleRestoreState function', async () => {
-      let handleRestoreState: any;
+      const handleRestoreStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        handleRestoreState = context?.handleRestoreState;
+        const ref = useRef(handleRestoreStateRef);
+        useEffect(() => {
+          ref.current.current = context?.handleRestoreState;
+        }, [context?.handleRestoreState]);
         return <div>Test</div>;
       };
 
@@ -478,19 +538,22 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(typeof handleRestoreState).toBe('function');
+        expect(typeof handleRestoreStateRef.current).toBe('function');
       });
     });
   });
 
   describe('state management', () => {
     it('should provide isInitialised state', async () => {
-      let isInitialised: boolean | undefined;
+      const isInitialisedRef = { current: undefined as boolean | undefined };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        isInitialised = context?.isInitialised;
-        return <div>Initialised: {isInitialised ? 'yes' : 'no'}</div>;
+        const ref = useRef(isInitialisedRef);
+        useEffect(() => {
+          ref.current.current = context?.isInitialised;
+        }, [context?.isInitialised]);
+        return <div>Initialised: {context?.isInitialised ? 'yes' : 'no'}</div>;
       };
 
       render(
@@ -503,19 +566,22 @@ describe('AuthProvider', () => {
       // Note: Due to module-level isInitialising guard, this may already be true
       await waitFor(
         () => {
-          expect(typeof isInitialised).toBe('boolean');
+          expect(typeof isInitialisedRef.current).toBe('boolean');
         },
         { timeout: 3000 }
       );
     });
 
     it('should provide isLoggingIn state', async () => {
-      let isLoggingIn: boolean | undefined;
+      const isLoggingInRef = { current: undefined as boolean | undefined };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        isLoggingIn = context?.isLoggingIn;
-        return <div>Logging in: {isLoggingIn ? 'yes' : 'no'}</div>;
+        const ref = useRef(isLoggingInRef);
+        useEffect(() => {
+          ref.current.current = context?.isLoggingIn;
+        }, [context?.isLoggingIn]);
+        return <div>Logging in: {context?.isLoggingIn ? 'yes' : 'no'}</div>;
       };
 
       render(
@@ -525,17 +591,20 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(typeof isLoggingIn).toBe('boolean');
+        expect(typeof isLoggingInRef.current).toBe('boolean');
       });
     });
 
     it('should provide user state', async () => {
-      let user: any;
+      const userRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        user = context?.user;
-        return <div>User state: {user ? 'exists' : 'undefined'}</div>;
+        const ref = useRef(userRef);
+        useEffect(() => {
+          ref.current.current = context?.user;
+        }, [context?.user]);
+        return <div>User state: {context?.user ? 'exists' : 'undefined'}</div>;
       };
 
       render(
@@ -545,7 +614,9 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(user === undefined || user !== null).toBe(true);
+        expect(userRef.current === undefined || userRef.current !== null).toBe(
+          true
+        );
       });
     });
   });
@@ -569,11 +640,14 @@ describe('AuthProvider', () => {
 
   describe('localStorage integration', () => {
     it('should use localStorage for storing state', async () => {
-      let loginRedirect: any;
+      const loginRedirectRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useContext(UserContext);
-        loginRedirect = context?.loginRedirect;
+        const ref = useRef(loginRedirectRef);
+        useEffect(() => {
+          ref.current.current = context?.loginRedirect;
+        }, [context?.loginRedirect]);
         return <div>Test</div>;
       };
 
@@ -584,11 +658,11 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(loginRedirect).toBeDefined();
+        expect(loginRedirectRef.current).toBeDefined();
       });
 
-      if (loginRedirect) {
-        loginRedirect({ userInitiated: true });
+      if (loginRedirectRef.current) {
+        loginRedirectRef.current({ userInitiated: true });
 
         await waitFor(() => {
           // Should store various values in localStorage
@@ -630,10 +704,16 @@ describe('AuthProvider', () => {
     });
 
     it('should handle component unmount and remount', async () => {
-      let context: UserContextInterface | undefined;
+      const contextRef = {
+        current: undefined as UserContextInterface | undefined,
+      };
 
       const TestComponent = () => {
-        context = useContext(UserContext);
+        const context = useContext(UserContext);
+        const ref = useRef(contextRef);
+        useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -644,12 +724,12 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(context).toBeDefined();
+        expect(contextRef.current).toBeDefined();
       });
 
       unmount();
 
-      context = undefined;
+      contextRef.current = undefined;
 
       render(
         <Wrapper>
@@ -658,7 +738,7 @@ describe('AuthProvider', () => {
       );
 
       await waitFor(() => {
-        expect(context).toBeDefined();
+        expect(contextRef.current).toBeDefined();
       });
     });
   });

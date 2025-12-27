@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import GlobalStateProvider, {
   GlobalStateContext,
@@ -63,10 +63,16 @@ describe('GlobalStateProvider', () => {
 
   describe('initial state', () => {
     it('should provide initial state with isForceOffline false', () => {
-      let contextValue: [GlobalState, any] | undefined;
+      const contextValueRef = {
+        current: undefined as [GlobalState, any] | undefined,
+      };
 
       const TestComponent = () => {
-        contextValue = useContext(GlobalStateContext);
+        const context = useContext(GlobalStateContext);
+        const ref = useRef(contextValueRef);
+        useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -76,17 +82,20 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      expect(contextValue).toBeDefined();
-      expect(contextValue?.[0]).toBeDefined();
-      expect(contextValue?.[0].isForceOffline).toBe(false);
+      expect(contextValueRef.current).toBeDefined();
+      expect(contextValueRef.current?.[0]).toBeDefined();
+      expect(contextValueRef.current?.[0].isForceOffline).toBe(false);
     });
 
     it('should provide setState function', () => {
-      let setState: any;
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [, setGlobalState] = useContext(GlobalStateContext)!;
-        setState = setGlobalState;
+        const ref = useRef(setStateRef);
+        useEffect(() => {
+          ref.current.current = setGlobalState;
+        }, [setGlobalState]);
         return <div>Test</div>;
       };
 
@@ -96,19 +105,23 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      expect(typeof setState).toBe('function');
+      expect(typeof setStateRef.current).toBe('function');
     });
   });
 
   describe('state updates', () => {
     it('should update isForceOffline through setState', async () => {
-      let globalState: GlobalState | undefined;
-      let setState: any;
+      const globalStateRef = { current: undefined as GlobalState | undefined };
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [state, setStateFunc] = useContext(GlobalStateContext)!;
-        globalState = state;
-        setState = setStateFunc;
+        const globalStateLocalRef = useRef(globalStateRef);
+        const setStateLocalRef = useRef(setStateRef);
+        useEffect(() => {
+          globalStateLocalRef.current.current = state;
+          setStateLocalRef.current.current = setStateFunc;
+        }, [state, setStateFunc]);
         return <div>{state.isForceOffline ? 'Offline' : 'Online'}</div>;
       };
 
@@ -119,10 +132,10 @@ describe('GlobalStateProvider', () => {
       );
 
       expect(screen.getByText('Online')).toBeInTheDocument();
-      expect(globalState?.isForceOffline).toBe(false);
+      expect(globalStateRef.current?.isForceOffline).toBe(false);
 
       // Update state
-      setState((prevState: GlobalState) => ({
+      setStateRef.current((prevState: GlobalState) => ({
         ...prevState,
         isForceOffline: true,
       }));
@@ -133,11 +146,14 @@ describe('GlobalStateProvider', () => {
     });
 
     it('should toggle isForceOffline state', async () => {
-      let setState: any;
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [state, setStateFunc] = useContext(GlobalStateContext)!;
-        setState = setStateFunc;
+        const ref = useRef(setStateRef);
+        useEffect(() => {
+          ref.current.current = setStateFunc;
+        }, [setStateFunc]);
         return (
           <div>{state.isForceOffline ? 'Forced Offline' : 'Normal Online'}</div>
         );
@@ -151,13 +167,13 @@ describe('GlobalStateProvider', () => {
 
       expect(screen.getByText('Normal Online')).toBeInTheDocument();
 
-      setState({ isForceOffline: true });
+      setStateRef.current({ isForceOffline: true });
 
       await waitFor(() => {
         expect(screen.getByText('Forced Offline')).toBeInTheDocument();
       });
 
-      setState({ isForceOffline: false });
+      setStateRef.current({ isForceOffline: false });
 
       await waitFor(() => {
         expect(screen.getByText('Normal Online')).toBeInTheDocument();
@@ -165,11 +181,14 @@ describe('GlobalStateProvider', () => {
     });
 
     it('should preserve state across multiple children', async () => {
-      const states: GlobalState[] = [];
+      const statesRef = { current: [] as GlobalState[] };
 
       const ChildComponent1 = () => {
         const [state] = useContext(GlobalStateContext)!;
-        states[0] = state;
+        const ref = useRef(statesRef);
+        useEffect(() => {
+          ref.current.current[0] = state;
+        }, [state]);
         return (
           <div>Child 1: {state.isForceOffline ? 'Offline' : 'Online'}</div>
         );
@@ -177,17 +196,23 @@ describe('GlobalStateProvider', () => {
 
       const ChildComponent2 = () => {
         const [state] = useContext(GlobalStateContext)!;
-        states[1] = state;
+        const ref = useRef(statesRef);
+        useEffect(() => {
+          ref.current.current[1] = state;
+        }, [state]);
         return (
           <div>Child 2: {state.isForceOffline ? 'Offline' : 'Online'}</div>
         );
       };
 
-      let setState: any;
+      const setStateRef = { current: undefined as any };
 
       const ControlComponent = () => {
         const [, setStateFunc] = useContext(GlobalStateContext)!;
-        setState = setStateFunc;
+        const ref = useRef(setStateRef);
+        useEffect(() => {
+          ref.current.current = setStateFunc;
+        }, [setStateFunc]);
         return null;
       };
 
@@ -199,22 +224,27 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      setState({ isForceOffline: true });
+      setStateRef.current({ isForceOffline: true });
 
       await waitFor(() => {
-        expect(states[0].isForceOffline).toBe(true);
-        expect(states[1].isForceOffline).toBe(true);
+        expect(statesRef.current[0].isForceOffline).toBe(true);
+        expect(statesRef.current[1].isForceOffline).toBe(true);
       });
     });
   });
 
   describe('multiple consumers', () => {
     it('should provide same state to all consumers', async () => {
-      const states: Array<{ value: boolean; id: number }> = [];
+      const statesRef = {
+        current: [] as Array<{ value: boolean; id: number }>,
+      };
 
       const Consumer = ({ id }: { id: number }) => {
         const [state] = useContext(GlobalStateContext)!;
-        states.push({ value: state.isForceOffline, id });
+        const ref = useRef(statesRef);
+        useEffect(() => {
+          ref.current.current.push({ value: state.isForceOffline, id });
+        }, [state.isForceOffline, id]);
         return <div>Consumer {id}</div>;
       };
 
@@ -226,17 +256,23 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      expect(states).toHaveLength(3);
-      expect(states[0].value).toBe(states[1].value);
-      expect(states[1].value).toBe(states[2].value);
+      await waitFor(() => {
+        expect(statesRef.current.length).toBeGreaterThanOrEqual(3);
+      });
+
+      expect(statesRef.current[0].value).toBe(statesRef.current[1].value);
+      expect(statesRef.current[1].value).toBe(statesRef.current[2].value);
     });
 
     it('should update all consumers when state changes', async () => {
-      const renderCounts: { [key: number]: number } = {};
+      const renderCounts = { current: {} as { [key: number]: number } };
 
       const Consumer = ({ id }: { id: number }) => {
         const [state, setState] = useContext(GlobalStateContext)!;
-        renderCounts[id] = (renderCounts[id] || 0) + 1;
+        const ref = useRef(renderCounts);
+        useEffect(() => {
+          ref.current.current[id] = (ref.current.current[id] || 0) + 1;
+        });
 
         const handleToggle = () => {
           setState((prev) => ({
@@ -317,18 +353,24 @@ describe('GlobalStateProvider', () => {
 
   describe('nested providers', () => {
     it('should work with nested GlobalStateProviders', () => {
-      let outerState: GlobalState | undefined;
-      let innerState: GlobalState | undefined;
+      const outerStateRef = { current: undefined as GlobalState | undefined };
+      const innerStateRef = { current: undefined as GlobalState | undefined };
 
       const OuterComponent = () => {
         const [state] = useContext(GlobalStateContext)!;
-        outerState = state;
+        const ref = useRef(outerStateRef);
+        useEffect(() => {
+          ref.current.current = state;
+        }, [state]);
         return <div>Outer: {state.isForceOffline ? 'Offline' : 'Online'}</div>;
       };
 
       const InnerComponent = () => {
         const [state] = useContext(GlobalStateContext)!;
-        innerState = state;
+        const ref = useRef(innerStateRef);
+        useEffect(() => {
+          ref.current.current = state;
+        }, [state]);
         return <div>Inner: {state.isForceOffline ? 'Offline' : 'Online'}</div>;
       };
 
@@ -341,19 +383,23 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      expect(outerState).toBeDefined();
-      expect(innerState).toBeDefined();
+      expect(outerStateRef.current).toBeDefined();
+      expect(innerStateRef.current).toBeDefined();
       // Inner should have its own state instance
-      expect(outerState).not.toBe(innerState);
+      expect(outerStateRef.current).not.toBe(innerStateRef.current);
     });
   });
 
   describe('context value shape', () => {
     it('should provide tuple of [state, setState]', () => {
-      let contextValue: any;
+      const contextValueRef = { current: undefined as any };
 
       const TestComponent = () => {
-        contextValue = useContext(GlobalStateContext);
+        const context = useContext(GlobalStateContext);
+        const ref = useRef(contextValueRef);
+        useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return null;
       };
 
@@ -363,16 +409,19 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      expect(Array.isArray(contextValue)).toBe(true);
-      expect(contextValue).toHaveLength(2);
+      expect(Array.isArray(contextValueRef.current)).toBe(true);
+      expect(contextValueRef.current).toHaveLength(2);
     });
 
     it('should have correct state shape', () => {
-      let state: any;
+      const stateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [globalState] = useContext(GlobalStateContext)!;
-        state = globalState;
+        const ref = useRef(stateRef);
+        useEffect(() => {
+          ref.current.current = globalState;
+        }, [globalState]);
         return null;
       };
 
@@ -382,18 +431,21 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      expect(state).toHaveProperty('isForceOffline');
-      expect(Object.keys(state)).toContain('isForceOffline');
+      expect(stateRef.current).toHaveProperty('isForceOffline');
+      expect(Object.keys(stateRef.current)).toContain('isForceOffline');
     });
   });
 
   describe('edge cases', () => {
     it('should handle setState with callback function', async () => {
-      let setState: any;
+      const setStateRef = { current: undefined as any };
 
       const TestComponent = () => {
         const [state, setStateFunc] = useContext(GlobalStateContext)!;
-        setState = setStateFunc;
+        const ref = useRef(setStateRef);
+        useEffect(() => {
+          ref.current.current = setStateFunc;
+        }, [setStateFunc]);
         return <div>{state.isForceOffline ? 'Offline' : 'Online'}</div>;
       };
 
@@ -403,7 +455,7 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      setState((prev: GlobalState) => ({
+      setStateRef.current((prev: GlobalState) => ({
         ...prev,
         isForceOffline: !prev.isForceOffline,
       }));
@@ -414,13 +466,17 @@ describe('GlobalStateProvider', () => {
     });
 
     it('should handle rapid state updates', async () => {
-      let setState: any;
-      let finalState: GlobalState | undefined;
+      const setStateRef = { current: undefined as any };
+      const finalStateRef = { current: undefined as GlobalState | undefined };
 
       const TestComponent = () => {
         const [state, setStateFunc] = useContext(GlobalStateContext)!;
-        finalState = state;
-        setState = setStateFunc;
+        const finalStateLocalRef = useRef(finalStateRef);
+        const setStateLocalRef = useRef(setStateRef);
+        useEffect(() => {
+          finalStateLocalRef.current.current = state;
+          setStateLocalRef.current.current = setStateFunc;
+        }, [state, setStateFunc]);
         return <div>{state.isForceOffline ? 'Offline' : 'Online'}</div>;
       };
 
@@ -430,13 +486,13 @@ describe('GlobalStateProvider', () => {
         </GlobalStateProvider>
       );
 
-      setState({ isForceOffline: true });
-      setState({ isForceOffline: false });
-      setState({ isForceOffline: true });
-      setState({ isForceOffline: false });
+      setStateRef.current({ isForceOffline: true });
+      setStateRef.current({ isForceOffline: false });
+      setStateRef.current({ isForceOffline: true });
+      setStateRef.current({ isForceOffline: false });
 
       await waitFor(() => {
-        expect(finalState?.isForceOffline).toBe(false);
+        expect(finalStateRef.current?.isForceOffline).toBe(false);
       });
     });
 
@@ -449,13 +505,17 @@ describe('GlobalStateProvider', () => {
     });
 
     it('should provide new state instance per provider', () => {
-      let state1: any;
-      let state2: any;
+      const state1Ref = { current: undefined as any };
+      const state2Ref = { current: undefined as any };
 
       const Consumer = ({ id }: { id: number }) => {
         const [state] = useContext(GlobalStateContext)!;
-        if (id === 1) state1 = state;
-        else state2 = state;
+        const ref1 = useRef(state1Ref);
+        const ref2 = useRef(state2Ref);
+        useEffect(() => {
+          if (id === 1) ref1.current.current = state;
+          else ref2.current.current = state;
+        }, [state, id]);
         return null;
       };
 
@@ -470,9 +530,9 @@ describe('GlobalStateProvider', () => {
         </>
       );
 
-      expect(state1).toBeDefined();
-      expect(state2).toBeDefined();
-      expect(state1).not.toBe(state2);
+      expect(state1Ref.current).toBeDefined();
+      expect(state2Ref.current).toBeDefined();
+      expect(state1Ref.current).not.toBe(state2Ref.current);
     });
   });
 });

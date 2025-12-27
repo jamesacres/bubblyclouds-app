@@ -37,7 +37,7 @@ function InviteComponent() {
     isLoading: partiesLoading,
     refreshParties,
   } = useParties({});
-  const [inviteLoading, setInviteLoading] = useState(true);
+  const [inviteLoading, setInviteLoading] = useState(!!inviteId);
   const [publicInvite, setPublicInvite] = useState<PublicInvite | undefined>(
     undefined
   );
@@ -144,8 +144,6 @@ function InviteComponent() {
         }
       };
       serverPromise();
-    } else if (!inviteId) {
-      setInviteLoading(false);
     }
 
     return () => {

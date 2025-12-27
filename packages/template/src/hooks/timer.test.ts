@@ -356,6 +356,11 @@ describe('useTimer', () => {
         result.current.setPauseTimer(true);
       });
 
+      // Allow the setTimeout in the useEffect to execute
+      act(() => {
+        jest.advanceTimersByTime(10);
+      });
+
       const initialCountdown = result.current.timer?.countdown;
 
       act(() => {

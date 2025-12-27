@@ -13,8 +13,10 @@ export interface SudokuOfTheDayResponse {
   updatedAt: string;
 }
 
-export interface SudokuOfTheDay
-  extends Omit<SudokuOfTheDayResponse, 'createdAt' | 'updatedAt'> {
+export interface SudokuOfTheDay extends Omit<
+  SudokuOfTheDayResponse,
+  'createdAt' | 'updatedAt'
+> {
   createdAt: Date;
   updatedAt: Date;
 }
@@ -107,8 +109,10 @@ export interface SudokuBookOfTheMonthResponse {
   updatedAt: Date;
 }
 
-export interface SudokuBookOfTheMonth
-  extends Omit<SudokuBookOfTheMonthResponse, 'createdAt' | 'updatedAt'> {
+export interface SudokuBookOfTheMonth extends Omit<
+  SudokuBookOfTheMonthResponse,
+  'createdAt' | 'updatedAt'
+> {
   createdAt: Date;
   updatedAt: Date;
 }

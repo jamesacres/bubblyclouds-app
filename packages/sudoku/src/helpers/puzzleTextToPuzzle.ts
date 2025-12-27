@@ -2,7 +2,6 @@ import { Notes } from '../types/notes';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
 
 export const puzzleTextToPuzzle = (puzzleText: string): Puzzle<number> => {
-  // eslint-disable-next-line
   const puzzle: Puzzle<number> = [
     [
       [

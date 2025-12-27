@@ -219,7 +219,7 @@ export const SessionsProvider = <T extends {}>({
             );
             mergeSessions(recentServerSessions);
           }
-        } catch (serverError) {
+        } catch (_serverError) {
           // Ignore server errors when offline
         }
       } catch (error) {

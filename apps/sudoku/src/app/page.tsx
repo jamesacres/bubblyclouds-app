@@ -50,6 +50,7 @@ function HomeComponent() {
   // Update tab when search params change (only from external navigation)
   useEffect(() => {
     const tabFromUrl = searchParams.get('tab') || Tab.START_PUZZLE;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTab(tabFromUrl);
   }, [searchParams]);
   const router = useRouter();

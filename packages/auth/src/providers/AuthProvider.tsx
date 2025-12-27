@@ -4,7 +4,7 @@ import { useFetch } from '../hooks/useFetch';
 import { PlatformServicesContext } from './PlatformServicesContext';
 import { UserProfile } from '../types/UserProfile';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { Browser } from '@capacitor/browser';
 
 export interface UserContextInterface {
@@ -82,6 +82,18 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const clientId =
     isElectron() || isCapacitor() ? `bubbly-${app}-native` : `bubbly-${app}`;
 
+  // Create refs early to avoid circular dependency issues
+  const restoreCapacitorStateRef = useRef<
+    (
+      handleUser: (
+        user?: UserProfile,
+        isRestoreState?: boolean
+      ) => Promise<void>,
+      restoreState: (stateString: string) => Promise<UserProfile | undefined>,
+      attempt?: number
+    ) => Promise<void>
+  >(async () => {});
+
   const restoreCapacitorState = React.useCallback(
     async (
       handleUser: (
@@ -123,7 +135,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           );
           new Promise((res) => {
             setTimeout(async () => {
-              await restoreCapacitorState(
+              await restoreCapacitorStateRef.current(
                 handleUser,
                 restoreState,
                 attempt + 1
@@ -138,6 +150,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     },
     [user, getCapacitorState]
   );
+
+  // Keep restoreCapacitorStateRef updated
+  useEffect(() => {
+    restoreCapacitorStateRef.current = restoreCapacitorState;
+  }, [restoreCapacitorState]);
 
   const loginRedirect = React.useCallback(
     async ({ userInitiated }: { userInitiated: boolean }) => {
@@ -198,6 +215,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     [clientId, isElectron, isCapacitor, openBrowser, app, iss, apiUrl]
   );
 
+  // Create a ref to break the circular dependency where handleUser passes itself to restoreCapacitorState
+  const handleUserRef = useRef<
+    (user?: UserProfile, isRestoreState?: boolean) => Promise<void>
+  >(async () => {});
+
   const handleUser = React.useCallback(
     async (user?: UserProfile, isRestoreState: boolean = false) => {
       console.info('user received', user);
@@ -215,7 +237,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       } else if (!isRestoreState) {
         if (isCapacitor()) {
-          await restoreCapacitorState(handleUser, restoreState);
+          await restoreCapacitorStateRef.current(
+            handleUserRef.current,
+            restoreState
+          );
         }
         if (
           localStorage.getItem('recoverSession') === 'true' &&
@@ -228,14 +253,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       }
     },
-    [
-      loginRedirect,
-      restoreState,
-      restoreCapacitorState,
-      isCapacitor,
-      isElectron,
-    ]
+    [loginRedirect, restoreState, isCapacitor, isElectron]
   );
+
+  // Keep handleUserRef updated
+  useEffect(() => {
+    handleUserRef.current = handleUser;
+  }, [handleUser]);
 
   const handleAuthUrl = React.useCallback(
     async (options: { active: boolean }) => {

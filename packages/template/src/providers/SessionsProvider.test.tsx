@@ -58,10 +58,14 @@ describe('SessionsProvider', () => {
     });
 
     it('should provide SessionsContext', () => {
-      let context: any;
+      const contextRef = { current: undefined as any };
 
       const TestComponent = () => {
-        context = useSessions();
+        const context = useSessions();
+        const ref = React.useRef(contextRef);
+        React.useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -73,7 +77,7 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(context).toBeDefined();
+      expect(contextRef.current).toBeDefined();
     });
   });
 
@@ -90,10 +94,14 @@ describe('SessionsProvider', () => {
     });
 
     it('should return context when used inside provider', () => {
-      let context: any;
+      const contextRef = { current: undefined as any };
 
       const TestComponent = () => {
-        context = useSessions();
+        const context = useSessions();
+        const ref = React.useRef(contextRef);
+        React.useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -105,17 +113,20 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(context).toBeDefined();
+      expect(contextRef.current).toBeDefined();
     });
   });
 
   describe('initial state', () => {
     it('should initialize sessions as null', () => {
-      let sessions: any;
+      const sessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { sessions: s } = useSessions();
-        sessions = s;
+        const ref = React.useRef(sessionsRef);
+        React.useEffect(() => {
+          ref.current.current = s;
+        }, [s]);
         return <div>Sessions</div>;
       };
 
@@ -127,15 +138,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(sessions).toBeNull();
+      expect(sessionsRef.current).toBeNull();
     });
 
     it('should initialize isLoading as false', () => {
-      let isLoading: boolean = true;
+      const isLoadingRef = { current: true };
 
       const TestComponent = () => {
         const { isLoading: loading } = useSessions();
-        isLoading = loading;
+        const ref = React.useRef(isLoadingRef);
+        React.useEffect(() => {
+          ref.current.current = loading;
+        }, [loading]);
         return <div>Loading</div>;
       };
 
@@ -147,15 +161,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(isLoading).toBe(false);
+      expect(isLoadingRef.current).toBe(false);
     });
 
     it('should initialize friendSessions as empty object', () => {
-      let friendSessions: any;
+      const friendSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { friendSessions: fs } = useSessions();
-        friendSessions = fs;
+        const ref = React.useRef(friendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = fs;
+        }, [fs]);
         return <div>Friend Sessions</div>;
       };
 
@@ -167,17 +184,20 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(friendSessions).toEqual({});
+      expect(friendSessionsRef.current).toEqual({});
     });
   });
 
   describe('provided methods', () => {
     it('should provide fetchSessions method', () => {
-      let fetchSessions: any;
+      const fetchSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { fetchSessions: fs } = useSessions();
-        fetchSessions = fs;
+        const ref = React.useRef(fetchSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = fs;
+        }, [fs]);
         return <div>Test</div>;
       };
 
@@ -189,15 +209,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof fetchSessions).toBe('function');
+      expect(typeof fetchSessionsRef.current).toBe('function');
     });
 
     it('should provide refetchSessions method', () => {
-      let refetchSessions: any;
+      const refetchSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { refetchSessions: rs } = useSessions();
-        refetchSessions = rs;
+        const ref = React.useRef(refetchSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = rs;
+        }, [rs]);
         return <div>Test</div>;
       };
 
@@ -209,15 +232,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof refetchSessions).toBe('function');
+      expect(typeof refetchSessionsRef.current).toBe('function');
     });
 
     it('should provide setSessions method', () => {
-      let setSessions: any;
+      const setSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { setSessions: ss } = useSessions();
-        setSessions = ss;
+        const ref = React.useRef(setSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = ss;
+        }, [ss]);
         return <div>Test</div>;
       };
 
@@ -229,15 +255,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof setSessions).toBe('function');
+      expect(typeof setSessionsRef.current).toBe('function');
     });
 
     it('should provide clearSessions method', () => {
-      let clearSessions: any;
+      const clearSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { clearSessions: cs } = useSessions();
-        clearSessions = cs;
+        const ref = React.useRef(clearSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = cs;
+        }, [cs]);
         return <div>Test</div>;
       };
 
@@ -249,15 +278,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof clearSessions).toBe('function');
+      expect(typeof clearSessionsRef.current).toBe('function');
     });
 
     it('should provide fetchFriendSessions method', () => {
-      let fetchFriendSessions: any;
+      const fetchFriendSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { fetchFriendSessions: ffs } = useSessions();
-        fetchFriendSessions = ffs;
+        const ref = React.useRef(fetchFriendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = ffs;
+        }, [ffs]);
         return <div>Test</div>;
       };
 
@@ -269,15 +301,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof fetchFriendSessions).toBe('function');
+      expect(typeof fetchFriendSessionsRef.current).toBe('function');
     });
 
     it('should provide lazyLoadFriendSessions method', () => {
-      let lazyLoadFriendSessions: any;
+      const lazyLoadFriendSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { lazyLoadFriendSessions: lfs } = useSessions();
-        lazyLoadFriendSessions = lfs;
+        const ref = React.useRef(lazyLoadFriendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = lfs;
+        }, [lfs]);
         return <div>Test</div>;
       };
 
@@ -289,15 +324,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof lazyLoadFriendSessions).toBe('function');
+      expect(typeof lazyLoadFriendSessionsRef.current).toBe('function');
     });
 
     it('should provide clearFriendSessions method', () => {
-      let clearFriendSessions: any;
+      const clearFriendSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { clearFriendSessions: cfs } = useSessions();
-        clearFriendSessions = cfs;
+        const ref = React.useRef(clearFriendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = cfs;
+        }, [cfs]);
         return <div>Test</div>;
       };
 
@@ -309,15 +347,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof clearFriendSessions).toBe('function');
+      expect(typeof clearFriendSessionsRef.current).toBe('function');
     });
 
     it('should provide getSessionParties method', () => {
-      let getSessionParties: any;
+      const getSessionPartiesRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { getSessionParties: gsp } = useSessions();
-        getSessionParties = gsp;
+        const ref = React.useRef(getSessionPartiesRef);
+        React.useEffect(() => {
+          ref.current.current = gsp;
+        }, [gsp]);
         return <div>Test</div>;
       };
 
@@ -329,15 +370,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof getSessionParties).toBe('function');
+      expect(typeof getSessionPartiesRef.current).toBe('function');
     });
 
     it('should provide patchFriendSessions method', () => {
-      let patchFriendSessions: any;
+      const patchFriendSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const { patchFriendSessions: pfs } = useSessions();
-        patchFriendSessions = pfs;
+        const ref = React.useRef(patchFriendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = pfs;
+        }, [pfs]);
         return <div>Test</div>;
       };
 
@@ -349,20 +393,26 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(typeof patchFriendSessions).toBe('function');
+      expect(typeof patchFriendSessionsRef.current).toBe('function');
     });
   });
 
   describe('state updates', () => {
     it('should update sessions with setSessions', async () => {
-      let sessions: ServerStateResult<BaseServerState>[] | null = null;
-      let setSessions: any;
+      const sessionsRef = {
+        current: null as ServerStateResult<BaseServerState>[] | null,
+      };
+      const setSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions<any>();
-        sessions = context.sessions;
-        setSessions = context.setSessions;
-        return <div>Sessions: {sessions?.length}</div>;
+        const ref1 = React.useRef(sessionsRef);
+        const ref2 = React.useRef(setSessionsRef);
+        React.useEffect(() => {
+          ref1.current.current = context.sessions;
+          ref2.current.current = context.setSessions;
+        }, [context.sessions, context.setSessions]);
+        return <div>Sessions: {context.sessions?.length}</div>;
       };
 
       render(
@@ -382,29 +432,35 @@ describe('SessionsProvider', () => {
       ];
 
       act(() => {
-        setSessions(mockSessions);
+        setSessionsRef.current(mockSessions);
       });
 
       await waitFor(() => {
-        expect(sessions).toEqual(mockSessions);
+        expect(sessionsRef.current).toEqual(mockSessions);
       });
     });
 
     it('should clear sessions with clearSessions', async () => {
-      let sessions: ServerStateResult<BaseServerState>[] | null = [
-        {
-          sessionId: 'session-1',
-          state: { answerStack: [], initial: {}, final: {} } as any,
-          updatedAt: new Date(),
-        } as any,
-      ];
-      let clearSessions: any;
+      const sessionsRef = {
+        current: [
+          {
+            sessionId: 'session-1',
+            state: { answerStack: [], initial: {}, final: {} } as any,
+            updatedAt: new Date(),
+          } as any,
+        ] as ServerStateResult<BaseServerState>[] | null,
+      };
+      const clearSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions<any>();
-        sessions = context.sessions;
-        clearSessions = context.clearSessions;
-        return <div>Sessions: {sessions?.length}</div>;
+        const ref1 = React.useRef(sessionsRef);
+        const ref2 = React.useRef(clearSessionsRef);
+        React.useEffect(() => {
+          ref1.current.current = context.sessions;
+          ref2.current.current = context.clearSessions;
+        }, [context.sessions, context.clearSessions]);
+        return <div>Sessions: {context.sessions?.length}</div>;
       };
 
       const { rerender } = render(
@@ -416,7 +472,7 @@ describe('SessionsProvider', () => {
       );
 
       act(() => {
-        clearSessions?.();
+        clearSessionsRef.current?.();
       });
 
       rerender(
@@ -427,18 +483,23 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(sessions).toBeNull();
+      expect(sessionsRef.current).toBeNull();
     });
   });
 
   describe('user context changes', () => {
     it('should clear friend sessions when user changes', () => {
-      let friendSessions: any = { userId1: { sessions: [] } };
+      const friendSessionsRef = {
+        current: { userId1: { sessions: [] } } as any,
+      };
 
       const TestComponent = () => {
         const context = useSessions();
-        friendSessions = context.friendSessions;
-        return <div>Friends: {Object.keys(friendSessions).length}</div>;
+        const ref = React.useRef(friendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = context.friendSessions;
+        }, [context.friendSessions]);
+        return <div>Friends: {Object.keys(context.friendSessions).length}</div>;
       };
 
       const { rerender } = render(
@@ -458,19 +519,23 @@ describe('SessionsProvider', () => {
       );
 
       // Should clear when user changes
-      expect(friendSessions).toEqual({});
+      expect(friendSessionsRef.current).toEqual({});
     });
   });
 
   describe('getSessionParties', () => {
     it('should return empty object for no parties', () => {
-      let getSessionParties: any;
-      let result: any;
+      const getSessionPartiesRef = { current: undefined as any };
+      const resultRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        getSessionParties = context.getSessionParties;
-        result = getSessionParties([], 'session-1');
+        const ref1 = React.useRef(getSessionPartiesRef);
+        const ref2 = React.useRef(resultRef);
+        React.useEffect(() => {
+          ref1.current.current = context.getSessionParties;
+          ref2.current.current = context.getSessionParties([], 'session-1');
+        }, [context]);
         return <div>Result</div>;
       };
 
@@ -482,25 +547,32 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(result).toEqual({});
+      expect(resultRef.current).toEqual({});
     });
 
     it('should filter parties by sessionId', () => {
-      let getSessionParties: any;
-      let result: any;
+      const getSessionPartiesRef = { current: undefined as any };
+      const resultRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        getSessionParties = context.getSessionParties;
+        const ref1 = React.useRef(getSessionPartiesRef);
+        const ref2 = React.useRef(resultRef);
+        React.useEffect(() => {
+          ref1.current.current = context.getSessionParties;
 
-        const parties: Party[] = [
-          {
-            partyId: 'party-1',
-            members: [{ userId: 'user-1', displayName: 'User 1' }],
-          } as unknown as Party,
-        ];
+          const parties: Party[] = [
+            {
+              partyId: 'party-1',
+              members: [{ userId: 'user-1', displayName: 'User 1' }],
+            } as unknown as Party,
+          ];
 
-        result = getSessionParties(parties, 'session-1');
+          ref2.current.current = context.getSessionParties(
+            parties,
+            'session-1'
+          );
+        }, [context]);
         return <div>Result</div>;
       };
 
@@ -512,18 +584,21 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(result).toBeDefined();
-      expect(result['party-1']).toBeDefined();
+      expect(resultRef.current).toBeDefined();
+      expect(resultRef.current['party-1']).toBeDefined();
     });
   });
 
   describe('multiple consumers', () => {
     it('should share context across multiple consumers', () => {
-      const states: any[] = [];
+      const statesRef = { current: [] as any[] };
 
       const Consumer = ({ id }: { id: number }) => {
         const context = useSessions();
-        states[id] = context;
+        const ref = React.useRef(statesRef);
+        React.useEffect(() => {
+          ref.current.current[id] = context;
+        }, [context, id]);
         return <div>Consumer {id}</div>;
       };
 
@@ -537,8 +612,8 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(states[0]).toBe(states[1]);
-      expect(states[1]).toBe(states[2]);
+      expect(statesRef.current[0]).toBe(statesRef.current[1]);
+      expect(statesRef.current[1]).toBe(statesRef.current[2]);
     });
   });
 
@@ -591,10 +666,14 @@ describe('SessionsProvider', () => {
     });
 
     it('should handle provider unmount and remount', () => {
-      let context: any;
+      const contextRef = { current: undefined as any };
 
       const TestComponent = () => {
-        context = useSessions();
+        const context = useSessions();
+        const ref = React.useRef(contextRef);
+        React.useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -606,11 +685,11 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(context).toBeDefined();
+      expect(contextRef.current).toBeDefined();
 
       unmount();
 
-      context = undefined;
+      contextRef.current = undefined;
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
@@ -620,17 +699,21 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(context).toBeDefined();
+      expect(contextRef.current).toBeDefined();
     });
 
     it('should handle rapid state updates', () => {
-      let setSessions: any;
-      let sessions: any;
+      const setSessionsRef = { current: undefined as any };
+      const sessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        setSessions = context.setSessions;
-        sessions = context.sessions;
+        const ref1 = React.useRef(setSessionsRef);
+        const ref2 = React.useRef(sessionsRef);
+        React.useEffect(() => {
+          ref1.current.current = context.setSessions;
+          ref2.current.current = context.sessions;
+        }, [context.setSessions, context.sessions]);
         return <div>Sessions</div>;
       };
 
@@ -651,22 +734,25 @@ describe('SessionsProvider', () => {
       ];
 
       act(() => {
-        setSessions(mockSessions);
-        setSessions(null);
-        setSessions(mockSessions);
+        setSessionsRef.current(mockSessions);
+        setSessionsRef.current(null);
+        setSessionsRef.current(mockSessions);
       });
 
-      expect(sessions).toEqual(mockSessions);
+      expect(sessionsRef.current).toEqual(mockSessions);
     });
   });
 
   describe('friend sessions operations', () => {
     it('should initialize isFriendSessionsLoading as false', () => {
-      let isFriendSessionsLoading: boolean = true;
+      const isFriendSessionsLoadingRef = { current: true };
 
       const TestComponent = () => {
         const { isFriendSessionsLoading: loading } = useSessions();
-        isFriendSessionsLoading = loading;
+        const ref = React.useRef(isFriendSessionsLoadingRef);
+        React.useEffect(() => {
+          ref.current.current = loading;
+        }, [loading]);
         return <div>Loading</div>;
       };
 
@@ -678,18 +764,22 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(isFriendSessionsLoading).toBe(false);
+      expect(isFriendSessionsLoadingRef.current).toBe(false);
     });
 
     it('should patch friend sessions with updated values', async () => {
-      let patchFriendSessions: any;
-      let friendSessions: any;
+      const patchFriendSessionsRef = { current: undefined as any };
+      const friendSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        patchFriendSessions = context.patchFriendSessions;
-        friendSessions = context.friendSessions;
-        return <div>Friends: {Object.keys(friendSessions).length}</div>;
+        const ref1 = React.useRef(patchFriendSessionsRef);
+        const ref2 = React.useRef(friendSessionsRef);
+        React.useEffect(() => {
+          ref1.current.current = context.patchFriendSessions;
+          ref2.current.current = context.friendSessions;
+        }, [context.patchFriendSessions, context.friendSessions]);
+        return <div>Friends: {Object.keys(context.friendSessions).length}</div>;
       };
 
       render(
@@ -707,25 +797,29 @@ describe('SessionsProvider', () => {
       } as any;
 
       act(() => {
-        patchFriendSessions?.('session-1', {
+        patchFriendSessionsRef.current?.('session-1', {
           'friend-1': newSession,
         });
       });
 
       await waitFor(() => {
-        expect(friendSessions).toBeDefined();
+        expect(friendSessionsRef.current).toBeDefined();
       });
     });
 
     it('should not patch friend sessions if already loading', async () => {
-      let patchFriendSessions: any;
-      let isFriendSessionsLoading: boolean = false;
+      const patchFriendSessionsRef = { current: undefined as any };
+      const isFriendSessionsLoadingRef = { current: false };
 
       const TestComponent = () => {
         const context = useSessions();
-        patchFriendSessions = context.patchFriendSessions;
-        isFriendSessionsLoading = context.isFriendSessionsLoading;
-        return <div>Loading: {isFriendSessionsLoading.toString()}</div>;
+        const ref1 = React.useRef(patchFriendSessionsRef);
+        const ref2 = React.useRef(isFriendSessionsLoadingRef);
+        React.useEffect(() => {
+          ref1.current.current = context.patchFriendSessions;
+          ref2.current.current = context.isFriendSessionsLoading;
+        }, [context.patchFriendSessions, context.isFriendSessionsLoading]);
+        return <div>Loading: {context.isFriendSessionsLoading.toString()}</div>;
       };
 
       render(
@@ -738,25 +832,26 @@ describe('SessionsProvider', () => {
 
       // Should handle safely even if loading
       act(() => {
-        patchFriendSessions?.('session-1', {});
+        patchFriendSessionsRef.current?.('session-1', {});
       });
 
-      expect(patchFriendSessions).toBeDefined();
+      expect(patchFriendSessionsRef.current).toBeDefined();
     });
   });
 
   describe('lazy loading behavior', () => {
     it('should not lazy load if already initialized', async () => {
-      let _lazyLoadFriendSessions: any;
-      let hasCalled = false;
+      const _lazyLoadFriendSessionsRef = { current: undefined as any };
+      const hasCalledRef = { current: false };
 
       const TestComponent = () => {
         const context = useSessions();
-        _lazyLoadFriendSessions = context.lazyLoadFriendSessions;
-
+        const ref1 = React.useRef(_lazyLoadFriendSessionsRef);
+        const ref2 = React.useRef(hasCalledRef);
         React.useEffect(() => {
-          hasCalled = true;
-        }, []);
+          ref1.current.current = context.lazyLoadFriendSessions;
+          ref2.current.current = true;
+        }, [context.lazyLoadFriendSessions]);
 
         return <div>Lazy Load Test</div>;
       };
@@ -769,15 +864,18 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(hasCalled).toBe(true);
+      expect(hasCalledRef.current).toBe(true);
     });
 
     it('should lazy load friend sessions on demand', async () => {
-      let lazyLoadFriendSessions: any;
+      const lazyLoadFriendSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        lazyLoadFriendSessions = context.lazyLoadFriendSessions;
+        const ref = React.useRef(lazyLoadFriendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = context.lazyLoadFriendSessions;
+        }, [context.lazyLoadFriendSessions]);
         return <div>Test</div>;
       };
 
@@ -798,22 +896,26 @@ describe('SessionsProvider', () => {
       ];
 
       await act(async () => {
-        await lazyLoadFriendSessions?.(mockParties);
+        await lazyLoadFriendSessionsRef.current?.(mockParties);
       });
 
-      expect(lazyLoadFriendSessions).toBeDefined();
+      expect(lazyLoadFriendSessionsRef.current).toBeDefined();
     });
   });
 
   describe('session sorting and filtering', () => {
     it('should sort sessions with most recent first', () => {
-      let setSessions: any;
-      let _retrievedSessions: any;
+      const setSessionsRef = { current: undefined as any };
+      const _retrievedSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        setSessions = context.setSessions;
-        _retrievedSessions = context.sessions;
+        const ref1 = React.useRef(setSessionsRef);
+        const ref2 = React.useRef(_retrievedSessionsRef);
+        React.useEffect(() => {
+          ref1.current.current = context.setSessions;
+          ref2.current.current = context.sessions;
+        }, [context.setSessions, context.sessions]);
         return <div>Sessions</div>;
       };
 
@@ -848,20 +950,24 @@ describe('SessionsProvider', () => {
       ];
 
       act(() => {
-        setSessions(sessionsToSet);
+        setSessionsRef.current(sessionsToSet);
       });
 
       expect(sessionsToSet[0].sessionId).toBe('old');
     });
 
     it('should remove duplicate sessions keeping most recent', () => {
-      let setSessions: any;
-      let sessions: any;
+      const setSessionsRef = { current: undefined as any };
+      const sessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        setSessions = context.setSessions;
-        sessions = context.sessions;
+        const ref1 = React.useRef(setSessionsRef);
+        const ref2 = React.useRef(sessionsRef);
+        React.useEffect(() => {
+          ref1.current.current = context.setSessions;
+          ref2.current.current = context.sessions;
+        }, [context.setSessions, context.sessions]);
         return <div>Sessions</div>;
       };
 
@@ -890,10 +996,10 @@ describe('SessionsProvider', () => {
       ];
 
       act(() => {
-        setSessions(duplicateSessions);
+        setSessionsRef.current(duplicateSessions);
       });
 
-      expect(sessions).toBeDefined();
+      expect(sessionsRef.current).toBeDefined();
     });
   });
 
@@ -911,14 +1017,18 @@ describe('SessionsProvider', () => {
         listValues: mockListValues,
       });
 
-      let fetchSessions: any;
-      let sessions: any;
+      const fetchSessionsRef = { current: undefined as any };
+      const sessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        fetchSessions = context.fetchSessions;
-        sessions = context.sessions;
-        return <div>Sessions: {sessions?.length ?? 'loading'}</div>;
+        const ref1 = React.useRef(fetchSessionsRef);
+        const ref2 = React.useRef(sessionsRef);
+        React.useEffect(() => {
+          ref1.current.current = context.fetchSessions;
+          ref2.current.current = context.sessions;
+        }, [context.fetchSessions, context.sessions]);
+        return <div>Sessions: {context.sessions?.length ?? 'loading'}</div>;
       };
 
       render(
@@ -930,10 +1040,10 @@ describe('SessionsProvider', () => {
       );
 
       await act(async () => {
-        await fetchSessions?.();
+        await fetchSessionsRef.current?.();
       });
 
-      expect(fetchSessions).toBeDefined();
+      expect(fetchSessionsRef.current).toBeDefined();
     });
 
     it('should handle refetchSessions forcing reload', async () => {
@@ -943,11 +1053,14 @@ describe('SessionsProvider', () => {
         listValues: mockListValues,
       });
 
-      let refetchSessions: any;
+      const refetchSessionsRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useSessions();
-        refetchSessions = context.refetchSessions;
+        const ref = React.useRef(refetchSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = context.refetchSessions;
+        }, [context.refetchSessions]);
         return <div>Refetch</div>;
       };
 
@@ -960,23 +1073,27 @@ describe('SessionsProvider', () => {
       );
 
       await act(async () => {
-        await refetchSessions?.();
+        await refetchSessionsRef.current?.();
       });
 
       await act(async () => {
-        await refetchSessions?.();
+        await refetchSessionsRef.current?.();
       });
 
-      expect(refetchSessions).toBeDefined();
+      expect(refetchSessionsRef.current).toBeDefined();
     });
   });
 
   describe('context value shape', () => {
     it('should provide all required context properties', () => {
-      let context: any;
+      const contextRef = { current: undefined as any };
 
       const TestComponent = () => {
-        context = useSessions();
+        const context = useSessions();
+        const ref = React.useRef(contextRef);
+        React.useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return <div>Test</div>;
       };
 
@@ -988,19 +1105,19 @@ describe('SessionsProvider', () => {
         </UserContext.Provider>
       );
 
-      expect(context).toHaveProperty('sessions');
-      expect(context).toHaveProperty('isLoading');
-      expect(context).toHaveProperty('fetchSessions');
-      expect(context).toHaveProperty('refetchSessions');
-      expect(context).toHaveProperty('setSessions');
-      expect(context).toHaveProperty('clearSessions');
-      expect(context).toHaveProperty('friendSessions');
-      expect(context).toHaveProperty('isFriendSessionsLoading');
-      expect(context).toHaveProperty('fetchFriendSessions');
-      expect(context).toHaveProperty('lazyLoadFriendSessions');
-      expect(context).toHaveProperty('clearFriendSessions');
-      expect(context).toHaveProperty('getSessionParties');
-      expect(context).toHaveProperty('patchFriendSessions');
+      expect(contextRef.current).toHaveProperty('sessions');
+      expect(contextRef.current).toHaveProperty('isLoading');
+      expect(contextRef.current).toHaveProperty('fetchSessions');
+      expect(contextRef.current).toHaveProperty('refetchSessions');
+      expect(contextRef.current).toHaveProperty('setSessions');
+      expect(contextRef.current).toHaveProperty('clearSessions');
+      expect(contextRef.current).toHaveProperty('friendSessions');
+      expect(contextRef.current).toHaveProperty('isFriendSessionsLoading');
+      expect(contextRef.current).toHaveProperty('fetchFriendSessions');
+      expect(contextRef.current).toHaveProperty('lazyLoadFriendSessions');
+      expect(contextRef.current).toHaveProperty('clearFriendSessions');
+      expect(contextRef.current).toHaveProperty('getSessionParties');
+      expect(contextRef.current).toHaveProperty('patchFriendSessions');
     });
   });
 });

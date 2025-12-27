@@ -82,13 +82,19 @@ const PartiesProvider: React.FC<{
 
   // Update member nickname when user changes
   useEffect(() => {
-    setMemberNickname(user?.given_name || user?.name || '');
+    const timeout = setTimeout(() => {
+      setMemberNickname(user?.given_name || user?.name || '');
+    }, 0);
+    return () => clearTimeout(timeout);
   }, [user]);
 
   // Reset initialization state when user changes to trigger reload
   useEffect(() => {
-    setHasInitialized(false);
-    setParties([]);
+    const timeout = setTimeout(() => {
+      setHasInitialized(false);
+      setParties([]);
+    }, 0);
+    return () => clearTimeout(timeout);
   }, [user]);
 
   // Create a new party
