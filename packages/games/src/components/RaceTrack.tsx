@@ -11,7 +11,10 @@ import { Tab } from '@bubblyclouds-app/types/tabs';
 import TrafficLight from './TrafficLight';
 import Link from 'next/link';
 import { RefreshCw } from 'react-feather';
-import { BaseState, BaseServerState } from '@bubblyclouds-app/template/types/state';
+import {
+  BaseState,
+  BaseServerState,
+} from '@bubblyclouds-app/template/types/state';
 
 interface Arguments<T> {
   sessionParties: Parties<Session<BaseServerState<T>>>;

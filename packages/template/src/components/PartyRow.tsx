@@ -1,6 +1,10 @@
 import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
 import { useParties } from '../hooks/useParties';
-import { Party, SessionParty, Session } from '@bubblyclouds-app/types/serverTypes';
+import {
+  Party,
+  SessionParty,
+  Session,
+} from '@bubblyclouds-app/types/serverTypes';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import {
   UserContext,

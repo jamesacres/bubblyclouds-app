@@ -14,7 +14,10 @@ import {
 import FriendLeaderboardEntry from './FriendLeaderboardEntry';
 import ScoringLegend from './ScoringLegend';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
-import { BaseState, BaseServerState } from '@bubblyclouds-app/template/types/state';
+import {
+  BaseState,
+  BaseServerState,
+} from '@bubblyclouds-app/template/types/state';
 
 interface LeaderboardProps<TState extends BaseServerState = BaseServerState> {
   sessions: ServerStateResult<TState>[] | null;

@@ -19,6 +19,7 @@
     "build": "echo 'Auth package is pure TypeScript - no compilation needed'",
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "jest"
   },
   "dependencies": {

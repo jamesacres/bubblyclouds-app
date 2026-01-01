@@ -21,6 +21,7 @@
   "scripts": {
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "jest"
   },
   "dependencies": {

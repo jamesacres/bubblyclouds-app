@@ -15,7 +15,10 @@ import {
   Party,
 } from '@bubblyclouds-app/types/serverTypes';
 import { StateType } from '@bubblyclouds-app/types/stateType';
-import { UserSession, UserSessions } from '@bubblyclouds-app/types/userSessions';
+import {
+  UserSession,
+  UserSessions,
+} from '@bubblyclouds-app/types/userSessions';
 import { useServerStorage } from '../hooks/serverStorage';
 import { useLocalStorage } from '../hooks/localStorage';
 import {

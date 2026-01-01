@@ -10,7 +10,9 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest --passWithNoTests"
   },
   "devDependencies": {
     "@types/jest": "^29.5.10",

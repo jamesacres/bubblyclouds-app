@@ -18,7 +18,6 @@ bubblyclouds-app/
 │   ├── template/         # Collaborative features (parties, sessions)
 │   ├── games/            # Shared game logic & components
 │   ├── sudoku/           # Sudoku-specific logic
-│   ├── shared/           # Generic utilities
 │   └── types/            # Shared TypeScript types
 │
 ├── apps/                 # Applications (consume packages)
@@ -46,18 +45,16 @@ Feature Packages:
 └────────┬────────┴──────────┬───────────┴────────────┘
          │                   │
 Game & UI Packages:
-┌────────┴─────────┬─────────┴──────┬──────────────┬──────────┐
-│ @bubblyclouds    │ @bubblyclouds  │ @bubblyclouds│ @bubbly  │
-│ -app/games       │ -app/ui        │ -app/shared  │ clouds   │
-│                  │                │              │ -app/    │
-│                  │                │              │ types    │
-└──────────────────┴────────────────┴──────────────┴──────────┘
+┌────────┴─────────┬─────────┴──────┬──────────────┐
+│ @bubblyclouds    │ @bubblyclouds  │ @bubblyclouds│
+│ -app/games       │ -app/ui        │ -app/types   │
+└──────────────────┴────────────────┴──────────────┘
 ```
 
 **Key Principles**:
 
 - Apps import from packages (never the reverse)
-- Core packages (shared, types) have no dependencies on feature packages
+- Core packages (types) have no dependencies on feature packages
 - Template package is game-agnostic (no sudoku references)
 - Sudoku package contains all game-specific logic
 
@@ -182,11 +179,6 @@ integration guides, and examples:
 
 ### Utility Packages
 
-- **[@bubblyclouds-app/shared](./packages/shared/README.md)** - Generic utilities
-  - Time formatting
-  - Platform detection
-  - Helper functions
-
 - **[@bubblyclouds-app/types](./packages/types/README.md)** - Shared TypeScript types
   - Type definitions
   - Interfaces
@@ -309,7 +301,6 @@ bubblyclouds-app/
 │   ├── template/        # Template features package
 │   ├── games/           # Shared game logic package
 │   ├── sudoku/          # Sudoku-specific package
-│   ├── shared/          # Shared utilities
 │   └── types/           # TypeScript types
 │
 ├── specs/               # Feature specifications
