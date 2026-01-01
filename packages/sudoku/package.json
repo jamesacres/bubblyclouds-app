@@ -31,7 +31,6 @@
     "@bubblyclouds-app/template": "*",
     "@bubblyclouds-app/types": "*",
     "@bubblyclouds-app/ui": "*",
-    "mathjs": "^13.0.2",
     "next": "^16.1.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
