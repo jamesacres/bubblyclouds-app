@@ -37,7 +37,7 @@ describe('PartiesProvider', () => {
   const renderWithUser = (user: UserContextInterface['user']) => {
     return render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <TestConsumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -72,7 +72,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -121,7 +121,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -159,7 +159,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -210,7 +210,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -253,7 +253,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -302,7 +302,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -344,7 +344,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -391,7 +391,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -423,7 +423,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -449,7 +449,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -496,7 +496,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -534,7 +534,7 @@ describe('PartiesProvider', () => {
 
     const { rerender } = render(
       <UserContext.Provider value={{ user: user1 } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -546,7 +546,7 @@ describe('PartiesProvider', () => {
 
     rerender(
       <UserContext.Provider value={{ user: user2 } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -572,7 +572,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -610,7 +610,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -645,7 +645,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -681,7 +681,7 @@ describe('PartiesProvider', () => {
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>

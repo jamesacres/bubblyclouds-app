@@ -127,6 +127,9 @@ describe('PartyRow', () => {
             {...defaultInjectedProps}
             {...props}
             app="mockApp"
+            appName="MockApp"
+            apiUrl="mockApiUrl"
+            appUrl="mockAppUrl"
           />
         </RevenueCatContext.Provider>
       </UserContext.Provider>

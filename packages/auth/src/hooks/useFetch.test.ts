@@ -26,11 +26,10 @@ describe('useFetch', () => {
 
   const createWrapper = () => {
     const Wrapper = ({ children }: { children: ReactNode }) => {
-      return React.createElement(
-        PlatformServicesProvider,
-        { services: mockPlatformServices },
-        React.createElement(FetchProvider, null, children)
-      );
+      return React.createElement(PlatformServicesProvider, {
+        services: mockPlatformServices,
+        children: React.createElement(FetchProvider, { children }),
+      });
     };
     Wrapper.displayName = 'TestWrapper';
     return Wrapper;

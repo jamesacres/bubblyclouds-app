@@ -34,6 +34,9 @@ describe('Sidebar', () => {
     refreshSessionParties: jest.fn(),
     sessionParties: {},
     app: 'testapp',
+    appName: 'TestApp',
+    apiUrl: 'https://api.test.com',
+    appUrl: 'https://app.test.com',
     SimpleState: MockSimpleState,
     calculateCompletionPercentageFromState: mockCalculateCompletion,
   };
@@ -53,6 +56,7 @@ describe('Sidebar', () => {
       logout: jest.fn(),
       handleAuthUrl: jest.fn(),
       handleRestoreState: jest.fn(),
+      app: 'testapp',
       ...context.user,
     };
     const revenueCatContext: RevenueCatContextInterface = {
@@ -86,6 +90,11 @@ describe('Sidebar', () => {
       setPartyName: jest.fn(),
       saveParty: jest.fn(),
       refreshParties: jest.fn(),
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
     });
   });
 
@@ -97,7 +106,24 @@ describe('Sidebar', () => {
 
   it('shows the create party form when button is clicked', () => {
     const setShowCreateParty = jest.fn();
-    mockUseParties.mockReturnValueOnce({ parties: [], setShowCreateParty });
+    mockUseParties.mockReturnValueOnce({
+      parties: [],
+      isLoading: false,
+      showCreateParty: false,
+      setShowCreateParty,
+      isSaving: false,
+      memberNickname: '',
+      setMemberNickname: jest.fn(),
+      partyName: '',
+      setPartyName: jest.fn(),
+      saveParty: jest.fn(),
+      refreshParties: jest.fn(),
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
+    });
     renderComponent();
     fireEvent.click(screen.getByText('Create Racing Team'));
     expect(setShowCreateParty).toHaveBeenCalledWith(true);
@@ -108,21 +134,40 @@ describe('Sidebar', () => {
       parties: [
         {
           partyId: '1',
+          appId: 'app-1',
           partyName: 'Party 1',
           isOwner: true,
-          maxMembers: 5,
           members: [],
           createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: 'user1',
         },
         {
           partyId: '2',
+          appId: 'app-1',
           partyName: 'Party 2',
           isOwner: false,
-          maxMembers: 5,
           members: [],
           createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: 'user1',
         },
       ],
+      isLoading: false,
+      showCreateParty: false,
+      setShowCreateParty: jest.fn(),
+      isSaving: false,
+      memberNickname: '',
+      setMemberNickname: jest.fn(),
+      partyName: '',
+      setPartyName: jest.fn(),
+      saveParty: jest.fn(),
+      refreshParties: jest.fn(),
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
     });
     renderComponent();
     expect(screen.getAllByTestId('party-row')).toHaveLength(2);
@@ -138,8 +183,33 @@ describe('Sidebar', () => {
   it('shows subscription modal if creating a second party without subscription', () => {
     const showModalIfRequired = jest.fn();
     mockUseParties.mockReturnValueOnce({
-      parties: [{ partyId: '1' }],
+      parties: [
+        {
+          partyId: '1',
+          appId: 'app-1',
+          partyName: 'Party 1',
+          isOwner: true,
+          members: [],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: 'user1',
+        },
+      ],
+      isLoading: false,
+      showCreateParty: false,
       setShowCreateParty: jest.fn(),
+      isSaving: false,
+      memberNickname: '',
+      setMemberNickname: jest.fn(),
+      partyName: '',
+      setPartyName: jest.fn(),
+      saveParty: jest.fn(),
+      refreshParties: jest.fn(),
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
     });
     renderComponent(
       {},

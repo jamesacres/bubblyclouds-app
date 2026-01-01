@@ -31,7 +31,11 @@ describe('SessionsProvider', () => {
   const _createWrapper = (userContext = mockUserContext) => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <UserContext.Provider value={userContext as any}>
-        <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+        <SessionsProvider
+          stateType={StateType.PUZZLE}
+          app="mockApp"
+          apiUrl="mockApiUrl"
+        >
           {children}
         </SessionsProvider>
       </UserContext.Provider>
@@ -48,7 +52,11 @@ describe('SessionsProvider', () => {
     it('should render children', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <div>Test Content</div>
           </SessionsProvider>
         </UserContext.Provider>
@@ -71,7 +79,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -107,7 +119,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -132,7 +148,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -155,7 +175,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -178,7 +202,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -203,7 +231,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -226,7 +258,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -249,7 +285,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -272,7 +312,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -295,7 +339,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -318,7 +366,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -341,7 +393,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -364,7 +420,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -387,7 +447,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -417,7 +481,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -465,7 +533,11 @@ describe('SessionsProvider', () => {
 
       const { rerender } = render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -477,7 +549,11 @@ describe('SessionsProvider', () => {
 
       rerender(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -504,7 +580,11 @@ describe('SessionsProvider', () => {
 
       const { rerender } = render(
         <UserContext.Provider value={{ user: { id: 'user1' } } as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -512,7 +592,11 @@ describe('SessionsProvider', () => {
 
       rerender(
         <UserContext.Provider value={{ user: { id: 'user2' } } as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -541,7 +625,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -578,7 +666,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -604,7 +696,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <Consumer id={0} />
             <Consumer id={1} />
             <Consumer id={2} />
@@ -627,7 +723,11 @@ describe('SessionsProvider', () => {
       expect(() => {
         render(
           <UserContext.Provider value={mockUserContext as any}>
-            <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+            <SessionsProvider
+              stateType={StateType.PUZZLE}
+              app="mockApp"
+              apiUrl="mockApiUrl"
+            >
               <TestComponent />
             </SessionsProvider>
           </UserContext.Provider>
@@ -650,12 +750,20 @@ describe('SessionsProvider', () => {
       const { container } = render(
         <>
           <UserContext.Provider value={mockUserContext as any}>
-            <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+            <SessionsProvider
+              stateType={StateType.PUZZLE}
+              app="mockApp"
+              apiUrl="mockApiUrl"
+            >
               <TestComponent id={1} />
             </SessionsProvider>
           </UserContext.Provider>
           <UserContext.Provider value={mockUserContext as any}>
-            <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+            <SessionsProvider
+              stateType={StateType.PUZZLE}
+              app="mockApp"
+              apiUrl="mockApiUrl"
+            >
               <TestComponent id={2} />
             </SessionsProvider>
           </UserContext.Provider>
@@ -679,7 +787,11 @@ describe('SessionsProvider', () => {
 
       const { unmount } = render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -693,7 +805,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -719,7 +835,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -758,7 +878,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -784,7 +908,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -824,7 +952,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -858,7 +990,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -881,7 +1017,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -921,7 +1061,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -973,7 +1117,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -1033,7 +1181,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -1066,7 +1218,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>
@@ -1099,7 +1255,11 @@ describe('SessionsProvider', () => {
 
       render(
         <UserContext.Provider value={mockUserContext as any}>
-          <SessionsProvider stateType={StateType.PUZZLE} app="mockApp">
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
             <TestComponent />
           </SessionsProvider>
         </UserContext.Provider>

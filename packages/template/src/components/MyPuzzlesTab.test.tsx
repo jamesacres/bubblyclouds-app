@@ -32,21 +32,28 @@ const createMockSession = (
   ...overrides,
 });
 
+const mockProps = {
+  SimpleState: () => <div>SimpleState</div>,
+  calculateCompletionPercentageFromState: jest.fn(() => 50),
+  isPuzzleCheated: jest.fn(() => false),
+  buildPuzzleUrlFromState: jest.fn(() => '/puzzle/1'),
+};
+
 describe('MyPuzzlesTab', () => {
   describe('rendering', () => {
     it('should render the component', () => {
-      const { container } = render(<MyPuzzlesTab />);
+      const { container } = render(<MyPuzzlesTab {...mockProps} />);
       expect(container).toBeInTheDocument();
     });
 
     it('should render title', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       const title = screen.getByRole('heading', { level: 1 });
       expect(title).toHaveTextContent('My Puzzles');
     });
 
     it('should render description text', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       expect(
         screen.getByText(
           'This page lists puzzles you have played in the past 30 days.'
@@ -55,7 +62,7 @@ describe('MyPuzzlesTab', () => {
     });
 
     it('should render instruction text', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       expect(
         screen.getByText(
           /Press Start Race in the bottom navigation to find a new puzzle/
@@ -66,23 +73,23 @@ describe('MyPuzzlesTab', () => {
 
   describe('with no sessions', () => {
     it('should render without sessions prop', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
     });
 
     it('should render with empty sessions array', () => {
-      render(<MyPuzzlesTab sessions={[]} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={[]} />);
       const heading = screen.queryByRole('heading', { level: 2 });
       expect(heading).not.toBeInTheDocument();
     });
 
     it('should not render recent puzzles section when sessions is undefined', () => {
-      render(<MyPuzzlesTab sessions={undefined} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={undefined} />);
       expect(screen.queryByText('Recent Puzzles')).not.toBeInTheDocument();
     });
 
     it('should not render recent puzzles section when sessions is empty', () => {
-      render(<MyPuzzlesTab sessions={[]} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={[]} />);
       expect(screen.queryByText('Recent Puzzles')).not.toBeInTheDocument();
     });
   });
@@ -91,7 +98,7 @@ describe('MyPuzzlesTab', () => {
     it('should render single session', () => {
       const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       expect(screen.getByText('Recent Puzzles')).toBeInTheDocument();
       expect(screen.getByTestId('session-session-1')).toBeInTheDocument();
@@ -102,7 +109,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-abc123', '2024-01-15T10:00:00Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       expect(screen.getByTestId('session-session-abc123')).toBeInTheDocument();
     });
@@ -116,7 +123,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-3', '2024-01-13T10:00:00Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       expect(screen.getByTestId('session-session-1')).toBeInTheDocument();
       expect(screen.getByTestId('session-session-2')).toBeInTheDocument();
@@ -131,7 +138,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-4', '2024-01-12T10:00:00Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       const sessionElements = screen.getAllByText(/^Session:/);
       expect(sessionElements).toHaveLength(4);
@@ -146,7 +153,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-3', '2024-01-14T10:00:00Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       const testIds = screen.getAllByTestId(/^session-/);
       expect(testIds[0]).toHaveTextContent('Session: session-2');
@@ -161,7 +168,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('middle', '2024-01-08T12:00:00Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       const testIds = screen.getAllByTestId(/^session-/);
       expect(testIds[0]).toHaveTextContent('newest');
@@ -177,7 +184,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-3', sameTime),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       const testIds = screen.getAllByTestId(/^session-/);
       expect(testIds).toHaveLength(3);
@@ -190,7 +197,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-3', '2024-01-15T10:30:45.789Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       const testIds = screen.getAllByTestId(/^session-/);
       expect(testIds).toHaveLength(3);
@@ -199,7 +206,7 @@ describe('MyPuzzlesTab', () => {
 
   describe('styling and structure', () => {
     it('should have gradient title styling', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       const title = screen.getByRole('heading', { level: 1 });
       expect(title).toHaveClass('bg-gradient-to-r');
       expect(title).toHaveClass('from-blue-500');
@@ -210,7 +217,7 @@ describe('MyPuzzlesTab', () => {
     });
 
     it('should have main container with padding', () => {
-      const { container } = render(<MyPuzzlesTab />);
+      const { container } = render(<MyPuzzlesTab {...mockProps} />);
       const mainDiv = container.querySelector('.mb-4');
       expect(mainDiv).toBeInTheDocument();
     });
@@ -221,7 +228,9 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-2', '2024-01-14T10:00:00Z'),
       ];
 
-      const { container } = render(<MyPuzzlesTab sessions={sessions} />);
+      const { container } = render(
+        <MyPuzzlesTab {...mockProps} sessions={sessions} />
+      );
 
       const grid = container.querySelector('.grid');
       expect(grid).toBeInTheDocument();
@@ -235,7 +244,9 @@ describe('MyPuzzlesTab', () => {
     it('should render ul element for session list', () => {
       const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
 
-      const { container } = render(<MyPuzzlesTab sessions={sessions} />);
+      const { container } = render(
+        <MyPuzzlesTab {...mockProps} sessions={sessions} />
+      );
 
       const listElement = container.querySelector('ul');
       expect(listElement).toBeInTheDocument();
@@ -247,7 +258,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-2', '2024-01-14T10:00:00Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       // IntegratedSessionRow is mocked to render divs, not li elements
       const sessionDivs = screen.getAllByTestId(/session-/);
@@ -257,7 +268,7 @@ describe('MyPuzzlesTab', () => {
 
   describe('text content', () => {
     it('should have correct heading text', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
         'My Puzzles'
       );
@@ -266,7 +277,7 @@ describe('MyPuzzlesTab', () => {
     it('should have correct subheading when sessions exist', () => {
       const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'Recent Puzzles'
@@ -274,19 +285,19 @@ describe('MyPuzzlesTab', () => {
     });
 
     it('should display 30-day timeframe message', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       expect(screen.getByText(/past 30 days/)).toBeInTheDocument();
     });
 
     it('should display navigation instruction', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       expect(
         screen.getByText(/Start Race in the bottom navigation/)
       ).toBeInTheDocument();
     });
 
     it('should mention resuming previous puzzles', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
       expect(
         screen.getByText(/resume a previous one below/)
       ).toBeInTheDocument();
@@ -297,7 +308,9 @@ describe('MyPuzzlesTab', () => {
     it('should render recent puzzles section when sessions exist', () => {
       const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
 
-      const { container } = render(<MyPuzzlesTab sessions={sessions} />);
+      const { container } = render(
+        <MyPuzzlesTab {...mockProps} sessions={sessions} />
+      );
 
       const recentPuzzlesSection = container.querySelector(
         '.mb-4 > div:last-child'
@@ -306,7 +319,9 @@ describe('MyPuzzlesTab', () => {
     });
 
     it('should not render recent puzzles section when sessions is empty', () => {
-      const { container } = render(<MyPuzzlesTab sessions={[]} />);
+      const { container } = render(
+        <MyPuzzlesTab {...mockProps} sessions={[]} />
+      );
 
       const recentPuzzlesSection = container.querySelectorAll('h2');
       const hasRecentPuzzlesHeading = Array.from(recentPuzzlesSection).some(
@@ -319,7 +334,7 @@ describe('MyPuzzlesTab', () => {
     it('should show sections in correct order', () => {
       const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       const headings = screen.getAllByRole('heading');
       expect(headings[0]).toHaveTextContent('My Puzzles');
@@ -331,7 +346,7 @@ describe('MyPuzzlesTab', () => {
     it('should handle sessions with very old dates', () => {
       const sessions = [createMockSession('session-1', '2000-01-01T00:00:00Z')];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       expect(screen.getByTestId('session-session-1')).toBeInTheDocument();
     });
@@ -339,7 +354,7 @@ describe('MyPuzzlesTab', () => {
     it('should handle sessions with future dates', () => {
       const sessions = [createMockSession('session-1', '2099-12-31T23:59:59Z')];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       expect(screen.getByTestId('session-session-1')).toBeInTheDocument();
     });
@@ -352,7 +367,7 @@ describe('MyPuzzlesTab', () => {
         )
       );
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       const testIds = screen.getAllByTestId(/^session-/);
       expect(testIds).toHaveLength(100);
@@ -363,7 +378,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-abc_123-def', '2024-01-15T10:00:00Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       expect(
         screen.getByTestId('session-session-abc_123-def')
@@ -375,7 +390,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-🎮', '2024-01-15T10:00:00Z'),
       ];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       expect(screen.getByTestId('session-session-🎮')).toBeInTheDocument();
     });
@@ -389,7 +404,9 @@ describe('MyPuzzlesTab', () => {
     it('should accept sessions prop', () => {
       const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
 
-      const { container } = render(<MyPuzzlesTab sessions={sessions} />);
+      const { container } = render(
+        <MyPuzzlesTab {...mockProps} sessions={sessions} />
+      );
 
       expect(container).toBeInTheDocument();
     });
@@ -404,7 +421,9 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-1', '2024-01-15T10:00:00Z'),
       ];
 
-      const { rerender } = render(<MyPuzzlesTab sessions={sessions1} />);
+      const { rerender } = render(
+        <MyPuzzlesTab {...mockProps} sessions={sessions1} />
+      );
 
       expect(screen.getByTestId('session-session-1')).toBeInTheDocument();
 
@@ -413,7 +432,7 @@ describe('MyPuzzlesTab', () => {
         createMockSession('session-3', '2024-01-13T10:00:00Z'),
       ];
 
-      rerender(<MyPuzzlesTab sessions={sessions2} />);
+      rerender(<MyPuzzlesTab {...mockProps} sessions={sessions2} />);
 
       expect(screen.queryByTestId('session-session-1')).not.toBeInTheDocument();
       expect(screen.getByTestId('session-session-2')).toBeInTheDocument();
@@ -425,7 +444,7 @@ describe('MyPuzzlesTab', () => {
     it('should have semantic heading structure', () => {
       const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
 
-      render(<MyPuzzlesTab sessions={sessions} />);
+      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
       const h1 = screen.getByRole('heading', { level: 1 });
       const h2 = screen.getByRole('heading', { level: 2 });
@@ -435,7 +454,7 @@ describe('MyPuzzlesTab', () => {
     });
 
     it('should have readable text content', () => {
-      render(<MyPuzzlesTab />);
+      render(<MyPuzzlesTab {...mockProps} />);
 
       expect(screen.getByText(/My Puzzles/)).toBeInTheDocument();
       expect(screen.getByText(/puzzles you have played/)).toBeInTheDocument();

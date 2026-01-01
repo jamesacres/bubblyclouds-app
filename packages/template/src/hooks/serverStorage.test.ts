@@ -44,7 +44,12 @@ describe('useServerStorage', () => {
 
     const { result } = renderHook(
       () =>
-        useServerStorage({ app: 'mockApp', type: StateType.PUZZLE, id: '123' }),
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
       { wrapper }
     );
 
@@ -61,7 +66,12 @@ describe('useServerStorage', () => {
     mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
     const { result } = renderHook(
       () =>
-        useServerStorage({ app: 'mockApp', type: StateType.PUZZLE, id: '123' }),
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
       { wrapper }
     );
 
@@ -95,9 +105,12 @@ describe('useServerStorage', () => {
       json: () => Promise.resolve(mockMemberResponse),
     });
 
-    const { result } = renderHook(() => useServerStorage({ app: 'mockApp' }), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useServerStorage({ app: 'mockApp', apiUrl: 'mockApiUrl' }),
+      {
+        wrapper,
+      }
+    );
 
     let parties: any;
     await act(async () => {
@@ -121,9 +134,12 @@ describe('useServerStorage', () => {
       ok: true,
       json: () => Promise.resolve(mockPartyResponse),
     });
-    const { result } = renderHook(() => useServerStorage({ app: 'mockApp' }), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useServerStorage({ app: 'mockApp', apiUrl: 'mockApiUrl' }),
+      {
+        wrapper,
+      }
+    );
 
     let party: any;
     await act(async () => {
@@ -141,9 +157,12 @@ describe('useServerStorage', () => {
 
   it('deleteAccount should send a DELETE request', async () => {
     mockFetch.mockResolvedValue({ ok: true });
-    const { result } = renderHook(() => useServerStorage({ app: 'mockApp' }), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useServerStorage({ app: 'mockApp', apiUrl: 'mockApiUrl' }),
+      {
+        wrapper,
+      }
+    );
 
     let success;
     await act(async () => {
@@ -158,9 +177,12 @@ describe('useServerStorage', () => {
 
   it('updateParty should send a PATCH request', async () => {
     mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
-    const { result } = renderHook(() => useServerStorage({ app: 'mockApp' }), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useServerStorage({ app: 'mockApp', apiUrl: 'mockApiUrl' }),
+      {
+        wrapper,
+      }
+    );
 
     await act(async () => {
       await result.current.updateParty('party1', { partyName: 'Updated' });
@@ -173,9 +195,12 @@ describe('useServerStorage', () => {
 
   it('leaveParty should send a DELETE request', async () => {
     mockFetch.mockResolvedValue({ ok: true });
-    const { result } = renderHook(() => useServerStorage({ app: 'mockApp' }), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useServerStorage({ app: 'mockApp', apiUrl: 'mockApiUrl' }),
+      {
+        wrapper,
+      }
+    );
 
     let success;
     await act(async () => {
@@ -190,9 +215,12 @@ describe('useServerStorage', () => {
 
   it('removeMember should send a DELETE request', async () => {
     mockFetch.mockResolvedValue({ ok: true });
-    const { result } = renderHook(() => useServerStorage({ app: 'mockApp' }), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useServerStorage({ app: 'mockApp', apiUrl: 'mockApiUrl' }),
+      {
+        wrapper,
+      }
+    );
 
     let success;
     await act(async () => {
@@ -207,9 +235,12 @@ describe('useServerStorage', () => {
 
   it('deleteParty should send a DELETE request', async () => {
     mockFetch.mockResolvedValue({ ok: true });
-    const { result } = renderHook(() => useServerStorage({ app: 'mockApp' }), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useServerStorage({ app: 'mockApp', apiUrl: 'mockApiUrl' }),
+      {
+        wrapper,
+      }
+    );
 
     let success;
     await act(async () => {
@@ -241,7 +272,12 @@ describe('useServerStorage', () => {
     });
 
     const { result } = renderHook(
-      () => useServerStorage({ app: 'mockApp', type: StateType.PUZZLE }),
+      () =>
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+        }),
       { wrapper }
     );
 
@@ -260,7 +296,12 @@ describe('useServerStorage', () => {
 
     const { result } = renderHook(
       () =>
-        useServerStorage({ app: 'mockApp', type: StateType.PUZZLE, id: '123' }),
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
       { wrapper }
     );
 
@@ -274,7 +315,12 @@ describe('useServerStorage', () => {
 
     const { result } = renderHook(
       () =>
-        useServerStorage({ app: 'mockApp', type: StateType.PUZZLE, id: '123' }),
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
       { wrapper }
     );
 
@@ -299,7 +345,12 @@ describe('useServerStorage', () => {
 
     const { result } = renderHook(
       () =>
-        useServerStorage({ app: 'mockApp', type: StateType.PUZZLE, id: '123' }),
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
       { wrapper }
     );
 
@@ -321,6 +372,7 @@ describe('useServerStorage', () => {
       () =>
         useServerStorage({
           app: 'mockApp',
+          apiUrl: 'mockApiUrl',
           type: StateType.PUZZLE,
           id: 'puzzle123',
         }),
@@ -342,9 +394,12 @@ describe('useServerStorage', () => {
       json: () => Promise.resolve({}),
     });
 
-    const { result } = renderHook(() => useServerStorage({ app: 'mockApp' }), {
-      wrapper,
-    });
+    const { result } = renderHook(
+      () => useServerStorage({ app: 'mockApp', apiUrl: 'mockApiUrl' }),
+      {
+        wrapper,
+      }
+    );
 
     await act(async () => {
       await result.current.createParty({
@@ -369,7 +424,12 @@ describe('useServerStorage', () => {
 
     const { result } = renderHook(
       () =>
-        useServerStorage({ app: 'mockApp', type: StateType.PUZZLE, id: '123' }),
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
       { wrapper }
     );
 
@@ -390,7 +450,12 @@ describe('useServerStorage', () => {
 
     const { result } = renderHook(
       () =>
-        useServerStorage({ app: 'mockApp', type: StateType.PUZZLE, id: '123' }),
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
       { wrapper }
     );
 
@@ -408,7 +473,12 @@ describe('useServerStorage', () => {
     });
 
     const { result } = renderHook(
-      () => useServerStorage({ app: 'mockApp', type: StateType.PUZZLE }),
+      () =>
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+        }),
       { wrapper }
     );
 

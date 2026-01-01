@@ -64,6 +64,13 @@ describe('FriendsTab', () => {
     },
   ];
 
+  const mockProps = {
+    SimpleState: () => <div>SimpleState</div>,
+    calculateCompletionPercentageFromState: jest.fn(() => 50),
+    isPuzzleCheated: jest.fn(() => false),
+    buildPuzzleUrlFromState: jest.fn(() => '/puzzle/1'),
+  };
+
   beforeEach(() => {
     mockUseSessions.mockReturnValue({ sessions: [], friendSessions: {} });
   });
@@ -76,6 +83,7 @@ describe('FriendsTab', () => {
         user={mockUser}
         parties={mockParties}
         mySessions={[]}
+        {...mockProps}
         {...props}
       />
     );
