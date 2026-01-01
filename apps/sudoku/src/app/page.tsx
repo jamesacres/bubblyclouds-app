@@ -1,27 +1,27 @@
 'use client';
-import { useOnline } from '@sudoku-web/template/hooks/online';
-import { useSudokuServerStorage } from '@sudoku-web/sudoku/hooks/useSudokuServerStorage';
+import { useOnline } from '@bubblyclouds-app/template/hooks/online';
+import { useSudokuServerStorage } from '@bubblyclouds-app/sudoku/hooks/useSudokuServerStorage';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
-import { Tab } from '@sudoku-web/types/tabs';
-import SocialProof from '@sudoku-web/template/components/SocialProof';
-import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
+import { Tab } from '@bubblyclouds-app/types/tabs';
+import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
+import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { motivationalMessages } from '../config/motivationalMessages';
 import { APP_CONFIG } from '../../app.config.js';
-import { Difficulty } from '@sudoku-web/games/types/difficulty';
-import Footer from '@sudoku-web/ui/components/Footer';
-import MyPuzzlesTab from '@sudoku-web/template/components/MyPuzzlesTab';
-import FriendsTab from '@sudoku-web/template/components/FriendsTab';
-import ActivityWidget from '@sudoku-web/games/components/ActivityWidget';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
-import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
-import { calculateCompletionPercentageFromState } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
-import { buildPuzzleUrlFromState } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
-import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
+import { Difficulty } from '@bubblyclouds-app/games/types/difficulty';
+import Footer from '@bubblyclouds-app/ui/components/Footer';
+import MyPuzzlesTab from '@bubblyclouds-app/template/components/MyPuzzlesTab';
+import FriendsTab from '@bubblyclouds-app/template/components/FriendsTab';
+import ActivityWidget from '@bubblyclouds-app/games/components/ActivityWidget';
+import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
+import { isPuzzleCheated } from '@bubblyclouds-app/sudoku/helpers/cheatDetection';
+import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku/helpers/calculateCompletionPercentage';
+import { buildPuzzleUrlFromState } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
+import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Suspense,
@@ -34,10 +34,10 @@ import {
 import { Users, Zap, Award, Camera } from 'react-feather';
 import Link from 'next/link';
 import Image from 'next/image';
-import BookCover from '@sudoku-web/sudoku/components/BookCover';
-import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
-import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
-import { GameState } from '@sudoku-web/sudoku/types/state';
+import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
+import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
+import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
+import { GameState } from '@bubblyclouds-app/sudoku/types/state';
 
 const SimpleStateWrapper = ({ state }: { state: GameState }) => (
   <SimpleSudoku state={state} />

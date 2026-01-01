@@ -17,17 +17,17 @@
 **Purpose**: Project initialization and package structure foundation
 
 - [x] T001 Create directory structure for new packages in `packages/` directory: `auth/`, `ui/`, `sudoku/`, `template/`
-- [x] T002 Initialize `packages/auth/package.json` with name `@sudoku-web/auth` and dependencies (React, TypeScript)
-- [x] T003 [P] Initialize `packages/ui/package.json` with name `@sudoku-web/ui` and dependencies
-- [x] T004 [P] Initialize `packages/sudoku/package.json` with name `@sudoku-web/sudoku` and dependencies
-- [x] T005 [P] Initialize `packages/template/package.json` with name `@sudoku-web/template` and dependencies
+- [x] T002 Initialize `packages/auth/package.json` with name `@bubblyclouds-app/auth` and dependencies (React, TypeScript)
+- [x] T003 [P] Initialize `packages/ui/package.json` with name `@bubblyclouds-app/ui` and dependencies
+- [x] T004 [P] Initialize `packages/sudoku/package.json` with name `@bubblyclouds-app/sudoku` and dependencies
+- [x] T005 [P] Initialize `packages/template/package.json` with name `@bubblyclouds-app/template` and dependencies
 - [x] T006 Create TypeScript configuration files for each new package (copy from existing: `packages/auth/tsconfig.json`, `packages/ui/tsconfig.json`, etc.)
 - [x] T007 Update root `tsconfig.json` with path aliases for all new packages:
   ```json
-  "@sudoku-web/auth": ["packages/auth/src"],
-  "@sudoku-web/ui": ["packages/ui/src"],
-  "@sudoku-web/sudoku": ["packages/sudoku/src"],
-  "@sudoku-web/template": ["packages/template/src"]
+  "@bubblyclouds-app/auth": ["packages/auth/src"],
+  "@bubblyclouds-app/ui": ["packages/ui/src"],
+  "@bubblyclouds-app/sudoku": ["packages/sudoku/src"],
+  "@bubblyclouds-app/template": ["packages/template/src"]
   ```
 - [x] T008 [P] Create `packages/auth/src/index.ts` with empty public API export structure
 - [x] T009 [P] Create `packages/ui/src/index.ts` with empty public API export structure
@@ -66,7 +66,7 @@
   - `packages/ui/src/components/` (Header, Footer, Button, Modal)
   - `packages/template/src/components/` (PartyList, PartyDetails, SessionList)
   - `packages/sudoku/src/components/` (SudokuGrid, NumberPad, RaceTrack, Timer)
-- [x] T025 Update import paths in root `jest.setup.js` and `jest.config.js` to use `@sudoku-web/` aliases instead of relative paths
+- [x] T025 Update import paths in root `jest.setup.js` and `jest.config.js` to use `@bubblyclouds-app/` aliases instead of relative paths
 - [x] T026 Update root `.eslintrc.json` to include new packages in linting scope
 - [x] T027 Verify all packages can be built: `npm run build` (should succeed with empty packages)
 - [x] T028 Verify TypeScript compilation passes for all packages: `npx tsc --noEmit` (should have zero errors)
@@ -100,8 +100,8 @@
 - [x] T043 [US1] Ensure all types in `packages/template/` are game-agnostic (Party, Session, PartyMember use generics, not Sudoku-specific)
 - [x] T044 [US1] Export public API from `packages/template/src/index.ts`: PartyProvider, useParty, useMembership, useSession hooks, types, re-exports from auth and ui packages
 - [x] T045 [US1] Update `apps/template/src/layout.tsx` to wrap application with providers: AuthProvider, ThemeProvider, PartyProvider from new packages
-- [x] T046 [US1] Update `apps/template/package.json` to import from new packages: `@sudoku-web/auth`, `@sudoku-web/ui`, `@sudoku-web/template`
-- [x] T047 [US1] Update all imports in `apps/template/src/` from local paths to package aliases (e.g., `import { useAuth } from '@sudoku-web/auth'`)
+- [x] T046 [US1] Update `apps/template/package.json` to import from new packages: `@bubblyclouds-app/auth`, `@bubblyclouds-app/ui`, `@bubblyclouds-app/template`
+- [x] T047 [US1] Update all imports in `apps/template/src/` from local paths to package aliases (e.g., `import { useAuth } from '@bubblyclouds-app/auth'`)
 - [x] T048 [US1] Remove old auth components/hooks/providers from `apps/template/src/` that are now in packages
 - [x] T049 [US1] Create/update pages in `apps/template/src/app/`: profile page, sessions page, parties page, invitation management
 - [x] T050 [US1] Update `apps/template/src/app/page.tsx` to show authenticated user interface (no sudoku game)
@@ -109,7 +109,7 @@
 - [x] T052 [US1] Search `apps/template` for game references - verify zero results: `grep -r "sudoku\|puzzle\|game\|cell\|grid" apps/template/src --include="*.ts" --include="*.tsx" --include="*.js"`
 - [x] T053 [US1] Search `packages/template/src` for game references - verify zero results (ensure template package is game-agnostic)
 - [x] T054 [US1] Run all tests for template app: `npm test -w apps/template` - should pass or have no test failures
-- [x] T055 [US1] Run all tests for new packages: `npm test -w @sudoku-web/auth && npm test -w @sudoku-web/ui && npm test -w @sudoku-web/template`
+- [x] T055 [US1] Run all tests for new packages: `npm test -w @bubblyclouds-app/auth && npm test -w @bubblyclouds-app/ui && npm test -w @bubblyclouds-app/template`
 - [x] T056 [US1] Update root test script to verify template app tests pass: `npm test` should include all new packages
 - [x] T057 [US1] Verify TypeScript strict mode passes for all new packages and template app
 
@@ -130,12 +130,12 @@
 - [x] T058 [P] [US2] Move sudoku utilities from `apps/sudoku/src/utils/` to `packages/sudoku/src/utils/`: puzzle utils, cell calculations (including splitCellId if sudoku-specific)
 - [x] T058 [P] [US2] Move sudoku hooks from `apps/sudoku/src/hooks/` to `packages/sudoku/src/hooks/`: useTimer, useSudokuState, useDrag (game-specific hooks only)
 - [x] T059 [P] [US2] Export public API from `packages/sudoku/src/index.ts`: SudokuGrid, RaceTrack, useTimer hooks, types (Cell, SudokuGrid, SudokuState), helpers
-- [x] T059 [P] [US2] Update `apps/sudoku/package.json` to import from new packages: `@sudoku-web/auth`, `@sudoku-web/ui`, `@sudoku-web/sudoku`, `@sudoku-web/template`
+- [x] T059 [P] [US2] Update `apps/sudoku/package.json` to import from new packages: `@bubblyclouds-app/auth`, `@bubblyclouds-app/ui`, `@bubblyclouds-app/sudoku`, `@bubblyclouds-app/template`
 - [x] T059 [P] [US2] Update all imports in `apps/sudoku/src/` from local paths to package aliases
-- [x] T059 [P] [US2] Remove game-specific components/hooks from `apps/sudoku/src/` that are now in `@sudoku-web/sudoku` package
+- [x] T059 [P] [US2] Remove game-specific components/hooks from `apps/sudoku/src/` that are now in `@bubblyclouds-app/sudoku` package
 - [x] T059 [P] [US2] Update `apps/sudoku/src/layout.tsx` to use same providers as template app (AuthProvider, ThemeProvider, PartyProvider) from packages
-- [x] T059 [P] [US2] Verify header and footer in sudoku app match template app (should import from `@sudoku-web/ui`)
-- [x] T059 [P] [US2] Update sudoku game pages to use components from `@sudoku-web/sudoku` package
+- [x] T059 [P] [US2] Verify header and footer in sudoku app match template app (should import from `@bubblyclouds-app/ui`)
+- [x] T059 [P] [US2] Update sudoku game pages to use components from `@bubblyclouds-app/sudoku` package
 - [x] T059 [P] [US2] Create or update racing page in `apps/sudoku/src/app/` to use party functionality from template package and game logic from sudoku package
 - [x] T059 [P] [US2] Verify `apps/sudoku` builds with zero errors: `npm run build -w apps/sudoku`
 - [x] T059 [P] [US2] Verify both apps run with consistent header/footer styling: `npm run dev -w apps/template &  npm run dev -w apps/sudoku`
@@ -192,7 +192,7 @@
 - [x] T096 [P] [US4] Search `packages/types/src/` for sudoku-specific type definitions: Cell, Grid, Puzzle, SudokuState - move to `packages/sudoku/src/types/`
 - [x] T097 [P] [US4] Verify generic types remain in types package: User, Session<T>, Party, PartyMember, AuthToken - these use generics for flexibility
 - [x] T098 [US4] Update imports in `packages/sudoku/` to import moved types and utilities
-- [x] T099 [US4] Update imports in any other packages that referenced sudoku types (should now import from @sudoku-web/sudoku)
+- [x] T099 [US4] Update imports in any other packages that referenced sudoku types (should now import from @bubblyclouds-app/sudoku)
 - [x] T100 [P] [US4] Update `packages/shared/src/index.ts` to export only generic utilities (no sudoku references)
 - [x] T101 [P] [US4] Update `packages/types/src/index.ts` to export only generic types (no sudoku references)
 - [x] T102 [P] [US4] Verify `packages/sudoku/src/index.ts` exports all moved sudoku-specific utilities and types
@@ -208,7 +208,7 @@
 
 **Goal**: UI components and theme are fully extracted and both apps use identical styling
 
-**Independent Test**: Visual inspection shows identical header/footer/buttons in both apps. Both apps use ThemeProvider from @sudoku-web/ui. Changing theme in one package affects both apps.
+**Independent Test**: Visual inspection shows identical header/footer/buttons in both apps. Both apps use ThemeProvider from @bubblyclouds-app/ui. Changing theme in one package affects both apps.
 
 ### Implementation for User Story 5
 
@@ -218,7 +218,7 @@
 - [x] T109 [US5] Update both app's `tailwind.config.js` to extend from shared UI package configuration
 - [x] T110 [P] [US5] Extract Header component subparts if not already: navigation, user menu, logo (all in `packages/ui/src/components/Header/`)
 - [x] T111 [P] [US5] Extract Footer component subparts: links, copyright, social icons (all in `packages/ui/src/components/Footer/`)
-- [x] T112 [P] [US5] Verify both apps import Header and Footer from `@sudoku-web/ui`
+- [x] T112 [P] [US5] Verify both apps import Header and Footer from `@bubblyclouds-app/ui`
 - [x] T113 [P] [US5] Create theme switching functionality in `packages/ui/src/hooks/useTheme.ts` if not already present
 - [x] T114 [US5] Verify dark mode works identically in both apps (toggle in template app, check sudoku app)
 - [x] T115 [US5] Add theme customization example to `packages/ui/README.md`
@@ -234,7 +234,7 @@
 
 **Goal**: Auth package is fully extracted with identical auth flows in both apps
 
-**Independent Test**: Both apps use AuthProvider from @sudoku-web/auth. Logging in to one app shows as logged in on the other app (same session). Auth types are consistent.
+**Independent Test**: Both apps use AuthProvider from @bubblyclouds-app/auth. Logging in to one app shows as logged in on the other app (same session). Auth types are consistent.
 
 ### Implementation for User Story 6
 
@@ -242,8 +242,8 @@
 - [x] T120 [P] [US6] Verify `packages/auth/src/hooks/` has all auth hooks: useAuth, useSession, useUser
 - [x] T121 [P] [US6] Verify `packages/auth/src/services/` has token management: tokenService, sessionService
 - [x] T122 [US6] Ensure AuthProvider in `packages/auth/src/providers/AuthProvider.tsx` handles token refresh, session persistence, logout
-- [x] T123 [P] [US6] Verify both apps' root layout wraps with AuthProvider from `@sudoku-web/auth`
-- [x] T124 [P] [US6] Verify both apps import useAuth and other hooks from `@sudoku-web/auth`, not local files
+- [x] T123 [P] [US6] Verify both apps' root layout wraps with AuthProvider from `@bubblyclouds-app/auth`
+- [x] T124 [P] [US6] Verify both apps import useAuth and other hooks from `@bubblyclouds-app/auth`, not local files
 - [x] T125 [US6] Test auth flow in template app: login → profile → logout
 - [x] T126 [US6] Test auth flow in sudoku app: login → profile → logout
 - [x] T127 [US6] Test session persistence: log in app, refresh page, verify still logged in
@@ -251,7 +251,7 @@
 - [x] T129 [P] [US6] Verify error handling is consistent: bad password, invalid email, token expired
 - [x] T130 [US6] Update `packages/auth/README.md` with integration guide and examples for both template and sudoku apps
 - [x] T131 [US6] Verify type safety: all auth types exported from `packages/auth/src/index.ts` and used in both apps
-- [x] T132 [P] [US6] Run auth package tests: `npm test -w @sudoku-web/auth` - all should pass
+- [x] T132 [P] [US6] Run auth package tests: `npm test -w @bubblyclouds-app/auth` - all should pass
 - [x] T133 [US6] Test cross-app session: log in template app, check sudoku app recognizes same user (if same origin)
 
 **Checkpoint**: Auth package fully extracted and reusable across apps

@@ -1,5 +1,5 @@
-// Mock @sudoku-web/ui components BEFORE any imports
-jest.mock('@sudoku-web/ui', () => {
+// Mock @bubblyclouds-app/ui components BEFORE any imports
+jest.mock('@bubblyclouds-app/ui', () => {
   const React = require('react');
   return {
     Toggle: ({
@@ -20,10 +20,10 @@ jest.mock('@sudoku-web/ui', () => {
   };
 });
 
-// Mock @sudoku-web/sudoku components
+// Mock @bubblyclouds-app/sudoku components
 jest.mock('../index', () => {
   const React = require('react');
-  const actual = jest.requireActual('@sudoku-web/sudoku');
+  const actual = jest.requireActual('@bubblyclouds-app/sudoku');
   return {
     ...actual,
     NumberPad: ({ selectNumber, isInputDisabled }: any) =>
@@ -59,8 +59,8 @@ import {
 import SudokuControls from './SudokuControls';
 
 // Mock the canUseUndo and canUseCheckGrid functions
-jest.mock('@sudoku-web/template/utils/dailyActionCounter', () => ({
-  ...jest.requireActual('@sudoku-web/template/utils/dailyActionCounter'),
+jest.mock('@bubblyclouds-app/template/utils/dailyActionCounter', () => ({
+  ...jest.requireActual('@bubblyclouds-app/template/utils/dailyActionCounter'),
   canUseUndo: jest.fn(() => true),
   canUseCheckGrid: jest.fn(() => true),
 }));
@@ -68,7 +68,7 @@ jest.mock('@sudoku-web/template/utils/dailyActionCounter', () => ({
 import {
   canUseUndo,
   canUseCheckGrid,
-} from '@sudoku-web/template/utils/dailyActionCounter';
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
 
 describe('SudokuControls', () => {
   const mockValidateGrid = jest.fn();

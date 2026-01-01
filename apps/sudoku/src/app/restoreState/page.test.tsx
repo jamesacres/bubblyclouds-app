@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Home from './page';
-import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 
 // Mock next/image as it may be used
 jest.mock('next/image', () => ({

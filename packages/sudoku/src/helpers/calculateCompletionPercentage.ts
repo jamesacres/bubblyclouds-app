@@ -1,6 +1,6 @@
 import { Notes } from '../types/notes';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
-import { BaseState } from '@sudoku-web/template/types/state';
+import { BaseState } from '@bubblyclouds-app/template/types/state';
 
 export const calculateCompletionPercentage = (
   initial: Puzzle<number | Notes>,

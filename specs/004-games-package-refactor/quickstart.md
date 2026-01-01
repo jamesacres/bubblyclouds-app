@@ -13,9 +13,9 @@ This guide explains how to use the reorganized package structure after the games
 After this refactoring, components are organized by specificity:
 
 ```
-@sudoku-web/games       → Generic game components (timers, leaderboards, etc.)
-@sudoku-web/sudoku      → Sudoku-specific components and logic
-@sudoku-web/template    → Party/collaboration features
+@bubblyclouds-app/games       → Generic game components (timers, leaderboards, etc.)
+@bubblyclouds-app/sudoku      → Sudoku-specific components and logic
+@bubblyclouds-app/template    → Party/collaboration features
 apps/sudoku             → App-level orchestration only
 ```
 
@@ -23,12 +23,12 @@ apps/sudoku             → App-level orchestration only
 
 ### From the Games Package
 
-The `@sudoku-web/games` package provides reusable game components.
+The `@bubblyclouds-app/games` package provides reusable game components.
 
 **Example: Using TimerDisplay**
 
 ```typescript
-import { TimerDisplay } from '@sudoku-web/games/components/TimerDisplay';
+import { TimerDisplay } from '@bubblyclouds-app/games/components/TimerDisplay';
 
 function MyGame() {
   const [seconds, setSeconds] = useState(0);
@@ -50,7 +50,7 @@ function MyGame() {
 **Example: Using Leaderboard**
 
 ```typescript
-import { Leaderboard } from '@sudoku-web/games/components/Leaderboard';
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
 
 function GameResults() {
   const scores = [
@@ -83,12 +83,12 @@ function GameResults() {
 
 ### From the Sudoku Package
 
-The `@sudoku-web/sudoku` package contains sudoku game logic.
+The `@bubblyclouds-app/sudoku` package contains sudoku game logic.
 
 **Example: Using SudokuBox**
 
 ```typescript
-import { SudokuBox } from '@sudoku-web/sudoku/components/SudokuBox';
+import { SudokuBox } from '@bubblyclouds-app/sudoku/components/SudokuBox';
 
 function SudokuGrid() {
   const boxValues = [1, 2, 3, 0, 0, 0, 7, 8, 9]; // 0 = empty
@@ -106,8 +106,8 @@ function SudokuGrid() {
 **Example: Using Sudoku Scoring**
 
 ```typescript
-import { ScoreBreakdown } from '@sudoku-web/sudoku/components/ScoreBreakdown';
-import { calculateScore } from '@sudoku-web/sudoku/helpers/scoringUtils';
+import { ScoreBreakdown } from '@bubblyclouds-app/sudoku/components/ScoreBreakdown';
+import { calculateScore } from '@bubblyclouds-app/sudoku/helpers/scoringUtils';
 
 function SudokuResults() {
   const score = calculateScore({
@@ -124,12 +124,12 @@ function SudokuResults() {
 
 ### From the Template Package
 
-The `@sudoku-web/template` package provides collaboration features.
+The `@bubblyclouds-app/template` package provides collaboration features.
 
 **Example: Using PartyRow**
 
 ```typescript
-import { PartyRow } from '@sudoku-web/template/components/PartyRow';
+import { PartyRow } from '@bubblyclouds-app/template/components/PartyRow';
 
 function PartyList() {
   const party = {
@@ -157,16 +157,16 @@ function PartyList() {
 mkdir -p apps/wordsearch/src/app
 
 # Copy package.json template from apps/sudoku
-# Modify dependencies to import @sudoku-web/games
+# Modify dependencies to import @bubblyclouds-app/games
 ```
 
 ### Step 2: Import Generic Components
 
 ```typescript
 // apps/wordsearch/src/app/page.tsx
-import { TimerDisplay } from '@sudoku-web/games/components/TimerDisplay';
-import { Leaderboard } from '@sudoku-web/games/components/Leaderboard';
-import { RaceTrack } from '@sudoku-web/games/components/RaceTrack';
+import { TimerDisplay } from '@bubblyclouds-app/games/components/TimerDisplay';
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
+import { RaceTrack } from '@bubblyclouds-app/games/components/RaceTrack';
 
 export default function WordSearchGame() {
   return (
@@ -204,17 +204,17 @@ import { SidebarButton } from './SidebarButton';
 ```typescript
 // ✅ CORRECT: Import from another package
 // File: packages/sudoku/src/components/Sudoku.tsx
-import { TimerDisplay } from '@sudoku-web/games/components/TimerDisplay';
+import { TimerDisplay } from '@bubblyclouds-app/games/components/TimerDisplay';
 ```
 
 ### No Barrel Exports
 
 ```typescript
 // ❌ WRONG: Barrel export (index.ts)
-import { TimerDisplay } from '@sudoku-web/games';
+import { TimerDisplay } from '@bubblyclouds-app/games';
 
 // ✅ CORRECT: Direct import
-import { TimerDisplay } from '@sudoku-web/games/components/TimerDisplay';
+import { TimerDisplay } from '@bubblyclouds-app/games/components/TimerDisplay';
 ```
 
 ## Development Workflow
@@ -259,7 +259,7 @@ npm test -- TimerDisplay
 
 ### Import Errors
 
-**Problem**: `Cannot find module '@sudoku-web/games/components/TimerDisplay'`
+**Problem**: `Cannot find module '@bubblyclouds-app/games/components/TimerDisplay'`
 
 **Solution**:
 1. Check package.json exports field in `packages/games/package.json`

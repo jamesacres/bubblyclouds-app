@@ -1,6 +1,6 @@
 import { calculateBoxId, calculateCellId } from '../helpers/calculateId';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
-import { BaseState } from '@sudoku-web/template/types/state';
+import { BaseState } from '@bubblyclouds-app/template/types/state';
 
 interface SimpleSudokuProps {
   initial?: Puzzle<number>;

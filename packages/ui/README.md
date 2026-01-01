@@ -1,4 +1,4 @@
-# @sudoku-web/ui
+# @bubblyclouds-app/ui
 
 Shared UI components and theming package for multi-platform applications.
 
@@ -23,7 +23,7 @@ Provides reusable, accessible UI components with built-in theming support (dark/
 Application header with navigation and branding.
 
 ```tsx
-import { Header } from '@sudoku-web/ui';
+import { Header } from '@bubblyclouds-app/ui';
 
 <Header
   title="My App"
@@ -41,7 +41,7 @@ import { Header } from '@sudoku-web/ui';
 Application footer with links and information.
 
 ```tsx
-import { Footer } from '@sudoku-web/ui';
+import { Footer } from '@bubblyclouds-app/ui';
 
 <Footer />
 ```
@@ -50,7 +50,7 @@ import { Footer } from '@sudoku-web/ui';
 Back button component for navigation.
 
 ```tsx
-import { HeaderBack } from '@sudoku-web/ui';
+import { HeaderBack } from '@bubblyclouds-app/ui';
 
 <HeaderBack href="/previous-page" />
 ```
@@ -63,7 +63,7 @@ import { HeaderBack } from '@sudoku-web/ui';
 Complete theme control panel with dark/light mode and color selection.
 
 ```tsx
-import { ThemeControls } from '@sudoku-web/ui';
+import { ThemeControls } from '@bubblyclouds-app/ui';
 
 <ThemeControls />
 ```
@@ -72,7 +72,7 @@ import { ThemeControls } from '@sudoku-web/ui';
 Toggle switch for dark/light mode.
 
 ```tsx
-import { ThemeSwitch } from '@sudoku-web/ui';
+import { ThemeSwitch } from '@bubblyclouds-app/ui';
 
 <ThemeSwitch />
 ```
@@ -81,7 +81,7 @@ import { ThemeSwitch } from '@sudoku-web/ui';
 Color picker for theme color customization.
 
 ```tsx
-import { ThemeColorSwitch } from '@sudoku-web/ui';
+import { ThemeColorSwitch } from '@bubblyclouds-app/ui';
 
 <ThemeColorSwitch />
 ```
@@ -90,7 +90,7 @@ import { ThemeColorSwitch } from '@sudoku-web/ui';
 Generic toggle switch component.
 
 ```tsx
-import { Toggle } from '@sudoku-web/ui';
+import { Toggle } from '@bubblyclouds-app/ui';
 
 <Toggle
   enabled={isEnabled}
@@ -110,7 +110,7 @@ import { Toggle } from '@sudoku-web/ui';
 React context provider for theme color management. Place at the root of your application.
 
 ```tsx
-import { ThemeColorProvider } from '@sudoku-web/ui';
+import { ThemeColorProvider } from '@bubblyclouds-app/ui';
 
 <ThemeColorProvider>
   <App />
@@ -121,7 +121,7 @@ import { ThemeColorProvider } from '@sudoku-web/ui';
 Hook to access and modify theme colors.
 
 ```tsx
-import { useThemeColor } from '@sudoku-web/ui';
+import { useThemeColor } from '@bubblyclouds-app/ui';
 
 function MyComponent() {
   const { themeColor, setThemeColor } = useThemeColor();
@@ -143,7 +143,7 @@ function MyComponent() {
 #### Platform Detection
 
 ```tsx
-import { isCapacitor, isIOS, isAndroid } from '@sudoku-web/ui';
+import { isCapacitor, isIOS, isAndroid } from '@bubblyclouds-app/ui';
 
 if (isCapacitor()) {
   // Running on mobile (iOS or Android)
@@ -187,7 +187,7 @@ interface ThemeConfig {
 Wrap your application with `ThemeColorProvider`:
 
 ```tsx
-import { ThemeColorProvider } from '@sudoku-web/ui';
+import { ThemeColorProvider } from '@bubblyclouds-app/ui';
 
 function App() {
   return (
@@ -203,7 +203,7 @@ function App() {
 Use header and footer components for consistent layout:
 
 ```tsx
-import { Header, Footer } from '@sudoku-web/ui';
+import { Header, Footer } from '@bubblyclouds-app/ui';
 
 function Layout({ children }) {
   return (
@@ -223,7 +223,7 @@ function Layout({ children }) {
 Add theme controls to your settings page:
 
 ```tsx
-import { ThemeControls } from '@sudoku-web/ui';
+import { ThemeControls } from '@bubblyclouds-app/ui';
 
 function SettingsPage() {
   return (
@@ -243,7 +243,7 @@ function SettingsPage() {
 Create components that respond to theme changes:
 
 ```tsx
-import { useThemeColor } from '@sudoku-web/ui';
+import { useThemeColor } from '@bubblyclouds-app/ui';
 
 function ThemedButton({ children }) {
   const { themeColor } = useThemeColor();
@@ -266,7 +266,7 @@ function ThemedButton({ children }) {
 Adapt UI based on platform:
 
 ```tsx
-import { isIOS, isAndroid } from '@sudoku-web/ui';
+import { isIOS, isAndroid } from '@bubblyclouds-app/ui';
 
 function PlatformSpecificUI() {
   if (isIOS()) {
@@ -321,7 +321,7 @@ This package uses Tailwind CSS 4.0 for styling. All components are fully styled 
 ### Example: Custom Theme Colors
 
 ```tsx
-import { ThemeColorProvider } from '@sudoku-web/ui';
+import { ThemeColorProvider } from '@bubblyclouds-app/ui';
 
 function App() {
   return (
@@ -343,7 +343,7 @@ import {
   ThemeControls,
   ThemeColorProvider,
   useThemeColor
-} from '@sudoku-web/ui';
+} from '@bubblyclouds-app/ui';
 
 function App() {
   return (
@@ -369,7 +369,7 @@ function Layout() {
 ### Responsive Navigation
 
 ```tsx
-import { Header, HeaderBack } from '@sudoku-web/ui';
+import { Header, HeaderBack } from '@bubblyclouds-app/ui';
 import { useRouter } from 'next/router';
 
 function NavigationExample() {
@@ -389,7 +389,7 @@ function NavigationExample() {
 ### Custom Toggle Component
 
 ```tsx
-import { Toggle } from '@sudoku-web/ui';
+import { Toggle } from '@bubblyclouds-app/ui';
 import { useState } from 'react';
 
 function FeatureToggle() {
@@ -436,8 +436,8 @@ All components in this package are built with accessibility in mind:
 
 ## Related Packages
 
-- `@sudoku-web/auth` - Authentication package (uses UI components)
-- `@sudoku-web/template` - Application templates (uses UI components)
+- `@bubblyclouds-app/auth` - Authentication package (uses UI components)
+- `@bubblyclouds-app/template` - Application templates (uses UI components)
 - `next-themes` - Theme management library
 - `@headlessui/react` - Accessible component primitives
 

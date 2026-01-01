@@ -1,5 +1,5 @@
 {
-  "name": "@sudoku-web/shared",
+  "name": "@bubblyclouds-app/shared",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",

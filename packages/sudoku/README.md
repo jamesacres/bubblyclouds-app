@@ -1,4 +1,4 @@
-# @sudoku-web/sudoku
+# @bubblyclouds-app/sudoku
 
 Sudoku game logic, algorithms, and UI components package.
 
@@ -25,7 +25,7 @@ Provides Sudoku-specific game logic including puzzle generation, solving algorit
 Number input pad for sudoku cell entry.
 
 ```tsx
-import { NumberPad } from '@sudoku-web/sudoku';
+import { NumberPad } from '@bubblyclouds-app/sudoku';
 
 <NumberPad
   onSelect={(number) => handleNumberSelect(number)}
@@ -43,7 +43,7 @@ import { NumberPad } from '@sudoku-web/sudoku';
 Displays elapsed time in formatted format.
 
 ```tsx
-import { TimerDisplay } from '@sudoku-web/sudoku';
+import { TimerDisplay } from '@bubblyclouds-app/sudoku';
 
 <TimerDisplay seconds={elapsed} />
 // Displays: "2:35"
@@ -56,7 +56,7 @@ import { TimerDisplay } from '@sudoku-web/sudoku';
 Visual indicator for puzzle correctness (red/yellow/green).
 
 ```tsx
-import { TrafficLight } from '@sudoku-web/sudoku';
+import { TrafficLight } from '@bubblyclouds-app/sudoku';
 
 <TrafficLight status="correct" />
 ```
@@ -70,7 +70,7 @@ import { TrafficLight } from '@sudoku-web/sudoku';
 Game timer hook with start/stop/reset functionality.
 
 ```tsx
-import { useTimer } from '@sudoku-web/sudoku';
+import { useTimer } from '@bubblyclouds-app/sudoku';
 
 function GameComponent() {
   const { seconds, isRunning, start, stop, reset } = useTimer();
@@ -102,7 +102,7 @@ function GameComponent() {
 #### Puzzle Validation
 
 ```tsx
-import { checkCell, checkGrid, isInitialCell } from '@sudoku-web/sudoku';
+import { checkCell, checkGrid, isInitialCell } from '@bubblyclouds-app/sudoku';
 
 // Check if a single cell is correct
 const isCorrect = checkCell(grid, rowIndex, colIndex);
@@ -117,7 +117,7 @@ const isInitial = isInitialCell(puzzle, rowIndex, colIndex);
 #### Completion Calculation
 
 ```tsx
-import { calculateCompletionPercentage } from '@sudoku-web/sudoku';
+import { calculateCompletionPercentage } from '@bubblyclouds-app/sudoku';
 
 const percentage = calculateCompletionPercentage(grid);
 // Returns: 0-100 (percentage of filled cells)
@@ -126,7 +126,7 @@ const percentage = calculateCompletionPercentage(grid);
 #### Puzzle Parsing
 
 ```tsx
-import { puzzleTextToPuzzle } from '@sudoku-web/sudoku';
+import { puzzleTextToPuzzle } from '@bubblyclouds-app/sudoku';
 
 const puzzleString = "53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79";
 const puzzle = puzzleTextToPuzzle(puzzleString);
@@ -141,7 +141,7 @@ import {
   calculateCellId,
   splitCellId,
   calculateNextCellId
-} from '@sudoku-web/sudoku';
+} from '@bubblyclouds-app/sudoku';
 
 // Calculate box ID from row/col (0-8)
 const boxId = calculateBoxId(4, 5); // Returns: 4
@@ -166,7 +166,7 @@ import {
   getDailyPuzzleIds,
   addDailyPuzzleId,
   getDailyPuzzleCount
-} from '@sudoku-web/sudoku';
+} from '@bubblyclouds-app/sudoku';
 
 // Get today's date string (YYYY-MM-DD)
 const today = getTodayDateString();
@@ -356,7 +356,7 @@ interface PublicInvite;
 ### Constants
 
 ```tsx
-import { emptyPuzzle } from '@sudoku-web/sudoku';
+import { emptyPuzzle } from '@bubblyclouds-app/sudoku';
 
 // 9x9 grid of zeros (empty puzzle)
 const puzzle = emptyPuzzle;
@@ -374,7 +374,7 @@ import {
   useTimer,
   checkGrid,
   checkCell
-} from '@sudoku-web/sudoku';
+} from '@bubblyclouds-app/sudoku';
 
 function SudokuGame({ initialPuzzle }) {
   const [grid, setGrid] = useState(initializeGrid(initialPuzzle));
@@ -419,7 +419,7 @@ function SudokuGame({ initialPuzzle }) {
 ### 2. Puzzle Validation
 
 ```tsx
-import { checkCell, checkGrid, calculateCompletionPercentage } from '@sudoku-web/sudoku';
+import { checkCell, checkGrid, calculateCompletionPercentage } from '@bubblyclouds-app/sudoku';
 
 function validatePuzzle(grid: SudokuGrid) {
   // Check if puzzle is complete
@@ -451,7 +451,7 @@ import {
   getDailyPuzzleCount,
   addDailyPuzzleId,
   getTodayDateString
-} from '@sudoku-web/sudoku';
+} from '@bubblyclouds-app/sudoku';
 
 function DailyPuzzleTracker() {
   const [count, setCount] = useState(getDailyPuzzleCount());
@@ -476,7 +476,7 @@ function DailyPuzzleTracker() {
 ### 4. Timer Integration
 
 ```tsx
-import { useTimer, TimerDisplay } from '@sudoku-web/sudoku';
+import { useTimer, TimerDisplay } from '@bubblyclouds-app/sudoku';
 
 function GameWithTimer() {
   const timer = useTimer();
@@ -505,7 +505,7 @@ function GameWithTimer() {
 ### 5. Puzzle Parsing
 
 ```tsx
-import { puzzleTextToPuzzle } from '@sudoku-web/sudoku';
+import { puzzleTextToPuzzle } from '@bubblyclouds-app/sudoku';
 
 async function loadPuzzle(puzzleId: string) {
   const response = await fetch(`/api/puzzles/${puzzleId}`);
@@ -555,7 +555,7 @@ import {
   checkCell,
   calculateCompletionPercentage,
   type SudokuGrid
-} from '@sudoku-web/sudoku';
+} from '@bubblyclouds-app/sudoku';
 
 function SudokuGameComplete() {
   const [grid, setGrid] = useState<SudokuGrid>(initialGrid);
@@ -618,7 +618,7 @@ import {
   checkGrid,
   calculateCompletionPercentage,
   type SudokuGrid
-} from '@sudoku-web/sudoku';
+} from '@bubblyclouds-app/sudoku';
 
 function RacingMode({ partyMembers }) {
   const [myGrid, setMyGrid] = useState<SudokuGrid>(initialGrid);
@@ -667,7 +667,7 @@ function RacingMode({ partyMembers }) {
 
 - This package contains **only sudoku-specific logic** - no generic app infrastructure
 - Some components (SudokuBox, Sudoku, SimpleSudoku, RaceTrack) are NOT exported because they have app-specific dependencies. Apps should implement their own versions or copy these as templates.
-- `useGameState` hook is NOT exported for the same reason - it depends on party/session hooks from `@sudoku-web/template`
+- `useGameState` hook is NOT exported for the same reason - it depends on party/session hooks from `@bubblyclouds-app/template`
 - All algorithms use efficient mathematical calculations (mathjs) for performance
 - Timer uses requestAnimationFrame for accurate timing
 - Daily puzzle tracking uses localStorage with automatic date rollover
@@ -675,8 +675,8 @@ function RacingMode({ partyMembers }) {
 
 ## Related Packages
 
-- `@sudoku-web/template` - Collaborative features (party/session management)
-- `@sudoku-web/ui` - UI components (used in game UI)
+- `@bubblyclouds-app/template` - Collaborative features (party/session management)
+- `@bubblyclouds-app/ui` - UI components (used in game UI)
 - `mathjs` - Mathematical operations library
 
 ## Version

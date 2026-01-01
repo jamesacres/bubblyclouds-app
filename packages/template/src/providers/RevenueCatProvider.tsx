@@ -17,8 +17,8 @@ import {
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 
 export interface RevenueCatContextInterface {
   isLoading: boolean;

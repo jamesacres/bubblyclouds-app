@@ -1,12 +1,12 @@
 import { renderHook, act } from '@testing-library/react';
 import { useServerStorage } from './serverStorage';
-import { useFetch } from '@sudoku-web/auth/hooks/useFetch';
+import { useFetch } from '@bubblyclouds-app/auth/hooks/useFetch';
 import { useOnline } from './online';
-import { StateType } from '@sudoku-web/types/stateType';
-import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
+import { StateType } from '@bubblyclouds-app/types/stateType';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import React from 'react';
 
-jest.mock('@sudoku-web/auth/hooks/useFetch');
+jest.mock('@bubblyclouds-app/auth/hooks/useFetch');
 jest.mock('./online');
 
 const mockUseFetch = useFetch as jest.Mock;

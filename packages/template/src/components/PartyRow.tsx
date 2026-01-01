@@ -1,16 +1,16 @@
-import { TimerDisplay } from '@sudoku-web/ui/components/TimerDisplay';
+import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
 import { useParties } from '../hooks/useParties';
-import { Party, SessionParty, Session } from '@sudoku-web/types/serverTypes';
+import { Party, SessionParty, Session } from '@bubblyclouds-app/types/serverTypes';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { getPlayerColor, getAllUserIds } from '../utils/playerColors';
 import { PartyInviteButton } from './PartyInviteButton';
-import { CopyButton } from '@sudoku-web/ui/components/CopyButton';
+import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
 import { ComponentType, useContext, useState } from 'react';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
 import { LogOut, Trash, UserMinus, Edit3, Users } from 'react-feather';

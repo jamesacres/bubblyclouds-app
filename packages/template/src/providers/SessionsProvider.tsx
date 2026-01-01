@@ -13,15 +13,15 @@ import {
   Parties,
   Session,
   Party,
-} from '@sudoku-web/types/serverTypes';
-import { StateType } from '@sudoku-web/types/stateType';
-import { UserSession, UserSessions } from '@sudoku-web/types/userSessions';
+} from '@bubblyclouds-app/types/serverTypes';
+import { StateType } from '@bubblyclouds-app/types/stateType';
+import { UserSession, UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { useServerStorage } from '../hooks/serverStorage';
 import { useLocalStorage } from '../hooks/localStorage';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 
 interface SessionsContextType<T = any> {
   sessions: ServerStateResult<T>[] | null;

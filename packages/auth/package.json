@@ -1,5 +1,5 @@
 {
-  "name": "@sudoku-web/auth",
+  "name": "@bubblyclouds-app/auth",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",

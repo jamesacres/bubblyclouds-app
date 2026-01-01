@@ -1,6 +1,6 @@
 'use client';
-import { ServerStateResult } from '@sudoku-web/types/serverTypes';
-import { BaseServerState } from '@sudoku-web/template/types/state';
+import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
+import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 import { Calendar, Activity } from 'react-feather';
 
 interface ActivityWidgetProps {

@@ -78,7 +78,7 @@ npm test
 
 #### Run tests for specific workspace
 ```bash
-npm test --filter=@sudoku-web/sudoku
+npm test --filter=@bubblyclouds-app/sudoku
 ```
 
 #### Run tests in watch mode
@@ -137,7 +137,7 @@ npm run build:electron
 
 ## Working with the Template
 
-The `@sudoku-web/template` package contains reusable components, hooks, providers, and utilities.
+The `@bubblyclouds-app/template` package contains reusable components, hooks, providers, and utilities.
 
 ### Importing from Template
 
@@ -148,7 +148,7 @@ import {
   ErrorBoundary,
   useAuth,
   UserProvider
-} from '@sudoku-web/template';
+} from '@bubblyclouds-app/template';
 ```
 
 ### Template Exports
@@ -187,11 +187,11 @@ Turborepo supports filtering workspaces:
 
 ```bash
 # Run command in specific workspace
-turbo run <command> --filter=@sudoku-web/<workspace>
+turbo run <command> --filter=@bubblyclouds-app/<workspace>
 
 # Examples
-turbo run build --filter=@sudoku-web/sudoku
-turbo run test --filter=@sudoku-web/template
+turbo run build --filter=@bubblyclouds-app/sudoku
+turbo run test --filter=@bubblyclouds-app/template
 ```
 
 ## Turborepo Features
@@ -223,7 +223,7 @@ Turborepo understands workspace dependencies:
 
 ```bash
 # Builds template first, then sudoku (depends on template)
-turbo run build --filter=@sudoku-web/sudoku
+turbo run build --filter=@bubblyclouds-app/sudoku
 ```
 
 ## Development Workflow
@@ -238,7 +238,7 @@ turbo run build --filter=@sudoku-web/sudoku
 
 2. **Import from template if available**
    ```typescript
-   import { useAuth, Header } from '@sudoku-web/template';
+   import { useAuth, Header } from '@bubblyclouds-app/template';
    ```
 
 3. **Create sudoku-specific code in `apps/sudoku/src/`**
@@ -268,7 +268,7 @@ turbo run build --filter=@sudoku-web/sudoku
 
 3. **Use in sudoku or other apps**
    ```typescript
-   import { MyComponent } from '@sudoku-web/template';
+   import { MyComponent } from '@bubblyclouds-app/template';
    ```
 
 ## Troubleshooting

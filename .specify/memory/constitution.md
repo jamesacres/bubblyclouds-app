@@ -78,7 +78,7 @@ The codebase follows a turborepo monorepo structure with strict package boundari
 
 **Import Conventions:**
 - Imports from within the same package MUST use relative imports (e.g., `import { foo } from '../utils/foo'`)
-- Imports from other packages MUST use package names (e.g., `import { Header } from '@sudoku-web/ui'`)
+- Imports from other packages MUST use package names (e.g., `import { Header } from '@bubblyclouds-app/ui'`)
 - Barrel exports (index.ts files) MUST NOT be created - import directly from source files instead
 - All package exports MUST be declared in package.json using the Just-in-Time package export pattern
 

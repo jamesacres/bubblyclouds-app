@@ -14,14 +14,14 @@ import {
   Square,
   Unlock,
 } from 'react-feather';
-import { NumberPad } from '@sudoku-web/games/components/NumberPad';
-import { Toggle as NotesToggle } from '@sudoku-web/ui/components/NotesToggle';
+import { NumberPad } from '@bubblyclouds-app/games/components/NumberPad';
+import { Toggle as NotesToggle } from '@bubblyclouds-app/ui/components/NotesToggle';
 import React, { memo, useState, useRef, useCallback, useEffect } from 'react';
-import { HintBox } from '@sudoku-web/games/components/HintBox';
+import { HintBox } from '@bubblyclouds-app/games/components/HintBox';
 import {
   canUseUndo,
   canUseCheckGrid,
-} from '@sudoku-web/template/utils/dailyActionCounter';
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
 
 interface Arguments {
   isInputDisabled: boolean;

@@ -4,8 +4,8 @@ import { cloneElement, ReactElement } from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntegratedSessionRow } from './IntegratedSessionRow';
 import { BaseServerState } from '../types/state';
-import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
-import { ServerStateResult } from '@sudoku-web/types/serverTypes';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 
 // Mock dependencies
 jest.mock('react-feather', () => ({
@@ -69,7 +69,7 @@ describe('IntegratedSessionRow', () => {
     // Setup useSessions mock
     const {
       useSessions: mockUseSessions,
-    } = require('@sudoku-web/template/providers/SessionsProvider');
+    } = require('@bubblyclouds-app/template/providers/SessionsProvider');
     (mockUseSessions as jest.Mock).mockReturnValue({
       friendSessions: {},
       isFriendSessionsLoading: false,
@@ -78,7 +78,7 @@ describe('IntegratedSessionRow', () => {
     // Setup useParties mock
     const {
       useParties: mockUseParties,
-    } = require('@sudoku-web/template/hooks/useParties');
+    } = require('@bubblyclouds-app/template/hooks/useParties');
     (mockUseParties as jest.Mock).mockReturnValue({
       parties: [],
     });
@@ -86,7 +86,7 @@ describe('IntegratedSessionRow', () => {
     // Setup calculateSeconds mock
     const {
       calculateSeconds: mockCalculateSeconds,
-    } = require('@sudoku-web/template/helpers/calculateSeconds');
+    } = require('@bubblyclouds-app/template/helpers/calculateSeconds');
     (mockCalculateSeconds as jest.Mock).mockReturnValue(120);
   });
 
@@ -428,7 +428,7 @@ describe('IntegratedSessionRow', () => {
     it('should handle empty friend sessions', () => {
       const {
         useSessions: mockUseSessions,
-      } = require('@sudoku-web/template/providers/SessionsProvider');
+      } = require('@bubblyclouds-app/template/providers/SessionsProvider');
       (mockUseSessions as jest.Mock).mockReturnValue({
         friendSessions: {},
         isFriendSessionsLoading: false,
@@ -445,7 +445,7 @@ describe('IntegratedSessionRow', () => {
     it('should display loading indicator when loading friends', () => {
       const {
         useSessions: mockUseSessions,
-      } = require('@sudoku-web/template/providers/SessionsProvider');
+      } = require('@bubblyclouds-app/template/providers/SessionsProvider');
       (mockUseSessions as jest.Mock).mockReturnValue({
         friendSessions: {},
         isFriendSessionsLoading: true,
@@ -453,7 +453,7 @@ describe('IntegratedSessionRow', () => {
 
       const {
         useParties: mockUseParties,
-      } = require('@sudoku-web/template/hooks/useParties');
+      } = require('@bubblyclouds-app/template/hooks/useParties');
       (mockUseParties as jest.Mock).mockReturnValue({
         parties: [
           {
@@ -475,7 +475,7 @@ describe('IntegratedSessionRow', () => {
     it('should not display friends section if no parties', () => {
       const {
         useParties: mockUseParties,
-      } = require('@sudoku-web/template/hooks/useParties');
+      } = require('@bubblyclouds-app/template/hooks/useParties');
       (mockUseParties as jest.Mock).mockReturnValue({
         parties: [],
       });

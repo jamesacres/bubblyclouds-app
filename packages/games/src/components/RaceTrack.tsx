@@ -1,17 +1,17 @@
 'use client';
-import { Parties, Session } from '@sudoku-web/types/serverTypes';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
+import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
+import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { memo, useMemo } from 'react';
 import {
   getPlayerColor,
   getAllUserIds,
-} from '@sudoku-web/template/utils/playerColors';
-import { formatSeconds } from '@sudoku-web/ui/helpers/formatSeconds';
-import { Tab } from '@sudoku-web/types/tabs';
+} from '@bubblyclouds-app/template/utils/playerColors';
+import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
+import { Tab } from '@bubblyclouds-app/types/tabs';
 import TrafficLight from './TrafficLight';
 import Link from 'next/link';
 import { RefreshCw } from 'react-feather';
-import { BaseState, BaseServerState } from '@sudoku-web/template/types/state';
+import { BaseState, BaseServerState } from '@bubblyclouds-app/template/types/state';
 
 interface Arguments<T> {
   sessionParties: Parties<Session<BaseServerState<T>>>;

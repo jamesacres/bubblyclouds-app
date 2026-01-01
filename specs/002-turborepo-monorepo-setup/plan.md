@@ -267,7 +267,7 @@ No constitutional violations. Monorepo setup is an infrastructure improvement wi
 
 **Module Contract Examples**:
 
-**`@sudoku-web/template` exports**:
+**`@bubblyclouds-app/template` exports**:
 ```typescript
 // Authentication
 export { useAuth, AuthProvider, useSession, useUser }
@@ -279,18 +279,18 @@ export type { User, Party, Session, Invite }
 export { useTheme, usePurchase, useStorage }
 ```
 
-**`@sudoku-web/sudoku` imports** (allowed):
+**`@bubblyclouds-app/sudoku` imports** (allowed):
 ```typescript
-import { useSession, Session } from '@sudoku-web/template'
-import { Party } from '@sudoku-web/template'
+import { useSession, Session } from '@bubblyclouds-app/template'
+import { Party } from '@bubblyclouds-app/template'
 // Custom extension:
 type SudokuSession = Session<ServerState>
 ```
 
-**`@sudoku-web/template` imports from `@sudoku-web/sudoku`** (NOT ALLOWED):
+**`@bubblyclouds-app/template` imports from `@bubblyclouds-app/sudoku`** (NOT ALLOWED):
 ```typescript
 // ❌ This would fail at build time
-// import { SudokuSession } from '@sudoku-web/sudoku'
+// import { SudokuSession } from '@bubblyclouds-app/sudoku'
 ```
 
 ### 3. Quick Start Guide (quickstart.md)
@@ -299,13 +299,13 @@ type SudokuSession = Session<ServerState>
 1. Clone repo: `git clone <repo> sudoku-web`
 2. Install: `npm install`
 3. Build all: `npm run build` (uses Turborepo caching)
-4. Build specific app: `npm run build --filter=@sudoku-web/template`
-5. Dev mode: `npm run dev --filter=@sudoku-web/sudoku`
+4. Build specific app: `npm run build --filter=@bubblyclouds-app/template`
+5. Dev mode: `npm run dev --filter=@bubblyclouds-app/sudoku`
 6. Run tests: `npm test` (all workspaces in parallel)
 
 **Turborepo Commands Reference**:
 - `turbo run build`: Build all workspaces
-- `turbo run build --filter=@sudoku-web/*`: Build only app workspaces (not packages/)
+- `turbo run build --filter=@bubblyclouds-app/*`: Build only app workspaces (not packages/)
 - `turbo run build --filter=...template`: Build template and dependents
 - `turbo run dev --parallel`: Run dev servers in parallel
 

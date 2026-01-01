@@ -1,11 +1,11 @@
 'use client';
-import { puzzleTextToPuzzle } from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
-import { Puzzle } from '@sudoku-web/sudoku/types/puzzle';
-import { GameStateMetadata } from '@sudoku-web/sudoku/types/state';
-import Sudoku from '@sudoku-web/sudoku/components/Sudoku';
-import { buildPuzzleUrl } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
-import { sha256 } from '@sudoku-web/template/helpers/sha256';
-import { useWakeLock } from '@sudoku-web/template/hooks/useWakeLock';
+import { puzzleTextToPuzzle } from '@bubblyclouds-app/sudoku/helpers/puzzleTextToPuzzle';
+import { Puzzle } from '@bubblyclouds-app/sudoku/types/puzzle';
+import { GameStateMetadata } from '@bubblyclouds-app/sudoku/types/state';
+import Sudoku from '@bubblyclouds-app/sudoku/components/Sudoku';
+import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
+import { sha256 } from '@bubblyclouds-app/template/helpers/sha256';
+import { useWakeLock } from '@bubblyclouds-app/template/hooks/useWakeLock';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { APP_CONFIG } from '../../../app.config.js';

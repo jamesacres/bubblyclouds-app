@@ -97,7 +97,7 @@
   Clarify which packages will be affected and respect constitutional package dependency rules.
 -->
 
-- **Affected Packages**: [List packages that will be modified, e.g., @sudoku-web/ui, @sudoku-web/template]
+- **Affected Packages**: [List packages that will be modified, e.g., @bubblyclouds-app/ui, @bubblyclouds-app/template]
 - **New Packages**: [If creating new packages, list them with brief purpose]
 - **Dependency Compliance**: [Confirm no apps → packages dependencies, prefer dependency injection]
 - **Import Strategy**: [Relative imports within package, package names across packages, no barrel exports]

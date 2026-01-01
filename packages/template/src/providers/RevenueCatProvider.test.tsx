@@ -4,7 +4,7 @@ import RevenueCatProvider, { RevenueCatContext } from './RevenueCatProvider';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { Purchases } from '@revenuecat/purchases-capacitor';
 
 jest.mock('../helpers/capacitor', () => ({

@@ -4,8 +4,8 @@ import {
   BaseState,
   BaseServerState,
   BaseSetAnswer,
-} from '@sudoku-web/template/types/state';
-import { Timer } from '@sudoku-web/template/types/timer';
+} from '@bubblyclouds-app/template/types/state';
+import { Timer } from '@bubblyclouds-app/template/types/timer';
 
 export type SelectNumber = (_value: number, forceNotes?: boolean) => void;
 

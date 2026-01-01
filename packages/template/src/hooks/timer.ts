@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDocumentVisibility } from '../hooks/documentVisibility';
 import { useLocalStorage } from '../hooks/localStorage';
-import { StateType } from '@sudoku-web/types/stateType';
+import { StateType } from '@bubblyclouds-app/types/stateType';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import { Timer } from '../types/timer';
 

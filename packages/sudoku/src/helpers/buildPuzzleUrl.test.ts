@@ -2,7 +2,7 @@ import { describe, it, expect } from '@jest/globals';
 import { buildPuzzleUrl, buildPuzzleUrlFromState } from './buildPuzzleUrl';
 import { GameStateMetadata } from '../types/state';
 import { Puzzle } from '../types/puzzle';
-import { BaseState } from '@sudoku-web/template/types/state';
+import { BaseState } from '@bubblyclouds-app/template/types/state';
 
 describe('buildPuzzleUrl', () => {
   describe('basic functionality', () => {

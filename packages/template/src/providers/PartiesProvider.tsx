@@ -9,9 +9,9 @@ import React, {
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useServerStorage } from '../hooks/serverStorage';
-import { Party } from '@sudoku-web/types/serverTypes';
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 
 interface PartiesContextInterface {
   // Party data

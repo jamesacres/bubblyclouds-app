@@ -7,7 +7,7 @@
 
 ## Summary
 
-Reorganize sudoku app components into appropriate packages to enable code reuse for future game applications. Create a new `@sudoku-web/games` package for generic game components (timers, race tracks, leaderboards, number pads), move sudoku-specific components to `@sudoku-web/sudoku` package, move party-related components to `@sudoku-web/template` package, and ensure clean package boundaries with no circular dependencies. This refactoring maintains 100% functionality while establishing the foundation for future games like wordsearch.
+Reorganize sudoku app components into appropriate packages to enable code reuse for future game applications. Create a new `@bubblyclouds-app/games` package for generic game components (timers, race tracks, leaderboards, number pads), move sudoku-specific components to `@bubblyclouds-app/sudoku` package, move party-related components to `@bubblyclouds-app/template` package, and ensure clean package boundaries with no circular dependencies. This refactoring maintains 100% functionality while establishing the foundation for future games like wordsearch.
 
 ## Technical Context
 
@@ -18,9 +18,9 @@ Reorganize sudoku app components into appropriate packages to enable code reuse 
 **Target Platform**: Web (Next.js), iOS (Capacitor), Android (Capacitor), Electron (desktop)
 **Project Type**: monorepo (Turborepo multi-package architecture)
 **Package Boundaries**:
-- New package: `@sudoku-web/games` (generic game components)
-- Modified: `@sudoku-web/sudoku` (sudoku-specific components)
-- Modified: `@sudoku-web/template` (party-related components)
+- New package: `@bubblyclouds-app/games` (generic game components)
+- Modified: `@bubblyclouds-app/sudoku` (sudoku-specific components)
+- Modified: `@bubblyclouds-app/template` (party-related components)
 - Modified: `apps/sudoku` (app-level components only)
 **Performance Goals**: Maintain current performance (no degradation), Turborepo cache validity preserved
 **Constraints**:
@@ -215,7 +215,7 @@ apps/
     └── package.json     # Updated dependencies
 ```
 
-**Structure Decision**: Using Option 4 (Turborepo monorepo). The new `@sudoku-web/games` package will be created at the packages level alongside existing packages. Component migrations follow the categorization defined in the spec: sudoku-specific → packages/sudoku, party-related → packages/template, generic game → packages/games, app-specific remains in apps/sudoku.
+**Structure Decision**: Using Option 4 (Turborepo monorepo). The new `@bubblyclouds-app/games` package will be created at the packages level alongside existing packages. Component migrations follow the categorization defined in the spec: sudoku-specific → packages/sudoku, party-related → packages/template, generic game → packages/games, app-specific remains in apps/sudoku.
 
 ## Complexity Tracking
 

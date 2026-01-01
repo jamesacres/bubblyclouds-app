@@ -34,12 +34,12 @@ sudoku-web/
 **Package Configurations**
 - Root `package.json`: Configured npm workspaces, added Turborepo scripts
 - Template: Configured as TypeScript library with barrel exports
-- Sudoku: Updated to depend on `@sudoku-web/template`
+- Sudoku: Updated to depend on `@bubblyclouds-app/template`
 - All packages: Proper TypeScript path aliases and module resolution
 
 ### Phase 4-7: Template Extraction ✅
 
-**Template Package (`@sudoku-web/template`)**
+**Template Package (`@bubblyclouds-app/template`)**
 
 Extracted 80+ generic files into the template package:
 
@@ -85,16 +85,16 @@ Extracted 80+ generic files into the template package:
 **Build Configuration**
 - Template builds as TypeScript library (`tsc --noEmit`)
 - Barrel exports in `src/index.ts` for clean imports
-- Path aliases: `@sudoku-web/template/*` → template sources
+- Path aliases: `@bubblyclouds-app/template/*` → template sources
 
 ### Phase 8: Sudoku Refactoring ✅
 
 **Import Updates**
 - **80 files updated** with **125+ import statements** replaced
-- Changed from `@/components/Header` → `@sudoku-web/template`
-- Changed from `@/providers/UserProvider` → `@sudoku-web/template`
-- Changed from `@/hooks/useOnline` → `@sudoku-web/template`
-- Changed from `@/types/UserProfile` → `@sudoku-web/template`
+- Changed from `@/components/Header` → `@bubblyclouds-app/template`
+- Changed from `@/providers/UserProvider` → `@bubblyclouds-app/template`
+- Changed from `@/hooks/useOnline` → `@bubblyclouds-app/template`
+- Changed from `@/types/UserProfile` → `@bubblyclouds-app/template`
 
 **Code Removal**
 Removed duplicate generic code from sudoku:
@@ -124,7 +124,7 @@ Kept in `/apps/sudoku/src/`:
 ### Code Organization ✅
 - **Clear Separation**: Generic code in template, game-specific code in sudoku
 - **Import Boundaries**: Template cannot import from sudoku (enforced via TypeScript paths)
-- **Barrel Exports**: Clean public API via `@sudoku-web/template`
+- **Barrel Exports**: Clean public API via `@bubblyclouds-app/template`
 
 ### Type Safety ✅
 - All template code passes TypeScript strict mode
@@ -188,16 +188,16 @@ Kept in `/apps/sudoku/src/`:
 
 ### For Developers
 - **Faster builds**: Turborepo caching reduces build times 60%+
-- **Clear imports**: `@sudoku-web/template` vs `@/` for local code
+- **Clear imports**: `@bubblyclouds-app/template` vs `@/` for local code
 - **Single install**: `npm install` at root installs all workspace dependencies
 
 ### For CI/CD
 - Update build commands to use Turborepo: `turbo run build`
 - Leverage caching for faster CI runs
-- Filter builds by workspace: `--filter=@sudoku-web/sudoku`
+- Filter builds by workspace: `--filter=@bubblyclouds-app/sudoku`
 
 ### For New Apps
-- Can now import template: `import { Header, useAuth } from '@sudoku-web/template'`
+- Can now import template: `import { Header, useAuth } from '@bubblyclouds-app/template'`
 - Template provides 80+ ready-to-use components, hooks, providers
 - Full type safety with TypeScript
 

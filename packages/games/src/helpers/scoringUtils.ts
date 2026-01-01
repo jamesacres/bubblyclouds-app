@@ -1,5 +1,5 @@
-import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
-import { BaseServerState } from '@sudoku-web/template/types/state';
+import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
+import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 import { SCORING_CONFIG } from './scoringConfig';
 import {
   PuzzleType,

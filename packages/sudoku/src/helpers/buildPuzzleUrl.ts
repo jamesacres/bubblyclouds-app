@@ -1,4 +1,4 @@
-import { BaseState } from '@sudoku-web/template/types/state';
+import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { Puzzle } from '../types/puzzle';
 import { GameStateMetadata } from '../types/state';
 import { puzzleToPuzzleText } from './puzzleTextToPuzzle';

@@ -28,7 +28,7 @@ For turborepo projects, ensure:
 **Purpose**: Create the games package structure and configuration
 
 - [ ] T001 Create games package directory structure at packages/games/
-- [ ] T002 [P] Create package.json for @sudoku-web/games with Just-in-Time exports pattern
+- [ ] T002 [P] Create package.json for @bubblyclouds-app/games with Just-in-Time exports pattern
 - [ ] T003 [P] Create tsconfig.json for games package (extend root config)
 - [ ] T004 [P] Create jest.config.js for games package
 - [ ] T005 [P] Create packages/games/src/components/ directory
@@ -59,7 +59,7 @@ For turborepo projects, ensure:
 
 ### Implementation for User Story 1
 
-#### Step 1: Move Generic Game Components to @sudoku-web/games
+#### Step 1: Move Generic Game Components to @bubblyclouds-app/games
 
 - [ ] T011 [P] [US1] Move packages/sudoku/src/components/TimerDisplay.tsx to packages/games/src/components/TimerDisplay.tsx
 - [ ] T012 [P] [US1] Move packages/sudoku/src/components/TimerDisplay.test.tsx to packages/games/src/components/TimerDisplay.test.tsx
@@ -80,23 +80,23 @@ For turborepo projects, ensure:
 - [ ] T027 [P] [US1] Move apps/sudoku/src/components/HintBox.tsx to packages/games/src/components/HintBox.tsx
 - [ ] T028 [P] [US1] Move apps/sudoku/src/components/HintBox.test.tsx to packages/games/src/components/HintBox.test.tsx
 
-#### Step 2: Update package.json exports for @sudoku-web/games
+#### Step 2: Update package.json exports for @bubblyclouds-app/games
 
 - [ ] T029 [US1] Update packages/games/package.json exports field with all 9 component paths using Just-in-Time pattern
 
 #### Step 3: Update all imports for games package components
 
-- [ ] T030 [US1] Find all imports of TimerDisplay and update to @sudoku-web/games/components/TimerDisplay
-- [ ] T031 [US1] Find all imports of RaceTrack and update to @sudoku-web/games/components/RaceTrack
-- [ ] T032 [US1] Find all imports of TrafficLight and update to @sudoku-web/games/components/TrafficLight
-- [ ] T033 [US1] Find all imports of NumberPad and update to @sudoku-web/games/components/NumberPad
-- [ ] T034 [US1] Find all imports of Leaderboard and update to @sudoku-web/games/components/Leaderboard
-- [ ] T035 [US1] Find all imports of ActivityWidget and update to @sudoku-web/games/components/ActivityWidget
-- [ ] T036 [US1] Find all imports of FriendLeaderboardEntry and update to @sudoku-web/games/components/FriendLeaderboardEntry
-- [ ] T037 [US1] Find all imports of SidebarButton and update to @sudoku-web/games/components/SidebarButton
-- [ ] T038 [US1] Find all imports of HintBox and update to @sudoku-web/games/components/HintBox
+- [ ] T030 [US1] Find all imports of TimerDisplay and update to @bubblyclouds-app/games/components/TimerDisplay
+- [ ] T031 [US1] Find all imports of RaceTrack and update to @bubblyclouds-app/games/components/RaceTrack
+- [ ] T032 [US1] Find all imports of TrafficLight and update to @bubblyclouds-app/games/components/TrafficLight
+- [ ] T033 [US1] Find all imports of NumberPad and update to @bubblyclouds-app/games/components/NumberPad
+- [ ] T034 [US1] Find all imports of Leaderboard and update to @bubblyclouds-app/games/components/Leaderboard
+- [ ] T035 [US1] Find all imports of ActivityWidget and update to @bubblyclouds-app/games/components/ActivityWidget
+- [ ] T036 [US1] Find all imports of FriendLeaderboardEntry and update to @bubblyclouds-app/games/components/FriendLeaderboardEntry
+- [ ] T037 [US1] Find all imports of SidebarButton and update to @bubblyclouds-app/games/components/SidebarButton
+- [ ] T038 [US1] Find all imports of HintBox and update to @bubblyclouds-app/games/components/HintBox
 
-#### Step 4: Move Sudoku-Specific Components to @sudoku-web/sudoku
+#### Step 4: Move Sudoku-Specific Components to @bubblyclouds-app/sudoku
 
 - [ ] T039 [P] [US1] Move apps/sudoku/src/components/Sudoku.tsx to packages/sudoku/src/components/Sudoku.tsx
 - [ ] T040 [P] [US1] Move apps/sudoku/src/components/Sudoku.test.tsx to packages/sudoku/src/components/Sudoku.test.tsx
@@ -117,23 +117,23 @@ For turborepo projects, ensure:
 - [ ] T055 [P] [US1] Move apps/sudoku/src/components/scoringUtils.ts to packages/sudoku/src/helpers/scoringUtils.ts
 - [ ] T056 [P] [US1] Move apps/sudoku/src/components/scoringUtils.test.ts to packages/sudoku/src/helpers/scoringUtils.test.ts (if exists)
 
-#### Step 5: Update package.json exports for @sudoku-web/sudoku
+#### Step 5: Update package.json exports for @bubblyclouds-app/sudoku
 
 - [ ] T057 [US1] Update packages/sudoku/package.json exports field to include all newly moved components
 
 #### Step 6: Update all imports for sudoku package components
 
-- [ ] T058 [US1] Find all imports of Sudoku component and update to @sudoku-web/sudoku/components/Sudoku
-- [ ] T059 [US1] Find all imports of SudokuControls and update to @sudoku-web/sudoku/components/SudokuControls
-- [ ] T060 [US1] Find all imports of SudokuInput and update to @sudoku-web/sudoku/components/SudokuInput
-- [ ] T061 [US1] Find all imports of SudokuInputNotes and update to @sudoku-web/sudoku/components/SudokuInputNotes
-- [ ] T062 [US1] Find all imports of SudokuSidebar and update to @sudoku-web/sudoku/components/SudokuSidebar
-- [ ] T063 [US1] Find all imports of BookCover and update to @sudoku-web/sudoku/components/BookCover
-- [ ] T064 [US1] Find all imports of ScoringLegend and update to @sudoku-web/sudoku/components/ScoringLegend
-- [ ] T065 [US1] Find all imports of ScoreBreakdown and update to @sudoku-web/sudoku/components/ScoreBreakdown
-- [ ] T066 [US1] Find all imports of scoringUtils and update to @sudoku-web/sudoku/helpers/scoringUtils
+- [ ] T058 [US1] Find all imports of Sudoku component and update to @bubblyclouds-app/sudoku/components/Sudoku
+- [ ] T059 [US1] Find all imports of SudokuControls and update to @bubblyclouds-app/sudoku/components/SudokuControls
+- [ ] T060 [US1] Find all imports of SudokuInput and update to @bubblyclouds-app/sudoku/components/SudokuInput
+- [ ] T061 [US1] Find all imports of SudokuInputNotes and update to @bubblyclouds-app/sudoku/components/SudokuInputNotes
+- [ ] T062 [US1] Find all imports of SudokuSidebar and update to @bubblyclouds-app/sudoku/components/SudokuSidebar
+- [ ] T063 [US1] Find all imports of BookCover and update to @bubblyclouds-app/sudoku/components/BookCover
+- [ ] T064 [US1] Find all imports of ScoringLegend and update to @bubblyclouds-app/sudoku/components/ScoringLegend
+- [ ] T065 [US1] Find all imports of ScoreBreakdown and update to @bubblyclouds-app/sudoku/components/ScoreBreakdown
+- [ ] T066 [US1] Find all imports of scoringUtils and update to @bubblyclouds-app/sudoku/helpers/scoringUtils
 
-#### Step 7: Move Party Components to @sudoku-web/template
+#### Step 7: Move Party Components to @bubblyclouds-app/template
 
 - [ ] T067 [P] [US1] Move apps/sudoku/src/components/PartyRow.tsx to packages/template/src/components/PartyRow.tsx
 - [ ] T068 [P] [US1] Move apps/sudoku/src/components/PartyRow.test.tsx to packages/template/src/components/PartyRow.test.tsx
@@ -148,18 +148,18 @@ For turborepo projects, ensure:
 - [ ] T077 [P] [US1] Move apps/sudoku/src/components/IntegratedSessionRow.tsx to packages/template/src/components/IntegratedSessionRow.tsx
 - [ ] T078 [P] [US1] Move apps/sudoku/src/components/IntegratedSessionRow.test.tsx to packages/template/src/components/IntegratedSessionRow.test.tsx
 
-#### Step 8: Update package.json exports for @sudoku-web/template
+#### Step 8: Update package.json exports for @bubblyclouds-app/template
 
 - [ ] T079 [US1] Update packages/template/package.json exports field to include all newly moved components
 
 #### Step 9: Update all imports for template package components
 
-- [ ] T080 [US1] Find all imports of PartyRow and update to @sudoku-web/template/components/PartyRow
-- [ ] T081 [US1] Find all imports of PartyInviteButton and update to @sudoku-web/template/components/PartyInviteButton
-- [ ] T082 [US1] Find all imports of PartyConfirmationDialog and update to @sudoku-web/template/components/PartyConfirmationDialog
-- [ ] T083 [US1] Find all imports of FriendsTab and update to @sudoku-web/template/components/FriendsTab
-- [ ] T084 [US1] Find all imports of MyPuzzlesTab and update to @sudoku-web/template/components/MyPuzzlesTab
-- [ ] T085 [US1] Find all imports of IntegratedSessionRow and update to @sudoku-web/template/components/IntegratedSessionRow
+- [ ] T080 [US1] Find all imports of PartyRow and update to @bubblyclouds-app/template/components/PartyRow
+- [ ] T081 [US1] Find all imports of PartyInviteButton and update to @bubblyclouds-app/template/components/PartyInviteButton
+- [ ] T082 [US1] Find all imports of PartyConfirmationDialog and update to @bubblyclouds-app/template/components/PartyConfirmationDialog
+- [ ] T083 [US1] Find all imports of FriendsTab and update to @bubblyclouds-app/template/components/FriendsTab
+- [ ] T084 [US1] Find all imports of MyPuzzlesTab and update to @bubblyclouds-app/template/components/MyPuzzlesTab
+- [ ] T085 [US1] Find all imports of IntegratedSessionRow and update to @bubblyclouds-app/template/components/IntegratedSessionRow
 
 #### Step 10: Fix relative imports within each package
 

@@ -1,4 +1,4 @@
-# @sudoku-web/template
+# @bubblyclouds-app/template
 
 Generic collaboration and application infrastructure package - game-agnostic party/session management.
 
@@ -26,7 +26,7 @@ Provides reusable collaborative features including party management, session tra
 React error boundary component for graceful error handling.
 
 ```tsx
-import { ErrorBoundary } from '@sudoku-web/template';
+import { ErrorBoundary } from '@bubblyclouds-app/template';
 
 <ErrorBoundary>
   <App />
@@ -37,7 +37,7 @@ import { ErrorBoundary } from '@sudoku-web/template';
 Modal promoting mobile app downloads.
 
 ```tsx
-import { AppDownloadModal } from '@sudoku-web/template';
+import { AppDownloadModal } from '@bubblyclouds-app/template';
 
 <AppDownloadModal isOpen={showModal} onClose={() => setShowModal(false)} />
 ```
@@ -46,7 +46,7 @@ import { AppDownloadModal } from '@sudoku-web/template';
 Global error handler for uncaught errors.
 
 ```tsx
-import { GlobalErrorHandler } from '@sudoku-web/template';
+import { GlobalErrorHandler } from '@bubblyclouds-app/template';
 
 <GlobalErrorHandler />
 ```
@@ -57,7 +57,7 @@ import { GlobalErrorHandler } from '@sudoku-web/template';
 Capacitor platform initialization and configuration.
 
 ```tsx
-import { CapacitorProvider } from '@sudoku-web/template';
+import { CapacitorProvider } from '@bubblyclouds-app/template';
 
 <CapacitorProvider>
   <App />
@@ -68,7 +68,7 @@ import { CapacitorProvider } from '@sudoku-web/template';
 RevenueCat subscription and payment integration.
 
 ```tsx
-import { RevenueCatProvider, RevenueCatContext } from '@sudoku-web/template';
+import { RevenueCatProvider, RevenueCatContext } from '@bubblyclouds-app/template';
 
 <RevenueCatProvider apiKey="your-api-key">
   <App />
@@ -82,7 +82,7 @@ const { isPremium, offerings } = useContext(RevenueCatContext);
 User profile and authentication state management.
 
 ```tsx
-import { UserProvider, UserContext } from '@sudoku-web/template';
+import { UserProvider, UserContext } from '@bubblyclouds-app/template';
 
 <UserProvider>
   <App />
@@ -96,7 +96,7 @@ const { user, updateProfile } = useContext(UserContext);
 Authenticated API request handling.
 
 ```tsx
-import { FetchProvider, FetchContext } from '@sudoku-web/template';
+import { FetchProvider, FetchContext } from '@bubblyclouds-app/template';
 
 <FetchProvider baseUrl="https://api.example.com">
   <App />
@@ -108,10 +108,10 @@ const data = await fetchContext.fetch('/api/endpoint');
 ```
 
 #### `ThemeColorProvider`
-Theme color management (re-exported from `@sudoku-web/ui`).
+Theme color management (re-exported from `@bubblyclouds-app/ui`).
 
 ```tsx
-import { ThemeColorProvider, useThemeColor } from '@sudoku-web/template';
+import { ThemeColorProvider, useThemeColor } from '@bubblyclouds-app/template';
 
 <ThemeColorProvider>
   <App />
@@ -122,7 +122,7 @@ import { ThemeColorProvider, useThemeColor } from '@sudoku-web/template';
 Global application state management.
 
 ```tsx
-import { GlobalStateProvider, GlobalStateContext } from '@sudoku-web/template';
+import { GlobalStateProvider, GlobalStateContext } from '@bubblyclouds-app/template';
 
 <GlobalStateProvider>
   <App />
@@ -133,7 +133,7 @@ import { GlobalStateProvider, GlobalStateContext } from '@sudoku-web/template';
 Party/group management and collaboration.
 
 ```tsx
-import { PartyProvider, PartyContext } from '@sudoku-web/template';
+import { PartyProvider, PartyContext } from '@bubblyclouds-app/template';
 
 <PartyProvider>
   <App />
@@ -149,7 +149,7 @@ const { parties, createParty, inviteMember } = useContext(PartyContext);
 Detect online/offline network status.
 
 ```tsx
-import { useOnline } from '@sudoku-web/template';
+import { useOnline } from '@bubblyclouds-app/template';
 
 function Component() {
   const isOnline = useOnline();
@@ -162,7 +162,7 @@ function Component() {
 Persistent local storage with React state.
 
 ```tsx
-import { useLocalStorage } from '@sudoku-web/template';
+import { useLocalStorage } from '@bubblyclouds-app/template';
 
 function Component() {
   const [value, setValue, { loading, error }] = useLocalStorage('key', defaultValue);
@@ -177,7 +177,7 @@ function Component() {
 Prevent device from sleeping.
 
 ```tsx
-import { useWakeLock } from '@sudoku-web/template';
+import { useWakeLock } from '@bubblyclouds-app/template';
 
 function GameComponent() {
   const { request, release, isActive } = useWakeLock();
@@ -193,7 +193,7 @@ function GameComponent() {
 Authenticated API requests with error handling.
 
 ```tsx
-import { useFetch } from '@sudoku-web/template';
+import { useFetch } from '@bubblyclouds-app/template';
 
 function Component() {
   const fetch = useFetch();
@@ -209,7 +209,7 @@ function Component() {
 Track document visibility state (tab focus).
 
 ```tsx
-import { useDocumentVisibility } from '@sudoku-web/template';
+import { useDocumentVisibility } from '@bubblyclouds-app/template';
 
 function Component() {
   const isVisible = useDocumentVisibility();
@@ -228,7 +228,7 @@ function Component() {
 Sync state with server storage.
 
 ```tsx
-import { useServerStorage } from '@sudoku-web/template';
+import { useServerStorage } from '@bubblyclouds-app/template';
 
 function Component() {
   const [serverState, updateServerState] = useServerStorage<MyState>('key', defaultValue);
@@ -316,7 +316,7 @@ import {
   incrementActionCount,
   hasReachedDailyLimit,
   resetIfNewDay
-} from '@sudoku-web/template';
+} from '@bubblyclouds-app/template';
 
 // Check if user can perform action
 if (!hasReachedDailyLimit('feature-name', 10)) {
@@ -329,7 +329,7 @@ if (!hasReachedDailyLimit('feature-name', 10)) {
 Assign consistent colors to players.
 
 ```tsx
-import { getPlayerColor, generatePlayerColors } from '@sudoku-web/template';
+import { getPlayerColor, generatePlayerColors } from '@bubblyclouds-app/template';
 
 const color = getPlayerColor(userId); // Returns consistent color for user
 const colors = generatePlayerColors(5); // Generate 5 distinct colors
@@ -341,7 +341,7 @@ const colors = generatePlayerColors(5); // Generate 5 distinct colors
 Daily action limits configuration.
 
 ```tsx
-import { DAILY_LIMITS } from '@sudoku-web/template';
+import { DAILY_LIMITS } from '@bubblyclouds-app/template';
 
 const limit = DAILY_LIMITS.FREE_TIER.ACTIONS_PER_DAY;
 ```
@@ -350,7 +350,7 @@ const limit = DAILY_LIMITS.FREE_TIER.ACTIONS_PER_DAY;
 Premium feature configuration.
 
 ```tsx
-import { PREMIUM_FEATURES } from '@sudoku-web/template';
+import { PREMIUM_FEATURES } from '@bubblyclouds-app/template';
 
 if (PREMIUM_FEATURES.UNLIMITED_ACTIONS) {
   // Allow unlimited actions
@@ -359,7 +359,7 @@ if (PREMIUM_FEATURES.UNLIMITED_ACTIONS) {
 
 ### Helpers
 
-Platform helpers (re-exported from `@sudoku-web/ui` and `@sudoku-web/auth`):
+Platform helpers (re-exported from `@bubblyclouds-app/ui` and `@bubblyclouds-app/auth`):
 
 ```tsx
 import {
@@ -368,7 +368,7 @@ import {
   isCapacitor,
   isElectron,
   pkce
-} from '@sudoku-web/template';
+} from '@bubblyclouds-app/template';
 
 const seconds = calculateSeconds(startTime, endTime);
 const formatted = formatSeconds(seconds); // "1:30"
@@ -389,9 +389,9 @@ import {
   GlobalStateProvider,
   PartyProvider,
   ErrorBoundary
-} from '@sudoku-web/template';
-import { AuthProvider } from '@sudoku-web/auth';
-import { ThemeColorProvider } from '@sudoku-web/ui';
+} from '@bubblyclouds-app/template';
+import { AuthProvider } from '@bubblyclouds-app/auth';
+import { ThemeColorProvider } from '@bubblyclouds-app/ui';
 
 function App() {
   return (
@@ -422,7 +422,7 @@ function App() {
 
 ```tsx
 import { useContext } from 'react';
-import { PartyContext } from '@sudoku-web/template';
+import { PartyContext } from '@bubblyclouds-app/template';
 
 function PartyManagement() {
   const { parties, createParty, inviteMember, leaveParty } = useContext(PartyContext);
@@ -456,7 +456,7 @@ function PartyManagement() {
 ### 3. Using Local Storage Hook
 
 ```tsx
-import { useLocalStorage } from '@sudoku-web/template';
+import { useLocalStorage } from '@bubblyclouds-app/template';
 
 function Settings() {
   const [settings, setSettings] = useLocalStorage('app-settings', {
@@ -484,7 +484,7 @@ function Settings() {
 ### 4. Server State Synchronization
 
 ```tsx
-import { useServerStorage } from '@sudoku-web/template';
+import { useServerStorage } from '@bubblyclouds-app/template';
 
 function CollaborativeComponent() {
   const [state, updateState] = useServerStorage<MyAppState>(
@@ -504,7 +504,7 @@ function CollaborativeComponent() {
 
 ```tsx
 import { useContext } from 'react';
-import { RevenueCatContext } from '@sudoku-web/template';
+import { RevenueCatContext } from '@bubblyclouds-app/template';
 
 function PremiumFeature() {
   const { isPremium, offerings, purchasePackage } = useContext(RevenueCatContext);
@@ -530,10 +530,10 @@ function PremiumFeature() {
 {
   "react": "^18",
   "react-dom": "^18",
-  "@sudoku-web/auth": "*",
-  "@sudoku-web/ui": "*",
-  "@sudoku-web/shared": "*",
-  "@sudoku-web/types": "*"
+  "@bubblyclouds-app/auth": "*",
+  "@bubblyclouds-app/ui": "*",
+  "@bubblyclouds-app/shared": "*",
+  "@bubblyclouds-app/types": "*"
 }
 ```
 
@@ -561,9 +561,9 @@ import {
   PartyProvider,
   ErrorBoundary,
   useOnline
-} from '@sudoku-web/template';
-import { AuthProvider } from '@sudoku-web/auth';
-import { ThemeColorProvider, Header, Footer } from '@sudoku-web/ui';
+} from '@bubblyclouds-app/template';
+import { AuthProvider } from '@bubblyclouds-app/auth';
+import { ThemeColorProvider, Header, Footer } from '@bubblyclouds-app/ui';
 
 function App() {
   return (
@@ -606,7 +606,7 @@ import {
   hasReachedDailyLimit,
   incrementActionCount,
   getTodayActionCount
-} from '@sudoku-web/template';
+} from '@bubblyclouds-app/template';
 
 function FeatureButton() {
   const [count, setCount] = useState(getTodayActionCount('my-feature'));
@@ -643,10 +643,10 @@ function FeatureButton() {
 
 ## Related Packages
 
-- `@sudoku-web/auth` - Authentication (provides auth context)
-- `@sudoku-web/ui` - UI components (provides theme and layout)
-- `@sudoku-web/shared` - Shared utilities (provides helpers)
-- `@sudoku-web/types` - Shared types (provides type definitions)
+- `@bubblyclouds-app/auth` - Authentication (provides auth context)
+- `@bubblyclouds-app/ui` - UI components (provides theme and layout)
+- `@bubblyclouds-app/shared` - Shared utilities (provides helpers)
+- `@bubblyclouds-app/types` - Shared types (provides type definitions)
 
 ## Version
 

@@ -1,11 +1,11 @@
 'use client';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
 import { calculateBoxId } from '../helpers/calculateId';
-import { TimerDisplay } from '@sudoku-web/ui/components/TimerDisplay';
+import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
 import { GameState, GameStateMetadata } from '../types/state';
 import { puzzleToPuzzleText } from '../helpers/puzzleTextToPuzzle';
 import SudokuBox from '../components/SudokuBox';
-import RaceTrack from '@sudoku-web/games/components/RaceTrack';
+import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
 import { isInitialCell } from '../helpers/checkAnswer';
@@ -15,8 +15,8 @@ import {
 } from '../utils/dailyPuzzleCounter';
 import { useGameState } from '../hooks/gameState';
 import SudokuControls from '../components/SudokuControls';
-import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
-import Sidebar from '@sudoku-web/template/components/Sidebar';
+import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
+import Sidebar from '@bubblyclouds-app/template/components/Sidebar';
 import SimpleSudoku from '../components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { ServerState } from '../types/state';
@@ -32,17 +32,17 @@ import { useDrag } from '../hooks/useDrag';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
-import { DAILY_LIMITS } from '@sudoku-web/template/config/dailyLimits';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
-import { AppDownloadModal } from '@sudoku-web/template/components/AppDownloadModal';
-import { CelebrationAnimation } from '@sudoku-web/ui/components/CelebrationAnimation';
-import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
-import MemoisedSidebarButton from '@sudoku-web/games/components/SidebarButton';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { DAILY_LIMITS } from '@bubblyclouds-app/template/config/dailyLimits';
+import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
+import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
+import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
+import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
+import MemoisedSidebarButton from '@bubblyclouds-app/games/components/SidebarButton';
 import { useRouter } from 'next/navigation';
-import RacingPromptModal from '@sudoku-web/template/components/RacingPromptModal';
+import RacingPromptModal from '@bubblyclouds-app/template/components/RacingPromptModal';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />

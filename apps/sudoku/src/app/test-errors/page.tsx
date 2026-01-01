@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { splitCellId } from '@sudoku-web/sudoku/helpers/calculateId';
+import { splitCellId } from '@bubblyclouds-app/sudoku/helpers/calculateId';
 
 // Component that throws an error when triggered
 function ErrorThrower({ shouldThrow }: { shouldThrow: boolean }) {

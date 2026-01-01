@@ -29,7 +29,7 @@ jest.mock('next/script', () => {
   };
 });
 
-jest.mock('@sudoku-web/sudoku/components/SimpleSudoku', () => ({
+jest.mock('@bubblyclouds-app/sudoku/components/SimpleSudoku', () => ({
   __esModule: true,
   default: function MockSimpleSudoku({
     transparent,
@@ -47,7 +47,7 @@ jest.mock('@sudoku-web/sudoku/components/SimpleSudoku', () => ({
   },
 }));
 
-jest.mock('@sudoku-web/sudoku/types/puzzle', () => ({
+jest.mock('@bubblyclouds-app/sudoku/types/puzzle', () => ({
   emptyPuzzle: {
     0: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0 },
     1: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0 },
@@ -61,7 +61,7 @@ jest.mock('@sudoku-web/sudoku/types/puzzle', () => ({
   },
 }));
 
-jest.mock('@sudoku-web/sudoku/helpers/buildPuzzleUrl', () => ({
+jest.mock('@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl', () => ({
   buildPuzzleUrl: jest.fn((initial, final, _metadata) => {
     return `/puzzle?initial=${initial}&final=${final}`;
   }),

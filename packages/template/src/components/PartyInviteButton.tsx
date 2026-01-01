@@ -1,5 +1,5 @@
 import { useServerStorage } from '../hooks/serverStorage';
-import { CopyButton } from '@sudoku-web/ui/components/CopyButton';
+import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
 import { useState } from 'react';
 import { isIOS } from '../helpers/capacitor';
 

@@ -31,18 +31,18 @@
       "@/*": [
         "./src/*"
       ],
-      "@sudoku-web/auth": ["./packages/auth/src"],
-      "@sudoku-web/auth/*": ["./packages/auth/src/*"],
-      "@sudoku-web/ui": ["./packages/ui/src"],
-      "@sudoku-web/ui/*": ["./packages/ui/src/*"],
-      "@sudoku-web/sudoku": ["./packages/sudoku/src"],
-      "@sudoku-web/sudoku/*": ["./packages/sudoku/src/*"],
-      "@sudoku-web/template": ["./packages/template/src"],
-      "@sudoku-web/template/*": ["./packages/template/src/*"],
-      "@sudoku-web/types": ["./packages/types/src"],
-      "@sudoku-web/types/*": ["./packages/types/src/*"],
-      "@sudoku-web/shared": ["./packages/shared/src"],
-      "@sudoku-web/shared/*": ["./packages/shared/src/*"]
+      "@bubblyclouds-app/auth": ["./packages/auth/src"],
+      "@bubblyclouds-app/auth/*": ["./packages/auth/src/*"],
+      "@bubblyclouds-app/ui": ["./packages/ui/src"],
+      "@bubblyclouds-app/ui/*": ["./packages/ui/src/*"],
+      "@bubblyclouds-app/sudoku": ["./packages/sudoku/src"],
+      "@bubblyclouds-app/sudoku/*": ["./packages/sudoku/src/*"],
+      "@bubblyclouds-app/template": ["./packages/template/src"],
+      "@bubblyclouds-app/template/*": ["./packages/template/src/*"],
+      "@bubblyclouds-app/types": ["./packages/types/src"],
+      "@bubblyclouds-app/types/*": ["./packages/types/src/*"],
+      "@bubblyclouds-app/shared": ["./packages/shared/src"],
+      "@bubblyclouds-app/shared/*": ["./packages/shared/src/*"]
     }
   },
   "include": [

@@ -1,4 +1,4 @@
-# @sudoku-web/auth
+# @bubblyclouds-app/auth
 
 Authentication and user management package for multi-platform applications.
 
@@ -23,7 +23,7 @@ Provides comprehensive authentication functionality with support for OAuth 2.0 w
 Header component displaying user information and authentication state.
 
 ```tsx
-import { HeaderUser } from '@sudoku-web/auth';
+import { HeaderUser } from '@bubblyclouds-app/auth';
 
 <HeaderUser />
 ```
@@ -32,7 +32,7 @@ import { HeaderUser } from '@sudoku-web/auth';
 User avatar component with fallback to initials.
 
 ```tsx
-import { UserAvatar } from '@sudoku-web/auth';
+import { UserAvatar } from '@bubblyclouds-app/auth';
 
 <UserAvatar user={user} size="md" />
 ```
@@ -41,7 +41,7 @@ import { UserAvatar } from '@sudoku-web/auth';
 Button component for user actions (profile, settings, logout).
 
 ```tsx
-import { UserButton } from '@sudoku-web/auth';
+import { UserButton } from '@bubblyclouds-app/auth';
 
 <UserButton user={user} />
 ```
@@ -50,7 +50,7 @@ import { UserButton } from '@sudoku-web/auth';
 Full user profile panel with account management options.
 
 ```tsx
-import { UserPanel } from '@sudoku-web/auth';
+import { UserPanel } from '@bubblyclouds-app/auth';
 
 <UserPanel />
 ```
@@ -59,7 +59,7 @@ import { UserPanel } from '@sudoku-web/auth';
 Dialog component for account deletion with confirmation.
 
 ```tsx
-import { DeleteAccountDialog } from '@sudoku-web/auth';
+import { DeleteAccountDialog } from '@bubblyclouds-app/auth';
 
 <DeleteAccountDialog isOpen={isOpen} onClose={onClose} />
 ```
@@ -70,8 +70,8 @@ import { DeleteAccountDialog } from '@sudoku-web/auth';
 React context provider for authentication state. **Required** at the root of your application.
 
 ```tsx
-import { AuthProvider } from '@sudoku-web/auth';
-import { useFetch } from '@sudoku-web/template';
+import { AuthProvider } from '@bubblyclouds-app/auth';
+import { useFetch } from '@bubblyclouds-app/template';
 
 <AuthProvider useFetch={useFetch}>
   <App />
@@ -86,7 +86,7 @@ import { useFetch } from '@sudoku-web/template';
 React context for accessing authentication state.
 
 ```tsx
-import { UserContext } from '@sudoku-web/auth';
+import { UserContext } from '@bubblyclouds-app/auth';
 
 const { user, isAuthenticated, login, logout } = useContext(UserContext);
 ```
@@ -97,7 +97,7 @@ const { user, isAuthenticated, login, logout } = useContext(UserContext);
 PKCE (Proof Key for Code Exchange) utilities for OAuth 2.0.
 
 ```tsx
-import { pkce } from '@sudoku-web/auth';
+import { pkce } from '@bubblyclouds-app/auth';
 
 const { codeVerifier, codeChallenge } = await pkce.generate();
 ```
@@ -112,7 +112,7 @@ import {
   saveCapacitorState,
   saveElectronState,
   openBrowser
-} from '@sudoku-web/auth';
+} from '@bubblyclouds-app/auth';
 
 if (isCapacitor()) {
   // Handle Capacitor (iOS/Android) authentication
@@ -199,8 +199,8 @@ Note: These hooks are available internally but accessed through `UserContext`:
 Wrap your application with `AuthProvider`:
 
 ```tsx
-import { AuthProvider } from '@sudoku-web/auth';
-import { useFetch } from '@sudoku-web/template';
+import { AuthProvider } from '@bubblyclouds-app/auth';
+import { useFetch } from '@bubblyclouds-app/template';
 
 function App() {
   return (
@@ -217,7 +217,7 @@ Access authentication state through `UserContext`:
 
 ```tsx
 import { useContext } from 'react';
-import { UserContext } from '@sudoku-web/auth';
+import { UserContext } from '@bubblyclouds-app/auth';
 
 function MyComponent() {
   const { user, isAuthenticated } = useContext(UserContext);
@@ -235,7 +235,7 @@ function MyComponent() {
 Use provided UI components for common authentication flows:
 
 ```tsx
-import { HeaderUser, UserPanel } from '@sudoku-web/auth';
+import { HeaderUser, UserPanel } from '@bubblyclouds-app/auth';
 
 function AppHeader() {
   return (
@@ -255,7 +255,7 @@ function ProfilePage() {
 Handle platform-specific authentication flows:
 
 ```tsx
-import { isCapacitor, isElectron, openBrowser } from '@sudoku-web/auth';
+import { isCapacitor, isElectron, openBrowser } from '@bubblyclouds-app/auth';
 
 async function handleLogin() {
   const authUrl = generateAuthUrl();
@@ -300,8 +300,8 @@ npm test
 ### Complete Authentication Flow
 
 ```tsx
-import { AuthProvider, UserContext, HeaderUser } from '@sudoku-web/auth';
-import { useFetch } from '@sudoku-web/template';
+import { AuthProvider, UserContext, HeaderUser } from '@bubblyclouds-app/auth';
+import { useFetch } from '@bubblyclouds-app/template';
 
 // App wrapper
 function App() {
@@ -337,7 +337,7 @@ function Layout() {
 
 ```tsx
 import { useContext } from 'react';
-import { UserContext } from '@sudoku-web/auth';
+import { UserContext } from '@bubblyclouds-app/auth';
 
 function CustomLoginButton() {
   const { isAuthenticated, login, logout, user } = useContext(UserContext);
@@ -364,9 +364,9 @@ function CustomLoginButton() {
 
 ## Related Packages
 
-- `@sudoku-web/ui` - UI components and theming (used by auth components)
-- `@sudoku-web/template` - Application templates and providers (provides `useFetch`)
-- `@sudoku-web/shared` - Shared utilities
+- `@bubblyclouds-app/ui` - UI components and theming (used by auth components)
+- `@bubblyclouds-app/template` - Application templates and providers (provides `useFetch`)
+- `@bubblyclouds-app/shared` - Shared utilities
 
 ## Version
 

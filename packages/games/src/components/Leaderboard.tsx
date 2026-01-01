@@ -1,8 +1,8 @@
 'use client';
 import React, { useState, useMemo } from 'react';
 import { Award } from 'react-feather';
-import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
-import { UserProfile } from '@sudoku-web/types/userProfile';
+import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
+import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import {
   FriendsLeaderboardScore,
   AllFriendsSessionsMap,
@@ -13,8 +13,8 @@ import {
 } from '../helpers/scoringUtils';
 import FriendLeaderboardEntry from './FriendLeaderboardEntry';
 import ScoringLegend from './ScoringLegend';
-import { UserSessions } from '@sudoku-web/types/userSessions';
-import { BaseState, BaseServerState } from '@sudoku-web/template/types/state';
+import { UserSessions } from '@bubblyclouds-app/types/userSessions';
+import { BaseState, BaseServerState } from '@bubblyclouds-app/template/types/state';
 
 interface LeaderboardProps<TState extends BaseServerState = BaseServerState> {
   sessions: ServerStateResult<TState>[] | null;

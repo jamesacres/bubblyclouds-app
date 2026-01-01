@@ -1,14 +1,14 @@
 import { memo, useContext, ComponentType, ReactElement } from 'react';
 import { Loader, RefreshCw, Users, X } from 'react-feather';
 import { PartyRow } from './PartyRow';
-import { Parties, Session } from '@sudoku-web/types/serverTypes';
+import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { BaseServerState } from '../types/state';
 
 interface Arguments<ServerState extends BaseServerState> {

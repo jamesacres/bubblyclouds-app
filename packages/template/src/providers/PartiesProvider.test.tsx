@@ -5,8 +5,8 @@ import { useServerStorage } from '../hooks/serverStorage';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { Party } from '@sudoku-web/types/serverTypes';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 
 jest.mock('../hooks/serverStorage');
 

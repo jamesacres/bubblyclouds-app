@@ -11,11 +11,11 @@ The sudoku-web monorepo is organized into reusable packages that multiple applic
 
 ```
 📦 Packages (core functionality)
-├── @sudoku-web/auth     → Authentication & user management
-├── @sudoku-web/ui       → Shared UI components & theming
-├── @sudoku-web/template → Collaborative features (parties, sessions)
-├── @sudoku-web/sudoku   → Game-specific logic
-└── @sudoku-web/shared   → Generic utilities
+├── @bubblyclouds-app/auth     → Authentication & user management
+├── @bubblyclouds-app/ui       → Shared UI components & theming
+├── @bubblyclouds-app/template → Collaborative features (parties, sessions)
+├── @bubblyclouds-app/sudoku   → Game-specific logic
+└── @bubblyclouds-app/shared   → Generic utilities
 
 🚀 Applications (consume packages)
 ├── apps/template → Standalone collaboration app (auth + ui + template)
@@ -86,7 +86,7 @@ npm run dev -w apps/sudoku
 
 ### Creating a New Package
 
-Want to create a new package (e.g., `@sudoku-web/analytics`)?
+Want to create a new package (e.g., `@bubblyclouds-app/analytics`)?
 
 1. **Create package structure**:
 ```bash
@@ -111,7 +111,7 @@ touch src/index.ts
 {
   "compilerOptions": {
     "paths": {
-      "@sudoku-web/analytics": ["packages/analytics/src"]
+      "@bubblyclouds-app/analytics": ["packages/analytics/src"]
     }
   }
 }
@@ -148,9 +148,9 @@ export type { AnalyticsEvent } from './types/AnalyticsEvent';
 │   (apps/template)       │
 ├─────────────────────────┤
 │ Imports:                │
-│ • @sudoku-web/auth     │
-│ • @sudoku-web/ui       │
-│ • @sudoku-web/template │
+│ • @bubblyclouds-app/auth     │
+│ • @bubblyclouds-app/ui       │
+│ • @bubblyclouds-app/template │
 └─────────────────────────┘
            ↓
 ┌─────────────────────────┐
@@ -160,14 +160,14 @@ export type { AnalyticsEvent } from './types/AnalyticsEvent';
 │ • template              │
 ├─────────────────────────┤
 │ All depend on:          │
-│ • @sudoku-web/shared   │
-│ • @sudoku-web/types    │
+│ • @bubblyclouds-app/shared   │
+│ • @bubblyclouds-app/types    │
 └─────────────────────────┘
            ↓
 ┌─────────────────────────┐
 │   Core Packages         │
-│ • @sudoku-web/shared   │
-│ • @sudoku-web/types    │
+│ • @bubblyclouds-app/shared   │
+│ • @bubblyclouds-app/types    │
 ├─────────────────────────┤
 │ Have NO dependencies    │
 │ (except React, lodash)  │
@@ -183,21 +183,21 @@ export type { AnalyticsEvent } from './types/AnalyticsEvent';
 **Do This** ✅:
 ```typescript
 // Import from package public API
-import { useAuth } from '@sudoku-web/auth';
-import { Button, Header } from '@sudoku-web/ui';
-import { useParty } from '@sudoku-web/template';
+import { useAuth } from '@bubblyclouds-app/auth';
+import { Button, Header } from '@bubblyclouds-app/ui';
+import { useParty } from '@bubblyclouds-app/template';
 ```
 
 **Don't Do This** ❌:
 ```typescript
 // DON'T import internals
-import { AuthProvider } from '@sudoku-web/auth/src/providers/AuthProvider';
+import { AuthProvider } from '@bubblyclouds-app/auth/src/providers/AuthProvider';
 
 // DON'T import from apps
 import { SudokuGame } from 'apps/sudoku/src/components/SudokuGame';
 
 // DON'T bypass the public API
-import { getTokenInternal } from '@sudoku-web/auth/src/internal/token';
+import { getTokenInternal } from '@bubblyclouds-app/auth/src/internal/token';
 ```
 
 ---
@@ -240,7 +240,7 @@ describe('Card', () => {
 4. **Use in app**:
 ```typescript
 // apps/template/src/components/MyPage.tsx
-import { Card } from '@sudoku-web/ui';
+import { Card } from '@bubblyclouds-app/ui';
 
 export function MyPage() {
   return <Card>Page content here</Card>;
@@ -283,7 +283,7 @@ describe('useVerifyEmail', () => {
 
 4. **Use in app**:
 ```typescript
-import { useVerifyEmail } from '@sudoku-web/auth';
+import { useVerifyEmail } from '@bubblyclouds-app/auth';
 
 export function VerificationPrompt() {
   const { isVerified, sendVerificationEmail } = useVerifyEmail();
@@ -299,7 +299,7 @@ export function VerificationPrompt() {
 2. **Create package if needed**: Or add to existing package
 3. **Move files**: Copy component/hook to package with tests
 4. **Export from index.ts**: Add to package's public API
-5. **Update imports**: Change all app imports to use `@sudoku-web/*` alias
+5. **Update imports**: Change all app imports to use `@bubblyclouds-app/*` alias
 6. **Run tests**: Ensure no regressions (`npm test`)
 7. **Delete old code**: Remove from app (if not needed)
 
@@ -311,7 +311,7 @@ mv apps/sudoku/src/hooks/useParty.test.ts packages/template/src/hooks/useParty.t
 
 # Update app imports
 # FROM: import { useParty } from 'src/hooks/useParty';
-# TO:   import { useParty } from '@sudoku-web/template';
+# TO:   import { useParty } from '@bubblyclouds-app/template';
 ```
 
 ---
@@ -340,7 +340,7 @@ npm test
 ### Run Tests for Specific Package
 
 ```bash
-npm test -w @sudoku-web/auth
+npm test -w @bubblyclouds-app/auth
 npm test -w apps/template
 ```
 
@@ -353,7 +353,7 @@ npm test -- --coverage
 ### Watch Mode (during development)
 
 ```bash
-npm test -w @sudoku-web/ui -- --watch
+npm test -w @bubblyclouds-app/ui -- --watch
 ```
 
 ---
@@ -388,7 +388,7 @@ npm run lint
 
 ## Troubleshooting
 
-### Issue: Module Not Found `@sudoku-web/auth`
+### Issue: Module Not Found `@bubblyclouds-app/auth`
 
 **Cause**: TypeScript path alias not configured or package not installed
 

@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { isCapacitor } from '@sudoku-web/template/helpers/capacitor';
+import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 
 function TestersContent() {
   const router = useRouter();

@@ -9,7 +9,7 @@ This refactoring does not introduce new data models or modify existing ones. Ins
 
 ## Component Categories (Organizational Model)
 
-### Category 1: Generic Game Components → `@sudoku-web/games`
+### Category 1: Generic Game Components → `@bubblyclouds-app/games`
 
 **Purpose**: Reusable UI components for competitive game applications
 
@@ -31,7 +31,7 @@ This refactoring does not introduce new data models or modify existing ones. Ins
 
 **Dependencies**: None (zero package dependencies, only React/UI framework)
 
-### Category 2: Sudoku-Specific Components → `@sudoku-web/sudoku`
+### Category 2: Sudoku-Specific Components → `@bubblyclouds-app/sudoku`
 
 **Purpose**: Sudoku game logic and game-specific UI
 
@@ -55,9 +55,9 @@ This refactoring does not introduce new data models or modify existing ones. Ins
 
 **State**: Game state managed internally or via sudoku-specific providers
 
-**Dependencies**: May import from `@sudoku-web/games` for generic components (e.g., TimerDisplay)
+**Dependencies**: May import from `@bubblyclouds-app/games` for generic components (e.g., TimerDisplay)
 
-### Category 3: Party/Collaboration Components → `@sudoku-web/template`
+### Category 3: Party/Collaboration Components → `@bubblyclouds-app/template`
 
 **Purpose**: Multi-player party management (game-agnostic)
 
@@ -72,9 +72,9 @@ This refactoring does not introduce new data models or modify existing ones. Ins
 | `MyPuzzlesTab` | User's puzzle history | `sessions: GameSession[]` |
 | `IntegratedSessionRow` | Single session display | `session: GameSession` |
 
-**State**: Uses Parties provider from `@sudoku-web/template` (existing)
+**State**: Uses Parties provider from `@bubblyclouds-app/template` (existing)
 
-**Dependencies**: May import from `@sudoku-web/ui` for base UI components
+**Dependencies**: May import from `@bubblyclouds-app/ui` for base UI components
 
 ### Category 4: App-Specific Components → `apps/sudoku`
 
@@ -104,7 +104,7 @@ This refactoring does not introduce new data models or modify existing ones. Ins
          │        │                   │
          ▼        ▼                   ▼
 ┌────────────┐ ┌────────────┐ ┌──────────────┐
-│ @sudoku-   │ │ @sudoku-   │ │ @sudoku-web/ │
+│ @sudoku-   │ │ @sudoku-   │ │ @bubblyclouds-app/ │
 │ web/sudoku │ │ web/       │ │ template     │
 │            │ │ games      │ │              │
 └─────┬──────┘ └────────────┘ └──────┬───────┘
@@ -114,21 +114,21 @@ This refactoring does not introduce new data models or modify existing ones. Ins
                  │
                  ▼
          ┌───────────────┐
-         │ @sudoku-web/  │
+         │ @bubblyclouds-app/  │
          │ ui            │
          └───────┬───────┘
                  │
                  ▼
          ┌───────────────┐
-         │ @sudoku-web/  │
+         │ @bubblyclouds-app/  │
          │ shared, types │
          └───────────────┘
 ```
 
 **Key Dependency Rules**:
-1. `@sudoku-web/games` → Zero dependencies on feature packages
-2. `@sudoku-web/template` → No dependency on games or sudoku
-3. `@sudoku-web/sudoku` → Can import from games (generic components)
+1. `@bubblyclouds-app/games` → Zero dependencies on feature packages
+2. `@bubblyclouds-app/template` → No dependency on games or sudoku
+3. `@bubblyclouds-app/sudoku` → Can import from games (generic components)
 4. `apps/sudoku` → Can import from all packages (apps consume)
 
 ## Component Interface Contracts
@@ -181,7 +181,7 @@ export const SudokuComponent: React.FC<SudokuComponentProps> = ({
   puzzle,
   onMove,
 }) => {
-  // Can import from @sudoku-web/games for generic UI
+  // Can import from @bubblyclouds-app/games for generic UI
   // Can use sudoku-specific helpers
   return (/* JSX */);
 };

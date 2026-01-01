@@ -16,7 +16,7 @@ jest.mock('next/dynamic', () => ({
 }));
 
 // Mock the subcomponents
-jest.mock('@sudoku-web/auth/components/HeaderUser', () => {
+jest.mock('@bubblyclouds-app/auth/components/HeaderUser', () => {
   return function DummyHeaderUser() {
     return <div data-testid="header-user">Header User</div>;
   };

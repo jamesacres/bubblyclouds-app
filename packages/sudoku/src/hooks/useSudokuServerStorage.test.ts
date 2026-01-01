@@ -1,8 +1,8 @@
 import { renderHook, act } from '@testing-library/react';
 import { useSudokuServerStorage } from './useSudokuServerStorage';
-import { StateType } from '@sudoku-web/types/stateType';
+import { StateType } from '@bubblyclouds-app/types/stateType';
 import { SudokuBookOfTheMonth, SudokuOfTheDay } from '../types/serverTypes';
-import { Difficulty } from '@sudoku-web/games/types/difficulty';
+import { Difficulty } from '@bubblyclouds-app/games/types/difficulty';
 
 const createMockBaseStorage = (overrides = {}) => ({
   getValue: jest.fn().mockResolvedValue(undefined),
@@ -24,9 +24,9 @@ const createMockBaseStorage = (overrides = {}) => ({
   ...overrides,
 });
 
-jest.mock('@sudoku-web/template/hooks/serverStorage');
-jest.mock('@sudoku-web/auth/hooks/useFetch');
-jest.mock('@sudoku-web/template/hooks/online');
+jest.mock('@bubblyclouds-app/template/hooks/serverStorage');
+jest.mock('@bubblyclouds-app/auth/hooks/useFetch');
+jest.mock('@bubblyclouds-app/template/hooks/online');
 
 describe('useSudokuServerStorage', () => {
   const mockSudokuOfTheDayResponse = {
@@ -49,9 +49,9 @@ describe('useSudokuServerStorage', () => {
     jest.clearAllMocks();
     const {
       useServerStorage,
-    } = require('@sudoku-web/template/hooks/serverStorage');
-    const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
-    const { useOnline } = require('@sudoku-web/template/hooks/online');
+    } = require('@bubblyclouds-app/template/hooks/serverStorage');
+    const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
+    const { useOnline } = require('@bubblyclouds-app/template/hooks/online');
 
     useServerStorage.mockReturnValue(createMockBaseStorage());
     useFetch.mockReturnValue({ fetch: jest.fn() });
@@ -104,7 +104,7 @@ describe('useSudokuServerStorage', () => {
     it('should pass app and apiUrl to base storage', () => {
       const {
         useServerStorage,
-      } = require('@sudoku-web/template/hooks/serverStorage');
+      } = require('@bubblyclouds-app/template/hooks/serverStorage');
       renderHook(() =>
         useSudokuServerStorage({
           app: 'sudoku',
@@ -123,7 +123,7 @@ describe('useSudokuServerStorage', () => {
 
   describe('getSudokuOfTheDay', () => {
     it('should fetch sudoku of the day when online and logged in', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockResolvedValue({
         ok: true,
         json: jest.fn().mockResolvedValue(mockSudokuOfTheDayResponse),
@@ -149,7 +149,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should convert date strings to Date objects', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockResolvedValue({
         ok: true,
         json: jest.fn().mockResolvedValue(mockSudokuOfTheDayResponse),
@@ -175,7 +175,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should return undefined when offline', async () => {
-      const { useOnline } = require('@sudoku-web/template/hooks/online');
+      const { useOnline } = require('@bubblyclouds-app/template/hooks/online');
       useOnline.mockReturnValue({ isOnline: false });
 
       const { result } = renderHook(() =>
@@ -198,7 +198,7 @@ describe('useSudokuServerStorage', () => {
     it('should return undefined when not logged in', async () => {
       const {
         useServerStorage,
-      } = require('@sudoku-web/template/hooks/serverStorage');
+      } = require('@bubblyclouds-app/template/hooks/serverStorage');
       useServerStorage.mockReturnValue(
         createMockBaseStorage({
           isLoggedIn: jest.fn().mockResolvedValue(false),
@@ -223,7 +223,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should return undefined when fetch fails', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockResolvedValue({
         ok: false,
         json: jest.fn(),
@@ -248,7 +248,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should return undefined on network error', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockRejectedValue(new Error('Network error'));
       useFetch.mockReturnValue({ fetch: mockFetch });
 
@@ -271,7 +271,7 @@ describe('useSudokuServerStorage', () => {
 
     it('should log info message when fetching', async () => {
       const consoleSpy = jest.spyOn(console, 'info').mockImplementation();
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockResolvedValue({
         ok: true,
         json: jest.fn().mockResolvedValue(mockSudokuOfTheDayResponse),
@@ -299,7 +299,7 @@ describe('useSudokuServerStorage', () => {
 
     it('should log error on exception', async () => {
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const testError = new Error('Test error');
       const mockFetch = jest.fn().mockRejectedValue(testError);
       useFetch.mockReturnValue({ fetch: mockFetch });
@@ -323,7 +323,7 @@ describe('useSudokuServerStorage', () => {
 
   describe('getSudokuBookOfTheMonth', () => {
     it('should fetch sudoku book of the month when online and logged in', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockResolvedValue({
         ok: true,
         json: jest.fn().mockResolvedValue(mockSudokuBookOfTheMonthResponse),
@@ -347,7 +347,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should convert date strings to Date objects for book of the month', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockResolvedValue({
         ok: true,
         json: jest.fn().mockResolvedValue(mockSudokuBookOfTheMonthResponse),
@@ -371,7 +371,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should return undefined when offline', async () => {
-      const { useOnline } = require('@sudoku-web/template/hooks/online');
+      const { useOnline } = require('@bubblyclouds-app/template/hooks/online');
       useOnline.mockReturnValue({ isOnline: false });
 
       const { result } = renderHook(() =>
@@ -392,7 +392,7 @@ describe('useSudokuServerStorage', () => {
     it('should return undefined when not logged in', async () => {
       const {
         useServerStorage,
-      } = require('@sudoku-web/template/hooks/serverStorage');
+      } = require('@bubblyclouds-app/template/hooks/serverStorage');
       useServerStorage.mockReturnValue(
         createMockBaseStorage({
           isLoggedIn: jest.fn().mockResolvedValue(false),
@@ -415,7 +415,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should return undefined when fetch fails', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockResolvedValue({
         ok: false,
         json: jest.fn(),
@@ -438,7 +438,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should return undefined on network error', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockRejectedValue(new Error('Network error'));
       useFetch.mockReturnValue({ fetch: mockFetch });
 
@@ -459,7 +459,7 @@ describe('useSudokuServerStorage', () => {
 
     it('should log info message when fetching', async () => {
       const consoleSpy = jest.spyOn(console, 'info').mockImplementation();
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest.fn().mockResolvedValue({
         ok: true,
         json: jest.fn().mockResolvedValue(mockSudokuBookOfTheMonthResponse),
@@ -486,7 +486,7 @@ describe('useSudokuServerStorage', () => {
 
     it('should log error on exception', async () => {
       const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const testError = new Error('Test error');
       const mockFetch = jest.fn().mockRejectedValue(testError);
       useFetch.mockReturnValue({ fetch: mockFetch });
@@ -510,7 +510,7 @@ describe('useSudokuServerStorage', () => {
 
   describe('edge cases and integration', () => {
     it('should handle both functions being called in sequence', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const mockFetch = jest
         .fn()
         .mockResolvedValueOnce({
@@ -544,7 +544,7 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should properly handle API response with all fields', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const complexResponse = {
         ...mockSudokuOfTheDayResponse,
         extraField: 'should be preserved',
@@ -574,10 +574,10 @@ describe('useSudokuServerStorage', () => {
     });
 
     it('should use apiUrl from baseStorage', async () => {
-      const { useFetch } = require('@sudoku-web/auth/hooks/useFetch');
+      const { useFetch } = require('@bubblyclouds-app/auth/hooks/useFetch');
       const {
         useServerStorage,
-      } = require('@sudoku-web/template/hooks/serverStorage');
+      } = require('@bubblyclouds-app/template/hooks/serverStorage');
 
       const customApiUrl = 'https://custom-api.example.com';
       useServerStorage.mockReturnValue(

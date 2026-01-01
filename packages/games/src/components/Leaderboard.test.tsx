@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Leaderboard from './Leaderboard';
-import { UserProfile } from '@sudoku-web/types/userProfile';
-import { UserSessions } from '@sudoku-web/types/userSessions';
+import { UserProfile } from '@bubblyclouds-app/types/userProfile';
+import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { Puzzle } from '../types/puzzle';
-import { BaseServerState } from '@sudoku-web/template/types/state';
+import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
-import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
+import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
 import * as scoringUtils from '../helpers/scoringUtils';
 
 const isPuzzleCheated = jest.fn().mockReturnValue(false);

@@ -1,5 +1,5 @@
 // Sudoku package test placeholder
-describe('@sudoku-web/sudoku', () => {
+describe('@bubblyclouds-app/sudoku', () => {
   it('should export sudoku package', () => {
     expect(true).toBe(true);
   });

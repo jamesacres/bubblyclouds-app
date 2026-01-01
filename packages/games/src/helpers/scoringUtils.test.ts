@@ -7,7 +7,7 @@ import {
   getUsernameFromParties,
 } from './scoringUtils';
 import { SCORING_CONFIG } from './scoringConfig';
-import { Party } from '@sudoku-web/types/serverTypes';
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 
 const isPuzzleCheated = jest.fn().mockReturnValue(false);
 

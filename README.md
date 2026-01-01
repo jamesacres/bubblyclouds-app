@@ -1,4 +1,4 @@
-# Sudoku Web - Modular Turborepo Architecture
+# Bubbly Clouds App - Modular Turborepo Architecture
 
 A modular, reusable web application framework built with Next.js, TypeScript,
 and Turborepo. Designed for building collaborative applications with built-in
@@ -11,12 +11,13 @@ This monorepo follows a package-based architecture where core functionality is
 organized into reusable packages that multiple applications can build on:
 
 ```
-sudoku-web/
+bubblyclouds-app/
 ├── packages/              # Reusable packages (core functionality)
 │   ├── auth/             # Authentication & user management
 │   ├── ui/               # Shared UI components & theming
 │   ├── template/         # Collaborative features (parties, sessions)
-│   ├── sudoku/           # Game-specific logic (sudoku only)
+│   ├── games/            # Shared game logic & components
+│   ├── sudoku/           # Sudoku-specific logic
 │   ├── shared/           # Generic utilities
 │   └── types/            # Shared TypeScript types
 │
@@ -38,16 +39,19 @@ Apps Layer:
          ├───────────────────────┤
          │                       │
 Feature Packages:
-┌────────┴────────┬──────────────┴─────────┬──────────┐
-│  @sudoku-web/   │  @sudoku-web/template  │  @sudoku-│
-│      auth       │                        │web/sudoku│
-└────────┬────────┴────────────┬───────────┴──────────┘
-         │                     │
-UI & Core Packages:
-┌────────┴─────────┬───────────┴──────┬─────────────┐
-│ @sudoku-web/ui   │ @sudoku-web/     │ @sudoku-web/│
-│                  │    shared        │    types    │
-└──────────────────┴──────────────────┴─────────────┘
+┌────────┴────────┬───────────┴──────────┬────────────┐
+│ @bubblyclouds   │  @bubblyclouds       │ @bubbly    │
+│ -app/auth       │  -app/template       │ clouds-app/│
+│                 │                      │ sudoku     │
+└────────┬────────┴──────────┬───────────┴────────────┘
+         │                   │
+Game & UI Packages:
+┌────────┴─────────┬─────────┴──────┬──────────────┬──────────┐
+│ @bubblyclouds    │ @bubblyclouds  │ @bubblyclouds│ @bubbly  │
+│ -app/games       │ -app/ui        │ -app/shared  │ clouds   │
+│                  │                │              │ -app/    │
+│                  │                │              │ types    │
+└──────────────────┴────────────────┴──────────────┴──────────┘
 ```
 
 **Key Principles**:
@@ -69,7 +73,7 @@ UI & Core Packages:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd sudoku-web
+cd bubblyclouds-app
 
 # Install dependencies
 npm install
@@ -97,10 +101,10 @@ npm run build:template
 npm run build:sudoku
 
 # Build for specific platforms
-npm run build:capacitor  # iOS/Android
-npm run build:electron   # Desktop app
-npm run build:ios        # iOS only
-npm run build:android    # Android only
+npm run build:sudoku:capacitor     # Sudoku iOS/Android
+npm run build:sudoku:electron      # Sudoku desktop
+npm run build:template:capacitor   # Template iOS/Android
+npm run build:template:electron    # Template desktop
 ```
 
 ### Testing
@@ -139,20 +143,20 @@ integration guides, and examples:
 
 ### Core Packages
 
-- **[@sudoku-web/auth](./packages/auth/README.md)** - Authentication & user
+- **[@bubblyclouds-app/auth](./packages/auth/README.md)** - Authentication & user
   management
   - OAuth 2.0 with PKCE flow
   - Multi-platform support (web, iOS, Android, Electron)
   - User profile management
   - Session persistence
 
-- **[@sudoku-web/ui](./packages/ui/README.md)** - Shared UI components & theming
+- **[@bubblyclouds-app/ui](./packages/ui/README.md)** - Shared UI components & theming
   - Dark/light mode support
   - Custom theme colors
   - Responsive layout components
   - Platform-specific adaptations
 
-- **[@sudoku-web/template](./packages/template/README.md)** - Collaborative
+- **[@bubblyclouds-app/template](./packages/template/README.md)** - Collaborative
   features (game-agnostic)
   - Party/group management
   - Session tracking
@@ -160,7 +164,15 @@ integration guides, and examples:
   - Application infrastructure
   - Premium features integration
 
-- **[@sudoku-web/sudoku](./packages/sudoku/README.md)** - Sudoku game logic &
+- **[@bubblyclouds-app/games](./packages/games/README.md)** - Shared game logic &
+  components
+  - Scoring utilities
+  - Leaderboard components
+  - Race tracking
+  - Traffic light system
+  - Game-agnostic helpers
+
+- **[@bubblyclouds-app/sudoku](./packages/sudoku/README.md)** - Sudoku game logic &
   components
   - Puzzle validation and solving
   - Grid calculations
@@ -170,12 +182,12 @@ integration guides, and examples:
 
 ### Utility Packages
 
-- **[@sudoku-web/shared](./packages/shared/README.md)** - Generic utilities
+- **[@bubblyclouds-app/shared](./packages/shared/README.md)** - Generic utilities
   - Time formatting
   - Platform detection
   - Helper functions
 
-- **[@sudoku-web/types](./packages/types/README.md)** - Shared TypeScript types
+- **[@bubblyclouds-app/types](./packages/types/README.md)** - Shared TypeScript types
   - Type definitions
   - Interfaces
   - Enums
@@ -245,29 +257,28 @@ npm run dev           # Development
 npm run build         # Production build
 ```
 
-### iOS
+### iOS/Android (Capacitor)
 
 ```bash
-npm run build:ios     # Build and open in Xcode
-npm run start:ios     # Run on iOS device/simulator
-```
+# Build for mobile platforms
+npm run build:sudoku:capacitor     # Build Sudoku for iOS/Android
+npm run build:template:capacitor   # Build Template for iOS/Android
 
-### Android
-
-```bash
-npm run build:android # Build and open in Android Studio
-npm run start:android # Run on Android device/emulator
+# Then use Capacitor CLI to run on devices
+npx cap open ios        # Open in Xcode
+npx cap open android    # Open in Android Studio
 ```
 
 ### Desktop (Electron)
 
 ```bash
-npm run build:electron # Build desktop app
+npm run build:sudoku:electron      # Build Sudoku desktop app
+npm run build:template:electron    # Build Template desktop app
 ```
 
 ## Technology Stack
 
-- **Framework**: Next.js 14
+- **Framework**: Next.js 16
 - **Language**: TypeScript 5
 - **Build Tool**: Turborepo
 - **Package Manager**: npm workspaces
@@ -281,7 +292,7 @@ npm run build:electron # Build desktop app
 ## Project Structure
 
 ```
-sudoku-web/
+bubblyclouds-app/
 ├── apps/
 │   ├── template/         # Standalone collaboration app
 │   │   ├── src/         # App source code
@@ -296,7 +307,8 @@ sudoku-web/
 │   ├── auth/            # Authentication package
 │   ├── ui/              # UI components package
 │   ├── template/        # Template features package
-│   ├── sudoku/          # Game-specific package
+│   ├── games/           # Shared game logic package
+│   ├── sudoku/          # Sudoku-specific package
 │   ├── shared/          # Shared utilities
 │   └── types/           # TypeScript types
 │
@@ -337,10 +349,9 @@ For issues and questions:
 
 - GitHub Issues: [repository-url]/issues
 - Documentation: See `/specs` directory
-- Quick Start: See [QUICKSTART.md](/home/node/sudoku-web/QUICKSTART.md)
 
 ## Version
 
-Current Version: 2.0.0
+Current Version: 0.1.0
 
-See [CHANGELOG.md](/home/node/sudoku-web/CHANGELOG.md) for version history.
+See CHANGELOG.md for version history.

@@ -1,17 +1,17 @@
 'use client';
 
 import { useCallback } from 'react';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useServerStorage } from '@bubblyclouds-app/template/hooks/serverStorage';
 import {
   SudokuOfTheDay,
   SudokuBookOfTheMonth,
   SudokuOfTheDayResponse,
   SudokuBookOfTheMonthResponse,
 } from '../types/serverTypes';
-import { Difficulty } from '@sudoku-web/games/types/difficulty';
-import { StateType } from '@sudoku-web/types/stateType';
-import { useFetch } from '@sudoku-web/auth/hooks/useFetch';
-import { useOnline } from '@sudoku-web/template/hooks/online';
+import { Difficulty } from '@bubblyclouds-app/games/types/difficulty';
+import { StateType } from '@bubblyclouds-app/types/stateType';
+import { useFetch } from '@bubblyclouds-app/auth/hooks/useFetch';
+import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 
 function useSudokuServerStorage({
   app,

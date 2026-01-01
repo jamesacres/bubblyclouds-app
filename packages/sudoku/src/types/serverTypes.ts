@@ -1,7 +1,7 @@
 import {
   Difficulty,
   BookPuzzleDifficulty,
-} from '@sudoku-web/games/types/difficulty';
+} from '@bubblyclouds-app/games/types/difficulty';
 
 export interface SudokuOfTheDayResponse {
   sudokuId: string;

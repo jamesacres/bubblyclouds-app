@@ -1,19 +1,19 @@
 'use client';
-import { useSudokuServerStorage } from '@sudoku-web/sudoku/hooks/useSudokuServerStorage';
+import { useSudokuServerStorage } from '@bubblyclouds-app/sudoku/hooks/useSudokuServerStorage';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
-import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
 import { PREMIUM_FEATURES } from '../../config/premiumFeatures';
 import { APP_CONFIG } from '../../../app.config.js';
 import {
   PublicInvite,
   EntitlementDuration,
-} from '@sudoku-web/types/serverTypes';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
+} from '@bubblyclouds-app/types/serverTypes';
+import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import { Loader, Users, Star } from 'react-feather';

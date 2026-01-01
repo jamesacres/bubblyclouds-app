@@ -3,8 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@sudoku-web/types": ["../types/src"],
-      "@sudoku-web/types/*": ["../types/src/*"],
+      "@bubblyclouds-app/types": ["../types/src"],
+      "@bubblyclouds-app/types/*": ["../types/src/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

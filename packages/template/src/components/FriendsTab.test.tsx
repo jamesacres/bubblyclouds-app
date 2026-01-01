@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { FriendsTab } from './FriendsTab';
 import { useSessions } from '../providers/SessionsProvider';
-import { UserProfile } from '@sudoku-web/types/userProfile';
-import { Party } from '@sudoku-web/types/serverTypes';
+import { UserProfile } from '@bubblyclouds-app/types/userProfile';
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 jest.mock('react-feather', () => ({
   Loader: () => <div data-testid="loader" />,
   ChevronDown: () => <div data-testid="chevron-down" />,
@@ -20,7 +20,7 @@ jest.mock('./IntegratedSessionRow', () => ({
     <div data-testid={`session-${session.sessionId}`} />
   ),
 }));
-jest.mock('@sudoku-web/games/components/Leaderboard', () => ({
+jest.mock('@bubblyclouds-app/games/components/Leaderboard', () => ({
   __esModule: true,
   default: () => <div data-testid="leaderboard" />,
 }));

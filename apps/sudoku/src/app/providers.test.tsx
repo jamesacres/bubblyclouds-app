@@ -12,14 +12,14 @@ jest.mock('next/navigation', () => ({
 }));
 
 // Mock auth providers
-jest.mock('@sudoku-web/auth/providers/FetchProvider', () => ({
+jest.mock('@bubblyclouds-app/auth/providers/FetchProvider', () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="fetch-provider">{children}</div>
   ),
 }));
 
-jest.mock('@sudoku-web/auth/providers/UserProvider', () => ({
+jest.mock('@bubblyclouds-app/auth/providers/UserProvider', () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="user-provider">{children}</div>
@@ -27,28 +27,28 @@ jest.mock('@sudoku-web/auth/providers/UserProvider', () => ({
 }));
 
 // Mock template providers
-jest.mock('@sudoku-web/template/providers/CapacitorProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/CapacitorProvider', () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="capacitor-provider">{children}</div>
   ),
 }));
 
-jest.mock('@sudoku-web/template/providers/GlobalStateProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/GlobalStateProvider', () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="global-state-provider">{children}</div>
   ),
 }));
 
-jest.mock('@sudoku-web/template/providers/RevenueCatProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/RevenueCatProvider', () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="revenue-cat-provider">{children}</div>
   ),
 }));
 
-jest.mock('@sudoku-web/template/providers/SessionsProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   __esModule: true,
   SessionsProvider: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="sessions-provider">{children}</div>
@@ -56,21 +56,21 @@ jest.mock('@sudoku-web/template/providers/SessionsProvider', () => ({
 }));
 
 // Mock UI providers
-jest.mock('@sudoku-web/ui/providers/ThemeColorProvider', () => ({
+jest.mock('@bubblyclouds-app/ui/providers/ThemeColorProvider', () => ({
   ThemeColorProvider: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="theme-color-provider">{children}</div>
   ),
 }));
 
 // Mock sudoku providers
-jest.mock('@sudoku-web/template/providers/PartiesProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/PartiesProvider', () => ({
   __esModule: true,
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="parties-provider">{children}</div>
   ),
 }));
 
-jest.mock('@sudoku-web/sudoku/providers/BookProvider', () => ({
+jest.mock('@bubblyclouds-app/sudoku/providers/BookProvider', () => ({
   __esModule: true,
   BookProvider: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="book-provider">{children}</div>

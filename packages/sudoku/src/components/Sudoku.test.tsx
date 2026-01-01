@@ -3,16 +3,16 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Sudoku from './Sudoku';
 import { useGameState } from '../hooks/gameState';
-import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { useRouter } from 'next/navigation';
 
 jest.mock('../hooks/gameState');
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
-jest.mock('@sudoku-web/template/providers/SessionsProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: jest.fn(),
 }));
 jest.mock('../hooks/useDrag', () => ({
@@ -41,17 +41,17 @@ jest.mock('../components/SudokuControls', () => {
   };
 });
 
-jest.mock('@sudoku-web/ui/components/TimerDisplay', () => ({
+jest.mock('@bubblyclouds-app/ui/components/TimerDisplay', () => ({
   TimerDisplay: () => <div data-testid="timer-display">Timer</div>,
 }));
 
-jest.mock('@sudoku-web/template/components/Sidebar', () => {
+jest.mock('@bubblyclouds-app/template/components/Sidebar', () => {
   return function DummySidebar() {
     return <div data-testid="sudoku-sidebar">Sidebar</div>;
   };
 });
 
-jest.mock('@sudoku-web/games/components/SidebarButton', () => {
+jest.mock('@bubblyclouds-app/games/components/SidebarButton', () => {
   const DummySidebarButton = function DummySidebarButton() {
     return <div data-testid="sidebar-button">Button</div>;
   };
@@ -62,11 +62,11 @@ jest.mock('@sudoku-web/games/components/SidebarButton', () => {
   };
 });
 
-jest.mock('@sudoku-web/ui/components/CelebrationAnimation', () => ({
+jest.mock('@bubblyclouds-app/ui/components/CelebrationAnimation', () => ({
   CelebrationAnimation: () => <div data-testid="celebration">Celebration</div>,
 }));
 
-jest.mock('@sudoku-web/games/components/RaceTrack', () => {
+jest.mock('@bubblyclouds-app/games/components/RaceTrack', () => {
   const DummyRaceTrack = function DummyRaceTrack() {
     return <div data-testid="race-track">Race Track</div>;
   };
@@ -76,7 +76,7 @@ jest.mock('@sudoku-web/games/components/RaceTrack', () => {
   };
 });
 
-jest.mock('@sudoku-web/template/components/RacingPromptModal', () => {
+jest.mock('@bubblyclouds-app/template/components/RacingPromptModal', () => {
   return function DummyRacingPromptModal({ onRace, onSolo }: any) {
     return (
       <div data-testid="racing-prompt">
@@ -91,7 +91,7 @@ jest.mock('@sudoku-web/template/components/RacingPromptModal', () => {
   };
 });
 
-jest.mock('@sudoku-web/template/components/AppDownloadModal', () => ({
+jest.mock('@bubblyclouds-app/template/components/AppDownloadModal', () => ({
   AppDownloadModal: ({
     onClose,
     appName,
@@ -117,7 +117,7 @@ jest.mock('@sudoku-web/template/components/AppDownloadModal', () => ({
   ),
 }));
 
-jest.mock('@sudoku-web/template/helpers/capacitor', () => ({
+jest.mock('@bubblyclouds-app/template/helpers/capacitor', () => ({
   isCapacitor: jest.fn(() => false),
 }));
 
@@ -134,7 +134,7 @@ jest.mock('../helpers/checkAnswer', () => ({
   isInitialCell: jest.fn(() => false),
 }));
 
-jest.mock('@sudoku-web/template/helpers/calculateSeconds', () => ({
+jest.mock('@bubblyclouds-app/template/helpers/calculateSeconds', () => ({
   calculateSeconds: jest.fn(() => 120),
 }));
 
@@ -143,22 +143,22 @@ jest.mock('../utils/dailyPuzzleCounter', () => ({
   getDailyPuzzleCount: jest.fn(() => 1),
 }));
 
-jest.mock('@sudoku-web/template/config/dailyLimits', () => ({
+jest.mock('@bubblyclouds-app/template/config/dailyLimits', () => ({
   DAILY_LIMITS: {
     FREE_DAILY_PUZZLES: 3,
   },
 }));
 
-jest.mock('@sudoku-web/types/subscriptionContext', () => ({
+jest.mock('@bubblyclouds-app/types/subscriptionContext', () => ({
   SubscriptionContext: {},
 }));
 
-jest.mock('@sudoku-web/auth/providers/AuthProvider', () => ({
+jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
   UserContext: React.createContext(null),
   UserContextInterface: {},
 }));
 
-jest.mock('@sudoku-web/template/providers/RevenueCatProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/RevenueCatProvider', () => ({
   RevenueCatContext: React.createContext(null),
 }));
 

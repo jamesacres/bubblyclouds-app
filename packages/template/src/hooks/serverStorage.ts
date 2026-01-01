@@ -1,13 +1,13 @@
 'use client';
 
 import { useCallback, useContext, useRef } from 'react';
-import { useFetch } from '@sudoku-web/auth/hooks/useFetch';
+import { useFetch } from '@bubblyclouds-app/auth/hooks/useFetch';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { StateType } from '@sudoku-web/types/stateType';
-import { UserProfile } from '@sudoku-web/types/userProfile';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { StateType } from '@bubblyclouds-app/types/stateType';
+import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useOnline } from './online';
 import {
   MemberResponse,
@@ -20,7 +20,7 @@ import {
   Invite,
   InviteResponse,
   PublicInvite,
-} from '@sudoku-web/types/serverTypes';
+} from '@bubblyclouds-app/types/serverTypes';
 
 const responseToResult = <T>(
   response: StateResponse<T>

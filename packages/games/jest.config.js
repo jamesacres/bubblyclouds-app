@@ -14,7 +14,7 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   testTimeout: 10000,
   moduleNameMapper: {
-    '^@sudoku-web/types/(.*)$': '<rootDir>/../types/src/$1',
+    '^@bubblyclouds-app/types/(.*)$': '<rootDir>/../types/src/$1',
   },
   transform: {
     '^.+\\.tsx?$': [

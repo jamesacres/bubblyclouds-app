@@ -1,5 +1,5 @@
 {
-  "name": "@sudoku-web/games",
+  "name": "@bubblyclouds-app/games",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -16,8 +16,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@sudoku-web/template": "*",
-    "@sudoku-web/types": "*",
+    "@bubblyclouds-app/template": "*",
+    "@bubblyclouds-app/types": "*",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-feather": "^2.0.10"

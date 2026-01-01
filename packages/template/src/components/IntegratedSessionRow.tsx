@@ -1,16 +1,16 @@
 'use client';
 import { ComponentType, useContext } from 'react';
-import { Party, ServerStateResult } from '@sudoku-web/types/serverTypes';
+import { Party, ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import { useSessions } from '../providers/SessionsProvider';
 import { Award, Loader } from 'react-feather';
 import Link from 'next/link';
-import { UserSessions } from '@sudoku-web/types/userSessions';
+import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { BaseServerState } from '../types/state';
 
 // Function to get game status text

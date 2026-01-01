@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { PartyRow } from './PartyRow';
-import { Party } from '@sudoku-web/types/serverTypes';
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import {
   RevenueCatContextInterface,
   RevenueCatContext,
@@ -13,7 +13,7 @@ import {
 import * as usePartiesModule from '../hooks/useParties';
 
 jest.mock('../hooks/useParties');
-jest.mock('@sudoku-web/ui/components/TimerDisplay', () => ({
+jest.mock('@bubblyclouds-app/ui/components/TimerDisplay', () => ({
   default: () => <div data-testid="timer">Timer</div>,
 }));
 jest.mock('./PartyConfirmationDialog', () => ({
@@ -28,7 +28,7 @@ jest.mock('./PartyConfirmationDialog', () => ({
 jest.mock('./PartyInviteButton', () => ({
   PartyInviteButton: () => <div data-testid="invite-button">Invite</div>,
 }));
-jest.mock('@sudoku-web/ui', () => ({
+jest.mock('@bubblyclouds-app/ui', () => ({
   CopyButton: () => <div data-testid="copy-button">Copy</div>,
 }));
 jest.mock('../utils/playerColors', () => ({

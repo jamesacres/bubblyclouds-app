@@ -8,7 +8,7 @@ import { Timer } from '../types/timer';
 jest.mock('../hooks/documentVisibility');
 jest.mock('../hooks/localStorage');
 jest.mock('../helpers/calculateSeconds');
-jest.mock('@sudoku-web/types/stateType', () => ({
+jest.mock('@bubblyclouds-app/types/stateType', () => ({
   StateType: { TIMER: 'timer' },
 }));
 
@@ -24,10 +24,10 @@ describe('useTimer', () => {
     // Import and setup mocks
     const {
       useDocumentVisibility,
-    } = require('@sudoku-web/template/hooks/documentVisibility');
+    } = require('@bubblyclouds-app/template/hooks/documentVisibility');
     const {
       useLocalStorage,
-    } = require('@sudoku-web/template/hooks/localStorage');
+    } = require('@bubblyclouds-app/template/hooks/localStorage');
     const { calculateSeconds } = require('../helpers/calculateSeconds');
 
     mockUseDocumentVisibility = useDocumentVisibility;

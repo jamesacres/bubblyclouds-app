@@ -1,5 +1,5 @@
 import React from 'react';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { DAILY_LIMITS } from './dailyLimits';
 
 /**

@@ -14,12 +14,12 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   testTimeout: 10000,
   moduleNameMapper: {
-    '^@sudoku-web/games/(.*)$': '<rootDir>/../games/src/$1',
-    '^@sudoku-web/template/(.*)$': '<rootDir>/../template/src/$1',
-    '^@sudoku-web/auth/(.*)$': '<rootDir>/../auth/src/$1',
-    '^@sudoku-web/ui/(.*)$': '<rootDir>/../ui/src/$1',
-    '^@sudoku-web/types/(.*)$': '<rootDir>/../types/src/$1',
-    '^@sudoku-web/shared/(.*)$': '<rootDir>/../shared/src/$1',
+    '^@bubblyclouds-app/games/(.*)$': '<rootDir>/../games/src/$1',
+    '^@bubblyclouds-app/template/(.*)$': '<rootDir>/../template/src/$1',
+    '^@bubblyclouds-app/auth/(.*)$': '<rootDir>/../auth/src/$1',
+    '^@bubblyclouds-app/ui/(.*)$': '<rootDir>/../ui/src/$1',
+    '^@bubblyclouds-app/types/(.*)$': '<rootDir>/../types/src/$1',
+    '^@bubblyclouds-app/shared/(.*)$': '<rootDir>/../shared/src/$1',
   },
   transform: {
     '^.+\\.tsx?$': [

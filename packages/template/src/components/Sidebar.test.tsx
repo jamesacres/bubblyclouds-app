@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import {
   RevenueCatContextInterface,
   RevenueCatContext,

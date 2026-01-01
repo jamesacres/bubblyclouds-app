@@ -3,10 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@sudoku-web/types": ["../types/src"],
-      "@sudoku-web/types/*": ["../types/src/*"],
-      "@sudoku-web/shared": ["../shared/src"],
-      "@sudoku-web/shared/*": ["../shared/src/*"]
+      "@bubblyclouds-app/types": ["../types/src"],
+      "@bubblyclouds-app/types/*": ["../types/src/*"],
+      "@bubblyclouds-app/shared": ["../shared/src"],
+      "@bubblyclouds-app/shared/*": ["../shared/src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

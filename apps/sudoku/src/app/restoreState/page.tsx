@@ -2,7 +2,7 @@
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useContext, useEffect } from 'react';
 
 export default function Home() {

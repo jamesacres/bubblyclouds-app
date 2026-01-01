@@ -81,12 +81,12 @@ As a developer maintaining the codebase, I need clear package boundaries with no
 ### Package Scope *(if monorepo)*
 
 - **Affected Packages**:
-  - `@sudoku-web/sudoku` (will receive sudoku-specific components from app)
-  - `@sudoku-web/template` (will receive party-related components)
+  - `@bubblyclouds-app/sudoku` (will receive sudoku-specific components from app)
+  - `@bubblyclouds-app/template` (will receive party-related components)
   - `apps/sudoku` (will have components moved out to packages)
 
 - **New Packages**:
-  - `@sudoku-web/games` - Generic game components reusable across all competitive game applications (timers, race tracks, leaderboards, number pads, activity widgets, hint boxes)
+  - `@bubblyclouds-app/games` - Generic game components reusable across all competitive game applications (timers, race tracks, leaderboards, number pads, activity widgets, hint boxes)
 
 - **Dependency Compliance**:
   - No apps → packages dependencies will be created
@@ -96,7 +96,7 @@ As a developer maintaining the codebase, I need clear package boundaries with no
 
 - **Import Strategy**:
   - Relative imports within each package (e.g., `import { foo } from '../utils/foo'`)
-  - Package name imports across packages (e.g., `import { TimerDisplay } from '@sudoku-web/games'`)
+  - Package name imports across packages (e.g., `import { TimerDisplay } from '@bubblyclouds-app/games'`)
   - No barrel exports created (direct imports from source files)
   - Package.json exports field configured for each affected package
 

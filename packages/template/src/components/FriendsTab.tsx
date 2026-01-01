@@ -1,11 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { ServerStateResult, Party } from '@sudoku-web/types/serverTypes';
-import { UserProfile } from '@sudoku-web/types/userProfile';
+import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
+import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useSessions } from '../providers/SessionsProvider';
 import { Loader, ChevronDown, ChevronRight, RotateCcw } from 'react-feather';
 import IntegratedSessionRow from './IntegratedSessionRow';
-import Leaderboard from '@sudoku-web/games/components/Leaderboard';
+import Leaderboard from '@bubblyclouds-app/games/components/Leaderboard';
 import { BaseServerState } from '../types/state';
 
 interface FriendsTabProps<TState extends BaseServerState = BaseServerState> {

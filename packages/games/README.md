@@ -1,4 +1,4 @@
-# @sudoku-web/games
+# @bubblyclouds-app/games
 
 Generic game UI components for reuse across multiple game applications (Sudoku,
 Wordsearch, etc.).
@@ -7,7 +7,7 @@ Wordsearch, etc.).
 
 This package provides a collection of reusable game components that are not
 specific to any single game. These components are designed to be used across
-multiple game applications in the sudoku-web monorepo.
+multiple game applications in the bubblyclouds-app monorepo.
 
 ## Components
 
@@ -52,13 +52,13 @@ A component for displaying hints during gameplay.
 Install via npm in your application:
 
 ```bash
-npm install @sudoku-web/games
+npm install @bubblyclouds-app/games
 ```
 
 Import and use components:
 
 ```tsx
-import { TimerDisplay } from "@sudoku-web/ui/components/TimerDisplay";
+import { TimerDisplay } from "@bubblyclouds-app/ui/components/TimerDisplay";
 
 export function MyGame() {
   return <TimerDisplay seconds={300} onTimeUp={() => {}} />;
@@ -68,7 +68,7 @@ export function MyGame() {
 ## Architecture
 
 - **No dependencies on game-specific packages**: This package maintains zero
-  dependencies on `@sudoku-web/sudoku` or other feature packages
+  dependencies on `@bubblyclouds-app/sudoku` or other feature packages
 - **Uses dependency injection**: Components accept all necessary data as props
 - **Platform-agnostic**: Works across web, iOS (Capacitor), Android (Capacitor),
   and Electron
@@ -78,4 +78,4 @@ export function MyGame() {
 - No barrel exports (index.ts files) - import directly from component files
 - Relative imports within the package
 - Package name imports when used from other packages
-  (`@sudoku-web/games/components/ComponentName`)
+  (`@bubblyclouds-app/games/components/ComponentName`)

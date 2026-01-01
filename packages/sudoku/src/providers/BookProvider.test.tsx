@@ -2,11 +2,11 @@ import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { BookProvider, useBook } from './BookProvider';
 import { useSudokuServerStorage } from '../hooks/useSudokuServerStorage';
-import { useOnline } from '@sudoku-web/template/hooks/online';
+import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 import { SudokuBookOfTheMonth } from '../types/serverTypes';
 
 jest.mock('../hooks/useSudokuServerStorage');
-jest.mock('@sudoku-web/template/hooks/online');
+jest.mock('@bubblyclouds-app/template/hooks/online');
 
 const mockUseSudokuServerStorage = useSudokuServerStorage as jest.Mock;
 const mockUseOnline = useOnline as jest.Mock;

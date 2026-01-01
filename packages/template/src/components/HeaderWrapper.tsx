@@ -1,8 +1,8 @@
 'use client';
 
 import { useContext } from 'react';
-import Header from '@sudoku-web/ui/components/Header';
-import HeaderUser from '@sudoku-web/auth/components/HeaderUser';
+import Header from '@bubblyclouds-app/ui/components/Header';
+import HeaderUser from '@bubblyclouds-app/auth/components/HeaderUser';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { useOnline } from '../hooks/online';
 import { isCapacitor } from '../helpers/capacitor';

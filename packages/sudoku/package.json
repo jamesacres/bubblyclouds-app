@@ -1,5 +1,5 @@
 {
-  "name": "@sudoku-web/sudoku",
+  "name": "@bubblyclouds-app/sudoku",
   "version": "0.1.0",
   "private": true,
   "main": "./src/index.ts",
@@ -24,10 +24,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "@sudoku-web/auth": "*",
-    "@sudoku-web/games": "*",
-    "@sudoku-web/template": "*",
-    "@sudoku-web/types": "*",
+    "@bubblyclouds-app/auth": "*",
+    "@bubblyclouds-app/games": "*",
+    "@bubblyclouds-app/template": "*",
+    "@bubblyclouds-app/types": "*",
     "mathjs": "^13.0.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"

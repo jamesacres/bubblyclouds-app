@@ -1,31 +1,31 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { ArrowUp } from 'react-feather';
-import BookCover from '@sudoku-web/sudoku/components/BookCover';
+import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
 import { useContext, useEffect, useState, useCallback } from 'react';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { useOnline } from '@sudoku-web/template/hooks/online';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
-import { ServerStateResult } from '@sudoku-web/types/serverTypes';
-import { SudokuBookPuzzle } from '@sudoku-web/sudoku/types/serverTypes';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { useOnline } from '@bubblyclouds-app/template/hooks/online';
+import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
+import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
+import { SudokuBookPuzzle } from '@bubblyclouds-app/sudoku/types/serverTypes';
 import {
   puzzleTextToPuzzle,
   puzzleToPuzzleText,
-} from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
-import { GameState, ServerState } from '@sudoku-web/sudoku/types/state';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
-import { useBook } from '@sudoku-web/sudoku/providers/BookProvider';
-import IntegratedSessionRow from '@sudoku-web/template/components/IntegratedSessionRow';
-import { getDifficultyDisplay } from '@sudoku-web/games/helpers/getDifficultyDisplay';
-import { getTechniquesDisplay } from '@sudoku-web/games/helpers/getTechniquesDisplay';
-import { sha256 } from '@sudoku-web/template/helpers/sha256';
-import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
-import { calculateCompletionPercentageFromState } from '@sudoku-web/sudoku/helpers/calculateCompletionPercentage';
-import { isPuzzleCheated } from '@sudoku-web/sudoku/helpers/cheatDetection';
-import { buildPuzzleUrlFromState } from '@sudoku-web/sudoku/helpers/buildPuzzleUrl';
+} from '@bubblyclouds-app/sudoku/helpers/puzzleTextToPuzzle';
+import { GameState, ServerState } from '@bubblyclouds-app/sudoku/types/state';
+import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
+import { useBook } from '@bubblyclouds-app/sudoku/providers/BookProvider';
+import IntegratedSessionRow from '@bubblyclouds-app/template/components/IntegratedSessionRow';
+import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+import { getTechniquesDisplay } from '@bubblyclouds-app/games/helpers/getTechniquesDisplay';
+import { sha256 } from '@bubblyclouds-app/template/helpers/sha256';
+import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
+import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku/helpers/calculateCompletionPercentage';
+import { isPuzzleCheated } from '@bubblyclouds-app/sudoku/helpers/cheatDetection';
+import { buildPuzzleUrlFromState } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />

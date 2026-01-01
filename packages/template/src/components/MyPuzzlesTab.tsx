@@ -1,6 +1,6 @@
 'use client';
 import { ComponentType } from 'react';
-import { ServerStateResult } from '@sudoku-web/types/serverTypes';
+import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import IntegratedSessionRow from './IntegratedSessionRow';
 import { BaseServerState } from '../types/state';
 

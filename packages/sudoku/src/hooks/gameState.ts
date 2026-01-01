@@ -16,34 +16,34 @@ import {
   ServerState,
   SetAnswer,
 } from '../types/state';
-import { useLocalStorage } from '@sudoku-web/template/hooks/localStorage';
+import { useLocalStorage } from '@bubblyclouds-app/template/hooks/localStorage';
 import { useSudokuServerStorage } from './useSudokuServerStorage';
 import { checkCell, checkGrid } from '../helpers/checkAnswer';
-import { StateType } from '@sudoku-web/types/stateType';
-import { useTimer } from '@sudoku-web/template/hooks/timer';
-import { calculateSeconds } from '@sudoku-web/template/helpers/calculateSeconds';
+import { StateType } from '@bubblyclouds-app/types/stateType';
+import { useTimer } from '@bubblyclouds-app/template/hooks/timer';
+import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
 import {
   Parties,
   ServerStateResult,
   Session,
-} from '@sudoku-web/types/serverTypes';
+} from '@bubblyclouds-app/types/serverTypes';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import {
   canUseUndo,
   canUseCheckGrid,
-} from '@sudoku-web/template/utils/dailyActionCounter';
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
 import {
   incrementUndoCount,
   incrementCheckGridCount,
-} from '@sudoku-web/template/utils/dailyActionCounter';
-import { useDocumentVisibility } from '@sudoku-web/template/hooks/documentVisibility';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
-import type { SubscriptionContext as SubscriptionContextType } from '@sudoku-web/types/subscriptionContext';
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
+import { useDocumentVisibility } from '@bubblyclouds-app/template/hooks/documentVisibility';
+import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
+import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
+import type { SubscriptionContext as SubscriptionContextType } from '@bubblyclouds-app/types/subscriptionContext';
 
 const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
 

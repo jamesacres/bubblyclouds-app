@@ -11,7 +11,7 @@ This document captures research and decisions for reorganizing sudoku app compon
 
 ### 1. Turborepo Package Creation Patterns
 
-**Decision**: Follow existing package structure pattern from `@sudoku-web/sudoku`, `@sudoku-web/template`, etc.
+**Decision**: Follow existing package structure pattern from `@bubblyclouds-app/sudoku`, `@bubblyclouds-app/template`, etc.
 
 **Rationale**:
 - Project already has established package creation patterns
@@ -47,7 +47,7 @@ packages/games/
 **Pattern Example** (from existing packages):
 ```json
 {
-  "name": "@sudoku-web/games",
+  "name": "@bubblyclouds-app/games",
   "exports": {
     "./components/TimerDisplay": "./src/components/TimerDisplay.tsx",
     "./components/RaceTrack": "./src/components/RaceTrack.tsx",

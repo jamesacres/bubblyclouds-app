@@ -2,7 +2,7 @@
 
 import { renderHook, act } from '@testing-library/react';
 import { useLocalStorage } from './localStorage';
-import { StateType } from '@sudoku-web/types/stateType';
+import { StateType } from '@bubblyclouds-app/types/stateType';
 
 describe('useLocalStorage', () => {
   beforeEach(() => {

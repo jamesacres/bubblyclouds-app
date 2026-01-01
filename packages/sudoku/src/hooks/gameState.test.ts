@@ -4,7 +4,7 @@ import { useGameState } from './gameState';
 import type { Puzzle } from '../types/puzzle';
 import type { GameStateMetadata } from '../types/state';
 
-jest.mock('@sudoku-web/template/hooks/localStorage', () => ({
+jest.mock('@bubblyclouds-app/template/hooks/localStorage', () => ({
   useLocalStorage: () => ({ getValue: jest.fn(), saveValue: jest.fn() }),
 }));
 jest.mock('./useSudokuServerStorage', () => ({
@@ -13,7 +13,7 @@ jest.mock('./useSudokuServerStorage', () => ({
     saveValue: jest.fn().mockResolvedValue(undefined),
   }),
 }));
-jest.mock('@sudoku-web/template/hooks/timer', () => ({
+jest.mock('@bubblyclouds-app/template/hooks/timer', () => ({
   useTimer: () => ({
     timer: {},
     setTimerNewSession: jest.fn(),
@@ -22,16 +22,16 @@ jest.mock('@sudoku-web/template/hooks/timer', () => ({
     isPaused: false,
   }),
 }));
-jest.mock('@sudoku-web/template/hooks/useParties', () => ({
+jest.mock('@bubblyclouds-app/template/hooks/useParties', () => ({
   useParties: () => ({ parties: [] }),
 }));
-jest.mock('@sudoku-web/auth/providers/AuthProvider', () => ({
+jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
   UserContext: React.createContext({}),
 }));
-jest.mock('@sudoku-web/template/providers/RevenueCatProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/RevenueCatProvider', () => ({
   RevenueCatContext: React.createContext({}),
 }));
-jest.mock('@sudoku-web/template/providers/SessionsProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: () => ({
     getSessionParties: jest.fn(),
     patchFriendSessions: jest.fn(),

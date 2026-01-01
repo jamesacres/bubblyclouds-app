@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { SudokuBookOfTheMonth } from '../types/serverTypes';
 import { useSudokuServerStorage } from '../hooks/useSudokuServerStorage';
-import { useOnline } from '@sudoku-web/template/hooks/online';
+import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 
 interface BookContextType {
   bookData: SudokuBookOfTheMonth | null;

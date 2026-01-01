@@ -1,28 +1,28 @@
 'use client';
 
-import FetchProvider from '@sudoku-web/auth/providers/FetchProvider';
-import CapacitorProvider from '@sudoku-web/template/providers/CapacitorProvider';
-import UserProvider from '@sudoku-web/auth/providers/UserProvider';
-import { PlatformServices } from '@sudoku-web/auth/providers/PlatformServicesContext';
-import GlobalStateProvider from '@sudoku-web/template/providers/GlobalStateProvider';
-import { ThemeColorProvider } from '@sudoku-web/ui/providers/ThemeColorProvider';
-import RevenueCatProvider from '@sudoku-web/template/providers/RevenueCatProvider';
-import { SessionsProvider } from '@sudoku-web/template/providers/SessionsProvider';
-import PartiesProvider from '@sudoku-web/template/providers/PartiesProvider';
-import { BookProvider } from '@sudoku-web/sudoku/providers/BookProvider';
+import FetchProvider from '@bubblyclouds-app/auth/providers/FetchProvider';
+import CapacitorProvider from '@bubblyclouds-app/template/providers/CapacitorProvider';
+import UserProvider from '@bubblyclouds-app/auth/providers/UserProvider';
+import { PlatformServices } from '@bubblyclouds-app/auth/providers/PlatformServicesContext';
+import GlobalStateProvider from '@bubblyclouds-app/template/providers/GlobalStateProvider';
+import { ThemeColorProvider } from '@bubblyclouds-app/ui/providers/ThemeColorProvider';
+import RevenueCatProvider from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import { SessionsProvider } from '@bubblyclouds-app/template/providers/SessionsProvider';
+import PartiesProvider from '@bubblyclouds-app/template/providers/PartiesProvider';
+import { BookProvider } from '@bubblyclouds-app/sudoku/providers/BookProvider';
 import {
   isCapacitor,
   saveCapacitorState,
   getCapacitorState,
-} from '@sudoku-web/template/helpers/capacitor';
+} from '@bubblyclouds-app/template/helpers/capacitor';
 import {
   isElectron,
   openBrowser,
   saveElectronState,
-} from '@sudoku-web/template/helpers/electron';
+} from '@bubblyclouds-app/template/helpers/electron';
 import { ThemeProvider } from 'next-themes';
 import { PropsWithChildren } from 'react';
-import { StateType } from '@sudoku-web/types/stateType';
+import { StateType } from '@bubblyclouds-app/types/stateType';
 import { APP_CONFIG } from '../../app.config.js';
 
 const platformServices: PlatformServices = {

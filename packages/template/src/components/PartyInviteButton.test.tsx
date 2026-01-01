@@ -9,7 +9,7 @@ jest.mock('../hooks/serverStorage', () => ({
   useServerStorage: jest.fn(),
 }));
 
-jest.mock('@sudoku-web/ui/components/CopyButton', () => ({
+jest.mock('@bubblyclouds-app/ui/components/CopyButton', () => ({
   __esModule: true,
   CopyButton: ({
     getText,

@@ -1,6 +1,6 @@
-# Contract: @sudoku-web/auth Package
+# Contract: @bubblyclouds-app/auth Package
 
-**Package**: `@sudoku-web/auth`
+**Package**: `@bubblyclouds-app/auth`
 **Version**: 2.0.0 (initial after refactoring)
 **Type**: React component library + hooks
 **Platform**: Browser-based (Next.js, React)
@@ -106,16 +106,16 @@ export type { OAuthProvider } from './types/OAuthProvider';
 
 ### Dependencies
 
-- `@sudoku-web/types`: Core types
-- `@sudoku-web/shared`: Utilities (e.g., localStorage access)
+- `@bubblyclouds-app/types`: Core types
+- `@bubblyclouds-app/shared`: Utilities (e.g., localStorage access)
 - React 18+
 - Next.js 14+ (for API routes)
 
 ### No Dependencies On
 
-- ❌ `@sudoku-web/ui`
-- ❌ `@sudoku-web/sudoku`
-- ❌ `@sudoku-web/template`
+- ❌ `@bubblyclouds-app/ui`
+- ❌ `@bubblyclouds-app/sudoku`
+- ❌ `@bubblyclouds-app/template`
 - ❌ App-specific code
 
 ---
@@ -192,12 +192,12 @@ import { useAuth } from 'src/hooks/useAuth';
 New (v2.0.0):
 ```typescript
 // Auth is now a package
-import { useAuth } from '@sudoku-web/auth';
-import { AuthProvider } from '@sudoku-web/auth';
+import { useAuth } from '@bubblyclouds-app/auth';
+import { AuthProvider } from '@bubblyclouds-app/auth';
 ```
 
 **Migration Steps**:
-1. Update imports to use `@sudoku-web/auth`
+1. Update imports to use `@bubblyclouds-app/auth`
 2. Ensure `AuthProvider` wraps application root
 3. Update environment variables for OAuth
 4. Implement required backend endpoints

@@ -2,7 +2,6 @@
 
 - upgrade mac, xcode then capacitor to v8
 - review and merge 003 into 004
-- rename package and turbo config from sudoku-web to bubblyclouds-app
 
 - move bubblyclouds repo (main website) into apps directory then delete separate
   repo
