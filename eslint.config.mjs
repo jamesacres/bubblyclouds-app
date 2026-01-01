@@ -2,6 +2,7 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 import reactHooks from 'eslint-plugin-react-hooks';
 import nextPlugin from '@next/eslint-plugin-next';
+import importPlugin from 'eslint-plugin-import';
 import globals from 'globals';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -59,6 +60,7 @@ export default [
       '@typescript-eslint': typescriptEslint,
       'react-hooks': reactHooks,
       '@next/next': nextPlugin,
+      import: importPlugin,
     },
 
     rules: {
@@ -79,6 +81,7 @@ export default [
 
       'react-hooks/exhaustive-deps': 'warn',
       'react-hooks/set-state-in-effect': 'error',
+      'import/no-relative-packages': 'error',
     },
   },
   {

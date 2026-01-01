@@ -13,6 +13,6 @@
       "@bubblyclouds-app/shared/*": ["../shared/src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "../ui/src/helpers/formatSeconds.test.ts", "../ui/src/helpers/formatSeconds.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }

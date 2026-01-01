@@ -1,3 +1,4 @@
+npm run manypkg
 npm run circular
 npm run lint:fix
 git add -u
