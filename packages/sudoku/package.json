@@ -30,11 +30,15 @@
     "@bubblyclouds-app/games": "*",
     "@bubblyclouds-app/template": "*",
     "@bubblyclouds-app/types": "*",
+    "@bubblyclouds-app/ui": "*",
     "mathjs": "^13.0.2",
+    "next": "^16.1.1",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "react-feather": "^2.0.10"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.6.1",

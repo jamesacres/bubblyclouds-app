@@ -17,6 +17,7 @@ import Footer from '@bubblyclouds-app/ui/components/Footer';
 import MyPuzzlesTab from '@bubblyclouds-app/template/components/MyPuzzlesTab';
 import FriendsTab from '@bubblyclouds-app/template/components/FriendsTab';
 import ActivityWidget from '@bubblyclouds-app/games/components/ActivityWidget';
+import Leaderboard from '@bubblyclouds-app/games/components/Leaderboard';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { isPuzzleCheated } from '@bubblyclouds-app/sudoku/helpers/cheatDetection';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku/helpers/calculateCompletionPercentage';
@@ -458,6 +459,7 @@ function HomeComponent() {
                 }
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
+                LeaderboardComponent={Leaderboard}
               />
             )}
           </div>

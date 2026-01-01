@@ -20,10 +20,7 @@ jest.mock('./IntegratedSessionRow', () => ({
     <div data-testid={`session-${session.sessionId}`} />
   ),
 }));
-jest.mock('@bubblyclouds-app/games/components/Leaderboard', () => ({
-  __esModule: true,
-  default: () => <div data-testid="leaderboard" />,
-}));
+const MockLeaderboard = () => <div data-testid="leaderboard" />;
 jest.mock('../providers/SessionsProvider', () => ({
   useSessions: jest.fn(),
 }));
@@ -83,6 +80,7 @@ describe('FriendsTab', () => {
         user={mockUser}
         parties={mockParties}
         mySessions={[]}
+        LeaderboardComponent={MockLeaderboard}
         {...mockProps}
         {...props}
       />

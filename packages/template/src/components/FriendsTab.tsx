@@ -5,8 +5,8 @@ import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useSessions } from '../providers/SessionsProvider';
 import { Loader, ChevronDown, ChevronRight, RotateCcw } from 'react-feather';
 import IntegratedSessionRow from './IntegratedSessionRow';
-import Leaderboard from '@bubblyclouds-app/games/components/Leaderboard';
 import { BaseServerState } from '../types/state';
+import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 
 interface FriendsTabProps<TState extends BaseServerState = BaseServerState> {
   user: UserProfile | undefined;
@@ -17,6 +17,14 @@ interface FriendsTabProps<TState extends BaseServerState = BaseServerState> {
   calculateCompletionPercentageFromState: (state: TState) => number;
   isPuzzleCheated: (state: TState) => boolean;
   buildPuzzleUrlFromState: (state: TState, isCompleted?: boolean) => string;
+  LeaderboardComponent?: React.ComponentType<{
+    sessions: ServerStateResult<TState>[] | null;
+    friendSessions: UserSessions<TState>;
+    parties: Party[];
+    user: UserProfile;
+    selectedParty?: Party;
+    isPuzzleCheated: (state: TState) => boolean;
+  }>;
 }
 
 export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
@@ -28,6 +36,7 @@ export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
   calculateCompletionPercentageFromState,
   isPuzzleCheated,
   buildPuzzleUrlFromState,
+  LeaderboardComponent,
 }: FriendsTabProps<TState>) => {
   const { sessions, friendSessions } = useSessions<TState>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
@@ -106,7 +115,7 @@ export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
       )}
 
       {/* Leaderboard Section */}
-      {user && parties && (
+      {LeaderboardComponent && user && parties && (
         <div className="mb-6">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
@@ -125,7 +134,7 @@ export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
               </button>
             )}
           </div>
-          <Leaderboard
+          <LeaderboardComponent
             sessions={sessions}
             friendSessions={friendSessions}
             parties={parties}

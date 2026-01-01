@@ -63,6 +63,14 @@ export default [
       import: importPlugin,
     },
 
+    settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+        },
+      },
+    },
+
     rules: {
       ...reactHooks.configs.recommended.rules,
       ...nextPlugin.configs.recommended.rules,
@@ -82,6 +90,17 @@ export default [
       'react-hooks/exhaustive-deps': 'warn',
       'react-hooks/set-state-in-effect': 'error',
       'import/no-relative-packages': 'error',
+      'import/no-extraneous-dependencies': [
+        'error',
+        {
+          devDependencies: [
+            '**/*.test.ts',
+            '**/*.test.tsx',
+            '**/jest.setup.js',
+            '**/jest.config.js',
+          ],
+        },
+      ],
     },
   },
   {
