@@ -143,7 +143,7 @@ describe('ThemeColorProvider', () => {
   describe('setThemeColor', () => {
     it('should update theme color', async () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
       const currentColorRef = { current: undefined as string | undefined };
 
@@ -179,7 +179,7 @@ describe('ThemeColorProvider', () => {
 
     it('should save theme color to localStorage', () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
 
       const TestComponent = () => {
@@ -208,7 +208,7 @@ describe('ThemeColorProvider', () => {
 
     it('should remove old theme class and add new one', () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
 
       const TestComponent = () => {
@@ -269,7 +269,7 @@ describe('ThemeColorProvider', () => {
       ];
 
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
 
       const TestComponent = () => {
@@ -437,7 +437,7 @@ describe('ThemeColorProvider', () => {
 
     it('should update all consumers when theme changes', async () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
       const colorsRef = { current: [] as string[] };
 
@@ -534,7 +534,7 @@ describe('ThemeColorProvider', () => {
 
     it('should handle rapid theme changes', () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
 
       const TestComponent = () => {
@@ -578,7 +578,7 @@ describe('ThemeColorProvider', () => {
 
     it('should handle very rapid color changes', () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
 
       const TestComponent = () => {
@@ -613,7 +613,7 @@ describe('ThemeColorProvider', () => {
 
     it('should handle setting same color multiple times', () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
 
       const TestComponent = () => {
@@ -646,7 +646,7 @@ describe('ThemeColorProvider', () => {
 
     it('should handle invalid color gracefully', () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
 
       const TestComponent = () => {
@@ -712,7 +712,7 @@ describe('ThemeColorProvider', () => {
   describe('localStorage integration', () => {
     it('should save all color changes to localStorage', () => {
       const setThemeColorRef = {
-        current: undefined as ((color: any) => void) | undefined,
+        current: undefined as ((_color: any) => void) | undefined,
       };
 
       const TestComponent = () => {

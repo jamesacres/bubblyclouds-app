@@ -7,7 +7,7 @@ jest.mock('@sudoku-web/ui', () => {
       setEnabled,
     }: {
       isEnabled: boolean;
-      setEnabled: (value: boolean) => void;
+      setEnabled: (_value: boolean) => void;
     }) =>
       React.createElement(
         'button',

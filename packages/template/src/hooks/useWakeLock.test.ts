@@ -548,6 +548,7 @@ describe('useWakeLock', () => {
         return {
           released: false,
           type: 'screen',
+          // eslint-disable-next-line no-unused-vars
           release: jest.fn(async function (this: any) {
             this.released = true;
           }),

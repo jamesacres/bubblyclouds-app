@@ -138,7 +138,10 @@ describe('PartiesProvider', () => {
       partyName: 'New Party',
       memberNickname: 'Me',
     });
-    expect(contextRef.current.parties).toContain(newParty);
+
+    await waitFor(() => {
+      expect(contextRef.current.parties).toContain(newParty);
+    });
   });
 
   it('provides all required context properties', async () => {
