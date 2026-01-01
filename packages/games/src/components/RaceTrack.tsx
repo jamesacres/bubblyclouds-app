@@ -1,7 +1,7 @@
 'use client';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState, useEffect } from 'react';
 import {
   getPlayerColor,
   getAllUserIds,
@@ -33,7 +33,7 @@ interface Arguments<T> {
     final: T,
     latest: T | undefined
   ) => number;
-  isPuzzleCheated: (answerStack: any[]) => boolean;
+  isPuzzleCheated: (answerStack: T[]) => boolean;
 }
 
 interface PlayerProgress {
@@ -61,6 +61,20 @@ const RaceTrack = <T,>({
   isPuzzleCheated,
 }: Arguments<T>) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
+
+  // Track height state for responsive layout (SSR-safe)
+  const [trackHeight, setTrackHeight] = useState(40);
+
+  useEffect(() => {
+    const updateTrackHeight = () => {
+      setTrackHeight(window.innerWidth >= 1024 ? 56 : 40);
+    };
+
+    updateTrackHeight();
+
+    window.addEventListener('resize', updateTrackHeight);
+    return () => window.removeEventListener('resize', updateTrackHeight);
+  }, []);
 
   // Get consistent ordering of all user IDs for color assignment
   const allUserIds = useMemo(() => getAllUserIds(parties), [parties]);
@@ -235,8 +249,7 @@ const RaceTrack = <T,>({
               player.isCurrentUser
             );
 
-            // Calculate vertical spacing within the track (responsive)
-            const trackHeight = window.innerWidth >= 1024 ? 56 : 40; // h-14 = 56px, h-10 = 40px
+            // Calculate vertical spacing within the track
             const totalPlayers = allPlayerProgress.length;
             const playerHeight = Math.min(8, trackHeight / totalPlayers);
             const verticalOffset = index * playerHeight + 2;

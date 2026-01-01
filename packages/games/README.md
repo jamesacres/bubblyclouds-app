@@ -58,7 +58,7 @@ npm install @bubblyclouds-app/games
 Import and use components:
 
 ```tsx
-import { TimerDisplay } from "@bubblyclouds-app/ui/components/TimerDisplay";
+import { TimerDisplay } from "@bubblyclouds-app/games/components/TimerDisplay";
 
 export function MyGame() {
   return <TimerDisplay seconds={300} onTimeUp={() => {}} />;
