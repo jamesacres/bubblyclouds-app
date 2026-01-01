@@ -12,7 +12,8 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "circular": "madge --circular --extensions ts,tsx src/"
   },
   "devDependencies": {
     "@types/jest": "^29.5.10",

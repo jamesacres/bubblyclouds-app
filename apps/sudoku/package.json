@@ -9,7 +9,8 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "jest"
+    "test": "jest",
+    "circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",

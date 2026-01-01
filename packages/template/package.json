@@ -23,7 +23,8 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "jest"
+    "test": "jest",
+    "circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {
     "@capacitor/core": "^7.0.0",

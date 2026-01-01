@@ -27,11 +27,13 @@
     "test:watch": "turbo run test -- --watch",
     "test:coverage": "turbo run test -- --coverage",
     "test:ci": "turbo run test -- --coverage --ci --maxWorkers=2",
+    "circular": "turbo run circular",
     "generate:icons": "npx @capacitor/assets generate --iconBackgroundColor '#eeeeee' --iconBackgroundColorDark '#222222' --splashBackgroundColor '#eeeeee' --splashBackgroundColorDark '#111111'",
     "prepare": "husky"
   },
   "devDependencies": {
     "husky": "^9.1.7",
+    "madge": "^8.0.0",
     "turbo": "^2.7.2"
   }
 }
