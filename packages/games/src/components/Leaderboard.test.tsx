@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import Leaderboard from './Leaderboard';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
-import { Puzzle } from '../types/puzzle';
 import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
@@ -61,7 +60,7 @@ jest.mock('./ScoringLegend', () => {
   };
 });
 
-const createEmptyPuzzle = (): Puzzle<number> => {
+const createEmptyPuzzle = () => {
   const createBox = () => ({
     '0': [],
     '1': [],

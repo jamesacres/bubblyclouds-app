@@ -713,7 +713,7 @@ describe('ScoringLegend', () => {
       const mockOnClose2 = jest.fn();
 
       const { rerender } = render(
-        <ScoringLegend isOpen={true} onClose={mockOnClose1} />
+        <ScoringLegend isOpen={true} onClose={mockOnClose1} gameName="Sudoku" />
       );
 
       const closeButton = screen.getByText('✕');
@@ -721,7 +721,9 @@ describe('ScoringLegend', () => {
 
       expect(mockOnClose1).toHaveBeenCalledTimes(1);
 
-      rerender(<ScoringLegend isOpen={true} onClose={mockOnClose2} />);
+      rerender(
+        <ScoringLegend isOpen={true} onClose={mockOnClose2} gameName="Sudoku" />
+      );
 
       const newCloseButton = screen.getByText('✕');
       fireEvent.click(newCloseButton);

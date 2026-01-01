@@ -124,6 +124,7 @@ describe('Invite Page', () => {
       handleRestoreState: jest.fn(),
       logout: jest.fn(),
       handleAuthUrl: jest.fn(),
+      app: 'sudoku',
     };
 
     mockRevenueCatContext = {

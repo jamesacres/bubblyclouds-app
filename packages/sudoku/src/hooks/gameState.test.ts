@@ -74,6 +74,8 @@ describe('useGameState', () => {
     final: mockFinal,
     puzzleId: 'test-puzzle',
     metadata: mockMetadata,
+    app: 'sudoku',
+    apiUrl: 'https://api.test.com',
   };
 
   it('initializes with the correct default state', () => {

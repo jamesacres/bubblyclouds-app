@@ -45,7 +45,7 @@ describe('BookProvider', () => {
   it('fetches and displays book data', async () => {
     mockGetSudokuBookOfTheMonth.mockResolvedValue(mockBook);
     render(
-      <BookProvider>
+      <BookProvider app="sudoku" apiUrl="https://api.test.com">
         <TestComponent />
       </BookProvider>
     );
@@ -64,7 +64,7 @@ describe('BookProvider', () => {
     localStorage.setItem(monthKey, JSON.stringify(mockBook));
 
     render(
-      <BookProvider>
+      <BookProvider app="sudoku" apiUrl="https://api.test.com">
         <TestComponent />
       </BookProvider>
     );
@@ -78,7 +78,7 @@ describe('BookProvider', () => {
   it('handles fetch error', async () => {
     mockGetSudokuBookOfTheMonth.mockRejectedValue(new Error('Failed to fetch'));
     render(
-      <BookProvider>
+      <BookProvider app="sudoku" apiUrl="https://api.test.com">
         <TestComponent />
       </BookProvider>
     );
@@ -97,7 +97,7 @@ describe('BookProvider', () => {
   it('shows an offline error message', async () => {
     mockUseOnline.mockReturnValue({ isOnline: false });
     render(
-      <BookProvider>
+      <BookProvider app="sudoku" apiUrl="https://api.test.com">
         <TestComponent />
       </BookProvider>
     );

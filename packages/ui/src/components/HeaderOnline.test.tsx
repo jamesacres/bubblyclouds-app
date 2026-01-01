@@ -44,7 +44,7 @@ describe('HeaderOnline', () => {
     it('should have correct styling when online', () => {
       render(<HeaderOnline isOnline={true} />);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('cursor-pointer', 'ml-1');
+      expect(button).toHaveClass('cursor-pointer ml-1');
     });
   });
 
@@ -70,7 +70,7 @@ describe('HeaderOnline', () => {
     it('should have same styling when offline as when online', () => {
       render(<HeaderOnline isOnline={false} />);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('cursor-pointer', 'ml-1');
+      expect(button).toHaveClass('cursor-pointer ml-1');
     });
   });
 
@@ -168,7 +168,7 @@ describe('HeaderOnline', () => {
     it('should have correct size dimensions', () => {
       render(<HeaderOnline isOnline={true} />);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-8', 'w-8');
+      expect(button).toHaveClass('h-8 w-8');
     });
 
     it('should have padding on button', () => {
