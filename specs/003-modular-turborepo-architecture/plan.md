@@ -7,7 +7,7 @@
 
 ## Summary
 
-Reorganize the existing Turborepo monorepo into a modular, reusable architecture where shared functionality (authentication, UI components, utilities) lives in dedicated packages, allowing both the template app and sudoku app to build on a common foundation. This enables the template to run as a standalone application and allows new applications to be created using the same architecture without game-specific logic. The approach involves extracting auth logic into an `@sudoku-web/auth` package, creating a `@sudoku-web/ui` package for common components, moving sudoku-specific logic into a `@sudoku-web/sudoku` package, and ensuring the `@sudoku-web/template` package contains only generic, reusable functionality.
+Reorganize the existing Turborepo monorepo into a modular, reusable architecture where shared functionality (authentication, UI components, utilities) lives in dedicated packages, allowing both the template app and sudoku app to build on a common foundation. This enables the template to run as a standalone application and allows new applications to be created using the same architecture without game-specific logic. The approach involves extracting auth logic into an `@bubblyclouds-app/auth` package, creating a `@bubblyclouds-app/ui` package for common components, moving sudoku-specific logic into a `@bubblyclouds-app/sudoku` package, and ensuring the `@bubblyclouds-app/template` package contains only generic, reusable functionality.
 
 ## Technical Context
 
@@ -38,7 +38,7 @@ Based on Sudoku Web Constitution v1.0.0:
 
 ✅ **II. Full TypeScript Type Safety**: All packages and applications must have strict TypeScript configuration. Type definitions must be explicit for all exports. Package public APIs will be typed interfaces.
 
-✅ **III. Component-Driven Architecture**: Refactoring preserves functional React components and hooks. Components maintain single responsibility. Shared components move to dedicated package (`@sudoku-web/ui`). All components remain PascalCase named.
+✅ **III. Component-Driven Architecture**: Refactoring preserves functional React components and hooks. Components maintain single responsibility. Shared components move to dedicated package (`@bubblyclouds-app/ui`). All components remain PascalCase named.
 
 ✅ **IV. Multi-Platform Compatibility**: Refactoring maintains compatibility across web, iOS (Capacitor), Android (Capacitor), and Electron. Platform-specific code remains mockable. Package organization does not introduce platform-specific dependencies in shared packages.
 
@@ -131,7 +131,7 @@ apps/
 │   │   ├── app/                   # Next.js pages
 │   │   ├── components/            # App-specific components
 │   │   └── layout.tsx             # Root layout with providers
-│   ├── package.json               # Imports: @sudoku-web/auth, @sudoku-web/ui, @sudoku-web/template
+│   ├── package.json               # Imports: @bubblyclouds-app/auth, @bubblyclouds-app/ui, @bubblyclouds-app/template
 │   └── next.config.mjs
 │
 └── sudoku/                        # Sudoku application
@@ -139,7 +139,7 @@ apps/
     │   ├── app/                   # Next.js pages
     │   ├── components/            # App-specific components (extends Sudoku package)
     │   └── layout.tsx             # Root layout with providers
-    ├── package.json               # Imports: @sudoku-web/auth, @sudoku-web/ui, @sudoku-web/sudoku
+    ├── package.json               # Imports: @bubblyclouds-app/auth, @bubblyclouds-app/ui, @bubblyclouds-app/sudoku
     └── next.config.mjs
 ```
 
@@ -148,11 +148,11 @@ apps/
 This monorepo follows a modular, horizontal package architecture where:
 
 1. **Packages are organized by responsibility**, not by application:
-   - `@sudoku-web/auth` - All authentication logic and user management
-   - `@sudoku-web/ui` - Reusable UI components (header, footer, buttons, modals, theme)
-   - `@sudoku-web/sudoku` - Sudoku-specific game logic and components
-   - `@sudoku-web/template` - Core collaborative features (parties, sessions) that multiple apps can use
-   - `@sudoku-web/shared` and `@sudoku-web/types` - Generic utilities and types
+   - `@bubblyclouds-app/auth` - All authentication logic and user management
+   - `@bubblyclouds-app/ui` - Reusable UI components (header, footer, buttons, modals, theme)
+   - `@bubblyclouds-app/sudoku` - Sudoku-specific game logic and components
+   - `@bubblyclouds-app/template` - Core collaborative features (parties, sessions) that multiple apps can use
+   - `@bubblyclouds-app/shared` and `@bubblyclouds-app/types` - Generic utilities and types
 
 2. **Applications are lightweight consumers**:
    - `apps/template` - Standalone app using auth, ui, and template packages

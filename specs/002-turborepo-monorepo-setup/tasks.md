@@ -32,10 +32,10 @@
 
 - [x] T001 [P] [F002-US1] Create Turborepo configuration file at `turbo.json` with workspace globs for `/apps/*` and `/packages/*`, task pipelines for build/dev/lint/test, and caching rules
 - [x] T002 [P] [F002-US1] Update root `package.json` with workspace list (`"workspaces": ["apps/*", "packages/*"]`) and add Turborepo as dev dependency
-- [x] T003 [P] [F002-US1] Create shared TypeScript configuration at root `tsconfig.json` with strict mode, path aliases for `@sudoku-web/*` imports, and base configs for workspace inheritance
+- [x] T003 [P] [F002-US1] Create shared TypeScript configuration at root `tsconfig.json` with strict mode, path aliases for `@bubblyclouds-app/*` imports, and base configs for workspace inheritance
 - [x] T004 [P] [F002-US1] Create workspace directory structure: `mkdir -p apps/template apps/sudoku packages/types packages/shared`
-- [x] T005 [P] [F002-US1] Initialize `packages/types/package.json` as shared types package with `"name": "@sudoku-web/types"` and TypeScript build configuration
-- [x] T006 [P] [F002-US1] Initialize `packages/shared/package.json` as shared utilities package with `"name": "@sudoku-web/shared"` and helper functions
+- [x] T005 [P] [F002-US1] Initialize `packages/types/package.json` as shared types package with `"name": "@bubblyclouds-app/types"` and TypeScript build configuration
+- [x] T006 [P] [F002-US1] Initialize `packages/shared/package.json` as shared utilities package with `"name": "@bubblyclouds-app/shared"` and helper functions
 
 **Checkpoint**: Monorepo structure ready, workspaces discoverable by npm and Turborepo
 
@@ -56,9 +56,9 @@
 - [x] T009 [P] [F002-US1] Set up Jest configuration at root `jest.config.js` with workspace-specific test patterns for parallel test execution across all workspaces
 - [x] T010 [F002-US2] Create `.eslintrc` rules in root that enforce workspace dependency direction: add eslint-plugin-import rules to block template importing from sudoku apps (violation = build failure)
 - [x] T011 [F002-US1] Copy `apps/sudoku/` entire source tree to create initial workspace shell, preserving all existing code (we'll refactor in next phases)
-- [x] T012 [P] [F002-US1] Create `apps/sudoku/package.json` with `"name": "@sudoku-web/sudoku"` and dependencies on `@sudoku-web/types` and `@sudoku-web/shared` via workspace protocol
+- [x] T012 [P] [F002-US1] Create `apps/sudoku/package.json` with `"name": "@bubblyclouds-app/sudoku"` and dependencies on `@bubblyclouds-app/types` and `@bubblyclouds-app/shared` via workspace protocol
 - [x] T013 [P] [F002-US1] Create `apps/sudoku/tsconfig.json` extending root config with path aliases pointing to workspace packages
-- [x] T014 [F002-US2] Create `apps/template/package.json` as placeholder with `"name": "@sudoku-web/template"` (will be populated in feature 001)
+- [x] T014 [F002-US2] Create `apps/template/package.json` as placeholder with `"name": "@bubblyclouds-app/template"` (will be populated in feature 001)
 - [x] T015 [F002-US2] Create `apps/template/tsconfig.json` extending root config
 
 **Checkpoint**: Turborepo workspaces configured, ESLint boundary enforcement active, initial workspace structure in place
@@ -104,7 +104,7 @@
 
 - [ ] T026 [F002-US3] Audit Capacitor configuration at `capacitor.config.ts`: verify it correctly references web app at `/apps/sudoku/` and any shared assets
 - [ ] T027 [F002-US3] Update Capacitor `capacitor.config.ts`: adjust web root path from current structure to `apps/sudoku` to point to built Next.js output location
-- [ ] T028 [F002-US3] Verify `capacitor.config.ts` build command: ensure it runs `npm run build --filter=@sudoku-web/sudoku` to build only Sudoku workspace
+- [ ] T028 [F002-US3] Verify `capacitor.config.ts` build command: ensure it runs `npm run build --filter=@bubblyclouds-app/sudoku` to build only Sudoku workspace
 - [ ] T029 [F002-US3] Test iOS build path resolution: verify Capacitor can locate `apps/sudoku/` and built web assets from monorepo structure
 - [ ] T030 [P] [F002-US3] Update iOS native code if needed: check `ios/App/App/` for any hardcoded asset paths that reference old structure, update to work with `/apps/sudoku/`
 - [ ] T031 [P] [F002-US3] Update Android native code if needed: check `android/app/src/` for any hardcoded asset paths, update to work with `/apps/sudoku/`
@@ -117,8 +117,8 @@
 - [ ] T035 [F002-US3] Audit Electron configuration at `electron/main.js` (or equivalent): verify it correctly references app at `/apps/sudoku/` and preload scripts
 - [ ] T036 [F002-US3] Update Electron `main.js`: adjust `app.getAppPath()` and any path references to work with monorepo structure, ensure correct paths to `/apps/sudoku/`
 - [ ] T037 [F002-US3] Verify Electron preload script: check `electron/preload.js` (if exists) for any hardcoded paths that need updating
-- [ ] T038 [F002-US3] Update Electron build script in `electron/package.json`: ensure it runs `npm run build --filter=@sudoku-web/sudoku` to build Sudoku workspace
-- [ ] T039 [F002-US3] Update Electron dev script: ensure `npm run dev --filter=@sudoku-web/sudoku` or equivalent runs Sudoku dev server correctly
+- [ ] T038 [F002-US3] Update Electron build script in `electron/package.json`: ensure it runs `npm run build --filter=@bubblyclouds-app/sudoku` to build Sudoku workspace
+- [ ] T039 [F002-US3] Update Electron dev script: ensure `npm run dev --filter=@bubblyclouds-app/sudoku` or equivalent runs Sudoku dev server correctly
 - [ ] T040 [F002-US3] Test Electron build: run Electron build command and verify it correctly locates and bundles Sudoku web app
 - [ ] T041 [F002-US3] Test Electron dev mode: run Electron dev mode and verify hot reload works with Sudoku app changes
 - [ ] T042 [P] [F002-US3] Update `.gitignore`: exclude Electron build artifacts (`electron/dist/`, `electron/build/`, `.webpack/`, etc.)
@@ -127,9 +127,9 @@
 
 - [ ] T043 [P] [F002-US3] Create platform build documentation at `docs/PLATFORM-BUILDS.md`: explain how Capacitor and Electron builds work with monorepo, how to build for each platform, troubleshooting
 - [ ] T044 [F002-US3] Update npm scripts in root `package.json`: add platform build commands with Turborepo filters:
-  - `npm run build:ios` → `turbo run build --filter=@sudoku-web/sudoku && capacitor build ios`
-  - `npm run build:android` → `turbo run build --filter=@sudoku-web/sudoku && capacitor build android`
-  - `npm run build:electron` → `turbo run build --filter=@sudoku-web/sudoku && electron-builder`
+  - `npm run build:ios` → `turbo run build --filter=@bubblyclouds-app/sudoku && capacitor build ios`
+  - `npm run build:android` → `turbo run build --filter=@bubblyclouds-app/sudoku && capacitor build android`
+  - `npm run build:electron` → `turbo run build --filter=@bubblyclouds-app/sudoku && electron-builder`
 - [ ] T045 [P] [F002-US3] Create CI/CD workflow for platform builds (if using GitHub Actions): update `.github/workflows/` to run platform builds with Turborepo caching
 - [ ] T046 [F002-US3] Test full platform build chain: run `npm run build` → `npm run build:ios` to verify web build cascades correctly to platform builds
 
@@ -170,7 +170,7 @@
 - [x] T054 [P] [F001-US1] Create directory structure in `apps/template/src/`: `mkdir -p components hooks providers services types utils config lib`
 - [x] T055 [P] [F001-US1] Create `apps/template/src/__mocks__/` directory for Jest mocks (Capacitor, RevenueCat, platform-specific code)
 - [x] T056 [P] [F001-US1] Create `apps/template/tests/` directory with subdirectories: `unit/`, `integration/`, `contract/`
-- [x] T057 [F001-US1] Create `apps/template/package.json` with dependencies: copy from sudoku app, adjust name to `"@sudoku-web/template"`, remove sudoku-specific deps, add workspace dependencies to `@sudoku-web/types` and `@sudoku-web/shared`
+- [x] T057 [F001-US1] Create `apps/template/package.json` with dependencies: copy from sudoku app, adjust name to `"@bubblyclouds-app/template"`, remove sudoku-specific deps, add workspace dependencies to `@bubblyclouds-app/types` and `@bubblyclouds-app/shared`
 - [x] T058 [F001-US1] Copy `apps/sudoku/tailwind.config.ts` to `apps/template/tailwind.config.ts` (shared Tailwind configuration)
 - [x] T059 [F001-US1] Copy `apps/sudoku/next.config.js` to `apps/template/next.config.js` and adjust for monorepo workspace paths
 - [x] T060 [F001-US1] Create `apps/template/tsconfig.json` extending root config with path aliases for template-local imports
@@ -279,8 +279,8 @@
 - Test mocks importing from paths that have been moved to template
 
 **Next steps after deleting /src/**:
-1. Update Jest moduleNameMapper in apps/sudoku to resolve `@sudoku-web/template` imports
-2. Update all test mocks to import from `@sudoku-web/template` instead of `@/`
+1. Update Jest moduleNameMapper in apps/sudoku to resolve `@bubblyclouds-app/template` imports
+2. Update all test mocks to import from `@bubblyclouds-app/template` instead of `@/`
 3. Fix remaining import paths in sudoku app
 
 ---
@@ -293,13 +293,13 @@
 
 ### Refactor Template Internal Imports
 
-- [ ] T109 [F001-US1] Update all component imports in `apps/template/src/components/` to reference other components and hooks using `@sudoku-web/template` path prefix (e.g., `import { useAuth } from '@sudoku-web/template'` or relative imports)
+- [ ] T109 [F001-US1] Update all component imports in `apps/template/src/components/` to reference other components and hooks using `@bubblyclouds-app/template` path prefix (e.g., `import { useAuth } from '@bubblyclouds-app/template'` or relative imports)
 - [ ] T110 [F001-US1] Update all hook imports in `apps/template/src/hooks/` to reference services and types using appropriate paths
 - [ ] T111 [F001-US1] Update all provider imports in `apps/template/src/providers/` to reference hooks and services correctly
 - [ ] T112 [F001-US1] Update all service imports in `apps/template/src/services/` to reference types and utilities correctly
 - [ ] T113 [F001-US1] Update all test imports in `apps/template/tests/` to reference template components, hooks, services with correct paths
 - [ ] T114 [F001-US1] Verify template has zero imports from sudoku app (search for `sudoku/`, `apps/sudoku`, should find none)
-- [ ] T115 [F001-US1] Update TypeScript path aliases in `apps/template/tsconfig.json` to point to template locations, ensuring `@sudoku-web/*` aliases resolve correctly within template
+- [ ] T115 [F001-US1] Update TypeScript path aliases in `apps/template/tsconfig.json` to point to template locations, ensuring `@bubblyclouds-app/*` aliases resolve correctly within template
 
 **Checkpoint**: All template internal imports use correct paths, no circular dependencies, template builds successfully
 
@@ -313,18 +313,18 @@
 
 ### Configure Sudoku Workspace Dependencies
 
-- [ ] T116 [F001-US3] Verify `apps/sudoku/package.json` already has workspace dependency on `@sudoku-web/template` (added in phase 2)
-- [ ] T117 [F001-US3] Verify `apps/sudoku/tsconfig.json` includes path alias `"@sudoku-web/*": ["../template/src/*"]` for template imports
+- [ ] T116 [F001-US3] Verify `apps/sudoku/package.json` already has workspace dependency on `@bubblyclouds-app/template` (added in phase 2)
+- [ ] T117 [F001-US3] Verify `apps/sudoku/tsconfig.json` includes path alias `"@bubblyclouds-app/*": ["../template/src/*"]` for template imports
 - [ ] T118 [F001-US3] Update `apps/sudoku/package.json` npm scripts if needed to ensure build/dev/lint/test work with template imports
 
 ### Refactor Sudoku Imports - Generic to Template
 
-- [ ] T119 [F001-US3] Update imports in `apps/sudoku/src/` components: change `import { ... } from '@/components'` to `import { ... } from '@sudoku-web/template/components'` for generic components (Navigation, Profile, Settings, etc.)
-- [ ] T120 [F001-US3] Update imports in `apps/sudoku/src/` hooks: change `import { useAuth, useUser, useTheme, useSession, useParty } from '@/hooks'` to `import { useAuth, useUser, useTheme, useSession, useParty } from '@sudoku-web/template'`
-- [ ] T121 [F001-US3] Update imports in `apps/sudoku/src/` providers: change `import { AuthProvider, UserProvider, ... } from '@/providers'` to `import { AuthProvider, UserProvider, ... } from '@sudoku-web/template/providers'`
-- [ ] T122 [F001-US3] Update imports in `apps/sudoku/src/` services: change `import { authService, userService, ... } from '@/services'` to `import { authService, userService, ... } from '@sudoku-web/template/services'` for generic services
-- [ ] T123 [F001-US3] Update imports in `apps/sudoku/src/` types: change `import { User, Session, Party } from '@/types'` to `import { User, Session, Party } from '@sudoku-web/template/types'` for generic types
-- [ ] T124 [F001-US3] Update imports in `apps/sudoku/src/` utilities: change `import { ... } from '@/utils'` to `import { ... } from '@sudoku-web/template'` for generic utilities
+- [ ] T119 [F001-US3] Update imports in `apps/sudoku/src/` components: change `import { ... } from '@/components'` to `import { ... } from '@bubblyclouds-app/template/components'` for generic components (Navigation, Profile, Settings, etc.)
+- [ ] T120 [F001-US3] Update imports in `apps/sudoku/src/` hooks: change `import { useAuth, useUser, useTheme, useSession, useParty } from '@/hooks'` to `import { useAuth, useUser, useTheme, useSession, useParty } from '@bubblyclouds-app/template'`
+- [ ] T121 [F001-US3] Update imports in `apps/sudoku/src/` providers: change `import { AuthProvider, UserProvider, ... } from '@/providers'` to `import { AuthProvider, UserProvider, ... } from '@bubblyclouds-app/template/providers'`
+- [ ] T122 [F001-US3] Update imports in `apps/sudoku/src/` services: change `import { authService, userService, ... } from '@/services'` to `import { authService, userService, ... } from '@bubblyclouds-app/template/services'` for generic services
+- [ ] T123 [F001-US3] Update imports in `apps/sudoku/src/` types: change `import { User, Session, Party } from '@/types'` to `import { User, Session, Party } from '@bubblyclouds-app/template/types'` for generic types
+- [ ] T124 [F001-US3] Update imports in `apps/sudoku/src/` utilities: change `import { ... } from '@/utils'` to `import { ... } from '@bubblyclouds-app/template'` for generic utilities
 
 ### Keep Sudoku-Specific Code Local
 
@@ -361,19 +361,19 @@
 
 ### Test Template Package
 
-- [ ] T139 [P] [F001-US1] Run template tests: `npm run test --filter=@sudoku-web/template` - all tests should pass
-- [ ] T140 [F001-US1] Build template package: `npm run build --filter=@sudoku-web/template` - should complete successfully
+- [ ] T139 [P] [F001-US1] Run template tests: `npm run test --filter=@bubblyclouds-app/template` - all tests should pass
+- [ ] T140 [F001-US1] Build template package: `npm run build --filter=@bubblyclouds-app/template` - should complete successfully
 - [ ] T141 [F001-US1] Verify template has zero Sudoku-specific code: grep for "sudoku", "puzzle", "game" in template/src - should find none
 - [ ] T142 [F001-US1] Verify template exports are complete: import all public hooks/components in test file and verify no missing exports
-- [ ] T143 [P] [F001-US1] Run template linting: `npm run lint --filter=@sudoku-web/template` - should pass without workspace boundary violations
+- [ ] T143 [P] [F001-US1] Run template linting: `npm run lint --filter=@bubblyclouds-app/template` - should pass without workspace boundary violations
 
 ### Test Sudoku App Imports
 
-- [ ] T144 [P] [F001-US3] Run Sudoku tests: `npm run test --filter=@sudoku-web/sudoku` - existing tests should pass without regressions
-- [ ] T145 [F001-US3] Build Sudoku app: `npm run build --filter=@sudoku-web/sudoku` - should complete successfully
-- [ ] T146 [P] [F001-US3] Run Sudoku linting: `npm run lint --filter=@sudoku-web/sudoku` - should pass, including workspace boundary checks
-- [ ] T147 [F001-US3] Verify Sudoku imports: check `apps/sudoku/src/` for any remaining duplicate imports of generic code - should only import from `@sudoku-web/template`
-- [ ] T148 [P] [F001-US3] Check for circular dependencies: `npm ls @sudoku-web/template` should show clean hierarchy (sudoku → template, no reverse)
+- [ ] T144 [P] [F001-US3] Run Sudoku tests: `npm run test --filter=@bubblyclouds-app/sudoku` - existing tests should pass without regressions
+- [ ] T145 [F001-US3] Build Sudoku app: `npm run build --filter=@bubblyclouds-app/sudoku` - should complete successfully
+- [ ] T146 [P] [F001-US3] Run Sudoku linting: `npm run lint --filter=@bubblyclouds-app/sudoku` - should pass, including workspace boundary checks
+- [ ] T147 [F001-US3] Verify Sudoku imports: check `apps/sudoku/src/` for any remaining duplicate imports of generic code - should only import from `@bubblyclouds-app/template`
+- [ ] T148 [P] [F001-US3] Check for circular dependencies: `npm ls @bubblyclouds-app/template` should show clean hierarchy (sudoku → template, no reverse)
 
 ### Full Monorepo Validation
 

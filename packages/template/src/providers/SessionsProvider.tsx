@@ -13,15 +13,18 @@ import {
   Parties,
   Session,
   Party,
-} from '@sudoku-web/types/serverTypes';
-import { StateType } from '@sudoku-web/types/stateType';
-import { UserSession, UserSessions } from '@sudoku-web/types/userSessions';
+} from '@bubblyclouds-app/types/serverTypes';
+import { StateType } from '@bubblyclouds-app/types/stateType';
+import {
+  UserSession,
+  UserSessions,
+} from '@bubblyclouds-app/types/userSessions';
 import { useServerStorage } from '../hooks/serverStorage';
 import { useLocalStorage } from '../hooks/localStorage';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 
 interface SessionsContextType<T = any> {
   sessions: ServerStateResult<T>[] | null;
@@ -51,11 +54,15 @@ const SessionsContext = createContext<SessionsContextType | null>(null);
 interface SessionsProviderProps {
   children: ReactNode;
   stateType: StateType;
+  app: string;
+  apiUrl: string;
 }
 
 export const SessionsProvider = <T extends {}>({
   children,
   stateType,
+  app,
+  apiUrl,
 }: SessionsProviderProps) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
@@ -70,7 +77,7 @@ export const SessionsProvider = <T extends {}>({
   const friendSessionsRef = useRef<UserSessions<T>>({});
   const isLoadingRef = useRef(false);
   const sessionsRef = useRef<ServerStateResult<T>[] | null>(null);
-  const { listValues: listServerValues } = useServerStorage();
+  const { listValues: listServerValues } = useServerStorage({ app, apiUrl });
 
   // Update refs whenever state changes
   friendSessionsRef.current = friendSessions;
@@ -215,7 +222,7 @@ export const SessionsProvider = <T extends {}>({
             );
             mergeSessions(recentServerSessions);
           }
-        } catch (serverError) {
+        } catch (_serverError) {
           // Ignore server errors when offline
         }
       } catch (error) {

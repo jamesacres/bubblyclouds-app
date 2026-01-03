@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
-import { StateType } from '@sudoku-web/types/stateType';
+import { StateType } from '@bubblyclouds-app/types/stateType';
 
 export interface StateResult<T> {
   lastUpdated: number;

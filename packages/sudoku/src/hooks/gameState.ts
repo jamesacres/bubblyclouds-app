@@ -16,34 +16,34 @@ import {
   ServerState,
   SetAnswer,
 } from '../types/state';
-import { useLocalStorage } from '@sudoku-web/template/hooks/localStorage';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useLocalStorage } from '@bubblyclouds-app/template/hooks/localStorage';
+import { useSudokuServerStorage } from './useSudokuServerStorage';
 import { checkCell, checkGrid } from '../helpers/checkAnswer';
-import { StateType } from '@sudoku-web/types/stateType';
-import { useTimer } from './timer';
-import { calculateSeconds } from '../helpers/calculateSeconds';
+import { StateType } from '@bubblyclouds-app/types/stateType';
+import { useTimer } from '@bubblyclouds-app/template/hooks/timer';
+import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
 import {
   Parties,
   ServerStateResult,
   Session,
-} from '@sudoku-web/types/serverTypes';
+} from '@bubblyclouds-app/types/serverTypes';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import {
   canUseUndo,
   canUseCheckGrid,
-} from '@sudoku-web/template/utils/dailyActionCounter';
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
 import {
   incrementUndoCount,
   incrementCheckGridCount,
-} from '@sudoku-web/template/utils/dailyActionCounter';
-import { useDocumentVisibility } from '@sudoku-web/template/hooks/documentVisibility';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
-import type { SubscriptionContext as SubscriptionContextType } from '@sudoku-web/types/subscriptionContext';
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
+import { useDocumentVisibility } from '@bubblyclouds-app/template/hooks/documentVisibility';
+import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
+import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
+import type { SubscriptionContext as SubscriptionContextType } from '@bubblyclouds-app/types/subscriptionContext';
 
 const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
 
@@ -52,11 +52,15 @@ function useGameState({
   initial,
   puzzleId,
   metadata,
+  app,
+  apiUrl,
 }: {
   final: Puzzle<number>;
   initial: Puzzle<number>;
   puzzleId: string;
   metadata: Partial<GameStateMetadata>;
+  app: string;
+  apiUrl: string;
 }) {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
@@ -65,7 +69,7 @@ function useGameState({
 
   const { timer, setTimerNewSession, stopTimer, setPauseTimer, isPaused } =
     useTimer({
-      puzzleId,
+      id: puzzleId,
     });
 
   // Reference to timer value to use without triggering re-renders
@@ -96,12 +100,14 @@ function useGameState({
       type: StateType.PUZZLE,
     });
   const { getValue: getServerValue, saveValue: saveServerValue } =
-    useServerStorage({
+    useSudokuServerStorage({
+      app,
+      apiUrl,
       id: puzzleId,
       type: StateType.PUZZLE,
     });
   const { parties } = useParties();
-  const { getSessionParties, patchFriendSessions } = useSessions<GameState>();
+  const { getSessionParties, patchFriendSessions } = useSessions<ServerState>();
 
   const [isNotesMode, setIsNotesMode] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -192,7 +198,7 @@ function useGameState({
       isSaveServerValue: boolean = true
     ): {
       localValue: { lastUpdated: number; state: GameState } | undefined;
-      serverValuePromise?: Promise<ServerStateResult<GameState> | undefined>;
+      serverValuePromise?: Promise<ServerStateResult<ServerState> | undefined>;
     } => {
       if (state.answerStack.length > 0) {
         // Get current answer (last item in answerStack)
@@ -238,7 +244,7 @@ function useGameState({
   const handleServerResponse = useCallback(
     (
       active: boolean,
-      serverValue: ServerStateResult<GameState> | undefined
+      serverValue: ServerStateResult<ServerState> | undefined
     ) => {
       if (
         active &&
@@ -666,7 +672,7 @@ function useGameState({
   useEffect(() => {
     const ignoreKeyboard = (e: KeyboardEvent) => {
       const insideForm = /^(?:input|textarea|select|button)$/i.test(
-        (<any>e.target)?.tagName
+        (<HTMLElement>e.target)?.tagName
       );
       return completed || showSidebar || insideForm;
     };

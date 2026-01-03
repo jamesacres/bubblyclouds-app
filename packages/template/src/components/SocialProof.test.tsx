@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import SocialProof from './SocialProof';
 
+const mockMessages = ['Test message 1', 'Test message 2', 'Test message 3'];
+
 describe('SocialProof', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -14,7 +16,9 @@ describe('SocialProof', () => {
 
   describe('rendering', () => {
     it('should eventually render content after component mounts', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const content = container.querySelector('.text-sm');
@@ -23,7 +27,9 @@ describe('SocialProof', () => {
     });
 
     it('should render a message container after effect runs', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const wrapper = container.querySelector('.flex');
@@ -32,7 +38,9 @@ describe('SocialProof', () => {
     });
 
     it('should render the outer wrapper div with correct classes', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const wrapper = container.querySelector('.mb-4');
@@ -44,7 +52,9 @@ describe('SocialProof', () => {
     });
 
     it('should render the max-width container', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const maxWidthContainer = container.querySelector('.max-w-md');
@@ -53,7 +63,9 @@ describe('SocialProof', () => {
     });
 
     it('should render the animation wrapper', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const animationWrapper = container.querySelector('.animate-fade-in');
@@ -63,7 +75,9 @@ describe('SocialProof', () => {
     });
 
     it('should render the message badge with correct styling', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const badge = container.querySelector('.rounded-full');
@@ -81,7 +95,9 @@ describe('SocialProof', () => {
     });
 
     it('should render the pulse indicator dot', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const pulseIndicator = container.querySelector('.animate-pulse');
@@ -94,7 +110,9 @@ describe('SocialProof', () => {
     });
 
     it('should render a message text span with correct styling', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const messageSpan = container.querySelector('span');
@@ -106,7 +124,9 @@ describe('SocialProof', () => {
     });
 
     it('should display one of the valid motivational messages', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const messageSpan = container.querySelector('.text-sm');
@@ -118,7 +138,7 @@ describe('SocialProof', () => {
 
   describe('message display', () => {
     it('should display a message after component mounts', async () => {
-      render(<SocialProof />);
+      render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
         const messageSpan = screen.getByText((content, element) => {
@@ -131,7 +151,9 @@ describe('SocialProof', () => {
     });
 
     it('should display text that contains motivational content', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         // Check that some message is displayed
@@ -142,7 +164,9 @@ describe('SocialProof', () => {
     });
 
     it('should have text content in the span element', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const span = container.querySelector('span');
@@ -152,7 +176,9 @@ describe('SocialProof', () => {
     });
 
     it('should display a message that is not empty', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const messageSpan = container.querySelector('.text-sm.font-medium');
@@ -164,7 +190,7 @@ describe('SocialProof', () => {
   describe('timer functionality', () => {
     it('should set up an interval on mount', async () => {
       const setIntervalSpy = jest.spyOn(global, 'setInterval');
-      render(<SocialProof />);
+      render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
         expect(setIntervalSpy).toHaveBeenCalledTimes(1);
@@ -175,7 +201,7 @@ describe('SocialProof', () => {
 
     it('should set interval to 10000 milliseconds (10 seconds)', async () => {
       const setIntervalSpy = jest.spyOn(global, 'setInterval');
-      render(<SocialProof />);
+      render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
         expect(setIntervalSpy).toHaveBeenCalledWith(
@@ -188,7 +214,9 @@ describe('SocialProof', () => {
     });
 
     it('should change message after interval elapse', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const firstMessage = container.querySelector('.text-sm')?.textContent;
@@ -205,7 +233,9 @@ describe('SocialProof', () => {
 
     it('should continue updating messages at 10-second intervals', async () => {
       const setIntervalSpy = jest.spyOn(global, 'setInterval');
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         expect(setIntervalSpy).toHaveBeenCalled();
@@ -223,7 +253,9 @@ describe('SocialProof', () => {
   describe('cleanup', () => {
     it('should clean up interval on unmount', async () => {
       const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
-      const { unmount } = render(<SocialProof />);
+      const { unmount } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         unmount();
@@ -235,7 +267,9 @@ describe('SocialProof', () => {
 
     it('should return cleanup function from useEffect', async () => {
       const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
-      const { unmount } = render(<SocialProof />);
+      const { unmount } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         expect(clearIntervalSpy).toHaveBeenCalledTimes(0);
@@ -248,7 +282,9 @@ describe('SocialProof', () => {
 
     it('should prevent memory leaks by cleaning up timer', async () => {
       const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
-      const { unmount } = render(<SocialProof />);
+      const { unmount } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         unmount();
@@ -263,7 +299,9 @@ describe('SocialProof', () => {
 
   describe('accessibility', () => {
     it('should have proper semantic structure', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         // Check for basic semantic structure
@@ -273,7 +311,9 @@ describe('SocialProof', () => {
     });
 
     it('should have readable text color', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const messageSpan = container.querySelector('span');
@@ -282,7 +322,9 @@ describe('SocialProof', () => {
     });
 
     it('should use text-sm for reasonable font size', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const messageSpan = container.querySelector('.text-sm');
@@ -291,7 +333,9 @@ describe('SocialProof', () => {
     });
 
     it('should have proper text contrast with backdrop', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const badge = container.querySelector('.rounded-full');
@@ -302,7 +346,9 @@ describe('SocialProof', () => {
     });
 
     it('should have centered alignment for readability', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const animatedDiv = container.querySelector('.text-center');
@@ -315,7 +361,9 @@ describe('SocialProof', () => {
 
   describe('styling', () => {
     it('should have responsive margin bottom', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const outerDiv = container.querySelector('.mb-4');
@@ -324,7 +372,9 @@ describe('SocialProof', () => {
     });
 
     it('should have flex display with center alignment', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const flexContainer = container.querySelector('.flex');
@@ -334,7 +384,9 @@ describe('SocialProof', () => {
     });
 
     it('should have constrained max width', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const maxWidth = container.querySelector('.max-w-md');
@@ -343,7 +395,9 @@ describe('SocialProof', () => {
     });
 
     it('should apply backdrop blur effect', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const badge = container.querySelector('.backdrop-blur-sm');
@@ -352,7 +406,9 @@ describe('SocialProof', () => {
     });
 
     it('should have semi-transparent background', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const badge = container.querySelector('.rounded-full');
@@ -361,7 +417,9 @@ describe('SocialProof', () => {
     });
 
     it('should have subtle border', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const badge = container.querySelector('.border');
@@ -370,7 +428,9 @@ describe('SocialProof', () => {
     });
 
     it('should have animation class applied', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const animatedDiv = container.querySelector('.animate-fade-in');
@@ -379,7 +439,9 @@ describe('SocialProof', () => {
     });
 
     it('should have pulse animation on indicator', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const pulse = container.querySelector('.animate-pulse');
@@ -389,7 +451,9 @@ describe('SocialProof', () => {
     });
 
     it('should have proper padding on badge', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const badge = container.querySelector('.px-4');
@@ -398,7 +462,9 @@ describe('SocialProof', () => {
     });
 
     it('should have proper font weight on message', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const message = container.querySelector('.font-medium');
@@ -409,13 +475,17 @@ describe('SocialProof', () => {
 
   describe('edge cases', () => {
     it('should handle multiple mounts and unmounts', async () => {
-      const { unmount: unmount1 } = render(<SocialProof />);
+      const { unmount: unmount1 } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         unmount1();
       });
 
-      const { unmount: unmount2 } = render(<SocialProof />);
+      const { unmount: unmount2 } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         unmount2();
@@ -426,12 +496,14 @@ describe('SocialProof', () => {
     });
 
     it('should handle rapid re-renders', async () => {
-      const { rerender } = render(<SocialProof />);
+      const { rerender } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
-        rerender(<SocialProof />);
-        rerender(<SocialProof />);
-        rerender(<SocialProof />);
+        rerender(<SocialProof motivationalMessages={mockMessages} />);
+        rerender(<SocialProof motivationalMessages={mockMessages} />);
+        rerender(<SocialProof motivationalMessages={mockMessages} />);
 
         // Should handle multiple renders gracefully
         expect(true).toBe(true);
@@ -441,7 +513,7 @@ describe('SocialProof', () => {
     it('should not break if Math.random returns 0', async () => {
       const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
 
-      render(<SocialProof />);
+      render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
         const messageSpan = screen.getByText((content, element) => {
@@ -456,7 +528,7 @@ describe('SocialProof', () => {
     it('should not break if Math.random returns nearly 1', async () => {
       const mathRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.9999);
 
-      render(<SocialProof />);
+      render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
         const messageSpan = screen.getByText((content, element) => {
@@ -469,7 +541,9 @@ describe('SocialProof', () => {
     });
 
     it('should continue working after timer fires multiple times', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         expect(container.querySelector('.text-sm')).toBeInTheDocument();
@@ -489,7 +563,7 @@ describe('SocialProof', () => {
     it('should handle component being hidden from DOM', async () => {
       const { container } = render(
         <div style={{ display: 'none' }}>
-          <SocialProof />
+          <SocialProof motivationalMessages={mockMessages} />
         </div>
       );
 
@@ -503,7 +577,9 @@ describe('SocialProof', () => {
 
   describe('state management', () => {
     it('should initialize state and render content', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       // Component should render after effect runs
       await waitFor(() => {
@@ -512,7 +588,9 @@ describe('SocialProof', () => {
     });
 
     it('should set message to one from motivationalMessages array', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const messageSpan = container.querySelector('.text-sm');
@@ -523,7 +601,9 @@ describe('SocialProof', () => {
     });
 
     it('should update state with new random message on interval', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const firstMessage = container.querySelector('.text-sm')?.textContent;
@@ -540,7 +620,9 @@ describe('SocialProof', () => {
 
   describe('rendering consistency', () => {
     it('should render exact same structure every time', async () => {
-      const { container: container1 } = render(<SocialProof />);
+      const { container: container1 } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const flex1 = container1.querySelector('.flex');
@@ -554,12 +636,16 @@ describe('SocialProof', () => {
         expect(message1).toBeInTheDocument();
       });
 
-      const { unmount } = render(<SocialProof />);
+      const { unmount } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
       unmount();
     });
 
     it('should always render with correct hierarchy', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         // Outer wrapper
@@ -591,7 +677,9 @@ describe('SocialProof', () => {
 
   describe('component lifecycle', () => {
     it('should execute useEffect on mount', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         // Effect should have run, setting message
@@ -600,7 +688,9 @@ describe('SocialProof', () => {
     });
 
     it('should have cleanup function executed on unmount', async () => {
-      const { unmount } = render(<SocialProof />);
+      const { unmount } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         const clearSpy = jest.spyOn(global, 'clearInterval');
@@ -611,7 +701,9 @@ describe('SocialProof', () => {
     });
 
     it('should not execute interval after unmount', async () => {
-      const { unmount } = render(<SocialProof />);
+      const { unmount } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         unmount();
@@ -628,7 +720,7 @@ describe('SocialProof', () => {
   describe('message randomization', () => {
     it('should select random message on mount', async () => {
       const floorSpy = jest.spyOn(Math, 'floor');
-      render(<SocialProof />);
+      render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
         expect(floorSpy).toHaveBeenCalled();
@@ -639,7 +731,7 @@ describe('SocialProof', () => {
 
     it('should use Math.random for selection', async () => {
       const randomSpy = jest.spyOn(Math, 'random');
-      render(<SocialProof />);
+      render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
         expect(randomSpy).toHaveBeenCalled();
@@ -650,7 +742,7 @@ describe('SocialProof', () => {
 
     it('should multiply random by array length', async () => {
       const floorSpy = jest.spyOn(Math, 'floor');
-      render(<SocialProof />);
+      render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
         // floor should be called with result of Math.random() * length
@@ -663,7 +755,9 @@ describe('SocialProof', () => {
 
   describe('conditional rendering', () => {
     it('should render content when message is set', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       // After effect runs, component should render
       await waitFor(() => {
@@ -672,7 +766,9 @@ describe('SocialProof', () => {
     });
 
     it('should render content after message is set by effect', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       // After effect runs
       await waitFor(() => {
@@ -682,7 +778,9 @@ describe('SocialProof', () => {
     });
 
     it('should verify null render guard works correctly', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       // Component should eventually render with message
       await waitFor(() => {
@@ -694,7 +792,9 @@ describe('SocialProof', () => {
 
   describe('integration tests', () => {
     it('should provide complete user experience flow', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       // After mount, message appears
       await waitFor(() => {
@@ -711,7 +811,9 @@ describe('SocialProof', () => {
     });
 
     it('should handle complete lifecycle without errors', async () => {
-      const { container, rerender, unmount } = render(<SocialProof />);
+      const { container, rerender, unmount } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       // Component mounted and rendering
       await waitFor(() => {
@@ -722,7 +824,7 @@ describe('SocialProof', () => {
       jest.advanceTimersByTime(10000);
 
       // Rerender
-      rerender(<SocialProof />);
+      rerender(<SocialProof motivationalMessages={mockMessages} />);
 
       // Component still works
       expect(container.querySelector('.text-sm')).toBeInTheDocument();
@@ -735,7 +837,9 @@ describe('SocialProof', () => {
     });
 
     it('should display motivational message to user', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         // User should see a message
@@ -747,7 +851,9 @@ describe('SocialProof', () => {
     });
 
     it('should provide visual feedback with animations', async () => {
-      const { container } = render(<SocialProof />);
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
 
       await waitFor(() => {
         // Fade in animation

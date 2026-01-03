@@ -1,21 +1,22 @@
 # Quick Start: Using the Modular Architecture
 
-**Date**: 2025-11-02
-**Target Audience**: Developers working with the modular Turborepo
+**Date**: 2025-11-02 **Target Audience**: Developers working with the modular
+Turborepo
 
 ---
 
 ## Architecture Overview
 
-The sudoku-web monorepo is organized into reusable packages that multiple applications can build on:
+The bubblyclouds-app monorepo is organized into reusable packages that multiple
+applications can build on:
 
 ```
 📦 Packages (core functionality)
-├── @sudoku-web/auth     → Authentication & user management
-├── @sudoku-web/ui       → Shared UI components & theming
-├── @sudoku-web/template → Collaborative features (parties, sessions)
-├── @sudoku-web/sudoku   → Game-specific logic
-└── @sudoku-web/shared   → Generic utilities
+├── @bubblyclouds-app/auth     → Authentication & user management
+├── @bubblyclouds-app/ui       → Shared UI components & theming
+├── @bubblyclouds-app/template → Collaborative features (parties, sessions)
+├── @bubblyclouds-app/sudoku   → Game-specific logic
+└── @bubblyclouds-app/shared   → Generic utilities
 
 🚀 Applications (consume packages)
 ├── apps/template → Standalone collaboration app (auth + ui + template)
@@ -28,7 +29,8 @@ The sudoku-web monorepo is organized into reusable packages that multiple applic
 
 ### Building the Template App (Standalone)
 
-The template app is a complete, self-contained application with user authentication and collaborative features:
+The template app is a complete, self-contained application with user
+authentication and collaborative features:
 
 ```bash
 # Install dependencies
@@ -44,6 +46,7 @@ npm run dev -w apps/template
 ```
 
 **What template app includes**:
+
 - ✅ User login/signup (OAuth + email)
 - ✅ User profile management
 - ✅ Party/group creation and management
@@ -73,6 +76,7 @@ npm run dev -w apps/sudoku
 ```
 
 **What sudoku app includes**:
+
 - ✅ Everything from template app
 - ✅ Sudoku puzzle grid
 - ✅ Game solver and validation
@@ -86,9 +90,10 @@ npm run dev -w apps/sudoku
 
 ### Creating a New Package
 
-Want to create a new package (e.g., `@sudoku-web/analytics`)?
+Want to create a new package (e.g., `@bubblyclouds-app/analytics`)?
 
 1. **Create package structure**:
+
 ```bash
 mkdir packages/analytics
 cd packages/analytics
@@ -96,39 +101,44 @@ npm init -y
 ```
 
 2. **Configure TypeScript**:
+
 ```bash
 cp ../ui/tsconfig.json .
 ```
 
 3. **Create source**:
+
 ```bash
 mkdir src
 touch src/index.ts
 ```
 
 4. **Update root tsconfig.json** to add path alias:
+
 ```json
 {
   "compilerOptions": {
     "paths": {
-      "@sudoku-web/analytics": ["packages/analytics/src"]
+      "@bubblyclouds-app/analytics": ["packages/analytics/src"]
     }
   }
 }
 ```
 
 5. **Export public API only** (src/index.ts):
+
 ```typescript
 // ✅ Export public API
-export { AnalyticsProvider } from './providers/AnalyticsProvider';
-export { useAnalytics } from './hooks/useAnalytics';
-export type { AnalyticsEvent } from './types/AnalyticsEvent';
+export { AnalyticsProvider } from "./providers/AnalyticsProvider";
+export { useAnalytics } from "./hooks/useAnalytics";
+export type { AnalyticsEvent } from "./types/AnalyticsEvent";
 
 // ❌ Do NOT export internal implementations
 // export { trackEventInternal } from './internal/tracking';
 ```
 
 6. **Update root package.json**:
+
 ```json
 {
   "workspaces": [
@@ -148,9 +158,9 @@ export type { AnalyticsEvent } from './types/AnalyticsEvent';
 │   (apps/template)       │
 ├─────────────────────────┤
 │ Imports:                │
-│ • @sudoku-web/auth     │
-│ • @sudoku-web/ui       │
-│ • @sudoku-web/template │
+│ • @bubblyclouds-app/auth     │
+│ • @bubblyclouds-app/ui       │
+│ • @bubblyclouds-app/template │
 └─────────────────────────┘
            ↓
 ┌─────────────────────────┐
@@ -160,44 +170,47 @@ export type { AnalyticsEvent } from './types/AnalyticsEvent';
 │ • template              │
 ├─────────────────────────┤
 │ All depend on:          │
-│ • @sudoku-web/shared   │
-│ • @sudoku-web/types    │
+│ • @bubblyclouds-app/shared   │
+│ • @bubblyclouds-app/types    │
 └─────────────────────────┘
            ↓
 ┌─────────────────────────┐
 │   Core Packages         │
-│ • @sudoku-web/shared   │
-│ • @sudoku-web/types    │
+│ • @bubblyclouds-app/shared   │
+│ • @bubblyclouds-app/types    │
 ├─────────────────────────┤
 │ Have NO dependencies    │
 │ (except React, lodash)  │
 └─────────────────────────┘
 ```
 
-**Key Rule**: Apps import packages. Packages don't import apps. Core packages don't import feature packages.
+**Key Rule**: Apps import packages. Packages don't import apps. Core packages
+don't import feature packages.
 
 ---
 
 ### Importing from Packages
 
 **Do This** ✅:
+
 ```typescript
 // Import from package public API
-import { useAuth } from '@sudoku-web/auth';
-import { Button, Header } from '@sudoku-web/ui';
-import { useParty } from '@sudoku-web/template';
+import { useAuth } from "@bubblyclouds-app/auth";
+import { Button, Header } from "@bubblyclouds-app/ui";
+import { useParty } from "@bubblyclouds-app/template";
 ```
 
 **Don't Do This** ❌:
+
 ```typescript
 // DON'T import internals
-import { AuthProvider } from '@sudoku-web/auth/src/providers/AuthProvider';
+import { AuthProvider } from "@bubblyclouds-app/auth/src/providers/AuthProvider";
 
 // DON'T import from apps
-import { SudokuGame } from 'apps/sudoku/src/components/SudokuGame';
+import { SudokuGame } from "apps/sudoku/src/components/SudokuGame";
 
 // DON'T bypass the public API
-import { getTokenInternal } from '@sudoku-web/auth/src/internal/token';
+import { getTokenInternal } from "@bubblyclouds-app/auth/src/internal/token";
 ```
 
 ---
@@ -207,6 +220,7 @@ import { getTokenInternal } from '@sudoku-web/auth/src/internal/token';
 ### Task 1: Add a New Component to UI Package
 
 1. **Create component file**:
+
 ```bash
 # packages/ui/src/components/Card/Card.tsx
 export interface CardProps {
@@ -220,13 +234,15 @@ export function Card({ children, variant = 'default' }: CardProps) {
 ```
 
 2. **Add to index.ts**:
+
 ```typescript
 // packages/ui/src/index.ts
-export { Card } from './components/Card/Card';
-export type { CardProps } from './components/Card/Card';
+export { Card } from "./components/Card/Card";
+export type { CardProps } from "./components/Card/Card";
 ```
 
 3. **Write tests**:
+
 ```bash
 # packages/ui/src/components/Card/Card.test.tsx
 describe('Card', () => {
@@ -238,9 +254,10 @@ describe('Card', () => {
 ```
 
 4. **Use in app**:
+
 ```typescript
 // apps/template/src/components/MyPage.tsx
-import { Card } from '@sudoku-web/ui';
+import { Card } from "@bubblyclouds-app/ui";
 
 export function MyPage() {
   return <Card>Page content here</Card>;
@@ -252,6 +269,7 @@ export function MyPage() {
 ### Task 2: Add a New Hook to Auth Package
 
 1. **Create hook**:
+
 ```typescript
 // packages/auth/src/hooks/useVerifyEmail.ts
 export function useVerifyEmail() {
@@ -259,22 +277,24 @@ export function useVerifyEmail() {
 
   return {
     isVerified: user?.emailVerified ?? false,
-    sendVerificationEmail: async () => { /* ... */ },
+    sendVerificationEmail: async () => {/* ... */},
   };
 }
 ```
 
 2. **Export from index.ts**:
+
 ```typescript
 // packages/auth/src/index.ts
-export { useVerifyEmail } from './hooks/useVerifyEmail';
+export { useVerifyEmail } from "./hooks/useVerifyEmail";
 ```
 
 3. **Write tests**:
+
 ```typescript
 // packages/auth/src/hooks/useVerifyEmail.test.ts
-describe('useVerifyEmail', () => {
-  it('returns verification status', () => {
+describe("useVerifyEmail", () => {
+  it("returns verification status", () => {
     const { result } = renderHook(() => useVerifyEmail());
     expect(result.current.isVerified).toBe(false);
   });
@@ -282,8 +302,9 @@ describe('useVerifyEmail', () => {
 ```
 
 4. **Use in app**:
+
 ```typescript
-import { useVerifyEmail } from '@sudoku-web/auth';
+import { useVerifyEmail } from "@bubblyclouds-app/auth";
 
 export function VerificationPrompt() {
   const { isVerified, sendVerificationEmail } = useVerifyEmail();
@@ -299,11 +320,12 @@ export function VerificationPrompt() {
 2. **Create package if needed**: Or add to existing package
 3. **Move files**: Copy component/hook to package with tests
 4. **Export from index.ts**: Add to package's public API
-5. **Update imports**: Change all app imports to use `@sudoku-web/*` alias
+5. **Update imports**: Change all app imports to use `@bubblyclouds-app/*` alias
 6. **Run tests**: Ensure no regressions (`npm test`)
 7. **Delete old code**: Remove from app (if not needed)
 
 Example:
+
 ```bash
 # Move from app to template package
 mv apps/sudoku/src/hooks/useParty.ts packages/template/src/hooks/useParty.ts
@@ -311,7 +333,7 @@ mv apps/sudoku/src/hooks/useParty.test.ts packages/template/src/hooks/useParty.t
 
 # Update app imports
 # FROM: import { useParty } from 'src/hooks/useParty';
-# TO:   import { useParty } from '@sudoku-web/template';
+# TO:   import { useParty } from '@bubblyclouds-app/template';
 ```
 
 ---
@@ -340,7 +362,7 @@ npm test
 ### Run Tests for Specific Package
 
 ```bash
-npm test -w @sudoku-web/auth
+npm test -w @bubblyclouds-app/auth
 npm test -w apps/template
 ```
 
@@ -353,7 +375,7 @@ npm test -- --coverage
 ### Watch Mode (during development)
 
 ```bash
-npm test -w @sudoku-web/ui -- --watch
+npm test -w @bubblyclouds-app/ui -- --watch
 ```
 
 ---
@@ -388,11 +410,12 @@ npm run lint
 
 ## Troubleshooting
 
-### Issue: Module Not Found `@sudoku-web/auth`
+### Issue: Module Not Found `@bubblyclouds-app/auth`
 
 **Cause**: TypeScript path alias not configured or package not installed
 
 **Solution**:
+
 1. Check `tsconfig.json` has the path alias
 2. Run `npm install`
 3. Restart TypeScript server in IDE
@@ -404,11 +427,13 @@ npm run lint
 **Cause**: Package A imports from Package B which imports from Package A
 
 **Solution**:
+
 1. Identify the circular dependency
 2. Move shared code to a core package that both depend on
 3. Or refactor one package to not import from the other
 
 **Check for circular dependencies**:
+
 ```bash
 npm run build 2>&1 | grep -i "circular"
 ```
@@ -420,6 +445,7 @@ npm run build 2>&1 | grep -i "circular"
 **Cause**: Import paths or types changed
 
 **Solution**:
+
 1. Clear jest cache: `npx jest --clearCache`
 2. Verify imports use correct path aliases
 3. Check package index.ts exports everything needed
@@ -438,7 +464,9 @@ npm run build 2>&1 | grep -i "circular"
 
 ## Resources
 
-- **Package Contracts**: See `specs/003-modular-turborepo-architecture/contracts/`
+- **Package Contracts**: See
+  `specs/003-modular-turborepo-architecture/contracts/`
 - **Data Model**: See `specs/003-modular-turborepo-architecture/data-model.md`
-- **Architecture Decision**: See `specs/003-modular-turborepo-architecture/research.md`
+- **Architecture Decision**: See
+  `specs/003-modular-turborepo-architecture/research.md`
 - **Tests**: See any `*.test.ts` or `*.test.tsx` file for testing examples

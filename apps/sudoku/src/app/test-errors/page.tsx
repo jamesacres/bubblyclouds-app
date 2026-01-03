@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { splitCellId } from '@sudoku-web/sudoku/helpers/calculateId';
+import Link from 'next/link';
+import { splitCellId } from '@bubblyclouds-app/sudoku/helpers/calculateId';
 
 // Component that throws an error when triggered
 function ErrorThrower({ shouldThrow }: { shouldThrow: boolean }) {
@@ -55,7 +56,6 @@ export default function TestErrorsPage() {
       console.log('Attempting to fill localStorage...');
       let i = 0;
       const data = 'x'.repeat(1024 * 100); // 100KB chunks
-      // eslint-disable-next-line no-constant-condition
       while (true) {
         localStorage.setItem(`test_quota_${i}`, data);
         i++;
@@ -252,12 +252,12 @@ export default function TestErrorsPage() {
       </div>
 
       <div className="mt-4 text-center">
-        <a
+        <Link
           href="/"
           className="text-blue-600 underline hover:text-blue-800 dark:text-blue-400"
         >
           ← Back to Home
-        </a>
+        </Link>
       </div>
     </div>
   );

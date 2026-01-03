@@ -34,7 +34,7 @@ All key architectural decisions have been validated through code analysis, indus
 
 ## Decision 2: Package Boundaries for Auth Package
 
-**Decision**: Dedicated `@sudoku-web/auth` package containing all authentication logic, user management, and session handling
+**Decision**: Dedicated `@bubblyclouds-app/auth` package containing all authentication logic, user management, and session handling
 
 **Rationale**:
 - Authentication is complex, security-critical, and identical across all applications
@@ -58,7 +58,7 @@ All key architectural decisions have been validated through code analysis, indus
 
 ## Decision 3: Shared UI Package Instead of Scattered Components
 
-**Decision**: Create `@sudoku-web/ui` package containing all reusable UI components and theme logic
+**Decision**: Create `@bubblyclouds-app/ui` package containing all reusable UI components and theme logic
 
 **Rationale**:
 - Header, footer, and theme are used identically in template and sudoku apps
@@ -82,7 +82,7 @@ All key architectural decisions have been validated through code analysis, indus
 
 ## Decision 4: Template as Reusable Foundation Package
 
-**Decision**: `@sudoku-web/template` becomes an importable package with core collaborative features (parties, sessions)
+**Decision**: `@bubblyclouds-app/template` becomes an importable package with core collaborative features (parties, sessions)
 
 **Rationale**:
 - Enables "create another app without the sudoku logic" requirement
@@ -98,14 +98,14 @@ All key architectural decisions have been validated through code analysis, indus
 - User context and session context providers
 
 **Note on Naming**:
-- Package is `@sudoku-web/template` (core collaborative features)
+- Package is `@bubblyclouds-app/template` (core collaborative features)
 - App is `apps/template` (standalone application using that package)
 
 ---
 
 ## Decision 5: Sudoku Package Contains All Game Logic
 
-**Decision**: Dedicated `@sudoku-web/sudoku` package for all game-specific functionality
+**Decision**: Dedicated `@bubblyclouds-app/sudoku` package for all game-specific functionality
 
 **Rationale**:
 - Isolates game logic from reusable packages
@@ -132,16 +132,16 @@ All key architectural decisions have been validated through code analysis, indus
 **Decision**: Unidirectional dependency graph with clear layers:
 
 ```
-apps/template → @sudoku-web/auth, @sudoku-web/ui, @sudoku-web/template
-apps/sudoku → @sudoku-web/auth, @sudoku-web/ui, @sudoku-web/sudoku, @sudoku-web/template
+apps/template → @bubblyclouds-app/auth, @bubblyclouds-app/ui, @bubblyclouds-app/template
+apps/sudoku → @bubblyclouds-app/auth, @bubblyclouds-app/ui, @bubblyclouds-app/sudoku, @bubblyclouds-app/template
 
-@sudoku-web/auth → @sudoku-web/types, @sudoku-web/shared
-@sudoku-web/ui → @sudoku-web/types, @sudoku-web/shared
-@sudoku-web/template → @sudoku-web/types, @sudoku-web/shared, @sudoku-web/auth, @sudoku-web/ui
-@sudoku-web/sudoku → @sudoku-web/types, @sudoku-web/shared, @sudoku-web/template
+@bubblyclouds-app/auth → @bubblyclouds-app/types, @bubblyclouds-app/shared
+@bubblyclouds-app/ui → @bubblyclouds-app/types, @bubblyclouds-app/shared
+@bubblyclouds-app/template → @bubblyclouds-app/types, @bubblyclouds-app/shared, @bubblyclouds-app/auth, @bubblyclouds-app/ui
+@bubblyclouds-app/sudoku → @bubblyclouds-app/types, @bubblyclouds-app/shared, @bubblyclouds-app/template
 
-@sudoku-web/shared → @sudoku-web/types
-@sudoku-web/types → (no dependencies)
+@bubblyclouds-app/shared → @bubblyclouds-app/types
+@bubblyclouds-app/types → (no dependencies)
 ```
 
 **Rationale**:
@@ -154,12 +154,12 @@ apps/sudoku → @sudoku-web/auth, @sudoku-web/ui, @sudoku-web/sudoku, @sudoku-we
 ```json
 {
   "paths": {
-    "@sudoku-web/auth": ["packages/auth/src"],
-    "@sudoku-web/ui": ["packages/ui/src"],
-    "@sudoku-web/sudoku": ["packages/sudoku/src"],
-    "@sudoku-web/template": ["packages/template/src"],
-    "@sudoku-web/shared": ["packages/shared/src"],
-    "@sudoku-web/types": ["packages/types/src"]
+    "@bubblyclouds-app/auth": ["packages/auth/src"],
+    "@bubblyclouds-app/ui": ["packages/ui/src"],
+    "@bubblyclouds-app/sudoku": ["packages/sudoku/src"],
+    "@bubblyclouds-app/template": ["packages/template/src"],
+    "@bubblyclouds-app/shared": ["packages/shared/src"],
+    "@bubblyclouds-app/types": ["packages/types/src"]
   }
 }
 ```
@@ -212,14 +212,14 @@ export type { User, Session, AuthToken } from './types';
 
 **Rationale**:
 - Package structure changes are breaking changes
-- Import paths will change: `src/providers/AuthProvider` → `@sudoku-web/auth`
+- Import paths will change: `src/providers/AuthProvider` → `@bubblyclouds-app/auth`
 - Version bump signals significant refactoring
 - Allows rolling back if needed
 - Matches semantic versioning principles
 
 **Migration Strategy**:
 - Old direct app imports still work temporarily
-- New packages provide same functionality via `@sudoku-web/` aliases
+- New packages provide same functionality via `@bubblyclouds-app/` aliases
 - Gradual migration: Update imports in both apps and configs
 - Once complete: Remove old locations, bump major version
 
@@ -227,7 +227,7 @@ export type { User, Session, AuthToken } from './types';
 
 ## Decision 10: Shared Package Cleanup
 
-**Decision**: Remove all sudoku-specific code from `@sudoku-web/shared` and `@sudoku-web/types`
+**Decision**: Remove all sudoku-specific code from `@bubblyclouds-app/shared` and `@bubblyclouds-app/types`
 
 **Rationale**:
 - Shared and types packages must be truly generic
@@ -235,9 +235,9 @@ export type { User, Session, AuthToken } from './types';
 - Meets explicit requirement: "no sudoku-specific logic in shared packages"
 
 **Examples of Code to Move**:
-- `splitCellId()` utility → move to `@sudoku-web/sudoku`
-- Sudoku-specific types (Cell, Grid, Puzzle) → move to `@sudoku-web/sudoku`
-- Game-specific constants → move to `@sudoku-web/sudoku`
+- `splitCellId()` utility → move to `@bubblyclouds-app/sudoku`
+- Sudoku-specific types (Cell, Grid, Puzzle) → move to `@bubblyclouds-app/sudoku`
+- Game-specific constants → move to `@bubblyclouds-app/sudoku`
 
 **Examples of Code to Keep**:
 - `calculateSeconds()` → stays in shared (generic timer utility)

@@ -1,6 +1,6 @@
-# Contract: @sudoku-web/template Package
+# Contract: @bubblyclouds-app/template Package
 
-**Package**: `@sudoku-web/template`
+**Package**: `@bubblyclouds-app/template`
 **Version**: 2.0.0 (initial after refactoring)
 **Type**: React component library + hooks + core functionality
 **Platform**: Browser-based (Next.js, React)
@@ -180,7 +180,7 @@ interface PartyProviderProps {
 export type { Party, PartySettings } from './types/Party';
 export type { PartyMember, PartyInvitation } from './types/PartyMember';
 export type { Session, CollaborativeSession } from './types/Session';
-export type { Parties } from '@sudoku-web/types';
+export type { Parties } from '@bubblyclouds-app/types';
 ```
 
 ---
@@ -191,17 +191,17 @@ Template package re-exports common types and functions from other packages for c
 
 ```typescript
 // Auth package exports
-export { AuthProvider } from '@sudoku-web/auth';
-export { useAuth, useSession as useAuthSession, useUser } from '@sudoku-web/auth';
-export type { User, AuthToken, SessionState } from '@sudoku-web/auth';
+export { AuthProvider } from '@bubblyclouds-app/auth';
+export { useAuth, useSession as useAuthSession, useUser } from '@bubblyclouds-app/auth';
+export type { User, AuthToken, SessionState } from '@bubblyclouds-app/auth';
 
 // UI package exports
-export { Header, Footer, Button, Modal, ThemeProvider } from '@sudoku-web/ui';
-export { useTheme, useDarkMode } from '@sudoku-web/ui';
+export { Header, Footer, Button, Modal, ThemeProvider } from '@bubblyclouds-app/ui';
+export { useTheme, useDarkMode } from '@bubblyclouds-app/ui';
 
 // Shared exports
-export { useLocalStorage, useOnline } from '@sudoku-web/shared';
-export { calculateSeconds, formatSeconds } from '@sudoku-web/shared';
+export { useLocalStorage, useOnline } from '@bubblyclouds-app/shared';
+export { calculateSeconds, formatSeconds } from '@bubblyclouds-app/shared';
 ```
 
 ---
@@ -210,16 +210,16 @@ export { calculateSeconds, formatSeconds } from '@sudoku-web/shared';
 
 ### Dependencies
 
-- `@sudoku-web/auth`: User authentication and context
-- `@sudoku-web/ui`: UI components
-- `@sudoku-web/shared`: Utilities
-- `@sudoku-web/types`: Type definitions
+- `@bubblyclouds-app/auth`: User authentication and context
+- `@bubblyclouds-app/ui`: UI components
+- `@bubblyclouds-app/shared`: Utilities
+- `@bubblyclouds-app/types`: Type definitions
 - React 18+
 - Next.js 14+
 
 ### No Dependencies On
 
-- ❌ `@sudoku-web/sudoku` (must remain game-agnostic)
+- ❌ `@bubblyclouds-app/sudoku` (must remain game-agnostic)
 - ❌ App-specific code
 
 ---
@@ -288,7 +288,7 @@ export { calculateSeconds, formatSeconds } from '@sudoku-web/shared';
 This package became game-agnostic by:
 
 1. **Generic Session type**: `Session<T>` allows any data structure, not just `SudokuState`
-2. **Moved sudoku types**: `SudokuSession`, `RaceSession` types moved to `@sudoku-web/sudoku` package
+2. **Moved sudoku types**: `SudokuSession`, `RaceSession` types moved to `@bubblyclouds-app/sudoku` package
 3. **No game references**: Removed all mentions of "puzzle", "game", "race" from type names
 4. **Renamed concepts**: "Race party" → "Party", "Puzzle session" → "Session"
 5. **Flexible data model**: Party and session are generic containers for any collaborative work
@@ -318,14 +318,14 @@ import { Party, RaceSession } from 'src/types/Race';
 New (v2.0.0):
 ```typescript
 // Party logic is in template package
-import { useParty, useSession } from '@sudoku-web/template';
-import type { Party, Session } from '@sudoku-web/template';
-import type { RaceSession } from '@sudoku-web/sudoku';
+import { useParty, useSession } from '@bubblyclouds-app/template';
+import type { Party, Session } from '@bubblyclouds-app/template';
+import type { RaceSession } from '@bubblyclouds-app/sudoku';
 ```
 
 **Migration Steps**:
-1. Import hooks from `@sudoku-web/template` instead of app
-2. Move RaceSession imports to `@sudoku-web/sudoku`
+1. Import hooks from `@bubblyclouds-app/template` instead of app
+2. Move RaceSession imports to `@bubblyclouds-app/sudoku`
 3. Update generic Session usage to use `Session<T>` where T is your data
 4. Ensure PartyProvider wraps app root
 5. Implement required backend endpoints

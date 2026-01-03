@@ -4,7 +4,7 @@ import AuthPage from './page';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 
 // Mock console methods
 const originalConsoleInfo = console.info;

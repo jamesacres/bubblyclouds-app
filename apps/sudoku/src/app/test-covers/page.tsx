@@ -1,5 +1,5 @@
 'use client';
-import BookCover from '@/components/BookCover';
+import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
 
 export default function TestCoversPage() {
   const months = [

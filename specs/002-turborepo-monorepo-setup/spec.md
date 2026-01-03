@@ -90,7 +90,7 @@ As a developer, I need optimized dev, build, and test workflows with Turborepo c
 
 **Build and Development Requirements**
 
-- **FR-013**: Build command MUST build all workspaces or specific workspaces via filter (e.g., `--filter=@sudoku-web/sudoku`)
+- **FR-013**: Build command MUST build all workspaces or specific workspaces via filter (e.g., `--filter=@bubblyclouds-app/sudoku`)
 - **FR-014**: Dev command MUST run development servers for specified workspaces with hot reload enabled
 - **FR-015**: Lint and test commands MUST run across all workspaces with results aggregated
 - **FR-016**: Build time for unchanged code MUST be <30 seconds with Turborepo caching enabled
@@ -99,7 +99,7 @@ As a developer, I need optimized dev, build, and test workflows with Turborepo c
 **Dependency Management Requirements**
 
 - **FR-018**: Template workspace MUST have zero dependencies on Sudoku-specific code
-- **FR-019**: Sudoku workspace MUST be able to import from template via package imports (e.g., `import { useSession } from '@sudoku-web/template'`)
+- **FR-019**: Sudoku workspace MUST be able to import from template via package imports (e.g., `import { useSession } from '@bubblyclouds-app/template'`)
 - **FR-020**: Shared packages MUST be importable by both template and Sudoku without circular dependencies
 - **FR-021**: Root `node_modules` MUST be deduplicated across all workspaces to avoid dependency conflicts
 - **FR-022**: Package versions MUST be synchronized where workspaces depend on the same library
@@ -111,7 +111,7 @@ As a developer, I need optimized dev, build, and test workflows with Turborepo c
 - **Workspace**: A self-contained npm package within the monorepo. Contains `package.json`, source code, and build configuration. Examples: `/apps/template/`, `/apps/sudoku/`, `/packages/types/`.
 - **Task Pipeline**: Turborepo configuration defining how tasks (build, lint, test) run across workspaces, including dependency ordering and caching rules. Defined in `turbo.json`.
 - **Task Cache**: Local or remote storage of build artifacts and outputs. Turborepo uses content-based hashing to determine cache validity.
-- **Workspace Dependency**: A reference from one workspace to another (e.g., Sudoku importing `@sudoku-web/template`). Defined in workspace `package.json`.
+- **Workspace Dependency**: A reference from one workspace to another (e.g., Sudoku importing `@bubblyclouds-app/template`). Defined in workspace `package.json`.
 - **Shared Package**: A workspace in `/packages/` that multiple apps depend on, such as `/packages/types/` or `/packages/ui/`.
 
 ## Success Criteria

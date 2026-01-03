@@ -52,7 +52,7 @@ describe('CapacitorProvider', () => {
   });
 
   it('handles appUrlOpen event and navigates', async () => {
-    let urlOpenCallback: (event: { url: string }) => void = () => {};
+    let urlOpenCallback: (_event: { url: string }) => void = () => {};
     mockApp.addListener.mockImplementation((eventName, callback) => {
       if ((eventName as string) === 'appUrlOpen') {
         urlOpenCallback = callback as any;
@@ -68,7 +68,9 @@ describe('CapacitorProvider', () => {
     await act(async () => {});
 
     act(() => {
-      urlOpenCallback({ url: 'https://sudoku.bubblyclouds.com/puzzle?id=123' });
+      urlOpenCallback({
+        url: 'https://mockApp.bubblyclouds.com/puzzle?id=123',
+      });
     });
 
     expect(mockRouterPush).toHaveBeenCalledWith('/puzzle?id=123');

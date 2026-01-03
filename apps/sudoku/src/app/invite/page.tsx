@@ -1,17 +1,19 @@
 'use client';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useSudokuServerStorage } from '@bubblyclouds-app/sudoku/hooks/useSudokuServerStorage';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@sudoku-web/template/providers/RevenueCatProvider';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
-import { PremiumFeatures } from '@sudoku-web/template/components/PremiumFeatures';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
+import { PREMIUM_FEATURES } from '../../config/premiumFeatures';
+import { APP_CONFIG } from '../../../app.config.js';
 import {
   PublicInvite,
   EntitlementDuration,
-} from '@sudoku-web/types/serverTypes';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
+} from '@bubblyclouds-app/types/serverTypes';
+import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import { Loader, Users, Star } from 'react-feather';
@@ -26,13 +28,16 @@ function InviteComponent() {
   const { isLoggingIn, user, loginRedirect } = context || {};
   const { isSubscribed, subscribeModal, refreshEntitlements } =
     useContext(RevenueCatContext) || {};
-  const { getPublicInvite, createMember } = useServerStorage({});
+  const { getPublicInvite, createMember } = useSudokuServerStorage({
+    app: APP_CONFIG.app,
+    apiUrl: APP_CONFIG.apiUrl,
+  });
   const {
     parties: userParties,
     isLoading: partiesLoading,
     refreshParties,
   } = useParties({});
-  const [inviteLoading, setInviteLoading] = useState(true);
+  const [inviteLoading, setInviteLoading] = useState(!!inviteId);
   const [publicInvite, setPublicInvite] = useState<PublicInvite | undefined>(
     undefined
   );
@@ -139,8 +144,6 @@ function InviteComponent() {
         }
       };
       serverPromise();
-    } else if (!inviteId) {
-      setInviteLoading(false);
     }
 
     return () => {
@@ -388,6 +391,7 @@ function InviteComponent() {
                       </div>
 
                       <PremiumFeatures
+                        features={PREMIUM_FEATURES}
                         title=""
                         subtitle=""
                         compact={true}

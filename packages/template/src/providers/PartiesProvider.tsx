@@ -9,9 +9,9 @@ import React, {
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
-import { Party } from '@sudoku-web/types/serverTypes';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { useServerStorage } from '../hooks/serverStorage';
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 
 interface PartiesContextInterface {
   // Party data
@@ -50,9 +50,11 @@ export const PartiesContext = createContext<
   PartiesContextInterface | undefined
 >(undefined);
 
-const PartiesProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const PartiesProvider: React.FC<{
+  children: React.ReactNode;
+  app: string;
+  apiUrl: string;
+}> = ({ children, app, apiUrl }) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
   const {
@@ -62,7 +64,7 @@ const PartiesProvider: React.FC<{ children: React.ReactNode }> = ({
     leaveParty,
     removeMember,
     deleteParty,
-  } = useServerStorage({});
+  } = useServerStorage({ app, apiUrl });
 
   // Party state
   const [parties, setParties] = useState<Party[]>([]);
@@ -80,13 +82,19 @@ const PartiesProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Update member nickname when user changes
   useEffect(() => {
-    setMemberNickname(user?.given_name || user?.name || '');
+    const timeout = setTimeout(() => {
+      setMemberNickname(user?.given_name || user?.name || '');
+    }, 0);
+    return () => clearTimeout(timeout);
   }, [user]);
 
   // Reset initialization state when user changes to trigger reload
   useEffect(() => {
-    setHasInitialized(false);
-    setParties([]);
+    const timeout = setTimeout(() => {
+      setHasInitialized(false);
+      setParties([]);
+    }, 0);
+    return () => clearTimeout(timeout);
   }, [user]);
 
   // Create a new party

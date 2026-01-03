@@ -1,14 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Home from './page';
-import { UserContext } from '@sudoku-web/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 
 // Mock next/image as it may be used
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: any) => {
     const { ...rest } = props;
-    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+    // eslint-disable-next-line @next/next/no-img-element
     return <img {...rest} />;
   },
 }));

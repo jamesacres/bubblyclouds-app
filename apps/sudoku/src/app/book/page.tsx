@@ -1,27 +1,35 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { ArrowUp } from 'react-feather';
-import BookCover from '@/components/BookCover';
+import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
 import { useContext, useEffect, useState, useCallback } from 'react';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { useOnline } from '@sudoku-web/template/hooks/online';
-import { useSessions } from '@sudoku-web/template/providers/SessionsProvider';
-import {
-  SudokuBookPuzzle,
-  ServerStateResult,
-} from '@sudoku-web/types/serverTypes';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { useOnline } from '@bubblyclouds-app/template/hooks/online';
+import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
+import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
+import { SudokuBookPuzzle } from '@bubblyclouds-app/sudoku/types/serverTypes';
 import {
   puzzleTextToPuzzle,
   puzzleToPuzzleText,
-} from '@sudoku-web/sudoku/helpers/puzzleTextToPuzzle';
-import { GameState, ServerState } from '@sudoku-web/sudoku/types/state';
-import { useParties } from '@sudoku-web/template/hooks/useParties';
-import { useBook } from '@sudoku-web/sudoku/providers/BookProvider';
-import IntegratedSessionRow from '@/components/IntegratedSessionRow';
-import { sha256 } from '@/helpers/sha256';
+} from '@bubblyclouds-app/sudoku/helpers/puzzleTextToPuzzle';
+import { GameState, ServerState } from '@bubblyclouds-app/sudoku/types/state';
+import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
+import { useBook } from '@bubblyclouds-app/sudoku/providers/BookProvider';
+import IntegratedSessionRow from '@bubblyclouds-app/template/components/IntegratedSessionRow';
+import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+import { getTechniquesDisplay } from '@bubblyclouds-app/games/helpers/getTechniquesDisplay';
+import { sha256 } from '@bubblyclouds-app/template/helpers/sha256';
+import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
+import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku/helpers/calculateCompletionPercentage';
+import { isPuzzleCheated } from '@bubblyclouds-app/sudoku/helpers/cheatDetection';
+import { buildPuzzleUrlFromState } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
+
+const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
+  <SimpleSudoku state={state} />
+);
 
 export default function BookPage() {
   const router = useRouter();
@@ -372,13 +380,21 @@ export default function BookPage() {
 
               return (
                 <div key={index} id={`puzzle-${index}`}>
-                  <IntegratedSessionRow
+                  <IntegratedSessionRow<ServerState>
                     session={mockSession}
                     bookPuzzle={{
                       puzzle,
                       index,
                       sudokuBookId: bookData?.sudokuBookId || 'unknown',
                     }}
+                    getDifficultyDisplay={getDifficultyDisplay}
+                    getTechniquesDisplay={getTechniquesDisplay}
+                    SimpleState={SimpleStateWrapper}
+                    calculateCompletionPercentageFromState={
+                      calculateCompletionPercentageFromState
+                    }
+                    isPuzzleCheated={isPuzzleCheated}
+                    buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                   />
                 </div>
               );
@@ -387,18 +403,23 @@ export default function BookPage() {
         </div>
 
         <div className="pb-24"></div>
-
-        {/* Scroll to Top Button */}
-        {showScrollTop && (
-          <button
-            onClick={scrollToTop}
-            className="bg-theme-primary hover:bg-theme-primary-dark dark:bg-theme-primary-light dark:hover:bg-theme-primary fixed right-6 bottom-20 z-50 flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg transition-all hover:scale-110 active:scale-95"
-            aria-label="Scroll to top"
-          >
-            <ArrowUp className="h-5 w-5" />
-          </button>
-        )}
       </div>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          style={{
+            position: 'fixed',
+            right: '24px',
+            bottom: 'max(20px, calc(var(--ion-safe-area-bottom, 0px) + 20px))',
+          }}
+          className="bg-theme-primary hover:bg-theme-primary-dark dark:bg-theme-primary-light dark:hover:bg-theme-primary z-50 flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg transition-all hover:scale-110 active:scale-95"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </button>
+      )}
     </>
   );
 }

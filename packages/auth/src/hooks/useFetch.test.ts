@@ -19,15 +19,17 @@ describe('useFetch', () => {
     saveElectronState: jest.fn(),
     getCapacitorState: jest.fn(() => Promise.resolve('')),
     saveCapacitorState: jest.fn(),
+    app: 'test',
+    apiUrl: 'https://api.bubblyclouds.com',
+    authUrl: 'https://auth.bubblyclouds.com',
   };
 
   const createWrapper = () => {
     const Wrapper = ({ children }: { children: ReactNode }) => {
-      return React.createElement(
-        PlatformServicesProvider,
-        { services: mockPlatformServices },
-        React.createElement(FetchProvider, null, children)
-      );
+      return React.createElement(PlatformServicesProvider, {
+        services: mockPlatformServices,
+        children: React.createElement(FetchProvider, { children }),
+      });
     };
     Wrapper.displayName = 'TestWrapper';
     return Wrapper;
@@ -397,7 +399,7 @@ describe('useFetch', () => {
       await act(async () => {
         try {
           await result.current.fetch(new Request('https://example.com/test'));
-        } catch (e) {
+        } catch (_e) {
           // Expected
         }
       });

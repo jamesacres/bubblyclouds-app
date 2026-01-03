@@ -1,18 +1,38 @@
 import { calculateBoxId, calculateCellId } from '../helpers/calculateId';
-import { Notes } from '../types/notes';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
+import { BaseState } from '@bubblyclouds-app/template/types/state';
 
-const SimpleSudoku = ({
-  initial,
-  final,
-  latest,
-  transparent,
-}: {
-  initial: Puzzle<number>;
-  final: Puzzle<number>;
-  latest: Puzzle<number | Notes> | undefined;
+interface SimpleSudokuProps {
+  initial?: Puzzle<number>;
+  final?: Puzzle<number>;
+  latest?: Puzzle | undefined;
   transparent?: boolean;
-}) => {
+  state?: BaseState<Puzzle<number>, Puzzle>;
+}
+
+const SimpleSudoku = (props: SimpleSudokuProps) => {
+  const { transparent } = props;
+
+  let initial: Puzzle<number> | undefined;
+  let final: Puzzle<number> | undefined;
+  let latest: Puzzle | undefined;
+
+  if (props.state) {
+    initial = props.state.initial;
+    final = props.state.final;
+    latest =
+      props.state.answerStack.length > 0
+        ? props.state.answerStack[props.state.answerStack.length - 1]
+        : undefined;
+  } else {
+    initial = props.initial;
+    final = props.final;
+    latest = props.latest;
+  }
+
+  if (!initial || !final) {
+    return null;
+  }
   const background = transparent ? '' : 'bg-zinc-50 dark:bg-zinc-900';
   return (
     <div

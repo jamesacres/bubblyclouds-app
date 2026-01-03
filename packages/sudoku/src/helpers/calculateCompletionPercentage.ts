@@ -1,5 +1,6 @@
 import { Notes } from '../types/notes';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
+import { BaseState } from '@bubblyclouds-app/template/types/state';
 
 export const calculateCompletionPercentage = (
   initial: Puzzle<number | Notes>,
@@ -37,4 +38,14 @@ export const calculateCompletionPercentage = (
   // Return the percentage completed (avoid division by zero)
   if (totalEmptyCells === 0) return 100;
   return Math.round((correctlySolvedCells / totalEmptyCells) * 100);
+};
+
+export const calculateCompletionPercentageFromState = (
+  state: BaseState<Puzzle<number | Notes>>
+): number => {
+  const latest =
+    state.answerStack.length > 0
+      ? state.answerStack[state.answerStack.length - 1]
+      : undefined;
+  return calculateCompletionPercentage(state.initial, state.final, latest);
 };

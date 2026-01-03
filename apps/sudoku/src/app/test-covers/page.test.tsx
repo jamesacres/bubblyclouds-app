@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import TestCoversPage from './page';
 
 // Mock the BookCover component
-jest.mock('@/components/BookCover', () => {
+jest.mock('@bubblyclouds-app/sudoku/components/BookCover', () => {
   return {
     __esModule: true,
     default: ({ month, size }: { month: string; size: string }) => (

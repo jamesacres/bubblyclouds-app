@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import PuzzlePage from './page';
 import * as nextNavigation from 'next/navigation';
-import { useWakeLock } from '@sudoku-web/template/hooks/useWakeLock';
+import { useWakeLock } from '@bubblyclouds-app/template/hooks/useWakeLock';
 
 // Mock dependencies
 jest.mock('next/navigation', () => ({
@@ -10,13 +10,13 @@ jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
 
-jest.mock('@sudoku-web/template/hooks/useWakeLock', () => ({
+jest.mock('@bubblyclouds-app/template/hooks/useWakeLock', () => ({
   useWakeLock: jest.fn(() => ({
     requestWakeLock: jest.fn(),
   })),
 }));
 
-jest.mock('@/components/Sudoku', () => {
+jest.mock('@bubblyclouds-app/sudoku/components/Sudoku', () => {
   return function MockSudoku({
     alreadyCompleted,
     showRacingPrompt,
@@ -36,8 +36,8 @@ jest.mock('@/components/Sudoku', () => {
   };
 });
 
-jest.mock('@sudoku-web/sudoku', () => ({
-  ...jest.requireActual('@sudoku-web/sudoku'),
+jest.mock('@bubblyclouds-app/sudoku', () => ({
+  ...jest.requireActual('@bubblyclouds-app/sudoku'),
   puzzleTextToPuzzle: jest.fn((_text) => {
     return Array(9)
       .fill(null)
@@ -45,15 +45,15 @@ jest.mock('@sudoku-web/sudoku', () => ({
   }),
 }));
 
-// useWakeLock is mocked as part of @sudoku-web/template mock
+// useWakeLock is mocked as part of @bubblyclouds-app/template mock
 
-jest.mock('@/helpers/buildPuzzleUrl', () => ({
+jest.mock('@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl', () => ({
   buildPuzzleUrl: jest.fn((initial, final, _metadata) => {
     return `/puzzle?initial=${initial}&final=${final}`;
   }),
 }));
 
-jest.mock('@/helpers/sha256', () => ({
+jest.mock('@bubblyclouds-app/template/helpers/sha256', () => ({
   sha256: jest.fn((text) => Promise.resolve('mocked-hash-' + text)),
 }));
 

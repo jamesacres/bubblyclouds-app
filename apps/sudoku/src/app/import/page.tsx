@@ -8,9 +8,9 @@ import type {
 } from '../../augmentedReality/Processor';
 import type Processor from '../../augmentedReality/Processor';
 import { useRouter } from 'next/navigation';
-import SimpleSudoku from '@sudoku-web/sudoku/components/SimpleSudoku';
-import { emptyPuzzle } from '@sudoku-web/sudoku/types/puzzle';
-import { buildPuzzleUrl } from '@/helpers/buildPuzzleUrl';
+import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
+import { emptyPuzzle } from '@bubblyclouds-app/sudoku/types/puzzle';
+import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
 
 let processor: Processor | undefined;
 let solver: Solver | undefined;

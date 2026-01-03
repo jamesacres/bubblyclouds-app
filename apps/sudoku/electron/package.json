@@ -1,5 +1,5 @@
 {
-  "name": "sudoku-web",
+  "name": "@bubblyclouds-app/app-sudoku",
   "version": "0.1.0",
   "private": true,
   "main": "main.mjs",

@@ -1,5 +1,8 @@
 import { describe, it, expect } from '@jest/globals';
-import { calculateCompletionPercentage } from './calculateCompletionPercentage';
+import {
+  calculateCompletionPercentage,
+  calculateCompletionPercentageFromState,
+} from './calculateCompletionPercentage';
 import { Puzzle } from '../types/puzzle';
 
 // Helper to create empty puzzle
@@ -317,6 +320,47 @@ describe('calculateCompletionPercentage', () => {
       }
 
       expect(calculateCompletionPercentage(initial, final, latest)).toBe(51);
+    });
+  });
+
+  describe('calculateCompletionPercentageFromState', () => {
+    it('should work with state object', () => {
+      let initial = createEmptyPuzzle();
+      let final = createEmptyPuzzle();
+      let latest = createEmptyPuzzle();
+
+      // Fill one cell
+      final = setCellValue(final, 0, 0, 0, 0, 5);
+      latest = setCellValue(latest, 0, 0, 0, 0, 5);
+
+      const state = { initial, final, answerStack: [latest], metadata: {} };
+      expect(calculateCompletionPercentageFromState(state)).toBe(1);
+    });
+
+    it('should return same result as direct function call', () => {
+      let initial = createEmptyPuzzle();
+      let final = createEmptyPuzzle();
+      let latest = createEmptyPuzzle();
+
+      // Fill multiple cells
+      for (let i = 0; i < 10; i++) {
+        final = setCellValue(final, 0, 0, i % 3, Math.floor(i / 3), i + 1);
+        latest = setCellValue(latest, 0, 0, i % 3, Math.floor(i / 3), i + 1);
+      }
+
+      const directResult = calculateCompletionPercentage(
+        initial,
+        final,
+        latest
+      );
+      const stateResult = calculateCompletionPercentageFromState({
+        initial,
+        final,
+        answerStack: [latest],
+        metadata: {},
+      });
+
+      expect(stateResult).toBe(directResult);
     });
   });
 });

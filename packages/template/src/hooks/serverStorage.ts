@@ -1,13 +1,13 @@
 'use client';
 
 import { useCallback, useContext, useRef } from 'react';
-import { useFetch } from '@sudoku-web/auth/hooks/useFetch';
+import { useFetch } from '@bubblyclouds-app/auth/hooks/useFetch';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { StateType } from '@sudoku-web/types/stateType';
-import { UserProfile } from '@sudoku-web/types/userProfile';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { StateType } from '@bubblyclouds-app/types/stateType';
+import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useOnline } from './online';
 import {
   MemberResponse,
@@ -20,15 +20,7 @@ import {
   Invite,
   InviteResponse,
   PublicInvite,
-  SudokuOfTheDayResponse,
-  SudokuBookOfTheMonthResponse,
-  SudokuBookOfTheMonth,
-  Difficulty,
-  SudokuOfTheDay,
-} from '@sudoku-web/types/serverTypes';
-
-const app = 'sudoku';
-const apiUrl = 'https://api.bubblyclouds.com';
+} from '@bubblyclouds-app/types/serverTypes';
 
 const responseToResult = <T>(
   response: StateResponse<T>
@@ -100,9 +92,16 @@ const memberResponseToResult = (
 };
 
 function useServerStorage({
+  app,
+  apiUrl,
   type: initialType,
   id: initialId,
-}: { type?: StateType; id?: string } = {}) {
+}: {
+  app: string;
+  apiUrl: string;
+  type?: StateType;
+  id?: string;
+}) {
   const state = useRef({
     id: initialId,
     type: initialType,
@@ -129,7 +128,7 @@ function useServerStorage({
       key = `${key}-${type}`;
     }
     return key;
-  }, []);
+  }, [app]);
 
   const isLoggedIn = useCallback(async () => {
     if (user) {
@@ -184,7 +183,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, app, apiUrl]
   );
 
   const getValue = useCallback(async <T>(): Promise<
@@ -205,7 +204,7 @@ function useServerStorage({
       }
     }
     return undefined;
-  }, [getStateKey, fetch, isLoggedIn, isOnline]);
+  }, [getStateKey, fetch, isLoggedIn, isOnline, apiUrl]);
 
   const saveValue = useCallback(
     async <T>(state: T): Promise<ServerStateResult<T> | undefined> => {
@@ -236,7 +235,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [getStateKey, fetch, isLoggedIn, isOnline]
+    [getStateKey, fetch, isLoggedIn, isOnline, apiUrl]
   );
 
   const listParties = useCallback(async (): Promise<Party[] | undefined> => {
@@ -270,7 +269,7 @@ function useServerStorage({
       }
     }
     return undefined;
-  }, [fetch, isLoggedIn, isOnline, user]);
+  }, [fetch, isLoggedIn, isOnline, user, app, apiUrl]);
 
   const createParty = useCallback(
     async ({
@@ -321,7 +320,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isLoggedIn, isOnline, user]
+    [fetch, isLoggedIn, isOnline, user, app, apiUrl]
   );
 
   const createInvite = useCallback(
@@ -370,7 +369,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, apiUrl]
   );
 
   const getPublicInvite = useCallback(
@@ -391,7 +390,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isOnline]
+    [fetch, isOnline, apiUrl]
   );
 
   const createMember = useCallback(
@@ -432,7 +431,7 @@ function useServerStorage({
       }
       return undefined;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, apiUrl]
   );
 
   const removeMember = useCallback(
@@ -458,7 +457,7 @@ function useServerStorage({
       }
       return false;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, apiUrl]
   );
 
   const leaveParty = useCallback(
@@ -491,7 +490,7 @@ function useServerStorage({
       }
       return false;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, app, apiUrl]
   );
 
   const updateParty = useCallback(
@@ -518,59 +517,8 @@ function useServerStorage({
       }
       return false;
     },
-    [fetch, isLoggedIn, isOnline]
+    [fetch, isLoggedIn, isOnline, app, apiUrl]
   );
-
-  const getSudokuOfTheDay = useCallback(
-    async (difficulty: Difficulty): Promise<SudokuOfTheDay | undefined> => {
-      if (isOnline && (await isLoggedIn())) {
-        try {
-          console.info('fetching sudoku of the day', difficulty);
-          const response = await fetch(
-            new Request(`${apiUrl}/sudoku/ofTheDay?difficulty=${difficulty}`)
-          );
-          if (response.ok) {
-            const sudokuOfTheDayResponse =
-              (await response.json()) as SudokuOfTheDayResponse;
-            return {
-              ...sudokuOfTheDayResponse,
-              createdAt: new Date(sudokuOfTheDayResponse.createdAt),
-              updatedAt: new Date(sudokuOfTheDayResponse.updatedAt),
-            };
-          }
-        } catch (e) {
-          console.error(e);
-        }
-      }
-      return undefined;
-    },
-    [fetch, isLoggedIn, isOnline]
-  );
-
-  const getSudokuBookOfTheMonth = useCallback(async (): Promise<
-    SudokuBookOfTheMonth | undefined
-  > => {
-    if (isOnline && (await isLoggedIn())) {
-      try {
-        console.info('fetching sudoku book of the month');
-        const response = await fetch(
-          new Request(`${apiUrl}/sudoku/bookOfTheMonth`)
-        );
-        if (response.ok) {
-          const sudokuBookOfTheMonthResponse =
-            (await response.json()) as SudokuBookOfTheMonthResponse;
-          return {
-            ...sudokuBookOfTheMonthResponse,
-            createdAt: new Date(sudokuBookOfTheMonthResponse.createdAt),
-            updatedAt: new Date(sudokuBookOfTheMonthResponse.updatedAt),
-          };
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    return undefined;
-  }, [fetch, isLoggedIn, isOnline]);
 
   const deleteAccount = useCallback(async (): Promise<boolean> => {
     if (isOnline && (await isLoggedIn()) && user) {
@@ -590,7 +538,7 @@ function useServerStorage({
       }
     }
     return false;
-  }, [fetch, isLoggedIn, isOnline, user]);
+  }, [fetch, isLoggedIn, isOnline, user, apiUrl]);
 
   return {
     setIdAndType,
@@ -606,9 +554,9 @@ function useServerStorage({
     leaveParty,
     removeMember,
     deleteParty,
-    getSudokuOfTheDay,
     deleteAccount,
-    getSudokuBookOfTheMonth,
+    isLoggedIn,
+    apiUrl,
   };
 }
 export { useServerStorage };

@@ -1,7 +1,6 @@
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
 import { splitCellId } from './calculateId';
 
-// eslint-disable-next-line
 const emptyValidatation = (): Puzzle<boolean | undefined> => [
   [
     [

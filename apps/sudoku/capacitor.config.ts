@@ -1,8 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
+import { APP_CONFIG } from './app.config.js';
 
 const config: CapacitorConfig = {
-  appId: 'com.bubblyclouds.sudoku',
-  appName: 'Sudoku Race',
+  appId: APP_CONFIG.appId,
+  appName: APP_CONFIG.appName,
   webDir: 'out',
   plugins: {
     Keyboard: {

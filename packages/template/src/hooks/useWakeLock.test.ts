@@ -501,6 +501,17 @@ describe('useWakeLock', () => {
       // Simulate external release of the wake lock
       mockWakeLock.released = true;
 
+      // Trigger the release event listener
+      const releaseListener = mockWakeLock.addEventListener.mock.calls.find(
+        (call: any) => call[0] === 'release'
+      )?.[1];
+
+      await act(async () => {
+        if (releaseListener) {
+          releaseListener();
+        }
+      });
+
       // Force re-render to recompute isActive
       act(() => {
         rerender();
@@ -532,12 +543,35 @@ describe('useWakeLock', () => {
 
   describe('edge cases', () => {
     it('should handle rapid request and release cycles', async () => {
+      // Create a fresh mock for each request
+      mockNavigator.request = jest.fn(async () => {
+        return {
+          released: false,
+          type: 'screen',
+          // eslint-disable-next-line no-unused-vars
+          release: jest.fn(async function (this: any) {
+            this.released = true;
+          }),
+          addEventListener: jest.fn(),
+          removeEventListener: jest.fn(),
+        };
+      });
+
       const { result } = renderHook(() => useWakeLock());
 
       await act(async () => {
         await result.current.requestWakeLock();
+      });
+
+      await act(async () => {
         await result.current.releaseWakeLock();
+      });
+
+      await act(async () => {
         await result.current.requestWakeLock();
+      });
+
+      await act(async () => {
         await result.current.releaseWakeLock();
       });
 

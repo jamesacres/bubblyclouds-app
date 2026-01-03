@@ -1,6 +1,6 @@
-# Contract: @sudoku-web/ui Package
+# Contract: @bubblyclouds-app/ui Package
 
-**Package**: `@sudoku-web/ui`
+**Package**: `@bubblyclouds-app/ui`
 **Version**: 2.0.0 (initial after refactoring)
 **Type**: React component library + styling
 **Platform**: Browser-based (Next.js, React)
@@ -213,16 +213,16 @@ module.exports = {
 
 ### Dependencies
 
-- `@sudoku-web/types`: Core types
+- `@bubblyclouds-app/types`: Core types
 - React 18+
 - Tailwind CSS 3+
 - next-themes (dark mode management)
 
 ### No Dependencies On
 
-- ❌ `@sudoku-web/auth`
-- ❌ `@sudoku-web/sudoku`
-- ❌ `@sudoku-web/template`
+- ❌ `@bubblyclouds-app/auth`
+- ❌ `@bubblyclouds-app/sudoku`
+- ❌ `@bubblyclouds-app/template`
 - ❌ App-specific code
 
 ---
@@ -308,11 +308,11 @@ import { useTheme } from 'src/hooks/useTheme';
 New (v2.0.0):
 ```typescript
 // Components from UI package
-import { Header, Footer, useTheme } from '@sudoku-web/ui';
+import { Header, Footer, useTheme } from '@bubblyclouds-app/ui';
 ```
 
 **Migration Steps**:
-1. Update imports to use `@sudoku-web/ui`
+1. Update imports to use `@bubblyclouds-app/ui`
 2. Remove old component files
 3. Ensure ThemeProvider wraps app root
 4. Update styling to use shared theme colors

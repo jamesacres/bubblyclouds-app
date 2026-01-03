@@ -12,7 +12,7 @@ jest.mock('react-feather', () => ({
   ArrowUp: () => <div data-testid="arrow-up-icon">Arrow Up</div>,
 }));
 
-jest.mock('@/components/BookCover', () => ({
+jest.mock('@bubblyclouds-app/sudoku/components/BookCover', () => ({
   __esModule: true,
   default: function MockBookCover({ size }: { size?: string }) {
     return (
@@ -21,7 +21,7 @@ jest.mock('@/components/BookCover', () => ({
   },
 }));
 
-jest.mock('@/components/IntegratedSessionRow', () => {
+jest.mock('@bubblyclouds-app/template/components/IntegratedSessionRow', () => {
   return function MockIntegratedSessionRow({
     session: _session,
     bookPuzzle,
@@ -37,15 +37,15 @@ jest.mock('@/components/IntegratedSessionRow', () => {
   };
 });
 
-jest.mock('@sudoku-web/sudoku/providers/BookProvider', () => ({
+jest.mock('@bubblyclouds-app/sudoku/providers/BookProvider', () => ({
   useBook: jest.fn(),
 }));
 
-jest.mock('@sudoku-web/template/hooks/useParties', () => ({
+jest.mock('@bubblyclouds-app/template/hooks/useParties', () => ({
   useParties: jest.fn(),
 }));
 
-jest.mock('@sudoku-web/sudoku/helpers/puzzleTextToPuzzle', () => ({
+jest.mock('@bubblyclouds-app/sudoku/helpers/puzzleTextToPuzzle', () => ({
   puzzleTextToPuzzle: jest.fn((_text) => {
     return Array(9)
       .fill(null)
@@ -54,25 +54,25 @@ jest.mock('@sudoku-web/sudoku/helpers/puzzleTextToPuzzle', () => ({
   puzzleToPuzzleText: jest.fn((_puzzle) => 'puzzle-text'),
 }));
 
-jest.mock('@sudoku-web/template/providers/SessionsProvider', () => ({
+jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: jest.fn(() => ({
     sessions: [],
     isLoading: false,
   })),
 }));
 
-jest.mock('@sudoku-web/template/hooks/online', () => ({
+jest.mock('@bubblyclouds-app/template/hooks/online', () => ({
   useOnline: jest.fn(() => ({ isOnline: true })),
 }));
 
-jest.mock('@sudoku-web/auth/providers/AuthProvider', () => ({
+jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
   UserContext: React.createContext({
     user: { sub: 'test-user-123' },
     loginRedirect: jest.fn(),
   }),
 }));
 
-jest.mock('@/helpers/sha256', () => ({
+jest.mock('@bubblyclouds-app/template/helpers/sha256', () => ({
   sha256: jest.fn((text) => Promise.resolve('hash-' + text)),
 }));
 
@@ -89,7 +89,9 @@ describe('Book Page', () => {
       push: mockPush,
     });
 
-    const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+    const {
+      useBook,
+    } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
     useBook.mockReturnValue({
       bookData: null,
       isLoading: false,
@@ -99,7 +101,7 @@ describe('Book Page', () => {
 
     const {
       useSessions,
-    } = require('@sudoku-web/template/providers/SessionsProvider');
+    } = require('@bubblyclouds-app/template/providers/SessionsProvider');
     useSessions.mockReturnValue({
       sessions: [],
       isLoading: false,
@@ -107,12 +109,14 @@ describe('Book Page', () => {
       lazyLoadFriendSessions: mockLazyLoadFriendSessions,
     });
 
-    const { useParties } = require('@sudoku-web/template/hooks/useParties');
+    const {
+      useParties,
+    } = require('@bubblyclouds-app/template/hooks/useParties');
     useParties.mockReturnValue({
       parties: [],
     });
 
-    const { useOnline } = require('@sudoku-web/template/hooks/online');
+    const { useOnline } = require('@bubblyclouds-app/template/hooks/online');
     useOnline.mockReturnValue({
       isOnline: true,
     });
@@ -120,7 +124,9 @@ describe('Book Page', () => {
 
   describe('Loading states', () => {
     it('should show loading spinner when book is loading', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: null,
         isLoading: true,
@@ -137,7 +143,7 @@ describe('Book Page', () => {
     it('should show loading spinner when sessions are loading', () => {
       const {
         useSessions,
-      } = require('@sudoku-web/template/providers/SessionsProvider');
+      } = require('@bubblyclouds-app/template/providers/SessionsProvider');
       useSessions.mockReturnValue({
         sessions: [],
         isLoading: true,
@@ -150,7 +156,9 @@ describe('Book Page', () => {
     });
 
     it('should show specific loading message when only book data is loading', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: null,
         isLoading: true,
@@ -160,7 +168,7 @@ describe('Book Page', () => {
 
       const {
         useSessions,
-      } = require('@sudoku-web/template/providers/SessionsProvider');
+      } = require('@bubblyclouds-app/template/providers/SessionsProvider');
       useSessions.mockReturnValue({
         sessions: [],
         isLoading: false,
@@ -175,7 +183,9 @@ describe('Book Page', () => {
 
   describe('Error states', () => {
     it('should show error message when book data fails to load', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: null,
         isLoading: false,
@@ -188,7 +198,9 @@ describe('Book Page', () => {
     });
 
     it('should show Try Again button when error occurs and user is online', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: null,
         isLoading: false,
@@ -196,7 +208,7 @@ describe('Book Page', () => {
         fetchBookData: mockFetchBookData,
       });
 
-      const { useOnline } = require('@sudoku-web/template/hooks/online');
+      const { useOnline } = require('@bubblyclouds-app/template/hooks/online');
       useOnline.mockReturnValue({
         isOnline: true,
       });
@@ -207,7 +219,9 @@ describe('Book Page', () => {
     });
 
     it('should call fetchBookData when Try Again is clicked', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: null,
         isLoading: false,
@@ -215,7 +229,7 @@ describe('Book Page', () => {
         fetchBookData: mockFetchBookData,
       });
 
-      const { useOnline } = require('@sudoku-web/template/hooks/online');
+      const { useOnline } = require('@bubblyclouds-app/template/hooks/online');
       useOnline.mockReturnValue({
         isOnline: true,
       });
@@ -227,7 +241,9 @@ describe('Book Page', () => {
     });
 
     it('should show Back to Home button when error occurs', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: null,
         isLoading: false,
@@ -241,7 +257,9 @@ describe('Book Page', () => {
     });
 
     it('should navigate to home when Back to Home is clicked', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: null,
         isLoading: false,
@@ -256,7 +274,9 @@ describe('Book Page', () => {
     });
 
     it('should not show Try Again button when offline', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: null,
         isLoading: false,
@@ -264,7 +284,7 @@ describe('Book Page', () => {
         fetchBookData: mockFetchBookData,
       });
 
-      const { useOnline } = require('@sudoku-web/template/hooks/online');
+      const { useOnline } = require('@bubblyclouds-app/template/hooks/online');
       useOnline.mockReturnValue({
         isOnline: false,
       });
@@ -298,7 +318,9 @@ describe('Book Page', () => {
 
   describe('Book data rendering', () => {
     it('should render book header when data is available', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -320,7 +342,9 @@ describe('Book Page', () => {
     });
 
     it('should display book cover', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -336,7 +360,9 @@ describe('Book Page', () => {
     });
 
     it('should render puzzle grid', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -367,7 +393,9 @@ describe('Book Page', () => {
     });
 
     it('should show puzzle count in header', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -393,7 +421,9 @@ describe('Book Page', () => {
 
   describe('Difficulty jump buttons', () => {
     it('should render difficulty jump buttons for existing difficulties', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -421,7 +451,9 @@ describe('Book Page', () => {
     });
 
     it('should not render buttons for difficulties not in book', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -446,7 +478,9 @@ describe('Book Page', () => {
 
   describe('Progress stats', () => {
     it('should display completed puzzle count', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -465,7 +499,7 @@ describe('Book Page', () => {
 
       const {
         useSessions,
-      } = require('@sudoku-web/template/providers/SessionsProvider');
+      } = require('@bubblyclouds-app/template/providers/SessionsProvider');
       useSessions.mockReturnValue({
         sessions: [
           {
@@ -488,7 +522,9 @@ describe('Book Page', () => {
     });
 
     it('should display in progress puzzle count', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -507,7 +543,7 @@ describe('Book Page', () => {
 
       const {
         useSessions,
-      } = require('@sudoku-web/template/providers/SessionsProvider');
+      } = require('@bubblyclouds-app/template/providers/SessionsProvider');
       useSessions.mockReturnValue({
         sessions: [
           {
@@ -533,7 +569,9 @@ describe('Book Page', () => {
 
   describe('Scroll to top functionality', () => {
     it('should not show scroll to top button initially', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -555,7 +593,9 @@ describe('Book Page', () => {
     });
 
     it('should show scroll to top button when scrolled down', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -586,7 +626,9 @@ describe('Book Page', () => {
     });
 
     it('should scroll to top when button clicked', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -649,7 +691,9 @@ describe('Book Page', () => {
     });
 
     it('should load friend sessions when parties are available', async () => {
-      const { useParties } = require('@sudoku-web/template/hooks/useParties');
+      const {
+        useParties,
+      } = require('@bubblyclouds-app/template/hooks/useParties');
       useParties.mockReturnValue({
         parties: [{ members: [{ userId: 'other-user' }] }],
       });
@@ -664,7 +708,9 @@ describe('Book Page', () => {
 
   describe('Responsive layout', () => {
     it('should render with responsive grid layout', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',
@@ -691,7 +737,9 @@ describe('Book Page', () => {
 
   describe('Puzzle IDs', () => {
     it('should assign unique IDs to puzzle containers', () => {
-      const { useBook } = require('@sudoku-web/sudoku/providers/BookProvider');
+      const {
+        useBook,
+      } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
       useBook.mockReturnValue({
         bookData: {
           sudokuBookId: 'book-123',

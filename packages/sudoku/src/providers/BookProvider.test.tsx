@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { BookProvider, useBook } from './BookProvider';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
-import { useOnline } from '@sudoku-web/template/hooks/online';
-import { SudokuBookOfTheMonth } from '@sudoku-web/types/serverTypes';
+import { useSudokuServerStorage } from '../hooks/useSudokuServerStorage';
+import { useOnline } from '@bubblyclouds-app/template/hooks/online';
+import { SudokuBookOfTheMonth } from '../types/serverTypes';
 
-jest.mock('@sudoku-web/template/hooks/serverStorage');
-jest.mock('@sudoku-web/template/hooks/online');
+jest.mock('../hooks/useSudokuServerStorage');
+jest.mock('@bubblyclouds-app/template/hooks/online');
 
-const mockUseServerStorage = useServerStorage as jest.Mock;
+const mockUseSudokuServerStorage = useSudokuServerStorage as jest.Mock;
 const mockUseOnline = useOnline as jest.Mock;
 
 const TestComponent = () => {
@@ -35,7 +35,7 @@ describe('BookProvider', () => {
 
   beforeEach(() => {
     mockGetSudokuBookOfTheMonth = jest.fn();
-    mockUseServerStorage.mockReturnValue({
+    mockUseSudokuServerStorage.mockReturnValue({
       getSudokuBookOfTheMonth: mockGetSudokuBookOfTheMonth,
     });
     mockUseOnline.mockReturnValue({ isOnline: true });
@@ -45,7 +45,7 @@ describe('BookProvider', () => {
   it('fetches and displays book data', async () => {
     mockGetSudokuBookOfTheMonth.mockResolvedValue(mockBook);
     render(
-      <BookProvider>
+      <BookProvider app="sudoku" apiUrl="https://api.test.com">
         <TestComponent />
       </BookProvider>
     );
@@ -64,7 +64,7 @@ describe('BookProvider', () => {
     localStorage.setItem(monthKey, JSON.stringify(mockBook));
 
     render(
-      <BookProvider>
+      <BookProvider app="sudoku" apiUrl="https://api.test.com">
         <TestComponent />
       </BookProvider>
     );
@@ -78,7 +78,7 @@ describe('BookProvider', () => {
   it('handles fetch error', async () => {
     mockGetSudokuBookOfTheMonth.mockRejectedValue(new Error('Failed to fetch'));
     render(
-      <BookProvider>
+      <BookProvider app="sudoku" apiUrl="https://api.test.com">
         <TestComponent />
       </BookProvider>
     );
@@ -97,7 +97,7 @@ describe('BookProvider', () => {
   it('shows an offline error message', async () => {
     mockUseOnline.mockReturnValue({ isOnline: false });
     render(
-      <BookProvider>
+      <BookProvider app="sudoku" apiUrl="https://api.test.com">
         <TestComponent />
       </BookProvider>
     );

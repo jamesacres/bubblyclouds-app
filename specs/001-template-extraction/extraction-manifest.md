@@ -109,10 +109,10 @@ After extraction, sudoku app will import generic code:
 
 ```typescript
 // From template
-import { Header, Footer, ErrorBoundary } from '@sudoku-web/template/components'
-import { useLocalStorage, useFetch, useOnline } from '@sudoku-web/template/hooks'
-import { UserProvider, FetchProvider } from '@sudoku-web/template/providers'
-import type { UserProfile, SubscriptionContext } from '@sudoku-web/template/types'
+import { Header, Footer, ErrorBoundary } from '@bubblyclouds-app/template/components'
+import { useLocalStorage, useFetch, useOnline } from '@bubblyclouds-app/template/hooks'
+import { UserProvider, FetchProvider } from '@bubblyclouds-app/template/providers'
+import type { UserProfile, SubscriptionContext } from '@bubblyclouds-app/template/types'
 
 // Local sudoku-specific code
 import { Sudoku, NumberPad } from '@/components'

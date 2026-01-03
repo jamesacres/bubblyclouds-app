@@ -30,7 +30,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Sudoku Race/)).toBeInTheDocument();
     });
@@ -39,7 +39,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Sudoku Race/);
       expect(button).toHaveClass('bg-gradient-to-r');
@@ -54,7 +54,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Sudoku Race/);
       fireEvent.click(button);
@@ -68,7 +68,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Sudoku Race/);
       expect(button).toHaveClass('cursor-pointer');
@@ -78,7 +78,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Sudoku Race/);
       expect(button).toHaveClass('active:opacity-70');
@@ -88,7 +88,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Sudoku Race/);
       expect(button).toHaveClass('font-semibold');
@@ -99,7 +99,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Sudoku Race/);
       expect(button).toHaveClass('transition-opacity');
@@ -109,7 +109,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const flexContainer = screen.getByText(/Sudoku Race/).closest('div');
       expect(flexContainer).toHaveClass('flex');
@@ -122,7 +122,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Back/)).toBeInTheDocument();
     });
@@ -131,7 +131,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.queryByText(/Sudoku Race/)).not.toBeInTheDocument();
     });
@@ -140,7 +140,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByTestId('chevron-left')).toBeInTheDocument();
     });
@@ -149,7 +149,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       // Check that back button text is visible
       expect(screen.getByText(/Back/)).toBeInTheDocument();
@@ -159,7 +159,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Back/);
       fireEvent.click(button);
@@ -173,7 +173,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
@@ -184,7 +184,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       expect(button).toHaveAttribute('type', 'button');
@@ -194,7 +194,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('active:opacity-70');
@@ -204,7 +204,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('transition-opacity');
@@ -214,7 +214,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('w-16');
@@ -224,7 +224,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const backText = screen.getByText(/Back/);
       expect(backText).toHaveClass('text-base');
@@ -237,7 +237,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/book');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Back/)).toBeInTheDocument();
     });
@@ -246,7 +246,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/auth');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Back/)).toBeInTheDocument();
     });
@@ -255,7 +255,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/import');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Back/)).toBeInTheDocument();
     });
@@ -264,7 +264,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/invite');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Back/)).toBeInTheDocument();
     });
@@ -273,7 +273,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/some/nested/path');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -289,7 +289,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const chevron = screen.getByTestId('chevron-left');
       expect(chevron).toHaveClass('h-5');
@@ -302,7 +302,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -322,7 +322,7 @@ describe('HeaderBack', () => {
         push: mockPush,
       });
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -338,7 +338,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
@@ -347,7 +347,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Back/)).toBeInTheDocument();
     });
@@ -356,7 +356,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
@@ -369,7 +369,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Sudoku Race/)).toBeInTheDocument();
       expect(screen.queryByText(/Back/)).not.toBeInTheDocument();
@@ -380,7 +380,7 @@ describe('HeaderBack', () => {
       usePathname.mockReturnValue(undefined);
 
       // Should render back button since it's not '/'
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       expect(screen.getByText(/Back/)).toBeInTheDocument();
     });
@@ -391,7 +391,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
-      const { container } = render(<HeaderBack />);
+      const { container } = render(<HeaderBack appName="Sudoku Race" />);
 
       const flexContainer = container.querySelector('.flex');
       expect(flexContainer).toBeInTheDocument();
@@ -401,7 +401,7 @@ describe('HeaderBack', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
-      render(<HeaderBack />);
+      render(<HeaderBack appName="Sudoku Race" />);
 
       const backSpan = screen.getByText(/Back/);
       expect(backSpan).toBeInTheDocument();

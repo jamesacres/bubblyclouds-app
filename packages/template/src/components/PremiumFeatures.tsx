@@ -1,28 +1,34 @@
 'use client';
-import { useContext } from 'react';
+import { ReactElement, cloneElement, useContext } from 'react';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
-import { PREMIUM_FEATURES } from '../config/premiumFeatures';
-import { SubscriptionContext } from '@sudoku-web/types/subscriptionContext';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { Star, CheckCircle, Lock } from 'react-feather';
 
+interface PremiumFeature {
+  icon: ReactElement<any>;
+  title: string;
+  description?: string;
+}
+
 interface PremiumFeaturesProps {
+  features: PremiumFeature[];
+  title: string;
+  subtitle: string;
   className?: string;
-  title?: string;
-  subtitle?: string;
   compact?: boolean;
 }
 
 export function PremiumFeatures({
+  features,
+  title,
+  subtitle,
   className = '',
-  title = '🏁 Premium Features',
-  subtitle = 'Unlock the full Sudoku Race experience',
   compact = false,
 }: PremiumFeaturesProps) {
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
 
-  const premiumFeatures = PREMIUM_FEATURES.map((feature) => ({
+  const premiumFeatures = features.map((feature) => ({
     ...feature,
-    icon: feature.icon.type,
     isPremium: !isSubscribed,
   }));
 
@@ -74,7 +80,7 @@ export function PremiumFeatures({
                     : 'bg-gradient-to-br from-green-500 to-green-600 text-white'
                 }`}
               >
-                <feature.icon className="h-4 w-4" />
+                {cloneElement(feature.icon, { className: 'h-4 w-4' })}
               </div>
               <div className="ml-3 flex-1">
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -145,7 +151,9 @@ export function PremiumFeatures({
                     : 'bg-gradient-to-br from-green-500 to-green-600 text-white'
                 }`}
               >
-                <feature.icon className="h-5 w-5 md:h-6 md:w-6" />
+                {cloneElement(feature.icon, {
+                  className: 'h-5 w-5 md:h-6 md:w-6',
+                })}
               </div>
               <div className="ml-3 flex-1 md:ml-4">
                 {feature.isPremium ? (

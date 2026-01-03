@@ -3,37 +3,37 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Suspense } from 'react';
 import Invite from './page';
-import * as serverStorageHook from '@sudoku-web/template/hooks/serverStorage';
-import * as usePartiesHook from '@sudoku-web/template/hooks/useParties';
+import * as sudokuServerStorageHook from '@bubblyclouds-app/sudoku/hooks/useSudokuServerStorage';
+import * as usePartiesHook from '@bubblyclouds-app/template/hooks/useParties';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import {
   RevenueCatContextInterface,
   RevenueCatContext,
-} from '@sudoku-web/template/providers/RevenueCatProvider';
-import FetchProvider from '@sudoku-web/auth/providers/FetchProvider';
+} from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import FetchProvider from '@bubblyclouds-app/auth/providers/FetchProvider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   EntitlementDuration,
   PublicInvite,
   Party,
-} from '@sudoku-web/types/serverTypes';
+} from '@bubblyclouds-app/types/serverTypes';
 
 // Mock dependencies
 jest.mock('next/navigation');
-jest.mock('@sudoku-web/template/hooks/useParties');
+jest.mock('@bubblyclouds-app/template/hooks/useParties');
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: any) => {
     const { ...rest } = props;
-    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+    // eslint-disable-next-line @next/next/no-img-element
     return <img {...rest} />;
   },
 }));
-jest.mock('@sudoku-web/template/hooks/serverStorage');
-jest.mock('@sudoku-web/template/components/PremiumFeatures', () => ({
+jest.mock('@bubblyclouds-app/sudoku/hooks/useSudokuServerStorage');
+jest.mock('@bubblyclouds-app/template/components/PremiumFeatures', () => ({
   PremiumFeatures: function MockPremiumFeatures() {
     return <div data-testid="premium-features">Premium Features Mock</div>;
   },
@@ -41,7 +41,8 @@ jest.mock('@sudoku-web/template/components/PremiumFeatures', () => ({
 
 const mockUseRouter = useRouter as jest.Mock;
 const mockUseSearchParams = useSearchParams as jest.Mock;
-const mockUseServerStorage = serverStorageHook.useServerStorage as jest.Mock;
+const mockUseSudokuServerStorage =
+  sudokuServerStorageHook.useSudokuServerStorage as jest.Mock;
 const mockUseParties = usePartiesHook.useParties as jest.Mock;
 
 describe('Invite Page', () => {
@@ -81,7 +82,7 @@ describe('Invite Page', () => {
 
     mockGetPublicInvite = jest.fn().mockResolvedValue(mockPublicInvite);
     mockCreateMember = jest.fn();
-    mockUseServerStorage.mockReturnValue({
+    mockUseSudokuServerStorage.mockReturnValue({
       getPublicInvite: mockGetPublicInvite,
       createMember: mockCreateMember,
     });
@@ -123,6 +124,7 @@ describe('Invite Page', () => {
       handleRestoreState: jest.fn(),
       logout: jest.fn(),
       handleAuthUrl: jest.fn(),
+      app: 'sudoku',
     };
 
     mockRevenueCatContext = {
@@ -134,7 +136,7 @@ describe('Invite Page', () => {
     } as unknown as RevenueCatContextInterface;
   });
 
-  const renderWithProviders = (ui: React.ReactElement) => {
+  const renderWithProviders = (ui: React.ReactElement<any>) => {
     return render(
       <FetchProvider>
         <UserContext.Provider value={mockUserContext}>

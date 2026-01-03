@@ -5,7 +5,7 @@ import { renderHook, act, waitFor } from '@testing-library/react';
 import { useDrag } from './useDrag';
 
 describe('useDrag', () => {
-  let gridRef: React.RefObject<HTMLDivElement>;
+  let gridRef: React.RefObject<HTMLDivElement | null>;
 
   beforeEach(() => {
     const mockElement = document.createElement('div');

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { ThemeColorProvider, useThemeColor } from './ThemeColorProvider';
 
@@ -60,11 +60,14 @@ describe('ThemeColorProvider', () => {
 
   describe('initial state', () => {
     it('should provide initial theme color as blue', () => {
-      let themeColor: string | undefined;
+      const themeColorRef = { current: undefined as string | undefined };
 
       const TestComponent = () => {
         const { themeColor: color } = useThemeColor();
-        themeColor = color;
+        const ref = useRef(themeColorRef);
+        useEffect(() => {
+          ref.current.current = color;
+        }, [color]);
         return <div>Color: {color}</div>;
       };
 
@@ -74,7 +77,7 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(themeColor).toBe('blue');
+      expect(themeColorRef.current).toBe('blue');
       expect(screen.getByText('Color: blue')).toBeInTheDocument();
     });
 
@@ -93,11 +96,14 @@ describe('ThemeColorProvider', () => {
     it('should load saved theme color from localStorage', () => {
       localStorage.setItem('theme-color', 'red');
 
-      let themeColor: string | undefined;
+      const themeColorRef = { current: undefined as string | undefined };
 
       const TestComponent = () => {
         const { themeColor: color } = useThemeColor();
-        themeColor = color;
+        const ref = useRef(themeColorRef);
+        useEffect(() => {
+          ref.current.current = color;
+        }, [color]);
         return <div>Color: {color}</div>;
       };
 
@@ -107,17 +113,20 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(themeColor).toBe('red');
+      expect(themeColorRef.current).toBe('red');
     });
 
     it('should ignore invalid saved theme color', () => {
       localStorage.setItem('theme-color', 'invalid-color');
 
-      let themeColor: string | undefined;
+      const themeColorRef = { current: undefined as string | undefined };
 
       const TestComponent = () => {
         const { themeColor: color } = useThemeColor();
-        themeColor = color;
+        const ref = useRef(themeColorRef);
+        useEffect(() => {
+          ref.current.current = color;
+        }, [color]);
         return <div>Color: {color}</div>;
       };
 
@@ -127,20 +136,25 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      // Should default to blue
-      expect(themeColor).toBe('blue');
+      expect(themeColorRef.current).toBe('blue');
     });
   });
 
   describe('setThemeColor', () => {
     it('should update theme color', async () => {
-      let setThemeColor: ((color: any) => void) | undefined;
-      let currentColor: string | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
+      const currentColorRef = { current: undefined as string | undefined };
 
       const TestComponent = () => {
         const { themeColor, setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
-        currentColor = themeColor;
+        const ref1 = useRef(setThemeColorRef);
+        const ref2 = useRef(currentColorRef);
+        useEffect(() => {
+          ref1.current.current = setColor;
+          ref2.current.current = themeColor;
+        }, [setColor, themeColor]);
         return <div>Color: {themeColor}</div>;
       };
 
@@ -150,11 +164,11 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(currentColor).toBe('blue');
+      expect(currentColorRef.current).toBe('blue');
 
-      if (setThemeColor) {
+      if (setThemeColorRef.current) {
         act(() => {
-          setThemeColor!('red');
+          setThemeColorRef.current!('red');
         });
       }
 
@@ -164,11 +178,16 @@ describe('ThemeColorProvider', () => {
     });
 
     it('should save theme color to localStorage', () => {
-      let setThemeColor: ((color: any) => void) | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
 
       const TestComponent = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return <button onClick={() => setColor('green')}>Set Green</button>;
       };
 
@@ -178,9 +197,9 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      if (setThemeColor) {
+      if (setThemeColorRef.current) {
         act(() => {
-          setThemeColor!('green');
+          setThemeColorRef.current!('green');
         });
       }
 
@@ -188,11 +207,16 @@ describe('ThemeColorProvider', () => {
     });
 
     it('should remove old theme class and add new one', () => {
-      let setThemeColor: ((color: any) => void) | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
 
       const TestComponent = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return <button onClick={() => setColor('purple')}>Set Purple</button>;
       };
 
@@ -206,9 +230,9 @@ describe('ThemeColorProvider', () => {
         true
       );
 
-      if (setThemeColor) {
+      if (setThemeColorRef.current) {
         act(() => {
-          setThemeColor!('purple');
+          setThemeColorRef.current!('purple');
         });
       }
 
@@ -244,11 +268,16 @@ describe('ThemeColorProvider', () => {
         'zinc',
       ];
 
-      let setThemeColor: ((color: any) => void) | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
 
       const TestComponent = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return null;
       };
 
@@ -259,9 +288,9 @@ describe('ThemeColorProvider', () => {
       );
 
       for (const color of validColors) {
-        if (setThemeColor) {
+        if (setThemeColorRef.current) {
           act(() => {
-            setThemeColor!(color as any);
+            setThemeColorRef.current!(color as any);
           });
         }
         expect(
@@ -273,11 +302,14 @@ describe('ThemeColorProvider', () => {
     it('should persist theme color across remounts', () => {
       localStorage.setItem('theme-color', 'orange');
 
-      let themeColor: string | undefined;
+      const themeColorRef = { current: undefined as string | undefined };
 
       const TestComponent = () => {
         const { themeColor: color } = useThemeColor();
-        themeColor = color;
+        const ref = useRef(themeColorRef);
+        useEffect(() => {
+          ref.current.current = color;
+        }, [color]);
         return <div>Color: {color}</div>;
       };
 
@@ -287,15 +319,18 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(themeColor).toBe('orange');
+      expect(themeColorRef.current).toBe('orange');
 
       unmount();
 
-      let themeColor2: string | undefined;
+      const themeColor2Ref = { current: undefined as string | undefined };
 
       const TestComponent2 = () => {
         const { themeColor: color } = useThemeColor();
-        themeColor2 = color;
+        const ref = useRef(themeColor2Ref);
+        useEffect(() => {
+          ref.current.current = color;
+        }, [color]);
         return <div>Color: {color}</div>;
       };
 
@@ -305,7 +340,7 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(themeColor2).toBe('orange');
+      expect(themeColor2Ref.current).toBe('orange');
     });
   });
 
@@ -322,32 +357,14 @@ describe('ThemeColorProvider', () => {
     });
 
     it('should provide context value to consumers', () => {
-      let contextValue: any;
-
-      const TestComponent = () => {
-        contextValue = useThemeColor();
-        return null;
-      };
-
-      render(
-        <ThemeColorProvider>
-          <TestComponent />
-        </ThemeColorProvider>
-      );
-
-      expect(contextValue).toBeDefined();
-      expect(contextValue.themeColor).toBeDefined();
-      expect(contextValue.setThemeColor).toBeDefined();
-    });
-
-    it('should have correct return type', () => {
-      let hasThemeColor: boolean = false;
-      let hasSetThemeColor: boolean = false;
+      const contextValueRef = { current: undefined as any };
 
       const TestComponent = () => {
         const context = useThemeColor();
-        hasThemeColor = 'themeColor' in context;
-        hasSetThemeColor = 'setThemeColor' in context;
+        const ref = useRef(contextValueRef);
+        useEffect(() => {
+          ref.current.current = context;
+        }, [context]);
         return null;
       };
 
@@ -357,18 +374,47 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(hasThemeColor).toBe(true);
-      expect(hasSetThemeColor).toBe(true);
+      expect(contextValueRef.current).toBeDefined();
+      expect(contextValueRef.current.themeColor).toBeDefined();
+      expect(contextValueRef.current.setThemeColor).toBeDefined();
+    });
+
+    it('should have correct return type', () => {
+      const hasThemeColorRef = { current: false };
+      const hasSetThemeColorRef = { current: false };
+
+      const TestComponent = () => {
+        const context = useThemeColor();
+        const ref1 = useRef(hasThemeColorRef);
+        const ref2 = useRef(hasSetThemeColorRef);
+        useEffect(() => {
+          ref1.current.current = 'themeColor' in context;
+          ref2.current.current = 'setThemeColor' in context;
+        }, [context]);
+        return null;
+      };
+
+      render(
+        <ThemeColorProvider>
+          <TestComponent />
+        </ThemeColorProvider>
+      );
+
+      expect(hasThemeColorRef.current).toBe(true);
+      expect(hasSetThemeColorRef.current).toBe(true);
     });
   });
 
   describe('multiple consumers', () => {
     it('should provide same theme color to all consumers', () => {
-      const colors: string[] = [];
+      const colorsRef = { current: [] as string[] };
 
       const Consumer = ({ id }: { id: number }) => {
         const { themeColor } = useThemeColor();
-        colors[id] = themeColor;
+        const ref = useRef(colorsRef);
+        useEffect(() => {
+          ref.current.current[id] = themeColor;
+        }, [id, themeColor]);
         return (
           <div>
             Consumer {id}: {themeColor}
@@ -384,18 +430,23 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(colors[0]).toBe('blue');
-      expect(colors[1]).toBe('blue');
-      expect(colors[2]).toBe('blue');
+      expect(colorsRef.current[0]).toBe('blue');
+      expect(colorsRef.current[1]).toBe('blue');
+      expect(colorsRef.current[2]).toBe('blue');
     });
 
     it('should update all consumers when theme changes', async () => {
-      let setThemeColor: ((color: any) => void) | undefined;
-      const colors: string[] = [];
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
+      const colorsRef = { current: [] as string[] };
 
       const Consumer = ({ id }: { id: number }) => {
         const { themeColor } = useThemeColor();
-        colors[id] = themeColor;
+        const ref = useRef(colorsRef);
+        useEffect(() => {
+          ref.current.current[id] = themeColor;
+        }, [id, themeColor]);
         return (
           <div>
             Consumer {id}: {themeColor}
@@ -405,7 +456,10 @@ describe('ThemeColorProvider', () => {
 
       const Controller = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return <button onClick={() => setColor('cyan')}>Change</button>;
       };
 
@@ -417,15 +471,15 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      if (setThemeColor) {
+      if (setThemeColorRef.current) {
         act(() => {
-          setThemeColor!('cyan');
+          setThemeColorRef.current!('cyan');
         });
       }
 
       await waitFor(() => {
-        expect(colors[0]).toBe('cyan');
-        expect(colors[1]).toBe('cyan');
+        expect(colorsRef.current[0]).toBe('cyan');
+        expect(colorsRef.current[1]).toBe('cyan');
       });
     });
   });
@@ -441,7 +495,6 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      // Should have only theme-blue and no other theme classes
       const themeClasses = Array.from(
         document.documentElement.classList
       ).filter((c) => c.startsWith('theme-'));
@@ -480,11 +533,16 @@ describe('ThemeColorProvider', () => {
     });
 
     it('should handle rapid theme changes', () => {
-      let setThemeColor: ((color: any) => void) | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
 
       const TestComponent = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return null;
       };
 
@@ -497,13 +555,12 @@ describe('ThemeColorProvider', () => {
       const colors = ['red', 'green', 'blue', 'purple', 'orange'];
       act(() => {
         for (const color of colors) {
-          if (setThemeColor) {
-            setThemeColor!(color as any);
+          if (setThemeColorRef.current) {
+            setThemeColorRef.current!(color as any);
           }
         }
       });
 
-      // Only the last color should be applied
       expect(document.documentElement.classList.contains('theme-orange')).toBe(
         true
       );
@@ -520,11 +577,16 @@ describe('ThemeColorProvider', () => {
     });
 
     it('should handle very rapid color changes', () => {
-      let setThemeColor: ((color: any) => void) | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
 
       const TestComponent = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return null;
       };
 
@@ -535,11 +597,11 @@ describe('ThemeColorProvider', () => {
       );
 
       act(() => {
-        if (setThemeColor) {
+        if (setThemeColorRef.current) {
           for (let i = 0; i < 100; i++) {
-            setThemeColor!('red');
-            setThemeColor!('green');
-            setThemeColor!('blue');
+            setThemeColorRef.current!('red');
+            setThemeColorRef.current!('green');
+            setThemeColorRef.current!('blue');
           }
         }
       });
@@ -550,11 +612,16 @@ describe('ThemeColorProvider', () => {
     });
 
     it('should handle setting same color multiple times', () => {
-      let setThemeColor: ((color: any) => void) | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
 
       const TestComponent = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return null;
       };
 
@@ -565,10 +632,10 @@ describe('ThemeColorProvider', () => {
       );
 
       act(() => {
-        if (setThemeColor) {
-          setThemeColor!('red');
-          setThemeColor!('red');
-          setThemeColor!('red');
+        if (setThemeColorRef.current) {
+          setThemeColorRef.current!('red');
+          setThemeColorRef.current!('red');
+          setThemeColorRef.current!('red');
         }
       });
 
@@ -578,11 +645,16 @@ describe('ThemeColorProvider', () => {
     });
 
     it('should handle invalid color gracefully', () => {
-      let setThemeColor: ((color: any) => void) | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
 
       const TestComponent = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return null;
       };
 
@@ -593,28 +665,33 @@ describe('ThemeColorProvider', () => {
       );
 
       act(() => {
-        if (setThemeColor) {
-          setThemeColor!('invalid' as any);
+        if (setThemeColorRef.current) {
+          setThemeColorRef.current!('invalid' as any);
         }
       });
 
-      // Invalid color should still be set but not add a class
       expect(localStorage.getItem('theme-color')).toBe('invalid');
     });
 
     it('should handle nested providers', () => {
-      let outerColor: string | undefined;
-      let innerColor: string | undefined;
+      const outerColorRef = { current: undefined as string | undefined };
+      const innerColorRef = { current: undefined as string | undefined };
 
       const OuterComponent = () => {
         const { themeColor } = useThemeColor();
-        outerColor = themeColor;
+        const ref = useRef(outerColorRef);
+        useEffect(() => {
+          ref.current.current = themeColor;
+        }, [themeColor]);
         return <div>Outer</div>;
       };
 
       const InnerComponent = () => {
         const { themeColor } = useThemeColor();
-        innerColor = themeColor;
+        const ref = useRef(innerColorRef);
+        useEffect(() => {
+          ref.current.current = themeColor;
+        }, [themeColor]);
         return <div>Inner</div>;
       };
 
@@ -627,18 +704,23 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(outerColor).toBe('blue');
-      expect(innerColor).toBe('blue');
+      expect(outerColorRef.current).toBe('blue');
+      expect(innerColorRef.current).toBe('blue');
     });
   });
 
   describe('localStorage integration', () => {
     it('should save all color changes to localStorage', () => {
-      let setThemeColor: ((color: any) => void) | undefined;
+      const setThemeColorRef = {
+        current: undefined as ((_color: any) => void) | undefined,
+      };
 
       const TestComponent = () => {
         const { setThemeColor: setColor } = useThemeColor();
-        setThemeColor = setColor;
+        const ref = useRef(setThemeColorRef);
+        useEffect(() => {
+          ref.current.current = setColor;
+        }, [setColor]);
         return null;
       };
 
@@ -652,8 +734,8 @@ describe('ThemeColorProvider', () => {
 
       for (const color of colors) {
         act(() => {
-          if (setThemeColor) {
-            setThemeColor!(color as any);
+          if (setThemeColorRef.current) {
+            setThemeColorRef.current!(color as any);
           }
         });
         expect(localStorage.getItem('theme-color')).toBe(color);
@@ -663,11 +745,14 @@ describe('ThemeColorProvider', () => {
     it('should load from localStorage on mount', () => {
       localStorage.setItem('theme-color', 'teal');
 
-      let themeColor: string | undefined;
+      const themeColorRef = { current: undefined as string | undefined };
 
       const TestComponent = () => {
         const { themeColor: color } = useThemeColor();
-        themeColor = color;
+        const ref = useRef(themeColorRef);
+        useEffect(() => {
+          ref.current.current = color;
+        }, [color]);
         return null;
       };
 
@@ -677,7 +762,7 @@ describe('ThemeColorProvider', () => {
         </ThemeColorProvider>
       );
 
-      expect(themeColor).toBe('teal');
+      expect(themeColorRef.current).toBe('teal');
     });
   });
 });

@@ -10,7 +10,7 @@
 
 ### 1. User Entity (Auth Package)
 
-**Location**: `@sudoku-web/auth` → `types/User.ts`
+**Location**: `@bubblyclouds-app/auth` → `types/User.ts`
 
 ```typescript
 interface User {
@@ -45,7 +45,7 @@ interface UserPreferences {
 
 ### 2. Session Entity (Template Package)
 
-**Location**: `@sudoku-web/template` → `types/Session.ts`
+**Location**: `@bubblyclouds-app/template` → `types/Session.ts`
 
 Generic session that can store any data (game session, collaboration session, etc.)
 
@@ -86,7 +86,7 @@ interface CollaborativeSession<T> extends Session<T> {
 
 ### 3. Party Entity (Template Package)
 
-**Location**: `@sudoku-web/template` → `types/Party.ts`
+**Location**: `@bubblyclouds-app/template` → `types/Party.ts`
 
 Generic collaborative group for organizing sessions and inviting members
 
@@ -127,7 +127,7 @@ type Parties<T> = Record<string, Party & { memberSessions: Record<string, T> }>;
 
 ### 4. Party Membership Entity (Template Package)
 
-**Location**: `@sudoku-web/template` → `types/PartyMember.ts`
+**Location**: `@bubblyclouds-app/template` → `types/PartyMember.ts`
 
 Represents a user's membership in a party with their participation status
 
@@ -170,7 +170,7 @@ interface PartyInvitation {
 
 ### 5. Auth Token Entity (Auth Package)
 
-**Location**: `@sudoku-web/auth` → `types/AuthToken.ts`
+**Location**: `@bubblyclouds-app/auth` → `types/AuthToken.ts`
 
 Represents authentication credentials and session tokens
 
@@ -202,7 +202,7 @@ interface SessionState {
 
 ## Package-Specific Types
 
-### Auth Package (`@sudoku-web/auth`)
+### Auth Package (`@bubblyclouds-app/auth`)
 
 ```typescript
 // Login request/response
@@ -236,7 +236,7 @@ interface AuthContextValue {
 
 ---
 
-### UI Package (`@sudoku-web/ui`)
+### UI Package (`@bubblyclouds-app/ui`)
 
 ```typescript
 // Theme configuration
@@ -256,7 +256,7 @@ interface UIContextValue {
 
 ---
 
-### Sudoku Package (`@sudoku-web/sudoku`)
+### Sudoku Package (`@bubblyclouds-app/sudoku`)
 
 ```typescript
 // Cell representation
@@ -306,19 +306,19 @@ interface RaceRanking {
 
 ## Template Package Export
 
-**Location**: `@sudoku-web/template` → `src/index.ts`
+**Location**: `@bubblyclouds-app/template` → `src/index.ts`
 
 The template package re-exports core types so apps can import from one place:
 
 ```typescript
 // Auth exports
-export { AuthProvider } from '@sudoku-web/auth';
-export { useAuth, useSession, useUser } from '@sudoku-web/auth';
-export type { User, AuthToken, SessionState } from '@sudoku-web/auth';
+export { AuthProvider } from '@bubblyclouds-app/auth';
+export { useAuth, useSession, useUser } from '@bubblyclouds-app/auth';
+export type { User, AuthToken, SessionState } from '@bubblyclouds-app/auth';
 
 // UI exports
-export { ThemeProvider, Header, Footer } from '@sudoku-web/ui';
-export { useTheme } from '@sudoku-web/ui';
+export { ThemeProvider, Header, Footer } from '@bubblyclouds-app/ui';
+export { useTheme } from '@bubblyclouds-app/ui';
 
 // Template exports (parties, sessions)
 export { PartyProvider } from './providers/PartyProvider';
@@ -326,9 +326,9 @@ export { useParty, useSession, useMembership } from './hooks';
 export type { Party, PartyMember, Session, PartyInvitation } from './types';
 
 // Shared exports
-export { useLocalStorage, useOnline } from '@sudoku-web/shared';
-export { calculateSeconds, formatSeconds } from '@sudoku-web/shared';
-export type { Parties } from '@sudoku-web/shared';
+export { useLocalStorage, useOnline } from '@bubblyclouds-app/shared';
+export { calculateSeconds, formatSeconds } from '@bubblyclouds-app/shared';
+export type { Parties } from '@bubblyclouds-app/shared';
 ```
 
 ---
@@ -340,7 +340,7 @@ export type { Parties } from '@sudoku-web/shared';
 ```
 App (template/sudoku)
   ↓
-AuthProvider (@sudoku-web/auth)
+AuthProvider (@bubblyclouds-app/auth)
   ↓
 useAuth hook
   ↓
@@ -354,7 +354,7 @@ UI Components access user via useAuth()
 ```
 App (template/sudoku)
   ↓
-PartyProvider (@sudoku-web/template)
+PartyProvider (@bubblyclouds-app/template)
   ↓
 useParty hook
   ↓
@@ -368,7 +368,7 @@ UI Components access parties via useParty()
 ```
 App (template/sudoku)
   ↓
-ThemeProvider (@sudoku-web/ui)
+ThemeProvider (@bubblyclouds-app/ui)
   ↓
 useTheme hook
   ↓
@@ -394,7 +394,7 @@ UI Components apply theme styles
 
 ### Separation of Concerns
 
-- Types in `@sudoku-web/types` are generic and app-agnostic
+- Types in `@bubblyclouds-app/types` are generic and app-agnostic
 - Types in each package are only about that package's responsibility
 - Sudoku-specific types never appear in shared, auth, or ui packages
 - Generic types use generics (`T`) to accommodate different applications

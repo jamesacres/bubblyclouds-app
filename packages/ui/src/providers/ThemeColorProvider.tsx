@@ -45,6 +45,7 @@ export function ThemeColorProvider({
 
   // Load saved theme color from localStorage
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const savedThemeColor = localStorage.getItem('theme-color');
     if (savedThemeColor && isValidThemeColor(savedThemeColor)) {

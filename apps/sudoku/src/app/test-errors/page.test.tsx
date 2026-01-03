@@ -2,10 +2,10 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import TestErrorsPage from './page';
-import * as calculateIdHelper from '@sudoku-web/sudoku/helpers/calculateId';
+import * as calculateIdHelper from '@bubblyclouds-app/sudoku/helpers/calculateId';
 
 // Mock dependencies
-jest.mock('@sudoku-web/sudoku/helpers/calculateId', () => ({
+jest.mock('@bubblyclouds-app/sudoku/helpers/calculateId', () => ({
   splitCellId: jest.fn(),
 }));
 

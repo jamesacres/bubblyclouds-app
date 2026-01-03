@@ -147,24 +147,35 @@ const ThemeColorSwitch = ({
 
   // Rainbow animation on app load - cycle through theme colors
   useEffect(() => {
-    if (!showRainbowAnimation) return;
+    if (!showRainbowAnimation) {
+      return;
+    }
 
-    setShowRainbow(true);
     let colorIndex = 0;
+    let colorInterval: ReturnType<typeof setInterval> | null = null;
 
-    const colorInterval = setInterval(() => {
-      colorIndex = (colorIndex + 1) % colors.length;
-      setRainbowIndex(colorIndex);
-    }, 200); // Change color every 200ms
+    const startAnimation = setTimeout(() => {
+      setShowRainbow(true);
 
-    const stopTimer = setTimeout(() => {
-      setShowRainbow(false);
-      clearInterval(colorInterval);
-    }, 3000); // Stop after 3 seconds
+      colorInterval = setInterval(() => {
+        colorIndex = (colorIndex + 1) % colors.length;
+        setRainbowIndex(colorIndex);
+      }, 200);
+
+      const stopTimer = setTimeout(() => {
+        setShowRainbow(false);
+        if (colorInterval) clearInterval(colorInterval);
+      }, 3000);
+
+      return () => {
+        if (colorInterval) clearInterval(colorInterval);
+        clearTimeout(stopTimer);
+      };
+    }, 0);
 
     return () => {
-      clearInterval(colorInterval);
-      clearTimeout(stopTimer);
+      clearTimeout(startAnimation);
+      if (colorInterval) clearInterval(colorInterval);
     };
   }, [showRainbowAnimation]);
 

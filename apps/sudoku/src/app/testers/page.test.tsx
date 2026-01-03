@@ -2,11 +2,11 @@ import React, { Suspense } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import Testers from './page';
 import { useRouter, useSearchParams } from 'next/navigation';
-import * as capacitorHelper from '@sudoku-web/template/helpers/capacitor';
+import * as capacitorHelper from '@bubblyclouds-app/template/helpers/capacitor';
 
 // Mock dependencies
 jest.mock('next/navigation');
-jest.mock('@sudoku-web/template/helpers/capacitor', () => ({
+jest.mock('@bubblyclouds-app/template/helpers/capacitor', () => ({
   isCapacitor: jest.fn(() => false),
 }));
 

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import PartiesProvider, { PartiesContext } from './PartiesProvider';
-import { useServerStorage } from '@sudoku-web/template/hooks/serverStorage';
+import { useServerStorage } from '../hooks/serverStorage';
 import {
   UserContext,
   UserContextInterface,
-} from '@sudoku-web/auth/providers/AuthProvider';
-import { Party } from '@sudoku-web/types/serverTypes';
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 
-jest.mock('@sudoku-web/template/hooks/serverStorage');
+jest.mock('../hooks/serverStorage');
 
 const mockUseServerStorage = useServerStorage as jest.Mock;
 
@@ -37,7 +37,7 @@ describe('PartiesProvider', () => {
   const renderWithUser = (user: UserContextInterface['user']) => {
     return render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <TestConsumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -60,15 +60,19 @@ describe('PartiesProvider', () => {
     mockListParties.mockResolvedValue(mockParties);
     const user = { sub: 'user1', name: 'Test' };
 
-    let context: any;
+    const contextRef = { current: undefined as any };
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return <div>{context?.parties.length} parties</div>;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -76,7 +80,7 @@ describe('PartiesProvider', () => {
 
     // Explicitly call lazyLoadParties since it's not called automatically on mount
     await act(async () => {
-      await context.lazyLoadParties();
+      await contextRef.current.lazyLoadParties();
     });
 
     await waitFor(() => {
@@ -105,65 +109,79 @@ describe('PartiesProvider', () => {
     mockCreateParty.mockResolvedValue(newParty);
     const user = { sub: 'user1', name: 'Test' };
 
-    let context: any;
+    const contextRef = { current: undefined as any };
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      await context.saveParty({ partyName: 'New Party', memberNickname: 'Me' });
+      await contextRef.current.saveParty({
+        partyName: 'New Party',
+        memberNickname: 'Me',
+      });
     });
 
     expect(mockCreateParty).toHaveBeenCalledWith({
       partyName: 'New Party',
       memberNickname: 'Me',
     });
-    expect(context.parties).toContain(newParty);
+
+    await waitFor(() => {
+      expect(contextRef.current.parties).toContain(newParty);
+    });
   });
 
   it('provides all required context properties', async () => {
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
-    expect(context).toHaveProperty('parties');
-    expect(context).toHaveProperty('isLoading');
-    expect(context).toHaveProperty('showCreateParty');
-    expect(context).toHaveProperty('setShowCreateParty');
-    expect(context).toHaveProperty('isSaving');
-    expect(context).toHaveProperty('memberNickname');
-    expect(context).toHaveProperty('setMemberNickname');
-    expect(context).toHaveProperty('partyName');
-    expect(context).toHaveProperty('setPartyName');
-    expect(context).toHaveProperty('saveParty');
-    expect(context).toHaveProperty('updateParty');
-    expect(context).toHaveProperty('refreshParties');
-    expect(context).toHaveProperty('lazyLoadParties');
-    expect(context).toHaveProperty('getNicknameByUserId');
-    expect(context).toHaveProperty('leaveParty');
-    expect(context).toHaveProperty('removeMember');
-    expect(context).toHaveProperty('deleteParty');
+    expect(contextRef.current).toHaveProperty('parties');
+    expect(contextRef.current).toHaveProperty('isLoading');
+    expect(contextRef.current).toHaveProperty('showCreateParty');
+    expect(contextRef.current).toHaveProperty('setShowCreateParty');
+    expect(contextRef.current).toHaveProperty('isSaving');
+    expect(contextRef.current).toHaveProperty('memberNickname');
+    expect(contextRef.current).toHaveProperty('setMemberNickname');
+    expect(contextRef.current).toHaveProperty('partyName');
+    expect(contextRef.current).toHaveProperty('setPartyName');
+    expect(contextRef.current).toHaveProperty('saveParty');
+    expect(contextRef.current).toHaveProperty('updateParty');
+    expect(contextRef.current).toHaveProperty('refreshParties');
+    expect(contextRef.current).toHaveProperty('lazyLoadParties');
+    expect(contextRef.current).toHaveProperty('getNicknameByUserId');
+    expect(contextRef.current).toHaveProperty('leaveParty');
+    expect(contextRef.current).toHaveProperty('removeMember');
+    expect(contextRef.current).toHaveProperty('deleteParty');
   });
 
   it('handles getNicknameByUserId correctly', async () => {
@@ -180,25 +198,33 @@ describe('PartiesProvider', () => {
     mockListParties.mockResolvedValue(mockParties);
     const user = { sub: 'user1', name: 'Test' };
 
-    let context: any;
+    const contextRef = { current: undefined as any };
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      await context.refreshParties();
+      await contextRef.current.refreshParties();
     });
 
-    const nickname = context.getNicknameByUserId('user1');
+    await waitFor(() => {
+      expect(contextRef.current.parties.length).toBeGreaterThan(0);
+    });
+
+    const nickname = contextRef.current.getNicknameByUserId('user1');
     expect(nickname).toBe('Alice');
   });
 
@@ -214,23 +240,27 @@ describe('PartiesProvider', () => {
     });
 
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      await context.updateParty('party-1', { partyName: 'Updated' });
+      await contextRef.current.updateParty('party-1', { partyName: 'Updated' });
     });
 
     expect(mockUpdateParty).toHaveBeenCalledWith('party-1', {
@@ -259,27 +289,31 @@ describe('PartiesProvider', () => {
     mockListParties.mockResolvedValue(mockParties);
 
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return <div>{context?.parties.length}</div>;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      await context.refreshParties();
+      await contextRef.current.refreshParties();
     });
 
     await act(async () => {
-      await context.leaveParty('1');
+      await contextRef.current.leaveParty('1');
     });
 
     expect(mockLeaveParty).toHaveBeenCalledWith('1');
@@ -297,23 +331,27 @@ describe('PartiesProvider', () => {
     });
 
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      await context.removeMember('party-1', 'user-2');
+      await contextRef.current.removeMember('party-1', 'user-2');
     });
 
     expect(mockRemoveMember).toHaveBeenCalledWith('party-1', 'user-2');
@@ -340,27 +378,31 @@ describe('PartiesProvider', () => {
     mockListParties.mockResolvedValue(mockParties);
 
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return <div>{context?.parties.length}</div>;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      await context.refreshParties();
+      await contextRef.current.refreshParties();
     });
 
     await act(async () => {
-      await context.deleteParty('1');
+      await contextRef.current.deleteParty('1');
     });
 
     expect(mockDeleteParty).toHaveBeenCalledWith('1');
@@ -368,82 +410,100 @@ describe('PartiesProvider', () => {
 
   it('updates member nickname from user context', async () => {
     const user = { sub: 'user1', given_name: 'John' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return <div>{context?.memberNickname}</div>;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await waitFor(() => {
-      expect(context.memberNickname).toBe('John');
+      expect(contextRef.current.memberNickname).toBe('John');
     });
   });
 
   it('handles form state changes', async () => {
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      context.setShowCreateParty(true);
+      contextRef.current.setShowCreateParty(true);
     });
 
-    expect(context.showCreateParty).toBe(true);
+    await waitFor(() => {
+      expect(contextRef.current.showCreateParty).toBe(true);
+    });
 
     await act(async () => {
-      context.setMemberNickname('TestNickname');
+      contextRef.current.setMemberNickname('TestNickname');
     });
 
-    expect(context.memberNickname).toBe('TestNickname');
+    await waitFor(() => {
+      expect(contextRef.current.memberNickname).toBe('TestNickname');
+    });
 
     await act(async () => {
-      context.setPartyName('TestParty');
+      contextRef.current.setPartyName('TestParty');
     });
 
-    expect(context.partyName).toBe('TestParty');
+    await waitFor(() => {
+      expect(contextRef.current.partyName).toBe('TestParty');
+    });
   });
 
   it('handles refreshParties with sessionParties refresh', async () => {
     const mockRefreshSessionParties = jest.fn().mockResolvedValue(undefined);
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      await context.refreshParties(mockRefreshSessionParties);
+      await contextRef.current.refreshParties(mockRefreshSessionParties);
     });
 
     expect(mockRefreshSessionParties).toHaveBeenCalled();
@@ -462,54 +522,64 @@ describe('PartiesProvider', () => {
     ];
     mockListParties.mockResolvedValue(mockParties);
 
-    let context: any;
+    const contextRef = { current: undefined as any };
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return <div>{context?.parties.length}</div>;
     };
 
     const { rerender } = render(
       <UserContext.Provider value={{ user: user1 } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      await context.refreshParties();
+      await contextRef.current.refreshParties();
     });
 
     rerender(
       <UserContext.Provider value={{ user: user2 } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
-    expect(context.parties).toEqual([]);
+    await waitFor(() => {
+      expect(contextRef.current.parties).toEqual([]);
+    });
   });
 
   it('handles saveParty validation', async () => {
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     // Try to save without required fields
-    const result = await context.saveParty({
+    const result = await contextRef.current.saveParty({
       partyName: '',
       memberNickname: '',
     });
@@ -527,16 +597,20 @@ describe('PartiesProvider', () => {
     mockCreateParty.mockResolvedValue(newParty);
 
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -544,35 +618,41 @@ describe('PartiesProvider', () => {
 
     let result;
     await act(async () => {
-      result = await context.saveParty({
+      result = await contextRef.current.saveParty({
         partyName: 'New Party',
         memberNickname: 'Me',
       });
     });
 
     expect(result).toEqual(newParty);
-    expect(context.parties).toContain(newParty);
+    await waitFor(() => {
+      expect(contextRef.current.parties).toContain(newParty);
+    });
   });
 
   it('handles non-logged-in user gracefully', async () => {
     const user = undefined;
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return <div>{context?.parties.length}</div>;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
     );
 
     await act(async () => {
-      const result = await context.refreshParties();
+      const result = await contextRef.current.refreshParties();
       expect(result).toBeUndefined();
     });
   });
@@ -588,16 +668,20 @@ describe('PartiesProvider', () => {
     mockListParties.mockResolvedValue(mockParties);
 
     const user = { sub: 'user1', name: 'Test' };
-    let context: any;
+    const contextRef = { current: undefined as any };
 
     const Consumer = () => {
-      context = useContext(PartiesContext);
+      const context = useContext(PartiesContext);
+      const ref = React.useRef(contextRef);
+      React.useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
       return null;
     };
 
     render(
       <UserContext.Provider value={{ user } as any}>
-        <PartiesProvider>
+        <PartiesProvider app="mockApp" apiUrl="mockApiUrl">
           <Consumer />
         </PartiesProvider>
       </UserContext.Provider>
@@ -605,7 +689,7 @@ describe('PartiesProvider', () => {
 
     let result;
     await act(async () => {
-      result = await context.refreshParties();
+      result = await contextRef.current.refreshParties();
     });
 
     expect(result).toEqual(mockParties);

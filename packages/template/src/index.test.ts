@@ -1,5 +1,5 @@
 // Template package test placeholder
-describe('@sudoku-web/template', () => {
+describe('@bubblyclouds-app/template', () => {
   it('should export template package', () => {
     expect(true).toBe(true);
   });
