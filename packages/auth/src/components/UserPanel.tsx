@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { UserAvatar } from './UserAvatar';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
 import { Plus, LogOut, X } from 'react-feather';
+import Link from 'next/link';
 
 // Props for external dependencies
 export interface UserPanelDependencies {
@@ -21,6 +22,7 @@ interface UserPanelProps extends UserPanelDependencies {
   app: string;
   privacyUrl: string;
   termsUrl: string;
+  creditsUrl?: string;
   companyUrl: string;
   companyName: string;
 }
@@ -114,9 +116,13 @@ const ActionButtons = ({
 const FooterLinks = ({
   privacyUrl,
   termsUrl,
+  creditsUrl,
+  onClose,
 }: {
   privacyUrl: string;
   termsUrl: string;
+  creditsUrl?: string;
+  onClose?: () => void;
 }) => (
   <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
     <a href={privacyUrl} target="_blank" className="hover:text-white">
@@ -126,6 +132,14 @@ const FooterLinks = ({
     <a href={termsUrl} target="_blank" className="hover:text-white">
       Terms of Service
     </a>
+    {creditsUrl && (
+      <>
+        <span>•</span>
+        <Link href={creditsUrl} onClick={onClose} className="hover:text-white">
+          Credits
+        </Link>
+      </>
+    )}
   </div>
 );
 
@@ -170,6 +184,7 @@ export const UserPanel = ({
   app,
   privacyUrl,
   termsUrl,
+  creditsUrl,
   companyUrl,
   companyName,
 }: UserPanelProps) => {
@@ -229,7 +244,12 @@ export const UserPanel = ({
 
           {/* Footer */}
           <div className="px-6 py-4">
-            <FooterLinks privacyUrl={privacyUrl} termsUrl={termsUrl} />
+            <FooterLinks
+              privacyUrl={privacyUrl}
+              termsUrl={termsUrl}
+              creditsUrl={creditsUrl}
+              onClose={onClose}
+            />
           </div>
 
           {/* Delete account */}
@@ -281,7 +301,12 @@ export const UserPanel = ({
 
         {/* Footer */}
         <div className="px-6 py-4">
-          <FooterLinks privacyUrl={privacyUrl} termsUrl={termsUrl} />
+          <FooterLinks
+            privacyUrl={privacyUrl}
+            termsUrl={termsUrl}
+            creditsUrl={creditsUrl}
+            onClose={onClose}
+          />
         </div>
 
         {/* Delete account */}

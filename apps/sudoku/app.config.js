@@ -14,6 +14,7 @@ const APP_CONFIG = {
   companyName: COMPANY_NAME,
   privacyUrl: `https://${DOMAIN}/privacy`,
   termsUrl: `https://${DOMAIN}/terms`,
+  creditsUrl: '/credits',
   appStoreUrl: 'https://apps.apple.com/app/sudoku-race/id6517357180',
   googlePlayUrl:
     'https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku',

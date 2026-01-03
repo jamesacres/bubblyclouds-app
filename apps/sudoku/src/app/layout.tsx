@@ -113,6 +113,7 @@ export default function RootLayout({
               apiUrl={APP_CONFIG.apiUrl}
               privacyUrl={APP_CONFIG.privacyUrl}
               termsUrl={APP_CONFIG.termsUrl}
+              creditsUrl={APP_CONFIG.creditsUrl}
               companyUrl={APP_CONFIG.companyUrl}
               companyName={APP_CONFIG.companyName}
             />

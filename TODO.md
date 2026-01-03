@@ -1,6 +1,5 @@
 # Framework
 
-- implement points from github review including creating an ARCHITECTURE.md
 - github actions run checks
 - upgrade mac, xcode then capacitor to v8
 - review and merge 003 into 004

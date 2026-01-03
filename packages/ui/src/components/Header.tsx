@@ -12,6 +12,7 @@ interface HeaderUserProps {
   deleteAccount?: () => Promise<boolean>;
   privacyUrl: string;
   termsUrl: string;
+  creditsUrl?: string;
   companyUrl: string;
   companyName: string;
 }

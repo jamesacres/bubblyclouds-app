@@ -12,6 +12,7 @@ export interface HeaderUserDependencies {
   deleteAccount?: () => Promise<boolean>;
   privacyUrl: string;
   termsUrl: string;
+  creditsUrl?: string;
   companyUrl: string;
   companyName: string;
 }
@@ -23,6 +24,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
   deleteAccount,
   privacyUrl,
   termsUrl,
+  creditsUrl,
   companyUrl,
   companyName,
 }) => {
@@ -39,6 +41,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
       app={app}
       privacyUrl={privacyUrl}
       termsUrl={termsUrl}
+      creditsUrl={creditsUrl}
       companyUrl={companyUrl}
       companyName={companyName}
     />

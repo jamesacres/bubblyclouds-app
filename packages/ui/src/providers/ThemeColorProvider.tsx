@@ -40,15 +40,18 @@ export function ThemeColorProvider({
   children: React.ReactNode;
 }) {
   const { theme } = useTheme();
-  const [themeColor, setThemeColorState] = useState<ThemeColor>(() => {
-    if (typeof window === 'undefined') return 'blue';
+  const [themeColor, setThemeColorState] = useState<ThemeColor>('blue');
+  const [mounted, setMounted] = useState(false);
+
+  // Load saved theme color from localStorage
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
     const savedThemeColor = localStorage.getItem('theme-color');
     if (savedThemeColor && isValidThemeColor(savedThemeColor)) {
-      return savedThemeColor as ThemeColor;
+      setThemeColorState(savedThemeColor as ThemeColor);
     }
-    return 'blue';
-  });
-  const [mounted] = useState(true);
+  }, []);
 
   const setThemeColor = (color: ThemeColor) => {
     setThemeColorState(color);

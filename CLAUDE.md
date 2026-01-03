@@ -1,3 +1,13 @@
+Architecture:
+
+- See ARCHITECTURE.md for complete package hierarchy, dependency rules, and the
+  Just-in-Time pattern
+- Packages are organized in 7 layers (L0-L6): types → ui → auth → template →
+  games → sudoku → app
+- Each package can only depend on packages in lower layers
+- When adding code, use the decision tree in ARCHITECTURE.md to choose the
+  correct package
+
 Rules:
 
 - Do not add unnecessary comments

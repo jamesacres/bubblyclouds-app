@@ -14,6 +14,7 @@ export default function HeaderWrapper({
   apiUrl,
   privacyUrl,
   termsUrl,
+  creditsUrl,
   companyUrl,
   companyName,
 }: {
@@ -22,6 +23,7 @@ export default function HeaderWrapper({
   apiUrl: string;
   privacyUrl: string;
   termsUrl: string;
+  creditsUrl?: string;
   companyUrl: string;
   companyName: string;
 }) {
@@ -47,6 +49,7 @@ export default function HeaderWrapper({
         deleteAccount,
         privacyUrl,
         termsUrl,
+        creditsUrl,
         companyUrl,
         companyName,
       }}
