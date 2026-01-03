@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@bubblyclouds-app/types": ["../types/src"],
+      "@bubblyclouds-app/types/*": ["../types/src/*"],
+      "@bubblyclouds-app/shared": ["../shared/src"],
+      "@bubblyclouds-app/shared/*": ["../shared/src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
+}

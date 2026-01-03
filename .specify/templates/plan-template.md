@@ -17,14 +17,15 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]
 **Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Project Type**: [single/web/mobile/monorepo - determines source structure]
+**Package Boundaries**: [if monorepo: which packages affected, new package needed, or N/A]
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
@@ -89,6 +90,27 @@ api/
 
 ios/ or android/
 └── [platform-specific structure: feature modules, UI flows, platform tests]
+
+# [REMOVE IF UNUSED] Option 4: Turborepo monorepo (THIS PROJECT)
+packages/
+├── [package-name]/      # Reusable package
+│   ├── src/
+│   │   ├── components/  # React components (if UI package)
+│   │   ├── hooks/       # Custom hooks
+│   │   ├── types/       # TypeScript types
+│   │   └── helpers/     # Utility functions
+│   ├── package.json     # With exports field (Just-in-Time pattern)
+│   └── README.md        # Package documentation
+└── [another-package]/
+
+apps/
+├── [app-name]/          # Application (consumes packages)
+│   ├── src/
+│   │   ├── app/         # Next.js app router pages
+│   │   ├── components/  # App-specific components
+│   │   └── [...]
+│   └── package.json
+└── [another-app]/
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real

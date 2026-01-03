@@ -1,0 +1,12 @@
+{
+  "name": "@bubblyclouds-app/app-sudoku",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.mjs",
+  "author": "James Acres",
+  "description": "Sudoku Race",
+  "dependencies": {
+    "electron-serve": "^2.0.0",
+    "electron-store": "^9.0.0"
+  }
+}

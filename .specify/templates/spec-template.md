@@ -85,10 +85,22 @@
 ### Functional Requirements
 
 - **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]
 - **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
 - **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
 - **FR-005**: System MUST [behavior, e.g., "log all security events"]
+
+### Package Scope *(if monorepo)*
+
+<!--
+  For turborepo/monorepo projects only. Remove this section if not applicable.
+  Clarify which packages will be affected and respect constitutional package dependency rules.
+-->
+
+- **Affected Packages**: [List packages that will be modified, e.g., @bubblyclouds-app/ui, @bubblyclouds-app/template]
+- **New Packages**: [If creating new packages, list them with brief purpose]
+- **Dependency Compliance**: [Confirm no apps → packages dependencies, prefer dependency injection]
+- **Import Strategy**: [Relative imports within package, package names across packages, no barrel exports]
 
 *Example of marking unclear requirements:*
 
