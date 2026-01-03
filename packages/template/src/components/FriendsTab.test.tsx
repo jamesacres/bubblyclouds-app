@@ -66,6 +66,7 @@ describe('FriendsTab', () => {
     calculateCompletionPercentageFromState: jest.fn(() => 50),
     isPuzzleCheated: jest.fn(() => false),
     buildPuzzleUrlFromState: jest.fn(() => '/puzzle/1'),
+    gameName: 'Sudoku',
   };
 
   beforeEach(() => {

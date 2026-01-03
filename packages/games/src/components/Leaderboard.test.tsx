@@ -9,6 +9,7 @@ import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
 import * as scoringUtils from '../helpers/scoringUtils';
 
 const isPuzzleCheated = jest.fn().mockReturnValue(false);
+const gameName = 'Sudoku';
 
 // Mock the scoring utils
 jest.mock('../helpers/scoringUtils', () => ({
@@ -171,6 +172,7 @@ describe('Leaderboard', () => {
         parties={[]}
         user={user}
         isPuzzleCheated={isPuzzleCheated}
+        gameName={gameName}
       />
     );
     expect(screen.getByText('Leaderboard')).toBeInTheDocument();
@@ -203,6 +205,7 @@ describe('Leaderboard', () => {
         user={user}
         selectedParty={party}
         isPuzzleCheated={isPuzzleCheated}
+        gameName={gameName}
       />
     );
     expect(screen.getByTestId('username-user-2')).toBeInTheDocument();
@@ -219,6 +222,7 @@ describe('Leaderboard', () => {
         parties={[]}
         user={user}
         isPuzzleCheated={isPuzzleCheated}
+        gameName={gameName}
       />
     );
     fireEvent.click(screen.getByText(/How scoring works/));

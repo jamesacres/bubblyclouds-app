@@ -460,6 +460,7 @@ function HomeComponent() {
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 LeaderboardComponent={Leaderboard}
+                gameName="Sudoku"
               />
             )}
           </div>

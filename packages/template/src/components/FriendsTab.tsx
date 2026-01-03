@@ -17,6 +17,7 @@ interface FriendsTabProps<TState extends BaseServerState = BaseServerState> {
   calculateCompletionPercentageFromState: (state: TState) => number;
   isPuzzleCheated: (state: TState) => boolean;
   buildPuzzleUrlFromState: (state: TState, isCompleted?: boolean) => string;
+  gameName: string;
   LeaderboardComponent?: React.ComponentType<{
     sessions: ServerStateResult<TState>[] | null;
     friendSessions: UserSessions<TState>;
@@ -24,6 +25,7 @@ interface FriendsTabProps<TState extends BaseServerState = BaseServerState> {
     user: UserProfile;
     selectedParty?: Party;
     isPuzzleCheated: (state: TState) => boolean;
+    gameName: string;
   }>;
 }
 
@@ -37,6 +39,7 @@ export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
   isPuzzleCheated,
   buildPuzzleUrlFromState,
   LeaderboardComponent,
+  gameName,
 }: FriendsTabProps<TState>) => {
   const { sessions, friendSessions } = useSessions<TState>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
@@ -141,6 +144,7 @@ export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
             user={user}
             selectedParty={selectedParty}
             isPuzzleCheated={isPuzzleCheated}
+            gameName={gameName}
           />
         </div>
       )}

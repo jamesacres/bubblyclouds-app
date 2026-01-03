@@ -26,6 +26,7 @@ interface LeaderboardProps<TState extends BaseServerState = BaseServerState> {
   user: UserProfile;
   selectedParty?: Party;
   isPuzzleCheated: (state: TState) => boolean;
+  gameName: string;
 }
 
 function Leaderboard<TState extends BaseServerState = BaseServerState>({
@@ -35,6 +36,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
   user,
   selectedParty,
   isPuzzleCheated,
+  gameName,
 }: LeaderboardProps<TState>) {
   const [showScoringLegend, setShowScoringLegend] = useState(false);
 
@@ -212,7 +214,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
       <ScoringLegend
         isOpen={showScoringLegend}
         onClose={() => setShowScoringLegend(false)}
-        gameName="Sudoku"
+        gameName={gameName}
       />
     </div>
   );
