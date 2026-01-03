@@ -25,7 +25,7 @@ export default function SocialProof({
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [motivationalMessages]);
 
   if (!message) return null;
 
