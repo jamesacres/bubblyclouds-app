@@ -1,19 +1,14 @@
 # Framework
 
-- test invites
-- github actions run checks
+- re-test capacitor xcode and android and complete puzzle in full
 - upgrade mac, xcode then capacitor to v8
-- review and merge 003 into 004
 
 - move bubblyclouds repo (main website) into apps directory then delete separate
   repo
 
 - remove vercel and introduce open next and sst
 
-- re-test capacitor xcode and android and complete puzzle in full
 - re-test electron
-
-- review and merge 004 into main
 
 # Apps
 
