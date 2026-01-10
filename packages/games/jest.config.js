@@ -18,7 +18,6 @@ const config = {
     '^@bubblyclouds-app/types/(.*)$': '<rootDir>/../types/src/$1',
     '^@bubblyclouds-app/template/(.*)$': '<rootDir>/../template/src/$1',
     '^@bubblyclouds-app/ui/(.*)$': '<rootDir>/../ui/src/$1',
-    '^@bubblyclouds-app/auth/(.*)$': '<rootDir>/../auth/src/$1',
   },
   transform: {
     '^.+\\.tsx?$': [
