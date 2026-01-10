@@ -1,5 +1,6 @@
 # Framework
 
+- test invites
 - github actions run checks
 - upgrade mac, xcode then capacitor to v8
 - review and merge 003 into 004
