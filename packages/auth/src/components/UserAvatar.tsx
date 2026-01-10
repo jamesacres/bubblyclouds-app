@@ -1,5 +1,5 @@
 'use client';
-import { UserProfile } from '../types/UserProfile';
+import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import Image from 'next/image';
 import { User } from 'react-feather';
 

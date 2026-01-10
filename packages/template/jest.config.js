@@ -18,7 +18,6 @@ const config = {
     '^@bubblyclouds-app/auth/(.*)$': '<rootDir>/../auth/src/$1',
     '^@bubblyclouds-app/ui/(.*)$': '<rootDir>/../ui/src/$1',
     '^@bubblyclouds-app/types/(.*)$': '<rootDir>/../types/src/$1',
-    '^@bubblyclouds-app/shared/(.*)$': '<rootDir>/../shared/src/$1',
     '^react-feather$': '<rootDir>/../../jest.setup.featherIcons.js',
     '^next/image$': '<rootDir>/../../jest.setup.nextImage.js',
     '^@headlessui/react$': '<rootDir>/../../jest.setup.headlessui.js',

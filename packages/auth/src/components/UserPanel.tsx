@@ -1,6 +1,6 @@
 'use client';
 
-import { UserProfile } from '../types/UserProfile';
+import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useState } from 'react';
 import { UserAvatar } from './UserAvatar';
 import { DeleteAccountDialog } from './DeleteAccountDialog';

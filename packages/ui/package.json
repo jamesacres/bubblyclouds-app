@@ -23,6 +23,7 @@
     "circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {
+    "@bubblyclouds-app/types": "*",
     "@capacitor-community/in-app-review": "^7.0.1",
     "@capacitor/core": "^7.0.0",
     "@capacitor/share": "^7.0.0",

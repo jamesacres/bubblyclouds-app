@@ -24,6 +24,8 @@
     "circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {
+    "@bubblyclouds-app/types": "*",
+    "@bubblyclouds-app/ui": "*",
     "@capacitor/browser": "^7.0.0",
     "@capacitor/core": "^7.0.0",
     "@headlessui/react": "^2.2.9",

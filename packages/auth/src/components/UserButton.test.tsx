@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { UserButton } from './UserButton';
-import { UserProfile } from '../types/UserProfile';
+import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 
 jest.mock('./UserPanel', () => ({
   __esModule: true,

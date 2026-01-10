@@ -532,7 +532,6 @@ function PremiumFeature() {
   "react-dom": "^18",
   "@bubblyclouds-app/auth": "*",
   "@bubblyclouds-app/ui": "*",
-  "@bubblyclouds-app/shared": "*",
   "@bubblyclouds-app/types": "*"
 }
 ```
@@ -645,7 +644,6 @@ function FeatureButton() {
 
 - `@bubblyclouds-app/auth` - Authentication (provides auth context)
 - `@bubblyclouds-app/ui` - UI components (provides theme and layout)
-- `@bubblyclouds-app/shared` - Shared utilities (provides helpers)
 - `@bubblyclouds-app/types` - Shared types (provides type definitions)
 
 ## Version

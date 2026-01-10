@@ -2,7 +2,7 @@
 import { pkce } from '../services/pkce';
 import { useFetch } from '../hooks/useFetch';
 import { PlatformServicesContext } from './PlatformServicesContext';
-import { UserProfile } from '../types/UserProfile';
+import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useRef } from 'react';
 import { Browser } from '@capacitor/browser';

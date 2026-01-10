@@ -1,6 +1,6 @@
 import { FetchContext, State } from '../providers/FetchProvider';
 import { PlatformServicesContext } from '../providers/PlatformServicesContext';
-import { UserProfile } from '../types/UserProfile';
+import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useCallback, useContext, useMemo } from 'react';
 
 const jwtDecode = (token: string) =>

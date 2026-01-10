@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import HeaderUser from './HeaderUser';
 import { UserContext, UserContextInterface } from '../providers/AuthProvider';
-import { UserProfile } from '../types/UserProfile';
+import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 
 jest.mock('./UserButton', () => ({
   __esModule: true,

@@ -1,6 +1,6 @@
 'use client';
 
-import { UserProfile } from '../types/UserProfile';
+import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import {
   Popover,
   Transition,

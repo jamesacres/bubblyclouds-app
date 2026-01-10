@@ -8,9 +8,7 @@
       "@bubblyclouds-app/template": ["../template/src"],
       "@bubblyclouds-app/template/*": ["../template/src/*"],
       "@bubblyclouds-app/types": ["../types/src"],
-      "@bubblyclouds-app/types/*": ["../types/src/*"],
-      "@bubblyclouds-app/shared": ["../shared/src"],
-      "@bubblyclouds-app/shared/*": ["../shared/src/*"]
+      "@bubblyclouds-app/types/*": ["../types/src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
