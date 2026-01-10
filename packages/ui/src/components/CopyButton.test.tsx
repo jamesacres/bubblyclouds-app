@@ -171,7 +171,7 @@ describe('CopyButton', () => {
 
       await waitFor(() => {
         expect(consoleErrorSpy).toHaveBeenCalledWith(
-          'Failed to copy/share:',
+          'Failed to copy:',
           clipboardError
         );
       });
