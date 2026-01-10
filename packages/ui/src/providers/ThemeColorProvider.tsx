@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 
-type ThemeColor =
+export type ThemeColor =
   | 'blue'
   | 'red'
   | 'green'

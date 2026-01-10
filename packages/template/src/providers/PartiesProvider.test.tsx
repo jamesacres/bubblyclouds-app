@@ -78,6 +78,12 @@ describe('PartiesProvider', () => {
       </UserContext.Provider>
     );
 
+    // Wait for context to be initialized
+    await waitFor(() => {
+      expect(contextRef.current).toBeDefined();
+      expect(contextRef.current.lazyLoadParties).toBeDefined();
+    });
+
     // Explicitly call lazyLoadParties since it's not called automatically on mount
     await act(async () => {
       await contextRef.current.lazyLoadParties();
@@ -126,6 +132,12 @@ describe('PartiesProvider', () => {
         </PartiesProvider>
       </UserContext.Provider>
     );
+
+    // Wait for context to be initialized
+    await waitFor(() => {
+      expect(contextRef.current).toBeDefined();
+      expect(contextRef.current.saveParty).toBeDefined();
+    });
 
     await act(async () => {
       await contextRef.current.saveParty({
@@ -215,6 +227,12 @@ describe('PartiesProvider', () => {
         </PartiesProvider>
       </UserContext.Provider>
     );
+
+    // Wait for context to be initialized
+    await waitFor(() => {
+      expect(contextRef.current).toBeDefined();
+      expect(contextRef.current.refreshParties).toBeDefined();
+    });
 
     await act(async () => {
       await contextRef.current.refreshParties();
@@ -578,6 +596,12 @@ describe('PartiesProvider', () => {
       </UserContext.Provider>
     );
 
+    // Wait for context to be initialized
+    await waitFor(() => {
+      expect(contextRef.current).toBeDefined();
+      expect(contextRef.current.saveParty).toBeDefined();
+    });
+
     // Try to save without required fields
     const result = await contextRef.current.saveParty({
       partyName: '',
@@ -615,6 +639,12 @@ describe('PartiesProvider', () => {
         </PartiesProvider>
       </UserContext.Provider>
     );
+
+    // Wait for context to be initialized
+    await waitFor(() => {
+      expect(contextRef.current).toBeDefined();
+      expect(contextRef.current.saveParty).toBeDefined();
+    });
 
     let result;
     await act(async () => {

@@ -4,10 +4,10 @@ import React from 'react';
 export interface PlatformServices {
   isElectron: () => boolean;
   isCapacitor: () => boolean;
-  openBrowser: (url: string) => Promise<void>;
-  saveElectronState: (state: any) => Promise<void>;
+  openBrowser: (url: string) => Promise<unknown>;
+  saveElectronState: (state: unknown) => Promise<void>;
   getCapacitorState: () => Promise<string>;
-  saveCapacitorState: (state: any) => Promise<void>;
+  saveCapacitorState: (state: unknown) => Promise<void>;
   app: string;
   apiUrl: string;
   authUrl: string;

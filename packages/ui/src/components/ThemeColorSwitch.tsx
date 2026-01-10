@@ -1,6 +1,6 @@
 'use client';
 
-import { useThemeColor } from '../providers/ThemeColorProvider';
+import { useThemeColor, ThemeColor } from '../providers/ThemeColorProvider';
 import { useState, useEffect, useRef } from 'react';
 
 const colors = [
@@ -204,17 +204,17 @@ const ThemeColorSwitch = ({
 
     if (colorIndex < 2 || isSubscribed) {
       // Free colors (first two) or user is subscribed
-      setThemeColor(colorName as any);
+      setThemeColor(colorName as ThemeColor);
       setIsOpen(false);
     } else if (onPremiumColorClick) {
       // Premium color and user not subscribed - call custom handler
       onPremiumColorClick(colorName, () => {
-        setThemeColor(colorName as any);
+        setThemeColor(colorName as ThemeColor);
         setIsOpen(false);
       });
     } else {
       // No handler provided, just allow the color change
-      setThemeColor(colorName as any);
+      setThemeColor(colorName as ThemeColor);
       setIsOpen(false);
     }
   };

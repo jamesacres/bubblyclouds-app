@@ -23,20 +23,20 @@ import { BaseServerState } from '../types/state';
 
 const DEFAULT_MAX_SIZE = 5;
 
-interface PartyRowProps<TState extends BaseServerState = BaseServerState> {
+interface PartyRowProps<State extends BaseServerState = BaseServerState> {
   party: Party;
   sessionId: string;
   redirectUri: string;
-  sessionParty?: SessionParty<Session<TState>>;
-  SimpleState: ComponentType<{ state: TState }>;
-  calculateCompletionPercentageFromState: (state: TState) => number;
+  sessionParty?: SessionParty<Session<State>>;
+  SimpleState: ComponentType<{ state: State }>;
+  calculateCompletionPercentageFromState: (state: State) => number;
   app: string;
   appName: string;
   apiUrl: string;
   appUrl: string;
 }
 
-const PartyRow = <TState extends BaseServerState = BaseServerState>({
+const PartyRow = <State extends BaseServerState = BaseServerState>({
   party: { partyName, isOwner, members, partyId, maxSize },
   sessionId,
   redirectUri,
@@ -47,7 +47,7 @@ const PartyRow = <TState extends BaseServerState = BaseServerState>({
   appName,
   apiUrl,
   appUrl,
-}: PartyRowProps<TState>) => {
+}: PartyRowProps<State>) => {
   const { parties, leaveParty, removeMember, deleteParty, updateParty } =
     useParties();
   const context = useContext(UserContext) as UserContextInterface | undefined;

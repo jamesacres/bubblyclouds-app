@@ -20,7 +20,10 @@ import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { useBook } from '@bubblyclouds-app/sudoku/providers/BookProvider';
 import IntegratedSessionRow from '@bubblyclouds-app/template/components/IntegratedSessionRow';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
-import { getTechniquesDisplay } from '@bubblyclouds-app/games/helpers/getTechniquesDisplay';
+import {
+  getTechniquesDisplay,
+  Techniques,
+} from '@bubblyclouds-app/games/helpers/getTechniquesDisplay';
 import { sha256 } from '@bubblyclouds-app/template/helpers/sha256';
 import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku/helpers/calculateCompletionPercentage';
@@ -380,7 +383,11 @@ export default function BookPage() {
 
               return (
                 <div key={index} id={`puzzle-${index}`}>
-                  <IntegratedSessionRow<ServerState>
+                  <IntegratedSessionRow<
+                    ServerState,
+                    SudokuBookPuzzle,
+                    Techniques
+                  >
                     session={mockSession}
                     bookPuzzle={{
                       puzzle,

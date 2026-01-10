@@ -14,11 +14,11 @@ import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { BaseServerState } from '../types/state';
 
 // Function to get game status text
-const getGameStatusText = <TState extends BaseServerState = BaseServerState>(
-  session: ServerStateResult<TState>,
-  isPuzzleCheated: (state: TState) => boolean,
-  calculateCompletionPercentageFromState: (state: TState) => number,
-  _userSessions?: ServerStateResult<TState>[]
+const getGameStatusText = <State extends BaseServerState = BaseServerState>(
+  session: ServerStateResult<State>,
+  isPuzzleCheated: (state: State) => boolean,
+  calculateCompletionPercentageFromState: (state: State) => number,
+  _userSessions?: ServerStateResult<State>[]
 ): string => {
   const { state } = session;
 
@@ -144,17 +144,18 @@ const extractMetadataInfo = (
 };
 
 interface IntegratedSessionRowProps<
-  TState extends BaseServerState = BaseServerState,
-  TBookPuzzle extends { initial: string; final: string } = {
+  State extends BaseServerState = BaseServerState,
+  BookPuzzle extends { initial: string; final: string } = {
     initial: string;
     final: string;
   },
+  Techniques = unknown,
 > {
-  session: ServerStateResult<TState>;
-  userSessions?: ServerStateResult<TState>[]; // Optional: user's sessions for cross-referencing
+  session: ServerStateResult<State>;
+  userSessions?: ServerStateResult<State>[]; // Optional: user's sessions for cross-referencing
   // Book-specific props
   bookPuzzle?: {
-    puzzle: TBookPuzzle;
+    puzzle: BookPuzzle;
     index: number;
     sudokuBookId: string;
   };
@@ -163,24 +164,24 @@ interface IntegratedSessionRowProps<
     name: string;
     badgeColor: string;
   };
-  getTechniquesDisplay?: (techniques?: any) => Array<{
+  getTechniquesDisplay?: (techniques?: Techniques) => Array<{
     name: string;
     count: number;
     color: string;
     category: string;
     categoryOrder: number;
   }>;
-  SimpleState: ComponentType<{ state: TState }>;
-  calculateCompletionPercentageFromState: (state: TState) => number;
-  isPuzzleCheated: (state: TState) => boolean;
-  buildPuzzleUrlFromState: (state: TState, isCompleted?: boolean) => string;
+  SimpleState: ComponentType<{ state: State }>;
+  calculateCompletionPercentageFromState: (state: State) => number;
+  isPuzzleCheated: (state: State) => boolean;
+  buildPuzzleUrlFromState: (state: State, isCompleted?: boolean) => string;
 }
 
 // Helper to get user's session data for display
-const useUserSessionData = <TState extends BaseServerState = BaseServerState>(
-  session: ServerStateResult<TState>,
-  userSessions?: ServerStateResult<TState>[],
-  calculateCompletionPercentageFromState?: (state: TState) => number
+const useUserSessionData = <State extends BaseServerState = BaseServerState>(
+  session: ServerStateResult<State>,
+  userSessions?: ServerStateResult<State>[],
+  calculateCompletionPercentageFromState?: (state: State) => number
 ) => {
   const userSession = userSessions?.find(
     (s) => s.sessionId === session.sessionId
@@ -207,13 +208,13 @@ const useUserSessionData = <TState extends BaseServerState = BaseServerState>(
 };
 
 // Helper to process friend sessions
-const getFriendSessions = <TState extends BaseServerState = BaseServerState>(
-  friendSessions: UserSessions<TState>,
-  session: ServerStateResult<TState>,
+const getFriendSessions = <State extends BaseServerState = BaseServerState>(
+  friendSessions: UserSessions<State>,
+  session: ServerStateResult<State>,
   currentUserId: string | undefined,
   parties: Party[],
-  isPuzzleCheated: (state: TState) => boolean,
-  calculateCompletionPercentageFromState: (state: TState) => number
+  isPuzzleCheated: (state: State) => boolean,
+  calculateCompletionPercentageFromState: (state: State) => number
 ) => {
   const friendSessionData: Array<{
     nickname: string;
@@ -258,11 +259,12 @@ const getFriendSessions = <TState extends BaseServerState = BaseServerState>(
 };
 
 export const IntegratedSessionRow = <
-  TState extends BaseServerState = BaseServerState,
-  TBookPuzzle extends { initial: string; final: string } = {
+  State extends BaseServerState = BaseServerState,
+  BookPuzzle extends { initial: string; final: string } = {
     initial: string;
     final: string;
   },
+  Techniques = unknown,
 >({
   session,
   userSessions,
@@ -273,10 +275,10 @@ export const IntegratedSessionRow = <
   buildPuzzleUrlFromState,
   getDifficultyDisplay,
   getTechniquesDisplay,
-}: IntegratedSessionRowProps<TState, TBookPuzzle>) => {
+}: IntegratedSessionRowProps<State, BookPuzzle, Techniques>) => {
   const context = useContext(UserContext) as UserContextInterface | undefined;
   const { user } = context || {};
-  const { friendSessions, isFriendSessionsLoading } = useSessions<TState>();
+  const { friendSessions, isFriendSessionsLoading } = useSessions<State>();
   const { parties } = useParties();
 
   const metadata = session.state.metadata;
@@ -296,7 +298,9 @@ export const IntegratedSessionRow = <
   // Get techniques if from book puzzle
   const techniques =
     bookPuzzle && getTechniquesDisplay
-      ? getTechniquesDisplay((bookPuzzle.puzzle as any)?.techniques)
+      ? getTechniquesDisplay(
+          (bookPuzzle.puzzle as { techniques?: Techniques })?.techniques
+        )
       : [];
 
   // Get puzzle title
@@ -335,7 +339,7 @@ export const IntegratedSessionRow = <
     actualSession,
     percentage: myPercentage,
     isCompleted,
-  } = useUserSessionData<TState>(
+  } = useUserSessionData<State>(
     session,
     userSessions,
     calculateCompletionPercentageFromState
@@ -371,7 +375,7 @@ export const IntegratedSessionRow = <
     }
 
     // Add friends' sessions
-    const friendData = getFriendSessions<TState>(
+    const friendData = getFriendSessions<State>(
       friendSessions,
       session,
       user?.sub,
@@ -461,7 +465,7 @@ export const IntegratedSessionRow = <
             <div className="text-center text-gray-900 dark:text-white">
               <h3 className="text-sm font-semibold">{puzzleTitle}</h3>
               <p className="text-xs opacity-75">
-                {getGameStatusText<TState>(
+                {getGameStatusText<State>(
                   session,
                   isPuzzleCheated,
                   calculateCompletionPercentageFromState,

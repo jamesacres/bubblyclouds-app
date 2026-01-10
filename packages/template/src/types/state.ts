@@ -1,26 +1,26 @@
 import { Timer } from './timer';
 
-export type BaseSetAnswer<TAnswer> = (_value: TAnswer) => void;
+export type BaseSetAnswer<Answer> = (_value: Answer) => void;
 
 export interface BaseState<
-  TState = unknown,
-  TStackItem = TState,
-  TMetadata = Record<string, string>,
+  State = unknown,
+  StackItem = State,
+  Metadata = Record<string, string>,
 > {
-  answerStack: TStackItem[];
-  initial: TState;
-  final: TState;
+  answerStack: StackItem[];
+  initial: State;
+  final: State;
   completed?: {
     at: string;
     seconds: number;
   };
-  metadata?: Partial<TMetadata>;
+  metadata?: Partial<Metadata>;
 }
 
 export interface BaseServerState<
-  TState = unknown,
-  TStackItem = TState,
-  TMetadata = Record<string, string>,
-> extends BaseState<TState, TStackItem, TMetadata> {
+  State = unknown,
+  StackItem = State,
+  Metadata = Record<string, string>,
+> extends BaseState<State, StackItem, Metadata> {
   timer?: Timer;
 }

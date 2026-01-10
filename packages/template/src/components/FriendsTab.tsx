@@ -8,28 +8,28 @@ import IntegratedSessionRow from './IntegratedSessionRow';
 import { BaseServerState } from '../types/state';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 
-interface FriendsTabProps<TState extends BaseServerState = BaseServerState> {
+interface FriendsTabProps<State extends BaseServerState = BaseServerState> {
   user: UserProfile | undefined;
   parties: Party[] | undefined;
-  mySessions: ServerStateResult<TState>[] | undefined;
+  mySessions: ServerStateResult<State>[] | undefined;
   onRefresh?: () => Promise<void>;
-  SimpleState: React.ComponentType<{ state: TState }>;
-  calculateCompletionPercentageFromState: (state: TState) => number;
-  isPuzzleCheated: (state: TState) => boolean;
-  buildPuzzleUrlFromState: (state: TState, isCompleted?: boolean) => string;
+  SimpleState: React.ComponentType<{ state: State }>;
+  calculateCompletionPercentageFromState: (state: State) => number;
+  isPuzzleCheated: (state: State) => boolean;
+  buildPuzzleUrlFromState: (state: State, isCompleted?: boolean) => string;
   gameName: string;
   LeaderboardComponent?: React.ComponentType<{
-    sessions: ServerStateResult<TState>[] | null;
-    friendSessions: UserSessions<TState>;
+    sessions: ServerStateResult<State>[] | null;
+    friendSessions: UserSessions<State>;
     parties: Party[];
     user: UserProfile;
     selectedParty?: Party;
-    isPuzzleCheated: (state: TState) => boolean;
+    isPuzzleCheated: (state: State) => boolean;
     gameName: string;
   }>;
 }
 
-export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
+export const FriendsTab = <State extends BaseServerState = BaseServerState>({
   user,
   parties,
   mySessions,
@@ -40,8 +40,8 @@ export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
   buildPuzzleUrlFromState,
   LeaderboardComponent,
   gameName,
-}: FriendsTabProps<TState>) => {
-  const { sessions, friendSessions } = useSessions<TState>();
+}: FriendsTabProps<State>) => {
+  const { sessions, friendSessions } = useSessions<State>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
   const [selectedPartyId, setSelectedPartyId] = useState<string | 'all'>('all');
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -219,7 +219,7 @@ export const FriendsTab = <TState extends BaseServerState = BaseServerState>({
                                           new Date(a.updatedAt).getTime()
                                       )
                                       ?.map((userSession) => (
-                                        <IntegratedSessionRow<TState>
+                                        <IntegratedSessionRow<State>
                                           key={userSession.sessionId}
                                           session={userSession}
                                           userSessions={mySessions}

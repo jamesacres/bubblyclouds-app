@@ -1,13 +1,13 @@
-export const getTechniquesDisplay = (
-  techniques?: Partial<{
-    basic: Partial<{ [key: string]: number }>;
-    simple: Partial<{ [key: string]: number }>;
-    advanced: Partial<{ [key: string]: number }>;
-    hard: Partial<{ [key: string]: number }>;
-    brutal: Partial<{ [key: string]: number }>;
-    beyondBrutal: Partial<{ [key: string]: number }>;
-  }>
-) => {
+export type Techniques = Partial<{
+  basic: Partial<{ [key: string]: number }>;
+  simple: Partial<{ [key: string]: number }>;
+  advanced: Partial<{ [key: string]: number }>;
+  hard: Partial<{ [key: string]: number }>;
+  brutal: Partial<{ [key: string]: number }>;
+  beyondBrutal: Partial<{ [key: string]: number }>;
+}>;
+
+export const getTechniquesDisplay = (techniques?: Techniques) => {
   if (!techniques) return [];
 
   const techniqueNames: { [key: string]: string } = {

@@ -7,6 +7,19 @@ import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useRef } from 'react';
 import { Browser } from '@capacitor/browser';
 
+interface ElectronAPI {
+  openBrowser: (url: string) => Promise<unknown>;
+  encrypt: (data: string) => Promise<string>;
+  decrypt: (data: string) => Promise<string>;
+  saveState: (state: string) => Promise<void>;
+}
+
+declare global {
+  interface Window {
+    electronAPI?: ElectronAPI;
+  }
+}
+
 export interface UserContextInterface {
   user?: UserProfile;
   loginRedirect: (config: { userInitiated: boolean }) => Promise<void>;
@@ -346,7 +359,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Request the worker restores the persisted state from electron
     const query = new URLSearchParams(window.location.search);
     const encryptedState = query.get('state') || '';
-    const state = await (window as any).electronAPI.decrypt(encryptedState);
+    if (!window.electronAPI) {
+      throw new Error('Electron API not available');
+    }
+    const state = await window.electronAPI.decrypt(encryptedState);
     await handleUser(await restoreState(state));
     // Redirect to root of app
     router.replace('/');

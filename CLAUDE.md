@@ -13,6 +13,8 @@ Rules:
 - Do not add unnecessary comments
 - Do not cast, we should fix the actual types or use generics
 - Do not use any, use unknown if we don't know what it is, or fix the types
+- Do not prefix type parameters with T (use `State` not `TState`, `Techniques`
+  not `TTechniques`)
 - Do not add index.ts files instead import directly
 - Packages should add exports to package.json with the Just-in-Time package
   pattern.
