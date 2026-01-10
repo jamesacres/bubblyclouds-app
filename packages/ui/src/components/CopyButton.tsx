@@ -50,8 +50,13 @@ const CopyButton = ({
     try {
       const text = await getText();
       if (text) {
-        await navigator.clipboard.writeText(text);
-        setShowCopied(true);
+        try {
+          await navigator.clipboard.writeText(text);
+          setShowCopied(true);
+        } catch (copyError) {
+          console.error(copyError);
+          console.error('Failed to copy:', copyError);
+        }
         if (canShare) {
           await Share.share({
             title: `You're invited to a ${appName}!`,
@@ -65,6 +70,7 @@ const CopyButton = ({
         }, 5000);
       }
     } catch (error) {
+      console.error(error);
       console.error('Failed to copy/share:', error);
     } finally {
       setIsLoading(false);

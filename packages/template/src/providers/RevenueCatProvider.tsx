@@ -102,10 +102,12 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       if (isCapacitor()) {
         // iOS and Android
+        console.info('RevenueCatProvider iOS and Android');
         const { customerInfo } = await CapacitorPurchases.getCustomerInfo();
         setCustomerInfo(customerInfo);
       } else if (!isElectron()) {
         // Web
+        console.info('RevenueCatProvider Web');
         const info = await WebPurchases.getSharedInstance().getCustomerInfo();
         setCustomerInfo(info);
       }
