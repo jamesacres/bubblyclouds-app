@@ -11,6 +11,7 @@ const config = {
     '!src/**/*.test.{ts,tsx}',
     '!src/**/index.{ts,tsx}',
   ],
+  coverageReporters: ['json', 'json-summary', 'text', 'lcov', 'clover'],
   setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   testTimeout: 10000,
   transform: {
