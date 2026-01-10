@@ -22,6 +22,7 @@ export default [
     ignores: [
       '**/node_modules/**',
       '**/.next/**',
+      '**/next-env.d.ts',
       '**/dist/**',
       '**/build/**',
       '**/coverage/**',
