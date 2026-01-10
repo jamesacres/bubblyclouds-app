@@ -137,6 +137,7 @@ export const Credits: React.FC<CreditsProps> = ({
       </div>
 
       <div className="border-t border-black/10 pt-4 dark:border-white/10">
+        <p>Copyright (c) 2025 James Acres (Bubbly Clouds)</p>
         <p className="text-xs opacity-60">
           This app is licensed under the MIT License. See our{' '}
           <a
