@@ -99,8 +99,12 @@ jobs:
                 branches: { total: 0, covered: 0, skipped: 0, pct: 0 }
               };
 
+              let breakdown = '### Coverage Breakdown by Package\n';
+
               for (const file of summaryFiles) {
                 const coverage = JSON.parse(fs.readFileSync(file, 'utf8'));
+                const packagePath = path.dirname(path.dirname(file));
+
                 for (const key in coverage.total) {
                   if (total[key]) {
                     total[key].total += coverage.total[key].total;
@@ -108,6 +112,18 @@ jobs:
                     total[key].skipped += coverage.total[key].skipped;
                   }
                 }
+
+                const packageTotal = coverage.total;
+                const packageTable = [
+                  `\n#### Coverage for \`${packagePath}\``,
+                  '| Metric | Coverage |',
+                  '|--------|----------|',
+                  `| Lines | ${packageTotal.lines.pct}% |`,
+                  `| Statements | ${packageTotal.statements.pct}% |`,
+                  `| Functions | ${packageTotal.functions.pct}% |`,
+                  `| Branches | ${packageTotal.branches.pct}% |`
+                ].join('\n');
+                breakdown += packageTable + '\n';
               }
 
               for (const key in total) {
@@ -118,16 +134,17 @@ jobs:
                 }
               }
 
-              const table = [
+              const totalTable = [
+                '## Aggregated Test Coverage',
                 '| Metric | Coverage |',
                 '|--------|----------|',
                 `| Lines | ${total.lines.pct}% |`,
                 `| Statements | ${total.statements.pct}% |`,
                 `| Functions | ${total.functions.pct}% |`,
                 `| Branches | ${total.branches.pct}% |`
-              ].join('\\n');
+              ].join('\n');
 
-              const body = `## Aggregated Test Coverage Report\n\n${table}\n\n[View detailed coverage report](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
+              const body = `${totalTable}\n\n<details>\n<summary>Click to see breakdown by package</summary>\n\n${breakdown}\n</details>\n\n[View detailed coverage report](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
 
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
