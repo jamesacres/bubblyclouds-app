@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@bubblyclouds-app/auth": ["../auth/src"],
+      "@bubblyclouds-app/auth/*": ["../auth/src/*"],
+      "@bubblyclouds-app/ui": ["../ui/src"],
+      "@bubblyclouds-app/ui/*": ["../ui/src/*"],
+      "@bubblyclouds-app/types": ["../types/src"],
+      "@bubblyclouds-app/types/*": ["../types/src/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
+}

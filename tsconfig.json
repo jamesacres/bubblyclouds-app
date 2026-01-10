@@ -30,7 +30,19 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ]
+      ],
+      "@bubblyclouds-app/auth": ["./packages/auth/src"],
+      "@bubblyclouds-app/auth/*": ["./packages/auth/src/*"],
+      "@bubblyclouds-app/ui": ["./packages/ui/src"],
+      "@bubblyclouds-app/ui/*": ["./packages/ui/src/*"],
+      "@bubblyclouds-app/games": ["./packages/games/src"],
+      "@bubblyclouds-app/games/*": ["./packages/games/src/*"],
+      "@bubblyclouds-app/sudoku": ["./packages/sudoku/src"],
+      "@bubblyclouds-app/sudoku/*": ["./packages/sudoku/src/*"],
+      "@bubblyclouds-app/template": ["./packages/template/src"],
+      "@bubblyclouds-app/template/*": ["./packages/template/src/*"],
+      "@bubblyclouds-app/types": ["./packages/types/src"],
+      "@bubblyclouds-app/types/*": ["./packages/types/src/*"]
     }
   },
   "include": [

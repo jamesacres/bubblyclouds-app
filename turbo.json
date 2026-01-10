@@ -1,0 +1,73 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "**/.env.*local"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "src/**",
+        "public/**",
+        "package.json",
+        "tsconfig.json",
+        "next.config.mjs",
+        "tailwind.config.ts"
+      ],
+      "outputs": [],
+      "env": [
+        "IS_CAPACITOR",
+        "IS_ELECTRON"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ],
+      "inputs": [
+        "src/**",
+        "*.js",
+        "*.ts",
+        "*.tsx",
+        "*.json",
+        ".eslintrc*"
+      ],
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "src/**",
+        "tests/**",
+        "__tests__/**",
+        "jest.config.js",
+        "jest.setup.js"
+      ],
+      "outputs": []
+    },
+    "type-check": {
+      "dependsOn": [
+        "^type-check"
+      ],
+      "inputs": [
+        "src/**",
+        "tsconfig.json"
+      ],
+      "outputs": []
+    },
+    "circular": {
+      "inputs": [
+        "src/**"
+      ],
+      "outputs": []
+    }
+  }
+}

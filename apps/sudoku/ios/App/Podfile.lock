@@ -1,0 +1,85 @@
+PODS:
+  - Capacitor (7.4.4):
+    - CapacitorCordova
+  - CapacitorApp (7.1.1):
+    - Capacitor
+  - CapacitorBrowser (7.0.3):
+    - Capacitor
+  - CapacitorCommunityInAppReview (7.1.0):
+    - Capacitor
+  - CapacitorCordova (7.4.4)
+  - CapacitorKeyboard (7.0.4):
+    - Capacitor
+  - CapacitorSecureStoragePlugin (0.11.0):
+    - Capacitor
+    - SwiftKeychainWrapper
+  - CapacitorShare (7.0.3):
+    - Capacitor
+  - CapacitorStatusBar (7.0.4):
+    - Capacitor
+  - PurchasesHybridCommon (17.25.0):
+    - RevenueCat (= 5.51.1)
+  - RevenueCat (5.51.1)
+  - RevenuecatPurchasesCapacitor (11.3.2):
+    - Capacitor
+    - PurchasesHybridCommon (= 17.25.0)
+  - SwiftKeychainWrapper (4.0.1)
+
+DEPENDENCIES:
+  - "Capacitor (from `../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../../../node_modules/@capacitor/app`)"
+  - "CapacitorBrowser (from `../../../../node_modules/@capacitor/browser`)"
+  - "CapacitorCommunityInAppReview (from `../../../../node_modules/@capacitor-community/in-app-review`)"
+  - "CapacitorCordova (from `../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorKeyboard (from `../../../../node_modules/@capacitor/keyboard`)"
+  - CapacitorSecureStoragePlugin (from `../../../../node_modules/capacitor-secure-storage-plugin`)
+  - "CapacitorShare (from `../../../../node_modules/@capacitor/share`)"
+  - "CapacitorStatusBar (from `../../../../node_modules/@capacitor/status-bar`)"
+  - "RevenuecatPurchasesCapacitor (from `../../../../node_modules/@revenuecat/purchases-capacitor`)"
+
+SPEC REPOS:
+  trunk:
+    - PurchasesHybridCommon
+    - RevenueCat
+    - SwiftKeychainWrapper
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../../../node_modules/@capacitor/ios"
+  CapacitorApp:
+    :path: "../../../../node_modules/@capacitor/app"
+  CapacitorBrowser:
+    :path: "../../../../node_modules/@capacitor/browser"
+  CapacitorCommunityInAppReview:
+    :path: "../../../../node_modules/@capacitor-community/in-app-review"
+  CapacitorCordova:
+    :path: "../../../../node_modules/@capacitor/ios"
+  CapacitorKeyboard:
+    :path: "../../../../node_modules/@capacitor/keyboard"
+  CapacitorSecureStoragePlugin:
+    :path: "../../../../node_modules/capacitor-secure-storage-plugin"
+  CapacitorShare:
+    :path: "../../../../node_modules/@capacitor/share"
+  CapacitorStatusBar:
+    :path: "../../../../node_modules/@capacitor/status-bar"
+  RevenuecatPurchasesCapacitor:
+    :path: "../../../../node_modules/@revenuecat/purchases-capacitor"
+
+SPEC CHECKSUMS:
+  Capacitor: 358dd1c3fdd71d969547b17e159fd8a7736cb45f
+  CapacitorApp: 63b237168fc869e758481dba283315a85743ee78
+  CapacitorBrowser: b98aa3db018a2ce4c68242d27e596c344f3b81b3
+  CapacitorCommunityInAppReview: 3756d05524c5cf2eccbc8ed460f77f8f8db6c141
+  CapacitorCordova: bf648a636f3c153f652d312ae145fb508b6ffced
+  CapacitorKeyboard: 5660c760113bfa48962817a785879373cf5339c3
+  CapacitorSecureStoragePlugin: 450d402026ee3bcc018fa206504d9c0572fee78d
+  CapacitorShare: a4f4f86eabd4b3ff52ba6a11b754713c6926a8d1
+  CapacitorStatusBar: d0e0151c89c001a9c7125bac59ddedf76b664768
+  PurchasesHybridCommon: 6a79a873ab52f777bfa36e9516f3fcd84d3b3428
+  RevenueCat: eab035bbab271faccfef5c36eaff2a1ffef14dc0
+  RevenuecatPurchasesCapacitor: fa376932f9967c7ab4b5eac477e824d90393b91a
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
+
+PODFILE CHECKSUM: f4559cedfb94cde8b677a2db17a56036449024a6
+
+COCOAPODS: 1.16.2

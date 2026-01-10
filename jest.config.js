@@ -15,6 +15,7 @@ const config = {
     '!src/**/index.{ts,tsx}',
     '!src/app/test-errors/**',
   ],
+  coverageReporters: ['json', 'json-summary', 'text', 'lcov', 'clover'],
   coverageThreshold: {
     global: {
       branches: 60,

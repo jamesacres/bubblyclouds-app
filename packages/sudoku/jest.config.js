@@ -1,0 +1,39 @@
+/** @type {import('jest').Config} */
+const config = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  roots: ['<rootDir>/src'],
+  testMatch: ['**/*.test.ts', '**/*.test.tsx'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/*.test.{ts,tsx}',
+    '!src/**/index.{ts,tsx}',
+  ],
+  coverageReporters: ['json', 'json-summary', 'text', 'lcov', 'clover'],
+  setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
+  testTimeout: 10000,
+  moduleNameMapper: {
+    '^@bubblyclouds-app/games/(.*)$': '<rootDir>/../games/src/$1',
+    '^@bubblyclouds-app/template/(.*)$': '<rootDir>/../template/src/$1',
+    '^@bubblyclouds-app/auth/(.*)$': '<rootDir>/../auth/src/$1',
+    '^@bubblyclouds-app/ui/(.*)$': '<rootDir>/../ui/src/$1',
+    '^@bubblyclouds-app/types/(.*)$': '<rootDir>/../types/src/$1',
+    '^@bubblyclouds-app/shared/(.*)$': '<rootDir>/../shared/src/$1',
+  },
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          jsx: 'react-jsx',
+          esModuleInterop: true,
+          allowSyntheticDefaultImports: true,
+        },
+      },
+    ],
+  },
+};
+
+module.exports = config;

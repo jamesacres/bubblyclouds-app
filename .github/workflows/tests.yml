@@ -5,15 +5,19 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
+    types: [opened, synchronize]
 
 jobs:
   test:
     name: Test Suite
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [20.x]
 
     steps:
       - name: Checkout code
@@ -28,6 +32,18 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run manypkg
+        run: npm run manypkg
+
+      - name: Check for circular dependencies
+        run: npm run circular
+
+      - name: Run type-check
+        run: npm run type-check
+
+      - name: Run build
+        run: npm run build
+
       - name: Run linter
         run: npm run lint
 
@@ -37,17 +53,19 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          files: ./coverage/coverage-final.json
+          files: ./**/coverage-final.json
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: false
 
       - name: Archive coverage reports
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report-node-${{ matrix.node-version }}
-          path: coverage/
+          path: |
+            **/coverage
+            !**/node_modules/**
           retention-days: 30
 
       - name: Comment PR with coverage
@@ -56,23 +74,86 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const coverage = JSON.parse(fs.readFileSync('./coverage/coverage-summary.json', 'utf8'));
-            const total = coverage.total;
+            const path = require('path');
 
-            const comment = `## Test Coverage Report
+            async function main() {
+              const globber = await glob.create('**/coverage/coverage-summary.json\n!**/node_modules/**');
+              const summaryFiles = await globber.glob();
 
-| Metric | Coverage |
-|--------|----------|
-| Lines | ${total.lines.pct}% |
-| Statements | ${total.statements.pct}% |
-| Functions | ${total.functions.pct}% |
-| Branches | ${total.branches.pct}% |
+              if (summaryFiles.length === 0) {
+                console.log('No coverage summary files found.');
+                const body = `## Test Coverage Report\n\nNo coverage summary files found.`;
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: body
+                });
+                return;
+              }
 
-[View detailed coverage report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`;
+              let total = {
+                lines: { total: 0, covered: 0, skipped: 0, pct: 0 },
+                statements: { total: 0, covered: 0, skipped: 0, pct: 0 },
+                functions: { total: 0, covered: 0, skipped: 0, pct: 0 },
+                branches: { total: 0, covered: 0, skipped: 0, pct: 0 }
+              };
 
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
+              let breakdown = '### Coverage Breakdown by Package\n';
+
+              for (const file of summaryFiles) {
+                const coverage = JSON.parse(fs.readFileSync(file, 'utf8'));
+                const packagePath = path.dirname(path.dirname(file));
+
+                for (const key in coverage.total) {
+                  if (total[key]) {
+                    total[key].total += coverage.total[key].total;
+                    total[key].covered += coverage.total[key].covered;
+                    total[key].skipped += coverage.total[key].skipped;
+                  }
+                }
+
+                const packageTotal = coverage.total;
+                const packageTable = [
+                  `\n#### Coverage for \`${packagePath}\``,
+                  '| Metric | Coverage |',
+                  '|--------|----------|',
+                  `| Lines | ${packageTotal.lines.pct}% |`,
+                  `| Statements | ${packageTotal.statements.pct}% |`,
+                  `| Functions | ${packageTotal.functions.pct}% |`,
+                  `| Branches | ${packageTotal.branches.pct}% |`
+                ].join('\n');
+                breakdown += packageTable + '\n';
+              }
+
+              for (const key in total) {
+                if (total[key].total > 0) {
+                  total[key].pct = Math.round((total[key].covered / total[key].total) * 10000) / 100;
+                } else {
+                  total[key].pct = 100;
+                }
+              }
+
+              const totalTable = [
+                '## Aggregated Test Coverage',
+                '| Metric | Coverage |',
+                '|--------|----------|',
+                `| Lines | ${total.lines.pct}% |`,
+                `| Statements | ${total.statements.pct}% |`,
+                `| Functions | ${total.functions.pct}% |`,
+                `| Branches | ${total.branches.pct}% |`
+              ].join('\n');
+
+              const body = `${totalTable}\n\n<details>\n<summary>Click to see breakdown by package</summary>\n\n${breakdown}\n</details>\n\n[View detailed coverage report](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
+
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            }
+
+            main().catch(error => {
+              core.setFailed(`Action failed with error: ${error.message}`);
             });

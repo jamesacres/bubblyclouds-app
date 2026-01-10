@@ -5,53 +5,145 @@
 require('@testing-library/jest-dom');
 
 // Mock RevenueCat/Capacitor modules that use ESM
-jest.mock('@revenuecat/purchases-capacitor', () => ({
-  Purchases: {
-    configure: jest.fn().mockResolvedValue(undefined),
-    setLogLevel: jest.fn().mockResolvedValue(undefined),
-    getCustomerInfo: jest.fn().mockResolvedValue({ customerInfo: {} }),
-    getOfferings: jest.fn().mockResolvedValue({ all: {} }),
-    purchasePackage: jest.fn().mockResolvedValue({}),
-    logIn: jest.fn(),
-    logOut: jest.fn(),
-  },
-  PurchasesPackage: {},
-  LOG_LEVEL: { VERBOSE: 0 },
-}), { virtual: true });
+jest.mock(
+  '@revenuecat/purchases-capacitor',
+  () => ({
+    Purchases: {
+      configure: jest.fn().mockResolvedValue(undefined),
+      setLogLevel: jest.fn().mockResolvedValue(undefined),
+      getCustomerInfo: jest.fn().mockResolvedValue({ customerInfo: {} }),
+      getOfferings: jest.fn().mockResolvedValue({ all: {} }),
+      purchasePackage: jest.fn().mockResolvedValue({}),
+      logIn: jest.fn(),
+      logOut: jest.fn(),
+    },
+    PurchasesPackage: {},
+    LOG_LEVEL: { VERBOSE: 0 },
+  }),
+  { virtual: true }
+);
 
-jest.mock('@capacitor/core', () => ({
-  registerPlugin: jest.fn((name) => ({})),
-  CapacitorHttp: {},
-  Capacitor: {
-    isWebPlatform: jest.fn(() => false),
-    getPlatform: jest.fn(() => 'web'),
-    isPluginAvailable: jest.fn(() => false),
-  },
-}), { virtual: true });
+// Base WebPlugin class for Capacitor plugins
+class WebPlugin {
+  constructor(options) {
+    this.listeners = {};
+  }
+  addListener(eventName, listenerFunc) {
+    if (!this.listeners[eventName]) {
+      this.listeners[eventName] = [];
+    }
+    this.listeners[eventName].push(listenerFunc);
+    return {
+      remove: () => {
+        if (this.listeners[eventName]) {
+          this.listeners[eventName] = this.listeners[eventName].filter(
+            (l) => l !== listenerFunc
+          );
+        }
+      },
+    };
+  }
+}
 
-jest.mock('capacitor-secure-storage-plugin', () => ({
-  SecureStoragePlugin: class {
-    constructor() {}
-    set() { return Promise.resolve(); }
-    get() { return Promise.resolve(null); }
-    remove() { return Promise.resolve(); }
-  },
-}), { virtual: true });
+jest.mock(
+  '@capacitor/core',
+  () => ({
+    registerPlugin: jest.fn((name) => {
+      if (name === 'Share') {
+        return { share: jest.fn().mockResolvedValue({}) };
+      } else if (name === 'StatusBar') {
+        return {
+          show: jest.fn().mockResolvedValue(undefined),
+          hide: jest.fn().mockResolvedValue(undefined),
+          setStyle: jest.fn().mockResolvedValue(undefined),
+          setBackgroundColor: jest.fn().mockResolvedValue(undefined),
+          setOverlaysWebView: jest.fn().mockResolvedValue(undefined),
+        };
+      }
+      return new WebPlugin({ name });
+    }),
+    CapacitorHttp: {},
+    Capacitor: {
+      isWebPlatform: jest.fn(() => false),
+      getPlatform: jest.fn(() => 'web'),
+      isPluginAvailable: jest.fn(() => false),
+    },
+    WebPlugin,
+  }),
+  { virtual: true }
+);
 
-jest.mock('@capacitor/browser', () => ({
-  Browser: {
-    open: jest.fn().mockResolvedValue(undefined),
-    close: jest.fn().mockResolvedValue(undefined),
-  },
-}), { virtual: true });
+jest.mock(
+  'capacitor-secure-storage-plugin',
+  () => ({
+    SecureStoragePlugin: class {
+      constructor() {}
+      set() {
+        return Promise.resolve();
+      }
+      get() {
+        return Promise.resolve(null);
+      }
+      remove() {
+        return Promise.resolve();
+      }
+    },
+  }),
+  { virtual: true }
+);
 
-jest.mock('@capacitor/app', () => ({
-  App: {
-    addListener: jest.fn(() => ({ remove: jest.fn() })),
-    removeAllListeners: jest.fn().mockResolvedValue(undefined),
-    minimizeApp: jest.fn().mockResolvedValue(undefined),
-  },
-}), { virtual: true });
+jest.mock(
+  '@capacitor/browser',
+  () => ({
+    Browser: {
+      open: jest.fn().mockResolvedValue(undefined),
+      close: jest.fn().mockResolvedValue(undefined),
+    },
+  }),
+  { virtual: true }
+);
+
+jest.mock(
+  '@capacitor/share',
+  () => ({
+    Share: {
+      share: jest.fn().mockResolvedValue({}),
+    },
+  }),
+  { virtual: true }
+);
+
+jest.mock(
+  '@capacitor/app',
+  () => ({
+    App: {
+      addListener: jest.fn(() => ({ remove: jest.fn() })),
+      removeAllListeners: jest.fn().mockResolvedValue(undefined),
+      minimizeApp: jest.fn().mockResolvedValue(undefined),
+    },
+  }),
+  { virtual: true }
+);
+
+jest.mock(
+  '@capacitor/status-bar',
+  () => ({
+    StatusBar: {
+      show: jest.fn().mockResolvedValue(undefined),
+      hide: jest.fn().mockResolvedValue(undefined),
+      setStyle: jest.fn().mockResolvedValue(undefined),
+      setBackgroundColor: jest.fn().mockResolvedValue(undefined),
+      setOverlaysWebView: jest.fn().mockResolvedValue(undefined),
+    },
+    Style: { DEFAULT: 'DEFAULT', LIGHT: 'LIGHT', DARK: 'DARK' },
+  }),
+  { virtual: true }
+);
+
+// Mock react-feather icons - load from external file
+const featherMocks = require('./jest.setup.featherIcons');
+
+jest.mock('react-feather', () => featherMocks);
 
 // Create global window object for Node environment
 if (typeof window === 'undefined') {
@@ -115,7 +207,10 @@ if (typeof global.Request === 'undefined') {
 }
 
 // Mock PointerEvent for Node environment
-if (typeof window !== 'undefined' && typeof window.PointerEvent === 'undefined') {
+if (
+  typeof window !== 'undefined' &&
+  typeof window.PointerEvent === 'undefined'
+) {
   window.PointerEvent = class PointerEvent extends MouseEvent {
     constructor(type, options = {}) {
       super(type, options);
@@ -169,7 +264,7 @@ const localStorageMock = {
     delete storageData[key];
   }),
   clear: jest.fn(() => {
-    Object.keys(storageData).forEach(key => {
+    Object.keys(storageData).forEach((key) => {
       delete storageData[key];
     });
   }),
@@ -185,8 +280,15 @@ const localStorageMock = {
 // Make Object.entries(localStorage) work by creating a Proxy
 const localStorageProxy = new Proxy(localStorageMock, {
   get: (target, prop) => {
-    if (typeof prop === 'string' && prop !== 'getItem' && prop !== 'setItem' &&
-        prop !== 'removeItem' && prop !== 'clear' && prop !== 'key' && prop !== 'length') {
+    if (
+      typeof prop === 'string' &&
+      prop !== 'getItem' &&
+      prop !== 'setItem' &&
+      prop !== 'removeItem' &&
+      prop !== 'clear' &&
+      prop !== 'key' &&
+      prop !== 'length'
+    ) {
       return storageData[prop];
     }
     return target[prop];
@@ -194,7 +296,11 @@ const localStorageProxy = new Proxy(localStorageMock, {
   ownKeys: () => Object.keys(storageData),
   getOwnPropertyDescriptor: (target, prop) => {
     if (prop in storageData || typeof target[prop] !== 'undefined') {
-      return { configurable: true, enumerable: true, value: storageData[prop] || target[prop] };
+      return {
+        configurable: true,
+        enumerable: true,
+        value: storageData[prop] || target[prop],
+      };
     }
   },
 });
@@ -212,7 +318,11 @@ if (typeof global.localStorage === 'undefined') {
 // Create crypto API mock for Node environment (only if not already available)
 // Use Node's built-in crypto.webcrypto if available
 let cryptoMock;
-if (typeof window.crypto !== 'undefined' && window.crypto.subtle && window.crypto.subtle.digest) {
+if (
+  typeof window.crypto !== 'undefined' &&
+  window.crypto.subtle &&
+  window.crypto.subtle.digest
+) {
   cryptoMock = window.crypto;
 } else {
   try {
@@ -229,7 +339,9 @@ if (typeof window.crypto !== 'undefined' && window.crypto.subtle && window.crypt
       const nodeCrypto = require('crypto');
       cryptoMock = {
         getRandomValues: (arr) => {
-          const randomBytes = nodeCrypto.randomBytes(arr.byteLength || arr.length);
+          const randomBytes = nodeCrypto.randomBytes(
+            arr.byteLength || arr.length
+          );
           const view = new Uint8Array(arr);
           for (let i = 0; i < randomBytes.length; i++) {
             view[i] = randomBytes[i];
@@ -251,7 +363,12 @@ if (typeof window.crypto !== 'undefined' && window.crypto.subtle && window.crypt
               hash.update(Buffer.from(data));
             }
             // Return as ArrayBuffer
-            return hash.digest().buffer.slice(hash.digest().byteOffset, hash.digest().byteOffset + hash.digest().byteLength);
+            return hash
+              .digest()
+              .buffer.slice(
+                hash.digest().byteOffset,
+                hash.digest().byteOffset + hash.digest().byteLength
+              );
           },
         },
       };
@@ -285,7 +402,7 @@ if (!window.crypto || !window.crypto.subtle) {
 // Suppress console errors in tests unless explicitly needed
 const originalError = console.error;
 beforeAll(() => {
-  console.error = function(...args) {
+  console.error = function (...args) {
     const errorMsg = typeof args[0] === 'string' ? args[0] : '';
 
     // Suppress expected test errors
@@ -296,14 +413,13 @@ beforeAll(() => {
       'inside a test was not wrapped in act',
       'There are no focusable elements inside the <FocusTrap />',
       'Warning: Received `true` for a non-boolean attribute `jsx`',
-      'Warning: React.jsx: type is invalid',
       'type of Received has value: null',
-      'Cannot read properties of undefined (reading \'getTime\')',
+      "Cannot read properties of undefined (reading 'getTime')",
       'Error reading daily',
     ];
 
     // Check if error message matches any suppress pattern
-    if (suppressPatterns.some(pattern => errorMsg.includes(pattern))) {
+    if (suppressPatterns.some((pattern) => errorMsg.includes(pattern))) {
       return;
     }
 
@@ -320,7 +436,7 @@ afterEach(() => {
   // Remove all theme-* classes from document root
   if (typeof document !== 'undefined' && document.documentElement) {
     const classes = Array.from(document.documentElement.classList);
-    classes.forEach(cls => {
+    classes.forEach((cls) => {
       if (cls.startsWith('theme-')) {
         document.documentElement.classList.remove(cls);
       }

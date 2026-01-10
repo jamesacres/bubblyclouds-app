@@ -1,0 +1,36 @@
+'use client';
+import React from 'react';
+
+export interface PlatformServices {
+  isElectron: () => boolean;
+  isCapacitor: () => boolean;
+  openBrowser: (url: string) => Promise<unknown>;
+  saveElectronState: (state: unknown) => Promise<void>;
+  getCapacitorState: () => Promise<string>;
+  saveCapacitorState: (state: unknown) => Promise<void>;
+  app: string;
+  apiUrl: string;
+  authUrl: string;
+}
+
+export const PlatformServicesContext = React.createContext<
+  PlatformServices | undefined
+>(undefined);
+
+interface PlatformServicesProviderProps {
+  children: React.ReactNode;
+  services: PlatformServices;
+}
+
+const PlatformServicesProvider: React.FC<PlatformServicesProviderProps> = ({
+  children,
+  services,
+}) => {
+  return (
+    <PlatformServicesContext.Provider value={services}>
+      {children}
+    </PlatformServicesContext.Provider>
+  );
+};
+
+export default PlatformServicesProvider;
