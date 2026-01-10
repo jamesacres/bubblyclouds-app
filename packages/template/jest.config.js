@@ -15,7 +15,6 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   testTimeout: 10000,
   moduleNameMapper: {
-    '^@bubblyclouds-app/games/(.*)$': '<rootDir>/../games/src/$1',
     '^@bubblyclouds-app/auth/(.*)$': '<rootDir>/../auth/src/$1',
     '^@bubblyclouds-app/ui/(.*)$': '<rootDir>/../ui/src/$1',
     '^@bubblyclouds-app/types/(.*)$': '<rootDir>/../types/src/$1',
