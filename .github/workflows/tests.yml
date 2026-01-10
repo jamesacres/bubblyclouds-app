@@ -73,7 +73,6 @@ jobs:
             const fs = require('fs');
             const path = require('path');
             const globber = require('@actions/glob');
-            const core = require('@actions/core');
 
             async function main() {
               const g = await globber.create('**/coverage/coverage-summary.json\n!**/node_modules/**');
