@@ -529,6 +529,9 @@ importers:
 
   packages/types:
     devDependencies:
+      '@testing-library/jest-dom':
+        specifier: ^6.1.5
+        version: 6.9.1
       '@types/jest':
         specifier: ^29.5.10
         version: 29.5.14
