@@ -32,7 +32,7 @@ export type Solver = (
   boxes: { x: number; y: number; contents: number }[]
 ) => string;
 
-type ProcessorEventEmitter = StrictEventEmitter;
+type ProcessorEventEmitter = StrictEventEmitter<EventEmitter, ProcessorEvents>;
 
 type SolvedBox = {
   // was this a known digit?

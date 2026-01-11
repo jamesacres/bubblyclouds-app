@@ -20,17 +20,17 @@ function PuzzlePageComponent() {
 
   const { requestWakeLock } = useWakeLock();
   const [puzzle, setPuzzle] = useState<{
-    initial: Puzzle;
-    final: Puzzle;
+    initial: Puzzle<number>;
+    final: Puzzle<number>;
     puzzleId: string;
     redirectUri: string;
-    metadata: Partial;
+    metadata: Partial<GameStateMetadata>;
   } | null>(null);
 
   useEffect(() => {
     (async () => {
       if (initial && final) {
-        const metadata: Partial = {
+        const metadata: Partial<GameStateMetadata> = {
           difficulty: searchParams.get('difficulty') || undefined,
           sudokuId: searchParams.get('sudokuId') || undefined,
           sudokuBookPuzzleId:

@@ -180,7 +180,7 @@ describe('CopyButton', () => {
     });
 
     it('should disable button during loading', async () => {
-      const getText: jest.Mock = jest.fn(
+      const getText: jest.Mock<Promise<string>, []> = jest.fn(
         () => new Promise((resolve) => setTimeout(() => resolve('text'), 100))
       );
       render(<CopyButton getText={getText} appName="Sudoku Race" />);
@@ -329,7 +329,7 @@ describe('CopyButton', () => {
 
     it('should show loading spinner while copy is in progress', async () => {
       jest.useFakeTimers();
-      const getText: jest.Mock = jest.fn(
+      const getText: jest.Mock<Promise<string>, []> = jest.fn(
         () => new Promise((resolve) => setTimeout(() => resolve('test'), 1000))
       );
 
