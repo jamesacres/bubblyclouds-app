@@ -238,6 +238,9 @@ importers:
       '@types/jest':
         specifier: ^29.5.10
         version: 29.5.14
+      '@types/node':
+        specifier: ^24.10.7
+        version: 24.10.7
       '@types/react':
         specifier: ^19.2.7
         version: 19.2.7
@@ -311,6 +314,9 @@ importers:
       '@types/jest':
         specifier: ^29.5.10
         version: 29.5.14
+      '@types/node':
+        specifier: ^24.10.7
+        version: 24.10.7
       '@types/react':
         specifier: ^19.2.7
         version: 19.2.7
@@ -393,6 +399,9 @@ importers:
       '@types/jest':
         specifier: ^29.5.10
         version: 29.5.14
+      '@types/node':
+        specifier: ^24.10.7
+        version: 24.10.7
       '@types/react':
         specifier: ^19.2.7
         version: 19.2.7
@@ -490,6 +499,9 @@ importers:
       '@types/jest':
         specifier: ^29.5.10
         version: 29.5.14
+      '@types/node':
+        specifier: ^24.10.7
+        version: 24.10.7
       '@types/react':
         specifier: ^19.2.7
         version: 19.2.7
