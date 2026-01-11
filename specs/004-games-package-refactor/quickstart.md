@@ -1,12 +1,12 @@
 # Quickstart: Games Package Refactoring
 
-**Feature**: Games Package Refactoring
-**Branch**: `004-games-package-refactor`
+**Feature**: Games Package Refactoring **Branch**: `004-games-package-refactor`
 **Date**: 2025-11-16
 
 ## Overview
 
-This guide explains how to use the reorganized package structure after the games package refactoring is complete.
+This guide explains how to use the reorganized package structure after the games
+package refactoring is complete.
 
 ## Package Structure
 
@@ -28,13 +28,13 @@ The `@bubblyclouds-app/games` package provides reusable game components.
 **Example: Using TimerDisplay**
 
 ```typescript
-import { TimerDisplay } from '@bubblyclouds-app/games/components/TimerDisplay';
+import { TimerDisplay } from "@bubblyclouds-app/games/components/TimerDisplay";
 
 function MyGame() {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => setSeconds(s => s + 1), 1000);
+    const timer = setInterval(() => setSeconds((s) => s + 1), 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -50,25 +50,26 @@ function MyGame() {
 **Example: Using Leaderboard**
 
 ```typescript
-import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
+import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
 
 function GameResults() {
   const scores = [
-    { id: '1', player: 'Alice', score: 1000 },
-    { id: '2', player: 'Bob', score: 950 },
-    { id: '3', player: 'Charlie', score: 900 },
+    { id: "1", player: "Alice", score: 1000 },
+    { id: "2", player: "Bob", score: 950 },
+    { id: "3", player: "Charlie", score: 900 },
   ];
 
   return (
     <Leaderboard
       entries={scores}
-      onEntryClick={(id) => console.log('Clicked:', id)}
+      onEntryClick={(id) => console.log("Clicked:", id)}
     />
   );
 }
 ```
 
 **Available Components**:
+
 - `TimerDisplay` - Display elapsed time
 - `RaceTrack` - Visualize competitive progress
 - `TrafficLight` - Show race status
@@ -88,11 +89,21 @@ The `@bubblyclouds-app/sudoku` package contains sudoku game logic.
 **Example: Using SudokuBox**
 
 ```typescript
-import { SudokuBox } from '@bubblyclouds-app/sudoku/components/SudokuBox';
+import { SudokuBox } from "@bubblyclouds-app/sudoku/components/SudokuBox";
 
 function SudokuGrid() {
   const boxValues = [1, 2, 3, 0, 0, 0, 7, 8, 9]; // 0 = empty
-  const highlights = [false, false, false, true, true, true, false, false, false];
+  const highlights = [
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+  ];
 
   return (
     <SudokuBox
@@ -106,8 +117,8 @@ function SudokuGrid() {
 **Example: Using Sudoku Scoring**
 
 ```typescript
-import { ScoreBreakdown } from '@bubblyclouds-app/sudoku/components/ScoreBreakdown';
-import { calculateScore } from '@bubblyclouds-app/sudoku/helpers/scoringUtils';
+import { ScoreBreakdown } from "@bubblyclouds-app/sudoku/components/ScoreBreakdown";
+import { calculateScore } from "@bubblyclouds-app/sudoku/helpers/scoringUtils";
 
 function SudokuResults() {
   const score = calculateScore({
@@ -129,20 +140,20 @@ The `@bubblyclouds-app/template` package provides collaboration features.
 **Example: Using PartyRow**
 
 ```typescript
-import { PartyRow } from '@bubblyclouds-app/template/components/PartyRow';
+import { PartyRow } from "@bubblyclouds-app/template/components/PartyRow";
 
 function PartyList() {
   const party = {
-    id: 'party-123',
-    name: 'Evening Puzzles',
+    id: "party-123",
+    name: "Evening Puzzles",
     members: 4,
-    status: 'active',
+    status: "active",
   };
 
   return (
     <PartyRow
       party={party}
-      onJoin={() => console.log('Joining party')}
+      onJoin={() => console.log("Joining party")}
     />
   );
 }
@@ -164,9 +175,9 @@ mkdir -p apps/wordsearch/src/app
 
 ```typescript
 // apps/wordsearch/src/app/page.tsx
-import { TimerDisplay } from '@bubblyclouds-app/games/components/TimerDisplay';
-import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
-import { RaceTrack } from '@bubblyclouds-app/games/components/RaceTrack';
+import { TimerDisplay } from "@bubblyclouds-app/games/components/TimerDisplay";
+import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
+import { RaceTrack } from "@bubblyclouds-app/games/components/RaceTrack";
 
 export default function WordSearchGame() {
   return (
@@ -196,7 +207,7 @@ mkdir -p packages/wordsearch/src/components
 ```typescript
 // ✅ CORRECT: Relative import within games package
 // File: packages/games/src/components/Leaderboard.tsx
-import { SidebarButton } from './SidebarButton';
+import { SidebarButton } from "./SidebarButton";
 ```
 
 ### Across Packages (Package Name Imports)
@@ -204,17 +215,17 @@ import { SidebarButton } from './SidebarButton';
 ```typescript
 // ✅ CORRECT: Import from another package
 // File: packages/sudoku/src/components/Sudoku.tsx
-import { TimerDisplay } from '@bubblyclouds-app/games/components/TimerDisplay';
+import { TimerDisplay } from "@bubblyclouds-app/games/components/TimerDisplay";
 ```
 
 ### No Barrel Exports
 
 ```typescript
 // ❌ WRONG: Barrel export (index.ts)
-import { TimerDisplay } from '@bubblyclouds-app/games';
+import { TimerDisplay } from "@bubblyclouds-app/games";
 
 // ✅ CORRECT: Direct import
-import { TimerDisplay } from '@bubblyclouds-app/games/components/TimerDisplay';
+import { TimerDisplay } from "@bubblyclouds-app/games/components/TimerDisplay";
 ```
 
 ## Development Workflow
@@ -239,7 +250,7 @@ npm test
 npm run build
 
 # Build specific package (if configured)
-cd packages/games && npm run build
+cd packages/games && pnpm run build
 ```
 
 ### Testing
@@ -259,18 +270,21 @@ npm test -- TimerDisplay
 
 ### Import Errors
 
-**Problem**: `Cannot find module '@bubblyclouds-app/games/components/TimerDisplay'`
+**Problem**:
+`Cannot find module '@bubblyclouds-app/games/components/TimerDisplay'`
 
 **Solution**:
+
 1. Check package.json exports field in `packages/games/package.json`
 2. Ensure TypeScript can resolve the path (check tsconfig.json)
-3. Rebuild packages: `npm run build`
+3. Rebuild packages: `pnpm run build`
 
 ### TypeScript Errors
 
 **Problem**: Type errors after importing components
 
 **Solution**:
+
 1. Ensure you're importing types correctly
 2. Check that component props match interface
 3. Run `npx tsc --noEmit` to see all type errors
@@ -280,6 +294,7 @@ npm test -- TimerDisplay
 **Problem**: Tests fail after component move
 
 **Solution**:
+
 1. Check that test files moved with components
 2. Update mock imports in test files
 3. Verify jest.config.js paths are correct

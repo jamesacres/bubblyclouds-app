@@ -757,7 +757,7 @@ Circular dependencies are prevented by:
 
 - Clear layering (L0 → L1 → L2 → L3 → L4 → L5 → L6)
 - Each package only depends on packages in lower layers
-- Dependency checking (`npm run circular`)
+- Dependency checking (`pnpm run circular`)
 - Code review
 
 ### 6. Type Safety Without Casting

@@ -3,7 +3,7 @@ export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jbr/Contents/Home
 rm -rf "apps/$1/dist"
 rm -rf "apps/$1/out"
 pnpm install
-IS_CAPACITOR=true npm run build:$1 -- --force
+IS_CAPACITOR=true pnpm run build:$1 -- --force
 cd "apps/$1"
 pod repo update
 npx cap sync

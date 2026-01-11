@@ -26,7 +26,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 9
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -38,22 +38,22 @@ jobs:
         run: pnpm install
 
       - name: Run manypkg
-        run: npm run manypkg
+        run: pnpm run manypkg
 
       - name: Check for circular dependencies
-        run: npm run circular
+        run: pnpm run circular
 
       - name: Run type-check
-        run: npm run type-check
+        run: pnpm run type-check
 
       - name: Run build
-        run: npm run build
+        run: pnpm run build
 
       - name: Run linter
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Run tests with coverage
-        run: npm run test:ci
+        run: pnpm run test:ci
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3

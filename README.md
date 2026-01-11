@@ -298,8 +298,8 @@ bubblyclouds-app/
 1. Create a feature branch from `main`
 2. Make your changes
 3. Ensure all tests pass: `npm test`
-4. Ensure linting passes: `npm run lint`
-5. Ensure TypeScript compiles: `npm run type-check`
+4. Ensure linting passes: `pnpm run lint`
+5. Ensure TypeScript compiles: `pnpm run type-check`
 6. Submit a pull request
 
 ## License

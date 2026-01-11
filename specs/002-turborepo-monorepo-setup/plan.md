@@ -340,9 +340,9 @@ ALLOWED):
 
 1. Clone repo: `git clone <repo> bubblyclouds-app`
 2. Install: `npm install`
-3. Build all: `npm run build` (uses Turborepo caching)
-4. Build specific app: `npm run build --filter=@bubblyclouds-app/template`
-5. Dev mode: `npm run dev --filter=@bubblyclouds-app/sudoku`
+3. Build all: `pnpm run build` (uses Turborepo caching)
+4. Build specific app: `pnpm run build --filter=@bubblyclouds-app/template`
+5. Dev mode: `pnpm run dev --filter=@bubblyclouds-app/sudoku`
 6. Run tests: `npm test` (all workspaces in parallel)
 
 **Turborepo Commands Reference**:
