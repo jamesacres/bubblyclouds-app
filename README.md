@@ -49,7 +49,7 @@ git clone <repository-url>
 cd bubblyclouds-app
 
 # Install dependencies
-npm install
+pnpm install
 ```
 
 ### Development

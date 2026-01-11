@@ -52,7 +52,7 @@ A component for displaying hints during gameplay.
 Install via npm in your application:
 
 ```bash
-npm install @bubblyclouds-app/games
+pnpm add @bubblyclouds-app/games --filter workspace
 ```
 
 Import and use components:
