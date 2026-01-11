@@ -55,7 +55,7 @@ export default function BookPage() {
 
   // State for mock sessions
   const [mockSessions, setMockSessions] = useState<{
-    [key: number]: ServerStateResult<ServerState>;
+    [key: number]: ServerStateResult;
   }>({});
 
   // Scroll to top functionality

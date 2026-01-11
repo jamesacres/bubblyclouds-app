@@ -88,11 +88,7 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>

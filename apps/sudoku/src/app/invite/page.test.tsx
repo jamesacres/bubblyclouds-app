@@ -66,7 +66,7 @@ describe('Invite Page', () => {
   let mockGetPublicInvite: jest.Mock;
   let mockCreateMember: jest.Mock;
   let mockRefreshParties: jest.Mock;
-  let mockUsePartiesValue: ReturnType<typeof usePartiesHook.useParties>;
+  let mockUsePartiesValue: ReturnType;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -113,7 +113,7 @@ describe('Invite Page', () => {
       parties: [mockParty],
       isLoading: false,
       refreshParties: mockRefreshParties,
-    } as unknown as ReturnType<typeof usePartiesHook.useParties>;
+    } as unknown as ReturnType;
     mockUseParties.mockReturnValue(mockUsePartiesValue);
 
     mockUserContext = {
@@ -136,7 +136,7 @@ describe('Invite Page', () => {
     } as unknown as RevenueCatContextInterface;
   });
 
-  const renderWithProviders = (ui: React.ReactElement<any>) => {
+  const renderWithProviders = (ui: React.ReactElement) => {
     return render(
       <FetchProvider>
         <UserContext.Provider value={mockUserContext}>

@@ -5,9 +5,7 @@ import { useThemeColor } from '../providers/ThemeColorProvider';
 
 jest.mock('../providers/ThemeColorProvider');
 
-const mockUseThemeColor = useThemeColor as jest.MockedFunction<
-  typeof useThemeColor
->;
+const mockUseThemeColor = useThemeColor as jest.MockedFunction;
 
 describe('ThemeColorSwitch', () => {
   const mockSetThemeColor = jest.fn();

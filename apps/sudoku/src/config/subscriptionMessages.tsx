@@ -18,10 +18,7 @@ interface ContextMessage {
  * Map of subscription contexts to their respective messages
  * Each context provides specific messaging about why the subscription modal is being shown
  */
-export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
-  SubscriptionContext,
-  ContextMessage
-> = {
+export const SUBSCRIPTION_CONTEXT_MESSAGES: Record = {
   [SubscriptionContext.UNDO]: {
     bgColor: 'bg-orange-50 dark:bg-orange-900/20',
     textColor: 'text-orange-800 dark:text-orange-200',

@@ -10,7 +10,7 @@ import {
 const originalConsoleInfo = console.info;
 const consoleInfoMock = jest.fn();
 
-const renderWithContext = (contextValue: Partial<UserContextInterface>) => {
+const renderWithContext = (contextValue: Partial) => {
   return render(
     <UserContext.Provider value={contextValue as UserContextInterface}>
       <AuthPage />

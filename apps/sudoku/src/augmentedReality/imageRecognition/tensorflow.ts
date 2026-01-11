@@ -23,7 +23,7 @@ loadModel();
  * Work out what the class should be from the results of the neural network prediction
  * @param logits
  */
-export async function getClasses(logits: tf.Tensor<tf.Rank>) {
+export async function getClasses(logits: tf.Tensor) {
   const logitsArray = (await logits.array()) as number[][];
   const classes = logitsArray.map((values) => {
     let maxProb = 0;
@@ -67,7 +67,7 @@ export default async function fillInPrediction(boxes: PuzzleBox[]) {
     });
   });
   // Convert logits to probabilities and class names.
-  const classes = await getClasses(logits as tf.Tensor<tf.Rank>);
+  const classes = await getClasses(logits as tf.Tensor);
   // fill in the boxes with the results
   classes.forEach((className, index) => (boxes[index].contents = className));
 }

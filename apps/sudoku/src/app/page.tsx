@@ -98,7 +98,7 @@ function HomeComponent() {
     )
   );
 
-  const openSudokuOfTheDay = async (difficulty: Difficulty): Promise<void> => {
+  const openSudokuOfTheDay = async (difficulty: Difficulty): Promise => {
     setIsLoading(true);
     if (!user) {
       setIsLoading(false);

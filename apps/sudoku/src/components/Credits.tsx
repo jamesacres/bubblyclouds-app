@@ -83,10 +83,7 @@ interface CreditsProps {
   className?: string;
 }
 
-export const Credits: React.FC<CreditsProps> = ({
-  showTitle = true,
-  className = '',
-}) => {
+export const Credits: React.FC = ({ showTitle = true, className = '' }) => {
   return (
     <div className={`space-y-6 ${className}`}>
       {showTitle && (

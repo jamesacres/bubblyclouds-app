@@ -18,7 +18,7 @@ const CopyButton = ({
   isIOS = () => false,
   appName,
 }: {
-  getText: () => Promise<string> | string;
+  getText: () => Promise | string;
   extraSmall?: boolean;
   className?: string;
   partyName?: string;
@@ -54,8 +54,8 @@ const CopyButton = ({
           await navigator.clipboard.writeText(text);
           setShowCopied(true);
         } catch (copyError) {
-          console.error(copyError);
-          console.error('Failed to copy:', copyError);
+          console.warn(copyError);
+          console.warn('Failed to copy:', copyError);
         }
         if (canShare) {
           await Share.share({
@@ -70,8 +70,8 @@ const CopyButton = ({
         }, 5000);
       }
     } catch (error) {
-      console.error(error);
-      console.error('Failed to copy/share:', error);
+      console.warn(error);
+      console.warn('Failed to copy/share:', error);
     } finally {
       setIsLoading(false);
     }

@@ -152,7 +152,7 @@ const ThemeColorSwitch = ({
     }
 
     let colorIndex = 0;
-    let colorInterval: ReturnType<typeof setInterval> | null = null;
+    let colorInterval: ReturnType | null = null;
 
     const startAnimation = setTimeout(() => {
       setShowRainbow(true);

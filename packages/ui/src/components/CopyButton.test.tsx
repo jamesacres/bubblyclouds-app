@@ -158,7 +158,7 @@ describe('CopyButton', () => {
     });
 
     it('should handle errors gracefully during copy', async () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
       const clipboardError = new Error('Clipboard error');
       (navigator.clipboard.writeText as jest.Mock).mockRejectedValueOnce(
         clipboardError
@@ -170,17 +170,17 @@ describe('CopyButton', () => {
       fireEvent.click(button);
 
       await waitFor(() => {
-        expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect(consoleWarnSpy).toHaveBeenCalledWith(
           'Failed to copy:',
           clipboardError
         );
       });
 
-      consoleErrorSpy.mockRestore();
+      consoleWarnSpy.mockRestore();
     });
 
     it('should disable button during loading', async () => {
-      const getText: jest.Mock<Promise<string>, []> = jest.fn(
+      const getText: jest.Mock = jest.fn(
         () => new Promise((resolve) => setTimeout(() => resolve('text'), 100))
       );
       render(<CopyButton getText={getText} appName="Sudoku Race" />);
@@ -329,7 +329,7 @@ describe('CopyButton', () => {
 
     it('should show loading spinner while copy is in progress', async () => {
       jest.useFakeTimers();
-      const getText: jest.Mock<Promise<string>, []> = jest.fn(
+      const getText: jest.Mock = jest.fn(
         () => new Promise((resolve) => setTimeout(() => resolve('test'), 1000))
       );
 

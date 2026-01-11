@@ -4,7 +4,7 @@ import { InAppReview } from '@capacitor-community/in-app-review';
 
 interface CelebrationAnimationProps {
   isVisible: boolean;
-  gridRef?: React.RefObject<HTMLDivElement | null>;
+  gridRef?: React.RefObject;
   completedGamesCount?: number;
   isCapacitor?: () => boolean;
 }
@@ -42,14 +42,14 @@ const RAINBOW_COLORS = [
   '#FF69B4', // Hot Pink
 ];
 
-const CelebrationAnimation: React.FC<CelebrationAnimationProps> = ({
+const CelebrationAnimation: React.FC = ({
   isVisible,
   gridRef,
   completedGamesCount = 0,
   isCapacitor,
 }) => {
   // For the explosion animation, we'll store the pieces based on cell content
-  const [explosionPieces, setExplosionPieces] = useState<Array<Piece>>([]);
+  const [explosionPieces, setExplosionPieces] = useState<Array>([]);
 
   const [isAnimating, setIsAnimating] = useState(false);
 

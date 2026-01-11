@@ -1,7 +1,7 @@
 'use client';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
-import { memo, useMemo, useState, useEffect } from 'react';
+import { memo, useMemo, useState, useEffect, useRef } from 'react';
 import {
   getPlayerColor,
   getAllUserIds,
@@ -65,6 +65,9 @@ const RaceTrack = <T,>({
   // Track height state for responsive layout (SSR-safe)
   const [trackHeight, setTrackHeight] = useState(40);
 
+  // Track member IDs we've seen to avoid repeated refreshes
+  const seenMemberIds = useRef(new Set<string>());
+
   useEffect(() => {
     const updateTrackHeight = () => {
       setTrackHeight(window.innerWidth >= 1024 ? 56 : 40);
@@ -75,6 +78,29 @@ const RaceTrack = <T,>({
     window.addEventListener('resize', updateTrackHeight);
     return () => window.removeEventListener('resize', updateTrackHeight);
   }, []);
+
+  // Check for new members without nicknames and refresh parties
+  useEffect(() => {
+    let hasNewMemberWithoutNickname = false;
+
+    Object.values(sessionParties).forEach((party) => {
+      if (party?.memberSessions) {
+        Object.keys(party.memberSessions).forEach((memberId) => {
+          if (memberId !== userId && !seenMemberIds.current.has(memberId)) {
+            seenMemberIds.current.add(memberId);
+            const nickname = getNicknameByUserId(memberId);
+            if (!nickname) {
+              hasNewMemberWithoutNickname = true;
+            }
+          }
+        });
+      }
+    });
+
+    if (hasNewMemberWithoutNickname) {
+      refreshParties();
+    }
+  }, [sessionParties, userId, getNicknameByUserId, refreshParties]);
 
   // Get consistent ordering of all user IDs for color assignment
   const allUserIds = useMemo(() => getAllUserIds(parties), [parties]);
@@ -127,12 +153,9 @@ const RaceTrack = <T,>({
             finishTime = session.state.completed.seconds;
           }
 
-          // Get the user's nickname from parties data, fallback to a default
-          const nickname = getNicknameByUserId(memberId) || ``;
-          if (!nickname) {
-            // We're missing a new member, refresh the members list
-            refreshParties();
-          } else {
+          // Get the user's nickname from parties data, fallback to empty string
+          const nickname = getNicknameByUserId(memberId) || '';
+          if (nickname) {
             progressMap[memberId] = {
               userId: memberId,
               nickname,
@@ -160,7 +183,6 @@ const RaceTrack = <T,>({
     answer,
     userId,
     getNicknameByUserId,
-    refreshParties,
     completed,
     answerStack,
     calculateCompletionPercentage,

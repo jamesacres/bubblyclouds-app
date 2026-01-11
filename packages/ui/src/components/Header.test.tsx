@@ -5,7 +5,7 @@ import Header from './Header';
 // Mock next/dynamic to avoid SSR issues in tests
 jest.mock('next/dynamic', () => ({
   __esModule: true,
-  default: (fn: () => Promise<any>, _options: any) => {
+  default: (fn: () => Promise, _options: any) => {
     const DynamicComponent = React.lazy(fn);
     return (props: any) => (
       <React.Suspense fallback={<div>Loading...</div>}>

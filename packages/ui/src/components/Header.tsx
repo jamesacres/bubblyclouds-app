@@ -9,7 +9,7 @@ import ThemeControls from './ThemeControls';
 interface HeaderUserProps {
   isSubscribed?: boolean;
   showSubscribeModal?: (onSuccess: () => void) => void;
-  deleteAccount?: () => Promise<boolean>;
+  deleteAccount?: () => Promise;
   privacyUrl: string;
   termsUrl: string;
   creditsUrl?: string;
@@ -20,7 +20,7 @@ interface HeaderUserProps {
 interface HeaderProps {
   isOnline?: boolean;
   isCapacitor?: () => boolean;
-  HeaderUser?: React.ComponentType<HeaderUserProps>;
+  HeaderUser?: React.ComponentType;
   headerUserProps?: HeaderUserProps;
   appName: string;
 }
