@@ -64,7 +64,7 @@ function TestersContent() {
               </div>
               <ol className="space-y-6">
                 <li className="flex items-start">
-                  <span className="mt-2 mr-6 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
+                  <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
                     1
                   </span>
                   <div>
@@ -86,7 +86,7 @@ function TestersContent() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <span className="mt-2 mr-6 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
+                  <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
                     2
                   </span>
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -106,7 +106,7 @@ function TestersContent() {
                   </p>
                 </li>
                 <li className="flex items-start">
-                  <span className="mt-2 mr-6 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
+                  <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
                     3
                   </span>
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -123,7 +123,7 @@ function TestersContent() {
                 </li>
                 {inviteId && (
                   <li className="flex items-start">
-                    <span className="mt-2 mr-6 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
+                    <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
                       4
                     </span>
                     <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -154,7 +154,7 @@ function TestersContent() {
               </div>
               <ol className="space-y-6">
                 <li className="flex items-start">
-                  <span className="mt-2 mr-6 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-lg font-bold text-white shadow-lg">
+                  <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-lg font-bold text-white shadow-lg">
                     1
                   </span>
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -175,7 +175,7 @@ function TestersContent() {
                 </li>
                 {inviteId && (
                   <li className="flex items-start">
-                    <span className="mt-2 mr-6 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-lg font-bold text-white shadow-lg">
+                    <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-lg font-bold text-white shadow-lg">
                       2
                     </span>
                     <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">

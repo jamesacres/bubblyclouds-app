@@ -65,7 +65,7 @@ export const DeleteAccountDialog = ({
                   </div>
                   <Dialog.Title
                     as="h3"
-                    className="text-lg leading-6 font-medium text-gray-900"
+                    className="text-lg font-medium leading-6 text-gray-900"
                   >
                     Delete Account
                   </Dialog.Title>

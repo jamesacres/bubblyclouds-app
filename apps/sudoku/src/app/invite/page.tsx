@@ -310,7 +310,7 @@ function InviteComponent() {
                         <input
                           className={`${
                             isJoining ? 'cursor-wait' : ''
-                          } w-full rounded-2xl border-2 border-gray-200 bg-white/50 px-4 py-4 text-gray-900 backdrop-blur-sm transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 focus:outline-none disabled:bg-gray-100 dark:border-gray-600 dark:bg-gray-700/50 dark:text-white dark:focus:border-blue-400`}
+                          } w-full rounded-2xl border-2 border-gray-200 bg-white/50 px-4 py-4 text-gray-900 backdrop-blur-sm transition-all focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20 disabled:bg-gray-100 dark:border-gray-600 dark:bg-gray-700/50 dark:text-white dark:focus:border-blue-400`}
                           disabled={isJoining}
                           id="memberNickname"
                           type="text"
@@ -338,7 +338,7 @@ function InviteComponent() {
                           </div>
                         )}
                         {userParties.length > 0 && !isSubscribed && (
-                          <span className="absolute -top-1 -right-1 z-10 inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[8px] font-semibold text-white shadow-lg">
+                          <span className="absolute -right-1 -top-1 z-10 inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[8px] font-semibold text-white shadow-lg">
                             ✨
                           </span>
                         )}

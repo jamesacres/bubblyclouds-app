@@ -162,7 +162,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
               </div>
             ) : (
               <div className="flex items-start space-x-2">
-                <h3 className="text-theme-primary dark:text-theme-primary-light text-xl leading-tight font-semibold">
+                <h3 className="text-theme-primary dark:text-theme-primary-light text-xl font-semibold leading-tight">
                   {partyName}
                 </h3>
                 {isOwner && (
@@ -368,7 +368,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                     >
                       <UserMinus className="h-3 w-3" />
                       {!isSubscribed && (
-                        <span className="absolute -top-0.5 -right-0.5 z-10 inline-flex h-3 w-3 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[6px] font-semibold text-white shadow-lg">
+                        <span className="absolute -right-0.5 -top-0.5 z-10 inline-flex h-3 w-3 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[6px] font-semibold text-white shadow-lg">
                           ✨
                         </span>
                       )}
@@ -378,7 +378,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
 
                 {!isUser && !sessionParty?.memberSessions[userId] && (
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500 italic dark:text-gray-400">
+                    <p className="text-sm italic text-gray-500 dark:text-gray-400">
                       Not started! Ask them to play
                     </p>
                     {isOwner ? (

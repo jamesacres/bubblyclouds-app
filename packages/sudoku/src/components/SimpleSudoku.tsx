@@ -36,7 +36,7 @@ const SimpleSudoku = (props: SimpleSudokuProps) => {
   const background = transparent ? '' : 'bg-zinc-50 dark:bg-zinc-900';
   return (
     <div
-      className={`mr-auto ml-auto grid max-w-xl grid-cols-3 grid-rows-3 border border-1 border-zinc-900 text-black lg:mr-0 dark:border-zinc-50 dark:text-white ${background}`}
+      className={`border-1 ml-auto mr-auto grid max-w-xl grid-cols-3 grid-rows-3 border border-zinc-900 text-black lg:mr-0 dark:border-zinc-50 dark:text-white ${background}`}
     >
       {Array.from(Array(3)).map((_, y) =>
         Array.from(Array(3)).map((_, x) => {

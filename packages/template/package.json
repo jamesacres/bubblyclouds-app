@@ -27,9 +27,9 @@
     "circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {
-    "@bubblyclouds-app/auth": "*",
-    "@bubblyclouds-app/types": "*",
-    "@bubblyclouds-app/ui": "*",
+    "@bubblyclouds-app/auth": "workspace:*",
+    "@bubblyclouds-app/types": "workspace:*",
+    "@bubblyclouds-app/ui": "workspace:*",
     "@capacitor/app": "^7.0.0",
     "@capacitor/browser": "^7.0.0",
     "@capacitor/core": "^7.0.0",

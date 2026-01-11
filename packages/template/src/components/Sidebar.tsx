@@ -62,7 +62,7 @@ const Sidebar = <ServerState extends BaseServerState>({
     <>
       {showSidebar && (
         <div
-          className="fixed top-0 left-0 z-50 h-full w-full bg-black/30 backdrop-blur-sm"
+          className="fixed left-0 top-0 z-50 h-full w-full bg-black/30 backdrop-blur-sm"
           onClick={() => {
             setShowSidebar(!showSidebar);
           }}
@@ -70,11 +70,11 @@ const Sidebar = <ServerState extends BaseServerState>({
       )}
       <aside
         id="default-sidebar"
-        className={`fixed top-0 left-0 z-50 h-screen w-72 pt-[var(--ion-safe-area-top)] xl:top-20 ${showSidebar ? '' : '-translate-x-full'} transition-transform xl:translate-x-0`}
+        className={`fixed left-0 top-0 z-50 h-screen w-72 pt-[var(--ion-safe-area-top)] xl:top-20 ${showSidebar ? '' : '-translate-x-full'} transition-transform xl:translate-x-0`}
         aria-label="Sidebar"
       >
         <div className="flex h-full flex-col rounded-r-3xl bg-stone-50/90 drop-shadow-lg backdrop-blur-md dark:bg-zinc-900/95">
-          <div className="sticky top-0 z-10 rounded-tr-3xl px-4 pt-5 pb-3 backdrop-blur-md dark:bg-zinc-900/95">
+          <div className="sticky top-0 z-10 rounded-tr-3xl px-4 pb-3 pt-5 backdrop-blur-md dark:bg-zinc-900/95">
             <div
               className={`mb-4 flex-nowrap items-center`}
               role="group"
@@ -119,7 +119,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                 <Users className="mr-2" size={18} />
                 Create Racing Team
                 {parties.length > 0 && !isSubscribed && (
-                  <span className="absolute -top-1 -right-1 z-10 inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[8px] font-semibold text-white shadow-lg">
+                  <span className="absolute -right-1 -top-1 z-10 inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[8px] font-semibold text-white shadow-lg">
                     ✨
                   </span>
                 )}

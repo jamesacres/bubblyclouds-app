@@ -204,7 +204,7 @@ function HomeComponent() {
           {/* Racing Hero Section */}
           <div className="pt-safe relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 px-6">
             <div className="absolute inset-0 bg-black/10"></div>
-            <div className="relative z-10 container mx-auto max-w-4xl py-4 text-center text-white md:py-6">
+            <div className="container relative z-10 mx-auto max-w-4xl py-4 text-center text-white md:py-6">
               <div className="mb-3 flex justify-center md:mb-4">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm md:h-20 md:w-20">
                   <Image
@@ -339,7 +339,7 @@ function HomeComponent() {
                         <div className="mb-4 flex flex-col items-center md:mb-0 md:flex-row md:items-center">
                           <button
                             onClick={openBook}
-                            className="mb-3 cursor-pointer md:mr-6 md:mb-0"
+                            className="mb-3 cursor-pointer md:mb-0 md:mr-6"
                           >
                             <BookCover month={currentMonth} size="large" />
                           </button>
@@ -394,7 +394,7 @@ function HomeComponent() {
                 </div>
 
                 {/* Friends Racing - Single column */}
-                <div className="mb-4 rounded-2xl bg-white/8 p-4 backdrop-blur-sm md:mb-6 md:p-6">
+                <div className="bg-white/8 mb-4 rounded-2xl p-4 backdrop-blur-sm md:mb-6 md:p-6">
                   <h3 className="mb-2 text-lg font-bold text-white md:mb-3 md:text-xl">
                     👥 Team Racing
                   </h3>
@@ -417,7 +417,7 @@ function HomeComponent() {
             </div>
 
             {/* Racing track decoration */}
-            <div className="absolute right-0 bottom-0 left-0 h-2 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400"></div>
           </div>
 
           {/* Premium Features Section */}

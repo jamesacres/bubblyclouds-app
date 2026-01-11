@@ -97,7 +97,7 @@ export const AppDownloadModal = ({
                       <div className="flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
                         <Smartphone className="h-8 w-8 text-white" />
                       </div>
-                      <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-blue-500">
+                      <div className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-blue-500">
                         <Download className="h-3 w-3 text-white" />
                       </div>
                     </div>

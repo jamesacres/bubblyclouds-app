@@ -193,7 +193,7 @@ export default function BookPage() {
           {isOnline && (
             <button
               onClick={() => fetchBookData()}
-              className="mt-4 mr-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+              className="mr-2 mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
             >
               Try Again
             </button>
@@ -234,7 +234,7 @@ export default function BookPage() {
         <div className="pt-safe bg-gradient-to-r from-blue-600 to-purple-600 px-6">
           <div className="container mx-auto max-w-6xl py-6 md:py-8">
             <div className="flex flex-col items-center text-white md:flex-row md:items-center">
-              <div className="mb-4 md:mr-6 md:mb-0">
+              <div className="mb-4 md:mb-0 md:mr-6">
                 <BookCover month={currentMonth} size="large" />
               </div>
               <div className="text-center md:text-left">

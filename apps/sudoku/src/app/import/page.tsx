@@ -130,7 +130,7 @@ export default function Home() {
   }, []);
   return (
     <>
-      <div className="container mx-auto max-w-(--breakpoint-sm)">
+      <div className="max-w-(--breakpoint-sm) container mx-auto">
         <p className="m-4">
           Simply point your camera at an unsolved sudoku puzzle and wait for it
           to be detected.

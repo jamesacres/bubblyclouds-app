@@ -110,7 +110,7 @@ const PlusModal = ({
             modal?.hideModal();
             modal.cancelCallback();
           }}
-          className="absolute top-4 right-4 z-10 cursor-pointer rounded-full p-2 text-gray-400 backdrop-blur-sm transition-all hover:bg-gray-200/80 hover:text-gray-600 dark:hover:bg-gray-700/80 dark:hover:text-gray-300"
+          className="absolute right-4 top-4 z-10 cursor-pointer rounded-full p-2 text-gray-400 backdrop-blur-sm transition-all hover:bg-gray-200/80 hover:text-gray-600 dark:hover:bg-gray-700/80 dark:hover:text-gray-300"
           aria-label="Close modal"
         >
           <X className="h-5 w-5" />
@@ -193,7 +193,7 @@ const PlusModal = ({
 
           {/* Features Section */}
           <div className="mb-6 px-6">
-            <h3 className="mb-4 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
               What&apos;s Included
             </h3>
             <div className="space-y-4 pb-4">

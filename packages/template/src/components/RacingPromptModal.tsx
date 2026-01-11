@@ -61,7 +61,7 @@ const RacingPromptModal = ({
                       <div className="flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
                         <Award className="h-8 w-8 text-white" />
                       </div>
-                      <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-orange-500">
+                      <div className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-yellow-400 to-orange-500">
                         <Zap className="h-3 w-3 text-white" />
                       </div>
                     </div>
@@ -104,7 +104,7 @@ const RacingPromptModal = ({
                   </div>
 
                   {/* Animated racing stripes */}
-                  <div className="absolute top-0 right-0 left-0 h-1 animate-ping bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                  <div className="absolute left-0 right-0 top-0 h-1 animate-ping bg-gradient-to-r from-transparent via-white/30 to-transparent" />
                 </button>
 
                 {/* Solo option - less prominent but still accessible */}

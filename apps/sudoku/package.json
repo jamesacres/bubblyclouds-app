@@ -13,12 +13,12 @@
     "circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {
-    "@bubblyclouds-app/auth": "*",
-    "@bubblyclouds-app/games": "*",
-    "@bubblyclouds-app/sudoku": "*",
-    "@bubblyclouds-app/template": "*",
-    "@bubblyclouds-app/types": "*",
-    "@bubblyclouds-app/ui": "*",
+    "@bubblyclouds-app/auth": "workspace:*",
+    "@bubblyclouds-app/games": "workspace:*",
+    "@bubblyclouds-app/sudoku": "workspace:*",
+    "@bubblyclouds-app/template": "workspace:*",
+    "@bubblyclouds-app/types": "workspace:*",
+    "@bubblyclouds-app/ui": "workspace:*",
     "@capacitor-community/in-app-review": "^7.0.1",
     "@capacitor/android": "^7.0.0",
     "@capacitor/app": "^7.0.0",

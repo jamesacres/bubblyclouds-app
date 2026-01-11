@@ -181,7 +181,7 @@ const RaceTrack = <T,>({
     currentUserProgress?.percentage === 100 && !isPuzzleCheated(answerStack);
 
   return (
-    <div className="mx-auto mt-2 mb-2 w-full max-w-xl lg:mt-4 lg:mr-0">
+    <div className="mx-auto mb-2 mt-2 w-full max-w-xl lg:mr-0 lg:mt-4">
       {/* Compact race track design */}
       <div
         className="relative cursor-pointer"
@@ -196,7 +196,7 @@ const RaceTrack = <T,>({
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
             {/* Dashed center line */}
             <div
-              className="absolute top-1/2 right-16 left-6 h-0.5 -translate-y-1/2 transform bg-white opacity-60"
+              className="absolute left-6 right-16 top-1/2 h-0.5 -translate-y-1/2 transform bg-white opacity-60"
               style={{
                 backgroundImage:
                   'repeating-linear-gradient(to right, white 0px, white 6px, transparent 6px, transparent 12px)',
@@ -205,14 +205,14 @@ const RaceTrack = <T,>({
           </div>
 
           {/* START label inside track */}
-          <div className="absolute top-1/2 left-1 -translate-y-1/2 transform">
+          <div className="absolute left-1 top-1/2 -translate-y-1/2 transform">
             <span className="rounded bg-green-600 px-1.5 py-0.5 text-xs font-bold text-white">
               START
             </span>
           </div>
 
           {/* FINISH label and flag inside track */}
-          <div className="absolute top-1/2 right-1 flex -translate-y-1/2 transform items-center">
+          <div className="absolute right-1 top-1/2 flex -translate-y-1/2 transform items-center">
             <span className="mr-1 rounded bg-red-600 px-1 py-0.5 text-xs font-bold text-white">
               FINISH
             </span>
@@ -236,7 +236,7 @@ const RaceTrack = <T,>({
           {[25, 50, 75].map((tick) => (
             <div
               key={tick}
-              className="absolute top-0 bottom-0 w-px bg-yellow-400 opacity-40"
+              className="absolute bottom-0 top-0 w-px bg-yellow-400 opacity-40"
               style={{ left: `${tick}%` }}
             ></div>
           ))}
@@ -272,13 +272,13 @@ const RaceTrack = <T,>({
                   className={`h-3 w-5 ${colorClass} relative rounded border border-gray-800 shadow-sm dark:border-gray-200`}
                 >
                   {/* Tiny wheels */}
-                  <div className="absolute top-0 -left-0.5 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
-                  <div className="absolute top-0 -right-0.5 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
-                  <div className="absolute bottom-0 -left-0.5 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
+                  <div className="absolute -left-0.5 top-0 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
+                  <div className="absolute -right-0.5 top-0 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
+                  <div className="absolute -left-0.5 bottom-0 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
                   <div className="absolute -right-0.5 bottom-0 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
 
                   {/* Driver dot */}
-                  <div className="absolute top-0.5 left-1/2 h-1.5 w-1.5 -translate-x-1/2 transform rounded-full bg-yellow-300"></div>
+                  <div className="absolute left-1/2 top-0.5 h-1.5 w-1.5 -translate-x-1/2 transform rounded-full bg-yellow-300"></div>
 
                   {/* Crown for current user */}
                   {player.isCurrentUser && (
@@ -355,7 +355,7 @@ const RaceTrack = <T,>({
       </div>
 
       {isCompleted && (
-        <div className="mt-4 mb-8 space-y-4">
+        <div className="mb-8 mt-4 space-y-4">
           <div className="flex items-center justify-between">
             <Link
               href={`/?tab=${Tab.FRIENDS}`}

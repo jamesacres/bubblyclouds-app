@@ -18,9 +18,9 @@
     "circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {
-    "@bubblyclouds-app/template": "*",
-    "@bubblyclouds-app/types": "*",
-    "@bubblyclouds-app/ui": "*",
+    "@bubblyclouds-app/template": "workspace:*",
+    "@bubblyclouds-app/types": "workspace:*",
+    "@bubblyclouds-app/ui": "workspace:*",
     "next": "^16.1.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
