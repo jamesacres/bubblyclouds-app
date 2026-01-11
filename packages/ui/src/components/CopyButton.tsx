@@ -18,7 +18,7 @@ const CopyButton = ({
   isIOS = () => false,
   appName,
 }: {
-  getText: () => Promise | string;
+  getText: () => Promise<string> | string;
   extraSmall?: boolean;
   className?: string;
   partyName?: string;
