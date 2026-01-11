@@ -1,11 +1,11 @@
 @import 'tailwindcss';
-@source "../../../../node_modules/@bubblyclouds-app/auth";
-@source "../../../../node_modules/@bubblyclouds-app/games";
-@source "../../../../node_modules/@bubblyclouds-app/shared";
-@source "../../../../node_modules/@bubblyclouds-app/sudoku";
-@source "../../../../node_modules/@bubblyclouds-app/template";
-@source "../../../../node_modules/@bubblyclouds-app/types";
-@source "../../../../node_modules/@bubblyclouds-app/ui";
+@source "../../../../packages/auth";
+@source "../../../../packages/games";
+@source "../../../../packages/shared";
+@source "../../../../packages/sudoku";
+@source "../../../../packages/template";
+@source "../../../../packages/types";
+@source "../../../../packages/ui";
 
 body {
   --ion-safe-area-top: var(--android-safe-area-top, env(safe-area-inset-top));
