@@ -2,13 +2,13 @@
   "name": "bubblyclouds-app",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.28.0",
   "author": "James Acres",
   "description": "Bubbly Clouds App",
   "engines": {
-     "node": ">=24",
-     "npm": "please-use-pnpm",
-     "pnpm": ">=9"
+    "node": ">=24",
+    "npm": "please-use-pnpm",
+    "pnpm": ">=10"
   },
   "scripts": {
     "preinstall": "npx only-allow@1.2.2 pnpm",
@@ -35,11 +35,18 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
+    "@eslint/js": "^9.39.2",
     "@manypkg/cli": "^0.25.1",
+    "@next/eslint-plugin-next": "^16.1.1",
+    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/parser": "^8.52.0",
     "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.0.0",
     "husky": "^9.1.7",
     "madge": "^8.0.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "root": "^3.2.0",
     "turbo": "^2.7.3"
   }

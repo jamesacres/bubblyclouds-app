@@ -1,6 +1,3 @@
 packages:
   - "apps/*"
   - "packages/*"
-
-nodeVersion: 24
-engineStrict: true
