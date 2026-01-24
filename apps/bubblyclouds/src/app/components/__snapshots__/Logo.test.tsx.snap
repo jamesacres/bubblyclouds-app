@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo Component Snapshot should match snapshot with dark theme 1`] = `
+<div>
+  <a
+    href="/"
+  >
+    <img
+      alt="Bubbly Clouds Logo"
+      class="relative"
+      data-priority="true"
+      height="70"
+      src="/bubbly-clouds.png"
+      width="350"
+    />
+  </a>
+</div>
+`;
+
+exports[`Logo Component Snapshot should match snapshot with light theme 1`] = `
+<div>
+  <a
+    href="/"
+  >
+    <img
+      alt="Bubbly Clouds Logo"
+      class="relative"
+      data-priority="true"
+      height="70"
+      src="/bubbly-clouds-invert.png"
+      width="350"
+    />
+  </a>
+</div>
+`;

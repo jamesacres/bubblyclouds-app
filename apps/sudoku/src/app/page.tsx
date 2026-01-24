@@ -1,10 +1,7 @@
 'use client';
 import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 import { useSudokuServerStorage } from '@bubblyclouds-app/sudoku/hooks/useSudokuServerStorage';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
@@ -55,7 +52,7 @@ function HomeComponent() {
     setTab(tabFromUrl);
   }, [searchParams]);
   const router = useRouter();
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user, loginRedirect } = context || {};
   useOnline();
   const [isLoading, setIsLoading] = useState(false);

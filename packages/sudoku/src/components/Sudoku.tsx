@@ -29,10 +29,7 @@ import {
   useState,
 } from 'react';
 import { useDrag } from '../hooks/useDrag';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { DAILY_LIMITS } from '@bubblyclouds-app/template/config/dailyLimits';
@@ -84,7 +81,7 @@ const Sudoku = ({
   openInAppLabel: string;
 }) => {
   const router = useRouter();
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
   const { sessions } = useSessions<GameState>();

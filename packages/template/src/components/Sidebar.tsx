@@ -3,10 +3,7 @@ import { Loader, RefreshCw, Users, X } from 'react-feather';
 import { PartyRow } from './PartyRow';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { BaseServerState } from '../types/state';
@@ -40,7 +37,7 @@ const Sidebar = <ServerState extends BaseServerState>({
   SimpleState,
   calculateCompletionPercentageFromState,
 }: Arguments<ServerState>) => {
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user, loginRedirect } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
 

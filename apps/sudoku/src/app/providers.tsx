@@ -35,6 +35,7 @@ const platformServices: PlatformServices = {
   app: APP_CONFIG.app,
   apiUrl: APP_CONFIG.apiUrl,
   authUrl: APP_CONFIG.authUrl,
+  scope: APP_CONFIG.scope,
 };
 
 export function Providers({ children }: PropsWithChildren) {

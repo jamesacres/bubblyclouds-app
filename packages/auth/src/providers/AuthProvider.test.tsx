@@ -47,12 +47,13 @@ const mockPlatformServices: PlatformServices = {
   app: 'test',
   apiUrl: 'https://api.bubblyclouds.com',
   authUrl: 'https://auth.bubblyclouds.com',
+  scope: ['openid', 'profile'],
 };
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <PlatformServicesProvider services={mockPlatformServices}>
     <FetchProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider scope={mockPlatformServices.scope}>{children}</AuthProvider>
     </FetchProvider>
   </PlatformServicesProvider>
 );

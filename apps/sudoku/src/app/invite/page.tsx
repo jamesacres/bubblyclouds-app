@@ -1,9 +1,6 @@
 'use client';
 import { useSudokuServerStorage } from '@bubblyclouds-app/sudoku/hooks/useSudokuServerStorage';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
@@ -24,7 +21,7 @@ function InviteComponent() {
   const inviteId = searchParams.get('inviteId');
 
   const router = useRouter();
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { isLoggingIn, user, loginRedirect } = context || {};
   const { isSubscribed, subscribeModal, refreshEntitlements } =
     useContext(RevenueCatContext) || {};

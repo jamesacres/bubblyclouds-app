@@ -3,10 +3,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowUp } from 'react-feather';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
 import { useContext, useEffect, useState, useCallback } from 'react';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
@@ -36,7 +33,7 @@ const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
 
 export default function BookPage() {
   const router = useRouter();
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user, loginRedirect } = context || {};
   const {
     bookData,

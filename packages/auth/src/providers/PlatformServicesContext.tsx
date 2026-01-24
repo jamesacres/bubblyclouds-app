@@ -11,6 +11,7 @@ export interface PlatformServices {
   app: string;
   apiUrl: string;
   authUrl: string;
+  scope: string[];
 }
 
 export const PlatformServicesContext = React.createContext<

@@ -30,6 +30,7 @@ const mockPlatformServices: PlatformServices = {
   app: 'test',
   apiUrl: 'https://api.bubblyclouds.com',
   authUrl: 'https://auth.bubblyclouds.com',
+  scope: ['openid', 'profile'],
 };
 
 describe('UserProvider', () => {

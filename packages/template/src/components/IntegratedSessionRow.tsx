@@ -2,10 +2,7 @@
 import { ComponentType, useContext } from 'react';
 import { Party, ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import { useSessions } from '../providers/SessionsProvider';
 import { Award, Loader } from 'react-feather';
@@ -276,7 +273,7 @@ export const IntegratedSessionRow = <
   getDifficultyDisplay,
   getTechniquesDisplay,
 }: IntegratedSessionRowProps<State, BookPuzzle, Techniques>) => {
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user } = context || {};
   const { friendSessions, isFriendSessionsLoading } = useSessions<State>();
   const { parties } = useParties();

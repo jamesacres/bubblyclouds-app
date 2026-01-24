@@ -6,10 +6,7 @@ import React, {
   useState,
   createContext,
 } from 'react';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useServerStorage } from '../hooks/serverStorage';
 import { Party } from '@bubblyclouds-app/types/serverTypes';
 
@@ -55,7 +52,7 @@ const PartiesProvider: React.FC<{
   app: string;
   apiUrl: string;
 }> = ({ children, app, apiUrl }) => {
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user } = context || {};
   const {
     listParties,

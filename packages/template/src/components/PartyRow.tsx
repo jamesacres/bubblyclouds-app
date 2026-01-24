@@ -6,10 +6,7 @@ import {
   Session,
 } from '@bubblyclouds-app/types/serverTypes';
 import { calculateSeconds } from '../helpers/calculateSeconds';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { getPlayerColor, getAllUserIds } from '../utils/playerColors';
@@ -50,7 +47,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
 }: PartyRowProps<State>) => {
   const { parties, leaveParty, removeMember, deleteParty, updateParty } =
     useParties();
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
   const [confirmDialog, setConfirmDialog] = useState<{

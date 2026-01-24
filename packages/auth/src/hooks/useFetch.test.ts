@@ -22,6 +22,7 @@ describe('useFetch', () => {
     app: 'test',
     apiUrl: 'https://api.bubblyclouds.com',
     authUrl: 'https://auth.bubblyclouds.com',
+    scope: ['openid', 'profile'],
   };
 
   const createWrapper = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { UserAvatar} from './UserAvatar';
+import { UserAvatar } from './UserAvatar';
 import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 
 jest.mock('next/image', () => ({
@@ -35,17 +35,21 @@ describe('UserAvatar', () => {
 
   describe('rendering with picture', () => {
     it('should render user image when picture is provided', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image).toBeInTheDocument();
     });
 
     it('should not render user image when enableAvatarPicture is false', () => {
-      render(<UserAvatar enableAvatarPicture={false} user={mockUser} size={64} />);
-      let image
+      render(
+        <UserAvatar enableAvatarPicture={false} user={mockUser} size={64} />
+      );
+      let image;
       try {
         image = screen.getByAltText('John Doe') as HTMLImageElement;
-      } catch (e){
+      } catch (e) {
         console.warn(e);
       }
       expect(image).not.toBeDefined();
@@ -54,33 +58,43 @@ describe('UserAvatar', () => {
     });
 
     it('should display correct image URL', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.src).toBe('https://example.com/avatar.jpg');
     });
 
     it('should use user name as alt text', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe');
       expect(image).toBeInTheDocument();
     });
 
     it('should set correct width and height for image', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.width).toBe(64);
       expect(image.height).toBe(64);
     });
 
     it('should have rounded-full class on image', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe');
       expect(image).toHaveClass('overflow-hidden');
       expect(image).toHaveClass('rounded-full');
     });
 
     it('should set correct size when no ring is shown', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={32} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={32} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.width).toBe(32);
       expect(image.height).toBe(32);
@@ -89,28 +103,48 @@ describe('UserAvatar', () => {
 
   describe('rendering without picture', () => {
     it('should render fallback icon when picture is not provided', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} />);
+      render(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+        />
+      );
       const icon = screen.getByTestId('user-icon');
       expect(icon).toBeInTheDocument();
     });
 
     it('should render div with theme color as background', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+        />
       );
       const div = container.querySelector('.bg-theme-primary');
       expect(div).toBeInTheDocument();
     });
 
     it('should render user icon with correct styling', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} />);
+      render(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+        />
+      );
       const icon = screen.getByTestId('user-icon');
       expect(icon).toHaveClass('text-white');
     });
 
     it('should center icon properly', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+        />
       );
       const div = container.querySelector('.bg-theme-primary');
       expect(div).toHaveClass('flex');
@@ -120,7 +154,11 @@ describe('UserAvatar', () => {
 
     it('should have rounded-full class on fallback container', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+        />
       );
       const div = container.querySelector('.bg-theme-primary');
       expect(div).toHaveClass('rounded-full');
@@ -128,19 +166,33 @@ describe('UserAvatar', () => {
 
     it('should set correct icon size based on avatar size', () => {
       const { rerender } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+        />
       );
       let icon = screen.getByTestId('user-icon');
       expect(icon).toHaveStyle({ height: '38.4px', width: '38.4px' });
 
-      rerender(<UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={32} />);
+      rerender(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={32}
+        />
+      );
       icon = screen.getByTestId('user-icon');
       expect(icon).toHaveStyle({ height: '19.2px', width: '19.2px' });
     });
 
     it('should set correct container dimensions', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+        />
       );
       const div = container.querySelector(
         '.bg-theme-primary'
@@ -153,7 +205,12 @@ describe('UserAvatar', () => {
   describe('ring variant rendering', () => {
     it('should render ring container when showRing is true', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const ringDiv = container.querySelector('.bg-gradient-to-r');
       expect(ringDiv).toBeInTheDocument();
@@ -161,7 +218,12 @@ describe('UserAvatar', () => {
 
     it('should have gradient background for ring', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const ringDiv = container.querySelector('.bg-gradient-to-r');
       expect(ringDiv).toHaveClass('from-blue-500');
@@ -172,7 +234,12 @@ describe('UserAvatar', () => {
 
     it('should have correct ring dimensions with padding', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const ringDiv = container.querySelector(
         '.bg-gradient-to-r'
@@ -183,7 +250,12 @@ describe('UserAvatar', () => {
 
     it('should have rounded-full class on ring', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const ringDiv = container.querySelector('.bg-gradient-to-r');
       expect(ringDiv).toHaveClass('rounded-full');
@@ -191,7 +263,12 @@ describe('UserAvatar', () => {
 
     it('should have padding on ring', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const ringDiv = container.querySelector('.bg-gradient-to-r');
       expect(ringDiv).toHaveClass('p-0.5');
@@ -199,7 +276,12 @@ describe('UserAvatar', () => {
 
     it('should render inner container with dark mode background', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const innerDiv = container.querySelector('.bg-white');
       expect(innerDiv).toBeInTheDocument();
@@ -208,7 +290,12 @@ describe('UserAvatar', () => {
 
     it('should center content in ring', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const innerDiv = container.querySelector('.bg-white');
       expect(innerDiv).toHaveClass('flex');
@@ -218,7 +305,12 @@ describe('UserAvatar', () => {
 
     it('should have rounded-full on inner container', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const innerDiv = container.querySelector('.bg-white');
       expect(innerDiv).toHaveClass('rounded-full');
@@ -226,21 +318,40 @@ describe('UserAvatar', () => {
 
     it('should have padding on inner container', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
       );
       const innerDiv = container.querySelector('.bg-white');
       expect(innerDiv).toHaveClass('p-0.5');
     });
 
     it('should render image with reduced size inside ring', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />);
+      render(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.width).toBe(60);
       expect(image.height).toBe(60);
     });
 
     it('should render fallback icon with reduced size inside ring', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} showRing={true} />);
+      render(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+          showRing={true}
+        />
+      );
       const icon = screen.getByTestId('user-icon');
       expect(icon).toHaveStyle({ height: '36px', width: '36px' });
     });
@@ -248,21 +359,27 @@ describe('UserAvatar', () => {
 
   describe('sizing', () => {
     it('should handle small size correctly', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={24} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={24} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.width).toBe(24);
       expect(image.height).toBe(24);
     });
 
     it('should handle medium size correctly', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={48} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={48} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.width).toBe(48);
       expect(image.height).toBe(48);
     });
 
     it('should handle large size correctly', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={128} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={128} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.width).toBe(128);
       expect(image.height).toBe(128);
@@ -270,12 +387,22 @@ describe('UserAvatar', () => {
 
     it('should scale icon size proportionally with avatar size', () => {
       const { rerender } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={100} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={100}
+        />
       );
       let icon = screen.getByTestId('user-icon');
       expect(icon).toHaveStyle({ height: '60px', width: '60px' });
 
-      rerender(<UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={50} />);
+      rerender(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={50}
+        />
+      );
       icon = screen.getByTestId('user-icon');
       expect(icon).toHaveStyle({ height: '30px', width: '30px' });
     });
@@ -283,19 +410,25 @@ describe('UserAvatar', () => {
 
   describe('default props', () => {
     it('should not show ring by default', () => {
-      const { container } = render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      const { container } = render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const ringDiv = container.querySelector('.bg-gradient-to-r');
       expect(ringDiv).not.toBeInTheDocument();
     });
 
     it('should render image directly without ring wrapper by default', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe');
       expect(image).toBeInTheDocument();
     });
 
     it('should use default alt text when no ring', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe');
       expect(image).toBeInTheDocument();
     });
@@ -307,7 +440,13 @@ describe('UserAvatar', () => {
         sub: 'test-id',
         picture: 'https://example.com/avatar.jpg',
       };
-      render(<UserAvatar enableAvatarPicture={true} user={userWithoutName} size={64} />);
+      render(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={userWithoutName}
+          size={64}
+        />
+      );
       const image = screen.getByAltText('user');
       expect(image).toBeInTheDocument();
     });
@@ -317,20 +456,30 @@ describe('UserAvatar', () => {
         sub: 'test-id',
         picture: 'https://example.com/avatar.jpg',
       };
-      render(<UserAvatar enableAvatarPicture={true} user={userWithoutName} size={64} />);
+      render(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={userWithoutName}
+          size={64}
+        />
+      );
       const image = screen.getByAltText('user');
       expect(image).toBeInTheDocument();
     });
 
     it('should handle zero size gracefully', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={0} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={0} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.width).toBe(0);
       expect(image.height).toBe(0);
     });
 
     it('should handle very large size', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={1024} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={1024} />
+      );
       const image = screen.getByAltText('John Doe') as HTMLImageElement;
       expect(image.width).toBe(1024);
       expect(image.height).toBe(1024);
@@ -339,19 +488,29 @@ describe('UserAvatar', () => {
 
   describe('accessibility', () => {
     it('should provide alt text for images', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe');
       expect(image).toBeInTheDocument();
     });
 
     it('should use semantic alt text with user name', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />);
+      render(
+        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} />
+      );
       const image = screen.getByAltText('John Doe');
       expect(image.getAttribute('alt')).toBe('John Doe');
     });
 
     it('should render fallback icon when picture unavailable', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUserNoPicture} size={64} />);
+      render(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUserNoPicture}
+          size={64}
+        />
+      );
       const icon = screen.getByTestId('user-icon');
       expect(icon).toBeInTheDocument();
     });
@@ -360,14 +519,26 @@ describe('UserAvatar', () => {
   describe('prop variations', () => {
     it('should accept showRing as optional prop', () => {
       const { container } = render(
-        <UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={false} />
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={false}
+        />
       );
       const ringDiv = container.querySelector('.bg-gradient-to-r');
       expect(ringDiv).not.toBeInTheDocument();
     });
 
     it('should render correctly with all props', () => {
-      render(<UserAvatar enableAvatarPicture={true} user={mockUser} size={64} showRing={true} />);
+      render(
+        <UserAvatar
+          enableAvatarPicture={true}
+          user={mockUser}
+          size={64}
+          showRing={true}
+        />
+      );
       expect(screen.getByAltText('John Doe')).toBeInTheDocument();
     });
 
@@ -390,7 +561,9 @@ describe('UserAvatar', () => {
       ];
 
       users.forEach((user) => {
-        const { unmount } = render(<UserAvatar enableAvatarPicture={true} user={user} size={64} />);
+        const { unmount } = render(
+          <UserAvatar enableAvatarPicture={true} user={user} size={64} />
+        );
         if (user.picture) {
           expect(screen.getByAltText(user.name || 'user')).toBeInTheDocument();
         } else {

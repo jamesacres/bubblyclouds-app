@@ -21,10 +21,7 @@ import {
 } from '@bubblyclouds-app/types/userSessions';
 import { useServerStorage } from '../hooks/serverStorage';
 import { useLocalStorage } from '../hooks/localStorage';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 
 interface SessionsContextType<T = any> {
   sessions: ServerStateResult<T>[] | null;
@@ -64,7 +61,7 @@ export const SessionsProvider = <T extends {}>({
   app,
   apiUrl,
 }: SessionsProviderProps) => {
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user } = context || {};
   const [sessions, setSessionsState] = useState<ServerStateResult<T>[] | null>(
     null

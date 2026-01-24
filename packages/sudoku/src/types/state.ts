@@ -23,14 +23,20 @@ export interface GameStateMetadata {
 export type SetAnswer = BaseSetAnswer<number | Notes>;
 
 // Sudoku-specific GameState and ServerState
-export interface GameState
-  extends BaseState<Puzzle<number>, Puzzle, GameStateMetadata> {
+export interface GameState extends BaseState<
+  Puzzle<number>,
+  Puzzle,
+  GameStateMetadata
+> {
   answerStack: Puzzle[];
   initial: Puzzle<number>;
   final: Puzzle<number>;
 }
 
-export interface ServerState
-  extends BaseServerState<Puzzle<number>, Puzzle, GameStateMetadata> {
+export interface ServerState extends BaseServerState<
+  Puzzle<number>,
+  Puzzle,
+  GameStateMetadata
+> {
   timer?: Timer;
 }
