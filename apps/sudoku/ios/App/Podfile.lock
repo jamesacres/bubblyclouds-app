@@ -5,7 +5,7 @@ PODS:
     - Capacitor
   - CapacitorBrowser (8.0.0):
     - Capacitor
-  - CapacitorCommunityInAppReview (7.1.0):
+  - CapacitorCommunityInAppReview (8.0.0):
     - Capacitor
   - CapacitorCordova (8.0.0)
   - CapacitorKeyboard (8.0.0):
@@ -29,7 +29,7 @@ DEPENDENCIES:
   - "Capacitor (from `../../../../node_modules/.pnpm/@capacitor+ios@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../../../node_modules/.pnpm/@capacitor+app@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor/app`)"
   - "CapacitorBrowser (from `../../../../node_modules/.pnpm/@capacitor+browser@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor/browser`)"
-  - "CapacitorCommunityInAppReview (from `../../../../node_modules/.pnpm/@capacitor-community+in-app-review@7.1.0_@capacitor+core@8.0.0/node_modules/@capacitor-community/in-app-review`)"
+  - "CapacitorCommunityInAppReview (from `../../../../node_modules/.pnpm/@capacitor-community+in-app-review@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor-community/in-app-review`)"
   - "CapacitorCordova (from `../../../../node_modules/.pnpm/@capacitor+ios@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor/ios`)"
   - "CapacitorKeyboard (from `../../../../node_modules/.pnpm/@capacitor+keyboard@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor/keyboard`)"
   - "CapacitorSecureStoragePlugin (from `../../../../node_modules/.pnpm/capacitor-secure-storage-plugin@0.13.0_@capacitor+core@8.0.0/node_modules/capacitor-secure-storage-plugin`)"
@@ -51,7 +51,7 @@ EXTERNAL SOURCES:
   CapacitorBrowser:
     :path: "../../../../node_modules/.pnpm/@capacitor+browser@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor/browser"
   CapacitorCommunityInAppReview:
-    :path: "../../../../node_modules/.pnpm/@capacitor-community+in-app-review@7.1.0_@capacitor+core@8.0.0/node_modules/@capacitor-community/in-app-review"
+    :path: "../../../../node_modules/.pnpm/@capacitor-community+in-app-review@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor-community/in-app-review"
   CapacitorCordova:
     :path: "../../../../node_modules/.pnpm/@capacitor+ios@8.0.0_@capacitor+core@8.0.0/node_modules/@capacitor/ios"
   CapacitorKeyboard:
@@ -69,7 +69,7 @@ SPEC CHECKSUMS:
   Capacitor: 341ff7cf652ec695d1a8ebf604db448ac7b6d635
   CapacitorApp: 3963a84197280757b84f126afd1520a85ae3b092
   CapacitorBrowser: b7d7f05f840fe042e46f6528bb8db853e3058fb2
-  CapacitorCommunityInAppReview: 3756d05524c5cf2eccbc8ed460f77f8f8db6c141
+  CapacitorCommunityInAppReview: 4492bdd34aad4d27ed87949376022cc93b294ea1
   CapacitorCordova: 5dc3912d25ef770a3fe0f431bb65c9fbfa2e92f9
   CapacitorKeyboard: d7868c079a4d5277a3deca27a10a488fcbbb8b69
   CapacitorSecureStoragePlugin: d083ff28d9ba5bc74924b9bcf9754ea605016b63
@@ -80,6 +80,6 @@ SPEC CHECKSUMS:
   RevenuecatPurchasesCapacitor: 29b929cec112f7327e25feb6a3178f8c89dc6978
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 4f5d9d651f709780e06728b1c715623d36d68b1d
+PODFILE CHECKSUM: fb47de461501e1769a8c542302ae67aafa3ff5d2
 
 COCOAPODS: 1.16.2

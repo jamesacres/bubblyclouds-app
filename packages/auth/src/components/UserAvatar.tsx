@@ -15,7 +15,8 @@ export const UserAvatar = ({
   // Calculate the inner size when using the ring
   const innerSize = showRing ? size - 4 : size;
 
-  const avatarContent = user.picture ? (
+  const enableAvatarPicture = false;
+  const avatarContent = enableAvatarPicture && user.picture ? (
     <Image
       src={user.picture}
       alt={user.name || 'user'}
