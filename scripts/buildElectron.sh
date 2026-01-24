@@ -3,7 +3,7 @@ rm -rf "apps/$1/dist"
 rm -rf "apps/$1/out"
 rm -rf "apps/$1/app"
 pnpm install
-IS_ELECTRON=true pnpm run build:$1 -- --force
+IS_ELECTRON=true pnpm run build:$1 --force
 cd "apps/$1"
 cd electron
 npm install
