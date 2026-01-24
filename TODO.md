@@ -1,7 +1,5 @@
 # Framework
 
-- re-test capacitor xcode and android and complete puzzle in full
-
 - move bubblyclouds repo (main website) into apps directory then delete separate
   repo
 
