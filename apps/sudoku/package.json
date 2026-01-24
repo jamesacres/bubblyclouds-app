@@ -19,7 +19,7 @@
     "@bubblyclouds-app/template": "workspace:*",
     "@bubblyclouds-app/types": "workspace:*",
     "@bubblyclouds-app/ui": "workspace:*",
-    "@capacitor-community/in-app-review": "^7.0.1",
+    "@capacitor-community/in-app-review": "^8.0.0",
     "@capacitor/android": "^8.0.0",
     "@capacitor/app": "^8.0.0",
     "@capacitor/assets": "^3.0.5",

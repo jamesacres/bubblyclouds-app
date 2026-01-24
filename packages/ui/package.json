@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@bubblyclouds-app/types": "workspace:*",
-    "@capacitor-community/in-app-review": "^7.0.1",
+    "@capacitor-community/in-app-review": "^8.0.0",
     "@capacitor/core": "^8.0.0",
     "@capacitor/share": "^8.0.0",
     "@capacitor/status-bar": "^8.0.0",
