@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { App, URLOpenListenerEvent } from '@capacitor/app';
 import { usePathname, useRouter } from 'next/navigation';
 import { Browser } from '@capacitor/browser';
-import { StatusBar, Style } from '@capacitor/status-bar';
-import { Capacitor, SystemBars } from '@capacitor/core';
+import { StatusBar } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 interface CapacitorContextInterface {}
 

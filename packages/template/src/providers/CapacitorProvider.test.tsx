@@ -4,7 +4,7 @@ import CapacitorProvider from './CapacitorProvider';
 import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { StatusBar } from '@capacitor/status-bar';
-import { Capacitor, SystemBars } from '@capacitor/core';
+import { Capacitor } from '@capacitor/core';
 import { useRouter, usePathname } from 'next/navigation';
 
 jest.mock('@capacitor/app');
@@ -14,16 +14,12 @@ jest.mock('@capacitor/core', () => ({
   Capacitor: {
     isNativePlatform: jest.fn(),
   },
-  SystemBars: {
-    setOverlaysWebView: jest.fn(),
-  },
 }));
 jest.mock('next/navigation');
 
 const mockApp = App as jest.Mocked<typeof App>;
 const mockBrowser = Browser as jest.Mocked<typeof Browser>;
 const mockStatusBar = StatusBar as jest.Mocked<typeof StatusBar>;
-const mockSystemBars = SystemBars as jest.Mocked<typeof SystemBars>;
 const mockIsNativePlatform = Capacitor.isNativePlatform as jest.Mock;
 const mockUseRouter = useRouter as jest.Mock;
 const mockUsePathname = usePathname as jest.Mock;
@@ -43,7 +39,6 @@ describe('CapacitorProvider', () => {
     mockUsePathname.mockReturnValue('/');
     mockApp.addListener.mockResolvedValue({ remove: jest.fn() } as any);
     mockStatusBar.setOverlaysWebView.mockResolvedValue();
-    mockSystemBars.setOverlaysWebView.mockResolvedValue();
     mockIsNativePlatform.mockReturnValue(true);
   });
 
@@ -55,9 +50,6 @@ describe('CapacitorProvider', () => {
     );
     await act(async () => {});
     expect(mockIsNativePlatform).toHaveBeenCalled();
-    expect(mockSystemBars.setOverlaysWebView).toHaveBeenCalledWith({
-      overlay: true,
-    });
     expect(mockStatusBar.setOverlaysWebView).toHaveBeenCalledWith({
       overlay: true,
     });
@@ -72,7 +64,6 @@ describe('CapacitorProvider', () => {
     );
     await act(async () => {});
     expect(mockIsNativePlatform).toHaveBeenCalled();
-    expect(mockSystemBars.setOverlaysWebView).not.toHaveBeenCalled();
     expect(mockStatusBar.setOverlaysWebView).not.toHaveBeenCalled();
   });
 
