@@ -1,25 +1,28 @@
 @import 'tailwindcss';
-@source "../../../../node_modules/@bubblyclouds-app/auth";
-@source "../../../../node_modules/@bubblyclouds-app/games";
-@source "../../../../node_modules/@bubblyclouds-app/shared";
-@source "../../../../node_modules/@bubblyclouds-app/sudoku";
-@source "../../../../node_modules/@bubblyclouds-app/template";
-@source "../../../../node_modules/@bubblyclouds-app/types";
-@source "../../../../node_modules/@bubblyclouds-app/ui";
+@source "../../../../packages/auth";
+@source "../../../../packages/games";
+@source "../../../../packages/shared";
+@source "../../../../packages/sudoku";
+@source "../../../../packages/template";
+@source "../../../../packages/types";
+@source "../../../../packages/ui";
 
 body {
-  --ion-safe-area-top: var(--android-safe-area-top, env(safe-area-inset-top));
+  --ion-safe-area-top: var(
+    --safe-area-inset-top,
+    env(safe-area-inset-top, 0px)
+  );
   --ion-safe-area-left: var(
-    --android-safe-area-left,
-    env(safe-area-inset-left)
+    --safe-area-inset-left,
+    env(safe-area-inset-left, 0px)
   );
   --ion-safe-area-right: var(
-    --android-safe-area-right,
-    env(safe-area-inset-right)
+    --safe-area-inset-right,
+    env(safe-area-inset-right, 0px)
   );
   --ion-safe-area-bottom: var(
-    --android-safe-area-bottom,
-    env(safe-area-inset-bottom)
+    --safe-area-inset-bottom,
+    env(safe-area-inset-bottom, 0px)
   );
 }
 

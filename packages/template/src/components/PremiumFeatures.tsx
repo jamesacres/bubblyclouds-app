@@ -138,7 +138,7 @@ export function PremiumFeatures({
             }}
           >
             {feature.isPremium && (
-              <div className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg">
+              <div className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg">
                 <Star className="h-3 w-3" />
               </div>
             )}

@@ -244,7 +244,7 @@ const ThemeColorSwitch = ({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-42 rounded-md bg-white shadow-lg dark:bg-gray-800">
+        <div className="w-42 absolute right-0 mt-2 rounded-md bg-white shadow-lg dark:bg-gray-800">
           <div className="flex flex-wrap gap-2 p-2">
             {colors.map((color, index) => {
               const isPremium = index >= 2 && !isSubscribed;
@@ -260,7 +260,7 @@ const ThemeColorSwitch = ({
                   aria-label={`Set theme color to ${color.name}${isPremium ? ' (Premium)' : ''}`}
                 >
                   {isPremium && (
-                    <span className="absolute -top-1 -right-1 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                    <span className="absolute -right-1 -top-1 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                       ✨
                     </span>
                   )}

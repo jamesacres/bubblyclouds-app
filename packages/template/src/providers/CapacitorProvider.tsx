@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { App, URLOpenListenerEvent } from '@capacitor/app';
 import { usePathname, useRouter } from 'next/navigation';
 import { Browser } from '@capacitor/browser';
+import { StatusBar } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 interface CapacitorContextInterface {}
 
@@ -15,6 +17,15 @@ const CapacitorProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      // Legacy status bar old android instead of SystemBars
+      StatusBar.setOverlaysWebView({ overlay: true }).catch((error) => {
+        console.warn('StatusBar.setOverlaysWebView failed:', error);
+      });
+    }
+  }, []);
 
   useEffect(() => {
     let isActive = true;

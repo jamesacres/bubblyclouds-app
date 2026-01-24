@@ -34,7 +34,7 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
       } backdrop-blur-sm dark:border-gray-700 dark:bg-zinc-800/80`}
     >
       <div
-        className="hover:bg-opacity-90 flex cursor-pointer items-center p-4 transition-all"
+        className="flex cursor-pointer items-center p-4 transition-all hover:bg-opacity-90"
         onClick={() => setShowBreakdown(!showBreakdown)}
       >
         <div className="w-16 text-center">

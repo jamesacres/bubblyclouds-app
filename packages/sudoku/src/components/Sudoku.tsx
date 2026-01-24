@@ -307,7 +307,7 @@ const Sudoku = ({
 
   return (
     <div
-      className={`${showAdvancedControls ? 'pb-120' : 'pb-90'} lg:pb-0 landscape:mb-120 sm:landscape:pb-[calc(60vh)] lg:landscape:mb-0 lg:landscape:pb-0`}
+      className={`${showAdvancedControls ? 'pb-120' : 'pb-90'} landscape:mb-120 lg:pb-0 sm:landscape:pb-[calc(60vh)] lg:landscape:mb-0 lg:landscape:pb-0`}
     >
       {/* App download prompt modal - shows first for web users */}
       <AppDownloadModal
@@ -363,7 +363,7 @@ const Sudoku = ({
           <div className="flex flex-col">
             <div className="mt-auto">
               {/* App Branding Header */}
-              <div className="mr-auto ml-auto max-w-xl px-4 pb-1 lg:mr-0">
+              <div className="ml-auto mr-auto max-w-xl px-4 pb-1 lg:mr-0">
                 <div className="text-right">
                   <span className="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent">
                     {appName}
@@ -371,7 +371,7 @@ const Sudoku = ({
                 </div>
               </div>
 
-              <div className="mr-auto ml-auto flex max-w-xl px-4 pb-1 lg:mr-0">
+              <div className="ml-auto mr-auto flex max-w-xl px-4 pb-1 lg:mr-0">
                 <div
                   className="flex-nowrap items-center xl:hidden"
                   role="group"
@@ -393,7 +393,7 @@ const Sudoku = ({
               <div className="relative overflow-visible lg:overflow-hidden">
                 <div
                   ref={gridRef}
-                  className={`border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative mr-auto ml-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900 ${
+                  className={`border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative ml-auto mr-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900 ${
                     dragStarted
                       ? 'cursor-grabbing'
                       : isZoomMode && selectedCell

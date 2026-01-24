@@ -74,14 +74,17 @@ describe('useLocalStorage', () => {
         useLocalStorage({ type: StateType.PUZZLE, id: 'puzzle1' })
       );
       const testData = { a: 1, b: 'test' };
+      const beforeTime = Date.now();
 
       act(() => {
         result.current.saveValue(testData);
       });
 
+      const afterTime = Date.now();
       const retrieved = result.current.getValue();
       expect(retrieved?.state).toEqual(testData);
-      expect(retrieved?.lastUpdated).toBeCloseTo(Date.now(), -2);
+      expect(retrieved?.lastUpdated).toBeGreaterThanOrEqual(beforeTime);
+      expect(retrieved?.lastUpdated).toBeLessThanOrEqual(afterTime + 100);
     });
 
     it('should include lastUpdated timestamp', () => {

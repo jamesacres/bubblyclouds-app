@@ -196,13 +196,13 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                               {memberNickname}
                             </span>
                             {friendSessions[userId]?.isLoading ? (
-                              <Loader className="mr-0 ml-auto animate-spin" />
+                              <Loader className="ml-auto mr-0 animate-spin" />
                             ) : (
                               <>
                                 {expandedUsers.has(userId) ? (
-                                  <ChevronDown className="mr-0 ml-auto" />
+                                  <ChevronDown className="ml-auto mr-0" />
                                 ) : (
-                                  <ChevronRight className="mr-0 ml-auto" />
+                                  <ChevronRight className="ml-auto mr-0" />
                                 )}
                               </>
                             )}

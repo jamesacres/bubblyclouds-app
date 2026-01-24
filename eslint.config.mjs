@@ -39,7 +39,7 @@ export default [
     ],
   },
   ...compat.extends('eslint:recommended'),
-  ...compat.extends('plugin:prettier/recommended'),
+  ...compat.extends('prettier'),
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
 

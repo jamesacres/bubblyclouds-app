@@ -121,13 +121,13 @@ export const Credits: React.FC<CreditsProps> = ({
                   href={credit.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs break-all opacity-60 hover:opacity-100"
+                  className="break-all text-xs opacity-60 hover:opacity-100"
                 >
                   {credit.url}
                 </a>
               </div>
               {credit.license && (
-                <span className="rounded bg-black/10 px-2 py-1 text-xs whitespace-nowrap dark:bg-white/10">
+                <span className="whitespace-nowrap rounded bg-black/10 px-2 py-1 text-xs dark:bg-white/10">
                   {credit.license}
                 </span>
               )}

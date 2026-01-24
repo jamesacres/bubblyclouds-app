@@ -24,10 +24,10 @@
     "circular": "madge --circular --extensions ts,tsx src/"
   },
   "dependencies": {
-    "@bubblyclouds-app/types": "*",
-    "@bubblyclouds-app/ui": "*",
-    "@capacitor/browser": "^7.0.0",
-    "@capacitor/core": "^7.0.0",
+    "@bubblyclouds-app/types": "workspace:*",
+    "@bubblyclouds-app/ui": "workspace:*",
+    "@capacitor/browser": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
     "@headlessui/react": "^2.2.9",
     "next": "^16.1.1",
     "react": "^19.2.3",
@@ -40,6 +40,7 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.10",
+    "@types/node": "^24.10.7",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.50.1",

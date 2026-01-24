@@ -173,7 +173,7 @@ const SudokuControls = ({
   );
 
   return (
-    <div className="mt-0 mb-0 overflow-visible px-2 pt-2 lg:mb-16 xl:max-w-lg">
+    <div className="mb-0 mt-0 overflow-visible px-2 pt-2 lg:mb-16 xl:max-w-lg">
       <div className="hidden lg:block">
         <HintBox>
           Keyboard: arrow keys, undo, redo.
@@ -188,7 +188,7 @@ const SudokuControls = ({
       <div className="pb-safe mt-0 touch-none overflow-visible rounded-t-xl bg-white/60 p-3 pt-0 shadow-lg backdrop-blur-md lg:pt-3 dark:bg-zinc-900/60">
         {/* Advanced controls drag handle */}
         <div className="lg:hidden">
-          <div className="flex w-full cursor-grab items-center justify-center gap-1.5 rounded-lg px-2 py-0 text-xs font-medium text-gray-600 transition-all duration-60 select-none dark:text-gray-400">
+          <div className="duration-60 flex w-full cursor-grab select-none items-center justify-center gap-1.5 rounded-lg px-2 py-0 text-xs font-medium text-gray-600 transition-all dark:text-gray-400">
             <p className="grow-0 cursor-pointer" onClick={handleAdvancedToggle}>
               {showAdvanced ? (
                 <ChevronDown size={15} />
@@ -198,7 +198,7 @@ const SudokuControls = ({
             </p>
             <div
               ref={dragRef}
-              className={`flex max-h-[35px] w-full cursor-grab items-center justify-center gap-1.5 rounded-lg px-2 py-0 text-xs font-medium text-gray-600 transition-all duration-60 select-none dark:text-gray-400 ${
+              className={`duration-60 flex max-h-[35px] w-full cursor-grab select-none items-center justify-center gap-1.5 rounded-lg px-2 py-0 text-xs font-medium text-gray-600 transition-all dark:text-gray-400 ${
                 isDragging ? 'cursor-grabbing' : 'cursor-grab'
               }`}
               onMouseDown={handleMouseDown}
@@ -267,7 +267,7 @@ const SudokuControls = ({
                 <CornerUpLeft size={15} />
                 Undo
                 {!isSubscribed && !isUndoDisabled && !canUseUndo() && (
-                  <span className="absolute -top-1 -right-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                  <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                     ✨
                   </span>
                 )}
@@ -307,7 +307,7 @@ const SudokuControls = ({
                   <Grid size={15} />
                   Grid
                   {!isSubscribed && !canUseCheckGrid() && (
-                    <span className="absolute -top-1 -right-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                    <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                       ✨
                     </span>
                   )}
@@ -348,7 +348,7 @@ const SudokuControls = ({
                   <Unlock size={15} />
                   Reveal
                   {!isSubscribed && (
-                    <span className="absolute -top-1 -right-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                    <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                       ✨
                     </span>
                   )}

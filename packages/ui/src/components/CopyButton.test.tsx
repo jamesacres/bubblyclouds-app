@@ -158,7 +158,7 @@ describe('CopyButton', () => {
     });
 
     it('should handle errors gracefully during copy', async () => {
-      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
       const clipboardError = new Error('Clipboard error');
       (navigator.clipboard.writeText as jest.Mock).mockRejectedValueOnce(
         clipboardError
@@ -170,13 +170,13 @@ describe('CopyButton', () => {
       fireEvent.click(button);
 
       await waitFor(() => {
-        expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect(consoleWarnSpy).toHaveBeenCalledWith(
           'Failed to copy:',
           clipboardError
         );
       });
 
-      consoleErrorSpy.mockRestore();
+      consoleWarnSpy.mockRestore();
     });
 
     it('should disable button during loading', async () => {

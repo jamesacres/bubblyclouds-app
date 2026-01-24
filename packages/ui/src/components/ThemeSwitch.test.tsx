@@ -11,11 +11,22 @@ jest.mock('next-themes', () => ({
 // Mock Capacitor StatusBar
 jest.mock('@capacitor/status-bar', () => ({
   StatusBar: {
-    setStyle: jest.fn(),
+    setStyle: jest.fn().mockResolvedValue(undefined),
   },
   Style: {
     Dark: 'dark',
     Light: 'light',
+  },
+}));
+
+// Mock Capacitor SystemBars
+jest.mock('@capacitor/core', () => ({
+  SystemBars: {
+    setStyle: jest.fn().mockResolvedValue(undefined),
+  },
+  SystemBarsStyle: {
+    Dark: 'DARK',
+    Light: 'LIGHT',
   },
 }));
 
@@ -272,7 +283,8 @@ describe('ThemeSwitch', () => {
   });
 
   describe('Capacitor integration', () => {
-    it('should call StatusBar.setStyle when on Capacitor in dark mode', async () => {
+    it('should call SystemBars when on Capacitor in dark mode', async () => {
+      const { SystemBars } = require('@capacitor/core');
       const { StatusBar } = require('@capacitor/status-bar');
       const mockIsCapacitor = jest.fn(() => true);
 
@@ -285,12 +297,14 @@ describe('ThemeSwitch', () => {
       render(<ThemeSwitch isCapacitor={mockIsCapacitor} />);
 
       await waitFor(() => {
-        expect(StatusBar.setStyle).toHaveBeenCalled();
+        expect(SystemBars.setStyle).toHaveBeenCalled();
+        expect(StatusBar.setStyle).not.toHaveBeenCalled();
         expect(mockIsCapacitor).toHaveBeenCalled();
       });
     });
 
-    it('should not call StatusBar when not on Capacitor', async () => {
+    it('should not call SystemBars or StatusBar when not on Capacitor', async () => {
+      const { SystemBars } = require('@capacitor/core');
       const { StatusBar } = require('@capacitor/status-bar');
       const mockIsCapacitor = jest.fn(() => false);
 
@@ -306,10 +320,12 @@ describe('ThemeSwitch', () => {
         expect(mockIsCapacitor).toHaveBeenCalled();
       });
 
+      expect(SystemBars.setStyle).not.toHaveBeenCalled();
       expect(StatusBar.setStyle).not.toHaveBeenCalled();
     });
 
-    it('should update StatusBar style when theme changes', async () => {
+    it('should update SystemBars style when theme changes', async () => {
+      const { SystemBars } = require('@capacitor/core');
       const { StatusBar } = require('@capacitor/status-bar');
       const mockIsCapacitor = jest.fn(() => true);
 
@@ -332,12 +348,14 @@ describe('ThemeSwitch', () => {
       rerender(<ThemeSwitch isCapacitor={mockIsCapacitor} />);
 
       await waitFor(() => {
-        expect(StatusBar.setStyle).toHaveBeenCalled();
+        expect(SystemBars.setStyle).toHaveBeenCalled();
+        expect(StatusBar.setStyle).not.toHaveBeenCalled();
         expect(mockIsCapacitor).toHaveBeenCalled();
       });
     });
 
     it('should use default isCapacitor that returns false when not provided', async () => {
+      const { SystemBars } = require('@capacitor/core');
       const { StatusBar } = require('@capacitor/status-bar');
 
       (useTheme as jest.Mock).mockReturnValue({
@@ -349,7 +367,71 @@ describe('ThemeSwitch', () => {
       render(<ThemeSwitch />);
 
       await waitFor(() => {
+        expect(SystemBars.setStyle).not.toHaveBeenCalled();
         expect(StatusBar.setStyle).not.toHaveBeenCalled();
+      });
+    });
+
+    it('should add window event listeners for resize and orientationchange when on Capacitor', async () => {
+      const mockIsCapacitor = jest.fn(() => true);
+      const addEventListenerSpy = jest.spyOn(window, 'addEventListener');
+
+      (useTheme as jest.Mock).mockReturnValue({
+        theme: 'dark',
+        setTheme: mockSetTheme,
+        resolvedTheme: 'dark',
+      });
+
+      render(<ThemeSwitch isCapacitor={mockIsCapacitor} />);
+
+      await waitFor(() => {
+        expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+        expect(addEventListenerSpy).toHaveBeenCalledWith('orientationchange', expect.any(Function));
+      });
+
+      addEventListenerSpy.mockRestore();
+    });
+
+    it('should remove window event listeners on unmount', async () => {
+      const mockIsCapacitor = jest.fn(() => true);
+      const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
+
+      (useTheme as jest.Mock).mockReturnValue({
+        theme: 'dark',
+        setTheme: mockSetTheme,
+        resolvedTheme: 'dark',
+      });
+
+      const { unmount } = render(<ThemeSwitch isCapacitor={mockIsCapacitor} />);
+
+      unmount();
+
+      await waitFor(() => {
+        expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
+        expect(removeEventListenerSpy).toHaveBeenCalledWith('orientationchange', expect.any(Function));
+      });
+
+      removeEventListenerSpy.mockRestore();
+    });
+
+    it('should reapply style on window resize', async () => {
+      const { SystemBars } = require('@capacitor/core');
+      const mockIsCapacitor = jest.fn(() => true);
+
+      (useTheme as jest.Mock).mockReturnValue({
+        theme: 'dark',
+        setTheme: mockSetTheme,
+        resolvedTheme: 'dark',
+      });
+
+      render(<ThemeSwitch isCapacitor={mockIsCapacitor} />);
+
+      SystemBars.setStyle.mockClear();
+
+      window.dispatchEvent(new Event('resize'));
+
+      await waitFor(() => {
+        expect(SystemBars.setStyle).toHaveBeenCalled();
       });
     });
   });

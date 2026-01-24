@@ -19,7 +19,7 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
 
   return (
     <div
-      className="bg-opacity-50 pb-safe fixed inset-0 z-[60] flex items-center justify-center bg-black p-4"
+      className="pb-safe fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-50 p-4"
       onClick={onClose}
     >
       <div

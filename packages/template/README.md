@@ -1,10 +1,14 @@
 # @bubblyclouds-app/template
 
-Generic collaboration and application infrastructure package - game-agnostic party/session management.
+Generic collaboration and application infrastructure package - game-agnostic
+party/session management.
 
 ## Purpose
 
-Provides reusable collaborative features including party management, session tracking, member invitations, and application infrastructure that can be used by any collaborative application - **not specific to any particular game or domain**.
+Provides reusable collaborative features including party management, session
+tracking, member invitations, and application infrastructure that can be used by
+any collaborative application - **not specific to any particular game or
+domain**.
 
 ## Responsibility
 
@@ -23,121 +27,137 @@ Provides reusable collaborative features including party management, session tra
 ### Components
 
 #### `ErrorBoundary`
+
 React error boundary component for graceful error handling.
 
 ```tsx
-import { ErrorBoundary } from '@bubblyclouds-app/template';
+import { ErrorBoundary } from "@bubblyclouds-app/template";
 
 <ErrorBoundary>
   <App />
-</ErrorBoundary>
+</ErrorBoundary>;
 ```
 
 #### `AppDownloadModal`
+
 Modal promoting mobile app downloads.
 
 ```tsx
-import { AppDownloadModal } from '@bubblyclouds-app/template';
+import { AppDownloadModal } from "@bubblyclouds-app/template";
 
-<AppDownloadModal isOpen={showModal} onClose={() => setShowModal(false)} />
+<AppDownloadModal isOpen={showModal} onClose={() => setShowModal(false)} />;
 ```
 
 #### `GlobalErrorHandler`
+
 Global error handler for uncaught errors.
 
 ```tsx
-import { GlobalErrorHandler } from '@bubblyclouds-app/template';
+import { GlobalErrorHandler } from "@bubblyclouds-app/template";
 
-<GlobalErrorHandler />
+<GlobalErrorHandler />;
 ```
 
 ### Providers
 
 #### `CapacitorProvider`
+
 Capacitor platform initialization and configuration.
 
 ```tsx
-import { CapacitorProvider } from '@bubblyclouds-app/template';
+import { CapacitorProvider } from "@bubblyclouds-app/template";
 
 <CapacitorProvider>
   <App />
-</CapacitorProvider>
+</CapacitorProvider>;
 ```
 
 #### `RevenueCatProvider`
+
 RevenueCat subscription and payment integration.
 
 ```tsx
-import { RevenueCatProvider, RevenueCatContext } from '@bubblyclouds-app/template';
+import {
+  RevenueCatContext,
+  RevenueCatProvider,
+} from "@bubblyclouds-app/template";
 
 <RevenueCatProvider apiKey="your-api-key">
   <App />
-</RevenueCatProvider>
+</RevenueCatProvider>;
 
 // Access subscription state
 const { isPremium, offerings } = useContext(RevenueCatContext);
 ```
 
 #### `UserProvider`
+
 User profile and authentication state management.
 
 ```tsx
-import { UserProvider, UserContext } from '@bubblyclouds-app/template';
+import { UserContext, UserProvider } from "@bubblyclouds-app/template";
 
 <UserProvider>
   <App />
-</UserProvider>
+</UserProvider>;
 
 // Access user state
 const { user, updateProfile } = useContext(UserContext);
 ```
 
 #### `FetchProvider`
+
 Authenticated API request handling.
 
 ```tsx
-import { FetchProvider, FetchContext } from '@bubblyclouds-app/template';
+import { FetchContext, FetchProvider } from "@bubblyclouds-app/template";
 
 <FetchProvider baseUrl="https://api.example.com">
   <App />
-</FetchProvider>
+</FetchProvider>;
 
 // Make authenticated requests
 const fetchContext = useContext(FetchContext);
-const data = await fetchContext.fetch('/api/endpoint');
+const data = await fetchContext.fetch("/api/endpoint");
 ```
 
 #### `ThemeColorProvider`
+
 Theme color management (re-exported from `@bubblyclouds-app/ui`).
 
 ```tsx
-import { ThemeColorProvider, useThemeColor } from '@bubblyclouds-app/template';
+import { ThemeColorProvider, useThemeColor } from "@bubblyclouds-app/template";
 
 <ThemeColorProvider>
   <App />
-</ThemeColorProvider>
+</ThemeColorProvider>;
 ```
 
 #### `GlobalStateProvider`
+
 Global application state management.
 
 ```tsx
-import { GlobalStateProvider, GlobalStateContext } from '@bubblyclouds-app/template';
+import {
+  GlobalStateContext,
+  GlobalStateProvider,
+} from "@bubblyclouds-app/template";
 
 <GlobalStateProvider>
   <App />
-</GlobalStateProvider>
+</GlobalStateProvider>;
 ```
 
 #### `PartyProvider`
+
 Party/group management and collaboration.
 
 ```tsx
-import { PartyProvider, PartyContext } from '@bubblyclouds-app/template';
+import { PartyContext, PartyProvider } from "@bubblyclouds-app/template";
 
 <PartyProvider>
   <App />
-</PartyProvider>
+</PartyProvider>;
 
 // Access party state
 const { parties, createParty, inviteMember } = useContext(PartyContext);
@@ -146,10 +166,11 @@ const { parties, createParty, inviteMember } = useContext(PartyContext);
 ### Hooks
 
 #### `useOnline`
+
 Detect online/offline network status.
 
 ```tsx
-import { useOnline } from '@bubblyclouds-app/template';
+import { useOnline } from "@bubblyclouds-app/template";
 
 function Component() {
   const isOnline = useOnline();
@@ -159,13 +180,17 @@ function Component() {
 ```
 
 #### `useLocalStorage`
+
 Persistent local storage with React state.
 
 ```tsx
-import { useLocalStorage } from '@bubblyclouds-app/template';
+import { useLocalStorage } from "@bubblyclouds-app/template";
 
 function Component() {
-  const [value, setValue, { loading, error }] = useLocalStorage('key', defaultValue);
+  const [value, setValue, { loading, error }] = useLocalStorage(
+    "key",
+    defaultValue,
+  );
 
   return <div>{value}</div>;
 }
@@ -174,10 +199,11 @@ function Component() {
 **Returns:** `[value, setValue, { loading, error, remove }]`
 
 #### `useWakeLock`
+
 Prevent device from sleeping.
 
 ```tsx
-import { useWakeLock } from '@bubblyclouds-app/template';
+import { useWakeLock } from "@bubblyclouds-app/template";
 
 function GameComponent() {
   const { request, release, isActive } = useWakeLock();
@@ -190,26 +216,28 @@ function GameComponent() {
 ```
 
 #### `useFetch`
+
 Authenticated API requests with error handling.
 
 ```tsx
-import { useFetch } from '@bubblyclouds-app/template';
+import { useFetch } from "@bubblyclouds-app/template";
 
 function Component() {
   const fetch = useFetch();
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('/api/data').then(setData);
+    fetch("/api/data").then(setData);
   }, []);
 }
 ```
 
 #### `useDocumentVisibility`
+
 Track document visibility state (tab focus).
 
 ```tsx
-import { useDocumentVisibility } from '@bubblyclouds-app/template';
+import { useDocumentVisibility } from "@bubblyclouds-app/template";
 
 function Component() {
   const isVisible = useDocumentVisibility();
@@ -225,13 +253,17 @@ function Component() {
 ```
 
 #### `useServerStorage`
+
 Sync state with server storage.
 
 ```tsx
-import { useServerStorage } from '@bubblyclouds-app/template';
+import { useServerStorage } from "@bubblyclouds-app/template";
 
 function Component() {
-  const [serverState, updateServerState] = useServerStorage<MyState>('key', defaultValue);
+  const [serverState, updateServerState] = useServerStorage<MyState>(
+    "key",
+    defaultValue,
+  );
 
   return <div>{serverState?.value}</div>;
 }
@@ -240,6 +272,7 @@ function Component() {
 ### Types
 
 #### `Party`
+
 Party/group information.
 
 ```typescript
@@ -255,6 +288,7 @@ interface Party {
 ```
 
 #### `PartyMember`
+
 Party member information.
 
 ```typescript
@@ -262,12 +296,13 @@ interface PartyMember {
   userId: string;
   name: string;
   avatarUrl?: string;
-  role: 'owner' | 'member';
+  role: "owner" | "member";
   joinedAt: Date;
 }
 ```
 
 #### `PartyInvitation`
+
 Party invitation details.
 
 ```typescript
@@ -276,12 +311,13 @@ interface PartyInvitation {
   partyId: string;
   invitedBy: string;
   invitedEmail: string;
-  status: 'pending' | 'accepted' | 'declined';
+  status: "pending" | "accepted" | "declined";
   expiresAt: Date;
 }
 ```
 
 #### `Session<T>`
+
 Generic session with custom state type.
 
 ```typescript
@@ -293,6 +329,7 @@ interface Session<T> {
 ```
 
 #### `CollaborativeSession`
+
 Session for collaborative activities.
 
 ```typescript
@@ -301,35 +338,40 @@ interface CollaborativeSession {
   partyId?: string;
   participants: string[];
   startedAt: Date;
-  status: 'active' | 'paused' | 'completed';
+  status: "active" | "paused" | "completed";
 }
 ```
 
 ### Utilities
 
 #### `dailyActionCounter`
+
 Track and limit daily actions.
 
 ```tsx
 import {
   getTodayActionCount,
-  incrementActionCount,
   hasReachedDailyLimit,
-  resetIfNewDay
-} from '@bubblyclouds-app/template';
+  incrementActionCount,
+  resetIfNewDay,
+} from "@bubblyclouds-app/template";
 
 // Check if user can perform action
-if (!hasReachedDailyLimit('feature-name', 10)) {
+if (!hasReachedDailyLimit("feature-name", 10)) {
   performAction();
-  incrementActionCount('feature-name');
+  incrementActionCount("feature-name");
 }
 ```
 
 #### `playerColors`
+
 Assign consistent colors to players.
 
 ```tsx
-import { getPlayerColor, generatePlayerColors } from '@bubblyclouds-app/template';
+import {
+  generatePlayerColors,
+  getPlayerColor,
+} from "@bubblyclouds-app/template";
 
 const color = getPlayerColor(userId); // Returns consistent color for user
 const colors = generatePlayerColors(5); // Generate 5 distinct colors
@@ -338,19 +380,21 @@ const colors = generatePlayerColors(5); // Generate 5 distinct colors
 ### Config
 
 #### `dailyLimits`
+
 Daily action limits configuration.
 
 ```tsx
-import { DAILY_LIMITS } from '@bubblyclouds-app/template';
+import { DAILY_LIMITS } from "@bubblyclouds-app/template";
 
 const limit = DAILY_LIMITS.FREE_TIER.ACTIONS_PER_DAY;
 ```
 
 #### `premiumFeatures`
+
 Premium feature configuration.
 
 ```tsx
-import { PREMIUM_FEATURES } from '@bubblyclouds-app/template';
+import { PREMIUM_FEATURES } from "@bubblyclouds-app/template";
 
 if (PREMIUM_FEATURES.UNLIMITED_ACTIONS) {
   // Allow unlimited actions
@@ -359,7 +403,8 @@ if (PREMIUM_FEATURES.UNLIMITED_ACTIONS) {
 
 ### Helpers
 
-Platform helpers (re-exported from `@bubblyclouds-app/ui` and `@bubblyclouds-app/auth`):
+Platform helpers (re-exported from `@bubblyclouds-app/ui` and
+`@bubblyclouds-app/auth`):
 
 ```tsx
 import {
@@ -367,8 +412,8 @@ import {
   formatSeconds,
   isCapacitor,
   isElectron,
-  pkce
-} from '@bubblyclouds-app/template';
+  pkce,
+} from "@bubblyclouds-app/template";
 
 const seconds = calculateSeconds(startTime, endTime);
 const formatted = formatSeconds(seconds); // "1:30"
@@ -383,15 +428,15 @@ Wrap your application with all necessary providers:
 ```tsx
 import {
   CapacitorProvider,
-  RevenueCatProvider,
-  UserProvider,
+  ErrorBoundary,
   FetchProvider,
   GlobalStateProvider,
   PartyProvider,
-  ErrorBoundary
-} from '@bubblyclouds-app/template';
-import { AuthProvider } from '@bubblyclouds-app/auth';
-import { ThemeColorProvider } from '@bubblyclouds-app/ui';
+  RevenueCatProvider,
+  UserProvider,
+} from "@bubblyclouds-app/template";
+import { AuthProvider } from "@bubblyclouds-app/auth";
+import { ThemeColorProvider } from "@bubblyclouds-app/ui";
 
 function App() {
   return (
@@ -421,16 +466,18 @@ function App() {
 ### 2. Creating and Managing Parties
 
 ```tsx
-import { useContext } from 'react';
-import { PartyContext } from '@bubblyclouds-app/template';
+import { useContext } from "react";
+import { PartyContext } from "@bubblyclouds-app/template";
 
 function PartyManagement() {
-  const { parties, createParty, inviteMember, leaveParty } = useContext(PartyContext);
+  const { parties, createParty, inviteMember, leaveParty } = useContext(
+    PartyContext,
+  );
 
   const handleCreateParty = async () => {
     const party = await createParty({
-      partyName: 'My Collaborative Group',
-      maxSize: 10
+      partyName: "My Collaborative Group",
+      maxSize: 10,
     });
   };
 
@@ -441,7 +488,7 @@ function PartyManagement() {
   return (
     <div>
       <button onClick={handleCreateParty}>Create Party</button>
-      {parties.map(party => (
+      {parties.map((party) => (
         <PartyCard
           key={party.partyId}
           party={party}
@@ -456,12 +503,12 @@ function PartyManagement() {
 ### 3. Using Local Storage Hook
 
 ```tsx
-import { useLocalStorage } from '@bubblyclouds-app/template';
+import { useLocalStorage } from "@bubblyclouds-app/template";
 
 function Settings() {
-  const [settings, setSettings] = useLocalStorage('app-settings', {
+  const [settings, setSettings] = useLocalStorage("app-settings", {
     notifications: true,
-    theme: 'auto'
+    theme: "auto",
   });
 
   return (
@@ -471,8 +518,7 @@ function Settings() {
           type="checkbox"
           checked={settings.notifications}
           onChange={(e) =>
-            setSettings({ ...settings, notifications: e.target.checked })
-          }
+            setSettings({ ...settings, notifications: e.target.checked })}
         />
         Enable Notifications
       </label>
@@ -484,12 +530,12 @@ function Settings() {
 ### 4. Server State Synchronization
 
 ```tsx
-import { useServerStorage } from '@bubblyclouds-app/template';
+import { useServerStorage } from "@bubblyclouds-app/template";
 
 function CollaborativeComponent() {
   const [state, updateState] = useServerStorage<MyAppState>(
-    'collaborative-state',
-    defaultState
+    "collaborative-state",
+    defaultState,
   );
 
   const handleUpdate = (newData: Partial<MyAppState>) => {
@@ -503,11 +549,13 @@ function CollaborativeComponent() {
 ### 5. Premium Features
 
 ```tsx
-import { useContext } from 'react';
-import { RevenueCatContext } from '@bubblyclouds-app/template';
+import { useContext } from "react";
+import { RevenueCatContext } from "@bubblyclouds-app/template";
 
 function PremiumFeature() {
-  const { isPremium, offerings, purchasePackage } = useContext(RevenueCatContext);
+  const { isPremium, offerings, purchasePackage } = useContext(
+    RevenueCatContext,
+  );
 
   if (!isPremium) {
     return (
@@ -530,9 +578,9 @@ function PremiumFeature() {
 {
   "react": "^18",
   "react-dom": "^18",
-  "@bubblyclouds-app/auth": "*",
-  "@bubblyclouds-app/ui": "*",
-  "@bubblyclouds-app/types": "*"
+  "@bubblyclouds-app/auth": "workspace:*",
+  "@bubblyclouds-app/ui": "workspace:*",
+  "@bubblyclouds-app/types": "workspace:*"
 }
 ```
 
@@ -556,13 +604,13 @@ npm test
 ```tsx
 import {
   CapacitorProvider,
-  UserProvider,
-  PartyProvider,
   ErrorBoundary,
-  useOnline
-} from '@bubblyclouds-app/template';
-import { AuthProvider } from '@bubblyclouds-app/auth';
-import { ThemeColorProvider, Header, Footer } from '@bubblyclouds-app/ui';
+  PartyProvider,
+  useOnline,
+  UserProvider,
+} from "@bubblyclouds-app/template";
+import { AuthProvider } from "@bubblyclouds-app/auth";
+import { Footer, Header, ThemeColorProvider } from "@bubblyclouds-app/ui";
 
 function App() {
   return (
@@ -602,24 +650,24 @@ function Layout() {
 
 ```tsx
 import {
+  getTodayActionCount,
   hasReachedDailyLimit,
   incrementActionCount,
-  getTodayActionCount
-} from '@bubblyclouds-app/template';
+} from "@bubblyclouds-app/template";
 
 function FeatureButton() {
-  const [count, setCount] = useState(getTodayActionCount('my-feature'));
+  const [count, setCount] = useState(getTodayActionCount("my-feature"));
   const limit = 10;
 
   const handleClick = () => {
-    if (hasReachedDailyLimit('my-feature', limit)) {
-      alert('Daily limit reached! Upgrade to premium for unlimited access.');
+    if (hasReachedDailyLimit("my-feature", limit)) {
+      alert("Daily limit reached! Upgrade to premium for unlimited access.");
       return;
     }
 
     performAction();
-    incrementActionCount('my-feature');
-    setCount(getTodayActionCount('my-feature'));
+    incrementActionCount("my-feature");
+    setCount(getTodayActionCount("my-feature"));
   };
 
   return (

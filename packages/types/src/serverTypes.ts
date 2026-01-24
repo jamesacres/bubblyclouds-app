@@ -53,10 +53,8 @@ export interface MemberResponse {
   updatedAt: string;
 }
 
-export interface Member extends Omit<
-  MemberResponse,
-  'createdAt' | 'updatedAt'
-> {
+export interface Member
+  extends Omit<MemberResponse, 'createdAt' | 'updatedAt'> {
   createdAt: Date;
   updatedAt: Date;
   isOwner: boolean;
@@ -82,18 +80,17 @@ export interface InviteResponse {
   updatedAt: string;
 }
 
-export interface Invite extends Omit<
-  InviteResponse,
-  'createdAt' | 'updatedAt' | 'expiresAt'
-> {
+export interface Invite
+  extends Omit<InviteResponse, 'createdAt' | 'updatedAt' | 'expiresAt'> {
   expiresAt: Date;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface PublicInvite extends Pick<
-  Invite,
-  'description' | 'resourceId' | 'sessionId' | 'redirectUri'
-> {
+export interface PublicInvite
+  extends Pick<
+    Invite,
+    'description' | 'resourceId' | 'sessionId' | 'redirectUri'
+  > {
   entitlementDuration?: EntitlementDuration;
 }

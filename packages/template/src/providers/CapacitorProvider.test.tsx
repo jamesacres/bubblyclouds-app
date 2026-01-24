@@ -3,14 +3,24 @@ import { render, act } from '@testing-library/react';
 import CapacitorProvider from './CapacitorProvider';
 import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
+import { StatusBar } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 import { useRouter, usePathname } from 'next/navigation';
 
 jest.mock('@capacitor/app');
 jest.mock('@capacitor/browser');
+jest.mock('@capacitor/status-bar');
+jest.mock('@capacitor/core', () => ({
+  Capacitor: {
+    isNativePlatform: jest.fn(),
+  },
+}));
 jest.mock('next/navigation');
 
 const mockApp = App as jest.Mocked<typeof App>;
 const mockBrowser = Browser as jest.Mocked<typeof Browser>;
+const mockStatusBar = StatusBar as jest.Mocked<typeof StatusBar>;
+const mockIsNativePlatform = Capacitor.isNativePlatform as jest.Mock;
 const mockUseRouter = useRouter as jest.Mock;
 const mockUsePathname = usePathname as jest.Mock;
 
@@ -28,6 +38,33 @@ describe('CapacitorProvider', () => {
     });
     mockUsePathname.mockReturnValue('/');
     mockApp.addListener.mockResolvedValue({ remove: jest.fn() } as any);
+    mockStatusBar.setOverlaysWebView.mockResolvedValue();
+    mockIsNativePlatform.mockReturnValue(true);
+  });
+
+  it('should set up SystemBars and StatusBar overlay on native platform', async () => {
+    render(
+      <CapacitorProvider>
+        <div>Test</div>
+      </CapacitorProvider>
+    );
+    await act(async () => {});
+    expect(mockIsNativePlatform).toHaveBeenCalled();
+    expect(mockStatusBar.setOverlaysWebView).toHaveBeenCalledWith({
+      overlay: true,
+    });
+  });
+
+  it('should not set up overlays on web platform', async () => {
+    mockIsNativePlatform.mockReturnValue(false);
+    render(
+      <CapacitorProvider>
+        <div>Test</div>
+      </CapacitorProvider>
+    );
+    await act(async () => {});
+    expect(mockIsNativePlatform).toHaveBeenCalled();
+    expect(mockStatusBar.setOverlaysWebView).not.toHaveBeenCalled();
   });
 
   it('should set up listeners on mount and clean up on unmount', async () => {

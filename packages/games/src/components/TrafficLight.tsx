@@ -17,7 +17,7 @@ const TrafficLight = ({ countdown }: TrafficLightProps) => {
   const showGreen = countdown === 1;
 
   return (
-    <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform">
+    <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform">
       {/* Traffic light housing - horizontal layout */}
       <div className="flex items-center space-x-1 rounded-lg bg-gray-900 p-2 shadow-lg">
         {/* Red light */}
