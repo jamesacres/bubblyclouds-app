@@ -69,13 +69,15 @@ const PrimaryAction = ({
           <span className="ml-2">✓</span>
         </span>
       </div>
-    ) : (
+    ) : showSubscribeModal ? (
       <button
         onClick={() => showSubscribeModal?.(() => {})}
         className="w-full cursor-pointer rounded-full border border-gray-600 bg-gray-700 px-6 py-3 text-sm font-medium transition-colors hover:bg-gray-600"
       >
         Join {app.charAt(0).toUpperCase() + app.slice(1)} Plus
       </button>
+    ) : (
+      <></>
     )}
   </>
 );
@@ -93,7 +95,7 @@ const ActionButtons = ({
   <div
     className={`${isSubscribed ? 'flex justify-center' : 'grid grid-cols-2 gap-3'}`}
   >
-    {!isSubscribed && (
+    {!isSubscribed && showSubscribeModal && (
       <button
         onClick={() => showSubscribeModal?.(() => {})}
         className="flex cursor-pointer items-center justify-center rounded-2xl bg-gray-700 px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-600"
@@ -125,13 +127,25 @@ const FooterLinks = ({
   onClose?: () => void;
 }) => (
   <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
-    <a href={privacyUrl} target="_blank" className="hover:text-white">
-      Privacy policy
-    </a>
+    {privacyUrl.startsWith('http') ? (
+      <a href={privacyUrl} target="_blank" className="hover:text-white">
+        Privacy policy
+      </a>
+    ) : (
+      <Link href={privacyUrl} onClick={onClose} className="hover:text-white">
+        Privacy policy
+      </Link>
+    )}
     <span>•</span>
-    <a href={termsUrl} target="_blank" className="hover:text-white">
-      Terms of Service
-    </a>
+    {termsUrl.startsWith('http') ? (
+      <a href={termsUrl} target="_blank" className="hover:text-white">
+        Terms of Service
+      </a>
+    ) : (
+      <Link href={termsUrl} onClick={onClose} className="hover:text-white">
+        Terms of Service
+      </Link>
+    )}
     {creditsUrl && (
       <>
         <span>•</span>

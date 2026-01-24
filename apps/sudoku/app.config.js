@@ -5,6 +5,15 @@ const REVERSE_DOMAIN = 'com.bubblyclouds';
 const COMPANY_NAME = 'Bubbly Clouds';
 const APP_CONFIG = {
   app: APP,
+  scope: [
+    'openid',
+    'profile',
+    'offline_access',
+    'parties.write',
+    'members.write',
+    'invites.write',
+    'sessions.write',
+  ],
   appName: APP_NAME,
   appId: `${REVERSE_DOMAIN}.${APP}`,
   appUrl: `https://${APP}.${DOMAIN}`,

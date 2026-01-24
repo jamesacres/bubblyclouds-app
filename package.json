@@ -13,9 +13,10 @@
   "scripts": {
     "preinstall": "npx only-allow@1.2.2 pnpm",
     "dev": "turbo run dev",
+    "dev:bubblyclouds": "turbo run dev --filter=@bubblyclouds-app/app-bubblyclouds",
     "dev:sudoku": "turbo run dev --filter=@bubblyclouds-app/app-sudoku",
-    "dev:template": "turbo run dev --filter=@bubblyclouds-app/app-template",
     "build": "turbo run build",
+    "build:bubblyclouds": "turbo run build --filter=@bubblyclouds-app/app-bubblyclouds",
     "build:sudoku": "turbo run build --filter=@bubblyclouds-app/app-sudoku",
     "build:sudoku:capacitor": ". ./scripts/buildCapacitor.sh sudoku",
     "build:sudoku:electron": "./scripts/buildElectron.sh sudoku",

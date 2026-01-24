@@ -8,7 +8,7 @@ import React from 'react';
 
 interface UserProviderProps {
   children: React.ReactNode;
-  platformServices?: PlatformServices;
+  platformServices: PlatformServices;
 }
 
 /**
@@ -31,7 +31,7 @@ const UserProvider: React.FC<UserProviderProps> = ({
   return (
     <PlatformServicesProvider services={platformServices}>
       <FetchProvider>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider scope={platformServices.scope}>{children}</AuthProvider>
       </FetchProvider>
     </PlatformServicesProvider>
   );

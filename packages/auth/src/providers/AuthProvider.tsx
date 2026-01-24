@@ -65,9 +65,10 @@ let isInitialising = false;
 
 interface AuthProviderProps {
   children: React.ReactNode;
+  scope: string[];
 }
 
-const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
   const [user, setUser] = React.useState<UserProfile | undefined>(undefined);
   const platformServices = useContext(PlatformServicesContext);
 
@@ -92,8 +93,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     apiUrl,
   } = platformServices;
   const iss = authUrl;
+
   const clientId =
-    isElectron() || isCapacitor() ? `bubbly-${app}-native` : `bubbly-${app}`;
+    app === 'bubblyclouds'
+      ? app
+      : isElectron() || isCapacitor()
+        ? `bubbly-${app}-native`
+        : `bubbly-${app}`;
 
   // Create refs early to avoid circular dependency issues
   const restoreCapacitorStateRef = useRef<
@@ -186,15 +192,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('code_verifier', codeVerifier);
 
       const redirectUri = buildRedirectUri(isElectron, isCapacitor, app);
-      const scope = [
-        'openid',
-        'profile',
-        'offline_access',
-        'parties.write',
-        'members.write',
-        'invites.write',
-        'sessions.write',
-      ];
+
       const resource = apiUrl;
 
       const params = new URLSearchParams();
@@ -225,7 +223,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsLoggingIn(false);
       }, 10000);
     },
-    [clientId, isElectron, isCapacitor, openBrowser, app, iss, apiUrl]
+    [clientId, isElectron, isCapacitor, openBrowser, app, iss, apiUrl, scope]
   );
 
   // Create a ref to break the circular dependency where handleUser passes itself to restoreCapacitorState

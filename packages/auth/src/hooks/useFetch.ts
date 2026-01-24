@@ -52,7 +52,11 @@ function useFetch() {
   );
 
   const clientId =
-    isElectron() || isCapacitor() ? `bubbly-${app}-native` : `bubbly-${app}`;
+    app === 'bubblyclouds'
+      ? app
+      : isElectron() || isCapacitor()
+        ? `bubbly-${app}-native`
+        : `bubbly-${app}`;
 
   const saveState = useCallback(
     async (newState: State, isRestoreState: boolean = false) => {
