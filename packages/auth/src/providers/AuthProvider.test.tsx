@@ -1,7 +1,10 @@
 import React from 'react';
 import { useContext, useRef, useEffect } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import AuthProvider, { UserContext } from './AuthProvider';
+import AuthProvider, {
+  UserContext,
+  UserContextInterface,
+} from './AuthProvider';
 import FetchProvider from './FetchProvider';
 import PlatformServicesProvider, {
   PlatformServices,
@@ -74,7 +77,7 @@ describe('AuthProvider', () => {
 
     it('should provide UserContext', async () => {
       const contextValueRef = {
-        current: undefined,
+        current: undefined as UserContextInterface | undefined,
       };
 
       const TestComponent = () => {
@@ -147,7 +150,7 @@ describe('AuthProvider', () => {
 
     it('should provide all required context methods', async () => {
       const contextRef = {
-        current: undefined,
+        current: undefined as UserContextInterface | undefined,
       };
 
       const TestComponent = () => {
@@ -706,7 +709,7 @@ describe('AuthProvider', () => {
 
     it('should handle component unmount and remount', async () => {
       const contextRef = {
-        current: undefined,
+        current: undefined as UserContextInterface | undefined,
       };
 
       const TestComponent = () => {
