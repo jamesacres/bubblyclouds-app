@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import { UserContext, UserContextInterface } from '../providers/AuthProvider';
+import { UserContext } from '../providers/AuthProvider';
 import { UserButton } from './UserButton';
 
-// Props for external dependencies
 export interface HeaderUserDependencies {
   isOnline?: boolean;
   isSubscribed?: boolean;
@@ -29,7 +28,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
   companyName,
 }) => {
   const { isLoggingIn, loginRedirect, logout, user, app } =
-    (React.useContext(UserContext) as UserContextInterface | undefined) || {};
+    React.useContext(UserContext) || {};
 
   return user && logout && app ? (
     <UserButton

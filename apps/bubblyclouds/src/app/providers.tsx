@@ -4,7 +4,7 @@ import { PlatformServices } from '@bubblyclouds-app/auth/providers/PlatformServi
 import UserProvider from '@bubblyclouds-app/auth/providers/UserProvider';
 import GlobalStateProvider from '@bubblyclouds-app/template/providers/GlobalStateProvider';
 import { ThemeColorProvider } from '@bubblyclouds-app/ui/providers/ThemeColorProvider';
-import { APP_CONFIG } from 'app.config';
+import { APP_CONFIG } from '../../app.config';
 import { PropsWithChildren } from 'react';
 import { ThemeProvider } from 'next-themes';
 

@@ -11,7 +11,7 @@ This monorepo uses a **7-layer package architecture** with clear dependency
 rules:
 
 ```
-L6: @app-sudoku (Next.js application)
+L6: @app-sudoku, @app-bubblyclouds (Next.js applications)
      ↓
 L5: @sudoku (game-specific logic)
      ↓
@@ -58,8 +58,9 @@ pnpm install
 # Run Sudoku app in development mode
 pnpm run dev
 
-# Or run specific package
+# Or run specific apps
 pnpm run dev:sudoku
+pnpm run dev:bubblyclouds
 ```
 
 ### Building
@@ -68,10 +69,11 @@ pnpm run dev:sudoku
 # Build all packages and apps
 pnpm run build
 
-# Build Sudoku app
+# Build specific apps
 pnpm run build:sudoku
+pnpm run build:bubblyclouds
 
-# Build for specific platforms
+# Build for specific platforms (Sudoku app)
 pnpm run build:sudoku:capacitor     # Sudoku iOS/Android
 pnpm run build:sudoku:electron      # Sudoku desktop
 ```
@@ -184,6 +186,19 @@ packages:
   - Dark mode support
   - Platform-specific adaptations (web, mobile, desktop)
 
+### Bubblyclouds Website
+
+The Bubblyclouds website is the company landing page and marketing site:
+
+- **Core Features** (from `@auth` package):
+  - User authentication
+  - User profile management
+
+- **UI/UX** (from `@ui` package):
+  - Responsive design
+  - Dark mode support
+  - Marketing pages (landing, privacy, terms)
+
 ## Developer Resources
 
 ### Package Documentation
@@ -261,7 +276,11 @@ pnpm run build:sudoku:electron      # Build Sudoku desktop app
 ```
 bubblyclouds-app/
 ├── apps/
-│   └── sudoku/          # Sudoku application
+│   ├── sudoku/          # Sudoku application
+│   │   ├── src/         # App source code
+│   │   ├── public/      # Static assets
+│   │   └── package.json
+│   └── bubblyclouds/    # Bubblyclouds website
 │       ├── src/         # App source code
 │       ├── public/      # Static assets
 │       └── package.json

@@ -2,10 +2,7 @@
 
 import { useCallback, useContext, useRef } from 'react';
 import { useFetch } from '@bubblyclouds-app/auth/hooks/useFetch';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { StateType } from '@bubblyclouds-app/types/stateType';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useOnline } from './online';
@@ -106,7 +103,7 @@ function useServerStorage({
     id: initialId,
     type: initialType,
   });
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user, logout } = context || {};
   const { fetch, getUser } = useFetch();
   const { isOnline } = useOnline();

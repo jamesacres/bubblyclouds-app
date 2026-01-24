@@ -7,7 +7,6 @@ import { DeleteAccountDialog } from './DeleteAccountDialog';
 import { Plus, LogOut, X } from 'react-feather';
 import Link from 'next/link';
 
-// Props for external dependencies
 export interface UserPanelDependencies {
   deleteAccount?: () => Promise<boolean>;
   isSubscribed?: boolean;
@@ -27,7 +26,6 @@ interface UserPanelProps extends UserPanelDependencies {
   companyName: string;
 }
 
-// Shared user info component
 const UserInfo = ({
   user,
   size,

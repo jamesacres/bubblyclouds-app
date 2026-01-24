@@ -21,10 +21,10 @@ libraries) and **apps** (executable applications).
 ┌─────────────────────────────────────────────────────────────────┐
 │                      Application Layer (L6)                     │
 │                                                                 │
-│  ┌────────────────────────────────────────────────────────┐    │
-│  │                    @app-sudoku                         │    │
-│  │                  (Next.js App)                         │    │
-│  └────────────────────────────────────────────────────────┘    │
+│  ┌──────────────────────┐      ┌────────────────────────┐      │
+│  │   @app-sudoku        │      │  @app-bubblyclouds     │      │
+│  │   (Next.js App)      │      │  (Next.js Website)     │      │
+│  └──────────────────────┘      └────────────────────────┘      │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -87,6 +87,12 @@ libraries) and **apps** (executable applications).
   - Contains app-specific pages and routing
   - Platform builds: Web, iOS, Android, Electron
   - Depends on: All packages
+
+- **`@bubblyclouds-app/app-bubblyclouds`** - Bubblyclouds website (Next.js)
+  - Company website and landing page
+  - Contains marketing and informational content
+  - Platform builds: Web
+  - Depends on: `@auth`, `@ui`, `@types` (and other packages as needed)
 
 #### Game-Specific Layer (L5)
 
@@ -180,6 +186,13 @@ libraries) and **apps** (executable applications).
 │   └── @types
 ├── @ui
 └── @types
+
+@app-bubblyclouds
+├── @auth
+│   ├── @ui
+│   └── @types
+├── @ui
+└── @types
 ```
 
 ### Package.json Dependencies
@@ -222,8 +235,11 @@ Each package declares its dependencies explicitly in its `package.json`:
       │                                 │
       ▼                                 ▼
 ┌──────────┐                  ┌──────────────┐
-│   apps/  │                  │  packages/   │
-│  sudoku/ │                  └──────┬───────┘
+│ apps/    │                  │  packages/   │
+│ sudoku/  │                  └──────┬───────┘
+│ or       │                         │
+│ bubbly   │                         │
+│ clouds/  │                         │
 └──────────┘                         │
                            ┌─────────┴─────────┐
                            │                   │
@@ -398,15 +414,35 @@ export enum PlatformType {
 
 **Add here when:**
 
-- Creating Next.js pages and routes
-- Implementing app-specific page layouts
-- Configuring app settings (Next.js config, Capacitor, etc.)
+- Creating Next.js pages and routes for the Sudoku app
+- Implementing Sudoku app-specific page layouts
+- Configuring Sudoku app settings (Next.js config, Capacitor, etc.)
 - Creating one-off features specific to this app deployment
 
 **Examples:**
 
 - `/app/page.tsx` - Home page
 - `/app/puzzle/page.tsx` - Puzzle page
+- `next.config.js` - App configuration
+
+**Do NOT add:**
+
+- Reusable components (extract to packages)
+- Business logic (belongs in packages)
+
+#### `apps/bubblyclouds`
+
+**Add here when:**
+
+- Creating Next.js pages and routes for the Bubblyclouds website
+- Implementing website-specific page layouts
+- Configuring website settings (Next.js config, etc.)
+- Creating marketing and informational content
+
+**Examples:**
+
+- `/app/page.tsx` - Landing page
+- `/app/about/page.tsx` - About page
 - `next.config.js` - App configuration
 
 **Do NOT add:**
@@ -722,7 +758,7 @@ All dependencies must be explicitly declared in `package.json`:
 Packages form a directed acyclic graph (DAG):
 
 ```
-Layer 6:  @app-sudoku
+Layer 6:  @app-sudoku, @app-bubblyclouds
               ↓
 Layer 5:  @sudoku
               ↓
@@ -751,6 +787,7 @@ The full dependency tree:
 @sudoku (depends on @games, @template, @auth, @ui, @types)
   ↑
 @app-sudoku (depends on all packages)
+@app-bubblyclouds (depends on @auth, @ui, @types, and other packages as needed)
 ```
 
 Circular dependencies are prevented by:
@@ -814,8 +851,8 @@ pnpm test
   - L3: Collaboration (`@template`)
   - L4: Game Features (`@games`)
   - L5: Game-Specific (`@sudoku`)
-  - L6: Application (`@app-sudoku`)
-- **1 app** consuming all packages
+  - L6: Applications (`@app-sudoku`, `@app-bubblyclouds`)
+- **2 apps** consuming packages as needed
 - **Just-in-Time pattern** for fast development without build steps
 - **Clear dependency flow** enforced by package.json and tooling
 - **Explicit guidelines** for where to add each type of code

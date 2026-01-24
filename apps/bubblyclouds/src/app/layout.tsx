@@ -7,7 +7,7 @@ import { Providers } from './providers';
 import Footer from '@bubblyclouds-app/ui/components/Footer';
 import HeaderWrapper from '@bubblyclouds-app/template/components/HeaderWrapper';
 import { APP_CONFIG } from '../../app.config.js';
-import { Logo } from './components/logo';
+import { LogoWrapper } from './components/LogoWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -59,7 +59,7 @@ export default function RootLayout({
           />
           <main className="flex flex-col items-center justify-between p-12 sm:p-24">
             <div>
-              <Logo />
+              <LogoWrapper />
             </div>
             {children}
 

@@ -14,10 +14,7 @@ import {
   Package as WebPackage,
   CustomerInfo as WebCustomerInfo,
 } from '@revenuecat/purchases-js';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 
 export interface RevenueCatContextInterface {
@@ -50,9 +47,7 @@ export const RevenueCatContext = React.createContext<
 const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const userContext = useContext(UserContext) as
-    | UserContextInterface
-    | undefined;
+  const userContext = useContext(UserContext);
   const { user, loginRedirect } = userContext || {};
   const [isLoading, setIsLoading] = useState(true);
   const [packages, setPackages] = useState<(WebPackage | CapacitorPackage)[]>(

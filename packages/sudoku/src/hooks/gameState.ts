@@ -27,10 +27,7 @@ import {
   ServerStateResult,
   Session,
 } from '@bubblyclouds-app/types/serverTypes';
-import {
-  UserContext,
-  UserContextInterface,
-} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import {
   canUseUndo,
@@ -62,7 +59,7 @@ function useGameState({
   app: string;
   apiUrl: string;
 }) {
-  const context = useContext(UserContext) as UserContextInterface | undefined;
+  const context = useContext(UserContext);
   const { user } = context || {};
   const { subscribeModal, isSubscribed } = useContext(RevenueCatContext) || {};
   const isDocumentVisible = useDocumentVisibility();
