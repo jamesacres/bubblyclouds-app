@@ -38,8 +38,8 @@ L0-L1: @ui, @types (foundation)
 
 ### Prerequisites
 
-- Node.js 20.10.0 or higher
-- npm 8 or higher
+- Node.js 24 or higher
+- pnpm 10 or higher
 
 ### Installation
 
@@ -56,53 +56,53 @@ pnpm install
 
 ```bash
 # Run Sudoku app in development mode
-npm run dev
+pnpm run dev
 
 # Or run specific package
-npm run dev:sudoku
+pnpm run dev:sudoku
 ```
 
 ### Building
 
 ```bash
 # Build all packages and apps
-npm run build
+pnpm run build
 
 # Build Sudoku app
-npm run build:sudoku
+pnpm run build:sudoku
 
 # Build for specific platforms
-npm run build:sudoku:capacitor     # Sudoku iOS/Android
-npm run build:sudoku:electron      # Sudoku desktop
+pnpm run build:sudoku:capacitor     # Sudoku iOS/Android
+pnpm run build:sudoku:electron      # Sudoku desktop
 ```
 
 ### Testing
 
 ```bash
 # Run all tests
-npm test
+pnpm test
 
 # Run tests with coverage
-npm test:coverage
+pnpm test:coverage
 
 # Run tests in watch mode
-npm test:watch
+pnpm test:watch
 
 # Run tests for CI
-npm test:ci
+pnpm test:ci
 ```
 
 ### Code Quality
 
 ```bash
 # Run linting
-npm run lint
+pnpm run lint
 
 # Fix linting issues
-npm run lint:fix
+pnpm run lint:fix
 
 # Type checking
-npm run type-check
+pnpm run type-check
 ```
 
 ## Package Documentation
@@ -222,15 +222,15 @@ This project supports multiple platforms:
 ### Web
 
 ```bash
-npm run dev           # Development
-npm run build         # Production build
+pnpm run dev           # Development
+pnpm run build         # Production build
 ```
 
 ### iOS/Android (Capacitor)
 
 ```bash
 # Build for mobile platforms
-npm run build:sudoku:capacitor     # Build Sudoku for iOS/Android
+pnpm run build:sudoku:capacitor     # Build Sudoku for iOS/Android
 
 # Then use Capacitor CLI to run on devices
 npx cap open ios        # Open in Xcode
@@ -240,7 +240,7 @@ npx cap open android    # Open in Android Studio
 ### Desktop (Electron)
 
 ```bash
-npm run build:sudoku:electron      # Build Sudoku desktop app
+pnpm run build:sudoku:electron      # Build Sudoku desktop app
 ```
 
 ## Technology Stack
@@ -248,10 +248,10 @@ npm run build:sudoku:electron      # Build Sudoku desktop app
 - **Framework**: Next.js 16
 - **Language**: TypeScript 5
 - **Build Tool**: Turborepo
-- **Package Manager**: npm workspaces
+- **Package Manager**: pnpm workspaces
 - **Styling**: Tailwind CSS 4
 - **Testing**: Jest + React Testing Library
-- **Mobile**: Capacitor 7
+- **Mobile**: Capacitor 8
 - **Desktop**: Electron 30
 - **UI Libraries**: Headless UI, React Feather
 - **Other**: TensorFlow.js (AI features), RevenueCat (payments)
@@ -297,7 +297,7 @@ bubblyclouds-app/
 
 1. Create a feature branch from `main`
 2. Make your changes
-3. Ensure all tests pass: `npm test`
+3. Ensure all tests pass: `pnpm test`
 4. Ensure linting passes: `pnpm run lint`
 5. Ensure TypeScript compiles: `pnpm run type-check`
 6. Submit a pull request

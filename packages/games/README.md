@@ -49,7 +49,7 @@ A component for displaying hints during gameplay.
 
 ## Usage
 
-Install via npm in your application:
+Install via pnpm in your application:
 
 ```bash
 pnpm add @bubblyclouds-app/games --filter workspace

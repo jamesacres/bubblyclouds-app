@@ -794,16 +794,16 @@ Run these commands to verify architectural integrity:
 
 ```bash
 # Check for circular dependencies in all packages
-npm run circular
+pnpm run circular
 
 # Type check everything
-npm run type-check
+pnpm run type-check
 
 # Build to verify imports resolve correctly
-npm run build
+pnpm run build
 
 # Run tests to verify package integration
-npm test
+pnpm test
 ```
 
 ## Summary
