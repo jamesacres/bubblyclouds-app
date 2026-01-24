@@ -17,25 +17,26 @@ export const UserAvatar = ({
   // Calculate the inner size when using the ring
   const innerSize = showRing ? size - 4 : size;
 
-  const avatarContent = enableAvatarPicture && user.picture ? (
-    <Image
-      src={user.picture}
-      alt={user.name || 'user'}
-      width={innerSize}
-      height={innerSize}
-      className="overflow-hidden rounded-full"
-    />
-  ) : (
-    <div
-      className="bg-theme-primary flex items-center justify-center rounded-full"
-      style={{ height: innerSize, width: innerSize }}
-    >
-      <User
-        className="text-white"
-        style={{ height: innerSize * 0.6, width: innerSize * 0.6 }}
+  const avatarContent =
+    enableAvatarPicture && user.picture ? (
+      <Image
+        src={user.picture}
+        alt={user.name || 'user'}
+        width={innerSize}
+        height={innerSize}
+        className="overflow-hidden rounded-full"
       />
-    </div>
-  );
+    ) : (
+      <div
+        className="bg-theme-primary flex items-center justify-center rounded-full"
+        style={{ height: innerSize, width: innerSize }}
+      >
+        <User
+          className="text-white"
+          style={{ height: innerSize * 0.6, width: innerSize * 0.6 }}
+        />
+      </div>
+    );
 
   if (showRing) {
     return (

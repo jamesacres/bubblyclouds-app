@@ -106,7 +106,7 @@ export default function RootLayout({
         className={`${inter.className} ${orbitron.variable} ${pacifico.variable}`}
       >
         <GlobalErrorHandler />
-      <ErrorBoundary>
+        <ErrorBoundary>
           <Providers>
             <HeaderWrapper
               app={APP_CONFIG.app}

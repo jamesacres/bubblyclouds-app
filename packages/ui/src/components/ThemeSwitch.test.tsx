@@ -385,8 +385,14 @@ describe('ThemeSwitch', () => {
       render(<ThemeSwitch isCapacitor={mockIsCapacitor} />);
 
       await waitFor(() => {
-        expect(addEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
-        expect(addEventListenerSpy).toHaveBeenCalledWith('orientationchange', expect.any(Function));
+        expect(addEventListenerSpy).toHaveBeenCalledWith(
+          'resize',
+          expect.any(Function)
+        );
+        expect(addEventListenerSpy).toHaveBeenCalledWith(
+          'orientationchange',
+          expect.any(Function)
+        );
       });
 
       addEventListenerSpy.mockRestore();
@@ -407,8 +413,14 @@ describe('ThemeSwitch', () => {
       unmount();
 
       await waitFor(() => {
-        expect(removeEventListenerSpy).toHaveBeenCalledWith('resize', expect.any(Function));
-        expect(removeEventListenerSpy).toHaveBeenCalledWith('orientationchange', expect.any(Function));
+        expect(removeEventListenerSpy).toHaveBeenCalledWith(
+          'resize',
+          expect.any(Function)
+        );
+        expect(removeEventListenerSpy).toHaveBeenCalledWith(
+          'orientationchange',
+          expect.any(Function)
+        );
       });
 
       removeEventListenerSpy.mockRestore();
