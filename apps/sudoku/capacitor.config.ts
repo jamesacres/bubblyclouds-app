@@ -9,6 +9,9 @@ const config: CapacitorConfig = {
     Keyboard: {
       resizeOnFullScreen: true,
     },
+    SystemBars: {
+      insetsHandling: 'css',
+    },
   },
 };
 

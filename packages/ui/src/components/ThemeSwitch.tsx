@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { StatusBar, Style } from '@capacitor/status-bar';
+import { SystemBars, SystemBarsStyle } from '@capacitor/core';
 
 interface ThemeSwitchProps {
   isCapacitor?: () => boolean;
@@ -19,14 +19,26 @@ const ThemeSwitch = ({ isCapacitor = () => false }: ThemeSwitchProps) => {
   }, []);
 
   useEffect(() => {
-    if (isCapacitor()) {
-      StatusBar.setStyle({
-        style:
-          theme === 'dark' || resolvedTheme === 'dark'
-            ? Style.Dark
-            : Style.Light,
+    if (!isCapacitor()) return;
+
+    const applyStyle = () => {
+      const isDark = theme === 'dark' || resolvedTheme === 'dark';
+      SystemBars.setStyle({
+        style: isDark ? SystemBarsStyle.Dark : SystemBarsStyle.Light,
+      }).catch((error) => {
+        console.warn('SystemBars.setStyle failed:', error);
       });
-    }
+    };
+
+    applyStyle();
+
+    window.addEventListener('resize', applyStyle);
+    window.addEventListener('orientationchange', applyStyle);
+
+    return () => {
+      window.removeEventListener('resize', applyStyle);
+      window.removeEventListener('orientationchange', applyStyle);
+    };
   }, [theme, resolvedTheme, isCapacitor]);
 
   if (!mounted) {

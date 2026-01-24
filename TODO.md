@@ -1,13 +1,13 @@
 # Framework
 
 - re-test capacitor xcode and android and complete puzzle in full
-- upgrade mac, xcode then capacitor to v8
 
 - move bubblyclouds repo (main website) into apps directory then delete separate
   repo
 
 - remove vercel and introduce open next and sst
 
+- usage analytics from db
 - re-test electron
 
 # Apps
