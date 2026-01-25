@@ -1,0 +1,37 @@
+# Ignore artifacts:
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.turbo/
+out/
+
+# Ignore lockfiles:
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Configuration files
+.eslintrc*
+.prettierrc*
+postcss.config.js
+tailwind.config.js
+next.config.mjs
+tsconfig.json
+jest.config.js
+.pnpm-store/
+.turbo/
+
+# Editor/IDE specific
+.vscode/
+.idea/
+
+# Source control
+.git/
+.gitignore
+
+# Other
+*.log
+.env*
+.DS_Store

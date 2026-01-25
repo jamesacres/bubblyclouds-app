@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@source "../../../../packages/blog";
+@source "../../../../packages/types";
+@source "../../../../packages/ui";
+
+html {
+  scroll-behavior: smooth;
+}
+
+.max-w-none {
+  max-width: none !important;
+}
+
+/* PrismJS */
+pre[class*='language-'] {
+  border-radius: 8px;
+}

@@ -1,0 +1,80 @@
+---
+title: 'Coding with Serena and Claude Desktop via MCP'
+date: '2025-05-04'
+lastmod: '2025-05-04'
+tags: ['coding', 'ai']
+draft: false
+summary: "Today I did an experiment getting AI to implement a change by itself, without using an IDE. I setup the open source Serena which provides an MCP server locally, which you can hook into Claude Desktop."
+authors: ['default']
+images: ['/content/images/2025/05/result.png']
+---
+
+Today I did an experiment getting AI to implement a change by itself, without using an IDE.
+
+I setup the open source [Serena](https://github.com/oraios/serena) which provides an [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server locally, which you can hook into [Claude Desktop](https://claude.ai/download).
+
+Below you can see the change, which you can see on the left is more iOS specific, none of which I wrote myself and this was the first attempt!
+
+![Left is the end result, Right is before](/content/images/2025/05/result.png)
+<figcaption>Left is the end result, Right is before</figcaption>
+
+![Git diff, all changes in Tailwind](/content/images/2025/05/gitdiff.png)
+<figcaption>[Git diff](https://github.com/jamesacres/sudoku-web/commit/993d4b699e68ffd06a05dfd82f52e1e99059cf88), all changes in Tailwind</figcaption>
+
+If I'm going to use AI to implement a change for my project I want it to understand the context, and be able to go ahead and make the changes itself, otherwise I may as well do it myself in the first place.
+
+[Claude Code](https://www.anthropic.com/claude-code) is apparently the number one tool for doing this kind of thing, but it currently costs [$100 a month](https://www.anthropic.com/pricing).
+
+Using MCP with [Serena](https://github.com/oraios/serena) and [Claude Desktop](https://claude.ai/download) gets a very long way towards that utopia without breaking the bank (free to start with!), perfect for an initial experiment.
+
+The current consensus seems to be [MCP](https://modelcontextprotocol.io/) is a game changer as it allows dynamic discovery at runtime allowing connections to local context and expose new capabilities like editing your code for you.
+
+Following the setup instructions I configured my project, I added my Sudoku project and told it to use TypeScript. It was as simple as:
+1. Install UV `curl -LsSf https://astral.sh/uv/install.sh | sh`
+2. Clone Serena `git clone git@github.com:oraios/serena.git`
+3. Create a project file by coping `project.template.yml` and editing, for me it was as simple as specifying `language: typescript` and point to my project `project_root: /Users/jamesacres/Documents/git/sudoku-web`
+4. Create `serena_config.yml` by copying `serena_config.template.yml` and adding your project yml file to the list
+5. Install Claude Desktop, edit settings > developer and add MCP config
+```{
+  "mcpServers": {
+    "serena": {
+      "command": "/Users/jamesacres/.local/bin/uv",
+      "args": [
+        "run",
+        "--directory",
+        "/Users/jamesacres/Documents/git/serena",
+        "serena-mcp-server"
+      ]
+    }
+  }
+}
+```
+6. Restart Claude Desktop
+
+The first time asking something specific it asked for various permissions and analysed the codebase.
+
+I was already impressed - it fully understood it was a cross platform iOS, Android and electron Next.js project using React and Tailwind.
+
+It also knew it was an app for Sudoku and what its purpose was and even looked in my TODO file to see what I was planning.
+
+Once it had finished analysing Claude hit its limits and I setup a new chat, it remembered all the initial setup and recalls from memory in the new chat.
+
+It took a few attempts at getting a prompt which would fit into the Claude free limits as it kept trying to overcomplicate the request, but eventually I went with:
+
+> I would like to edit src/app/page.tsx to feel more iOS native, especially the sudoku of the day and import section. the project does not have platform specific styles so no need to look for them or make it dynamic.
+
+To which the results were pretty amazing, it went above and beyond by editing all buttons and headings on that page, adjusting the colours, radius, font styling even with gradients and hover effects. Then.. it hit my daily free Claude limits (I'm now likely to upgrade).
+
+It also gave the context of what it was editing and being clear it was doing things for consistency. It also followed the project styles using tailwind and kept the colours consistent with what was already there just improving them. It even matched the heading with the icon colour next to it.
+
+All that was left was to lint and commit the change. Oh, and add .serena to .gitignore because it stores its memories about what it knows regarding technologies and project structure in there which is also pretty neat.
+
+Here's a couple of screenshots:
+
+![Claud Screenshot 1](/content/images/2025/05/screenshot1.png)
+<figcaption>Claud Screenshot 1</figcaption>
+
+![Claud Screenshot 2](/content/images/2025/05/screenshot2.png)
+<figcaption>Claud Screenshot 2</figcaption>
+
+Impressive!

@@ -1,0 +1,44 @@
+{
+  "name": "@bubblyclouds-app/blog",
+  "version": "0.1.0",
+  "exports": {
+    "./components/*": "./src/components/*.tsx",
+    "./helpers/*": "./src/helpers/*.ts",
+    "./types/*": "./src/types/*.ts"
+  },
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@bubblyclouds-app/types": "workspace:*",
+    "@bubblyclouds-app/ui": "workspace:*",
+    "github-slugger": "^2.0.0",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.303.0",
+    "reading-time": "^1.5.0"
+  },
+  "peerDependencies": {
+    "next": "^16.1.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@types/github-slugger": "^2.0.0",
+    "@types/jest": "^29.5.10",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.2",
+    "jest": "^29.7.0",
+    "next": "^16.1.1",
+    "prettier": "^3.8.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5"
+  }
+}

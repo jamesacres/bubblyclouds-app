@@ -49,3 +49,5 @@ android/app/release
 
 # turborepo
 .turbo
+
+temp

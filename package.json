@@ -15,6 +15,7 @@
     "dev": "turbo run dev",
     "dev:bubblyclouds": "turbo run dev --filter=@bubblyclouds-app/app-bubblyclouds",
     "dev:sudoku": "turbo run dev --filter=@bubblyclouds-app/app-sudoku",
+    "dev:jamesacres": "turbo run dev --filter=@bubblyclouds-app/app-jamesacres",
     "build": "turbo run build",
     "build:bubblyclouds": "turbo run build --filter=@bubblyclouds-app/app-bubblyclouds",
     "build:sudoku": "turbo run build --filter=@bubblyclouds-app/app-sudoku",
