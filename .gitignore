@@ -43,6 +43,7 @@ dist/
 
 .serena
 .claude
+.gemini
 
 android/app/release
 
