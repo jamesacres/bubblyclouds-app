@@ -1,5 +1,6 @@
+import { BlogPostMeta } from '../types/blogTypes';
+import { TagCount } from '../types/tagTypes';
 import { slugifyTag, getTagCounts } from './tagUtils';
-import { BlogPostMeta, TagCount } from '../types';
 
 describe('slugifyTag', () => {
   it('should convert a tag name to a slug', () => {

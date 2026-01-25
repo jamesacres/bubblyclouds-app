@@ -1,3 +1,4 @@
+import { BlogPostMeta } from '../types/blogTypes';
 import {
   sortPostsByDate,
   filterDraftPosts,
@@ -6,7 +7,6 @@ import {
   parseFrontmatter,
   getAdjacentPosts,
 } from './blogUtils';
-import { BlogPostMeta, ReadingTime, PaginatedResult } from '../types';
 
 // Mock BlogPostMeta data for testing
 const mockPosts: BlogPostMeta[] = [
