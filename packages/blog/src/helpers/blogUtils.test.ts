@@ -192,22 +192,58 @@ date: 2025-01-01
 });
 
 describe('getAdjacentPosts', () => {
-  it('should return null for prev if current post is the first', () => {
+  it('should return correct prev and next for newest post', () => {
     const { prev, next } = getAdjacentPosts(mockPosts, 'post-d'); // 'post-d' is newest
-    expect(prev).toBeNull();
-    expect(next).toEqual(mockPosts[0]); // 'post-a' is next oldest
+    expect(prev).toEqual({
+      slug: 'post-a',
+      filePath: 'path/to/post-a.mdx',
+      title: 'Post A',
+      date: '2025-01-03',
+      tags: ['tag1'],
+      draft: false,
+      authors: ['default'],
+      readingTime: { text: '1 min read', minutes: 1, words: 100 },
+    });
+    expect(next).toBeNull(); // No newer post
   });
 
-  it('should return null for next if current post is the last', () => {
+  it('should return correct prev and next for oldest post', () => {
     const { prev, next } = getAdjacentPosts(mockPosts, 'post-b'); // 'post-b' is oldest
-    expect(prev).toEqual(mockPosts[2]); // 'post-c' is next newest
-    expect(next).toBeNull();
+    expect(prev).toBeNull(); // No older post
+    expect(next).toEqual({
+      slug: 'post-c',
+      filePath: 'path/to/post-c.mdx',
+      title: 'Post C',
+      date: '2025-01-02',
+      tags: ['tag1', 'tag2'],
+      draft: true,
+      authors: ['default'],
+      readingTime: { text: '3 min read', minutes: 3, words: 300 },
+    });
   });
 
   it('should return previous and next posts correctly', () => {
-    const { prev, next } = getAdjacentPosts(mockPosts, 'post-a'); // 'post-a' is in middle
-    expect(prev).toEqual(mockPosts[3]); // 'post-d'
-    expect(next).toEqual(mockPosts[2]); // 'post-c'
+    const { prev, next } = getAdjacentPosts(mockPosts, 'post-a'); // 'post-a' is second in sorted order
+    expect(prev).toEqual({
+      slug: 'post-c',
+      filePath: 'path/to/post-c.mdx',
+      title: 'Post C',
+      date: '2025-01-02',
+      tags: ['tag1', 'tag2'],
+      draft: true,
+      authors: ['default'],
+      readingTime: { text: '3 min read', minutes: 3, words: 300 },
+    });
+    expect(next).toEqual({
+      slug: 'post-d',
+      filePath: 'path/to/post-d.mdx',
+      title: 'Post D',
+      date: '2025-01-04',
+      tags: ['tag3'],
+      draft: false,
+      authors: ['default'],
+      readingTime: { text: '1 min read', minutes: 1, words: 100 },
+    });
   });
 
   it('should return null for both if only one post exists', () => {

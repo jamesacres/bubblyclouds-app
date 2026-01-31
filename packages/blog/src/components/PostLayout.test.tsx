@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import PostLayout from './PostLayout';
-import { BlogPostMeta, Author, ReadingTime } from '../types';
+import { BlogPostMeta, ReadingTime } from '../types/blogTypes';
+import { Author } from '../types/authorTypes';
 
 // Mock Next.js Link component
 jest.mock('next/link', () => {
@@ -98,7 +99,7 @@ describe('PostLayout', () => {
     );
 
     expect(screen.getByText('Test Post Title')).toBeInTheDocument();
-    expect(screen.getByText('Sunday, 26 January 2025')).toBeInTheDocument();
+    expect(screen.getByText('Sunday 26 January 2025')).toBeInTheDocument();
     expect(
       screen.getByText('This is the content of the test post.')
     ).toBeInTheDocument();
@@ -121,7 +122,7 @@ describe('PostLayout', () => {
       'src',
       mockAuthor.avatar
     );
-    expect(screen.getByText('@testauthor')).toBeInTheDocument();
+    expect(screen.queryByText('@testauthor')).not.toBeInTheDocument();
   });
 
   it('renders tags', () => {

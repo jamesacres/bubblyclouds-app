@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import PostList from './PostList';
-import { BlogPostMeta } from '../types';
+import { BlogPostMeta } from '../types/blogTypes';
 
 // Mock Next.js Link component
 jest.mock('next/link', () => {
@@ -86,9 +86,8 @@ describe('PostList', () => {
     expect(screen.getByText('No posts available.')).toBeInTheDocument();
   });
 
-  it('renders correctly without images when showImages is false', () => {
-    render(<PostList posts={mockPosts} showImages={false} />);
-    // Check for text content
+  it('renders correctly without images', () => {
+    render(<PostList posts={mockPosts} />);
     expect(screen.getByText('Post A Title')).toBeInTheDocument();
     expect(screen.queryByAltText('Post A Title')).not.toBeInTheDocument();
   });

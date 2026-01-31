@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TagList from './TagList';
-import { TagCount } from '../types';
+import { TagCount } from '../types/tagTypes';
 
 // Mock the Tag component
 jest.mock('./Tag', () => {

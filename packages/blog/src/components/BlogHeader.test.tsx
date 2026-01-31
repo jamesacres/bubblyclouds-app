@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import BlogHeader from './BlogHeader';
-import { NavLink } from '../types';
+import { NavLink } from '../types/siteTypes';
 
 // Mock Next.js Link component
 jest.mock('next/link', () => {
@@ -28,7 +28,14 @@ describe('BlogHeader', () => {
   ];
   const mockSiteTitle = 'My Awesome Blog';
   const mockSiteMetadata = {
+    title: 'My Awesome Blog',
+    author: 'Test Author',
     headerTitle: mockSiteTitle,
+    description: 'A test blog description',
+    language: 'en-us',
+    theme: 'system' as const,
+    siteUrl: 'https://example.com',
+    locale: 'en-US',
   };
 
   it('renders site title without logo', () => {
