@@ -39,7 +39,7 @@ const PostLayout = ({
             </div>
           </div>
         </header>
-        <div className="grid-rows-2 divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
+        <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
           <dl className="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
             <dt className="sr-only">Authors</dt>
             <dd>
@@ -71,7 +71,7 @@ const PostLayout = ({
             <div className="flex flex-col gap-4 pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
               <div>
                 <Link
-                  href={`https://github.com/jamesacres/jamesacres-blog-nextjs/blob/main/data/blog/${post.filePath}`}
+                  href={`https://github.com/jamesacres/bubblyclouds-app/blob/main/apps/jamesacres/data/blog/${post.filePath}`}
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -80,6 +80,8 @@ const PostLayout = ({
                 </Link>
               </div>
             </div>
+          </div>
+          <footer className="divide-gray-200 text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2 xl:divide-y dark:divide-gray-700">
             {tags && (
               <div className="py-4 xl:py-8">
                 <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
@@ -116,8 +118,6 @@ const PostLayout = ({
                 )}
               </div>
             )}
-          </div>
-          <footer className="divide-y divide-gray-200 text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2 xl:border-t xl:border-gray-200 dark:divide-gray-700 xl:dark:border-gray-700">
             <div className="pt-4 xl:pt-8">
               <Link
                 href="/"

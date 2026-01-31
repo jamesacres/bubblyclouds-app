@@ -7,9 +7,12 @@ const Tag = ({ tag, count }: TagProps) => {
   return (
     <Link
       href={`/tags/${slug}`}
-      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase"
+      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 text-lg font-medium uppercase tracking-wide"
     >
-      {tag} {count && `(${count})`}
+      {tag}{' '}
+      <span className="text-gray-100 dark:text-gray-100">
+        {count && `(${count})`}
+      </span>
     </Link>
   );
 };

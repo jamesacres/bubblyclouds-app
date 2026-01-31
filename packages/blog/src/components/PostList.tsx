@@ -3,6 +3,7 @@ import { PostListProps } from '../types/componentProps';
 import { formatDate } from '../helpers/dateUtils';
 import { slugifyTag } from '../helpers/tagUtils';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const PostList = ({ posts }: PostListProps) => {
   if (!posts || posts.length === 0) {
@@ -13,17 +14,35 @@ const PostList = ({ posts }: PostListProps) => {
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
       <ul className="divide-y divide-gray-200 dark:divide-gray-700">
         {posts.map((post) => {
-          const { slug, date, title, summary, tags, readingTime } = post;
+          const { slug, date, title, summary, tags, readingTime, images } =
+            post;
+          const featuredImage = images && images.length > 0 ? images[0] : null;
+
           return (
             <li key={slug} className="py-12">
               <article>
                 <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                  <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date)}</time>
-                    </dd>
-                  </dl>
+                  <div className="space-y-4">
+                    <dl>
+                      <dt className="sr-only">Published on</dt>
+                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                        <time dateTime={date}>{formatDate(date)}</time>
+                      </dd>
+                    </dl>
+                    {featuredImage && (
+                      <div>
+                        <Link href={`/${slug}`}>
+                          <Image
+                            src={featuredImage}
+                            alt={title}
+                            width={120}
+                            height={120}
+                            className="h-30 w-30 rounded-lg object-cover"
+                          />
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                   <div className="space-y-5 xl:col-span-3">
                     <div className="space-y-6">
                       <div>

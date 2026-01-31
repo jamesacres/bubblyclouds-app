@@ -1,5 +1,6 @@
 import projectsData from '@/data/projectsData';
 import Card from '@bubblyclouds-app/blog/components/Card';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Projects',
@@ -15,7 +16,17 @@ export default function Projects() {
             Projects
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Showcase of my projects and contributions
+            This page lists my side projects worked on in my own time. I have
+            more on the way soon!
+            <br />
+            You can also read about what I'm currently up to at work on my{' '}
+            <Link
+              href="/about"
+              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+            >
+              about page
+            </Link>
+            .
           </p>
         </div>
         <div className="container py-12">

@@ -15,7 +15,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
             <Image
               alt={title}
               src={imgSrc}
-              className="object-cover object-center md:h-36 lg:h-48"
+              className="h-48 w-full bg-gray-100 object-contain object-center dark:bg-gray-800"
               width={544}
               height={306}
             />
@@ -24,7 +24,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
           <Image
             alt={title}
             src={imgSrc}
-            className="object-cover object-center md:h-36 lg:h-48"
+            className="h-48 w-full bg-gray-100 object-contain object-center dark:bg-gray-800"
             width={544}
             height={306}
           />
@@ -48,7 +48,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 text-base font-medium leading-6"
             aria-label={`Link to ${title}`}
           >
-            Learn more &rarr;
+            Visit &rarr;
           </Link>
         )}
       </div>

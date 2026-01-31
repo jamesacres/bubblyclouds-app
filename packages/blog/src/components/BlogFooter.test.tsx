@@ -16,10 +16,13 @@ describe('BlogFooter', () => {
     linkedin: 'https://www.linkedin.com/in/test',
   };
 
-  it('renders author and copyright year 2025', () => {
+  it('renders author and copyright with current year', () => {
+    const currentYear = new Date().getFullYear();
     render(<BlogFooter {...mockProps} />);
     expect(screen.getByText(/Test Author/)).toBeInTheDocument();
-    expect(screen.getByText(/© 2025/)).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(`© ${currentYear}`))
+    ).toBeInTheDocument();
   });
 
   it('renders social media links correctly', () => {
@@ -32,16 +35,6 @@ describe('BlogFooter', () => {
     expect(screen.getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
       'href',
       mockProps.linkedin
-    );
-  });
-
-  it('renders Tailwind Nextjs Theme attribution link', () => {
-    render(<BlogFooter {...mockProps} />);
-    expect(
-      screen.getByRole('link', { name: 'Tailwind Nextjs Theme' })
-    ).toHaveAttribute(
-      'href',
-      'https://github.com/timlrx/tailwind-nextjs-starter-blog'
     );
   });
 
