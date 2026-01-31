@@ -48,10 +48,10 @@ describe('Tag', () => {
     render(<Tag tag={tagName} />);
 
     const linkElement = screen.getByRole('link');
-    expect(linkElement).toHaveClass('mr-3');
-    expect(linkElement).toHaveClass('text-sm');
+    expect(linkElement).toHaveClass('text-lg');
     expect(linkElement).toHaveClass('font-medium');
     expect(linkElement).toHaveClass('uppercase');
+    expect(linkElement).toHaveClass('tracking-wide');
     expect(linkElement).toHaveClass('text-primary-500');
   });
 

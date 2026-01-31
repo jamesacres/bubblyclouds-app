@@ -227,7 +227,7 @@ describe('PostLayout', () => {
 
     expect(screen.getByText('View on GitHub')).toHaveAttribute(
       'href',
-      `https://github.com/jamesacres/jamesacres-blog-nextjs/blob/main/data/blog/${mockPost.filePath}`
+      `https://github.com/jamesacres/bubblyclouds-app/blob/main/apps/jamesacres/data/blog/${mockPost.filePath}`
     );
   });
 

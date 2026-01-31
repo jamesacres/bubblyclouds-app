@@ -86,18 +86,20 @@ describe('PostList', () => {
     expect(screen.getByText('No posts available.')).toBeInTheDocument();
   });
 
-  it('renders correctly without images', () => {
+  it('renders correctly with images', () => {
     render(<PostList posts={mockPosts} />);
     expect(screen.getByText('Post A Title')).toBeInTheDocument();
-    expect(screen.queryByAltText('Post A Title')).not.toBeInTheDocument();
+    expect(screen.getByAltText('Post A Title')).toBeInTheDocument();
   });
 
   it('links to the correct post and tag pages', () => {
     render(<PostList posts={mockPosts} />);
 
-    // Post links
-    const postALink = screen.getByRole('link', { name: 'Post A Title' });
-    expect(postALink).toHaveAttribute('href', '/post-a');
+    // Post links - use getAllByRole since there are multiple links with same name (image + text)
+    const postALinks = screen.getAllByRole('link', { name: 'Post A Title' });
+    expect(postALinks[0]).toHaveAttribute('href', '/post-a'); // Image link
+    expect(postALinks[1]).toHaveAttribute('href', '/post-a'); // Text link
+
     const readingTimeLinks = screen.getAllByRole('link', {
       name: /min read/,
     });
