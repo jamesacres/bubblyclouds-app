@@ -6,6 +6,28 @@ import siteMetadata from '@/data/siteMetadata';
 import MDXComponents from '@bubblyclouds-app/blog/components/MDXComponents';
 import { notFound } from 'next/navigation';
 import { getAuthor } from '@/lib/authors';
+import { Author } from '@bubblyclouds-app/blog/types/authorTypes';
+import rehypePrismPlus from 'rehype-prism-plus';
+import rehypeSlug from 'rehype-slug';
+import { visit } from 'unist-util-visit';
+
+// Remark plugin to wrap img + figcaption in figure elements
+function remarkFigure() {
+  return (tree: any) => {
+    visit(tree, (node, _index, _parent) => {
+      // Handle standalone figcaptions that might be in paragraphs
+      if (
+        node.type === 'paragraph' &&
+        node.children.length === 1 &&
+        node.children[0].type === 'mdxJsxFlowElement' &&
+        node.children[0].name === 'figcaption'
+      ) {
+        // Change paragraph to div to avoid nesting issues
+        node.type = 'div';
+      }
+    });
+  };
+}
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -31,7 +53,7 @@ export async function generateMetadata(props: { params: { slug: string[] } }) {
   const modifiedAt = new Date(post.lastmod || post.date).toISOString();
 
   return {
-    title: post.title,
+    title: `${post.title} | ${siteMetadata.author}`,
     description: post.summary,
     openGraph: {
       title: post.title,
@@ -72,11 +94,22 @@ export default async function Page(props: { params: { slug: string[] } }) {
   const authors = await Promise.all(
     post.authors.map(async (authorSlug) => getAuthor(authorSlug))
   );
-  const validAuthors = authors.filter(Boolean);
+  const validAuthors = authors.filter(
+    (author): author is Author => author !== null
+  );
 
   return (
     <PostLayout post={post} authors={validAuthors} prev={prev} next={next}>
-      <MDXRemote source={post.content} components={MDXComponents} />
+      <MDXRemote
+        source={post.content}
+        components={MDXComponents}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkFigure],
+            rehypePlugins: [rehypePrismPlus, rehypeSlug],
+          },
+        }}
+      />
     </PostLayout>
   );
 }

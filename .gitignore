@@ -44,6 +44,7 @@ dist/
 .serena
 .claude
 .gemini
+.kiro
 
 android/app/release
 

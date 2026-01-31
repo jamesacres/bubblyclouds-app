@@ -1,9 +1,8 @@
-import siteMetadata from '@/data/siteMetadata';
 import projectsData from '@/data/projectsData';
 import Card from '@bubblyclouds-app/blog/components/Card';
 
 export const metadata = {
-  title: `Projects - ${siteMetadata.author}`,
+  title: 'Projects',
   description: 'My projects',
 };
 

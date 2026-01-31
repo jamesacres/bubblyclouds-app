@@ -98,7 +98,7 @@ describe('PostLayout', () => {
     );
 
     expect(screen.getByText('Test Post Title')).toBeInTheDocument();
-    expect(screen.getByText('January 26, 2025')).toBeInTheDocument();
+    expect(screen.getByText('Sunday, 26 January 2025')).toBeInTheDocument();
     expect(
       screen.getByText('This is the content of the test post.')
     ).toBeInTheDocument();
@@ -121,10 +121,7 @@ describe('PostLayout', () => {
       'src',
       mockAuthor.avatar
     );
-    expect(screen.getByText('@testauthor')).toHaveAttribute(
-      'href',
-      mockAuthor.twitter
-    );
+    expect(screen.getByText('@testauthor')).toBeInTheDocument();
   });
 
   it('renders tags', () => {
@@ -200,7 +197,7 @@ describe('PostLayout', () => {
     expect(screen.queryByText('Next Article')).not.toBeInTheDocument();
   });
 
-  it('renders back to blog link', () => {
+  it('renders back to homepage link', () => {
     render(
       <PostLayout
         post={mockPost}
@@ -212,9 +209,39 @@ describe('PostLayout', () => {
       </PostLayout>
     );
 
-    expect(screen.getByText('← Back to the blog')).toHaveAttribute(
-      'href',
-      '/blog'
+    expect(screen.getByText('← Back to homepage')).toHaveAttribute('href', '/');
+  });
+
+  it('renders View on GitHub link', () => {
+    render(
+      <PostLayout
+        post={mockPost}
+        authors={[mockAuthor]}
+        prev={null}
+        next={null}
+      >
+        <div>{mockPost.content}</div>
+      </PostLayout>
     );
+
+    expect(screen.getByText('View on GitHub')).toHaveAttribute(
+      'href',
+      `https://github.com/jamesacres/jamesacres-blog-nextjs/blob/main/data/blog/${mockPost.filePath}`
+    );
+  });
+
+  it('renders reading time in header', () => {
+    render(
+      <PostLayout
+        post={mockPost}
+        authors={[mockAuthor]}
+        prev={null}
+        next={null}
+      >
+        <div>{mockPost.content}</div>
+      </PostLayout>
+    );
+
+    expect(screen.getByText('5 min read')).toBeInTheDocument();
   });
 });

@@ -77,7 +77,8 @@ describe('PostList', () => {
     expect(screen.getByText('react')).toBeInTheDocument();
     expect(screen.getByText('tailwindcss')).toBeInTheDocument();
 
-    expect(screen.getAllByText('Read more →').length).toBe(2);
+    expect(screen.getByText(/1 min read/)).toBeInTheDocument();
+    expect(screen.getByText(/2 min read/)).toBeInTheDocument();
   });
 
   it('renders "No posts available." when the posts array is empty', () => {
@@ -98,9 +99,11 @@ describe('PostList', () => {
     // Post links
     const postALink = screen.getByRole('link', { name: 'Post A Title' });
     expect(postALink).toHaveAttribute('href', '/post-a');
-    const readMoreLinks = screen.getAllByRole('link', { name: 'Read more →' });
-    expect(readMoreLinks[0]).toHaveAttribute('href', '/post-a');
-    expect(readMoreLinks[1]).toHaveAttribute('href', '/post-b');
+    const readingTimeLinks = screen.getAllByRole('link', {
+      name: /min read/,
+    });
+    expect(readingTimeLinks[0]).toHaveAttribute('href', '/post-a');
+    expect(readingTimeLinks[1]).toHaveAttribute('href', '/post-b');
 
     // Tag links
     const nextjsTagLink = screen.getByRole('link', { name: 'nextjs' });

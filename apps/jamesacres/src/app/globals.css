@@ -1,9 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 @source "../../../../packages/blog";
 @source "../../../../packages/types";
 @source "../../../../packages/ui";
+
+@custom-variant dark (&:is(.dark *));
 
 html {
   scroll-behavior: smooth;
@@ -13,7 +13,129 @@ html {
   max-width: none !important;
 }
 
+/* Fade-in animation for speech bubble */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+}
+
 /* PrismJS */
 pre[class*='language-'] {
   border-radius: 8px;
+}
+
+/* Code highlighting styles */
+.code-highlight {
+  position: relative;
+}
+
+.code-line {
+  display: block;
+}
+
+/* Light theme code blocks */
+pre[class*='language-'] {
+  @apply overflow-x-auto rounded-lg bg-gray-100 p-4 text-gray-800;
+}
+
+/* Dark theme code blocks - matching the screenshot style */
+:is(.dark pre[class*='language-']) {
+  @apply bg-gray-900 text-gray-200;
+  border: 1px solid #374151;
+}
+
+/* Inline code styling */
+:not(pre) > code[class*='language-'] {
+  @apply rounded bg-gray-100 px-1 py-0.5 text-indigo-600;
+}
+
+:is(.dark :not(pre) > code[class*='language-']) {
+  @apply bg-gray-700 text-gray-200;
+}
+
+/* Prose styles */
+.prose {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.prose-xl {
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose a,
+.prose-xl a {
+  color: #ec4899 !important;
+  text-decoration: underline !important;
+}
+
+.prose a:hover,
+.prose-xl a:hover {
+  color: #db2777 !important;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  margin-left: 1.625em;
+  margin-bottom: 1.25em;
+}
+
+.prose ul {
+  list-style-type: disc;
+  margin-left: 1.625em;
+  margin-bottom: 1.25em;
+}
+
+.prose li {
+  margin-bottom: 0.5em;
+}
+
+.dark .prose a,
+.dark .prose-xl a {
+  color: #ec4899 !important;
+}
+
+.dark .prose a:hover,
+.dark .prose-xl a:hover {
+  color: #f472b6 !important;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  }
+}
+
+/* Primary color theme for blog - Pink theme */
+@theme {
+  --color-primary-50: #fdf2f8;
+  --color-primary-100: #fce7f3;
+  --color-primary-200: #fbcfe8;
+  --color-primary-300: #f9a8d4;
+  --color-primary-400: #f472b6;
+  --color-primary-500: #ec4899;
+  --color-primary-600: #db2777;
+  --color-primary-700: #be185d;
+  --color-primary-800: #9d174d;
+  --color-primary-900: #831843;
+}
+
+/* Global link styling - make all links pink */
+a {
+  @apply text-primary-500 hover:text-primary-600 dark:hover:text-primary-400;
 }

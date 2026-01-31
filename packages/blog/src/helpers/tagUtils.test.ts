@@ -66,12 +66,12 @@ describe('getTagCounts', () => {
 
   it('should return correct tag counts', () => {
     const expectedTagCounts: TagCount[] = [
-      { tag: 'nextjs', displayName: 'nextjs', count: 3 },
-      { tag: 'typescript', displayName: 'typescript', count: 2 },
-      { tag: 'tailwind-css', displayName: 'tailwind-css', count: 1 },
-      { tag: 'react', displayName: 'react', count: 1 },
-      { tag: 'testing', displayName: 'testing', count: 1 },
-      { tag: 'draft', displayName: 'draft', count: 1 },
+      { tag: 'nextjs', displayName: 'Next.js', count: 3 },
+      { tag: 'typescript', displayName: 'TypeScript', count: 2 },
+      { tag: 'tailwind-css', displayName: 'Tailwind CSS', count: 1 },
+      { tag: 'react', displayName: 'React', count: 1 },
+      { tag: 'testing', displayName: 'Testing', count: 1 },
+      { tag: 'draft', displayName: 'Draft', count: 1 },
     ];
 
     const result = getTagCounts(mockPosts);

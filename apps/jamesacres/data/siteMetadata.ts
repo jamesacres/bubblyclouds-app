@@ -1,7 +1,7 @@
 import { SiteMetadata } from '@bubblyclouds-app/blog/types/siteTypes';
 
 const siteMetadata: SiteMetadata = {
-  title: 'James Acres - Blog',
+  title: 'James Acres',
   author: 'James Acres',
   headerTitle: 'James Acres',
   description: 'A blog created with Next.js and Tailwind.css',
@@ -14,7 +14,7 @@ const siteMetadata: SiteMetadata = {
   email: 'hello@jamesacres.co.uk',
   github: 'https://github.com/JamesAcres',
   twitter: 'https://twitter.com/JamesAcres',
-  linkedin: 'https://www.linkedin.com/in/jamesacres/',
+  linkedin: 'https://www.linkedin.com/in/jacresuk',
   locale: 'en-GB',
 };
 

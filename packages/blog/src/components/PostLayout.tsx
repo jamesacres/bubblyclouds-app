@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { PostLayoutProps } from '../types/componentProps';
-import { formatDate } from '../helpers/dateUtils';
+import { formatDateWithDay } from '../helpers/dateUtils';
 import Tag from './Tag';
 import Image from 'next/image';
 
@@ -11,7 +11,7 @@ const PostLayout = ({
   next,
   children,
 }: PostLayoutProps) => {
-  const { slug, date, title, tags, readingTime } = post;
+  const { date, title, tags, readingTime } = post;
   const author = authors[0]; // Assuming single author for simplicity, or find by slug if multiple
 
   return (
@@ -23,7 +23,7 @@ const PostLayout = ({
               <div>
                 <dt className="sr-only">Published on</dt>
                 <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                  <time dateTime={date}>{formatDate(date)}</time>
+                  <time dateTime={date}>{formatDateWithDay(date)}</time>
                 </dd>
               </div>
             </dl>
@@ -31,6 +31,11 @@ const PostLayout = ({
               <h1 className="md:leading-14 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-5xl dark:text-gray-100">
                 {title}
               </h1>
+            </div>
+            <div className="pt-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {readingTime.text}
+              </p>
             </div>
           </div>
         </header>
@@ -43,8 +48,8 @@ const PostLayout = ({
                   {author.avatar && (
                     <Image
                       src={author.avatar}
-                      width={38}
-                      height={38}
+                      width={40}
+                      height={40}
                       alt="avatar"
                       className="h-10 w-10 rounded-full"
                     />
@@ -54,28 +59,26 @@ const PostLayout = ({
                     <dd className="text-gray-900 dark:text-gray-100">
                       {author.name}
                     </dd>
-                    <dt className="sr-only">Twitter</dt>
-                    <dd>
-                      {author.twitter && (
-                        <Link
-                          href={author.twitter}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                        >
-                          {author.twitter.replace('https://twitter.com/', '@')}
-                        </Link>
-                      )}
-                    </dd>
                   </dl>
                 </li>
               </ul>
             </dd>
           </dl>
           <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
-            <div className="prose dark:prose-invert max-w-none pb-8 pt-10">
+            <div className="prose prose-xl dark:prose-invert max-w-none pb-8 pt-10">
               {children}
             </div>
-            <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
-              Reading time: {readingTime.text}
+            <div className="flex flex-col gap-4 pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
+              <div>
+                <Link
+                  href={`https://github.com/jamesacres/jamesacres-blog-nextjs/blob/main/data/blog/${post.filePath}`}
+                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on GitHub
+                </Link>
+              </div>
             </div>
             {tags && (
               <div className="py-4 xl:py-8">
@@ -117,11 +120,11 @@ const PostLayout = ({
           <footer className="divide-y divide-gray-200 text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2 xl:border-t xl:border-gray-200 dark:divide-gray-700 xl:dark:border-gray-700">
             <div className="pt-4 xl:pt-8">
               <Link
-                href="/blog"
+                href="/"
                 className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                aria-label="Back to the blog"
+                aria-label="Back to homepage"
               >
-                &larr; Back to the blog
+                &larr; Back to homepage
               </Link>
             </div>
           </footer>

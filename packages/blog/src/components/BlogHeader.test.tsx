@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import BlogHeader from './BlogHeader';
 import { NavLink } from '../types';
 
@@ -15,28 +15,32 @@ jest.mock('@bubblyclouds-app/ui/components/ThemeSwitch', () => {
   return () => <div data-testid="theme-switch">ThemeSwitch</div>;
 });
 
+// Mock lucide-react icons
+jest.mock('lucide-react', () => ({
+  Menu: () => <div data-testid="menu-icon">Menu</div>,
+  X: () => <div data-testid="close-icon">X</div>,
+}));
+
 describe('BlogHeader', () => {
   const mockNavLinks: NavLink[] = [
     { href: '/blog', title: 'Blog' },
     { href: '/about', title: 'About' },
   ];
   const mockSiteTitle = 'My Awesome Blog';
-  const mockSiteLogo = '/static/images/logo.png';
   const mockSiteMetadata = {
     headerTitle: mockSiteTitle,
-    siteLogo: mockSiteLogo,
   };
 
-  it('renders site title and logo', () => {
+  it('renders site title without logo', () => {
     render(
       <BlogHeader siteMetadata={mockSiteMetadata} navLinks={mockNavLinks} />
     );
 
     expect(screen.getByText(mockSiteTitle)).toBeInTheDocument();
-    expect(screen.getByAltText('logo')).toHaveAttribute('src', mockSiteLogo);
+    expect(screen.queryByAltText('logo')).not.toBeInTheDocument();
   });
 
-  it('renders navigation links', () => {
+  it('renders navigation links on desktop', () => {
     render(
       <BlogHeader siteMetadata={mockSiteMetadata} navLinks={mockNavLinks} />
     );
@@ -59,21 +63,39 @@ describe('BlogHeader', () => {
     expect(screen.getByTestId('theme-switch')).toBeInTheDocument();
   });
 
-  it('renders without logo if siteLogo is not provided', () => {
-    const metadataNoLogo = { headerTitle: mockSiteTitle };
+  it('renders mobile menu button', () => {
     render(
-      <BlogHeader siteMetadata={metadataNoLogo} navLinks={mockNavLinks} />
+      <BlogHeader siteMetadata={mockSiteMetadata} navLinks={mockNavLinks} />
     );
-    expect(screen.queryByAltText('logo')).not.toBeInTheDocument();
-    expect(screen.getByText(mockSiteTitle)).toBeInTheDocument();
+
+    expect(screen.getByLabelText('Toggle Menu')).toBeInTheDocument();
   });
 
-  it('renders without site title if headerTitle is not provided', () => {
-    const metadataNoTitle = { siteLogo: mockSiteLogo };
+  it('toggles mobile menu on button click', () => {
     render(
-      <BlogHeader siteMetadata={metadataNoTitle} navLinks={mockNavLinks} />
+      <BlogHeader siteMetadata={mockSiteMetadata} navLinks={mockNavLinks} />
     );
-    expect(screen.queryByText(mockSiteTitle)).not.toBeInTheDocument();
-    expect(screen.getByAltText('logo')).toBeInTheDocument();
+
+    const menuButton = screen.getByLabelText('Toggle Menu');
+
+    fireEvent.click(menuButton);
+    expect(screen.getByTestId('close-icon')).toBeInTheDocument();
+
+    fireEvent.click(menuButton);
+    expect(screen.getByTestId('menu-icon')).toBeInTheDocument();
+  });
+
+  it('displays mobile menu when opened', () => {
+    render(
+      <BlogHeader siteMetadata={mockSiteMetadata} navLinks={mockNavLinks} />
+    );
+
+    const menuButton = screen.getByLabelText('Toggle Menu');
+    fireEvent.click(menuButton);
+
+    expect(screen.getByTestId('close-icon')).toBeInTheDocument();
+
+    const mobileNavLinks = screen.getAllByText('Blog');
+    expect(mobileNavLinks.length).toBeGreaterThan(1);
   });
 });

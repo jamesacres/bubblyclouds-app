@@ -1,4 +1,4 @@
-import { BlogPostMeta, BlogPost } from './blogTypes';
+import { BlogPostMeta } from './blogTypes';
 import { Author } from './authorTypes';
 import { NavLink, SiteMetadata } from './siteTypes';
 import { TagCount } from './tagTypes';
@@ -13,13 +13,10 @@ export interface BlogFooterProps {
   author: string;
   github?: string;
   linkedin?: string;
-  email?: string;
-  siteUrl: string;
 }
 
 export interface PostListProps {
   posts: BlogPostMeta[];
-  showImages?: boolean;
 }
 
 export interface PostLayoutProps {

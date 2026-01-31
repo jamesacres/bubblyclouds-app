@@ -71,11 +71,19 @@ describe('Pagination', () => {
     );
     expect(screen.getByRole('link', { name: '← Previous' })).toHaveAttribute(
       'href',
-      '/tags/nextjs/page/1'
+      '/tags/nextjs'
     );
     expect(screen.getByRole('link', { name: 'Next →' })).toHaveAttribute(
       'href',
       '/tags/nextjs/page/3'
+    );
+  });
+
+  it('correctly handles previous link for page 3 and above', () => {
+    render(<Pagination totalPages={5} currentPage={3} basePath="/blog" />);
+    expect(screen.getByRole('link', { name: '← Previous' })).toHaveAttribute(
+      'href',
+      '/blog/page/2'
     );
   });
 });

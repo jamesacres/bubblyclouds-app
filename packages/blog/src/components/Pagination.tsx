@@ -5,13 +5,18 @@ const Pagination = ({ totalPages, currentPage, basePath }: PaginationProps) => {
   const hasPrevious = currentPage > 1;
   const hasNext = currentPage < totalPages;
 
+  const getPreviousLink = () => {
+    if (currentPage === 2) {
+      return basePath;
+    }
+    return `${basePath}/page/${currentPage - 1}`;
+  };
+
   return (
     <div className="space-y-2 pb-8 pt-6 md:space-y-5">
       <nav className="flex justify-between">
         {hasPrevious ? (
-          <Link href={`${basePath}/page/${currentPage - 1}`}>
-            &larr; Previous
-          </Link>
+          <Link href={getPreviousLink()}>&larr; Previous</Link>
         ) : (
           <button className="cursor-auto disabled:opacity-50" disabled={true}>
             Previous

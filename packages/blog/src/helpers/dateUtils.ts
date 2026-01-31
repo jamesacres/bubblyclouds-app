@@ -1,21 +1,26 @@
-export function formatDate(date: string, locale: string = 'en-US'): string {
+export function formatDate(date: string, locale: string = 'en-GB'): string {
+  const dateObj = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC', // Force UTC to ensure consistency
   };
-  return new Date(date).toLocaleDateString(locale, options);
+  return dateObj.toLocaleDateString(locale, options);
 }
 
 export function formatDateWithDay(
   date: string,
-  locale: string = 'en-US'
+  locale: string = 'en-GB'
 ): string {
+  const dateObj = new Date(date);
   const options: Intl.DateTimeFormatOptions = {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC', // Force UTC to ensure consistency
   };
-  return new Date(date).toLocaleDateString(locale, options);
+  // Format and remove comma to match production format
+  return dateObj.toLocaleDateString(locale, options).replace(/,/g, '');
 }

@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import siteMetadata from '@/data/siteMetadata';
 
 export const metadata = {
-  title: `Blog - ${siteMetadata.author}`,
+  title: 'Blog',
   description: siteMetadata.description,
 };
 
@@ -23,10 +23,11 @@ export async function generateStaticParams() {
 export default async function BlogPage({
   params,
 }: {
-  params: { page: string };
+  params: Promise<{ page: string }>;
 }) {
+  const { page } = await params;
   const allPosts = await getAllPosts();
-  const pageNumber = parseInt(params.page);
+  const pageNumber = parseInt(page);
 
   if (isNaN(pageNumber) || pageNumber <= 0) {
     notFound();

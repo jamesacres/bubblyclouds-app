@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/data/*": ["./data/*"],
       "@/*": ["./src/*"]
     }
   },

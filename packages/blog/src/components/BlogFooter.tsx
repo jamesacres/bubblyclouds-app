@@ -1,34 +1,15 @@
 import Link from 'next/link';
-import { Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 import { BlogFooterProps } from '../types/componentProps';
 
-const BlogFooter = ({
-  author,
-  github,
-  linkedin,
-  email,
-  siteUrl,
-}: BlogFooterProps) => {
-  const currentYear = new Date().getFullYear();
-
+const BlogFooter = ({ author, github, linkedin }: BlogFooterProps) => {
   return (
     <footer>
       <div className="mt-16 flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
-          {email && (
-            <a
-              className="text-sm text-gray-500 transition hover:text-gray-600"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`mailto:${email}`}
-            >
-              <span className="sr-only">Email</span>
-              <Mail size={24} />
-            </a>
-          )}
           {github && (
             <a
-              className="text-sm text-gray-500 transition hover:text-gray-600"
+              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition"
               target="_blank"
               rel="noopener noreferrer"
               href={github}
@@ -39,7 +20,7 @@ const BlogFooter = ({
           )}
           {linkedin && (
             <a
-              className="text-sm text-gray-500 transition hover:text-gray-600"
+              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition"
               target="_blank"
               rel="noopener noreferrer"
               href={linkedin}
@@ -49,12 +30,18 @@ const BlogFooter = ({
             </a>
           )}
         </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-          <div>{author}</div>
-          <div>{` • `}</div>
-          <div>{`© ${currentYear}`}</div>
-          <div>{` • `}</div>
-          <Link href="/">{siteUrl.replace('https://', '')}</Link>
+        <div className="flex flex-col items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+          <div>
+            © 2025 {author}
+            <Link
+              href="https://github.com/timlrx/tailwind-nextjs-starter-blog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 ml-1"
+            >
+              Tailwind Nextjs Theme
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

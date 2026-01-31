@@ -3,9 +3,12 @@ import { getAuthor } from '@/lib/authors';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import MDXComponents from '@bubblyclouds-app/blog/components/MDXComponents';
 import Image from 'next/image';
+import { Github, Linkedin } from 'lucide-react';
+import rehypePrismPlus from 'rehype-prism-plus';
+import rehypeSlug from 'rehype-slug';
 
 export const metadata = {
-  title: `About - ${siteMetadata.author}`,
+  title: 'About',
   description: `About me - ${siteMetadata.author}`,
 };
 
@@ -44,10 +47,42 @@ export default async function AboutPage() {
             <div className="text-gray-500 dark:text-gray-400">
               {author.company}
             </div>
+            <div className="mt-4 flex space-x-4">
+              {author.github && (
+                <a
+                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={author.github}
+                >
+                  <span className="sr-only">GitHub</span>
+                  <Github size={24} />
+                </a>
+              )}
+              {author.linkedin && (
+                <a
+                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={author.linkedin}
+                >
+                  <span className="sr-only">LinkedIn</span>
+                  <Linkedin size={24} />
+                </a>
+              )}
+            </div>
           </div>
           <div className="prose dark:prose-invert max-w-none pb-8 pt-8 xl:col-span-2">
             {author.bio && (
-              <MDXRemote source={author.bio} components={MDXComponents} />
+              <MDXRemote
+                source={author.bio}
+                components={MDXComponents}
+                options={{
+                  mdxOptions: {
+                    rehypePlugins: [rehypePrismPlus, rehypeSlug],
+                  },
+                }}
+              />
             )}
           </div>
         </div>

@@ -1,10 +1,10 @@
 import React from 'react';
-import Card from './Card';
 import { PostListProps } from '../types/componentProps';
 import { formatDate } from '../helpers/dateUtils';
+import { slugifyTag } from '../helpers/tagUtils';
 import Link from 'next/link';
 
-const PostList = ({ posts, showImages = true }: PostListProps) => {
+const PostList = ({ posts }: PostListProps) => {
   if (!posts || posts.length === 0) {
     return <p>No posts available.</p>;
   }
@@ -13,7 +13,7 @@ const PostList = ({ posts, showImages = true }: PostListProps) => {
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
       <ul className="divide-y divide-gray-200 dark:divide-gray-700">
         {posts.map((post) => {
-          const { slug, date, title, summary, tags, imgSrc } = post;
+          const { slug, date, title, summary, tags, readingTime } = post;
           return (
             <li key={slug} className="py-12">
               <article>
@@ -39,10 +39,10 @@ const PostList = ({ posts, showImages = true }: PostListProps) => {
                           {tags.map((tag: string) => (
                             <Link
                               key={tag}
-                              href={`/tags/${tag}`}
+                              href={`/tags/${slugifyTag(tag)}`}
                               className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase"
                             >
-                              {tag}
+                              {slugifyTag(tag)}
                             </Link>
                           ))}
                         </div>
@@ -55,9 +55,9 @@ const PostList = ({ posts, showImages = true }: PostListProps) => {
                       <Link
                         href={`/${slug}`}
                         className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                        aria-label={`Read "${title}"`}
+                        aria-label={`Read more: "${title}"`}
                       >
-                        Read more &rarr;
+                        Read more: {readingTime.text}→
                       </Link>
                     </div>
                   </div>

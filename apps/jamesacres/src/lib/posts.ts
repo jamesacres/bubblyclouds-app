@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 import { BlogPost, BlogPostMeta } from '@bubblyclouds-app/blog/types/blogTypes';
 import {
   calculateReadingTime,
@@ -7,79 +10,98 @@ import {
 
 export const POSTS_PER_PAGE = 5;
 
-interface MockPostData {
-  slug: string;
-  filePath: string;
-  title: string;
-  date: string;
-  tags: string[];
-  draft: boolean;
-  summary: string;
-  authors: string[];
-  content: string;
+const POSTS_DIRECTORY = path.join(process.cwd(), 'data', 'blog');
+
+function getMdxFiles(dir: string): string[] {
+  const files: string[] = [];
+
+  if (!fs.existsSync(dir)) {
+    return files;
+  }
+
+  const items = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (const item of items) {
+    const fullPath = path.join(dir, item.name);
+    if (item.isDirectory()) {
+      files.push(...getMdxFiles(fullPath));
+    } else if (item.name.endsWith('.mdx') || item.name.endsWith('.md')) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
 }
 
-const mockPostsData: MockPostData[] = [
-  {
-    slug: '2025/01/20/mock-post-1',
-    filePath: 'apps/jamesacres/data/blog/2025/01/20/mock-post-1.mdx',
-    title: 'Mock Post One',
-    date: '2025-01-20',
-    tags: ['mock', 'testing'],
-    draft: false,
-    summary: 'This is a mock post for testing purposes.',
-    authors: ['default'],
-    content: '## Hello World\nThis is the content of mock post one.',
-  },
-  {
-    slug: '2025/01/22/mock-post-2',
-    filePath: 'apps/jamesacres/data/blog/2025/01/22/mock-post-2.mdx',
-    title: 'Mock Post Two',
-    date: '2025-01-22',
-    tags: ['mock', 'nextjs'],
-    draft: false,
-    summary: 'Another mock post to test data loading.',
-    authors: ['default'],
-    content: '## Next.js Goodness\nThis is the content of mock post two.',
-  },
-  {
-    slug: '2025/01/25/mock-post-3-draft',
-    filePath: 'apps/jamesacres/data/blog/2025/01/25/mock-post-3-draft.mdx',
-    title: 'Mock Post Three (Draft)',
-    date: '2025-01-25',
-    tags: ['mock', 'draft'],
-    draft: true,
-    summary: 'A draft mock post that should not be visible.',
-    authors: ['default'],
-    content: '## Draft Content\nThis post is a draft.',
-  },
-];
+function getSlugFromPath(filePath: string): string {
+  const relativePath = path.relative(POSTS_DIRECTORY, filePath);
+  const slug = relativePath
+    .replace(/\.(mdx|md)$/, '')
+    .split(path.sep)
+    .join('/');
+  return slug;
+}
 
-async function getPostData(post: MockPostData): Promise<BlogPost> {
-  const readingTimeData = calculateReadingTime(post.content);
+interface Frontmatter {
+  title: string;
+  date: string;
+  lastmod?: string;
+  tags?: string[];
+  draft?: boolean;
+  summary?: string;
+  authors?: string[];
+  images?: string[];
+}
+
+function parsePost(filePath: string): BlogPost {
+  const fileContents = fs.readFileSync(filePath, 'utf8');
+  const { data, content } = matter(fileContents);
+  const frontmatter = data as Frontmatter;
+
+  const slug = getSlugFromPath(filePath);
+  const readingTime = calculateReadingTime(content);
+
   return {
-    ...post,
-    readingTime: readingTimeData,
+    slug,
+    filePath: path.relative(process.cwd(), filePath),
+    title: frontmatter.title || 'Untitled',
+    date: frontmatter.date || new Date().toISOString().split('T')[0],
+    lastmod: frontmatter.lastmod,
+    tags: frontmatter.tags || [],
+    draft: frontmatter.draft || false,
+    summary: frontmatter.summary || '',
+    authors: frontmatter.authors || ['default'],
+    images: frontmatter.images,
+    readingTime,
+    content,
   };
 }
 
+let cachedPosts: BlogPost[] | null = null;
+
+function loadAllPosts(): BlogPost[] {
+  if (cachedPosts) {
+    return cachedPosts;
+  }
+
+  const mdxFiles = getMdxFiles(POSTS_DIRECTORY);
+  cachedPosts = mdxFiles.map(parsePost);
+  return cachedPosts;
+}
+
 export async function getAllPosts(): Promise<BlogPostMeta[]> {
-  const posts = await Promise.all(mockPostsData.map(getPostData));
-  return sortPostsByDate(filterDraftPosts(posts));
+  const posts = loadAllPosts();
+  const filteredPosts = filterDraftPosts(posts);
+  return sortPostsByDate(filteredPosts);
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  const postData = mockPostsData.find((post) => post.slug === slug);
-  if (!postData) return null;
+  const posts = loadAllPosts();
+  const post = posts.find((p) => p.slug === slug);
+  return post || null;
+}
 
-  // In a real scenario, this would read the MDX file and parse it.
-  // For now, we simulate with existing content.
-  // const processedContent = await remark().use(html).process(postData.content); // Removed
-  // const contentHtml = String(processedContent); // Removed
-
-  return {
-    ...postData,
-    readingTime: calculateReadingTime(postData.content),
-    content: postData.content, // Changed to directly use postData.content
-  } as BlogPost;
+export async function getAllSlugs(): Promise<string[]> {
+  const posts = await getAllPosts();
+  return posts.map((post) => post.slug);
 }

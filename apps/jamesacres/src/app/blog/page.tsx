@@ -6,7 +6,7 @@ import { paginatePosts } from '@bubblyclouds-app/blog/helpers/blogUtils';
 import { PostListProps } from '@bubblyclouds-app/blog/types/componentProps';
 
 export const metadata = {
-  title: `Blog - ${siteMetadata.author}`,
+  title: 'Blog',
   description: siteMetadata.description,
 };
 

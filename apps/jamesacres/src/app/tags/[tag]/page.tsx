@@ -1,4 +1,3 @@
-import siteMetadata from '@/data/siteMetadata';
 import { getAllPosts } from '@/lib/posts';
 import {
   getTagCounts,
@@ -18,17 +17,21 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { tag: string };
+  params: Promise<{ tag: string }>;
 }) {
-  const tagName = params.tag;
+  const { tag: tagName } = await params;
   return {
-    title: `${tagName} - Tags - ${siteMetadata.author}`,
+    title: `${tagName}`,
     description: `Posts with tag ${tagName}`,
   };
 }
 
-export default async function TagPage({ params }: { params: { tag: string } }) {
-  const tagName = params.tag;
+export default async function TagPage({
+  params,
+}: {
+  params: Promise<{ tag: string }>;
+}) {
+  const { tag: tagName } = await params;
   const allPosts = await getAllPosts();
   const tags = getTagCounts(allPosts);
 

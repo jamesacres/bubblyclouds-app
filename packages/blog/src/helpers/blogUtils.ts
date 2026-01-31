@@ -63,11 +63,12 @@ export function getAdjacentPosts(
     return { prev: null, next: null };
   }
 
-  const prev = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
-  const next =
+  // In descending date order: prev = older post (index + 1), next = newer post (index - 1)
+  const prev =
     currentIndex < sortedPosts.length - 1
       ? sortedPosts[currentIndex + 1]
       : null;
+  const next = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
   return { prev, next };
 }

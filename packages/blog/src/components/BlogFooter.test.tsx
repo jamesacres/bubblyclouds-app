@@ -14,24 +14,17 @@ describe('BlogFooter', () => {
     author: 'Test Author',
     github: 'https://github.com/test',
     linkedin: 'https://www.linkedin.com/in/test',
-    email: 'test@example.com',
-    siteUrl: 'https://example.com',
   };
 
-  it('renders author and current year', () => {
+  it('renders author and copyright year 2025', () => {
     render(<BlogFooter {...mockProps} />);
-    const currentYear = new Date().getFullYear();
-    expect(screen.getByText(mockProps.author)).toBeInTheDocument();
-    expect(screen.getByText(`© ${currentYear}`)).toBeInTheDocument();
+    expect(screen.getByText(/Test Author/)).toBeInTheDocument();
+    expect(screen.getByText(/© 2025/)).toBeInTheDocument();
   });
 
   it('renders social media links correctly', () => {
     render(<BlogFooter {...mockProps} />);
 
-    expect(screen.getByRole('link', { name: 'Email' })).toHaveAttribute(
-      'href',
-      `mailto:${mockProps.email}`
-    );
     expect(screen.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
       'href',
       mockProps.github
@@ -42,11 +35,13 @@ describe('BlogFooter', () => {
     );
   });
 
-  it('renders site URL correctly', () => {
+  it('renders Tailwind Nextjs Theme attribution link', () => {
     render(<BlogFooter {...mockProps} />);
-    expect(screen.getByRole('link', { name: 'example.com' })).toHaveAttribute(
+    expect(
+      screen.getByRole('link', { name: 'Tailwind Nextjs Theme' })
+    ).toHaveAttribute(
       'href',
-      '/'
+      'https://github.com/timlrx/tailwind-nextjs-starter-blog'
     );
   });
 
@@ -56,6 +51,6 @@ describe('BlogFooter', () => {
     expect(
       screen.queryByRole('link', { name: 'GitHub' })
     ).not.toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Email' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'LinkedIn' })).toBeInTheDocument();
   });
 });
