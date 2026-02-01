@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useSessions } from '../providers/SessionsProvider';
-import { Loader, ChevronDown, ChevronRight, RotateCcw } from 'react-feather';
+import { Loader, ChevronDown, ChevronRight, RotateCcw } from 'lucide-react';
 import IntegratedSessionRow from './IntegratedSessionRow';
 import { BaseServerState } from '../types/state';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';

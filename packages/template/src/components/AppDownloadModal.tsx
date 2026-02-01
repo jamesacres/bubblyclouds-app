@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { Smartphone, Download } from 'react-feather';
+import { Smartphone, Download } from 'lucide-react';
 import { isCapacitor } from '../helpers/capacitor';
 import Image from 'next/image';
 

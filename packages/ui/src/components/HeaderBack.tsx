@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
-import { ChevronLeft } from 'react-feather';
+import { ChevronLeft } from 'lucide-react';
 
 const HeaderBack = ({ appName }: { appName: string }) => {
   const router = useRouter();

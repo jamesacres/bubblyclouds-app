@@ -14,7 +14,7 @@ import { PartyInviteButton } from './PartyInviteButton';
 import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
 import { ComponentType, useContext, useState } from 'react';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
-import { LogOut, Trash, UserMinus, Edit3, Users } from 'react-feather';
+import { LogOut, Trash, UserMinus, Edit3, Users } from 'lucide-react';
 import { isIOS } from '../helpers/capacitor';
 import { BaseServerState } from '../types/state';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Wifi, WifiOff } from 'react-feather';
+import { Wifi, WifiOff } from 'lucide-react';
 
 interface HeaderOnlineProps {
   isOnline?: boolean;

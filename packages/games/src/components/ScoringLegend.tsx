@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Award } from 'react-feather';
+import { Award } from 'lucide-react';
 import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
 

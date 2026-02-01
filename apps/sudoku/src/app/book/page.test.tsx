@@ -8,7 +8,7 @@ jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
 
-jest.mock('react-feather', () => ({
+jest.mock('lucide-react', () => ({
   ArrowUp: () => <div data-testid="arrow-up-icon">Arrow Up</div>,
 }));
 

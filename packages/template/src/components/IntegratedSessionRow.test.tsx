@@ -8,7 +8,7 @@ import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 
 // Mock dependencies
-jest.mock('react-feather', () => ({
+jest.mock('lucide-react', () => ({
   Award: () => <svg data-testid="award-icon" />,
   Loader: () => <svg data-testid="loader-icon" />,
 }));

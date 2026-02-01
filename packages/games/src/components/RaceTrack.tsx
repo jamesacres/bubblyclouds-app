@@ -10,7 +10,7 @@ import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import TrafficLight from './TrafficLight';
 import Link from 'next/link';
-import { RefreshCw } from 'react-feather';
+import { RefreshCw } from 'lucide-react';
 import {
   BaseState,
   BaseServerState,

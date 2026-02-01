@@ -29,10 +29,10 @@
     "@capacitor/browser": "^8.0.0",
     "@capacitor/core": "^8.0.0",
     "@headlessui/react": "^2.2.9",
+    "lucide-react": "^0.563.0",
     "next": "^16.1.1",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "react-feather": "^2.0.10"
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

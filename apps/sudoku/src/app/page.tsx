@@ -29,7 +29,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Users, Zap, Award, Camera } from 'react-feather';
+import { Users, Zap, Award, Camera } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';

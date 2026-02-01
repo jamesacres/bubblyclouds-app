@@ -4,7 +4,9 @@ Shared UI components and theming package for multi-platform applications.
 
 ## Purpose
 
-Provides reusable, accessible UI components with built-in theming support (dark/light mode, custom theme colors) and responsive design for web, iOS, Android, and desktop applications.
+Provides reusable, accessible UI components with built-in theming support
+(dark/light mode, custom theme colors) and responsive design for web, iOS,
+Android, and desktop applications.
 
 ## Responsibility
 
@@ -20,86 +22,96 @@ Provides reusable, accessible UI components with built-in theming support (dark/
 ### Components
 
 #### `Header`
+
 Application header with navigation and branding.
 
 ```tsx
-import { Header } from '@bubblyclouds-app/ui';
+import { Header } from "@bubblyclouds-app/ui";
 
 <Header
   title="My App"
   showBack={false}
   rightContent={<UserMenu />}
-/>
+/>;
 ```
 
 **Props:**
+
 - `title?: string` - Header title
 - `showBack?: boolean` - Show back button
 - `rightContent?: ReactNode` - Content to display on the right side
 
 #### `Footer`
+
 Application footer with links and information.
 
 ```tsx
-import { Footer } from '@bubblyclouds-app/ui';
+import { Footer } from "@bubblyclouds-app/ui";
 
-<Footer />
+<Footer />;
 ```
 
 #### `HeaderBack`
+
 Back button component for navigation.
 
 ```tsx
-import { HeaderBack } from '@bubblyclouds-app/ui';
+import { HeaderBack } from "@bubblyclouds-app/ui";
 
-<HeaderBack href="/previous-page" />
+<HeaderBack href="/previous-page" />;
 ```
 
 **Props:**
+
 - `href?: string` - URL to navigate to
 - `onClick?: () => void` - Custom click handler
 
 #### `ThemeControls`
+
 Complete theme control panel with dark/light mode and color selection.
 
 ```tsx
-import { ThemeControls } from '@bubblyclouds-app/ui';
+import { ThemeControls } from "@bubblyclouds-app/ui";
 
-<ThemeControls />
+<ThemeControls />;
 ```
 
 #### `ThemeSwitch`
+
 Toggle switch for dark/light mode.
 
 ```tsx
-import { ThemeSwitch } from '@bubblyclouds-app/ui';
+import { ThemeSwitch } from "@bubblyclouds-app/ui";
 
-<ThemeSwitch />
+<ThemeSwitch />;
 ```
 
 #### `ThemeColorSwitch`
+
 Color picker for theme color customization.
 
 ```tsx
-import { ThemeColorSwitch } from '@bubblyclouds-app/ui';
+import { ThemeColorSwitch } from "@bubblyclouds-app/ui";
 
-<ThemeColorSwitch />
+<ThemeColorSwitch />;
 ```
 
 #### `Toggle`
+
 Generic toggle switch component.
 
 ```tsx
-import { Toggle } from '@bubblyclouds-app/ui';
+import { Toggle } from "@bubblyclouds-app/ui";
 
 <Toggle
   enabled={isEnabled}
   setEnabled={setIsEnabled}
   label="Enable feature"
-/>
+/>;
 ```
 
 **Props:**
+
 - `enabled: boolean` - Current toggle state
 - `setEnabled: (enabled: boolean) => void` - State setter
 - `label?: string` - Accessible label
@@ -107,21 +119,24 @@ import { Toggle } from '@bubblyclouds-app/ui';
 ### Providers
 
 #### `ThemeColorProvider`
-React context provider for theme color management. Place at the root of your application.
+
+React context provider for theme color management. Place at the root of your
+application.
 
 ```tsx
-import { ThemeColorProvider } from '@bubblyclouds-app/ui';
+import { ThemeColorProvider } from "@bubblyclouds-app/ui";
 
 <ThemeColorProvider>
   <App />
-</ThemeColorProvider>
+</ThemeColorProvider>;
 ```
 
 #### `useThemeColor`
+
 Hook to access and modify theme colors.
 
 ```tsx
-import { useThemeColor } from '@bubblyclouds-app/ui';
+import { useThemeColor } from "@bubblyclouds-app/ui";
 
 function MyComponent() {
   const { themeColor, setThemeColor } = useThemeColor();
@@ -135,6 +150,7 @@ function MyComponent() {
 ```
 
 **Returns:**
+
 - `themeColor: string` - Current theme color (hex)
 - `setThemeColor: (color: string) => void` - Update theme color
 
@@ -143,7 +159,7 @@ function MyComponent() {
 #### Platform Detection
 
 ```tsx
-import { isCapacitor, isIOS, isAndroid } from '@bubblyclouds-app/ui';
+import { isAndroid, isCapacitor, isIOS } from "@bubblyclouds-app/ui";
 
 if (isCapacitor()) {
   // Running on mobile (iOS or Android)
@@ -159,6 +175,7 @@ if (isAndroid()) {
 ```
 
 **Functions:**
+
 - `isCapacitor(): boolean` - Check if running on Capacitor (mobile)
 - `isIOS(): boolean` - Check if running on iOS
 - `isAndroid(): boolean` - Check if running on Android
@@ -166,11 +183,12 @@ if (isAndroid()) {
 ### Types
 
 #### `ThemeConfig`
+
 Theme configuration interface.
 
 ```typescript
 interface ThemeConfig {
-  mode: 'light' | 'dark' | 'auto';
+  mode: "light" | "dark" | "auto";
   color: string;
   customColors?: {
     primary?: string;
@@ -187,7 +205,7 @@ interface ThemeConfig {
 Wrap your application with `ThemeColorProvider`:
 
 ```tsx
-import { ThemeColorProvider } from '@bubblyclouds-app/ui';
+import { ThemeColorProvider } from "@bubblyclouds-app/ui";
 
 function App() {
   return (
@@ -203,7 +221,7 @@ function App() {
 Use header and footer components for consistent layout:
 
 ```tsx
-import { Header, Footer } from '@bubblyclouds-app/ui';
+import { Footer, Header } from "@bubblyclouds-app/ui";
 
 function Layout({ children }) {
   return (
@@ -223,7 +241,7 @@ function Layout({ children }) {
 Add theme controls to your settings page:
 
 ```tsx
-import { ThemeControls } from '@bubblyclouds-app/ui';
+import { ThemeControls } from "@bubblyclouds-app/ui";
 
 function SettingsPage() {
   return (
@@ -243,7 +261,7 @@ function SettingsPage() {
 Create components that respond to theme changes:
 
 ```tsx
-import { useThemeColor } from '@bubblyclouds-app/ui';
+import { useThemeColor } from "@bubblyclouds-app/ui";
 
 function ThemedButton({ children }) {
   const { themeColor } = useThemeColor();
@@ -252,7 +270,7 @@ function ThemedButton({ children }) {
     <button
       style={{
         backgroundColor: themeColor,
-        color: 'white',
+        color: "white",
       }}
     >
       {children}
@@ -266,7 +284,7 @@ function ThemedButton({ children }) {
 Adapt UI based on platform:
 
 ```tsx
-import { isIOS, isAndroid } from '@bubblyclouds-app/ui';
+import { isAndroid, isIOS } from "@bubblyclouds-app/ui";
 
 function PlatformSpecificUI() {
   if (isIOS()) {
@@ -293,7 +311,7 @@ function PlatformSpecificUI() {
   "@capacitor/core": "^6",
   "@capacitor/status-bar": "^6",
   "@headlessui/react": "^2",
-  "react-feather": "^2"
+  "lucide-react": "^0.563.0"
 }
 ```
 
@@ -312,7 +330,8 @@ npm test
 
 ## Styling
 
-This package uses Tailwind CSS 4.0 for styling. All components are fully styled and ready to use. You can customize the theme by:
+This package uses Tailwind CSS 4.0 for styling. All components are fully styled
+and ready to use. You can customize the theme by:
 
 1. **Using ThemeColorProvider**: Change theme colors dynamically
 2. **Extending Tailwind config**: Customize default styles in your app
@@ -321,7 +340,7 @@ This package uses Tailwind CSS 4.0 for styling. All components are fully styled 
 ### Example: Custom Theme Colors
 
 ```tsx
-import { ThemeColorProvider } from '@bubblyclouds-app/ui';
+import { ThemeColorProvider } from "@bubblyclouds-app/ui";
 
 function App() {
   return (
@@ -338,12 +357,12 @@ function App() {
 
 ```tsx
 import {
-  Header,
   Footer,
-  ThemeControls,
+  Header,
   ThemeColorProvider,
-  useThemeColor
-} from '@bubblyclouds-app/ui';
+  ThemeControls,
+  useThemeColor,
+} from "@bubblyclouds-app/ui";
 
 function App() {
   return (
@@ -369,12 +388,12 @@ function Layout() {
 ### Responsive Navigation
 
 ```tsx
-import { Header, HeaderBack } from '@bubblyclouds-app/ui';
-import { useRouter } from 'next/router';
+import { Header, HeaderBack } from "@bubblyclouds-app/ui";
+import { useRouter } from "next/router";
 
 function NavigationExample() {
   const router = useRouter();
-  const showBack = router.pathname !== '/';
+  const showBack = router.pathname !== "/";
 
   return (
     <Header
@@ -389,8 +408,8 @@ function NavigationExample() {
 ### Custom Toggle Component
 
 ```tsx
-import { Toggle } from '@bubblyclouds-app/ui';
-import { useState } from 'react';
+import { Toggle } from "@bubblyclouds-app/ui";
+import { useState } from "react";
 
 function FeatureToggle() {
   const [enabled, setEnabled] = useState(false);

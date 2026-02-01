@@ -27,7 +27,7 @@ describe('TimerDisplay', () => {
       // Should contain the formatted time
       expect(screen.getByText(/1:30/)).toBeInTheDocument();
 
-      // Should contain SVG icon (from react-feather Watch)
+      // Should contain SVG icon (from lucide-react Watch)
       const svg = container.querySelector('svg');
       expect(svg).toBeInTheDocument();
     });

@@ -4,7 +4,7 @@ import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useState } from 'react';
 import { UserAvatar } from './UserAvatar';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
-import { Plus, LogOut, X } from 'react-feather';
+import { Plus, LogOut, X } from 'lucide-react';
 import Link from 'next/link';
 
 export interface UserPanelDependencies {

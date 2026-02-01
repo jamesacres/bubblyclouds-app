@@ -13,7 +13,7 @@ import {
   useContext,
   useState,
 } from 'react';
-import { X, Check } from 'react-feather';
+import { X, Check } from 'lucide-react';
 
 interface PremiumFeature {
   icon: ReactElement<any>;

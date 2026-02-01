@@ -17,7 +17,6 @@ const config = {
   moduleNameMapper: {
     '^@/data/(.+)$': '<rootDir>/data/$1',
     '^@/(.+)$': '<rootDir>/src/$1',
-    '^react-feather$': '<rootDir>/../../jest.setup.featherIcons.js',
     '^next/image$': '<rootDir>/../../jest.setup.nextImage.js',
   },
   setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],

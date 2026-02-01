@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import HeaderOnline from './HeaderOnline';
 
-// Mock react-feather icons
-jest.mock('react-feather', () => ({
+// Mock lucide-react icons
+jest.mock('lucide-react', () => ({
   Wifi: ({ className }: any) => (
     <div data-testid="wifi-icon" className={className} />
   ),

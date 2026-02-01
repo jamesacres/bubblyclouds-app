@@ -11,7 +11,7 @@ jest.mock('next/image', () => ({
   },
 }));
 
-jest.mock('react-feather', () => ({
+jest.mock('lucide-react', () => ({
   User: ({ className, style }: any) => (
     <div data-testid="user-icon" className={className} style={style} />
   ),

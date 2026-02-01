@@ -1,5 +1,5 @@
 import { memo, useContext, ComponentType, ReactElement } from 'react';
-import { Loader, RefreshCw, Users, X } from 'react-feather';
+import { Loader, RefreshCw, Users, X } from 'lucide-react';
 import { PartyRow } from './PartyRow';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';

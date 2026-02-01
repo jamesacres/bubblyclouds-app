@@ -4,8 +4,8 @@ import ActivityWidget from './ActivityWidget';
 import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 
-// Mock react-feather
-jest.mock('react-feather', () => ({
+// Mock lucide-react
+jest.mock('lucide-react', () => ({
   Calendar: () => <svg data-testid="calendar-icon" />,
   Activity: () => <svg data-testid="activity-icon" />,
 }));

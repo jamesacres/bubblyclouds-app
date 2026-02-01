@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { Users, Award, Zap, ChevronRight } from 'react-feather';
+import { Users, Award, Zap, ChevronRight } from 'lucide-react';
 
 interface RacingPromptModalProps {
   isOpen: boolean;

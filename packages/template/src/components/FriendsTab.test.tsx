@@ -4,7 +4,7 @@ import { FriendsTab } from './FriendsTab';
 import { useSessions } from '../providers/SessionsProvider';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { Party } from '@bubblyclouds-app/types/serverTypes';
-jest.mock('react-feather', () => ({
+jest.mock('lucide-react', () => ({
   Loader: () => <div data-testid="loader" />,
   ChevronDown: () => <div data-testid="chevron-down" />,
   ChevronRight: () => <div data-testid="chevron-right" />,

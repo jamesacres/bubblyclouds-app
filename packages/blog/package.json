@@ -20,7 +20,7 @@
   "dependencies": {
     "@bubblyclouds-app/ui": "workspace:*",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^0.303.0",
+    "lucide-react": "^0.563.0",
     "reading-time": "^1.5.0"
   },
   "peerDependencies": {

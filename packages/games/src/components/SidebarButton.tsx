@@ -1,5 +1,5 @@
 import { memo, MouseEventHandler } from 'react';
-import { Sidebar } from 'react-feather';
+import { Sidebar } from 'lucide-react';
 
 const MemoisedSidebarButton = memo(function MemoisedSidebarButton({
   friendsOnClick,

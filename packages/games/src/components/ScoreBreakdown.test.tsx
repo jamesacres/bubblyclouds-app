@@ -11,6 +11,14 @@ jest.mock('../helpers/scoringUtils', () => ({
   }),
 }));
 
+jest.mock('lucide-react', () => ({
+  Award: () => <svg data-testid="award-icon" />,
+  Zap: () => <svg data-testid="zap-icon" />,
+  Calendar: () => <svg data-testid="calendar-icon" />,
+  Book: () => <svg data-testid="book-icon" />,
+  Camera: () => <svg data-testid="camera-icon" />,
+}));
+
 describe('ScoreBreakdown', () => {
   const createBreakdown = (
     overrides?: Partial<FriendsLeaderboardScore['breakdown']>
@@ -360,7 +368,7 @@ describe('ScoreBreakdown', () => {
 
       render(<ScoreBreakdown breakdown={breakdown} stats={stats} />);
 
-      // The component uses react-feather icons
+      // The component uses lucide-react icons
       // Check for volume bonus section
       expect(screen.getByText('Volume Bonus')).toBeInTheDocument();
     });

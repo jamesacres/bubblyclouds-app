@@ -149,7 +149,7 @@ jest.mock('next/link', () => {
   };
 });
 
-jest.mock('react-feather', () => ({
+jest.mock('lucide-react', () => ({
   Users: () => <div data-testid="users-icon">Users Icon</div>,
   Zap: () => <div data-testid="zap-icon">Zap Icon</div>,
   Award: () => <div data-testid="award-icon">Award Icon</div>,

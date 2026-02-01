@@ -170,11 +170,6 @@ jest.mock(
   { virtual: true }
 );
 
-// Mock react-feather icons - load from external file
-const featherMocks = require('./jest.setup.featherIcons');
-
-jest.mock('react-feather', () => featherMocks);
-
 // Create global window object for Node environment
 if (typeof window === 'undefined') {
   global.window = {};

@@ -6,7 +6,7 @@ import {
   RevenueCatContext,
 } from '../providers/RevenueCatProvider';
 
-jest.mock('react-feather', () => ({
+jest.mock('lucide-react', () => ({
   Star: () => <div data-testid="star-icon" />,
   CheckCircle: () => <div data-testid="check-icon" />,
   Lock: () => <div data-testid="lock-icon" />,
