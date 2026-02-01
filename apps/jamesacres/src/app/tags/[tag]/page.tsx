@@ -6,7 +6,6 @@ import {
 import PostList from '@bubblyclouds-app/blog/components/PostList';
 import TagList from '@bubblyclouds-app/blog/components/TagList';
 import { notFound } from 'next/navigation';
-import { PostListProps } from '@bubblyclouds-app/blog/types/componentProps';
 
 export async function generateStaticParams() {
   const allPosts = await getAllPosts();
@@ -52,7 +51,7 @@ export default async function TagPage({
             Posts Tagged: {foundTag.displayName}
           </h1>
         </div>
-        <PostList posts={posts as PostListProps['posts']} />
+        <PostList posts={posts} />
       </div>
       <div className="flex flex-wrap pt-6">
         <TagList tags={tags} />

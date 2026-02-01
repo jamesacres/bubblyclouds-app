@@ -13,11 +13,15 @@ import { visit } from 'unist-util-visit';
 
 // Remark plugin to wrap img + figcaption in figure elements
 function remarkFigure() {
-  return (tree: any) => {
+  return (tree: {
+    type: string;
+    children?: { type?: string; name?: string }[];
+  }) => {
     visit(tree, (node, _index, _parent) => {
       // Handle standalone figcaptions that might be in paragraphs
       if (
         node.type === 'paragraph' &&
+        Array.isArray(node.children) &&
         node.children.length === 1 &&
         node.children[0].type === 'mdxJsxFlowElement' &&
         node.children[0].name === 'figcaption'

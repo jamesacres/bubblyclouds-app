@@ -3,7 +3,6 @@ import { getAllPosts, POSTS_PER_PAGE } from '@/lib/posts';
 import PostList from '@bubblyclouds-app/blog/components/PostList';
 import Pagination from '@bubblyclouds-app/blog/components/Pagination';
 import { paginatePosts } from '@bubblyclouds-app/blog/helpers/blogUtils';
-import { PostListProps } from '@bubblyclouds-app/blog/types/componentProps';
 
 export const metadata = {
   title: 'Blog',
@@ -26,7 +25,7 @@ export default async function BlogPage() {
             All Posts
           </h1>
         </div>
-        <PostList posts={posts as PostListProps['posts']} />
+        <PostList posts={posts} />
       </div>
       <Pagination
         totalPages={totalPages}

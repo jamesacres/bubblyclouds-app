@@ -21,10 +21,11 @@ libraries) and **apps** (executable applications).
 ┌─────────────────────────────────────────────────────────────────┐
 │                      Application Layer (L6)                     │
 │                                                                 │
-│  ┌──────────────────────┐      ┌────────────────────────┐      │
-│  │   @app-sudoku        │      │  @app-bubblyclouds     │      │
-│  │   (Next.js App)      │      │  (Next.js Website)     │      │
-│  └──────────────────────┘      └────────────────────────┘      │
+│  ┌──────────────────────┐  ┌────────────────────────┐ ┌──────┐│
+│  │   @app-sudoku        │  │ @app-bubblyclouds      │ │@app- ││
+│  │   (Next.js App)      │  │ (Next.js Website)      │ │james ││
+│  └──────────────────────┘  └────────────────────────┘ │acres││
+│                                                        └──────┘│
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -71,10 +72,10 @@ libraries) and **apps** (executable applications).
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Foundation Layer (L0-L1)                    │
 │                                                                 │
-│  ┌──────────────────────┐    ┌──────────────────────┐         │
-│  │        @ui           │    │       @types         │         │
-│  │   (UI components)    │    │   (Type definitions) │         │
-│  └──────────────────────┘    └──────────────────────┘         │
+│  ┌──────────────┐  ┌──────────────────┐  ┌────────────────┐   │
+│  │     @ui      │  │     @types       │  │    @blog       │   │
+│  │ UI components│  │ Type definitions │  │ Blog utilities │   │
+│  └──────────────┘  └──────────────────┘  └────────────────┘   │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -93,6 +94,12 @@ libraries) and **apps** (executable applications).
   - Contains marketing and informational content
   - Platform builds: Web
   - Depends on: `@auth`, `@ui`, `@types` (and other packages as needed)
+
+- **`@bubblyclouds-app/app-jamesacres`** - Personal blog and portfolio website (Next.js)
+  - Blog content and articles using MDX
+  - Personal portfolio and projects showcase
+  - Platform builds: Web
+  - Depends on: `@blog`, `@ui`, `@types`
 
 #### Game-Specific Layer (L5)
 
@@ -132,6 +139,11 @@ libraries) and **apps** (executable applications).
 
 #### Foundation Layer (L0-L1)
 
+- **`@bubblyclouds-app/types`** - Shared TypeScript type definitions
+  - Type definitions for shared data structures
+  - Enums and constants
+  - **Zero dependencies** - foundation layer
+
 - **`@bubblyclouds-app/ui`** - Shared UI components and theming
   - Dark/light mode support
   - Layout components (Header, Footer)
@@ -139,12 +151,55 @@ libraries) and **apps** (executable applications).
   - Platform-specific adaptations
   - Depends on: `@types` only
 
-- **`@bubblyclouds-app/types`** - Shared TypeScript type definitions
-  - Type definitions for shared data structures
-  - Enums and constants
-  - **Zero dependencies** - foundation layer
+- **`@bubblyclouds-app/blog`** - Blog and content management utilities
+  - Blog post parsing and processing
+  - MDX and markdown helpers
+  - Reading time and metadata utilities
+  - Blog-specific UI components
+  - Depends on: `@ui`, `@types` only
+
+**Foundation Layer Internal Dependencies:**
+
+The Foundation Layer (L0-L1) permits same-layer dependencies for feature-specific packages:
+- `@blog` depends on `@ui` because it provides blog-specific UI components and layouts
+- This is distinct from higher-layer dependencies, which follow strict top-down rules
+- Foundation packages are decoupled from business logic and remain reusable across applications
+- New content-type packages (e.g., `@docs`, `@wiki`) would follow the same pattern
 
 ## Dependency Flow
+
+### Foundation Layer Internal Structure
+
+The Foundation Layer (L0-L1) has a special structure allowing internal dependencies:
+
+```
+┌─────────────────────────────────────────────────────┐
+│           Foundation Layer (L0-L1)                  │
+│                                                     │
+│  @types                                             │
+│  (no dependencies)                                  │
+│    ▲                                                │
+│    │                                                │
+│    ├─────────────────┬──────────────────┐           │
+│    │                 │                  │           │
+│  @ui               @blog                │           │
+│  (UI components)   (Content utils)       │           │
+│                                          │           │
+│  ↑ Internal dependency permitted        │           │
+│  └──────────────────────────────────────┘           │
+│                                                     │
+│  Higher layers must NOT depend on @blog             │
+│  (use @ui instead for UI components)                │
+└─────────────────────────────────────────────────────┘
+```
+
+This structure enables:
+- **Feature-specific foundation packages** that extend @ui for specialized use cases
+- **Reusable content packages** that combine content logic with UI
+- **Future content types** (@docs, @wiki, etc.) following the same pattern
+- **Clean separation** from higher-layer business logic
+
+Higher layers depend only on @ui, not on @blog or other content packages. Content-specific code is imported directly by applications (e.g., @app-jamesacres imports @blog).
 
 ### Dependency Rules
 
@@ -189,6 +244,13 @@ libraries) and **apps** (executable applications).
 
 @app-bubblyclouds
 ├── @auth
+│   ├── @ui
+│   └── @types
+├── @ui
+└── @types
+
+@app-jamesacres
+├── @blog
 │   ├── @ui
 │   └── @types
 ├── @ui
@@ -429,6 +491,36 @@ export enum PlatformType {
 
 - Reusable components (extract to packages)
 - Business logic (belongs in packages)
+
+#### `@bubblyclouds-app/blog`
+
+**Add here when:**
+
+- Creating blog post metadata parsing and processing utilities
+- Building blog-specific UI components (post cards, blog layout, etc.)
+- Implementing blog helpers (reading time, excerpt generation, date formatting)
+- Creating content type management utilities
+- Defining blog-specific types and interfaces
+
+**Examples:**
+
+- `BlogPostCard` - Blog post display component
+- `readingTime` helper - Calculate reading time utility
+- `parsePostMetadata` - Extract frontmatter from MDX
+
+**Do NOT add:**
+
+- Content files (store in apps/jamesacres)
+- Non-blog-specific UI (use `@ui`)
+- Business logic from higher layers (this is a foundation package)
+- Application-specific routes or pages (use app-jamesacres)
+
+**Special Considerations:**
+
+- @blog is a Foundation Layer (L0-L1) package and can depend on @ui
+- Higher-layer packages must NOT depend on @blog
+- Applications import @blog directly as needed
+- Keep @blog reusable for any blog-focused application
 
 #### `apps/bubblyclouds`
 
@@ -778,6 +870,8 @@ The full dependency tree:
   ↑
 @ui (depends on @types)
   ↑
+@blog (depends on @ui, @types)
+  ↑
 @auth (depends on @ui, @types)
   ↑
 @template (depends on @auth, @ui, @types)
@@ -787,12 +881,13 @@ The full dependency tree:
 @sudoku (depends on @games, @template, @auth, @ui, @types)
   ↑
 @app-sudoku (depends on all packages)
-@app-bubblyclouds (depends on @auth, @ui, @types, and other packages as needed)
+@app-bubblyclouds (depends on @auth, @ui, @types)
+@app-jamesacres (depends on @blog, @ui, @types)
 ```
 
 Circular dependencies are prevented by:
 
-- Clear layering (L0 → L1 → L2 → L3 → L4 → L5 → L6)
+- Clear layering (L0-L1 Foundation → L2 Infrastructure → L3 Collaboration → L4 Game Features → L5 Game-Specific → L6 Applications)
 - Each package only depends on packages in lower layers
 - Dependency checking (`pnpm run circular`)
 - Code review
@@ -845,18 +940,23 @@ pnpm test
 
 ## Summary
 
-- **7 packages** organized in **7 layers** (L0-L6):
-  - L0-L1: Foundation (`@types`, `@ui`)
+- **8 packages** organized in **7 layers** (L0-L6):
+  - L0-L1: Foundation (`@types`, `@ui`, `@blog`)
+    - `@types`: Zero dependencies, foundational types
+    - `@ui`: Generic UI components, depends on `@types`
+    - `@blog`: Content utilities, depends on `@ui` and `@types`
+    - **Note:** Foundation Layer permits same-layer dependencies for feature packages
   - L2: Infrastructure (`@auth`)
   - L3: Collaboration (`@template`)
   - L4: Game Features (`@games`)
   - L5: Game-Specific (`@sudoku`)
-  - L6: Applications (`@app-sudoku`, `@app-bubblyclouds`)
-- **2 apps** consuming packages as needed
+  - L6: Applications (`@app-sudoku`, `@app-bubblyclouds`, `@app-jamesacres`)
+- **3 apps** consuming packages as needed
 - **Just-in-Time pattern** for fast development without build steps
 - **Clear dependency flow** enforced by package.json and tooling
 - **Explicit guidelines** for where to add each type of code
 - **Direct source imports** from packages, no re-exports
+- **Content-specific packages** (like @blog) are extensible pattern for future use
 
 This architecture enables:
 
@@ -865,4 +965,4 @@ This architecture enables:
 - Reusable components across apps
 - Type-safe imports
 - Easy debugging and maintenance
-- Scalable addition of new games or apps
+- Scalable addition of new games, content types, or apps

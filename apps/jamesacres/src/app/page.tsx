@@ -1,7 +1,6 @@
 import { getAllPosts } from '@/lib/posts';
 import PostList from '@bubblyclouds-app/blog/components/PostList';
 import Link from 'next/link';
-import { PostListProps } from '@bubblyclouds-app/blog/types/componentProps';
 import Image from 'next/image';
 
 const MAX_DISPLAY = 5;
@@ -43,7 +42,7 @@ export default async function Page() {
             </h1>
           </div>
         </div>
-        <PostList posts={featuredPosts as PostListProps['posts']} />
+        <PostList posts={featuredPosts} />
       </div>
       {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base font-medium leading-6">

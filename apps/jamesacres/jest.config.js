@@ -15,8 +15,8 @@ const config = {
   ],
   coverageReporters: ['json', 'json-summary', 'text', 'lcov', 'clover'],
   moduleNameMapper: {
-    '^@/(.+)$': '<rootDir>/src/$1',
     '^@/data/(.+)$': '<rootDir>/data/$1',
+    '^@/(.+)$': '<rootDir>/src/$1',
     '^react-feather$': '<rootDir>/../../jest.setup.featherIcons.js',
     '^next/image$': '<rootDir>/../../jest.setup.nextImage.js',
   },

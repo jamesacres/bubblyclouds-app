@@ -53,10 +53,27 @@ interface Frontmatter {
   images?: string[];
 }
 
+function extractFrontmatter(data: unknown): Partial<Frontmatter> {
+  if (typeof data !== 'object' || data === null) {
+    return {};
+  }
+  const obj = data as Record<string, unknown>;
+  return {
+    title: typeof obj.title === 'string' ? obj.title : undefined,
+    date: typeof obj.date === 'string' ? obj.date : undefined,
+    lastmod: typeof obj.lastmod === 'string' ? obj.lastmod : undefined,
+    tags: Array.isArray(obj.tags) ? obj.tags : undefined,
+    draft: typeof obj.draft === 'boolean' ? obj.draft : undefined,
+    summary: typeof obj.summary === 'string' ? obj.summary : undefined,
+    authors: Array.isArray(obj.authors) ? obj.authors : undefined,
+    images: Array.isArray(obj.images) ? obj.images : undefined,
+  };
+}
+
 function parsePost(filePath: string): BlogPost {
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContents);
-  const frontmatter = data as Frontmatter;
+  const frontmatter = extractFrontmatter(data);
 
   const slug = getSlugFromPath(filePath);
   const readingTime = calculateReadingTime(content);
@@ -91,7 +108,10 @@ function loadAllPosts(): BlogPost[] {
 
 export async function getAllPosts(): Promise<BlogPostMeta[]> {
   const posts = loadAllPosts();
-  const filteredPosts = filterDraftPosts(posts);
+  const metaPosts: BlogPostMeta[] = posts.map(
+    ({ content: _content, ...rest }) => rest
+  );
+  const filteredPosts = filterDraftPosts(metaPosts);
   return sortPostsByDate(filteredPosts);
 }
 
