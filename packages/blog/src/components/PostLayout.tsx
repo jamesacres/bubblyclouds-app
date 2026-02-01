@@ -68,18 +68,6 @@ const PostLayout = ({
             <div className="prose prose-xl dark:prose-invert max-w-none pb-8 pt-10">
               {children}
             </div>
-            <div className="flex flex-col gap-4 pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
-              <div>
-                <Link
-                  href={`https://github.com/jamesacres/bubblyclouds-app/blob/main/apps/jamesacres/data/blog/${post.filePath}`}
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View on GitHub
-                </Link>
-              </div>
-            </div>
           </div>
           <footer className="divide-gray-200 text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2 xl:divide-y dark:divide-gray-700">
             {tags && (

@@ -17,7 +17,6 @@ export const metadata = {
     template: `%s | ${siteMetadata.author}`,
   },
   description: siteMetadata.description,
-  // TODO: Add other meta tags (openGraph, twitter, etc.)
 };
 
 export default function RootLayout({

@@ -213,24 +213,6 @@ describe('PostLayout', () => {
     expect(screen.getByText('← Back to homepage')).toHaveAttribute('href', '/');
   });
 
-  it('renders View on GitHub link', () => {
-    render(
-      <PostLayout
-        post={mockPost}
-        authors={[mockAuthor]}
-        prev={null}
-        next={null}
-      >
-        <div>{mockPost.content}</div>
-      </PostLayout>
-    );
-
-    expect(screen.getByText('View on GitHub')).toHaveAttribute(
-      'href',
-      `https://github.com/jamesacres/bubblyclouds-app/blob/main/apps/jamesacres/data/blog/${mockPost.filePath}`
-    );
-  });
-
   it('renders reading time in header', () => {
     render(
       <PostLayout
