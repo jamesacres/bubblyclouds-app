@@ -6,12 +6,8 @@ export interface SiteMetadata {
   language: string; // e.g., "en-gb"
   theme: 'system' | 'dark' | 'light';
   siteUrl: string;
-  siteRepo?: string;
   siteLogo?: string;
-  socialBanner?: string;
-  email?: string;
   github?: string;
-  twitter?: string;
   linkedin?: string;
   locale: string; // e.g., "en-GB"
 }

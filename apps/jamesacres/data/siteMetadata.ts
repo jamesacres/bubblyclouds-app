@@ -4,16 +4,12 @@ const siteMetadata: SiteMetadata = {
   title: 'James Acres',
   author: 'James Acres',
   headerTitle: 'James Acres',
-  description: 'A blog created with Next.js and Tailwind.css',
+  description: "I'm creating awesome, here are some of my thoughts.",
   language: 'en-gb',
   theme: 'system', // system, dark or light
   siteUrl: 'https://jamesacres.co.uk',
-  siteRepo: 'https://github.com/JamesAcres/bubblyclouds-app',
   siteLogo: '/static/images/logo.png',
-  socialBanner: '/static/images/twitter-card.png',
-  email: 'hello@jamesacres.co.uk',
-  github: 'https://github.com/JamesAcres',
-  twitter: 'https://twitter.com/JamesAcres',
+  github: 'https://github.com/jamesacres',
   linkedin: 'https://www.linkedin.com/in/jacresuk',
   locale: 'en-GB',
 };

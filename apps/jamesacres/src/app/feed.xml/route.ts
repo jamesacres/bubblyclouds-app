@@ -1,31 +1,31 @@
 import { getAllPosts } from '@/lib/posts';
 import siteMetadata from '@/data/siteMetadata';
-import RSS from 'rss';
+import { Feed } from 'feed';
 
 export async function GET() {
   const allPosts = await getAllPosts();
 
-  const feed = new RSS({
+  const feed = new Feed({
     title: siteMetadata.title,
     description: siteMetadata.description,
-    feed_url: `${siteMetadata.siteUrl}/feed.xml`,
-    site_url: siteMetadata.siteUrl,
+    id: siteMetadata.siteUrl,
+    link: siteMetadata.siteUrl,
     language: siteMetadata.language,
-    pubDate: new Date().toUTCString(),
-    ttl: 60, // 60 minutes
+    copyright: `© ${new Date().getFullYear()} ${siteMetadata.title}`,
   });
 
   allPosts.forEach((post) => {
-    feed.item({
+    feed.addItem({
       title: post.title,
       description: post.summary || '',
-      url: `${siteMetadata.siteUrl}/${post.slug}`,
-      date: post.date,
-      author: post.authors.map((author) => author).join(', '), // Assuming authors are strings
+      id: `${siteMetadata.siteUrl}/${post.slug}`,
+      link: `${siteMetadata.siteUrl}/${post.slug}`,
+      date: new Date(post.date),
+      author: post.authors.map((author) => ({ name: author })),
     });
   });
 
-  return new Response(feed.xml(), {
+  return new Response(feed.rss2(), {
     headers: {
       'Content-Type': 'application/xml',
     },
