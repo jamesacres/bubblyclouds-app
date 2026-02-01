@@ -40,7 +40,7 @@ describe('HomePage', () => {
   });
 
   it('should render home page with heading', async () => {
-    const mockPosts = [];
+    const mockPosts: unknown[] = [];
     (postsModule.getAllPosts as jest.Mock).mockResolvedValue(mockPosts);
 
     const result = await HomePage();

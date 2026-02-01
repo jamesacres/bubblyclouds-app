@@ -73,7 +73,7 @@ describe('posts library', () => {
         }
         return '---\ntitle: Post 2\ndate: 2024-01-02\n---\ncontent 2';
       });
-      (matter as jest.Mock).mockImplementation((_content) => ({
+      (matter as unknown as jest.Mock).mockImplementation((_content) => ({
         data: { title: 'Post', date: '2024-01-01' },
         content: 'mock content',
       }));
@@ -130,7 +130,7 @@ describe('posts library', () => {
       (fs.readFileSync as jest.Mock).mockReturnValue(
         '---\ntitle: Test\ndate: 2024-01-01\n---\ncontent'
       );
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: { title: 'Test', date: '2024-01-01' },
         content: 'content',
       });
@@ -161,7 +161,7 @@ describe('posts library', () => {
       (fs.readFileSync as jest.Mock).mockReturnValue(
         '---\ntitle: Test Post\ndate: 2024-01-01\n---\ncontent'
       );
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: { title: 'Test Post', date: '2024-01-01' },
         content: 'content',
       });
@@ -196,7 +196,7 @@ describe('posts library', () => {
       (fs.readFileSync as jest.Mock).mockReturnValue(
         '---\ntitle: Nested Post\ndate: 2024-01-01\n---\ncontent'
       );
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: { title: 'Nested Post', date: '2024-01-01' },
         content: 'content',
       });
@@ -277,7 +277,7 @@ describe('posts library', () => {
       (fs.readFileSync as jest.Mock).mockReturnValue(
         '---\ntitle: Test\n---\ncontent'
       );
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: mockFrontmatter,
         content: 'content',
       });
@@ -296,7 +296,7 @@ describe('posts library', () => {
         { name: 'test.mdx', isDirectory: () => false },
       ]);
       (fs.readFileSync as jest.Mock).mockReturnValue('no frontmatter here');
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: {},
         content: 'no frontmatter here',
       });
@@ -315,7 +315,7 @@ describe('posts library', () => {
         { name: 'test.mdx', isDirectory: () => false },
       ]);
       (fs.readFileSync as jest.Mock).mockReturnValue('---\n---\ncontent');
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: { title: 'No Summary' },
         content: 'content',
       });
@@ -341,7 +341,7 @@ describe('posts library', () => {
       (fs.readFileSync as jest.Mock).mockReturnValue(
         '---\ntitle: Test\ndate: 2024-01-01\n---\ncontent'
       );
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: { title: 'Test', date: '2024-01-01' },
         content: 'content',
       });
@@ -382,7 +382,7 @@ describe('posts library', () => {
       (fs.readFileSync as jest.Mock).mockReturnValue(
         '---\ntitle: Test\ndate: 2024-01-01\n---\ncontent'
       );
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: { title: 'Test', date: '2024-01-01' },
         content: 'content',
       });
@@ -410,7 +410,7 @@ describe('posts library', () => {
       (fs.readFileSync as jest.Mock).mockReturnValue(
         '---\ntitle: Test Post\ndate: 2024-01-01\ntags:\n  - test\n  - example\n---\nPost content here'
       );
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: {
           title: 'Test Post',
           date: '2024-01-01',
@@ -433,7 +433,7 @@ describe('posts library', () => {
         { name: 'test.mdx', isDirectory: () => false },
       ]);
       (fs.readFileSync as jest.Mock).mockReturnValue('---\n---\nContent');
-      (matter as jest.Mock).mockReturnValue({
+      (matter as unknown as jest.Mock).mockReturnValue({
         data: {},
         content: 'Content',
       });

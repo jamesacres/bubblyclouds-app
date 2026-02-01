@@ -194,7 +194,7 @@ describe('BlogPage', () => {
   });
 
   it('should have correct styling classes', async () => {
-    const mockPosts = [];
+    const mockPosts: unknown[] = [];
 
     (postsModule.getAllPosts as jest.Mock).mockResolvedValue(mockPosts);
     (blogUtils.paginatePosts as jest.Mock).mockReturnValue({

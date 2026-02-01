@@ -136,12 +136,12 @@ describe('TagPage', () => {
     });
 
     it('should call notFound if tag does not exist', async () => {
-      const mockPosts = [];
-      const mockTagCounts = [];
+      const mockPosts: unknown[] = [];
+      const mockTagCounts: unknown[] = [];
 
       (postsModule.getAllPosts as jest.Mock).mockResolvedValue(mockPosts);
       (tagUtils.getTagCounts as jest.Mock).mockReturnValue(mockTagCounts);
-      (notFound as jest.Mock).mockImplementation(() => {
+      (notFound as unknown as jest.Mock).mockImplementation(() => {
         throw new Error('NEXT_NOT_FOUND');
       });
 
@@ -211,8 +211,8 @@ describe('TagPage', () => {
     });
 
     it('should render tag list', async () => {
-      const mockPosts = [];
-      const mockTagCounts = [
+      const mockPosts: unknown[] = [];
+      const mockTagCounts: unknown[] = [
         { tag: 'typescript', displayName: 'TypeScript', count: 5 },
         { tag: 'react', displayName: 'React', count: 3 },
       ];
@@ -221,7 +221,7 @@ describe('TagPage', () => {
       (tagUtils.getTagCounts as jest.Mock).mockReturnValue(mockTagCounts);
 
       // Mock notFound to not actually throw
-      (notFound as jest.Mock).mockImplementation(() => {
+      (notFound as unknown as jest.Mock).mockImplementation(() => {
         throw new Error('Not found');
       });
 
@@ -299,8 +299,8 @@ describe('TagPage', () => {
     });
 
     it('should have correct page structure', async () => {
-      const mockPosts = [];
-      const mockTagCounts = [
+      const mockPosts: unknown[] = [];
+      const mockTagCounts: unknown[] = [
         { tag: 'typescript', displayName: 'TypeScript', count: 0 },
       ];
 

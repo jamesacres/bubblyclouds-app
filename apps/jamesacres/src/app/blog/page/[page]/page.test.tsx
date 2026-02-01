@@ -150,7 +150,7 @@ describe('BlogPageNumber', () => {
         totalPages: 1,
         currentPage: 99,
       });
-      (notFound as jest.Mock).mockImplementation(() => {
+      (notFound as unknown as jest.Mock).mockImplementation(() => {
         throw new Error('NEXT_NOT_FOUND');
       });
 
