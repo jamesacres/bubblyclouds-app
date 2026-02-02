@@ -44,7 +44,7 @@ dist/
 .serena
 .claude
 .gemini
-.kiro
+.kiro/settings
 
 android/app/release
 
