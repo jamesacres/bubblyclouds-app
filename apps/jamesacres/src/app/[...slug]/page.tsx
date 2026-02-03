@@ -46,7 +46,7 @@ export async function generateMetadata(props: { params: { slug: string[] } }) {
   if (!resolvedParams || !resolvedParams.slug) {
     return {};
   }
-  const slug = resolvedParams.slug.join('/');
+  const slug = resolvedParams.slug.map(decodeURIComponent).join('/');
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -85,7 +85,7 @@ export default async function Page(props: { params: { slug: string[] } }) {
   if (!params || !params.slug) {
     notFound();
   }
-  const slug = params.slug.join('/');
+  const slug = params.slug.map(decodeURIComponent).join('/');
   const post = await getPostBySlug(slug);
 
   if (!post) {

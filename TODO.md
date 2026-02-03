@@ -2,7 +2,6 @@
 
 - remove vercel and introduce open next and sst
 - delete separate bubbly clouds website repo
-- move blogs and music site into repo
 
 - usage analytics from db
 - re-test electron

@@ -51,7 +51,7 @@ const PostLayout = ({
                       width={40}
                       height={40}
                       alt="avatar"
-                      className="h-10 w-10 rounded-full"
+                      className="h-10 w-10 rounded-full object-cover object-right"
                     />
                   )}
                   <dl className="whitespace-nowrap text-sm font-medium leading-5">

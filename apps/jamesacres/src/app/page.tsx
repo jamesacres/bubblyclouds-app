@@ -32,7 +32,7 @@ export default async function Page() {
                 alt="avatar"
                 width={150}
                 height={300}
-                className="h-auto w-36"
+                className="h-auto w-36 object-cover object-right"
               />
             </div>
           </div>

@@ -35,7 +35,7 @@ export default async function AboutPage() {
                 alt="avatar"
                 width={192}
                 height={192}
-                className="h-48 w-48 rounded-full"
+                className="h-48 w-48 rounded-full object-cover object-right"
               />
             )}
             <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">

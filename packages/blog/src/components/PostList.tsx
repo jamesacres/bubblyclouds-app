@@ -35,9 +35,9 @@ const PostList = ({ posts }: PostListProps) => {
                           <Image
                             src={featuredImage}
                             alt={title}
-                            width={120}
-                            height={120}
-                            className="h-30 w-30 rounded-lg object-cover"
+                            width={200}
+                            height={200}
+                            className="h-50 w-50 rounded-lg object-cover"
                           />
                         </Link>
                       </div>

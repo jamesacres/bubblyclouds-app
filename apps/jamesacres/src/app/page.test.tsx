@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
 import HomePage from './page';
 import * as postsModule from '@/lib/posts';
@@ -19,7 +19,7 @@ jest.mock('next/link', () => ({
     'aria-label': ariaLabel,
   }: {
     href: string;
-    children: React.ReactNode;
+    children: ReactNode;
     'aria-label'?: string;
   }) => (
     <a href={href} aria-label={ariaLabel}>

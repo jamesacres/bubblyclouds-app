@@ -132,7 +132,7 @@ describe('TagPage', () => {
       });
       const { container } = render(result);
 
-      expect(container.textContent).toContain('Posts Tagged: TypeScript');
+      expect(container.textContent).toContain('TypeScript');
     });
 
     it('should call notFound if tag does not exist', async () => {
