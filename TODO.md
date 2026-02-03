@@ -9,6 +9,12 @@
 
 # Apps
 
+## Blog
+
+- write retro post
+- tidy up new home assistant post
+- Add Stephen new ratings
+
 ## Sudoku
 
 ### Features

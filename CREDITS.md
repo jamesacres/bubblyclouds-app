@@ -34,6 +34,16 @@ This project builds upon the excellent work of several projects and resources. W
 - **Usage**: Inspiration for human-solver difficulty calculation algorithms used in generating puzzle difficulty ratings
 - **Description**: The difficulty calculation system for the Sudoku book uses programmatically generated seeds with human solver difficulty inspired by the Sudoku Coach methodology, which analyzes solving techniques required to complete puzzles.
 
+## Blog Functionality
+
+### Tailwind Nextjs Starter Blog
+- **Project**: [tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog)
+- **Author**: Timothy Lin
+- **Usage**: Inspired the blog functionality architecture for the personal blog applications (@app-jamesacres, @app-stephenesch)
+- **License**: [MIT License](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/LICENSE)
+- **Copyright**: (c) 2021-2025 Timothy Lin
+- **Description**: The blog package and blog applications have been refactored and significantly modified from the original, but were initially inspired by this excellent Tailwind CSS + Next.js starter template for creating blog websites.
+
 ## Additional Technologies
 
 This project also utilizes the following technologies and frameworks:
