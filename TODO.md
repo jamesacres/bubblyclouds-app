@@ -1,5 +1,6 @@
 # Framework
 
+- statically generate build to deploy to aws
 - remove vercel and introduce open next and sst
 - delete separate bubbly clouds website repo
 

@@ -17,11 +17,11 @@ L5: @sudoku (game-specific logic)
      ↓
 L4: @games (game-agnostic features)
      ↓
-L3: @template (collaboration infrastructure), @blog (blog infrastructure)
+L3: @template (collaboration infrastructure)
      ↓
 L2: @auth (authentication)
      ↓
-L0-L1: @ui, @types (foundation)
+L0-L1: @ui, @types, @blog (foundation)
 ```
 
 **Key Principle**: Packages only depend on lower layers, never higher ones.
