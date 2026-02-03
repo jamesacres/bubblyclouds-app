@@ -18,15 +18,16 @@ The monorepo is organized into two main categories: **packages** (reusable
 libraries) and **apps** (executable applications).
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                      Application Layer (L6)                     │
-│                                                                 │
-│  ┌──────────────────────┐  ┌────────────────────────┐ ┌──────┐│
-│  │   @app-sudoku        │  │ @app-bubblyclouds      │ │@app- ││
-│  │   (Next.js App)      │  │ (Next.js Website)      │ │james ││
-│  └──────────────────────┘  └────────────────────────┘ │acres││
-│                                                        └──────┘│
-└─────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                      Application Layer (L6)                            │
+│                                                                        │
+│ ┌──────────────────┐  ┌──────────────────┐  ┌─────────────┐ ┌────────┐│
+│ │  @app-sudoku     │  │@app-bubblyclouds │  │@app-        │ │@app-   ││
+│ │  (Next.js App)   │  │(Next.js Website) │  │jamesacres   │ │stephen ││
+│ └──────────────────┘  └──────────────────┘  │(Blog)       │ │esch    ││
+│                                              └─────────────┘ │(Blog)  ││
+│                                                              └────────┘│
+└────────────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
@@ -96,6 +97,12 @@ libraries) and **apps** (executable applications).
   - Depends on: `@auth`, `@ui`, `@types` (and other packages as needed)
 
 - **`@bubblyclouds-app/app-jamesacres`** - Personal blog and portfolio website (Next.js)
+  - Blog content and articles using MDX
+  - Personal portfolio and projects showcase
+  - Platform builds: Web
+  - Depends on: `@blog`, `@ui`, `@types`
+
+- **`@bubblyclouds-app/app-stephenesch`** - Personal blog and portfolio website (Next.js)
   - Blog content and articles using MDX
   - Personal portfolio and projects showcase
   - Platform builds: Web
@@ -250,6 +257,13 @@ Higher layers depend only on @ui, not on @blog or other content packages. Conten
 └── @types
 
 @app-jamesacres
+├── @blog
+│   ├── @ui
+│   └── @types
+├── @ui
+└── @types
+
+@app-stephenesch
 ├── @blog
 │   ├── @ui
 │   └── @types
@@ -950,8 +964,8 @@ pnpm test
   - L3: Collaboration (`@template`)
   - L4: Game Features (`@games`)
   - L5: Game-Specific (`@sudoku`)
-  - L6: Applications (`@app-sudoku`, `@app-bubblyclouds`, `@app-jamesacres`)
-- **3 apps** consuming packages as needed
+  - L6: Applications (`@app-sudoku`, `@app-bubblyclouds`, `@app-jamesacres`, `@app-stephenesch`)
+- **4 apps** consuming packages as needed
 - **Just-in-Time pattern** for fast development without build steps
 - **Clear dependency flow** enforced by package.json and tooling
 - **Explicit guidelines** for where to add each type of code

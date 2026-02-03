@@ -11,13 +11,13 @@ This monorepo uses a **7-layer package architecture** with clear dependency
 rules:
 
 ```
-L6: @app-sudoku, @app-bubblyclouds (Next.js applications)
+L6: @app-sudoku, @app-bubblyclouds, @app-jamesacres, @app-stephenesch (Next.js applications)
      ↓
 L5: @sudoku (game-specific logic)
      ↓
 L4: @games (game-agnostic features)
      ↓
-L3: @template (collaboration infrastructure)
+L3: @template (collaboration infrastructure), @blog (blog infrastructure)
      ↓
 L2: @auth (authentication)
      ↓
@@ -55,12 +55,14 @@ pnpm install
 ### Development
 
 ```bash
-# Run Sudoku app in development mode
+# Run default app in development mode (Sudoku)
 pnpm run dev
 
 # Or run specific apps
 pnpm run dev:sudoku
 pnpm run dev:bubblyclouds
+pnpm run dev:jamesacres
+pnpm run dev:stephenesch
 ```
 
 ### Building
@@ -72,6 +74,8 @@ pnpm run build
 # Build specific apps
 pnpm run build:sudoku
 pnpm run build:bubblyclouds
+pnpm run build:jamesacres
+pnpm run build:stephenesch
 
 # Build for specific platforms (Sudoku app)
 pnpm run build:sudoku:capacitor     # Sudoku iOS/Android
@@ -152,6 +156,13 @@ integration guides, and examples:
   - Timer functionality
   - Daily puzzle tracking
 
+- **[@bubblyclouds-app/blog](./packages/blog/README.md)** - Blog components &
+  utilities
+  - Reusable blog components (header, footer, post list)
+  - Blog post types and metadata
+  - Reading time calculation
+  - Post sorting and filtering helpers
+
 ### Utility Packages
 
 - **[@bubblyclouds-app/types](./packages/types/README.md)** - Shared TypeScript
@@ -198,6 +209,44 @@ The Bubblyclouds website is the company landing page and marketing site:
   - Responsive design
   - Dark mode support
   - Marketing pages (landing, privacy, terms)
+
+### Blog Applications
+
+Personal blog applications built with the reusable `@blog` package:
+
+#### James Acres Blog
+
+The James Acres blog website (`@app-jamesacres`) showcases personal projects
+and writing:
+
+- **Core Features** (from `@blog` package):
+  - MDX-based blog posts with code syntax highlighting
+  - Dark/light mode support with theme persistence
+  - RSS feed generation
+  - Reading time calculation
+  - Post metadata and categorization
+
+- **UI/UX**:
+  - Responsive design
+  - Clean, minimal blog layout
+  - Navigation and post listing
+
+#### Stephen Esch Blog
+
+The Stephen Esch blog website (`@app-stephenesch`) follows the same architecture
+as the James Acres blog:
+
+- **Core Features** (from `@blog` package):
+  - MDX-based blog posts with code syntax highlighting
+  - Dark/light mode support with theme persistence
+  - RSS feed generation
+  - Reading time calculation
+  - Post metadata and categorization
+
+- **UI/UX**:
+  - Responsive design
+  - Clean, minimal blog layout
+  - Navigation and post listing
 
 ## Developer Resources
 
@@ -280,7 +329,15 @@ bubblyclouds-app/
 │   │   ├── src/         # App source code
 │   │   ├── public/      # Static assets
 │   │   └── package.json
-│   └── bubblyclouds/    # Bubblyclouds website
+│   ├── bubblyclouds/    # Bubblyclouds website
+│   │   ├── src/         # App source code
+│   │   ├── public/      # Static assets
+│   │   └── package.json
+│   ├── jamesacres/      # James Acres blog
+│   │   ├── src/         # App source code
+│   │   ├── public/      # Static assets
+│   │   └── package.json
+│   └── stephenesch/     # Stephen Esch blog
 │       ├── src/         # App source code
 │       ├── public/      # Static assets
 │       └── package.json
@@ -291,6 +348,7 @@ bubblyclouds-app/
 │   ├── template/        # Collaborative features package
 │   ├── games/           # Game-agnostic game features
 │   ├── sudoku/          # Sudoku-specific logic
+│   ├── blog/            # Blog components & utilities package
 │   └── types/           # Shared TypeScript types
 │
 ├── specs/               # Feature specifications
