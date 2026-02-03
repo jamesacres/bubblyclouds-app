@@ -1,0 +1,538 @@
+@import 'tailwindcss';
+@source "../../../../packages/blog";
+@source "../../../../packages/types";
+@source "../../../../packages/ui";
+
+@custom-variant dark (&:is(.dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+.max-w-none {
+  max-width: none !important;
+}
+
+/* Fade-in animation for speech bubble */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+}
+
+/* PrismJS */
+pre[class*='language-'] {
+  border-radius: 8px;
+}
+
+/* Code highlighting styles */
+.code-highlight {
+  position: relative;
+}
+
+.code-line {
+  display: block;
+}
+
+/* Light theme code blocks */
+pre[class*='language-'] {
+  @apply overflow-x-auto rounded-lg bg-gray-100 p-4 text-gray-800;
+}
+
+/* Dark theme code blocks */
+:is(.dark pre[class*='language-']) {
+  @apply bg-gray-900 text-gray-200;
+  border: 1px solid #374151;
+}
+
+/* Inline code styling */
+:not(pre) > code[class*='language-'] {
+  @apply rounded bg-gray-100 px-1 py-0.5 text-indigo-600;
+}
+
+:is(.dark :not(pre) > code[class*='language-']) {
+  @apply bg-gray-700 text-gray-200;
+}
+
+/* Prose styles - matching @tailwindcss/typography */
+.prose {
+  color: #374151;
+  max-width: 65ch;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.prose-xl {
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+.prose [class~='lead'] {
+  color: #6b7280;
+  font-size: 1.25em;
+  line-height: 1.6;
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
+}
+
+.prose a {
+  color: #0ea5e9;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.prose a:hover {
+  color: #0284c7;
+}
+
+.prose strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+.prose a strong {
+  color: inherit;
+}
+
+.prose blockquote {
+  font-weight: 500;
+  font-style: italic;
+  color: #111827;
+  border-left-width: 0.25rem;
+  border-left-color: #e5e7eb;
+  quotes: '\201C''\201D''\2018''\2019';
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  padding-left: 1em;
+}
+
+.prose blockquote p:first-of-type::before {
+  content: open-quote;
+}
+
+.prose blockquote p:last-of-type::after {
+  content: close-quote;
+}
+
+.prose h1 {
+  color: #111827;
+  font-weight: 800;
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+}
+
+.prose h2 {
+  color: #111827 !important;
+  font-weight: 700 !important;
+  font-size: 1.5em !important;
+  margin-top: 2em !important;
+  margin-bottom: 1em !important;
+  line-height: 1.3333333 !important;
+}
+
+.prose h3 {
+  color: #111827 !important;
+  font-weight: 600 !important;
+  font-size: 1.25em !important;
+  margin-top: 1.6em !important;
+  margin-bottom: 0.6em !important;
+  line-height: 1.6 !important;
+}
+
+.prose-xl h3 {
+  font-size: 1.5em !important;
+  font-weight: 600 !important;
+  margin-top: 2.4em !important;
+  margin-bottom: 1em !important;
+}
+
+.prose h4 {
+  color: #111827;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+.prose figure figcaption {
+  color: #6b7280;
+  font-size: 0.875em;
+  line-height: 1.4285714;
+  margin-top: 0.8571429em;
+  text-align: center;
+}
+
+.prose code {
+  color: #111827;
+  font-weight: 600;
+  font-size: 0.875em;
+}
+
+.prose code::before {
+  content: '`';
+}
+
+.prose code::after {
+  content: '`';
+}
+
+.prose a code {
+  color: inherit;
+}
+
+.prose pre {
+  color: #e5e7eb;
+  background-color: #374151;
+  overflow-x: auto;
+  font-weight: 400;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+  margin-top: 1.7142857em;
+  margin-bottom: 1.7142857em;
+  border-radius: 0.375rem;
+  padding-top: 0.8571429em;
+  padding-right: 1.1428571em;
+  padding-bottom: 0.8571429em;
+  padding-left: 1.1428571em;
+}
+
+.prose pre code {
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.prose pre code::before {
+  content: none;
+}
+
+.prose pre code::after {
+  content: none;
+}
+
+.prose table {
+  width: 100%;
+  table-layout: auto;
+  text-align: left;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: 0.875em;
+  line-height: 1.7142857;
+}
+
+.prose thead {
+  border-bottom-width: 1px;
+  border-bottom-color: #d1d5db;
+}
+
+.prose thead th {
+  color: #111827;
+  font-weight: 600;
+  vertical-align: bottom;
+  padding-right: 0.5714286em;
+  padding-bottom: 0.5714286em;
+  padding-left: 0.5714286em;
+}
+
+.prose tbody tr {
+  border-bottom-width: 1px;
+  border-bottom-color: #e5e7eb;
+}
+
+.prose tbody tr:last-child {
+  border-bottom-width: 0;
+}
+
+.prose tbody td {
+  vertical-align: baseline;
+}
+
+.prose tbody td,
+.prose tfoot td {
+  padding-top: 0.5714286em;
+  padding-right: 0.5714286em;
+  padding-bottom: 0.5714286em;
+  padding-left: 0.5714286em;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose img {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.prose video {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.prose figure {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.prose figure > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.prose h2 code {
+  font-size: 0.875em;
+}
+
+.prose h3 code {
+  font-size: 0.9em;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose ul {
+  list-style-type: disc;
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose ol > li {
+  padding-left: 0.375em;
+}
+
+.prose ul > li {
+  padding-left: 0.375em;
+}
+
+.prose > ul > li p {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.prose > ul > li > *:first-child {
+  margin-top: 1.25em;
+}
+
+.prose > ul > li > *:last-child {
+  margin-bottom: 1.25em;
+}
+
+.prose > ol > li > *:first-child {
+  margin-top: 1.25em;
+}
+
+.prose > ol > li > *:last-child {
+  margin-bottom: 1.25em;
+}
+
+.prose ul ul,
+.prose ul ol,
+.prose ol ul,
+.prose ol ol {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.prose hr {
+  border-color: #e5e7eb;
+  border-top-width: 1px;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.prose hr + * {
+  margin-top: 0;
+}
+
+.prose h2 + * {
+  margin-top: 0;
+}
+
+.prose h3 + * {
+  margin-top: 0;
+}
+
+.prose h4 + * {
+  margin-top: 0;
+}
+
+.prose thead th:first-child {
+  padding-left: 0;
+}
+
+.prose thead th:last-child {
+  padding-right: 0;
+}
+
+.prose tbody td,
+.prose tfoot td {
+  padding-left: 0;
+}
+
+.prose tbody td:first-child,
+.prose tfoot td:first-child {
+  padding-left: 0;
+}
+
+.prose tbody td:last-child,
+.prose tfoot td:last-child {
+  padding-right: 0;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+/* Dark mode prose styles */
+.dark .prose {
+  color: #d1d5db;
+}
+
+.dark .prose [class~='lead'] {
+  color: #9ca3af;
+}
+
+.dark .prose a {
+  color: #0ea5e9;
+}
+
+.dark .prose a:hover {
+  color: #38bdf8;
+}
+
+.dark .prose strong {
+  color: #f9fafb;
+}
+
+.dark .prose ol > li::marker {
+  color: #9ca3af;
+}
+
+.dark .prose ul > li::marker {
+  color: #9ca3af;
+}
+
+.dark .prose hr {
+  border-color: #374151;
+}
+
+.dark .prose blockquote {
+  color: #f9fafb;
+  border-left-color: #374151;
+}
+
+.dark .prose h1 {
+  color: #f9fafb;
+}
+
+.dark .prose h2 {
+  color: #f9fafb !important;
+}
+
+.dark .prose h3 {
+  color: #f9fafb !important;
+}
+
+.dark .prose h4 {
+  color: #f9fafb;
+}
+
+.dark .prose figure figcaption {
+  color: #9ca3af;
+}
+
+.dark .prose code {
+  color: #f9fafb;
+}
+
+.dark .prose a code {
+  color: inherit;
+}
+
+.dark .prose pre {
+  color: #e5e7eb;
+  background-color: #1f2937;
+}
+
+.dark .prose pre code {
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 0;
+  padding: 0;
+  font-weight: 400;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+.dark .prose table {
+  color: #f9fafb;
+}
+
+.dark .prose thead {
+  color: #f9fafb;
+  border-bottom-color: #4b5563;
+}
+
+.dark .prose tbody tr {
+  border-bottom-color: #374151;
+}
+
+@layer base {
+  body {
+    @apply bg-sky-100 text-black dark:bg-sky-950 dark:text-white;
+    font-family: inherit;
+  }
+}
+
+/* Primary color theme for blog - Sky theme (matching original stephenesch) */
+@theme {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+}
+
+/* Global link styling - make all links sky blue */
+a {
+  @apply text-primary-500 hover:text-primary-600 dark:hover:text-primary-400;
+}

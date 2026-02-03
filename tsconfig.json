@@ -33,6 +33,8 @@
       ],
       "@bubblyclouds-app/auth": ["./packages/auth/src"],
       "@bubblyclouds-app/auth/*": ["./packages/auth/src/*"],
+      "@bubblyclouds-app/blog": ["./packages/blog/src"],
+      "@bubblyclouds-app/blog/*": ["./packages/blog/src/*"],
       "@bubblyclouds-app/ui": ["./packages/ui/src"],
       "@bubblyclouds-app/ui/*": ["./packages/ui/src/*"],
       "@bubblyclouds-app/games": ["./packages/games/src"],

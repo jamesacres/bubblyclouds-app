@@ -1,7 +1,7 @@
 'use client';
 import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import Image from 'next/image';
-import { User } from 'react-feather';
+import { User } from 'lucide-react';
 
 export const UserAvatar = ({
   user,

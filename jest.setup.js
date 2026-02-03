@@ -4,6 +4,36 @@
 // Import testing-library matchers
 require('@testing-library/jest-dom');
 
+// Mock github-slugger for ESM compatibility
+jest.mock('github-slugger', () => {
+  return {
+    default: class Slugger {
+      constructor() {
+        this.occurrences = {};
+      }
+      slug(value) {
+        const slug = value
+          .toLowerCase()
+          .trim()
+          .replace(/[^\p{L}\p{N}\s-]/gu, '')
+          .replace(/\s+/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-+|-+$/g, '');
+        if (this.occurrences[slug]) {
+          this.occurrences[slug]++;
+          return `${slug}-${this.occurrences[slug]}`;
+        }
+        this.occurrences[slug] = 0;
+        return slug;
+      }
+      reset() {
+        this.occurrences = {};
+      }
+    },
+    __esModule: true,
+  };
+});
+
 // Mock RevenueCat/Capacitor modules that use ESM
 jest.mock(
   '@revenuecat/purchases-capacitor',
@@ -139,11 +169,6 @@ jest.mock(
   }),
   { virtual: true }
 );
-
-// Mock react-feather icons - load from external file
-const featherMocks = require('./jest.setup.featherIcons');
-
-jest.mock('react-feather', () => featherMocks);
 
 // Create global window object for Node environment
 if (typeof window === 'undefined') {

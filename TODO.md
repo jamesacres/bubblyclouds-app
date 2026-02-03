@@ -1,9 +1,8 @@
 # Framework
 
-- move bubblyclouds repo (main website) into apps directory then delete separate
-  repo
-
+- statically generate build to deploy to aws
 - remove vercel and introduce open next and sst
+- delete separate bubbly clouds website repo
 
 - usage analytics from db
 - re-test electron

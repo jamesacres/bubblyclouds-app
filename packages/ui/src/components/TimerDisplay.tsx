@@ -1,5 +1,5 @@
 import { formatSeconds } from '../helpers/formatSeconds';
-import { Watch } from 'react-feather';
+import { Watch } from 'lucide-react';
 
 const TimerDisplay = ({
   seconds,

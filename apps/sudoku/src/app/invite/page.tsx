@@ -13,7 +13,7 @@ import {
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useContext, useEffect, useState } from 'react';
-import { Loader, Users, Star } from 'react-feather';
+import { Loader, Users, Star } from 'lucide-react';
 import Image from 'next/image';
 
 function InviteComponent() {

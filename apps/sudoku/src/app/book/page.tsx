@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { ArrowUp } from 'react-feather';
+import { ArrowUp } from 'lucide-react';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
 import { useContext, useEffect, useState, useCallback } from 'react';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';

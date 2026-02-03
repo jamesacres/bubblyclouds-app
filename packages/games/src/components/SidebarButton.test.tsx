@@ -18,7 +18,7 @@ describe('SidebarButton', () => {
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
-    it('should render with Sidebar icon from react-feather', () => {
+    it('should render with Sidebar icon from lucide-react', () => {
       const mockClick = jest.fn();
       const { container } = render(
         <SidebarButton friendsOnClick={mockClick} />

@@ -19,7 +19,7 @@ jest.mock('../hooks/useDrag', () => ({
   useDrag: jest.fn(() => ({})),
 }));
 
-jest.mock('react-feather', () => ({
+jest.mock('lucide-react', () => ({
   Award: () => <svg data-testid="award-icon" />,
   Loader: () => <svg data-testid="loader-icon" />,
   Sidebar: () => <svg data-testid="sidebar-icon" />,

@@ -11,8 +11,8 @@ jest.mock('next/navigation', () => ({
   usePathname: jest.fn(() => '/'),
 }));
 
-// Mock react-feather
-jest.mock('react-feather', () => ({
+// Mock lucide-react
+jest.mock('lucide-react', () => ({
   ChevronLeft: ({ className }: any) => (
     <div data-testid="chevron-left" className={className} />
   ),

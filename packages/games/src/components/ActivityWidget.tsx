@@ -1,7 +1,7 @@
 'use client';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { BaseServerState } from '@bubblyclouds-app/template/types/state';
-import { Calendar, Activity } from 'react-feather';
+import { Calendar, Activity } from 'lucide-react';
 
 interface ActivityWidgetProps {
   sessions: ServerStateResult<BaseServerState>[] | undefined;

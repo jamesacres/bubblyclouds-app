@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { AlertTriangle } from 'react-feather';
+import { AlertTriangle } from 'lucide-react';
 
 interface DeleteAccountDialogProps {
   isOpen: boolean;

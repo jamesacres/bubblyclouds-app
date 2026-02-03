@@ -43,8 +43,12 @@ dist/
 
 .serena
 .claude
+.gemini
+.kiro/settings
 
 android/app/release
 
 # turborepo
 .turbo
+
+temp

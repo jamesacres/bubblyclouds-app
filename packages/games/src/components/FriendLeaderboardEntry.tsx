@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight } from 'react-feather';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
 import ScoreBreakdown from './ScoreBreakdown';

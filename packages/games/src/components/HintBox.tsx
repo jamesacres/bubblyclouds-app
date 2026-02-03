@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useState } from 'react';
-import { X } from 'react-feather';
+import { X } from 'lucide-react';
 
 const HintBox = ({ children }: { children: ReactNode }) => {
   const [showHint, setShowHint] = useState(true);

@@ -102,7 +102,7 @@ describe('ThemeSwitch', () => {
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('bg-gray-100');
+        expect(button).toHaveClass('bg-primary-100');
       });
     });
   });
@@ -134,7 +134,7 @@ describe('ThemeSwitch', () => {
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('dark:bg-gray-800');
+        expect(button).toHaveClass('dark:bg-primary-900/20');
       });
     });
   });

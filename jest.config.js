@@ -30,7 +30,8 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testTimeout: 10000,
   transformIgnorePatterns: [
-    'node_modules/(?!@revenuecat|@capacitor|capacitor-secure-storage-plugin)',
+    'node_modules/(?!.pnpm)',
+    'node_modules/.pnpm/(?!(github-slugger|@revenuecat|@capacitor|capacitor-secure-storage-plugin)@)',
   ],
   transform: {
     '^.+\\.tsx?$': [

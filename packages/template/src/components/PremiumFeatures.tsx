@@ -2,7 +2,7 @@
 import { ReactElement, cloneElement, useContext } from 'react';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
-import { Star, CheckCircle, Lock } from 'react-feather';
+import { Star, CheckCircle, Lock } from 'lucide-react';
 
 interface PremiumFeature {
   icon: ReactElement<any>;

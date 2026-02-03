@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { LogOut, Trash, UserMinus } from 'react-feather';
+import { LogOut, Trash, UserMinus } from 'lucide-react';
 
 interface PartyConfirmationDialogProps {
   isOpen: boolean;

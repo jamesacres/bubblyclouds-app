@@ -13,7 +13,7 @@ import {
   RefreshCw,
   Square,
   Unlock,
-} from 'react-feather';
+} from 'lucide-react';
 import { NumberPad } from '@bubblyclouds-app/games/components/NumberPad';
 import { Toggle as NotesToggle } from '@bubblyclouds-app/ui/components/NotesToggle';
 import React, { memo, useState, useRef, useCallback, useEffect } from 'react';

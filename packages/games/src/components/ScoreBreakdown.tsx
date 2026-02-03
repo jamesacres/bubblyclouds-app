@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Award, Zap, Calendar, Book, Camera } from 'react-feather';
+import { Award, Zap, Calendar, Book, Camera } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
 

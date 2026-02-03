@@ -8,7 +8,7 @@ import {
   Loader,
   Share as ShareIOS,
   Share2 as ShareAndroid,
-} from 'react-feather';
+} from 'lucide-react';
 
 const CopyButton = ({
   getText,

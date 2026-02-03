@@ -41,7 +41,7 @@ jest.mock('./DeleteAccountDialog', () => ({
   ),
 }));
 
-jest.mock('react-feather', () => ({
+jest.mock('lucide-react', () => ({
   __esModule: true,
   Plus: (props: any) => <div data-testid="plus-icon" {...props} />,
   LogOut: (props: any) => <div data-testid="logout-icon" {...props} />,

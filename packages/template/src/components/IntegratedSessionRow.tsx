@@ -5,7 +5,7 @@ import { useParties } from '../hooks/useParties';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import { useSessions } from '../providers/SessionsProvider';
-import { Award, Loader } from 'react-feather';
+import { Award, Loader } from 'lucide-react';
 import Link from 'next/link';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { BaseServerState } from '../types/state';
