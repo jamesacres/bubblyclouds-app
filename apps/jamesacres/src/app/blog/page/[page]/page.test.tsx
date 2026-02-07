@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { notFound } from 'next/navigation';
 import BlogPageNumber, { generateStaticParams } from './page';
-import * as postsModule from '@/lib/posts';
+import * as postsModule from '@bubblyclouds-app/blog/helpers/posts';
 import * as blogUtils from '@bubblyclouds-app/blog/helpers/blogUtils';
 
 jest.mock('next/navigation');
+jest.mock('@bubblyclouds-app/blog/helpers/posts');
 jest.mock('@/lib/posts', () => ({
-  getAllPosts: jest.fn(),
   POSTS_PER_PAGE: 5,
 }));
 jest.mock('@bubblyclouds-app/blog/helpers/blogUtils');

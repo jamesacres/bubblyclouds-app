@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { notFound } from 'next/navigation';
 import TagPage, { generateStaticParams, generateMetadata } from './page';
-import * as postsModule from '@/lib/posts';
+import * as postsModule from '@bubblyclouds-app/blog/helpers/posts';
 import * as tagUtils from '@bubblyclouds-app/blog/helpers/tagUtils';
 
 jest.mock('next/navigation');
-jest.mock('@/lib/posts');
+jest.mock('@bubblyclouds-app/blog/helpers/posts');
 jest.mock('@bubblyclouds-app/blog/helpers/tagUtils');
 jest.mock('@bubblyclouds-app/blog/components/PostList', () => ({
   __esModule: true,

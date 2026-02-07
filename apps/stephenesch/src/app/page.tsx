@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/posts';
+import { getAllPosts } from '@bubblyclouds-app/blog/helpers/posts';
 import PostList from '@bubblyclouds-app/blog/components/PostList';
 import Link from 'next/link';
 import siteMetadata from '@/data/siteMetadata';

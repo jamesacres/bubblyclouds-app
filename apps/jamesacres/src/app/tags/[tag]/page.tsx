@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/posts';
+import { getAllPosts } from '@bubblyclouds-app/blog/helpers/posts';
 import {
   getTagCounts,
   slugifyTag,

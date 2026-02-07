@@ -1,5 +1,6 @@
 import siteMetadata from '@/data/siteMetadata';
-import { getAllPosts, POSTS_PER_PAGE } from '@/lib/posts';
+import { getAllPosts } from '@bubblyclouds-app/blog/helpers/posts';
+import { POSTS_PER_PAGE } from '@/lib/posts';
 import PostList from '@bubblyclouds-app/blog/components/PostList';
 import Pagination from '@bubblyclouds-app/blog/components/Pagination';
 import { paginatePosts } from '@bubblyclouds-app/blog/helpers/blogUtils';

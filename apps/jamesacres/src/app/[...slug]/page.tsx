@@ -1,11 +1,14 @@
-import { getAllPosts, getPostBySlug } from '@/lib/posts';
+import {
+  getAllPosts,
+  getPostBySlug,
+} from '@bubblyclouds-app/blog/helpers/posts';
 import { getAdjacentPosts } from '@bubblyclouds-app/blog/helpers/blogUtils';
 import PostLayout from '@bubblyclouds-app/blog/components/PostLayout';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import siteMetadata from '@/data/siteMetadata';
 import MDXComponents from '@bubblyclouds-app/blog/components/MDXComponents';
 import { notFound } from 'next/navigation';
-import { getAuthor } from '@/lib/authors';
+import { getAuthor } from '@bubblyclouds-app/blog/helpers/authors';
 import { Author } from '@bubblyclouds-app/blog/types/authorTypes';
 import rehypePrismPlus from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';

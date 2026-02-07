@@ -1,5 +1,5 @@
 import siteMetadata from '@/data/siteMetadata';
-import { getAuthor } from '@/lib/authors';
+import { getAuthor } from '@bubblyclouds-app/blog/helpers/authors';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import MDXComponents from '@bubblyclouds-app/blog/components/MDXComponents';
 import Image from 'next/image';

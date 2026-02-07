@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import { notFound } from 'next/navigation';
 import BlogPageNumber, { generateStaticParams } from './page';
-import * as postsModule from '@/lib/posts';
+import * as postsModule from '@bubblyclouds-app/blog/helpers/posts';
 import * as blogUtils from '@bubblyclouds-app/blog/helpers/blogUtils';
 
 jest.mock('next/navigation');
+jest.mock('@bubblyclouds-app/blog/helpers/posts');
 jest.mock('@/lib/posts', () => ({
-  getAllPosts: jest.fn(),
-  POSTS_PER_PAGE: 5,
+  POSTS_PER_PAGE: 100,
 }));
 jest.mock('@bubblyclouds-app/blog/helpers/blogUtils');
 jest.mock('@bubblyclouds-app/blog/components/PostList', () => ({
@@ -39,7 +39,7 @@ describe('BlogPageNumber', () => {
 
   describe('generateStaticParams', () => {
     it('should generate params for all blog pages', async () => {
-      const mockPosts = Array.from({ length: 12 }, (_, i) => ({
+      const mockPosts = Array.from({ length: 250 }, (_, i) => ({
         slug: `artist-${i}|album-${i}`,
         title: `Artist ${i}: Album ${i}`,
         date: '2024-01-01',
@@ -85,7 +85,7 @@ describe('BlogPageNumber', () => {
     });
 
     it('should calculate correct page numbers', async () => {
-      const mockPosts = Array.from({ length: 15 }, (_, i) => ({
+      const mockPosts = Array.from({ length: 250 }, (_, i) => ({
         slug: `artist-${i}|album-${i}`,
         title: `Artist ${i}: Album ${i}`,
         date: '2024-01-01',

@@ -1,16 +1,15 @@
 import fs from 'fs';
 import matter from 'gray-matter';
-import * as blogUtils from '@bubblyclouds-app/blog/helpers/blogUtils';
+import * as blogUtils from './blogUtils';
 
 jest.mock('fs');
 jest.mock('gray-matter');
-jest.mock('@bubblyclouds-app/blog/helpers/blogUtils');
+jest.mock('./blogUtils');
 
 describe('posts library', () => {
   let getAllPosts: typeof import('./posts').getAllPosts;
   let getPostBySlug: typeof import('./posts').getPostBySlug;
   let getAllSlugs: typeof import('./posts').getAllSlugs;
-  let POSTS_PER_PAGE: typeof import('./posts').POSTS_PER_PAGE;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -19,13 +18,6 @@ describe('posts library', () => {
       getAllPosts = posts.getAllPosts;
       getPostBySlug = posts.getPostBySlug;
       getAllSlugs = posts.getAllSlugs;
-      POSTS_PER_PAGE = posts.POSTS_PER_PAGE;
-    });
-  });
-
-  describe('POSTS_PER_PAGE', () => {
-    it('should export POSTS_PER_PAGE constant', () => {
-      expect(POSTS_PER_PAGE).toBe(5);
     });
   });
 

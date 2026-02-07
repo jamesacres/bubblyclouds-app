@@ -1,18 +1,20 @@
 import {
   getAllPosts,
   getPostBySlug,
+} from '@bubblyclouds-app/blog/helpers/posts';
+import {
   extractMusicRatingData,
   stripMusicRatingExport,
   isMusicRatingData,
-} from '@/lib/posts';
+} from '@/lib/musicRating';
 import { getAdjacentPosts } from '@bubblyclouds-app/blog/helpers/blogUtils';
 import PostLayout from '@bubblyclouds-app/blog/components/PostLayout';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import siteMetadata from '@/data/siteMetadata';
 import MDXComponentsBase from '@bubblyclouds-app/blog/components/MDXComponents';
-import MusicRating from '@/lib/components/MusicRating';
+import MusicRating from '@/components/MusicRating';
 import { notFound } from 'next/navigation';
-import { getAuthor } from '@/lib/authors';
+import { getAuthor } from '@bubblyclouds-app/blog/helpers/authors';
 import { Author } from '@bubblyclouds-app/blog/types/authorTypes';
 import rehypePrismPlus from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';

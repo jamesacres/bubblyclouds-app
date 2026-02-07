@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import BlogPage from './page';
-import * as postsModule from '@/lib/posts';
+import * as postsModule from '@bubblyclouds-app/blog/helpers/posts';
 import * as blogUtils from '@bubblyclouds-app/blog/helpers/blogUtils';
 
+jest.mock('@bubblyclouds-app/blog/helpers/posts');
 jest.mock('@/lib/posts', () => ({
-  getAllPosts: jest.fn(),
-  POSTS_PER_PAGE: 5,
+  POSTS_PER_PAGE: 100,
 }));
 jest.mock('@bubblyclouds-app/blog/helpers/blogUtils');
 jest.mock('@bubblyclouds-app/blog/components/PostList', () => ({
@@ -86,7 +86,7 @@ describe('BlogPage', () => {
     const result = await BlogPage();
     render(result);
 
-    expect(blogUtils.paginatePosts).toHaveBeenCalledWith(mockPosts, 1, 5);
+    expect(blogUtils.paginatePosts).toHaveBeenCalledWith(mockPosts, 1, 100);
   });
 
   it('should render PostList component with paginated posts', async () => {

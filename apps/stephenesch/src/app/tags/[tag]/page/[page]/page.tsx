@@ -1,4 +1,5 @@
-import { getAllPosts, POSTS_PER_PAGE } from '@/lib/posts';
+import { getAllPosts } from '@bubblyclouds-app/blog/helpers/posts';
+import { POSTS_PER_PAGE } from '@/lib/posts';
 import {
   getTagCounts,
   slugifyTag,

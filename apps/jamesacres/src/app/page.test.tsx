@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
 import HomePage from './page';
-import * as postsModule from '@/lib/posts';
+import * as postsModule from '@bubblyclouds-app/blog/helpers/posts';
 
-jest.mock('@/lib/posts');
+jest.mock('@bubblyclouds-app/blog/helpers/posts');
 jest.mock('next/image', () => ({
   __esModule: true,
   default: ({ alt, src }: { alt: string; src: string }) => (

@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import BlogPage from './page';
-import * as postsModule from '@/lib/posts';
+import * as postsModule from '@bubblyclouds-app/blog/helpers/posts';
 import * as blogUtils from '@bubblyclouds-app/blog/helpers/blogUtils';
 
+jest.mock('@bubblyclouds-app/blog/helpers/posts');
 jest.mock('@/lib/posts', () => ({
-  getAllPosts: jest.fn(),
   POSTS_PER_PAGE: 5,
 }));
 jest.mock('@bubblyclouds-app/blog/helpers/blogUtils');

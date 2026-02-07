@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import RatingsPage from './page';
-import * as postsModule from '@/lib/posts';
+import * as postsModule from '@bubblyclouds-app/blog/helpers/posts';
 import * as tagUtilsModule from '@bubblyclouds-app/blog/helpers/tagUtils';
 
-jest.mock('@/lib/posts');
+jest.mock('@bubblyclouds-app/blog/helpers/posts');
 jest.mock('@bubblyclouds-app/blog/helpers/tagUtils');
 jest.mock('next/link', () => ({
   __esModule: true,
@@ -22,7 +22,7 @@ jest.mock('next/link', () => ({
     </a>
   ),
 }));
-jest.mock('@/lib/components/StarsRating', () => ({
+jest.mock('@/components/StarsRating', () => ({
   StarsRating: ({ rating }: { rating: number }) => (
     <div data-testid={`stars-rating-${rating}`}>{rating} stars</div>
   ),
