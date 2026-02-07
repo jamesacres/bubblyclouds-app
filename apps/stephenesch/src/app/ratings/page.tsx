@@ -1,7 +1,7 @@
-import { getAllPosts } from '@/lib/posts';
+import { getAllPosts } from '@bubblyclouds-app/blog/helpers/posts';
 import { getTagCounts } from '@bubblyclouds-app/blog/helpers/tagUtils';
 import Link from 'next/link';
-import { StarsRating } from '@/lib/components/StarsRating';
+import { StarsRating } from '@/components/StarsRating';
 
 export const metadata = {
   title: 'Ratings',

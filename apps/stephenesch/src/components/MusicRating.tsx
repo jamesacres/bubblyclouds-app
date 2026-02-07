@@ -26,6 +26,8 @@ const MusicRating = ({
         src={`/content/images/${key}.jpg`}
         width={360}
         height={360}
+        loading="eager"
+        style={{ width: 'auto', height: 'auto' }}
       />
     </div>
   );

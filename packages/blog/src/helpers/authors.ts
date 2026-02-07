@@ -1,4 +1,4 @@
-import { Author } from '@bubblyclouds-app/blog/types/authorTypes';
+import { Author } from '../types/authorTypes';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';

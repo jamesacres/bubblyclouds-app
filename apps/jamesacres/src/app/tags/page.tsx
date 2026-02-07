@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/posts';
+import { getAllPosts } from '@bubblyclouds-app/blog/helpers/posts';
 import { getTagCounts } from '@bubblyclouds-app/blog/helpers/tagUtils';
 import TagList from '@bubblyclouds-app/blog/components/TagList';
 import { TagCount } from '@bubblyclouds-app/blog/types/tagTypes';

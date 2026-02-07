@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/posts';
+import { getAllPosts } from '@bubblyclouds-app/blog/helpers/posts';
 import PostList from '@bubblyclouds-app/blog/components/PostList';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -32,6 +32,7 @@ export default async function Page() {
                 alt="avatar"
                 width={150}
                 height={300}
+                priority
                 className="h-auto w-36 object-cover object-right"
               />
             </div>

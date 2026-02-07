@@ -75,7 +75,7 @@ const PostLayout = ({
                 <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                   Tags
                 </h2>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap gap-3">
                   {tags.map((tag: string) => (
                     <Tag key={tag} tag={tag} />
                   ))}
