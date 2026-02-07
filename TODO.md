@@ -1,3 +1,8 @@
+
+# TODO
+- fix sign in on newly hosted bubblyclouds site, split of undefined but we can see it has the token?
+- configure deploy for all other sites
+
 # Framework
 
 - statically generate build to deploy to aws

@@ -1,0 +1,32 @@
+{
+  "name": "deploy",
+  "version": "0.1.0",
+  "bin": {
+    "deploy": "bin/deploy.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk",
+    "cdk:deploy": "ENV=prod cdk deploy",
+    "cdk:diff": "ENV=prod cdk diff",
+    "cdk:synth": "ENV=dev cdk synth",
+    "sync-s3": "set -a && source .env && set +a && ./scripts/sync-s3.sh"
+  },
+  "devDependencies": {
+    "@types/jest": "^30",
+    "@types/node": "^24.10.1",
+    "aws-cdk": "2.1105.0",
+    "dotenv": "^17.2.4",
+    "jest": "^30",
+    "ts-jest": "^29",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.9.3"
+  },
+  "dependencies": {
+    "@aws-solutions-constructs/aws-cloudfront-s3": "^2.98.0",
+    "aws-cdk-lib": "^2.237.1",
+    "constructs": "^10.0.0"
+  }
+}
