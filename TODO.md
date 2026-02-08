@@ -1,13 +1,9 @@
 
 # TODO
-- fix sign in on newly hosted bubblyclouds site, split of undefined but we can see it has the token?
-- configure deploy for all other sites
+
+
 
 # Framework
-
-- statically generate build to deploy to aws
-- remove vercel and introduce open next and sst
-- delete separate bubbly clouds website repo
 
 - usage analytics from db
 - re-test electron
@@ -16,9 +12,11 @@
 
 ## Blog
 
+- update projects
+- write ai tool progress over past year since last post and learnings
 - write retro post
+- update stephens ratings, and add his long form content
 - tidy up new home assistant post
-- Add Stephen new ratings
 
 ## Sudoku
 
@@ -34,3 +32,10 @@
 
 - Sign in button on invite page header should redirect back to the invite
 - fix electron auth
+
+## Sliding BLock
+
+### Features
+
+- Implement
+
