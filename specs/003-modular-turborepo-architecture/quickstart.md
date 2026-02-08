@@ -380,30 +380,44 @@ npm test -w @bubblyclouds-app/ui -- --watch
 
 ---
 
-## Building for Deployment
+## Building and Deploying
 
 ### Build All Packages and Apps
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### Build Specific App
 
 ```bash
-npm run build -w apps/sudoku
+pnpm run build:sudoku
+pnpm run build:bubblyclouds
+pnpm run build:jamesacres
+pnpm run build:stephenesch
 ```
+
+All apps produce a static `out/` directory via Next.js static export.
+
+### Deploy to AWS
+
+Each app has a `deploy/` directory with an AWS CDK stack. Infrastructure is
+provisioned once with `npm run cdk:deploy`, then updates are deployed by running
+`npm run sync-s3` (from the app's `deploy/` directory) which syncs the static
+output to S3 and invalidates the CloudFront cache.
+
+See each app's `deploy/README.md` for full setup instructions.
 
 ### Check TypeScript
 
 ```bash
-npm run typecheck
+pnpm run type-check
 ```
 
 ### Lint Code
 
 ```bash
-npm run lint
+pnpm run lint
 ```
 
 ---

@@ -18,10 +18,10 @@ export default async function Page() {
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="space-y-8 pb-8 pt-6 md:space-y-10">
           <div className="flex flex-row items-start justify-end gap-4">
-            <div className="relative mt-20 max-w-lg">
+            <div className="relative mt-20 min-w-0 max-w-lg">
               <div className="animate-fade-in relative rounded-lg bg-pink-400 p-4 dark:bg-pink-500">
                 <div className="absolute -right-2 top-1/2 h-0 w-0 border-b-[12px] border-l-[16px] border-t-[12px] border-b-transparent border-l-pink-400 border-t-transparent dark:border-l-pink-500"></div>
-                <p className="whitespace-nowrap text-lg font-semibold leading-7 text-white">
+                <p className="text-lg font-semibold leading-7 text-white">
                   I'm creating awesome, here are some of my thoughts.
                 </p>
               </div>

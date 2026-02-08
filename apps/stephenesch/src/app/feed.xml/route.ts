@@ -2,6 +2,8 @@ import { getAllPosts } from '@bubblyclouds-app/blog/helpers/posts';
 import siteMetadata from '@/data/siteMetadata';
 import { Feed } from 'feed';
 
+export const dynamic = 'force-static';
+
 export async function GET() {
   const allPosts = await getAllPosts();
 

@@ -18,7 +18,7 @@ Rules:
 - Do not add index.ts files instead import directly
 - Packages should add exports to package.json with the Just-in-Time package
   pattern.
-- at the end of a task, always pnpm run build, pnpm run test and fix all issues.
+- at the end of a task, ONLY if it was complex, pnpm run build, pnpm run test and fix all issues.
 - at the end of a task, don't forget to run pnpm run lint:fix to fix linting
   issues
 - When moving and changing files, update the test files.
