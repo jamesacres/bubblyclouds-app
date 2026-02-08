@@ -176,7 +176,8 @@ integration guides, and examples:
 ### Sudoku App
 
 The Sudoku application is a collaborative puzzle game built on reusable
-packages:
+packages. Deployed as a static site to S3/CloudFront for web, with Capacitor
+builds for iOS/Android and Electron for desktop.
 
 - **Core Features** (from `@template` package):
   - User authentication (OAuth + email)
@@ -199,7 +200,8 @@ packages:
 
 ### Bubblyclouds Website
 
-The Bubblyclouds website is the company landing page and marketing site:
+The Bubblyclouds website is the company landing page and marketing site,
+deployed as a static site to S3/CloudFront.
 
 - **Core Features** (from `@auth` package):
   - User authentication
@@ -217,7 +219,7 @@ Personal blog applications built with the reusable `@blog` package:
 #### James Acres Blog
 
 The James Acres blog website (`@app-jamesacres`) showcases personal projects
-and writing:
+and writing, deployed as a static site to S3/CloudFront.
 
 - **Core Features** (from `@blog` package):
   - MDX-based blog posts with code syntax highlighting
@@ -234,7 +236,7 @@ and writing:
 #### Stephen Esch Blog
 
 The Stephen Esch blog website (`@app-stephenesch`) follows the same architecture
-as the James Acres blog:
+as the James Acres blog, deployed as a static site to S3/CloudFront.
 
 - **Core Features** (from `@blog` package):
   - MDX-based blog posts with code syntax highlighting
@@ -283,12 +285,41 @@ Each package includes:
 
 This project supports multiple platforms:
 
-### Web
+### Web (Static Deployment to AWS)
+
+All web apps are built as fully static sites using Next.js static export
+(`output: 'export'`) and deployed to AWS using S3 + CloudFront. This approach is
+faster and cheaper than server-side rendering platforms.
+
+Each app has a `deploy/` directory containing an AWS CDK stack that provisions:
+
+- An **S3 bucket** for hosting the static build output
+- A **CloudFront distribution** for CDN, custom domain, and SSL
+- A **CloudFront Function** that rewrites clean URLs (e.g. `/about` to
+  `/about.html`)
 
 ```bash
-pnpm run dev           # Development
-pnpm run build         # Production build
+# Development
+pnpm run dev           # Run default app in dev mode
+
+# Build static output
+pnpm run build         # Build all apps (outputs to apps/<name>/out/)
+
+# Serve locally to preview the static build
+pnpm run serve:sudoku
+pnpm run serve:bubblyclouds
+pnpm run serve:jamesacres
+pnpm run serve:stephenesch
+
+# Deploy infrastructure (one-time, from apps/<name>/deploy/)
+npm run cdk:deploy
+
+# Deploy updates (from apps/<name>/deploy/)
+npm run sync-s3        # Uploads to S3 and invalidates CloudFront
 ```
+
+See each app's [deploy/README.md](./apps/sudoku/deploy/README.md) for full
+setup instructions.
 
 ### iOS/Android (Capacitor)
 
@@ -309,12 +340,13 @@ pnpm run build:sudoku:electron      # Build Sudoku desktop app
 
 ## Technology Stack
 
-- **Framework**: Next.js 16
+- **Framework**: Next.js 16 (static export)
 - **Language**: TypeScript 5
 - **Build Tool**: Turborepo
 - **Package Manager**: pnpm workspaces
 - **Styling**: Tailwind CSS 4
 - **Testing**: Jest + React Testing Library
+- **Deployment**: AWS CDK, S3, CloudFront
 - **Mobile**: Capacitor 8
 - **Desktop**: Electron 30
 - **UI Libraries**: Headless UI, React Feather
@@ -328,18 +360,22 @@ bubblyclouds-app/
 │   ├── sudoku/          # Sudoku application
 │   │   ├── src/         # App source code
 │   │   ├── public/      # Static assets
+│   │   ├── deploy/      # AWS CDK stack for S3/CloudFront deployment
 │   │   └── package.json
 │   ├── bubblyclouds/    # Bubblyclouds website
 │   │   ├── src/         # App source code
 │   │   ├── public/      # Static assets
+│   │   ├── deploy/      # AWS CDK stack for S3/CloudFront deployment
 │   │   └── package.json
 │   ├── jamesacres/      # James Acres blog
 │   │   ├── src/         # App source code
 │   │   ├── public/      # Static assets
+│   │   ├── deploy/      # AWS CDK stack for S3/CloudFront deployment
 │   │   └── package.json
 │   └── stephenesch/     # Stephen Esch blog
 │       ├── src/         # App source code
 │       ├── public/      # Static assets
+│       ├── deploy/      # AWS CDK stack for S3/CloudFront deployment
 │       └── package.json
 │
 ├── packages/

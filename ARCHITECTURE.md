@@ -87,25 +87,29 @@ libraries) and **apps** (executable applications).
 - **`@bubblyclouds-app/app-sudoku`** - Production Sudoku application (Next.js)
   - Consumes all packages
   - Contains app-specific pages and routing
-  - Platform builds: Web, iOS, Android, Electron
+  - Platform builds: Web (static to S3/CloudFront), iOS, Android, Electron
+  - `deploy/` directory contains AWS CDK stack for infrastructure
   - Depends on: All packages
 
 - **`@bubblyclouds-app/app-bubblyclouds`** - Bubblyclouds website (Next.js)
   - Company website and landing page
   - Contains marketing and informational content
-  - Platform builds: Web
+  - Platform builds: Web (static to S3/CloudFront)
+  - `deploy/` directory contains AWS CDK stack for infrastructure
   - Depends on: `@auth`, `@ui`, `@types` (and other packages as needed)
 
 - **`@bubblyclouds-app/app-jamesacres`** - Personal blog and portfolio website (Next.js)
   - Blog content and articles using MDX
   - Personal portfolio and projects showcase
-  - Platform builds: Web
+  - Platform builds: Web (static to S3/CloudFront)
+  - `deploy/` directory contains AWS CDK stack for infrastructure
   - Depends on: `@blog`, `@ui`, `@types`
 
 - **`@bubblyclouds-app/app-stephenesch`** - Personal blog and portfolio website (Next.js)
   - Blog content and articles using MDX
   - Personal portfolio and projects showcase
-  - Platform builds: Web
+  - Platform builds: Web (static to S3/CloudFront)
+  - `deploy/` directory contains AWS CDK stack for infrastructure
   - Depends on: `@blog`, `@ui`, `@types`
 
 #### Game-Specific Layer (L5)
@@ -493,13 +497,15 @@ export enum PlatformType {
 - Creating Next.js pages and routes for the Sudoku app
 - Implementing Sudoku app-specific page layouts
 - Configuring Sudoku app settings (Next.js config, Capacitor, etc.)
-- Creating one-off features specific to this app deployment
+- Creating one-off features specific to this app
+- Modifying the CDK deployment stack in `deploy/`
 
 **Examples:**
 
 - `/app/page.tsx` - Home page
 - `/app/puzzle/page.tsx` - Puzzle page
 - `next.config.js` - App configuration
+- `deploy/lib/app-stack.ts` - AWS infrastructure definition
 
 **Do NOT add:**
 
@@ -544,12 +550,14 @@ export enum PlatformType {
 - Implementing website-specific page layouts
 - Configuring website settings (Next.js config, etc.)
 - Creating marketing and informational content
+- Modifying the CDK deployment stack in `deploy/`
 
 **Examples:**
 
 - `/app/page.tsx` - Landing page
 - `/app/about/page.tsx` - About page
 - `next.config.js` - App configuration
+- `deploy/lib/app-stack.ts` - AWS infrastructure definition
 
 **Do NOT add:**
 
@@ -934,6 +942,44 @@ const userId = user.id;
 await retryWithBackoff(() => api.call());
 ```
 
+## Deployment
+
+All web apps are deployed as fully static sites. Next.js is configured with
+`output: 'export'` which produces a static `out/` directory.
+
+### Static Deployment Architecture
+
+```
+┌──────────┐     ┌─────────┐     ┌────────────┐     ┌──────────────────┐
+│ Next.js  │────>│  out/   │────>│  S3 Bucket │────>│   CloudFront     │
+│  build   │     │ (static)│     │            │     │  Distribution    │
+└──────────┘     └─────────┘     └────────────┘     │  + URL Rewrite   │
+                                                     │  Function        │
+                                                     └──────────────────┘
+```
+
+Each app has a `deploy/` directory containing:
+
+- **`lib/app-stack.ts`** - CDK stack defining S3 bucket, CloudFront distribution,
+  and a CloudFront Function for URL rewrites (e.g. `/about` -> `/about.html`)
+- **`bin/deploy.ts`** - CDK app entry point, reads configuration from `.env`
+- **`scripts/sync-s3.sh`** - Uploads static output to S3 and invalidates
+  CloudFront cache
+- **`.env.example`** - Template for required environment variables
+
+### Deploy Workflow
+
+1. **Infrastructure (one-time):** `npm run cdk:deploy` from `apps/<name>/deploy/`
+2. **Update `.env`** with the S3 bucket name and CloudFront distribution ID
+3. **Build:** `pnpm run build:<name>` from repo root
+4. **Deploy updates:** `npm run sync-s3` from `apps/<name>/deploy/`
+
+### Platform-Specific Builds
+
+- **Web:** Static export to S3/CloudFront (all apps)
+- **iOS/Android:** Capacitor build (Sudoku app only)
+- **Desktop:** Electron build (Sudoku app only)
+
 ## Verification Commands
 
 Run these commands to verify architectural integrity:
@@ -980,3 +1026,4 @@ This architecture enables:
 - Type-safe imports
 - Easy debugging and maintenance
 - Scalable addition of new games, content types, or apps
+- Fast, cheap static deployments via S3/CloudFront with per-app CDK stacks
