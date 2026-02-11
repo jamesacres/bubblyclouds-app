@@ -39,13 +39,29 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           <h2 className="mb-3 font-semibold">
-            Sudoku{' '}
+            Sudoku Race{' '}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
           </h2>
-          <p className="m-0 text-sm opacity-50">
-            Simply scan a sudoku from a puzzle book and solve on your device!
+          <p className="m-0 text-sm">
+            <ul className="text-left">
+              <li>
+                - 🤾‍♂️ Share a Sudoku with family and friends - race to see who
+                can complete it fastest
+              </li>
+              <li>- 🏎️ Private racing team and leaderboard</li>
+              <li>- 🌱 Sudoku of the day - Three new challenges each day</li>
+              <li>
+                - 📖 Monthly puzzle book - Technique-focused puzzles to
+                challenge your skills
+              </li>
+              <li>
+                - 📸 Import a Sudoku - Scan any Sudoku from books, newspapers,
+                or websites and challenge your friends to solve the same puzzle
+              </li>
+              <li>- 🎨 Multiple themes in both Light Mode and Dark Mode!</li>
+            </ul>
           </p>
         </a>
       </div>
