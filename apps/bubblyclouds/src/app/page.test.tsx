@@ -131,9 +131,7 @@ describe('Home Page', () => {
     it('should render Sudoku description', () => {
       render(<Home />);
       expect(
-        screen.getByText(
-          /Simply scan a sudoku from a puzzle book and solve on your device!/i
-        )
+        screen.getByText(/Share a Sudoku with family and friends/i)
       ).toBeInTheDocument();
     });
 
