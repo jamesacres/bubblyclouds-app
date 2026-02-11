@@ -44,7 +44,7 @@ export default function Home() {
               -&gt;
             </span>
           </h2>
-          <p className="m-0 text-sm">
+          <div className="m-0 text-sm">
             <ul className="text-left">
               <li>
                 - 🤾‍♂️ Share a Sudoku with family and friends - race to see who
@@ -62,7 +62,7 @@ export default function Home() {
               </li>
               <li>- 🎨 Multiple themes in both Light Mode and Dark Mode!</li>
             </ul>
-          </p>
+          </div>
         </a>
       </div>
     </div>
