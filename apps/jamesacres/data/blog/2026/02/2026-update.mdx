@@ -1,0 +1,111 @@
+---
+title: '2026 Update'
+date: '2026-02-10'
+lastmod: '2026-02-10'
+tags: ['new-year', 'retrospect']
+draft: false
+summary: "Hi 👋 here's an update after 2025 as we go into 2026!"
+authors: ['default']
+images: ['/content/images/2026/02/james-lindos.jpg']
+---
+
+![Holiday in Lindos, Rhodes](/content/images/2026/02/james-lindos.jpg)
+<figcaption>Holiday in Lindos, Rhodes</figcaption>
+
+Hi 👋 here's an update after 2025 as we go into 2026! As with every year it's a high level summary of the various things I got up to and what's to come.
+
+Personal Project Update
+-----------------------
+
+This was the year I finally launched [Sudoku Race](https://sudoku.bubblyclouds.com/) on both the [App Store](https://apps.apple.com/app/sudoku-race/id6517357180) and [Google Play](https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku)! It's been a huge journey taking the app from what was originally "Sudoku Share" all the way to a fully polished mobile app.
+
+<video src="/content/images/2026/02/sudoku-race.mp4" playsInline={true} autoPlay={true} loop={true} muted={true}  />
+
+Looking back at the git history, the year started in January with improvements to the sudoku of the day feature and syncing to the server. By February I was working on offline mode improvements. Then from May onwards things really ramped up - I built out iOS-specific UI improvements, celebration animations, friend sessions with a live sidebar, theme customisation, and progress bars.
+
+In July I upgraded Capacitor, added a zoom mode for the puzzle, activity streaks, and built the subscription system. The app was renamed from "Sudoku Share" to "Sudoku Race" to better reflect the competitive racing element - you can challenge friends to complete puzzles together and see who finishes first. I also built puzzle books with cover art, leaderboards with scoring, and a share invite system.
+
+August and September were intense - rapid-fire bug fixes and polish as testers got their hands on it. I went from version 1.0.3 to 1.0.15 across those months, fixing everything from iOS camera issues to deep link handling, offline puzzle loading, and entitlement flows. By October, the app was live on both stores.
+
+Towards the end of the year I restructured the entire codebase into a [turborepo](https://turbo.build/) monorepo architecture, splitting code across layered packages (types, UI, auth, template, games, sudoku, app). I also rebuilt my personal website [jamesacres.co.uk](https://jamesacres.co.uk) as part of the same monorepo and deployed it to AWS. This blog post you're reading is running on that new stack!
+
+All parts remain public on [GitHub](https://github.com/jamesacres/bubblyclouds-app) so feel free to take a look.
+
+AI Tools
+--------
+
+This year I have been heavily experimenting with AI-powered development tools and it's become a real focus area for me for personal experiments and representing Rooster in NatWest's AI Guild.
+
+I've been using [Claude Code](https://docs.anthropic.com/en/docs/claude-code) as my primary AI coding assistant - it's integrated into my personal project workflow for everything from writing features to debugging, code review, and adding test coverage. In fact, this very blog post was drafted with Claude Code! I've also set up a Claude Code GitHub workflow for automated assistance on PRs.
+
+Beyond Claude, I've been exploring spec driven development with [SpecKit](https://github.com/github/spec-kit), [Kiro](https://kiro.dev/), [Amazon Q](https://aws.amazon.com/q/developer/), and [Google Gemini](https://geminicli.com/) to understand where each tool shines. I've been experimenting with [MCP (Model Context Protocol)](https://modelcontextprotocol.io/docs/getting-started/intro) servers such as [Serena](https://github.com/oraios/serena) for semantic code understanding and [Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp/) for browser automation. These tools give AI assistants much richer context about the codebase and the running application.
+
+One part where I've found AI most valuable so far is in unit testing followed by large refactoring tasks - I have a skill configured as a specialist tester `/unit-testing:test-generate` from [wshobson/agents](https://github.com/wshobson/agents) which increased my coverage from zero to effectively 100%. This then allowed me to refactor the entire repo with spec driven development migration to turbo repo (followed by quite a bit of human tidy up after). The skill identifies gaps in test coverage, generate meaningful test cases, and perform root cause analysis when things go wrong. It's genuinely transformative for the parts of development that are important but tedious.
+
+Work Update
+-----------
+
+It was another good year continuing as a Technical Lead at NatWest Rooster Money ([see my about page](/about)).
+
+I successfully led the Customer Squad to deliver a big project which is coming soon to the [Rooster Money App](https://roostermoney.com/). It's been a satisfying journey taking the project from planning through to delivery, and I'm proud of what the team has achieved.
+
+I also flew up to Edinburgh for a work conference which was a great opportunity to connect with colleagues in person.
+
+Going into 2026, I'm shifting my focus to specialise in two areas: AI and the Payments backend. I am representing Rooster in NatWest's AI Guild as we look to enable new tools at work. AI is clearly going to transform how we build software, and I want to be at the forefront of that within the team. On the payments side, there's a lot of exciting complexity and I'm looking forward to going deep on it.
+
+Life Update
+-----------
+
+Looking back at the year, it was packed with adventures. The year started with Exmoor in February - Stephen and Oscar explored the medieval village of Dunster with the castle on the hill, and we walked the Tall Trees Trail through towering pines.
+
+![Stephen and Oscar in Dunster village, Exmoor](/content/images/2026/02/stephen-oscar-dunster.jpg)
+<figcaption>Stephen and Oscar in Dunster village, castle in the distance</figcaption>
+
+We had a many days exploring near Bath in March, then at Easter we headed to Devon. We stayed in a stone cottage in Dartmouth and spent five days exploring the coast - walks through wild garlic woods, a boat trip across the bay to the Agatha Christie estate, Greenway House & Garden in Kingswear.
+
+![Myself and Oscar at the holiday cottage in Devon](/content/images/2026/02/james-oscar-devon-cottage.jpg)
+<figcaption>Myself and Oscar at the holiday cottage in Devon</figcaption>
+
+![Oscar walking through wild garlic in Devon](/content/images/2026/02/oscar-wild-garlic.jpg)
+<figcaption>Oscar leading the way through the wild garlic</figcaption>
+
+Summer was filled with cycling and pub trips around Bristol and the surrounding countryside, day trips to Clevedon and Bath, and plenty of time at the harbourside and NQ64 playing guitar hero. We also saw Panda Bear at Bristol Beacon.
+
+![Post-ride beer at the pub](/content/images/2026/02/james-cycling-pub.jpg)
+<figcaption>Well-earned mid-ride alcohol free beer</figcaption>
+
+The big holiday of the year was Rhodes in late September into October. 10 days on the beautiful Greek island, staying in the village of Lindos. Rooftop dinners with the Acropolis above, days by the pool, and a day exploring the medieval walled city of Rhodes Old Town.
+
+![Pool in Lindos, Rhodes](/content/images/2026/02/pool-lindos.jpg)
+<figcaption>Pool in Lindos, Rhodes</figcaption>
+
+We ended the year with Christmas at home in Bristol, and seeing friends and family. Stephen and I cooked up an early Christmas dinner and cocktails at ours for 10 family members with every trimming you can think of. We also played our new excellent game 7 Wonders Duel, and have a new sub woofer completing our new music system.
+
+![Gromit Christmas spotted at Ashton Court](/content/images/2026/02/gromit-christmas.jpg)
+<figcaption>Gromit Christmas spotted at Ashton Court</figcaption>
+
+Last Year's Goals
+-----------------
+
+In last year's post I set myself a few goals, so here's how they went:
+
+**Piano** - going great! I've progressed to playing jazz lead sheets and getting comfortable reading bass clef with the left hand alongside treble with the right. Still a long way to go but really enjoying it.
+
+**Home Assistant** - fully up and running now with Zigbee sensors integrated throughout the house. No regrets ditching Google Home, it's so much more reliable and flexible.
+
+**Healthy eating** - continuing to eat well with plenty of vegetables from our local Green Grocer. Still going strong.
+
+**Badminton** - we did get back into it but have paused recently. We need to sort out the dog sitter to make it a regular thing again.
+
+What's Next?
+-------------
+
+At work, I'm focussing on becoming a specialist in AI and the Payments backend. In addition to rolling out current tools - orchestration and context management are big areas for 2026. Next steps are to explore larger tasks being performed by multiple specialist agents.
+
+For personal projects, I want to continue growing Sudoku Race with new features and improvements. I'm also planning to launch at least one other side project app this year - the turborepo monorepo architecture I've built makes it much easier to spin up new apps sharing the same auth and API infrastructure.
+
+I'll also be continuing to push the boundaries with AI tools in my development workflow. The pace of improvement is incredible and I think 2025 was just the start.
+
+Hopefully more to share soon 🤞
+
+Jacres ❤️

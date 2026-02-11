@@ -8,15 +8,22 @@ const projectsData: Project[] = [
     href: 'https://bubblyclouds.com',
   },
   {
-    title: 'Sudoku Share',
-    description: `WORK IN PROGRESS - Sudoku of the day - We publish a new challenge each day - 📱 Import a Sudoku - Scan in seconds using your camera e.g. one from a newspaper, puzzle book or a sudoku website and solve it in this app instead of on paper! 📱 Solve on your phone, laptop or tablet - continue on another device - 🤝 Share a Sudoku with family and friends - see who can complete it fastest - ✅ Check your work, reveal solution of square/grid if desired - This app is Open Source - if you want to see how it's made`,
-    imgSrc: '/content/images/projects/sudoku-share.png',
+    title: 'Sudoku Race',
+    description: `- 🤾‍♂️ Share a Sudoku with family and friends - race to see who can complete it fastest
+- 🏎️ Private racing team and leaderboard
+- 🌱 Sudoku of the day - Three new challenges each day
+- 📖 Monthly puzzle book - Technique-focused puzzles to challenge your skills
+- 📸 Import a Sudoku - Scan any Sudoku from books, newspapers, or websites and challenge your friends to solve the same puzzle
+- 🎨 Multiple themes in both Light Mode and Dark Mode!
+`,
+    imgSrc: '/content/images/projects/sudoku-race.png',
+    href: 'https://sudoku.bubblyclouds.com/',
   },
   {
-    title: 'Music Rating',
+    title: 'Stephen Esch Music Rating',
     description: `A website hosting music ratings for Stephen Esch. Now running version two which is a statically generated site with React and Next.js. Version one was dynamic using Node.js, Knox+Postgres, S3, AngularJS.`,
-    imgSrc: '/content/images/projects/music-rating-v2.png',
-    href: 'https://stephenesch.com',
+    imgSrc: '/content/images/projects/stephen-music.png',
+    href: 'https://stephenesch.co.uk/',
   },
   {
     title: 'Eurovisionr',

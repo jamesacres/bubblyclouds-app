@@ -1,6 +1,8 @@
 
 # TODO
 
+- fix stephen music album images not loading with quotes
+- fix sudoku import
 
 
 # Framework
