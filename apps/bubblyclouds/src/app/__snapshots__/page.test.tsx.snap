@@ -74,7 +74,7 @@ exports[`Home Page Snapshot should match snapshot 1`] = `
             -&gt;
           </span>
         </h2>
-        <p
+        <div
           class="m-0 text-sm"
         >
           <ul
@@ -99,7 +99,7 @@ exports[`Home Page Snapshot should match snapshot 1`] = `
               - 🎨 Multiple themes in both Light Mode and Dark Mode!
             </li>
           </ul>
-        </p>
+        </div>
       </a>
     </div>
   </div>
