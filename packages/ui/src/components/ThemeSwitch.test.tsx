@@ -102,7 +102,7 @@ describe('ThemeSwitch', () => {
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('bg-primary-100');
+        expect(button).toHaveClass('text-stone-500');
       });
     });
   });
@@ -134,19 +134,19 @@ describe('ThemeSwitch', () => {
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('dark:bg-primary-900/20');
+        expect(button).toHaveClass('dark:text-zinc-400');
       });
     });
   });
 
   describe('button styling', () => {
-    it('should have primary theme color', async () => {
+    it('should have stone text color', async () => {
       render(<ThemeSwitch />);
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('text-theme-primary');
-        expect(button).toHaveClass('dark:text-theme-primary-light');
+        expect(button).toHaveClass('text-stone-500');
+        expect(button).toHaveClass('dark:text-zinc-400');
       });
     });
 
@@ -159,21 +159,12 @@ describe('ThemeSwitch', () => {
       });
     });
 
-    it('should have rounded-full styling', async () => {
+    it('should have rounded-md styling', async () => {
       render(<ThemeSwitch />);
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('rounded-full');
-      });
-    });
-
-    it('should have proper padding', async () => {
-      render(<ThemeSwitch />);
-
-      await waitFor(() => {
-        const button = screen.getByRole('button');
-        expect(button).toHaveClass('p-1.5');
+        expect(button).toHaveClass('rounded-md');
       });
     });
 
@@ -182,16 +173,16 @@ describe('ThemeSwitch', () => {
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('transition-colors');
+        expect(button).toHaveClass('transition-all');
       });
     });
 
-    it('should have active state opacity', async () => {
+    it('should have active state scale', async () => {
       render(<ThemeSwitch />);
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('active:opacity-70');
+        expect(button).toHaveClass('active:scale-95');
       });
     });
 
@@ -200,9 +191,8 @@ describe('ThemeSwitch', () => {
 
       await waitFor(() => {
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('h-8');
-        expect(button).toHaveClass('w-8');
-        expect(button).toHaveClass('mx-1');
+        expect(button).toHaveClass('h-11');
+        expect(button).toHaveClass('w-11');
       });
     });
   });
@@ -469,13 +459,13 @@ describe('ThemeSwitch', () => {
       });
     });
 
-    it('should have full size SVG styling', async () => {
+    it('should have SVG size styling', async () => {
       const { container } = render(<ThemeSwitch />);
 
       await waitFor(() => {
         const svg = container.querySelector('svg');
-        expect(svg).toHaveClass('h-full');
-        expect(svg).toHaveClass('w-full');
+        expect(svg).toHaveClass('h-5');
+        expect(svg).toHaveClass('w-5');
       });
     });
 

@@ -54,14 +54,14 @@ const PostList = ({ posts }: PostListProps) => {
                             {title}
                           </Link>
                         </h2>
-                        <div className="flex flex-wrap">
+                        <div className="flex flex-wrap gap-x-3 gap-y-1 pt-1">
                           {tags.map((tag: string) => (
                             <Link
                               key={tag}
                               href={`/tags/${slugifyTag(tag)}`}
-                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase"
+                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 text-sm font-medium"
                             >
-                              {slugifyTag(tag)}
+                              #{slugifyTag(tag)}
                             </Link>
                           ))}
                         </div>
@@ -73,10 +73,14 @@ const PostList = ({ posts }: PostListProps) => {
                     <div className="text-base font-medium leading-6">
                       <Link
                         href={`/${slug}`}
-                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 inline-flex items-center gap-1"
                         aria-label={`Read more: "${title}"`}
                       >
-                        Read more: {readingTime.text}→
+                        Read more{' '}
+                        <span className="text-xs text-gray-400 dark:text-gray-500">
+                          · {readingTime.text}
+                        </span>{' '}
+                        →
                       </Link>
                     </div>
                   </div>

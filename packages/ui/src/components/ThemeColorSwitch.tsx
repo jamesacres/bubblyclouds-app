@@ -2,6 +2,7 @@
 
 import { useThemeColor, ThemeColor } from '../providers/ThemeColorProvider';
 import { useState, useEffect, useRef } from 'react';
+import { Palette } from 'lucide-react';
 
 const colors = [
   {
@@ -133,7 +134,7 @@ interface ThemeColorSwitchProps {
 }
 
 const ThemeColorSwitch = ({
-  isSubscribed = true,
+  isSubscribed,
   onPremiumColorClick,
   showRainbowAnimation = true,
 }: ThemeColorSwitchProps) => {
@@ -224,47 +225,30 @@ const ThemeColorSwitch = ({
       <button
         aria-label="Change Theme Color"
         onClick={() => setIsOpen(!isOpen)}
-        className={`mx-1 h-8 w-8 cursor-pointer rounded-full p-1.5 transition-colors active:opacity-70 ${currentColor.bg} text-white`}
-        style={
-          showRainbow
-            ? {
-                border: `3px solid ${colors[rainbowIndex].hex}`,
-              }
-            : undefined
-        }
+        className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-md transition-all active:scale-95"
+        style={{
+          color: showRainbow ? colors[rainbowIndex].hex : currentColor.hex,
+        }}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="h-full w-full"
-        >
-          <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-3a5 5 0 1 1 0-10 5 5 0 0 1 0 10z" />
-        </svg>
+        <Palette className="h-5 w-5" />
       </button>
 
       {isOpen && (
-        <div className="w-42 absolute right-0 mt-2 rounded-md bg-white shadow-lg dark:bg-gray-800">
-          <div className="flex flex-wrap gap-2 p-2">
+        <div className="absolute right-0 mt-2 w-52 rounded-xl border border-stone-200/80 bg-white/95 p-2 shadow-lg shadow-stone-900/10 backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/95 dark:shadow-black/30">
+          <div className="flex flex-wrap gap-1.5 p-0.5">
             {colors.map((color, index) => {
               const isPremium = index >= 2 && !isSubscribed;
               return (
                 <button
                   key={color.name}
                   onClick={() => handleColorClick(color.name)}
-                  className={`relative h-8 w-8 cursor-pointer rounded-full ${color.bg} ${color.hover} ${
+                  className={`relative h-10 w-10 cursor-pointer rounded-lg transition-all hover:scale-105 active:scale-95 ${color.bg} ${color.hover} ${
                     themeColor === color.name
-                      ? 'ring-2 ring-offset-2 dark:ring-offset-gray-800'
+                      ? 'ring-2 ring-offset-2 ring-offset-white dark:ring-offset-zinc-900'
                       : ''
                   }`}
                   aria-label={`Set theme color to ${color.name}${isPremium ? ' (Premium)' : ''}`}
-                >
-                  {isPremium && (
-                    <span className="absolute -right-1 -top-1 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
-                      ✨
-                    </span>
-                  )}
-                </button>
+                ></button>
               );
             })}
           </div>

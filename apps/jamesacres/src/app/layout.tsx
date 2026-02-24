@@ -3,13 +3,13 @@ import './globals.css';
 
 import { Metadata } from 'next';
 import siteMetadata from '@/data/siteMetadata';
-import { Inter } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import BlogHeader from '@bubblyclouds-app/blog/components/BlogHeader';
 import BlogFooter from '@bubblyclouds-app/blog/components/BlogFooter';
 import { Providers } from '@bubblyclouds-app/blog/components/Providers';
 import headerNavLinks from '@/data/headerNavLinks';
 
-const inter = Inter({ subsets: ['latin'] });
+const geist = Geist({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang={siteMetadata.language}
-      className={`${inter.className} scroll-smooth`}
+      className={`${geist.className} scroll-smooth`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
@@ -89,7 +89,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         content="#000"
       />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <body className="bg-zinc-100 text-black antialiased dark:bg-gray-900 dark:text-white">
+      <body className="bg-gray-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
         <Providers>
           <div className="flex h-screen flex-col justify-between">
             <header className="px-4 sm:px-6 lg:px-8">

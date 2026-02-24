@@ -13,7 +13,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import siteMetadata from '@/data/siteMetadata';
 import MDXComponentsBase from '@bubblyclouds-app/blog/components/MDXComponents';
 import MusicRating from '@/components/MusicRating';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { getAuthor } from '@bubblyclouds-app/blog/helpers/authors';
 import { Author } from '@bubblyclouds-app/blog/types/authorTypes';
 import rehypePrismPlus from 'rehype-prism-plus';
@@ -40,9 +40,18 @@ function remarkFigure() {
   };
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const posts = await getAllPosts();
-  const params = posts.map((post) => ({ slug: post.slug.split('/') }));
+  const params = posts.flatMap((post) => {
+    const canonical = { slug: post.slug.split('/') };
+    if (post.slug.includes('/')) {
+      const legacy = { slug: [post.slug.replace(/\//g, '|')] };
+      return [canonical, legacy];
+    }
+    return [canonical];
+  });
   return params;
 }
 
@@ -53,7 +62,11 @@ export async function generateMetadata(props: { params: { slug: string[] } }) {
   if (!resolvedParams || !resolvedParams.slug) {
     return {};
   }
-  const slug = resolvedParams.slug.map(decodeURIComponent).join('/');
+  const decodedSegments = resolvedParams.slug.map(decodeURIComponent);
+  const slug =
+    decodedSegments.length === 1 && decodedSegments[0].includes('|')
+      ? decodedSegments[0].replace(/\|/g, '/')
+      : decodedSegments.join('/');
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -92,7 +105,13 @@ export default async function Page(props: { params: { slug: string[] } }) {
   if (!params || !params.slug) {
     notFound();
   }
-  const slug = params.slug.map(decodeURIComponent).join('/');
+
+  const decodedSegments = params.slug.map(decodeURIComponent);
+  if (decodedSegments.length === 1 && decodedSegments[0].includes('|')) {
+    redirect('/' + decodedSegments[0].replace(/\|/g, '/'));
+  }
+
+  const slug = decodedSegments.join('/');
   const post = await getPostBySlug(slug);
 
   if (!post) {

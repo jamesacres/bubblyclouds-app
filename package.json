@@ -40,7 +40,6 @@
     "test:ci": "turbo run test -- --coverage --ci --maxWorkers=2",
     "circular": "turbo run circular",
     "manypkg": "manypkg check",
-    "generate:icons": "npx @capacitor/assets generate --iconBackgroundColor '#eeeeee' --iconBackgroundColorDark '#222222' --splashBackgroundColor '#eeeeee' --splashBackgroundColorDark '#111111'",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -48,6 +47,7 @@
     "@eslint/js": "^9.39.2",
     "@manypkg/cli": "^0.25.1",
     "@next/eslint-plugin-next": "^16.1.1",
+    "@testing-library/jest-dom": "^6.1.5",
     "@typescript-eslint/eslint-plugin": "^8.50.1",
     "@typescript-eslint/parser": "^8.52.0",
     "enquirer": "^2.4.1",

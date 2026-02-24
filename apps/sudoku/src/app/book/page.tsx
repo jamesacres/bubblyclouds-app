@@ -169,8 +169,8 @@ export default function BookPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
-          <p className="text-gray-600 dark:text-gray-400">
+          <div className="border-t-theme-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-stone-200 dark:border-zinc-700"></div>
+          <p className="text-stone-500 dark:text-zinc-400">
             {bookLoading && sessionsLoading
               ? 'Loading puzzle book...'
               : bookLoading
@@ -184,22 +184,22 @@ export default function BookPage() {
 
   if (bookError) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center px-6">
         <div className="text-center">
-          <p className="text-gray-600 dark:text-gray-400">{bookError}</p>
+          <p className="text-stone-500 dark:text-zinc-400">{bookError}</p>
           {isOnline && (
             <button
               onClick={() => fetchBookData()}
-              className="mr-2 mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+              className="bg-theme-primary hover:bg-theme-primary-dark mr-2 mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
             >
-              Try Again
+              Try again
             </button>
           )}
           <button
             onClick={() => router.push('/')}
-            className="mt-4 rounded-lg bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
+            className="mt-4 cursor-pointer rounded-lg border border-stone-200 bg-white px-4 py-2 text-sm font-semibold text-stone-700 transition-colors duration-200 hover:bg-stone-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
           >
-            Back to Home
+            Back to home
           </button>
         </div>
       </div>
@@ -208,16 +208,16 @@ export default function BookPage() {
 
   if (!bookData) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center px-6">
         <div className="text-center">
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-stone-500 dark:text-zinc-400">
             No puzzle book data available.
           </p>
           <button
             onClick={() => router.push('/')}
-            className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+            className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
           >
-            Back to Home
+            Back to home
           </button>
         </div>
       </div>
@@ -226,26 +226,23 @@ export default function BookPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <div className="min-h-screen bg-stone-50 dark:bg-zinc-900">
         {/* Header */}
-        <div className="pt-safe bg-gradient-to-r from-blue-600 to-purple-600 px-6">
+        <div className="pt-safe bg-zinc-900 px-6 dark:bg-zinc-950">
           <div className="container mx-auto max-w-6xl py-6 md:py-8">
-            <div className="flex flex-col items-center text-white md:flex-row md:items-center">
-              <div className="mb-4 md:mb-0 md:mr-6">
-                <BookCover month={currentMonth} size="large" />
+            <div className="flex flex-col items-center gap-4 text-white md:flex-row md:items-center md:gap-6">
+              <div className="shrink-0">
+                <BookCover month={currentMonth} size="medium" />
               </div>
               <div className="text-center md:text-left">
-                <h1 className="text-2xl font-bold md:text-4xl">
-                  {currentMonth} Puzzle Book
+                <h1 className="text-2xl font-bold md:text-3xl">
+                  {currentMonth} puzzle book
                 </h1>
-                <p className="text-white/80 md:text-lg">
-                  {bookData.puzzles.length} technique-focused puzzles to
-                  challenge your skills
+                <p className="mt-1 text-white/70 md:text-base">
+                  {bookData.puzzles.length} technique-focused puzzles
                 </p>
                 <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
-                  {/* Progress Stats */}
-                  <div className="rounded-full bg-white/20 px-3 py-1 text-sm backdrop-blur-sm">
-                    📊{' '}
+                  <div className="rounded-lg border border-white/20 bg-white/15 px-3 py-1.5 text-sm font-medium backdrop-blur-sm">
                     {
                       (
                         sessions
@@ -263,8 +260,7 @@ export default function BookPage() {
                     }{' '}
                     completed
                   </div>
-                  <div className="rounded-full bg-white/20 px-3 py-1 text-sm backdrop-blur-sm">
-                    🎯{' '}
+                  <div className="rounded-lg border border-white/20 bg-white/15 px-3 py-1.5 text-sm font-medium backdrop-blur-sm">
                     {
                       (
                         sessions
@@ -293,31 +289,69 @@ export default function BookPage() {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto max-w-6xl px-6 py-8">
+        <div className="container mx-auto max-w-6xl px-6 py-6">
           {/* Difficulty Jump Buttons */}
-          <div className="mb-8">
-            <h3 className="mb-4 text-center text-lg font-semibold text-gray-900 dark:text-white">
-              Jump to Difficulty
+          <div className="mb-6">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-stone-400 dark:text-zinc-500">
+              Jump to difficulty
             </h3>
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap gap-2">
               {[
-                { difficulty: '1-very-easy', label: '🟢 Very Easy' },
-                { difficulty: '2-easy', label: '🟢 Easy' },
+                {
+                  difficulty: '1-very-easy',
+                  label: 'Very Easy',
+                  color: 'bg-green-400 text-white',
+                },
+                {
+                  difficulty: '2-easy',
+                  label: 'Easy',
+                  color: 'bg-green-500 text-white',
+                },
                 {
                   difficulty: '3-moderately-easy',
-                  label: '🟡 Moderately Easy',
+                  label: 'Moderately Easy',
+                  color: 'bg-lime-600 text-white',
                 },
-                { difficulty: '4-moderate', label: '🟡 Moderate' },
+                {
+                  difficulty: '4-moderate',
+                  label: 'Moderate',
+                  color: 'bg-yellow-600 text-white',
+                },
                 {
                   difficulty: '5-moderately-hard',
-                  label: '🟠 Moderately Hard',
+                  label: 'Moderately Hard',
+                  color: 'bg-orange-500 text-white',
                 },
-                { difficulty: '6-hard', label: '🔴 Hard' },
-                { difficulty: '7-vicious', label: '🔥 Vicious' },
-                { difficulty: '8-fiendish', label: '🔥 Fiendish' },
-                { difficulty: '9-devilish', label: '🔥 Devilish' },
-                { difficulty: '10-hell', label: '🔥🔥 Hell' },
-                { difficulty: '11-beyond-hell', label: '🔥🔥🔥 Beyond Hell' },
+                {
+                  difficulty: '6-hard',
+                  label: 'Hard',
+                  color: 'bg-red-500 text-white',
+                },
+                {
+                  difficulty: '7-vicious',
+                  label: 'Vicious',
+                  color: 'bg-red-600 text-white',
+                },
+                {
+                  difficulty: '8-fiendish',
+                  label: 'Fiendish',
+                  color: 'bg-red-700 text-white',
+                },
+                {
+                  difficulty: '9-devilish',
+                  label: 'Devilish',
+                  color: 'bg-red-800 text-white',
+                },
+                {
+                  difficulty: '10-hell',
+                  label: 'Hell',
+                  color: 'bg-red-900 text-white',
+                },
+                {
+                  difficulty: '11-beyond-hell',
+                  label: 'Beyond Hell',
+                  color: 'bg-black text-white',
+                },
               ].map((item) => {
                 const jumpToDifficulty = () => {
                   const firstMatchingPuzzleIndex = bookData?.puzzles.findIndex(
@@ -340,7 +374,6 @@ export default function BookPage() {
                   }
                 };
 
-                // Check if this difficulty exists in the book
                 const hasThisDifficulty = bookData?.puzzles.some(
                   (puzzle) => puzzle.difficulty.coach === item.difficulty
                 );
@@ -351,7 +384,7 @@ export default function BookPage() {
                   <button
                     key={item.difficulty}
                     onClick={jumpToDifficulty}
-                    className="cursor-pointer rounded-full bg-white/20 px-3 py-2 text-xs font-medium text-gray-800 backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30 dark:text-gray-200"
+                    className={`${item.color} cursor-pointer rounded-lg px-3 py-1.5 text-xs font-semibold opacity-90 transition-all duration-200 hover:opacity-100 active:scale-95`}
                   >
                     {item.label}
                   </button>

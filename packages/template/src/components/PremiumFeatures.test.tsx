@@ -109,6 +109,6 @@ describe('PremiumFeatures', () => {
   it('renders compact view', () => {
     const { container } = renderComponent({ compact: true });
     // Check that component renders in compact mode
-    expect(container.querySelector('.mb-4')).toBeInTheDocument();
+    expect(container.querySelector('.mb-3')).toBeInTheDocument();
   });
 });

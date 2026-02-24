@@ -51,7 +51,7 @@ pre[class*='language-'] {
 /* Dark theme code blocks */
 :is(.dark pre[class*='language-']) {
   @apply bg-gray-900 text-gray-200;
-  border: 1px solid #374151;
+  border: 1px solid theme(colors.gray.700);
 }
 
 /* Inline code styling */
@@ -513,7 +513,7 @@ pre[class*='language-'] {
 
 @layer base {
   body {
-    @apply bg-sky-100 text-black dark:bg-sky-950 dark:text-white;
+    @apply bg-sky-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100;
     font-family: inherit;
   }
 }

@@ -99,7 +99,7 @@ export const UserButton = ({
       </Transition>
 
       {/* Desktop Popover */}
-      <Popover className="relative" style={{ height: 32 }}>
+      <Popover className="relative" style={{ height: 44 }}>
         {({ close }) => (
           <>
             <PopoverButton
@@ -112,8 +112,10 @@ export const UserButton = ({
                 }
               }}
             >
-              <div className="mx-1 h-8 w-8 cursor-pointer rounded-full ring-2 ring-transparent transition-all hover:ring-gray-300 dark:hover:ring-gray-600">
-                <UserAvatar user={user} size={32} />
+              <div className="flex h-11 w-11 cursor-pointer items-center justify-center">
+                <div className="h-7 w-7 rounded-full ring-2 ring-transparent transition-all hover:ring-gray-300 dark:hover:ring-gray-600">
+                  <UserAvatar user={user} size={28} />
+                </div>
               </div>
             </PopoverButton>
 

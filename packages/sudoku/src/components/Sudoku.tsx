@@ -1,6 +1,6 @@
 'use client';
 import { Puzzle, PuzzleRowOrColumn } from '../types/puzzle';
-import { calculateBoxId } from '../helpers/calculateId';
+import { calculateBoxId, calculateCellId } from '../helpers/calculateId';
 import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
 import { GameState, GameStateMetadata } from '../types/state';
 import { puzzleToPuzzleText } from '../helpers/puzzleTextToPuzzle';
@@ -40,6 +40,19 @@ import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import MemoisedSidebarButton from '@bubblyclouds-app/games/components/SidebarButton';
 import { useRouter } from 'next/navigation';
 import RacingPromptModal from '@bubblyclouds-app/template/components/RacingPromptModal';
+import {
+  puzzleToGrid,
+  buildCandidates,
+  findHint,
+  isGridInvalid,
+} from '../utils/humanSolver';
+import { CellHighlight } from '../types/CellHighlight';
+import { HintResult } from '../types/HintResult';
+import { ChainNode } from '../types/ChainNode';
+import ChainOverlay from '../components/ChainOverlay';
+import { createLocalAgents } from '../helpers/agentTimeline';
+import { getAllAgentProgress } from '../helpers/agentProgress';
+import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -86,6 +99,25 @@ const Sudoku = ({
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
   const { sessions } = useSessions<GameState>();
 
+  const [initialAgents] = useState(() =>
+    createLocalAgents(initial, final, DEFAULT_AGENT_CONFIGS)
+  );
+  const agentStartTimeMsRef = useRef<number | null>(null);
+  const [agents, setAgents] = useState(initialAgents);
+  const [localAgentProgress, setLocalAgentProgress] = useState(() =>
+    getAllAgentProgress(initialAgents, null)
+  );
+
+  const onRemoveAgent = useCallback((agentId: string) => {
+    setAgents((prev) => prev.filter((a) => a.id !== agentId));
+    setLocalAgentProgress((prev) => prev.filter((p) => p.agentId !== agentId));
+  }, []);
+
+  const onLeaveAgentParty = useCallback(() => {
+    setAgents([]);
+    setLocalAgentProgress([]);
+  }, []);
+
   const {
     answer,
     answerStack,
@@ -116,6 +148,7 @@ const Sudoku = ({
     isZoomMode,
     setIsZoomMode,
     isPolling,
+    isPaused,
   } = useGameState({
     final,
     initial,
@@ -124,6 +157,16 @@ const Sudoku = ({
     app,
     apiUrl,
   });
+
+  useEffect(() => {
+    if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
+      agentStartTimeMsRef.current = Date.now();
+    }
+    setLocalAgentProgress(
+      getAllAgentProgress(agents, agentStartTimeMsRef.current)
+    );
+  }, [agents, timer]);
+
   const friendsOnClick = useCallback(() => {
     setShowSidebar((showSidebar) => !showSidebar);
   }, [setShowSidebar]);
@@ -132,7 +175,7 @@ const Sudoku = ({
     [setShowSidebar]
   );
 
-  // Reference to the grid for the celebration animation
+  // Reference to the grid for the celebration animation and chain overlay
   const gridRef = useRef<HTMLDivElement>(null);
 
   // State to track if animation should be shown
@@ -197,6 +240,145 @@ const Sudoku = ({
       });
   }, [answer]);
 
+  const hintEliminationsRef = useRef<Map<number, Set<number>>>(new Map());
+  const hintCandidatesRef = useRef<number[][]>([]);
+
+  const getHint = useCallback(() => {
+    const grid = puzzleToGrid(answer);
+    if (isGridInvalid(grid)) return 'invalid' as const;
+
+    const candidates = buildCandidates(grid);
+
+    for (const [cell, digits] of hintEliminationsRef.current) {
+      for (const digit of digits) {
+        candidates[cell].delete(digit);
+      }
+    }
+
+    hintCandidatesRef.current = candidates.map((s) => Array.from(s));
+
+    const hint = findHint(grid, candidates);
+
+    if (hint) {
+      for (const { cell, digit } of hint.eliminations) {
+        const existing = hintEliminationsRef.current.get(cell) ?? new Set();
+        existing.add(digit);
+        hintEliminationsRef.current.set(cell, existing);
+      }
+    }
+
+    return hint;
+  }, [answer]);
+
+  const [cellHighlights, setCellHighlights] = useState<
+    Map<string, CellHighlight>
+  >(new Map());
+  const [chainPath, setChainPath] = useState<ChainNode[]>([]);
+
+  const indexToCellId = useCallback((idx: number) => {
+    const row = Math.floor(idx / 9);
+    const col = idx % 9;
+    const boxX = Math.floor(col / 3);
+    const boxY = Math.floor(row / 3);
+    const cellX = col % 3;
+    const cellY = row % 3;
+    return calculateCellId(calculateBoxId(boxX, boxY), cellX, cellY);
+  }, []);
+
+  const buildPatternHighlights = useCallback(
+    (hint: HintResult): Map<string, CellHighlight> => {
+      const highlights = new Map<string, CellHighlight>();
+      const cands = hintCandidatesRef.current;
+
+      const withDigits = (
+        idx: number,
+        role: CellHighlight['role']
+      ): CellHighlight => ({
+        role,
+        visibleDigits: cands[idx] ?? [],
+      });
+
+      if (
+        hint.technique === 'deathBlossom' &&
+        hint.stemCell !== undefined &&
+        hint.petalCells
+      ) {
+        highlights.set(
+          indexToCellId(hint.stemCell),
+          withDigits(hint.stemCell, 'stem')
+        );
+        const petalLabels: Array<'petalA' | 'petalB'> = ['petalA', 'petalB'];
+        for (let i = 0; i < hint.petalCells.length; i++) {
+          const role = petalLabels[i] ?? 'pattern';
+          for (const c of hint.petalCells[i]) {
+            highlights.set(indexToCellId(c), withDigits(c, role));
+          }
+        }
+      } else if (
+        hint.technique === 'alsXZ' &&
+        hint.als1Cells &&
+        hint.als2Cells
+      ) {
+        for (const c of hint.als1Cells) {
+          highlights.set(indexToCellId(c), withDigits(c, 'petalA'));
+        }
+        for (const c of hint.als2Cells) {
+          highlights.set(indexToCellId(c), withDigits(c, 'petalB'));
+        }
+      } else if (hint.chainPath && hint.chainPath.length > 0) {
+        for (const node of hint.chainPath) {
+          const cellId = indexToCellId(node.cell);
+          if (!highlights.has(cellId)) {
+            highlights.set(
+              cellId,
+              withDigits(node.cell, node.isOn ? 'chainOn' : 'chainOff')
+            );
+          }
+        }
+      } else {
+        for (const c of hint.patternCells) {
+          const cellId = indexToCellId(c);
+          if (!highlights.has(cellId)) {
+            highlights.set(cellId, withDigits(c, 'pattern'));
+          }
+        }
+      }
+
+      return highlights;
+    },
+    [indexToCellId]
+  );
+
+  const onShowWhere = useCallback(
+    (hint: HintResult) => {
+      setCellHighlights(buildPatternHighlights(hint));
+      setChainPath(hint.chainPath ?? []);
+    },
+    [buildPatternHighlights]
+  );
+
+  const onRevealEliminations = useCallback(
+    (hint: HintResult) => {
+      setCellHighlights((prev) => {
+        const next = new Map(prev);
+        for (const { cell, digit } of hint.eliminations) {
+          const cellId = indexToCellId(cell);
+          const existing = next.get(cellId);
+          const digits = existing?.eliminatedDigits
+            ? [...existing.eliminatedDigits, digit]
+            : [digit];
+          if (existing) {
+            next.set(cellId, { ...existing, eliminatedDigits: digits });
+          } else {
+            next.set(cellId, { role: 'elimination', eliminatedDigits: digits });
+          }
+        }
+        return next;
+      });
+    },
+    [indexToCellId]
+  );
+
   // Racing prompt handlers
   const handleRaceMode = useCallback(() => {
     setHasManuallySelectedMode(true);
@@ -238,7 +420,7 @@ const Sudoku = ({
 
   // Handle countdown finishing for subscription modal
   useEffect(() => {
-    if (timer?.countdown === 1 && !isSubscribed && !completed) {
+    if (timer?.countdown === 1 && !isSubscribed && !completed && !isPaused) {
       if (getDailyPuzzleCount() >= DAILY_LIMITS.PUZZLE) {
         // Countdown just reached "GO!" - show subscription modal after a brief delay
         setPauseTimer(true);
@@ -264,6 +446,7 @@ const Sudoku = ({
     setPauseTimer,
     setTimerNewSession,
     completed,
+    isPaused,
   ]);
 
   // Use drag hook for all drag-related functionality
@@ -343,6 +526,9 @@ const Sudoku = ({
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
         }
+        localAgentProgress={localAgentProgress}
+        onRemoveAgent={onRemoveAgent}
+        onLeaveAgentParty={onLeaveAgentParty}
       />
 
       {/* Display celebration animation when completed */}
@@ -432,12 +618,14 @@ const Sudoku = ({
                               y as PuzzleRowOrColumn
                             ]
                           }
+                          cellHighlights={cellHighlights}
                           isZoomMode={isZoomMode}
                           onDragStart={handleDragStart}
                         />
                       );
                     })
                   )}
+                  <ChainOverlay chainPath={chainPath} gridRef={gridRef} />
                 </div>
               </div>
 
@@ -457,6 +645,7 @@ const Sudoku = ({
                   answerStack={answerStack}
                   calculateCompletionPercentage={calculateCompletionPercentage}
                   isPuzzleCheated={isPuzzleCheated}
+                  localAgentProgress={localAgentProgress}
                 />
               )}
             </div>
@@ -467,6 +656,7 @@ const Sudoku = ({
           {!completed && (
             <div className="fixed inset-x-0 bottom-0 z-10 lg:relative">
               <SudokuControls
+                selectedCell={selectedCell}
                 isInputDisabled={
                   !selectedCell || isInitialCell(selectedCell, initial)
                 }
@@ -496,6 +686,15 @@ const Sudoku = ({
                 copyGrid={copyGrid}
                 onAdvancedToggle={setShowAdvancedControls}
                 isSubscribed={isSubscribed}
+                getHint={getHint}
+                user={user}
+                onShowWhere={onShowWhere}
+                onRevealEliminations={onRevealEliminations}
+                onClearSelection={() => setSelectedCell(null)}
+                onHideHint={() => {
+                  setCellHighlights(new Map());
+                  setChainPath([]);
+                }}
               />
             </div>
           )}

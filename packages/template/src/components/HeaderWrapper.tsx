@@ -35,6 +35,13 @@ export default function HeaderWrapper({
     revenueCatContext?.subscribeModal?.showModalIfRequired(onSuccess);
   };
 
+  const handlePremiumColorClick = (
+    _colorName: string,
+    onSuccess: () => void
+  ) => {
+    revenueCatContext?.subscribeModal?.showModalIfRequired(onSuccess);
+  };
+
   return (
     <Header
       isOnline={isOnline}
@@ -54,6 +61,8 @@ export default function HeaderWrapper({
         companyName,
       }}
       appName={appName}
+      isSubscribed={revenueCatContext?.isSubscribed ?? false}
+      onPremiumColorClick={handlePremiumColorClick}
     />
   );
 }

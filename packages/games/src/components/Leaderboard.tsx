@@ -157,59 +157,35 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
 
   return (
     <div className="mb-8">
-      {/* Pro Tip about party-specific scoring */}
-      <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-700 dark:bg-blue-900/30">
-        <p className="text-sm text-blue-800 dark:text-blue-200">
-          💡 <strong>Pro tip:</strong> Your racing wins and scores change for
-          each tab above depending on who you&apos;ve beaten within that
-          specific group. Switch between tabs to see your performance in
-          different racing contexts!
-        </p>
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
+            Leaderboard
+          </h2>
+          <p className="text-xs text-zinc-400 dark:text-zinc-500">
+            Last 30 days
+            {selectedParty ? ` · ${selectedParty.partyName}` : ' · All teams'}
+          </p>
+        </div>
+        <button
+          onClick={() => setShowScoringLegend(true)}
+          className="flex cursor-pointer items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-600 transition-all duration-200 hover:bg-zinc-100 active:scale-95 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
+        >
+          <Award className="h-3.5 w-3.5 text-amber-500" />
+          How scoring works
+        </button>
       </div>
 
-      <div className="mb-6">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center">
-            <Award className="mr-3 text-yellow-500" size={28} />
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
-                Leaderboard
-              </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Last 30 days
-                {selectedParty
-                  ? ` • ${selectedParty.partyName}`
-                  : ' • All Parties'}
-              </p>
-            </div>
-          </div>
-          <div className="flex justify-center sm:justify-end">
-            <button
-              onClick={() => setShowScoringLegend(true)}
-              className="group relative flex cursor-pointer items-center overflow-hidden rounded-full bg-gradient-to-r from-purple-500 to-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-purple-600 hover:to-blue-600 hover:shadow-xl"
-            >
-              <span className="relative z-10 flex items-center whitespace-nowrap">
-                🏆 How scoring works
-                <span className="ml-1 animate-bounce">✨</span>
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-pink-400/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-            </button>
-          </div>
-        </div>
+      <div className="mb-6 space-y-2">
+        {leaderboardData.map((entry, index) => (
+          <FriendLeaderboardEntry
+            key={entry.userId}
+            entry={entry}
+            rank={index + 1}
+            isCurrentUser={entry.userId === user?.sub}
+          />
+        ))}
       </div>
-
-      {
-        <div className="mb-6 space-y-3">
-          {leaderboardData.map((entry, index) => (
-            <FriendLeaderboardEntry
-              key={entry.userId}
-              entry={entry}
-              rank={index + 1}
-              isCurrentUser={entry.userId === user?.sub}
-            />
-          ))}
-        </div>
-      }
 
       <ScoringLegend
         isOpen={showScoringLegend}

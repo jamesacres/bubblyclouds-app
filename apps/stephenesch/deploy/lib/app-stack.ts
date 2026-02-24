@@ -30,6 +30,16 @@ function handler(event) {
     var request = event.request;
     var uri = request.uri;
 
+    // Redirect legacy URLs using | (encoded as %7C) to use / instead
+    if (uri.indexOf('%7C') !== -1 || uri.indexOf('%7c') !== -1) {
+        var newUri = uri.replace(/%7C/gi, '/');
+        return {
+            statusCode: 301,
+            statusDescription: 'Moved Permanently',
+            headers: { location: { value: newUri } }
+        };
+    }
+
     // If the URI is '/', serve index.html
     if (uri === '/') {
         request.uri = '/index.html';

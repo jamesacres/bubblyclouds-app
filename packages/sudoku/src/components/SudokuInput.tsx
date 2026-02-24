@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import SudokuInputNotes from './SudokuInputNotes';
 import { Notes } from '../types/notes';
 import { SelectNumber, SetSelectedCell } from '../types/state';
+import { CellHighlight } from '../types/CellHighlight';
 
 interface Arguments {
   cellId: string;
@@ -11,9 +12,20 @@ interface Arguments {
   value?: number | Notes;
   validation?: boolean;
   isInitial: boolean;
+  cellHighlight?: CellHighlight;
   isZoomMode?: boolean;
   onDragStart?: (e: React.PointerEvent) => void;
 }
+
+const ROLE_BG: Record<CellHighlight['role'], string> = {
+  stem: 'bg-yellow-400/70 dark:bg-yellow-500/60',
+  petalA: 'bg-blue-400/60 dark:bg-blue-500/50',
+  petalB: 'bg-green-400/60 dark:bg-green-500/50',
+  pattern: 'bg-theme-primary-light',
+  chainOn: 'bg-blue-400/60 dark:bg-blue-500/50',
+  chainOff: 'bg-green-400/60 dark:bg-green-500/50',
+  elimination: '',
+};
 
 const SudokuInput = ({
   cellId,
@@ -23,6 +35,7 @@ const SudokuInput = ({
   value,
   validation,
   isInitial,
+  cellHighlight,
   isZoomMode,
   onDragStart,
 }: Arguments) => {
@@ -34,8 +47,10 @@ const SudokuInput = ({
   let backgroundClass = undefined;
   if (!isNotesMode && value && validation !== undefined) {
     backgroundClass = validation ? 'bg-green-600' : 'bg-red-600';
+  } else if (cellHighlight) {
+    backgroundClass = ROLE_BG[cellHighlight.role];
   } else if (isSelected) {
-    backgroundClass = `dark:bg-theme-primary-dark/75 bg-theme-primary-lighter${isInitial ? '/50' : ''}`;
+    backgroundClass = `bg-theme-primary-lighter${isInitial ? '/50' : ''}`;
   }
 
   const textClass = isInitial
@@ -59,7 +74,12 @@ const SudokuInput = ({
       className={`flex h-full w-full items-center justify-center border border-zinc-300 dark:border-zinc-400 ${backgroundClass}`}
     >
       {isNotesMode ? (
-        <SudokuInputNotes notes={notes} selectNumber={selectNumber} />
+        <SudokuInputNotes
+          notes={notes}
+          selectNumber={selectNumber}
+          eliminatedDigits={cellHighlight?.eliminatedDigits}
+          visibleDigits={cellHighlight?.visibleDigits}
+        />
       ) : (
         <div
           data-cell-id={cellId}

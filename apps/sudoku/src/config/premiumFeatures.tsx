@@ -3,17 +3,17 @@ import { Calendar, RotateCcw, Droplet, Users, Watch } from 'lucide-react';
 export const PREMIUM_FEATURES = [
   {
     icon: <Calendar />,
-    title: '🏁 Unlimited play and race',
+    title: 'Unlimited play and race',
     description: 'Race friends in real-time more than once a day',
   },
   {
     icon: <Watch />,
-    title: 'Create and join multiple racing teams',
+    title: 'Multiple racing teams',
     description: 'Host private competitions with friends and family',
   },
   {
     icon: <Users />,
-    title: 'Racing team management',
+    title: 'Team management',
     description:
       'Create large parties up to 15 people, and remove members from your team.',
   },

@@ -528,6 +528,12 @@ function useGameState({
     let intervalId: ReturnType<typeof setInterval>;
 
     const pollGetValue = () => {
+      console.info('pollGetValue');
+
+      if (!hasSessionParties || !user) {
+        return;
+      }
+
       const now = Date.now();
       const timeSinceLastSave = now - lastSaveTimeRef.current;
       const timeSinceLastSelectedCellChange =
@@ -577,7 +583,6 @@ function useGameState({
     };
 
     if (active && !isPaused && isDocumentVisible && hasSessionParties && user) {
-      // Poll every minute if we have at least one party in the session
       console.info('setting up polling..');
       intervalId = setInterval(pollGetValue, 30000);
     } else {
@@ -835,6 +840,7 @@ function useGameState({
     setShowSidebar,
     isZoomMode,
     setIsZoomMode,
+    isPaused,
   };
 }
 

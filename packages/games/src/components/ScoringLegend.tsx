@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Award } from 'lucide-react';
+import { X, Zap, BookOpen, Trophy, Timer, ScanLine } from 'lucide-react';
 import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
 
@@ -10,6 +10,24 @@ interface ScoringLegendProps {
   gameName: string;
 }
 
+const DAILY_DIFFICULTIES = [
+  { key: Difficulty.SIMPLE, label: 'Tricky', stars: 1 },
+  { key: Difficulty.EASY, label: 'Challenging', stars: 2 },
+  { key: Difficulty.INTERMEDIATE, label: 'Hard', stars: 3 },
+] as const;
+
+const SPEED_TIERS = [
+  { key: 'LIGHTNING', label: 'Lightning', threshold: '3 min' },
+  { key: 'FAST', label: 'Fast', threshold: '5 min' },
+  { key: 'QUICK', label: 'Quick', threshold: '10 min' },
+  { key: 'STEADY', label: 'Steady', threshold: '20 min' },
+] as const;
+
+const multiplierBar = (mult: number, max: number) => {
+  const pct = Math.round((mult / max) * 100);
+  return pct;
+};
+
 const ScoringLegend: React.FC<ScoringLegendProps> = ({
   isOpen,
   onClose,
@@ -17,249 +35,219 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  const bookDifficulties = Object.values(BookPuzzleDifficulty).sort(
+    (a, b) =>
+      SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[a] -
+      SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[b]
+  );
+
+  const maxBookMult = Math.max(
+    ...bookDifficulties.map((d) => SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[d])
+  );
+
   return (
     <div
-      className="pb-safe fixed inset-0 z-[60] flex items-center justify-center bg-black bg-opacity-50 p-4"
+      className="fixed inset-0 z-[60] flex items-end justify-center bg-black/60 p-0 sm:items-center sm:p-4"
       onClick={onClose}
     >
       <div
-        className="max-h-[calc(90vh-var(--ion-safe-area-bottom))] w-full max-w-2xl overflow-y-auto rounded-2xl bg-gradient-to-br from-purple-50 via-white to-blue-50 shadow-2xl dark:from-purple-950 dark:via-zinc-800 dark:to-blue-950"
+        className="max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl bg-white sm:rounded-3xl dark:bg-zinc-950"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 z-10 bg-gradient-to-r from-purple-600 to-blue-600 p-6 pb-4">
-          <div className="flex items-center justify-between">
-            <h3 className="flex items-center text-2xl font-bold text-white">
-              <Award className="mr-3 text-yellow-300" size={28} />
-              🏆 Scoring System
+        {/* Header */}
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-zinc-200 bg-white px-6 py-5 dark:border-zinc-800 dark:bg-zinc-950">
+          <div>
+            <h3 className="text-lg font-semibold tracking-tight text-zinc-900 dark:text-white">
+              How scoring works
             </h3>
-            <button
-              onClick={onClose}
-              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-white transition-colors hover:bg-white/30"
-            >
-              ✕
-            </button>
+            <p className="text-xs text-zinc-500">{gameName} · Last 30 days</p>
           </div>
+          <button
+            onClick={onClose}
+            className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-zinc-100 text-zinc-500 transition-colors hover:bg-zinc-200 hover:text-zinc-900 active:scale-95 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
-        <div className="pb-safe px-6 pb-6">
-          <div className="space-y-6">
-            <div className="rounded-lg bg-gradient-to-r from-yellow-50 to-orange-50 p-4 dark:from-yellow-900/20 dark:to-orange-900/20">
-              <h4 className="mb-3 text-lg font-bold text-yellow-800 dark:text-yellow-200">
-                🏁 Racing Wins
+
+        <div className="pb-safe space-y-6 px-6 py-6">
+          {/* Racing wins */}
+          <section>
+            <div className="mb-3 flex items-center gap-2">
+              <Trophy className="h-4 w-4 text-amber-500" />
+              <h4 className="text-sm font-semibold text-zinc-900 dark:text-white">
+                Racing wins
               </h4>
-              <p className="mb-3 text-sm font-semibold text-yellow-700 dark:text-yellow-300">
-                +{SCORING_CONFIG.RACING_BONUS_PER_PERSON} points for each friend
-                you beat on the same completed puzzle!
+            </div>
+            <div className="rounded-2xl bg-zinc-100 p-4 dark:bg-zinc-900">
+              <p className="text-sm text-zinc-600 dark:text-zinc-300">
+                Earn{' '}
+                <span className="font-semibold tabular-nums text-amber-500">
+                  +{SCORING_CONFIG.RACING_BONUS_PER_PERSON} pts
+                </span>{' '}
+                for each friend you beat on the same completed puzzle. Finish
+                first across 5 friends and collect{' '}
+                <span className="font-semibold tabular-nums text-amber-500">
+                  +{SCORING_CONFIG.RACING_BONUS_PER_PERSON * 5} pts
+                </span>
+                .
               </p>
-              <p className="mb-2 text-sm text-yellow-600 dark:text-yellow-400">
-                Complete puzzles faster than your friends to earn big racing
-                bonuses. Beat 5 friends = +500 points!
-              </p>
+            </div>
+          </section>
+
+          {/* Base points */}
+          <section>
+            <div className="mb-3 flex items-center gap-2">
+              <Zap className="h-4 w-4 text-amber-500" />
+              <h4 className="text-sm font-semibold text-zinc-900 dark:text-white">
+                Base points
+              </h4>
+            </div>
+            <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
+              {[
+                {
+                  icon: Zap,
+                  label: 'Any puzzle',
+                  value: SCORING_CONFIG.VOLUME_MULTIPLIER,
+                },
+                {
+                  icon: Zap,
+                  label: 'Daily puzzle',
+                  value: SCORING_CONFIG.DAILY_PUZZLE_BASE,
+                },
+                {
+                  icon: BookOpen,
+                  label: 'Book puzzle',
+                  value: SCORING_CONFIG.BOOK_PUZZLE_BASE,
+                },
+                {
+                  icon: ScanLine,
+                  label: 'Scanned puzzle',
+                  value: SCORING_CONFIG.SCANNED_PUZZLE_BASE,
+                },
+              ].map(({ label, value }) => (
+                <div
+                  key={label}
+                  className="flex items-center justify-between px-4 py-3"
+                >
+                  <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                    {label}
+                  </span>
+                  <span className="text-sm font-semibold tabular-nums text-zinc-900 dark:text-white">
+                    +{value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Difficulty multipliers */}
+          <section>
+            <div className="mb-3 flex items-center gap-2">
+              <Zap className="h-4 w-4 text-amber-500" />
+              <h4 className="text-sm font-semibold text-zinc-900 dark:text-white">
+                Difficulty multipliers
+              </h4>
             </div>
 
-            <div className="rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 dark:border-blue-700 dark:from-blue-900/30 dark:to-indigo-900/30">
-              <h4 className="mb-3 flex items-center text-lg font-bold text-blue-800 dark:text-blue-200">
-                📊 Base Points
-              </h4>
-              <div className="grid gap-2 sm:grid-cols-2">
-                <div className="rounded-lg bg-green-500 px-3 py-2 text-white">
-                  <div className="text-sm font-semibold">Any puzzle</div>
-                  <div className="text-lg font-bold">
-                    +{SCORING_CONFIG.VOLUME_MULTIPLIER}
+            {/* Daily */}
+            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+              {gameName} of the Day
+            </p>
+            <div className="mb-4 divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
+              {DAILY_DIFFICULTIES.map(({ key, label, stars }) => {
+                const mult = SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[key];
+                return (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between px-4 py-3"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-zinc-700 dark:text-zinc-300">
+                        {label}
+                      </span>
+                      <span className="text-[10px] text-amber-500">
+                        {'★'.repeat(stars)}
+                        {'☆'.repeat(3 - stars)}
+                      </span>
+                    </div>
+                    <span className="text-sm font-semibold tabular-nums text-zinc-900 dark:text-white">
+                      {mult}×
+                    </span>
                   </div>
-                </div>
-                <div className="rounded-lg bg-blue-500 px-3 py-2 text-white">
-                  <div className="text-sm font-semibold">Daily puzzle</div>
-                  <div className="text-lg font-bold">
-                    +{SCORING_CONFIG.DAILY_PUZZLE_BASE}
-                  </div>
-                </div>
-                <div className="rounded-lg bg-purple-500 px-3 py-2 text-white">
-                  <div className="text-sm font-semibold">Book puzzle</div>
-                  <div className="text-lg font-bold">
-                    +{SCORING_CONFIG.BOOK_PUZZLE_BASE}
-                  </div>
-                </div>
-                <div className="rounded-lg bg-orange-500 px-3 py-2 text-white">
-                  <div className="text-sm font-semibold">Scanned puzzle</div>
-                  <div className="text-lg font-bold">
-                    +{SCORING_CONFIG.SCANNED_PUZZLE_BASE}
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
 
-            <div className="rounded-xl border border-red-200 bg-gradient-to-r from-red-50 to-pink-50 p-4 dark:border-red-700 dark:from-red-900/30 dark:to-pink-900/30">
-              <h4 className="mb-4 text-lg font-bold text-red-800 dark:text-red-200">
-                🔥 Difficulty Multipliers
-              </h4>
+            {/* Book */}
+            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+              Book puzzles
+            </p>
+            <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
+              {bookDifficulties.map((difficulty) => {
+                const mult = SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[difficulty];
+                const displayName = difficulty
+                  .replace(/^\d+-/, '')
+                  .split('-')
+                  .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                  .join(' ');
+                const barPct = multiplierBar(mult, maxBookMult);
 
-              <div className="space-y-4">
-                {/* Daily Puzzle Difficulties */}
-                <div>
-                  <h5 className="mb-3 text-sm font-semibold text-red-700 dark:text-red-300">
-                    ⭐ {gameName} of the Day
-                  </h5>
-                  <div className="grid grid-cols-1 gap-2">
-                    {[
-                      {
-                        key: Difficulty.SIMPLE,
-                        name: '⚡ Tricky',
-                        emoji: '⭐',
-                      },
-                      {
-                        key: Difficulty.EASY,
-                        name: '🔥 Challenging',
-                        emoji: '⭐⭐',
-                      },
-                      {
-                        key: Difficulty.INTERMEDIATE,
-                        name: '🚀 Hard',
-                        emoji: '⭐⭐⭐',
-                      },
-                    ].map(({ key, name, emoji }) => {
-                      const multiplier =
-                        SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[key];
-
-                      const getBadgeColor = (mult: number) => {
-                        if (mult >= 2.0) return 'bg-red-600 text-white';
-                        if (mult >= 1.5) return 'bg-orange-500 text-white';
-                        if (mult >= 1.2) return 'bg-yellow-500 text-white';
-                        return 'bg-green-500 text-white';
-                      };
-
-                      return (
-                        <div
-                          key={key}
-                          className={`rounded-lg px-3 py-2 text-sm font-medium ${getBadgeColor(multiplier)}`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <span>{name}</span>
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs text-yellow-300">
-                                {emoji}
-                              </span>
-                              <span className="font-bold">{multiplier}x</span>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Book Puzzle Difficulties */}
-                <div>
-                  <h5 className="mb-3 text-sm font-semibold text-red-700 dark:text-red-300">
-                    📖 Book Puzzles
-                  </h5>
-                  <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
-                    {Object.values(BookPuzzleDifficulty)
-                      .sort(
-                        (a, b) =>
-                          SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[a] -
-                          SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[b]
-                      )
-                      .map((difficulty) => {
-                        const multiplier =
-                          SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[difficulty];
-                        const displayName = difficulty
-                          .replace(/^\d+-/, '') // Remove number prefix
-                          .split('-')
-                          .map(
-                            (word) =>
-                              word.charAt(0).toUpperCase() + word.slice(1)
-                          )
-                          .join(' ');
-
-                        const getBadgeColor = (mult: number) => {
-                          if (mult >= 4.0) return 'bg-black text-white';
-                          if (mult >= 3.0) return 'bg-red-900 text-white';
-                          if (mult >= 2.0) return 'bg-red-600 text-white';
-                          if (mult >= 1.5) return 'bg-orange-500 text-white';
-                          if (mult >= 1.2) return 'bg-yellow-500 text-white';
-                          return 'bg-green-500 text-white';
-                        };
-
-                        return (
-                          <div
-                            key={difficulty}
-                            className={`rounded-lg px-2 py-1 text-xs font-medium ${getBadgeColor(multiplier)}`}
-                          >
-                            {displayName}: {multiplier}x
-                          </div>
-                        );
-                      })}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-purple-200 bg-gradient-to-r from-purple-50 to-indigo-50 p-4 dark:border-purple-700 dark:from-purple-900/30 dark:to-indigo-900/30">
-              <h4 className="mb-4 text-lg font-bold text-purple-800 dark:text-purple-200">
-                ⚡ Speed Bonuses
-              </h4>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {Object.entries(SCORING_CONFIG.SPEED_THRESHOLDS)
-                  .sort(([, a], [, b]) => b - a) // Sort by time descending so fastest is first
-                  .map(([speedTier, threshold]) => {
-                    const bonus =
-                      SCORING_CONFIG.SPEED_BONUSES[
-                        speedTier as keyof typeof SCORING_CONFIG.SPEED_BONUSES
-                      ];
-                    const minutes = Math.floor(threshold / 60);
-                    const seconds = threshold % 60;
-                    const timeDisplay =
-                      seconds > 0
-                        ? `${minutes}:${seconds.toString().padStart(2, '0')}`
-                        : `${minutes} min`;
-
-                    const getBadgeColor = (speedTier: string) => {
-                      switch (speedTier) {
-                        case 'LIGHTNING':
-                          return 'bg-yellow-400 text-black';
-                        case 'FAST':
-                          return 'bg-orange-500 text-white';
-                        case 'QUICK':
-                          return 'bg-blue-500 text-white';
-                        case 'STEADY':
-                          return 'bg-green-500 text-white';
-                        default:
-                          return 'bg-gray-500 text-white';
-                      }
-                    };
-
-                    const getSpeedEmoji = (speedTier: string) => {
-                      switch (speedTier) {
-                        case 'LIGHTNING':
-                          return '⚡';
-                        case 'FAST':
-                          return '🔥';
-                        case 'QUICK':
-                          return '💨';
-                        case 'STEADY':
-                          return '🎯';
-                        default:
-                          return '⏱️';
-                      }
-                    };
-
-                    return (
+                return (
+                  <div
+                    key={difficulty}
+                    className="flex items-center gap-3 px-4 py-2.5"
+                  >
+                    <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                      {displayName}
+                    </span>
+                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
                       <div
-                        key={speedTier}
-                        className={`rounded-lg px-3 py-2 ${getBadgeColor(speedTier)}`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="text-sm font-semibold">
-                            {getSpeedEmoji(speedTier)} Under {timeDisplay}
-                          </div>
-                          <div className="text-lg font-bold">+{bonus}</div>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
+                        className="h-full rounded-full bg-amber-500"
+                        style={{ width: `${barPct}%` }}
+                      />
+                    </div>
+                    <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
+                      {mult}×
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-          </div>
+          </section>
+
+          {/* Speed bonuses */}
+          <section>
+            <div className="mb-3 flex items-center gap-2">
+              <Timer className="h-4 w-4 text-amber-500" />
+              <h4 className="text-sm font-semibold text-zinc-900 dark:text-white">
+                Speed bonuses
+              </h4>
+            </div>
+            <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
+              {SPEED_TIERS.map(({ key, label, threshold }) => {
+                const bonus = SCORING_CONFIG.SPEED_BONUSES[key];
+                return (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between px-4 py-3"
+                  >
+                    <div>
+                      <span className="text-sm text-zinc-700 dark:text-zinc-300">
+                        {label}
+                      </span>
+                      <span className="ml-2 text-xs text-zinc-400 dark:text-zinc-500">
+                        under {threshold}
+                      </span>
+                    </div>
+                    <span className="text-sm font-semibold tabular-nums text-amber-500">
+                      +{bonus}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
         </div>
       </div>
     </div>

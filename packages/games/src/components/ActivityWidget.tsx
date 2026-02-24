@@ -1,99 +1,92 @@
 'use client';
+import { ReactNode } from 'react';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { BaseServerState } from '@bubblyclouds-app/template/types/state';
-import { Calendar, Activity } from 'lucide-react';
+import { calculateActivityStats } from '../helpers/calculateActivityStats';
 
 interface ActivityWidgetProps {
   sessions: ServerStateResult<BaseServerState>[] | undefined;
+  variant?: 'light' | 'dark';
+  onClick?: () => void;
+  action?: ReactNode;
 }
 
-const ActivityWidget = ({ sessions }: ActivityWidgetProps) => {
-  const calculateActivityStats = () => {
-    if (!sessions || sessions.length === 0) {
-      return { daysPlayedInThirtyDays: 0, currentStreak: 0 };
-    }
+const ActivityWidget = ({
+  sessions,
+  variant = 'light',
+  onClick,
+  action,
+}: ActivityWidgetProps) => {
+  const { puzzlesPlayedInThirtyDays, currentStreak, lastSevenDays } =
+    calculateActivityStats(sessions);
 
-    const now = new Date();
-    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-    // Get unique days when puzzles were started or updated in the past 30 days
-    const playDates = new Set<string>();
-    sessions.forEach((session) => {
-      const sessionDate = new Date(session.updatedAt);
-      if (sessionDate >= thirtyDaysAgo) {
-        // Use date string (YYYY-MM-DD) to track unique days
-        playDates.add(sessionDate.toISOString().split('T')[0]);
-      }
-    });
-
-    const daysPlayedInThirtyDays = playDates.size;
-
-    // Calculate current streak
-    let currentStreak = 0;
-    const today = new Date();
-
-    // Check each day going backwards from today
-    for (let i = 0; i < 365; i++) {
-      // Max reasonable streak check
-      const checkDate = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
-      const dateString = checkDate.toISOString().split('T')[0];
-
-      if (playDates.has(dateString)) {
-        currentStreak++;
-      } else {
-        // If we haven't played today, check if we played yesterday before breaking
-        if (i === 0) {
-          continue; // Skip today, check yesterday
-        }
-        break; // Streak broken
-      }
-    }
-
-    return { daysPlayedInThirtyDays, currentStreak };
-  };
-
-  const { daysPlayedInThirtyDays, currentStreak } = calculateActivityStats();
+  const isDark = variant === 'dark';
 
   return (
-    <div className="mb-3 w-fit rounded-xl border border-stone-200 bg-gradient-to-br from-stone-50/80 to-stone-100/80 p-3 shadow-sm backdrop-blur-sm dark:border-gray-700 dark:from-zinc-800/80 dark:to-zinc-900/80">
-      <h2 className="mb-2 text-lg font-bold text-gray-800 dark:text-white">
-        Activity Stats
-      </h2>
-
-      <div className="flex gap-6">
-        <div className="flex items-center space-x-2">
-          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/50">
-            <Calendar
-              className="h-4 w-4 text-blue-600 dark:text-blue-400"
-              data-testid="calendar-icon"
-            />
+    <div
+      className={`flex flex-col gap-1.5${onClick ? 'cursor-pointer' : ''}`}
+      onClick={onClick}
+    >
+      {/* 7-day dot row */}
+      <div className="flex items-center gap-2">
+        {lastSevenDays.map((day, i) => (
+          <div key={i} className="flex flex-col items-center gap-1">
+            <span
+              className={`text-[11px] font-semibold uppercase tracking-wide ${
+                isDark ? 'text-white/40' : 'text-zinc-400 dark:text-zinc-500'
+              }`}
+            >
+              {day.label}
+            </span>
+            <div
+              className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-all duration-200 ${
+                day.puzzleCount > 0
+                  ? isDark
+                    ? 'bg-theme-primary text-white'
+                    : 'bg-theme-primary text-white'
+                  : day.isToday
+                    ? isDark
+                      ? 'ring-2 ring-white/30 ring-offset-1 ring-offset-transparent'
+                      : 'ring-theme-primary ring-2 ring-offset-1 ring-offset-white dark:ring-offset-zinc-900'
+                    : isDark
+                      ? 'bg-white/10'
+                      : 'bg-zinc-200 dark:bg-zinc-700'
+              }`}
+              data-testid={`day-dot-${i}`}
+            >
+              {day.puzzleCount > 0 && (
+                <span className="tabular-nums">
+                  {day.puzzleCount > 9 ? '9+' : day.puzzleCount}
+                </span>
+              )}
+            </div>
           </div>
-          <div>
-            <p className="text-lg font-bold text-gray-800 dark:text-white">
-              {daysPlayedInThirtyDays}
-            </p>
-            <p className="text-xs text-gray-600 dark:text-gray-400">
-              Days played in past 30 days
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/50">
-            <Activity
-              className="h-4 w-4 text-orange-600 dark:text-orange-400"
-              data-testid="activity-icon"
-            />
-          </div>
-          <div>
-            <p className="text-lg font-bold text-gray-800 dark:text-white">
-              {currentStreak}
-            </p>
-            <p className="text-xs text-gray-600 dark:text-gray-400">
-              Day streak
-            </p>
-          </div>
-        </div>
+        ))}
+      </div>
+      {/* Stats row */}
+      <div
+        className={`mt-3 flex items-center gap-1.5 text-sm ${
+          isDark ? 'text-white/40' : 'text-zinc-400 dark:text-zinc-500'
+        }`}
+      >
+        <span data-testid="streak-count">
+          <span
+            className={`font-bold ${isDark ? 'text-white' : 'text-theme-primary'}`}
+          >
+            {currentStreak}
+          </span>{' '}
+          day streak
+        </span>
+        <span>·</span>
+        <span data-testid="puzzles-count">
+          <span
+            className={`font-bold ${isDark ? 'text-white' : 'text-theme-primary'}`}
+          >
+            {puzzlesPlayedInThirtyDays}
+          </span>{' '}
+          this month
+        </span>
+        {action && <div className="-my-1.5 ml-auto">{action}</div>}
       </div>
     </div>
   );

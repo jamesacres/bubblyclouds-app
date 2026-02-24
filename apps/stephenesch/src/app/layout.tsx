@@ -3,16 +3,15 @@ import './globals.css';
 
 import { Metadata } from 'next';
 import siteMetadata from '@/data/siteMetadata';
-import { Roboto_Mono } from 'next/font/google';
+import { Geist_Mono } from 'next/font/google';
 import BlogHeader from '@bubblyclouds-app/blog/components/BlogHeader';
 import BlogFooter from '@bubblyclouds-app/blog/components/BlogFooter';
 import { Providers } from '@bubblyclouds-app/blog/components/Providers';
 import headerNavLinks from '@/data/headerNavLinks';
 
-const roboto = Roboto_Mono({
+const geistMono = Geist_Mono({
   subsets: ['latin'],
   display: 'swap',
-  weight: '400',
 });
 
 export const metadata: Metadata = {
@@ -57,7 +56,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang={siteMetadata.language}
-      className={`${roboto.className} scroll-smooth`}
+      className={`${geistMono.className} scroll-smooth`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
@@ -83,7 +82,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <meta name="msapplication-TileColor" content="#da532c" />
       <meta name="theme-color" content="#ffffff" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <body className="bg-sky-100 text-black antialiased dark:bg-sky-950 dark:text-white">
+      <body className="bg-sky-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
         <Providers>
           <div className="flex h-screen flex-col justify-between">
             <header className="px-4 sm:px-6 lg:px-8">

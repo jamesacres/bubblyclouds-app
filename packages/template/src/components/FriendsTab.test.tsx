@@ -88,10 +88,9 @@ describe('FriendsTab', () => {
     );
   };
 
-  it('renders the main title and party tabs', () => {
+  it('renders party filter tabs', () => {
     renderComponent();
-    expect(screen.getByText('Racing Teams')).toBeInTheDocument();
-    expect(screen.getByText('All')).toBeInTheDocument();
+    expect(screen.getByText('All teams')).toBeInTheDocument();
     // Test Party appears in multiple places (tabs, rows), so check all exist
     expect(screen.getAllByText('Test Party').length).toBeGreaterThan(0);
   });
@@ -99,7 +98,7 @@ describe('FriendsTab', () => {
   it('renders the leaderboard and friends list', () => {
     renderComponent();
     expect(screen.getByTestId('leaderboard')).toBeInTheDocument();
-    expect(screen.getByText("Browse Friends' Puzzles")).toBeInTheDocument();
+    expect(screen.getByText("Friends' Puzzles")).toBeInTheDocument();
     expect(screen.getByText('Friend')).toBeInTheDocument();
   });
 

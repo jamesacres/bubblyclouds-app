@@ -32,7 +32,7 @@ jest.mock('github-slugger', () => {
     },
     __esModule: true,
   };
-});
+}, { virtual: true });
 
 // Mock RevenueCat/Capacitor modules that use ESM
 jest.mock(

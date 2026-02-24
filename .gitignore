@@ -46,6 +46,8 @@ dist/
 .claude
 .gemini
 .kiro/settings
+.kiro/skills
+.vscode
 
 android/app/release
 

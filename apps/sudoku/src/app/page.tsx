@@ -4,8 +4,8 @@ import { useSudokuServerStorage } from '@bubblyclouds-app/sudoku/hooks/useSudoku
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { Tab } from '@bubblyclouds-app/types/tabs';
-import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
 import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
+import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { motivationalMessages } from '../config/motivationalMessages';
 import { APP_CONFIG } from '../../app.config.js';
@@ -29,7 +29,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Users, Zap, Award, Camera } from 'lucide-react';
+import { Users, Zap, Award, Camera, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
@@ -41,16 +41,90 @@ const SimpleStateWrapper = ({ state }: { state: GameState }) => (
   <SimpleSudoku state={state} />
 );
 
+const DIFFICULTY_OPTIONS = [
+  {
+    difficulty: Difficulty.SIMPLE,
+    label: 'Tricky',
+    stars: 1,
+    bgFrom: '#10b981',
+    bgTo: '#059669',
+    glow: '0 0 28px rgba(16,185,129,0.55), 0 4px 16px rgba(16,185,129,0.3)',
+    number: '3',
+  },
+  {
+    difficulty: Difficulty.EASY,
+    label: 'Challenging',
+    stars: 2,
+    bgFrom: '#f59e0b',
+    bgTo: '#d97706',
+    glow: '0 0 28px rgba(245,158,11,0.55), 0 4px 16px rgba(245,158,11,0.3)',
+    number: '7',
+  },
+  {
+    difficulty: Difficulty.INTERMEDIATE,
+    label: 'Hard',
+    stars: 3,
+    bgFrom: '#f43f5e',
+    bgTo: '#e11d48',
+    glow: '0 0 28px rgba(244,63,94,0.55), 0 4px 16px rgba(244,63,94,0.3)',
+    number: '9',
+  },
+] as const;
+
+/* ── Animated 9×9 sudoku grid background ───────────────────────── */
+const GRID_NUMBERS = [
+  5, 3, 0, 0, 7, 0, 0, 0, 0, 6, 0, 0, 1, 9, 5, 0, 0, 0, 0, 9, 8, 0, 0, 0, 0, 6,
+  0, 8, 0, 0, 0, 6, 0, 0, 0, 3, 4, 0, 0, 8, 0, 3, 0, 0, 1, 7, 0, 0, 0, 2, 0, 0,
+  0, 6, 0, 6, 0, 0, 0, 0, 2, 8, 0, 0, 0, 0, 4, 1, 9, 0, 0, 5, 0, 0, 0, 0, 8, 0,
+  0, 7, 9,
+];
+
+function HeroGrid() {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+      aria-hidden="true"
+    >
+      {/* Top-right quadrant only — gives an asymmetric feel */}
+      <div
+        className="animate-grid-drift absolute"
+        style={{ top: '-5%', right: '-4%', width: '52%', opacity: 0.15 }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(9, 1fr)',
+            gap: '3px',
+          }}
+        >
+          {GRID_NUMBERS.map((n, i) => (
+            <div
+              key={i}
+              className="animate-tile-pulse flex aspect-square items-center justify-center rounded-[4px] border border-violet-400/20 bg-violet-500/10 font-black text-violet-200/80"
+              style={{
+                animationDelay: `${(i % 7) * 0.45}s`,
+                fontSize: 'clamp(7px, 1.1vw, 13px)',
+              }}
+            >
+              {n > 0 ? n : ''}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HomeComponent() {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState(searchParams.get('tab') || Tab.START_PUZZLE);
 
-  // Update tab when search params change (only from external navigation)
   useEffect(() => {
     const tabFromUrl = searchParams.get('tab') || Tab.START_PUZZLE;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setTab(tabFromUrl);
   }, [searchParams]);
+
   const router = useRouter();
   const context = useContext(UserContext);
   const { user, loginRedirect } = context || {};
@@ -71,11 +145,9 @@ function HomeComponent() {
   const hasLoadedFriendSessionsRef = useRef(false);
 
   useEffect(() => {
-    // Always refetch sessions when returning to homepage to get latest progress
     refetchSessions();
   }, [refetchSessions]);
 
-  // Lazy load friend sessions when parties are available
   useEffect(() => {
     if (parties && parties.length > 0 && !hasLoadedFriendSessionsRef.current) {
       hasLoadedFriendSessionsRef.current = true;
@@ -130,308 +202,412 @@ function HomeComponent() {
       }
       return;
     }
-
-    // Just navigate to book page, let it handle loading
     router.push('/book');
   };
 
   const tabBackground = (thisTab: Tab) =>
     thisTab === tab
-      ? 'bg-transparent text-theme-primary dark:text-theme-primary-light font-semibold'
+      ? 'text-theme-primary dark:text-theme-primary-light font-semibold'
       : 'text-gray-500 dark:text-gray-400';
 
   const handleTabChange = (newTab: Tab) => {
-    // Update state immediately to prevent unnecessary re-renders
     setTab(newTab);
-    // Update URL without triggering navigation effects
     window.history.replaceState(null, '', `/?tab=${newTab}`);
-    // Scroll to top when changing tabs
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Calculate daily streak from sessions
-  const calculateDailyStreak = useCallback(() => {
-    if (!sessions || sessions.length === 0) return 0;
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const sessionDates = sessions
-      .map((session) => {
-        const date = new Date(session.updatedAt);
-        date.setHours(0, 0, 0, 0);
-        return date.getTime();
-      })
-      .filter((date, index, array) => array.indexOf(date) === index) // Remove duplicates
-      .sort((a, b) => b - a); // Sort newest first
-
-    let streak = 0;
-    let currentDate = today.getTime();
-
-    for (const sessionDate of sessionDates) {
-      if (sessionDate === currentDate) {
-        streak++;
-        currentDate -= 24 * 60 * 60 * 1000; // Go back one day
-      } else if (sessionDate === currentDate + 24 * 60 * 60 * 1000) {
-        // Session from yesterday, continue streak
-        streak++;
-        currentDate = sessionDate - 24 * 60 * 60 * 1000;
-      } else {
-        break; // Gap in streak
-      }
-    }
-
-    return streak;
-  }, [sessions]);
-
-  const dailyStreak = calculateDailyStreak();
-
   const refreshLeaderboard = useCallback(async () => {
     await refreshParties();
-    // After refreshing parties, we need to fetch fresh friend sessions
     if (parties && parties.length > 0) {
       await fetchFriendSessions(parties);
     }
   }, [refreshParties, fetchFriendSessions, parties]);
 
+  const currentMonth = new Date(new Date().toISOString()).toLocaleString(
+    'en-US',
+    { month: 'long', timeZone: 'UTC' }
+  );
+
   return (
     <>
       {tab === Tab.START_PUZZLE ? (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pb-32 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-          {/* Racing Hero Section */}
-          <div className="pt-safe relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 px-6">
-            <div className="absolute inset-0 bg-black/10"></div>
-            <div className="container relative z-10 mx-auto max-w-4xl py-4 text-center text-white md:py-6">
-              <div className="mb-3 flex justify-center md:mb-4">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm md:h-20 md:w-20">
+        <div className="min-h-dvh bg-[#04020f] pb-32">
+          {/* ══ HERO ══════════════════════════════════════════════ */}
+          <div className="pt-safe relative min-h-dvh overflow-hidden bg-[#04020f] px-5 pb-10">
+            <HeroGrid />
+
+            {/* Neon ambient blobs */}
+            <div
+              className="pointer-events-none absolute inset-0"
+              aria-hidden="true"
+            >
+              <div className="absolute -left-20 -top-40 h-[32rem] w-[32rem] rounded-full bg-violet-600/35 blur-[110px]" />
+              <div className="absolute -right-10 top-10 h-72 w-72 rounded-full bg-fuchsia-500/30 blur-[80px]" />
+              <div className="absolute bottom-10 left-1/3 h-56 w-80 rounded-full bg-cyan-400/20 blur-[70px]" />
+              <div className="absolute left-1/2 top-1/3 h-48 w-48 -translate-x-1/2 rounded-full bg-blue-500/20 blur-[60px]" />
+            </div>
+
+            {/* Scanline overlay */}
+            <div
+              className="pointer-events-none absolute inset-0"
+              aria-hidden="true"
+              style={{
+                backgroundImage:
+                  'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.18) 2px, rgba(0,0,0,0.18) 4px)',
+              }}
+            />
+
+            <div className="container relative z-10 mx-auto max-w-4xl pt-6 md:pt-10">
+              {/* App identity ─────────────────────────────────── */}
+              <div className="mb-8 flex items-center gap-4">
+                <div
+                  className="liquid-glass-strong flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-[18px]"
+                  style={{
+                    boxShadow:
+                      '0 0 0 1px rgba(255,255,255,0.15), 0 0 40px rgba(80,120,255,0.3), inset 0 1px 0 rgba(255,255,255,0.22)',
+                  }}
+                >
                   <Image
                     src="/icons/icon-512.webp"
-                    alt="Sudoku Race Logo"
-                    width={64}
-                    height={64}
-                    className="h-10 w-10 md:h-12 md:w-12"
+                    alt="Sudoku Race"
+                    width={44}
+                    height={44}
+                    className="h-[44px] w-[44px]"
                   />
                 </div>
-              </div>
-              <h1 className="mb-3 text-3xl font-bold md:mb-4 md:text-4xl">
-                Ready to Race? 🏎️
-              </h1>
-              <p className="mb-6 text-lg opacity-90 md:mb-8 md:text-xl">
-                Share the challenge! Invite friends to race and see who&apos;s
-                the fastest Sudoku solver 🏁
-              </p>
-
-              {/* Social Proof - Motivational Message */}
-              <SocialProof motivationalMessages={motivationalMessages} />
-
-              {/* Daily Streak Section - Compact */}
-              <div className="mb-4 md:mb-6">
-                <div className="mx-auto max-w-sm rounded-xl border border-white/20 bg-purple-600/20 p-3 backdrop-blur-sm">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="text-xl">🔥</div>
-                      <div>
-                        <span className="text-lg font-bold text-white">
-                          {dailyStreak}
-                        </span>
-                        <span className="ml-1 text-sm text-white/80">
-                          day streak
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      className="cursor-pointer rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30"
-                      onClick={() => handleTabChange(Tab.FRIENDS)}
-                    >
-                      Leaderboard
-                    </button>
+                <div>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-base font-bold tracking-tight text-white/70">
+                      Sudoku Race
+                    </span>
+                    <span className="inline-flex items-center gap-1 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-fuchsia-300">
+                      <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
+                      Live
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Racing Action Buttons */}
-              <div className="mx-auto max-w-4xl">
-                {/* Daily Challenges - Full Width */}
-                <div className="mb-4 rounded-2xl bg-white/10 p-4 backdrop-blur-sm md:mb-6 md:p-6">
-                  <h3 className="mb-2 text-lg font-bold text-white md:mb-3 md:text-xl">
-                    🏁 Daily Challenges
-                  </h3>
-                  <p className="mb-3 text-sm text-white/80 md:mb-4 md:text-base">
-                    Choose your difficulty - race against the clock and your
-                    friends! Fresh puzzles daily!
-                  </p>
-                  <div className="grid grid-cols-3 gap-2 md:gap-3">
+              {/* Bold hero headline ─────────────────────────── */}
+              <div className="mb-5">
+                <h1
+                  className="mb-2 text-[2.6rem] font-black leading-[1.1] tracking-tight text-white md:text-5xl"
+                  style={{
+                    textShadow:
+                      '0 0 12px rgba(167,139,250,0.9), 0 0 30px rgba(139,92,246,0.6), 0 0 60px rgba(139,92,246,0.3)',
+                  }}
+                >
+                  Ready to Race? 🏁
+                </h1>
+                <p className="mb-3 text-base font-medium leading-snug text-white/60 md:text-lg">
+                  Share the challenge — invite friends and see who&apos;s the
+                  fastest Sudoku solver.
+                </p>
+                <SocialProof motivationalMessages={motivationalMessages} />
+              </div>
+
+              {/* Activity card — dots + text summary ──────────── */}
+              <div className="liquid-glass mb-5 rounded-2xl px-4 pb-3.5 pt-3">
+                <ActivityWidget
+                  sessions={sessions || undefined}
+                  variant="dark"
+                  onClick={() => handleTabChange(Tab.MY_PUZZLES)}
+                  action={
                     <button
-                      onClick={() => openSudokuOfTheDay(Difficulty.SIMPLE)}
-                      disabled={isLoading}
-                      className={`${
-                        isLoading ? 'cursor-wait' : 'cursor-pointer'
-                      } flex flex-col items-center justify-center rounded-xl bg-white/20 p-3 font-bold text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30 disabled:opacity-50 md:p-4`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTabChange(Tab.FRIENDS);
+                      }}
+                      className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-all duration-200 active:scale-[0.95]"
+                      style={{
+                        background:
+                          'linear-gradient(135deg, rgba(139,92,246,0.4) 0%, rgba(217,70,239,0.3) 100%)',
+                        border: '1px solid rgba(167,139,250,0.3)',
+                      }}
                     >
-                      <span className="mb-1 text-xl md:mb-2 md:text-2xl">
-                        ⚡
+                      <Award className="h-3.5 w-3.5 text-violet-300" />
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-violet-300">
+                        Leaderboard
                       </span>
-                      <span className="text-xs md:text-sm">Tricky</span>
-                      <div className="mt-1 flex space-x-0.5">
-                        <span className="text-xs text-yellow-300">⭐</span>
-                      </div>
                     </button>
-                    <button
-                      onClick={() => openSudokuOfTheDay(Difficulty.EASY)}
-                      disabled={isLoading}
-                      className={`${
-                        isLoading ? 'cursor-wait' : 'cursor-pointer'
-                      } relative flex flex-col items-center justify-center rounded-xl bg-white/20 p-3 font-bold text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30 disabled:opacity-50 md:p-4`}
-                    >
-                      <span className="mb-1 text-xl md:mb-2 md:text-2xl">
-                        🔥
-                      </span>
-                      <span className="text-xs md:text-sm">Challenging</span>
-                      <div className="mt-1 flex space-x-0.5">
-                        <span className="text-xs text-yellow-300">⭐⭐</span>
-                      </div>
-                    </button>
-                    <button
-                      onClick={() =>
-                        openSudokuOfTheDay(Difficulty.INTERMEDIATE)
-                      }
-                      disabled={isLoading}
-                      className={`${
-                        isLoading ? 'cursor-wait' : 'cursor-pointer'
-                      } relative flex flex-col items-center justify-center rounded-xl bg-white/20 p-3 font-bold text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30 disabled:opacity-50 md:p-4`}
-                    >
-                      <span className="mb-1 text-xl md:mb-2 md:text-2xl">
-                        🚀
-                      </span>
-                      <span className="text-xs md:text-sm">Hard</span>
-                      <div className="mt-1 flex space-x-0.5">
-                        <span className="text-xs text-yellow-300">⭐⭐⭐</span>
-                      </div>
-                    </button>
-                  </div>
-                  <p className="mt-3 text-xs text-white/80 md:mb-4 md:text-base">
-                    For a larger range of difficulties and techniques check out
-                    this month&apos;s book below!
-                  </p>
+                  }
+                />
+              </div>
+
+              {/* Daily challenges ─────────────────────────────── */}
+              <div className="mb-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="text-base font-black tracking-tight text-white">
+                    Daily challenges
+                  </h2>
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
+                    refreshes daily
+                  </span>
                 </div>
 
-                {/* Monthly Puzzle Book */}
-                {(() => {
-                  const currentMonth = new Date(
-                    new Date().toISOString()
-                  ).toLocaleString('en-US', {
-                    month: 'long',
-                    timeZone: 'UTC',
-                  });
-
-                  return (
-                    <div className="mb-4 rounded-2xl bg-white/10 p-4 backdrop-blur-sm md:mb-6 md:p-6">
-                      <h3 className="mb-2 text-lg font-bold text-white md:mb-3 md:text-xl">
-                        📚 {currentMonth} Puzzle Book
-                      </h3>
-                      <p className="mb-3 text-sm text-white/80 md:mb-4 md:text-base">
-                        50 new puzzles each month with varied solving techniques
-                      </p>
-                      <div className="flex flex-col items-center rounded-xl bg-white/20 p-4 backdrop-blur-sm md:flex-row md:items-center md:justify-between md:p-6">
-                        <div className="mb-4 flex flex-col items-center md:mb-0 md:flex-row md:items-center">
-                          <button
-                            onClick={openBook}
-                            className="mb-3 cursor-pointer md:mb-0 md:mr-6"
-                          >
-                            <BookCover month={currentMonth} size="large" />
-                          </button>
-                          <div className="text-center md:text-left">
-                            <div className="text-lg font-bold text-white md:text-xl">
-                              {currentMonth} Edition
-                            </div>
-                            <div className="text-sm text-white/70 md:text-base">
-                              50 Technique-Based Puzzles
-                            </div>
-                          </div>
-                        </div>
-                        <button
-                          onClick={openBook}
-                          className="inline-flex cursor-pointer items-center justify-center rounded-full bg-white/20 px-6 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30 md:px-8 md:py-4 md:text-base"
+                <div className="grid grid-cols-3 gap-2.5">
+                  {DIFFICULTY_OPTIONS.map(
+                    ({
+                      difficulty,
+                      label,
+                      stars,
+                      bgFrom,
+                      bgTo,
+                      glow,
+                      number,
+                    }) => (
+                      <button
+                        key={difficulty}
+                        onClick={() => openSudokuOfTheDay(difficulty)}
+                        disabled={isLoading}
+                        className="difficulty-card-shine group relative flex cursor-pointer flex-col justify-end overflow-hidden rounded-[20px] pb-3.5 pl-3.5 pr-3.5 pt-10 text-left transition-all duration-200 hover:scale-[1.03] active:scale-[0.96] disabled:opacity-40"
+                        style={{
+                          background: `linear-gradient(160deg, ${bgFrom} 0%, ${bgTo} 100%)`,
+                          boxShadow: glow,
+                          minHeight: '130px',
+                        }}
+                      >
+                        {/* Giant ghost digit — positioned top-right */}
+                        <span
+                          className="text-white/18 pointer-events-none absolute -right-2 -top-3 select-none font-black leading-none"
+                          aria-hidden="true"
+                          style={{ fontSize: '96px' }}
                         >
-                          Browse Puzzles
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })()}
-
-                {/* Import Your Own Puzzle - Full Width Feature */}
-                <div className="mb-4 rounded-2xl bg-white/10 p-4 backdrop-blur-sm md:mb-6 md:p-6">
-                  <h3 className="mb-2 text-lg font-bold text-white md:mb-3 md:text-xl">
-                    🏁 Race Friends on ANY Puzzle!
-                  </h3>
-                  <p className="mb-3 text-sm text-white/80 md:mb-4 md:text-base">
-                    Found the perfect puzzle? Scan any Sudoku from books,
-                    newspapers, or websites and challenge your friends to solve
-                    the same puzzle. See who can solve it fastest! 🚀
-                  </p>
-                  <div className="flex flex-col items-center rounded-xl bg-white/20 p-4 backdrop-blur-sm md:flex-row md:justify-between md:p-6">
-                    <div className="mb-4 text-center md:mb-0 md:text-left">
-                      <div className="mb-2 text-lg font-bold text-white md:text-xl">
-                        📸 Import & Share Challenge
-                      </div>
-                      <div className="text-sm text-white/70 md:text-base">
-                        Perfect for book puzzles, newspaper challenges, or that
-                        impossible puzzle you found online
-                      </div>
-                    </div>
-                    <Link
-                      href="/import"
-                      className="inline-flex items-center justify-center rounded-full bg-white/20 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30 md:px-8 md:py-4 md:text-base"
-                    >
-                      <Camera className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-                      Start Import Challenge
-                    </Link>
-                  </div>
+                          {number}
+                        </span>
+                        {/* Stars row */}
+                        <div className="relative mb-1.5 flex gap-0.5">
+                          {Array.from({ length: 3 }).map((_, i) => (
+                            <span
+                              key={i}
+                              className={`text-sm leading-none ${i < stars ? 'text-white' : 'text-white/25'}`}
+                              style={
+                                i < stars
+                                  ? {
+                                      filter:
+                                        'drop-shadow(0 0 4px rgba(255,255,255,0.7))',
+                                    }
+                                  : undefined
+                              }
+                            >
+                              ★
+                            </span>
+                          ))}
+                        </div>
+                        {/* Label */}
+                        <p className="relative text-base font-black leading-tight text-white">
+                          {label}
+                        </p>
+                      </button>
+                    )
+                  )}
                 </div>
 
-                {/* Friends Racing - Single column */}
-                <div className="bg-white/8 mb-4 rounded-2xl p-4 backdrop-blur-sm md:mb-6 md:p-6">
-                  <h3 className="mb-2 text-lg font-bold text-white md:mb-3 md:text-xl">
-                    👥 Team Racing
-                  </h3>
-                  <p className="mb-3 text-sm text-white/80 md:mb-4 md:text-base">
-                    Race against{' '}
-                    {friendsList?.length
-                      ? friendsList.slice(0, 3).join(', ')
-                      : 'your racing team'}{' '}
-                    and climb the leaderboard!
+                <p className="mt-2 text-xs text-white/30">
+                  More difficulty levels in the{' '}
+                  <button
+                    onClick={openBook}
+                    className="text-white/55 underline underline-offset-2 hover:text-white/75"
+                  >
+                    puzzle book
+                  </button>
+                </p>
+              </div>
+
+              {/* Puzzle book — full width on mobile, left col on desktop */}
+              <button
+                onClick={openBook}
+                className="liquid-glass mb-3 flex w-full cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97] md:mb-0 md:hidden"
+              >
+                <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
+                  {currentMonth} · 50 puzzles
+                </p>
+                <p className="mb-3 text-base font-black text-white">
+                  Monthly book
+                </p>
+                <div
+                  className="animate-float-card w-full overflow-hidden rounded-2xl"
+                  style={{ aspectRatio: '2/3' }}
+                >
+                  <div
+                    style={{
+                      transform: 'scale(var(--book-scale, 1))',
+                      transformOrigin: 'top left',
+                      width: '240px',
+                      height: '360px',
+                    }}
+                    ref={(el) => {
+                      if (el) {
+                        const parent = el.parentElement;
+                        if (parent) {
+                          const scale = parent.offsetWidth / 240;
+                          el.style.setProperty('--book-scale', String(scale));
+                          el.style.transform = `scale(${scale})`;
+                        }
+                      }
+                    }}
+                  >
+                    <BookCover month={currentMonth} size="medium" />
+                  </div>
+                </div>
+                <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/55">
+                  <BookOpen className="h-2.5 w-2.5" />
+                  Browse puzzles
+                </span>
+              </button>
+
+              {/* Two action tiles — side by side on mobile */}
+              <div className="grid grid-cols-2 gap-3 md:hidden">
+                <Link
+                  href="/import"
+                  className="liquid-glass flex flex-col gap-2 rounded-2xl p-4 transition-all duration-200 active:scale-[0.97]"
+                >
+                  <div
+                    className="flex h-8 w-8 items-center justify-center rounded-lg"
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.14)',
+                    }}
+                  >
+                    <Camera className="h-3.5 w-3.5 text-white/70" />
+                  </div>
+                  <p className="text-base font-black leading-tight text-white">
+                    Race any puzzle
                   </p>
+                  <p className="text-xs leading-snug text-white/45">
+                    Scan from a book or newspaper
+                  </p>
+                </Link>
+                <button
+                  onClick={() => handleTabChange(Tab.FRIENDS)}
+                  className="liquid-glass flex cursor-pointer flex-col gap-2 rounded-2xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
+                >
+                  <div
+                    className="flex h-8 w-8 items-center justify-center rounded-lg"
+                    style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      border: '1px solid rgba(255,255,255,0.14)',
+                    }}
+                  >
+                    <Users className="h-3.5 w-3.5 text-white/70" />
+                  </div>
+                  <p className="text-base font-black leading-tight text-white">
+                    Racing teams
+                  </p>
+                  <p className="text-xs leading-snug text-white/45">
+                    {friendsList?.length
+                      ? `Race ${friendsList.slice(0, 2).join(', ')} and more`
+                      : 'Challenge friends to a race'}
+                  </p>
+                </button>
+              </div>
+
+              {/* Desktop: book left (2fr), tiles stacked right (1fr) */}
+              <div className="hidden gap-3 md:grid md:grid-cols-[2fr_1fr]">
+                <button
+                  onClick={openBook}
+                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
+                >
+                  <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
+                    {currentMonth} · 50 puzzles
+                  </p>
+                  <p className="mb-3 text-base font-black text-white">
+                    Monthly book
+                  </p>
+                  <div
+                    className="animate-float-card mx-auto w-full max-w-[300px] overflow-hidden rounded-2xl"
+                    style={{ aspectRatio: '2/3' }}
+                  >
+                    <div
+                      style={{
+                        width: '240px',
+                        height: '360px',
+                        transformOrigin: 'top left',
+                      }}
+                      ref={(el) => {
+                        if (el) {
+                          const parent = el.parentElement;
+                          if (parent) {
+                            el.style.transform = `scale(${parent.offsetWidth / 240})`;
+                          }
+                        }
+                      }}
+                    >
+                      <BookCover month={currentMonth} size="medium" />
+                    </div>
+                  </div>
+                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/55">
+                    <BookOpen className="h-2.5 w-2.5" />
+                    Browse puzzles
+                  </span>
+                </button>
+                <div className="flex flex-col gap-3">
+                  <Link
+                    href="/import"
+                    className="liquid-glass flex flex-1 flex-col gap-2 rounded-2xl p-4 transition-all duration-200 active:scale-[0.97]"
+                  >
+                    <div
+                      className="flex h-8 w-8 items-center justify-center rounded-lg"
+                      style={{
+                        background: 'rgba(255,255,255,0.1)',
+                        border: '1px solid rgba(255,255,255,0.14)',
+                      }}
+                    >
+                      <Camera className="h-3.5 w-3.5 text-white/70" />
+                    </div>
+                    <p className="text-base font-black leading-tight text-white">
+                      Race any puzzle
+                    </p>
+                    <p className="text-xs leading-snug text-white/45">
+                      Scan from a book or newspaper
+                    </p>
+                  </Link>
                   <button
                     onClick={() => handleTabChange(Tab.FRIENDS)}
-                    className="inline-flex cursor-pointer items-center justify-center rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30 md:px-6 md:py-3 md:text-base"
+                    className="liquid-glass flex flex-1 cursor-pointer flex-col gap-2 rounded-2xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
                   >
-                    <Users className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-                    View Racing Teams
+                    <div
+                      className="flex h-8 w-8 items-center justify-center rounded-lg"
+                      style={{
+                        background: 'rgba(255,255,255,0.1)',
+                        border: '1px solid rgba(255,255,255,0.14)',
+                      }}
+                    >
+                      <Users className="h-3.5 w-3.5 text-white/70" />
+                    </div>
+                    <p className="text-base font-black leading-tight text-white">
+                      Racing teams
+                    </p>
+                    <p className="text-xs leading-snug text-white/45">
+                      {friendsList?.length
+                        ? `Race ${friendsList.slice(0, 2).join(', ')} and more`
+                        : 'Challenge friends to a race'}
+                    </p>
                   </button>
                 </div>
               </div>
             </div>
-
-            {/* Racing track decoration */}
-            <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400"></div>
           </div>
 
-          {/* Premium Features Section */}
+          {/* Premium features */}
           <PremiumFeatures
             features={PREMIUM_FEATURES}
-            title="🏁 Premium Features"
+            title="Premium features"
             subtitle="Unlock the full Sudoku Race experience"
           />
 
-          {/* Bottom padding to ensure content doesn't get hidden behind footer */}
-          <div className="h-32"></div>
+          <div className="h-32" />
         </div>
       ) : (
-        <div className="pt-safe min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pb-32 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-          <div className="container mx-auto max-w-4xl px-6">
-            <div className="flex justify-center pt-6">
-              <ActivityWidget sessions={sessions || []} />
+        <div className="pt-safe min-h-dvh bg-stone-50 pb-32 dark:bg-zinc-900">
+          <div className="container mx-auto max-w-4xl px-5">
+            <div className="flex flex-col gap-3 pb-4 pt-5">
+              <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+                {tab === Tab.MY_PUZZLES ? 'My Puzzles' : 'Racing Teams'}
+              </h1>
+              {tab === Tab.MY_PUZZLES && (
+                <ActivityWidget sessions={sessions || []} />
+              )}
             </div>
             {tab === Tab.MY_PUZZLES && (
               <MyPuzzlesTab<GameState>
@@ -463,26 +639,45 @@ function HomeComponent() {
           </div>
         </div>
       )}
+
       <Footer isCapacitor={isCapacitor}>
         <button
           onClick={() => handleTabChange(Tab.START_PUZZLE)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-colors duration-200 active:opacity-70 ${tabBackground(Tab.START_PUZZLE)}`}
+          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.START_PUZZLE)}`}
         >
-          <Zap className="text-theme-primary dark:text-theme-primary-light mb-1 h-6 w-6" />
+          <Zap
+            className={`mb-1 h-6 w-6 transition-all duration-200 ${
+              tab === Tab.START_PUZZLE
+                ? 'text-theme-primary dark:text-theme-primary-light drop-shadow-[0_0_8px_var(--theme-primary)]'
+                : 'text-gray-400 dark:text-gray-500'
+            }`}
+          />
           <span className="text-center text-xs font-medium">Start Race</span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.MY_PUZZLES)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-colors duration-200 active:opacity-70 ${tabBackground(Tab.MY_PUZZLES)}`}
+          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.MY_PUZZLES)}`}
         >
-          <Award className="text-theme-primary dark:text-theme-primary-light mb-1 h-6 w-6" />
+          <Award
+            className={`mb-1 h-6 w-6 transition-all duration-200 ${
+              tab === Tab.MY_PUZZLES
+                ? 'text-theme-primary dark:text-theme-primary-light drop-shadow-[0_0_8px_var(--theme-primary)]'
+                : 'text-gray-400 dark:text-gray-500'
+            }`}
+          />
           <span className="text-center text-xs font-medium">My Puzzles</span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.FRIENDS)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-colors duration-200 active:opacity-70 ${tabBackground(Tab.FRIENDS)}`}
+          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.FRIENDS)}`}
         >
-          <Users className="text-theme-primary dark:text-theme-primary-light mb-1 h-6 w-6" />
+          <Users
+            className={`mb-1 h-6 w-6 transition-all duration-200 ${
+              tab === Tab.FRIENDS
+                ? 'text-theme-primary dark:text-theme-primary-light drop-shadow-[0_0_8px_var(--theme-primary)]'
+                : 'text-gray-400 dark:text-gray-500'
+            }`}
+          />
           <span className="text-center text-xs font-medium">Racing Teams</span>
         </button>
       </Footer>

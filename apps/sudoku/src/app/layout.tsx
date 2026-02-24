@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Orbitron, Pacifico } from 'next/font/google';
+import { Outfit, Orbitron, Pacifico } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { Providers } from './providers';
@@ -14,17 +14,20 @@ import { APP_CONFIG } from '../../app.config.js';
 const PLUS_DESCRIPTION = (
   <p className="text-gray-600 dark:text-gray-400">
     Join{' '}
-    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-3 py-1 text-sm font-semibold text-white shadow-lg">
-      <span className="mr-1">✨</span>Sudoku Plus
-      <span className="ml-1">✨</span>
+    <span className="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-sm font-semibold text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300">
+      Sudoku Plus
     </span>{' '}
-    to <span className="font-semibold">remove all speed limits</span>! Challenge
+    to <span className="font-semibold">remove all speed limits</span>. Challenge
     friends, climb leaderboards, and improve your solving speed. Keep it ad
-    free! Your support is much appreciated.
+    free.
   </p>
 );
 
-const inter = Inter({ subsets: ['latin'] });
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-outfit',
+});
 const orbitron = Orbitron({
   subsets: ['latin'],
   weight: ['400', '700'],
@@ -102,7 +105,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} ${orbitron.variable} ${pacifico.variable}`}
+        className={`${outfit.variable} ${outfit.className} ${orbitron.variable} ${pacifico.variable}`}
       >
         <GlobalErrorHandler />
         <ErrorBoundary>

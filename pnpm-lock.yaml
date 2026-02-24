@@ -20,6 +20,9 @@ importers:
       '@next/eslint-plugin-next':
         specifier: ^16.1.1
         version: 16.1.1
+      '@testing-library/jest-dom':
+        specifier: ^6.1.5
+        version: 6.9.1
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.50.1
         version: 8.51.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)

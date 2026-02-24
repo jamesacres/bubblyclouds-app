@@ -15,6 +15,7 @@ import {
   BaseState,
   BaseServerState,
 } from '@bubblyclouds-app/template/types/state';
+import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 
 interface Arguments<T> {
   sessionParties: Parties<Session<BaseServerState<T>>>;
@@ -34,6 +35,7 @@ interface Arguments<T> {
     latest: T | undefined
   ) => number;
   isPuzzleCheated: (answerStack: T[]) => boolean;
+  localAgentProgress?: AgentProgress[];
 }
 
 interface PlayerProgress {
@@ -59,6 +61,7 @@ const RaceTrack = <T,>({
   answerStack,
   calculateCompletionPercentage,
   isPuzzleCheated,
+  localAgentProgress,
 }: Arguments<T>) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
@@ -312,6 +315,25 @@ const RaceTrack = <T,>({
               </div>
             );
           })}
+
+          {(localAgentProgress ?? []).map((agent, index) => (
+            <div
+              key={`agent-${agent.agentId}`}
+              className="absolute transform transition-all duration-700 ease-out"
+              style={{
+                left: `${Math.min(Math.max(Math.min(100, Math.max(0, agent.percentage)) * 0.83 + 12, 12), 95)}%`,
+                top: `${(allPlayerProgress.length + index) * Math.min(8, trackHeight / Math.max(allPlayerProgress.length + (localAgentProgress?.length ?? 0), 1)) + 2}px`,
+                transform: 'translateX(-50%)',
+              }}
+            >
+              <div
+                className="flex items-center justify-center text-sm"
+                style={{ fontSize: '14px', lineHeight: 1 }}
+              >
+                {agent.emoji || '🤖'}
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Compact horizontal player legend - lowest to highest percentage */}
@@ -347,33 +369,85 @@ const RaceTrack = <T,>({
               </div>
             );
           })}
+
+          {(localAgentProgress ?? []).map((agent) => (
+            <div
+              key={`agent-legend-${agent.agentId}`}
+              className="flex items-center gap-1"
+            >
+              <span>{agent.emoji || '🤖'}</span>
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                {agent.name}
+              </span>
+              <span className="text-gray-500 dark:text-gray-400">
+                ({Math.min(100, Math.max(0, agent.percentage))}%)
+              </span>
+            </div>
+          ))}
         </div>
 
-        {/* Leaderboard for finished players */}
-        {finishedPlayers.length > 0 && (
-          <div className="mt-4">
-            <div className="mt-2 rounded-lg bg-stone-100 p-2 dark:bg-gray-800">
-              {finishedPlayers.map((player, index) => (
-                <div
-                  key={player.userId}
-                  className="flex items-center justify-between p-1"
-                >
-                  <div className="flex items-center">
-                    <span className="mr-2 w-6 text-center font-bold">
-                      {index + 1}.
-                    </span>
-                    <span className={player.isCurrentUser ? 'font-bold' : ''}>
-                      {player.nickname}
+        {/* Leaderboard for finished players and agents */}
+        {(() => {
+          const finishedAgents = (localAgentProgress ?? []).filter(
+            (a) => a.finishTime !== undefined
+          );
+          const leaderboard: Array<
+            | { type: 'player'; data: PlayerProgress }
+            | { type: 'agent'; data: (typeof finishedAgents)[0] }
+          > = [
+            ...finishedPlayers.map((p) => ({
+              type: 'player' as const,
+              data: p,
+            })),
+            ...finishedAgents.map((a) => ({ type: 'agent' as const, data: a })),
+          ].sort((a, b) => a.data.finishTime! - b.data.finishTime!);
+
+          if (leaderboard.length === 0) return null;
+
+          return (
+            <div className="mt-4">
+              <div className="mt-2 rounded-lg bg-stone-100 p-2 dark:bg-gray-800">
+                {leaderboard.map((entry, index) => (
+                  <div
+                    key={
+                      entry.type === 'player'
+                        ? entry.data.userId
+                        : `agent-${entry.data.agentId}`
+                    }
+                    className="flex items-center justify-between p-1"
+                  >
+                    <div className="flex items-center">
+                      <span className="mr-2 w-6 text-center font-bold">
+                        {index + 1}.
+                      </span>
+                      {entry.type === 'agent' ? (
+                        <span>
+                          {entry.data.emoji || '🤖'} {entry.data.name}
+                        </span>
+                      ) : (
+                        <>
+                          <div
+                            className={`mr-1 h-2 w-2 rounded-full ${getPlayerColor(entry.data.userId, allUserIds, entry.data.isCurrentUser)}`}
+                          ></div>
+                          <span
+                            className={
+                              entry.data.isCurrentUser ? 'font-bold' : ''
+                            }
+                          >
+                            {entry.data.nickname}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                    <span className="font-mono">
+                      {formatSeconds(entry.data.finishTime!)}
                     </span>
                   </div>
-                  <span className="font-mono">
-                    {formatSeconds(player.finishTime!)}
-                  </span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
 
       {isCompleted && (

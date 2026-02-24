@@ -72,10 +72,10 @@ describe('PostList', () => {
     expect(screen.getByText('Post B Title')).toBeInTheDocument();
     expect(screen.getByText('Summary for Post B.')).toBeInTheDocument();
 
-    expect(screen.getByText('nextjs')).toBeInTheDocument();
-    expect(screen.getByText('typescript')).toBeInTheDocument();
-    expect(screen.getByText('react')).toBeInTheDocument();
-    expect(screen.getByText('tailwindcss')).toBeInTheDocument();
+    expect(screen.getByText('#nextjs')).toBeInTheDocument();
+    expect(screen.getByText('#typescript')).toBeInTheDocument();
+    expect(screen.getByText('#react')).toBeInTheDocument();
+    expect(screen.getByText('#tailwindcss')).toBeInTheDocument();
 
     expect(screen.getByText(/1 min read/)).toBeInTheDocument();
     expect(screen.getByText(/2 min read/)).toBeInTheDocument();
@@ -107,7 +107,7 @@ describe('PostList', () => {
     expect(readingTimeLinks[1]).toHaveAttribute('href', '/post-b');
 
     // Tag links
-    const nextjsTagLink = screen.getByRole('link', { name: 'nextjs' });
+    const nextjsTagLink = screen.getByRole('link', { name: '#nextjs' });
     expect(nextjsTagLink).toHaveAttribute('href', '/tags/nextjs');
   });
 });

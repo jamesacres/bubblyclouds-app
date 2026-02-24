@@ -82,8 +82,16 @@ describe('SudokuControls', () => {
   const mockReveal = jest.fn();
   const mockCopyGrid = jest.fn();
   const mockOnAdvancedToggle = jest.fn();
+  const mockGetHint: jest.Mock<
+    import('../types/HintResult').HintResult | null
+  > = jest.fn(() => null);
+  const mockOnShowWhere = jest.fn();
+  const mockOnRevealEliminations = jest.fn();
+  const mockOnHideHint = jest.fn();
+  const mockOnClearSelection = jest.fn();
 
   const defaultProps = {
+    selectedCell: null,
     isInputDisabled: false,
     isValidateCellDisabled: false,
     isDeleteDisabled: false,
@@ -103,6 +111,11 @@ describe('SudokuControls', () => {
     copyGrid: mockCopyGrid,
     onAdvancedToggle: mockOnAdvancedToggle,
     isSubscribed: false,
+    getHint: mockGetHint,
+    onShowWhere: mockOnShowWhere,
+    onRevealEliminations: mockOnRevealEliminations,
+    onHideHint: mockOnHideHint,
+    onClearSelection: mockOnClearSelection,
   };
 
   beforeEach(() => {
@@ -661,6 +674,113 @@ describe('SudokuControls', () => {
 
       const notesToggle = screen.getByText('Notes');
       expect(notesToggle).toBeInTheDocument();
+    });
+  });
+
+  describe('hint button', () => {
+    const openHint = () => {
+      fireEvent.click(screen.getByText('Ask for help'));
+      act(() => jest.advanceTimersByTime(1500));
+    };
+
+    it('should render the Ask for help button', () => {
+      render(<SudokuControls {...defaultProps} />);
+      expect(screen.getByText('Ask for help')).toBeInTheDocument();
+    });
+
+    it('should call getHint when Ask for help button is clicked', () => {
+      render(<SudokuControls {...defaultProps} />);
+      fireEvent.click(screen.getByText('Ask for help'));
+      expect(mockGetHint).toHaveBeenCalled();
+    });
+
+    it('should show "No hint available" when getHint returns null', () => {
+      mockGetHint.mockReturnValue(null);
+      render(<SudokuControls {...defaultProps} />);
+      openHint();
+      expect(screen.getByText('No hint available')).toBeInTheDocument();
+    });
+
+    it('should show technique name when getHint returns a hint', () => {
+      mockGetHint.mockReturnValue({
+        technique: 'nakedSingle',
+        placements: [],
+        eliminations: [],
+        patternCells: [],
+      });
+      render(<SudokuControls {...defaultProps} />);
+      openHint();
+      expect(screen.getByText("I've found a Naked Single")).toBeInTheDocument();
+    });
+
+    it('should hide main controls, Notes and Export when hint is active', () => {
+      mockGetHint.mockReturnValue(null);
+      render(<SudokuControls {...defaultProps} />);
+      expect(screen.getByText('Delete')).toBeInTheDocument();
+      openHint();
+      expect(screen.queryByText('Delete')).not.toBeInTheDocument();
+      expect(screen.queryByText('Notes')).not.toBeInTheDocument();
+      expect(screen.queryByText('Export')).not.toBeInTheDocument();
+      expect(screen.getByText('No hint available')).toBeInTheDocument();
+      expect(screen.getByText('Thanks,')).toBeInTheDocument();
+      expect(screen.getByText('Hide Hint')).toBeInTheDocument();
+    });
+
+    it('should restore main controls when I see it button is clicked', () => {
+      mockGetHint.mockReturnValue(null);
+      render(<SudokuControls {...defaultProps} />);
+      openHint();
+      fireEvent.click(screen.getByText('Hide Hint'));
+      expect(screen.getByText('Delete')).toBeInTheDocument();
+      expect(screen.getByText('Notes')).toBeInTheDocument();
+      expect(screen.getByText('Export')).toBeInTheDocument();
+    });
+
+    it('should call onShowWhere and update owl message when Show me where is clicked', () => {
+      mockGetHint.mockReturnValue({
+        technique: 'nakedSingle',
+        placements: [],
+        eliminations: [],
+        patternCells: [0, 5, 10],
+      });
+      render(<SudokuControls {...defaultProps} />);
+      openHint();
+      fireEvent.click(screen.getByText('👀 Show me where'));
+      act(() => jest.advanceTimersByTime(1500));
+      expect(mockOnShowWhere).toHaveBeenCalledWith(
+        expect.objectContaining({ patternCells: [0, 5, 10] })
+      );
+      expect(
+        screen.getByText("I've highlighted the relevant cells for you")
+      ).toBeInTheDocument();
+      expect(screen.getByText('🤔 Tell me more')).toBeInTheDocument();
+      expect(screen.queryByText('👀 Show me where')).not.toBeInTheDocument();
+    });
+
+    it('should show explanation and only hide button when Tell me more is clicked', () => {
+      mockGetHint.mockReturnValue({
+        technique: 'nakedSingle',
+        placements: [],
+        eliminations: [],
+        patternCells: [0, 5, 10],
+        explanation:
+          'A Naked Single is a cell with only one candidate remaining.',
+      });
+      render(<SudokuControls {...defaultProps} />);
+      openHint();
+      fireEvent.click(screen.getByText('👀 Show me where'));
+      act(() => jest.advanceTimersByTime(1500));
+      fireEvent.click(screen.getByText('🤔 Tell me more'));
+      act(() => jest.advanceTimersByTime(1500));
+      expect(
+        screen.getByText(
+          'A Naked Single is a cell with only one candidate remaining.'
+        )
+      ).toBeInTheDocument();
+      act(() => jest.advanceTimersByTime(1500));
+      expect(screen.queryByText('🤔 Tell me more')).not.toBeInTheDocument();
+      expect(screen.queryByText('👀 Show me where')).not.toBeInTheDocument();
+      expect(screen.getByText('Hide Hint')).toBeInTheDocument();
     });
   });
 

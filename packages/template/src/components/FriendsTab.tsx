@@ -3,7 +3,13 @@ import React, { useState } from 'react';
 import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useSessions } from '../providers/SessionsProvider';
-import { Loader, ChevronDown, ChevronRight, RotateCcw } from 'lucide-react';
+import {
+  Loader,
+  ChevronDown,
+  ChevronRight,
+  RotateCcw,
+  Users,
+} from 'lucide-react';
 import IntegratedSessionRow from './IntegratedSessionRow';
 import { BaseServerState } from '../types/state';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
@@ -48,7 +54,6 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
 
   const handleRefresh = async () => {
     if (!onRefresh || isRefreshing) return;
-
     setIsRefreshing(true);
     try {
       await onRefresh();
@@ -78,65 +83,56 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
 
   return (
     <div className="mb-4">
-      <h1 className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-4xl font-bold text-transparent">
-        Racing Teams
-      </h1>
-      <p className="my-4">
-        💡 Send your friends an invite link from the Races sidebar when solving
-        a puzzle.
-      </p>
-
-      {/* Party Selection Tabs */}
+      {/* Party filter + refresh */}
       {parties && parties.length > 0 && (
-        <div className="mb-6">
-          <div className="flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700">
-            <button
-              onClick={() => setSelectedPartyId('all')}
-              className={`px-4 py-2 text-sm font-medium transition-colors ${
-                selectedPartyId === 'all'
-                  ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'
-              }`}
-            >
-              All
-            </button>
-            {parties.map((party) => (
+        <div className="mb-4">
+          {/* Scrollable party filter pills */}
+          <div className="-mx-5 overflow-x-auto px-5">
+            <div className="flex w-max gap-2 pb-2">
               <button
-                key={party.partyId}
-                onClick={() => setSelectedPartyId(party.partyId)}
-                className={`px-4 py-2 text-sm font-medium transition-colors ${
-                  selectedPartyId === party.partyId
-                    ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'
+                onClick={() => setSelectedPartyId('all')}
+                className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-200 active:scale-95 ${
+                  selectedPartyId === 'all'
+                    ? 'bg-theme-primary text-white shadow-sm'
+                    : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700'
                 }`}
               >
-                {party.partyName}
+                All teams
               </button>
-            ))}
+              {parties.map((party) => (
+                <button
+                  key={party.partyId}
+                  onClick={() => setSelectedPartyId(party.partyId)}
+                  className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-200 active:scale-95 ${
+                    selectedPartyId === party.partyId
+                      ? 'bg-theme-primary text-white shadow-sm'
+                      : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700'
+                  }`}
+                >
+                  {party.partyName}
+                </button>
+              ))}
+            </div>
           </div>
+          {/* Refresh — separate row so it never overlaps the scroll area */}
+          {onRefresh && (
+            <button
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              className="flex cursor-pointer items-center gap-1.5 px-2 py-2 text-xs text-zinc-400 transition-all duration-200 hover:text-zinc-600 active:scale-95 disabled:opacity-50 dark:text-zinc-500 dark:hover:text-zinc-300"
+            >
+              <RotateCcw
+                className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`}
+              />
+              {isRefreshing ? 'Refreshing…' : 'Refresh'}
+            </button>
+          )}
         </div>
       )}
 
       {/* Leaderboard Section */}
       {LeaderboardComponent && user && parties && (
         <div className="mb-6">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
-              Leaderboard
-            </h2>
-            {onRefresh && (
-              <button
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:text-gray-800 disabled:opacity-50 dark:text-gray-400 dark:hover:text-gray-200"
-              >
-                <RotateCcw
-                  className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`}
-                />
-                <span>{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
-              </button>
-            )}
-          </div>
           <LeaderboardComponent
             sessions={sessions}
             friendSessions={friendSessions}
@@ -149,76 +145,87 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
         </div>
       )}
 
-      {/* Individual Friends Puzzles Section */}
-      {displayParties?.length !== 0 && (
-        <>
-          <div className="mt-6 border-t border-gray-200 pt-6 dark:border-gray-700">
-            <h2 className="mb-4 text-xl font-bold text-gray-800 dark:text-gray-200">
-              Browse Friends&apos; Puzzles
+      {/* Friends' Puzzles */}
+      {displayParties?.length ? (
+        <div>
+          <div className="mb-4 border-t border-zinc-200 pt-6 dark:border-zinc-800">
+            <h2 className="text-lg font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
+              Friends&apos; Puzzles
               {selectedParty && (
-                <span className="text-base font-normal text-gray-600 dark:text-gray-400">
-                  {' '}
-                  • {selectedParty.partyName}
+                <span className="ml-2 text-base font-normal text-zinc-400 dark:text-zinc-500">
+                  &middot; {selectedParty.partyName}
                 </span>
               )}
             </h2>
-            <p className="mb-4 text-gray-600 dark:text-gray-400">
-              Select a friend below to see and solve their recent puzzles. Race
-              to be the quickest!
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+              Tap a friend to see their recent puzzles and race them.
             </p>
           </div>
-        </>
-      )}
 
-      {displayParties?.length ? (
-        <>
-          <ul className="space-y-4">
-            {displayParties?.map(({ partyId, members, partyName }) => (
+          <ul className="space-y-3">
+            {displayParties.map(({ partyId, members, partyName }) => (
               <li key={partyId}>
-                <div className="rounded-2xl border border-stone-200 bg-stone-50/80 p-4 shadow-sm backdrop-blur-sm dark:border-gray-700 dark:bg-zinc-800/80">
-                  <h3 className="text-theme-primary dark:text-theme-primary-light text-xl font-semibold">
-                    {partyName}
-                  </h3>
-                  <ul className="mt-4 space-y-4">
+                <div className="overflow-hidden rounded-3xl border border-zinc-200/80 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] dark:border-zinc-700/60 dark:bg-zinc-800/60">
+                  {/* Team header */}
+                  <div className="flex items-center gap-3 border-b border-zinc-100 px-5 py-4 dark:border-zinc-700/50">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-700">
+                      <Users className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
+                    </div>
+                    <h3 className="text-sm font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
+                      {partyName}
+                    </h3>
+                    <span className="ml-auto rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400">
+                      {
+                        members.filter(({ userId }) => userId !== user?.sub)
+                          .length
+                      }{' '}
+                      members
+                    </span>
+                  </div>
+
+                  {/* Members */}
+                  <ul className="divide-y divide-zinc-100 dark:divide-zinc-700/40">
                     {members
                       .filter(({ userId }) => userId !== user?.sub)
-                      .map(({ userId, memberNickname }) => (
-                        <li
-                          key={userId}
-                          className="rounded-xl bg-gray-50 dark:bg-zinc-700/40"
-                        >
-                          <button
-                            className="flex w-full cursor-pointer items-center rounded-xl p-3 transition-colors hover:bg-gray-100 dark:hover:bg-zinc-600/40"
-                            onClick={() => toggleUserExpansion(userId)}
-                          >
-                            <span className="mr-2 text-xl">🧍</span>
-                            <span className="font-medium text-gray-800 dark:text-gray-200">
-                              {memberNickname}
-                            </span>
-                            {friendSessions[userId]?.isLoading ? (
-                              <Loader className="ml-auto mr-0 animate-spin" />
-                            ) : (
-                              <>
-                                {expandedUsers.has(userId) ? (
-                                  <ChevronDown className="ml-auto mr-0" />
-                                ) : (
-                                  <ChevronRight className="ml-auto mr-0" />
-                                )}
-                              </>
-                            )}
-                          </button>
-                          {expandedUsers.has(userId) &&
-                            friendSessions[userId]?.sessions && (
-                              <>
-                                {friendSessions[userId]?.sessions?.length ? (
-                                  <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-                                    {friendSessions[userId]?.sessions
-                                      ?.sort(
+                      .map(({ userId, memberNickname }) => {
+                        const isExpanded = expandedUsers.has(userId);
+                        const friendData = friendSessions[userId];
+
+                        return (
+                          <li key={userId}>
+                            <button
+                              className="flex w-full cursor-pointer items-center gap-3 px-5 py-3.5 text-left transition-colors duration-150 hover:bg-zinc-50 active:bg-zinc-100 dark:hover:bg-zinc-700/30 dark:active:bg-zinc-700/50"
+                              onClick={() => toggleUserExpansion(userId)}
+                            >
+                              {/* Avatar initial */}
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-200 dark:bg-zinc-700">
+                                <span className="text-xs font-bold uppercase text-zinc-600 dark:text-zinc-300">
+                                  {memberNickname.charAt(0)}
+                                </span>
+                              </div>
+                              <span className="flex-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+                                {memberNickname}
+                              </span>
+                              {friendData?.isLoading ? (
+                                <Loader className="h-4 w-4 animate-spin text-zinc-400" />
+                              ) : isExpanded ? (
+                                <ChevronDown className="h-4 w-4 text-zinc-400" />
+                              ) : (
+                                <ChevronRight className="h-4 w-4 text-zinc-400" />
+                              )}
+                            </button>
+
+                            {isExpanded && friendData?.sessions && (
+                              <div className="border-t border-zinc-100 bg-zinc-50/60 px-3 pb-3 pt-3 dark:border-zinc-700/40 dark:bg-zinc-800/40">
+                                {friendData.sessions.length ? (
+                                  <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+                                    {friendData.sessions
+                                      .sort(
                                         (a, b) =>
                                           new Date(b.updatedAt).getTime() -
                                           new Date(a.updatedAt).getTime()
                                       )
-                                      ?.map((userSession) => (
+                                      .map((userSession) => (
                                         <IntegratedSessionRow<State>
                                           key={userSession.sessionId}
                                           session={userSession}
@@ -235,22 +242,34 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                                       ))}
                                   </ul>
                                 ) : (
-                                  <p className="px-3 pb-3 text-gray-600 dark:text-gray-400">
-                                    No recent puzzles, ask them to play!
+                                  <p className="py-2 text-center text-sm text-zinc-400 dark:text-zinc-500">
+                                    No recent puzzles — challenge them!
                                   </p>
                                 )}
-                              </>
+                              </div>
                             )}
-                        </li>
-                      ))}
+                          </li>
+                        );
+                      })}
                   </ul>
                 </div>
               </li>
             ))}
           </ul>
-        </>
+        </div>
       ) : (
-        <></>
+        /* Empty state — no teams yet */
+        <div className="flex flex-col items-center justify-center rounded-3xl border border-zinc-200 bg-zinc-50 py-16 text-center dark:border-zinc-800 dark:bg-zinc-800/40">
+          <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
+            <Users className="h-7 w-7 text-zinc-400 dark:text-zinc-500" />
+          </div>
+          <p className="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
+            No racing teams yet
+          </p>
+          <p className="mt-1 max-w-[240px] text-xs text-zinc-400 dark:text-zinc-500">
+            Invite friends from the Races sidebar when solving a puzzle
+          </p>
+        </div>
       )}
     </div>
   );

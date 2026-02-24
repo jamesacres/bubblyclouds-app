@@ -2,6 +2,7 @@ import { calculateCellId } from '../helpers/calculateId';
 import SudokuInput from './SudokuInput';
 import { PuzzleBox, PuzzleRowOrColumn } from '../types/puzzle';
 import { SelectNumber, SetSelectedCell } from '../types/state';
+import { CellHighlight } from '../types/CellHighlight';
 import { memo, PointerEvent } from 'react';
 
 interface Arguments {
@@ -12,6 +13,7 @@ interface Arguments {
   selectNumber: SelectNumber;
   validation?: PuzzleBox<boolean | undefined>;
   initial: PuzzleBox;
+  cellHighlights?: Map<string, CellHighlight>;
   isZoomMode?: boolean;
   onDragStart?: (e: PointerEvent) => void;
 }
@@ -24,6 +26,7 @@ const SudokuBox = ({
   selectNumber,
   validation,
   initial,
+  cellHighlights,
   isZoomMode,
   onDragStart,
 }: Arguments) => {
@@ -50,6 +53,7 @@ const SudokuBox = ({
               isInitial={
                 !!initial[x as PuzzleRowOrColumn][y as PuzzleRowOrColumn]
               }
+              cellHighlight={cellHighlights?.get(cellId)}
               isZoomMode={isZoomMode}
               onDragStart={onDragStart}
             />

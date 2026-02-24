@@ -6,7 +6,7 @@ interface PartyConfirmationDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => Promise<void>;
-  type: 'leave' | 'remove';
+  type: 'leave' | 'remove' | 'leave-agent-party' | 'remove-agent';
   partyName: string;
   memberName?: string;
   isOwner?: boolean;
@@ -40,22 +40,42 @@ export const PartyConfirmationDialog = ({
 
   const isLeave = type === 'leave';
   const isOwnerLeaving = isLeave && isOwner;
-  const Icon = isOwnerLeaving ? Trash : isLeave ? LogOut : UserMinus;
-  const title = isOwnerLeaving
-    ? 'Delete Party'
-    : isLeave
-      ? 'Leave Party'
-      : 'Remove Member';
-  const actionText = isOwnerLeaving
-    ? 'Delete Party'
-    : isLeave
-      ? 'Leave'
-      : 'Remove';
-  const processingText = isOwnerLeaving
-    ? 'Deleting...'
-    : isLeave
-      ? 'Leaving...'
-      : 'Removing...';
+  const isLeaveAgentParty = type === 'leave-agent-party';
+  const isRemoveAgent = type === 'remove-agent';
+  const Icon =
+    isLeaveAgentParty || isOwnerLeaving
+      ? Trash
+      : isLeave
+        ? LogOut
+        : isRemoveAgent
+          ? LogOut
+          : UserMinus;
+  const title = isLeaveAgentParty
+    ? 'Remove Local Agents'
+    : isRemoveAgent
+      ? 'Remove Local Agent'
+      : isOwnerLeaving
+        ? 'Delete Party'
+        : isLeave
+          ? 'Leave Party'
+          : 'Remove Member';
+  const actionText = isLeaveAgentParty
+    ? 'Remove'
+    : isRemoveAgent
+      ? 'Remove'
+      : isOwnerLeaving
+        ? 'Delete Party'
+        : isLeave
+          ? 'Leave'
+          : 'Remove';
+  const processingText =
+    isLeaveAgentParty || isRemoveAgent
+      ? 'Removing...'
+      : isOwnerLeaving
+        ? 'Deleting...'
+        : isLeave
+          ? 'Leaving...'
+          : 'Removing...';
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -98,11 +118,15 @@ export const PartyConfirmationDialog = ({
 
                 <div className="mt-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {isOwnerLeaving
-                      ? `Are you sure you want to delete "${partyName}"? This will permanently remove the party and all members will lose access. This action cannot be undone.`
-                      : isLeave
-                        ? `Are you sure you want to leave "${partyName}"? You will no longer see other members' progress or be able to participate in this party.`
-                        : `Are you sure you want to remove "${memberName}" from "${partyName}"? They will no longer be able to participate in this party.`}
+                    {isLeaveAgentParty
+                      ? `Are you sure you want to remove all Local Agents? They will no longer appear in the race.`
+                      : isRemoveAgent
+                        ? `Are you sure you want to remove "${memberName}" from the race?`
+                        : isOwnerLeaving
+                          ? `Are you sure you want to delete "${partyName}"? This will permanently remove the party and all members will lose access. This action cannot be undone.`
+                          : isLeave
+                            ? `Are you sure you want to leave "${partyName}"? You will no longer see other members' progress or be able to participate in this party.`
+                            : `Are you sure you want to remove "${memberName}" from "${partyName}"? They will no longer be able to participate in this party.`}
                   </p>
                 </div>
 

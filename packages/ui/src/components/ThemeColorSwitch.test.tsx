@@ -50,7 +50,7 @@ describe('ThemeColorSwitch', () => {
       expect(button).toBeInTheDocument();
     });
 
-    it('should render button with correct initial background color', () => {
+    it('should render button with correct initial color style', () => {
       mockUseThemeColor.mockReturnValue({
         themeColor: 'blue',
         setThemeColor: mockSetThemeColor,
@@ -61,10 +61,10 @@ describe('ThemeColorSwitch', () => {
       const button = screen.getByRole('button', {
         name: /Change Theme Color/i,
       });
-      expect(button).toHaveClass('bg-blue-500');
+      expect(button).toHaveStyle({ color: '#3b82f6' });
     });
 
-    it('should render with different color when themeColor changes', () => {
+    it('should render with different color style when themeColor changes', () => {
       mockUseThemeColor.mockReturnValue({
         themeColor: 'red',
         setThemeColor: mockSetThemeColor,
@@ -75,7 +75,7 @@ describe('ThemeColorSwitch', () => {
       const button = screen.getByRole('button', {
         name: /Change Theme Color/i,
       });
-      expect(button).toHaveClass('bg-red-500');
+      expect(button).toHaveStyle({ color: '#ef4444' });
     });
 
     it('should render SVG icon inside button', () => {
@@ -364,17 +364,17 @@ describe('ThemeColorSwitch', () => {
       const button = screen.getByRole('button', {
         name: /Change Theme Color/i,
       });
-      expect(button).toHaveClass('bg-blue-500');
+      expect(button).toHaveStyle({ color: '#3b82f6' });
       expect(button).toHaveClass('cursor-pointer');
     });
 
-    it('should apply background color class on render', () => {
+    it('should apply color style on render', () => {
       render(<ThemeColorSwitch />);
 
       const button = screen.getByRole('button', {
         name: /Change Theme Color/i,
       });
-      expect(button).toHaveClass('bg-blue-500');
+      expect(button).toHaveStyle({ color: '#3b82f6' });
     });
 
     it('should render SVG icon', () => {
@@ -498,7 +498,7 @@ describe('ThemeColorSwitch', () => {
       const button = screen.getByRole('button', {
         name: /Change Theme Color/i,
       });
-      expect(button).toHaveClass('bg-purple-500');
+      expect(button).toHaveStyle({ color: '#a855f7' });
     });
 
     it('should prevent event propagation when clicking color', async () => {
@@ -549,7 +549,7 @@ describe('ThemeColorSwitch', () => {
   });
 
   describe('Premium Badge', () => {
-    it('should render premium badge emoji elements for non-subscribers', () => {
+    it('should render premium color buttons with (Premium) label for non-subscribers', async () => {
       render(
         <ThemeColorSwitch isSubscribed={mockRevenueCatContext.isSubscribed} />
       );
@@ -559,12 +559,16 @@ describe('ThemeColorSwitch', () => {
       });
       fireEvent.click(mainButton);
 
-      const badges = screen.getAllByText('✨');
-      expect(badges.length).toBeGreaterThan(0);
+      await waitFor(() => {
+        const premiumButtons = screen.getAllByRole('button', {
+          name: /\(Premium\)/i,
+        });
+        expect(premiumButtons.length).toBeGreaterThan(0);
+      });
     });
 
-    it('should have premium badge element with gradient styling', async () => {
-      const { container } = render(
+    it('should have premium color buttons with correct aria-labels', async () => {
+      render(
         <ThemeColorSwitch isSubscribed={mockRevenueCatContext.isSubscribed} />
       );
 
@@ -574,13 +578,16 @@ describe('ThemeColorSwitch', () => {
       fireEvent.click(mainButton);
 
       await waitFor(() => {
-        const badges = container.querySelectorAll('.bg-gradient-to-r');
-        expect(badges.length).toBeGreaterThan(0);
+        expect(
+          screen.getByRole('button', {
+            name: /Set theme color to purple \(Premium\)/i,
+          })
+        ).toBeInTheDocument();
       });
     });
 
-    it('should not show premium badge for subscribers', async () => {
-      const { container } = render(<ThemeColorSwitch />);
+    it('should not show (Premium) labels for subscribers', async () => {
+      render(<ThemeColorSwitch isSubscribed={true} />);
 
       const mainButton = screen.getByRole('button', {
         name: /Change Theme Color/i,
@@ -588,8 +595,10 @@ describe('ThemeColorSwitch', () => {
       fireEvent.click(mainButton);
 
       await waitFor(() => {
-        const badges = container.querySelectorAll('.bg-gradient-to-r');
-        expect(badges.length).toBe(0);
+        const premiumButtons = screen.queryAllByRole('button', {
+          name: /\(Premium\)/i,
+        });
+        expect(premiumButtons.length).toBe(0);
       });
     });
   });

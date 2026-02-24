@@ -118,7 +118,7 @@ describe('PostLayout', () => {
     );
 
     expect(screen.getByText('Test Author')).toBeInTheDocument();
-    expect(screen.getByAltText('avatar')).toHaveAttribute(
+    expect(screen.getByAltText('Test Author')).toHaveAttribute(
       'src',
       mockAuthor.avatar
     );

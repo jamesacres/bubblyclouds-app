@@ -69,4 +69,21 @@ export const motivationalMessages = [
   'Time to demonstrate puzzle supremacy',
   'Ready to solve like a champion?',
   'Precision racing starts with clear thinking',
+
+  // New
+  'Your friends are waiting for a rematch',
+  "Who's solving today?",
+  'A new daily puzzle is ready',
+  'Your streak is on the line',
+  'Fresh puzzles, fresh start',
+  "Today's challenge is up",
+  'Race a friend on the daily',
+  'New day, new puzzles',
+  "Someone's already on the leaderboard",
+  'Keep the streak alive',
+  'Daily challenges just refreshed',
+  'Your team is waiting',
+  'One puzzle closer to the top',
+  "Today's puzzles are waiting for you",
+  'Jump back in and race',
 ];

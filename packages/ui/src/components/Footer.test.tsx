@@ -77,8 +77,8 @@ describe('Footer', () => {
         </Footer>
       );
       const nav = container.querySelector('nav');
-      expect(nav).toHaveClass('bg-stone-50/90');
-      expect(nav).toHaveClass('dark:bg-zinc-900/90');
+      expect(nav).toHaveClass('bg-stone-50/95');
+      expect(nav).toHaveClass('dark:bg-zinc-900/95');
       expect(nav).toHaveClass('backdrop-blur-md');
     });
 
@@ -90,8 +90,8 @@ describe('Footer', () => {
       );
       const nav = container.querySelector('nav');
       expect(nav).toHaveClass('border-t');
-      expect(nav).toHaveClass('border-stone-200');
-      expect(nav).toHaveClass('dark:border-gray-700');
+      expect(nav).toHaveClass('border-stone-200/80');
+      expect(nav).toHaveClass('dark:border-zinc-700/80');
     });
 
     it('should have text styling', () => {
@@ -118,14 +118,14 @@ describe('Footer', () => {
       expect(nav).toHaveClass('w-screen');
     });
 
-    it('should have height of 20 units (h-20)', () => {
+    it('should have height of 20 units (h-20) in inner grid', () => {
       const { container } = render(
         <Footer>
           <div>Content</div>
         </Footer>
       );
-      const nav = container.querySelector('nav');
-      expect(nav).toHaveClass('h-20');
+      const innerDiv = container.querySelector('.grid');
+      expect(innerDiv).toHaveClass('h-20');
     });
 
     it('should center items with proper padding', () => {
@@ -136,8 +136,8 @@ describe('Footer', () => {
       );
       const nav = container.querySelector('nav');
       expect(nav).toHaveClass('px-6');
-      expect(nav).toHaveClass('items-center');
-      expect(nav).toHaveClass('justify-between');
+      const innerDiv = container.querySelector('.grid');
+      expect(innerDiv).toHaveClass('items-center');
     });
   });
 
@@ -170,7 +170,7 @@ describe('Footer', () => {
   });
 
   describe('conditional styling with Capacitor', () => {
-    it('should add pb-safe and pt-2 classes when isCapacitor is true', () => {
+    it('should add pt-2 class when isCapacitor is true', () => {
       const mockIsCapacitor = jest.fn(() => true);
 
       const { container } = render(
@@ -180,12 +180,11 @@ describe('Footer', () => {
       );
 
       const nav = container.querySelector('nav');
-      expect(nav).toHaveClass('pb-safe');
       expect(nav).toHaveClass('pt-2');
       expect(mockIsCapacitor).toHaveBeenCalled();
     });
 
-    it('should not add pb-safe and pt-2 classes when isCapacitor is false', () => {
+    it('should not add pt-2 class when isCapacitor is false', () => {
       const mockIsCapacitor = jest.fn(() => false);
 
       const { container } = render(
@@ -195,7 +194,6 @@ describe('Footer', () => {
       );
 
       const nav = container.querySelector('nav');
-      expect(nav).not.toHaveClass('pb-safe');
       expect(nav).not.toHaveClass('pt-2');
       expect(mockIsCapacitor).toHaveBeenCalled();
     });
@@ -208,7 +206,6 @@ describe('Footer', () => {
       );
 
       const nav = container.querySelector('nav');
-      expect(nav).not.toHaveClass('pb-safe');
       expect(nav).not.toHaveClass('pt-2');
     });
   });

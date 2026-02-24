@@ -8,7 +8,9 @@ import {
   filterDraftPosts,
 } from './blogUtils';
 
-const POSTS_DIRECTORY = path.join(process.cwd(), 'data', 'blog');
+function getPostsDirectory(): string {
+  return path.join(process.cwd(), 'data', 'blog');
+}
 
 function getMdxFiles(dir: string): string[] {
   const files: string[] = [];
@@ -32,11 +34,12 @@ function getMdxFiles(dir: string): string[] {
 }
 
 function getSlugFromPath(filePath: string): string {
-  const relativePath = path.relative(POSTS_DIRECTORY, filePath);
+  const relativePath = path.relative(getPostsDirectory(), filePath);
   const slug = relativePath
     .replace(/\.(mdx|md)$/, '')
     .split(path.sep)
-    .join('/');
+    .join('/')
+    .replace(/\|/g, '/');
   return slug;
 }
 
@@ -92,14 +95,17 @@ function parsePost(filePath: string): BlogPost {
   };
 }
 
+let cachedPostsDir: string | null = null;
 let cachedPosts: BlogPost[] | null = null;
 
 function loadAllPosts(): BlogPost[] {
-  if (cachedPosts) {
+  const postsDirectory = getPostsDirectory();
+  if (cachedPosts && cachedPostsDir === postsDirectory) {
     return cachedPosts;
   }
 
-  const mdxFiles = getMdxFiles(POSTS_DIRECTORY);
+  cachedPostsDir = postsDirectory;
+  const mdxFiles = getMdxFiles(postsDirectory);
   cachedPosts = mdxFiles.map(parsePost);
   return cachedPosts;
 }

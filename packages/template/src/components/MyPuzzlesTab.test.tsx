@@ -1,11 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { BaseServerState } from '../types/state';
+import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { MyPuzzlesTab } from './MyPuzzlesTab';
 
-// Mock IntegratedSessionRow
 jest.mock('./IntegratedSessionRow', () => ({
   __esModule: true,
-  default: ({ session }: { session: any }) => (
+  default: ({ session }: { session: { sessionId: string } }) => (
     <div data-testid={`session-${session.sessionId}`}>
       Session: {session.sessionId}
     </div>
@@ -15,20 +16,11 @@ jest.mock('./IntegratedSessionRow', () => ({
 const createMockSession = (
   sessionId: string,
   updatedAt: string,
-  overrides?: any
-) => ({
+  overrides?: Partial<ServerStateResult<BaseServerState>>
+): ServerStateResult<BaseServerState> => ({
   sessionId,
-  updatedAt,
-  puzzleId: 'puzzle-1',
-  userId: 'user-1',
-  createdAt: '2024-01-01T00:00:00Z',
-  startedAt: '2024-01-01T00:00:00Z',
-  completedAt: null,
-  currentState: {},
-  initialState: {},
-  notes: [],
-  isCompleted: false,
-  elapsedSeconds: 0,
+  updatedAt: new Date(updatedAt),
+  state: {} as BaseServerState,
   ...overrides,
 });
 
@@ -46,27 +38,15 @@ describe('MyPuzzlesTab', () => {
       expect(container).toBeInTheDocument();
     });
 
-    it('should render title', () => {
+    it('should render empty state when no sessions', () => {
       render(<MyPuzzlesTab {...mockProps} />);
-      const title = screen.getByRole('heading', { level: 1 });
-      expect(title).toHaveTextContent('My Puzzles');
+      expect(screen.getByText('No puzzles yet')).toBeInTheDocument();
     });
 
-    it('should render description text', () => {
+    it('should render empty state instruction text', () => {
       render(<MyPuzzlesTab {...mockProps} />);
       expect(
-        screen.getByText(
-          'This page lists puzzles you have played in the past 30 days.'
-        )
-      ).toBeInTheDocument();
-    });
-
-    it('should render instruction text', () => {
-      render(<MyPuzzlesTab {...mockProps} />);
-      expect(
-        screen.getByText(
-          /Press Start Race in the bottom navigation to find a new puzzle/
-        )
+        screen.getByText('Head to Start Race to solve your first puzzle')
       ).toBeInTheDocument();
     });
   });
@@ -74,23 +54,26 @@ describe('MyPuzzlesTab', () => {
   describe('with no sessions', () => {
     it('should render without sessions prop', () => {
       render(<MyPuzzlesTab {...mockProps} />);
-      expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+      expect(screen.getByText('No puzzles yet')).toBeInTheDocument();
     });
 
     it('should render with empty sessions array', () => {
       render(<MyPuzzlesTab {...mockProps} sessions={[]} />);
-      const heading = screen.queryByRole('heading', { level: 2 });
-      expect(heading).not.toBeInTheDocument();
+      expect(screen.getByText('No puzzles yet')).toBeInTheDocument();
     });
 
-    it('should not render recent puzzles section when sessions is undefined', () => {
-      render(<MyPuzzlesTab {...mockProps} sessions={undefined} />);
-      expect(screen.queryByText('Recent Puzzles')).not.toBeInTheDocument();
+    it('should not render session grid when sessions is undefined', () => {
+      const { container } = render(
+        <MyPuzzlesTab {...mockProps} sessions={undefined} />
+      );
+      expect(container.querySelector('ul')).not.toBeInTheDocument();
     });
 
-    it('should not render recent puzzles section when sessions is empty', () => {
-      render(<MyPuzzlesTab {...mockProps} sessions={[]} />);
-      expect(screen.queryByText('Recent Puzzles')).not.toBeInTheDocument();
+    it('should not render session grid when sessions is empty', () => {
+      const { container } = render(
+        <MyPuzzlesTab {...mockProps} sessions={[]} />
+      );
+      expect(container.querySelector('ul')).not.toBeInTheDocument();
     });
   });
 
@@ -100,7 +83,6 @@ describe('MyPuzzlesTab', () => {
 
       render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
-      expect(screen.getByText('Recent Puzzles')).toBeInTheDocument();
       expect(screen.getByTestId('session-session-1')).toBeInTheDocument();
     });
 
@@ -205,18 +187,7 @@ describe('MyPuzzlesTab', () => {
   });
 
   describe('styling and structure', () => {
-    it('should have gradient title styling', () => {
-      render(<MyPuzzlesTab {...mockProps} />);
-      const title = screen.getByRole('heading', { level: 1 });
-      expect(title).toHaveClass('bg-gradient-to-r');
-      expect(title).toHaveClass('from-blue-500');
-      expect(title).toHaveClass('via-purple-500');
-      expect(title).toHaveClass('to-pink-500');
-      expect(title).toHaveClass('bg-clip-text');
-      expect(title).toHaveClass('text-transparent');
-    });
-
-    it('should have main container with padding', () => {
+    it('should have main container with mb-4', () => {
       const { container } = render(<MyPuzzlesTab {...mockProps} />);
       const mainDiv = container.querySelector('.mb-4');
       expect(mainDiv).toBeInTheDocument();
@@ -252,7 +223,7 @@ describe('MyPuzzlesTab', () => {
       expect(listElement).toBeInTheDocument();
     });
 
-    it('should render li elements for each session', () => {
+    it('should render session divs for each session', () => {
       const sessions = [
         createMockSession('session-1', '2024-01-15T10:00:00Z'),
         createMockSession('session-2', '2024-01-14T10:00:00Z'),
@@ -260,85 +231,43 @@ describe('MyPuzzlesTab', () => {
 
       render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
 
-      // IntegratedSessionRow is mocked to render divs, not li elements
       const sessionDivs = screen.getAllByTestId(/session-/);
       expect(sessionDivs).toHaveLength(2);
     });
   });
 
-  describe('text content', () => {
-    it('should have correct heading text', () => {
-      render(<MyPuzzlesTab {...mockProps} />);
-      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-        'My Puzzles'
+  describe('empty state', () => {
+    it('should not render session grid when no sessions', () => {
+      const { container } = render(
+        <MyPuzzlesTab {...mockProps} sessions={[]} />
       );
+
+      expect(container.querySelectorAll('ul')).toHaveLength(0);
     });
 
-    it('should have correct subheading when sessions exist', () => {
-      const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
-
-      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
-
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'Recent Puzzles'
-      );
-    });
-
-    it('should display 30-day timeframe message', () => {
-      render(<MyPuzzlesTab {...mockProps} />);
-      expect(screen.getByText(/past 30 days/)).toBeInTheDocument();
-    });
-
-    it('should display navigation instruction', () => {
-      render(<MyPuzzlesTab {...mockProps} />);
-      expect(
-        screen.getByText(/Start Race in the bottom navigation/)
-      ).toBeInTheDocument();
-    });
-
-    it('should mention resuming previous puzzles', () => {
-      render(<MyPuzzlesTab {...mockProps} />);
-      expect(
-        screen.getByText(/resume a previous one below/)
-      ).toBeInTheDocument();
+    it('should show empty state placeholder when sessions is empty', () => {
+      render(<MyPuzzlesTab {...mockProps} sessions={[]} />);
+      expect(screen.getByText('No puzzles yet')).toBeInTheDocument();
     });
   });
 
   describe('conditional rendering', () => {
-    it('should render recent puzzles section when sessions exist', () => {
+    it('should render session list when sessions exist', () => {
       const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
 
       const { container } = render(
         <MyPuzzlesTab {...mockProps} sessions={sessions} />
       );
 
-      const recentPuzzlesSection = container.querySelector(
-        '.mb-4 > div:last-child'
-      );
-      expect(recentPuzzlesSection).toBeInTheDocument();
+      expect(container.querySelector('ul')).toBeInTheDocument();
     });
 
-    it('should not render recent puzzles section when sessions is empty', () => {
+    it('should not render session list when sessions is empty', () => {
       const { container } = render(
         <MyPuzzlesTab {...mockProps} sessions={[]} />
       );
 
-      const recentPuzzlesSection = container.querySelectorAll('h2');
-      const hasRecentPuzzlesHeading = Array.from(recentPuzzlesSection).some(
-        (el) => el.textContent === 'Recent Puzzles'
-      );
-
-      expect(hasRecentPuzzlesHeading).toBe(false);
-    });
-
-    it('should show sections in correct order', () => {
-      const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
-
-      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
-
-      const headings = screen.getAllByRole('heading');
-      expect(headings[0]).toHaveTextContent('My Puzzles');
-      expect(headings[1]).toHaveTextContent('Recent Puzzles');
+      expect(container.querySelector('ul')).not.toBeInTheDocument();
     });
   });
 
@@ -441,23 +370,13 @@ describe('MyPuzzlesTab', () => {
   });
 
   describe('accessibility', () => {
-    it('should have semantic heading structure', () => {
-      const sessions = [createMockSession('session-1', '2024-01-15T10:00:00Z')];
-
-      render(<MyPuzzlesTab {...mockProps} sessions={sessions} />);
-
-      const h1 = screen.getByRole('heading', { level: 1 });
-      const h2 = screen.getByRole('heading', { level: 2 });
-
-      expect(h1).toBeInTheDocument();
-      expect(h2).toBeInTheDocument();
-    });
-
-    it('should have readable text content', () => {
+    it('should have empty state text content', () => {
       render(<MyPuzzlesTab {...mockProps} />);
 
-      expect(screen.getByText(/My Puzzles/)).toBeInTheDocument();
-      expect(screen.getByText(/puzzles you have played/)).toBeInTheDocument();
+      expect(screen.getByText('No puzzles yet')).toBeInTheDocument();
+      expect(
+        screen.getByText('Head to Start Race to solve your first puzzle')
+      ).toBeInTheDocument();
     });
   });
 });

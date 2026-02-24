@@ -53,13 +53,13 @@ const ThemeSwitch = ({ isCapacitor = () => false }: ThemeSwitchProps) => {
           theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
       }}
-      className="text-theme-primary dark:text-theme-primary-light bg-primary-100 dark:bg-primary-900/20 mx-1 h-8 w-8 cursor-pointer rounded-full p-1.5 transition-colors active:opacity-70"
+      className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-md text-stone-500 transition-all hover:text-stone-700 active:scale-95 dark:text-zinc-400 dark:hover:text-zinc-200"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="h-full w-full"
+        className="h-5 w-5"
       >
         {mounted && (theme === 'dark' || resolvedTheme === 'dark') ? (
           <path
