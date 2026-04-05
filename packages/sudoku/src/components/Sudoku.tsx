@@ -45,10 +45,10 @@ import {
   buildCandidates,
   findHint,
   isGridInvalid,
-} from '../utils/humanSolver';
+  HintResult,
+  ChainNode,
+} from 'human-sudoku-solver';
 import { CellHighlight } from '../types/CellHighlight';
-import { HintResult } from '../types/HintResult';
-import { ChainNode } from '../types/ChainNode';
 import ChainOverlay from '../components/ChainOverlay';
 import { createLocalAgents } from '../helpers/agentTimeline';
 import { getAllAgentProgress } from '../helpers/agentProgress';

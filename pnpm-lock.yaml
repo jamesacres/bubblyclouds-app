@@ -744,6 +744,9 @@ importers:
       '@bubblyclouds-app/ui':
         specifier: workspace:*
         version: link:../ui
+      human-sudoku-solver:
+        specifier: ^1.0.0
+        version: 1.0.0
       lucide-react:
         specifier: ^0.563.0
         version: 0.563.0(react@19.2.3)
@@ -4444,6 +4447,9 @@ packages:
   human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+
+  human-sudoku-solver@1.0.0:
+    resolution: {integrity: sha512-8VpcAPuqFnhONTK4bKHUOBOfa4aaKvQEmHw/CS25pGKt+ou9PvrNXj580z5gAJrj1x6qcgNmOKgbYhIjKRUMfg==}
 
   husky@9.1.7:
     resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
@@ -11844,6 +11850,8 @@ snapshots:
       - supports-color
 
   human-signals@2.1.0: {}
+
+  human-sudoku-solver@1.0.0: {}
 
   husky@9.1.7: {}
 

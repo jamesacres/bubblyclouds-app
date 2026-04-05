@@ -1,5 +1,5 @@
+import { Technique } from 'human-sudoku-solver';
 import { ServerState } from './state';
-import { Technique } from './Technique';
 
 export enum DreyfusLevel {
   Novice = 'novice',

@@ -5,7 +5,7 @@ import {
   useLayoutEffect,
   useState,
 } from 'react';
-import { ChainNode } from '../types/ChainNode';
+import { ChainNode } from 'human-sudoku-solver';
 
 interface Point {
   x: number;

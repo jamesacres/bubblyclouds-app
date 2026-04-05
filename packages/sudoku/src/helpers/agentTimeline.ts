@@ -4,7 +4,7 @@ import {
   applyHint,
   buildCandidates,
   gridToPuzzle,
-} from '../utils/humanSolver';
+} from 'human-sudoku-solver';
 import { Puzzle } from '../types/puzzle';
 import {
   AgentStep,

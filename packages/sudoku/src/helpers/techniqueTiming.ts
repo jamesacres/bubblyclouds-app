@@ -1,4 +1,4 @@
-import { Technique } from '../types/Technique';
+import { Technique } from 'human-sudoku-solver';
 import { DreyfusLevel } from '../types/Agent';
 
 const BASIC_TECHNIQUES = new Set<Technique>([

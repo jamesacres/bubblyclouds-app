@@ -15,8 +15,7 @@ import {
   Square,
   Unlock,
 } from 'lucide-react';
-import { Technique } from '../types/Technique';
-import { HintResult } from '../types/HintResult';
+import { Technique, HintResult } from 'human-sudoku-solver';
 import { UserAvatar } from '@bubblyclouds-app/auth/components/UserAvatar';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { NumberPad } from '@bubblyclouds-app/games/components/NumberPad';

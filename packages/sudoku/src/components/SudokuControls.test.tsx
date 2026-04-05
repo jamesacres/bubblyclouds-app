@@ -83,7 +83,7 @@ describe('SudokuControls', () => {
   const mockCopyGrid = jest.fn();
   const mockOnAdvancedToggle = jest.fn();
   const mockGetHint: jest.Mock<
-    import('../types/HintResult').HintResult | null
+    import('human-sudoku-solver').HintResult | null
   > = jest.fn(() => null);
   const mockOnShowWhere = jest.fn();
   const mockOnRevealEliminations = jest.fn();
