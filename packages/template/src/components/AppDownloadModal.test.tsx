@@ -37,9 +37,7 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(
-        screen.getByText(/Did you know you can continue in our mobile app/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Continue in the app/i)).toBeInTheDocument();
     });
 
     it('should not render when isOpen is false', () => {
@@ -52,7 +50,7 @@ describe('AppDownloadModal', () => {
         />
       );
       expect(
-        screen.queryByText(/Did you know you can continue in our mobile app/i)
+        screen.queryByText(/Continue in the app/i)
       ).not.toBeInTheDocument();
     });
 
@@ -67,7 +65,7 @@ describe('AppDownloadModal', () => {
         />
       );
       expect(
-        screen.queryByText(/Did you know you can continue in our mobile app/i)
+        screen.queryByText(/Continue in the app/i)
       ).not.toBeInTheDocument();
     });
   });
@@ -82,9 +80,7 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(
-        screen.getByText(/Did you know you can continue in our mobile app/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Continue in the app/i)).toBeInTheDocument();
     });
 
     it('should display header icon and content', () => {
@@ -96,9 +92,7 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(
-        screen.getByText(/Did you know you can continue in our mobile app/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Continue in the app/i)).toBeInTheDocument();
     });
   });
 
@@ -386,9 +380,7 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(
-        screen.getByText(/Did you know you can continue in our mobile app/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Continue in the app/i)).toBeInTheDocument();
     });
 
     it('should render modal backdrop', () => {
@@ -400,9 +392,7 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(
-        screen.getByText(/Did you know you can continue in our mobile app/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Continue in the app/i)).toBeInTheDocument();
     });
 
     it('should render modal panel with content', () => {
@@ -428,9 +418,7 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(
-        screen.getByText(/Did you know you can continue in our mobile app/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Continue in the app/i)).toBeInTheDocument();
       expect(screen.getByAltText(/App Store/i)).toBeInTheDocument();
     });
 
@@ -460,9 +448,7 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(
-        screen.getByText(/Did you know you can continue in our mobile app/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Continue in the app/i)).toBeInTheDocument();
     });
   });
 
@@ -512,9 +498,7 @@ describe('AppDownloadModal', () => {
           {...mockProps}
         />
       );
-      expect(
-        screen.getByText(/Did you know you can continue in our mobile app/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Continue in the app/i)).toBeInTheDocument();
     });
 
     it('should render buttons with hover effects', () => {

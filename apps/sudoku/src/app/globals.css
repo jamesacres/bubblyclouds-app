@@ -212,6 +212,11 @@ body {
   100% { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeSlideIn {
+  0%   { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .animate-fade-in      { animation: fadeIn 0.6s ease-out; }
 .animate-heatShimmer  { animation: heatShimmer 3s ease-in-out infinite alternate; }
 .animate-iconFloat    { animation: iconFloat 4s ease-in-out infinite; }

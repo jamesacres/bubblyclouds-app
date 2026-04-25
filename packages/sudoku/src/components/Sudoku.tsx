@@ -100,19 +100,32 @@ const Sudoku = ({
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
   const { sessions } = useSessions<GameState>();
 
-  const [initialAgents] = useState(() =>
-    createLocalAgents(
-      initial,
-      final,
-      DEFAULT_AGENT_CONFIGS,
-      difficultyToMultiplier(metadata.difficulty)
-    )
-  );
+  const difficultyMultiplier = difficultyToMultiplier(metadata.difficulty);
+
+  const [defaultAgentSelection] = useState<string[]>(() => {
+    const fixed = ['Bumblebee', 'Sage'];
+    const fixedLevels = new Set(
+      DEFAULT_AGENT_CONFIGS.filter((c) => fixed.includes(c.name)).map(
+        (c) => c.skillLevel
+      )
+    );
+    const candidates = DEFAULT_AGENT_CONFIGS.filter(
+      (c) => !fixed.includes(c.name) && !fixedLevels.has(c.skillLevel)
+    );
+    if (candidates.length > 0) {
+      const pick = candidates[Math.floor(Math.random() * candidates.length)];
+      return [...fixed, pick.name];
+    }
+    return fixed;
+  });
+
   const agentStartTimeMsRef = useRef<number | null>(null);
-  const [agents, setAgents] = useState(initialAgents);
-  const [localAgentProgress, setLocalAgentProgress] = useState(() =>
-    getAllAgentProgress(initialAgents, null)
+  const [agents, setAgents] = useState<ReturnType<typeof createLocalAgents>>(
+    []
   );
+  const [localAgentProgress, setLocalAgentProgress] = useState<
+    ReturnType<typeof getAllAgentProgress>
+  >([]);
 
   const onRemoveAgent = useCallback((agentId: string) => {
     setAgents((prev) => prev.filter((a) => a.id !== agentId));
@@ -406,8 +419,29 @@ const Sudoku = ({
   }, [setShowSidebar]);
 
   const handleSoloMode = useCallback(() => {
+    setAgents([]);
+    setLocalAgentProgress([]);
     setHasManuallySelectedMode(true);
   }, []);
+
+  const handleAgentMode = useCallback(
+    (selectedAgentNames: string[]) => {
+      const nameSet = new Set(selectedAgentNames);
+      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((c) =>
+        nameSet.has(c.name)
+      );
+      const created = createLocalAgents(
+        initial,
+        final,
+        selectedConfigs,
+        difficultyMultiplier
+      );
+      setAgents(created);
+      setLocalAgentProgress(getAllAgentProgress(created, null));
+      setHasManuallySelectedMode(true);
+    },
+    [initial, final, difficultyMultiplier]
+  );
 
   // App download modal handlers
   const handleAppDownloadClose = useCallback(() => {
@@ -529,6 +563,9 @@ const Sudoku = ({
         onClose={() => setHasDismissedRacingPrompt(true)}
         onRaceMode={handleRaceMode}
         onSoloMode={handleSoloMode}
+        onAgentMode={handleAgentMode}
+        agentOptions={DEFAULT_AGENT_CONFIGS}
+        defaultSelectedAgentNames={defaultAgentSelection}
       />
 
       <Sidebar
