@@ -406,44 +406,67 @@ const RaceTrack = <T,>({
 
           return (
             <div className="mt-4">
-              <div className="mt-2 rounded-lg bg-stone-100 p-2 dark:bg-gray-800">
-                {leaderboard.map((entry, index) => (
-                  <div
-                    key={
-                      entry.type === 'player'
-                        ? entry.data.userId
-                        : `agent-${entry.data.agentId}`
-                    }
-                    className="flex items-center justify-between p-1"
-                  >
-                    <div className="flex items-center">
-                      <span className="mr-2 w-6 text-center font-bold">
-                        {index + 1}.
-                      </span>
-                      {entry.type === 'agent' ? (
-                        <span>
-                          {entry.data.emoji || '🤖'} {entry.data.name}
+              <div className="mt-2 overflow-hidden rounded-xl bg-stone-100 dark:bg-gray-800/80">
+                {leaderboard.map((entry, index) => {
+                  const isFirst = index === 0;
+                  const isCurrentUser =
+                    entry.type === 'player' && entry.data.isCurrentUser;
+                  return (
+                    <div
+                      key={
+                        entry.type === 'player'
+                          ? entry.data.userId
+                          : `agent-${entry.data.agentId}`
+                      }
+                      className={`flex items-center justify-between px-3 py-2 ${
+                        isFirst
+                          ? 'border-b border-stone-200 dark:border-gray-700'
+                          : ''
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span
+                          className={`w-5 text-center text-sm font-semibold tabular-nums ${
+                            isFirst
+                              ? 'text-amber-500 dark:text-amber-400'
+                              : 'text-gray-400 dark:text-gray-500'
+                          }`}
+                        >
+                          {index + 1}.
                         </span>
-                      ) : (
-                        <>
-                          <div
-                            className={`mr-1 h-2 w-2 rounded-full ${getPlayerColor(entry.data.userId, allUserIds, entry.data.isCurrentUser)}`}
-                          ></div>
-                          <span
-                            className={
-                              entry.data.isCurrentUser ? 'font-bold' : ''
-                            }
-                          >
-                            {entry.data.nickname}
+                        {entry.type === 'agent' ? (
+                          <span className="text-sm text-gray-700 dark:text-gray-300">
+                            {entry.data.emoji || '🤖'} {entry.data.name}
                           </span>
-                        </>
-                      )}
+                        ) : (
+                          <>
+                            <div
+                              className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(entry.data.userId, allUserIds, entry.data.isCurrentUser)}`}
+                            ></div>
+                            <span
+                              className={`text-sm ${
+                                isCurrentUser
+                                  ? 'font-semibold text-gray-900 dark:text-white'
+                                  : 'text-gray-700 dark:text-gray-300'
+                              }`}
+                            >
+                              {entry.data.nickname}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                      <span
+                        className={`font-mono text-sm tabular-nums ${
+                          isFirst
+                            ? 'font-semibold text-gray-900 dark:text-white'
+                            : 'text-gray-500 dark:text-gray-400'
+                        }`}
+                      >
+                        {formatSeconds(entry.data.finishTime!)}
+                      </span>
                     </div>
-                    <span className="font-mono">
-                      {formatSeconds(entry.data.finishTime!)}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           );
@@ -451,26 +474,35 @@ const RaceTrack = <T,>({
       </div>
 
       {isCompleted && (
-        <div className="mb-8 mt-4 space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="mb-8 mt-5 space-y-3">
+          <div className="flex items-center gap-2">
             <Link
               href={`/?tab=${Tab.FRIENDS}`}
-              className="bg-theme-primary hover:bg-theme-primary-dark inline-flex items-center rounded-full px-6 py-3 text-base font-bold text-white shadow-md transition-transform hover:scale-105"
+              className="bg-theme-primary hover:bg-theme-primary-dark inline-flex flex-1 items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span className="mr-2 text-xl" role="img" aria-label="trophy">
+              <span className="mr-2" role="img" aria-label="trophy">
                 🏆
               </span>
-              View Monthly Leaderboard
+              Leaderboard
+            </Link>
+            <Link
+              href="/book"
+              className="inline-flex flex-1 items-center justify-center rounded-xl bg-stone-100 px-4 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:scale-[1.02] hover:bg-stone-200 active:scale-[0.98] dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+            >
+              <span className="mr-2" role="img" aria-label="puzzle book">
+                📖
+              </span>
+              Puzzle book
             </Link>
             {finishedPlayers.length !== allPlayerProgress.length && (
               <button
                 onClick={refreshSessionParties}
                 disabled={isPolling}
                 title="Refresh scores"
-                className="inline-flex cursor-pointer items-center rounded-full bg-gray-200 p-3 font-bold text-gray-700 shadow-md transition-transform hover:scale-105 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex cursor-pointer items-center rounded-xl bg-stone-100 p-2.5 text-gray-600 transition-all duration-200 hover:bg-stone-200 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
               >
                 <RefreshCw
-                  className={`h-5 w-5 ${isPolling ? 'animate-spin' : ''}`}
+                  className={`h-4 w-4 ${isPolling ? 'animate-spin' : ''}`}
                 />
               </button>
             )}
@@ -478,25 +510,27 @@ const RaceTrack = <T,>({
 
           {/* Challenge friends section */}
           {currentUserProgress?.finishTime && (
-            <div className="rounded-lg border border-purple-200 bg-purple-50 p-4 dark:border-purple-800 dark:bg-purple-900/20">
-              <div className="text-center">
-                <div className="mb-2 text-lg font-semibold text-purple-900 dark:text-purple-100">
-                  🏁 Challenge friends to beat your time!
-                </div>
-                <div className="mb-3 text-sm text-purple-700 dark:text-purple-300">
-                  Your time:{' '}
-                  <span className="font-mono font-bold">
-                    {formatSeconds(currentUserProgress.finishTime)}
-                  </span>
+            <div className="rounded-xl bg-stone-100 p-4 dark:bg-gray-800/80">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                    🏁 Challenge friends
+                  </div>
+                  <div className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                    Your time:{' '}
+                    <span className="font-mono tabular-nums">
+                      {formatSeconds(currentUserProgress.finishTime)}
+                    </span>
+                  </div>
                 </div>
                 <button
                   onClick={onClick}
-                  className="inline-flex cursor-pointer items-center rounded-full bg-purple-600 px-6 py-3 text-base font-bold text-white shadow-md transition-transform hover:scale-105 hover:bg-purple-700"
+                  className="inline-flex shrink-0 cursor-pointer items-center rounded-xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-gray-700 active:scale-[0.98] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
                 >
-                  <span className="mr-2 text-xl" role="img" aria-label="racing">
+                  <span className="mr-1.5" role="img" aria-label="racing">
                     🚀
                   </span>
-                  Invite Friends to Race
+                  Invite friends
                 </button>
               </div>
             </div>
