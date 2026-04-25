@@ -10,51 +10,51 @@ const BASIC_TECHNIQUES = new Set<Technique>([
 
 export const BASE_TIMES: Record<Technique, number> = {
   nakedSingle: 1500,
-  hiddenSingleBox: 3000,
+  hiddenSingleBox: 2000,
   hiddenSingleRow: 2500,
   hiddenSingleCol: 2500,
 
-  nakedPair: 6000,
-  hiddenPair: 10000,
-  lockedCandidatePointing: 7000,
-  lockedCandidateClaiming: 7000,
+  nakedPair: 4000,
+  hiddenPair: 6000,
+  lockedCandidatePointing: 4500,
+  lockedCandidateClaiming: 4500,
 
-  nakedTriple: 15000,
-  nakedQuad: 25000,
-  hiddenTriple: 20000,
-  hiddenQuad: 35000,
-  xWing: 30000,
-  skyscraper: 25000,
-  twoStringKite: 25000,
+  nakedTriple: 8000,
+  nakedQuad: 12000,
+  hiddenTriple: 10000,
+  hiddenQuad: 15000,
+  xWing: 15000,
+  skyscraper: 15000,
+  twoStringKite: 15000,
 
-  swordfish: 60000,
-  jellyfish: 90000,
-  yWing: 35000,
-  xyzWing: 45000,
-  wWing: 45000,
-  emptyRectangle: 40000,
-  finnedXWing: 50000,
-  finnedSwordfish: 75000,
-  finnedJellyfish: 100000,
-  uniqueRectangleType1: 30000,
-  uniqueRectangleType2: 35000,
-  uniqueRectangleType3: 40000,
-  uniqueRectangleType4: 45000,
-  uniqueRectangleType5: 55000,
-  bug: 35000,
+  swordfish: 30000,
+  jellyfish: 40000,
+  yWing: 20000,
+  xyzWing: 25000,
+  wWing: 25000,
+  emptyRectangle: 25000,
+  finnedXWing: 30000,
+  finnedSwordfish: 40000,
+  finnedJellyfish: 50000,
+  uniqueRectangleType1: 15000,
+  uniqueRectangleType2: 20000,
+  uniqueRectangleType3: 25000,
+  uniqueRectangleType4: 30000,
+  uniqueRectangleType5: 35000,
+  bug: 20000,
 
-  xyChain: 90000,
-  aic: 120000,
-  aicRing: 150000,
-  groupedAIC: 180000,
-  alsXZ: 150000,
-  sueDeCoq: 150000,
-  deathBlossom: 210000,
-  nishio: 180000,
-  nishioNet: 240000,
-  cellRegionForcingChain: 200000,
-  cellRegionForcingNet: 270000,
-  forcingChain: 300000,
+  xyChain: 40000,
+  aic: 50000,
+  aicRing: 60000,
+  groupedAIC: 70000,
+  alsXZ: 60000,
+  sueDeCoq: 60000,
+  deathBlossom: 80000,
+  nishio: 80000,
+  nishioNet: 100000,
+  cellRegionForcingChain: 90000,
+  cellRegionForcingNet: 120000,
+  forcingChain: 150000,
 };
 
 export const STRUGGLE_MULTIPLIER = 10.0;
@@ -66,9 +66,16 @@ export const STRUGGLE_MULTIPLIER = 10.0;
 // is already partially filled, so they are not affected.
 //
 // Returns a multiplier between maxMultiplier (empty board) and 1.0 (full board).
-function earlyPuzzleMultiplier(filledCells: number): number {
+function earlyPuzzleMultiplier(
+  filledCells: number,
+  skillLevel?: DreyfusLevel
+): number {
   const progress = Math.min(filledCells, 81) / 81;
-  const maxMultiplier = 3.0;
+  const isExpert =
+    skillLevel === DreyfusLevel.Expert ||
+    skillLevel === DreyfusLevel.Proficient;
+  // Experts use Snyder notation, significantly reducing the early game scan penalty
+  const maxMultiplier = isExpert ? 1.5 : 3.0;
   return maxMultiplier - (maxMultiplier - 1.0) * progress;
 }
 
@@ -77,7 +84,8 @@ export function calculateExecutionTime(
   timingCurve: TimingCurve,
   timingState: TimingState,
   isAboveSkillLevel: boolean = false,
-  filledCells: number = 30
+  filledCells: number = 30,
+  skillLevel?: DreyfusLevel
 ): number {
   const complexityMultiplier =
     BASE_TIMES[technique] / BASE_TIMES['nakedSingle'];
@@ -85,7 +93,7 @@ export function calculateExecutionTime(
 
   const struggleMultiplier = isAboveSkillLevel ? STRUGGLE_MULTIPLIER : 1.0;
   const scanMultiplier = BASIC_TECHNIQUES.has(technique)
-    ? earlyPuzzleMultiplier(filledCells)
+    ? earlyPuzzleMultiplier(filledCells, skillLevel)
     : 1.0;
 
   const isEndgame = filledCells / 81 >= timingCurve.endgameStart;
@@ -98,7 +106,7 @@ export function calculateExecutionTime(
 
   if (timingState.burstsRemaining > 0) {
     timingState.burstsRemaining--;
-    baseDuration = Math.max(150, baseDuration * 0.25);
+    baseDuration = Math.max(400, baseDuration * 0.25);
   } else {
     if (Math.random() < timingCurve.burstChance) {
       const minBurst = timingCurve.burstLength[0];
@@ -106,7 +114,7 @@ export function calculateExecutionTime(
       timingState.burstsRemaining =
         Math.floor(Math.random() * (maxBurst - minBurst + 1)) + minBurst;
       timingState.burstsRemaining--;
-      baseDuration = Math.max(150, baseDuration * 0.25);
+      baseDuration = Math.max(400, baseDuration * 0.25);
     } else {
       const hesitationChance =
         timingCurve.hesitationChance +
@@ -122,5 +130,5 @@ export function calculateExecutionTime(
   }
 
   const jitter = (Math.random() * 2 - 1) * timingCurve.jitterMs;
-  return Math.max(100, baseDuration + jitter);
+  return Math.max(200, baseDuration + jitter);
 }

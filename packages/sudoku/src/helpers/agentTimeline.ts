@@ -48,7 +48,8 @@ export function createAgentTimeline(
         config.timingCurve,
         timingState,
         isAboveSkillLevel,
-        filledCells
+        filledCells,
+        config.skillLevel
       );
       currentTime += stepDuration;
 
