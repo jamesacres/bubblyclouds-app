@@ -2,9 +2,10 @@
 # TODO
 
 
-sloth, cheeter
+agents, new timingCurve
+screen to choose which to race against RacingPromptModal
+speech bubbles from the race track which appear when the player pauses for more and 10 seconds
 
-turtle
 
 
 - for existing users:
