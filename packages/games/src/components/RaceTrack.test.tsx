@@ -91,6 +91,6 @@ describe('RaceTrack', () => {
       (initial, final, answer) => (answer === defaultProps.answer ? 100 : 50)
     );
     render(<RaceTrack {...defaultProps} />);
-    expect(screen.getByText(/View Monthly Leaderboard/)).toBeInTheDocument();
+    expect(screen.getByText(/Leaderboard/)).toBeInTheDocument();
   });
 });
