@@ -33,6 +33,10 @@ interface FriendsTabProps<State extends BaseServerState = BaseServerState> {
     isPuzzleCheated: (state: State) => boolean;
     gameName: string;
   }>;
+  getDifficultyDisplay: (difficulty: string) => {
+    name: string;
+    badgeColor: string;
+  };
 }
 
 export const FriendsTab = <State extends BaseServerState = BaseServerState>({
@@ -46,6 +50,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
   buildPuzzleUrlFromState,
   LeaderboardComponent,
   gameName,
+  getDifficultyDisplay,
 }: FriendsTabProps<State>) => {
   const { sessions, friendSessions } = useSessions<State>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
@@ -237,6 +242,9 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                                           isPuzzleCheated={isPuzzleCheated}
                                           buildPuzzleUrlFromState={
                                             buildPuzzleUrlFromState
+                                          }
+                                          getDifficultyDisplay={
+                                            getDifficultyDisplay
                                           }
                                         />
                                       ))}

@@ -36,6 +36,7 @@ import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
 import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { GameState } from '@bubblyclouds-app/sudoku/types/state';
+import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 
 const SimpleStateWrapper = ({ state }: { state: GameState }) => (
   <SimpleSudoku state={state} />
@@ -618,6 +619,7 @@ function HomeComponent() {
                 }
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
+                getDifficultyDisplay={getDifficultyDisplay}
               />
             )}
             {tab === Tab.FRIENDS && (
@@ -634,6 +636,7 @@ function HomeComponent() {
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 LeaderboardComponent={Leaderboard}
                 gameName="Sudoku"
+                getDifficultyDisplay={getDifficultyDisplay}
               />
             )}
           </div>

@@ -11,6 +11,10 @@ interface MyPuzzlesTabProps<State extends BaseServerState = BaseServerState> {
   calculateCompletionPercentageFromState: (state: State) => number;
   isPuzzleCheated: (state: State) => boolean;
   buildPuzzleUrlFromState: (state: State, isCompleted?: boolean) => string;
+  getDifficultyDisplay: (difficulty: string) => {
+    name: string;
+    badgeColor: string;
+  };
 }
 
 export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
@@ -19,6 +23,7 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
   calculateCompletionPercentageFromState,
   isPuzzleCheated,
   buildPuzzleUrlFromState,
+  getDifficultyDisplay,
 }: MyPuzzlesTabProps<State>) => {
   const allSessions = sessions?.sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
@@ -39,6 +44,7 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
                 }
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
+                getDifficultyDisplay={getDifficultyDisplay}
               />
             ))}
           </ul>
