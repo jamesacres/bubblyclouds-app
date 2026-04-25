@@ -66,6 +66,10 @@ describe('FriendsTab', () => {
     calculateCompletionPercentageFromState: jest.fn(() => 50),
     isPuzzleCheated: jest.fn(() => false),
     buildPuzzleUrlFromState: jest.fn(() => '/puzzle/1'),
+    getDifficultyDisplay: jest.fn(() => ({
+      name: 'Easy',
+      badgeColor: 'green',
+    })),
     gameName: 'Sudoku',
   };
 
