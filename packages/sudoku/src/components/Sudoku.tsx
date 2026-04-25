@@ -53,6 +53,7 @@ import ChainOverlay from '../components/ChainOverlay';
 import { createLocalAgents } from '../helpers/agentTimeline';
 import { getAllAgentProgress } from '../helpers/agentProgress';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
+import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -100,7 +101,12 @@ const Sudoku = ({
   const { sessions } = useSessions<GameState>();
 
   const [initialAgents] = useState(() =>
-    createLocalAgents(initial, final, DEFAULT_AGENT_CONFIGS)
+    createLocalAgents(
+      initial,
+      final,
+      DEFAULT_AGENT_CONFIGS,
+      difficultyToMultiplier(metadata.difficulty)
+    )
   );
   const agentStartTimeMsRef = useRef<number | null>(null);
   const [agents, setAgents] = useState(initialAgents);

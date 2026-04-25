@@ -1,4 +1,8 @@
 import { Technique } from 'human-sudoku-solver';
+import {
+  Difficulty,
+  BookPuzzleDifficulty,
+} from '@bubblyclouds-app/games/types/difficulty';
 import { TimingCurve, TimingState } from '../types/Agent';
 
 export const BASE_TIMES: Record<Technique, number> = {
@@ -52,6 +56,38 @@ export const BASE_TIMES: Record<Technique, number> = {
 
 export const STRUGGLE_MULTIPLIER = 10.0;
 
+const DIFFICULTY_MULTIPLIERS: Record<
+  Difficulty | BookPuzzleDifficulty,
+  number
+> = {
+  [Difficulty.SIMPLE]: 0.8,
+  [Difficulty.EASY]: 1.0,
+  [Difficulty.INTERMEDIATE]: 1.4,
+  [Difficulty.EXPERT]: 1.9,
+
+  [BookPuzzleDifficulty.VERY_EASY]: 0.7,
+  [BookPuzzleDifficulty.EASY]: 0.85,
+  [BookPuzzleDifficulty.MODERATELY_EASY]: 1.0,
+  [BookPuzzleDifficulty.MODERATE]: 1.2,
+  [BookPuzzleDifficulty.MODERATELY_HARD]: 1.5,
+  [BookPuzzleDifficulty.HARD]: 1.8,
+  [BookPuzzleDifficulty.VICIOUS]: 2.2,
+  [BookPuzzleDifficulty.FIENDISH]: 2.6,
+  [BookPuzzleDifficulty.DEVILISH]: 3.0,
+  [BookPuzzleDifficulty.HELL]: 3.5,
+  [BookPuzzleDifficulty.BEYOND_HELL]: 4.0,
+};
+
+export function difficultyToMultiplier(
+  difficulty: Difficulty | BookPuzzleDifficulty | string | undefined
+): number {
+  if (!difficulty) return 1.0;
+  return (
+    DIFFICULTY_MULTIPLIERS[difficulty as Difficulty | BookPuzzleDifficulty] ??
+    1.0
+  );
+}
+
 // Early in the puzzle, the board is sparse — scanning for candidates and
 // applying notes takes much longer because there's less information to work
 // with.
@@ -59,15 +95,18 @@ export const STRUGGLE_MULTIPLIER = 10.0;
 // Returns a multiplier between maxMultiplier (empty board) and 1.0 (full board).
 function earlyPuzzleMultiplier(
   filledCells: number,
-  baseDelayMs: number
+  baseDelayMs: number,
+  difficultyMultiplier: number
 ): number {
   // A typical Sudoku starts with ~25-35 clues. We scale progress from 25 to 81
   // so the start of the solve feels equally slow for everyone.
   const progress = Math.min(1.0, Math.max(0, filledCells - 25) / (81 - 25));
 
   // All personas should take a similar amount of time at the start (between 30 and 35 seconds for basic moves)
-  // to prevent experts from storming off.
-  const targetStartDelayMs = 30000 + Math.random() * 5000;
+  // to prevent experts from storming off. Scale by difficulty so harder puzzles
+  // have a proportionally slower opening phase.
+  const targetStartDelayMs =
+    (30000 + Math.random() * 5000) * difficultyMultiplier;
   const neededMultiplier = targetStartDelayMs / baseDelayMs;
 
   const maxMultiplier = Math.max(1.0, neededMultiplier);
@@ -79,17 +118,20 @@ export function calculateExecutionTime(
   timingCurve: TimingCurve,
   timingState: TimingState,
   isAboveSkillLevel: boolean = false,
-  filledCells: number = 30
+  filledCells: number = 30,
+  difficultyMultiplier: number = 1.0
 ): number {
   const complexityMultiplier =
     BASE_TIMES[technique] / BASE_TIMES['nakedSingle'];
-  const baseTime = timingCurve.baseDelayMs * complexityMultiplier;
+  const baseTime =
+    timingCurve.baseDelayMs * complexityMultiplier * difficultyMultiplier;
 
   const struggleMultiplier = isAboveSkillLevel ? STRUGGLE_MULTIPLIER : 1.0;
   // Apply scan penalty to all techniques. It's even harder to find advanced techniques on an empty board.
   const scanMultiplier = earlyPuzzleMultiplier(
     filledCells,
-    timingCurve.baseDelayMs
+    timingCurve.baseDelayMs,
+    difficultyMultiplier
   );
 
   const isEndgame = filledCells / 81 >= timingCurve.endgameStart;

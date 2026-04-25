@@ -20,7 +20,8 @@ import { calculateExecutionTime } from './techniqueTiming';
 export function createAgentTimeline(
   initial: Puzzle<number>,
   final: Puzzle<number>,
-  config: AgentConfig
+  config: AgentConfig,
+  difficultyMultiplier: number = 1.0
 ): AgentTimeline {
   try {
     const initialGrid = puzzleToGrid(initial);
@@ -48,7 +49,8 @@ export function createAgentTimeline(
         config.timingCurve,
         timingState,
         isAboveSkillLevel,
-        filledCells
+        filledCells,
+        difficultyMultiplier
       );
       currentTime += stepDuration;
 
@@ -90,7 +92,8 @@ export function createAgentTimeline(
 export function createLocalAgents(
   initial: Puzzle<number>,
   final: Puzzle<number>,
-  agentConfigs: AgentConfig[]
+  agentConfigs: AgentConfig[],
+  difficultyMultiplier: number = 1.0
 ): LocalAgent[] {
   return agentConfigs.reduce<LocalAgent[]>((acc, config, index) => {
     try {
@@ -99,7 +102,12 @@ export function createLocalAgents(
         name: config.name,
         emoji: config.emoji,
         skillLevel: config.skillLevel,
-        timeline: createAgentTimeline(initial, final, config),
+        timeline: createAgentTimeline(
+          initial,
+          final,
+          config,
+          difficultyMultiplier
+        ),
       });
     } catch (error) {
       console.error(
