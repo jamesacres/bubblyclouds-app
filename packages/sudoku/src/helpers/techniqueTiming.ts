@@ -1,12 +1,5 @@
 import { Technique } from 'human-sudoku-solver';
-import { DreyfusLevel, TimingCurve, TimingState } from '../types/Agent';
-
-const BASIC_TECHNIQUES = new Set<Technique>([
-  'nakedSingle',
-  'hiddenSingleBox',
-  'hiddenSingleRow',
-  'hiddenSingleCol',
-]);
+import { TimingCurve, TimingState } from '../types/Agent';
 
 export const BASE_TIMES: Record<Technique, number> = {
   nakedSingle: 1500,
@@ -61,21 +54,23 @@ export const STRUGGLE_MULTIPLIER = 10.0;
 
 // Early in the puzzle, the board is sparse — scanning for candidates and
 // applying notes takes much longer because there's less information to work
-// with. This only meaningfully affects basic techniques (singles), which
-// dominate early solve time. Advanced techniques occur later when the board
-// is already partially filled, so they are not affected.
+// with.
 //
 // Returns a multiplier between maxMultiplier (empty board) and 1.0 (full board).
 function earlyPuzzleMultiplier(
   filledCells: number,
-  skillLevel?: DreyfusLevel
+  baseDelayMs: number
 ): number {
-  const progress = Math.min(filledCells, 81) / 81;
-  const isExpert =
-    skillLevel === DreyfusLevel.Expert ||
-    skillLevel === DreyfusLevel.Proficient;
-  // Experts use Snyder notation, significantly reducing the early game scan penalty
-  const maxMultiplier = isExpert ? 1.5 : 3.0;
+  // A typical Sudoku starts with ~25-35 clues. We scale progress from 25 to 81
+  // so the start of the solve feels equally slow for everyone.
+  const progress = Math.min(1.0, Math.max(0, filledCells - 25) / (81 - 25));
+
+  // All personas should take a similar amount of time at the start (between 30 and 35 seconds for basic moves)
+  // to prevent experts from storming off.
+  const targetStartDelayMs = 30000 + Math.random() * 5000;
+  const neededMultiplier = targetStartDelayMs / baseDelayMs;
+
+  const maxMultiplier = Math.max(1.0, neededMultiplier);
   return maxMultiplier - (maxMultiplier - 1.0) * progress;
 }
 
@@ -84,17 +79,18 @@ export function calculateExecutionTime(
   timingCurve: TimingCurve,
   timingState: TimingState,
   isAboveSkillLevel: boolean = false,
-  filledCells: number = 30,
-  skillLevel?: DreyfusLevel
+  filledCells: number = 30
 ): number {
   const complexityMultiplier =
     BASE_TIMES[technique] / BASE_TIMES['nakedSingle'];
   const baseTime = timingCurve.baseDelayMs * complexityMultiplier;
 
   const struggleMultiplier = isAboveSkillLevel ? STRUGGLE_MULTIPLIER : 1.0;
-  const scanMultiplier = BASIC_TECHNIQUES.has(technique)
-    ? earlyPuzzleMultiplier(filledCells, skillLevel)
-    : 1.0;
+  // Apply scan penalty to all techniques. It's even harder to find advanced techniques on an empty board.
+  const scanMultiplier = earlyPuzzleMultiplier(
+    filledCells,
+    timingCurve.baseDelayMs
+  );
 
   const isEndgame = filledCells / 81 >= timingCurve.endgameStart;
   const endgameSpeedMultiplier = isEndgame
