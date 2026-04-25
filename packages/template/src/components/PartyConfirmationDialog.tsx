@@ -51,7 +51,7 @@ export const PartyConfirmationDialog = ({
           ? LogOut
           : UserMinus;
   const title = isLeaveAgentParty
-    ? 'Remove Local Agents'
+    ? 'Remove AI Rivals'
     : isRemoveAgent
       ? 'Remove Local Agent'
       : isOwnerLeaving
@@ -119,7 +119,7 @@ export const PartyConfirmationDialog = ({
                 <div className="mt-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     {isLeaveAgentParty
-                      ? `Are you sure you want to remove all Local Agents? They will no longer appear in the race.`
+                      ? `Are you sure you want to remove all AI Rivals? They will no longer appear in the race.`
                       : isRemoveAgent
                         ? `Are you sure you want to remove "${memberName}" from the race?`
                         : isOwnerLeaving

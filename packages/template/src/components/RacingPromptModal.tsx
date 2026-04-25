@@ -20,6 +20,7 @@ interface RacingPromptModalProps {
   onAgentMode?: (selectedAgentNames: string[]) => void;
   agentOptions?: AgentOption[];
   defaultSelectedAgentNames?: string[];
+  initialView?: ViewState;
 }
 
 type ViewState = 'mode-select' | 'agent-select';
@@ -124,8 +125,9 @@ const RacingPromptModal = ({
   onAgentMode,
   agentOptions = [],
   defaultSelectedAgentNames = ['Bumblebee', 'Sage'],
+  initialView = 'mode-select',
 }: RacingPromptModalProps) => {
-  const [view, setView] = useState<ViewState>('mode-select');
+  const [view, setView] = useState<ViewState>(initialView);
   const [selectedNames, setSelectedNames] = useState<Set<string>>(
     () => new Set(defaultSelectedAgentNames)
   );

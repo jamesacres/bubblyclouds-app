@@ -412,10 +412,21 @@ const Sudoku = ({
     [indexToCellId]
   );
 
+  const [pickRivalsView, setPickRivalsView] = useState<
+    'mode-select' | 'agent-select'
+  >('mode-select');
+  const [showPickRivalsModal, setShowPickRivalsModal] = useState(false);
+
   // Racing prompt handlers
   const handleRaceMode = useCallback(() => {
     setHasManuallySelectedMode(true);
     setShowSidebar(true);
+  }, [setShowSidebar]);
+
+  const handlePickRivals = useCallback(() => {
+    setPickRivalsView('agent-select');
+    setShowPickRivalsModal(true);
+    setShowSidebar(false);
   }, [setShowSidebar]);
 
   const handleSoloMode = useCallback(() => {
@@ -439,6 +450,8 @@ const Sudoku = ({
       setAgents(created);
       setLocalAgentProgress(getAllAgentProgress(created, null));
       setHasManuallySelectedMode(true);
+      setShowPickRivalsModal(false);
+      setPickRivalsView('mode-select');
     },
     [initial, final, difficultyMultiplier]
   );
@@ -559,13 +572,19 @@ const Sudoku = ({
 
       {/* Racing mode selection modal */}
       <RacingPromptModal
-        isOpen={showRacingPrompt}
-        onClose={() => setHasDismissedRacingPrompt(true)}
+        key={pickRivalsView}
+        isOpen={showRacingPrompt || showPickRivalsModal}
+        onClose={() => {
+          setHasDismissedRacingPrompt(true);
+          setShowPickRivalsModal(false);
+          setPickRivalsView('mode-select');
+        }}
         onRaceMode={handleRaceMode}
         onSoloMode={handleSoloMode}
         onAgentMode={handleAgentMode}
         agentOptions={DEFAULT_AGENT_CONFIGS}
         defaultSelectedAgentNames={defaultAgentSelection}
+        initialView={pickRivalsView}
       />
 
       <Sidebar
@@ -586,6 +605,7 @@ const Sudoku = ({
         localAgentProgress={localAgentProgress}
         onRemoveAgent={onRemoveAgent}
         onLeaveAgentParty={onLeaveAgentParty}
+        onPickRivals={handlePickRivals}
       />
 
       {/* Display celebration animation when completed */}

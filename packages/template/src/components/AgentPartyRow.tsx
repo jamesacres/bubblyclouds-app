@@ -33,14 +33,15 @@ const AgentPartyRow = <State extends BaseServerState>({
           <div className="flex min-w-0 flex-1 flex-col">
             <div className="flex items-start space-x-2">
               <h3 className="text-lg font-semibold leading-tight text-stone-800 dark:text-zinc-100">
-                Local Agents
+                AI Rivals
               </h3>
             </div>
 
             <div className="mt-3 flex items-center space-x-2">
               <Users className="h-4 w-4 flex-shrink-0 text-gray-500 dark:text-gray-400" />
               <span className="text-sm text-gray-600 dark:text-gray-400">
-                {localAgentProgress.length} agents
+                {localAgentProgress.length}{' '}
+                {localAgentProgress.length === 1 ? 'rival' : 'rivals'}
               </span>
             </div>
           </div>
@@ -123,7 +124,7 @@ const AgentPartyRow = <State extends BaseServerState>({
           }
         }}
         type={confirmDialog.type}
-        partyName="Local Agents"
+        partyName="AI Rivals"
         memberName={confirmDialog.agentName}
       />
     </li>
