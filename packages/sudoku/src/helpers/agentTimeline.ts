@@ -7,10 +7,11 @@ import {
 } from 'human-sudoku-solver';
 import { Puzzle } from '../types/puzzle';
 import {
+  AgentConfig,
   AgentStep,
   AgentTimeline,
-  DreyfusLevel,
   LocalAgent,
+  TimingState,
 } from '../types/Agent';
 import { ServerState } from '../types/state';
 import { canAgentUseTechnique } from './techniqueCategories';
@@ -19,7 +20,7 @@ import { calculateExecutionTime } from './techniqueTiming';
 export function createAgentTimeline(
   initial: Puzzle<number>,
   final: Puzzle<number>,
-  agentLevel: DreyfusLevel
+  config: AgentConfig
 ): AgentTimeline {
   try {
     const initialGrid = puzzleToGrid(initial);
@@ -34,16 +35,18 @@ export function createAgentTimeline(
     let currentTime = 0;
     let answerStack: Puzzle[] = [];
     const steps: AgentStep[] = [];
+    let timingState: TimingState = { burstsRemaining: 0 };
 
     for (const hint of hints) {
       const isAboveSkillLevel = !canAgentUseTechnique(
-        agentLevel,
+        config.skillLevel,
         hint.technique
       );
       const filledCells = currentGrid.filter((c) => c !== 0).length;
       const stepDuration = calculateExecutionTime(
         hint.technique,
-        agentLevel,
+        config.timingCurve,
+        timingState,
         isAboveSkillLevel,
         filledCells
       );
@@ -74,7 +77,12 @@ export function createAgentTimeline(
 
     return { steps, totalDuration: currentTime };
   } catch (error) {
-    console.error('createAgentTimeline failed for level', agentLevel, error);
+    console.error(
+      'createAgentTimeline failed for agent',
+      config.name,
+      JSON.stringify(config),
+      error
+    );
     return { steps: [], totalDuration: 0 };
   }
 }
@@ -82,7 +90,7 @@ export function createAgentTimeline(
 export function createLocalAgents(
   initial: Puzzle<number>,
   final: Puzzle<number>,
-  agentConfigs: Array<{ name: string; emoji: string; skillLevel: DreyfusLevel }>
+  agentConfigs: AgentConfig[]
 ): LocalAgent[] {
   return agentConfigs.reduce<LocalAgent[]>((acc, config, index) => {
     try {
@@ -91,7 +99,7 @@ export function createLocalAgents(
         name: config.name,
         emoji: config.emoji,
         skillLevel: config.skillLevel,
-        timeline: createAgentTimeline(initial, final, config.skillLevel),
+        timeline: createAgentTimeline(initial, final, config),
       });
     } catch (error) {
       console.error(

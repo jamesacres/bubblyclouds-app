@@ -1,6 +1,6 @@
-import { DreyfusLevel } from '../types/Agent';
+import { DreyfusLevel, AgentConfig } from '../types/Agent';
 
-export const DEFAULT_AGENT_CONFIGS = [
+export const DEFAULT_AGENT_CONFIGS: AgentConfig[] = [
   // === NOVICE ===
   {
     name: 'Bumblebee',

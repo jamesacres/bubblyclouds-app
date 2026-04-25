@@ -1,5 +1,5 @@
 import { Technique } from 'human-sudoku-solver';
-import { DreyfusLevel } from '../types/Agent';
+import { DreyfusLevel, TimingCurve, TimingState } from '../types/Agent';
 
 const BASIC_TECHNIQUES = new Set<Technique>([
   'nakedSingle',
@@ -57,17 +57,7 @@ export const BASE_TIMES: Record<Technique, number> = {
   forcingChain: 300000,
 };
 
-export const LEVEL_MULTIPLIERS: Record<DreyfusLevel, number> = {
-  [DreyfusLevel.Novice]: 8.0,
-  [DreyfusLevel.AdvancedBeginner]: 6.0,
-  [DreyfusLevel.Competent]: 4.0,
-  [DreyfusLevel.Proficient]: 2.5,
-  [DreyfusLevel.Expert]: 1.5,
-};
-
 export const STRUGGLE_MULTIPLIER = 10.0;
-
-export const JITTER_PERCENTAGE = 0.2;
 
 // Early in the puzzle, the board is sparse — scanning for candidates and
 // applying notes takes much longer because there's less information to work
@@ -84,19 +74,53 @@ function earlyPuzzleMultiplier(filledCells: number): number {
 
 export function calculateExecutionTime(
   technique: Technique,
-  agentLevel: DreyfusLevel,
+  timingCurve: TimingCurve,
+  timingState: TimingState,
   isAboveSkillLevel: boolean = false,
   filledCells: number = 30
 ): number {
-  const baseTime = BASE_TIMES[technique];
-  const multiplier = LEVEL_MULTIPLIERS[agentLevel];
+  const complexityMultiplier =
+    BASE_TIMES[technique] / BASE_TIMES['nakedSingle'];
+  const baseTime = timingCurve.baseDelayMs * complexityMultiplier;
+
   const struggleMultiplier = isAboveSkillLevel ? STRUGGLE_MULTIPLIER : 1.0;
   const scanMultiplier = BASIC_TECHNIQUES.has(technique)
     ? earlyPuzzleMultiplier(filledCells)
     : 1.0;
-  const jitter = 1 + (Math.random() * 2 - 1) * JITTER_PERCENTAGE;
-  return Math.max(
-    100,
-    baseTime * multiplier * struggleMultiplier * scanMultiplier * jitter
-  );
+
+  const isEndgame = filledCells / 81 >= timingCurve.endgameStart;
+  const endgameSpeedMultiplier = isEndgame
+    ? timingCurve.endgameSpeedMultiplier
+    : 1.0;
+
+  let baseDuration =
+    baseTime * struggleMultiplier * scanMultiplier * endgameSpeedMultiplier;
+
+  if (timingState.burstsRemaining > 0) {
+    timingState.burstsRemaining--;
+    baseDuration = Math.max(150, baseDuration * 0.25);
+  } else {
+    if (Math.random() < timingCurve.burstChance) {
+      const minBurst = timingCurve.burstLength[0];
+      const maxBurst = timingCurve.burstLength[1];
+      timingState.burstsRemaining =
+        Math.floor(Math.random() * (maxBurst - minBurst + 1)) + minBurst;
+      timingState.burstsRemaining--;
+      baseDuration = Math.max(150, baseDuration * 0.25);
+    } else {
+      const hesitationChance =
+        timingCurve.hesitationChance +
+        (isEndgame ? timingCurve.endgameHesitationSpike : 0);
+      if (Math.random() < Math.max(0, hesitationChance)) {
+        const minHesitation = timingCurve.hesitationDelayMs[0];
+        const maxHesitation = timingCurve.hesitationDelayMs[1];
+        const hesitationDelay =
+          Math.random() * (maxHesitation - minHesitation) + minHesitation;
+        baseDuration += hesitationDelay;
+      }
+    }
+  }
+
+  const jitter = (Math.random() * 2 - 1) * timingCurve.jitterMs;
+  return Math.max(100, baseDuration + jitter);
 }
