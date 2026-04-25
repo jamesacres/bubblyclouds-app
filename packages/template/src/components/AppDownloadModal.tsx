@@ -70,7 +70,7 @@ export const AppDownloadModal = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-zinc-950/80 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm dark:bg-zinc-950/80" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -84,18 +84,18 @@ export const AppDownloadModal = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="w-full overflow-hidden rounded-t-3xl border border-white/10 bg-zinc-900 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)] sm:max-w-md sm:rounded-3xl">
+              <Dialog.Panel className="border-black/8 w-full overflow-hidden rounded-t-3xl border bg-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)] sm:max-w-md sm:rounded-3xl dark:border-white/10 dark:bg-zinc-900 dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
                 <div className="p-6">
                   {/* Header */}
                   <div className="mb-6 flex items-start gap-4">
                     <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-sky-500/25 bg-sky-500/15 shadow-[inset_0_1px_0_rgba(125,211,252,0.1)]">
-                      <Smartphone className="h-5 w-5 text-sky-400" />
+                      <Smartphone className="h-5 w-5 text-sky-500 dark:text-sky-400" />
                     </div>
                     <div>
-                      <Dialog.Title className="text-base font-bold tracking-tight text-zinc-100">
+                      <Dialog.Title className="text-base font-bold tracking-tight text-gray-900 dark:text-zinc-100">
                         Continue in the app
                       </Dialog.Title>
-                      <p className="mt-1 text-sm leading-snug text-zinc-400">
+                      <p className="mt-1 text-sm leading-snug text-gray-500 dark:text-zinc-400">
                         {isMobileWeb ? mobileDescription : desktopDescription}
                       </p>
                     </div>
@@ -106,7 +106,7 @@ export const AppDownloadModal = ({
                     {(isIOSWeb || !isMobileWeb) && (
                       <button
                         onClick={handleAppStoreClick}
-                        className="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-zinc-800/80 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-200 hover:border-white/20 hover:bg-zinc-700/70 active:scale-[0.98]"
+                        className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
                       >
                         <Image
                           src="/badges/download-on-app-store.svg"
@@ -116,21 +116,21 @@ export const AppDownloadModal = ({
                           height={36}
                         />
                         <div className="min-w-0 flex-1">
-                          <div className="text-sm font-semibold text-zinc-100">
+                          <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                             App Store
                           </div>
-                          <div className="text-xs text-zinc-400">
+                          <div className="text-xs text-gray-500 dark:text-zinc-400">
                             iPhone &amp; iPad
                           </div>
                         </div>
-                        <ExternalLink className="h-4 w-4 flex-shrink-0 text-zinc-500" />
+                        <ExternalLink className="h-4 w-4 flex-shrink-0 text-gray-400 dark:text-zinc-500" />
                       </button>
                     )}
 
                     {(isAndroidWeb || !isMobileWeb) && (
                       <button
                         onClick={handleGooglePlayClick}
-                        className="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-zinc-800/80 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-all duration-200 hover:border-white/20 hover:bg-zinc-700/70 active:scale-[0.98]"
+                        className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
                       >
                         <Image
                           src="/badges/get-it-on-google-play.svg"
@@ -140,12 +140,14 @@ export const AppDownloadModal = ({
                           height={36}
                         />
                         <div className="min-w-0 flex-1">
-                          <div className="text-sm font-semibold text-zinc-100">
+                          <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
                             Google Play
                           </div>
-                          <div className="text-xs text-zinc-400">Android</div>
+                          <div className="text-xs text-gray-500 dark:text-zinc-400">
+                            Android
+                          </div>
                         </div>
-                        <ExternalLink className="h-4 w-4 flex-shrink-0 text-zinc-500" />
+                        <ExternalLink className="h-4 w-4 flex-shrink-0 text-gray-400 dark:text-zinc-500" />
                       </button>
                     )}
                   </div>
@@ -154,17 +156,17 @@ export const AppDownloadModal = ({
                   {isMobileWeb && (
                     <button
                       onClick={handleOpenInApp}
-                      className="mt-3 w-full rounded-xl bg-amber-500 py-3.5 text-sm font-bold text-zinc-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] transition-all duration-200 hover:bg-amber-400 active:scale-[0.98]"
+                      className="bg-theme-primary hover:bg-theme-primary-dark mt-3 w-full rounded-xl py-3.5 text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] transition-all duration-200 active:scale-[0.98]"
                     >
                       {openInAppLabel}
                     </button>
                   )}
 
                   {/* Continue in browser — quiet tertiary */}
-                  <div className="border-white/8 mt-3 border-t pt-3">
+                  <div className="border-black/8 dark:border-white/8 mt-3 border-t pt-3">
                     <button
                       onClick={handleContinueWeb}
-                      className="w-full rounded-xl px-4 py-2.5 text-sm text-zinc-500 transition-all duration-200 hover:bg-zinc-800/60 hover:text-zinc-300 active:scale-[0.98]"
+                      className="w-full rounded-xl px-4 py-2.5 text-sm text-gray-400 transition-all duration-200 hover:bg-gray-100 hover:text-gray-600 active:scale-[0.98] dark:text-zinc-500 dark:hover:bg-zinc-800/60 dark:hover:text-zinc-300"
                     >
                       {isMobileWeb
                         ? 'Continue in browser'
