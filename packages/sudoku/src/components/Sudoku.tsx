@@ -173,6 +173,20 @@ const Sudoku = ({
     );
   }, [agents, timer]);
 
+  useEffect(() => {
+    if (!completed || agentStartTimeMsRef.current === null) return;
+
+    const interval = setInterval(() => {
+      const progress = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+      setLocalAgentProgress(progress);
+      if (progress.every((p) => p.percentage === 100)) {
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [completed, agents]);
+
   const friendsOnClick = useCallback(() => {
     setShowSidebar((showSidebar) => !showSidebar);
   }, [setShowSidebar]);
