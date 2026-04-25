@@ -289,7 +289,7 @@ export const DEFAULT_AGENT_CONFIGS: AgentConfig[] = [
     personality:
       'Calm and deliberate. Smooth pacing. Endgame is clean and inevitable.',
     timingCurve: {
-      baseDelayMs: 3600,
+      baseDelayMs: 3300,
       jitterMs: 720,
       burstChance: 0.15,
       burstLength: [2, 3],
