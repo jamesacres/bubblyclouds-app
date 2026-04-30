@@ -269,7 +269,7 @@ function HomeComponent() {
                   }}
                 >
                   <Image
-                    src="/icons/icon-512.webp"
+                    src="/icons/icon-animated.webp"
                     alt="Sudoku Race"
                     width={44}
                     height={44}

@@ -2,6 +2,8 @@
 # TODO
 
 
+avatar selection for self, see other peoples
+
 feedback box for how rivals performed...
 
 agents, new timingCurve

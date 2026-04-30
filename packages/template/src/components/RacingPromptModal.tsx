@@ -47,10 +47,15 @@ const SKILL_LABELS: Record<string, string> = {
 
 const AgentAvatar = ({ agent }: { agent: AgentOption }) => (
   <div
-    className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl border border-black/10 bg-gray-100 text-3xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] dark:border-white/10 dark:bg-zinc-700/60"
+    className="flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-full"
     aria-label={agent.emojiName}
   >
-    <span aria-hidden="true">{agent.emoji}</span>
+    {
+      <img
+        className="rounded-full border border-zinc-500/30"
+        src={`/opponents/${agent.name.toLowerCase()}.webp`}
+      />
+    }
   </div>
 );
 
@@ -220,8 +225,8 @@ const RacingPromptModal = ({
                       className="group mb-3 w-full rounded-2xl border border-sky-500/30 bg-gradient-to-br from-sky-600 to-blue-700 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] transition-all duration-200 hover:from-sky-500 hover:to-blue-600 active:scale-[0.98]"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
-                          <Users className="h-5 w-5 text-white" />
+                        <div className="flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                          <Users className="h-10 w-10 text-white" />
                         </div>
                         <div className="min-w-0 flex-1">
                           <div className="mb-0.5 text-sm font-bold text-white">
@@ -242,17 +247,16 @@ const RacingPromptModal = ({
                         className="border-black/8 group mb-3 w-full rounded-2xl border bg-gray-50 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
                       >
                         <div className="flex items-center gap-4">
-                          <div
-                            className="border-theme-primary flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border"
+                          <img
+                            src={`/opponents/phantom.webp`}
+                            className="border-theme-primary flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-full border"
                             style={{
                               borderColor:
                                 'color-mix(in srgb, var(--theme-primary) 25%, transparent)',
                               backgroundColor:
                                 'color-mix(in srgb, var(--theme-primary) 15%, transparent)',
                             }}
-                          >
-                            <Bot className="text-theme-primary h-5 w-5" />
-                          </div>
+                          />
                           <div className="min-w-0 flex-1">
                             <div className="mb-0.5 text-sm font-bold text-gray-900 dark:text-zinc-100">
                               Race AI Opponents
