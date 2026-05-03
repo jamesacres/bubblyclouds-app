@@ -72,6 +72,13 @@ const AgentPartyRow = <State extends BaseServerState>({
                 completionPercentage={
                   agent.finishTime === undefined ? percentage : undefined
                 }
+                avatar={
+                  <img
+                    className="h-full w-full object-cover"
+                    src={`/opponents/${agent.name.toLowerCase()}.webp`}
+                    alt={agent.name}
+                  />
+                }
                 header={
                   <span className="font-medium text-gray-800 dark:text-gray-200">
                     {agent.emoji || '🤖'} {agent.name}

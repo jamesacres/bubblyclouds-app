@@ -60,6 +60,10 @@ const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
 );
 
+const CompactSimpleStateWrapper = ({ state }: { state: ServerState }) => (
+  <SimpleSudoku state={state} compact />
+);
+
 const Sudoku = ({
   puzzle: { initial, final, puzzleId, redirectUri, metadata },
   alreadyCompleted,
@@ -598,6 +602,7 @@ const Sudoku = ({
         apiUrl={apiUrl}
         appUrl={appUrl}
         SimpleState={SimpleStateWrapper}
+        CompactSimpleState={CompactSimpleStateWrapper}
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
         }

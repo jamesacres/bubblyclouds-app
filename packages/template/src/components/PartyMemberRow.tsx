@@ -3,6 +3,7 @@ import { BaseServerState } from '../types/state';
 
 interface PartyMemberRowProps<State extends BaseServerState> {
   header: ReactNode;
+  avatar?: ReactNode;
   actions?: ReactNode;
   time?: ReactNode;
   completionPercentage?: number;
@@ -13,6 +14,7 @@ interface PartyMemberRowProps<State extends BaseServerState> {
 
 const PartyMemberRow = <State extends BaseServerState>({
   header,
+  avatar,
   actions,
   time,
   completionPercentage,
@@ -43,9 +45,22 @@ const PartyMemberRow = <State extends BaseServerState>({
         </div>
       )}
 
-      {!isUser && state && (
+      {!isUser && state && !avatar && (
         <div className="mt-3 rounded-lg bg-stone-50 p-2 shadow-sm dark:bg-zinc-800">
           <SimpleState state={state} />
+        </div>
+      )}
+
+      {!isUser && avatar && (
+        <div className="mt-3 flex gap-2">
+          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
+            {avatar}
+          </div>
+          {state && (
+            <div className="h-24 w-24 overflow-hidden rounded-lg bg-stone-50 shadow-sm dark:bg-zinc-800">
+              <SimpleState state={state} />
+            </div>
+          )}
         </div>
       )}
     </li>

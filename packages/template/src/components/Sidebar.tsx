@@ -29,6 +29,7 @@ interface Arguments<ServerState extends BaseServerState> {
   apiUrl: string;
   appUrl: string;
   SimpleState: ComponentType<{ state: ServerState }>;
+  CompactSimpleState: ComponentType<{ state: ServerState }>;
   calculateCompletionPercentageFromState: (state: ServerState) => number;
   localAgentProgress?: AgentProgress[];
   onRemoveAgent?: (agentId: string) => void;
@@ -48,6 +49,7 @@ const Sidebar = <ServerState extends BaseServerState>({
   apiUrl,
   appUrl,
   SimpleState,
+  CompactSimpleState,
   calculateCompletionPercentageFromState,
   localAgentProgress,
   onRemoveAgent,
@@ -302,7 +304,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                   {!!localAgentProgress?.length && (
                     <AgentPartyRow
                       localAgentProgress={localAgentProgress}
-                      SimpleState={SimpleState}
+                      SimpleState={CompactSimpleState}
                       onRemoveAgent={onRemoveAgent}
                       onLeaveParty={onLeaveAgentParty}
                     />
