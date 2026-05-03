@@ -129,15 +129,10 @@ const Sudoku = ({
     ReturnType<typeof getAllAgentProgress>
   >([]);
 
-  const onRemoveAgent = useCallback((agentId: string) => {
-    setAgents((prev) => prev.filter((a) => a.id !== agentId));
-    setLocalAgentProgress((prev) => prev.filter((p) => p.agentId !== agentId));
-  }, []);
-
-  const onLeaveAgentParty = useCallback(() => {
-    setAgents([]);
-    setLocalAgentProgress([]);
-  }, []);
+  const [hasShownAppDownload, setHasShownAppDownload] = useState(false);
+  const [hasDismissedRacingPrompt, setHasDismissedRacingPrompt] =
+    useState(false);
+  const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(false);
 
   const {
     answer,
@@ -170,6 +165,8 @@ const Sudoku = ({
     setIsZoomMode,
     isPolling,
     isPaused,
+    setMode,
+    setAgentNames,
   } = useGameState({
     final,
     initial,
@@ -178,6 +175,26 @@ const Sudoku = ({
     app,
     apiUrl,
   });
+
+  const onRemoveAgent = useCallback(
+    (agentId: string) => {
+      setAgents((prev) => {
+        const next = prev.filter((a) => a.id !== agentId);
+        setAgentNames(next.map((a) => a.name).join(',') || undefined);
+        return next;
+      });
+      setLocalAgentProgress((prev) =>
+        prev.filter((p) => p.agentId !== agentId)
+      );
+    },
+    [setAgentNames]
+  );
+
+  const onLeaveAgentParty = useCallback(() => {
+    setAgents([]);
+    setAgentNames(undefined);
+    setLocalAgentProgress([]);
+  }, [setAgentNames]);
 
   useEffect(() => {
     if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
@@ -230,11 +247,6 @@ const Sudoku = ({
       return false;
     });
   }, [sessionParties, user?.sub]);
-
-  const [hasShownAppDownload, setHasShownAppDownload] = useState(false);
-  const [hasDismissedRacingPrompt, setHasDismissedRacingPrompt] =
-    useState(false);
-  const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(false);
 
   const showAppDownload = useMemo(
     () => !isCapacitor() && !hasShownAppDownload,
@@ -422,8 +434,9 @@ const Sudoku = ({
   // Racing prompt handlers
   const handleRaceMode = useCallback(() => {
     setHasManuallySelectedMode(true);
+    setMode('friends');
     setShowSidebar(true);
-  }, [setShowSidebar]);
+  }, [setMode, setShowSidebar]);
 
   const handlePickRivals = useCallback(() => {
     setPickRivalsView('agent-select');
@@ -435,7 +448,8 @@ const Sudoku = ({
     setAgents([]);
     setLocalAgentProgress([]);
     setHasManuallySelectedMode(true);
-  }, []);
+    setMode('solo');
+  }, [setMode]);
 
   const handleAgentMode = useCallback(
     (selectedAgentNames: string[]) => {
@@ -453,10 +467,19 @@ const Sudoku = ({
       setAgents(created);
       setLocalAgentProgress(getAllAgentProgress(created, null));
       setHasManuallySelectedMode(true);
+      setMode('ai');
+      setAgentNames(selectedAgentNames.join(','));
       setShowPickRivalsModal(false);
       setPickRivalsView('mode-select');
     },
-    [initial, final, difficultyMultiplier, metadata.difficulty]
+    [
+      initial,
+      final,
+      difficultyMultiplier,
+      metadata.difficulty,
+      setMode,
+      setAgentNames,
+    ]
   );
 
   // App download modal handlers

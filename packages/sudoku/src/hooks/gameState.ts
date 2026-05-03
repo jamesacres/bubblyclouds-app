@@ -15,6 +15,7 @@ import {
   SelectNumber,
   ServerState,
   SetAnswer,
+  SudokuMode,
 } from '../types/state';
 import { useLocalStorage } from '@bubblyclouds-app/template/hooks/localStorage';
 import { useSudokuServerStorage } from './useSudokuServerStorage';
@@ -109,6 +110,8 @@ function useGameState({
   const [isNotesMode, setIsNotesMode] = useState<boolean>(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const [isZoomMode, setIsZoomMode] = useState(false);
+  const [mode, setMode] = useState<SudokuMode | undefined>(undefined);
+  const [agentNames, setAgentNames] = useState<string | undefined>(undefined);
   const [{ answerStack, isRestored, isDisabled, completed }, setAnswerStack] =
     useState<{
       answerStack: Puzzle[];
@@ -644,7 +647,7 @@ function useGameState({
           initial,
           final,
           completed,
-          metadata,
+          metadata: { ...metadata, mode, agentNames },
         },
         isSaveServerValue
       );
@@ -666,6 +669,8 @@ function useGameState({
     completed,
     selectedCell,
     metadata,
+    mode,
+    agentNames,
     setSessionParties,
     handleServerResponse,
   ]);
@@ -841,6 +846,8 @@ function useGameState({
     isZoomMode,
     setIsZoomMode,
     isPaused,
+    setMode,
+    setAgentNames,
   };
 }
 

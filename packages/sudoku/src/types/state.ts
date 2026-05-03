@@ -11,12 +11,16 @@ export type SelectNumber = (_value: number, forceNotes?: boolean) => void;
 
 export type SetSelectedCell = (_cell: string | null) => void;
 
+export type SudokuMode = 'solo' | 'ai' | 'friends';
+
 // Sudoku-specific metadata type
 export interface GameStateMetadata {
   difficulty?: string;
   sudokuId?: string;
   sudokuBookPuzzleId?: string;
   scannedAt?: string;
+  mode?: SudokuMode;
+  agentNames?: string;
 }
 
 // Sudoku-specific type
