@@ -283,6 +283,9 @@ function useGameState({
   );
   const setAnswer: SetAnswer = useCallback(
     (value: number | Notes) => {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('sudoku-interaction'));
+      }
       if (selectedCell) {
         const { box, cell } = splitCellId(selectedCell);
         if (!initial[box.x][box.y][cell.x][cell.y]) {

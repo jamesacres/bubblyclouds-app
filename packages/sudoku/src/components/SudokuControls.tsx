@@ -144,6 +144,39 @@ const SudokuControls = ({
   const dragRef = useRef<HTMLDivElement>(null);
   const openingHintRef = useRef(false);
 
+  const hasShownRainbowNudgeRef = useRef<boolean>(false);
+  const [showRainbowNudge, setShowRainbowNudge] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const resetInactivityTimer = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    if (!hasShownRainbowNudgeRef.current) {
+      timeoutRef.current = setTimeout(() => {
+        hasShownRainbowNudgeRef.current = true;
+        setShowRainbowNudge(true);
+        setTimeout(() => {
+          setShowRainbowNudge(false);
+        }, 2000);
+      }, 30000);
+    }
+  }, []);
+
+  useEffect(() => {
+    resetInactivityTimer();
+
+    const handleInteraction = () => {
+      resetInactivityTimer();
+    };
+
+    window.addEventListener('sudoku-interaction', handleInteraction);
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      window.removeEventListener('sudoku-interaction', handleInteraction);
+    };
+  }, [resetInactivityTimer]);
+
   const handleAdvancedToggle = () => {
     if (!isDragging) {
       const newState = !showAdvanced;
@@ -519,7 +552,7 @@ const SudokuControls = ({
             <div className="flex-1">
               <button
                 onClick={handleHint}
-                className="flex cursor-pointer items-center gap-1 rounded-md bg-gray-100 px-1.5 py-1 text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
+                className={`${showRainbowNudge ? 'rainbow-border-wrap' : ''} flex cursor-pointer items-center gap-1 rounded-md bg-gray-100 px-1.5 py-1 text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500`}
               >
                 <MessageCircle size={10} />
                 Ask for help

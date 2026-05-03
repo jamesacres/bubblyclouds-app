@@ -254,7 +254,7 @@ body {
     #8b00ff,
     #ff0000
   );
-  animation: rainbowTravel 2s linear infinite;
+  animation: rainbowTravel 2s linear;
   z-index: -1;
 }
 
