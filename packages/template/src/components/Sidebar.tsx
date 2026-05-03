@@ -75,6 +75,9 @@ const Sidebar = <ServerState extends BaseServerState>({
   } = useParties({ refreshSessionParties });
 
   const scrollRef = useRef<HTMLDivElement>(null);
+  const teamListRef = useRef<HTMLUListElement>(null);
+  const newTeamRef = useRef<HTMLLIElement>(null);
+  const teamsHeadingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (showCreateParty) {
@@ -205,7 +208,26 @@ const Sidebar = <ServerState extends BaseServerState>({
                   className="w-full"
                   onSubmit={(event) => {
                     event.preventDefault();
-                    saveParty({ memberNickname, partyName });
+                    saveParty({ memberNickname, partyName }).then(() => {
+                      setTimeout(() => {
+                        if (newTeamRef.current && scrollRef.current) {
+                          const containerRect =
+                            scrollRef.current.getBoundingClientRect();
+                          const itemRect =
+                            newTeamRef.current.getBoundingClientRect();
+                          const headingHeight =
+                            teamsHeadingRef.current?.offsetHeight ?? 0;
+                          scrollRef.current.scrollTo({
+                            top:
+                              scrollRef.current.scrollTop +
+                              itemRect.top -
+                              containerRect.top -
+                              headingHeight,
+                            behavior: 'smooth',
+                          });
+                        }
+                      }, 0);
+                    });
                   }}
                 >
                   <label
@@ -274,7 +296,10 @@ const Sidebar = <ServerState extends BaseServerState>({
             {(!!localAgentProgress?.length || (user && !!parties.length)) && (
               <>
                 <div className="my-6 h-px bg-stone-300 dark:bg-gray-700" />
-                <div className="sticky top-0 z-10 mb-4 flex items-center justify-between bg-stone-100 px-1 py-2 dark:bg-zinc-900/25">
+                <div
+                  ref={teamsHeadingRef}
+                  className="sticky top-0 z-10 mb-4 flex items-center justify-between bg-stone-100 px-1 py-2 dark:bg-zinc-900/25"
+                >
                   <h2 className="text-base font-semibold text-stone-700 dark:text-zinc-200">
                     Opponents &amp; Teams
                   </h2>
@@ -300,7 +325,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                   </p>
                 )}
 
-                <ul className="space-y-4 pb-32">
+                <ul ref={teamListRef} className="space-y-4 pb-32">
                   {!!localAgentProgress?.length && (
                     <AgentPartyRow
                       localAgentProgress={localAgentProgress}
@@ -308,6 +333,9 @@ const Sidebar = <ServerState extends BaseServerState>({
                       onRemoveAgent={onRemoveAgent}
                       onLeaveParty={onLeaveAgentParty}
                     />
+                  )}
+                  {user && !!parties.length && (
+                    <li ref={newTeamRef} className="sr-only" aria-hidden />
                   )}
                   {user &&
                     parties
