@@ -36,6 +36,7 @@ interface Arguments<T> {
   ) => number;
   isPuzzleCheated: (answerStack: T[]) => boolean;
   localAgentProgress?: AgentProgress[];
+  onInviteFriends?: () => void;
 }
 
 interface PlayerProgress {
@@ -62,6 +63,7 @@ const RaceTrack = <T,>({
   calculateCompletionPercentage,
   isPuzzleCheated,
   localAgentProgress,
+  onInviteFriends,
 }: Arguments<T>) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
@@ -524,7 +526,7 @@ const RaceTrack = <T,>({
                   </div>
                 </div>
                 <button
-                  onClick={onClick}
+                  onClick={onInviteFriends || onClick}
                   className="inline-flex shrink-0 cursor-pointer items-center rounded-xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-gray-700 active:scale-[0.98] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
                 >
                   <span className="mr-1.5" role="img" aria-label="racing">

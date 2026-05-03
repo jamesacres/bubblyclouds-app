@@ -1,7 +1,32 @@
 # TODO
 
-fix generate timeline once not once per agent
-time to paint for agents
+# Framework
+
+- remove electron and add https://blackboard.sh/electrobun/docs/
+
+# Apps
+
+## Blog
+
+- fix stephen music album images not loading with quotes
+- update projects
+- write ai tool progress over past year since last post and learnings
+- write retro post
+- update stephens ratings, and add his long form content
+- tidy up new home assistant post
+
+## Sudoku
+
+Fix sudoku book cover not being a square sudoku
+Test and fix native
+Solver Test coverage
+Solver PR review
+
+### Features
+
+- Add contact + manage subscription link
+  https://www.revenuecat.com/docs/subscription-guidance/managing-subscriptions#using-the-managementurl-to-help-customers-cancel-a-subscription
+- Add credits to readme and about section - add own solver
 
 ## v3 ideas
 - avatar selection for self, see other peoples
@@ -13,7 +38,6 @@ time to paint for agents
 - if auth data stored without app version - start storing app version locally
 - now with sudoku intelligence
 - homepage sell the new intelligent hint conversation, and agents in local race
-- hint button rainbow effect shows after 1 minute of no completed cells?
 - what's new popup showing the new features when they open the app
 - say support leave a review or email
 
@@ -25,37 +49,11 @@ time to paint for agents
 - solver option for the import, some people will just want to solve and learn
 - fix invalid puzzle book front cover
 
-- fix stephen music album images not loading with quotes
-- fix sudoku import
-
-# Framework
-
-- usage analytics from db
-- remove electron and add https://blackboard.sh/electrobun/docs/
-
-# Apps
-
-## Blog
-
-- update projects
-- write ai tool progress over past year since last post and learnings
-- write retro post
-- update stephens ratings, and add his long form content
-- tidy up new home assistant post
-
-## Sudoku
-
-### Features
-
-- add solver, hint, education
-- Add contact + manage subscription link
-  https://www.revenuecat.com/docs/subscription-guidance/managing-subscriptions#using-the-managementurl-to-help-customers-cancel-a-subscription
-- Add credits to readme and about section - sudoku coach generator, qqwing for
-- Start button clear CTA then ask how difficult, remove the social ticker.
 - Check cell/grid Feature cost points on leaderboard
 
 ### Bugs
 
+- fix sudoku import
 - Sign in button on invite page header should redirect back to the invite
 - fix electron auth
 

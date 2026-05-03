@@ -5,6 +5,7 @@ import {
   useRef,
   ComponentType,
   ReactElement,
+  useCallback,
 } from 'react';
 import { Bot, Loader, RefreshCw, Users, X } from 'lucide-react';
 import { PartyRow } from './PartyRow';
@@ -35,6 +36,7 @@ interface Arguments<ServerState extends BaseServerState> {
   onRemoveAgent?: (agentId: string) => void;
   onLeaveAgentParty?: () => void;
   onPickRivals?: () => void;
+  scrollRequest?: number;
 }
 
 const Sidebar = <ServerState extends BaseServerState>({
@@ -55,6 +57,7 @@ const Sidebar = <ServerState extends BaseServerState>({
   onRemoveAgent,
   onLeaveAgentParty,
   onPickRivals,
+  scrollRequest,
 }: Arguments<ServerState>) => {
   const context = useContext(UserContext);
   const { user, loginRedirect } = context || {};
@@ -79,11 +82,33 @@ const Sidebar = <ServerState extends BaseServerState>({
   const newTeamRef = useRef<HTMLLIElement>(null);
   const teamsHeadingRef = useRef<HTMLDivElement>(null);
 
+  const scrollToTeams = useCallback(() => {
+    if (newTeamRef.current && scrollRef.current) {
+      const containerRect = scrollRef.current.getBoundingClientRect();
+      const itemRect = newTeamRef.current.getBoundingClientRect();
+      const headingHeight = teamsHeadingRef.current?.offsetHeight ?? 0;
+      scrollRef.current.scrollTo({
+        top:
+          scrollRef.current.scrollTop +
+          itemRect.top -
+          containerRect.top -
+          headingHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, []);
+
   useEffect(() => {
     if (showCreateParty) {
       scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [showCreateParty]);
+
+  useEffect(() => {
+    if (scrollRequest) {
+      setTimeout(scrollToTeams, 150);
+    }
+  }, [scrollRequest, scrollToTeams]);
 
   return (
     <>
@@ -209,24 +234,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                   onSubmit={(event) => {
                     event.preventDefault();
                     saveParty({ memberNickname, partyName }).then(() => {
-                      setTimeout(() => {
-                        if (newTeamRef.current && scrollRef.current) {
-                          const containerRect =
-                            scrollRef.current.getBoundingClientRect();
-                          const itemRect =
-                            newTeamRef.current.getBoundingClientRect();
-                          const headingHeight =
-                            teamsHeadingRef.current?.offsetHeight ?? 0;
-                          scrollRef.current.scrollTo({
-                            top:
-                              scrollRef.current.scrollTop +
-                              itemRect.top -
-                              containerRect.top -
-                              headingHeight,
-                            behavior: 'smooth',
-                          });
-                        }
-                      }, 0);
+                      setTimeout(scrollToTeams, 0);
                     });
                   }}
                 >
@@ -334,9 +342,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                       onLeaveParty={onLeaveAgentParty}
                     />
                   )}
-                  {user && !!parties.length && (
-                    <li ref={newTeamRef} className="sr-only" aria-hidden />
-                  )}
+                  <li ref={newTeamRef} className="sr-only" aria-hidden />
                   {user &&
                     parties
                       .sort(

@@ -227,6 +227,13 @@ const Sudoku = ({
     [setShowSidebar]
   );
 
+  const [sidebarScrollRequest, setSidebarScrollRequest] = useState<number>(0);
+
+  const handleInviteFriends = useCallback(() => {
+    setShowSidebar(true);
+    setSidebarScrollRequest(Date.now());
+  }, [setShowSidebar]);
+
   // Reference to the grid for the celebration animation and chain overlay
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -633,6 +640,7 @@ const Sudoku = ({
         onRemoveAgent={onRemoveAgent}
         onLeaveAgentParty={onLeaveAgentParty}
         onPickRivals={handlePickRivals}
+        scrollRequest={sidebarScrollRequest}
       />
 
       {/* Display celebration animation when completed */}
@@ -750,6 +758,7 @@ const Sudoku = ({
                   calculateCompletionPercentage={calculateCompletionPercentage}
                   isPuzzleCheated={isPuzzleCheated}
                   localAgentProgress={localAgentProgress}
+                  onInviteFriends={handleInviteFriends}
                 />
               )}
             </div>
