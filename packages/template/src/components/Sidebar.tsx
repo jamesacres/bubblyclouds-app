@@ -29,7 +29,7 @@ interface Arguments<ServerState extends BaseServerState> {
   apiUrl: string;
   appUrl: string;
   SimpleState: ComponentType<{ state: ServerState }>;
-  CompactSimpleState: ComponentType<{ state: ServerState }>;
+  CompactSimpleState?: ComponentType<{ state: ServerState }>;
   calculateCompletionPercentageFromState: (state: ServerState) => number;
   localAgentProgress?: AgentProgress[];
   onRemoveAgent?: (agentId: string) => void;
@@ -49,7 +49,7 @@ const Sidebar = <ServerState extends BaseServerState>({
   apiUrl,
   appUrl,
   SimpleState,
-  CompactSimpleState,
+  CompactSimpleState = SimpleState,
   calculateCompletionPercentageFromState,
   localAgentProgress,
   onRemoveAgent,
