@@ -30,11 +30,11 @@ export function createAgentTimeline(
   final: Puzzle<number>,
   config: AgentConfig,
   difficultyMultiplier: number = 1.0,
-  difficulty?: Difficulty | BookPuzzleDifficulty | string
+  difficulty?: Difficulty | BookPuzzleDifficulty | string,
+  precalculatedHints?: ReturnType<typeof humanSolve>['steps']
 ): AgentTimeline {
   try {
-    const initialGrid = puzzleToGrid(initial);
-    const { steps: hints } = humanSolve(initialGrid);
+    const hints = precalculatedHints ?? humanSolve(puzzleToGrid(initial)).steps;
 
     if (hints.length === 0) {
       return { steps: [], totalDuration: 0 };
@@ -123,6 +123,9 @@ export function createLocalAgents(
   difficultyMultiplier: number = 1.0,
   difficulty?: Difficulty | BookPuzzleDifficulty | string
 ): LocalAgent[] {
+  const initialGrid = puzzleToGrid(initial);
+  const { steps: precalculatedHints } = humanSolve(initialGrid);
+
   return agentConfigs.reduce<LocalAgent[]>((acc, config, index) => {
     try {
       acc.push({
@@ -135,7 +138,8 @@ export function createLocalAgents(
           final,
           config,
           difficultyMultiplier,
-          difficulty
+          difficulty,
+          precalculatedHints
         ),
       });
     } catch (error) {
