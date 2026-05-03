@@ -3,7 +3,36 @@ import {
   Difficulty,
   BookPuzzleDifficulty,
 } from '@bubblyclouds-app/games/types/difficulty';
-import { TimingCurve, TimingState } from '../types/Agent';
+import { DreyfusLevel, TimingCurve, TimingState } from '../types/Agent';
+
+const mins = (m: number) => m * 60000;
+
+// Three-point bounds from real user data: [fastest, median, slowest].
+// Competent and above draw from [fastest, median]; beginners draw from [median, slowest].
+// Extreme outlier slowest times are capped to keep Novice times reasonable.
+export const DIFFICULTY_SOLVE_BOUNDS_MS: Record<
+  Difficulty | BookPuzzleDifficulty,
+  [number, number, number]
+> = {
+  // Sudoku of the Day: [fastest paid user, median, capped slowest]
+  [Difficulty.SIMPLE]: [mins(4.9), mins(7.72), mins(35)],
+  [Difficulty.EASY]: [mins(4.25), mins(8.85), mins(45)], // actual slowest 2419m — capped
+  [Difficulty.INTERMEDIATE]: [mins(6.4), mins(9.43), mins(42)],
+  [Difficulty.EXPERT]: [mins(8), mins(13), mins(50)], // no data — extrapolated
+
+  // Sudoku Book: [fastest paid user, median, capped slowest]
+  [BookPuzzleDifficulty.VERY_EASY]: [mins(3), mins(4.03), mins(10)],
+  [BookPuzzleDifficulty.EASY]: [mins(4), mins(6), mins(23)],
+  [BookPuzzleDifficulty.MODERATELY_EASY]: [mins(4), mins(10.15), mins(31)],
+  [BookPuzzleDifficulty.MODERATE]: [mins(6.65), mins(10.82), mins(31)],
+  [BookPuzzleDifficulty.MODERATELY_HARD]: [mins(7.87), mins(10.52), mins(45)], // actual 71m — capped
+  [BookPuzzleDifficulty.HARD]: [mins(7.13), mins(9.97), mins(35)], // actual 53m — capped
+  [BookPuzzleDifficulty.VICIOUS]: [mins(10.43), mins(17.6), mins(60)], // actual 289m — capped
+  [BookPuzzleDifficulty.FIENDISH]: [mins(10.1), mins(17.62), mins(60)], // actual 114m — capped
+  [BookPuzzleDifficulty.DEVILISH]: [mins(12), mins(19), mins(70)], // only 2 records — extrapolated above Fiendish
+  [BookPuzzleDifficulty.HELL]: [mins(14), mins(22), mins(80)], // 1 record — extrapolated above Devilish
+  [BookPuzzleDifficulty.BEYOND_HELL]: [mins(16), mins(25), mins(90)], // 1 completion — extrapolated above Hell
+};
 
 export const BASE_TIMES: Record<Technique, number> = {
   nakedSingle: 1500,
@@ -86,6 +115,50 @@ export function difficultyToMultiplier(
     DIFFICULTY_MULTIPLIERS[difficulty as Difficulty | BookPuzzleDifficulty] ??
     1.0
   );
+}
+
+export function difficultyToSolveBounds(
+  difficulty: Difficulty | BookPuzzleDifficulty | string | undefined
+): [number, number, number] | undefined {
+  if (!difficulty) return undefined;
+  return DIFFICULTY_SOLVE_BOUNDS_MS[
+    difficulty as Difficulty | BookPuzzleDifficulty
+  ];
+}
+
+// Competent and above draw randomly within [fastest, median].
+// AdvancedBeginner and Novice draw randomly within [median, slowest].
+// Bands within each half give finer control so skill levels are clearly ordered.
+const SKILL_LEVEL_BAND: Record<DreyfusLevel, [number, number]> = {
+  [DreyfusLevel.Expert]: [0.0, 0.3],
+  [DreyfusLevel.Proficient]: [0.4, 0.7],
+  [DreyfusLevel.Competent]: [0.65, 1.0],
+  [DreyfusLevel.AdvancedBeginner]: [0.4, 0.65],
+  [DreyfusLevel.Novice]: [0.8, 1.0],
+};
+
+// Competent and above are positioned within [fastest, median].
+// AdvancedBeginner and Novice are positioned within [median, slowest].
+const USES_SLOW_HALF = new Set<DreyfusLevel>([
+  DreyfusLevel.AdvancedBeginner,
+  DreyfusLevel.Novice,
+]);
+
+export function skillLevelTargetDuration(
+  skillLevel: DreyfusLevel,
+  bounds: [number, number, number]
+): number {
+  const [fastestMs, medianMs, slowestMs] = bounds;
+  const [lo, hi] = SKILL_LEVEL_BAND[skillLevel];
+  const position = lo + Math.random() * (hi - lo);
+  if (USES_SLOW_HALF.has(skillLevel)) {
+    return medianMs + (slowestMs - medianMs) * position;
+  }
+  const raw = fastestMs + (medianMs - fastestMs) * position;
+  if (skillLevel === DreyfusLevel.Competent) {
+    return Math.max(raw, medianMs - 60000);
+  }
+  return raw;
 }
 
 // Early in the puzzle, the board is sparse — scanning for candidates and

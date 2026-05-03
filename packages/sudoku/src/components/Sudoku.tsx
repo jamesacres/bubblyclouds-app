@@ -53,6 +53,7 @@ import ChainOverlay from '../components/ChainOverlay';
 import { createLocalAgents } from '../helpers/agentTimeline';
 import { getAllAgentProgress } from '../helpers/agentProgress';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
+import { DreyfusLevel } from '../types/Agent';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
@@ -103,20 +104,17 @@ const Sudoku = ({
   const difficultyMultiplier = difficultyToMultiplier(metadata.difficulty);
 
   const [defaultAgentSelection] = useState<string[]>(() => {
-    const fixed = ['Bumblebee', 'Sage'];
-    const fixedLevels = new Set(
-      DEFAULT_AGENT_CONFIGS.filter((c) => fixed.includes(c.name)).map(
-        (c) => c.skillLevel
-      )
-    );
-    const candidates = DEFAULT_AGENT_CONFIGS.filter(
-      (c) => !fixed.includes(c.name) && !fixedLevels.has(c.skillLevel)
-    );
-    if (candidates.length > 0) {
-      const pick = candidates[Math.floor(Math.random() * candidates.length)];
-      return [...fixed, pick.name];
-    }
-    return fixed;
+    const pickFromLevel = (level: DreyfusLevel) => {
+      const pool = DEFAULT_AGENT_CONFIGS.filter((c) => c.skillLevel === level);
+      return pool[Math.floor(Math.random() * pool.length)].name;
+    };
+    return [
+      pickFromLevel(DreyfusLevel.Novice),
+      pickFromLevel(DreyfusLevel.AdvancedBeginner),
+      pickFromLevel(DreyfusLevel.Competent),
+      pickFromLevel(DreyfusLevel.Proficient),
+      pickFromLevel(DreyfusLevel.Expert),
+    ];
   });
 
   const agentStartTimeMsRef = useRef<number | null>(null);
@@ -445,7 +443,8 @@ const Sudoku = ({
         initial,
         final,
         selectedConfigs,
-        difficultyMultiplier
+        difficultyMultiplier,
+        metadata.difficulty
       );
       setAgents(created);
       setLocalAgentProgress(getAllAgentProgress(created, null));
@@ -453,7 +452,7 @@ const Sudoku = ({
       setShowPickRivalsModal(false);
       setPickRivalsView('mode-select');
     },
-    [initial, final, difficultyMultiplier]
+    [initial, final, difficultyMultiplier, metadata.difficulty]
   );
 
   // App download modal handlers

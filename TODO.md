@@ -17,7 +17,7 @@ One risk to flag:
 
 If the bot is too easy to beat, it loses novelty fast. If it's too hard, it's
 discouraging. The data shows your paid users' median solve times (7–17 min
-depending on difficulty) — a bot calibrated to that range would give free users
+depending on difficulty) — a bot calibrated to that range would give users
 something to aspire to rather than something to beat once and forget.
 
 Action: Target users with 4+ sessions and/or party membership with a "play one

@@ -15,13 +15,22 @@ import {
 } from '../types/Agent';
 import { ServerState } from '../types/state';
 import { canAgentUseTechnique } from './techniqueCategories';
-import { calculateExecutionTime } from './techniqueTiming';
+import {
+  calculateExecutionTime,
+  difficultyToSolveBounds,
+  skillLevelTargetDuration,
+} from './techniqueTiming';
+import {
+  Difficulty,
+  BookPuzzleDifficulty,
+} from '@bubblyclouds-app/games/types/difficulty';
 
 export function createAgentTimeline(
   initial: Puzzle<number>,
   final: Puzzle<number>,
   config: AgentConfig,
-  difficultyMultiplier: number = 1.0
+  difficultyMultiplier: number = 1.0,
+  difficulty?: Difficulty | BookPuzzleDifficulty | string
 ): AgentTimeline {
   try {
     const initialGrid = puzzleToGrid(initial);
@@ -77,7 +86,25 @@ export function createAgentTimeline(
       steps.push(step);
     }
 
-    return { steps, totalDuration: currentTime };
+    const totalDuration = currentTime;
+
+    // Rescale all timestamps so the agent finishes at a target duration derived
+    // from human stats. Each skill level maps to a fixed point in [min, max]:
+    // Novice → slowest end, Expert → fastest end.
+    const bounds = difficultyToSolveBounds(difficulty);
+    if (bounds && totalDuration > 0) {
+      const targetDuration = skillLevelTargetDuration(
+        config.skillLevel,
+        bounds
+      );
+      const scale = targetDuration / totalDuration;
+      for (const step of steps) {
+        step.timestamp = Math.round(step.timestamp * scale);
+      }
+      return { steps, totalDuration: targetDuration };
+    }
+
+    return { steps, totalDuration };
   } catch (error) {
     console.error(
       'createAgentTimeline failed for agent',
@@ -93,7 +120,8 @@ export function createLocalAgents(
   initial: Puzzle<number>,
   final: Puzzle<number>,
   agentConfigs: AgentConfig[],
-  difficultyMultiplier: number = 1.0
+  difficultyMultiplier: number = 1.0,
+  difficulty?: Difficulty | BookPuzzleDifficulty | string
 ): LocalAgent[] {
   return agentConfigs.reduce<LocalAgent[]>((acc, config, index) => {
     try {
@@ -106,7 +134,8 @@ export function createLocalAgents(
           initial,
           final,
           config,
-          difficultyMultiplier
+          difficultyMultiplier,
+          difficulty
         ),
       });
     } catch (error) {
