@@ -5,12 +5,12 @@ import { RevenueCatContext } from '../providers/RevenueCatProvider';
 
 const mockFeatures = [
   {
-    icon: <div data-testid="icon1">Icon1</div>,
+    icon: () => <div data-testid="icon1">Icon1</div>,
     title: '🏁 Unlimited play and race',
     description: 'Race friends in real-time more than once a day',
   },
   {
-    icon: <div data-testid="icon2">Icon2</div>,
+    icon: () => <div data-testid="icon2">Icon2</div>,
     title: 'Create and join multiple racing teams',
     description: 'Host private competitions with friends and family',
   },
