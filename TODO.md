@@ -27,7 +27,6 @@ Solver PR review
 
 - Add contact + manage subscription link
   https://www.revenuecat.com/docs/subscription-guidance/managing-subscriptions#using-the-managementurl-to-help-customers-cancel-a-subscription
-- Add credits to readme and about section - add own solver
 
 ## v3 ideas
 - avatar selection for self, see other peoples
