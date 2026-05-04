@@ -361,40 +361,40 @@ importers:
         version: link:../../packages/ui
       '@capacitor-community/in-app-review':
         specifier: ^8.0.0
-        version: 8.0.0(@capacitor/core@8.3.0)
+        version: 8.0.0(@capacitor/core@8.3.1)
       '@capacitor/android':
-        specifier: ^8.3.0
-        version: 8.3.0(@capacitor/core@8.3.0)
+        specifier: ^8.3.1
+        version: 8.3.1(@capacitor/core@8.3.1)
       '@capacitor/app':
         specifier: ^8.1.0
-        version: 8.1.0(@capacitor/core@8.3.0)
+        version: 8.1.0(@capacitor/core@8.3.1)
       '@capacitor/assets':
         specifier: ^3.0.5
         version: 3.0.5(@types/node@24.12.2)(encoding@0.1.13)(typescript@5.9.3)
       '@capacitor/browser':
         specifier: ^8.0.3
-        version: 8.0.3(@capacitor/core@8.3.0)
+        version: 8.0.3(@capacitor/core@8.3.1)
       '@capacitor/cli':
-        specifier: ^8.3.0
-        version: 8.3.0
+        specifier: ^8.3.1
+        version: 8.3.1
       '@capacitor/core':
-        specifier: ^8.3.0
-        version: 8.3.0
+        specifier: ^8.3.1
+        version: 8.3.1
       '@capacitor/ios':
-        specifier: ^8.3.0
-        version: 8.3.0(@capacitor/core@8.3.0)
+        specifier: ^8.3.1
+        version: 8.3.1(@capacitor/core@8.3.1)
       '@capacitor/keyboard':
-        specifier: ^8.0.2
-        version: 8.0.2(@capacitor/core@8.3.0)
+        specifier: ^8.0.3
+        version: 8.0.3(@capacitor/core@8.3.1)
       '@capacitor/share':
         specifier: ^8.0.1
-        version: 8.0.1(@capacitor/core@8.3.0)
+        version: 8.0.1(@capacitor/core@8.3.1)
       '@capacitor/status-bar':
         specifier: ^8.0.2
-        version: 8.0.2(@capacitor/core@8.3.0)
+        version: 8.0.2(@capacitor/core@8.3.1)
       '@revenuecat/purchases-capacitor':
         specifier: ^12.3.1
-        version: 12.3.1(@capacitor/core@8.3.0)
+        version: 12.3.1(@capacitor/core@8.3.1)
       '@tensorflow/tfjs':
         specifier: ^4.22.0
         version: 4.22.0(encoding@0.1.13)(seedrandom@3.0.5)
@@ -403,7 +403,7 @@ importers:
         version: 4.22.0(@tensorflow/tfjs-core@4.22.0(encoding@0.1.13))
       capacitor-secure-storage-plugin:
         specifier: ^0.13.0
-        version: 0.13.0(@capacitor/core@8.3.0)
+        version: 0.13.0(@capacitor/core@8.3.1)
       electron:
         specifier: ^30.5.1
         version: 30.5.1
@@ -512,10 +512,10 @@ importers:
         version: link:../ui
       '@capacitor/browser':
         specifier: ^8.0.3
-        version: 8.0.3(@capacitor/core@8.3.0)
+        version: 8.0.3(@capacitor/core@8.3.1)
       '@capacitor/core':
-        specifier: ^8.3.0
-        version: 8.3.0
+        specifier: ^8.3.1
+        version: 8.3.1
       '@headlessui/react':
         specifier: ^2.2.9
         version: 2.2.9(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -828,28 +828,28 @@ importers:
         version: link:../ui
       '@capacitor/app':
         specifier: ^8.1.0
-        version: 8.1.0(@capacitor/core@8.3.0)
+        version: 8.1.0(@capacitor/core@8.3.1)
       '@capacitor/browser':
         specifier: ^8.0.3
-        version: 8.0.3(@capacitor/core@8.3.0)
+        version: 8.0.3(@capacitor/core@8.3.1)
       '@capacitor/core':
-        specifier: ^8.3.0
-        version: 8.3.0
+        specifier: ^8.3.1
+        version: 8.3.1
       '@capacitor/status-bar':
         specifier: ^8.0.2
-        version: 8.0.2(@capacitor/core@8.3.0)
+        version: 8.0.2(@capacitor/core@8.3.1)
       '@headlessui/react':
         specifier: ^2.2.9
         version: 2.2.9(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@revenuecat/purchases-capacitor':
         specifier: ^12.3.1
-        version: 12.3.1(@capacitor/core@8.3.0)
+        version: 12.3.1(@capacitor/core@8.3.1)
       '@revenuecat/purchases-js':
         specifier: ^1.30.0
         version: 1.30.0
       capacitor-secure-storage-plugin:
         specifier: ^0.13.0
-        version: 0.13.0(@capacitor/core@8.3.0)
+        version: 0.13.0(@capacitor/core@8.3.1)
       lucide-react:
         specifier: ^0.563.0
         version: 0.563.0(react@19.2.4)
@@ -958,16 +958,16 @@ importers:
         version: link:../types
       '@capacitor-community/in-app-review':
         specifier: ^8.0.0
-        version: 8.0.0(@capacitor/core@8.3.0)
+        version: 8.0.0(@capacitor/core@8.3.1)
       '@capacitor/core':
-        specifier: ^8.3.0
-        version: 8.3.0
+        specifier: ^8.3.1
+        version: 8.3.1
       '@capacitor/share':
         specifier: ^8.0.1
-        version: 8.0.1(@capacitor/core@8.3.0)
+        version: 8.0.1(@capacitor/core@8.3.1)
       '@capacitor/status-bar':
         specifier: ^8.0.2
-        version: 8.0.2(@capacitor/core@8.3.0)
+        version: 8.0.2(@capacitor/core@8.3.1)
       '@headlessui/react':
         specifier: ^2.2.9
         version: 2.2.9(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -1231,8 +1231,8 @@ packages:
     peerDependencies:
       '@capacitor/core': '>=8.0.0'
 
-  '@capacitor/android@8.3.0':
-    resolution: {integrity: sha512-EQy6ByUuKayQBJmMm/e0byJiHavqsQHrvW23BuT2GNVQvenAvipqwaePiJHzrv2PZr7A0T0+se4kgDCeROj0mQ==}
+  '@capacitor/android@8.3.1':
+    resolution: {integrity: sha512-hjskIG8YcBEh3X4yaTXvE9gcqpdcxunTgFruSKnuPxtMxAUzEK4Oq25x0Z1g3cz+MQPc+lRG09R7Ovc+ydKsNw==}
     peerDependencies:
       '@capacitor/core': ^8.3.0
 
@@ -1256,21 +1256,21 @@ packages:
     engines: {node: '>=16.0.0'}
     hasBin: true
 
-  '@capacitor/cli@8.3.0':
-    resolution: {integrity: sha512-n3QDUimtFNbagoo8kLdjvTz3i3Y4jX1fOjvo6ptUKLzErmuqeamL8kECASoyQvg/OzJisZToGZrgLphBsptJcw==}
+  '@capacitor/cli@8.3.1':
+    resolution: {integrity: sha512-1sPGW4THTDfR6YjXwZ0jM7oAfAtciPOHN00qs/3sNAQx1kKrrEYSfDPwCm1/xlAgi0OeL69SiRfw314Ans+1sw==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
-  '@capacitor/core@8.3.0':
-    resolution: {integrity: sha512-S4ajn4G/fS3VJj8salxqH/3LO5PPWv1VxGKQ27OCajnDcLJjEg9VXwgMPnlypgkIOqCJ2fmQLtk8GT+BlI9/rw==}
+  '@capacitor/core@8.3.1':
+    resolution: {integrity: sha512-UF8ItlHguU1Z6GXfPTeT2gakf+ctNI8pAS1kwSBQlsJMlfD4OPoto/SmKnOxKCQvnF4WRcdWeg6C0zREUNaAQg==}
 
-  '@capacitor/ios@8.3.0':
-    resolution: {integrity: sha512-5Rtwv8SITKlYTt8lAZG+khnVIdzPtqbocH3eP+JkEmX1vpSMwx4TOKtT8OBz8gpQ+pUJDRp7DBYOv3U6l/obCw==}
+  '@capacitor/ios@8.3.1':
+    resolution: {integrity: sha512-BEhLyYYHWJLib4mpaPMaaylbC8meqgxbNYwQJH2svsSLW7yo/hFie+Zoo66a44XnqcMd2tvmAuzimWunXZi/xA==}
     peerDependencies:
       '@capacitor/core': ^8.3.0
 
-  '@capacitor/keyboard@8.0.2':
-    resolution: {integrity: sha512-he6xKmTBp5AhVrWJeEi6RYkJ25FjLLdNruBU2wafpITk3Nb7UdzOj96x3K6etFuEj8/rtn9WXBTs1o2XA86A1A==}
+  '@capacitor/keyboard@8.0.3':
+    resolution: {integrity: sha512-27Bv5/2w1Ss2njguBgTS98O0Bb8DRJhAARyzXYib0JlT/n6BrJw/EZ0CokM4C8GFUjFDjJnEKF1Ie01buTMEXQ==}
     peerDependencies:
       '@capacitor/core': '>=8.0.0'
 
@@ -1667,6 +1667,10 @@ packages:
 
   '@istanbuljs/schema@0.1.3':
     resolution: {integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==}
+    engines: {node: '>=8'}
+
+  '@istanbuljs/schema@0.1.6':
+    resolution: {integrity: sha512-+Sg6GCR/wy1oSmQDFq4LQDAhm3ETKnorxN+y5nbLULOR3P0c14f2Wurzj3/xqPXtasLFfHd5iRFQ7AJt4KH2cw==}
     engines: {node: '>=8'}
 
   '@jest/console@29.7.0':
@@ -4510,8 +4514,8 @@ packages:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
     engines: {node: '>= 0.4'}
 
-  ip-address@10.1.0:
-    resolution: {integrity: sha512-XXADHxXmvT9+CRxhXg56LJovE+bmWnEWB78LB83VZTprKTmaC5QfruXocxzTZ2Kl0DNwKuBdlIhjL8LeY8Sf8Q==}
+  ip-address@10.2.0:
+    resolution: {integrity: sha512-/+S6j4E9AHvW9SWMSEY9Xfy66O5PWvVEJ08O0y5JGyEKQpojb0K0GKpz/v5HJ/G0vi3D2sjGK78119oXZeE0qA==}
     engines: {node: '>= 12'}
 
   is-alphabetical@2.0.1:
@@ -5604,8 +5608,8 @@ packages:
     resolution: {integrity: sha512-6u9UwL0HlAl21+agMN3YAMXcKByMqwGx+pq+P76vii5f7hTPtKDp08/H9py6DY+cfDw7kQNTGEj/rly3IgbNQA==}
     engines: {node: '>=10'}
 
-  node-abi@4.28.0:
-    resolution: {integrity: sha512-Qfp5XZL1cJDOabOT8H5gnqMTmM4NjvYzHp4I/Kt/Sl76OVkOBBHRFlPspGV0hYvMoqQsypFjT/Yp7Km0beXW9g==}
+  node-abi@4.29.0:
+    resolution: {integrity: sha512-bGc7hHz6lrdpMqH3XqfiHc5PKzEhjgUj6OLpTXynkLi9JZKyMByI/tdpm4Liu6O2BjtE1lakBWXjOQS1EnSQLQ==}
     engines: {node: '>=22.12.0'}
 
   node-addon-api@1.7.2:
@@ -6488,8 +6492,8 @@ packages:
     resolution: {integrity: sha512-HehCEsotFqbPW9sJ8WVYB6UbmIMv7kUUORIF2Nncq4VQvBfNBLibW9YZR5dlYCSUhwcD628pRllm7n+E+YTzJw==}
     engines: {node: '>= 14'}
 
-  socks@2.8.7:
-    resolution: {integrity: sha512-HLpt+uLy/pxB+bum/9DzAgiKS8CX1EvbWxI4zlmgGCExImLdiad2iCwXT5Z4c9c3Eq8rP2318mPW2c+QbtjK8A==}
+  socks@2.8.8:
+    resolution: {integrity: sha512-NlGELfPrgX2f1TAAcz0WawlLn+0r3FyhhCRpFFK2CemXenPYvzMWWZINv3eDNo9ucdwme7oCHRY0Jnbs4aIkog==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
 
   source-map-js@1.2.1:
@@ -6797,6 +6801,10 @@ packages:
 
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
+    engines: {node: '>=12.0.0'}
+
+  tinyglobby@0.2.16:
+    resolution: {integrity: sha512-pn99VhoACYR8nFHhxqix+uvsbXineAasWm5ojXoN8xEwK5Kd3/TrhNn1wByuD52UxWRLy8pu+kRMniEi6Eq9Zg==}
     engines: {node: '>=12.0.0'}
 
   tldts-core@6.1.86:
@@ -7579,17 +7587,17 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@capacitor-community/in-app-review@8.0.0(@capacitor/core@8.3.0)':
+  '@capacitor-community/in-app-review@8.0.0(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
-  '@capacitor/android@8.3.0(@capacitor/core@8.3.0)':
+  '@capacitor/android@8.3.1(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
-  '@capacitor/app@8.1.0(@capacitor/core@8.3.0)':
+  '@capacitor/app@8.1.0(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
   '@capacitor/assets@3.0.5(@types/node@24.12.2)(encoding@0.1.13)(typescript@5.9.3)':
     dependencies:
@@ -7616,9 +7624,9 @@ snapshots:
       - supports-color
       - typescript
 
-  '@capacitor/browser@8.0.3(@capacitor/core@8.3.0)':
+  '@capacitor/browser@8.0.3(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
   '@capacitor/cli@5.7.8':
     dependencies:
@@ -7642,7 +7650,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@capacitor/cli@8.3.0':
+  '@capacitor/cli@8.3.1':
     dependencies:
       '@ionic/cli-framework-output': 2.2.8
       '@ionic/utils-subprocess': 3.0.1
@@ -7664,25 +7672,25 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@capacitor/core@8.3.0':
+  '@capacitor/core@8.3.1':
     dependencies:
       tslib: 2.8.1
 
-  '@capacitor/ios@8.3.0(@capacitor/core@8.3.0)':
+  '@capacitor/ios@8.3.1(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
-  '@capacitor/keyboard@8.0.2(@capacitor/core@8.3.0)':
+  '@capacitor/keyboard@8.0.3(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
-  '@capacitor/share@8.0.1(@capacitor/core@8.3.0)':
+  '@capacitor/share@8.0.1(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
-  '@capacitor/status-bar@8.0.2(@capacitor/core@8.3.0)':
+  '@capacitor/status-bar@8.0.2(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -7790,7 +7798,7 @@ snapshots:
       detect-libc: 2.1.2
       got: 11.8.6
       graceful-fs: 4.2.11
-      node-abi: 4.28.0
+      node-abi: 4.29.0
       node-api-version: 0.2.1
       node-gyp: 11.5.0
       ora: 5.4.1
@@ -8186,6 +8194,9 @@ snapshots:
       resolve-from: 5.0.0
 
   '@istanbuljs/schema@0.1.3': {}
+
+  '@istanbuljs/schema@0.1.6':
+    optional: true
 
   '@jest/console@29.7.0':
     dependencies:
@@ -8667,9 +8678,9 @@ snapshots:
     dependencies:
       react: 19.2.4
 
-  '@revenuecat/purchases-capacitor@12.3.1(@capacitor/core@8.3.0)':
+  '@revenuecat/purchases-capacitor@12.3.1(@capacitor/core@8.3.1)':
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
       '@revenuecat/purchases-typescript-internal-esm': 17.54.0
 
   '@revenuecat/purchases-js@1.30.0': {}
@@ -9671,7 +9682,7 @@ snapshots:
     dependencies:
       '@babel/helper-plugin-utils': 7.28.6
       '@istanbuljs/load-nyc-config': 1.1.0
-      '@istanbuljs/schema': 0.1.3
+      '@istanbuljs/schema': 0.1.6
       istanbul-lib-instrument: 6.0.3
       test-exclude: 6.0.0
     transitivePeerDependencies:
@@ -9953,9 +9964,9 @@ snapshots:
 
   caniuse-lite@1.0.30001785: {}
 
-  capacitor-secure-storage-plugin@0.13.0(@capacitor/core@8.3.0):
+  capacitor-secure-storage-plugin@0.13.0(@capacitor/core@8.3.1):
     dependencies:
-      '@capacitor/core': 8.3.0
+      '@capacitor/core': 8.3.1
 
   ccount@2.0.1: {}
 
@@ -11753,7 +11764,7 @@ snapshots:
       hasown: 2.0.2
       side-channel: 1.1.0
 
-  ip-address@10.1.0: {}
+  ip-address@10.2.0: {}
 
   is-alphabetical@2.0.1: {}
 
@@ -13223,7 +13234,7 @@ snapshots:
     dependencies:
       semver: 7.7.4
 
-  node-abi@4.28.0:
+  node-abi@4.29.0:
     dependencies:
       semver: 7.7.4
 
@@ -13265,7 +13276,7 @@ snapshots:
       proc-log: 5.0.0
       semver: 7.7.4
       tar: 7.5.13
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.16
       which: 5.0.0
     transitivePeerDependencies:
       - supports-color
@@ -14189,13 +14200,13 @@ snapshots:
     dependencies:
       agent-base: 7.1.4
       debug: 4.4.3
-      socks: 2.8.7
+      socks: 2.8.8
     transitivePeerDependencies:
       - supports-color
 
-  socks@2.8.7:
+  socks@2.8.8:
     dependencies:
-      ip-address: 10.1.0
+      ip-address: 10.2.0
       smart-buffer: 4.2.0
 
   source-map-js@1.2.1: {}
@@ -14560,6 +14571,11 @@ snapshots:
   tinyexec@1.0.4: {}
 
   tinyglobby@0.2.15:
+    dependencies:
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
+
+  tinyglobby@0.2.16:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4

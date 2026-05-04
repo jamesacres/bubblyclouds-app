@@ -1,5 +1,7 @@
 # TODO
 
+See Sudoku TODOs....
+
 # Framework
 
 - remove electron and add https://blackboard.sh/electrobun/docs/
@@ -18,7 +20,7 @@
 ## Sudoku
 
 Fix sudoku book cover not being a square sudoku
-Test and fix native
+Test and fix native - test purchases
 Solver Test coverage
 Solver PR review
 
