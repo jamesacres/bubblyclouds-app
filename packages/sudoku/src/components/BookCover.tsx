@@ -1,4 +1,6 @@
 import React from 'react';
+import SimpleSudoku from './SimpleSudoku';
+import { puzzleTextToPuzzle } from '../helpers/puzzleTextToPuzzle';
 
 interface BookCoverProps {
   month: string;
@@ -1461,47 +1463,23 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
 
           {/* Sudoku Grid */}
           <div
-            className="mx-auto my-auto"
+            className="mx-auto my-auto aspect-square"
             style={{
               width: `${120 * scale}px`,
               height: `${120 * scale}px`,
-              margin: `${20 * scale}px auto`,
-              border: `${3 * scale}px solid rgba(255, 255, 255, 0.8)`,
               borderRadius: `${8 * scale}px`,
-              display: 'grid',
-              gridTemplateColumns: 'repeat(9, 1fr)',
-              gridTemplateRows: 'repeat(9, 1fr)',
-              background: 'rgba(255, 255, 255, 0.9)',
-              gap: `${1 * scale}px`,
             }}
           >
-            {monthData.sudokuData.map((value: string, index: number) => {
-              const row = Math.floor(index / 9);
-              const col = index % 9;
-              const isThickRight = col === 2 || col === 5;
-              const isThickBottom = row === 2 || row === 5;
-
-              return (
-                <div
-                  key={index}
-                  className="flex items-center justify-center"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.7)',
-                    fontSize: `${8 * scale}px`,
-                    color: '#333',
-                    fontWeight: 'bold',
-                    borderRight: isThickRight
-                      ? `${1 * scale}px solid #333`
-                      : 'none',
-                    borderBottom: isThickBottom
-                      ? `${1 * scale}px solid #333`
-                      : 'none',
-                  }}
-                >
-                  {value}
-                </div>
-              );
-            })}
+            <SimpleSudoku
+              compact={true}
+              transparent={false}
+              initial={puzzleTextToPuzzle(
+                monthData.sudokuData
+                  .map((value) => (!value ? '.' : value))
+                  .join('')
+              )}
+              final={puzzleTextToPuzzle(monthData.sudokuData.join(''))}
+            />
           </div>
 
           {/* Stats */}
