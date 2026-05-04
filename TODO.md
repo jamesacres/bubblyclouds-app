@@ -20,14 +20,11 @@ See Sudoku TODOs....
 ## Sudoku
 
 Test invite and sign in
-Test and fix native - test purchases
+Test and fix native - test purchases iOS
 Solver Test coverage
 Solver PR review
 
 ### Features
-
-- Add contact + manage subscription link
-  https://www.revenuecat.com/docs/subscription-guidance/managing-subscriptions#using-the-managementurl-to-help-customers-cancel-a-subscription
 
 ## v3 ideas
 - avatar selection for self, see other peoples

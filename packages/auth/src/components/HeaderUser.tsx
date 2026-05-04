@@ -7,6 +7,7 @@ import { UserButton } from './UserButton';
 export interface HeaderUserDependencies {
   isOnline?: boolean;
   isSubscribed?: boolean;
+  subscriptionManagementUrl?: string;
   showSubscribeModal?: (onSuccess: () => void) => void;
   deleteAccount?: () => Promise<boolean>;
   privacyUrl: string;
@@ -19,6 +20,7 @@ export interface HeaderUserDependencies {
 const HeaderUser: React.FC<HeaderUserDependencies> = ({
   isOnline = true,
   isSubscribed = false,
+  subscriptionManagementUrl,
   showSubscribeModal,
   deleteAccount,
   privacyUrl,
@@ -35,6 +37,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
       user={user}
       logout={logout}
       isSubscribed={isSubscribed}
+      subscriptionManagementUrl={subscriptionManagementUrl}
       showSubscribeModal={showSubscribeModal}
       deleteAccount={deleteAccount}
       app={app}

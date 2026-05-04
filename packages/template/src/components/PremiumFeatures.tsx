@@ -1,11 +1,11 @@
 'use client';
-import { ReactElement, cloneElement, useContext } from 'react';
+import { ComponentType, useContext } from 'react';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { CheckCircle, Lock } from 'lucide-react';
 
 interface PremiumFeature {
-  icon: ReactElement<any>;
+  icon: ComponentType<{ className?: string }>;
   title: string;
   description?: string;
 }
@@ -80,7 +80,7 @@ export function PremiumFeatures({
                     : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400'
                 }`}
               >
-                {cloneElement(feature.icon, { className: 'h-3.5 w-3.5' })}
+                <feature.icon className="h-3.5 w-3.5" />
               </div>
               <div className="min-w-0 flex-1">
                 <h4 className="text-sm font-medium text-gray-900 dark:text-white">
@@ -137,7 +137,7 @@ export function PremiumFeatures({
                   : 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400'
               }`}
             >
-              {cloneElement(feature.icon, { className: 'h-4 w-4' })}
+              <feature.icon className="h-4 w-4" />
             </div>
 
             <div className="min-w-0 flex-1">

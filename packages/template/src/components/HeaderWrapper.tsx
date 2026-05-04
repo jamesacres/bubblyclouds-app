@@ -49,6 +49,7 @@ export default function HeaderWrapper({
       HeaderUser={HeaderUser}
       headerUserProps={{
         isSubscribed: revenueCatContext?.isSubscribed,
+        subscriptionManagementUrl: revenueCatContext?.subscriptionManagementUrl,
         showSubscribeModal: revenueCatContext?.subscribeModal
           ?.showModalIfRequired
           ? handleShowSubscribeModal

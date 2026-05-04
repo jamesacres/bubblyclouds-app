@@ -9,13 +9,13 @@ export default function Home() {
         >
           James Acres
         </a>
-        , trading as Bubbly Clouds. I use the latest tools and techniques to
-        create awesome apps and services.
+        ! My personal projects are under the name Bubbly Clouds. My goal is to
+        learn and use the latest tools and techniques by creating awesome apps.
       </p>
 
       <section className="mt-10">
         <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
-          Services
+          Contact me
         </h2>
         <a
           className="hover:border-theme-primary dark:hover:border-theme-primary group flex items-start justify-between rounded-xl border border-stone-200 bg-white px-5 py-5 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
@@ -24,7 +24,7 @@ export default function Home() {
         >
           <div>
             <h3 className="font-semibold text-stone-800 dark:text-stone-100">
-              Web and Mobile Application Development
+              Email
             </h3>
             <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
               support@bubblyclouds.com
@@ -38,7 +38,7 @@ export default function Home() {
 
       <section className="mt-10">
         <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
-          Apps
+          Personal Projects
         </h2>
         <a
           href="https://sudoku.bubblyclouds.com"

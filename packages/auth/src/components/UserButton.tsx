@@ -18,6 +18,7 @@ interface UserButtonProps {
   user: UserProfile;
   logout: () => void;
   isSubscribed?: boolean;
+  subscriptionManagementUrl?: string;
   showSubscribeModal?: (onSuccess: () => void) => void;
   deleteAccount?: () => Promise<boolean>;
   app: string;
@@ -32,6 +33,7 @@ export const UserButton = ({
   user,
   logout,
   isSubscribed = false,
+  subscriptionManagementUrl,
   showSubscribeModal,
   deleteAccount,
   app,
@@ -82,6 +84,7 @@ export const UserButton = ({
                     onClose={() => setIsMobileOpen(false)}
                     isMobile={true}
                     isSubscribed={isSubscribed}
+                    subscriptionManagementUrl={subscriptionManagementUrl}
                     showSubscribeModal={showSubscribeModal}
                     deleteAccount={deleteAccount}
                     app={app}
@@ -135,6 +138,7 @@ export const UserButton = ({
                   onClose={close}
                   isMobile={false}
                   isSubscribed={isSubscribed}
+                  subscriptionManagementUrl={subscriptionManagementUrl}
                   showSubscribeModal={showSubscribeModal}
                   deleteAccount={deleteAccount}
                   app={app}

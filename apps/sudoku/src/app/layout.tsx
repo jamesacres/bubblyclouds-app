@@ -5,23 +5,9 @@ import React from 'react';
 import { Providers } from './providers';
 import ErrorBoundary from '@bubblyclouds-app/template/components/ErrorBoundary';
 import GlobalErrorHandler from '@bubblyclouds-app/template/components/GlobalErrorHandler';
-import PlusModal from '@bubblyclouds-app/template/components/PlusModal';
 import HeaderWrapper from '@bubblyclouds-app/template/components/HeaderWrapper';
-import { PREMIUM_FEATURES } from '../config/premiumFeatures';
-import { SUBSCRIPTION_CONTEXT_MESSAGES } from '../config/subscriptionMessages';
+import SudokuPlusModal from '../components/SudokuPlusModal';
 import { APP_CONFIG } from '../../app.config.js';
-
-const PLUS_DESCRIPTION = (
-  <p className="text-gray-600 dark:text-gray-400">
-    Join{' '}
-    <span className="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-sm font-semibold text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300">
-      Sudoku Plus
-    </span>{' '}
-    to <span className="font-semibold">remove all speed limits</span>. Challenge
-    friends, climb leaderboards, and improve your solving speed. Keep it ad
-    free.
-  </p>
-);
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -121,11 +107,7 @@ export default function RootLayout({
               companyName={APP_CONFIG.companyName}
             />
             <div className="mb-24">{children}</div>
-            <PlusModal
-              features={PREMIUM_FEATURES}
-              description={PLUS_DESCRIPTION}
-              contextMessages={SUBSCRIPTION_CONTEXT_MESSAGES}
-            />
+            <SudokuPlusModal />
           </Providers>
         </ErrorBoundary>
       </body>

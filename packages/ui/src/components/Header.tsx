@@ -9,6 +9,7 @@ import ThemeControls from './ThemeControls';
 
 interface HeaderUserProps {
   isSubscribed?: boolean;
+  subscriptionManagementUrl?: string;
   showSubscribeModal?: (onSuccess: () => void) => void;
   deleteAccount?: () => Promise<boolean>;
   privacyUrl: string;
