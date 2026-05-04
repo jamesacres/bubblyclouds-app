@@ -16,7 +16,7 @@ exports[`Home Page Snapshot should match snapshot 1`] = `
       >
         James Acres
       </a>
-      , trading as Bubbly Clouds. I use the latest tools and techniques to create awesome apps and services.
+      ! My personal projects are under the name Bubbly Clouds. My goal is to learn and use the latest tools and techniques by creating awesome apps.
     </p>
     <section
       class="mt-10"
@@ -24,7 +24,7 @@ exports[`Home Page Snapshot should match snapshot 1`] = `
       <h2
         class="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500"
       >
-        Services
+        Contact me
       </h2>
       <a
         class="hover:border-theme-primary dark:hover:border-theme-primary group flex items-start justify-between rounded-xl border border-stone-200 bg-white px-5 py-5 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
@@ -35,7 +35,7 @@ exports[`Home Page Snapshot should match snapshot 1`] = `
           <h3
             class="font-semibold text-stone-800 dark:text-stone-100"
           >
-            Web and Mobile Application Development
+            Email
           </h3>
           <p
             class="mt-1 text-sm text-stone-500 dark:text-stone-400"
@@ -56,7 +56,7 @@ exports[`Home Page Snapshot should match snapshot 1`] = `
       <h2
         class="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500"
       >
-        Apps
+        Personal Projects
       </h2>
       <a
         class="hover:border-theme-primary dark:hover:border-theme-primary group flex flex-col rounded-xl border border-stone-200 bg-white px-5 py-5 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
