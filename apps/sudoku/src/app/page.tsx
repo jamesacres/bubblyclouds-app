@@ -29,7 +29,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Users, Zap, Award, Camera, BookOpen } from 'lucide-react';
+import { Users, Zap, Award, Camera, BookOpen, ScanText } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
@@ -464,19 +464,20 @@ function HomeComponent() {
                   className="liquid-glass flex flex-col gap-2 rounded-2xl p-4 transition-all duration-200 active:scale-[0.97]"
                 >
                   <div
-                    className="flex h-8 w-8 items-center justify-center rounded-lg"
+                    className="flex h-8 w-fit items-center gap-1.5 rounded-lg px-2"
                     style={{
                       background: 'rgba(255,255,255,0.1)',
                       border: '1px solid rgba(255,255,255,0.14)',
                     }}
                   >
-                    <Camera className="h-3.5 w-3.5 text-white/70" />
+                    <Camera className="h-3 w-3 text-white/70" />
+                    <ScanText className="h-3 w-3 text-white/70" />
                   </div>
                   <p className="text-base font-black leading-tight text-white">
-                    Race any puzzle
+                    Import any puzzle
                   </p>
                   <p className="text-xs leading-snug text-white/45">
-                    Scan from a book or newspaper
+                    Scan with camera or paste a puzzle string
                   </p>
                 </Link>
                 <button

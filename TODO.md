@@ -19,6 +19,7 @@ See Sudoku TODOs....
 
 ## Sudoku
 
+Test invite and sign in
 Test and fix native - test purchases
 Solver Test coverage
 Solver PR review
@@ -53,8 +54,6 @@ Solver PR review
 
 ### Bugs
 
-- fix sudoku import
-- Sign in button on invite page header should redirect back to the invite
 - fix electron auth
 
 ## Sliding BLock
