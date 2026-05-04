@@ -296,7 +296,9 @@ describe('Home Page', () => {
   describe('Import puzzle section', () => {
     it('should render import section', () => {
       render(<Home />);
-      expect(screen.getAllByText('Race any puzzle').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Import any puzzle').length).toBeGreaterThan(
+        0
+      );
     });
 
     it('should have import challenge link', () => {

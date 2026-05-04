@@ -29,7 +29,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Users, Zap, Award, Camera, BookOpen, ScanText } from 'lucide-react';
+import { Users, Zap, Award, Camera, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
@@ -471,7 +471,6 @@ function HomeComponent() {
                     }}
                   >
                     <Camera className="h-3 w-3 text-white/70" />
-                    <ScanText className="h-3 w-3 text-white/70" />
                   </div>
                   <p className="text-base font-black leading-tight text-white">
                     Import any puzzle
