@@ -10,22 +10,6 @@ describe('Home Page', () => {
       expect(mainContainer).toBeInTheDocument();
       expect(mainContainer).toHaveClass('w-full', 'max-w-xl');
     });
-
-    it('should render introduction text', () => {
-      render(<Home />);
-      expect(screen.getByText(/Hi, I am/i)).toBeInTheDocument();
-      expect(screen.getByText('James Acres')).toBeInTheDocument();
-      expect(screen.getByText(/trading as Bubbly Clouds/i)).toBeInTheDocument();
-    });
-
-    it('should render description paragraph', () => {
-      render(<Home />);
-      expect(
-        screen.getByText(
-          /I use the latest tools and techniques to create awesome apps/i
-        )
-      ).toBeInTheDocument();
-    });
   });
 
   describe('Links and navigation', () => {
@@ -40,7 +24,7 @@ describe('Home Page', () => {
     it('should render support email link with correct href', () => {
       render(<Home />);
       const supportLink = screen.getByRole('link', {
-        name: /Web and Mobile Application Development/i,
+        name: /Email/i,
       });
       expect(supportLink).toHaveAttribute(
         'href',
@@ -68,10 +52,10 @@ describe('Home Page', () => {
   });
 
   describe('Services section', () => {
-    it('should render Services heading', () => {
+    it('should render Contact me heading', () => {
       render(<Home />);
       expect(
-        screen.getByRole('heading', { name: /Services/i })
+        screen.getByRole('heading', { name: /Contact me/i })
       ).toBeInTheDocument();
     });
 
@@ -90,11 +74,9 @@ describe('Home Page', () => {
       );
     });
 
-    it('should render service title', () => {
+    it('should render email title', () => {
       render(<Home />);
-      const serviceTitle = screen.getByText(
-        /Web and Mobile Application Development/i
-      );
+      const serviceTitle = screen.getByText(/Email/i);
       expect(serviceTitle).toBeInTheDocument();
     });
 
@@ -104,11 +86,11 @@ describe('Home Page', () => {
     });
   });
 
-  describe('Apps section', () => {
-    it('should render Apps heading', () => {
+  describe('Personal Projects section', () => {
+    it('should render Personal Projects heading', () => {
       render(<Home />);
       expect(
-        screen.getByRole('heading', { name: /Apps/i })
+        screen.getByRole('heading', { name: /Personal Projects/i })
       ).toBeInTheDocument();
     });
 
@@ -153,7 +135,7 @@ describe('Home Page', () => {
       headings.forEach((heading) => {
         if (
           heading.textContent === 'Services' ||
-          heading.textContent === 'Apps'
+          heading.textContent === 'Personal Projects'
         ) {
           expect(heading).toHaveClass('text-xs', 'font-semibold', 'uppercase');
         }
@@ -202,15 +184,14 @@ describe('Home Page', () => {
       const { container } = render(<Home />);
       expect(container.textContent).toContain('James Acres');
       expect(container.textContent).toContain('Bubbly Clouds');
-      expect(container.textContent).toContain('Services');
-      expect(container.textContent).toContain('Apps');
+      expect(container.textContent).toContain('Personal Projects');
       expect(container.textContent).toContain('Sudoku');
     });
 
     it('should have valid email addresses', () => {
       render(<Home />);
       const emailLink = screen.getByRole('link', {
-        name: /Web and Mobile Application Development/i,
+        name: /Email/i,
       });
       expect(emailLink.getAttribute('href')).toMatch(/^mailto:/);
     });
