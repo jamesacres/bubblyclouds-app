@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import ImportPage from './page';
 
 // Mock dependencies
@@ -106,9 +106,7 @@ describe('Import Page', () => {
     it('should render instruction text', () => {
       render(<ImportPage />);
       expect(
-        screen.getByText(
-          /Simply point your camera at an unsolved sudoku puzzle/i
-        )
+        screen.getByText(/Point your camera at an unsolved sudoku puzzle/i)
       ).toBeInTheDocument();
     });
 
@@ -122,9 +120,7 @@ describe('Import Page', () => {
       const { container } = render(<ImportPage />);
       const video = container.querySelector('video') as HTMLVideoElement;
 
-      // Video has playsinline but not muted attribute (muted is set programmatically)
       expect(video).toHaveAttribute('playsinline');
-      expect(video?.className).toContain('aspect-square');
     });
 
     it('should render SimpleSudoku overlay', () => {
@@ -150,10 +146,10 @@ describe('Import Page', () => {
       expect(style).toContain('background: black');
     });
 
-    it('should have max-width class', () => {
+    it('should have rounded video container', () => {
       const { container } = render(<ImportPage />);
-      const video = container.querySelector('video');
-      expect(video?.className).toContain('max-w-xl');
+      const videoWrapper = container.querySelector('.rounded-2xl');
+      expect(videoWrapper).toBeInTheDocument();
     });
   });
 
@@ -166,34 +162,26 @@ describe('Import Page', () => {
       expect(maxWidthDiv || container.querySelector('div')).toBeTruthy();
     });
 
-    it('should have full height video container', () => {
+    it('should have aspect-ratio video container', () => {
       const { container } = render(<ImportPage />);
-      const heightDiv = Array.from(container.querySelectorAll('div')).find(
-        (el) => el.getAttribute('style')?.includes('height: 100vh')
+      const aspectDiv = Array.from(container.querySelectorAll('div')).find(
+        (el) => el.getAttribute('style')?.includes('aspect-ratio')
       );
-      expect(heightDiv).toBeTruthy();
+      expect(aspectDiv).toBeTruthy();
     });
   });
 
   describe('Overlay positioning', () => {
     it('should position SimpleSudoku overlay absolutely', () => {
       const { container } = render(<ImportPage />);
-      const overlay = Array.from(container.querySelectorAll('div')).find(
-        (el) =>
-          el.getAttribute('style')?.includes('position: absolute') &&
-          el.getAttribute('style')?.includes('top: 0')
-      );
+      const overlay = container.querySelector('.absolute.inset-0');
       expect(overlay).toBeTruthy();
     });
 
-    it('should have overlay at top-left', () => {
+    it('should have overlay covering the video container', () => {
       const { container } = render(<ImportPage />);
-      const overlay = Array.from(container.querySelectorAll('div')).find(
-        (el) =>
-          el.getAttribute('style')?.includes('top: 0') &&
-          el.getAttribute('style')?.includes('left: 0')
-      );
-      expect(overlay).toBeTruthy();
+      const overlay = container.querySelector('.absolute.inset-0');
+      expect(overlay).toBeInTheDocument();
     });
   });
 
@@ -346,11 +334,12 @@ describe('Import Page', () => {
       expect(containerDiv).toHaveClass('mx-auto');
     });
 
-    it('should have aspect-square video', () => {
+    it('should have aspect-ratio video container', () => {
       const { container } = render(<ImportPage />);
-      const video = container.querySelector('video');
-
-      expect(video).toHaveClass('aspect-square');
+      const wrapper = Array.from(container.querySelectorAll('div')).find((el) =>
+        el.getAttribute('style')?.includes('aspect-ratio')
+      );
+      expect(wrapper).toBeTruthy();
     });
   });
 
@@ -371,12 +360,10 @@ describe('Import Page', () => {
       expect(style).toContain('background: black');
     });
 
-    it('should set overflow hidden on video', () => {
+    it('should set overflow hidden on video container', () => {
       const { container } = render(<ImportPage />);
-      const video = container.querySelector('video') as HTMLVideoElement;
-
-      const style = video.getAttribute('style');
-      expect(style).toContain('overflow: hidden');
+      const wrapper = container.querySelector('.overflow-hidden');
+      expect(wrapper).toBeInTheDocument();
     });
   });
 
@@ -505,7 +492,7 @@ describe('Import Page', () => {
     it('should contain instruction paragraph', () => {
       render(<ImportPage />);
 
-      const paragraph = screen.getByText(/Simply point your camera/i);
+      const paragraph = screen.getByText(/Point your camera at an unsolved/i);
       expect(paragraph).toBeInTheDocument();
     });
 
@@ -515,6 +502,164 @@ describe('Import Page', () => {
       expect(
         screen.getByText(/wait for it to be detected/i)
       ).toBeInTheDocument();
+    });
+  });
+
+  describe('Text input section', () => {
+    it('should render the heading', () => {
+      render(<ImportPage />);
+      expect(screen.getByText(/Enter a puzzle string/i)).toBeInTheDocument();
+    });
+
+    it('should render the textarea', () => {
+      render(<ImportPage />);
+      expect(screen.getByRole('textbox')).toBeInTheDocument();
+    });
+
+    it('should render the import button disabled when input is empty', () => {
+      render(<ImportPage />);
+      const button = screen.getByRole('button', { name: /Import puzzle/i });
+      expect(button).toBeDisabled();
+    });
+
+    it('should enable the import button when input has content', () => {
+      render(<ImportPage />);
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: 'sometext' } });
+      const button = screen.getByRole('button', { name: /Import puzzle/i });
+      expect(button).not.toBeDisabled();
+    });
+
+    it('should show error for invalid puzzle string', () => {
+      render(<ImportPage />);
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: 'notapuzzle' } });
+      const button = screen.getByRole('button', { name: /Import puzzle/i });
+      fireEvent.click(button);
+      expect(screen.getByText(/Could not parse puzzle/i)).toBeInTheDocument();
+    });
+
+    it('should clear error when input changes', () => {
+      render(<ImportPage />);
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: 'bad' } });
+      fireEvent.click(screen.getByRole('button', { name: /Import puzzle/i }));
+      expect(screen.getByText(/Could not parse puzzle/i)).toBeInTheDocument();
+      fireEvent.change(textarea, { target: { value: '' } });
+      fireEvent.change(textarea, { target: { value: 'new' } });
+      expect(
+        screen.queryByText(/Could not parse puzzle/i)
+      ).not.toBeInTheDocument();
+    });
+
+    it('should show no parse error for a valid 81-char string', async () => {
+      render(<ImportPage />);
+      // Wait for the mocked Script onReady to fire so the solver is ready
+      await waitFor(() => expect((window as any).Module).toBeDefined());
+      const validPuzzle =
+        '.1...3.942....5...7....82...67......1..4....6.4..81..5....72.....3....8.......1.3';
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: validPuzzle } });
+      fireEvent.click(screen.getByRole('button', { name: /Import puzzle/i }));
+      expect(
+        screen.queryByText(/Could not parse puzzle/i)
+      ).not.toBeInTheDocument();
+    });
+
+    it('should show divider between text input and camera sections', () => {
+      render(<ImportPage />);
+      expect(screen.getByText(/or scan with camera/i)).toBeInTheDocument();
+    });
+  });
+
+  describe('parsePuzzleInput (via submit)', () => {
+    it('should reject a string shorter than 81 chars', () => {
+      render(<ImportPage />);
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: '123' } });
+      fireEvent.click(screen.getByRole('button', { name: /Import puzzle/i }));
+      expect(screen.getByText(/Could not parse puzzle/i)).toBeInTheDocument();
+    });
+
+    it('should reject a string with invalid characters', () => {
+      render(<ImportPage />);
+      const invalid = 'x'.repeat(81);
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: invalid } });
+      fireEvent.click(screen.getByRole('button', { name: /Import puzzle/i }));
+      expect(screen.getByText(/Could not parse puzzle/i)).toBeInTheDocument();
+    });
+
+    it('should accept a valid 81-char flat string without showing a parse error', async () => {
+      render(<ImportPage />);
+      await waitFor(() => expect((window as any).Module).toBeDefined());
+      const validPuzzle =
+        '.1...3.942....5...7....82...67......1..4....6.4..81..5....72.....3....8.......1.3';
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: validPuzzle } });
+      fireEvent.click(screen.getByRole('button', { name: /Import puzzle/i }));
+      expect(
+        screen.queryByText(/Could not parse puzzle/i)
+      ).not.toBeInTheDocument();
+    });
+
+    it('should treat 0 as empty cell in flat strings', () => {
+      render(<ImportPage />);
+      const puzzleWithZeros =
+        '007010900509030408140000000720090300900020000000008000400000705800004000032000000';
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: puzzleWithZeros } });
+      fireEvent.click(screen.getByRole('button', { name: /Import puzzle/i }));
+      expect(
+        screen.queryByText(/Could not parse puzzle/i)
+      ).not.toBeInTheDocument();
+    });
+
+    it('should accept a HoDoKu grid format (gets to solver-loading error)', () => {
+      render(<ImportPage />);
+      const hodoku = `.-----------.---------.---------.
+| .  .    7 | .  1  . | 9  .  . |
+| 5  .    9 | .  3  . | 4  .  8 |
+| 1  4    . | .  .  . | .  .  . |
+:-----------+---------+---------:
+| 7  2    . | .  9  . | 3  .  . |
+| 9  123  . | .  2  . | .  .  . |
+| .  .    . | .  .  . | 8  .  . |
+:-----------+---------+---------:
+| 4  .    . | .  .  . | 7  .  5 |
+| 8  .    . | .  .  4 | .  .  . |
+| .  3    2 | .  .  . | .  .  . |
+'-----------'---------'---------'`;
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: hodoku } });
+      fireEvent.click(screen.getByRole('button', { name: /Import puzzle/i }));
+      expect(
+        screen.queryByText(/Could not parse puzzle/i)
+      ).not.toBeInTheDocument();
+    });
+
+    it('should treat HoDoKu notes (multi-digit tokens) as empty cells', () => {
+      render(<ImportPage />);
+      const withNotes = `.-----------.---------.---------.
+| .  .    7 | .  1  . | 9  .  . |
+| 5  .    9 | .  3  . | 4  .  8 |
+| 1  4    . | .  .  . | .  .  . |
+:-----------+---------+---------:
+| 7  2    . | .  9  . | 3  .  . |
+| 9  123  . | .  2  . | .  .  . |
+| .  .    . | .  .  . | 8  .  . |
+:-----------+---------+---------:
+| 4  .    . | .  .  . | 7  .  5 |
+| 8  .    . | .  .  4 | .  .  . |
+| .  3    2 | .  .  . | .  .  . |
+'-----------'---------'---------'`;
+      const textarea = screen.getByRole('textbox');
+      fireEvent.change(textarea, { target: { value: withNotes } });
+      fireEvent.click(screen.getByRole('button', { name: /Import puzzle/i }));
+      // Should pass parse validation (error is solver-not-ready, not parse error)
+      expect(
+        screen.queryByText(/Could not parse puzzle/i)
+      ).not.toBeInTheDocument();
     });
   });
 });

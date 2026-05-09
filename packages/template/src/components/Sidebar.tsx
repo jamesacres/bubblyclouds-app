@@ -1,12 +1,22 @@
-import { memo, useContext, ComponentType, ReactElement } from 'react';
-import { Loader, RefreshCw, Users, X } from 'lucide-react';
+import {
+  memo,
+  useContext,
+  useEffect,
+  useRef,
+  ComponentType,
+  ReactElement,
+  useCallback,
+} from 'react';
+import { Bot, Loader, RefreshCw, Users, X } from 'lucide-react';
 import { PartyRow } from './PartyRow';
+import { AgentPartyRow } from './AgentPartyRow';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { BaseServerState } from '../types/state';
+import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 
 interface Arguments<ServerState extends BaseServerState> {
   showSidebar: boolean;
@@ -20,7 +30,13 @@ interface Arguments<ServerState extends BaseServerState> {
   apiUrl: string;
   appUrl: string;
   SimpleState: ComponentType<{ state: ServerState }>;
+  CompactSimpleState?: ComponentType<{ state: ServerState }>;
   calculateCompletionPercentageFromState: (state: ServerState) => number;
+  localAgentProgress?: AgentProgress[];
+  onRemoveAgent?: (agentId: string) => void;
+  onLeaveAgentParty?: () => void;
+  onPickRivals?: () => void;
+  scrollRequest?: number;
 }
 
 const Sidebar = <ServerState extends BaseServerState>({
@@ -35,7 +51,13 @@ const Sidebar = <ServerState extends BaseServerState>({
   apiUrl,
   appUrl,
   SimpleState,
+  CompactSimpleState = SimpleState,
   calculateCompletionPercentageFromState,
+  localAgentProgress,
+  onRemoveAgent,
+  onLeaveAgentParty,
+  onPickRivals,
+  scrollRequest,
 }: Arguments<ServerState>) => {
   const context = useContext(UserContext);
   const { user, loginRedirect } = context || {};
@@ -55,6 +77,39 @@ const Sidebar = <ServerState extends BaseServerState>({
     refreshParties,
   } = useParties({ refreshSessionParties });
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const teamListRef = useRef<HTMLUListElement>(null);
+  const newTeamRef = useRef<HTMLLIElement>(null);
+  const teamsHeadingRef = useRef<HTMLDivElement>(null);
+
+  const scrollToTeams = useCallback(() => {
+    if (newTeamRef.current && scrollRef.current) {
+      const containerRect = scrollRef.current.getBoundingClientRect();
+      const itemRect = newTeamRef.current.getBoundingClientRect();
+      const headingHeight = teamsHeadingRef.current?.offsetHeight ?? 0;
+      scrollRef.current.scrollTo({
+        top:
+          scrollRef.current.scrollTop +
+          itemRect.top -
+          containerRect.top -
+          headingHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (showCreateParty) {
+      scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [showCreateParty]);
+
+  useEffect(() => {
+    if (scrollRequest) {
+      setTimeout(scrollToTeams, 150);
+    }
+  }, [scrollRequest, scrollToTeams]);
+
   return (
     <>
       {showSidebar && (
@@ -70,20 +125,22 @@ const Sidebar = <ServerState extends BaseServerState>({
         className={`fixed left-0 top-0 z-50 h-screen w-72 pt-[var(--ion-safe-area-top)] xl:top-20 ${showSidebar ? '' : '-translate-x-full'} transition-transform xl:translate-x-0`}
         aria-label="Sidebar"
       >
-        <div className="flex h-full flex-col rounded-r-3xl bg-stone-50/90 drop-shadow-lg backdrop-blur-md dark:bg-zinc-900/95">
-          <div className="sticky top-0 z-10 rounded-tr-3xl px-4 pb-3 pt-5 backdrop-blur-md dark:bg-zinc-900/95">
+        <div className="flex h-full flex-col rounded-r-3xl bg-stone-100 shadow-xl dark:bg-zinc-900/95">
+          <div className="sticky top-0 z-10 rounded-tr-3xl bg-stone-100 px-4 pb-3 pt-5 dark:bg-zinc-900/95">
             <div
               className={`mb-4 flex-nowrap items-center`}
               role="group"
               aria-label="Button group"
             >
-              <div className="text-theme-primary dark:text-theme-primary-light flex w-full items-center justify-between rounded-full px-4 py-2 text-right">
-                <span className="text-lg font-medium">Races</span>
+              <div className="flex w-full items-center justify-between px-1 py-2">
+                <span className="text-lg font-semibold text-stone-800 dark:text-zinc-100">
+                  Races
+                </span>
                 <button
                   onClick={() => {
                     setShowSidebar(!showSidebar);
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300"
                 >
                   <X className={`ml-2 ${showSidebar ? '' : 'hidden'}`} />
                 </button>
@@ -93,40 +150,80 @@ const Sidebar = <ServerState extends BaseServerState>({
               Challenge your friends and family to a race, who can solve it in
               the fastest time?
             </p>
-            {!showCreateParty && parties.length < 10 && (
-              <button
-                className="bg-theme-primary hover:bg-theme-primary-dark relative mt-2 flex w-full cursor-pointer items-center justify-center rounded-full px-4 py-3 font-medium text-white transition-colors"
-                onClick={() => {
-                  if (!user) {
-                    loginRedirect && loginRedirect({ userInitiated: true });
-                    return;
-                  }
+            <div className="flex flex-col gap-2">
+              {!showCreateParty && parties.length < 10 && (
+                <button
+                  className="bg-theme-primary hover:bg-theme-primary-dark relative flex w-full cursor-pointer items-center gap-3 rounded-2xl px-4 py-3 text-left transition-all duration-200 active:scale-[0.98]"
+                  onClick={() => {
+                    if (!user) {
+                      loginRedirect && loginRedirect({ userInitiated: true });
+                      return;
+                    }
 
-                  if (parties.length > 0 && !isSubscribed) {
-                    subscribeModal?.showModalIfRequired(
-                      () => setShowCreateParty(true),
-                      () => {},
-                      SubscriptionContext.MULTIPLE_PARTIES
-                    );
-                  } else {
-                    setShowCreateParty(true);
-                  }
-                }}
-              >
-                <Users className="mr-2" size={18} />
-                Create Racing Team
-                {parties.length > 0 && !isSubscribed && (
-                  <span className="absolute -right-1 -top-1 z-10 inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[8px] font-semibold text-white shadow-lg">
-                    ✨
-                  </span>
+                    if (parties.length > 0 && !isSubscribed) {
+                      subscribeModal?.showModalIfRequired(
+                        () => setShowCreateParty(true),
+                        () => {},
+                        SubscriptionContext.MULTIPLE_PARTIES
+                      );
+                    } else {
+                      setShowCreateParty(true);
+                    }
+                  }}
+                >
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-white/20">
+                    <Users size={15} className="text-white" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-semibold text-white">
+                      Race Friends
+                    </div>
+                    <div className="text-xs text-white/70">
+                      Share a link, race to finish
+                    </div>
+                  </div>
+                  {parties.length > 0 && !isSubscribed && (
+                    <span className="inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-white/30 text-[8px] font-semibold text-white">
+                      ✨
+                    </span>
+                  )}
+                </button>
+              )}
+              {!localAgentProgress?.length &&
+                onPickRivals &&
+                !showCreateParty && (
+                  <button
+                    className="hover:border-theme-primary/40 hover:bg-theme-primary/5 flex w-full cursor-pointer items-center gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left transition-all duration-200 active:scale-[0.98] dark:border-zinc-700 dark:bg-zinc-800/60 dark:hover:border-zinc-600"
+                    onClick={onPickRivals}
+                  >
+                    <div
+                      className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl"
+                      style={{
+                        backgroundColor:
+                          'color-mix(in srgb, var(--theme-primary) 12%, transparent)',
+                      }}
+                    >
+                      <Bot size={15} className="text-theme-primary" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-sm font-semibold text-stone-800 dark:text-zinc-100">
+                        Pick Rivals
+                      </div>
+                      <div className="text-xs text-stone-500 dark:text-zinc-400">
+                        Race AI opponents
+                      </div>
+                    </div>
+                  </button>
                 )}
-              </button>
-            )}
+            </div>
           </div>
 
-          <div className="pb-safe flex-grow overflow-y-auto px-4">
+          <div
+            ref={scrollRef}
+            className="pb-safe flex-grow overflow-y-auto px-4"
+          >
             {showCreateParty && (
-              <div className="border-theme-primary/20 mt-4 rounded-2xl border bg-stone-50/50 p-4 shadow-sm backdrop-blur-sm dark:bg-zinc-800/50">
+              <div className="mt-4 rounded-2xl border border-stone-200/60 bg-white p-4 shadow-sm dark:border-zinc-700 dark:bg-zinc-800/50">
                 <p className="mb-4 text-sm text-gray-600 dark:text-gray-300">
                   {parties.length === 0
                     ? "We recommend creating your first team for your family or friend group. All members can see each other's puzzles and compete."
@@ -136,7 +233,9 @@ const Sidebar = <ServerState extends BaseServerState>({
                   className="w-full"
                   onSubmit={(event) => {
                     event.preventDefault();
-                    saveParty({ memberNickname, partyName });
+                    saveParty({ memberNickname, partyName }).then(() => {
+                      setTimeout(scrollToTeams, 0);
+                    });
                   }}
                 >
                   <label
@@ -177,51 +276,79 @@ const Sidebar = <ServerState extends BaseServerState>({
                       }}
                     />
                   </div>
-                  <button
-                    className={`${isSaving ? 'cursor-wait' : 'cursor-pointer'} bg-theme-primary hover:bg-theme-primary-dark mt-4 w-full rounded-full px-4 py-2.5 font-medium text-white transition-colors`}
-                    type="submit"
-                    disabled={isSaving}
-                  >
-                    {isSaving ? (
-                      <Loader className="mx-auto animate-spin" />
-                    ) : (
-                      'Create Racing Team'
-                    )}
-                  </button>
+                  <div className="mt-4 flex flex-col gap-2">
+                    <button
+                      className={`${isSaving ? 'cursor-wait' : 'cursor-pointer'} bg-theme-primary hover:bg-theme-primary-dark w-full rounded-xl px-4 py-2.5 font-medium text-white transition-all duration-200 active:scale-[0.98]`}
+                      type="submit"
+                      disabled={isSaving}
+                    >
+                      {isSaving ? (
+                        <Loader className="mx-auto animate-spin" />
+                      ) : (
+                        'Create Racing Team'
+                      )}
+                    </button>
+                    <button
+                      className="cursor-pointer py-1.5 text-sm text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+                      type="button"
+                      disabled={isSaving}
+                      onClick={() => setShowCreateParty(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </form>
               </div>
             )}
 
-            {user && !!parties.length && (
+            {(!!localAgentProgress?.length || (user && !!parties.length)) && (
               <>
                 <div className="my-6 h-px bg-stone-300 dark:bg-gray-700" />
-                <div className="sticky top-0 z-10 mb-4 flex items-center justify-between bg-stone-50/25 p-4 py-2 backdrop-blur-md dark:bg-zinc-900/25">
-                  <h2 className="text-xl font-semibold">Racing Teams</h2>
-                  <button
-                    className={`${isLoading || isSaving ? 'cursor-wait' : ''} text-theme-primary dark:text-theme-primary-light cursor-pointer rounded-full bg-gray-100 p-2 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700`}
-                    disabled={isLoading || isSaving}
-                    onClick={() => refreshParties()}
-                    aria-label="Refresh parties"
-                  >
-                    <RefreshCw
-                      size={18}
-                      className={`${isLoading ? 'animate-spin' : ''}`}
-                    />
-                  </button>
+                <div
+                  ref={teamsHeadingRef}
+                  className="sticky top-0 z-10 mb-4 flex items-center justify-between bg-stone-100 px-1 py-2 dark:bg-zinc-900/25"
+                >
+                  <h2 className="text-base font-semibold text-stone-700 dark:text-zinc-200">
+                    Opponents &amp; Teams
+                  </h2>
+                  {user && !!parties.length && (
+                    <button
+                      className={`${isLoading || isSaving ? 'cursor-wait' : ''} cursor-pointer rounded-md p-1.5 text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300`}
+                      disabled={isLoading || isSaving}
+                      onClick={() => refreshParties()}
+                      aria-label="Refresh parties"
+                    >
+                      <RefreshCw
+                        size={18}
+                        className={`${isLoading ? 'animate-spin' : ''}`}
+                      />
+                    </button>
+                  )}
                 </div>
 
-                <p className="mb-5 text-sm text-gray-600 dark:text-gray-300">
-                  Simply send your group an invite link and close this sidebar
-                  to start solving! They can join now or in their own time.
-                </p>
+                {user && !!parties.length && (
+                  <p className="mb-5 text-sm text-gray-600 dark:text-gray-300">
+                    Simply send your group an invite link and close this sidebar
+                    to start solving! They can join now or in their own time.
+                  </p>
+                )}
 
-                <ul className="space-y-4 pb-32">
-                  {parties
-                    .sort(
-                      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-                    )
-                    .map((party) => {
-                      return (
+                <ul ref={teamListRef} className="space-y-4 pb-32">
+                  {!!localAgentProgress?.length && (
+                    <AgentPartyRow
+                      localAgentProgress={localAgentProgress}
+                      SimpleState={CompactSimpleState}
+                      onRemoveAgent={onRemoveAgent}
+                      onLeaveParty={onLeaveAgentParty}
+                    />
+                  )}
+                  <li ref={newTeamRef} className="sr-only" aria-hidden />
+                  {user &&
+                    parties
+                      .sort(
+                        (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+                      )
+                      .map((party) => (
                         <PartyRow<ServerState>
                           key={party.partyId}
                           party={party}
@@ -237,8 +364,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                           apiUrl={apiUrl}
                           appUrl={appUrl}
                         />
-                      );
-                    })}
+                      ))}
                 </ul>
               </>
             )}

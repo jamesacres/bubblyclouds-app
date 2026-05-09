@@ -18,25 +18,18 @@ const PostLayout = ({
     <article>
       <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
         <header className="pt-6 xl:pb-6">
-          <div className="space-y-1 text-center">
-            <dl className="space-y-10">
-              <div>
-                <dt className="sr-only">Published on</dt>
-                <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                  <time dateTime={date}>{formatDateWithDay(date)}</time>
-                </dd>
-              </div>
-            </dl>
-            <div>
-              <h1 className="md:leading-14 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-5xl dark:text-gray-100">
-                {title}
-              </h1>
-            </div>
-            <div className="pt-4">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="space-y-3">
+            <dl>
+              <dt className="sr-only">Published on</dt>
+              <dd className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                <time dateTime={date}>{formatDateWithDay(date)}</time>
+                <span className="mx-2 text-gray-300 dark:text-gray-600">·</span>
                 {readingTime.text}
-              </p>
-            </div>
+              </dd>
+            </dl>
+            <h1 className="md:leading-14 text-3xl font-bold leading-9 tracking-tight text-gray-900 sm:text-4xl sm:leading-10 dark:text-gray-100">
+              {title}
+            </h1>
           </div>
         </header>
         <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
@@ -50,7 +43,7 @@ const PostLayout = ({
                       src={author.avatar}
                       width={40}
                       height={40}
-                      alt="avatar"
+                      alt={author.name}
                       className="h-10 w-10 rounded-full object-cover object-right"
                     />
                   )}
@@ -72,7 +65,7 @@ const PostLayout = ({
           <footer className="divide-gray-200 text-sm font-medium leading-5 xl:col-start-1 xl:row-start-2 xl:divide-y dark:divide-gray-700">
             {tags && (
               <div className="py-4 xl:py-8">
-                <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                <h2 className="text-xs font-semibold tracking-wide text-gray-400 dark:text-gray-500">
                   Tags
                 </h2>
                 <div className="flex flex-wrap gap-3">
@@ -86,7 +79,7 @@ const PostLayout = ({
               <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
                 {prev && (
                   <div>
-                    <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    <h2 className="text-xs font-semibold tracking-wide text-gray-400 dark:text-gray-500">
                       Previous Article
                     </h2>
                     <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
@@ -96,7 +89,7 @@ const PostLayout = ({
                 )}
                 {next && (
                   <div>
-                    <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    <h2 className="text-xs font-semibold tracking-wide text-gray-400 dark:text-gray-500">
                       Next Article
                     </h2>
                     <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">

@@ -57,36 +57,25 @@ export default function RootLayout({
             companyUrl={APP_CONFIG.companyUrl}
             companyName={APP_CONFIG.companyName}
           />
-          <main className="flex flex-col items-center justify-between p-12 sm:p-24">
-            <div>
+          <main className="flex flex-col items-center px-6 pb-24 pt-10 sm:px-12">
+            <div className="mb-8">
               <LogoWrapper />
             </div>
             {children}
 
             <Footer>
-              <div className="grid w-full max-w-5xl grid-cols-2 text-center">
+              <div className="flex items-center gap-6">
                 <Link
                   href="/terms"
-                  className="group rounded-lg border border-transparent px-5 py-7 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+                  className="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200"
                 >
-                  <h2 className="mb-3 font-semibold">
-                    Terms{' '}
-                    <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                      -&gt;
-                    </span>
-                  </h2>
+                  Terms
                 </Link>
-
                 <Link
                   href="/privacy"
-                  className="group rounded-lg border border-transparent px-5 py-7 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+                  className="text-stone-500 transition-colors hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200"
                 >
-                  <h2 className="mb-3 font-semibold">
-                    Privacy{' '}
-                    <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                      -&gt;
-                    </span>
-                  </h2>
+                  Privacy
                 </Link>
               </div>
             </Footer>

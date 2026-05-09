@@ -16,7 +16,7 @@ const BlogHeader = ({ siteMetadata, navLinks }: BlogHeaderProps) => {
           <div>
             <Link href="/" aria-label={headerTitle}>
               {headerTitle && (
-                <div className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                <div className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                   {headerTitle}
                 </div>
               )}

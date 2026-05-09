@@ -1,5 +1,6 @@
 'use client';
 import { ComponentType } from 'react';
+import { Award } from 'lucide-react';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import IntegratedSessionRow from './IntegratedSessionRow';
 import { BaseServerState } from '../types/state';
@@ -10,6 +11,10 @@ interface MyPuzzlesTabProps<State extends BaseServerState = BaseServerState> {
   calculateCompletionPercentageFromState: (state: State) => number;
   isPuzzleCheated: (state: State) => boolean;
   buildPuzzleUrlFromState: (state: State, isCompleted?: boolean) => string;
+  getDifficultyDisplay: (difficulty: string) => {
+    name: string;
+    badgeColor: string;
+  };
 }
 
 export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
@@ -18,30 +23,21 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
   calculateCompletionPercentageFromState,
   isPuzzleCheated,
   buildPuzzleUrlFromState,
+  getDifficultyDisplay,
 }: MyPuzzlesTabProps<State>) => {
-  // Sort all sessions by most recently played (updatedAt descending)
   const allSessions = sessions?.sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
   );
 
   return (
     <div className="mb-4">
-      <h1 className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-4xl font-bold text-transparent">
-        My Puzzles
-      </h1>
-      <p className="my-4">
-        This page lists puzzles you have played in the past 30 days.
-      </p>
-      <p className="my-4">
-        Press Start Race in the bottom navigation to find a new puzzle to solve
-        or resume a previous one below.
-      </p>
-
-      {!!allSessions?.length && (
+      {allSessions?.length ? (
         <div className="mb-4">
-          <h2 className="mb-2 text-2xl font-extrabold">Recent Puzzles</h2>
+          <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
+            Your puzzles from the past 30 days.
+          </p>
           <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-            {allSessions?.map((session) => (
+            {allSessions.map((session) => (
               <IntegratedSessionRow<State>
                 key={session.sessionId}
                 session={session}
@@ -51,9 +47,23 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
                 }
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
+                getDifficultyDisplay={getDifficultyDisplay}
               />
             ))}
           </ul>
+        </div>
+      ) : (
+        /* Empty state */
+        <div className="flex flex-col items-center justify-center rounded-3xl border border-zinc-200 bg-zinc-50 py-16 text-center dark:border-zinc-800 dark:bg-zinc-800/40">
+          <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
+            <Award className="h-7 w-7 text-zinc-400 dark:text-zinc-500" />
+          </div>
+          <p className="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
+            No puzzles yet
+          </p>
+          <p className="mt-1 max-w-[220px] text-xs text-zinc-400 dark:text-zinc-500">
+            Head to Start Race to solve your first puzzle
+          </p>
         </div>
       )}
     </div>

@@ -9,6 +9,13 @@ interface CreditItem {
 
 const credits: CreditItem[] = [
   {
+    name: 'Human Sudoku Solver',
+    description:
+      'TypeScript library that solves Sudoku puzzles using human techniques.',
+    url: 'https://github.com/jamesacres/human-sudoku-solver',
+    license: 'GPL-3.0',
+  },
+  {
     name: 'QQwing',
     description: 'Sudoku of the Day puzzle generation',
     url: 'https://github.com/stephenostermiller/qqwing',

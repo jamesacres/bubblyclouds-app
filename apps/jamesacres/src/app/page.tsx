@@ -19,17 +19,17 @@ export default async function Page() {
         <div className="space-y-8 pb-8 pt-6 md:space-y-10">
           <div className="flex flex-row items-start justify-end gap-4">
             <div className="relative mt-20 min-w-0 max-w-lg">
-              <div className="animate-fade-in relative rounded-lg bg-pink-400 p-4 dark:bg-pink-500">
+              <div className="animate-fade-in relative rounded-xl bg-pink-400 p-5 dark:bg-pink-500">
                 <div className="absolute -right-2 top-1/2 h-0 w-0 border-b-[12px] border-l-[16px] border-t-[12px] border-b-transparent border-l-pink-400 border-t-transparent dark:border-l-pink-500"></div>
-                <p className="text-lg font-semibold leading-7 text-white">
-                  I'm creating awesome, here are some of my thoughts.
+                <p className="text-base font-medium leading-7 text-white">
+                  Building things and writing about what I learn.
                 </p>
               </div>
             </div>
             <div className="flex-shrink-0">
               <Image
                 src="/static/images/mascot.png"
-                alt="avatar"
+                alt="Bubbly Clouds mascot"
                 width={150}
                 height={300}
                 priority
@@ -38,8 +38,8 @@ export default async function Page() {
             </div>
           </div>
           <div>
-            <h1 className="text-2xl font-bold leading-9 tracking-tight text-gray-900 md:text-3xl dark:text-gray-100">
-              Recently Published
+            <h1 className="text-xl font-semibold leading-9 tracking-tight text-gray-900 dark:text-gray-100">
+              Recent posts
             </h1>
           </div>
         </div>

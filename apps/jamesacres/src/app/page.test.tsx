@@ -46,7 +46,7 @@ describe('HomePage', () => {
     const result = await HomePage();
     const { container } = render(result);
 
-    expect(container.textContent).toContain('Recently Published');
+    expect(container.textContent).toContain('Recent posts');
   });
 
   it('should display featured posts', async () => {
@@ -145,7 +145,7 @@ describe('HomePage', () => {
     const image = screen.getByTestId('next-image');
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute('src', '/static/images/mascot.png');
-    expect(image).toHaveAttribute('alt', 'avatar');
+    expect(image).toHaveAttribute('alt', 'Bubbly Clouds mascot');
   });
 
   it('should display welcome message bubble', async () => {
@@ -155,7 +155,7 @@ describe('HomePage', () => {
     const { container } = render(result);
 
     expect(container.textContent).toContain(
-      "I'm creating awesome, here are some of my thoughts."
+      'Building things and writing about what I learn.'
     );
   });
 
@@ -176,7 +176,7 @@ describe('HomePage', () => {
     const { container } = render(result);
 
     const heading = container.querySelector('h1');
-    expect(heading).toHaveTextContent('Recently Published');
+    expect(heading).toHaveTextContent('Recent posts');
   });
 
   it('should handle empty posts gracefully', async () => {

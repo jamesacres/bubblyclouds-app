@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { Smartphone, Download } from 'lucide-react';
+import { Smartphone, ExternalLink } from 'lucide-react';
 import { isCapacitor } from '../helpers/capacitor';
 import Image from 'next/image';
 
@@ -31,12 +31,10 @@ export const AppDownloadModal = ({
   desktopDescription,
   openInAppLabel,
 }: AppDownloadModalProps) => {
-  // Don't show if already in the app
   if (isCapacitor()) {
     return null;
   }
 
-  // Detect platform from user agent for web browsers
   const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '';
   const isIOSWeb = /iPad|iPhone|iPod/.test(userAgent) && !isCapacitor();
   const isAndroidWeb = /Android/.test(userAgent) && !isCapacitor();
@@ -57,10 +55,7 @@ export const AppDownloadModal = ({
 
   const handleOpenInApp = () => {
     const currentPath = window.location.pathname + window.location.search;
-    const deepLink = `${deepLinkScheme}://-${currentPath}`;
-
-    // Try to open the deep link
-    window.location.href = deepLink;
+    window.location.href = `${deepLinkScheme}://-${currentPath}`;
   };
 
   return (
@@ -75,105 +70,109 @@ export const AppDownloadModal = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm dark:bg-zinc-950/80" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex min-h-full items-end justify-center sm:items-center sm:p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
               leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-3xl bg-white/95 p-6 text-left align-middle shadow-2xl backdrop-blur-md transition-all dark:bg-zinc-900/95">
-                {/* Header */}
-                <div className="mb-6 text-center">
-                  <div className="mb-4 flex justify-center">
-                    <div className="relative">
-                      <div className="flex h-16 w-16 animate-pulse items-center justify-center rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
-                        <Smartphone className="h-8 w-8 text-white" />
-                      </div>
-                      <div className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-blue-500">
-                        <Download className="h-3 w-3 text-white" />
-                      </div>
+              <Dialog.Panel className="border-black/8 w-full overflow-hidden rounded-t-3xl border bg-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)] sm:max-w-md sm:rounded-3xl dark:border-white/10 dark:bg-zinc-900 dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
+                <div className="p-6">
+                  {/* Header */}
+                  <div className="mb-6 flex items-start gap-4">
+                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-sky-500/25 bg-sky-500/15 shadow-[inset_0_1px_0_rgba(125,211,252,0.1)]">
+                      <Smartphone className="h-5 w-5 text-sky-500 dark:text-sky-400" />
+                    </div>
+                    <div>
+                      <Dialog.Title className="text-base font-bold tracking-tight text-gray-900 dark:text-zinc-100">
+                        Continue in the app
+                      </Dialog.Title>
+                      <p className="mt-1 text-sm leading-snug text-gray-500 dark:text-zinc-400">
+                        {isMobileWeb ? mobileDescription : desktopDescription}
+                      </p>
                     </div>
                   </div>
 
-                  <Dialog.Title className="mb-2 text-2xl font-bold">
-                    <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                      Did you know you can continue in our mobile app?
-                    </span>
-                  </Dialog.Title>
+                  {/* Store badges */}
+                  <div className="space-y-3">
+                    {(isIOSWeb || !isMobileWeb) && (
+                      <button
+                        onClick={handleAppStoreClick}
+                        className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
+                      >
+                        <Image
+                          src="/badges/download-on-app-store.svg"
+                          alt="Download on the App Store"
+                          className="h-9 w-auto flex-shrink-0"
+                          width={120}
+                          height={36}
+                        />
+                        <div className="min-w-0 flex-1">
+                          <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
+                            App Store
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-zinc-400">
+                            iPhone &amp; iPad
+                          </div>
+                        </div>
+                        <ExternalLink className="h-4 w-4 flex-shrink-0 text-gray-400 dark:text-zinc-500" />
+                      </button>
+                    )}
 
-                  <p className="text-lg text-gray-600 dark:text-gray-300">
-                    {isMobileWeb ? mobileDescription : desktopDescription}
-                  </p>
-                </div>
+                    {(isAndroidWeb || !isMobileWeb) && (
+                      <button
+                        onClick={handleGooglePlayClick}
+                        className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
+                      >
+                        <Image
+                          src="/badges/get-it-on-google-play.svg"
+                          alt="Get it on Google Play"
+                          className="h-9 w-auto flex-shrink-0"
+                          width={120}
+                          height={36}
+                        />
+                        <div className="min-w-0 flex-1">
+                          <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
+                            Google Play
+                          </div>
+                          <div className="text-xs text-gray-500 dark:text-zinc-400">
+                            Android
+                          </div>
+                        </div>
+                        <ExternalLink className="h-4 w-4 flex-shrink-0 text-gray-400 dark:text-zinc-500" />
+                      </button>
+                    )}
+                  </div>
 
-                {/* App Store buttons */}
-                <div className="space-y-4">
-                  {/* iOS App Store - only show on iOS web or desktop */}
-                  {(isIOSWeb || !isMobileWeb) && (
-                    <button
-                      onClick={handleAppStoreClick}
-                      className="block w-full cursor-pointer transition-transform hover:scale-105 active:scale-95"
-                    >
-                      <Image
-                        src="/badges/download-on-app-store.svg"
-                        alt="Download on the App Store"
-                        className="mx-auto h-14 w-auto"
-                        width={168}
-                        height={56}
-                      />
-                    </button>
-                  )}
-
-                  {/* Google Play - only show on Android web or desktop */}
-                  {(isAndroidWeb || !isMobileWeb) && (
-                    <button
-                      onClick={handleGooglePlayClick}
-                      className="block w-full cursor-pointer transition-transform hover:scale-105 active:scale-95"
-                    >
-                      <Image
-                        src="/badges/get-it-on-google-play.svg"
-                        alt="Get it on Google Play"
-                        className="mx-auto h-14 w-auto"
-                        width={168}
-                        height={56}
-                      />
-                    </button>
-                  )}
-                </div>
-
-                {/* Open in app option - only show on mobile */}
-                {isMobileWeb && (
-                  <div className="mt-4 text-center">
-                    <p className="mb-3 text-sm text-gray-600 dark:text-gray-400">
-                      Already got the app?
-                    </p>
+                  {/* Open in app — mobile only */}
+                  {isMobileWeb && (
                     <button
                       onClick={handleOpenInApp}
-                      className="w-full cursor-pointer rounded-xl bg-blue-100 px-4 py-3 text-sm font-medium text-blue-700 transition-all duration-200 hover:bg-blue-200 active:scale-95 dark:bg-blue-900/30 dark:text-blue-300 dark:hover:bg-blue-900/50"
+                      className="bg-theme-primary hover:bg-theme-primary-dark mt-3 w-full rounded-xl py-3.5 text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] transition-all duration-200 active:scale-[0.98]"
                     >
                       {openInAppLabel}
                     </button>
-                  </div>
-                )}
+                  )}
 
-                {/* Continue in browser option */}
-                <div className="mt-4 border-t border-gray-200 pt-4 dark:border-gray-700">
-                  <button
-                    onClick={handleContinueWeb}
-                    className="w-full cursor-pointer rounded-xl px-4 py-3 text-sm text-gray-600 transition-all duration-200 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-zinc-800 dark:hover:text-gray-200"
-                  >
-                    {isMobileWeb
-                      ? 'Continue in browser'
-                      : 'Continue on desktop'}
-                  </button>
+                  {/* Continue in browser — quiet tertiary */}
+                  <div className="border-black/8 dark:border-white/8 mt-3 border-t pt-3">
+                    <button
+                      onClick={handleContinueWeb}
+                      className="w-full rounded-xl px-4 py-2.5 text-sm text-gray-400 transition-all duration-200 hover:bg-gray-100 hover:text-gray-600 active:scale-[0.98] dark:text-zinc-500 dark:hover:bg-zinc-800/60 dark:hover:text-zinc-300"
+                    >
+                      {isMobileWeb
+                        ? 'Continue in browser'
+                        : 'Continue on desktop'}
+                    </button>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

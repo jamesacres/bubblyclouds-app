@@ -24,6 +24,7 @@ interface UserPanelProps extends UserPanelDependencies {
   creditsUrl?: string;
   companyUrl: string;
   companyName: string;
+  subscriptionManagementUrl?: string;
 }
 
 const UserInfo = ({
@@ -51,22 +52,28 @@ const UserInfo = ({
 // Shared primary action component
 const PrimaryAction = ({
   isSubscribed,
+  subscriptionManagementUrl,
   showSubscribeModal,
   app,
 }: {
   isSubscribed: boolean;
+  subscriptionManagementUrl?: string;
   showSubscribeModal?: (onSuccess: () => void) => void;
   app: string;
 }) => (
-  <>
+  <div className="flex justify-center">
     {isSubscribed ? (
-      <div className="rounded-full border border-gray-600 bg-gray-700 px-6 py-3 text-center">
+      <a
+        href={subscriptionManagementUrl}
+        target="_blank"
+        className="w-full rounded-full border border-gray-600 bg-gray-700 px-6 py-3 text-center"
+      >
         <span className="inline-flex items-center text-sm font-medium">
           <span className="mr-2">✨</span>
           {app.charAt(0).toUpperCase() + app.slice(1)} Plus Active
           <span className="ml-2">✓</span>
         </span>
-      </div>
+      </a>
     ) : showSubscribeModal ? (
       <button
         onClick={() => showSubscribeModal?.(() => {})}
@@ -77,7 +84,7 @@ const PrimaryAction = ({
     ) : (
       <></>
     )}
-  </>
+  </div>
 );
 
 // Shared action buttons component
@@ -198,6 +205,7 @@ export const UserPanel = ({
   termsUrl,
   creditsUrl,
   companyUrl,
+  subscriptionManagementUrl,
   companyName,
 }: UserPanelProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -240,6 +248,7 @@ export const UserPanel = ({
           <div className="px-6 py-4">
             <PrimaryAction
               isSubscribed={isSubscribed}
+              subscriptionManagementUrl={subscriptionManagementUrl}
               showSubscribeModal={showSubscribeModal}
               app={app}
             />

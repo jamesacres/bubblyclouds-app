@@ -62,7 +62,7 @@ describe('PartyInviteButton', () => {
     mockCreateInvite = jest.fn().mockResolvedValue({ inviteId: 'invite123' });
     mockUseServerStorage.mockReturnValue({ createInvite: mockCreateInvite });
     jest.useFakeTimers();
-    jest.setSystemTime(new Date('2024-01-01'));
+    jest.setSystemTime(new Date('2024-01-01').getTime());
   });
 
   afterEach(() => {

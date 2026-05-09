@@ -2,10 +2,35 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { RacingPromptModal } from './RacingPromptModal';
 
+const AGENT_OPTIONS = [
+  {
+    name: 'Bumblebee',
+    emoji: '🐝',
+    emojiName: 'bee',
+    skillLevel: 'novice',
+    personality: 'Restless and enthusiastic.',
+  },
+  {
+    name: 'Sage',
+    emoji: '🦉',
+    emojiName: 'owl',
+    skillLevel: 'expert',
+    personality: 'Calm and deliberate.',
+  },
+  {
+    name: 'Ember',
+    emoji: '🦊',
+    emojiName: 'fox',
+    skillLevel: 'proficient',
+    personality: 'Intense and competitive.',
+  },
+];
+
 describe('RacingPromptModal', () => {
   const mockOnClose = jest.fn();
   const mockOnRaceMode = jest.fn();
   const mockOnSoloMode = jest.fn();
+  const mockOnAgentMode = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -21,9 +46,7 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Choose Your Mode/i)).toBeInTheDocument();
     });
 
     it('should not render when isOpen is false', () => {
@@ -35,9 +58,7 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      expect(
-        screen.queryByText(/Choose Your Challenge Mode/i)
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText(/Choose Your Mode/i)).not.toBeInTheDocument();
     });
   });
 
@@ -51,9 +72,7 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Choose Your Mode/i)).toBeInTheDocument();
     });
 
     it('should display subtitle text', () => {
@@ -66,41 +85,13 @@ describe('RacingPromptModal', () => {
         />
       );
       expect(
-        screen.getByText(/Compete with others or practice solo/i)
-      ).toBeInTheDocument();
-    });
-
-    it('should display racing icon', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
-    });
-
-    it('should display complete header content', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      expect(
-        screen.getByText(/Compete with others or practice solo/i)
+        screen.getByText(/Race others, challenge AI, or go solo/i)
       ).toBeInTheDocument();
     });
   });
 
   describe('race mode button', () => {
-    it('should display race mode button with prominent styling', () => {
+    it('should display race mode button', () => {
       render(
         <RacingPromptModal
           isOpen={true}
@@ -109,7 +100,7 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      expect(screen.getByText(/Race Friends and Family!/i)).toBeInTheDocument();
+      expect(screen.getByText(/Race Friends & Family/i)).toBeInTheDocument();
     });
 
     it('should display race mode description', () => {
@@ -121,10 +112,10 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      expect(screen.getByText(/Players can join anytime/i)).toBeInTheDocument();
+      expect(screen.getByText(/Share a link/i)).toBeInTheDocument();
     });
 
-    it('should call onRaceMode when race button is clicked', () => {
+    it('should call onRaceMode and onClose when race button is clicked', () => {
       render(
         <RacingPromptModal
           isOpen={true}
@@ -134,43 +125,11 @@ describe('RacingPromptModal', () => {
         />
       );
       const raceButton = screen
-        .getByText(/Race Friends and Family!/i)
+        .getByText(/Race Friends & Family/i)
         .closest('button');
       fireEvent.click(raceButton!);
-      expect(mockOnRaceMode).toHaveBeenCalled();
-    });
-
-    it('should call onClose after onRaceMode', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      const raceButton = screen
-        .getByText(/Race Friends and Family!/i)
-        .closest('button');
-      fireEvent.click(raceButton!);
-
       expect(mockOnRaceMode).toHaveBeenCalled();
       expect(mockOnClose).toHaveBeenCalled();
-    });
-
-    it('should have hover scale animation', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      const raceButton = screen
-        .getByText(/Race Friends and Family!/i)
-        .closest('button');
-      expect(raceButton).toHaveClass('hover:scale-[1.02]');
     });
   });
 
@@ -187,7 +146,7 @@ describe('RacingPromptModal', () => {
       expect(screen.getByText(/Solo Challenge/i)).toBeInTheDocument();
     });
 
-    it('should call onSoloMode when solo button is clicked', () => {
+    it('should call onSoloMode and onClose when solo button is clicked', () => {
       render(
         <RacingPromptModal
           isOpen={true}
@@ -200,28 +159,13 @@ describe('RacingPromptModal', () => {
         name: /Solo Challenge/i,
       });
       fireEvent.click(soloButton);
-      expect(mockOnSoloMode).toHaveBeenCalled();
-    });
-
-    it('should call onClose after onSoloMode', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      const soloButton = screen.getByRole('button', {
-        name: /Solo Challenge/i,
-      });
-      fireEvent.click(soloButton);
-
       expect(mockOnSoloMode).toHaveBeenCalled();
       expect(mockOnClose).toHaveBeenCalled();
     });
+  });
 
-    it('should display in less prominent styling than race button', () => {
+  describe('agent mode', () => {
+    it('should not show AI option when onAgentMode is not provided', () => {
       render(
         <RacingPromptModal
           isOpen={true}
@@ -230,11 +174,155 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      const soloButton = screen.getByRole('button', {
-        name: /Solo Challenge/i,
-      });
-      // Solo button should not have the gradient background of race button
-      expect(soloButton).toHaveClass('hover:bg-gray-100');
+      expect(screen.queryByText(/Race AI Opponents/i)).not.toBeInTheDocument();
+    });
+
+    it('should show AI option when onAgentMode and agentOptions are provided', () => {
+      render(
+        <RacingPromptModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onRaceMode={mockOnRaceMode}
+          onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
+        />
+      );
+      expect(screen.getByText(/Race AI Opponents/i)).toBeInTheDocument();
+    });
+
+    it('should navigate to agent select view when AI option is clicked', () => {
+      render(
+        <RacingPromptModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onRaceMode={mockOnRaceMode}
+          onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
+        />
+      );
+      fireEvent.click(
+        screen.getByText(/Race AI Opponents/i).closest('button')!
+      );
+      expect(screen.getByText(/Pick Your Rivals/i)).toBeInTheDocument();
+    });
+
+    it('should display agent cards in agent select view', () => {
+      render(
+        <RacingPromptModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onRaceMode={mockOnRaceMode}
+          onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
+        />
+      );
+      fireEvent.click(
+        screen.getByText(/Race AI Opponents/i).closest('button')!
+      );
+      expect(screen.getByText('Bumblebee')).toBeInTheDocument();
+      expect(screen.getByText('Sage')).toBeInTheDocument();
+      expect(screen.getByText('Ember')).toBeInTheDocument();
+    });
+
+    it('should pre-select default agents', () => {
+      render(
+        <RacingPromptModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onRaceMode={mockOnRaceMode}
+          onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
+          defaultSelectedAgentNames={['Bumblebee', 'Sage']}
+        />
+      );
+      fireEvent.click(
+        screen.getByText(/Race AI Opponents/i).closest('button')!
+      );
+      expect(screen.getByText(/Race 2 Rivals/i)).toBeInTheDocument();
+    });
+
+    it('should call onAgentMode with selected agent names on start', () => {
+      render(
+        <RacingPromptModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onRaceMode={mockOnRaceMode}
+          onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
+          defaultSelectedAgentNames={['Bumblebee']}
+        />
+      );
+      fireEvent.click(
+        screen.getByText(/Race AI Opponents/i).closest('button')!
+      );
+      fireEvent.click(screen.getByText(/Race 1 Rival/i));
+      expect(mockOnAgentMode).toHaveBeenCalledWith(['Bumblebee']);
+      expect(mockOnClose).toHaveBeenCalled();
+    });
+
+    it('should toggle agent selection when card is clicked', () => {
+      render(
+        <RacingPromptModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onRaceMode={mockOnRaceMode}
+          onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
+          defaultSelectedAgentNames={[]}
+        />
+      );
+      fireEvent.click(
+        screen.getByText(/Race AI Opponents/i).closest('button')!
+      );
+      expect(
+        screen.getByText(/Select at least one rival/i)
+      ).toBeInTheDocument();
+      fireEvent.click(screen.getByText('Bumblebee').closest('button')!);
+      expect(screen.getByText(/Race 1 Rival/i)).toBeInTheDocument();
+    });
+
+    it('should navigate back to mode select when back button is clicked', () => {
+      render(
+        <RacingPromptModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onRaceMode={mockOnRaceMode}
+          onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
+        />
+      );
+      fireEvent.click(
+        screen.getByText(/Race AI Opponents/i).closest('button')!
+      );
+      expect(screen.getByText(/Pick Your Rivals/i)).toBeInTheDocument();
+      fireEvent.click(screen.getByRole('button', { name: /Back/i }));
+      expect(screen.getByText(/Choose Your Mode/i)).toBeInTheDocument();
+    });
+
+    it('should disable start button when no agents are selected', () => {
+      render(
+        <RacingPromptModal
+          isOpen={true}
+          onClose={mockOnClose}
+          onRaceMode={mockOnRaceMode}
+          onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
+          defaultSelectedAgentNames={[]}
+        />
+      );
+      fireEvent.click(
+        screen.getByText(/Race AI Opponents/i).closest('button')!
+      );
+      const startButton = screen.getByText(/Select at least one rival/i);
+      expect(startButton.closest('button')).toBeDisabled();
     });
   });
 
@@ -248,130 +336,23 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Choose Your Mode/i)).toBeInTheDocument();
     });
 
-    it('should render modal backdrop', () => {
+    it('should render all mode options', () => {
       render(
         <RacingPromptModal
           isOpen={true}
           onClose={mockOnClose}
           onRaceMode={mockOnRaceMode}
           onSoloMode={mockOnSoloMode}
+          onAgentMode={mockOnAgentMode}
+          agentOptions={AGENT_OPTIONS}
         />
       );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
-    });
-
-    it('should render modal panel with content', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      expect(screen.getByText(/Race Friends and Family!/i)).toBeInTheDocument();
-    });
-  });
-
-  describe('animations', () => {
-    it('should render modal with smooth transitions', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
-    });
-
-    it('should render racing button with animations', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      expect(screen.getByText(/Race Friends and Family!/i)).toBeInTheDocument();
-    });
-  });
-
-  describe('responsive design', () => {
-    it('should render modal content responsively', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
-      expect(screen.getByText(/Race Friends and Family!/i)).toBeInTheDocument();
-    });
-
-    it('should render all modal content elements', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      expect(
-        screen.getByText(/Compete with others or practice solo/i)
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole('button', { name: /Solo Challenge/i })
-      ).toBeInTheDocument();
-    });
-  });
-
-  describe('dark mode support', () => {
-    it('should render modal with dark mode support', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
-    });
-  });
-
-  describe('keyboard interaction', () => {
-    it('should support keyboard navigation between buttons', () => {
-      render(
-        <RacingPromptModal
-          isOpen={true}
-          onClose={mockOnClose}
-          onRaceMode={mockOnRaceMode}
-          onSoloMode={mockOnSoloMode}
-        />
-      );
-      const buttons = screen.getAllByRole('button');
-      buttons.forEach((button) => {
-        expect(button).toHaveProperty('onclick');
-      });
+      expect(screen.getByText(/Race Friends & Family/i)).toBeInTheDocument();
+      expect(screen.getByText(/Race AI Opponents/i)).toBeInTheDocument();
+      expect(screen.getByText(/Solo Challenge/i)).toBeInTheDocument();
     });
   });
 
@@ -385,9 +366,7 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      expect(
-        screen.getByText(/Choose Your Challenge Mode/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Choose Your Mode/i)).toBeInTheDocument();
 
       rerender(
         <RacingPromptModal
@@ -399,9 +378,7 @@ describe('RacingPromptModal', () => {
       );
 
       await waitFor(() => {
-        expect(
-          screen.queryByText(/Choose Your Challenge Mode/i)
-        ).not.toBeInTheDocument();
+        expect(screen.queryByText(/Choose Your Mode/i)).not.toBeInTheDocument();
       });
     });
   });

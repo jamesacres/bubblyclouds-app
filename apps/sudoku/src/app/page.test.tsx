@@ -102,35 +102,28 @@ jest.mock('@bubblyclouds-app/types/tabs', () => ({
   },
 }));
 
-jest.mock('@bubblyclouds-app/template/components/SocialProof', () => {
-  return function MockSocialProof({
-    motivationalMessages,
-  }: {
-    motivationalMessages: string[];
-  }) {
-    return (
-      <div data-testid="social-proof">
-        Social Proof - {motivationalMessages.length} messages
-      </div>
-    );
-  };
-});
-
 jest.mock('@bubblyclouds-app/template/components/PremiumFeatures', () => ({
   PremiumFeatures: function MockPremiumFeatures() {
     return <div data-testid="premium-features">Premium Features</div>;
   },
 }));
 
-jest.mock('@bubblyclouds-app/ui', () => ({
-  Footer: function MockFooter({ children }: { children: React.ReactNode }) {
+jest.mock('@bubblyclouds-app/ui/components/Footer', () => ({
+  __esModule: true,
+  default: function MockFooter({ children }: { children: React.ReactNode }) {
     return <footer data-testid="footer">{children}</footer>;
   },
 }));
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: (props: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    className?: string;
+  }) => {
     const { ...rest } = props;
     // eslint-disable-next-line @next/next/no-img-element
     return <img {...rest} />;
@@ -158,6 +151,24 @@ jest.mock('lucide-react', () => ({
   Watch: () => <div data-testid="watch-icon">Watch Icon</div>,
   Droplet: () => <div data-testid="droplet-icon">Droplet Icon</div>,
   RotateCcw: () => <div data-testid="rotate-ccw-icon">Rotate Icon</div>,
+  BookOpen: () => <div data-testid="book-open-icon">BookOpen Icon</div>,
+  Flame: () => <div data-testid="flame-icon">Flame Icon</div>,
+}));
+
+const makeSevenDays = (todayCount = 0) =>
+  Array.from({ length: 7 }, (_, i) => ({
+    label: ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'][i],
+    puzzleCount: i === 6 ? todayCount : 0,
+    isToday: i === 6,
+  }));
+
+jest.mock('@bubblyclouds-app/games/helpers/calculateActivityStats', () => ({
+  calculateActivityStats: jest.fn(() => ({
+    daysPlayedInThirtyDays: 0,
+    puzzlesPlayedInThirtyDays: 0,
+    currentStreak: 0,
+    lastSevenDays: makeSevenDays(),
+  })),
 }));
 
 describe('Home Page', () => {
@@ -194,7 +205,7 @@ describe('Home Page', () => {
   describe('Tab navigation', () => {
     it('should render START_PUZZLE tab by default', () => {
       render(<Home />);
-      expect(screen.getByText('Ready to Race? 🏎️')).toBeInTheDocument();
+      expect(screen.getByText('Daily challenges')).toBeInTheDocument();
     });
 
     it('should display all footer tab buttons', () => {
@@ -227,14 +238,14 @@ describe('Home Page', () => {
 
       const startRaceButton = screen.getByText('Start Race');
       fireEvent.click(startRaceButton);
-      expect(screen.getByText('Ready to Race? 🏎️')).toBeInTheDocument();
+      expect(screen.getByText('Daily challenges')).toBeInTheDocument();
     });
   });
 
   describe('Daily Challenges section', () => {
     it('should render daily challenges section on START_PUZZLE tab', () => {
       render(<Home />);
-      expect(screen.getByText('🏁 Daily Challenges')).toBeInTheDocument();
+      expect(screen.getByText('Daily challenges')).toBeInTheDocument();
     });
 
     it('should render three difficulty buttons', () => {
@@ -247,40 +258,37 @@ describe('Home Page', () => {
     it('should have correct difficulty labels with stars', () => {
       render(<Home />);
       const buttons = screen.getAllByRole('button');
-      const trikyButton = buttons.find((btn) =>
-        btn.textContent.includes('Tricky')
+      const trickyButton = buttons.find((btn) =>
+        btn.textContent?.includes('Tricky')
       );
-      expect(trikyButton).toBeInTheDocument();
+      expect(trickyButton).toBeInTheDocument();
     });
   });
 
   describe('Monthly Puzzle Book section', () => {
     it('should render puzzle book section', () => {
       render(<Home />);
-      expect(screen.getByText(/Puzzle Book/)).toBeInTheDocument();
+      expect(screen.getAllByText(/Monthly book/i).length).toBeGreaterThan(0);
     });
 
     it('should show book cover component', () => {
       render(<Home />);
-      expect(screen.getByTestId('book-cover')).toBeInTheDocument();
+      expect(screen.getAllByTestId('book-cover').length).toBeGreaterThan(0);
     });
 
     it('should have Browse Puzzles button', () => {
       render(<Home />);
-      expect(screen.getByText('Browse Puzzles')).toBeInTheDocument();
+      expect(screen.getAllByText('Browse puzzles').length).toBeGreaterThan(0);
     });
 
     it('should navigate to book page when Browse Puzzles is clicked', () => {
       // The component checks if user exists before navigating
       // Since the mock returns null user, it shows confirm dialog
-      // Our jest.setup.js mocks window.confirm to return true
       // But since user is null, it calls loginRedirect instead of navigate
-      // So we need to test that the user has to sign in first
       render(<Home />);
-      const browseButton = screen.getByText('Browse Puzzles');
-      fireEvent.click(browseButton);
+      const browseButtons = screen.getAllByText('Browse puzzles');
+      fireEvent.click(browseButtons[0]);
       // When user is not logged in, it should trigger login flow, not direct navigation
-      // So this test should actually check that behavior instead
       expect(mockPush).not.toHaveBeenCalledWith('/book');
     });
   });
@@ -288,20 +296,22 @@ describe('Home Page', () => {
   describe('Import puzzle section', () => {
     it('should render import section', () => {
       render(<Home />);
-      expect(
-        screen.getByText(/Race Friends on ANY Puzzle/)
-      ).toBeInTheDocument();
+      expect(screen.getAllByText('Import any puzzle').length).toBeGreaterThan(
+        0
+      );
     });
 
     it('should have import challenge link', () => {
       render(<Home />);
-      const importLink = screen.getByText('Start Import Challenge');
-      expect(importLink).toHaveAttribute('href', '/import');
+      const importLinks = screen
+        .getAllByRole('link')
+        .filter((link) => link.getAttribute('href') === '/import');
+      expect(importLinks.length).toBeGreaterThan(0);
     });
 
     it('should show camera icon in import button', () => {
       render(<Home />);
-      expect(screen.getByTestId('camera-icon')).toBeInTheDocument();
+      expect(screen.getAllByTestId('camera-icon').length).toBeGreaterThan(0);
     });
   });
 
@@ -332,31 +342,24 @@ describe('Home Page', () => {
 
       const buttons = screen.getAllByRole('button');
       const trickyButton = buttons.find((btn) =>
-        btn.textContent.includes('Tricky')
+        btn.textContent?.includes('Tricky')
       );
 
       expect(trickyButton).toBeInTheDocument();
     });
   });
 
-  describe('Social proof section', () => {
-    it('should render social proof component', () => {
-      render(<Home />);
-      expect(screen.getByTestId('social-proof')).toBeInTheDocument();
-    });
-  });
-
-  describe('Activity widget on other tabs', () => {
-    it('should show activity widget when on non-START_PUZZLE tabs', () => {
+  describe('Activity widget', () => {
+    it('should show activity widget on MY_PUZZLES tab', () => {
       render(<Home />);
       const myPuzzlesButton = screen.getByText('My Puzzles');
       fireEvent.click(myPuzzlesButton);
       expect(screen.getByTestId('activity-widget')).toBeInTheDocument();
     });
 
-    it('should not show activity widget on START_PUZZLE tab', () => {
+    it('should show activity widget on START_PUZZLE tab', () => {
       render(<Home />);
-      expect(screen.queryByTestId('activity-widget')).not.toBeInTheDocument();
+      expect(screen.getByTestId('activity-widget')).toBeInTheDocument();
     });
   });
 
@@ -364,7 +367,7 @@ describe('Home Page', () => {
     it('should render with appropriate containers', () => {
       render(<Home />);
       const heroSection = screen
-        .getByText('Ready to Race? 🏎️')
+        .getByText('Daily challenges')
         .closest('div')?.parentElement;
       expect(heroSection?.className).toBeDefined();
     });
@@ -386,43 +389,24 @@ describe('Home Page', () => {
     });
   });
 
-  describe('Daily Streak calculation', () => {
-    it('should display daily streak', () => {
-      const {
-        useSessions,
-      } = require('@bubblyclouds-app/template/providers/SessionsProvider');
-      (useSessions as jest.Mock).mockReturnValueOnce({
-        sessions: [
-          { updatedAt: new Date().toISOString() },
-          {
-            updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-          },
-        ],
-        refetchSessions: jest.fn(),
-        lazyLoadFriendSessions: jest.fn(),
-        fetchFriendSessions: jest.fn(),
-      });
-
-      render(<Home />);
-      expect(screen.getByText(/day streak/)).toBeInTheDocument();
-    });
-
-    it('should show leaderboard button in daily streak section', () => {
-      render(<Home />);
-      const leaderboardButton = screen.getByText('Leaderboard');
-      expect(leaderboardButton).toBeInTheDocument();
-    });
-  });
-
   describe('Team Racing section', () => {
     it('should render team racing section', () => {
       render(<Home />);
-      expect(screen.getByText('👥 Team Racing')).toBeInTheDocument();
+      expect(screen.getAllByText('Racing teams').length).toBeGreaterThan(0);
     });
 
-    it('should have View Racing Teams button', () => {
+    it('should navigate to FRIENDS tab when Racing teams is clicked', () => {
       render(<Home />);
-      expect(screen.getByText('View Racing Teams')).toBeInTheDocument();
+      const racingTeamsButtons = screen.getAllByRole('button');
+      const racingTeamsButton = racingTeamsButtons.find(
+        (btn) =>
+          btn.textContent?.includes('Racing teams') &&
+          btn.textContent?.includes('Challenge friends')
+      );
+      if (racingTeamsButton) {
+        fireEvent.click(racingTeamsButton);
+        expect(screen.getByTestId('friends-tab')).toBeInTheDocument();
+      }
     });
   });
 

@@ -6,25 +6,9 @@ describe('Home Page', () => {
   describe('Page rendering', () => {
     it('should render the container with correct styling', () => {
       const { container } = render(<Home />);
-      const mainContainer = container.querySelector('.container');
+      const mainContainer = container.querySelector('.w-full');
       expect(mainContainer).toBeInTheDocument();
-      expect(mainContainer).toHaveClass('mx-auto', 'my-10', 'max-w-xl');
-    });
-
-    it('should render introduction text', () => {
-      render(<Home />);
-      expect(screen.getByText(/Hi I am/i)).toBeInTheDocument();
-      expect(screen.getByText('James Acres')).toBeInTheDocument();
-      expect(screen.getByText(/trading as Bubbly Clouds/i)).toBeInTheDocument();
-    });
-
-    it('should render description paragraph', () => {
-      render(<Home />);
-      expect(
-        screen.getByText(
-          /I use the latest tools and techniques to create awesome apps/i
-        )
-      ).toBeInTheDocument();
+      expect(mainContainer).toHaveClass('w-full', 'max-w-xl');
     });
   });
 
@@ -40,7 +24,7 @@ describe('Home Page', () => {
     it('should render support email link with correct href', () => {
       render(<Home />);
       const supportLink = screen.getByRole('link', {
-        name: /Web and Mobile Application Development and Hosting/i,
+        name: /Email/i,
       });
       expect(supportLink).toHaveAttribute(
         'href',
@@ -68,10 +52,10 @@ describe('Home Page', () => {
   });
 
   describe('Services section', () => {
-    it('should render Services heading', () => {
+    it('should render Contact me heading', () => {
       render(<Home />);
       expect(
-        screen.getByRole('heading', { name: /Services/i })
+        screen.getByRole('heading', { name: /Contact me/i })
       ).toBeInTheDocument();
     });
 
@@ -82,38 +66,31 @@ describe('Home Page', () => {
       );
       expect(serviceCard).toHaveClass(
         'group',
-        'rounded-lg',
+        'rounded-xl',
         'border',
-        'border-transparent',
         'px-5',
-        'py-4',
-        'transition-colors'
+        'py-5',
+        'transition-all'
       );
     });
 
-    it('should render service title with arrow', () => {
+    it('should render email title', () => {
       render(<Home />);
-      const serviceTitle = screen.getByText(
-        /Web and Mobile Application Development and Hosting/i
-      );
+      const serviceTitle = screen.getByText(/Email/i);
       expect(serviceTitle).toBeInTheDocument();
-      const arrow = serviceTitle.querySelector('span');
-      expect(arrow).toHaveTextContent('->');
     });
 
     it('should render contact email in service description', () => {
       render(<Home />);
-      expect(
-        screen.getByText(/Contact support@bubblyclouds.com/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/support@bubblyclouds.com/i)).toBeInTheDocument();
     });
   });
 
-  describe('Apps section', () => {
-    it('should render Apps heading', () => {
+  describe('Personal Projects section', () => {
+    it('should render Personal Projects heading', () => {
       render(<Home />);
       expect(
-        screen.getByRole('heading', { name: /Apps/i })
+        screen.getByRole('heading', { name: /Personal Projects/i })
       ).toBeInTheDocument();
     });
 
@@ -122,9 +99,9 @@ describe('Home Page', () => {
       const sudokuCard = screen.getByRole('link', { name: /Sudoku/i });
       expect(sudokuCard).toHaveClass(
         'group',
-        'rounded-lg',
+        'rounded-xl',
         'border',
-        'border-transparent'
+        'transition-all'
       );
     });
 
@@ -137,51 +114,13 @@ describe('Home Page', () => {
 
     it('should render arrow indicator in Sudoku card', () => {
       render(<Home />);
-      const sudokuHeading = screen.getByRole('heading', { name: /Sudoku/i });
-      const arrow = sudokuHeading.querySelector('span');
-      expect(arrow).toBeInTheDocument();
-      expect(arrow).toHaveTextContent('->');
-    });
-  });
-
-  describe('Grid layouts', () => {
-    it('should have grid layout for services', () => {
       const { container } = render(<Home />);
-      const servicesGrid = container.querySelectorAll('.grid.grid-cols-1')[0];
-      expect(servicesGrid).toBeInTheDocument();
-      expect(servicesGrid).toHaveClass('my-12', 'w-full', 'max-w-5xl');
-    });
-
-    it('should have grid layout for apps', () => {
-      const { container } = render(<Home />);
-      const grids = container.querySelectorAll('.grid.grid-cols-1');
-      expect(grids.length).toBe(2);
+      const arrows = container.querySelectorAll('.group-hover\\:translate-x-1');
+      expect(arrows.length).toBeGreaterThanOrEqual(1);
     });
   });
 
   describe('Styling and classes', () => {
-    it('should apply hover styles to service card', () => {
-      const { container } = render(<Home />);
-      const serviceCard = container.querySelector(
-        'a[href="mailto:support@bubblyclouds.com"]'
-      );
-      expect(serviceCard).toHaveClass(
-        'hover:border-gray-300',
-        'hover:bg-gray-100'
-      );
-    });
-
-    it('should apply dark mode hover styles', () => {
-      const { container } = render(<Home />);
-      const cards = container.querySelectorAll('.group');
-      cards.forEach((card) => {
-        expect(card).toHaveClass(
-          'hover:dark:border-neutral-700',
-          'hover:dark:bg-neutral-800/30'
-        );
-      });
-    });
-
     it('should apply motion-reduce transform styles to arrows', () => {
       const { container } = render(<Home />);
       const arrows = container.querySelectorAll('.group-hover\\:translate-x-1');
@@ -190,15 +129,15 @@ describe('Home Page', () => {
       });
     });
 
-    it('should have correct heading text sizes', () => {
+    it('should have correct heading text styles', () => {
       render(<Home />);
       const headings = screen.getAllByRole('heading', { level: 2 });
       headings.forEach((heading) => {
         if (
           heading.textContent === 'Services' ||
-          heading.textContent === 'Apps'
+          heading.textContent === 'Personal Projects'
         ) {
-          expect(heading).toHaveClass('mt-4', 'text-lg');
+          expect(heading).toHaveClass('text-xs', 'font-semibold', 'uppercase');
         }
       });
     });
@@ -216,7 +155,7 @@ describe('Home Page', () => {
     it('should have correct number of paragraphs', () => {
       const { container } = render(<Home />);
       const paragraphs = container.querySelectorAll('p');
-      expect(paragraphs.length).toBeGreaterThanOrEqual(3);
+      expect(paragraphs.length).toBeGreaterThanOrEqual(2);
     });
 
     it('should have all required links', () => {
@@ -236,7 +175,7 @@ describe('Home Page', () => {
     it('should have properly structured headings', () => {
       render(<Home />);
       const headings = screen.getAllByRole('heading');
-      expect(headings.length).toBeGreaterThanOrEqual(4);
+      expect(headings.length).toBeGreaterThanOrEqual(3);
     });
   });
 
@@ -245,15 +184,14 @@ describe('Home Page', () => {
       const { container } = render(<Home />);
       expect(container.textContent).toContain('James Acres');
       expect(container.textContent).toContain('Bubbly Clouds');
-      expect(container.textContent).toContain('Services');
-      expect(container.textContent).toContain('Apps');
+      expect(container.textContent).toContain('Personal Projects');
       expect(container.textContent).toContain('Sudoku');
     });
 
     it('should have valid email addresses', () => {
       render(<Home />);
       const emailLink = screen.getByRole('link', {
-        name: /Web and Mobile Application Development and Hosting/i,
+        name: /Email/i,
       });
       expect(emailLink.getAttribute('href')).toMatch(/^mailto:/);
     });

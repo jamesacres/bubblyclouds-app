@@ -32,7 +32,7 @@ export default async function AboutPage() {
             {author.avatar && (
               <Image
                 src={author.avatar}
-                alt="avatar"
+                alt={author.name}
                 width={192}
                 height={192}
                 className="h-48 w-48 rounded-full object-cover object-right"

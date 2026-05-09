@@ -1,30 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Orbitron, Pacifico } from 'next/font/google';
+import { Outfit, Orbitron, Pacifico } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { Providers } from './providers';
 import ErrorBoundary from '@bubblyclouds-app/template/components/ErrorBoundary';
 import GlobalErrorHandler from '@bubblyclouds-app/template/components/GlobalErrorHandler';
-import PlusModal from '@bubblyclouds-app/template/components/PlusModal';
 import HeaderWrapper from '@bubblyclouds-app/template/components/HeaderWrapper';
-import { PREMIUM_FEATURES } from '../config/premiumFeatures';
-import { SUBSCRIPTION_CONTEXT_MESSAGES } from '../config/subscriptionMessages';
+import SudokuPlusModal from '../components/SudokuPlusModal';
 import { APP_CONFIG } from '../../app.config.js';
 
-const PLUS_DESCRIPTION = (
-  <p className="text-gray-600 dark:text-gray-400">
-    Join{' '}
-    <span className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-3 py-1 text-sm font-semibold text-white shadow-lg">
-      <span className="mr-1">✨</span>Sudoku Plus
-      <span className="ml-1">✨</span>
-    </span>{' '}
-    to <span className="font-semibold">remove all speed limits</span>! Challenge
-    friends, climb leaderboards, and improve your solving speed. Keep it ad
-    free! Your support is much appreciated.
-  </p>
-);
-
-const inter = Inter({ subsets: ['latin'] });
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-outfit',
+});
 const orbitron = Orbitron({
   subsets: ['latin'],
   weight: ['400', '700'],
@@ -102,7 +91,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} ${orbitron.variable} ${pacifico.variable}`}
+        className={`${outfit.variable} ${outfit.className} ${orbitron.variable} ${pacifico.variable}`}
       >
         <GlobalErrorHandler />
         <ErrorBoundary>
@@ -118,11 +107,7 @@ export default function RootLayout({
               companyName={APP_CONFIG.companyName}
             />
             <div className="mb-24">{children}</div>
-            <PlusModal
-              features={PREMIUM_FEATURES}
-              description={PLUS_DESCRIPTION}
-              contextMessages={SUBSCRIPTION_CONTEXT_MESSAGES}
-            />
+            <SudokuPlusModal />
           </Providers>
         </ErrorBoundary>
       </body>

@@ -19,12 +19,12 @@ jest.mock('lucide-react', () => ({
 
 const mockFeatures = [
   {
-    icon: <div data-testid="calendar-icon" />,
+    icon: () => <div data-testid="calendar-icon" />,
     title: '🏁 Unlimited play and race',
     description: 'Race friends in real-time more than once a day',
   },
   {
-    icon: <div data-testid="watch-icon" />,
+    icon: () => <div data-testid="watch-icon" />,
     title: 'Create and join multiple racing teams',
     description: 'Host private competitions with friends and family',
   },
@@ -109,6 +109,6 @@ describe('PremiumFeatures', () => {
   it('renders compact view', () => {
     const { container } = renderComponent({ compact: true });
     // Check that component renders in compact mode
-    expect(container.querySelector('.mb-4')).toBeInTheDocument();
+    expect(container.querySelector('.mb-3')).toBeInTheDocument();
   });
 });

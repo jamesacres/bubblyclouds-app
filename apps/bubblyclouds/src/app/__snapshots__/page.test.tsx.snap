@@ -3,105 +3,104 @@
 exports[`Home Page Snapshot should match snapshot 1`] = `
 <div>
   <div
-    class="container mx-auto my-10 max-w-xl"
+    class="w-full max-w-xl"
   >
-    <p>
-      Hi I am
+    <p
+      class="text-base leading-relaxed text-stone-600 dark:text-stone-400"
+    >
+      Hi, I am
        
       <a
-        class="underline"
+        class="text-theme-primary hover:text-theme-primary-dark font-medium underline underline-offset-2 transition-colors"
         href="https://jamesacres.co.uk"
       >
         James Acres
       </a>
-      , trading as Bubbly Clouds.
+      ! My personal projects are under the name Bubbly Clouds. My goal is to learn and use the latest tools and techniques by creating awesome apps.
     </p>
-    <p>
-      I use the latest tools and techniques to create awesome apps and services, in my day job, and to keep up to date with the industry trends in my own time.
-    </p>
-    <h2
-      class="mt-4 text-lg"
+    <section
+      class="mt-10"
     >
-      Services
-    </h2>
-    <div
-      class="my-12 grid w-full max-w-5xl grid-cols-1 text-center"
-    >
+      <h2
+        class="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500"
+      >
+        Contact me
+      </h2>
       <a
-        class="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+        class="hover:border-theme-primary dark:hover:border-theme-primary group flex items-start justify-between rounded-xl border border-stone-200 bg-white px-5 py-5 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
         href="mailto:support@bubblyclouds.com"
         rel="noopener noreferrer"
       >
-        <h2
-          class="mb-3 font-semibold"
-        >
-          Web and Mobile Application Development and Hosting
-           
-          <span
-            class="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
+        <div>
+          <h3
+            class="font-semibold text-stone-800 dark:text-stone-100"
           >
-            -&gt;
-          </span>
-        </h2>
-        <p
-          class="m-0 text-sm opacity-50"
+            Email
+          </h3>
+          <p
+            class="mt-1 text-sm text-stone-500 dark:text-stone-400"
+          >
+            support@bubblyclouds.com
+          </p>
+        </div>
+        <span
+          class="group-hover:text-theme-primary ml-4 mt-0.5 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
         >
-          Contact support@bubblyclouds.com
-        </p>
+          →
+        </span>
       </a>
-    </div>
-    <h2
-      class="mt-4 text-lg"
+    </section>
+    <section
+      class="mt-10"
     >
-      Apps
-    </h2>
-    <div
-      class="my-12 grid w-full max-w-5xl grid-cols-1 text-center"
-    >
+      <h2
+        class="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500"
+      >
+        Personal Projects
+      </h2>
       <a
-        class="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+        class="hover:border-theme-primary dark:hover:border-theme-primary group flex flex-col rounded-xl border border-stone-200 bg-white px-5 py-5 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
         href="https://sudoku.bubblyclouds.com"
         rel="noopener noreferrer"
       >
-        <h2
-          class="mb-3 font-semibold"
-        >
-          Sudoku Race
-           
-          <span
-            class="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
-          >
-            -&gt;
-          </span>
-        </h2>
         <div
-          class="m-0 text-sm"
+          class="flex items-start justify-between"
         >
-          <ul
-            class="text-left"
+          <h3
+            class="font-semibold text-stone-800 dark:text-stone-100"
           >
-            <li>
-              - 🤾‍♂️ Share a Sudoku with family and friends - race to see who can complete it fastest
-            </li>
-            <li>
-              - 🏎️ Private racing team and leaderboard
-            </li>
-            <li>
-              - 🌱 Sudoku of the day - Three new challenges each day
-            </li>
-            <li>
-              - 📖 Monthly puzzle book - Technique-focused puzzles to challenge your skills
-            </li>
-            <li>
-              - 📸 Import a Sudoku - Scan any Sudoku from books, newspapers, or websites and challenge your friends to solve the same puzzle
-            </li>
-            <li>
-              - 🎨 Multiple themes in both Light Mode and Dark Mode!
-            </li>
-          </ul>
+            Sudoku Race
+          </h3>
+          <span
+            class="group-hover:text-theme-primary ml-4 mt-0.5 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
+          >
+            →
+          </span>
         </div>
+        <ul
+          class="mt-3 space-y-1.5 text-sm text-stone-600 dark:text-stone-400"
+        >
+          <li>
+            🤾‍♂️ Share a Sudoku with family and friends — race to finish first
+          </li>
+          <li>
+            🏎️ Private racing team and leaderboard
+          </li>
+          <li>
+            🌱 Sudoku of the day — three new challenges each day
+          </li>
+          <li>
+            📖 Monthly puzzle book with technique-focused puzzles
+          </li>
+          <li>
+            📸 Import any Sudoku from books, newspapers, or websites
+          </li>
+          <li>
+            🎨 Multiple themes in light and dark mode
+          </li>
+        </ul>
       </a>
-    </div>
+    </section>
   </div>
 </div>
 `;

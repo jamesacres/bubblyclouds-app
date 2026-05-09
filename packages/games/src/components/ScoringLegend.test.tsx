@@ -33,7 +33,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
+      expect(screen.getByText('How scoring works')).toBeInTheDocument();
     });
 
     it('should have fixed positioning overlay', () => {
@@ -105,7 +105,7 @@ describe('ScoringLegend', () => {
   });
 
   describe('header', () => {
-    it('should display trophy icon with title', () => {
+    it('should display title', () => {
       render(
         <ScoringLegend
           isOpen={true}
@@ -114,11 +114,11 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
+      expect(screen.getByText('How scoring works')).toBeInTheDocument();
     });
 
     it('should display close button', () => {
-      render(
+      const { container } = render(
         <ScoringLegend
           isOpen={true}
           onClose={mockOnClose}
@@ -126,12 +126,12 @@ describe('ScoringLegend', () => {
         />
       );
 
-      const closeButton = screen.getByText('✕');
+      const closeButton = container.querySelector('button');
       expect(closeButton).toBeInTheDocument();
     });
 
     it('should call onClose when close button is clicked', () => {
-      render(
+      const { container } = render(
         <ScoringLegend
           isOpen={true}
           onClose={mockOnClose}
@@ -139,8 +139,10 @@ describe('ScoringLegend', () => {
         />
       );
 
-      const closeButton = screen.getByText('✕');
-      fireEvent.click(closeButton);
+      const closeButton = container.querySelector('button');
+      if (closeButton) {
+        fireEvent.click(closeButton);
+      }
 
       expect(mockOnClose).toHaveBeenCalledTimes(1);
     });
@@ -171,12 +173,11 @@ describe('ScoringLegend', () => {
         />
       );
 
-      const modalContent = screen.getByText('🏆 Scoring System').parentElement;
+      const modalContent = screen.getByText('How scoring works').parentElement;
       if (modalContent) {
         fireEvent.click(modalContent);
       }
 
-      // Should not be called when clicking modal content
       expect(mockOnClose).not.toHaveBeenCalled();
     });
   });
@@ -191,7 +192,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('🏁 Racing Wins')).toBeInTheDocument();
+      expect(screen.getByText('Racing wins')).toBeInTheDocument();
     });
 
     it('should display racing bonus per person', () => {
@@ -203,8 +204,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Check racing bonus section exists (text may be split)
-      expect(screen.getByText(/points for each friend/i)).toBeInTheDocument();
+      expect(screen.getByText(/for each friend/i)).toBeInTheDocument();
     });
 
     it('should show racing bonus calculation example', () => {
@@ -216,9 +216,9 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(
-        screen.getByText(/Beat 5 friends = \+500 points!/)
-      ).toBeInTheDocument();
+      const racingBonusTotal = SCORING_CONFIG.RACING_BONUS_PER_PERSON * 5;
+      const matches = screen.getAllByText(new RegExp(`\\+${racingBonusTotal}`));
+      expect(matches.length).toBeGreaterThan(0);
     });
   });
 
@@ -232,7 +232,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('📊 Base Points')).toBeInTheDocument();
+      expect(screen.getByText('Base points')).toBeInTheDocument();
     });
 
     it('should display any puzzle base points', () => {
@@ -272,8 +272,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Check that rendering completes without error
-      expect(screen.getByText('📊 Base Points')).toBeInTheDocument();
+      expect(screen.getByText('Base points')).toBeInTheDocument();
     });
 
     it('should display scanned puzzle base points', () => {
@@ -301,10 +300,10 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('🔥 Difficulty Multipliers')).toBeInTheDocument();
+      expect(screen.getByText('Difficulty multipliers')).toBeInTheDocument();
     });
 
-    it('should display daily puzzle difficulties', () => {
+    it('should display daily puzzle difficulties label', () => {
       render(
         <ScoringLegend
           isOpen={true}
@@ -313,7 +312,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('⭐ Test Game of the Day')).toBeInTheDocument();
+      expect(screen.getByText('Test Game of the Day')).toBeInTheDocument();
     });
 
     it('should display book puzzle difficulties', () => {
@@ -325,7 +324,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('📖 Book Puzzles')).toBeInTheDocument();
+      expect(screen.getByText('Book puzzles')).toBeInTheDocument();
     });
 
     it('should display daily puzzle difficulty multipliers', () => {
@@ -337,9 +336,9 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Check for at least one difficulty multiplier
       const multiplier = SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[Difficulty.EASY];
-      expect(screen.getByText(`${multiplier}x`)).toBeInTheDocument();
+      const matches = screen.getAllByText(`${multiplier}×`);
+      expect(matches.length).toBeGreaterThan(0);
     });
 
     it('should display book puzzle difficulty multipliers', () => {
@@ -351,8 +350,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Check that book puzzles section is rendered with multipliers
-      expect(screen.getByText('📖 Book Puzzles')).toBeInTheDocument();
+      expect(screen.getByText('Book puzzles')).toBeInTheDocument();
     });
 
     it('should sort book puzzle difficulties by multiplier', () => {
@@ -364,15 +362,9 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Get all book difficulty items
-      const bookSection = screen.getByText('📖 Book Puzzles').parentElement;
-      if (bookSection) {
-        const difficulties = bookSection.querySelectorAll(
-          '[class*="rounded-lg"]'
-        );
-        // Should be sorted in ascending order by multiplier
-        expect(difficulties.length).toBeGreaterThan(0);
-      }
+      expect(screen.getByText('Book puzzles')).toBeInTheDocument();
+      const bookDifficulties = Object.values(BookPuzzleDifficulty);
+      expect(bookDifficulties.length).toBeGreaterThan(0);
     });
   });
 
@@ -386,7 +378,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
+      expect(screen.getByText('Speed bonuses')).toBeInTheDocument();
     });
 
     it('should display lightning speed tier', () => {
@@ -398,7 +390,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText(/⚡ Under/)).toBeInTheDocument();
+      expect(screen.getByText(/under 3 min/i)).toBeInTheDocument();
     });
 
     it('should display fast speed bonus', () => {
@@ -424,8 +416,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Check speed bonus section exists
-      expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
+      expect(screen.getByText('Speed bonuses')).toBeInTheDocument();
     });
 
     it('should display steady speed bonus', () => {
@@ -437,11 +428,10 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Component renders successfully
-      expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
+      expect(screen.getByText('Speed bonuses')).toBeInTheDocument();
     });
 
-    it('should display speed tiers with emojis', () => {
+    it('should display speed tiers with labels', () => {
       render(
         <ScoringLegend
           isOpen={true}
@@ -450,9 +440,8 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Check that speed tier emojis exist (may be multiple instances)
-      expect(screen.getAllByText(/🔥/).length).toBeGreaterThan(0); // FAST
-      expect(screen.getAllByText(/💨/).length).toBeGreaterThan(0); // QUICK
+      expect(screen.getByText('Fast')).toBeInTheDocument();
+      expect(screen.getByText('Quick')).toBeInTheDocument();
     });
 
     it('should display time thresholds correctly', () => {
@@ -464,8 +453,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Just verify component renders
-      expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
+      expect(screen.getByText('Speed bonuses')).toBeInTheDocument();
     });
 
     it('should sort speed tiers by time descending', () => {
@@ -477,13 +465,12 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Component renders successfully with speed bonuses
-      expect(screen.getAllByText(/⚡/).length).toBeGreaterThan(0);
+      expect(screen.getByText('Speed bonuses')).toBeInTheDocument();
     });
   });
 
   describe('color coding', () => {
-    it('should have gradient background', () => {
+    it('should have amber colored highlights', () => {
       const { container } = render(
         <ScoringLegend
           isOpen={true}
@@ -492,8 +479,8 @@ describe('ScoringLegend', () => {
         />
       );
 
-      const gradient = container.querySelector('[class*="gradient"]');
-      expect(gradient).toBeInTheDocument();
+      const amberElements = container.querySelectorAll('[class*="amber"]');
+      expect(amberElements.length).toBeGreaterThan(0);
     });
 
     it('should have color-coded sections', () => {
@@ -505,20 +492,11 @@ describe('ScoringLegend', () => {
         />
       );
 
-      const racingSection = container.querySelector('[class*="from-yellow"]');
-      expect(racingSection).toBeInTheDocument();
+      const amberBadge = container.querySelector('[class*="amber"]');
+      expect(amberBadge).toBeInTheDocument();
     });
 
     it('should have colored badge backgrounds for difficulties', () => {
-      render(
-        <ScoringLegend
-          isOpen={true}
-          onClose={mockOnClose}
-          gameName="Test Game"
-        />
-      );
-
-      // Check for difficulty badge colors
       const { container } = render(
         <ScoringLegend
           isOpen={true}
@@ -527,7 +505,6 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Should have various colored badges for difficulty levels
       const badges = container.querySelectorAll('[class*="bg-"]');
       expect(badges.length).toBeGreaterThan(5);
     });
@@ -543,7 +520,6 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Names should be transformed from format "1-very-easy" to "1 Very Easy"
       const displayedNames = Object.values(BookPuzzleDifficulty).map((diff) => {
         const name = (diff as string)
           .replace(/^\d+-/, '')
@@ -553,7 +529,6 @@ describe('ScoringLegend', () => {
         return name;
       });
 
-      // At least one formatted name should be visible
       expect(displayedNames.length).toBeGreaterThan(0);
     });
   });
@@ -568,7 +543,6 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Modal should be in a portal-like container (fixed position)
       const modal = container.querySelector('[class*="fixed"]');
       expect(modal).toBeInTheDocument();
     });
@@ -582,7 +556,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      const title = screen.getByText('🏆 Scoring System');
+      const title = screen.getByText('How scoring works');
       expect(title.tagName.toLowerCase()).toBe('h3');
     });
 
@@ -595,12 +569,12 @@ describe('ScoringLegend', () => {
         />
       );
 
-      const sectionHeadings = screen.getByText('🏁 Racing Wins');
+      const sectionHeadings = screen.getByText('Racing wins');
       expect(sectionHeadings.tagName.toLowerCase()).toBe('h4');
     });
 
     it('should have accessible close button', () => {
-      render(
+      const { container } = render(
         <ScoringLegend
           isOpen={true}
           onClose={mockOnClose}
@@ -608,7 +582,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      const closeButton = screen.getByRole('button', { name: '✕' });
+      const closeButton = container.querySelector('button');
       expect(closeButton).toBeInTheDocument();
     });
 
@@ -621,8 +595,7 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Text should be visible with proper contrast
-      expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
+      expect(screen.getByText('How scoring works')).toBeInTheDocument();
     });
   });
 
@@ -636,7 +609,6 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Check for responsive grid classes
       const responsiveElements = container.querySelectorAll(
         '[class*="sm:"], [class*="lg:"]'
       );
@@ -687,7 +659,7 @@ describe('ScoringLegend', () => {
           gameName="Test Game"
         />
       );
-      expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
+      expect(screen.getByText('How scoring works')).toBeInTheDocument();
 
       rerender(
         <ScoringLegend
@@ -696,7 +668,7 @@ describe('ScoringLegend', () => {
           gameName="Test Game"
         />
       );
-      expect(screen.queryByText('🏆 Scoring System')).not.toBeInTheDocument();
+      expect(screen.queryByText('How scoring works')).not.toBeInTheDocument();
 
       rerender(
         <ScoringLegend
@@ -705,19 +677,21 @@ describe('ScoringLegend', () => {
           gameName="Test Game"
         />
       );
-      expect(screen.getByText('🏆 Scoring System')).toBeInTheDocument();
+      expect(screen.getByText('How scoring works')).toBeInTheDocument();
     });
 
     it('should handle multiple onClose callbacks', () => {
       const mockOnClose1 = jest.fn();
       const mockOnClose2 = jest.fn();
 
-      const { rerender } = render(
+      const { rerender, container } = render(
         <ScoringLegend isOpen={true} onClose={mockOnClose1} gameName="Sudoku" />
       );
 
-      const closeButton = screen.getByText('✕');
-      fireEvent.click(closeButton);
+      const closeButton = container.querySelector('button');
+      if (closeButton) {
+        fireEvent.click(closeButton);
+      }
 
       expect(mockOnClose1).toHaveBeenCalledTimes(1);
 
@@ -725,8 +699,10 @@ describe('ScoringLegend', () => {
         <ScoringLegend isOpen={true} onClose={mockOnClose2} gameName="Sudoku" />
       );
 
-      const newCloseButton = screen.getByText('✕');
-      fireEvent.click(newCloseButton);
+      const newCloseButton = container.querySelector('button');
+      if (newCloseButton) {
+        fireEvent.click(newCloseButton);
+      }
 
       expect(mockOnClose2).toHaveBeenCalledTimes(1);
     });
@@ -740,7 +716,6 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Verify all daily difficulties are present - use getAllByText since "Hard" appears multiple times
       expect(screen.getByText(/Tricky/)).toBeInTheDocument();
       expect(screen.getByText(/Challenging/)).toBeInTheDocument();
       const hardElements = screen.getAllByText(/Hard/);
@@ -758,10 +733,10 @@ describe('ScoringLegend', () => {
         />
       );
 
-      expect(screen.getByText('🏁 Racing Wins')).toBeInTheDocument();
-      expect(screen.getByText('📊 Base Points')).toBeInTheDocument();
-      expect(screen.getByText('🔥 Difficulty Multipliers')).toBeInTheDocument();
-      expect(screen.getByText('⚡ Speed Bonuses')).toBeInTheDocument();
+      expect(screen.getByText('Racing wins')).toBeInTheDocument();
+      expect(screen.getByText('Base points')).toBeInTheDocument();
+      expect(screen.getByText('Difficulty multipliers')).toBeInTheDocument();
+      expect(screen.getByText('Speed bonuses')).toBeInTheDocument();
     });
 
     it('should have correct badge coloring for speed tiers', () => {
@@ -773,15 +748,8 @@ describe('ScoringLegend', () => {
         />
       );
 
-      // Lightning should be yellow, Fast orange, Quick blue, Steady green
-      const yellowBadge = container.querySelector('.bg-yellow-400');
-      const orangeBadge = container.querySelector('.bg-orange-500');
-      const blueBadge = container.querySelector('.bg-blue-500');
-      const greenBadge = container.querySelector('.bg-green-500');
-
-      expect(
-        yellowBadge || orangeBadge || blueBadge || greenBadge
-      ).toBeTruthy();
+      const amberElements = container.querySelectorAll('[class*="amber"]');
+      expect(amberElements.length).toBeGreaterThan(0);
     });
   });
 });

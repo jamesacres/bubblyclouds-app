@@ -46,6 +46,8 @@ dist/
 .claude
 .gemini
 .kiro/settings
+.kiro/skills
+.vscode
 
 android/app/release
 
@@ -53,3 +55,4 @@ android/app/release
 .turbo
 
 temp
+packages/sudoku/src/utils/diag-seed-scan.json

@@ -307,7 +307,9 @@ describe('BookCover', () => {
     it('should show sudoku grid', () => {
       const { container } = render(<BookCover month="January" />);
       // Should have grid structure
-      const grids = container.querySelectorAll('[style*="grid"]');
+      const grids = container.querySelectorAll(
+        '.mx-auto.my-auto.aspect-square'
+      );
       expect(grids.length).toBeGreaterThan(0);
     });
   });
@@ -375,27 +377,6 @@ describe('BookCover', () => {
       const { container } = render(<BookCover month="January" />);
       const heading = container.querySelector('h1');
       expect(heading).toBeInTheDocument();
-    });
-  });
-
-  describe('svg and grid rendering', () => {
-    it('should render grid cells properly spaced', () => {
-      const { container } = render(<BookCover month="January" />);
-      const gridContainer = container.querySelector('[style*="grid"]');
-      expect(gridContainer).toBeInTheDocument();
-    });
-
-    it('should have cells with flex layout', () => {
-      const { container } = render(<BookCover month="January" />);
-      const cells = container.querySelectorAll('[class*="flex"]');
-      expect(cells.length).toBeGreaterThan(0);
-    });
-
-    it('should render sudoku numbers in cells', () => {
-      const { container } = render(<BookCover month="January" />);
-      // Look for numbers in cells
-      const numberElements = container.querySelectorAll('div');
-      expect(numberElements.length).toBeGreaterThan(0);
     });
   });
 

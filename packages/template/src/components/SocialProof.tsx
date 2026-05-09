@@ -30,13 +30,11 @@ export default function SocialProof({
   if (!message) return null;
 
   return (
-    <div className="mb-4 flex justify-center md:mb-6">
-      <div className="max-w-md">
-        <div className="animate-fade-in text-center">
-          <div className="inline-flex items-center space-x-2 rounded-full border border-white/10 bg-white/15 px-4 py-2 backdrop-blur-sm">
-            <div className="flex h-2 w-2 animate-pulse rounded-full bg-yellow-400"></div>
-            <span className="text-sm font-medium text-white/90">{message}</span>
-          </div>
+    <div className="flex justify-start">
+      <div className="animate-fade-in">
+        <div className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/15 px-3 py-2">
+          <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-300"></div>
+          <span className="text-xs font-medium text-white/80">{message}</span>
         </div>
       </div>
     </div>

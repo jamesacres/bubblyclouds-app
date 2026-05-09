@@ -16,29 +16,34 @@ jest.mock('./ThemeColorSwitch', () => ({
   ),
 }));
 
+const defaultProps = {
+  isSubscribed: false,
+  onPremiumColorClick: jest.fn(),
+};
+
 describe('ThemeControls', () => {
   describe('Rendering', () => {
     it('should render the component', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
       expect(container).toBeInTheDocument();
     });
 
     it('should render both ThemeSwitch and ThemeColorSwitch components', () => {
-      render(<ThemeControls />);
+      render(<ThemeControls {...defaultProps} />);
 
       expect(screen.getByTestId('theme-switch-mock')).toBeInTheDocument();
       expect(screen.getByTestId('theme-color-switch-mock')).toBeInTheDocument();
     });
 
     it('should render components inside a flex container', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('.flex.items-center');
       expect(flexContainer).toBeInTheDocument();
     });
 
     it('should have correct layout classes', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('.flex');
       expect(flexContainer).toHaveClass('flex');
@@ -48,7 +53,7 @@ describe('ThemeControls', () => {
 
   describe('Component Integration', () => {
     it('should render ThemeSwitch before ThemeColorSwitch', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('.flex.items-center');
       const children = flexContainer?.children;
@@ -66,7 +71,7 @@ describe('ThemeControls', () => {
       const themeColorSwitchSpy = jest.spyOn(ThemeColorSwitchModule, 'default');
       const themeSwitchSpy = jest.spyOn(ThemeSwitchModule, 'default');
 
-      render(<ThemeControls />);
+      render(<ThemeControls {...defaultProps} />);
 
       // Verify components were rendered
       expect(screen.getByTestId('theme-switch-mock')).toBeInTheDocument();
@@ -79,47 +84,49 @@ describe('ThemeControls', () => {
 
   describe('Layout and Styling', () => {
     it('should center items vertically', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('.flex');
       expect(flexContainer).toHaveClass('items-center');
     });
 
     it('should use flex layout', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('div');
       expect(flexContainer).toHaveClass('flex');
     });
 
     it('should render as client component', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
       expect(container.firstChild).toBeInTheDocument();
     });
   });
 
   describe('Component Structure', () => {
     it('should have a div as root element', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const root = container.firstChild;
       expect(root).toBeInstanceOf(HTMLDivElement);
     });
 
     it('should contain exactly 2 child components', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const root = container.querySelector('.flex.items-center');
       expect(root?.children.length).toBe(2);
     });
 
     it('should maintain structure on multiple renders', () => {
-      const { rerender, container } = render(<ThemeControls />);
+      const { rerender, container } = render(
+        <ThemeControls {...defaultProps} />
+      );
 
       let root = container.querySelector('.flex.items-center');
       expect(root?.children.length).toBe(2);
 
-      rerender(<ThemeControls />);
+      rerender(<ThemeControls {...defaultProps} />);
 
       root = container.querySelector('.flex.items-center');
       expect(root?.children.length).toBe(2);
@@ -128,7 +135,7 @@ describe('ThemeControls', () => {
 
   describe('Responsive Behavior', () => {
     it('should maintain flex alignment across different screen sizes', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('.flex');
       expect(flexContainer).toHaveClass('items-center');
@@ -137,14 +144,14 @@ describe('ThemeControls', () => {
 
   describe('Accessibility', () => {
     it('should be accessible via semantic HTML', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const root = container.firstChild;
       expect(root).toBeInTheDocument();
     });
 
     it('should pass accessibility through to child components', () => {
-      render(<ThemeControls />);
+      render(<ThemeControls {...defaultProps} />);
 
       expect(screen.getByTestId('theme-switch-mock')).toBeInTheDocument();
       expect(screen.getByTestId('theme-color-switch-mock')).toBeInTheDocument();
@@ -153,10 +160,10 @@ describe('ThemeControls', () => {
 
   describe('Edge Cases', () => {
     it('should handle rapid re-renders', () => {
-      const { rerender } = render(<ThemeControls />);
+      const { rerender } = render(<ThemeControls {...defaultProps} />);
 
       for (let i = 0; i < 10; i++) {
-        rerender(<ThemeControls />);
+        rerender(<ThemeControls {...defaultProps} />);
       }
 
       expect(screen.getByTestId('theme-switch-mock')).toBeInTheDocument();
@@ -164,7 +171,7 @@ describe('ThemeControls', () => {
     });
 
     it('should handle unmount without errors', () => {
-      const { unmount } = render(<ThemeControls />);
+      const { unmount } = render(<ThemeControls {...defaultProps} />);
 
       expect(() => {
         unmount();
@@ -174,14 +181,14 @@ describe('ThemeControls', () => {
 
   describe('DOM Queries', () => {
     it('should be queryable by role', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('.flex');
       expect(flexContainer).toBeInTheDocument();
     });
 
     it('should contain data-testid attributes in mocked children', () => {
-      render(<ThemeControls />);
+      render(<ThemeControls {...defaultProps} />);
 
       expect(screen.getByTestId('theme-switch-mock')).toBeInTheDocument();
       expect(screen.getByTestId('theme-color-switch-mock')).toBeInTheDocument();
@@ -190,7 +197,7 @@ describe('ThemeControls', () => {
 
   describe('CSS Classes Verification', () => {
     it('should apply all required Tailwind classes', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('div');
       expect(flexContainer).toHaveClass('flex');
@@ -198,7 +205,7 @@ describe('ThemeControls', () => {
     });
 
     it('should not have unnecessary classes', () => {
-      const { container } = render(<ThemeControls />);
+      const { container } = render(<ThemeControls {...defaultProps} />);
 
       const flexContainer = container.querySelector('div');
       const classes = flexContainer?.className || '';

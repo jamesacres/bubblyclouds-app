@@ -35,19 +35,15 @@ describe('HeaderBack', () => {
       expect(screen.getByText(/Sudoku Race/)).toBeInTheDocument();
     });
 
-    it('should have gradient text styling on app name button', () => {
+    it('should have text styling on app name button', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/');
 
       render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Sudoku Race/);
-      expect(button).toHaveClass('bg-gradient-to-r');
-      expect(button).toHaveClass('from-blue-500');
-      expect(button).toHaveClass('via-purple-500');
-      expect(button).toHaveClass('to-pink-500');
-      expect(button).toHaveClass('bg-clip-text');
-      expect(button).toHaveClass('text-transparent');
+      expect(button).toHaveClass('font-semibold');
+      expect(button).toHaveClass('text-stone-800');
     });
 
     it('should call router.replace with START_PUZZLE when button clicked', async () => {
@@ -81,7 +77,7 @@ describe('HeaderBack', () => {
       render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByText(/Sudoku Race/);
-      expect(button).toHaveClass('active:opacity-70');
+      expect(button).toHaveClass('active:opacity-50');
     });
 
     it('should have font styling on app name button', () => {
@@ -92,7 +88,7 @@ describe('HeaderBack', () => {
 
       const button = screen.getByText(/Sudoku Race/);
       expect(button).toHaveClass('font-semibold');
-      expect(button).toHaveClass('text-sm');
+      expect(button).toHaveClass('text-lg');
     });
 
     it('should have transition effect on app name button', () => {
@@ -197,7 +193,7 @@ describe('HeaderBack', () => {
       render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('active:opacity-70');
+      expect(button).toHaveClass('active:opacity-60');
     });
 
     it('should have transition effect on back button', () => {
@@ -210,14 +206,14 @@ describe('HeaderBack', () => {
       expect(button).toHaveClass('transition-opacity');
     });
 
-    it('should render width 16 class for back button', () => {
+    it('should have touch target height on back button', () => {
       const { usePathname } = require('next/navigation');
       usePathname.mockReturnValue('/puzzle');
 
       render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('w-16');
+      expect(button).toHaveClass('h-11');
     });
 
     it('should have correct text styling for back text', () => {
@@ -228,7 +224,7 @@ describe('HeaderBack', () => {
 
       const backText = screen.getByText(/Back/);
       expect(backText).toHaveClass('text-base');
-      expect(backText).toHaveClass('font-normal');
+      expect(backText).toHaveClass('font-medium');
     });
   });
 

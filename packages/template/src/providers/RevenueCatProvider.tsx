@@ -20,6 +20,7 @@ import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext
 export interface RevenueCatContextInterface {
   isLoading: boolean;
   isSubscribed: boolean;
+  subscriptionManagementUrl?: string;
   packages: (WebPackage | CapacitorPackage)[];
   purchasePackage: (
     pkg: WebPackage | CapacitorPackage
@@ -56,7 +57,6 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
   const [customerInfo, setCustomerInfo] = useState<
     WebCustomerInfo | CapacitorCustomerInfo | null
   >(null);
-  console.info(customerInfo);
 
   // Modal
   const [isOpen, setIsOpen] = useState(false);
@@ -118,11 +118,11 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     if (user) {
-      try {
-        setIsLoading(true);
-        if (isCapacitor()) {
-          // iOS and Android
-          (async function () {
+      setIsLoading(true);
+      if (isCapacitor()) {
+        // iOS and Android
+        (async function () {
+          try {
             await CapacitorPurchases.setLogLevel({
               level: CAPACITOR_LOG_LEVEL.DEBUG,
             });
@@ -141,12 +141,18 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
             setPackages(offerings.all?.['default']?.availablePackages || []);
             const { customerInfo } = await CapacitorPurchases.getCustomerInfo();
             setCustomerInfo(customerInfo);
-          })();
-        } else if (isElectron()) {
-          // Do nothing
-        } else {
-          // Web
-          (async function () {
+          } catch (error) {
+            console.error('Error fetching customer info:', error);
+          } finally {
+            setIsLoading(false);
+          }
+        })();
+      } else if (isElectron()) {
+        setIsLoading(false);
+      } else {
+        // Web
+        (async function () {
+          try {
             WebPurchases.setLogLevel(WebLogLevel.Debug);
             WebPurchases.configure({
               appUserId: user.sub,
@@ -158,12 +164,12 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
             const info =
               await WebPurchases.getSharedInstance().getCustomerInfo();
             setCustomerInfo(info);
-          })();
-        }
-      } catch (error) {
-        console.error('Error fetching customer info:', error);
-      } finally {
-        setIsLoading(false);
+          } catch (error) {
+            console.error('Error fetching customer info:', error);
+          } finally {
+            setIsLoading(false);
+          }
+        })();
       }
     }
   }, [user]);
@@ -245,12 +251,14 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const isSubscribed = !!customerInfo?.entitlements.active['Plus'];
+  const subscriptionManagementUrl = customerInfo?.managementURL || undefined;
 
   return (
     <RevenueCatContext.Provider
       value={{
         isLoading,
         isSubscribed,
+        subscriptionManagementUrl,
         packages,
         purchasePackage,
         restorePurchases,

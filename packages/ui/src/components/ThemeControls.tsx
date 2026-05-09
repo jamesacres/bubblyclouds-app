@@ -5,13 +5,25 @@ import ThemeColorSwitch from './ThemeColorSwitch';
 
 interface ThemeControlsProps {
   isCapacitor?: () => boolean;
+  isSubscribed: boolean;
+  onPremiumColorClick: (colorName: string, onSuccess: () => void) => void;
+  showRainbowAnimation?: boolean;
 }
 
-const ThemeControls = ({ isCapacitor }: ThemeControlsProps) => {
+const ThemeControls = ({
+  isCapacitor,
+  isSubscribed,
+  onPremiumColorClick,
+  showRainbowAnimation,
+}: ThemeControlsProps) => {
   return (
     <div className="relative flex items-center">
       <ThemeSwitch isCapacitor={isCapacitor} />
-      <ThemeColorSwitch />
+      <ThemeColorSwitch
+        isSubscribed={isSubscribed}
+        onPremiumColorClick={onPremiumColorClick}
+        showRainbowAnimation={showRainbowAnimation}
+      />
     </div>
   );
 };

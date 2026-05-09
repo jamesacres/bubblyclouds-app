@@ -1,70 +1,70 @@
 export default function Home() {
   return (
-    <div className="container mx-auto my-10 max-w-xl">
-      <p>
-        Hi I am{' '}
-        <a href="https://jamesacres.co.uk" className="underline">
+    <div className="w-full max-w-xl">
+      <p className="text-base leading-relaxed text-stone-600 dark:text-stone-400">
+        Hi, I am{' '}
+        <a
+          href="https://jamesacres.co.uk"
+          className="text-theme-primary hover:text-theme-primary-dark font-medium underline underline-offset-2 transition-colors"
+        >
           James Acres
         </a>
-        , trading as Bubbly Clouds.
+        ! My personal projects are under the name Bubbly Clouds. My goal is to
+        learn and use the latest tools and techniques by creating awesome apps.
       </p>
-      <p>
-        I use the latest tools and techniques to create awesome apps and
-        services, in my day job, and to keep up to date with the industry trends
-        in my own time.
-      </p>
-      <h2 className="mt-4 text-lg">Services</h2>
-      <div className="my-12 grid w-full max-w-5xl grid-cols-1 text-center">
+
+      <section className="mt-10">
+        <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
+          Contact me
+        </h2>
         <a
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          className="hover:border-theme-primary dark:hover:border-theme-primary group flex items-start justify-between rounded-xl border border-stone-200 bg-white px-5 py-5 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
           rel="noopener noreferrer"
           href="mailto:support@bubblyclouds.com"
         >
-          <h2 className="mb-3 font-semibold">
-            Web and Mobile Application Development and Hosting{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 text-sm opacity-50">
-            Contact support@bubblyclouds.com
-          </p>
+          <div>
+            <h3 className="font-semibold text-stone-800 dark:text-stone-100">
+              Email
+            </h3>
+            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+              support@bubblyclouds.com
+            </p>
+          </div>
+          <span className="group-hover:text-theme-primary ml-4 mt-0.5 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+            →
+          </span>
         </a>
-      </div>
-      <h2 className="mt-4 text-lg">Apps</h2>
-      <div className="my-12 grid w-full max-w-5xl grid-cols-1 text-center">
+      </section>
+
+      <section className="mt-10">
+        <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">
+          Personal Projects
+        </h2>
         <a
           href="https://sudoku.bubblyclouds.com"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          className="hover:border-theme-primary dark:hover:border-theme-primary group flex flex-col rounded-xl border border-stone-200 bg-white px-5 py-5 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
           rel="noopener noreferrer"
         >
-          <h2 className="mb-3 font-semibold">
-            Sudoku Race{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
+          <div className="flex items-start justify-between">
+            <h3 className="font-semibold text-stone-800 dark:text-stone-100">
+              Sudoku Race
+            </h3>
+            <span className="group-hover:text-theme-primary ml-4 mt-0.5 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              →
             </span>
-          </h2>
-          <div className="m-0 text-sm">
-            <ul className="text-left">
-              <li>
-                - 🤾‍♂️ Share a Sudoku with family and friends - race to see who
-                can complete it fastest
-              </li>
-              <li>- 🏎️ Private racing team and leaderboard</li>
-              <li>- 🌱 Sudoku of the day - Three new challenges each day</li>
-              <li>
-                - 📖 Monthly puzzle book - Technique-focused puzzles to
-                challenge your skills
-              </li>
-              <li>
-                - 📸 Import a Sudoku - Scan any Sudoku from books, newspapers,
-                or websites and challenge your friends to solve the same puzzle
-              </li>
-              <li>- 🎨 Multiple themes in both Light Mode and Dark Mode!</li>
-            </ul>
           </div>
+          <ul className="mt-3 space-y-1.5 text-sm text-stone-600 dark:text-stone-400">
+            <li>
+              🤾‍♂️ Share a Sudoku with family and friends — race to finish first
+            </li>
+            <li>🏎️ Private racing team and leaderboard</li>
+            <li>🌱 Sudoku of the day — three new challenges each day</li>
+            <li>📖 Monthly puzzle book with technique-focused puzzles</li>
+            <li>📸 Import any Sudoku from books, newspapers, or websites</li>
+            <li>🎨 Multiple themes in light and dark mode</li>
+          </ul>
         </a>
-      </div>
+      </section>
     </div>
   );
 }

@@ -7,11 +7,12 @@ interface SimpleSudokuProps {
   final?: Puzzle<number>;
   latest?: Puzzle | undefined;
   transparent?: boolean;
+  compact?: boolean;
   state?: BaseState<Puzzle<number>, Puzzle>;
 }
 
 const SimpleSudoku = (props: SimpleSudokuProps) => {
-  const { transparent } = props;
+  const { transparent, compact } = props;
 
   let initial: Puzzle<number> | undefined;
   let final: Puzzle<number> | undefined;
@@ -36,7 +37,7 @@ const SimpleSudoku = (props: SimpleSudokuProps) => {
   const background = transparent ? '' : 'bg-zinc-50 dark:bg-zinc-900';
   return (
     <div
-      className={`border-1 ml-auto mr-auto grid max-w-xl grid-cols-3 grid-rows-3 border border-zinc-900 text-black lg:mr-0 dark:border-zinc-50 dark:text-white ${background}`}
+      className={`border-1 grid grid-cols-3 grid-rows-3 border border-zinc-900 text-black dark:border-zinc-50 dark:text-white ${background} ${compact ? 'h-full w-full text-[6px] leading-none' : 'ml-auto mr-auto max-w-xl lg:mr-0'}`}
     >
       {Array.from(Array(3)).map((_, y) =>
         Array.from(Array(3)).map((_, x) => {

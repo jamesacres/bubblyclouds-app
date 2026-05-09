@@ -29,6 +29,15 @@ body {
 
 @theme {
   --breakpoint-xl: 90rem;
+  --font-outfit: 'Outfit', system-ui, sans-serif;
+}
+
+/* Base font */
+body {
+  font-family: var(--font-outfit), 'Outfit', system-ui, sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Font families for book covers */
@@ -44,265 +53,257 @@ body {
   font-family: 'Creepster', fantasy;
 }
 
-/* Book cover animations */
+/* ─── Hero grid background ─────────────────────────────────────── */
+@keyframes gridDrift {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  33%  { transform: translate(-8px, -12px) rotate(0.4deg); }
+  66%  { transform: translate(6px, -6px) rotate(-0.3deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes tileReveal {
+  0%   { opacity: 0; transform: scale(0.7) rotate(-8deg); }
+  60%  { opacity: 1; transform: scale(1.05) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes tilePulse {
+  0%, 100% { box-shadow: inset 0 1px 0 rgba(167,139,250,0.15), 0 0 0 0 rgba(167,139,250,0); }
+  50%       { box-shadow: inset 0 1px 0 rgba(167,139,250,0.3),  0 0 12px 3px rgba(167,139,250,0.15); }
+}
+
+.animate-grid-drift {
+  animation: gridDrift 18s ease-in-out infinite;
+}
+
+.animate-tile-reveal {
+  animation: tileReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-tile-pulse {
+  animation: tilePulse 4s ease-in-out infinite;
+}
+
+/* ─── Difficulty card press ─────────────────────────────────────── */
+@keyframes cardShine {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.difficulty-card-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.12) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.difficulty-card-shine:hover::after {
+  opacity: 1;
+  animation: cardShine 0.6s ease forwards;
+}
+
+/* ─── Streak fire badge ─────────────────────────────────────────── */
+@keyframes fireFlicker {
+  0%, 100% { transform: scaleY(1) rotate(-1deg); filter: brightness(1); }
+  25%       { transform: scaleY(1.08) rotate(1deg); filter: brightness(1.2); }
+  75%       { transform: scaleY(0.95) rotate(-0.5deg); filter: brightness(0.95); }
+}
+.animate-fire {
+  animation: fireFlicker 1.2s ease-in-out infinite;
+  display: inline-block;
+  transform-origin: bottom center;
+}
+
+/* ─── Liquid glass shimmer ──────────────────────────────────────── */
+@keyframes glassShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes glassBreath {
+  0%, 100% {
+    backdrop-filter: blur(16px) saturate(1.2);
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  50% {
+    backdrop-filter: blur(20px) saturate(1.5);
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+/* ─── Card float ────────────────────────────────────────────────── */
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-4px); }
+}
+
+/* ─── Floating sudoku numbers (legacy) ─────────────────────────── */
+@keyframes floatNumber {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(3deg); }
+  66%       { transform: translateY(6px) rotate(-2deg); }
+}
+
+/* ─── Streak glow ───────────────────────────────────────────────── */
+@keyframes streakGlow {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      0 0 0 0 rgba(251, 146, 60, 0);
+  }
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 0 24px 4px rgba(251, 146, 60, 0.15);
+  }
+}
+
+@keyframes tabGlow {
+  0%, 100% { filter: drop-shadow(0 0 0px transparent); }
+  50%       { filter: drop-shadow(0 0 6px rgba(var(--theme-primary-rgb, 59, 130, 246), 0.6)); }
+}
+
+.animate-glass-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: glassShimmer 3s linear infinite;
+}
+
+.animate-float-card {
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+.animate-streak-glow {
+  animation: streakGlow 2.5s ease-in-out infinite;
+}
+
+/* ─── Book cover animations ─────────────────────────────────────── */
 @keyframes heatShimmer {
-  0% {
-    opacity: 0.8;
-    transform: translateY(0px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(-2px);
-  }
+  0%   { opacity: 0.8; transform: translateY(0px); }
+  100% { opacity: 1;   transform: translateY(-2px); }
 }
 
 @keyframes iconFloat {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-3px) rotate(2deg);
-  }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-3px) rotate(2deg); }
 }
 
 @keyframes blaze {
-  0%,
-  100% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.1);
-    filter: brightness(1.5);
-  }
+  0%, 100% { transform: scale(1);   filter: brightness(1); }
+  50%       { transform: scale(1.1); filter: brightness(1.5); }
 }
 
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
+@keyframes fadeSlideIn {
+  0%   { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
-.animate-heatShimmer {
-  animation: heatShimmer 3s ease-in-out infinite alternate;
+.animate-fade-in      { animation: fadeIn 0.6s ease-out; }
+.animate-heatShimmer  { animation: heatShimmer 3s ease-in-out infinite alternate; }
+.animate-iconFloat    { animation: iconFloat 4s ease-in-out infinite; }
+.animate-blaze        { animation: blaze 1.5s ease-in-out infinite; }
+
+/* ─── Rainbow border (Ask for help nudge) ───────────────────────── */
+@keyframes rainbowTravel {
+  0%   { --angle: 0deg; }
+  100% { --angle: 360deg; }
 }
 
-.animate-iconFloat {
-  animation: iconFloat 4s ease-in-out infinite;
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
 }
 
-.animate-blaze {
-  animation: blaze 1.5s ease-in-out infinite;
+.rainbow-border-wrap {
+  position: relative;
+  border-radius: 0.375rem;
 }
 
-/* All month-specific animations */
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.rainbow-border-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 0.5rem;
+  background: conic-gradient(
+    from var(--angle),
+    #ff0000,
+    #ff7700,
+    #ffff00,
+    #00ff00,
+    #0077ff,
+    #8b00ff,
+    #ff0000
+  );
+  animation: rainbowTravel 2s linear;
+  z-index: -1;
 }
 
-@keyframes heartBeat {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-}
-
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes sway {
-  0%,
-  100% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(5deg);
-  }
-}
+/* ─── Month-specific animations ─────────────────────────────────── */
+@keyframes rotate    { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+@keyframes bounce    { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+@keyframes sway      { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
 
 @keyframes gentleGlow {
-  0%,
-  100% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.08);
-    filter: brightness(1.2);
-  }
+  0%, 100% { transform: scale(1);    filter: brightness(1); }
+  50%       { transform: scale(1.08); filter: brightness(1.2); }
 }
 
 @keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.15);
-    filter: brightness(1.3);
-  }
+  0%, 100% { transform: scale(1);    filter: brightness(1); }
+  50%       { transform: scale(1.15); filter: brightness(1.3); }
 }
 
-@keyframes wave {
-  0%,
-  100% {
-    transform: translateX(0px);
-  }
-  25% {
-    transform: translateX(3px);
-  }
-  75% {
-    transform: translateX(-3px);
-  }
-}
-
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(2deg);
-  }
-  75% {
-    transform: rotate(-2deg);
-  }
-}
+@keyframes wave   { 0%, 100% { transform: translateX(0px); } 25% { transform: translateX(3px); } 75% { transform: translateX(-3px); } }
+@keyframes wiggle { 0%, 100% { transform: rotate(0deg); }    25% { transform: rotate(2deg); }    75% { transform: rotate(-2deg); } }
 
 @keyframes spooky {
-  0%,
-  100% {
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    transform: scale(1.1) rotate(-5deg);
-  }
-  75% {
-    transform: scale(0.9) rotate(5deg);
-  }
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25%       { transform: scale(1.1) rotate(-5deg); }
+  75%       { transform: scale(0.9) rotate(5deg); }
 }
 
-@keyframes fall {
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(5px) rotate(10deg);
-  }
-}
+@keyframes fall   { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(5px) rotate(10deg); } }
+@keyframes twinkle { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.2); } }
+@keyframes aprilShowers { 0% { opacity: 0.8; transform: translateX(0px); } 100% { opacity: 1; transform: translateX(-3px); } }
 
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.2);
-  }
-}
-
-@keyframes aprilShowers {
-  0% {
-    opacity: 0.8;
-    transform: translateX(0px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-3px);
-  }
-}
-
-/* Animation utility classes */
-.animate-rotate {
-  animation: rotate 4s linear infinite;
-  transform-origin: center center;
-}
-
-.animate-heartBeat {
-  animation: heartBeat 2s ease-in-out infinite;
-  transform-origin: center center;
-}
-
-.animate-bounce {
-  animation: bounce 3s ease-in-out infinite;
-}
-
-.animate-sway {
-  animation: sway 4s ease-in-out infinite;
-}
-
-.animate-gentleGlow {
-  animation: gentleGlow 4s ease-in-out infinite;
-  transform-origin: center center;
-}
-
-.animate-pulse {
-  animation: pulse 2s ease-in-out infinite;
-  transform-origin: center center;
-}
-
-.animate-wave {
-  animation: wave 2.5s ease-in-out infinite;
-}
-
-.animate-wiggle {
-  animation: wiggle 4s ease-in-out infinite;
-}
-
-.animate-spooky {
-  animation: spooky 3s ease-in-out infinite;
-  transform-origin: center center;
-}
-
-.animate-fall {
-  animation: fall 4s ease-in-out infinite;
-}
-
-.animate-twinkle {
-  animation: twinkle 2s ease-in-out infinite;
-  transform-origin: center center;
-}
-
-.animate-aprilShowers {
-  animation: aprilShowers 4s ease-in-out infinite alternate;
-}
+.animate-rotate       { animation: rotate 4s linear infinite; transform-origin: center center; }
+.animate-heartBeat    { animation: heartBeat 2s ease-in-out infinite; transform-origin: center center; }
+.animate-bounce       { animation: bounce 3s ease-in-out infinite; }
+.animate-sway         { animation: sway 4s ease-in-out infinite; }
+.animate-gentleGlow   { animation: gentleGlow 4s ease-in-out infinite; transform-origin: center center; }
+.animate-pulse        { animation: pulse 2s ease-in-out infinite; transform-origin: center center; }
+.animate-wave         { animation: wave 2.5s ease-in-out infinite; }
+.animate-wiggle       { animation: wiggle 4s ease-in-out infinite; }
+.animate-spooky       { animation: spooky 3s ease-in-out infinite; transform-origin: center center; }
+.animate-fall         { animation: fall 4s ease-in-out infinite; }
+.animate-twinkle      { animation: twinkle 2s ease-in-out infinite; transform-origin: center center; }
+.animate-aprilShowers { animation: aprilShowers 4s ease-in-out infinite alternate; }
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
 */
 @layer base {
   *,
@@ -326,7 +327,7 @@ body {
   padding-bottom: max(24px, var(--ion-safe-area-bottom));
 }
 
-/* Theme color variables */
+/* ─── Theme color variables ─────────────────────────────────────── */
 :root {
   --theme-primary: theme(colors.blue.500);
   --theme-primary-dark: theme(colors.blue.600);
@@ -334,188 +335,85 @@ body {
   --theme-primary-lighter: theme(colors.blue.300);
 }
 
-.theme-blue {
-  --theme-primary: theme(colors.blue.500);
-  --theme-primary-dark: theme(colors.blue.600);
-  --theme-primary-light: theme(colors.blue.400);
-  --theme-primary-lighter: theme(colors.blue.300);
+.theme-blue    { --theme-primary: theme(colors.blue.500);    --theme-primary-dark: theme(colors.blue.600);    --theme-primary-light: theme(colors.blue.400);    --theme-primary-lighter: theme(colors.blue.300); }
+.theme-red     { --theme-primary: theme(colors.red.500);     --theme-primary-dark: theme(colors.red.600);     --theme-primary-light: theme(colors.red.400);     --theme-primary-lighter: theme(colors.red.300); }
+.theme-green   { --theme-primary: theme(colors.green.500);   --theme-primary-dark: theme(colors.green.600);   --theme-primary-light: theme(colors.green.400);   --theme-primary-lighter: theme(colors.green.300); }
+.theme-purple  { --theme-primary: theme(colors.purple.500);  --theme-primary-dark: theme(colors.purple.600);  --theme-primary-light: theme(colors.purple.400);  --theme-primary-lighter: theme(colors.purple.300); }
+.theme-amber   { --theme-primary: theme(colors.amber.500);   --theme-primary-dark: theme(colors.amber.600);   --theme-primary-light: theme(colors.amber.400);   --theme-primary-lighter: theme(colors.amber.300); }
+.theme-cyan    { --theme-primary: theme(colors.cyan.500);    --theme-primary-dark: theme(colors.cyan.600);    --theme-primary-light: theme(colors.cyan.400);    --theme-primary-lighter: theme(colors.cyan.300); }
+.theme-pink    { --theme-primary: theme(colors.pink.500);    --theme-primary-dark: theme(colors.pink.600);    --theme-primary-light: theme(colors.pink.400);    --theme-primary-lighter: theme(colors.pink.300); }
+.theme-indigo  { --theme-primary: theme(colors.indigo.500);  --theme-primary-dark: theme(colors.indigo.600);  --theme-primary-light: theme(colors.indigo.400);  --theme-primary-lighter: theme(colors.indigo.300); }
+.theme-orange  { --theme-primary: theme(colors.orange.500);  --theme-primary-dark: theme(colors.orange.600);  --theme-primary-light: theme(colors.orange.400);  --theme-primary-lighter: theme(colors.orange.300); }
+.theme-teal    { --theme-primary: theme(colors.teal.500);    --theme-primary-dark: theme(colors.teal.600);    --theme-primary-light: theme(colors.teal.400);    --theme-primary-lighter: theme(colors.teal.300); }
+.theme-slate   { --theme-primary: theme(colors.slate.500);   --theme-primary-dark: theme(colors.slate.600);   --theme-primary-light: theme(colors.slate.400);   --theme-primary-lighter: theme(colors.slate.300); }
+.theme-rose    { --theme-primary: theme(colors.rose.500);    --theme-primary-dark: theme(colors.rose.600);    --theme-primary-light: theme(colors.rose.400);    --theme-primary-lighter: theme(colors.rose.300); }
+.theme-emerald { --theme-primary: theme(colors.emerald.500); --theme-primary-dark: theme(colors.emerald.600); --theme-primary-light: theme(colors.emerald.400); --theme-primary-lighter: theme(colors.emerald.300); }
+.theme-sky     { --theme-primary: theme(colors.sky.500);     --theme-primary-dark: theme(colors.sky.600);     --theme-primary-light: theme(colors.sky.400);     --theme-primary-lighter: theme(colors.sky.300); }
+.theme-violet  { --theme-primary: theme(colors.violet.500);  --theme-primary-dark: theme(colors.violet.600);  --theme-primary-light: theme(colors.violet.400);  --theme-primary-lighter: theme(colors.violet.300); }
+.theme-lime    { --theme-primary: theme(colors.lime.500);    --theme-primary-dark: theme(colors.lime.600);    --theme-primary-light: theme(colors.lime.400);    --theme-primary-lighter: theme(colors.lime.300); }
+.theme-fuchsia { --theme-primary: theme(colors.fuchsia.500); --theme-primary-dark: theme(colors.fuchsia.600); --theme-primary-light: theme(colors.fuchsia.400); --theme-primary-lighter: theme(colors.fuchsia.300); }
+.theme-yellow  { --theme-primary: theme(colors.yellow.500);  --theme-primary-dark: theme(colors.yellow.600);  --theme-primary-light: theme(colors.yellow.400);  --theme-primary-lighter: theme(colors.yellow.300); }
+.theme-stone   { --theme-primary: theme(colors.stone.500);   --theme-primary-dark: theme(colors.stone.600);   --theme-primary-light: theme(colors.stone.400);   --theme-primary-lighter: theme(colors.stone.300); }
+.theme-zinc    { --theme-primary: theme(colors.zinc.500);    --theme-primary-dark: theme(colors.zinc.600);    --theme-primary-light: theme(colors.zinc.400);    --theme-primary-lighter: theme(colors.zinc.300); }
+
+/* ─── Liquid glass utilities ────────────────────────────────────── */
+@utility liquid-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
-.theme-red {
-  --theme-primary: theme(colors.red.500);
-  --theme-primary-dark: theme(colors.red.600);
-  --theme-primary-light: theme(colors.red.400);
-  --theme-primary-lighter: theme(colors.red.300);
+@utility liquid-glass-strong {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(28px) saturate(1.6);
+  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 16px 48px rgba(0, 0, 0, 0.18);
 }
 
-.theme-green {
-  --theme-primary: theme(colors.green.500);
-  --theme-primary-dark: theme(colors.green.600);
-  --theme-primary-light: theme(colors.green.400);
-  --theme-primary-lighter: theme(colors.green.300);
+@utility liquid-glass-btn {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.theme-purple {
-  --theme-primary: theme(colors.purple.500);
-  --theme-primary-dark: theme(colors.purple.600);
-  --theme-primary-light: theme(colors.purple.400);
-  --theme-primary-lighter: theme(colors.purple.300);
-}
-
-.theme-amber {
-  --theme-primary: theme(colors.amber.500);
-  --theme-primary-dark: theme(colors.amber.600);
-  --theme-primary-light: theme(colors.amber.400);
-  --theme-primary-lighter: theme(colors.amber.300);
-}
-
-.theme-cyan {
-  --theme-primary: theme(colors.cyan.500);
-  --theme-primary-dark: theme(colors.cyan.600);
-  --theme-primary-light: theme(colors.cyan.400);
-  --theme-primary-lighter: theme(colors.cyan.300);
-}
-
-.theme-pink {
-  --theme-primary: theme(colors.pink.500);
-  --theme-primary-dark: theme(colors.pink.600);
-  --theme-primary-light: theme(colors.pink.400);
-  --theme-primary-lighter: theme(colors.pink.300);
-}
-
-.theme-indigo {
-  --theme-primary: theme(colors.indigo.500);
-  --theme-primary-dark: theme(colors.indigo.600);
-  --theme-primary-light: theme(colors.indigo.400);
-  --theme-primary-lighter: theme(colors.indigo.300);
-}
-
-.theme-orange {
-  --theme-primary: theme(colors.orange.500);
-  --theme-primary-dark: theme(colors.orange.600);
-  --theme-primary-light: theme(colors.orange.400);
-  --theme-primary-lighter: theme(colors.orange.300);
-}
-
-.theme-teal {
-  --theme-primary: theme(colors.teal.500);
-  --theme-primary-dark: theme(colors.teal.600);
-  --theme-primary-light: theme(colors.teal.400);
-  --theme-primary-lighter: theme(colors.teal.300);
-}
-
-.theme-slate {
-  --theme-primary: theme(colors.slate.500);
-  --theme-primary-dark: theme(colors.slate.600);
-  --theme-primary-light: theme(colors.slate.400);
-  --theme-primary-lighter: theme(colors.slate.300);
-}
-
-.theme-rose {
-  --theme-primary: theme(colors.rose.500);
-  --theme-primary-dark: theme(colors.rose.600);
-  --theme-primary-light: theme(colors.rose.400);
-  --theme-primary-lighter: theme(colors.rose.300);
-}
-
-.theme-emerald {
-  --theme-primary: theme(colors.emerald.500);
-  --theme-primary-dark: theme(colors.emerald.600);
-  --theme-primary-light: theme(colors.emerald.400);
-  --theme-primary-lighter: theme(colors.emerald.300);
-}
-
-.theme-sky {
-  --theme-primary: theme(colors.sky.500);
-  --theme-primary-dark: theme(colors.sky.600);
-  --theme-primary-light: theme(colors.sky.400);
-  --theme-primary-lighter: theme(colors.sky.300);
-}
-
-.theme-violet {
-  --theme-primary: theme(colors.violet.500);
-  --theme-primary-dark: theme(colors.violet.600);
-  --theme-primary-light: theme(colors.violet.400);
-  --theme-primary-lighter: theme(colors.violet.300);
-}
-
-.theme-lime {
-  --theme-primary: theme(colors.lime.500);
-  --theme-primary-dark: theme(colors.lime.600);
-  --theme-primary-light: theme(colors.lime.400);
-  --theme-primary-lighter: theme(colors.lime.300);
-}
-
-.theme-fuchsia {
-  --theme-primary: theme(colors.fuchsia.500);
-  --theme-primary-dark: theme(colors.fuchsia.600);
-  --theme-primary-light: theme(colors.fuchsia.400);
-  --theme-primary-lighter: theme(colors.fuchsia.300);
-}
-
-.theme-yellow {
-  --theme-primary: theme(colors.yellow.500);
-  --theme-primary-dark: theme(colors.yellow.600);
-  --theme-primary-light: theme(colors.yellow.400);
-  --theme-primary-lighter: theme(colors.yellow.300);
-}
-
-.theme-stone {
-  --theme-primary: theme(colors.stone.500);
-  --theme-primary-dark: theme(colors.stone.600);
-  --theme-primary-light: theme(colors.stone.400);
-  --theme-primary-lighter: theme(colors.stone.300);
-}
-
-.theme-zinc {
-  --theme-primary: theme(colors.zinc.500);
-  --theme-primary-dark: theme(colors.zinc.600);
-  --theme-primary-light: theme(colors.zinc.400);
-  --theme-primary-lighter: theme(colors.zinc.300);
-}
-
-/* Add themed utility classes */
+/* ─── Themed utilities ──────────────────────────────────────────── */
 @layer utilities {
-  .bg-theme-primary {
-    background-color: var(--theme-primary);
-  }
-  .bg-theme-primary-dark {
-    background-color: var(--theme-primary-dark);
-  }
-  .bg-theme-primary-light {
-    background-color: var(--theme-primary-light);
-  }
-  .bg-theme-primary-lighter {
-    background-color: var(--theme-primary-lighter);
-  }
+  .bg-theme-primary         { background-color: var(--theme-primary); }
+  .bg-theme-primary-dark    { background-color: var(--theme-primary-dark); }
+  .bg-theme-primary-light   { background-color: var(--theme-primary-light); }
+  .bg-theme-primary-lighter { background-color: var(--theme-primary-lighter); }
 
-  .text-theme-primary {
-    color: var(--theme-primary);
-  }
-  .text-theme-primary-dark {
-    color: var(--theme-primary-dark);
-  }
-  .text-theme-primary-light {
-    color: var(--theme-primary-light);
-  }
+  .text-theme-primary       { color: var(--theme-primary); }
+  .text-theme-primary-dark  { color: var(--theme-primary-dark); }
+  .text-theme-primary-light { color: var(--theme-primary-light); }
 
-  .border-theme-primary {
-    border-color: var(--theme-primary);
-  }
+  .border-theme-primary     { border-color: var(--theme-primary); }
 
-  .hover\:bg-theme-primary-dark:hover {
-    background-color: var(--theme-primary-dark);
-  }
+  .hover\:bg-theme-primary-dark:hover { background-color: var(--theme-primary-dark); }
 }
 
 @layer base {
   body {
-    @apply bg-stone-50 dark:bg-zinc-800;
+    @apply bg-stone-50 dark:bg-zinc-900;
   }
 
   html {
     -webkit-tap-highlight-color: transparent;
     touch-action: pan-y;
+    scroll-behavior: smooth;
   }
 
   * {

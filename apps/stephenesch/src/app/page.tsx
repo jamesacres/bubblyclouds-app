@@ -33,9 +33,9 @@ export default async function Page() {
                 </h2>
                 <Link
                   href="/ratings"
-                  className="mt-3 inline-block rounded-md bg-blue-600 px-4 py-2 font-bold hover:bg-blue-700"
+                  className="bg-primary-500 hover:bg-primary-600 text-white! mt-3 inline-block rounded-md px-4 py-2 font-semibold transition-colors"
                 >
-                  <span className="text-white">Explore ratings</span>
+                  Explore ratings
                 </Link>
               </div>
             </div>
@@ -46,8 +46,8 @@ export default async function Page() {
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-bold leading-9 tracking-tight text-gray-900 md:text-3xl dark:text-gray-100">
-              Recently Published
+            <h2 className="text-xl font-semibold leading-9 tracking-tight text-gray-900 dark:text-gray-100">
+              Recent posts
             </h2>
           </div>
         </div>

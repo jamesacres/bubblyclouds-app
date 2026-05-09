@@ -125,7 +125,7 @@ describe('Sidebar', () => {
       deleteParty: jest.fn(),
     });
     renderComponent();
-    fireEvent.click(screen.getByText('Create Racing Team'));
+    fireEvent.click(screen.getByText('Race Friends'));
     expect(setShowCreateParty).toHaveBeenCalledWith(true);
   });
 
@@ -176,7 +176,7 @@ describe('Sidebar', () => {
   it('prompts for login if creating a party while logged out', () => {
     const loginRedirect = jest.fn();
     renderComponent({}, { user: { user: undefined, loginRedirect } });
-    fireEvent.click(screen.getByText('Create Racing Team'));
+    fireEvent.click(screen.getByText('Race Friends'));
     expect(loginRedirect).toHaveBeenCalled();
   });
 
@@ -220,7 +220,7 @@ describe('Sidebar', () => {
         },
       }
     );
-    fireEvent.click(screen.getByText('Create Racing Team'));
+    fireEvent.click(screen.getByText('Race Friends'));
     expect(showModalIfRequired).toHaveBeenCalled();
   });
 });

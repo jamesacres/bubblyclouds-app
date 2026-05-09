@@ -21,7 +21,7 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const content = container.querySelector('.text-sm');
+        const content = container.querySelector('.text-xs');
         expect(content).toBeInTheDocument();
       });
     });
@@ -43,22 +43,10 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const wrapper = container.querySelector('.mb-4');
+        const wrapper = container.querySelector('.flex.justify-start');
         expect(wrapper).toBeInTheDocument();
         expect(wrapper).toHaveClass('flex');
-        expect(wrapper).toHaveClass('justify-center');
-        expect(wrapper).toHaveClass('md:mb-6');
-      });
-    });
-
-    it('should render the max-width container', async () => {
-      const { container } = render(
-        <SocialProof motivationalMessages={mockMessages} />
-      );
-
-      await waitFor(() => {
-        const maxWidthContainer = container.querySelector('.max-w-md');
-        expect(maxWidthContainer).toBeInTheDocument();
+        expect(wrapper).toHaveClass('justify-start');
       });
     });
 
@@ -70,7 +58,6 @@ describe('SocialProof', () => {
       await waitFor(() => {
         const animationWrapper = container.querySelector('.animate-fade-in');
         expect(animationWrapper).toBeInTheDocument();
-        expect(animationWrapper).toHaveClass('text-center');
       });
     });
 
@@ -80,17 +67,16 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const badge = container.querySelector('.rounded-full');
+        const badge = container.querySelector('.rounded-lg');
         expect(badge).toBeInTheDocument();
         expect(badge).toHaveClass('inline-flex');
         expect(badge).toHaveClass('items-center');
-        expect(badge).toHaveClass('space-x-2');
+        expect(badge).toHaveClass('gap-2');
         expect(badge).toHaveClass('border');
-        expect(badge).toHaveClass('border-white/10');
+        expect(badge).toHaveClass('border-white/20');
         expect(badge).toHaveClass('bg-white/15');
-        expect(badge).toHaveClass('px-4');
+        expect(badge).toHaveClass('px-3');
         expect(badge).toHaveClass('py-2');
-        expect(badge).toHaveClass('backdrop-blur-sm');
       });
     });
 
@@ -102,10 +88,10 @@ describe('SocialProof', () => {
       await waitFor(() => {
         const pulseIndicator = container.querySelector('.animate-pulse');
         expect(pulseIndicator).toBeInTheDocument();
-        expect(pulseIndicator).toHaveClass('h-2');
-        expect(pulseIndicator).toHaveClass('w-2');
+        expect(pulseIndicator).toHaveClass('h-1.5');
+        expect(pulseIndicator).toHaveClass('w-1.5');
         expect(pulseIndicator).toHaveClass('rounded-full');
-        expect(pulseIndicator).toHaveClass('bg-yellow-400');
+        expect(pulseIndicator).toHaveClass('bg-amber-300');
       });
     });
 
@@ -117,9 +103,9 @@ describe('SocialProof', () => {
       await waitFor(() => {
         const messageSpan = container.querySelector('span');
         expect(messageSpan).toBeInTheDocument();
-        expect(messageSpan).toHaveClass('text-sm');
+        expect(messageSpan).toHaveClass('text-xs');
         expect(messageSpan).toHaveClass('font-medium');
-        expect(messageSpan).toHaveClass('text-white/90');
+        expect(messageSpan).toHaveClass('text-white/80');
       });
     });
 
@@ -129,7 +115,7 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const messageSpan = container.querySelector('.text-sm');
+        const messageSpan = container.querySelector('.text-xs');
         expect(messageSpan).toBeInTheDocument();
         expect(messageSpan?.textContent).toBeTruthy();
       });
@@ -142,7 +128,7 @@ describe('SocialProof', () => {
 
       await waitFor(() => {
         const messageSpan = screen.getByText((content, element) => {
-          return element?.className.includes('text-sm') ?? false;
+          return element?.className.includes('text-xs') ?? false;
         });
         expect(messageSpan).toBeInTheDocument();
         expect(messageSpan.textContent).toBeTruthy();
@@ -156,8 +142,7 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        // Check that some message is displayed
-        const messageSpan = container.querySelector('.text-sm');
+        const messageSpan = container.querySelector('.text-xs');
         expect(messageSpan?.textContent).toBeTruthy();
         expect(messageSpan?.textContent?.length).toBeGreaterThan(0);
       });
@@ -181,7 +166,7 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const messageSpan = container.querySelector('.text-sm.font-medium');
+        const messageSpan = container.querySelector('.text-xs.font-medium');
         expect(messageSpan?.textContent?.trim()).toBeTruthy();
       });
     });
@@ -219,15 +204,13 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const firstMessage = container.querySelector('.text-sm')?.textContent;
+        const firstMessage = container.querySelector('.text-xs')?.textContent;
         expect(firstMessage).toBeTruthy();
       });
 
-      // Advance timers to trigger interval
       jest.advanceTimersByTime(10000);
 
-      // Note: Component may display different or same message due to randomness
-      const messageSpan = container.querySelector('.text-sm');
+      const messageSpan = container.querySelector('.text-xs');
       expect(messageSpan?.textContent).toBeTruthy();
     });
 
@@ -241,11 +224,9 @@ describe('SocialProof', () => {
         expect(setIntervalSpy).toHaveBeenCalled();
       });
 
-      // Advance time by multiple intervals
-      jest.advanceTimersByTime(30000); // 3 intervals
+      jest.advanceTimersByTime(30000);
 
-      // Component should continue to work
-      expect(container.querySelector('.text-sm')).toBeInTheDocument();
+      expect(container.querySelector('.text-xs')).toBeInTheDocument();
       setIntervalSpy.mockRestore();
     });
   });
@@ -288,8 +269,6 @@ describe('SocialProof', () => {
 
       await waitFor(() => {
         unmount();
-
-        // After unmount, clearing interval should have been called
         expect(clearIntervalSpy).toHaveBeenCalled();
       });
 
@@ -304,7 +283,6 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        // Check for basic semantic structure
         const divElements = container.querySelectorAll('div');
         expect(divElements.length).toBeGreaterThan(0);
       });
@@ -317,31 +295,31 @@ describe('SocialProof', () => {
 
       await waitFor(() => {
         const messageSpan = container.querySelector('span');
-        expect(messageSpan).toHaveClass('text-white/90');
+        expect(messageSpan).toHaveClass('text-white/80');
       });
     });
 
-    it('should use text-sm for reasonable font size', async () => {
+    it('should use text-xs for font size', async () => {
       const { container } = render(
         <SocialProof motivationalMessages={mockMessages} />
       );
 
       await waitFor(() => {
-        const messageSpan = container.querySelector('.text-sm');
+        const messageSpan = container.querySelector('.text-xs');
         expect(messageSpan).toBeInTheDocument();
       });
     });
 
-    it('should have proper text contrast with backdrop', async () => {
+    it('should have proper text contrast with background', async () => {
       const { container } = render(
         <SocialProof motivationalMessages={mockMessages} />
       );
 
       await waitFor(() => {
-        const badge = container.querySelector('.rounded-full');
+        const badge = container.querySelector('.rounded-lg');
         expect(badge).toHaveClass('bg-white/15');
         const messageSpan = container.querySelector('span');
-        expect(messageSpan).toHaveClass('text-white/90');
+        expect(messageSpan).toHaveClass('text-white/80');
       });
     });
 
@@ -351,79 +329,21 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const animatedDiv = container.querySelector('.text-center');
-        expect(animatedDiv).toBeInTheDocument();
-        const outerDiv = container.querySelector('.justify-center');
+        const outerDiv = container.querySelector('.justify-start');
         expect(outerDiv).toBeInTheDocument();
       });
     });
   });
 
   describe('styling', () => {
-    it('should have responsive margin bottom', async () => {
-      const { container } = render(
-        <SocialProof motivationalMessages={mockMessages} />
-      );
-
-      await waitFor(() => {
-        const outerDiv = container.querySelector('.mb-4');
-        expect(outerDiv).toHaveClass('md:mb-6');
-      });
-    });
-
-    it('should have flex display with center alignment', async () => {
+    it('should have flex display with start alignment', async () => {
       const { container } = render(
         <SocialProof motivationalMessages={mockMessages} />
       );
 
       await waitFor(() => {
         const flexContainer = container.querySelector('.flex');
-        expect(flexContainer).toHaveClass('justify-center');
-        expect(flexContainer).toHaveClass('mb-4');
-      });
-    });
-
-    it('should have constrained max width', async () => {
-      const { container } = render(
-        <SocialProof motivationalMessages={mockMessages} />
-      );
-
-      await waitFor(() => {
-        const maxWidth = container.querySelector('.max-w-md');
-        expect(maxWidth).toBeInTheDocument();
-      });
-    });
-
-    it('should apply backdrop blur effect', async () => {
-      const { container } = render(
-        <SocialProof motivationalMessages={mockMessages} />
-      );
-
-      await waitFor(() => {
-        const badge = container.querySelector('.backdrop-blur-sm');
-        expect(badge).toBeInTheDocument();
-      });
-    });
-
-    it('should have semi-transparent background', async () => {
-      const { container } = render(
-        <SocialProof motivationalMessages={mockMessages} />
-      );
-
-      await waitFor(() => {
-        const badge = container.querySelector('.rounded-full');
-        expect(badge).toHaveClass('bg-white/15');
-      });
-    });
-
-    it('should have subtle border', async () => {
-      const { container } = render(
-        <SocialProof motivationalMessages={mockMessages} />
-      );
-
-      await waitFor(() => {
-        const badge = container.querySelector('.border');
-        expect(badge).toHaveClass('border-white/10');
+        expect(flexContainer).toHaveClass('justify-start');
       });
     });
 
@@ -446,7 +366,7 @@ describe('SocialProof', () => {
       await waitFor(() => {
         const pulse = container.querySelector('.animate-pulse');
         expect(pulse).toBeInTheDocument();
-        expect(pulse).toHaveClass('bg-yellow-400');
+        expect(pulse).toHaveClass('bg-amber-300');
       });
     });
 
@@ -456,7 +376,7 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const badge = container.querySelector('.px-4');
+        const badge = container.querySelector('.px-3');
         expect(badge).toHaveClass('py-2');
       });
     });
@@ -469,6 +389,17 @@ describe('SocialProof', () => {
       await waitFor(() => {
         const message = container.querySelector('.font-medium');
         expect(message).toBeInTheDocument();
+      });
+    });
+
+    it('should have subtle border', async () => {
+      const { container } = render(
+        <SocialProof motivationalMessages={mockMessages} />
+      );
+
+      await waitFor(() => {
+        const badge = container.querySelector('.border');
+        expect(badge).toHaveClass('border-white/20');
       });
     });
   });
@@ -491,7 +422,6 @@ describe('SocialProof', () => {
         unmount2();
       });
 
-      // Should complete without errors
       expect(true).toBe(true);
     });
 
@@ -505,7 +435,6 @@ describe('SocialProof', () => {
         rerender(<SocialProof motivationalMessages={mockMessages} />);
         rerender(<SocialProof motivationalMessages={mockMessages} />);
 
-        // Should handle multiple renders gracefully
         expect(true).toBe(true);
       });
     });
@@ -517,7 +446,7 @@ describe('SocialProof', () => {
 
       await waitFor(() => {
         const messageSpan = screen.getByText((content, element) => {
-          return element?.className.includes('text-sm') ?? false;
+          return element?.className.includes('text-xs') ?? false;
         });
         expect(messageSpan).toBeInTheDocument();
       });
@@ -532,7 +461,7 @@ describe('SocialProof', () => {
 
       await waitFor(() => {
         const messageSpan = screen.getByText((content, element) => {
-          return element?.className.includes('text-sm') ?? false;
+          return element?.className.includes('text-xs') ?? false;
         });
         expect(messageSpan).toBeInTheDocument();
       });
@@ -546,17 +475,15 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        expect(container.querySelector('.text-sm')).toBeInTheDocument();
+        expect(container.querySelector('.text-xs')).toBeInTheDocument();
       });
 
-      // Advance timer multiple times
       jest.advanceTimersByTime(10000);
       jest.advanceTimersByTime(10000);
       jest.advanceTimersByTime(10000);
 
-      // Component should still be functional
       await waitFor(() => {
-        expect(container.querySelector('.text-sm')).toBeInTheDocument();
+        expect(container.querySelector('.text-xs')).toBeInTheDocument();
       });
     });
 
@@ -568,8 +495,7 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        // Component should still render even when parent is hidden
-        const badge = container.querySelector('.rounded-full');
+        const badge = container.querySelector('.rounded-lg');
         expect(badge).toBeInTheDocument();
       });
     });
@@ -581,9 +507,8 @@ describe('SocialProof', () => {
         <SocialProof motivationalMessages={mockMessages} />
       );
 
-      // Component should render after effect runs
       await waitFor(() => {
-        expect(container.querySelector('.text-sm')).toBeInTheDocument();
+        expect(container.querySelector('.text-xs')).toBeInTheDocument();
       });
     });
 
@@ -593,9 +518,8 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const messageSpan = container.querySelector('.text-sm');
+        const messageSpan = container.querySelector('.text-xs');
         expect(messageSpan).toBeInTheDocument();
-        // Message should not be empty
         expect(messageSpan?.textContent?.length).toBeGreaterThan(0);
       });
     });
@@ -606,15 +530,13 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        const firstMessage = container.querySelector('.text-sm')?.textContent;
+        const firstMessage = container.querySelector('.text-xs')?.textContent;
         expect(firstMessage).toBeTruthy();
       });
 
-      // Advance timer
       jest.advanceTimersByTime(10000);
 
-      // Component should still function
-      expect(container.querySelector('.text-sm')).toBeInTheDocument();
+      expect(container.querySelector('.text-xs')).toBeInTheDocument();
     });
   });
 
@@ -626,9 +548,9 @@ describe('SocialProof', () => {
 
       await waitFor(() => {
         const flex1 = container1.querySelector('.flex');
-        const badge1 = container1.querySelector('.rounded-full');
+        const badge1 = container1.querySelector('.rounded-lg');
         const pulse1 = container1.querySelector('.animate-pulse');
-        const message1 = container1.querySelector('.text-sm');
+        const message1 = container1.querySelector('.text-xs');
 
         expect(flex1).toBeInTheDocument();
         expect(badge1).toBeInTheDocument();
@@ -648,27 +570,18 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        // Outer wrapper
-        const outer = container.querySelector('.mb-4.flex.justify-center');
+        const outer = container.querySelector('.flex.justify-start');
         expect(outer).toBeInTheDocument();
 
-        // Max width container
-        const maxWidth = outer?.querySelector('.max-w-md');
-        expect(maxWidth).toBeInTheDocument();
-
-        // Animation wrapper
-        const animated = maxWidth?.querySelector('.animate-fade-in');
+        const animated = outer?.querySelector('.animate-fade-in');
         expect(animated).toBeInTheDocument();
 
-        // Badge
-        const badge = animated?.querySelector('.rounded-full');
+        const badge = animated?.querySelector('.rounded-lg');
         expect(badge).toBeInTheDocument();
 
-        // Pulse indicator
         const pulse = badge?.querySelector('.animate-pulse');
         expect(pulse).toBeInTheDocument();
 
-        // Message span
         const message = badge?.querySelector('span');
         expect(message).toBeInTheDocument();
       });
@@ -682,8 +595,7 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        // Effect should have run, setting message
-        expect(container.querySelector('.text-sm')).toBeInTheDocument();
+        expect(container.querySelector('.text-xs')).toBeInTheDocument();
       });
     });
 
@@ -707,11 +619,7 @@ describe('SocialProof', () => {
 
       await waitFor(() => {
         unmount();
-
-        // Clear any pending timers
         jest.clearAllTimers();
-
-        // Should not throw or cause issues
         expect(true).toBe(true);
       });
     });
@@ -745,7 +653,6 @@ describe('SocialProof', () => {
       render(<SocialProof motivationalMessages={mockMessages} />);
 
       await waitFor(() => {
-        // floor should be called with result of Math.random() * length
         expect(floorSpy).toHaveBeenCalled();
       });
 
@@ -759,9 +666,8 @@ describe('SocialProof', () => {
         <SocialProof motivationalMessages={mockMessages} />
       );
 
-      // After effect runs, component should render
       await waitFor(() => {
-        expect(container.querySelector('.text-sm')).toBeInTheDocument();
+        expect(container.querySelector('.text-xs')).toBeInTheDocument();
       });
     });
 
@@ -770,10 +676,9 @@ describe('SocialProof', () => {
         <SocialProof motivationalMessages={mockMessages} />
       );
 
-      // After effect runs
       await waitFor(() => {
         expect(container.firstChild).not.toBeNull();
-        expect(container.querySelector('.text-sm')).toBeInTheDocument();
+        expect(container.querySelector('.text-xs')).toBeInTheDocument();
       });
     });
 
@@ -782,9 +687,8 @@ describe('SocialProof', () => {
         <SocialProof motivationalMessages={mockMessages} />
       );
 
-      // Component should eventually render with message
       await waitFor(() => {
-        const messageSpan = container.querySelector('.text-sm');
+        const messageSpan = container.querySelector('.text-xs');
         expect(messageSpan?.textContent).toBeTruthy();
       });
     });
@@ -796,16 +700,13 @@ describe('SocialProof', () => {
         <SocialProof motivationalMessages={mockMessages} />
       );
 
-      // After mount, message appears
       await waitFor(() => {
-        expect(container.querySelector('.text-sm')).toBeInTheDocument();
+        expect(container.querySelector('.text-xs')).toBeInTheDocument();
       });
 
-      // Message is readable
-      const messageSpan = container.querySelector('.text-sm');
+      const messageSpan = container.querySelector('.text-xs');
       expect(messageSpan?.textContent).toBeTruthy();
 
-      // Visual elements are present
       expect(container.querySelector('.animate-fade-in')).toBeInTheDocument();
       expect(container.querySelector('.animate-pulse')).toBeInTheDocument();
     });
@@ -815,24 +716,18 @@ describe('SocialProof', () => {
         <SocialProof motivationalMessages={mockMessages} />
       );
 
-      // Component mounted and rendering
       await waitFor(() => {
-        expect(container.querySelector('.text-sm')).toBeInTheDocument();
+        expect(container.querySelector('.text-xs')).toBeInTheDocument();
       });
 
-      // Advance timer
       jest.advanceTimersByTime(10000);
 
-      // Rerender
       rerender(<SocialProof motivationalMessages={mockMessages} />);
 
-      // Component still works
-      expect(container.querySelector('.text-sm')).toBeInTheDocument();
+      expect(container.querySelector('.text-xs')).toBeInTheDocument();
 
-      // Unmount
       unmount();
 
-      // No errors should occur
       expect(true).toBe(true);
     });
 
@@ -842,9 +737,7 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        // User should see a message
         const messageElement = container.querySelector('.font-medium');
-
         expect(messageElement).toBeInTheDocument();
         expect(messageElement?.textContent).toBeTruthy();
       });
@@ -856,18 +749,11 @@ describe('SocialProof', () => {
       );
 
       await waitFor(() => {
-        // Fade in animation
         expect(container.querySelector('.animate-fade-in')).toBeInTheDocument();
 
-        // Pulse indicator
         const pulse = container.querySelector('.animate-pulse');
         expect(pulse).toBeInTheDocument();
-        expect(pulse).toHaveClass('bg-yellow-400');
-
-        // User sees a polished UI
-        expect(
-          container.querySelector('.backdrop-blur-sm')
-        ).toBeInTheDocument();
+        expect(pulse).toHaveClass('bg-amber-300');
       });
     });
   });

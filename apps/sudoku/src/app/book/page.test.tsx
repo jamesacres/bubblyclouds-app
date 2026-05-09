@@ -214,7 +214,7 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      const tryAgainButton = screen.getByText('Try Again');
+      const tryAgainButton = screen.getByText('Try again');
       expect(tryAgainButton).toBeInTheDocument();
     });
 
@@ -235,12 +235,12 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      const tryAgainButton = screen.getByText('Try Again');
+      const tryAgainButton = screen.getByText('Try again');
       fireEvent.click(tryAgainButton);
       expect(mockFetchBookData).toHaveBeenCalled();
     });
 
-    it('should show Back to Home button when error occurs', () => {
+    it('should show Back to home button when error occurs', () => {
       const {
         useBook,
       } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
@@ -252,11 +252,11 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      const backButton = screen.getByText('Back to Home');
+      const backButton = screen.getByText('Back to home');
       expect(backButton).toBeInTheDocument();
     });
 
-    it('should navigate to home when Back to Home is clicked', () => {
+    it('should navigate to home when Back to home is clicked', () => {
       const {
         useBook,
       } = require('@bubblyclouds-app/sudoku/providers/BookProvider');
@@ -268,7 +268,7 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      const backButton = screen.getByText('Back to Home');
+      const backButton = screen.getByText('Back to home');
       fireEvent.click(backButton);
       expect(mockPush).toHaveBeenCalledWith('/');
     });
@@ -290,7 +290,7 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      expect(screen.queryByText('Try Again')).not.toBeInTheDocument();
+      expect(screen.queryByText('Try again')).not.toBeInTheDocument();
     });
   });
 
@@ -302,15 +302,15 @@ describe('Book Page', () => {
       ).toBeInTheDocument();
     });
 
-    it('should show Back to Home button when no book data', () => {
+    it('should show Back to home button when no book data', () => {
       render(<BookPage />);
-      const backButton = screen.getByText('Back to Home');
+      const backButton = screen.getByText('Back to home');
       expect(backButton).toBeInTheDocument();
     });
 
     it('should navigate to home when clicking Back button on empty state', () => {
       render(<BookPage />);
-      const backButton = screen.getByText('Back to Home');
+      const backButton = screen.getByText('Back to home');
       fireEvent.click(backButton);
       expect(mockPush).toHaveBeenCalledWith('/');
     });
@@ -338,7 +338,7 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      expect(screen.getByText(/Puzzle Book/)).toBeInTheDocument();
+      expect(screen.getByText(/puzzle book/i)).toBeInTheDocument();
     });
 
     it('should display book cover', () => {
@@ -356,7 +356,7 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      expect(screen.getByTestId('book-cover-large')).toBeInTheDocument();
+      expect(screen.getByTestId('book-cover-medium')).toBeInTheDocument();
     });
 
     it('should render puzzle grid', () => {
@@ -446,8 +446,8 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      expect(screen.getByText('🟢 Very Easy')).toBeInTheDocument();
-      expect(screen.getByText('🔴 Hard')).toBeInTheDocument();
+      expect(screen.getByText('Very Easy')).toBeInTheDocument();
+      expect(screen.getByText('Hard')).toBeInTheDocument();
     });
 
     it('should not render buttons for difficulties not in book', () => {
@@ -471,8 +471,8 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      expect(screen.getByText('🟢 Very Easy')).toBeInTheDocument();
-      expect(screen.queryByText('🔴 Hard')).not.toBeInTheDocument();
+      expect(screen.getByText('Very Easy')).toBeInTheDocument();
+      expect(screen.queryByText('Hard')).not.toBeInTheDocument();
     });
   });
 
@@ -518,7 +518,7 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      expect(screen.getByText(/📊 \d+ completed/)).toBeInTheDocument();
+      expect(screen.getByText(/\d+ completed/)).toBeInTheDocument();
     });
 
     it('should display in progress puzzle count', () => {
@@ -563,7 +563,7 @@ describe('Book Page', () => {
       });
 
       render(<BookPage />);
-      expect(screen.getByText(/🎯 \d+ in progress/)).toBeInTheDocument();
+      expect(screen.getByText(/\d+ in progress/)).toBeInTheDocument();
     });
   });
 
