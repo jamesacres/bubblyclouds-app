@@ -19,8 +19,6 @@ See Sudoku TODOs....
 
 ## Sudoku
 
-Test invite and sign in
-Test and fix native - test purchases iOS
 Solver Test coverage
 Solver PR review
 
