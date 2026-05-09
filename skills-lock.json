@@ -26,6 +26,12 @@
       "sourceType": "github",
       "computedHash": "3316239df2bdcb41e992857b8142e0239e6964564dd5d7224e470c2ab350a03c"
     },
+    "app-store-optimization": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/app-store-optimization/SKILL.md",
+      "computedHash": "716e0748b407db7b438b75e4cdcffd5d70d4f0ceeb3519465c31e31dae9417d0"
+    },
     "architecture-decision-records": {
       "source": "wshobson/agents",
       "sourceType": "github",
