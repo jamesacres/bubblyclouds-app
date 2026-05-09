@@ -25,6 +25,8 @@ Solver PR review
 ### Features
 
 ## v3 ideas
+- achievements google play, beat expert, bumblebee etc
+
 - avatar selection for self, see other peoples
 - powers to distrupt/help with other players
 - feedback box

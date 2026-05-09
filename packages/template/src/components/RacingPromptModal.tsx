@@ -196,8 +196,8 @@ const RacingPromptModal = ({
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm dark:bg-zinc-950/80" />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center sm:items-center sm:p-4">
+        <div className="fixed inset-0 flex items-end justify-center sm:items-center sm:p-4">
+          <div className="w-full sm:max-w-md">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -207,7 +207,7 @@ const RacingPromptModal = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="border-black/8 w-full overflow-hidden rounded-t-3xl border bg-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)] sm:max-w-md sm:rounded-3xl dark:border-white/10 dark:bg-zinc-900 dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
+              <Dialog.Panel className="border-black/8 w-full overflow-hidden rounded-t-3xl border bg-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)] sm:rounded-3xl dark:border-white/10 dark:bg-zinc-900 dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
                 {view === 'mode-select' && (
                   <div className="p-6">
                     <div className="mb-6">
@@ -288,7 +288,7 @@ const RacingPromptModal = ({
                 )}
 
                 {view === 'agent-select' && (
-                  <div className="flex flex-col" style={{ maxHeight: '85dvh' }}>
+                  <div className="flex flex-col" style={{ maxHeight: '85svh' }}>
                     <div className="border-black/8 dark:border-white/8 flex flex-shrink-0 items-center gap-3 border-b px-5 pb-4 pt-5">
                       <button
                         onClick={handleBack}

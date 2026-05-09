@@ -564,11 +564,13 @@ const Sudoku = ({
     setPauseTimer(shouldPause);
 
     if (showSidebar || showRacingPrompt || showAppDownload) {
-      // Stop scroll
       document.body.classList.add('overflow-y-hidden');
+      document.documentElement.style.height = '100%';
+      document.body.style.height = '100%';
     } else {
-      // Allow scroll
       document.body.classList.remove('overflow-y-hidden');
+      document.documentElement.style.height = '';
+      document.body.style.height = '';
     }
   }, [
     hasSelectedMode,
@@ -582,6 +584,8 @@ const Sudoku = ({
   useEffect(() => {
     return () => {
       document.body.classList.remove('overflow-y-hidden');
+      document.documentElement.style.height = '';
+      document.body.style.height = '';
     };
   }, []);
 
