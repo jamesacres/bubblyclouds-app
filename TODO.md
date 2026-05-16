@@ -19,6 +19,14 @@ See Sudoku TODOs....
 
 ## Sudoku
 
+iPhone hard to press buttons for notes?
+After completing book puzzle, pressing book does not have completed state
+Header too much space at top, not obvious on iPhone that there's a monthly book
+apple pencil cant click the select rivals button to play
+make thanks text clickable to dismiss the help
+sidebar create team button rename, and make it easy to see existing teams collapse ai characters
+chat gpt app?
+
 Solver Test coverage
 Solver PR review
 

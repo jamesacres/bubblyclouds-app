@@ -597,6 +597,12 @@
       "sourceType": "github",
       "computedHash": "7c63f9bf6ce2e2884b2da61e899a2701068b53ef6e87fc29e3c04a199e3092cb"
     },
+    "reddit-posts": {
+      "source": "kostja94/marketing-skills",
+      "sourceType": "github",
+      "skillPath": "skills/platforms/reddit/SKILL.md",
+      "computedHash": "607b433cb157fe62a8393f8ff3143762d4d5244223e6c22040f2c01884bb01c6"
+    },
     "redesign-existing-projects": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
