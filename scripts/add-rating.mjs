@@ -394,3 +394,7 @@ try {
 
 console.info('Created', blogPath);
 console.info('Please save album art to', `apps/stephenesch/public/content/images/${key}.jpg`);
+
+// jamesacres@MacBookPro-2 scripts $ ./sacad "Daniel Barenboim" "Boléro; La valse; Pavane pour une infante défunte; Daphnis et Chloé: Suite No.2" 600 "test.jpg"
+// jamesacres@MacBookPro-2 scripts $ pwd
+// /Users/jamesacres/Documents/scripts
