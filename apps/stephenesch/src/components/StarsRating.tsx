@@ -28,12 +28,17 @@ const HalfStar = ({
   </div>
 );
 
-export const StarsRating = ({ rating }: { rating: number }) => {
+export const StarsRating = ({
+  rating,
+  size = 32,
+}: {
+  rating: number;
+  size?: number;
+}) => {
   const ratingOutFive = rating / 2;
   const left = Math.floor(ratingOutFive);
   const right = 5 - Math.ceil(ratingOutFive);
   const showHalf = left + right < 5;
-  const size = 32;
   const color = '#0ea5e9';
   return (
     <div className="flex items-center justify-center">

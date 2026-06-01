@@ -1,6 +1,7 @@
 import enquirer from 'enquirer';
 const { Scale } = enquirer;
 import fs from 'fs';
+import { execSync } from 'node:child_process';
 
 export function removeDiacritics(input) {
   // https://stackoverflow.com/questions/18123501/replacing-accented-characters-with-plain-ascii-ones
@@ -394,3 +395,8 @@ try {
 
 console.info('Created', blogPath);
 console.info('Please save album art to', `apps/stephenesch/public/content/images/${key}.jpg`);
+
+const command = `~/Documents/scripts/sacad "${artist.replaceAll('"', '\\"')}" "${title.replaceAll('"', '\\"')}" 600 "apps/stephenesch/public/content/images/${key}.jpg"`
+
+const output = execSync(command, { encoding: 'utf8' });
+console.log(output);
