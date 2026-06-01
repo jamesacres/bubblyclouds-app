@@ -52,7 +52,7 @@ describe('HomePage', () => {
     const result = await HomePage();
     const { container } = render(result);
 
-    expect(container.textContent).toContain('Ratings');
+    expect(container.textContent).toContain('Recent posts');
   });
 
   it('should display featured posts', async () => {
@@ -169,9 +169,8 @@ describe('HomePage', () => {
     const result = await HomePage();
     const { container } = render(result);
 
-    const yellowBox = container.querySelector('.bg-yellow-400');
-    expect(yellowBox).toBeInTheDocument();
-    expect(yellowBox).toHaveClass('rounded-lg', 'px-6', 'py-4');
+    const divideDiv = container.querySelector('.divide-y');
+    expect(divideDiv).toBeInTheDocument();
   });
 
   it('should render page heading', async () => {
@@ -181,7 +180,7 @@ describe('HomePage', () => {
     const { container } = render(result);
 
     const heading = container.querySelector('h2');
-    expect(heading).toHaveTextContent('Ratings');
+    expect(heading).toHaveTextContent('Musics, cookings and good times');
   });
 
   it('should handle empty posts gracefully', async () => {
@@ -223,10 +222,10 @@ describe('HomePage', () => {
     const result = await HomePage();
     const { container } = render(result);
 
-    const ratingHeading = Array.from(container.querySelectorAll('h2')).find(
-      (h2) => h2.textContent === 'Ratings'
-    );
-    expect(ratingHeading).toBeInTheDocument();
+    const recentPostsHeading = Array.from(
+      container.querySelectorAll('h2')
+    ).find((h2) => h2.textContent === 'Recent posts');
+    expect(recentPostsHeading).toBeInTheDocument();
   });
 
   it('should have ratings link', async () => {

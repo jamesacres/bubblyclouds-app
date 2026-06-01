@@ -50,7 +50,7 @@ describe('RatingsPage', () => {
 
     render(await RatingsPage());
 
-    expect(screen.getByText('Rating:')).toBeInTheDocument();
+    expect(screen.getByText(/All time/)).toBeInTheDocument();
   });
 
   it('should display decade section heading', async () => {
@@ -59,7 +59,7 @@ describe('RatingsPage', () => {
 
     render(await RatingsPage());
 
-    expect(screen.getByText('Decade:')).toBeInTheDocument();
+    expect(screen.getByText('By decade')).toBeInTheDocument();
   });
 
   it('should display artist section heading', async () => {
@@ -68,7 +68,7 @@ describe('RatingsPage', () => {
 
     render(await RatingsPage());
 
-    expect(screen.getByText('Artist:')).toBeInTheDocument();
+    expect(screen.getByText('Filter by artist')).toBeInTheDocument();
   });
 
   it('should render all 10 rating levels (10 to 1)', async () => {
