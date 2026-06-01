@@ -102,6 +102,40 @@ For each missing key, read the MDX to extract artist and title from the `export 
 
 **Do NOT read MDX from this approach to rebuild a batch JSON** — just run sacad directly per missing file. Process one at a time; do not parallelise sacad calls.
 
+## Step 6 — Fetch remaining missing art via Discogs API
+
+If sacad still leaves images missing, use the Discogs API as a fallback. The token is in `.env` as `DISCOGS_TOKEN` — read it at runtime, never hardcode it. Rate limit: 60 req/min; use a 1.1s delay between requests.
+
+**Critical: always extract artist and title from the `export const data = { ... }` block in the MDX, not the frontmatter `title:` field.** The frontmatter title contains the full "Artist: Title (Year)" string; the data block has separate `artist` and `title` fields.
+
+Search strategy:
+1. For named artists: search `"<artist> <title>"` with `type=master`, then `type=release`, then without year
+2. For non-Latin artist names (Cyrillic, etc.): extract the bracketed Latin transliteration — e.g. `"Ганелин [Ganelin]"` → search as `"Ganelin"`
+3. For Various Artists compilations: search by title only (omit "Various Artists" from the query), `type=release` first
+4. If the title-based search fails, try searching by artist name alone to find their Discogs artist ID, then browse their releases via `/artists/<id>/releases`
+5. If you have a Discogs URL from the user, extract the master/release ID directly and hit `/masters/<id>` or `/releases/<id>`
+
+**Verify the result before saving**: check that the returned `result.title` contains the expected artist name or album title — don't just take the first result with a cover image. A mismatch here produces a wrong image (e.g. searching "The Collection" and getting a Bob Dylan box set).
+
+If no Discogs match exists, replace the missing image with a grey 600×600 JPEG placeholder:
+
+```python
+python3 -c "
+from PIL import Image
+img = Image.new('RGB', (600, 600), (180, 180, 180))
+img.save('apps/stephenesch/public/content/images/<key>.jpg', 'JPEG')
+"
+```
+
+## Step 7 — Spot-check fetched images
+
+After fetching art via Discogs, **visually verify** a sample of the images using the Read tool (it renders JPEGs inline). Pay particular attention to:
+- Various Artists compilations (title-only search is most prone to false matches)
+- Albums with very short or generic titles (e.g. "Without Borders", "The Collection")
+- Artists with common names
+
+Use `Read` on the JPG path — mismatches are immediately obvious (wrong artist name on cover, wrong album title, completely different genre of artwork).
+
 ## Key: rating scale
 
 RYM uses 0.5-star increments. The extracted `rating` field is already out of 5 (e.g. `3.5`). The batch script converts internally: `ratingOutOfTen = rating * 2`.
