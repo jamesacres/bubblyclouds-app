@@ -518,6 +518,14 @@ pre[class*='language-'] {
   }
 }
 
+:root {
+  --heatmap-empty: #e5e7eb;
+}
+
+.dark {
+  --heatmap-empty: #1f2937;
+}
+
 /* Primary color theme for blog - Sky theme (matching original stephenesch) */
 @theme {
   --color-primary-50: #f0f9ff;

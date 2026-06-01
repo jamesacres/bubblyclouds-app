@@ -1,5 +1,8 @@
 # TODO
 
+cindy lee missing in data, and numbers dont match 100% need to compare export with what's missing
+al green still in love with you re-rated
+
 See Sudoku TODOs....
 
 # Framework
