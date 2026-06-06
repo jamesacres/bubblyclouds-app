@@ -57,3 +57,5 @@ android/app/release
 temp
 packages/sudoku/src/utils/diag-seed-scan.json
 scripts/*.csv
+
+designs
