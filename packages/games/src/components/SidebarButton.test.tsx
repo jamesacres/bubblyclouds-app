@@ -4,11 +4,11 @@ import SidebarButton from './SidebarButton';
 
 describe('SidebarButton', () => {
   describe('rendering', () => {
-    it('should render button with text "Races"', () => {
+    it('should render button with text "Lobby"', () => {
       const mockClick = jest.fn();
       render(<SidebarButton friendsOnClick={mockClick} />);
 
-      expect(screen.getByText('Races')).toBeInTheDocument();
+      expect(screen.getByText('Lobby')).toBeInTheDocument();
     });
 
     it('should render as a button element', () => {
@@ -153,11 +153,11 @@ describe('SidebarButton', () => {
   });
 
   describe('content', () => {
-    it('should display "Races" text', () => {
+    it('should display "Lobby" text', () => {
       const mockClick = jest.fn();
       render(<SidebarButton friendsOnClick={mockClick} />);
 
-      expect(screen.getByText('Races')).toBeInTheDocument();
+      expect(screen.getByText('Lobby')).toBeInTheDocument();
     });
 
     it('should render icon before text', () => {
@@ -178,7 +178,7 @@ describe('SidebarButton', () => {
       render(<SidebarButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
-      expect(button.textContent).toContain('Races');
+      expect(button.textContent).toContain('Lobby');
     });
   });
 
@@ -187,11 +187,11 @@ describe('SidebarButton', () => {
       const mockClick = jest.fn();
       const { rerender } = render(<SidebarButton friendsOnClick={mockClick} />);
 
-      expect(screen.getByText('Races')).toBeInTheDocument();
+      expect(screen.getByText('Lobby')).toBeInTheDocument();
 
       rerender(<SidebarButton friendsOnClick={mockClick} />);
 
-      expect(screen.getByText('Races')).toBeInTheDocument();
+      expect(screen.getByText('Lobby')).toBeInTheDocument();
     });
 
     it('should update handler when prop changes', () => {

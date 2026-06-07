@@ -55,6 +55,156 @@ import { getAllAgentProgress } from '../helpers/agentProgress';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
 import { DreyfusLevel } from '../types/Agent';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
+import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+
+function derivePuzzleMetaLabel(metadata: Partial<GameStateMetadata>): string {
+  if (metadata.sudokuId?.startsWith('oftheday-')) {
+    const parts = metadata.sudokuId.split('-');
+    if (parts.length >= 2) {
+      const ds = parts[1];
+      if (ds.length === 8) {
+        const date = new Date(
+          `${ds.slice(0, 4)}-${ds.slice(4, 6)}-${ds.slice(6, 8)}`
+        );
+        const months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ];
+        const d = date.getDate();
+        const suffix =
+          d >= 11 && d <= 13
+            ? 'th'
+            : (['st', 'nd', 'rd'][(d % 10) - 1] ?? 'th');
+        return `Daily ${months[date.getMonth()]} ${d}${suffix}`;
+      }
+    }
+  }
+  if (metadata.sudokuBookPuzzleId?.startsWith('ofthemonth-')) {
+    const parts = metadata.sudokuBookPuzzleId.split('-');
+    if (parts.length >= 4) {
+      const ym = parts[1];
+      const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+      const monthName = months[parseInt(ym.slice(4, 6)) - 1];
+      const num = parseInt(parts[3]) + 1;
+      return `Book ${monthName} #${num}`;
+    }
+  }
+  if (metadata.scannedAt && metadata.scannedAt !== 'undefined') {
+    return 'Scanned Puzzle';
+  }
+  return '';
+}
+
+function CountdownOverlay({ countdown }: { countdown: number }) {
+  // countdown value from server: 4→3→2→1. Display: 3→2→1→GO!
+  const isGo = countdown === 1;
+  const displayed = countdown - 1; // matches TimerDisplay logic
+
+  const lights = [
+    { on: countdown <= 3, color: '#ef4444', glow: 'rgba(239,68,68,0.7)' },
+    { on: countdown <= 2, color: '#facc15', glow: 'rgba(250,204,21,0.7)' },
+    { on: isGo, color: '#4ade80', glow: 'rgba(74,222,128,0.7)' },
+  ];
+
+  return (
+    <div
+      className="fixed inset-0 z-[120] flex flex-col items-center justify-center gap-8"
+      style={{
+        background: 'rgba(4,2,15,0.92)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+      }}
+    >
+      {!isGo ? (
+        <>
+          <div
+            className="text-xs font-extrabold uppercase tracking-[0.2em]"
+            style={{ color: 'rgba(255,255,255,0.5)' }}
+          >
+            Get ready
+          </div>
+          <div className="flex gap-4">
+            {lights.map((l, i) => (
+              <div
+                key={i}
+                className="rounded-full transition-all duration-200"
+                style={{
+                  width: 46,
+                  height: 46,
+                  background: l.on ? l.color : 'rgba(255,255,255,0.07)',
+                  boxShadow: l.on
+                    ? `0 0 28px ${l.glow}, inset 0 2px 4px rgba(255,255,255,0.4)`
+                    : 'inset 0 1px 2px rgba(0,0,0,0.5)',
+                }}
+              />
+            ))}
+          </div>
+          <div
+            key={displayed}
+            className="text-[120px] font-extrabold leading-none text-white"
+            style={{ textShadow: '0 0 40px rgba(167,139,250,0.8)' }}
+          >
+            {displayed}
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            className="text-xs font-extrabold uppercase tracking-[0.2em]"
+            style={{ color: 'rgba(255,255,255,0.5)' }}
+          >
+            Get ready
+          </div>
+          <div className="flex gap-4">
+            {lights.map((l, i) => (
+              <div
+                key={i}
+                className="rounded-full transition-all duration-200"
+                style={{
+                  width: 46,
+                  height: 46,
+                  background: l.on ? l.color : 'rgba(255,255,255,0.07)',
+                  boxShadow: l.on
+                    ? `0 0 28px ${l.glow}, inset 0 2px 4px rgba(255,255,255,0.4)`
+                    : 'inset 0 1px 2px rgba(0,0,0,0.5)',
+                }}
+              />
+            ))}
+          </div>
+          <div
+            className="text-[120px] font-extrabold leading-none text-white"
+            style={{ textShadow: '0 0 40px rgba(74,222,128,0.8)' }}
+          >
+            GO!
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -130,8 +280,6 @@ const Sudoku = ({
   >([]);
 
   const [hasShownAppDownload, setHasShownAppDownload] = useState(false);
-  const [hasDismissedRacingPrompt, setHasDismissedRacingPrompt] =
-    useState(false);
   const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(false);
 
   const {
@@ -227,11 +375,10 @@ const Sudoku = ({
     [setShowSidebar]
   );
 
-  const [sidebarScrollRequest, setSidebarScrollRequest] = useState<number>(0);
+  const [raceStarted, setRaceStarted] = useState(false);
 
   const handleInviteFriends = useCallback(() => {
     setShowSidebar(true);
-    setSidebarScrollRequest(Date.now());
   }, [setShowSidebar]);
 
   // Reference to the grid for the celebration animation and chain overlay
@@ -241,42 +388,14 @@ const Sudoku = ({
   const [showAnimation, setShowAnimation] = useState(false);
   const [showAdvancedControls, setShowAdvancedControls] = useState(false);
 
-  // Check if there are other players already racing
-  const hasOtherPlayers = useMemo(() => {
-    if (!sessionParties || !user?.sub) return false;
-
-    return Object.values(sessionParties).some((party) => {
-      if (party?.memberSessions) {
-        return Object.keys(party.memberSessions).some(
-          (memberId) => memberId !== user.sub
-        );
-      }
-      return false;
-    });
-  }, [sessionParties, user?.sub]);
-
   const showAppDownload = useMemo(
     () => !isCapacitor() && !hasShownAppDownload,
     [hasShownAppDownload]
   );
 
-  const showRacingPrompt = useMemo(() => {
-    const shouldShowRacingPrompt =
-      !alreadyCompleted && showRacingPromptProp && !hasOtherPlayers;
-    return (
-      shouldShowRacingPrompt && !showAppDownload && !hasDismissedRacingPrompt
-    );
-  }, [
-    alreadyCompleted,
-    showRacingPromptProp,
-    hasOtherPlayers,
-    showAppDownload,
-    hasDismissedRacingPrompt,
-  ]);
-
   const hasSelectedMode = useMemo(
-    () => alreadyCompleted || hasOtherPlayers || hasManuallySelectedMode,
-    [alreadyCompleted, hasOtherPlayers, hasManuallySelectedMode]
+    () => alreadyCompleted || hasManuallySelectedMode,
+    [alreadyCompleted, hasManuallySelectedMode]
   );
 
   // Calculate completed games count for rating prompt
@@ -448,8 +567,7 @@ const Sudoku = ({
   const handlePickRivals = useCallback(() => {
     setPickRivalsView('agent-select');
     setShowPickRivalsModal(true);
-    setShowSidebar(false);
-  }, [setShowSidebar]);
+  }, []);
 
   const handleSoloMode = useCallback(() => {
     setAgents([]);
@@ -489,6 +607,15 @@ const Sudoku = ({
     ]
   );
 
+  // Open the lobby on first load with a default AI selection
+  useEffect(() => {
+    if (!alreadyCompleted && showRacingPromptProp) {
+      handleAgentMode(defaultAgentSelection);
+      setShowSidebar(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // App download modal handlers
   const handleAppDownloadClose = useCallback(() => {
     setHasShownAppDownload(true);
@@ -500,7 +627,6 @@ const Sudoku = ({
 
   useEffect(() => {
     if (completed && !alreadyCompleted && !isPuzzleCheated(answerStack)) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Legitimate side effect: triggering timed animation on completion
       setShowAnimation(true);
 
       const timer = setTimeout(() => {
@@ -558,12 +684,11 @@ const Sudoku = ({
 
   // Timer and scroll management
   useEffect(() => {
-    const shouldPause =
-      !hasSelectedMode || showSidebar || showRacingPrompt || showAppDownload;
+    const shouldPause = !hasSelectedMode || showSidebar || showAppDownload;
 
     setPauseTimer(shouldPause);
 
-    if (showSidebar || showRacingPrompt || showAppDownload) {
+    if (showSidebar || showAppDownload) {
       document.body.classList.add('overflow-y-hidden');
       document.documentElement.style.height = '100%';
       document.body.style.height = '100%';
@@ -572,13 +697,7 @@ const Sudoku = ({
       document.documentElement.style.height = '';
       document.body.style.height = '';
     }
-  }, [
-    hasSelectedMode,
-    showSidebar,
-    showRacingPrompt,
-    showAppDownload,
-    setPauseTimer,
-  ]);
+  }, [hasSelectedMode, showSidebar, showAppDownload, setPauseTimer]);
 
   // Cleanup: Always restore scrolling when component unmounts
   useEffect(() => {
@@ -607,12 +726,11 @@ const Sudoku = ({
         openInAppLabel={openInAppLabel}
       />
 
-      {/* Racing mode selection modal */}
+      {/* AI rivals picker */}
       <RacingPromptModal
         key={pickRivalsView}
-        isOpen={showRacingPrompt || showPickRivalsModal}
+        isOpen={showPickRivalsModal}
         onClose={() => {
-          setHasDismissedRacingPrompt(true);
           setShowPickRivalsModal(false);
           setPickRivalsView('mode-select');
         }}
@@ -644,8 +762,36 @@ const Sudoku = ({
         onRemoveAgent={onRemoveAgent}
         onLeaveAgentParty={onLeaveAgentParty}
         onPickRivals={handlePickRivals}
-        scrollRequest={sidebarScrollRequest}
+        puzzleDifficulty={
+          metadata.difficulty
+            ? getDifficultyDisplay(metadata.difficulty).name
+            : undefined
+        }
+        puzzleDifficultyBadgeColor={
+          metadata.difficulty
+            ? getDifficultyDisplay(metadata.difficulty).badgeColor
+            : undefined
+        }
+        puzzleMetaLabel={derivePuzzleMetaLabel(metadata)}
+        initialState={
+          {
+            answerStack: [],
+            initial,
+            final,
+          } as unknown as ServerState
+        }
+        onStartRace={() => {
+          setRaceStarted(true);
+          setTimerNewSession();
+          setHasManuallySelectedMode(true);
+        }}
       />
+
+      {/* Full-screen traffic-light countdown overlay */}
+      {raceStarted &&
+        !showSidebar &&
+        timer?.countdown != null &&
+        timer.countdown > 0 && <CountdownOverlay countdown={timer.countdown} />}
 
       {/* Display celebration animation when completed */}
       {completed && (
@@ -672,7 +818,7 @@ const Sudoku = ({
 
               <div className="ml-auto mr-auto flex max-w-xl px-4 pb-1 lg:mr-0">
                 <div
-                  className="flex-nowrap items-center xl:hidden"
+                  className="flex-nowrap items-center"
                   role="group"
                   aria-label="Button group"
                 >

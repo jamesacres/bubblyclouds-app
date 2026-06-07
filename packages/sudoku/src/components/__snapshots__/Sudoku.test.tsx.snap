@@ -98,7 +98,7 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
             >
               <div
                 aria-label="Button group"
-                class="flex-nowrap items-center xl:hidden"
+                class="flex-nowrap items-center"
                 role="group"
               >
                 <div

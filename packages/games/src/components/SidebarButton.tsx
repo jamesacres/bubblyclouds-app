@@ -1,5 +1,5 @@
 import { memo, MouseEventHandler } from 'react';
-import { Sidebar } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 const MemoisedSidebarButton = memo(function MemoisedSidebarButton({
   friendsOnClick,
@@ -11,8 +11,8 @@ const MemoisedSidebarButton = memo(function MemoisedSidebarButton({
       onClick={friendsOnClick}
       className="text-theme-primary dark:text-theme-primary-light cursor-pointer rounded-lg"
     >
-      <Sidebar className="float-left mr-2" />
-      Races
+      <Users className="float-left mr-2" />
+      Opponents
     </button>
   );
 });

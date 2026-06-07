@@ -5,4 +5,5 @@ export interface AgentProgress {
   percentage: number;
   finishTime?: number;
   state?: unknown;
+  skillLevel?: string;
 }

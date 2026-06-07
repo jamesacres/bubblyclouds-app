@@ -65,6 +65,7 @@ export function getAllAgentProgress(
       percentage,
       finishTime,
       state: state ?? undefined,
+      skillLevel: agent.skillLevel,
     };
   });
 }

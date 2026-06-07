@@ -218,7 +218,7 @@ describe('Invite Page', () => {
 
       await waitFor(() => {
         expect(mockRouterReplace).toHaveBeenCalledWith(
-          '/puzzle?initial=1&final=9&showRacingPrompt=false'
+          '/puzzle?initial=1&final=9'
         );
       });
     });
@@ -237,7 +237,7 @@ describe('Invite Page', () => {
       await waitFor(
         () => {
           expect(mockRouterReplace).toHaveBeenCalledWith(
-            '/puzzle?initial=1&final=9&showRacingPrompt=false'
+            '/puzzle?initial=1&final=9'
           );
         },
         { timeout: 3000 }
