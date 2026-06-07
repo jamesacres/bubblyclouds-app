@@ -799,8 +799,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                           alt={agent.name}
                           onError={(e: SyntheticEvent<HTMLImageElement>) => {
                             e.currentTarget.style.display = 'none';
-                            const sibling =
-                              e.currentTarget.nextElementSibling;
+                            const sibling = e.currentTarget.nextElementSibling;
                             if (sibling instanceof HTMLElement) {
                               sibling.style.setProperty('display', 'flex');
                             }
