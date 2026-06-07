@@ -1279,7 +1279,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                   className="text-sm italic"
                   style={{ color: 'rgba(255,255,255,0.4)' }}
                 >
-                  No opponents online yet — invite friends to race!
+                  No opponents online — invite friends to race!
                 </p>
               )}
             </div>

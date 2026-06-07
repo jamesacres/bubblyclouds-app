@@ -125,6 +125,24 @@ jest.mock('../helpers/cheatDetection', () => ({
   isPuzzleCheated: jest.fn(() => false),
 }));
 
+jest.mock('../helpers/agentTimeline', () => ({
+  createLocalAgents: jest.fn(() => []),
+}));
+
+jest.mock('../helpers/agentProgress', () => ({
+  getAllAgentProgress: jest.fn(() => []),
+}));
+
+jest.mock('../helpers/defaultAgents', () => ({
+  DEFAULT_AGENT_CONFIGS: [
+    { name: 'Novice Agent', emoji: '🟢', skillLevel: 'novice' },
+    { name: 'Beginner Agent', emoji: '🟡', skillLevel: 'advancedBeginner' },
+    { name: 'Competent Agent', emoji: '🟠', skillLevel: 'competent' },
+    { name: 'Proficient Agent', emoji: '🔵', skillLevel: 'proficient' },
+    { name: 'Expert Agent', emoji: '🔴', skillLevel: 'expert' },
+  ],
+}));
+
 jest.mock('../helpers/puzzleTextToPuzzle', () => ({
   puzzleTextToPuzzle: jest.fn((_text) => Array(81).fill(0)),
   puzzleToPuzzleText: jest.fn(() => '0'.repeat(81)),
@@ -195,6 +213,9 @@ describe('Sudoku', () => {
     isZoomMode: false,
     setIsZoomMode: jest.fn(),
     isPolling: false,
+    isPaused: false,
+    setMode: jest.fn(),
+    setAgentNames: jest.fn(),
   };
 
   const mockPuzzle = {
