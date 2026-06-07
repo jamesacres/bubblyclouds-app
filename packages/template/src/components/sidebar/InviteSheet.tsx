@@ -395,12 +395,15 @@ export function InviteSheet({
                         className="flex-1 cursor-pointer rounded-xl py-2.5 text-sm font-bold text-white"
                         style={{ background: 'rgba(239,68,68,0.8)' }}
                         onClick={async () => {
-                          if (confirmLeave.isOwner) {
-                            await deleteParty(confirmLeave.partyId);
-                          } else {
-                            await leaveParty(confirmLeave.partyId);
+                          try {
+                            if (confirmLeave.isOwner) {
+                              await deleteParty(confirmLeave.partyId);
+                            } else {
+                              await leaveParty(confirmLeave.partyId);
+                            }
+                          } finally {
+                            setConfirmLeave(null);
                           }
-                          setConfirmLeave(null);
                         }}
                       >
                         {confirmLeave.isOwner ? 'Delete' : 'Leave'}

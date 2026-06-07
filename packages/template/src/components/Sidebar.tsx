@@ -428,10 +428,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                             {m.memberNickname}
                           </span>
                           {m.parties.map((p) => (
-                            <PartyTag
-                              key={p.partyId}
-                              partyName={p.partyName}
-                            />
+                            <PartyTag key={p.partyId} partyName={p.partyName} />
                           ))}
                           {ownedParties.length > 0 && (
                             <button
@@ -802,9 +799,11 @@ const Sidebar = <ServerState extends BaseServerState>({
                           alt={agent.name}
                           onError={(e: SyntheticEvent<HTMLImageElement>) => {
                             e.currentTarget.style.display = 'none';
-                            (
-                              e.currentTarget.nextElementSibling as HTMLElement
-                            )?.style.setProperty('display', 'flex');
+                            const sibling =
+                              e.currentTarget.nextElementSibling;
+                            if (sibling instanceof HTMLElement) {
+                              sibling.style.setProperty('display', 'flex');
+                            }
                           }}
                         />
                         <span
@@ -864,9 +863,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                               padding: 2,
                             }}
                           >
-                            <CompactSimpleState
-                              state={agent.state}
-                            />
+                            <CompactSimpleState state={agent.state} />
                           </div>
                         )}
                         {!isFinished && onRemoveAgent && (
