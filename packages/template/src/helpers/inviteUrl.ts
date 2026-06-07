@@ -35,7 +35,7 @@ export async function buildPartyInviteUrl({
   });
   const url = invite
     ? `${appUrl}/invite?inviteId=${invite.inviteId}`
-    : window.location.href;
+    : `${appUrl}${redirectUri}`;
   cacheRef[partyId] = url;
   return url;
 }

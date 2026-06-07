@@ -13,6 +13,9 @@ import { useParties } from '../../hooks/useParties';
 import { useServerStorage } from '../../hooks/serverStorage';
 import { buildPartyInviteUrl } from '../../helpers/inviteUrl';
 
+const DEFAULT_MAX = 5;
+const refreshSessionPartiesNoop: () => Promise<void> = async () => {};
+
 export function InviteSheet({
   open,
   onClose,
@@ -30,11 +33,11 @@ export function InviteSheet({
   parties: {
     partyId: string;
     partyName: string;
-    members: unknown[];
+    members: { userId: string }[];
     maxSize?: number;
     isOwner: boolean;
   }[];
-  onCreateTeam: (partyName: string, memberNickname: string) => void;
+  onCreateTeam: () => void;
   sessionId: string;
   redirectUri: string;
   app: string;
@@ -56,7 +59,7 @@ export function InviteSheet({
   const inviteUrlCacheRef = useRef<Record<string, string>>({});
 
   const { saveParty, updateParty, leaveParty, deleteParty } = useParties({
-    refreshSessionParties: async () => {},
+    refreshSessionParties: refreshSessionPartiesNoop,
   });
   const { createInvite } = useServerStorage({ app, apiUrl });
 
@@ -96,14 +99,17 @@ export function InviteSheet({
     const nm = teamName.trim() || 'New team';
     const dn = display.trim() || 'Player';
     setIsSaving(true);
-    const party = await saveParty({ memberNickname: dn, partyName: nm });
-    if (party?.partyId) {
-      const url = await getInviteUrl(party.partyId, nm);
-      shareUrl(url);
+    try {
+      const party = await saveParty({ memberNickname: dn, partyName: nm });
+      if (party?.partyId) {
+        const url = await getInviteUrl(party.partyId, nm);
+        shareUrl(url);
+      }
+      onCreateTeam();
+      onClose();
+    } finally {
+      setIsSaving(false);
     }
-    onCreateTeam(nm, dn);
-    setIsSaving(false);
-    onClose();
   };
 
   const inputStyle: CSSProperties = {
@@ -192,7 +198,6 @@ export function InviteSheet({
                 {parties.map((party) => {
                   const copied = copiedId === party.partyId;
                   const isEditingName = editingNameId === party.partyId;
-                  const DEFAULT_MAX = 5;
                   return (
                     <div
                       key={party.partyId}

@@ -252,12 +252,6 @@ const Sudoku = ({
     [setAgentNames]
   );
 
-  const onLeaveAgentParty = useCallback(() => {
-    setAgents([]);
-    setAgentNames(undefined);
-    setLocalAgentProgress([]);
-  }, [setAgentNames]);
-
   useEffect(() => {
     if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
       agentStartTimeMsRef.current = Date.now();
@@ -622,7 +616,10 @@ const Sudoku = ({
     };
   }, []);
 
-  const puzzleInitialState: ServerState = { answerStack: [], initial, final };
+  const puzzleInitialState = useMemo<ServerState>(
+    () => ({ answerStack: [], initial, final }),
+    [initial, final]
+  );
 
   return (
     <div
@@ -675,7 +672,6 @@ const Sudoku = ({
         }
         localAgentProgress={localAgentProgress}
         onRemoveAgent={onRemoveAgent}
-        onLeaveAgentParty={onLeaveAgentParty}
         onPickRivals={handlePickRivals}
         puzzleDifficulty={
           metadata.difficulty

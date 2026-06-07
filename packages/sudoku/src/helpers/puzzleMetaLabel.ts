@@ -26,12 +26,12 @@ export function derivePuzzleMetaLabel(
         const date = new Date(
           `${ds.slice(0, 4)}-${ds.slice(4, 6)}-${ds.slice(6, 8)}`
         );
-        const d = date.getDate();
+        const d = date.getUTCDate();
         const suffix =
           d >= 11 && d <= 13
             ? 'th'
             : (['st', 'nd', 'rd'][(d % 10) - 1] ?? 'th');
-        return `Daily ${MONTHS[date.getMonth()]} ${d}${suffix}`;
+        return `Daily ${MONTHS[date.getUTCMonth()]} ${d}${suffix}`;
       }
     }
   }

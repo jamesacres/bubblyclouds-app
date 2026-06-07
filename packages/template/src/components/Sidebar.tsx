@@ -35,7 +35,8 @@ import { buildPartyInviteUrl } from '../helpers/inviteUrl';
 import { HeroBackdrop } from './sidebar/HeroBackdrop';
 import { SectionHead } from './sidebar/SectionHead';
 import { PillButton } from './sidebar/PillButton';
-import { PlayerAvatar, avatarGradient, fmtClock } from './sidebar/PlayerAvatar';
+import { PlayerAvatar } from './sidebar/PlayerAvatar';
+import { avatarGradient, fmtClock } from '../helpers/playerAvatar';
 import { PuzzleHeader } from './sidebar/PuzzleHeader';
 import { TierBadge } from './sidebar/TierBadge';
 import { InviteSheet } from './sidebar/InviteSheet';
@@ -59,7 +60,6 @@ interface Arguments<ServerState extends BaseServerState> {
   calculateCompletionPercentageFromState: (state: ServerState) => number;
   localAgentProgress?: AgentProgress[];
   onRemoveAgent?: (agentId: string) => void;
-  onLeaveAgentParty?: () => void;
   onPickRivals?: () => void;
   puzzleDifficulty?: string;
   puzzleDifficultyBadgeColor?: string;
@@ -186,29 +186,22 @@ const Sidebar = <ServerState extends BaseServerState>({
   }, [parties, sessionParties]);
 
   // Split online members into active (playing/finished) and away (idle 30+ min)
-  const activePlayers = useMemo(
-    () =>
-      onlineMembers.filter((m) => {
-        const updatedAt =
-          m.session.updatedAt instanceof Date
-            ? m.session.updatedAt.getTime()
-            : new Date(m.session.updatedAt).getTime();
-        return now - updatedAt < AWAY_THRESHOLD_MS;
-      }),
-    [onlineMembers, now]
-  );
-
-  const awayPlayers = useMemo(
-    () =>
-      onlineMembers.filter((m) => {
-        const updatedAt =
-          m.session.updatedAt instanceof Date
-            ? m.session.updatedAt.getTime()
-            : new Date(m.session.updatedAt).getTime();
-        return now - updatedAt >= AWAY_THRESHOLD_MS;
-      }),
-    [onlineMembers, now]
-  );
+  const { activePlayers, awayPlayers } = useMemo(() => {
+    const active: typeof onlineMembers = [];
+    const away: typeof onlineMembers = [];
+    for (const m of onlineMembers) {
+      const updatedAt =
+        m.session.updatedAt instanceof Date
+          ? m.session.updatedAt.getTime()
+          : new Date(m.session.updatedAt).getTime();
+      if (now - updatedAt < AWAY_THRESHOLD_MS) {
+        active.push(m);
+      } else {
+        away.push(m);
+      }
+    }
+    return { activePlayers: active, awayPlayers: away };
+  }, [onlineMembers, now]);
 
   // Offline party members: members with no active session, grouped by userId.
   const offlineMembers = useMemo(() => {
@@ -255,15 +248,17 @@ const Sidebar = <ServerState extends BaseServerState>({
   const humanRivals = onlineOpponentCount;
   const totalRivals = humanRivals + aiCount;
 
-  const raceSummary = (() => {
-    if (!totalRivals) return 'Solo race — just you and the clock';
+  let raceSummary: string;
+  if (!totalRivals) {
+    raceSummary = 'Solo race — just you and the clock';
+  } else {
     const parts: string[] = [];
     if (humanRivals)
       parts.push(`${humanRivals} friend${humanRivals === 1 ? '' : 's'}`);
     if (aiCount)
       parts.push(`${aiCount} AI opponent${aiCount === 1 ? '' : 's'}`);
-    return `Racing ${parts.join(' and ')}`;
-  })();
+    raceSummary = `Racing ${parts.join(' and ')}`;
+  }
 
   return (
     <>
