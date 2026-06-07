@@ -1,8 +1,6 @@
-import { CSSProperties, useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import {
-  Check,
   Edit3,
-  Link2,
   Loader,
   LogOut,
   Sparkles,
@@ -12,9 +10,21 @@ import {
 import { useParties } from '../../hooks/useParties';
 import { useServerStorage } from '../../hooks/serverStorage';
 import { buildPartyInviteUrl } from '../../helpers/inviteUrl';
+import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
+import { isIOS } from '../../helpers/capacitor';
+import { PartyConfirmationDialog } from '../PartyConfirmationDialog';
 
 const DEFAULT_MAX = 5;
 const refreshSessionPartiesNoop: () => Promise<void> = async () => {};
+
+const copyButtonClassName =
+  'inline-flex h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] text-xs font-semibold transition-transform active:scale-95';
+const copyButtonStyle = {
+  background: 'color-mix(in srgb, var(--theme-primary-light) 14%, transparent)',
+  border:
+    '1px solid color-mix(in srgb, var(--theme-primary-light) 40%, transparent)',
+  color: 'var(--theme-primary-light)',
+};
 
 export function InviteSheet({
   open,
@@ -24,6 +34,7 @@ export function InviteSheet({
   sessionId,
   redirectUri,
   app,
+  appName,
   apiUrl,
   appUrl,
   defaultDisplayName,
@@ -41,12 +52,11 @@ export function InviteSheet({
   sessionId: string;
   redirectUri: string;
   app: string;
+  appName: string;
   apiUrl: string;
   appUrl: string;
   defaultDisplayName?: string;
 }) {
-  const [copiedId, setCopiedId] = useState<string | null>(null);
-  const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
   const [teamName, setTeamName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
@@ -64,14 +74,7 @@ export function InviteSheet({
   });
   const { createInvite } = useServerStorage({ app, apiUrl });
 
-  useEffect(() => {
-    return () => {
-      if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
-    };
-  }, []);
-
   const handleClose = () => {
-    setCopiedId(null);
     setDisplay(defaultDisplayName ?? '');
     setTeamName('');
     onClose();
@@ -88,21 +91,6 @@ export function InviteSheet({
       createInvite,
     });
 
-  const shareUrl = (url: string) => {
-    navigator.clipboard.writeText(url).catch(() => {});
-    if (navigator.share) {
-      navigator.share({ url }).catch(() => {});
-    }
-  };
-
-  const copyTeam = async (partyId: string, partyName: string) => {
-    const url = await getInviteUrl(partyId, partyName);
-    shareUrl(url);
-    setCopiedId(partyId);
-    if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
-    copiedTimerRef.current = setTimeout(() => setCopiedId(null), 2000);
-  };
-
   const create = async () => {
     const nm = teamName.trim() || 'New team';
     const dn = display.trim() || 'Player';
@@ -111,7 +99,7 @@ export function InviteSheet({
       const party = await saveParty({ memberNickname: dn, partyName: nm });
       if (party?.partyId) {
         const url = await getInviteUrl(party.partyId, nm);
-        shareUrl(url);
+        navigator.clipboard.writeText(url).catch(() => {});
       }
       onCreateTeam();
       onClose();
@@ -120,19 +108,8 @@ export function InviteSheet({
     }
   };
 
-  const inputStyle: CSSProperties = {
-    width: '100%',
-    boxSizing: 'border-box',
-    height: 52,
-    borderRadius: 14,
-    border: '1px solid rgba(255,255,255,0.12)',
-    background: 'rgba(255,255,255,0.04)',
-    padding: '0 16px',
-    fontSize: 15,
-    fontWeight: 500,
-    color: '#fff',
-    outline: 'none',
-  };
+  const inputClassName =
+    'w-full h-[52px] rounded-[14px] border border-white/[0.12] bg-white/[0.04] px-4 text-[15px] font-medium text-white outline-none';
 
   return (
     <div
@@ -204,7 +181,6 @@ export function InviteSheet({
               </div>
               <div className="mb-5 flex flex-col gap-2.5">
                 {parties.map((party) => {
-                  const copied = copiedId === party.partyId;
                   const isEditingName = editingNameId === party.partyId;
                   return (
                     <div
@@ -323,106 +299,23 @@ export function InviteSheet({
                         )}
                         <div className="flex-1" />
                         {party.isOwner && (
-                          <button
-                            onClick={() =>
-                              copyTeam(party.partyId, party.partyName)
+                          <CopyButton
+                            getText={() =>
+                              getInviteUrl(party.partyId, party.partyName)
                             }
-                            className="inline-flex flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full text-xs font-semibold transition-transform active:scale-95"
-                            style={{
-                              height: 34,
-                              padding: '0 14px',
-                              background: copied
-                                ? 'rgba(16,185,129,0.15)'
-                                : 'color-mix(in srgb, var(--theme-primary-light) 14%, transparent)',
-                              border: copied
-                                ? '1px solid rgba(52,211,153,0.4)'
-                                : '1px solid color-mix(in srgb, var(--theme-primary-light) 40%, transparent)',
-                            }}
-                          >
-                            <span
-                              style={{
-                                color: copied
-                                  ? '#6ee7b7'
-                                  : 'var(--theme-primary-light)',
-                              }}
-                            >
-                              {copied ? 'Copied!' : 'Copy link'}
-                            </span>
-                            {copied ? (
-                              <Check size={13} color="#6ee7b7" />
-                            ) : (
-                              <Link2
-                                size={13}
-                                color="var(--theme-primary-light)"
-                              />
-                            )}
-                          </button>
+                            extraSmall
+                            appName={appName}
+                            isIOS={isIOS}
+                            partyName={party.partyName}
+                            className={copyButtonClassName}
+                            style={copyButtonStyle}
+                          />
                         )}
                       </div>
                     </div>
                   );
                 })}
               </div>
-
-              {/* Confirm leave/delete dialog */}
-              {confirmLeave && (
-                <div
-                  className="fixed inset-0 z-[100] flex items-end justify-center p-4"
-                  style={{
-                    background: 'rgba(2,1,8,0.7)',
-                    backdropFilter: 'blur(4px)',
-                  }}
-                >
-                  <div
-                    className="w-full max-w-sm rounded-2xl p-5"
-                    style={{
-                      background: '#1a1340',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                    }}
-                  >
-                    <p className="mb-1 text-base font-bold text-white">
-                      {confirmLeave.isOwner ? 'Delete team?' : 'Leave team?'}
-                    </p>
-                    <p
-                      className="mb-5 text-sm"
-                      style={{ color: 'rgba(255,255,255,0.5)' }}
-                    >
-                      {confirmLeave.isOwner
-                        ? `"${confirmLeave.partyName}" and all its members will be removed.`
-                        : `You'll leave "${confirmLeave.partyName}".`}
-                    </p>
-                    <div className="flex gap-2">
-                      <button
-                        className="flex-1 cursor-pointer rounded-xl py-2.5 text-sm font-semibold"
-                        style={{
-                          background: 'rgba(255,255,255,0.07)',
-                          color: 'rgba(255,255,255,0.7)',
-                        }}
-                        onClick={() => setConfirmLeave(null)}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        className="flex-1 cursor-pointer rounded-xl py-2.5 text-sm font-bold text-white"
-                        style={{ background: 'rgba(239,68,68,0.8)' }}
-                        onClick={async () => {
-                          try {
-                            if (confirmLeave.isOwner) {
-                              await deleteParty(confirmLeave.partyId);
-                            } else {
-                              await leaveParty(confirmLeave.partyId);
-                            }
-                          } finally {
-                            setConfirmLeave(null);
-                          }
-                        }}
-                      >
-                        {confirmLeave.isOwner ? 'Delete' : 'Leave'}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
               <div
                 className="mb-5"
                 style={{ height: 1, background: 'rgba(255,255,255,0.08)' }}
@@ -447,7 +340,7 @@ export function InviteSheet({
             value={display}
             onChange={(e) => setDisplay(e.target.value)}
             placeholder="Display name"
-            style={inputStyle}
+            className={inputClassName}
           />
 
           <label
@@ -460,7 +353,7 @@ export function InviteSheet({
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
             placeholder="Team name (e.g. Family)"
-            style={inputStyle}
+            className={inputClassName}
           />
 
           <button
@@ -479,6 +372,22 @@ export function InviteSheet({
           </button>
         </div>
       </div>
+
+      <PartyConfirmationDialog
+        isOpen={confirmLeave !== null}
+        onClose={() => setConfirmLeave(null)}
+        type="leave"
+        partyName={confirmLeave?.partyName ?? ''}
+        isOwner={confirmLeave?.isOwner ?? false}
+        onConfirm={async () => {
+          if (confirmLeave!.isOwner) {
+            await deleteParty(confirmLeave!.partyId);
+          } else {
+            await leaveParty(confirmLeave!.partyId);
+          }
+        }}
+        dialogClassName="relative z-[110]"
+      />
     </div>
   );
 }

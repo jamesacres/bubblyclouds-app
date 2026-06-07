@@ -1,7 +1,7 @@
 'use client';
 
 import { Share } from '@capacitor/share';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Check,
   Copy,
@@ -14,6 +14,7 @@ const CopyButton = ({
   getText,
   extraSmall = false,
   className = '',
+  style,
   partyName,
   isIOS = () => false,
   appName,
@@ -21,6 +22,7 @@ const CopyButton = ({
   getText: () => Promise<string> | string;
   extraSmall?: boolean;
   className?: string;
+  style?: React.CSSProperties;
   partyName?: string;
   isIOS?: () => boolean;
   appName: string;
@@ -86,6 +88,7 @@ const CopyButton = ({
   return (
     <button
       className={className || defaultClassName}
+      style={style}
       onClick={handleCopy}
       disabled={isLoading}
     >

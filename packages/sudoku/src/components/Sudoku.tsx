@@ -663,6 +663,7 @@ const Sudoku = ({
         refreshSessionParties={refreshSessionParties}
         sessionParties={sessionParties}
         app={app}
+        appName={appName}
         apiUrl={apiUrl}
         appUrl={appUrl}
         SimpleState={SimpleStateWrapper}

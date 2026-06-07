@@ -39,6 +39,7 @@ describe('Sidebar', () => {
     refreshSessionParties: jest.fn(),
     sessionParties: {},
     app: 'testapp',
+    appName: 'Test App',
     apiUrl: 'https://api.test.com',
     appUrl: 'https://app.test.com',
     SimpleState: MockSimpleState,

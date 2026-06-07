@@ -13,7 +13,6 @@ import {
   Bot,
   Check,
   Clock,
-  Link2,
   Moon,
   Play,
   Plus,
@@ -37,7 +36,10 @@ import { HeroBackdrop } from './sidebar/HeroBackdrop';
 import { SectionHead } from './sidebar/SectionHead';
 import { PillButton } from './sidebar/PillButton';
 import { PlayerAvatar } from './sidebar/PlayerAvatar';
-import { avatarGradient, fmtClock, fmtElapsed } from '../helpers/playerAvatar';
+import { fmtClock, fmtElapsed } from '../helpers/playerAvatar';
+import { isIOS } from '../helpers/capacitor';
+import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
+import { PartyConfirmationDialog } from './PartyConfirmationDialog';
 import { PuzzleHeader } from './sidebar/PuzzleHeader';
 import { TierBadge } from './sidebar/TierBadge';
 import { InviteSheet } from './sidebar/InviteSheet';
@@ -55,6 +57,7 @@ interface Arguments<ServerState extends BaseServerState> {
   refreshSessionParties: () => Promise<void>;
   sessionParties: Parties<Session<ServerState>>;
   app: string;
+  appName: string;
   apiUrl: string;
   appUrl: string;
   SimpleState: ComponentType<{ state: ServerState }>;
@@ -79,6 +82,7 @@ const Sidebar = <ServerState extends BaseServerState>({
   refreshSessionParties,
   sessionParties,
   app,
+  appName,
   apiUrl,
   appUrl,
   SimpleState,
@@ -119,10 +123,6 @@ const Sidebar = <ServerState extends BaseServerState>({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [showInviteSheet, setShowInviteSheet] = useState(false);
-  const [copiedOfflineId, setCopiedOfflineId] = useState<string | null>(null);
-  const copiedOfflineTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null
-  );
   const [confirmRemove, setConfirmRemove] = useState<{
     userId: string;
     memberNickname: string;
@@ -130,13 +130,6 @@ const Sidebar = <ServerState extends BaseServerState>({
   } | null>(null);
   const offlineInviteUrlCacheRef = useRef<Record<string, string>>({});
   const { createInvite } = useServerStorage({ app, apiUrl });
-
-  useEffect(() => {
-    return () => {
-      if (copiedOfflineTimerRef.current)
-        clearTimeout(copiedOfflineTimerRef.current);
-    };
-  }, []);
 
   const getPartyInviteUrl = (
     partyId: string,
@@ -653,7 +646,6 @@ const Sidebar = <ServerState extends BaseServerState>({
                 />
                 <div className="flex flex-col gap-2">
                   {offlineMembers.map((m) => {
-                    const copied = copiedOfflineId === m.userId;
                     const ownedParties = m.parties.filter((p) => p.isOwner);
                     const firstOwnedParty = ownedParties[0];
                     return (
@@ -665,16 +657,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                           background: 'rgba(255,255,255,0.03)',
                         }}
                       >
-                        <span
-                          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold"
-                          style={{
-                            background: avatarGradient(m.memberNickname),
-                            color: '#fff',
-                            opacity: 0.7,
-                          }}
-                        >
-                          {m.memberNickname.charAt(0).toUpperCase()}
-                        </span>
+                        <PlayerAvatar name={m.memberNickname} muted />
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-center gap-1.5">
                             <span
@@ -714,54 +697,28 @@ const Sidebar = <ServerState extends BaseServerState>({
                           </div>
                         </div>
                         <div className="flex flex-shrink-0 items-center gap-1.5">
-                          <button
-                            onClick={async () => {
-                              const url = firstOwnedParty
-                                ? await getPartyInviteUrl(
+                          <CopyButton
+                            getText={() =>
+                              firstOwnedParty
+                                ? getPartyInviteUrl(
                                     firstOwnedParty.partyId,
                                     firstOwnedParty.partyName
                                   )
-                                : `${appUrl}${redirectUri}`;
-                              navigator.clipboard
-                                .writeText(url)
-                                .catch(() => {});
-                              if (navigator.share) {
-                                navigator.share({ url }).catch(() => {});
-                              }
-                              setCopiedOfflineId(m.userId);
-                              if (copiedOfflineTimerRef.current)
-                                clearTimeout(copiedOfflineTimerRef.current);
-                              copiedOfflineTimerRef.current = setTimeout(
-                                () => setCopiedOfflineId(null),
-                                2000
-                              );
-                            }}
-                            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full text-xs font-semibold transition-transform active:scale-95"
+                                : Promise.resolve(`${appUrl}${redirectUri}`)
+                            }
+                            extraSmall
+                            appName={appName}
+                            isIOS={isIOS}
+                            partyName={firstOwnedParty?.partyName}
+                            className="inline-flex h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] text-xs font-semibold transition-transform active:scale-95"
                             style={{
-                              height: 34,
-                              padding: '0 14px',
-                              border: copied
-                                ? '1px solid rgba(52,211,153,0.4)'
-                                : '1px solid color-mix(in srgb, var(--theme-primary-light) 40%, transparent)',
-                              background: copied
-                                ? 'rgba(16,185,129,0.14)'
-                                : 'color-mix(in srgb, var(--theme-primary-light) 14%, transparent)',
-                              color: copied
-                                ? '#6ee7b7'
-                                : 'var(--theme-primary-light)',
+                              background:
+                                'color-mix(in srgb, var(--theme-primary-light) 14%, transparent)',
+                              border:
+                                '1px solid color-mix(in srgb, var(--theme-primary-light) 40%, transparent)',
+                              color: 'var(--theme-primary-light)',
                             }}
-                            aria-label={`Send invite to ${m.memberNickname}`}
-                          >
-                            {copied ? (
-                              <Check size={11} color="#6ee7b7" />
-                            ) : (
-                              <Link2
-                                size={11}
-                                color="var(--theme-primary-light)"
-                              />
-                            )}
-                            {copied ? 'Copied!' : 'Copy link'}
-                          </button>
+                          />
                         </div>
                       </div>
                     );
@@ -950,63 +907,24 @@ const Sidebar = <ServerState extends BaseServerState>({
           </button>
         </div>
 
-        {/* Remove member confirm dialog */}
-        {confirmRemove && (
-          <div
-            className="fixed inset-0 z-[100] flex items-end justify-center p-4"
-            style={{
-              background: 'rgba(2,1,8,0.7)',
-              backdropFilter: 'blur(4px)',
-            }}
-          >
-            <div
-              className="w-full max-w-sm rounded-2xl p-5"
-              style={{
-                background: '#1a1340',
-                border: '1px solid rgba(255,255,255,0.12)',
-              }}
-            >
-              <p className="mb-1 text-base font-bold text-white">
-                Remove {confirmRemove.memberNickname}?
-              </p>
-              <p
-                className="mb-5 text-sm"
-                style={{ color: 'rgba(255,255,255,0.5)' }}
-              >
-                {`"${confirmRemove.memberNickname}" will be removed from ${confirmRemove.ownedParties.map((p) => `"${p.partyName}"`).join(' and ')}.`}
-              </p>
-              <div className="flex gap-2">
-                <button
-                  className="flex-1 cursor-pointer rounded-xl py-2.5 text-sm font-semibold"
-                  style={{
-                    background: 'rgba(255,255,255,0.07)',
-                    color: 'rgba(255,255,255,0.7)',
-                  }}
-                  onClick={() => setConfirmRemove(null)}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="flex-1 cursor-pointer rounded-xl py-2.5 text-sm font-bold text-white"
-                  style={{ background: 'rgba(239,68,68,0.8)' }}
-                  onClick={async () => {
-                    try {
-                      await Promise.all(
-                        confirmRemove.ownedParties.map((p) =>
-                          removeMember(p.partyId, confirmRemove.userId)
-                        )
-                      );
-                    } finally {
-                      setConfirmRemove(null);
-                    }
-                  }}
-                >
-                  Remove
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        <PartyConfirmationDialog
+          isOpen={confirmRemove !== null}
+          onClose={() => setConfirmRemove(null)}
+          type="remove"
+          partyName={
+            confirmRemove?.ownedParties.map((p) => p.partyName).join(' and ') ??
+            ''
+          }
+          memberName={confirmRemove?.memberNickname}
+          onConfirm={async () => {
+            await Promise.all(
+              confirmRemove!.ownedParties.map((p) =>
+                removeMember(p.partyId, confirmRemove!.userId)
+              )
+            );
+          }}
+          dialogClassName="relative z-[110]"
+        />
 
         {/* Invite sheet overlay */}
         <InviteSheet
@@ -1023,6 +941,7 @@ const Sidebar = <ServerState extends BaseServerState>({
           sessionId={`${app}-${puzzleId}`}
           redirectUri={redirectUri}
           app={app}
+          appName={appName}
           apiUrl={apiUrl}
           appUrl={appUrl}
           defaultDisplayName={memberNickname || undefined}
