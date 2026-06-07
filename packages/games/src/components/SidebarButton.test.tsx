@@ -4,11 +4,11 @@ import SidebarButton from './SidebarButton';
 
 describe('SidebarButton', () => {
   describe('rendering', () => {
-    it('should render button with text "Lobby"', () => {
+    it('should render button with text "Opponents"', () => {
       const mockClick = jest.fn();
       render(<SidebarButton friendsOnClick={mockClick} />);
 
-      expect(screen.getByText('Lobby')).toBeInTheDocument();
+      expect(screen.getByText('Opponents')).toBeInTheDocument();
     });
 
     it('should render as a button element', () => {
@@ -147,17 +147,17 @@ describe('SidebarButton', () => {
       const mockClick = jest.fn();
       render(<SidebarButton friendsOnClick={mockClick} />);
 
-      const button = screen.getByRole('button', { name: /races/i });
+      const button = screen.getByRole('button', { name: /opponents/i });
       expect(button.tagName).toBe('BUTTON');
     });
   });
 
   describe('content', () => {
-    it('should display "Lobby" text', () => {
+    it('should display "Opponents" text', () => {
       const mockClick = jest.fn();
       render(<SidebarButton friendsOnClick={mockClick} />);
 
-      expect(screen.getByText('Lobby')).toBeInTheDocument();
+      expect(screen.getByText('Opponents')).toBeInTheDocument();
     });
 
     it('should render icon before text', () => {
@@ -178,7 +178,7 @@ describe('SidebarButton', () => {
       render(<SidebarButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
-      expect(button.textContent).toContain('Lobby');
+      expect(button.textContent).toContain('Opponents');
     });
   });
 
@@ -187,11 +187,11 @@ describe('SidebarButton', () => {
       const mockClick = jest.fn();
       const { rerender } = render(<SidebarButton friendsOnClick={mockClick} />);
 
-      expect(screen.getByText('Lobby')).toBeInTheDocument();
+      expect(screen.getByText('Opponents')).toBeInTheDocument();
 
       rerender(<SidebarButton friendsOnClick={mockClick} />);
 
-      expect(screen.getByText('Lobby')).toBeInTheDocument();
+      expect(screen.getByText('Opponents')).toBeInTheDocument();
     });
 
     it('should update handler when prop changes', () => {
