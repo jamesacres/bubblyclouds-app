@@ -48,7 +48,6 @@ const CopyButton = ({
         }, 5000);
       }
     } catch (error) {
-      console.warn(error);
       console.warn('Failed to copy/share:', error);
     } finally {
       setIsLoading(false);

@@ -11,7 +11,6 @@ import {
 } from 'react';
 import {
   Bot,
-  Check,
   Clock,
   Moon,
   Play,
@@ -36,7 +35,7 @@ import { HeroBackdrop } from './sidebar/HeroBackdrop';
 import { SectionHead } from './sidebar/SectionHead';
 import { PillButton } from './sidebar/PillButton';
 import { PlayerAvatar } from './sidebar/PlayerAvatar';
-import { fmtClock, fmtElapsed } from '../helpers/playerAvatar';
+import { fmtClock } from '../helpers/playerAvatar';
 import { isIOS } from '../helpers/capacitor';
 import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
@@ -44,6 +43,8 @@ import { PuzzleHeader } from './sidebar/PuzzleHeader';
 import { TierBadge } from './sidebar/TierBadge';
 import { InviteSheet } from './sidebar/InviteSheet';
 import { PartyTag } from './sidebar/PartyTag';
+import { FinishedBadge } from './sidebar/FinishedBadge';
+import { OnlinePlayerRow } from './sidebar/OnlinePlayerRow';
 
 const PARTY_POLL_INTERVAL_MS = 30_000;
 const SCROLL_CONTAINER_BOTTOM_PADDING = 200;
@@ -401,113 +402,22 @@ const Sidebar = <ServerState extends BaseServerState>({
 
             <div className="mb-4 flex flex-col gap-2.5">
               {activePlayers.length > 0 ? (
-                activePlayers.map((m) => {
-                  const pct = calculateCompletionPercentageFromState(
-                    m.session.state
-                  );
-                  const isFinished = !!m.session.state.completed;
-                  const hasStarted =
-                    !!m.session.state.timer &&
-                    m.session.state.timer.seconds > 0;
-                  const isInLobby = !isFinished && !hasStarted;
-                  const elapsedSeconds =
-                    m.session.state.completed?.seconds ??
-                    m.session.state.timer?.seconds ??
-                    0;
-                  const ownedParties = m.parties.filter((p) => p.isOwner);
-                  return (
-                    <div
-                      key={m.userId}
-                      className="flex items-center gap-3 rounded-2xl p-3"
-                      style={{
-                        background: 'rgba(255,255,255,0.04)',
-                        border: '1px solid rgba(255,255,255,0.09)',
-                      }}
-                    >
-                      <PlayerAvatar name={m.memberNickname} />
-                      <div className="min-w-0 flex-1">
-                        <div className="mb-1 flex items-center gap-2">
-                          <span className="text-sm font-bold text-white">
-                            {m.memberNickname}
-                          </span>
-                          {m.parties.map((p) => (
-                            <PartyTag key={p.partyId} partyName={p.partyName} />
-                          ))}
-                          {ownedParties.length > 0 && (
-                            <button
-                              onClick={() =>
-                                setConfirmRemove({
-                                  userId: m.userId,
-                                  memberNickname: m.memberNickname,
-                                  ownedParties,
-                                })
-                              }
-                              className="inline-flex cursor-pointer items-center justify-center"
-                              style={{
-                                background: 'transparent',
-                                border: 'none',
-                              }}
-                              aria-label={`Remove ${m.memberNickname}`}
-                            >
-                              <Trash size={14} color="rgba(255,255,255,0.35)" />
-                            </button>
-                          )}
-                        </div>
-                        <div className="flex flex-wrap items-center gap-2">
-                          {isInLobby ? (
-                            <span
-                              className="text-[12px] font-bold"
-                              style={{ color: 'var(--theme-primary-light)' }}
-                            >
-                              In lobby
-                            </span>
-                          ) : isFinished ? (
-                            <span
-                              className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11.5px] font-bold"
-                              style={{
-                                color: '#6ee7b7',
-                                background: 'rgba(16,185,129,0.16)',
-                                border: '1px solid rgba(52,211,153,0.4)',
-                              }}
-                            >
-                              <Check size={12} color="#6ee7b7" />
-                              Finished
-                            </span>
-                          ) : null}
-                          {!isInLobby && (
-                            <span
-                              className="inline-flex items-center gap-1 text-[12.5px] font-bold"
-                              style={{
-                                color: 'rgba(255,255,255,0.62)',
-                                fontVariantNumeric: 'tabular-nums',
-                              }}
-                            >
-                              <Clock size={12} color="rgba(255,255,255,0.45)" />
-                              {isFinished
-                                ? `Solved in ${fmtClock(elapsedSeconds)}`
-                                : `${Math.round(pct)}% · ${fmtClock(elapsedSeconds)}`}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex flex-shrink-0 flex-col items-end gap-1.5">
-                        {!isInLobby && (
-                          <div
-                            className="pointer-events-none overflow-hidden rounded-lg"
-                            style={{
-                              width: 72,
-                              height: 72,
-                              background: 'rgba(0,0,0,0.25)',
-                              padding: 2,
-                            }}
-                          >
-                            <CompactSimpleState state={m.session.state} />
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })
+                activePlayers.map((m) => (
+                  <OnlinePlayerRow
+                    key={m.userId}
+                    userId={m.userId}
+                    memberNickname={m.memberNickname}
+                    session={m.session}
+                    parties={m.parties}
+                    now={now}
+                    isAway={false}
+                    calculateCompletionPercentageFromState={
+                      calculateCompletionPercentageFromState
+                    }
+                    CompactSimpleState={CompactSimpleState}
+                    onSetConfirmRemove={setConfirmRemove}
+                  />
+                ))
               ) : (
                 <p
                   className="text-sm italic"
@@ -527,111 +437,22 @@ const Sidebar = <ServerState extends BaseServerState>({
                   count={awayPlayers.length}
                 />
                 <div className="flex flex-col gap-2.5">
-                  {awayPlayers.map((m) => {
-                    const pct = calculateCompletionPercentageFromState(
-                      m.session.state
-                    );
-                    const isFinished = !!m.session.state.completed;
-                    const elapsedSeconds =
-                      m.session.state.completed?.seconds ??
-                      m.session.state.timer?.seconds ??
-                      0;
-                    const updatedAt =
-                      m.session.updatedAt instanceof Date
-                        ? m.session.updatedAt.getTime()
-                        : new Date(m.session.updatedAt).getTime();
-                    const elapsedMs = now - updatedAt;
-                    const lastSeenLabel = fmtElapsed(elapsedMs);
-                    const ownedParties = m.parties.filter((p) => p.isOwner);
-                    return (
-                      <div
-                        key={m.userId}
-                        className="flex items-center gap-3 rounded-2xl p-3"
-                        style={{
-                          background: 'rgba(255,255,255,0.03)',
-                          border: '1px solid rgba(255,255,255,0.07)',
-                        }}
-                      >
-                        <PlayerAvatar
-                          name={m.memberNickname}
-                          muted={!isFinished}
-                        />
-                        <div className="min-w-0 flex-1">
-                          <div className="mb-1 flex items-center gap-2">
-                            <span className="text-sm font-bold text-white">
-                              {m.memberNickname}
-                            </span>
-                            {m.parties.map((p) => (
-                              <PartyTag
-                                key={p.partyId}
-                                partyName={p.partyName}
-                              />
-                            ))}
-                            {ownedParties.length > 0 && (
-                              <button
-                                onClick={() =>
-                                  setConfirmRemove({
-                                    userId: m.userId,
-                                    memberNickname: m.memberNickname,
-                                    ownedParties,
-                                  })
-                                }
-                                className="inline-flex cursor-pointer items-center justify-center"
-                                style={{
-                                  background: 'transparent',
-                                  border: 'none',
-                                }}
-                                aria-label={`Remove ${m.memberNickname}`}
-                              >
-                                <Trash
-                                  size={14}
-                                  color="rgba(255,255,255,0.35)"
-                                />
-                              </button>
-                            )}
-                          </div>
-                          <div className="flex flex-wrap items-center gap-2">
-                            {isFinished && (
-                              <span
-                                className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11.5px] font-bold"
-                                style={{
-                                  color: '#6ee7b7',
-                                  background: 'rgba(16,185,129,0.16)',
-                                  border: '1px solid rgba(52,211,153,0.4)',
-                                }}
-                              >
-                                <Check size={12} color="#6ee7b7" />
-                                Finished
-                              </span>
-                            )}
-                            <span
-                              className="inline-flex items-center gap-1 text-[12.5px] font-bold"
-                              style={{
-                                color: 'rgba(255,255,255,0.62)',
-                                fontVariantNumeric: 'tabular-nums',
-                              }}
-                            >
-                              <Clock size={12} color="rgba(255,255,255,0.45)" />
-                              {isFinished
-                                ? `Solved in ${fmtClock(elapsedSeconds)}`
-                                : `${Math.round(pct)}% · ${fmtClock(elapsedSeconds)} · last seen ${lastSeenLabel}`}
-                            </span>
-                          </div>
-                        </div>
-                        <div
-                          className={`pointer-events-none flex-shrink-0 overflow-hidden rounded-lg ${isFinished ? '' : 'opacity-50'}`}
-                          style={{
-                            width: 72,
-                            height: 72,
-                            background: 'rgba(0,0,0,0.25)',
-                            padding: 2,
-                          }}
-                        >
-                          <CompactSimpleState state={m.session.state} />
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {awayPlayers.map((m) => (
+                    <OnlinePlayerRow
+                      key={m.userId}
+                      userId={m.userId}
+                      memberNickname={m.memberNickname}
+                      session={m.session}
+                      parties={m.parties}
+                      now={now}
+                      isAway={true}
+                      calculateCompletionPercentageFromState={
+                        calculateCompletionPercentageFromState
+                      }
+                      CompactSimpleState={CompactSimpleState}
+                      onSetConfirmRemove={setConfirmRemove}
+                    />
+                  ))}
                 </div>
               </div>
             )}
@@ -791,19 +612,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                         </div>
                         {isRacing && (
                           <div className="flex flex-wrap items-center gap-2">
-                            {isFinished && (
-                              <span
-                                className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11.5px] font-bold"
-                                style={{
-                                  color: '#6ee7b7',
-                                  background: 'rgba(16,185,129,0.16)',
-                                  border: '1px solid rgba(52,211,153,0.4)',
-                                }}
-                              >
-                                <Check size={12} color="#6ee7b7" />
-                                Finished
-                              </span>
-                            )}
+                            {isFinished && <FinishedBadge />}
                             <span
                               className="inline-flex items-center gap-1 text-[12.5px] font-bold"
                               style={{

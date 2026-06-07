@@ -211,8 +211,7 @@ export function InviteSheet({
                               }
                             }}
                             onKeyDown={(e) => {
-                              if (e.key === 'Enter')
-                                (e.target as HTMLInputElement).blur();
+                              if (e.key === 'Enter') e.currentTarget.blur();
                               if (e.key === 'Escape') setEditingNameId(null);
                             }}
                             className="min-w-0 flex-1 rounded-lg px-2 py-1 text-sm font-bold text-white outline-none"
