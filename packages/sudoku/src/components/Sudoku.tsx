@@ -58,7 +58,6 @@ import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
 
-
 function CountdownOverlay({ countdown }: { countdown: number }) {
   // countdown value from server: 4→3→2→1. Display: 3→2→1→GO!
   const isGo = countdown === 1;

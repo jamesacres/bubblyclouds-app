@@ -82,9 +82,7 @@ describe('Sidebar', () => {
 
     return render(
       <UserContext.Provider value={userContext}>
-        <RevenueCatContext.Provider
-          value={revenueCatContext}
-        >
+        <RevenueCatContext.Provider value={revenueCatContext}>
           <Sidebar {...defaultProps} {...props} />
         </RevenueCatContext.Provider>
       </UserContext.Provider>
