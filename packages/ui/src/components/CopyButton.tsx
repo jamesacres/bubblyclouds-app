@@ -1,6 +1,5 @@
 'use client';
 
-import { Share } from '@capacitor/share';
 import React, { useEffect, useState } from 'react';
 import {
   Check,
@@ -9,6 +8,7 @@ import {
   Share as ShareIOS,
   Share2 as ShareAndroid,
 } from 'lucide-react';
+import { canShareUrl, shareOrCopyUrl } from '../helpers/share';
 
 const CopyButton = ({
   getText,
@@ -32,18 +32,7 @@ const CopyButton = ({
   const [canShare, setCanShare] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      if (
-        (
-          await Share.canShare().catch((e) => {
-            console.warn(e);
-            return { value: false };
-          })
-        ).value
-      ) {
-        setCanShare(true);
-      }
-    })();
+    canShareUrl().then(setCanShare);
   }, []);
 
   const handleCopy = async () => {
@@ -52,21 +41,8 @@ const CopyButton = ({
     try {
       const text = await getText();
       if (text) {
-        try {
-          await navigator.clipboard.writeText(text);
-          setShowCopied(true);
-        } catch (copyError) {
-          console.warn(copyError);
-          console.warn('Failed to copy:', copyError);
-        }
-        if (canShare) {
-          await Share.share({
-            title: `You're invited to a ${appName}!`,
-            text: `Join the${partyName ? ` ${partyName}` : ''} racing team`,
-            url: text,
-            dialogTitle: 'Share invite',
-          });
-        }
+        await shareOrCopyUrl({ url: text, appName, partyName });
+        setShowCopied(true);
         setTimeout(() => {
           setShowCopied(false);
         }, 5000);

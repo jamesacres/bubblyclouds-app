@@ -11,6 +11,7 @@ import { useParties } from '../../hooks/useParties';
 import { useServerStorage } from '../../hooks/serverStorage';
 import { buildPartyInviteUrl } from '../../helpers/inviteUrl';
 import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
+import { shareOrCopyUrl } from '@bubblyclouds-app/ui/helpers/share';
 import { isIOS } from '../../helpers/capacitor';
 import { PartyConfirmationDialog } from '../PartyConfirmationDialog';
 
@@ -99,7 +100,7 @@ export function InviteSheet({
       const party = await saveParty({ memberNickname: dn, partyName: nm });
       if (party?.partyId) {
         const url = await getInviteUrl(party.partyId, nm);
-        navigator.clipboard.writeText(url).catch(() => {});
+        await shareOrCopyUrl({ url, appName, partyName: nm });
       }
       onCreateTeam();
       onClose();
