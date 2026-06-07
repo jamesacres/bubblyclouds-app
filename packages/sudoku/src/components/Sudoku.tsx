@@ -56,67 +56,8 @@ import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
 import { DreyfusLevel } from '../types/Agent';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
 
-function derivePuzzleMetaLabel(metadata: Partial<GameStateMetadata>): string {
-  if (metadata.sudokuId?.startsWith('oftheday-')) {
-    const parts = metadata.sudokuId.split('-');
-    if (parts.length >= 2) {
-      const ds = parts[1];
-      if (ds.length === 8) {
-        const date = new Date(
-          `${ds.slice(0, 4)}-${ds.slice(4, 6)}-${ds.slice(6, 8)}`
-        );
-        const months = [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Dec',
-        ];
-        const d = date.getDate();
-        const suffix =
-          d >= 11 && d <= 13
-            ? 'th'
-            : (['st', 'nd', 'rd'][(d % 10) - 1] ?? 'th');
-        return `Daily ${months[date.getMonth()]} ${d}${suffix}`;
-      }
-    }
-  }
-  if (metadata.sudokuBookPuzzleId?.startsWith('ofthemonth-')) {
-    const parts = metadata.sudokuBookPuzzleId.split('-');
-    if (parts.length >= 4) {
-      const ym = parts[1];
-      const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
-      const monthName = months[parseInt(ym.slice(4, 6)) - 1];
-      const num = parseInt(parts[3]) + 1;
-      return `Book ${monthName} #${num}`;
-    }
-  }
-  if (metadata.scannedAt && metadata.scannedAt !== 'undefined') {
-    return 'Scanned Puzzle';
-  }
-  return '';
-}
 
 function CountdownOverlay({ countdown }: { countdown: number }) {
   // countdown value from server: 4→3→2→1. Display: 3→2→1→GO!
@@ -138,69 +79,43 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
         WebkitBackdropFilter: 'blur(8px)',
       }}
     >
-      {!isGo ? (
-        <>
+      <div
+        className="text-xs font-extrabold uppercase tracking-[0.2em]"
+        style={{ color: 'rgba(255,255,255,0.5)' }}
+      >
+        Get ready
+      </div>
+      <div className="flex gap-4">
+        {lights.map((l, i) => (
           <div
-            className="text-xs font-extrabold uppercase tracking-[0.2em]"
-            style={{ color: 'rgba(255,255,255,0.5)' }}
-          >
-            Get ready
-          </div>
-          <div className="flex gap-4">
-            {lights.map((l, i) => (
-              <div
-                key={i}
-                className="rounded-full transition-all duration-200"
-                style={{
-                  width: 46,
-                  height: 46,
-                  background: l.on ? l.color : 'rgba(255,255,255,0.07)',
-                  boxShadow: l.on
-                    ? `0 0 28px ${l.glow}, inset 0 2px 4px rgba(255,255,255,0.4)`
-                    : 'inset 0 1px 2px rgba(0,0,0,0.5)',
-                }}
-              />
-            ))}
-          </div>
-          <div
-            key={displayed}
-            className="text-[120px] font-extrabold leading-none text-white"
-            style={{ textShadow: '0 0 40px rgba(167,139,250,0.8)' }}
-          >
-            {displayed}
-          </div>
-        </>
+            key={i}
+            className="rounded-full transition-all duration-200"
+            style={{
+              width: 46,
+              height: 46,
+              background: l.on ? l.color : 'rgba(255,255,255,0.07)',
+              boxShadow: l.on
+                ? `0 0 28px ${l.glow}, inset 0 2px 4px rgba(255,255,255,0.4)`
+                : 'inset 0 1px 2px rgba(0,0,0,0.5)',
+            }}
+          />
+        ))}
+      </div>
+      {isGo ? (
+        <div
+          className="text-[120px] font-extrabold leading-none text-white"
+          style={{ textShadow: '0 0 40px rgba(74,222,128,0.8)' }}
+        >
+          GO!
+        </div>
       ) : (
-        <>
-          <div
-            className="text-xs font-extrabold uppercase tracking-[0.2em]"
-            style={{ color: 'rgba(255,255,255,0.5)' }}
-          >
-            Get ready
-          </div>
-          <div className="flex gap-4">
-            {lights.map((l, i) => (
-              <div
-                key={i}
-                className="rounded-full transition-all duration-200"
-                style={{
-                  width: 46,
-                  height: 46,
-                  background: l.on ? l.color : 'rgba(255,255,255,0.07)',
-                  boxShadow: l.on
-                    ? `0 0 28px ${l.glow}, inset 0 2px 4px rgba(255,255,255,0.4)`
-                    : 'inset 0 1px 2px rgba(0,0,0,0.5)',
-                }}
-              />
-            ))}
-          </div>
-          <div
-            className="text-[120px] font-extrabold leading-none text-white"
-            style={{ textShadow: '0 0 40px rgba(74,222,128,0.8)' }}
-          >
-            GO!
-          </div>
-        </>
+        <div
+          key={displayed}
+          className="text-[120px] font-extrabold leading-none text-white"
+          style={{ textShadow: '0 0 40px rgba(167,139,250,0.8)' }}
+        >
+          {displayed}
+        </div>
       )}
     </div>
   );
@@ -708,6 +623,8 @@ const Sudoku = ({
     };
   }, []);
 
+  const puzzleInitialState: ServerState = { answerStack: [], initial, final };
+
   return (
     <div
       className={`${showAdvancedControls ? 'pb-120' : 'pb-90'} landscape:mb-120 lg:pb-0 sm:landscape:pb-[calc(60vh)] lg:landscape:mb-0 lg:landscape:pb-0`}
@@ -750,7 +667,6 @@ const Sudoku = ({
         refreshSessionParties={refreshSessionParties}
         sessionParties={sessionParties}
         app={app}
-        appName={appName}
         apiUrl={apiUrl}
         appUrl={appUrl}
         SimpleState={SimpleStateWrapper}
@@ -773,16 +689,10 @@ const Sudoku = ({
             : undefined
         }
         puzzleMetaLabel={derivePuzzleMetaLabel(metadata)}
-        initialState={
-          {
-            answerStack: [],
-            initial,
-            final,
-          } as unknown as ServerState
-        }
+        initialState={puzzleInitialState}
         onStartRace={() => {
           setRaceStarted(true);
-          setTimerNewSession();
+          if (!raceStarted) setTimerNewSession();
           setHasManuallySelectedMode(true);
         }}
       />

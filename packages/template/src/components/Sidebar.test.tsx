@@ -10,6 +10,8 @@ import {
   RevenueCatContext,
 } from '../providers/RevenueCatProvider';
 import { useParties } from '../hooks/useParties';
+import { Session } from '@bubblyclouds-app/types/serverTypes';
+import { BaseServerState } from '../types/state';
 
 jest.mock('../hooks/useParties');
 jest.mock('../hooks/serverStorage', () => ({
@@ -37,7 +39,6 @@ describe('Sidebar', () => {
     refreshSessionParties: jest.fn(),
     sessionParties: {},
     app: 'testapp',
-    appName: 'TestApp',
     apiUrl: 'https://api.test.com',
     appUrl: 'https://app.test.com',
     SimpleState: MockSimpleState,
@@ -52,7 +53,7 @@ describe('Sidebar', () => {
     } = {}
   ) => {
     const userContext: UserContextInterface = {
-      user: { sub: 'user1' } as any,
+      user: { sub: 'user1' },
       isLoggingIn: false,
       isInitialised: true,
       loginRedirect: jest.fn(),
@@ -64,15 +65,25 @@ describe('Sidebar', () => {
     };
     const revenueCatContext: RevenueCatContextInterface = {
       isSubscribed: false,
-      subscribeModal: { showModalIfRequired: jest.fn() } as any,
+      isLoading: false,
+      packages: [],
+      purchasePackage: jest.fn(),
+      restorePurchases: jest.fn(),
       refreshEntitlements: jest.fn(),
+      subscribeModal: {
+        isOpen: false,
+        callback: jest.fn(),
+        cancelCallback: jest.fn(),
+        showModalIfRequired: jest.fn(),
+        hideModal: jest.fn(),
+      },
       ...context.revenueCat,
-    } as unknown as RevenueCatContextInterface;
+    };
 
     return render(
       <UserContext.Provider value={userContext}>
         <RevenueCatContext.Provider
-          value={revenueCatContext as unknown as RevenueCatContextInterface}
+          value={revenueCatContext}
         >
           <Sidebar {...defaultProps} {...props} />
         </RevenueCatContext.Provider>
@@ -182,10 +193,9 @@ describe('Sidebar', () => {
                 answerStack: [],
                 initial: [],
                 final: [],
-                completed: undefined,
               },
               updatedAt: new Date(),
-            } as any,
+            } satisfies Session<BaseServerState>,
           },
         },
       },
@@ -237,7 +247,13 @@ describe('Sidebar', () => {
       {
         revenueCat: {
           isSubscribed: false,
-          subscribeModal: { showModalIfRequired } as any,
+          subscribeModal: {
+            isOpen: false,
+            callback: jest.fn(),
+            cancelCallback: jest.fn(),
+            showModalIfRequired,
+            hideModal: jest.fn(),
+          },
         },
       }
     );
