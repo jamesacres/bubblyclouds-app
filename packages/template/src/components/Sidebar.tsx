@@ -1647,7 +1647,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                         )}
                       </div>
                       <div className="flex flex-shrink-0 items-center gap-2">
-                        {isRacing && agent.state && (
+                        {isRacing && agent.state != null && (
                           <div
                             className="pointer-events-none overflow-hidden rounded-lg"
                             style={{

@@ -143,6 +143,7 @@ describe('Sidebar', () => {
           members: [
             {
               userId: 'other1',
+              resourceId: 'res-other1',
               memberNickname: 'Alice',
               isUser: false,
               isOwner: false,
