@@ -1,4 +1,4 @@
-import { CSSProperties, useState, useRef } from 'react';
+import { CSSProperties, useState, useRef, useEffect } from 'react';
 import {
   Check,
   Edit3,
@@ -46,6 +46,7 @@ export function InviteSheet({
   defaultDisplayName?: string;
 }) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
   const [teamName, setTeamName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
@@ -62,6 +63,12 @@ export function InviteSheet({
     refreshSessionParties: refreshSessionPartiesNoop,
   });
   const { createInvite } = useServerStorage({ app, apiUrl });
+
+  useEffect(() => {
+    return () => {
+      if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
+    };
+  }, []);
 
   const handleClose = () => {
     setCopiedId(null);
@@ -92,7 +99,8 @@ export function InviteSheet({
     const url = await getInviteUrl(partyId, partyName);
     shareUrl(url);
     setCopiedId(partyId);
-    setTimeout(() => setCopiedId(null), 2000);
+    if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
+    copiedTimerRef.current = setTimeout(() => setCopiedId(null), 2000);
   };
 
   const create = async () => {
@@ -215,12 +223,15 @@ export function InviteSheet({
                             value={editNameValue}
                             onChange={(e) => setEditNameValue(e.target.value)}
                             onBlur={async () => {
-                              if (editNameValue.trim()) {
-                                await updateParty(party.partyId, {
-                                  partyName: editNameValue.trim(),
-                                });
+                              try {
+                                if (editNameValue.trim()) {
+                                  await updateParty(party.partyId, {
+                                    partyName: editNameValue.trim(),
+                                  });
+                                }
+                              } finally {
+                                setEditingNameId(null);
                               }
-                              setEditingNameId(null);
                             }}
                             onKeyDown={(e) => {
                               if (e.key === 'Enter')
@@ -286,7 +297,7 @@ export function InviteSheet({
                             value={party.maxSize ?? DEFAULT_MAX}
                             onChange={async (e) => {
                               await updateParty(party.partyId, {
-                                maxSize: parseInt(e.target.value),
+                                maxSize: parseInt(e.target.value, 10),
                               });
                             }}
                             className="cursor-pointer rounded-md px-1.5 py-0.5 text-xs font-semibold outline-none"

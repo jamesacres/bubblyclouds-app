@@ -120,6 +120,9 @@ const Sidebar = <ServerState extends BaseServerState>({
 
   const [showInviteSheet, setShowInviteSheet] = useState(false);
   const [copiedOfflineId, setCopiedOfflineId] = useState<string | null>(null);
+  const copiedOfflineTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
   const [confirmRemove, setConfirmRemove] = useState<{
     userId: string;
     memberNickname: string;
@@ -127,6 +130,13 @@ const Sidebar = <ServerState extends BaseServerState>({
   } | null>(null);
   const offlineInviteUrlCacheRef = useRef<Record<string, string>>({});
   const { createInvite } = useServerStorage({ app, apiUrl });
+
+  useEffect(() => {
+    return () => {
+      if (copiedOfflineTimerRef.current)
+        clearTimeout(copiedOfflineTimerRef.current);
+    };
+  }, []);
 
   const getPartyInviteUrl = (
     partyId: string,
@@ -636,15 +646,11 @@ const Sidebar = <ServerState extends BaseServerState>({
             {/* Offline party members */}
             {offlineMembers.length > 0 && (
               <div className="mb-6">
-                <div className="mb-2.5 flex items-center gap-2">
-                  <Moon size={15} color="rgba(255,255,255,0.4)" />
-                  <span
-                    className="text-[10.5px] font-extrabold uppercase tracking-widest"
-                    style={{ color: 'rgba(255,255,255,0.35)' }}
-                  >
-                    Offline · in your teams
-                  </span>
-                </div>
+                <SectionHead
+                  icon={Moon}
+                  title="Offline · in your teams"
+                  count={offlineMembers.length}
+                />
                 <div className="flex flex-col gap-2">
                   {offlineMembers.map((m) => {
                     const copied = copiedOfflineId === m.userId;
@@ -723,7 +729,12 @@ const Sidebar = <ServerState extends BaseServerState>({
                                 navigator.share({ url }).catch(() => {});
                               }
                               setCopiedOfflineId(m.userId);
-                              setTimeout(() => setCopiedOfflineId(null), 2000);
+                              if (copiedOfflineTimerRef.current)
+                                clearTimeout(copiedOfflineTimerRef.current);
+                              copiedOfflineTimerRef.current = setTimeout(
+                                () => setCopiedOfflineId(null),
+                                2000
+                              );
                             }}
                             className="inline-flex cursor-pointer items-center gap-1.5 rounded-full text-xs font-semibold transition-transform active:scale-95"
                             style={{
