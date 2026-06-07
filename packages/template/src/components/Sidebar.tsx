@@ -7,6 +7,7 @@ import {
   useState,
   ComponentType,
   ReactElement,
+  SyntheticEvent,
 } from 'react';
 import {
   Bot,
@@ -36,10 +37,11 @@ import { HeroBackdrop } from './sidebar/HeroBackdrop';
 import { SectionHead } from './sidebar/SectionHead';
 import { PillButton } from './sidebar/PillButton';
 import { PlayerAvatar } from './sidebar/PlayerAvatar';
-import { avatarGradient, fmtClock } from '../helpers/playerAvatar';
+import { avatarGradient, fmtClock, fmtElapsed } from '../helpers/playerAvatar';
 import { PuzzleHeader } from './sidebar/PuzzleHeader';
 import { TierBadge } from './sidebar/TierBadge';
 import { InviteSheet } from './sidebar/InviteSheet';
+import { PartyTag } from './sidebar/PartyTag';
 
 const PARTY_POLL_INTERVAL_MS = 30_000;
 const SCROLL_CONTAINER_BOTTOM_PADDING = 200;
@@ -58,7 +60,7 @@ interface Arguments<ServerState extends BaseServerState> {
   SimpleState: ComponentType<{ state: ServerState }>;
   CompactSimpleState?: ComponentType<{ state: ServerState }>;
   calculateCompletionPercentageFromState: (state: ServerState) => number;
-  localAgentProgress?: AgentProgress[];
+  localAgentProgress?: AgentProgress<ServerState>[];
   onRemoveAgent?: (agentId: string) => void;
   onPickRivals?: () => void;
   puzzleDifficulty?: string;
@@ -426,19 +428,10 @@ const Sidebar = <ServerState extends BaseServerState>({
                             {m.memberNickname}
                           </span>
                           {m.parties.map((p) => (
-                            <span
+                            <PartyTag
                               key={p.partyId}
-                              className="inline-flex items-center rounded-full text-[9.5px] font-semibold"
-                              style={{
-                                padding: '2px 7px',
-                                background: 'rgba(255,255,255,0.07)',
-                                border: '1px solid rgba(255,255,255,0.12)',
-                                color: 'rgba(255,255,255,0.5)',
-                                whiteSpace: 'nowrap',
-                              }}
-                            >
-                              {p.partyName}
-                            </span>
+                              partyName={p.partyName}
+                            />
                           ))}
                           {ownedParties.length > 0 && (
                             <button
@@ -548,13 +541,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                         ? m.session.updatedAt.getTime()
                         : new Date(m.session.updatedAt).getTime();
                     const elapsedMs = now - updatedAt;
-                    const lastSeenLabel = (() => {
-                      const mins = Math.round(elapsedMs / 60000);
-                      if (mins < 60) return `${mins}m ago`;
-                      const hours = Math.round(elapsedMs / 3600000);
-                      if (hours < 48) return `${hours}h ago`;
-                      return `${Math.round(elapsedMs / 86400000)}d ago`;
-                    })();
+                    const lastSeenLabel = fmtElapsed(elapsedMs);
                     const ownedParties = m.parties.filter((p) => p.isOwner);
                     return (
                       <div
@@ -575,19 +562,10 @@ const Sidebar = <ServerState extends BaseServerState>({
                               {m.memberNickname}
                             </span>
                             {m.parties.map((p) => (
-                              <span
+                              <PartyTag
                                 key={p.partyId}
-                                className="inline-flex items-center rounded-full text-[9.5px] font-semibold"
-                                style={{
-                                  padding: '2px 7px',
-                                  background: 'rgba(255,255,255,0.07)',
-                                  border: '1px solid rgba(255,255,255,0.12)',
-                                  color: 'rgba(255,255,255,0.5)',
-                                  whiteSpace: 'nowrap',
-                                }}
-                              >
-                                {p.partyName}
-                              </span>
+                                partyName={p.partyName}
+                              />
                             ))}
                             {ownedParties.length > 0 && (
                               <button
@@ -703,19 +681,10 @@ const Sidebar = <ServerState extends BaseServerState>({
                               {m.memberNickname}
                             </span>
                             {m.parties.map((p) => (
-                              <span
+                              <PartyTag
                                 key={p.partyId}
-                                className="inline-flex items-center rounded-full text-[9.5px] font-semibold"
-                                style={{
-                                  padding: '2px 7px',
-                                  background: 'rgba(255,255,255,0.07)',
-                                  border: '1px solid rgba(255,255,255,0.12)',
-                                  color: 'rgba(255,255,255,0.5)',
-                                  whiteSpace: 'nowrap',
-                                }}
-                              >
-                                {p.partyName}
-                              </span>
+                                partyName={p.partyName}
+                              />
                             ))}
                             {ownedParties.length > 0 && (
                               <button
@@ -831,13 +800,10 @@ const Sidebar = <ServerState extends BaseServerState>({
                           className="h-full w-full object-cover"
                           src={`/opponents/${agent.name.toLowerCase()}.webp`}
                           alt={agent.name}
-                          onError={(e) => {
+                          onError={(e: SyntheticEvent<HTMLImageElement>) => {
+                            e.currentTarget.style.display = 'none';
                             (
-                              e.currentTarget as HTMLImageElement
-                            ).style.display = 'none';
-                            (
-                              e.currentTarget
-                                .nextElementSibling as HTMLElement | null
+                              e.currentTarget.nextElementSibling as HTMLElement
                             )?.style.setProperty('display', 'flex');
                           }}
                         />
@@ -899,7 +865,7 @@ const Sidebar = <ServerState extends BaseServerState>({
                             }}
                           >
                             <CompactSimpleState
-                              state={agent.state as ServerState}
+                              state={agent.state}
                             />
                           </div>
                         )}
@@ -1017,12 +983,15 @@ const Sidebar = <ServerState extends BaseServerState>({
                   className="flex-1 cursor-pointer rounded-xl py-2.5 text-sm font-bold text-white"
                   style={{ background: 'rgba(239,68,68,0.8)' }}
                   onClick={async () => {
-                    await Promise.all(
-                      confirmRemove.ownedParties.map((p) =>
-                        removeMember(p.partyId, confirmRemove.userId)
-                      )
-                    );
-                    setConfirmRemove(null);
+                    try {
+                      await Promise.all(
+                        confirmRemove.ownedParties.map((p) =>
+                          removeMember(p.partyId, confirmRemove.userId)
+                        )
+                      );
+                    } finally {
+                      setConfirmRemove(null);
+                    }
                   }}
                 >
                   Remove

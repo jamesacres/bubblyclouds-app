@@ -284,11 +284,11 @@ export function InviteSheet({
                         {party.isOwner ? (
                           <select
                             value={party.maxSize ?? DEFAULT_MAX}
-                            onChange={(e) =>
-                              updateParty(party.partyId, {
+                            onChange={async (e) => {
+                              await updateParty(party.partyId, {
                                 maxSize: parseInt(e.target.value),
-                              })
-                            }
+                              });
+                            }}
                             className="cursor-pointer rounded-md px-1.5 py-0.5 text-xs font-semibold outline-none"
                             style={{
                               background: 'rgba(255,255,255,0.08)',
