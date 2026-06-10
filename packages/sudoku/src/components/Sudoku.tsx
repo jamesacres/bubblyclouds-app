@@ -267,10 +267,12 @@ const Sudoku = ({
   const [raceStarted, setRaceStarted] = useState(false);
 
   const handleStartRace = useCallback(() => {
-    setRaceStarted(true);
-    if (!raceStarted) setTimerNewSession();
+    setRaceStarted((prev) => {
+      if (!prev) setTimerNewSession();
+      return true;
+    });
     setHasManuallySelectedMode(true);
-  }, [raceStarted, setTimerNewSession]);
+  }, [setTimerNewSession]);
 
   const handleInviteFriends = useCallback(() => {
     setShowLobby(true);
@@ -594,21 +596,15 @@ const Sudoku = ({
     [initial, final]
   );
 
-  const puzzleDifficulty = useMemo(
+  const puzzleDifficultyDisplay = useMemo(
     () =>
       metadata.difficulty
-        ? getDifficultyDisplay(metadata.difficulty).name
+        ? getDifficultyDisplay(metadata.difficulty)
         : undefined,
     [metadata.difficulty]
   );
-
-  const puzzleDifficultyBadgeColor = useMemo(
-    () =>
-      metadata.difficulty
-        ? getDifficultyDisplay(metadata.difficulty).badgeColor
-        : undefined,
-    [metadata.difficulty]
-  );
+  const puzzleDifficulty = puzzleDifficultyDisplay?.name;
+  const puzzleDifficultyBadgeColor = puzzleDifficultyDisplay?.badgeColor;
 
   const puzzleMetaLabel = useMemo(
     () => derivePuzzleMetaLabel(metadata),

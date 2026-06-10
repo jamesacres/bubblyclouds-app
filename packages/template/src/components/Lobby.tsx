@@ -1,5 +1,6 @@
 import {
   memo,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -69,7 +70,6 @@ interface Arguments<ServerState extends BaseServerState> {
   onPickRivals?: () => void;
   puzzleDifficulty?: string;
   puzzleDifficultyBadgeColor?: string;
-  puzzleTitle?: string;
   puzzleMetaLabel?: string;
   initialState?: ServerState;
   onStartRace?: () => void;
@@ -94,7 +94,6 @@ const Lobby = <ServerState extends BaseServerState>({
   onPickRivals,
   puzzleDifficulty,
   puzzleDifficultyBadgeColor,
-  puzzleTitle,
   puzzleMetaLabel,
   initialState,
   onStartRace,
@@ -132,19 +131,19 @@ const Lobby = <ServerState extends BaseServerState>({
   const offlineInviteUrlCacheRef = useRef<Record<string, string>>({});
   const { createInvite } = useServerStorage({ app, apiUrl });
 
-  const getPartyInviteUrl = (
-    partyId: string,
-    partyName: string
-  ): Promise<string> =>
-    buildPartyInviteUrl({
-      partyId,
-      partyName,
-      sessionId: `${app}-${puzzleId}`,
-      redirectUri,
-      appUrl,
-      cacheRef: offlineInviteUrlCacheRef.current,
-      createInvite,
-    });
+  const getPartyInviteUrl = useCallback(
+    (partyId: string, partyName: string): Promise<string> =>
+      buildPartyInviteUrl({
+        partyId,
+        partyName,
+        sessionId: `${app}-${puzzleId}`,
+        redirectUri,
+        appUrl,
+        cacheRef: offlineInviteUrlCacheRef.current,
+        createInvite,
+      }),
+    [app, puzzleId, redirectUri, appUrl, createInvite]
+  );
 
   // Online opponents: members with an active session, excluding yourself.
   // Collect all party memberships per user so we can show labels and remove buttons.
@@ -340,12 +339,11 @@ const Lobby = <ServerState extends BaseServerState>({
         >
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 pb-4">
             {/* Puzzle header */}
-            {(puzzleDifficulty || puzzleTitle || initialState) && (
+            {(puzzleDifficulty || initialState) && (
               <div className="mb-5">
                 <PuzzleHeader
                   difficulty={puzzleDifficulty}
                   difficultyBadgeColor={puzzleDifficultyBadgeColor}
-                  title={puzzleTitle}
                   metaLabel={puzzleMetaLabel}
                   initialState={initialState}
                   CompactSimpleState={CompactSimpleState}
@@ -716,24 +714,25 @@ const Lobby = <ServerState extends BaseServerState>({
           </button>
         </div>
 
-        <PartyConfirmationDialog
-          isOpen={confirmRemove !== null}
-          onClose={() => setConfirmRemove(null)}
-          type="remove"
-          partyName={
-            confirmRemove?.ownedParties.map((p) => p.partyName).join(' and ') ??
-            ''
-          }
-          memberName={confirmRemove?.memberNickname}
-          onConfirm={async () => {
-            await Promise.all(
-              confirmRemove!.ownedParties.map((p) =>
-                removeMember(p.partyId, confirmRemove!.userId)
-              )
-            );
-          }}
-          dialogClassName="relative z-[110]"
-        />
+        {confirmRemove && (
+          <PartyConfirmationDialog
+            isOpen={true}
+            onClose={() => setConfirmRemove(null)}
+            type="remove"
+            partyName={confirmRemove.ownedParties
+              .map((p) => p.partyName)
+              .join(' and ')}
+            memberName={confirmRemove.memberNickname}
+            onConfirm={async () => {
+              await Promise.all(
+                confirmRemove.ownedParties.map((p) =>
+                  removeMember(p.partyId, confirmRemove.userId)
+                )
+              );
+            }}
+            dialogClassName="relative z-[110]"
+          />
+        )}
 
         {/* Invite sheet overlay */}
         <InviteSheet

@@ -373,21 +373,23 @@ export function InviteSheet({
         </div>
       </div>
 
-      <PartyConfirmationDialog
-        isOpen={confirmLeave !== null}
-        onClose={() => setConfirmLeave(null)}
-        type="leave"
-        partyName={confirmLeave?.partyName ?? ''}
-        isOwner={confirmLeave?.isOwner ?? false}
-        onConfirm={async () => {
-          if (confirmLeave!.isOwner) {
-            await deleteParty(confirmLeave!.partyId);
-          } else {
-            await leaveParty(confirmLeave!.partyId);
-          }
-        }}
-        dialogClassName="relative z-[110]"
-      />
+      {confirmLeave && (
+        <PartyConfirmationDialog
+          isOpen={true}
+          onClose={() => setConfirmLeave(null)}
+          type="leave"
+          partyName={confirmLeave.partyName}
+          isOwner={confirmLeave.isOwner}
+          onConfirm={async () => {
+            if (confirmLeave.isOwner) {
+              await deleteParty(confirmLeave.partyId);
+            } else {
+              await leaveParty(confirmLeave.partyId);
+            }
+          }}
+          dialogClassName="relative z-[110]"
+        />
+      )}
     </div>
   );
 }
