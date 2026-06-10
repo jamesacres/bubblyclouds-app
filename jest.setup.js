@@ -137,6 +137,7 @@ jest.mock(
   '@capacitor/share',
   () => ({
     Share: {
+      canShare: jest.fn().mockResolvedValue({ value: false }),
       share: jest.fn().mockResolvedValue({}),
     },
   }),

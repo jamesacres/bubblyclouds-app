@@ -17,7 +17,9 @@ const shareOrCopyUrl = async ({
   appName: string;
   partyName?: string;
 }): Promise<void> => {
-  await navigator.clipboard.writeText(url).catch((e) => console.warn(e));
+  await navigator.clipboard
+    .writeText(url)
+    .catch((e) => console.warn('Failed to copy:', e));
 
   if (await canShareUrl()) {
     await Share.share({
