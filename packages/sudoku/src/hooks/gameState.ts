@@ -54,7 +54,7 @@ function useGameState({
   apiUrl,
   initialMode,
   initialAgentNames,
-  initialShowSidebar,
+  initialShowLobby,
   onComplete,
 }: {
   final: Puzzle<number>;
@@ -65,7 +65,7 @@ function useGameState({
   apiUrl: string;
   initialMode?: SudokuMode;
   initialAgentNames?: string;
-  initialShowSidebar?: boolean;
+  initialShowLobby?: boolean;
   onComplete?: (answerStack: Puzzle[]) => void;
 }) {
   const context = useContext(UserContext);
@@ -116,7 +116,7 @@ function useGameState({
   const { getSessionParties, patchFriendSessions } = useSessions<ServerState>();
 
   const [isNotesMode, setIsNotesMode] = useState<boolean>(false);
-  const [showSidebar, setShowSidebar] = useState(initialShowSidebar ?? false);
+  const [showLobby, setShowLobby] = useState(initialShowLobby ?? false);
   const [isZoomMode, setIsZoomMode] = useState(false);
   const [mode, setMode] = useState<SudokuMode | undefined>(initialMode);
   const [agentNames, setAgentNames] = useState<string | undefined>(
@@ -695,7 +695,7 @@ function useGameState({
       const insideForm = /^(?:input|textarea|select|button)$/i.test(
         (<HTMLElement>e.target)?.tagName
       );
-      return completed || showSidebar || insideForm;
+      return completed || showLobby || insideForm;
     };
     const keyupHandler = (e: KeyboardEvent) => {
       if (ignoreKeyboard(e)) {
@@ -780,7 +780,7 @@ function useGameState({
     completed,
     validateCell,
     validateGrid,
-    showSidebar,
+    showLobby,
   ]);
 
   const [isPolling, setIsPolling] = useState(false);
@@ -855,8 +855,8 @@ function useGameState({
     refreshSessionParties,
     isPolling,
     sessionParties,
-    showSidebar,
-    setShowSidebar,
+    showLobby,
+    setShowLobby,
     isZoomMode,
     setIsZoomMode,
     isPaused,

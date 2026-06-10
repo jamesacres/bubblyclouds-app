@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Sidebar from './Sidebar';
+import Lobby from './Lobby';
 import {
   UserContext,
   UserContextInterface,
@@ -30,10 +30,10 @@ const MockSimpleState = ({ state: _state }: { state: unknown }) => (
 
 const mockCalculateCompletion = () => 50;
 
-describe('Sidebar', () => {
+describe('Lobby', () => {
   const defaultProps = {
-    showSidebar: true,
-    setShowSidebar: jest.fn(),
+    showLobby: true,
+    setShowLobby: jest.fn(),
     puzzleId: 'puzzle123',
     redirectUri: '/puzzle/123',
     refreshSessionParties: jest.fn(),
@@ -47,7 +47,7 @@ describe('Sidebar', () => {
   };
 
   const renderComponent = (
-    props: Partial<React.ComponentProps<typeof Sidebar>> = {},
+    props: Partial<React.ComponentProps<typeof Lobby>> = {},
     context: {
       user?: Partial<UserContextInterface>;
       revenueCat?: Partial<RevenueCatContextInterface>;
@@ -84,7 +84,7 @@ describe('Sidebar', () => {
     return render(
       <UserContext.Provider value={userContext}>
         <RevenueCatContext.Provider value={revenueCatContext}>
-          <Sidebar {...defaultProps} {...props} />
+          <Lobby {...defaultProps} {...props} />
         </RevenueCatContext.Provider>
       </UserContext.Provider>
     );
@@ -111,29 +111,29 @@ describe('Sidebar', () => {
     });
   });
 
-  it('renders the sidebar with race lobby label and start button', () => {
+  it('renders the lobby with race lobby label and start button', () => {
     renderComponent();
     expect(screen.getAllByText('Race Lobby').length).toBeGreaterThan(0);
     expect(screen.getByText('Start Solving')).toBeInTheDocument();
   });
 
-  it('calls onStartRace and setShowSidebar when X button is clicked', () => {
+  it('calls onStartRace and setShowLobby when X button is clicked', () => {
     const onStartRace = jest.fn();
-    const setShowSidebar = jest.fn();
-    renderComponent({ onStartRace, setShowSidebar });
+    const setShowLobby = jest.fn();
+    renderComponent({ onStartRace, setShowLobby });
     fireEvent.click(screen.getByLabelText('Close lobby'));
     expect(onStartRace).toHaveBeenCalledTimes(1);
-    expect(setShowSidebar).toHaveBeenCalledWith(false);
+    expect(setShowLobby).toHaveBeenCalledWith(false);
   });
 
-  it('calls onStartRace and setShowSidebar when backdrop is clicked', () => {
+  it('calls onStartRace and setShowLobby when backdrop is clicked', () => {
     const onStartRace = jest.fn();
-    const setShowSidebar = jest.fn();
-    const { container } = renderComponent({ onStartRace, setShowSidebar });
+    const setShowLobby = jest.fn();
+    const { container } = renderComponent({ onStartRace, setShowLobby });
     const backdrop = container.querySelector('.fixed.inset-0.z-50');
     fireEvent.click(backdrop!);
     expect(onStartRace).toHaveBeenCalledTimes(1);
-    expect(setShowSidebar).toHaveBeenCalledWith(false);
+    expect(setShowLobby).toHaveBeenCalledWith(false);
   });
 
   it('shows the invite sheet when Invite button is clicked', () => {

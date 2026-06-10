@@ -16,7 +16,7 @@ import {
 import { useGameState } from '../hooks/gameState';
 import SudokuControls from '../components/SudokuControls';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
-import Sidebar from '@bubblyclouds-app/template/components/Sidebar';
+import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import SimpleSudoku from '../components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { ServerState } from '../types/state';
@@ -37,7 +37,7 @@ import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvid
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
-import MemoisedSidebarButton from '@bubblyclouds-app/games/components/SidebarButton';
+import MemoisedLobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import { useRouter } from 'next/navigation';
 import RacingPromptModal from '@bubblyclouds-app/template/components/RacingPromptModal';
 import {
@@ -244,8 +244,8 @@ const Sudoku = ({
     setTimerNewSession,
     refreshSessionParties,
     sessionParties,
-    showSidebar,
-    setShowSidebar,
+    showLobby,
+    setShowLobby,
     isZoomMode,
     setIsZoomMode,
     isPolling,
@@ -263,7 +263,7 @@ const Sudoku = ({
     initialAgentNames: shouldAutoOpen
       ? defaultAgentSelection.join(',')
       : undefined,
-    initialShowSidebar: shouldAutoOpen,
+    initialShowLobby: shouldAutoOpen,
     onComplete,
   });
 
@@ -314,11 +314,11 @@ const Sudoku = ({
   }, [completed, agents]);
 
   const friendsOnClick = useCallback(() => {
-    setShowSidebar((prev) => !prev);
-  }, [setShowSidebar]);
+    setShowLobby((prev) => !prev);
+  }, [setShowLobby]);
   const raceTrackOnClick = useCallback(
-    () => setShowSidebar(true),
-    [setShowSidebar]
+    () => setShowLobby(true),
+    [setShowLobby]
   );
 
   const [raceStarted, setRaceStarted] = useState(false);
@@ -330,8 +330,8 @@ const Sudoku = ({
   }, [raceStarted, setTimerNewSession]);
 
   const handleInviteFriends = useCallback(() => {
-    setShowSidebar(true);
-  }, [setShowSidebar]);
+    setShowLobby(true);
+  }, [setShowLobby]);
 
   // Reference to the grid for the celebration animation and chain overlay
   const gridRef = useRef<HTMLDivElement>(null);
@@ -520,8 +520,8 @@ const Sudoku = ({
   const handleRaceMode = useCallback(() => {
     setHasManuallySelectedMode(true);
     setMode('friends');
-    setShowSidebar(true);
-  }, [setMode, setShowSidebar]);
+    setShowLobby(true);
+  }, [setMode, setShowLobby]);
 
   const handlePickRivals = useCallback(() => {
     setPickRivalsView('agent-select');
@@ -622,11 +622,11 @@ const Sudoku = ({
 
   // Timer and scroll management
   useEffect(() => {
-    const shouldPause = !hasSelectedMode || showSidebar || showAppDownload;
+    const shouldPause = !hasSelectedMode || showLobby || showAppDownload;
 
     setPauseTimer(shouldPause);
 
-    if (showSidebar || showAppDownload) {
+    if (showLobby || showAppDownload) {
       document.body.classList.add('overflow-y-hidden');
       document.documentElement.style.height = '100%';
       document.body.style.height = '100%';
@@ -635,7 +635,7 @@ const Sudoku = ({
       document.documentElement.style.height = '';
       document.body.style.height = '';
     }
-  }, [hasSelectedMode, showSidebar, showAppDownload, setPauseTimer]);
+  }, [hasSelectedMode, showLobby, showAppDownload, setPauseTimer]);
 
   // Cleanup: Always restore scrolling when component unmounts
   useEffect(() => {
@@ -714,9 +714,9 @@ const Sudoku = ({
         initialView={pickRivalsView}
       />
 
-      <Sidebar
-        showSidebar={showSidebar}
-        setShowSidebar={setShowSidebar}
+      <Lobby
+        showLobby={showLobby}
+        setShowLobby={setShowLobby}
         puzzleId={puzzleId}
         redirectUri={redirectUri}
         refreshSessionParties={refreshSessionParties}
@@ -730,7 +730,7 @@ const Sudoku = ({
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
         }
-        localAgentProgress={showSidebar ? localAgentProgress : undefined}
+        localAgentProgress={showLobby ? localAgentProgress : undefined}
         onRemoveAgent={onRemoveAgent}
         onPickRivals={handlePickRivals}
         puzzleDifficulty={puzzleDifficulty}
@@ -742,7 +742,7 @@ const Sudoku = ({
 
       {/* Full-screen traffic-light countdown overlay */}
       {raceStarted &&
-        !showSidebar &&
+        !showLobby &&
         timer?.countdown != null &&
         timer.countdown > 0 && <CountdownOverlay countdown={timer.countdown} />}
 
@@ -775,7 +775,7 @@ const Sudoku = ({
                   role="group"
                   aria-label="Button group"
                 >
-                  <MemoisedSidebarButton friendsOnClick={friendsOnClick} />
+                  <MemoisedLobbyButton friendsOnClick={friendsOnClick} />
                 </div>
                 <div
                   className={`grow text-right ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}

@@ -306,7 +306,6 @@ const RacingPromptModal = ({
                       <button
                         onClick={handleSoloMode}
                         className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 active:scale-[0.98]"
-                        style={{}}
                       >
                         <div
                           className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg"

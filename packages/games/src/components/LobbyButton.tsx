@@ -1,7 +1,7 @@
 import { memo, MouseEventHandler } from 'react';
 import { Users } from 'lucide-react';
 
-const MemoisedSidebarButton = memo(function MemoisedSidebarButton({
+const MemoisedLobbyButton = memo(function MemoisedLobbyButton({
   friendsOnClick,
 }: {
   friendsOnClick: MouseEventHandler;
@@ -17,6 +17,5 @@ const MemoisedSidebarButton = memo(function MemoisedSidebarButton({
   );
 });
 
-// Export both names for compatibility
-export { MemoisedSidebarButton as SidebarButton };
-export default MemoisedSidebarButton;
+export { MemoisedLobbyButton as LobbyButton };
+export default MemoisedLobbyButton;

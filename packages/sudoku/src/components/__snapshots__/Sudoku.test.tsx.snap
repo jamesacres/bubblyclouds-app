@@ -64,9 +64,9 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
       </button>
     </div>
     <div
-      data-testid="sudoku-sidebar"
+      data-testid="sudoku-lobby"
     >
-      Sidebar
+      Lobby
     </div>
     <div
       class="flex flex-col items-center lg:flex-row"
@@ -102,7 +102,7 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
                 role="group"
               >
                 <div
-                  data-testid="sidebar-button"
+                  data-testid="lobby-button"
                 >
                   Button
                 </div>

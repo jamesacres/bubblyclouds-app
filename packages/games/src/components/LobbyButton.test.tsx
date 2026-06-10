@@ -1,28 +1,26 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import SidebarButton from './SidebarButton';
+import LobbyButton from './LobbyButton';
 
-describe('SidebarButton', () => {
+describe('LobbyButton', () => {
   describe('rendering', () => {
     it('should render button with text "Opponents"', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       expect(screen.getByText('Opponents')).toBeInTheDocument();
     });
 
     it('should render as a button element', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
-    it('should render with Sidebar icon from lucide-react', () => {
+    it('should render with Users icon from lucide-react', () => {
       const mockClick = jest.fn();
-      const { container } = render(
-        <SidebarButton friendsOnClick={mockClick} />
-      );
+      const { container } = render(<LobbyButton friendsOnClick={mockClick} />);
 
       const svg = container.querySelector('svg');
       expect(svg).toBeInTheDocument();
@@ -32,7 +30,7 @@ describe('SidebarButton', () => {
   describe('styling', () => {
     it('should have primary theme color', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('text-theme-primary');
@@ -41,7 +39,7 @@ describe('SidebarButton', () => {
 
     it('should have cursor pointer class', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('cursor-pointer');
@@ -49,7 +47,7 @@ describe('SidebarButton', () => {
 
     it('should have rounded-lg border radius', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       expect(button).toHaveClass('rounded-lg');
@@ -57,9 +55,7 @@ describe('SidebarButton', () => {
 
     it('should have proper icon spacing', () => {
       const mockClick = jest.fn();
-      const { container } = render(
-        <SidebarButton friendsOnClick={mockClick} />
-      );
+      const { container } = render(<LobbyButton friendsOnClick={mockClick} />);
 
       const icon = container.querySelector('svg');
       expect(icon).toHaveClass('float-left');
@@ -70,7 +66,7 @@ describe('SidebarButton', () => {
   describe('interaction', () => {
     it('should call friendsOnClick when button is clicked', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -80,7 +76,7 @@ describe('SidebarButton', () => {
 
     it('should call friendsOnClick with MouseEvent', () => {
       const mockClick = jest.fn((e) => e);
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -90,7 +86,7 @@ describe('SidebarButton', () => {
 
     it('should handle multiple clicks', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -102,7 +98,7 @@ describe('SidebarButton', () => {
 
     it('should handle rapid clicks', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       for (let i = 0; i < 10; i++) {
@@ -116,7 +112,7 @@ describe('SidebarButton', () => {
   describe('accessibility', () => {
     it('should be keyboard accessible', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       fireEvent.keyDown(button, { key: 'Enter', code: 'Enter' });
@@ -126,7 +122,7 @@ describe('SidebarButton', () => {
 
     it('should be focusable', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       expect(button).toBeInTheDocument();
@@ -135,7 +131,7 @@ describe('SidebarButton', () => {
 
     it('should receive focus', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       button.focus();
@@ -145,7 +141,7 @@ describe('SidebarButton', () => {
 
     it('should be semantic button element', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button', { name: /opponents/i });
       expect(button.tagName).toBe('BUTTON');
@@ -155,16 +151,14 @@ describe('SidebarButton', () => {
   describe('content', () => {
     it('should display "Opponents" text', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       expect(screen.getByText('Opponents')).toBeInTheDocument();
     });
 
     it('should render icon before text', () => {
       const mockClick = jest.fn();
-      const { container } = render(
-        <SidebarButton friendsOnClick={mockClick} />
-      );
+      const { container } = render(<LobbyButton friendsOnClick={mockClick} />);
 
       const icon = container.querySelector('svg');
       const button = screen.getByRole('button');
@@ -175,7 +169,7 @@ describe('SidebarButton', () => {
 
     it('should have proper text content structure', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       expect(button.textContent).toContain('Opponents');
@@ -185,27 +179,25 @@ describe('SidebarButton', () => {
   describe('memoization', () => {
     it('should render correctly', () => {
       const mockClick = jest.fn();
-      const { rerender } = render(<SidebarButton friendsOnClick={mockClick} />);
+      const { rerender } = render(<LobbyButton friendsOnClick={mockClick} />);
 
       expect(screen.getByText('Opponents')).toBeInTheDocument();
 
-      rerender(<SidebarButton friendsOnClick={mockClick} />);
+      rerender(<LobbyButton friendsOnClick={mockClick} />);
 
       expect(screen.getByText('Opponents')).toBeInTheDocument();
     });
 
     it('should update handler when prop changes', () => {
       const mockClick1 = jest.fn();
-      const { rerender } = render(
-        <SidebarButton friendsOnClick={mockClick1} />
-      );
+      const { rerender } = render(<LobbyButton friendsOnClick={mockClick1} />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
       expect(mockClick1).toHaveBeenCalledTimes(1);
 
       const mockClick2 = jest.fn();
-      rerender(<SidebarButton friendsOnClick={mockClick2} />);
+      rerender(<LobbyButton friendsOnClick={mockClick2} />);
 
       fireEvent.click(button);
       expect(mockClick2).toHaveBeenCalledTimes(1);
@@ -219,7 +211,7 @@ describe('SidebarButton', () => {
         e.preventDefault();
       });
 
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -233,7 +225,7 @@ describe('SidebarButton', () => {
 
       render(
         <div onClick={parentClick}>
-          <SidebarButton friendsOnClick={mockClick} />
+          <LobbyButton friendsOnClick={mockClick} />
         </div>
       );
 
@@ -252,7 +244,7 @@ describe('SidebarButton', () => {
 
       render(
         <div onClick={parentClick}>
-          <SidebarButton friendsOnClick={mockClick} />
+          <LobbyButton friendsOnClick={mockClick} />
         </div>
       );
 
@@ -266,7 +258,7 @@ describe('SidebarButton', () => {
   describe('edge cases', () => {
     it('should handle click with undefined handler gracefully', () => {
       const mockClick = jest.fn();
-      render(<SidebarButton friendsOnClick={mockClick} />);
+      render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = screen.getByRole('button');
 
@@ -278,11 +270,11 @@ describe('SidebarButton', () => {
     it('should render consistently with same props', () => {
       const mockClick = jest.fn();
       const { container: container1 } = render(
-        <SidebarButton friendsOnClick={mockClick} />
+        <LobbyButton friendsOnClick={mockClick} />
       );
 
       const { container: container2 } = render(
-        <SidebarButton friendsOnClick={mockClick} />
+        <LobbyButton friendsOnClick={mockClick} />
       );
 
       expect(container1.textContent).toBe(container2.textContent);
@@ -292,9 +284,7 @@ describe('SidebarButton', () => {
   describe('visual rendering', () => {
     it('should render with consistent layout', () => {
       const mockClick = jest.fn();
-      const { container } = render(
-        <SidebarButton friendsOnClick={mockClick} />
-      );
+      const { container } = render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = container.querySelector('button');
       expect(button?.className).toMatch(/text-theme-primary/);
@@ -302,9 +292,7 @@ describe('SidebarButton', () => {
 
     it('should apply theme colors correctly', () => {
       const mockClick = jest.fn();
-      const { container } = render(
-        <SidebarButton friendsOnClick={mockClick} />
-      );
+      const { container } = render(<LobbyButton friendsOnClick={mockClick} />);
 
       const button = container.querySelector('button');
       expect(button).toHaveClass('text-theme-primary');

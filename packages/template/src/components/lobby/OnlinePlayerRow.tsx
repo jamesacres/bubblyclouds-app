@@ -112,9 +112,10 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
       </div>
       {!isInLobby && (
         <div
-          className={`pointer-events-none flex-shrink-0 overflow-hidden rounded-lg${
-            isAway && !isFinished ? 'opacity-50' : ''
-          }`}
+          className={[
+            'pointer-events-none flex-shrink-0 overflow-hidden rounded-lg',
+            isAway && !isFinished ? 'opacity-50' : '',
+          ].join(' ')}
           style={{
             width: 72,
             height: 72,

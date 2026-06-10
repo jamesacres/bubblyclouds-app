@@ -327,12 +327,14 @@ export function InviteSheet({
           </div>
 
           <label
+            htmlFor="invite-display-name"
             className="mb-2 block text-xs font-semibold"
             style={{ color: 'rgba(255,255,255,0.6)' }}
           >
             What do team members call you?
           </label>
           <input
+            id="invite-display-name"
             value={display}
             onChange={(e) => setDisplay(e.target.value)}
             placeholder="Display name"
@@ -340,12 +342,14 @@ export function InviteSheet({
           />
 
           <label
+            htmlFor="invite-team-name"
             className="mb-2 mt-4 block text-xs font-semibold"
             style={{ color: 'rgba(255,255,255,0.6)' }}
           >
             What shall we name this team?
           </label>
           <input
+            id="invite-team-name"
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
             placeholder="Team name (e.g. Family)"

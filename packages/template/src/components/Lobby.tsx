@@ -31,28 +31,28 @@ import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { useServerStorage } from '../hooks/serverStorage';
 import { useDocumentVisibility } from '../hooks/documentVisibility';
 import { buildPartyInviteUrl } from '../helpers/inviteUrl';
-import { HeroBackdrop } from './sidebar/HeroBackdrop';
-import { SectionHead } from './sidebar/SectionHead';
-import { PillButton } from './sidebar/PillButton';
-import { PlayerAvatar } from './sidebar/PlayerAvatar';
+import { HeroBackdrop } from './lobby/HeroBackdrop';
+import { SectionHead } from './lobby/SectionHead';
+import { PillButton } from './lobby/PillButton';
+import { PlayerAvatar } from './lobby/PlayerAvatar';
 import { fmtClock } from '../helpers/playerAvatar';
 import { isIOS } from '../helpers/capacitor';
 import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
-import { PuzzleHeader } from './sidebar/PuzzleHeader';
-import { TierBadge } from './sidebar/TierBadge';
-import { InviteSheet } from './sidebar/InviteSheet';
-import { PartyTag } from './sidebar/PartyTag';
-import { FinishedBadge } from './sidebar/FinishedBadge';
-import { OnlinePlayerRow } from './sidebar/OnlinePlayerRow';
+import { PuzzleHeader } from './lobby/PuzzleHeader';
+import { TierBadge } from './lobby/TierBadge';
+import { InviteSheet } from './lobby/InviteSheet';
+import { PartyTag } from './lobby/PartyTag';
+import { FinishedBadge } from './lobby/FinishedBadge';
+import { OnlinePlayerRow } from './lobby/OnlinePlayerRow';
 
 const PARTY_POLL_INTERVAL_MS = 30_000;
 const SCROLL_CONTAINER_BOTTOM_PADDING = 200;
 const AWAY_THRESHOLD_MS = 30 * 60 * 1000;
 
 interface Arguments<ServerState extends BaseServerState> {
-  showSidebar: boolean;
-  setShowSidebar: (showSidebar: boolean) => void;
+  showLobby: boolean;
+  setShowLobby: (showLobby: boolean) => void;
   puzzleId: string;
   redirectUri: string;
   refreshSessionParties: () => Promise<void>;
@@ -75,9 +75,9 @@ interface Arguments<ServerState extends BaseServerState> {
   onStartRace?: () => void;
 }
 
-const Sidebar = <ServerState extends BaseServerState>({
-  showSidebar,
-  setShowSidebar,
+const Lobby = <ServerState extends BaseServerState>({
+  showLobby,
+  setShowLobby,
   puzzleId,
   redirectUri,
   refreshSessionParties,
@@ -111,7 +111,7 @@ const Sidebar = <ServerState extends BaseServerState>({
   const [now, setNow] = useState<number>(() => Date.now());
 
   useEffect(() => {
-    if (!showSidebar || !isDocumentVisible) return;
+    if (!showLobby || !isDocumentVisible) return;
     const id = setInterval(() => {
       refreshParties();
       setNow(Date.now());
@@ -119,7 +119,7 @@ const Sidebar = <ServerState extends BaseServerState>({
     return () => {
       clearInterval(id);
     };
-  }, [showSidebar, isDocumentVisible, refreshParties]);
+  }, [showLobby, isDocumentVisible, refreshParties]);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -268,7 +268,7 @@ const Sidebar = <ServerState extends BaseServerState>({
 
   return (
     <>
-      {showSidebar && (
+      {showLobby && (
         <div
           className="fixed inset-0 z-50"
           style={{
@@ -278,16 +278,16 @@ const Sidebar = <ServerState extends BaseServerState>({
           }}
           onClick={() => {
             onStartRace?.();
-            setShowSidebar(false);
+            setShowLobby(false);
           }}
         />
       )}
 
       <aside
-        id="default-sidebar"
+        id="default-lobby"
         className="fixed bottom-0 left-0 right-0 z-50 mx-auto h-[88%] w-full max-w-lg"
         style={{
-          transform: showSidebar ? 'translateY(0)' : 'translateY(100%)',
+          transform: showLobby ? 'translateY(0)' : 'translateY(100%)',
           transition: 'transform .32s cubic-bezier(0.34,1.2,0.64,1)',
           borderTopLeftRadius: 26,
           borderTopRightRadius: 26,
@@ -323,7 +323,7 @@ const Sidebar = <ServerState extends BaseServerState>({
             <button
               onClick={() => {
                 onStartRace?.();
-                setShowSidebar(false);
+                setShowLobby(false);
               }}
               className="cursor-pointer"
               aria-label="Close lobby"
@@ -706,7 +706,7 @@ const Sidebar = <ServerState extends BaseServerState>({
           <button
             onClick={() => {
               onStartRace?.();
-              setShowSidebar(false);
+              setShowLobby(false);
             }}
             className="bg-theme-primary hover:bg-theme-primary-dark inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-[18px] text-xl font-bold tracking-tight text-white transition-transform active:scale-[0.97]"
             style={{ height: 60 }}
@@ -760,12 +760,12 @@ const Sidebar = <ServerState extends BaseServerState>({
   );
 };
 
-const MemoisedSidebar = memo(function MemoisedSidebar<
+const MemoisedLobby = memo(function MemoisedLobby<
   ServerState extends BaseServerState,
 >(args: Arguments<ServerState>) {
-  return Sidebar(args);
+  return Lobby(args);
 }) as <ServerState extends BaseServerState>(
   args: Arguments<ServerState>
 ) => ReactElement;
 
-export default MemoisedSidebar;
+export default MemoisedLobby;
