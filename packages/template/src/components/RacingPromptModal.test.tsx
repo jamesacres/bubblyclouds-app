@@ -75,7 +75,7 @@ describe('RacingPromptModal', () => {
       expect(screen.getByText(/Choose Your Mode/i)).toBeInTheDocument();
     });
 
-    it('should display subtitle text', () => {
+    it('should display the get racing label', () => {
       render(
         <RacingPromptModal
           isOpen={true}
@@ -84,9 +84,7 @@ describe('RacingPromptModal', () => {
           onSoloMode={mockOnSoloMode}
         />
       );
-      expect(
-        screen.getByText(/Race others, challenge AI, or go solo/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Get racing/i)).toBeInTheDocument();
     });
   });
 

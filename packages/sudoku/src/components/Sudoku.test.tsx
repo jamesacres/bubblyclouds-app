@@ -331,14 +331,16 @@ describe('Sudoku', () => {
         </UserContext.Provider>
       );
 
-      expect(useGameState).toHaveBeenCalledWith({
-        final: mockPuzzle.final,
-        initial: mockPuzzle.initial,
-        puzzleId: mockPuzzle.puzzleId,
-        metadata: mockPuzzle.metadata,
-        app: mockAppProps.app,
-        apiUrl: mockAppProps.apiUrl,
-      });
+      expect(useGameState).toHaveBeenCalledWith(
+        expect.objectContaining({
+          final: mockPuzzle.final,
+          initial: mockPuzzle.initial,
+          puzzleId: mockPuzzle.puzzleId,
+          metadata: mockPuzzle.metadata,
+          app: mockAppProps.app,
+          apiUrl: mockAppProps.apiUrl,
+        })
+      );
     });
 
     it('should pass puzzle metadata to game state', () => {

@@ -71,47 +71,43 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
 
   return (
     <div
-      className="fixed inset-0 z-[120] flex flex-col items-center justify-center gap-8"
+      className="fixed inset-0 z-[120] flex flex-col items-center justify-center gap-8 bg-white/10 dark:bg-[rgba(4,2,15,0.38)]"
       style={{
-        background: 'rgba(4,2,15,0.38)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
       }}
     >
-      <div
-        className="text-xs font-extrabold uppercase tracking-[0.2em]"
-        style={{ color: 'rgba(255,255,255,0.5)' }}
-      >
+      <div className="text-xs font-extrabold uppercase tracking-[0.2em] text-zinc-600 dark:text-white/50">
         Get ready
       </div>
       <div className="flex gap-4">
         {lights.map((l, i) => (
           <div
             key={i}
-            className="rounded-full transition-all duration-200"
+            className={`rounded-full transition-all duration-200 ${l.on ? '' : 'bg-black/10 dark:bg-white/[0.07]'}`}
             style={{
               width: 46,
               height: 46,
-              background: l.on ? l.color : 'rgba(255,255,255,0.07)',
+              background: l.on ? l.color : undefined,
               boxShadow: l.on
                 ? `0 0 28px ${l.glow}, inset 0 2px 4px rgba(255,255,255,0.4)`
-                : 'inset 0 1px 2px rgba(0,0,0,0.5)',
+                : 'inset 0 1px 2px rgba(0,0,0,0.15)',
             }}
           />
         ))}
       </div>
       {isGo ? (
         <div
-          className="text-[120px] font-extrabold leading-none text-white"
-          style={{ textShadow: '0 0 40px rgba(74,222,128,0.8)' }}
+          className="text-[120px] font-extrabold leading-none text-zinc-800 dark:text-white"
+          style={{ textShadow: '0 0 40px rgba(74,222,128,0.6)' }}
         >
           GO!
         </div>
       ) : (
         <div
           key={displayed}
-          className="text-[120px] font-extrabold leading-none text-white"
-          style={{ textShadow: '0 0 40px rgba(167,139,250,0.8)' }}
+          className="text-[120px] font-extrabold leading-none text-zinc-800 dark:text-white"
+          style={{ textShadow: '0 0 40px rgba(167,139,250,0.6)' }}
         >
           {displayed}
         </div>
