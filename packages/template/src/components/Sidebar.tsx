@@ -753,7 +753,7 @@ const Sidebar = <ServerState extends BaseServerState>({
           appName={appName}
           apiUrl={apiUrl}
           appUrl={appUrl}
-          defaultDisplayName={memberNickname || undefined}
+          defaultDisplayName={memberNickname || user?.name || undefined}
         />
       </aside>
     </>

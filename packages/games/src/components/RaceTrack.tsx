@@ -8,7 +8,6 @@ import {
 } from '@bubblyclouds-app/template/utils/playerColors';
 import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { Tab } from '@bubblyclouds-app/types/tabs';
-import TrafficLight from './TrafficLight';
 import Link from 'next/link';
 import { RefreshCw } from 'lucide-react';
 import {
@@ -24,7 +23,6 @@ interface Arguments<T> {
   answer: T;
   userId?: string;
   onClick?: () => void;
-  countdown?: number;
   completed?: BaseState['completed'];
   refreshSessionParties: () => void;
   isPolling: boolean;
@@ -55,7 +53,6 @@ const RaceTrack = <T,>({
   answer,
   userId,
   onClick,
-  countdown,
   completed,
   refreshSessionParties,
   isPolling,
@@ -217,8 +214,6 @@ const RaceTrack = <T,>({
       >
         {/* Main track */}
         <div className="relative h-10 overflow-visible rounded-lg bg-stone-100 lg:h-14 dark:bg-gray-800">
-          {/* Traffic Light */}
-          <TrafficLight countdown={countdown} />
           {/* Track surface with center line */}
           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
             {/* Dashed center line */}

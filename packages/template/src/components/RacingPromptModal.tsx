@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { Users, ChevronRight, Bot, User, Check, X } from 'lucide-react';
+import { Users, ChevronRight, User, Check, X } from 'lucide-react';
 
 export interface AgentOption {
   name: string;
@@ -63,12 +63,10 @@ const AgentCard = ({
   agent,
   selected,
   onToggle,
-  index,
 }: {
   agent: AgentOption;
   selected: boolean;
   onToggle: () => void;
-  index: number;
 }) => {
   const skillStyle =
     SKILL_STYLES[agent.skillLevel] ??
@@ -82,24 +80,23 @@ const AgentCard = ({
         selected
           ? {
               borderColor:
-                'color-mix(in srgb, var(--theme-primary) 40%, transparent)',
+                'color-mix(in srgb, var(--theme-primary-light) 40%, transparent)',
               backgroundColor:
-                'color-mix(in srgb, var(--theme-primary) 10%, transparent)',
+                'color-mix(in srgb, var(--theme-primary-light) 10%, transparent)',
             }
-          : undefined
+          : {
+              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'rgba(255,255,255,0.04)',
+            }
       }
-      className={`group w-full animate-[fadeSlideIn_0.3s_ease_forwards] rounded-xl border p-3 text-left opacity-0 transition-all duration-200 active:scale-[0.98] ${
-        selected
-          ? 'border-theme-primary'
-          : 'border-black/8 dark:border-white/8 bg-gray-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] hover:border-black/15 hover:bg-gray-100 dark:bg-zinc-800/60 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] dark:hover:border-white/20 dark:hover:bg-zinc-700/50'
-      }`}
+      className="group w-full animate-[fadeSlideIn_0.3s_ease_forwards] rounded-xl border p-3 text-left opacity-0 transition-all duration-200 active:scale-[0.98]"
       aria-pressed={selected}
     >
       <div className="flex items-center gap-3">
         <AgentAvatar agent={agent} />
         <div className="min-w-0 flex-1">
           <div className="mb-1 flex items-center gap-2">
-            <span className="text-sm font-semibold tracking-tight text-gray-900 dark:text-zinc-100">
+            <span className="text-sm font-semibold tracking-tight text-white">
               {agent.name}
             </span>
             <span
@@ -108,12 +105,18 @@ const AgentCard = ({
               {skillLabel}
             </span>
           </div>
-          <p className="text-xs leading-snug text-gray-500 dark:text-zinc-400">
+          <p
+            className="text-xs leading-snug"
+            style={{ color: 'rgba(255,255,255,0.5)' }}
+          >
             {agent.personality}
           </p>
         </div>
         <div
-          className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border transition-all duration-200 ${selected ? 'border-theme-primary bg-theme-primary' : 'border-gray-300 group-hover:border-gray-400 dark:border-zinc-600 dark:group-hover:border-zinc-400'}`}
+          className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border transition-all duration-200 ${selected ? 'border-theme-primary bg-theme-primary' : ''}`}
+          style={
+            selected ? undefined : { borderColor: 'rgba(255,255,255,0.25)' }
+          }
         >
           {selected && <Check className="h-3 w-3 text-white" strokeWidth={3} />}
         </div>
@@ -193,7 +196,14 @@ const RacingPromptModal = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm dark:bg-zinc-950/80" />
+          <div
+            className="fixed inset-0"
+            style={{
+              background: 'rgba(2,1,8,0.66)',
+              backdropFilter: 'blur(6px)',
+              WebkitBackdropFilter: 'blur(6px)',
+            }}
+          />
         </Transition.Child>
 
         <div className="fixed inset-0 flex items-end justify-center sm:items-center sm:p-4">
@@ -207,16 +217,26 @@ const RacingPromptModal = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="border-black/8 w-full overflow-hidden rounded-t-3xl border bg-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.2)] sm:rounded-3xl dark:border-white/10 dark:bg-zinc-900 dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.08)]">
+              <Dialog.Panel
+                className="w-full overflow-hidden rounded-t-3xl sm:rounded-3xl"
+                style={{
+                  background: 'linear-gradient(180deg,#15102e 0%,#0c0a1c 100%)',
+                  borderTop: '1px solid rgba(167,139,250,0.22)',
+                  boxShadow: '0 -20px 60px rgba(0,0,0,0.55)',
+                }}
+              >
                 {view === 'mode-select' && (
                   <div className="p-6">
                     <div className="mb-6">
-                      <Dialog.Title className="text-xl font-bold tracking-tight text-gray-900 dark:text-zinc-100">
+                      <div
+                        className="mb-1.5 text-[10.5px] font-extrabold uppercase tracking-widest"
+                        style={{ color: 'var(--theme-primary-light)' }}
+                      >
+                        Get racing
+                      </div>
+                      <Dialog.Title className="text-2xl font-bold tracking-tight text-white">
                         Choose Your Mode
                       </Dialog.Title>
-                      <p className="mt-1 text-sm text-gray-500 dark:text-zinc-400">
-                        Race others, challenge AI, or go solo
-                      </p>
                     </div>
 
                     {/* Race Friends — primary option */}
@@ -244,42 +264,66 @@ const RacingPromptModal = ({
                     {onAgentMode && agentOptions.length > 0 && (
                       <button
                         onClick={() => setView('agent-select')}
-                        className="border-black/8 group mb-3 w-full rounded-2xl border bg-gray-50 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
+                        className="group mb-3 w-full rounded-2xl p-4 text-left transition-all duration-200 active:scale-[0.98]"
+                        style={{
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          background: 'rgba(255,255,255,0.04)',
+                        }}
                       >
                         <div className="flex items-center gap-4">
                           <img
                             src={`/opponents/phantom.webp`}
-                            className="border-theme-primary flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-full border"
+                            className="flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-full"
                             style={{
-                              borderColor:
-                                'color-mix(in srgb, var(--theme-primary) 25%, transparent)',
-                              backgroundColor:
-                                'color-mix(in srgb, var(--theme-primary) 15%, transparent)',
+                              border:
+                                '1px solid color-mix(in srgb, var(--theme-primary-light) 30%, transparent)',
                             }}
                           />
                           <div className="min-w-0 flex-1">
-                            <div className="mb-0.5 text-sm font-bold text-gray-900 dark:text-zinc-100">
+                            <div className="mb-0.5 text-sm font-bold text-white">
                               Race AI Opponents
                             </div>
-                            <div className="text-xs leading-snug text-gray-500 dark:text-zinc-400">
+                            <div
+                              className="text-xs leading-snug"
+                              style={{ color: 'rgba(255,255,255,0.5)' }}
+                            >
                               Pick your rivals — from novice to expert
                             </div>
                           </div>
-                          <ChevronRight className="h-4 w-4 flex-shrink-0 text-gray-400 transition-transform duration-200 group-hover:translate-x-0.5 dark:text-zinc-500" />
+                          <ChevronRight
+                            className="h-4 w-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
+                            style={{ color: 'rgba(255,255,255,0.35)' }}
+                          />
                         </div>
                       </button>
                     )}
 
                     {/* Solo — quiet tertiary */}
-                    <div className="border-black/8 dark:border-white/8 border-t pt-3">
+                    <div
+                      className="border-t pt-3"
+                      style={{ borderColor: 'rgba(255,255,255,0.08)' }}
+                    >
                       <button
                         onClick={handleSoloMode}
-                        className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-gray-100 active:scale-[0.98] dark:hover:bg-zinc-800/60"
+                        className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 active:scale-[0.98]"
+                        style={{}}
                       >
-                        <div className="border-black/8 dark:border-white/8 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border bg-gray-100 dark:bg-zinc-800/80">
-                          <User className="h-4 w-4 text-gray-400 dark:text-zinc-400" />
+                        <div
+                          className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg"
+                          style={{
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            background: 'rgba(255,255,255,0.05)',
+                          }}
+                        >
+                          <User
+                            className="h-4 w-4"
+                            style={{ color: 'rgba(255,255,255,0.4)' }}
+                          />
                         </div>
-                        <span className="text-sm text-gray-400 transition-colors duration-200 group-hover:text-gray-600 dark:text-zinc-400 dark:group-hover:text-zinc-300">
+                        <span
+                          className="text-sm transition-colors duration-200"
+                          style={{ color: 'rgba(255,255,255,0.4)' }}
+                        >
                           Solo Challenge
                         </span>
                       </button>
@@ -289,25 +333,43 @@ const RacingPromptModal = ({
 
                 {view === 'agent-select' && (
                   <div className="flex flex-col" style={{ maxHeight: '85svh' }}>
-                    <div className="border-black/8 dark:border-white/8 flex flex-shrink-0 items-center gap-3 border-b px-5 pb-4 pt-5">
+                    <div
+                      className="flex flex-shrink-0 items-center gap-3 px-5 pb-4 pt-5"
+                      style={{
+                        borderBottom: '1px solid rgba(255,255,255,0.07)',
+                      }}
+                    >
                       <button
                         onClick={handleBack}
-                        className="border-black/8 dark:border-white/8 flex h-8 w-8 items-center justify-center rounded-lg border bg-gray-100 text-gray-500 transition-all duration-200 hover:bg-gray-200 hover:text-gray-700 active:scale-[0.95] dark:bg-zinc-800/80 dark:text-zinc-400 dark:hover:bg-zinc-700/60 dark:hover:text-zinc-200"
+                        className="flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200 active:scale-[0.95]"
+                        style={{
+                          border: '1px solid rgba(255,255,255,0.12)',
+                          background: 'rgba(255,255,255,0.05)',
+                          color: 'rgba(255,255,255,0.7)',
+                        }}
                         aria-label="Back"
                       >
                         <ChevronRight className="h-4 w-4 rotate-180" />
                       </button>
                       <div className="flex-1">
-                        <Dialog.Title className="text-base font-bold tracking-tight text-gray-900 dark:text-zinc-100">
+                        <Dialog.Title className="text-base font-bold tracking-tight text-white">
                           Pick Your Rivals
                         </Dialog.Title>
-                        <p className="text-xs text-gray-500 dark:text-zinc-400">
+                        <p
+                          className="text-xs"
+                          style={{ color: 'rgba(255,255,255,0.45)' }}
+                        >
                           Select one or more opponents
                         </p>
                       </div>
                       <button
                         onClick={handleModalClose}
-                        className="border-black/8 dark:border-white/8 flex h-8 w-8 items-center justify-center rounded-lg border bg-gray-100 text-gray-500 transition-all duration-200 hover:bg-gray-200 hover:text-gray-700 active:scale-[0.95] dark:bg-zinc-800/80 dark:text-zinc-400 dark:hover:bg-zinc-700/60 dark:hover:text-zinc-200"
+                        className="flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200 active:scale-[0.95]"
+                        style={{
+                          border: '1px solid rgba(255,255,255,0.12)',
+                          background: 'rgba(255,255,255,0.05)',
+                          color: 'rgba(255,255,255,0.7)',
+                        }}
                         aria-label="Close"
                       >
                         <X className="h-4 w-4" />
@@ -315,18 +377,20 @@ const RacingPromptModal = ({
                     </div>
 
                     <div className="flex-1 space-y-2 overflow-y-auto px-4 py-3">
-                      {agentOptions.map((agent, index) => (
+                      {agentOptions.map((agent) => (
                         <AgentCard
                           key={agent.name}
                           agent={agent}
                           selected={selectedNames.has(agent.name)}
                           onToggle={() => toggleAgent(agent.name)}
-                          index={index}
                         />
                       ))}
                     </div>
 
-                    <div className="border-black/8 dark:border-white/8 flex-shrink-0 border-t px-4 pb-5 pt-3">
+                    <div
+                      className="flex-shrink-0 px-4 pb-5 pt-3"
+                      style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+                    >
                       <button
                         onClick={handleAgentStart}
                         disabled={selectedCount === 0}

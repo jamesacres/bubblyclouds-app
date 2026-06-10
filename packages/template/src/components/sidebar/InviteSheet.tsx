@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Edit3, Loader, LogOut, Sparkles, Trash, X } from 'lucide-react';
 import { useParties } from '../../hooks/useParties';
 import { useServerStorage } from '../../hooks/serverStorage';
@@ -52,6 +52,9 @@ export function InviteSheet({
   defaultDisplayName?: string;
 }) {
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
+  useEffect(() => {
+    setDisplay((prev) => (prev === '' ? (defaultDisplayName ?? '') : prev));
+  }, [defaultDisplayName]);
   const [teamName, setTeamName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [editingNameId, setEditingNameId] = useState<string | null>(null);
@@ -96,7 +99,7 @@ export function InviteSheet({
         await shareOrCopyUrl({ url, appName, partyName: nm });
       }
       onCreateTeam();
-      onClose();
+      handleClose();
     } finally {
       setIsSaving(false);
     }
@@ -351,8 +354,8 @@ export function InviteSheet({
 
           <button
             onClick={create}
-            disabled={isSaving}
-            className="bg-theme-primary hover:bg-theme-primary-dark mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl text-base font-bold text-white"
+            disabled={isSaving || !teamName.trim() || !display.trim()}
+            className="bg-theme-primary hover:bg-theme-primary-dark mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl text-base font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
             style={{ height: 54 }}
           >
             {isSaving ? (

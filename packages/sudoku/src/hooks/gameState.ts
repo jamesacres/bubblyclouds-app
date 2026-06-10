@@ -52,6 +52,10 @@ function useGameState({
   metadata,
   app,
   apiUrl,
+  initialMode,
+  initialAgentNames,
+  initialShowSidebar,
+  onComplete,
 }: {
   final: Puzzle<number>;
   initial: Puzzle<number>;
@@ -59,6 +63,10 @@ function useGameState({
   metadata: Partial<GameStateMetadata>;
   app: string;
   apiUrl: string;
+  initialMode?: SudokuMode;
+  initialAgentNames?: string;
+  initialShowSidebar?: boolean;
+  onComplete?: (answerStack: Puzzle[]) => void;
 }) {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -108,10 +116,12 @@ function useGameState({
   const { getSessionParties, patchFriendSessions } = useSessions<ServerState>();
 
   const [isNotesMode, setIsNotesMode] = useState<boolean>(false);
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(initialShowSidebar ?? false);
   const [isZoomMode, setIsZoomMode] = useState(false);
-  const [mode, setMode] = useState<SudokuMode | undefined>(undefined);
-  const [agentNames, setAgentNames] = useState<string | undefined>(undefined);
+  const [mode, setMode] = useState<SudokuMode | undefined>(initialMode);
+  const [agentNames, setAgentNames] = useState<string | undefined>(
+    initialAgentNames
+  );
   const [{ answerStack, isRestored, isDisabled, completed }, setAnswerStack] =
     useState<{
       answerStack: Puzzle[];
@@ -272,6 +282,7 @@ function useGameState({
           seconds: calculateSeconds(timerRef.current),
         };
         setSelectedCell(null);
+        onComplete?.([...answerStack, nextAnswer]);
       }
       setAnswerStack({
         answerStack: [...answerStack, nextAnswer],
@@ -279,7 +290,7 @@ function useGameState({
       });
       setRedoAnswerStack([]);
     },
-    [answerStack, initial, final, stopTimer, setSelectedCell]
+    [answerStack, initial, final, stopTimer, setSelectedCell, onComplete]
   );
   const setAnswer: SetAnswer = useCallback(
     (value: number | Notes) => {

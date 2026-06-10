@@ -64,18 +64,18 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
   const displayed = countdown - 1; // matches TimerDisplay logic
 
   const lights = [
-    { on: countdown <= 3, color: '#ef4444', glow: 'rgba(239,68,68,0.7)' },
-    { on: countdown <= 2, color: '#facc15', glow: 'rgba(250,204,21,0.7)' },
-    { on: isGo, color: '#4ade80', glow: 'rgba(74,222,128,0.7)' },
+    { on: countdown <= 3, color: '#ef4444', glow: 'rgba(239,68,68,0.6)' },
+    { on: countdown <= 2, color: '#facc15', glow: 'rgba(250,204,21,0.6)' },
+    { on: isGo, color: '#4ade80', glow: 'rgba(74,222,128,0.6)' },
   ];
 
   return (
     <div
       className="fixed inset-0 z-[120] flex flex-col items-center justify-center gap-8"
       style={{
-        background: 'rgba(4,2,15,0.92)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
+        background: 'rgba(4,2,15,0.38)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
       }}
     >
       <div
@@ -185,16 +185,43 @@ const Sudoku = ({
     ];
   });
 
+  const shouldAutoOpen = !alreadyCompleted && showRacingPromptProp;
+
   const agentStartTimeMsRef = useRef<number | null>(null);
   const [agents, setAgents] = useState<ReturnType<typeof createLocalAgents>>(
-    []
+    () => {
+      if (!shouldAutoOpen) return [];
+      const nameSet = new Set(defaultAgentSelection);
+      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((c) =>
+        nameSet.has(c.name)
+      );
+      return createLocalAgents(
+        initial,
+        final,
+        selectedConfigs,
+        difficultyMultiplier,
+        metadata.difficulty
+      );
+    }
   );
   const [localAgentProgress, setLocalAgentProgress] = useState<
     ReturnType<typeof getAllAgentProgress>
-  >([]);
+  >(() => (shouldAutoOpen ? getAllAgentProgress(agents, null) : []));
 
   const [hasShownAppDownload, setHasShownAppDownload] = useState(false);
-  const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(false);
+  const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(
+    () => shouldAutoOpen
+  );
+
+  const [showAnimation, setShowAnimation] = useState(false);
+  const onComplete = useCallback(
+    (completedAnswerStack: Puzzle[]) => {
+      if (alreadyCompleted || isPuzzleCheated(completedAnswerStack)) return;
+      setShowAnimation(true);
+      setTimeout(() => setShowAnimation(false), 10000);
+    },
+    [alreadyCompleted]
+  );
 
   const {
     answer,
@@ -236,6 +263,12 @@ const Sudoku = ({
     metadata,
     app,
     apiUrl,
+    initialMode: shouldAutoOpen ? 'ai' : undefined,
+    initialAgentNames: shouldAutoOpen
+      ? defaultAgentSelection.join(',')
+      : undefined,
+    initialShowSidebar: shouldAutoOpen,
+    onComplete,
   });
 
   const onRemoveAgent = useCallback(
@@ -256,8 +289,12 @@ const Sudoku = ({
     if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
       agentStartTimeMsRef.current = Date.now();
     }
-    setLocalAgentProgress(
-      getAllAgentProgress(agents, agentStartTimeMsRef.current)
+    const next = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+    setLocalAgentProgress((prev) =>
+      prev.length === next.length &&
+      prev.every((p, i) => p.percentage === next[i].percentage)
+        ? prev
+        : next
     );
   }, [agents, timer]);
 
@@ -265,18 +302,23 @@ const Sudoku = ({
     if (!completed || agentStartTimeMsRef.current === null) return;
 
     const interval = setInterval(() => {
-      const progress = getAllAgentProgress(agents, agentStartTimeMsRef.current);
-      setLocalAgentProgress(progress);
-      if (progress.every((p) => p.percentage === 100)) {
-        clearInterval(interval);
-      }
+      const next = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+      setLocalAgentProgress((prev) => {
+        if (
+          prev.length === next.length &&
+          prev.every((p, i) => p.percentage === next[i].percentage)
+        )
+          return prev;
+        if (next.every((p) => p.percentage === 100)) clearInterval(interval);
+        return next;
+      });
     }, 1000);
 
     return () => clearInterval(interval);
   }, [completed, agents]);
 
   const friendsOnClick = useCallback(() => {
-    setShowSidebar((showSidebar) => !showSidebar);
+    setShowSidebar((prev) => !prev);
   }, [setShowSidebar]);
   const raceTrackOnClick = useCallback(
     () => setShowSidebar(true),
@@ -285,6 +327,12 @@ const Sudoku = ({
 
   const [raceStarted, setRaceStarted] = useState(false);
 
+  const handleStartRace = useCallback(() => {
+    setRaceStarted(true);
+    if (!raceStarted) setTimerNewSession();
+    setHasManuallySelectedMode(true);
+  }, [raceStarted, setTimerNewSession]);
+
   const handleInviteFriends = useCallback(() => {
     setShowSidebar(true);
   }, [setShowSidebar]);
@@ -292,8 +340,6 @@ const Sudoku = ({
   // Reference to the grid for the celebration animation and chain overlay
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // State to track if animation should be shown
-  const [showAnimation, setShowAnimation] = useState(false);
   const [showAdvancedControls, setShowAdvancedControls] = useState(false);
 
   const showAppDownload = useMemo(
@@ -460,6 +506,15 @@ const Sudoku = ({
     [indexToCellId]
   );
 
+  const handleClearSelection = useCallback(
+    () => setSelectedCell(null),
+    [setSelectedCell]
+  );
+  const handleHideHint = useCallback(() => {
+    setCellHighlights(new Map());
+    setChainPath([]);
+  }, []);
+
   const [pickRivalsView, setPickRivalsView] = useState<
     'mode-select' | 'agent-select'
   >('mode-select');
@@ -515,15 +570,6 @@ const Sudoku = ({
     ]
   );
 
-  // Open the lobby on first load with a default AI selection
-  useEffect(() => {
-    if (!alreadyCompleted && showRacingPromptProp) {
-      handleAgentMode(defaultAgentSelection);
-      setShowSidebar(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // App download modal handlers
   const handleAppDownloadClose = useCallback(() => {
     setHasShownAppDownload(true);
@@ -532,18 +578,6 @@ const Sudoku = ({
   const handleContinueWeb = useCallback(() => {
     setHasShownAppDownload(true);
   }, []);
-
-  useEffect(() => {
-    if (completed && !alreadyCompleted && !isPuzzleCheated(answerStack)) {
-      setShowAnimation(true);
-
-      const timer = setTimeout(() => {
-        setShowAnimation(false);
-      }, 10000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [completed, alreadyCompleted, answerStack]);
 
   // Add puzzle ID to daily tracking when puzzle is completed
   useEffect(() => {
@@ -621,6 +655,35 @@ const Sudoku = ({
     [initial, final]
   );
 
+  const puzzleDifficulty = useMemo(
+    () =>
+      metadata.difficulty
+        ? getDifficultyDisplay(metadata.difficulty).name
+        : undefined,
+    [metadata.difficulty]
+  );
+
+  const puzzleDifficultyBadgeColor = useMemo(
+    () =>
+      metadata.difficulty
+        ? getDifficultyDisplay(metadata.difficulty).badgeColor
+        : undefined,
+    [metadata.difficulty]
+  );
+
+  const puzzleMetaLabel = useMemo(
+    () => derivePuzzleMetaLabel(metadata),
+    [metadata]
+  );
+
+  const isInputDisabled = !selectedCell || isInitialCell(selectedCell, initial);
+  const isValidateCellDisabled =
+    !selectedCell || isInitialCell(selectedCell, initial) || !selectedAnswer();
+  const isDeleteDisabled =
+    !selectedCell ||
+    isInitialCell(selectedCell, initial) ||
+    (!selectedAnswer() && !selectedCellHasNotes());
+
   return (
     <div
       className={`${showAdvancedControls ? 'pb-120' : 'pb-90'} landscape:mb-120 lg:pb-0 sm:landscape:pb-[calc(60vh)] lg:landscape:mb-0 lg:landscape:pb-0`}
@@ -671,26 +734,14 @@ const Sudoku = ({
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
         }
-        localAgentProgress={localAgentProgress}
+        localAgentProgress={showSidebar ? localAgentProgress : undefined}
         onRemoveAgent={onRemoveAgent}
         onPickRivals={handlePickRivals}
-        puzzleDifficulty={
-          metadata.difficulty
-            ? getDifficultyDisplay(metadata.difficulty).name
-            : undefined
-        }
-        puzzleDifficultyBadgeColor={
-          metadata.difficulty
-            ? getDifficultyDisplay(metadata.difficulty).badgeColor
-            : undefined
-        }
-        puzzleMetaLabel={derivePuzzleMetaLabel(metadata)}
+        puzzleDifficulty={puzzleDifficulty}
+        puzzleDifficultyBadgeColor={puzzleDifficultyBadgeColor}
+        puzzleMetaLabel={puzzleMetaLabel}
         initialState={puzzleInitialState}
-        onStartRace={() => {
-          setRaceStarted(true);
-          if (!raceStarted) setTimerNewSession();
-          setHasManuallySelectedMode(true);
-        }}
+        onStartRace={handleStartRace}
       />
 
       {/* Full-screen traffic-light countdown overlay */}
@@ -806,7 +857,6 @@ const Sudoku = ({
                   answer={answer}
                   userId={user?.sub || 'guest'}
                   onClick={raceTrackOnClick}
-                  countdown={timer?.countdown}
                   completed={completed}
                   isPolling={isPolling}
                   refreshSessionParties={refreshSessionParties}
@@ -826,19 +876,9 @@ const Sudoku = ({
             <div className="fixed inset-x-0 bottom-0 z-10 lg:relative">
               <SudokuControls
                 selectedCell={selectedCell}
-                isInputDisabled={
-                  !selectedCell || isInitialCell(selectedCell, initial)
-                }
-                isValidateCellDisabled={
-                  !selectedCell ||
-                  isInitialCell(selectedCell, initial) ||
-                  !selectedAnswer()
-                }
-                isDeleteDisabled={
-                  !selectedCell ||
-                  isInitialCell(selectedCell, initial) ||
-                  (!selectedAnswer() && !selectedCellHasNotes())
-                }
+                isInputDisabled={isInputDisabled}
+                isValidateCellDisabled={isValidateCellDisabled}
+                isDeleteDisabled={isDeleteDisabled}
                 validateCell={validateCell}
                 validateGrid={validateGrid}
                 isUndoDisabled={isUndoDisabled}
@@ -859,11 +899,8 @@ const Sudoku = ({
                 user={user}
                 onShowWhere={onShowWhere}
                 onRevealEliminations={onRevealEliminations}
-                onClearSelection={() => setSelectedCell(null)}
-                onHideHint={() => {
-                  setCellHighlights(new Map());
-                  setChainPath([]);
-                }}
+                onClearSelection={handleClearSelection}
+                onHideHint={handleHideHint}
               />
             </div>
           )}
