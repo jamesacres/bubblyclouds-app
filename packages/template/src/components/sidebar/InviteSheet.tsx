@@ -1,12 +1,5 @@
 import { useState, useRef } from 'react';
-import {
-  Edit3,
-  Loader,
-  LogOut,
-  Sparkles,
-  Trash,
-  X,
-} from 'lucide-react';
+import { Edit3, Loader, LogOut, Sparkles, Trash, X } from 'lucide-react';
 import { useParties } from '../../hooks/useParties';
 import { useServerStorage } from '../../hooks/serverStorage';
 import { buildPartyInviteUrl } from '../../helpers/inviteUrl';

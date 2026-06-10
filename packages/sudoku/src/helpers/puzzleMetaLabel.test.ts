@@ -101,9 +101,7 @@ describe('derivePuzzleMetaLabel', () => {
     });
 
     it('returns empty string for unrecognised sudokuId format', () => {
-      expect(derivePuzzleMetaLabel({ sudokuId: 'custom-puzzle-123' })).toBe(
-        ''
-      );
+      expect(derivePuzzleMetaLabel({ sudokuId: 'custom-puzzle-123' })).toBe('');
     });
   });
 });

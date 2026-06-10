@@ -113,7 +113,7 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
       {!isInLobby && (
         <div
           className={`pointer-events-none flex-shrink-0 overflow-hidden rounded-lg${
-            isAway && !isFinished ? ' opacity-50' : ''
+            isAway && !isFinished ? 'opacity-50' : ''
           }`}
           style={{
             width: 72,
