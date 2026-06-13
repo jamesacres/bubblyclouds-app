@@ -620,6 +620,11 @@
       "sourceType": "github",
       "computedHash": "b405eee0e0e80fc243f731d9aa368bca307e356db7e6157d27101d369dac6726"
     },
+    "repo-documentation": {
+      "source": "/Users/jamesacres/Documents/git/bubblyclouds-app/local-skills",
+      "sourceType": "local",
+      "computedHash": "04ad6051d4c7a62c8ddca426e6756869891b7d6c184f531568ae0e7bc0f7483a"
+    },
     "responsive-design": {
       "source": "wshobson/agents",
       "sourceType": "github",
@@ -711,9 +716,9 @@
       "computedHash": "fa8fdfe13cb69e6fc899ff924efa262610694dc27eafcc400f645b3ece7caa8f"
     },
     "stephenesch-add-rating": {
-      "source": "/Users/jamesacres/Documents/git/bubblyclouds-app",
+      "source": "/Users/jamesacres/Documents/git/bubblyclouds-app/local-skills",
       "sourceType": "local",
-      "computedHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "computedHash": "08147b0d47a39dd6887f81c460362c383142afa26afdb3c9939429b8cb502690"
     },
     "stitch-design-taste": {
       "source": "Leonxlnx/taste-skill",
