@@ -266,12 +266,10 @@ const Sudoku = ({
   const [raceStarted, setRaceStarted] = useState(false);
 
   const handleStartRace = useCallback(() => {
-    setRaceStarted((prev) => {
-      if (!prev) setTimerNewSession();
-      return true;
-    });
+    if (!raceStarted) setTimerNewSession();
+    setRaceStarted(true);
     setHasManuallySelectedMode(true);
-  }, [setTimerNewSession]);
+  }, [setTimerNewSession, raceStarted]);
 
   const handleInviteFriends = useCallback(() => {
     setShowLobby(true);
