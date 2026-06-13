@@ -39,7 +39,6 @@ import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/Celebratio
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import MemoisedLobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import { useRouter } from 'next/navigation';
-import RacingPromptModal from '@bubblyclouds-app/template/components/RacingPromptModal';
 import {
   puzzleToGrid,
   buildCandidates,
@@ -456,30 +455,6 @@ const Sudoku = ({
     setChainPath([]);
   }, []);
 
-  const [pickRivalsView, setPickRivalsView] = useState<
-    'mode-select' | 'agent-select'
-  >('mode-select');
-  const [showPickRivalsModal, setShowPickRivalsModal] = useState(false);
-
-  // Racing prompt handlers
-  const handleRaceMode = useCallback(() => {
-    setHasManuallySelectedMode(true);
-    setMode('friends');
-    setShowLobby(true);
-  }, [setMode, setShowLobby]);
-
-  const handlePickRivals = useCallback(() => {
-    setPickRivalsView('agent-select');
-    setShowPickRivalsModal(true);
-  }, []);
-
-  const handleSoloMode = useCallback(() => {
-    setAgents([]);
-    setLocalAgentProgress([]);
-    setHasManuallySelectedMode(true);
-    setMode('solo');
-  }, [setMode]);
-
   const handleAgentMode = useCallback(
     (selectedAgentNames: string[]) => {
       const nameSet = new Set(selectedAgentNames);
@@ -498,8 +473,6 @@ const Sudoku = ({
       setHasManuallySelectedMode(true);
       setMode('ai');
       setAgentNames(selectedAgentNames.join(','));
-      setShowPickRivalsModal(false);
-      setPickRivalsView('mode-select');
     },
     [
       initial,
@@ -619,6 +592,8 @@ const Sudoku = ({
     isInitialCell(selectedCell, initial) ||
     (!selectedAnswer() && !selectedCellHasNotes());
 
+  const currentAgentNames = useMemo(() => agents.map((a) => a.name), [agents]);
+
   return (
     <div
       className={`${showAdvancedControls ? 'pb-120' : 'pb-90'} landscape:mb-120 lg:pb-0 sm:landscape:pb-[calc(60vh)] lg:landscape:mb-0 lg:landscape:pb-0`}
@@ -635,22 +610,6 @@ const Sudoku = ({
         mobileDescription={mobileDescription}
         desktopDescription={desktopDescription}
         openInAppLabel={openInAppLabel}
-      />
-
-      {/* AI rivals picker */}
-      <RacingPromptModal
-        key={pickRivalsView}
-        isOpen={showPickRivalsModal}
-        onClose={() => {
-          setShowPickRivalsModal(false);
-          setPickRivalsView('mode-select');
-        }}
-        onRaceMode={handleRaceMode}
-        onSoloMode={handleSoloMode}
-        onAgentMode={handleAgentMode}
-        agentOptions={DEFAULT_AGENT_CONFIGS}
-        defaultSelectedAgentNames={defaultAgentSelection}
-        initialView={pickRivalsView}
       />
 
       <Lobby
@@ -671,7 +630,9 @@ const Sudoku = ({
         }
         localAgentProgress={showLobby ? localAgentProgress : undefined}
         onRemoveAgent={onRemoveAgent}
-        onPickRivals={handlePickRivals}
+        agentOptions={DEFAULT_AGENT_CONFIGS}
+        defaultSelectedAgentNames={currentAgentNames}
+        onAgentMode={handleAgentMode}
         puzzleDifficulty={puzzleDifficulty}
         puzzleDifficultyBadgeColor={puzzleDifficultyBadgeColor}
         puzzleMetaLabel={puzzleMetaLabel}

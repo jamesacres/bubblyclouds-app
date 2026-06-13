@@ -76,21 +76,6 @@ jest.mock('@bubblyclouds-app/games/components/RaceTrack', () => {
   };
 });
 
-jest.mock('@bubblyclouds-app/template/components/RacingPromptModal', () => {
-  return function DummyRacingPromptModal({ onRace, onSolo }: any) {
-    return (
-      <div data-testid="racing-prompt">
-        <button onClick={onRace} data-testid="race-button">
-          Race
-        </button>
-        <button onClick={onSolo} data-testid="solo-button">
-          Solo
-        </button>
-      </div>
-    );
-  };
-});
-
 jest.mock('@bubblyclouds-app/template/components/AppDownloadModal', () => ({
   AppDownloadModal: ({
     onClose,
@@ -366,29 +351,6 @@ describe('Sudoku', () => {
   });
 
   describe('racing prompt', () => {
-    it('should show racing prompt when conditions are met', async () => {
-      (useGameState as jest.Mock).mockReturnValue({
-        ...mockGameState,
-        sessionParties: {},
-      });
-
-      render(
-        <UserContext.Provider value={mockUserContext as any}>
-          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku
-              puzzle={mockPuzzle}
-              showRacingPrompt={true}
-              {...mockAppProps}
-            />
-          </RevenueCatContext.Provider>
-        </UserContext.Provider>
-      );
-
-      await waitFor(() => {
-        expect(screen.getByTestId('racing-prompt')).toBeInTheDocument();
-      });
-    });
-
     it('should render when already completed', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>

@@ -280,15 +280,24 @@ const SudokuControls = ({
     setTimeout(() => setShowAdvanced(false), 1000);
   }, []);
 
+  const hintRef = useRef(hint);
+  useEffect(() => {
+    hintRef.current = hint;
+  }, [hint]);
+
+  const handleCloseHintRef = useRef(handleCloseHint);
+  useEffect(() => {
+    handleCloseHintRef.current = handleCloseHint;
+  }, [handleCloseHint]);
+
   useEffect(() => {
     if (openingHintRef.current) {
       openingHintRef.current = false;
       return;
     }
-    if (hint !== undefined) {
-      handleCloseHint();
+    if (hintRef.current !== undefined) {
+      handleCloseHintRef.current();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only run when selectedCell changes
   }, [selectedCell]);
 
   // Global mouse and touch handlers

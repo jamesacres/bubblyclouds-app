@@ -43,6 +43,8 @@ import { PartyConfirmationDialog } from './PartyConfirmationDialog';
 import { PuzzleHeader } from './lobby/PuzzleHeader';
 import { TierBadge } from './lobby/TierBadge';
 import { InviteSheet } from './lobby/InviteSheet';
+import { AgentSelectSheet } from './lobby/AgentSelectSheet';
+import type { AgentOption } from './lobby/AgentSelectSheet';
 import { PartyTag } from './lobby/PartyTag';
 import { FinishedBadge } from './lobby/FinishedBadge';
 import { OnlinePlayerRow } from './lobby/OnlinePlayerRow';
@@ -67,7 +69,9 @@ interface Arguments<ServerState extends BaseServerState> {
   calculateCompletionPercentageFromState: (state: ServerState) => number;
   localAgentProgress?: AgentProgress<ServerState>[];
   onRemoveAgent?: (agentId: string) => void;
-  onPickRivals?: () => void;
+  agentOptions?: AgentOption[];
+  defaultSelectedAgentNames?: string[];
+  onAgentMode?: (selectedAgentNames: string[]) => void;
   puzzleDifficulty?: string;
   puzzleDifficultyBadgeColor?: string;
   puzzleMetaLabel?: string;
@@ -91,7 +95,9 @@ const Lobby = <ServerState extends BaseServerState>({
   calculateCompletionPercentageFromState,
   localAgentProgress,
   onRemoveAgent,
-  onPickRivals,
+  agentOptions = [],
+  defaultSelectedAgentNames = [],
+  onAgentMode,
   puzzleDifficulty,
   puzzleDifficultyBadgeColor,
   puzzleMetaLabel,
@@ -123,6 +129,7 @@ const Lobby = <ServerState extends BaseServerState>({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const [showInviteSheet, setShowInviteSheet] = useState(false);
+  const [showAgentSheet, setShowAgentSheet] = useState(false);
   const [confirmRemove, setConfirmRemove] = useState<{
     userId: string;
     memberNickname: string;
@@ -552,8 +559,12 @@ const Lobby = <ServerState extends BaseServerState>({
               title="AI opponents"
               count={aiCount}
               action={
-                onPickRivals && (
-                  <PillButton icon={Plus} tone="violet" onClick={onPickRivals}>
+                onAgentMode && (
+                  <PillButton
+                    icon={Plus}
+                    tone="violet"
+                    onClick={() => setShowAgentSheet(true)}
+                  >
                     Add
                   </PillButton>
                 )
@@ -660,7 +671,7 @@ const Lobby = <ServerState extends BaseServerState>({
               </div>
             ) : (
               <button
-                onClick={onPickRivals}
+                onClick={() => setShowAgentSheet(true)}
                 className="mb-4 w-full cursor-pointer rounded-2xl py-4 text-sm font-semibold"
                 style={{
                   border: '1.5px dashed rgba(255,255,255,0.18)',
@@ -731,6 +742,20 @@ const Lobby = <ServerState extends BaseServerState>({
               );
             }}
             dialogClassName="relative z-[110]"
+          />
+        )}
+
+        {/* Agent select sheet overlay */}
+        {onAgentMode && (
+          <AgentSelectSheet
+            open={showAgentSheet}
+            onClose={() => setShowAgentSheet(false)}
+            agentOptions={agentOptions}
+            defaultSelectedAgentNames={defaultSelectedAgentNames}
+            onAgentMode={(selected) => {
+              onAgentMode(selected);
+              setShowAgentSheet(false);
+            }}
           />
         )}
 

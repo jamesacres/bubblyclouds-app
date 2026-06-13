@@ -18,6 +18,7 @@ const CopyButton = ({
   partyName,
   isIOS = () => false,
   appName,
+  onSuccess,
 }: {
   getText: () => Promise<string> | string;
   extraSmall?: boolean;
@@ -26,6 +27,7 @@ const CopyButton = ({
   partyName?: string;
   isIOS?: () => boolean;
   appName: string;
+  onSuccess?: () => void;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
@@ -43,6 +45,7 @@ const CopyButton = ({
       if (text) {
         await shareOrCopyUrl({ url: text, appName, partyName });
         setShowCopied(true);
+        onSuccess?.();
         setTimeout(() => {
           setShowCopied(false);
         }, 5000);

@@ -50,20 +50,6 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
       </button>
     </div>
     <div
-      data-testid="racing-prompt"
-    >
-      <button
-        data-testid="race-button"
-      >
-        Race
-      </button>
-      <button
-        data-testid="solo-button"
-      >
-        Solo
-      </button>
-    </div>
-    <div
       data-testid="sudoku-lobby"
     >
       Lobby

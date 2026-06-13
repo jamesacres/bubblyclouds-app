@@ -305,6 +305,7 @@ export function InviteSheet({
                             partyName={party.partyName}
                             className={copyButtonClassName}
                             style={copyButtonStyle}
+                            onSuccess={handleClose}
                           />
                         )}
                       </div>
