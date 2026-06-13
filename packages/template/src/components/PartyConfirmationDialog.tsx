@@ -10,6 +10,7 @@ interface PartyConfirmationDialogProps {
   partyName: string;
   memberName?: string;
   isOwner?: boolean;
+  dialogClassName?: string;
 }
 
 export const PartyConfirmationDialog = ({
@@ -20,6 +21,7 @@ export const PartyConfirmationDialog = ({
   partyName,
   memberName,
   isOwner = false,
+  dialogClassName = 'relative z-50',
 }: PartyConfirmationDialogProps) => {
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -79,7 +81,7 @@ export const PartyConfirmationDialog = ({
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
+      <Dialog as="div" className={dialogClassName} onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

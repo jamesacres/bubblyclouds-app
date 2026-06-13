@@ -8,12 +8,6 @@ import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 
 jest.mock('@bubblyclouds-app/template/hooks/useParties');
 jest.mock('@bubblyclouds-app/template/utils/playerColors');
-jest.mock('./TrafficLight', () => ({
-  __esModule: true,
-  default: function MockTrafficLight() {
-    return <div data-testid="traffic-light" />;
-  },
-}));
 
 const mockUseParties = usePartiesModule.useParties as jest.Mock;
 const mockGetPlayerColor = playerColorsModule.getPlayerColor as jest.Mock;
@@ -46,7 +40,6 @@ describe('RaceTrack', () => {
     answer: [],
     userId: 'userId1',
     onClick: jest.fn(),
-    countdown: undefined,
     completed: { seconds: 100, at: new Date().toISOString() },
     refreshSessionParties: jest.fn(),
     isPolling: false,
@@ -73,11 +66,6 @@ describe('RaceTrack', () => {
     expect(screen.getByText('START')).toBeInTheDocument();
     expect(screen.getByText('FINISH')).toBeInTheDocument();
     expect(screen.getByText(/Player 2/)).toBeInTheDocument();
-  });
-
-  it('shows the traffic light when countdown is active', () => {
-    render(<RaceTrack {...defaultProps} countdown={3} />);
-    expect(screen.getByTestId('traffic-light')).toBeInTheDocument();
   });
 
   it('displays a leaderboard of finished players', () => {

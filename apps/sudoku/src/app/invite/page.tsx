@@ -81,11 +81,6 @@ function InviteComponent() {
           ? redirectUri
           : '/';
 
-      // If redirecting to a puzzle from an invite, don't show racing prompt
-      if (uri !== '/' && uri.includes('/puzzle?')) {
-        uri += '&showRacingPrompt=false';
-      }
-
       console.info('redirect', uri);
       // Scroll to top before redirecting
       window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -280,16 +280,20 @@ const SudokuControls = ({
     setTimeout(() => setShowAdvanced(false), 1000);
   }, []);
 
+  // Close the hint when the user selects a different cell. An effect is the
+  // only option here: selectedCell is a read-only prop set by many callers in
+  // Sudoku.tsx, so there is no single handler to intercept, and lifting hint
+  // state up would be a larger refactor than the problem warrants.
   useEffect(() => {
     if (openingHintRef.current) {
       openingHintRef.current = false;
       return;
     }
     if (hint !== undefined) {
-      handleCloseHint();
+      // set-state-in-effect: setState via an external prop change is intentional here, see above.
+      handleCloseHint(); // eslint-disable-line react-hooks/set-state-in-effect
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only run when selectedCell changes
-  }, [selectedCell]);
+  }, [selectedCell, hint, handleCloseHint]);
 
   // Global mouse and touch handlers
   useEffect(() => {

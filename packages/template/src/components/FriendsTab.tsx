@@ -275,7 +275,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
             No racing teams yet
           </p>
           <p className="mt-1 max-w-[240px] text-xs text-zinc-400 dark:text-zinc-500">
-            Invite friends from the Races sidebar when solving a puzzle
+            Invite friends from the Races lobby when solving a puzzle
           </p>
         </div>
       )}

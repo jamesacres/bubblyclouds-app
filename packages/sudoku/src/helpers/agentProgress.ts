@@ -46,7 +46,7 @@ export function calculateAgentProgress(
 export function getAllAgentProgress(
   agents: LocalAgent[],
   startTimeMs: number | null
-): AgentProgress[] {
+): AgentProgress<ServerState>[] {
   const elapsedTime = startTimeMs === null ? -1 : Date.now() - startTimeMs;
 
   return agents.map((agent) => {
@@ -65,6 +65,7 @@ export function getAllAgentProgress(
       percentage,
       finishTime,
       state: state ?? undefined,
+      skillLevel: agent.skillLevel,
     };
   });
 }

@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { PartiesContext } from '../providers/PartiesProvider';
 
 /**
@@ -45,10 +45,10 @@ export function useParties({
     lazyLoadParties();
   }, [lazyLoadParties]);
 
-  // Wrap refreshParties to include the optional refreshSessionParties callback
-  const refreshParties = async () => {
-    return contextRefreshParties(refreshSessionParties);
-  };
+  const refreshParties = useCallback(
+    () => contextRefreshParties(refreshSessionParties),
+    [contextRefreshParties, refreshSessionParties]
+  );
 
   return {
     // Party data

@@ -39,9 +39,9 @@ A widget component for displaying user activity.
 
 A component representing a single friend entry on a leaderboard.
 
-### SidebarButton
+### LobbyButton
 
-A sidebar navigation button component.
+A lobby navigation button component.
 
 ### HintBox
 

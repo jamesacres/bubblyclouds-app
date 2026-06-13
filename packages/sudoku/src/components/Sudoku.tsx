@@ -16,7 +16,7 @@ import {
 import { useGameState } from '../hooks/gameState';
 import SudokuControls from '../components/SudokuControls';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
-import Sidebar from '@bubblyclouds-app/template/components/Sidebar';
+import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import SimpleSudoku from '../components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { ServerState } from '../types/state';
@@ -37,9 +37,8 @@ import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvid
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
-import MemoisedSidebarButton from '@bubblyclouds-app/games/components/SidebarButton';
+import LobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import { useRouter } from 'next/navigation';
-import RacingPromptModal from '@bubblyclouds-app/template/components/RacingPromptModal';
 import {
   puzzleToGrid,
   buildCandidates,
@@ -55,6 +54,9 @@ import { getAllAgentProgress } from '../helpers/agentProgress';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
 import { DreyfusLevel } from '../types/Agent';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
+import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
+import CountdownOverlay from './CountdownOverlay';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -121,18 +123,44 @@ const Sudoku = ({
     ];
   });
 
+  const shouldAutoOpen = !alreadyCompleted && showRacingPromptProp;
+
   const agentStartTimeMsRef = useRef<number | null>(null);
   const [agents, setAgents] = useState<ReturnType<typeof createLocalAgents>>(
-    []
+    () => {
+      if (!shouldAutoOpen) return [];
+      const nameSet = new Set(defaultAgentSelection);
+      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((c) =>
+        nameSet.has(c.name)
+      );
+      return createLocalAgents(
+        initial,
+        final,
+        selectedConfigs,
+        difficultyMultiplier,
+        metadata.difficulty
+      );
+    }
   );
   const [localAgentProgress, setLocalAgentProgress] = useState<
     ReturnType<typeof getAllAgentProgress>
-  >([]);
+  >(() => (shouldAutoOpen ? getAllAgentProgress(agents, null) : []));
 
   const [hasShownAppDownload, setHasShownAppDownload] = useState(false);
-  const [hasDismissedRacingPrompt, setHasDismissedRacingPrompt] =
-    useState(false);
-  const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(false);
+  const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(
+    () => shouldAutoOpen
+  );
+
+  const [showAnimation, setShowAnimation] = useState(false);
+  const onComplete = useCallback(
+    (completedAnswerStack: Puzzle[]) => {
+      if (alreadyCompleted || isPuzzleCheated(completedAnswerStack)) return;
+      setShowAnimation(true);
+      const timerId = setTimeout(() => setShowAnimation(false), 10000);
+      return () => clearTimeout(timerId);
+    },
+    [alreadyCompleted]
+  );
 
   const {
     answer,
@@ -159,8 +187,8 @@ const Sudoku = ({
     setTimerNewSession,
     refreshSessionParties,
     sessionParties,
-    showSidebar,
-    setShowSidebar,
+    showLobby,
+    setShowLobby,
     isZoomMode,
     setIsZoomMode,
     isPolling,
@@ -174,6 +202,12 @@ const Sudoku = ({
     metadata,
     app,
     apiUrl,
+    initialMode: shouldAutoOpen ? 'ai' : undefined,
+    initialAgentNames: shouldAutoOpen
+      ? defaultAgentSelection.join(',')
+      : undefined,
+    initialShowLobby: shouldAutoOpen,
+    onComplete,
   });
 
   const onRemoveAgent = useCallback(
@@ -190,18 +224,16 @@ const Sudoku = ({
     [setAgentNames]
   );
 
-  const onLeaveAgentParty = useCallback(() => {
-    setAgents([]);
-    setAgentNames(undefined);
-    setLocalAgentProgress([]);
-  }, [setAgentNames]);
-
   useEffect(() => {
     if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
       agentStartTimeMsRef.current = Date.now();
     }
-    setLocalAgentProgress(
-      getAllAgentProgress(agents, agentStartTimeMsRef.current)
+    const next = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+    setLocalAgentProgress((prev) =>
+      prev.length === next.length &&
+      prev.every((p, i) => p.percentage === next[i].percentage)
+        ? prev
+        : next
     );
   }, [agents, timer]);
 
@@ -209,74 +241,54 @@ const Sudoku = ({
     if (!completed || agentStartTimeMsRef.current === null) return;
 
     const interval = setInterval(() => {
-      const progress = getAllAgentProgress(agents, agentStartTimeMsRef.current);
-      setLocalAgentProgress(progress);
-      if (progress.every((p) => p.percentage === 100)) {
-        clearInterval(interval);
-      }
+      const next = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+      setLocalAgentProgress((prev) => {
+        if (
+          prev.length === next.length &&
+          prev.every((p, i) => p.percentage === next[i].percentage)
+        )
+          return prev;
+        if (next.every((p) => p.percentage === 100)) clearInterval(interval);
+        return next;
+      });
     }, 1000);
 
     return () => clearInterval(interval);
   }, [completed, agents]);
 
   const friendsOnClick = useCallback(() => {
-    setShowSidebar((showSidebar) => !showSidebar);
-  }, [setShowSidebar]);
+    setShowLobby((prev) => !prev);
+  }, [setShowLobby]);
   const raceTrackOnClick = useCallback(
-    () => setShowSidebar(true),
-    [setShowSidebar]
+    () => setShowLobby(true),
+    [setShowLobby]
   );
 
-  const [sidebarScrollRequest, setSidebarScrollRequest] = useState<number>(0);
+  const [raceStarted, setRaceStarted] = useState(false);
+
+  const handleStartRace = useCallback(() => {
+    if (!raceStarted) setTimerNewSession();
+    setRaceStarted(true);
+    setHasManuallySelectedMode(true);
+  }, [setTimerNewSession, raceStarted]);
 
   const handleInviteFriends = useCallback(() => {
-    setShowSidebar(true);
-    setSidebarScrollRequest(Date.now());
-  }, [setShowSidebar]);
+    setShowLobby(true);
+  }, [setShowLobby]);
 
   // Reference to the grid for the celebration animation and chain overlay
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // State to track if animation should be shown
-  const [showAnimation, setShowAnimation] = useState(false);
   const [showAdvancedControls, setShowAdvancedControls] = useState(false);
-
-  // Check if there are other players already racing
-  const hasOtherPlayers = useMemo(() => {
-    if (!sessionParties || !user?.sub) return false;
-
-    return Object.values(sessionParties).some((party) => {
-      if (party?.memberSessions) {
-        return Object.keys(party.memberSessions).some(
-          (memberId) => memberId !== user.sub
-        );
-      }
-      return false;
-    });
-  }, [sessionParties, user?.sub]);
 
   const showAppDownload = useMemo(
     () => !isCapacitor() && !hasShownAppDownload,
     [hasShownAppDownload]
   );
 
-  const showRacingPrompt = useMemo(() => {
-    const shouldShowRacingPrompt =
-      !alreadyCompleted && showRacingPromptProp && !hasOtherPlayers;
-    return (
-      shouldShowRacingPrompt && !showAppDownload && !hasDismissedRacingPrompt
-    );
-  }, [
-    alreadyCompleted,
-    showRacingPromptProp,
-    hasOtherPlayers,
-    showAppDownload,
-    hasDismissedRacingPrompt,
-  ]);
-
   const hasSelectedMode = useMemo(
-    () => alreadyCompleted || hasOtherPlayers || hasManuallySelectedMode,
-    [alreadyCompleted, hasOtherPlayers, hasManuallySelectedMode]
+    () => alreadyCompleted || hasManuallySelectedMode,
+    [alreadyCompleted, hasManuallySelectedMode]
   );
 
   // Calculate completed games count for rating prompt
@@ -433,30 +445,14 @@ const Sudoku = ({
     [indexToCellId]
   );
 
-  const [pickRivalsView, setPickRivalsView] = useState<
-    'mode-select' | 'agent-select'
-  >('mode-select');
-  const [showPickRivalsModal, setShowPickRivalsModal] = useState(false);
-
-  // Racing prompt handlers
-  const handleRaceMode = useCallback(() => {
-    setHasManuallySelectedMode(true);
-    setMode('friends');
-    setShowSidebar(true);
-  }, [setMode, setShowSidebar]);
-
-  const handlePickRivals = useCallback(() => {
-    setPickRivalsView('agent-select');
-    setShowPickRivalsModal(true);
-    setShowSidebar(false);
-  }, [setShowSidebar]);
-
-  const handleSoloMode = useCallback(() => {
-    setAgents([]);
-    setLocalAgentProgress([]);
-    setHasManuallySelectedMode(true);
-    setMode('solo');
-  }, [setMode]);
+  const handleClearSelection = useCallback(
+    () => setSelectedCell(null),
+    [setSelectedCell]
+  );
+  const handleHideHint = useCallback(() => {
+    setCellHighlights(new Map());
+    setChainPath([]);
+  }, []);
 
   const handleAgentMode = useCallback(
     (selectedAgentNames: string[]) => {
@@ -476,8 +472,6 @@ const Sudoku = ({
       setHasManuallySelectedMode(true);
       setMode('ai');
       setAgentNames(selectedAgentNames.join(','));
-      setShowPickRivalsModal(false);
-      setPickRivalsView('mode-select');
     },
     [
       initial,
@@ -497,19 +491,6 @@ const Sudoku = ({
   const handleContinueWeb = useCallback(() => {
     setHasShownAppDownload(true);
   }, []);
-
-  useEffect(() => {
-    if (completed && !alreadyCompleted && !isPuzzleCheated(answerStack)) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Legitimate side effect: triggering timed animation on completion
-      setShowAnimation(true);
-
-      const timer = setTimeout(() => {
-        setShowAnimation(false);
-      }, 10000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [completed, alreadyCompleted, answerStack]);
 
   // Add puzzle ID to daily tracking when puzzle is completed
   useEffect(() => {
@@ -558,12 +539,11 @@ const Sudoku = ({
 
   // Timer and scroll management
   useEffect(() => {
-    const shouldPause =
-      !hasSelectedMode || showSidebar || showRacingPrompt || showAppDownload;
+    const shouldPause = !hasSelectedMode || showLobby || showAppDownload;
 
     setPauseTimer(shouldPause);
 
-    if (showSidebar || showRacingPrompt || showAppDownload) {
+    if (showLobby || showAppDownload) {
       document.body.classList.add('overflow-y-hidden');
       document.documentElement.style.height = '100%';
       document.body.style.height = '100%';
@@ -572,13 +552,7 @@ const Sudoku = ({
       document.documentElement.style.height = '';
       document.body.style.height = '';
     }
-  }, [
-    hasSelectedMode,
-    showSidebar,
-    showRacingPrompt,
-    showAppDownload,
-    setPauseTimer,
-  ]);
+  }, [hasSelectedMode, showLobby, showAppDownload, setPauseTimer]);
 
   // Cleanup: Always restore scrolling when component unmounts
   useEffect(() => {
@@ -589,11 +563,40 @@ const Sudoku = ({
     };
   }, []);
 
+  const puzzleInitialState = useMemo<ServerState>(
+    () => ({ answerStack: [], initial, final }),
+    [initial, final]
+  );
+
+  const puzzleDifficultyDisplay = useMemo(
+    () =>
+      metadata.difficulty
+        ? getDifficultyDisplay(metadata.difficulty)
+        : undefined,
+    [metadata.difficulty]
+  );
+  const puzzleDifficulty = puzzleDifficultyDisplay?.name;
+  const puzzleDifficultyBadgeColor = puzzleDifficultyDisplay?.badgeColor;
+
+  const puzzleMetaLabel = useMemo(
+    () => derivePuzzleMetaLabel(metadata),
+    [metadata]
+  );
+
+  const isInputDisabled = !selectedCell || isInitialCell(selectedCell, initial);
+  const isValidateCellDisabled =
+    !selectedCell || isInitialCell(selectedCell, initial) || !selectedAnswer();
+  const isDeleteDisabled =
+    !selectedCell ||
+    isInitialCell(selectedCell, initial) ||
+    (!selectedAnswer() && !selectedCellHasNotes());
+
+  const currentAgentNames = useMemo(() => agents.map((a) => a.name), [agents]);
+
   return (
     <div
       className={`${showAdvancedControls ? 'pb-120' : 'pb-90'} landscape:mb-120 lg:pb-0 sm:landscape:pb-[calc(60vh)] lg:landscape:mb-0 lg:landscape:pb-0`}
     >
-      {/* App download prompt modal - shows first for web users */}
       <AppDownloadModal
         isOpen={showAppDownload}
         onClose={handleAppDownloadClose}
@@ -607,26 +610,9 @@ const Sudoku = ({
         openInAppLabel={openInAppLabel}
       />
 
-      {/* Racing mode selection modal */}
-      <RacingPromptModal
-        key={pickRivalsView}
-        isOpen={showRacingPrompt || showPickRivalsModal}
-        onClose={() => {
-          setHasDismissedRacingPrompt(true);
-          setShowPickRivalsModal(false);
-          setPickRivalsView('mode-select');
-        }}
-        onRaceMode={handleRaceMode}
-        onSoloMode={handleSoloMode}
-        onAgentMode={handleAgentMode}
-        agentOptions={DEFAULT_AGENT_CONFIGS}
-        defaultSelectedAgentNames={defaultAgentSelection}
-        initialView={pickRivalsView}
-      />
-
-      <Sidebar
-        showSidebar={showSidebar}
-        setShowSidebar={setShowSidebar}
+      <Lobby
+        showLobby={showLobby}
+        setShowLobby={setShowLobby}
         puzzleId={puzzleId}
         redirectUri={redirectUri}
         refreshSessionParties={refreshSessionParties}
@@ -640,14 +626,23 @@ const Sudoku = ({
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
         }
-        localAgentProgress={localAgentProgress}
+        localAgentProgress={showLobby ? localAgentProgress : undefined}
         onRemoveAgent={onRemoveAgent}
-        onLeaveAgentParty={onLeaveAgentParty}
-        onPickRivals={handlePickRivals}
-        scrollRequest={sidebarScrollRequest}
+        agentOptions={DEFAULT_AGENT_CONFIGS}
+        defaultSelectedAgentNames={currentAgentNames}
+        onAgentMode={handleAgentMode}
+        puzzleDifficulty={puzzleDifficulty}
+        puzzleDifficultyBadgeColor={puzzleDifficultyBadgeColor}
+        puzzleMetaLabel={puzzleMetaLabel}
+        initialState={puzzleInitialState}
+        onStartRace={handleStartRace}
       />
 
-      {/* Display celebration animation when completed */}
+      {raceStarted &&
+        !showLobby &&
+        timer?.countdown != null &&
+        timer.countdown > 0 && <CountdownOverlay countdown={timer.countdown} />}
+
       {completed && (
         <CelebrationAnimation
           isVisible={showAnimation}
@@ -661,7 +656,6 @@ const Sudoku = ({
         <div className="container mx-auto px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              {/* App Branding Header */}
               <div className="ml-auto mr-auto max-w-xl px-4 pb-1 lg:mr-0">
                 <div className="text-right">
                   <span className="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent">
@@ -672,11 +666,11 @@ const Sudoku = ({
 
               <div className="ml-auto mr-auto flex max-w-xl px-4 pb-1 lg:mr-0">
                 <div
-                  className="flex-nowrap items-center xl:hidden"
+                  className="flex-nowrap items-center"
                   role="group"
                   aria-label="Button group"
                 >
-                  <MemoisedSidebarButton friendsOnClick={friendsOnClick} />
+                  <LobbyButton friendsOnClick={friendsOnClick} />
                 </div>
                 <div
                   className={`grow text-right ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}
@@ -745,7 +739,6 @@ const Sudoku = ({
                 </div>
               </div>
 
-              {/* Race Track Progress */}
               {!showAnimation && (
                 <RaceTrack
                   sessionParties={sessionParties}
@@ -754,7 +747,6 @@ const Sudoku = ({
                   answer={answer}
                   userId={user?.sub || 'guest'}
                   onClick={raceTrackOnClick}
-                  countdown={timer?.countdown}
                   completed={completed}
                   isPolling={isPolling}
                   refreshSessionParties={refreshSessionParties}
@@ -768,25 +760,14 @@ const Sudoku = ({
             </div>
           </div>
         </div>
-        {/* Sticky controls for mobile, regular positioning for desktop */}
         <div className="lg:container lg:mx-auto lg:basis-3/5">
           {!completed && (
             <div className="fixed inset-x-0 bottom-0 z-10 lg:relative">
               <SudokuControls
                 selectedCell={selectedCell}
-                isInputDisabled={
-                  !selectedCell || isInitialCell(selectedCell, initial)
-                }
-                isValidateCellDisabled={
-                  !selectedCell ||
-                  isInitialCell(selectedCell, initial) ||
-                  !selectedAnswer()
-                }
-                isDeleteDisabled={
-                  !selectedCell ||
-                  isInitialCell(selectedCell, initial) ||
-                  (!selectedAnswer() && !selectedCellHasNotes())
-                }
+                isInputDisabled={isInputDisabled}
+                isValidateCellDisabled={isValidateCellDisabled}
+                isDeleteDisabled={isDeleteDisabled}
                 validateCell={validateCell}
                 validateGrid={validateGrid}
                 isUndoDisabled={isUndoDisabled}
@@ -807,11 +788,8 @@ const Sudoku = ({
                 user={user}
                 onShowWhere={onShowWhere}
                 onRevealEliminations={onRevealEliminations}
-                onClearSelection={() => setSelectedCell(null)}
-                onHideHint={() => {
-                  setCellHighlights(new Map());
-                  setChainPath([]);
-                }}
+                onClearSelection={handleClearSelection}
+                onHideHint={handleHideHint}
               />
             </div>
           )}

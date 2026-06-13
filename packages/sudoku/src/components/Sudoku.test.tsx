@@ -22,7 +22,7 @@ jest.mock('../hooks/useDrag', () => ({
 jest.mock('lucide-react', () => ({
   Award: () => <svg data-testid="award-icon" />,
   Loader: () => <svg data-testid="loader-icon" />,
-  Sidebar: () => <svg data-testid="sidebar-icon" />,
+  PanelRight: () => <svg data-testid="lobby-icon" />,
 }));
 
 jest.mock('../components/SudokuBox', () => {
@@ -45,20 +45,19 @@ jest.mock('@bubblyclouds-app/ui/components/TimerDisplay', () => ({
   TimerDisplay: () => <div data-testid="timer-display">Timer</div>,
 }));
 
-jest.mock('@bubblyclouds-app/template/components/Sidebar', () => {
-  return function DummySidebar() {
-    return <div data-testid="sudoku-sidebar">Sidebar</div>;
+jest.mock('@bubblyclouds-app/template/components/Lobby', () => {
+  return function DummyLobby() {
+    return <div data-testid="sudoku-lobby">Lobby</div>;
   };
 });
 
-jest.mock('@bubblyclouds-app/games/components/SidebarButton', () => {
-  const DummySidebarButton = function DummySidebarButton() {
-    return <div data-testid="sidebar-button">Button</div>;
+jest.mock('@bubblyclouds-app/games/components/LobbyButton', () => {
+  const DummyLobbyButton = function DummyLobbyButton() {
+    return <div data-testid="lobby-button">Button</div>;
   };
   return {
     __esModule: true,
-    default: DummySidebarButton,
-    SidebarButton: DummySidebarButton,
+    default: DummyLobbyButton,
   };
 });
 
@@ -73,21 +72,6 @@ jest.mock('@bubblyclouds-app/games/components/RaceTrack', () => {
   return {
     __esModule: true,
     default: DummyRaceTrack,
-  };
-});
-
-jest.mock('@bubblyclouds-app/template/components/RacingPromptModal', () => {
-  return function DummyRacingPromptModal({ onRace, onSolo }: any) {
-    return (
-      <div data-testid="racing-prompt">
-        <button onClick={onRace} data-testid="race-button">
-          Race
-        </button>
-        <button onClick={onSolo} data-testid="solo-button">
-          Solo
-        </button>
-      </div>
-    );
   };
 });
 
@@ -123,6 +107,24 @@ jest.mock('@bubblyclouds-app/template/helpers/capacitor', () => ({
 
 jest.mock('../helpers/cheatDetection', () => ({
   isPuzzleCheated: jest.fn(() => false),
+}));
+
+jest.mock('../helpers/agentTimeline', () => ({
+  createLocalAgents: jest.fn(() => []),
+}));
+
+jest.mock('../helpers/agentProgress', () => ({
+  getAllAgentProgress: jest.fn(() => []),
+}));
+
+jest.mock('../helpers/defaultAgents', () => ({
+  DEFAULT_AGENT_CONFIGS: [
+    { name: 'Novice Agent', emoji: '🟢', skillLevel: 'novice' },
+    { name: 'Beginner Agent', emoji: '🟡', skillLevel: 'advancedBeginner' },
+    { name: 'Competent Agent', emoji: '🟠', skillLevel: 'competent' },
+    { name: 'Proficient Agent', emoji: '🔵', skillLevel: 'proficient' },
+    { name: 'Expert Agent', emoji: '🔴', skillLevel: 'expert' },
+  ],
 }));
 
 jest.mock('../helpers/puzzleTextToPuzzle', () => ({
@@ -190,11 +192,14 @@ describe('Sudoku', () => {
     setTimerNewSession: jest.fn(),
     refreshSessionParties: jest.fn(),
     sessionParties: {},
-    showSidebar: false,
-    setShowSidebar: jest.fn(),
+    showLobby: false,
+    setShowLobby: jest.fn(),
     isZoomMode: false,
     setIsZoomMode: jest.fn(),
     isPolling: false,
+    isPaused: false,
+    setMode: jest.fn(),
+    setAgentNames: jest.fn(),
   };
 
   const mockPuzzle = {
@@ -283,10 +288,10 @@ describe('Sudoku', () => {
       expect(screen.getByTestId('timer-display')).toBeInTheDocument();
     });
 
-    it('should render sidebar', () => {
+    it('should render lobby', () => {
       (useGameState as jest.Mock).mockReturnValue({
         ...mockGameState,
-        showSidebar: true,
+        showLobby: true,
       });
 
       render(
@@ -296,7 +301,7 @@ describe('Sudoku', () => {
           </RevenueCatContext.Provider>
         </UserContext.Provider>
       );
-      expect(screen.getByTestId('sudoku-sidebar')).toBeInTheDocument();
+      expect(screen.getByTestId('sudoku-lobby')).toBeInTheDocument();
     });
   });
 
@@ -310,14 +315,16 @@ describe('Sudoku', () => {
         </UserContext.Provider>
       );
 
-      expect(useGameState).toHaveBeenCalledWith({
-        final: mockPuzzle.final,
-        initial: mockPuzzle.initial,
-        puzzleId: mockPuzzle.puzzleId,
-        metadata: mockPuzzle.metadata,
-        app: mockAppProps.app,
-        apiUrl: mockAppProps.apiUrl,
-      });
+      expect(useGameState).toHaveBeenCalledWith(
+        expect.objectContaining({
+          final: mockPuzzle.final,
+          initial: mockPuzzle.initial,
+          puzzleId: mockPuzzle.puzzleId,
+          metadata: mockPuzzle.metadata,
+          app: mockAppProps.app,
+          apiUrl: mockAppProps.apiUrl,
+        })
+      );
     });
 
     it('should pass puzzle metadata to game state', () => {
@@ -343,29 +350,6 @@ describe('Sudoku', () => {
   });
 
   describe('racing prompt', () => {
-    it('should show racing prompt when conditions are met', async () => {
-      (useGameState as jest.Mock).mockReturnValue({
-        ...mockGameState,
-        sessionParties: {},
-      });
-
-      render(
-        <UserContext.Provider value={mockUserContext as any}>
-          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
-            <Sudoku
-              puzzle={mockPuzzle}
-              showRacingPrompt={true}
-              {...mockAppProps}
-            />
-          </RevenueCatContext.Provider>
-        </UserContext.Provider>
-      );
-
-      await waitFor(() => {
-        expect(screen.getByTestId('racing-prompt')).toBeInTheDocument();
-      });
-    });
-
     it('should render when already completed', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
@@ -548,12 +532,12 @@ describe('Sudoku', () => {
     });
   });
 
-  describe('sidebar management', () => {
-    it('should render with sidebar controls', () => {
-      const setShowSidebarMock = jest.fn();
+  describe('lobby management', () => {
+    it('should render with lobby controls', () => {
+      const setShowLobbyMock = jest.fn();
       (useGameState as jest.Mock).mockReturnValue({
         ...mockGameState,
-        setShowSidebar: setShowSidebarMock,
+        setShowLobby: setShowLobbyMock,
       });
 
       render(
@@ -567,10 +551,10 @@ describe('Sudoku', () => {
       expect(screen.getAllByTestId('sudoku-box').length).toBeGreaterThan(0);
     });
 
-    it('should show sidebar when requested', () => {
+    it('should show lobby when requested', () => {
       (useGameState as jest.Mock).mockReturnValue({
         ...mockGameState,
-        showSidebar: true,
+        showLobby: true,
       });
 
       render(
@@ -581,12 +565,12 @@ describe('Sudoku', () => {
         </UserContext.Provider>
       );
 
-      expect(screen.getByTestId('sudoku-sidebar')).toBeInTheDocument();
+      expect(screen.getByTestId('sudoku-lobby')).toBeInTheDocument();
     });
   });
 
   describe('game controls', () => {
-    it('should render sidebar button', () => {
+    it('should render lobby button', () => {
       render(
         <UserContext.Provider value={mockUserContext as any}>
           <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
@@ -595,7 +579,7 @@ describe('Sudoku', () => {
         </UserContext.Provider>
       );
 
-      expect(screen.getByTestId('sidebar-button')).toBeInTheDocument();
+      expect(screen.getByTestId('lobby-button')).toBeInTheDocument();
     });
 
     it('should render with zoom mode enabled', () => {

@@ -146,12 +146,12 @@ describe('useGameState', () => {
     expect(result.current.isNotesMode).toBe(true);
   });
 
-  it('toggles sidebar visibility', () => {
+  it('toggles lobby visibility', () => {
     const { result } = renderHook(() => useGameState(defaultProps));
     act(() => {
-      result.current.setShowSidebar(true);
+      result.current.setShowLobby(true);
     });
-    expect(result.current.showSidebar).toBe(true);
+    expect(result.current.showLobby).toBe(true);
   });
 
   it('toggles zoom mode', () => {

@@ -1,5 +1,6 @@
 # TODO
 
+increase sign in conversion, add sign in with google, apple, email to the app itself rather than saying you need to sign in - auth service handle intent and auto submit
 need to compare to export to find missing / mismatches
 cindy lee missing in data, and numbers dont match 100% need to compare export with what's missing
 al green still in love with you re-rated

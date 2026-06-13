@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Sidebar from './Sidebar';
+import Lobby from './Lobby';
 import {
   UserContext,
   UserContextInterface,
@@ -10,8 +10,13 @@ import {
   RevenueCatContext,
 } from '../providers/RevenueCatProvider';
 import { useParties } from '../hooks/useParties';
+import { Session } from '@bubblyclouds-app/types/serverTypes';
+import { BaseServerState } from '../types/state';
 
 jest.mock('../hooks/useParties');
+jest.mock('../hooks/serverStorage', () => ({
+  useServerStorage: () => ({ createInvite: jest.fn() }),
+}));
 jest.mock('./PartyRow', () => ({
   __esModule: true,
   PartyRow: () => <div data-testid="party-row">Party Row</div>,
@@ -25,16 +30,16 @@ const MockSimpleState = ({ state: _state }: { state: unknown }) => (
 
 const mockCalculateCompletion = () => 50;
 
-describe('Sidebar', () => {
+describe('Lobby', () => {
   const defaultProps = {
-    showSidebar: true,
-    setShowSidebar: jest.fn(),
+    showLobby: true,
+    setShowLobby: jest.fn(),
     puzzleId: 'puzzle123',
     redirectUri: '/puzzle/123',
     refreshSessionParties: jest.fn(),
     sessionParties: {},
     app: 'testapp',
-    appName: 'TestApp',
+    appName: 'Test App',
     apiUrl: 'https://api.test.com',
     appUrl: 'https://app.test.com',
     SimpleState: MockSimpleState,
@@ -42,14 +47,14 @@ describe('Sidebar', () => {
   };
 
   const renderComponent = (
-    props: Partial<React.ComponentProps<typeof Sidebar>> = {},
+    props: Partial<React.ComponentProps<typeof Lobby>> = {},
     context: {
       user?: Partial<UserContextInterface>;
       revenueCat?: Partial<RevenueCatContextInterface>;
     } = {}
   ) => {
     const userContext: UserContextInterface = {
-      user: { sub: 'user1' } as any,
+      user: { sub: 'user1' },
       isLoggingIn: false,
       isInitialised: true,
       loginRedirect: jest.fn(),
@@ -61,17 +66,25 @@ describe('Sidebar', () => {
     };
     const revenueCatContext: RevenueCatContextInterface = {
       isSubscribed: false,
-      subscribeModal: { showModalIfRequired: jest.fn() } as any,
+      isLoading: false,
+      packages: [],
+      purchasePackage: jest.fn(),
+      restorePurchases: jest.fn(),
       refreshEntitlements: jest.fn(),
+      subscribeModal: {
+        isOpen: false,
+        callback: jest.fn(),
+        cancelCallback: jest.fn(),
+        showModalIfRequired: jest.fn(),
+        hideModal: jest.fn(),
+      },
       ...context.revenueCat,
-    } as unknown as RevenueCatContextInterface;
+    };
 
     return render(
       <UserContext.Provider value={userContext}>
-        <RevenueCatContext.Provider
-          value={revenueCatContext as unknown as RevenueCatContextInterface}
-        >
-          <Sidebar {...defaultProps} {...props} />
+        <RevenueCatContext.Provider value={revenueCatContext}>
+          <Lobby {...defaultProps} {...props} />
         </RevenueCatContext.Provider>
       </UserContext.Provider>
     );
@@ -98,38 +111,38 @@ describe('Sidebar', () => {
     });
   });
 
-  it('renders the sidebar with title and description', () => {
+  it('renders the lobby with race lobby label and start button', () => {
     renderComponent();
-    expect(screen.getByText('Races')).toBeInTheDocument();
-    expect(screen.getByText(/Challenge your friends/)).toBeInTheDocument();
+    expect(screen.getAllByText('Race Lobby').length).toBeGreaterThan(0);
+    expect(screen.getByText('Start Solving')).toBeInTheDocument();
   });
 
-  it('shows the create party form when button is clicked', () => {
-    const setShowCreateParty = jest.fn();
-    mockUseParties.mockReturnValueOnce({
-      parties: [],
-      isLoading: false,
-      showCreateParty: false,
-      setShowCreateParty,
-      isSaving: false,
-      memberNickname: '',
-      setMemberNickname: jest.fn(),
-      partyName: '',
-      setPartyName: jest.fn(),
-      saveParty: jest.fn(),
-      refreshParties: jest.fn(),
-      updateParty: jest.fn(),
-      getNicknameByUserId: jest.fn(),
-      leaveParty: jest.fn(),
-      removeMember: jest.fn(),
-      deleteParty: jest.fn(),
-    });
-    renderComponent();
-    fireEvent.click(screen.getByText('Race Friends'));
-    expect(setShowCreateParty).toHaveBeenCalledWith(true);
+  it('calls onStartRace and setShowLobby when X button is clicked', () => {
+    const onStartRace = jest.fn();
+    const setShowLobby = jest.fn();
+    renderComponent({ onStartRace, setShowLobby });
+    fireEvent.click(screen.getByLabelText('Close lobby'));
+    expect(onStartRace).toHaveBeenCalledTimes(1);
+    expect(setShowLobby).toHaveBeenCalledWith(false);
   });
 
-  it('displays existing parties', () => {
+  it('calls onStartRace and setShowLobby when backdrop is clicked', () => {
+    const onStartRace = jest.fn();
+    const setShowLobby = jest.fn();
+    const { container } = renderComponent({ onStartRace, setShowLobby });
+    const backdrop = container.querySelector('.fixed.inset-0.z-50');
+    fireEvent.click(backdrop!);
+    expect(onStartRace).toHaveBeenCalledTimes(1);
+    expect(setShowLobby).toHaveBeenCalledWith(false);
+  });
+
+  it('shows the invite sheet when Invite button is clicked', () => {
+    renderComponent();
+    fireEvent.click(screen.getByText('Invite'));
+    expect(screen.getByText('Invite opponents')).toBeInTheDocument();
+  });
+
+  it('displays online opponents from session parties', () => {
     mockUseParties.mockReturnValue({
       parties: [
         {
@@ -137,17 +150,17 @@ describe('Sidebar', () => {
           appId: 'app-1',
           partyName: 'Party 1',
           isOwner: true,
-          members: [],
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          createdBy: 'user1',
-        },
-        {
-          partyId: '2',
-          appId: 'app-1',
-          partyName: 'Party 2',
-          isOwner: false,
-          members: [],
+          members: [
+            {
+              userId: 'other1',
+              resourceId: 'res-other1',
+              memberNickname: 'Alice',
+              isUser: false,
+              isOwner: false,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+          ],
           createdAt: new Date(),
           updatedAt: new Date(),
           createdBy: 'user1',
@@ -169,18 +182,35 @@ describe('Sidebar', () => {
       removeMember: jest.fn(),
       deleteParty: jest.fn(),
     });
-    renderComponent();
-    expect(screen.getAllByTestId('party-row')).toHaveLength(2);
+    renderComponent({
+      sessionParties: {
+        '1': {
+          memberSessions: {
+            other1: {
+              sessionId: 's1',
+              state: {
+                answerStack: [],
+                initial: [],
+                final: [],
+              },
+              updatedAt: new Date(),
+            } satisfies Session<BaseServerState>,
+          },
+        },
+      },
+    });
+    expect(screen.getByText('Alice')).toBeInTheDocument();
+    expect(screen.getByText('In lobby')).toBeInTheDocument();
   });
 
-  it('prompts for login if creating a party while logged out', () => {
+  it('prompts for login if inviting while logged out', () => {
     const loginRedirect = jest.fn();
     renderComponent({}, { user: { user: undefined, loginRedirect } });
-    fireEvent.click(screen.getByText('Race Friends'));
+    fireEvent.click(screen.getByText('Invite'));
     expect(loginRedirect).toHaveBeenCalled();
   });
 
-  it('shows subscription modal if creating a second party without subscription', () => {
+  it('shows subscription modal if inviting a second party without subscription', () => {
     const showModalIfRequired = jest.fn();
     mockUseParties.mockReturnValueOnce({
       parties: [
@@ -216,11 +246,17 @@ describe('Sidebar', () => {
       {
         revenueCat: {
           isSubscribed: false,
-          subscribeModal: { showModalIfRequired } as any,
+          subscribeModal: {
+            isOpen: false,
+            callback: jest.fn(),
+            cancelCallback: jest.fn(),
+            showModalIfRequired,
+            hideModal: jest.fn(),
+          },
         },
       }
     );
-    fireEvent.click(screen.getByText('Race Friends'));
+    fireEvent.click(screen.getByText('Invite'));
     expect(showModalIfRequired).toHaveBeenCalled();
   });
 });

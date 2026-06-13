@@ -50,23 +50,9 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
       </button>
     </div>
     <div
-      data-testid="racing-prompt"
+      data-testid="sudoku-lobby"
     >
-      <button
-        data-testid="race-button"
-      >
-        Race
-      </button>
-      <button
-        data-testid="solo-button"
-      >
-        Solo
-      </button>
-    </div>
-    <div
-      data-testid="sudoku-sidebar"
-    >
-      Sidebar
+      Lobby
     </div>
     <div
       class="flex flex-col items-center lg:flex-row"
@@ -98,11 +84,11 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
             >
               <div
                 aria-label="Button group"
-                class="flex-nowrap items-center xl:hidden"
+                class="flex-nowrap items-center"
                 role="group"
               >
                 <div
-                  data-testid="sidebar-button"
+                  data-testid="lobby-button"
                 >
                   Button
                 </div>

@@ -1,7 +1,6 @@
 'use client';
 
-import { Share } from '@capacitor/share';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Check,
   Copy,
@@ -9,39 +8,33 @@ import {
   Share as ShareIOS,
   Share2 as ShareAndroid,
 } from 'lucide-react';
+import { canShareUrl, shareOrCopyUrl } from '../helpers/share';
 
 const CopyButton = ({
   getText,
   extraSmall = false,
   className = '',
+  style,
   partyName,
   isIOS = () => false,
   appName,
+  onSuccess,
 }: {
   getText: () => Promise<string> | string;
   extraSmall?: boolean;
   className?: string;
+  style?: React.CSSProperties;
   partyName?: string;
   isIOS?: () => boolean;
   appName: string;
+  onSuccess?: () => void;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
   const [canShare, setCanShare] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      if (
-        (
-          await Share.canShare().catch((e) => {
-            console.warn(e);
-            return { value: false };
-          })
-        ).value
-      ) {
-        setCanShare(true);
-      }
-    })();
+    canShareUrl().then(setCanShare);
   }, []);
 
   const handleCopy = async () => {
@@ -50,27 +43,14 @@ const CopyButton = ({
     try {
       const text = await getText();
       if (text) {
-        try {
-          await navigator.clipboard.writeText(text);
-          setShowCopied(true);
-        } catch (copyError) {
-          console.warn(copyError);
-          console.warn('Failed to copy:', copyError);
-        }
-        if (canShare) {
-          await Share.share({
-            title: `You're invited to a ${appName}!`,
-            text: `Join the${partyName ? ` ${partyName}` : ''} racing team`,
-            url: text,
-            dialogTitle: 'Share invite',
-          });
-        }
+        await shareOrCopyUrl({ url: text, appName, partyName });
+        setShowCopied(true);
+        onSuccess?.();
         setTimeout(() => {
           setShowCopied(false);
         }, 5000);
       }
     } catch (error) {
-      console.warn(error);
       console.warn('Failed to copy/share:', error);
     } finally {
       setIsLoading(false);
@@ -86,6 +66,7 @@ const CopyButton = ({
   return (
     <button
       className={className || defaultClassName}
+      style={style}
       onClick={handleCopy}
       disabled={isLoading}
     >
