@@ -175,7 +175,6 @@ export function AgentSelectSheet({
           boxShadow: '0 -20px 60px rgba(0,0,0,0.55)',
         }}
       >
-        {/* Header */}
         <div
           className="flex flex-shrink-0 items-center gap-3 px-5 pb-4 pt-5"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
@@ -214,7 +213,6 @@ export function AgentSelectSheet({
           </button>
         </div>
 
-        {/* Agent list */}
         <div className="flex-1 space-y-2 overflow-y-auto px-4 py-3">
           {agentOptions.map((agent) => (
             <AgentCard
@@ -226,7 +224,6 @@ export function AgentSelectSheet({
           ))}
         </div>
 
-        {/* Start button */}
         <div
           className="flex-shrink-0 px-4 pb-5 pt-3"
           style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}

@@ -37,7 +37,7 @@ import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvid
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
-import MemoisedLobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
+import LobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import { useRouter } from 'next/navigation';
 import {
   puzzleToGrid,
@@ -56,7 +56,7 @@ import { DreyfusLevel } from '../types/Agent';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
-import CountdownOverlay from '../components/CountdownOverlay';
+import CountdownOverlay from './CountdownOverlay';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -156,7 +156,8 @@ const Sudoku = ({
     (completedAnswerStack: Puzzle[]) => {
       if (alreadyCompleted || isPuzzleCheated(completedAnswerStack)) return;
       setShowAnimation(true);
-      setTimeout(() => setShowAnimation(false), 10000);
+      const timerId = setTimeout(() => setShowAnimation(false), 10000);
+      return () => clearTimeout(timerId);
     },
     [alreadyCompleted]
   );
@@ -596,7 +597,6 @@ const Sudoku = ({
     <div
       className={`${showAdvancedControls ? 'pb-120' : 'pb-90'} landscape:mb-120 lg:pb-0 sm:landscape:pb-[calc(60vh)] lg:landscape:mb-0 lg:landscape:pb-0`}
     >
-      {/* App download prompt modal - shows first for web users */}
       <AppDownloadModal
         isOpen={showAppDownload}
         onClose={handleAppDownloadClose}
@@ -638,13 +638,11 @@ const Sudoku = ({
         onStartRace={handleStartRace}
       />
 
-      {/* Full-screen traffic-light countdown overlay */}
       {raceStarted &&
         !showLobby &&
         timer?.countdown != null &&
         timer.countdown > 0 && <CountdownOverlay countdown={timer.countdown} />}
 
-      {/* Display celebration animation when completed */}
       {completed && (
         <CelebrationAnimation
           isVisible={showAnimation}
@@ -658,7 +656,6 @@ const Sudoku = ({
         <div className="container mx-auto px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              {/* App Branding Header */}
               <div className="ml-auto mr-auto max-w-xl px-4 pb-1 lg:mr-0">
                 <div className="text-right">
                   <span className="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent">
@@ -673,7 +670,7 @@ const Sudoku = ({
                   role="group"
                   aria-label="Button group"
                 >
-                  <MemoisedLobbyButton friendsOnClick={friendsOnClick} />
+                  <LobbyButton friendsOnClick={friendsOnClick} />
                 </div>
                 <div
                   className={`grow text-right ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}
@@ -742,7 +739,6 @@ const Sudoku = ({
                 </div>
               </div>
 
-              {/* Race Track Progress */}
               {!showAnimation && (
                 <RaceTrack
                   sessionParties={sessionParties}
@@ -764,7 +760,6 @@ const Sudoku = ({
             </div>
           </div>
         </div>
-        {/* Sticky controls for mobile, regular positioning for desktop */}
         <div className="lg:container lg:mx-auto lg:basis-3/5">
           {!completed && (
             <div className="fixed inset-x-0 bottom-0 z-10 lg:relative">

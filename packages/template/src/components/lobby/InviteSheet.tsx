@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { Edit3, Loader, LogOut, Sparkles, Trash, X } from 'lucide-react';
-import { useParties } from '../../hooks/useParties';
 import { useServerStorage } from '../../hooks/serverStorage';
 import { buildPartyInviteUrl } from '../../helpers/inviteUrl';
 import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
@@ -9,7 +8,6 @@ import { isIOS } from '../../helpers/capacitor';
 import { PartyConfirmationDialog } from '../PartyConfirmationDialog';
 
 const DEFAULT_MAX = 5;
-const refreshSessionPartiesNoop: () => Promise<void> = async () => {};
 
 const copyButtonClassName =
   'inline-flex h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] text-xs font-semibold transition-transform active:scale-95';
@@ -32,6 +30,10 @@ export function InviteSheet({
   apiUrl,
   appUrl,
   defaultDisplayName,
+  saveParty,
+  updateParty,
+  leaveParty,
+  deleteParty,
 }: {
   open: boolean;
   onClose: () => void;
@@ -50,6 +52,16 @@ export function InviteSheet({
   apiUrl: string;
   appUrl: string;
   defaultDisplayName?: string;
+  saveParty: (args: {
+    memberNickname: string;
+    partyName: string;
+  }) => Promise<{ partyId: string } | undefined>;
+  updateParty: (
+    partyId: string,
+    args: { partyName?: string; maxSize?: number }
+  ) => Promise<void>;
+  leaveParty: (partyId: string) => Promise<void>;
+  deleteParty: (partyId: string) => Promise<void>;
 }) {
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
   useEffect(() => {
@@ -66,9 +78,6 @@ export function InviteSheet({
   } | null>(null);
   const inviteUrlCacheRef = useRef<Record<string, string>>({});
 
-  const { saveParty, updateParty, leaveParty, deleteParty } = useParties({
-    refreshSessionParties: refreshSessionPartiesNoop,
-  });
   const { createInvite } = useServerStorage({ app, apiUrl });
 
   const handleClose = () => {
@@ -137,7 +146,6 @@ export function InviteSheet({
           boxShadow: '0 -20px 60px rgba(0,0,0,0.55)',
         }}
       >
-        {/* Header */}
         <div
           className="flex items-start justify-between px-5 pb-4 pt-5"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
@@ -166,7 +174,6 @@ export function InviteSheet({
           </button>
         </div>
 
-        {/* Content */}
         <div className="overflow-y-auto px-5 py-4">
           {parties.length > 0 && (
             <>
@@ -188,7 +195,6 @@ export function InviteSheet({
                         background: 'rgba(255,255,255,0.04)',
                       }}
                     >
-                      {/* Name + delete/leave */}
                       <div className="mb-1.5 flex items-center gap-2">
                         {party.isOwner && isEditingName ? (
                           <input
@@ -256,7 +262,6 @@ export function InviteSheet({
                         </button>
                       </div>
 
-                      {/* Members + max size + copy link */}
                       <div className="flex items-center gap-2">
                         <span
                           className="text-xs font-semibold"

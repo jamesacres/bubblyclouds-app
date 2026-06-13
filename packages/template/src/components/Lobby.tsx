@@ -137,8 +137,17 @@ const Lobby = <ServerState extends BaseServerState>({
   const { user, loginRedirect } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
 
-  const { parties, isLoading, refreshParties, removeMember, memberNickname } =
-    useParties({ refreshSessionParties });
+  const {
+    parties,
+    isLoading,
+    refreshParties,
+    removeMember,
+    memberNickname,
+    saveParty,
+    updateParty,
+    leaveParty,
+    deleteParty,
+  } = useParties({ refreshSessionParties });
 
   const isDocumentVisible = useDocumentVisibility();
 
@@ -333,12 +342,10 @@ const Lobby = <ServerState extends BaseServerState>({
         }}
         aria-label="Race Lobby"
       >
-        {/* Absolute backdrop effects */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <HeroBackdrop />
         </div>
 
-        {/* Top bar */}
         <div className="relative z-10 flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
@@ -368,7 +375,6 @@ const Lobby = <ServerState extends BaseServerState>({
           </div>
         </div>
 
-        {/* Scrollable content */}
         <div
           className="relative z-10 flex h-full flex-col"
           style={{ paddingBottom: SCROLL_CONTAINER_BOTTOM_PADDING }}
@@ -387,7 +393,6 @@ const Lobby = <ServerState extends BaseServerState>({
               </div>
             )}
 
-            {/* Online opponents */}
             <SectionHead
               icon={Users}
               title="Online opponents"
@@ -462,7 +467,6 @@ const Lobby = <ServerState extends BaseServerState>({
               )}
             </div>
 
-            {/* Away section */}
             {awayPlayers.length > 0 && (
               <div className="mb-5">
                 <SectionHead
@@ -491,7 +495,6 @@ const Lobby = <ServerState extends BaseServerState>({
               </div>
             )}
 
-            {/* Offline party members */}
             {offlineMembers.length > 0 && (
               <div className="mb-6">
                 <SectionHead
@@ -582,7 +585,6 @@ const Lobby = <ServerState extends BaseServerState>({
               </div>
             )}
 
-            {/* AI opponents */}
             <SectionHead
               icon={Bot}
               title="AI opponents"
@@ -689,7 +691,6 @@ const Lobby = <ServerState extends BaseServerState>({
           </div>
         </div>
 
-        {/* Sticky start bar */}
         <div
           className="absolute bottom-0 left-0 right-0 z-20 px-4"
           style={{
@@ -749,7 +750,6 @@ const Lobby = <ServerState extends BaseServerState>({
           />
         )}
 
-        {/* Agent select sheet overlay */}
         {onAgentMode && (
           <AgentSelectSheet
             key={showAgentSheet ? 'open' : 'closed'}
@@ -764,7 +764,6 @@ const Lobby = <ServerState extends BaseServerState>({
           />
         )}
 
-        {/* Invite sheet overlay */}
         <InviteSheet
           open={showInviteSheet}
           onClose={() => setShowInviteSheet(false)}
@@ -783,6 +782,10 @@ const Lobby = <ServerState extends BaseServerState>({
           apiUrl={apiUrl}
           appUrl={appUrl}
           defaultDisplayName={memberNickname || user?.name || undefined}
+          saveParty={saveParty}
+          updateParty={updateParty}
+          leaveParty={leaveParty}
+          deleteParty={deleteParty}
         />
       </aside>
     </>

@@ -58,7 +58,6 @@ jest.mock('@bubblyclouds-app/games/components/LobbyButton', () => {
   return {
     __esModule: true,
     default: DummyLobbyButton,
-    LobbyButton: DummyLobbyButton,
   };
 });
 

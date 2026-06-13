@@ -7,15 +7,6 @@ const mockUpdateParty = jest.fn().mockResolvedValue(undefined);
 const mockLeaveParty = jest.fn().mockResolvedValue(undefined);
 const mockDeleteParty = jest.fn().mockResolvedValue(undefined);
 
-jest.mock('../../hooks/useParties', () => ({
-  useParties: () => ({
-    saveParty: mockSaveParty,
-    updateParty: mockUpdateParty,
-    leaveParty: mockLeaveParty,
-    deleteParty: mockDeleteParty,
-  }),
-}));
-
 jest.mock('../../hooks/serverStorage', () => ({
   useServerStorage: () => ({
     createInvite: jest.fn().mockResolvedValue({ inviteId: 'inv1' }),
@@ -74,6 +65,10 @@ const defaultProps = {
   appName: 'Test App',
   apiUrl: 'https://api.test.com',
   appUrl: 'https://app.test.com',
+  saveParty: mockSaveParty,
+  updateParty: mockUpdateParty,
+  leaveParty: mockLeaveParty,
+  deleteParty: mockDeleteParty,
 };
 
 describe('InviteSheet', () => {
