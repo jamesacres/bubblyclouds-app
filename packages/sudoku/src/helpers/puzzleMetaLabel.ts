@@ -39,9 +39,11 @@ export function derivePuzzleMetaLabel(
     const parts = metadata.sudokuBookPuzzleId.split('-');
     if (parts.length >= 4) {
       const ym = parts[1];
-      const monthName = MONTHS[parseInt(ym.slice(4, 6)) - 1];
-      const num = parseInt(parts[3]) + 1;
-      return `Book ${monthName} #${num}`;
+      const monthIndex = parseInt(ym.slice(4, 6), 10) - 1;
+      const monthName = MONTHS[monthIndex];
+      const puzzleIndex = parseInt(parts[3], 10);
+      if (!monthName || isNaN(puzzleIndex)) return '';
+      return `Book ${monthName} #${puzzleIndex + 1}`;
     }
   }
   if (metadata.scannedAt && metadata.scannedAt !== 'undefined') {

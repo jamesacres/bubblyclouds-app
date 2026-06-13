@@ -8,7 +8,6 @@ import {
   useState,
   ComponentType,
   ReactElement,
-  SyntheticEvent,
 } from 'react';
 import {
   Bot,
@@ -55,7 +54,7 @@ const AWAY_THRESHOLD_MS = 30 * 60 * 1000;
 
 interface Arguments<ServerState extends BaseServerState> {
   showLobby: boolean;
-  setShowLobby: (showLobby: boolean) => void;
+  setShowLobby: (value: boolean | ((prev: boolean) => boolean)) => void;
   puzzleId: string;
   redirectUri: string;
   refreshSessionParties: () => Promise<void>;
@@ -78,6 +77,36 @@ interface Arguments<ServerState extends BaseServerState> {
   initialState?: ServerState;
   onStartRace?: () => void;
 }
+
+const AgentAvatar = ({ name, emoji }: { name: string; emoji?: string }) => {
+  const [imgFailed, setImgFailed] = useState(false);
+  return (
+    <div
+      className="flex h-[42px] w-[42px] flex-shrink-0 items-center justify-center overflow-hidden rounded-full"
+      style={{
+        background: 'rgba(255,255,255,0.08)',
+        boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.1)',
+      }}
+    >
+      {!imgFailed && (
+        <img
+          className="h-full w-full object-cover"
+          src={`/opponents/${name.toLowerCase()}.webp`}
+          alt={name}
+          onError={() => setImgFailed(true)}
+        />
+      )}
+      {imgFailed && (
+        <span
+          className="flex h-full w-full items-center justify-center text-xl"
+          aria-hidden="true"
+        >
+          {emoji || '🤖'}
+        </span>
+      )}
+    </div>
+  );
+};
 
 const Lobby = <ServerState extends BaseServerState>({
   showLobby,
@@ -584,32 +613,7 @@ const Lobby = <ServerState extends BaseServerState>({
                         border: '1px solid rgba(255,255,255,0.07)',
                       }}
                     >
-                      <div
-                        className="flex h-[42px] w-[42px] flex-shrink-0 items-center justify-center overflow-hidden rounded-full"
-                        style={{
-                          background: 'rgba(255,255,255,0.08)',
-                          boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.1)',
-                        }}
-                      >
-                        <img
-                          className="h-full w-full object-cover"
-                          src={`/opponents/${agent.name.toLowerCase()}.webp`}
-                          alt={agent.name}
-                          onError={(e: SyntheticEvent<HTMLImageElement>) => {
-                            e.currentTarget.style.display = 'none';
-                            const sibling = e.currentTarget.nextElementSibling;
-                            if (sibling instanceof HTMLElement) {
-                              sibling.style.setProperty('display', 'flex');
-                            }
-                          }}
-                        />
-                        <span
-                          className="hidden h-full w-full items-center justify-center text-xl"
-                          aria-hidden="true"
-                        >
-                          {agent.emoji || '🤖'}
-                        </span>
-                      </div>
+                      <AgentAvatar name={agent.name} emoji={agent.emoji} />
                       <div className="min-w-0 flex-1">
                         <div className="mb-1 flex items-center gap-2">
                           <span className="text-[15.5px] font-bold text-white">
@@ -748,6 +752,7 @@ const Lobby = <ServerState extends BaseServerState>({
         {/* Agent select sheet overlay */}
         {onAgentMode && (
           <AgentSelectSheet
+            key={showAgentSheet ? 'open' : 'closed'}
             open={showAgentSheet}
             onClose={() => setShowAgentSheet(false)}
             agentOptions={agentOptions}

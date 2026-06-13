@@ -120,14 +120,6 @@ export function AgentSelectSheet({
     () => new Set(defaultSelectedAgentNames)
   );
 
-  const [prevOpen, setPrevOpen] = useState(open);
-  if (prevOpen !== open) {
-    setPrevOpen(open);
-    if (open) {
-      setSelectedNames(new Set(defaultSelectedAgentNames));
-    }
-  }
-
   const toggleAgent = (name: string) => {
     setSelectedNames((prev) => {
       const next = new Set(prev);
