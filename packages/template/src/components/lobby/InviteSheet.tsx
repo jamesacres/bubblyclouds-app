@@ -59,9 +59,9 @@ export function InviteSheet({
   updateParty: (
     partyId: string,
     args: { partyName?: string; maxSize?: number }
-  ) => Promise<void>;
-  leaveParty: (partyId: string) => Promise<void>;
-  deleteParty: (partyId: string) => Promise<void>;
+  ) => Promise<unknown>;
+  leaveParty: (partyId: string) => Promise<unknown>;
+  deleteParty: (partyId: string) => Promise<unknown>;
 }) {
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
   useEffect(() => {
