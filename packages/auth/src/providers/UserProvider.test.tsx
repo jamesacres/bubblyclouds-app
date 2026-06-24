@@ -42,7 +42,13 @@ describe('UserProvider', () => {
   describe('provider setup', () => {
     it('should render children', () => {
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <div>Test Content</div>
         </UserProvider>
       );
@@ -65,7 +71,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -90,7 +102,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -113,7 +131,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -138,7 +162,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -169,7 +199,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -197,7 +233,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -228,7 +270,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -259,7 +307,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -295,7 +349,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -326,7 +386,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -357,7 +423,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -384,7 +456,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -414,7 +492,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -440,7 +524,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -463,7 +553,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -486,7 +582,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -509,7 +611,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -534,7 +642,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -560,7 +674,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -583,7 +703,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -605,7 +731,13 @@ describe('UserProvider', () => {
 
       expect(() => {
         render(
-          <UserProvider platformServices={mockPlatformServices}>
+          <UserProvider
+            platformServices={mockPlatformServices}
+            logoSrc="/logo.png"
+            appName="Test App"
+            termsUrl="https://example.com/terms"
+            privacyUrl="https://example.com/privacy"
+          >
             <TestComponent />
           </UserProvider>
         );
@@ -627,7 +759,13 @@ describe('UserProvider', () => {
       };
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -665,10 +803,22 @@ describe('UserProvider', () => {
 
       const { container } = render(
         <>
-          <UserProvider platformServices={mockPlatformServices}>
+          <UserProvider
+            platformServices={mockPlatformServices}
+            logoSrc="/logo.png"
+            appName="Test App"
+            termsUrl="https://example.com/terms"
+            privacyUrl="https://example.com/privacy"
+          >
             <TestComponent id={1} />
           </UserProvider>
-          <UserProvider platformServices={mockPlatformServices}>
+          <UserProvider
+            platformServices={mockPlatformServices}
+            logoSrc="/logo.png"
+            appName="Test App"
+            termsUrl="https://example.com/terms"
+            privacyUrl="https://example.com/privacy"
+          >
             <TestComponent id={2} />
           </UserProvider>
         </>
@@ -692,7 +842,13 @@ describe('UserProvider', () => {
       };
 
       const { unmount } = render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );
@@ -706,7 +862,13 @@ describe('UserProvider', () => {
       contextRef.current = undefined;
 
       render(
-        <UserProvider platformServices={mockPlatformServices}>
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+        >
           <TestComponent />
         </UserProvider>
       );

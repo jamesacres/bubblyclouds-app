@@ -43,7 +43,13 @@ export function Providers({ children }: PropsWithChildren) {
     <GlobalStateProvider>
       <FetchProvider>
         <CapacitorProvider>
-          <UserProvider platformServices={platformServices}>
+          <UserProvider
+            platformServices={platformServices}
+            logoSrc="/bubbly-clouds.png"
+            appName={APP_CONFIG.appName}
+            termsUrl={APP_CONFIG.termsUrl}
+            privacyUrl={APP_CONFIG.privacyUrl}
+          >
             <RevenueCatProvider>
               <PartiesProvider app={APP_CONFIG.app} apiUrl={APP_CONFIG.apiUrl}>
                 <SessionsProvider

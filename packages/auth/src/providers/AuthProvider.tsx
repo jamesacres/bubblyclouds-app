@@ -2,9 +2,10 @@
 import { pkce } from '../services/pkce';
 import { useFetch } from '../hooks/useFetch';
 import { PlatformServicesContext } from './PlatformServicesContext';
+import { LoginModal } from '../components/LoginModal';
 import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Browser } from '@capacitor/browser';
 
 interface ElectronAPI {
@@ -22,7 +23,12 @@ declare global {
 
 export interface UserContextInterface {
   user?: UserProfile;
-  loginRedirect: (config: { userInitiated: boolean }) => Promise<void>;
+  loginRedirect: (config: {
+    userInitiated: boolean;
+    identityProvider?: 'google' | 'apple';
+    email?: string;
+  }) => Promise<void>;
+  showLoginModal: () => void;
   isLoggingIn: boolean;
   isInitialised: boolean;
   logout: () => void;
@@ -66,9 +72,20 @@ let isInitialising = false;
 interface AuthProviderProps {
   children: React.ReactNode;
   scope: string[];
+  logoSrc: string;
+  appName: string;
+  termsUrl: string;
+  privacyUrl: string;
 }
 
-const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({
+  children,
+  scope,
+  logoSrc,
+  appName,
+  termsUrl,
+  privacyUrl,
+}) => {
   const [user, setUser] = React.useState<UserProfile | undefined>(undefined);
   const platformServices = useContext(PlatformServicesContext);
 
@@ -81,6 +98,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
   const { fetch, getUser, logout, restoreState } = useFetch();
   const [isLoggingIn, setIsLoggingIn] = React.useState(false);
   const [isInitialised, setIsInitialised] = React.useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const router = useRouter();
 
   const {
@@ -176,7 +194,15 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
   }, [restoreCapacitorState]);
 
   const loginRedirect = React.useCallback(
-    async ({ userInitiated }: { userInitiated: boolean }) => {
+    async ({
+      userInitiated,
+      identityProvider,
+      email,
+    }: {
+      userInitiated: boolean;
+      identityProvider?: 'google' | 'apple';
+      email?: string;
+    }) => {
       console.info('loginRedirect..');
       setIsLoggingIn(true);
       // We use localStorage instead of sessionStorage as Firefox Mobile redirects with a new instance
@@ -206,6 +232,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
       params.set('resource', resource);
       if (userInitiated) {
         params.set('prompt', 'consent');
+      }
+
+      if (identityProvider) {
+        params.set('bubblyIdentityProvider', identityProvider);
+      }
+      if (email) {
+        params.set('bubblyEmail', email);
       }
 
       const url = `${iss}/oidc/auth?${params.toString()}`;
@@ -422,6 +455,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
         isInitialised,
         isLoggingIn,
         loginRedirect,
+        showLoginModal: () => setIsLoginModalOpen(true),
         user,
         handleAuthUrl,
         handleRestoreState,
@@ -430,6 +464,26 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
       }}
     >
       {children}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onGoogle={() => {
+          setIsLoginModalOpen(false);
+          loginRedirect({ userInitiated: true, identityProvider: 'google' });
+        }}
+        onApple={() => {
+          setIsLoginModalOpen(false);
+          loginRedirect({ userInitiated: true, identityProvider: 'apple' });
+        }}
+        onEmail={(email) => {
+          setIsLoginModalOpen(false);
+          loginRedirect({ userInitiated: true, email });
+        }}
+        logoSrc={logoSrc}
+        appName={appName}
+        termsUrl={termsUrl}
+        privacyUrl={privacyUrl}
+      />
     </UserContext.Provider>
   );
 };

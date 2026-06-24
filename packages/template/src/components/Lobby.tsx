@@ -134,7 +134,7 @@ const Lobby = <ServerState extends BaseServerState>({
   onStartRace,
 }: Arguments<ServerState>) => {
   const context = useContext(UserContext);
-  const { user, loginRedirect } = context || {};
+  const { user, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
 
   const {
@@ -419,7 +419,7 @@ const Lobby = <ServerState extends BaseServerState>({
                     icon={UserPlus}
                     onClick={() => {
                       if (!user) {
-                        loginRedirect?.({ userInitiated: true });
+                        showLoginModal?.();
                         return;
                       }
                       if (parties.length > 0 && !isSubscribed) {

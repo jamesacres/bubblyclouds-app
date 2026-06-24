@@ -9,6 +9,10 @@ import React from 'react';
 interface UserProviderProps {
   children: React.ReactNode;
   platformServices: PlatformServices;
+  logoSrc: string;
+  appName: string;
+  termsUrl: string;
+  privacyUrl: string;
 }
 
 /**
@@ -23,6 +27,10 @@ interface UserProviderProps {
 const UserProvider: React.FC<UserProviderProps> = ({
   children,
   platformServices,
+  logoSrc,
+  appName,
+  termsUrl,
+  privacyUrl,
 }) => {
   if (!platformServices) {
     throw new Error('UserProvider requires platformServices to be provided');
@@ -31,7 +39,15 @@ const UserProvider: React.FC<UserProviderProps> = ({
   return (
     <PlatformServicesProvider services={platformServices}>
       <FetchProvider>
-        <AuthProvider scope={platformServices.scope}>{children}</AuthProvider>
+        <AuthProvider
+          scope={platformServices.scope}
+          logoSrc={logoSrc}
+          appName={appName}
+          termsUrl={termsUrl}
+          privacyUrl={privacyUrl}
+        >
+          {children}
+        </AuthProvider>
       </FetchProvider>
     </PlatformServicesProvider>
   );

@@ -34,7 +34,7 @@ const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
 export default function BookPage() {
   const router = useRouter();
   const context = useContext(UserContext);
-  const { user, loginRedirect } = context || {};
+  const { user, loginRedirect, showLoginModal } = context || {};
   const {
     bookData,
     isLoading: bookLoading,
@@ -210,15 +210,31 @@ export default function BookPage() {
     return (
       <div className="flex min-h-screen items-center justify-center px-6">
         <div className="text-center">
-          <p className="text-stone-500 dark:text-zinc-400">
-            No puzzle book data available.
-          </p>
-          <button
-            onClick={() => router.push('/')}
-            className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
-          >
-            Back to home
-          </button>
+          {!user ? (
+            <>
+              <p className="text-stone-500 dark:text-zinc-400">
+                Sign in to access the puzzle book.
+              </p>
+              <button
+                onClick={() => showLoginModal?.()}
+                className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
+              >
+                Sign in
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="text-stone-500 dark:text-zinc-400">
+                No puzzle book data available.
+              </p>
+              <button
+                onClick={() => router.push('/')}
+                className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
+              >
+                Back to home
+              </button>
+            </>
+          )}
         </div>
       </div>
     );

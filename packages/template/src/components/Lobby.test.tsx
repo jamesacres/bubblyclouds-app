@@ -58,6 +58,7 @@ describe('Lobby', () => {
       isLoggingIn: false,
       isInitialised: true,
       loginRedirect: jest.fn(),
+      showLoginModal: jest.fn(),
       logout: jest.fn(),
       handleAuthUrl: jest.fn(),
       handleRestoreState: jest.fn(),
@@ -204,10 +205,10 @@ describe('Lobby', () => {
   });
 
   it('prompts for login if inviting while logged out', () => {
-    const loginRedirect = jest.fn();
-    renderComponent({}, { user: { user: undefined, loginRedirect } });
+    const showLoginModal = jest.fn();
+    renderComponent({}, { user: { user: undefined, showLoginModal } });
     fireEvent.click(screen.getByText('Invite'));
-    expect(loginRedirect).toHaveBeenCalled();
+    expect(showLoginModal).toHaveBeenCalled();
   });
 
   it('shows subscription modal if inviting a second party without subscription', () => {

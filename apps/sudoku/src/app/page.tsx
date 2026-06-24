@@ -128,7 +128,7 @@ function HomeComponent() {
 
   const router = useRouter();
   const context = useContext(UserContext);
-  const { user, loginRedirect } = context || {};
+  const { user, showLoginModal } = context || {};
   useOnline();
   const [isLoading, setIsLoading] = useState(false);
   const { getSudokuOfTheDay } = useSudokuServerStorage({
@@ -172,12 +172,7 @@ function HomeComponent() {
     setIsLoading(true);
     if (!user) {
       setIsLoading(false);
-      const confirmed = confirm(
-        'You need to sign in to continue. Would you like to sign in now?'
-      );
-      if (confirmed && loginRedirect) {
-        loginRedirect({ userInitiated: true });
-      }
+      showLoginModal?.();
       return;
     }
     const result = await getSudokuOfTheDay(difficulty);
@@ -195,12 +190,7 @@ function HomeComponent() {
 
   const openBook = (): void => {
     if (!user) {
-      const confirmed = confirm(
-        'You need to sign in to access the puzzle book. Would you like to sign in now?'
-      );
-      if (confirmed && loginRedirect) {
-        loginRedirect({ userInitiated: true });
-      }
+      showLoginModal?.();
       return;
     }
     router.push('/book');

@@ -142,6 +142,21 @@ jest.mock('next/link', () => {
   };
 });
 
+jest.mock('@bubblyclouds-app/auth/components/LoginModal', () => ({
+  LoginModal: ({
+    isOpen,
+    onClose,
+  }: {
+    isOpen: boolean;
+    onClose: () => void;
+  }) =>
+    isOpen ? (
+      <div data-testid="login-modal">
+        <button onClick={onClose}>Close Login</button>
+      </div>
+    ) : null,
+}));
+
 jest.mock('lucide-react', () => ({
   Users: () => <div data-testid="users-icon">Users Icon</div>,
   Zap: () => <div data-testid="zap-icon">Zap Icon</div>,

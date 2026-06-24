@@ -120,6 +120,7 @@ describe('Invite Page', () => {
       isLoggingIn: false,
       user: mockUser,
       loginRedirect: jest.fn(),
+      showLoginModal: jest.fn(),
       isInitialised: true,
       handleRestoreState: jest.fn(),
       logout: jest.fn(),
@@ -246,7 +247,7 @@ describe('Invite Page', () => {
   });
 
   describe('Sign In Flow', () => {
-    it('should call loginRedirect when sign-in button is clicked', async () => {
+    it('should call showLoginModal when sign-in button is clicked', async () => {
       mockUserContext.user = undefined;
       mockUseParties.mockReturnValue({ ...mockUsePartiesValue, parties: [] });
       renderWithProviders(<Invite />);
@@ -265,9 +266,7 @@ describe('Invite Page', () => {
       );
       await userEvent.click(signInButton);
 
-      expect(mockUserContext.loginRedirect).toHaveBeenCalledWith({
-        userInitiated: true,
-      });
+      expect(mockUserContext.showLoginModal).toHaveBeenCalled();
     });
   });
 });

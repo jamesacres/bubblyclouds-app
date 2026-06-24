@@ -53,7 +53,15 @@ const mockPlatformServices: PlatformServices = {
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <PlatformServicesProvider services={mockPlatformServices}>
     <FetchProvider>
-      <AuthProvider scope={mockPlatformServices.scope}>{children}</AuthProvider>
+      <AuthProvider
+        scope={mockPlatformServices.scope}
+        logoSrc="/logo.png"
+        appName="Test App"
+        termsUrl="https://example.com/terms"
+        privacyUrl="https://example.com/privacy"
+      >
+        {children}
+      </AuthProvider>
     </FetchProvider>
   </PlatformServicesProvider>
 );

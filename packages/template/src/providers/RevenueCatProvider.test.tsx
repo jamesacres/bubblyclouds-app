@@ -1,6 +1,9 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
-import RevenueCatProvider, { RevenueCatContext } from './RevenueCatProvider';
+import RevenueCatProvider, {
+  RevenueCatContext,
+  RevenueCatContextInterface,
+} from './RevenueCatProvider';
 import {
   UserContext,
   UserContextInterface,
@@ -25,14 +28,34 @@ const TestConsumer = () => {
 describe('RevenueCatProvider', () => {
   const mockUser: UserContextInterface['user'] = { sub: 'user1', name: 'Test' };
 
-  const renderWithUser = (user: UserContextInterface['user'] | null) => {
+  const renderWithUser = (
+    user: UserContextInterface['user'] | null,
+    showLoginModal?: jest.Mock
+  ) => {
     return render(
-      <UserContext.Provider value={{ user } as any}>
+      <UserContext.Provider
+        value={{ user, showLoginModal } as unknown as UserContextInterface}
+      >
         <RevenueCatProvider>
           <TestConsumer />
         </RevenueCatProvider>
       </UserContext.Provider>
     );
+  };
+
+  const captureContext = () => {
+    const contextRef = {
+      current: undefined as RevenueCatContextInterface | undefined,
+    };
+    const Consumer = () => {
+      const context = useContext(RevenueCatContext);
+      const ref = useRef(contextRef);
+      useEffect(() => {
+        ref.current.current = context;
+      }, [context]);
+      return null;
+    };
+    return { contextRef, Consumer };
   };
 
   beforeEach(() => {
@@ -71,17 +94,11 @@ describe('RevenueCatProvider', () => {
 
   it('provides a function to purchase a package', async () => {
     mockPurchases.purchasePackage.mockResolvedValue({} as any);
-    const contextRef = { current: undefined as any };
-    const Consumer = () => {
-      const context = useContext(RevenueCatContext);
-      const ref = useRef(contextRef);
-      useEffect(() => {
-        ref.current.current = context;
-      }, [context]);
-      return null;
-    };
+    const { contextRef, Consumer } = captureContext();
     render(
-      <UserContext.Provider value={{ user: mockUser } as any}>
+      <UserContext.Provider
+        value={{ user: mockUser } as unknown as UserContextInterface}
+      >
         <RevenueCatProvider>
           <Consumer />
         </RevenueCatProvider>
@@ -89,15 +106,102 @@ describe('RevenueCatProvider', () => {
     );
 
     await waitFor(() => {
-      expect(contextRef.current.purchasePackage).toBeDefined();
+      expect(contextRef.current?.purchasePackage).toBeDefined();
     });
 
     await act(async () => {
-      await contextRef.current.purchasePackage('test_package');
+      await contextRef.current?.purchasePackage('test_package' as any);
     });
 
     expect(mockPurchases.purchasePackage).toHaveBeenCalledWith({
       aPackage: 'test_package',
+    });
+  });
+
+  describe('showModalIfRequired', () => {
+    it('calls showLoginModal from context when user is not logged in', async () => {
+      const mockShowLoginModal = jest.fn();
+      const { contextRef, Consumer } = captureContext();
+      render(
+        <UserContext.Provider
+          value={
+            {
+              user: undefined,
+              showLoginModal: mockShowLoginModal,
+            } as unknown as UserContextInterface
+          }
+        >
+          <RevenueCatProvider>
+            <Consumer />
+          </RevenueCatProvider>
+        </UserContext.Provider>
+      );
+
+      await waitFor(() => {
+        expect(
+          contextRef.current?.subscribeModal.showModalIfRequired
+        ).toBeDefined();
+      });
+
+      act(() => {
+        contextRef.current?.subscribeModal.showModalIfRequired(jest.fn());
+      });
+
+      expect(mockShowLoginModal).toHaveBeenCalled();
+    });
+
+    it('calls callback directly when user is subscribed', async () => {
+      mockPurchases.getCustomerInfo.mockResolvedValue({
+        customerInfo: { entitlements: { active: { Plus: {} } } },
+      } as any);
+      const mockCallback = jest.fn();
+      const { contextRef, Consumer } = captureContext();
+      render(
+        <UserContext.Provider
+          value={{ user: mockUser } as unknown as UserContextInterface}
+        >
+          <RevenueCatProvider>
+            <Consumer />
+          </RevenueCatProvider>
+        </UserContext.Provider>
+      );
+
+      await waitFor(() => {
+        expect(contextRef.current?.isSubscribed).toBe(true);
+      });
+
+      act(() => {
+        contextRef.current?.subscribeModal.showModalIfRequired(mockCallback);
+      });
+
+      expect(mockCallback).toHaveBeenCalled();
+    });
+
+    it('opens subscription modal when user is logged in but not subscribed', async () => {
+      const { contextRef, Consumer } = captureContext();
+      render(
+        <UserContext.Provider
+          value={{ user: mockUser } as unknown as UserContextInterface}
+        >
+          <RevenueCatProvider>
+            <Consumer />
+          </RevenueCatProvider>
+        </UserContext.Provider>
+      );
+
+      await waitFor(() => {
+        expect(
+          contextRef.current?.subscribeModal.showModalIfRequired
+        ).toBeDefined();
+      });
+
+      act(() => {
+        contextRef.current?.subscribeModal.showModalIfRequired(jest.fn());
+      });
+
+      await waitFor(() => {
+        expect(contextRef.current?.subscribeModal.isOpen).toBe(true);
+      });
     });
   });
 });

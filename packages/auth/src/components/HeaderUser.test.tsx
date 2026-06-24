@@ -29,11 +29,13 @@ describe('HeaderUser', () => {
 
   let mockLogout: jest.Mock;
   let mockLoginRedirect: jest.Mock;
+  let mockShowLoginModal: jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
     mockLogout = jest.fn();
     mockLoginRedirect = jest.fn();
+    mockShowLoginModal = jest.fn();
   });
 
   const renderWithContext = (
@@ -84,12 +86,16 @@ describe('HeaderUser', () => {
   });
 
   describe('sign-in button functionality', () => {
-    it('should call loginRedirect when sign-in button is clicked', async () => {
-      renderWithContext({ user: undefined, loginRedirect: mockLoginRedirect });
+    it('should call showLoginModal when sign-in button is clicked', async () => {
+      renderWithContext({
+        user: undefined,
+        loginRedirect: mockLoginRedirect,
+        showLoginModal: mockShowLoginModal,
+      });
       const signInButton = screen.getByText('Sign in');
       fireEvent.click(signInButton);
       await waitFor(() => {
-        expect(mockLoginRedirect).toHaveBeenCalledWith({ userInitiated: true });
+        expect(mockShowLoginModal).toHaveBeenCalled();
       });
     });
 
