@@ -28,7 +28,7 @@ export interface UserContextInterface {
     identityProvider?: 'google' | 'apple';
     email?: string;
   }) => Promise<void>;
-  showLoginModal: () => void;
+  showLoginModal: (onCancel?: () => void) => void;
   isLoggingIn: boolean;
   isInitialised: boolean;
   logout: () => void;
@@ -99,6 +99,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
   const [isLoggingIn, setIsLoggingIn] = React.useState(false);
   const [isInitialised, setIsInitialised] = React.useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [loginCancelCallback, setLoginCancelCallback] = useState<() => void>(
+    () => () => {}
+  );
   const router = useRouter();
 
   const {
@@ -455,7 +458,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
         isInitialised,
         isLoggingIn,
         loginRedirect,
-        showLoginModal: () => setIsLoginModalOpen(true),
+        showLoginModal: (onCancel) => {
+          setLoginCancelCallback(() => onCancel || (() => {}));
+          setIsLoginModalOpen(true);
+        },
         user,
         handleAuthUrl,
         handleRestoreState,
@@ -466,18 +472,45 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
       {children}
       <LoginModal
         isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        onGoogle={() => {
+        onClose={() => {
           setIsLoginModalOpen(false);
-          loginRedirect({ userInitiated: true, identityProvider: 'google' });
+          loginCancelCallback();
         }}
-        onApple={() => {
+        onGoogle={async () => {
           setIsLoginModalOpen(false);
-          loginRedirect({ userInitiated: true, identityProvider: 'apple' });
+          try {
+            await loginRedirect({
+              userInitiated: true,
+              identityProvider: 'google',
+            });
+          } catch (e) {
+            console.error(e);
+            setIsLoggingIn(false);
+            setIsLoginModalOpen(true);
+          }
         }}
-        onEmail={(email) => {
+        onApple={async () => {
           setIsLoginModalOpen(false);
-          loginRedirect({ userInitiated: true, email });
+          try {
+            await loginRedirect({
+              userInitiated: true,
+              identityProvider: 'apple',
+            });
+          } catch (e) {
+            console.error(e);
+            setIsLoggingIn(false);
+            setIsLoginModalOpen(true);
+          }
+        }}
+        onEmail={async (email) => {
+          setIsLoginModalOpen(false);
+          try {
+            await loginRedirect({ userInitiated: true, email });
+          } catch (e) {
+            console.error(e);
+            setIsLoggingIn(false);
+            setIsLoginModalOpen(true);
+          }
         }}
         logoSrc={logoSrc}
         appName={appName}

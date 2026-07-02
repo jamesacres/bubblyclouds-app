@@ -71,7 +71,7 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
     modalContext?: SubscriptionContext
   ) => {
     if (!user) {
-      showLoginModal?.();
+      showLoginModal?.(cancelCallback);
       return;
     }
     if (isSubscribed) {

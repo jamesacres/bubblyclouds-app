@@ -8,7 +8,10 @@ import {
   UserContext,
   UserContextInterface,
 } from '@bubblyclouds-app/auth/providers/AuthProvider';
-import { Purchases } from '@revenuecat/purchases-capacitor';
+import {
+  Purchases,
+  PurchasesPackage as CapacitorPackage,
+} from '@revenuecat/purchases-capacitor';
 
 jest.mock('../helpers/capacitor', () => ({
   isCapacitor: () => true,
@@ -19,6 +22,14 @@ jest.mock('../helpers/electron', () => ({ isElectron: () => false }));
 jest.mock('@revenuecat/purchases-capacitor');
 
 const mockPurchases = Purchases as jest.Mocked<typeof Purchases>;
+
+type CustomerInfoResult = Awaited<
+  ReturnType<typeof mockPurchases.getCustomerInfo>
+>;
+type OfferingsResult = Awaited<ReturnType<typeof mockPurchases.getOfferings>>;
+type PurchaseResult = Awaited<
+  ReturnType<typeof mockPurchases.purchasePackage>
+>;
 
 const TestConsumer = () => {
   const context = useContext(RevenueCatContext);
@@ -63,10 +74,10 @@ describe('RevenueCatProvider', () => {
     mockPurchases.configure.mockResolvedValue(undefined);
     mockPurchases.getCustomerInfo.mockResolvedValue({
       customerInfo: { entitlements: { active: {} } },
-    } as any);
+    } as unknown as CustomerInfoResult);
     mockPurchases.getOfferings.mockResolvedValue({
       all: { default: { availablePackages: [] } },
-    } as any);
+    } as unknown as OfferingsResult);
   });
 
   it('initializes and checks subscription status for a logged-in user', async () => {
@@ -85,7 +96,7 @@ describe('RevenueCatProvider', () => {
   it('sets isSubscribed to true if the user has active entitlements', async () => {
     mockPurchases.getCustomerInfo.mockResolvedValue({
       customerInfo: { entitlements: { active: { Plus: {} } } },
-    } as any);
+    } as unknown as CustomerInfoResult);
     renderWithUser(mockUser);
     await waitFor(() => {
       expect(screen.getByText('Subscribed')).toBeInTheDocument();
@@ -93,7 +104,9 @@ describe('RevenueCatProvider', () => {
   });
 
   it('provides a function to purchase a package', async () => {
-    mockPurchases.purchasePackage.mockResolvedValue({} as any);
+    mockPurchases.purchasePackage.mockResolvedValue(
+      {} as unknown as PurchaseResult
+    );
     const { contextRef, Consumer } = captureContext();
     render(
       <UserContext.Provider
@@ -110,7 +123,9 @@ describe('RevenueCatProvider', () => {
     });
 
     await act(async () => {
-      await contextRef.current?.purchasePackage('test_package' as any);
+      await contextRef.current?.purchasePackage(
+        'test_package' as unknown as CapacitorPackage
+      );
     });
 
     expect(mockPurchases.purchasePackage).toHaveBeenCalledWith({
@@ -153,7 +168,7 @@ describe('RevenueCatProvider', () => {
     it('calls callback directly when user is subscribed', async () => {
       mockPurchases.getCustomerInfo.mockResolvedValue({
         customerInfo: { entitlements: { active: { Plus: {} } } },
-      } as any);
+      } as unknown as CustomerInfoResult);
       const mockCallback = jest.fn();
       const { contextRef, Consumer } = captureContext();
       render(

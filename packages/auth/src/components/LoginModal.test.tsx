@@ -145,5 +145,24 @@ describe('LoginModal', () => {
         ).not.toBeInTheDocument();
       });
     });
+
+    it('resets email state when reopened after being closed', async () => {
+      const { rerender } = render(<LoginModal {...defaultProps} />);
+      const input = screen.getByPlaceholderText(
+        'your@email.com'
+      ) as HTMLInputElement;
+      await userEvent.type(input, 'hello@world.com');
+      expect(input.value).toBe('hello@world.com');
+
+      rerender(<LoginModal {...defaultProps} isOpen={false} />);
+      rerender(<LoginModal {...defaultProps} isOpen={true} />);
+
+      await waitFor(() => {
+        expect(
+          (screen.getByPlaceholderText('your@email.com') as HTMLInputElement)
+            .value
+        ).toBe('');
+      });
+    });
   });
 });

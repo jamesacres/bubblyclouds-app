@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext, useRef, useEffect } from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import AuthProvider, {
   UserContext,
   UserContextInterface,
@@ -630,6 +630,67 @@ describe('AuthProvider', () => {
           true
         );
       });
+    });
+  });
+
+  describe('showLoginModal', () => {
+    it('calls the provided onCancel callback when the modal is dismissed without signing in', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      const onCancel = jest.fn();
+      showLoginModalRef.current(onCancel);
+
+      const cancelButton = await screen.findByText('Cancel');
+      fireEvent.click(cancelButton);
+
+      expect(onCancel).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not call onCancel when no callback is provided', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      showLoginModalRef.current();
+
+      const cancelButton = await screen.findByText('Cancel');
+      expect(() => fireEvent.click(cancelButton)).not.toThrow();
     });
   });
 

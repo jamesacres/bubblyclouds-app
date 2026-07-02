@@ -6,7 +6,7 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react';
-import { type FormEvent, Fragment, useState } from 'react';
+import { type FormEvent, Fragment, useEffect, useState } from 'react';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -33,6 +33,12 @@ export const LoginModal = ({
 }: LoginModalProps) => {
   const [email, setEmail] = useState('');
 
+  useEffect(() => {
+    if (!isOpen) {
+      setEmail('');
+    }
+  }, [isOpen]);
+
   const handleEmailSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (email.trim()) {
@@ -57,7 +63,6 @@ export const LoginModal = ({
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full flex-col items-center justify-center p-4">
-            {/* Logo above card */}
             <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
@@ -83,7 +88,6 @@ export const LoginModal = ({
               leaveTo="opacity-0 scale-95"
             >
               <DialogPanel className="w-full max-w-[354px] overflow-hidden rounded-sm bg-[#F7F7F7] px-10 pb-2.5 pt-5 shadow-[0px_2px_2px_rgba(0,0,0,0.3)]">
-                {/* Google button */}
                 <button
                   onClick={onGoogle}
                   className="mb-0 flex h-10 w-full cursor-pointer items-center rounded-[5px] bg-white p-0 transition-shadow duration-150 ease-in-out hover:shadow-[1px_4px_5px_1px_rgba(0,0,0,0.1)] active:bg-[#e5e5e5] active:shadow-none"
@@ -118,7 +122,6 @@ export const LoginModal = ({
                   </span>
                 </button>
 
-                {/* Apple button */}
                 <button
                   onClick={onApple}
                   className="mt-2 flex h-10 w-full cursor-pointer items-center overflow-hidden rounded-[5px] border border-black bg-black p-0"
@@ -156,7 +159,6 @@ export const LoginModal = ({
                   </span>
                 </button>
 
-                {/* Email section */}
                 <div className="mt-3 border-t border-black pt-2">
                   <p className="mb-2 text-center text-sm font-bold text-black">
                     Sign in with email
@@ -178,7 +180,6 @@ export const LoginModal = ({
                   </form>
                 </div>
 
-                {/* Footer links */}
                 <div className="mt-5 w-full text-center text-xs">
                   <button
                     onClick={onClose}
