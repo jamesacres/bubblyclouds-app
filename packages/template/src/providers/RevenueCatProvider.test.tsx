@@ -27,9 +27,7 @@ type CustomerInfoResult = Awaited<
   ReturnType<typeof mockPurchases.getCustomerInfo>
 >;
 type OfferingsResult = Awaited<ReturnType<typeof mockPurchases.getOfferings>>;
-type PurchaseResult = Awaited<
-  ReturnType<typeof mockPurchases.purchasePackage>
->;
+type PurchaseResult = Awaited<ReturnType<typeof mockPurchases.purchasePackage>>;
 
 const TestConsumer = () => {
   const context = useContext(RevenueCatContext);

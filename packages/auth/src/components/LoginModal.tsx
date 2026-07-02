@@ -6,7 +6,7 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react';
-import { type FormEvent, Fragment, useEffect, useState } from 'react';
+import { type FormEvent, Fragment, useState } from 'react';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -32,12 +32,12 @@ export const LoginModal = ({
   appName,
 }: LoginModalProps) => {
   const [email, setEmail] = useState('');
+  const [wasOpen, setWasOpen] = useState(isOpen);
 
-  useEffect(() => {
-    if (!isOpen) {
-      setEmail('');
-    }
-  }, [isOpen]);
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen);
+    if (!isOpen) setEmail('');
+  }
 
   const handleEmailSubmit = (e: FormEvent) => {
     e.preventDefault();
