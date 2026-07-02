@@ -748,8 +748,8 @@ importers:
         specifier: workspace:*
         version: link:../ui
       human-sudoku-solver:
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.1.0
+        version: 1.1.0
       lucide-react:
         specifier: ^0.563.0
         version: 0.563.0(react@19.2.4)
@@ -4548,8 +4548,8 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
-  human-sudoku-solver@1.0.1:
-    resolution: {integrity: sha512-sXHhv06TEEtHrvT8K0E3i89iNNehh5rH2tjGPDogyWHTEFRgi56Zr5D2KYNi24XvLUSvNkcgwSEccuOgAP3zgA==}
+  human-sudoku-solver@1.1.0:
+    resolution: {integrity: sha512-m4um6HN7zttBuIR65k4y3NtoJoM3jFQSKZgFVtOZ5Pl/zDAV4fcWK2xFCSGJMJLv3n4ULZB9nq09fIUlKghXFw==}
 
   husky@9.1.7:
     resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
@@ -11946,7 +11946,7 @@ snapshots:
 
   human-signals@2.1.0: {}
 
-  human-sudoku-solver@1.0.1: {}
+  human-sudoku-solver@1.1.0: {}
 
   husky@9.1.7: {}
 

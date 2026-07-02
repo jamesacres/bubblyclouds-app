@@ -44,7 +44,7 @@ export default function BookPage() {
   const {
     sessions,
     isLoading: sessionsLoading,
-    fetchSessions,
+    refetchSessions,
     lazyLoadFriendSessions,
   } = useSessions<GameState>();
   const { parties } = useParties();
@@ -87,11 +87,11 @@ export default function BookPage() {
 
       // Fetch book data and sessions
       await fetchBookData();
-      await fetchSessions();
+      await refetchSessions();
     };
 
     loadData();
-  }, [user, loginRedirect, router, fetchBookData, fetchSessions]);
+  }, [user, loginRedirect, router, fetchBookData, refetchSessions]);
 
   // Fetch friend sessions when parties are available
   useEffect(() => {
