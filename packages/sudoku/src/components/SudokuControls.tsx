@@ -505,7 +505,10 @@ const SudokuControls = ({
                   ) : (
                     <div className="flex flex-wrap items-center gap-2">
                       {
-                        <span className="text-sm font-medium text-gray-900 dark:text-white">
+                        <span
+                          onClick={handleCloseHint}
+                          className="cursor-pointer text-sm font-medium text-gray-900 dark:text-white"
+                        >
                           Thanks,
                         </span>
                       }
