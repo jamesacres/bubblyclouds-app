@@ -24,8 +24,6 @@ See Sudoku TODOs....
 
 ## Sudoku
 
-iPhone hard to press buttons for notes?
-
 chat gpt app?
 
 Solver Test coverage
