@@ -28,6 +28,7 @@ import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { BaseServerState } from '../types/state';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { useServerStorage } from '../hooks/serverStorage';
 import { useDocumentVisibility } from '../hooks/documentVisibility';
 import { buildPartyInviteUrl } from '../helpers/inviteUrl';
@@ -421,7 +422,7 @@ const Lobby = <ServerState extends BaseServerState>({
                     icon={UserPlus}
                     onClick={() => {
                       if (!user) {
-                        showLoginModal?.();
+                        showLoginModal?.(undefined, LoginContext.RACE_LOBBY);
                         return;
                       }
                       if (parties.length > 0 && !isSubscribed) {

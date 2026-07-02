@@ -2,8 +2,9 @@
 import { pkce } from '../services/pkce';
 import { useFetch } from '../hooks/useFetch';
 import { PlatformServicesContext } from './PlatformServicesContext';
-import { LoginModal } from '../components/LoginModal';
+import { LoginModal, type LoginContextMessage } from '../components/LoginModal';
 import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Browser } from '@capacitor/browser';
@@ -28,7 +29,7 @@ export interface UserContextInterface {
     identityProvider?: 'google' | 'apple';
     email?: string;
   }) => Promise<void>;
-  showLoginModal: (onCancel?: () => void) => void;
+  showLoginModal: (onCancel?: () => void, context?: LoginContext) => void;
   isLoggingIn: boolean;
   isInitialised: boolean;
   logout: () => void;
@@ -76,6 +77,8 @@ interface AuthProviderProps {
   appName: string;
   termsUrl: string;
   privacyUrl: string;
+  contextMessages?: Partial<Record<LoginContext, LoginContextMessage>>;
+  valueProps?: string[];
 }
 
 const AuthProvider: React.FC<AuthProviderProps> = ({
@@ -85,6 +88,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
   appName,
   termsUrl,
   privacyUrl,
+  contextMessages,
+  valueProps,
 }) => {
   const [user, setUser] = React.useState<UserProfile | undefined>(undefined);
   const platformServices = useContext(PlatformServicesContext);
@@ -102,6 +107,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
   const [loginCancelCallback, setLoginCancelCallback] = useState<() => void>(
     () => () => {}
   );
+  const [loginModalContext, setLoginModalContext] = useState<
+    LoginContext | undefined
+  >(undefined);
   const router = useRouter();
 
   const {
@@ -458,8 +466,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
         isInitialised,
         isLoggingIn,
         loginRedirect,
-        showLoginModal: (onCancel) => {
+        showLoginModal: (onCancel, context) => {
           setLoginCancelCallback(() => onCancel || (() => {}));
+          setLoginModalContext(context);
           setIsLoginModalOpen(true);
         },
         user,
@@ -477,7 +486,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
           loginCancelCallback();
         }}
         onGoogle={async () => {
-          setIsLoginModalOpen(false);
           try {
             await loginRedirect({
               userInitiated: true,
@@ -486,11 +494,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
           } catch (e) {
             console.error(e);
             setIsLoggingIn(false);
-            setIsLoginModalOpen(true);
           }
         }}
         onApple={async () => {
-          setIsLoginModalOpen(false);
           try {
             await loginRedirect({
               userInitiated: true,
@@ -499,23 +505,23 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
           } catch (e) {
             console.error(e);
             setIsLoggingIn(false);
-            setIsLoginModalOpen(true);
           }
         }}
         onEmail={async (email) => {
-          setIsLoginModalOpen(false);
           try {
             await loginRedirect({ userInitiated: true, email });
           } catch (e) {
             console.error(e);
             setIsLoggingIn(false);
-            setIsLoginModalOpen(true);
           }
         }}
+        context={loginModalContext}
+        contextMessages={contextMessages}
         logoSrc={logoSrc}
         appName={appName}
         termsUrl={termsUrl}
         privacyUrl={privacyUrl}
+        valueProps={valueProps}
       />
     </UserContext.Provider>
   );

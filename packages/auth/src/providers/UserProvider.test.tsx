@@ -4,6 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import UserProvider from './UserProvider';
 import { UserContext, UserContextInterface } from './AuthProvider';
 import { PlatformServices } from './PlatformServicesContext';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 // Mock dependencies
 jest.mock('next/navigation', () => ({
@@ -85,6 +86,49 @@ describe('UserProvider', () => {
       await waitFor(() => {
         expect(contextRef.current).toBeDefined();
       });
+    });
+  });
+
+  describe('loginContextMessages', () => {
+    it('renders the contextual message passed via loginContextMessages', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <UserProvider
+          platformServices={mockPlatformServices}
+          logoSrc="/logo.png"
+          appName="Test App"
+          termsUrl="https://example.com/terms"
+          privacyUrl="https://example.com/privacy"
+          loginContextMessages={{
+            [LoginContext.DAILY_PUZZLE]: {
+              textColor: 'text-violet-200',
+              content: 'Sign in to start today’s puzzle',
+            },
+          }}
+        >
+          <TestComponent />
+        </UserProvider>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      showLoginModalRef.current(undefined, LoginContext.DAILY_PUZZLE);
+
+      expect(
+        await screen.findByText('Sign in to start today’s puzzle')
+      ).toBeInTheDocument();
     });
   });
 

@@ -4,6 +4,8 @@ import AuthProvider from './AuthProvider';
 import PlatformServicesProvider, {
   PlatformServices,
 } from './PlatformServicesContext';
+import type { LoginContextMessage } from '../components/LoginModal';
+import type { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import React from 'react';
 
 interface UserProviderProps {
@@ -13,6 +15,8 @@ interface UserProviderProps {
   appName: string;
   termsUrl: string;
   privacyUrl: string;
+  loginContextMessages?: Partial<Record<LoginContext, LoginContextMessage>>;
+  loginValueProps?: string[];
 }
 
 /**
@@ -31,6 +35,8 @@ const UserProvider: React.FC<UserProviderProps> = ({
   appName,
   termsUrl,
   privacyUrl,
+  loginContextMessages,
+  loginValueProps,
 }) => {
   if (!platformServices) {
     throw new Error('UserProvider requires platformServices to be provided');
@@ -45,6 +51,8 @@ const UserProvider: React.FC<UserProviderProps> = ({
           appName={appName}
           termsUrl={termsUrl}
           privacyUrl={privacyUrl}
+          contextMessages={loginContextMessages}
+          valueProps={loginValueProps}
         >
           {children}
         </AuthProvider>

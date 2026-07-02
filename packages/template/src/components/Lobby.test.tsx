@@ -12,6 +12,7 @@ import {
 import { useParties } from '../hooks/useParties';
 import { Session } from '@bubblyclouds-app/types/serverTypes';
 import { BaseServerState } from '../types/state';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 jest.mock('../hooks/useParties');
 jest.mock('../hooks/serverStorage', () => ({
@@ -208,7 +209,10 @@ describe('Lobby', () => {
     const showLoginModal = jest.fn();
     renderComponent({}, { user: { user: undefined, showLoginModal } });
     fireEvent.click(screen.getByText('Invite'));
-    expect(showLoginModal).toHaveBeenCalled();
+    expect(showLoginModal).toHaveBeenCalledWith(
+      undefined,
+      LoginContext.RACE_LOBBY
+    );
   });
 
   it('shows subscription modal if inviting a second party without subscription', () => {

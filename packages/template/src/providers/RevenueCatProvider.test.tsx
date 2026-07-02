@@ -8,6 +8,7 @@ import {
   UserContext,
   UserContextInterface,
 } from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import {
   Purchases,
   PurchasesPackage as CapacitorPackage,
@@ -160,7 +161,10 @@ describe('RevenueCatProvider', () => {
         contextRef.current?.subscribeModal.showModalIfRequired(jest.fn());
       });
 
-      expect(mockShowLoginModal).toHaveBeenCalled();
+      expect(mockShowLoginModal).toHaveBeenCalledWith(
+        expect.any(Function),
+        LoginContext.SUBSCRIBE
+      );
     });
 
     it('calls callback directly when user is subscribed', async () => {

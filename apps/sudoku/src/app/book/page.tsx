@@ -26,6 +26,7 @@ import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/sudoku/helpers/cheatDetection';
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -216,7 +217,9 @@ export default function BookPage() {
                 Sign in to access the puzzle book.
               </p>
               <button
-                onClick={() => showLoginModal?.()}
+                onClick={() =>
+                  showLoginModal?.(undefined, LoginContext.PUZZLE_BOOK)
+                }
                 className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
               >
                 Sign in

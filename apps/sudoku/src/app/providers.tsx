@@ -24,6 +24,10 @@ import { ThemeProvider } from 'next-themes';
 import { PropsWithChildren } from 'react';
 import { StateType } from '@bubblyclouds-app/types/stateType';
 import { APP_CONFIG } from '../../app.config.js';
+import {
+  LOGIN_CONTEXT_MESSAGES,
+  LOGIN_VALUE_PROPS,
+} from '../config/loginMessages';
 
 const platformServices: PlatformServices = {
   isCapacitor,
@@ -49,6 +53,8 @@ export function Providers({ children }: PropsWithChildren) {
             appName={APP_CONFIG.appName}
             termsUrl={APP_CONFIG.termsUrl}
             privacyUrl={APP_CONFIG.privacyUrl}
+            loginContextMessages={LOGIN_CONTEXT_MESSAGES}
+            loginValueProps={LOGIN_VALUE_PROPS}
           >
             <RevenueCatProvider>
               <PartiesProvider app={APP_CONFIG.app} apiUrl={APP_CONFIG.apiUrl}>

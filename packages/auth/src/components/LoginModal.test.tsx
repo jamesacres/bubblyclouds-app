@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { LoginModal } from './LoginModal';
 
 const defaultProps = {
@@ -117,6 +118,68 @@ describe('LoginModal', () => {
         'https://example.com/privacy'
       );
       expect(privacyLink).toHaveAttribute('target', '_blank');
+    });
+  });
+
+  describe('contextual messaging', () => {
+    it('shows the default sign-in prompt when no context is given', () => {
+      render(<LoginModal {...defaultProps} />);
+      expect(screen.getByText('Sign in to continue')).toBeInTheDocument();
+    });
+
+    it('does not show value props when none are given', () => {
+      render(<LoginModal {...defaultProps} />);
+      expect(
+        screen.queryByText(
+          'Save your progress · Race friends · Track your stats'
+        )
+      ).not.toBeInTheDocument();
+    });
+
+    it('shows the value props when given', () => {
+      render(
+        <LoginModal
+          {...defaultProps}
+          valueProps={[
+            'Save your progress',
+            'Race friends',
+            'Track your stats',
+          ]}
+        />
+      );
+      expect(
+        screen.getByText('Save your progress · Race friends · Track your stats')
+      ).toBeInTheDocument();
+    });
+
+    it('renders the matching contextual message when context and contextMessages are given', () => {
+      render(
+        <LoginModal
+          {...defaultProps}
+          context={LoginContext.DAILY_PUZZLE}
+          contextMessages={{
+            [LoginContext.DAILY_PUZZLE]: {
+              textColor: 'text-violet-200',
+              content: 'Sign in to start today’s puzzle',
+            },
+          }}
+        />
+      );
+      expect(
+        screen.getByText('Sign in to start today’s puzzle')
+      ).toBeInTheDocument();
+      expect(screen.queryByText('Sign in to continue')).not.toBeInTheDocument();
+    });
+
+    it('falls back to the default prompt when context has no matching message', () => {
+      render(
+        <LoginModal
+          {...defaultProps}
+          context={LoginContext.DAILY_PUZZLE}
+          contextMessages={{}}
+        />
+      );
+      expect(screen.getByText('Sign in to continue')).toBeInTheDocument();
     });
   });
 

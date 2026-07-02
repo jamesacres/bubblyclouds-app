@@ -6,7 +6,13 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react';
-import { type FormEvent, Fragment, useState } from 'react';
+import type { LoginContext } from '@bubblyclouds-app/types/loginContext';
+import { type FormEvent, Fragment, type ReactNode, useState } from 'react';
+
+export interface LoginContextMessage {
+  textColor: string;
+  content: ReactNode;
+}
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -18,6 +24,9 @@ interface LoginModalProps {
   privacyUrl: string;
   logoSrc: string;
   appName: string;
+  context?: LoginContext;
+  contextMessages?: Partial<Record<LoginContext, LoginContextMessage>>;
+  valueProps?: string[];
 }
 
 export const LoginModal = ({
@@ -30,6 +39,9 @@ export const LoginModal = ({
   privacyUrl,
   logoSrc,
   appName,
+  context,
+  contextMessages,
+  valueProps = [],
 }: LoginModalProps) => {
   const [email, setEmail] = useState('');
   const [wasOpen, setWasOpen] = useState(isOpen);
@@ -45,6 +57,8 @@ export const LoginModal = ({
       onEmail(email.trim());
     }
   };
+
+  const contextMessage = context ? contextMessages?.[context] : undefined;
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -74,7 +88,7 @@ export const LoginModal = ({
             >
               <div className="mb-5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={logoSrc} alt={appName} className="w-48" />
+                <img src={logoSrc} alt={appName} className="w-40" />
               </div>
             </TransitionChild>
 
@@ -87,7 +101,31 @@ export const LoginModal = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <DialogPanel className="w-full max-w-[354px] overflow-hidden rounded-sm bg-[#F7F7F7] px-10 pb-2.5 pt-5 shadow-[0px_2px_2px_rgba(0,0,0,0.3)]">
+              <DialogPanel
+                className="w-full max-w-[354px] overflow-hidden rounded-3xl border border-white/15 bg-[#0c0818] px-7 pb-5 pt-6 shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
+                style={{
+                  backgroundImage:
+                    'radial-gradient(120% 100% at 0% 0%, rgba(139,92,246,0.25) 0%, rgba(12,8,24,0) 55%)',
+                }}
+              >
+                {contextMessage ? (
+                  <p
+                    className={`mb-2 text-center text-base font-semibold ${contextMessage.textColor}`}
+                  >
+                    {contextMessage.content}
+                  </p>
+                ) : (
+                  <p className="mb-2 text-center text-base font-semibold text-white/80">
+                    Sign in to continue
+                  </p>
+                )}
+
+                {valueProps.length > 0 && (
+                  <p className="mb-4 text-center text-xs text-white/40">
+                    {valueProps.join(' · ')}
+                  </p>
+                )}
+
                 <button
                   onClick={onGoogle}
                   className="mb-0 flex h-10 w-full cursor-pointer items-center rounded-[5px] bg-white p-0 transition-shadow duration-150 ease-in-out hover:shadow-[1px_4px_5px_1px_rgba(0,0,0,0.1)] active:bg-[#e5e5e5] active:shadow-none"
@@ -159,8 +197,8 @@ export const LoginModal = ({
                   </span>
                 </button>
 
-                <div className="mt-3 border-t border-black pt-2">
-                  <p className="mb-2 text-center text-sm font-bold text-black">
+                <div className="mt-3 border-t border-white/10 pt-3">
+                  <p className="mb-2 text-center text-sm font-bold text-white/80">
                     Sign in with email
                   </p>
                   <form onSubmit={handleEmailSubmit} className="flex">
@@ -169,11 +207,11 @@ export const LoginModal = ({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className="w-full rounded-l-[5px] border border-black px-2 py-2 text-base text-black outline-none"
+                      className="focus:border-theme-primary w-full rounded-l-[5px] border border-white/15 bg-white/5 px-2 py-2 text-base text-white outline-none placeholder:text-white/30"
                     />
                     <button
                       type="submit"
-                      className="cursor-pointer rounded-r-[5px] border border-black bg-black px-2 py-2 text-sm font-bold text-white"
+                      className="bg-theme-primary hover:bg-theme-primary-dark cursor-pointer rounded-r-[5px] px-3 py-2 text-sm font-bold text-white transition-colors"
                     >
                       Continue
                     </button>
@@ -183,7 +221,7 @@ export const LoginModal = ({
                 <div className="mt-5 w-full text-center text-xs">
                   <button
                     onClick={onClose}
-                    className="cursor-pointer font-normal text-gray-900 no-underline"
+                    className="cursor-pointer font-normal text-white/50 no-underline hover:text-white/70"
                     type="button"
                   >
                     Cancel
@@ -193,7 +231,7 @@ export const LoginModal = ({
                     href={termsUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="font-normal text-gray-900 no-underline"
+                    className="font-normal text-white/50 no-underline hover:text-white/70"
                   >
                     Terms of Service
                   </a>
@@ -202,7 +240,7 @@ export const LoginModal = ({
                     href={privacyUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="font-normal text-gray-900 no-underline"
+                    className="font-normal text-white/50 no-underline hover:text-white/70"
                   >
                     Privacy Policy
                   </a>

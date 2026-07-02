@@ -11,6 +11,7 @@ import {
   EntitlementDuration,
 } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import { Loader, Users, Star } from 'lucide-react';
@@ -339,7 +340,9 @@ function InviteComponent() {
                   ) : (
                     <div className="text-center">
                       <button
-                        onClick={() => showLoginModal?.()}
+                        onClick={() =>
+                          showLoginModal?.(undefined, LoginContext.JOIN_TEAM)
+                        }
                         className="w-full transform cursor-pointer rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4 font-bold text-white shadow-lg transition-all hover:scale-105 hover:from-blue-600 hover:to-purple-700 hover:shadow-xl active:scale-95"
                       >
                         <div className="flex items-center justify-center">

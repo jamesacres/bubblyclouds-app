@@ -37,6 +37,7 @@ import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl'
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { GameState } from '@bubblyclouds-app/sudoku/types/state';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 const SimpleStateWrapper = ({ state }: { state: GameState }) => (
   <SimpleSudoku state={state} />
@@ -172,7 +173,7 @@ function HomeComponent() {
     setIsLoading(true);
     if (!user) {
       setIsLoading(false);
-      showLoginModal?.();
+      showLoginModal?.(undefined, LoginContext.DAILY_PUZZLE);
       return;
     }
     const result = await getSudokuOfTheDay(difficulty);
@@ -190,7 +191,7 @@ function HomeComponent() {
 
   const openBook = (): void => {
     if (!user) {
-      showLoginModal?.();
+      showLoginModal?.(undefined, LoginContext.PUZZLE_BOOK);
       return;
     }
     router.push('/book');
