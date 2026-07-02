@@ -25,7 +25,6 @@ See Sudoku TODOs....
 ## Sudoku
 
 iPhone hard to press buttons for notes?
-Header too much space at top, not obvious on iPhone that there's a monthly book
 
 chat gpt app?
 

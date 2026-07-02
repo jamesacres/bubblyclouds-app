@@ -224,7 +224,7 @@ function HomeComponent() {
       {tab === Tab.START_PUZZLE ? (
         <div className="min-h-dvh bg-[#04020f] pb-32">
           {/* ══ HERO ══════════════════════════════════════════════ */}
-          <div className="pt-safe relative min-h-dvh overflow-hidden bg-[#04020f] px-5 pb-10">
+          <div className="relative min-h-dvh overflow-hidden bg-[#04020f] px-5 pb-10">
             <HeroGrid />
 
             {/* Neon ambient blobs */}
@@ -248,9 +248,9 @@ function HomeComponent() {
               }}
             />
 
-            <div className="container relative z-10 mx-auto max-w-4xl pt-6 md:pt-10">
+            <div className="container relative z-10 mx-auto max-w-4xl pt-4 md:pt-8">
               {/* App identity ─────────────────────────────────── */}
-              <div className="mb-8 flex items-center gap-4">
+              <div className="mb-5 flex items-center gap-4">
                 <div
                   className="liquid-glass-strong flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-[18px]"
                   style={{
@@ -280,7 +280,7 @@ function HomeComponent() {
               </div>
 
               {/* Bold hero headline ─────────────────────────── */}
-              <div className="mb-5">
+              <div className="mb-4">
                 <h1
                   className="mb-2 text-[2.6rem] font-black leading-[1.1] tracking-tight text-white md:text-5xl"
                   style={{
@@ -298,7 +298,7 @@ function HomeComponent() {
               </div>
 
               {/* Activity card — dots + text summary ──────────── */}
-              <div className="liquid-glass mb-5 rounded-2xl px-4 pb-3.5 pt-3">
+              <div className="liquid-glass mb-4 rounded-2xl px-4 pb-3.5 pt-3">
                 <ActivityWidget
                   sessions={sessions || undefined}
                   variant="dark"
@@ -355,7 +355,7 @@ function HomeComponent() {
                         style={{
                           background: `linear-gradient(160deg, ${bgFrom} 0%, ${bgTo} 100%)`,
                           boxShadow: glow,
-                          minHeight: '130px',
+                          minHeight: '112px',
                         }}
                       >
                         {/* Giant ghost digit — positioned top-right */}
