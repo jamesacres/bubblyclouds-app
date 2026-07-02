@@ -238,8 +238,7 @@ describe('CopyButton', () => {
       await waitFor(() => {
         expect(Share.share).toHaveBeenCalledWith(
           expect.objectContaining({
-            title: "You're invited to a Sudoku Race!",
-            text: 'Join the Racing Team racing team',
+            title: 'Join the Racing Team racing team on Sudoku Race!',
             url: 'test link',
             dialogTitle: 'Share invite',
           })
@@ -269,7 +268,7 @@ describe('CopyButton', () => {
       await waitFor(() => {
         expect(Share.share).toHaveBeenCalledWith(
           expect.objectContaining({
-            text: 'Join the Dragon Team racing team',
+            title: 'Join the Dragon Team racing team on Sudoku Race!',
           })
         );
       });
@@ -293,7 +292,7 @@ describe('CopyButton', () => {
       await waitFor(() => {
         expect(Share.share).toHaveBeenCalledWith(
           expect.objectContaining({
-            text: 'Join the racing team',
+            title: 'Join the racing team on Sudoku Race!',
           })
         );
       });
