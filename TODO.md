@@ -26,7 +26,7 @@ See Sudoku TODOs....
 
 iPhone hard to press buttons for notes?
 Header too much space at top, not obvious on iPhone that there's a monthly book
-sidebar create team button rename, and make it easy to see existing teams collapse ai characters
+
 chat gpt app?
 
 Solver Test coverage

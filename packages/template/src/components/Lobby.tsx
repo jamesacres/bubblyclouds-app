@@ -329,10 +329,12 @@ const Lobby = <ServerState extends BaseServerState>({
 
       <aside
         id="default-lobby"
-        className="fixed bottom-0 left-0 right-0 z-50 mx-auto h-[88%] w-full max-w-lg"
+        className={`fixed inset-x-0 bottom-0 z-50 mx-auto h-[88%] w-full max-w-lg transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:top-1/2 md:h-[85%] md:max-h-[720px] md:-translate-y-1/2 md:rounded-b-[26px] ${
+          showLobby
+            ? 'translate-y-0 md:scale-100 md:opacity-100'
+            : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
+        }`}
         style={{
-          transform: showLobby ? 'translateY(0)' : 'translateY(100%)',
-          transition: 'transform .32s cubic-bezier(0.34,1.2,0.64,1)',
           borderTopLeftRadius: 26,
           borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#1a1340 0%,#0c091e 100%)',
@@ -692,10 +694,10 @@ const Lobby = <ServerState extends BaseServerState>({
         </div>
 
         <div
-          className="absolute bottom-0 left-0 right-0 z-20 px-4"
+          className="absolute bottom-0 left-0 right-0 z-20 px-4 md:pb-[26px]"
           style={{
             paddingTop: 14,
-            paddingBottom: 'max(26px, env(safe-area-inset-bottom))',
+            paddingBottom: 'max(26px, var(--ion-safe-area-bottom, 0px))',
             background: 'rgba(12,9,28,0.28)',
             backdropFilter: 'blur(24px) saturate(1.5)',
             WebkitBackdropFilter: 'blur(24px) saturate(1.5)',

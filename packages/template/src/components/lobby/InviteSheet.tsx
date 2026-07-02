@@ -134,11 +134,13 @@ export function InviteSheet({
         }}
       />
       <div
-        className="absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden"
+        className={`absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] ${
+          open
+            ? 'translate-y-0 md:scale-100 md:opacity-100'
+            : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
+        }`}
         style={{
           maxHeight: '88%',
-          transform: open ? 'translateY(0)' : 'translateY(101%)',
-          transition: 'transform .32s cubic-bezier(0.34,1.2,0.64,1)',
           borderTopLeftRadius: 26,
           borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#15102e 0%,#0c0a1c 100%)',
@@ -174,7 +176,12 @@ export function InviteSheet({
           </button>
         </div>
 
-        <div className="overflow-y-auto px-5 py-4">
+        <div
+          className="overflow-y-auto px-5 pt-4"
+          style={{
+            paddingBottom: 'max(16px, var(--ion-safe-area-bottom, 0px))',
+          }}
+        >
           {parties.length > 0 && (
             <>
               <div
