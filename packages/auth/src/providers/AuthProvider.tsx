@@ -492,6 +492,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
               identityProvider: 'google',
             });
           } catch (e) {
+            // Intentionally leave the modal open: on web this lets bfcache
+            // restore it if the user presses back after the redirect; on
+            // native it means Browser.open/openBrowser failed, so keeping
+            // the modal open lets the user retry immediately.
             console.error(e);
             setIsLoggingIn(false);
           }
@@ -503,6 +507,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
               identityProvider: 'apple',
             });
           } catch (e) {
+            // See onGoogle above for why the modal stays open on error.
             console.error(e);
             setIsLoggingIn(false);
           }
@@ -511,6 +516,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
           try {
             await loginRedirect({ userInitiated: true, email });
           } catch (e) {
+            // See onGoogle above for why the modal stays open on error.
             console.error(e);
             setIsLoggingIn(false);
           }
