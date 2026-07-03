@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext, useRef, useEffect } from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import AuthProvider, {
   UserContext,
   UserContextInterface,
@@ -9,6 +9,7 @@ import FetchProvider from './FetchProvider';
 import PlatformServicesProvider, {
   PlatformServices,
 } from './PlatformServicesContext';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 // Mock dependencies
 jest.mock('next/navigation', () => ({
@@ -53,7 +54,15 @@ const mockPlatformServices: PlatformServices = {
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <PlatformServicesProvider services={mockPlatformServices}>
     <FetchProvider>
-      <AuthProvider scope={mockPlatformServices.scope}>{children}</AuthProvider>
+      <AuthProvider
+        scope={mockPlatformServices.scope}
+        logoSrc="/logo.png"
+        appName="Test App"
+        termsUrl="https://example.com/terms"
+        privacyUrl="https://example.com/privacy"
+      >
+        {children}
+      </AuthProvider>
     </FetchProvider>
   </PlatformServicesProvider>
 );
@@ -208,6 +217,46 @@ describe('AuthProvider', () => {
         // Don't await - just check that it's called
         expect(isLoggingInRef.current).toBeDefined();
       }
+    });
+
+    it('should skip a second loginRedirect call while one is already in progress', async () => {
+      const loginRedirectRef = {
+        current: undefined as UserContextInterface['loginRedirect'] | undefined,
+      };
+      const isLoggingInRef = { current: false };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const loginRedirectLocalRef = useRef(loginRedirectRef);
+        const isLoggingInLocalRef = useRef(isLoggingInRef);
+        useEffect(() => {
+          loginRedirectLocalRef.current.current = context?.loginRedirect;
+          isLoggingInLocalRef.current.current = context?.isLoggingIn ?? false;
+        }, [context?.loginRedirect, context?.isLoggingIn]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(loginRedirectRef.current).toBeDefined();
+      });
+
+      loginRedirectRef.current!({ userInitiated: true });
+
+      await waitFor(() => {
+        expect(isLoggingInRef.current).toBe(true);
+      });
+
+      const stateAfterFirstCall = localStorage.getItem('state');
+
+      await loginRedirectRef.current!({ userInitiated: true });
+
+      expect(localStorage.getItem('state')).toBe(stateAfterFirstCall);
     });
 
     it('should store pathname in localStorage', async () => {
@@ -622,6 +671,209 @@ describe('AuthProvider', () => {
           true
         );
       });
+    });
+  });
+
+  describe('showLoginModal', () => {
+    it('calls the provided onCancel callback when the modal is dismissed without signing in', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      const onCancel = jest.fn();
+      showLoginModalRef.current(onCancel);
+
+      const cancelButton = await screen.findByText('Cancel');
+      fireEvent.click(cancelButton);
+
+      expect(onCancel).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not call onCancel when no callback is provided', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      showLoginModalRef.current();
+
+      const cancelButton = await screen.findByText('Cancel');
+      expect(() => fireEvent.click(cancelButton)).not.toThrow();
+    });
+
+    it('renders the contextual message for the context passed to showLoginModal', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      const WrapperWithContextMessages = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
+        <PlatformServicesProvider services={mockPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+              contextMessages={{
+                [LoginContext.DAILY_PUZZLE]: {
+                  textColor: 'text-violet-200',
+                  content: 'Sign in to start today’s puzzle',
+                },
+              }}
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      render(
+        <WrapperWithContextMessages>
+          <TestComponent />
+        </WrapperWithContextMessages>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      showLoginModalRef.current(undefined, LoginContext.DAILY_PUZZLE);
+
+      expect(
+        await screen.findByText('Sign in to start today’s puzzle')
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe('back navigation while logging in', () => {
+    it('leaves the login modal open when a provider button is clicked, so pressing back shows it again', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      showLoginModalRef.current();
+
+      const googleButton = await screen.findByText('Sign in with Google');
+      fireEvent.click(googleButton);
+
+      // The redirect navigates the whole page away, so if the user presses
+      // back the browser restores this component with whatever React state
+      // was last committed. The modal must still be open at that point.
+      expect(screen.getByText('Sign in with Google')).toBeInTheDocument();
+    });
+
+    it('dismisses the login modal once a user is received after redirecting back', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      window.electronAPI = {
+        openBrowser: jest.fn(),
+        encrypt: jest.fn(),
+        decrypt: jest.fn(() =>
+          Promise.resolve(JSON.stringify({ user: { id: 'test-user' } }))
+        ),
+        saveState: jest.fn(),
+      };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = {
+            showLoginModal: context?.showLoginModal,
+            handleRestoreState: context?.handleRestoreState,
+          };
+        }, [context?.showLoginModal, context?.handleRestoreState]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current?.showLoginModal).toBeDefined();
+      });
+
+      showLoginModalRef.current.showLoginModal();
+      const googleButton = await screen.findByText('Sign in with Google');
+      fireEvent.click(googleButton);
+      expect(screen.getByText('Sign in with Google')).toBeInTheDocument();
+
+      window.history.pushState({}, '', '/?state=encoded-state');
+
+      await showLoginModalRef.current.handleRestoreState();
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Sign in with Google')
+        ).not.toBeInTheDocument();
+      });
+
+      delete window.electronAPI;
     });
   });
 

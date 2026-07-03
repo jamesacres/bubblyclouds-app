@@ -16,6 +16,7 @@ import {
 } from '@revenuecat/purchases-js';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 export interface RevenueCatContextInterface {
   isLoading: boolean;
@@ -49,7 +50,7 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const userContext = useContext(UserContext);
-  const { user, loginRedirect } = userContext || {};
+  const { user, showLoginModal } = userContext || {};
   const [isLoading, setIsLoading] = useState(true);
   const [packages, setPackages] = useState<(WebPackage | CapacitorPackage)[]>(
     []
@@ -71,14 +72,8 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
     modalContext?: SubscriptionContext
   ) => {
     if (!user) {
-      const confirmed = confirm(
-        'You need to sign in to continue. Would you like to sign in now?'
-      );
-      if (confirmed && loginRedirect) {
-        return loginRedirect({ userInitiated: true });
-      } else {
-        return cancelCallback();
-      }
+      showLoginModal?.(cancelCallback, LoginContext.SUBSCRIBE);
+      return;
     }
     if (isSubscribed) {
       return callback();

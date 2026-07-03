@@ -26,6 +26,7 @@ import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/sudoku/helpers/cheatDetection';
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -34,7 +35,7 @@ const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
 export default function BookPage() {
   const router = useRouter();
   const context = useContext(UserContext);
-  const { user, loginRedirect } = context || {};
+  const { user, showLoginModal } = context || {};
   const {
     bookData,
     isLoading: bookLoading,
@@ -44,7 +45,7 @@ export default function BookPage() {
   const {
     sessions,
     isLoading: sessionsLoading,
-    fetchSessions,
+    refetchSessions,
     lazyLoadFriendSessions,
   } = useSessions<GameState>();
   const { parties } = useParties();
@@ -87,11 +88,11 @@ export default function BookPage() {
 
       // Fetch book data and sessions
       await fetchBookData();
-      await fetchSessions();
+      await refetchSessions();
     };
 
     loadData();
-  }, [user, loginRedirect, router, fetchBookData, fetchSessions]);
+  }, [user, fetchBookData, refetchSessions]);
 
   // Fetch friend sessions when parties are available
   useEffect(() => {
@@ -210,15 +211,33 @@ export default function BookPage() {
     return (
       <div className="flex min-h-screen items-center justify-center px-6">
         <div className="text-center">
-          <p className="text-stone-500 dark:text-zinc-400">
-            No puzzle book data available.
-          </p>
-          <button
-            onClick={() => router.push('/')}
-            className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
-          >
-            Back to home
-          </button>
+          {!user ? (
+            <>
+              <p className="text-stone-500 dark:text-zinc-400">
+                Sign in to access the puzzle book.
+              </p>
+              <button
+                onClick={() =>
+                  showLoginModal?.(undefined, LoginContext.PUZZLE_BOOK)
+                }
+                className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
+              >
+                Sign in
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="text-stone-500 dark:text-zinc-400">
+                No puzzle book data available.
+              </p>
+              <button
+                onClick={() => router.push('/')}
+                className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
+              >
+                Back to home
+              </button>
+            </>
+          )}
         </div>
       </div>
     );

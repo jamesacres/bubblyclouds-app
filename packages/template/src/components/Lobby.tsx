@@ -25,9 +25,9 @@ import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
-import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { BaseServerState } from '../types/state';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { useServerStorage } from '../hooks/serverStorage';
 import { useDocumentVisibility } from '../hooks/documentVisibility';
 import { buildPartyInviteUrl } from '../helpers/inviteUrl';
@@ -134,7 +134,7 @@ const Lobby = <ServerState extends BaseServerState>({
   onStartRace,
 }: Arguments<ServerState>) => {
   const context = useContext(UserContext);
-  const { user, loginRedirect } = context || {};
+  const { user, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
 
   const {
@@ -329,10 +329,12 @@ const Lobby = <ServerState extends BaseServerState>({
 
       <aside
         id="default-lobby"
-        className="fixed bottom-0 left-0 right-0 z-50 mx-auto h-[88%] w-full max-w-lg"
+        className={`fixed inset-x-0 bottom-0 z-50 mx-auto h-[88%] w-full max-w-lg transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:top-1/2 md:h-[85%] md:max-h-[720px] md:-translate-y-1/2 md:rounded-b-[26px] ${
+          showLobby
+            ? 'translate-y-0 md:scale-100 md:opacity-100'
+            : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
+        }`}
         style={{
-          transform: showLobby ? 'translateY(0)' : 'translateY(100%)',
-          transition: 'transform .32s cubic-bezier(0.34,1.2,0.64,1)',
           borderTopLeftRadius: 26,
           borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#1a1340 0%,#0c091e 100%)',
@@ -419,18 +421,10 @@ const Lobby = <ServerState extends BaseServerState>({
                     icon={UserPlus}
                     onClick={() => {
                       if (!user) {
-                        loginRedirect?.({ userInitiated: true });
+                        showLoginModal?.(undefined, LoginContext.RACE_LOBBY);
                         return;
                       }
-                      if (parties.length > 0 && !isSubscribed) {
-                        subscribeModal?.showModalIfRequired(
-                          () => setShowInviteSheet(true),
-                          () => {},
-                          SubscriptionContext.MULTIPLE_PARTIES
-                        );
-                      } else {
-                        setShowInviteSheet(true);
-                      }
+                      setShowInviteSheet(true);
                     }}
                   >
                     Invite
@@ -692,10 +686,10 @@ const Lobby = <ServerState extends BaseServerState>({
         </div>
 
         <div
-          className="absolute bottom-0 left-0 right-0 z-20 px-4"
+          className="absolute bottom-0 left-0 right-0 z-20 px-4 md:pb-[26px]"
           style={{
             paddingTop: 14,
-            paddingBottom: 'max(26px, env(safe-area-inset-bottom))',
+            paddingBottom: 'max(26px, var(--ion-safe-area-bottom, 0px))',
             background: 'rgba(12,9,28,0.28)',
             backdropFilter: 'blur(24px) saturate(1.5)',
             WebkitBackdropFilter: 'blur(24px) saturate(1.5)',
@@ -786,6 +780,8 @@ const Lobby = <ServerState extends BaseServerState>({
           updateParty={updateParty}
           leaveParty={leaveParty}
           deleteParty={deleteParty}
+          isSubscribed={isSubscribed}
+          subscribeModal={subscribeModal}
         />
       </aside>
     </>

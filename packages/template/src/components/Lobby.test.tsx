@@ -12,6 +12,7 @@ import {
 import { useParties } from '../hooks/useParties';
 import { Session } from '@bubblyclouds-app/types/serverTypes';
 import { BaseServerState } from '../types/state';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 jest.mock('../hooks/useParties');
 jest.mock('../hooks/serverStorage', () => ({
@@ -58,6 +59,7 @@ describe('Lobby', () => {
       isLoggingIn: false,
       isInitialised: true,
       loginRedirect: jest.fn(),
+      showLoginModal: jest.fn(),
       logout: jest.fn(),
       handleAuthUrl: jest.fn(),
       handleRestoreState: jest.fn(),
@@ -204,13 +206,16 @@ describe('Lobby', () => {
   });
 
   it('prompts for login if inviting while logged out', () => {
-    const loginRedirect = jest.fn();
-    renderComponent({}, { user: { user: undefined, loginRedirect } });
+    const showLoginModal = jest.fn();
+    renderComponent({}, { user: { user: undefined, showLoginModal } });
     fireEvent.click(screen.getByText('Invite'));
-    expect(loginRedirect).toHaveBeenCalled();
+    expect(showLoginModal).toHaveBeenCalledWith(
+      undefined,
+      LoginContext.RACE_LOBBY
+    );
   });
 
-  it('shows subscription modal if inviting a second party without subscription', () => {
+  it('opens the invite sheet directly (no subscription gate) even with an existing party', () => {
     const showModalIfRequired = jest.fn();
     mockUseParties.mockReturnValueOnce({
       parties: [
@@ -257,6 +262,7 @@ describe('Lobby', () => {
       }
     );
     fireEvent.click(screen.getByText('Invite'));
-    expect(showModalIfRequired).toHaveBeenCalled();
+    expect(showModalIfRequired).not.toHaveBeenCalled();
+    expect(screen.getByText('Invite opponents')).toBeInTheDocument();
   });
 });

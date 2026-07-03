@@ -37,6 +37,7 @@ import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl'
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { GameState } from '@bubblyclouds-app/sudoku/types/state';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 
 const SimpleStateWrapper = ({ state }: { state: GameState }) => (
   <SimpleSudoku state={state} />
@@ -128,7 +129,7 @@ function HomeComponent() {
 
   const router = useRouter();
   const context = useContext(UserContext);
-  const { user, loginRedirect } = context || {};
+  const { user, showLoginModal } = context || {};
   useOnline();
   const [isLoading, setIsLoading] = useState(false);
   const { getSudokuOfTheDay } = useSudokuServerStorage({
@@ -172,12 +173,7 @@ function HomeComponent() {
     setIsLoading(true);
     if (!user) {
       setIsLoading(false);
-      const confirmed = confirm(
-        'You need to sign in to continue. Would you like to sign in now?'
-      );
-      if (confirmed && loginRedirect) {
-        loginRedirect({ userInitiated: true });
-      }
+      showLoginModal?.(undefined, LoginContext.DAILY_PUZZLE);
       return;
     }
     const result = await getSudokuOfTheDay(difficulty);
@@ -195,12 +191,7 @@ function HomeComponent() {
 
   const openBook = (): void => {
     if (!user) {
-      const confirmed = confirm(
-        'You need to sign in to access the puzzle book. Would you like to sign in now?'
-      );
-      if (confirmed && loginRedirect) {
-        loginRedirect({ userInitiated: true });
-      }
+      showLoginModal?.(undefined, LoginContext.PUZZLE_BOOK);
       return;
     }
     router.push('/book');
@@ -234,7 +225,7 @@ function HomeComponent() {
       {tab === Tab.START_PUZZLE ? (
         <div className="min-h-dvh bg-[#04020f] pb-32">
           {/* ══ HERO ══════════════════════════════════════════════ */}
-          <div className="pt-safe relative min-h-dvh overflow-hidden bg-[#04020f] px-5 pb-10">
+          <div className="relative min-h-dvh overflow-hidden bg-[#04020f] px-5 pb-10">
             <HeroGrid />
 
             {/* Neon ambient blobs */}
@@ -258,9 +249,9 @@ function HomeComponent() {
               }}
             />
 
-            <div className="container relative z-10 mx-auto max-w-4xl pt-6 md:pt-10">
+            <div className="container relative z-10 mx-auto max-w-4xl pt-4 md:pt-8">
               {/* App identity ─────────────────────────────────── */}
-              <div className="mb-8 flex items-center gap-4">
+              <div className="mb-5 flex items-center gap-4">
                 <div
                   className="liquid-glass-strong flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-[18px]"
                   style={{
@@ -290,7 +281,7 @@ function HomeComponent() {
               </div>
 
               {/* Bold hero headline ─────────────────────────── */}
-              <div className="mb-5">
+              <div className="mb-4">
                 <h1
                   className="mb-2 text-[2.6rem] font-black leading-[1.1] tracking-tight text-white md:text-5xl"
                   style={{
@@ -308,7 +299,7 @@ function HomeComponent() {
               </div>
 
               {/* Activity card — dots + text summary ──────────── */}
-              <div className="liquid-glass mb-5 rounded-2xl px-4 pb-3.5 pt-3">
+              <div className="liquid-glass mb-4 rounded-2xl px-4 pb-3.5 pt-3">
                 <ActivityWidget
                   sessions={sessions || undefined}
                   variant="dark"
@@ -365,7 +356,7 @@ function HomeComponent() {
                         style={{
                           background: `linear-gradient(160deg, ${bgFrom} 0%, ${bgTo} 100%)`,
                           boxShadow: glow,
-                          minHeight: '130px',
+                          minHeight: '112px',
                         }}
                       >
                         {/* Giant ghost digit — positioned top-right */}

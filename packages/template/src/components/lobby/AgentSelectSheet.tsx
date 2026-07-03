@@ -163,11 +163,13 @@ export function AgentSelectSheet({
         }}
       />
       <div
-        className="absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden"
+        className={`absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] ${
+          open
+            ? 'translate-y-0 md:scale-100 md:opacity-100'
+            : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
+        }`}
         style={{
           maxHeight: '88%',
-          transform: open ? 'translateY(0)' : 'translateY(101%)',
-          transition: 'transform .32s cubic-bezier(0.34,1.2,0.64,1)',
           borderTopLeftRadius: 26,
           borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#15102e 0%,#0c0a1c 100%)',
@@ -225,8 +227,11 @@ export function AgentSelectSheet({
         </div>
 
         <div
-          className="flex-shrink-0 px-4 pb-5 pt-3"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
+          className="flex-shrink-0 px-4 pt-3"
+          style={{
+            borderTop: '1px solid rgba(255,255,255,0.07)',
+            paddingBottom: 'max(20px, var(--ion-safe-area-bottom, 0px))',
+          }}
         >
           <button
             onClick={handleStart}

@@ -31,7 +31,7 @@
     "@bubblyclouds-app/template": "workspace:*",
     "@bubblyclouds-app/types": "workspace:*",
     "@bubblyclouds-app/ui": "workspace:*",
-    "human-sudoku-solver": "^1.0.1",
+    "human-sudoku-solver": "^1.1.0",
     "lucide-react": "^0.563.0",
     "next": "^16.2.2",
     "react": "^19.2.4",

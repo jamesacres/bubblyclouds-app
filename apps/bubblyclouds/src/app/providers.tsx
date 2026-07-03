@@ -28,7 +28,13 @@ const platformServices: PlatformServices = {
 export function Providers({ children }: PropsWithChildren) {
   return (
     <GlobalStateProvider>
-      <UserProvider platformServices={platformServices}>
+      <UserProvider
+        platformServices={platformServices}
+        logoSrc="/bubbly-clouds.png"
+        appName={APP_CONFIG.appName}
+        termsUrl={APP_CONFIG.termsUrl}
+        privacyUrl={APP_CONFIG.privacyUrl}
+      >
         <ThemeProvider attribute="class">
           <ThemeColorProvider>{children}</ThemeColorProvider>
         </ThemeProvider>

@@ -79,7 +79,7 @@ jest.mock('@bubblyclouds-app/template/helpers/sha256', () => ({
 describe('Book Page', () => {
   const mockPush = jest.fn();
   const mockFetchBookData = jest.fn();
-  const mockFetchSessions = jest.fn();
+  const mockRefetchSessions = jest.fn();
   const mockLazyLoadFriendSessions = jest.fn();
 
   beforeEach(() => {
@@ -105,7 +105,7 @@ describe('Book Page', () => {
     useSessions.mockReturnValue({
       sessions: [],
       isLoading: false,
-      fetchSessions: mockFetchSessions,
+      refetchSessions: mockRefetchSessions,
       lazyLoadFriendSessions: mockLazyLoadFriendSessions,
     });
 
@@ -147,7 +147,7 @@ describe('Book Page', () => {
       useSessions.mockReturnValue({
         sessions: [],
         isLoading: true,
-        fetchSessions: mockFetchSessions,
+        refetchSessions: mockRefetchSessions,
         lazyLoadFriendSessions: mockLazyLoadFriendSessions,
       });
 
@@ -172,7 +172,7 @@ describe('Book Page', () => {
       useSessions.mockReturnValue({
         sessions: [],
         isLoading: false,
-        fetchSessions: mockFetchSessions,
+        refetchSessions: mockRefetchSessions,
         lazyLoadFriendSessions: mockLazyLoadFriendSessions,
       });
 
@@ -513,7 +513,7 @@ describe('Book Page', () => {
           },
         ],
         isLoading: false,
-        fetchSessions: mockFetchSessions,
+        refetchSessions: mockRefetchSessions,
         lazyLoadFriendSessions: mockLazyLoadFriendSessions,
       });
 
@@ -558,7 +558,7 @@ describe('Book Page', () => {
           },
         ],
         isLoading: false,
-        fetchSessions: mockFetchSessions,
+        refetchSessions: mockRefetchSessions,
         lazyLoadFriendSessions: mockLazyLoadFriendSessions,
       });
 
@@ -686,7 +686,7 @@ describe('Book Page', () => {
       render(<BookPage />);
 
       await waitFor(() => {
-        expect(mockFetchSessions).toHaveBeenCalled();
+        expect(mockRefetchSessions).toHaveBeenCalled();
       });
     });
 

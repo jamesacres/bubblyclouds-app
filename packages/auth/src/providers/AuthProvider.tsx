@@ -2,9 +2,11 @@
 import { pkce } from '../services/pkce';
 import { useFetch } from '../hooks/useFetch';
 import { PlatformServicesContext } from './PlatformServicesContext';
+import { LoginModal, type LoginContextMessage } from '../components/LoginModal';
 import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { useRouter } from 'next/navigation';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Browser } from '@capacitor/browser';
 
 interface ElectronAPI {
@@ -22,7 +24,12 @@ declare global {
 
 export interface UserContextInterface {
   user?: UserProfile;
-  loginRedirect: (config: { userInitiated: boolean }) => Promise<void>;
+  loginRedirect: (config: {
+    userInitiated: boolean;
+    identityProvider?: 'google' | 'apple';
+    email?: string;
+  }) => Promise<void>;
+  showLoginModal: (onCancel?: () => void, context?: LoginContext) => void;
   isLoggingIn: boolean;
   isInitialised: boolean;
   logout: () => void;
@@ -66,9 +73,24 @@ let isInitialising = false;
 interface AuthProviderProps {
   children: React.ReactNode;
   scope: string[];
+  logoSrc: string;
+  appName: string;
+  termsUrl: string;
+  privacyUrl: string;
+  contextMessages?: Partial<Record<LoginContext, LoginContextMessage>>;
+  valueProps?: string[];
 }
 
-const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({
+  children,
+  scope,
+  logoSrc,
+  appName,
+  termsUrl,
+  privacyUrl,
+  contextMessages,
+  valueProps,
+}) => {
   const [user, setUser] = React.useState<UserProfile | undefined>(undefined);
   const platformServices = useContext(PlatformServicesContext);
 
@@ -81,6 +103,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
   const { fetch, getUser, logout, restoreState } = useFetch();
   const [isLoggingIn, setIsLoggingIn] = React.useState(false);
   const [isInitialised, setIsInitialised] = React.useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [loginCancelCallback, setLoginCancelCallback] = useState<() => void>(
+    () => () => {}
+  );
+  const [loginModalContext, setLoginModalContext] = useState<
+    LoginContext | undefined
+  >(undefined);
   const router = useRouter();
 
   const {
@@ -176,7 +205,19 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
   }, [restoreCapacitorState]);
 
   const loginRedirect = React.useCallback(
-    async ({ userInitiated }: { userInitiated: boolean }) => {
+    async ({
+      userInitiated,
+      identityProvider,
+      email,
+    }: {
+      userInitiated: boolean;
+      identityProvider?: 'google' | 'apple';
+      email?: string;
+    }) => {
+      if (isLoggingIn) {
+        console.info('loginRedirect already in progress, skipping');
+        return;
+      }
       console.info('loginRedirect..');
       setIsLoggingIn(true);
       // We use localStorage instead of sessionStorage as Firefox Mobile redirects with a new instance
@@ -208,6 +249,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
         params.set('prompt', 'consent');
       }
 
+      if (identityProvider) {
+        params.set('bubblyIdentityProvider', identityProvider);
+      }
+      if (email) {
+        params.set('bubblyEmail', email);
+      }
+
       const url = `${iss}/oidc/auth?${params.toString()}`;
       if (isElectron()) {
         await openBrowser(url);
@@ -223,7 +271,17 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
         setIsLoggingIn(false);
       }, 10000);
     },
-    [clientId, isElectron, isCapacitor, openBrowser, app, iss, apiUrl, scope]
+    [
+      clientId,
+      isElectron,
+      isCapacitor,
+      openBrowser,
+      app,
+      iss,
+      apiUrl,
+      scope,
+      isLoggingIn,
+    ]
   );
 
   // Create a ref to break the circular dependency where handleUser passes itself to restoreCapacitorState
@@ -242,6 +300,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
           }
           return currentUser || user;
         });
+        // Login succeeded, so dismiss the login modal if it was left open
+        // (e.g. across the redirect-back from an external/in-app browser)
+        setIsLoginModalOpen(false);
         if (!isElectron() && !isCapacitor()) {
           // Indicate that if browser closes, next reopen we can try to recover our session
           localStorage.setItem('recoverSession', 'true');
@@ -422,6 +483,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
         isInitialised,
         isLoggingIn,
         loginRedirect,
+        showLoginModal: (onCancel, context) => {
+          setLoginCancelCallback(() => onCancel || (() => {}));
+          setLoginModalContext(context);
+          setIsLoginModalOpen(true);
+        },
         user,
         handleAuthUrl,
         handleRestoreState,
@@ -430,6 +496,57 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children, scope }) => {
       }}
     >
       {children}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        isLoggingIn={isLoggingIn}
+        onClose={() => {
+          setIsLoginModalOpen(false);
+          loginCancelCallback();
+        }}
+        onGoogle={async () => {
+          try {
+            await loginRedirect({
+              userInitiated: true,
+              identityProvider: 'google',
+            });
+          } catch (e) {
+            // Intentionally leave the modal open: on web this lets bfcache
+            // restore it if the user presses back after the redirect; on
+            // native it means Browser.open/openBrowser failed, so keeping
+            // the modal open lets the user retry immediately.
+            console.error(e);
+            setIsLoggingIn(false);
+          }
+        }}
+        onApple={async () => {
+          try {
+            await loginRedirect({
+              userInitiated: true,
+              identityProvider: 'apple',
+            });
+          } catch (e) {
+            // See onGoogle above for why the modal stays open on error.
+            console.error(e);
+            setIsLoggingIn(false);
+          }
+        }}
+        onEmail={async (email) => {
+          try {
+            await loginRedirect({ userInitiated: true, email });
+          } catch (e) {
+            // See onGoogle above for why the modal stays open on error.
+            console.error(e);
+            setIsLoggingIn(false);
+          }
+        }}
+        context={loginModalContext}
+        contextMessages={contextMessages}
+        logoSrc={logoSrc}
+        appName={appName}
+        termsUrl={termsUrl}
+        privacyUrl={privacyUrl}
+        valueProps={valueProps}
+      />
     </UserContext.Provider>
   );
 };

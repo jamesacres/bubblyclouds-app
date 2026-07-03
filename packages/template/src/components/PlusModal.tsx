@@ -6,7 +6,7 @@ import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { PurchasesPackage as CapacitorPackage } from '@revenuecat/purchases-capacitor';
 import { Package as WebPackage } from '@revenuecat/purchases-js';
 import { ComponentType, ReactNode, useContext, useState } from 'react';
-import { X, Check } from 'lucide-react';
+import { X, Check, Loader } from 'lucide-react';
 
 interface PremiumFeature {
   icon: ComponentType<{ className?: string }>;
@@ -42,6 +42,8 @@ const PlusModal = ({
   const [selectedPlan, setSelectedPlan] = useState<'lifetime' | 'monthly'>(
     'monthly'
   );
+  const [isPurchasing, setIsPurchasing] = useState(false);
+  const [isRestoring, setIsRestoring] = useState(false);
   try {
     const getContextualMessage = (context?: string) => {
       if (!context) return null;
@@ -221,7 +223,8 @@ const PlusModal = ({
           <div className="flex-shrink-0 rounded-b-2xl border-t-2 border-gray-300/70 bg-white/95 shadow-[0_-16px_32px_-4px_rgba(0,0,0,0.4)] backdrop-blur-xl dark:border-gray-600/70 dark:bg-gray-900/95">
             <div className="space-y-3 px-6 py-4">
               <button
-                className="w-full cursor-pointer rounded-xl bg-blue-500 py-4 font-semibold text-white transition-colors hover:bg-blue-600 active:bg-blue-700"
+                className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-blue-500 py-4 font-semibold text-white transition-colors hover:bg-blue-600 active:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+                disabled={isPurchasing || isRestoring}
                 onClick={async () => {
                   if (
                     selectedPlan &&
@@ -229,37 +232,57 @@ const PlusModal = ({
                     lifetimePackage &&
                     monthlyPackage
                   ) {
-                    const isSubscribed = await purchasePackage(
-                      selectedPlan === 'lifetime'
-                        ? lifetimePackage
-                        : monthlyPackage
-                    );
-                    modal.hideModal();
-                    if (isSubscribed) {
-                      modal.callback();
-                    }
-                  }
-                }}
-              >
-                Continue
-              </button>
-              <div className="flex gap-4">
-                <button
-                  className="flex-1 cursor-pointer py-2 text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-300"
-                  onClick={async () => {
-                    if (restorePurchases) {
-                      const isSubscribed = await restorePurchases();
+                    setIsPurchasing(true);
+                    try {
+                      const isSubscribed = await purchasePackage(
+                        selectedPlan === 'lifetime'
+                          ? lifetimePackage
+                          : monthlyPackage
+                      );
                       modal.hideModal();
                       if (isSubscribed) {
                         modal.callback();
                       }
+                    } finally {
+                      setIsPurchasing(false);
+                    }
+                  }
+                }}
+              >
+                {isPurchasing ? (
+                  <Loader className="h-5 w-5 animate-spin" />
+                ) : (
+                  'Continue'
+                )}
+              </button>
+              <div className="flex gap-4">
+                <button
+                  className="flex flex-1 cursor-pointer items-center justify-center py-2 text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
+                  disabled={isPurchasing || isRestoring}
+                  onClick={async () => {
+                    if (restorePurchases) {
+                      setIsRestoring(true);
+                      try {
+                        const isSubscribed = await restorePurchases();
+                        modal.hideModal();
+                        if (isSubscribed) {
+                          modal.callback();
+                        }
+                      } finally {
+                        setIsRestoring(false);
+                      }
                     }
                   }}
                 >
-                  Restore purchases
+                  {isRestoring ? (
+                    <Loader className="h-4 w-4 animate-spin" />
+                  ) : (
+                    'Restore purchases'
+                  )}
                 </button>
                 <button
-                  className="flex-1 cursor-pointer py-2 text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-500 dark:hover:text-gray-300"
+                  className="flex-1 cursor-pointer py-2 text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
+                  disabled={isPurchasing || isRestoring}
                   onClick={() => {
                     modal?.hideModal();
                     modal.cancelCallback();

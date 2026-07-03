@@ -6,6 +6,8 @@ import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
 import { shareOrCopyUrl } from '@bubblyclouds-app/ui/helpers/share';
 import { isIOS } from '../../helpers/capacitor';
 import { PartyConfirmationDialog } from '../PartyConfirmationDialog';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { RevenueCatContextInterface } from '../../providers/RevenueCatProvider';
 
 const DEFAULT_MAX = 5;
 
@@ -34,6 +36,8 @@ export function InviteSheet({
   updateParty,
   leaveParty,
   deleteParty,
+  isSubscribed,
+  subscribeModal,
 }: {
   open: boolean;
   onClose: () => void;
@@ -62,6 +66,8 @@ export function InviteSheet({
   ) => Promise<unknown>;
   leaveParty: (partyId: string) => Promise<unknown>;
   deleteParty: (partyId: string) => Promise<unknown>;
+  isSubscribed?: boolean;
+  subscribeModal?: RevenueCatContextInterface['subscribeModal'];
 }) {
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
   useEffect(() => {
@@ -114,6 +120,18 @@ export function InviteSheet({
     }
   };
 
+  const handleCreateClick = () => {
+    if (parties.length > 0 && !isSubscribed) {
+      subscribeModal?.showModalIfRequired(
+        create,
+        () => {},
+        SubscriptionContext.MULTIPLE_PARTIES
+      );
+    } else {
+      create();
+    }
+  };
+
   const inputClassName =
     'w-full h-[52px] rounded-[14px] border border-white/[0.12] bg-white/[0.04] px-4 text-[15px] font-medium text-white outline-none';
 
@@ -134,11 +152,13 @@ export function InviteSheet({
         }}
       />
       <div
-        className="absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden"
+        className={`absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] ${
+          open
+            ? 'translate-y-0 md:scale-100 md:opacity-100'
+            : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
+        }`}
         style={{
           maxHeight: '88%',
-          transform: open ? 'translateY(0)' : 'translateY(101%)',
-          transition: 'transform .32s cubic-bezier(0.34,1.2,0.64,1)',
           borderTopLeftRadius: 26,
           borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#15102e 0%,#0c0a1c 100%)',
@@ -174,7 +194,12 @@ export function InviteSheet({
           </button>
         </div>
 
-        <div className="overflow-y-auto px-5 py-4">
+        <div
+          className="overflow-y-auto px-5 pt-4"
+          style={{
+            paddingBottom: 'max(16px, var(--ion-safe-area-bottom, 0px))',
+          }}
+        >
           {parties.length > 0 && (
             <>
               <div
@@ -363,7 +388,7 @@ export function InviteSheet({
           />
 
           <button
-            onClick={create}
+            onClick={handleCreateClick}
             disabled={isSaving || !teamName.trim() || !display.trim()}
             className="bg-theme-primary hover:bg-theme-primary-dark mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl text-base font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
             style={{ height: 54 }}

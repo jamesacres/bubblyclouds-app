@@ -1,9 +1,6 @@
 # TODO
 
-increase sign in conversion, add sign in with google, apple, email to the app itself rather than saying you need to sign in - auth service handle intent and auto submit
-need to compare to export to find missing / mismatches
-cindy lee missing in data, and numbers dont match 100% need to compare export with what's missing
-al green still in love with you re-rated
+
 
 See Sudoku TODOs....
 
@@ -13,9 +10,15 @@ See Sudoku TODOs....
 
 # Apps
 
+## Stephen
+
+- need to compare to export to find missing / mismatches
+- cindy lee missing in data, and numbers dont match 100% need to compare export with what's missing
+- al green still in love with you re-rated
+- fix stephen music album images not loading with quotes
+
 ## Blog
 
-- fix stephen music album images not loading with quotes
 - update projects
 - write ai tool progress over past year since last post and learnings
 - write retro post
@@ -24,14 +27,6 @@ See Sudoku TODOs....
 
 ## Sudoku
 
-Add loading state on the buy button
-Make it say row and column on the ask for help
-iPhone hard to press buttons for notes?
-After completing book puzzle, pressing book does not have completed state
-Header too much space at top, not obvious on iPhone that there's a monthly book
-apple pencil cant click the select rivals button to play
-make thanks text clickable to dismiss the help
-sidebar create team button rename, and make it easy to see existing teams collapse ai characters
 chat gpt app?
 
 Solver Test coverage

@@ -11,6 +11,7 @@ import {
   EntitlementDuration,
 } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useCallback, useContext, useEffect, useState } from 'react';
 import { Loader, Users, Star } from 'lucide-react';
@@ -22,7 +23,7 @@ function InviteComponent() {
 
   const router = useRouter();
   const context = useContext(UserContext);
-  const { isLoggingIn, user, loginRedirect } = context || {};
+  const { user, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal, refreshEntitlements } =
     useContext(RevenueCatContext) || {};
   const { getPublicInvite, createMember } = useSudokuServerStorage({
@@ -339,26 +340,15 @@ function InviteComponent() {
                   ) : (
                     <div className="text-center">
                       <button
-                        disabled={isLoggingIn}
                         onClick={() =>
-                          loginRedirect &&
-                          loginRedirect({ userInitiated: true })
+                          showLoginModal?.(undefined, LoginContext.JOIN_TEAM)
                         }
-                        className={`${
-                          isLoggingIn ? 'cursor-wait' : ''
-                        } w-full transform rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4 font-bold text-white shadow-lg transition-all hover:scale-105 hover:from-blue-600 hover:to-purple-700 hover:shadow-xl active:scale-95 disabled:from-gray-400 disabled:to-gray-500`}
+                        className="w-full transform cursor-pointer rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4 font-bold text-white shadow-lg transition-all hover:scale-105 hover:from-blue-600 hover:to-purple-700 hover:shadow-xl active:scale-95"
                       >
-                        {isLoggingIn ? (
-                          <div className="flex items-center justify-center">
-                            <Loader className="mr-2 h-5 w-5 animate-spin" />
-                            Signing in...
-                          </div>
-                        ) : (
-                          <div className="flex cursor-pointer items-center justify-center">
-                            <Star className="mr-2 h-5 w-5" />
-                            Sign in to Continue
-                          </div>
-                        )}
+                        <div className="flex items-center justify-center">
+                          <Star className="mr-2 h-5 w-5" />
+                          Sign in to Continue
+                        </div>
                       </button>
                     </div>
                   )}
