@@ -35,7 +35,7 @@ const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
 export default function BookPage() {
   const router = useRouter();
   const context = useContext(UserContext);
-  const { user, loginRedirect, showLoginModal } = context || {};
+  const { user, showLoginModal } = context || {};
   const {
     bookData,
     isLoading: bookLoading,
@@ -92,7 +92,7 @@ export default function BookPage() {
     };
 
     loadData();
-  }, [user, loginRedirect, router, fetchBookData, refetchSessions]);
+  }, [user, fetchBookData, refetchSessions]);
 
   // Fetch friend sessions when parties are available
   useEffect(() => {

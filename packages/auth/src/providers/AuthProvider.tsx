@@ -214,6 +214,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
       identityProvider?: 'google' | 'apple';
       email?: string;
     }) => {
+      if (isLoggingIn) {
+        console.info('loginRedirect already in progress, skipping');
+        return;
+      }
       console.info('loginRedirect..');
       setIsLoggingIn(true);
       // We use localStorage instead of sessionStorage as Firefox Mobile redirects with a new instance
@@ -267,7 +271,17 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
         setIsLoggingIn(false);
       }, 10000);
     },
-    [clientId, isElectron, isCapacitor, openBrowser, app, iss, apiUrl, scope]
+    [
+      clientId,
+      isElectron,
+      isCapacitor,
+      openBrowser,
+      app,
+      iss,
+      apiUrl,
+      scope,
+      isLoggingIn,
+    ]
   );
 
   // Create a ref to break the circular dependency where handleUser passes itself to restoreCapacitorState
@@ -481,6 +495,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
       {children}
       <LoginModal
         isOpen={isLoginModalOpen}
+        isLoggingIn={isLoggingIn}
         onClose={() => {
           setIsLoginModalOpen(false);
           loginCancelCallback();

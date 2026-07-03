@@ -60,6 +60,21 @@ describe('LoginModal', () => {
       fireEvent.click(screen.getByText('Sign in with Apple'));
       expect(defaultProps.onApple).toHaveBeenCalledTimes(1);
     });
+
+    it('disables Google, Apple and email submit buttons while isLoggingIn is true', () => {
+      render(<LoginModal {...defaultProps} isLoggingIn={true} />);
+      expect(screen.getByText('Sign in with Google').closest('button')).toBeDisabled();
+      expect(screen.getByText('Sign in with Apple').closest('button')).toBeDisabled();
+      expect(screen.getByRole('button', { name: 'Continue' })).toBeDisabled();
+    });
+
+    it('does not call onGoogle or onApple when disabled by isLoggingIn', () => {
+      render(<LoginModal {...defaultProps} isLoggingIn={true} />);
+      fireEvent.click(screen.getByText('Sign in with Google'));
+      fireEvent.click(screen.getByText('Sign in with Apple'));
+      expect(defaultProps.onGoogle).not.toHaveBeenCalled();
+      expect(defaultProps.onApple).not.toHaveBeenCalled();
+    });
   });
 
   describe('email sign-in', () => {

@@ -23,7 +23,7 @@ function InviteComponent() {
 
   const router = useRouter();
   const context = useContext(UserContext);
-  const { isLoggingIn, user, loginRedirect, showLoginModal } = context || {};
+  const { user, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal, refreshEntitlements } =
     useContext(RevenueCatContext) || {};
   const { getPublicInvite, createMember } = useSudokuServerStorage({

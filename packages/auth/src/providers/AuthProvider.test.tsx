@@ -219,6 +219,46 @@ describe('AuthProvider', () => {
       }
     });
 
+    it('should skip a second loginRedirect call while one is already in progress', async () => {
+      const loginRedirectRef = {
+        current: undefined as UserContextInterface['loginRedirect'] | undefined,
+      };
+      const isLoggingInRef = { current: false };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const loginRedirectLocalRef = useRef(loginRedirectRef);
+        const isLoggingInLocalRef = useRef(isLoggingInRef);
+        useEffect(() => {
+          loginRedirectLocalRef.current.current = context?.loginRedirect;
+          isLoggingInLocalRef.current.current = context?.isLoggingIn ?? false;
+        }, [context?.loginRedirect, context?.isLoggingIn]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(loginRedirectRef.current).toBeDefined();
+      });
+
+      loginRedirectRef.current!({ userInitiated: true });
+
+      await waitFor(() => {
+        expect(isLoggingInRef.current).toBe(true);
+      });
+
+      const stateAfterFirstCall = localStorage.getItem('state');
+
+      await loginRedirectRef.current!({ userInitiated: true });
+
+      expect(localStorage.getItem('state')).toBe(stateAfterFirstCall);
+    });
+
     it('should store pathname in localStorage', async () => {
       const loginRedirectRef = { current: undefined as any };
 
