@@ -215,7 +215,7 @@ describe('Lobby', () => {
     );
   });
 
-  it('shows subscription modal if inviting a second party without subscription', () => {
+  it('opens the invite sheet directly (no subscription gate) even with an existing party', () => {
     const showModalIfRequired = jest.fn();
     mockUseParties.mockReturnValueOnce({
       parties: [
@@ -262,6 +262,7 @@ describe('Lobby', () => {
       }
     );
     fireEvent.click(screen.getByText('Invite'));
-    expect(showModalIfRequired).toHaveBeenCalled();
+    expect(showModalIfRequired).not.toHaveBeenCalled();
+    expect(screen.getByText('Invite opponents')).toBeInTheDocument();
   });
 });

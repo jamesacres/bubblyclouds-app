@@ -314,4 +314,105 @@ describe('InviteSheet', () => {
     render(<InviteSheet {...defaultProps} parties={parties} />);
     expect(screen.getByText('4 members')).toBeInTheDocument();
   });
+
+  it('creates the first team without a subscription check when no parties exist', async () => {
+    const showModalIfRequired = jest.fn();
+    render(
+      <InviteSheet
+        {...defaultProps}
+        parties={[]}
+        isSubscribed={false}
+        subscribeModal={{
+          isOpen: false,
+          callback: jest.fn(),
+          cancelCallback: jest.fn(),
+          showModalIfRequired,
+          hideModal: jest.fn(),
+        }}
+      />
+    );
+    fireEvent.change(screen.getByPlaceholderText('Display name'), {
+      target: { value: 'Alice' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('Team name (e.g. Family)'), {
+      target: { value: 'Dream Team' },
+    });
+    fireEvent.click(screen.getByText(/Create & copy link/));
+    expect(showModalIfRequired).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockSaveParty).toHaveBeenCalled();
+    });
+  });
+
+  it('shows the subscription modal when creating another team without a subscription', () => {
+    const showModalIfRequired = jest.fn();
+    const parties = [
+      {
+        partyId: 'p1',
+        partyName: 'Team Alpha',
+        members: [{ userId: 'u1' }],
+        isOwner: true,
+      },
+    ];
+    render(
+      <InviteSheet
+        {...defaultProps}
+        parties={parties}
+        isSubscribed={false}
+        subscribeModal={{
+          isOpen: false,
+          callback: jest.fn(),
+          cancelCallback: jest.fn(),
+          showModalIfRequired,
+          hideModal: jest.fn(),
+        }}
+      />
+    );
+    fireEvent.change(screen.getByPlaceholderText('Display name'), {
+      target: { value: 'Alice' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('Team name (e.g. Family)'), {
+      target: { value: 'Dream Team' },
+    });
+    fireEvent.click(screen.getByText(/Create & copy link/));
+    expect(showModalIfRequired).toHaveBeenCalled();
+    expect(mockSaveParty).not.toHaveBeenCalled();
+  });
+
+  it('creates another team without gating when the user is already subscribed', async () => {
+    const showModalIfRequired = jest.fn();
+    const parties = [
+      {
+        partyId: 'p1',
+        partyName: 'Team Alpha',
+        members: [{ userId: 'u1' }],
+        isOwner: true,
+      },
+    ];
+    render(
+      <InviteSheet
+        {...defaultProps}
+        parties={parties}
+        isSubscribed={true}
+        subscribeModal={{
+          isOpen: false,
+          callback: jest.fn(),
+          cancelCallback: jest.fn(),
+          showModalIfRequired,
+          hideModal: jest.fn(),
+        }}
+      />
+    );
+    fireEvent.change(screen.getByPlaceholderText('Display name'), {
+      target: { value: 'Alice' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('Team name (e.g. Family)'), {
+      target: { value: 'Dream Team' },
+    });
+    fireEvent.click(screen.getByText(/Create & copy link/));
+    expect(showModalIfRequired).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(mockSaveParty).toHaveBeenCalled();
+    });
+  });
 });

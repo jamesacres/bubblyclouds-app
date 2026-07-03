@@ -25,7 +25,6 @@ import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
-import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { BaseServerState } from '../types/state';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
@@ -425,15 +424,7 @@ const Lobby = <ServerState extends BaseServerState>({
                         showLoginModal?.(undefined, LoginContext.RACE_LOBBY);
                         return;
                       }
-                      if (parties.length > 0 && !isSubscribed) {
-                        subscribeModal?.showModalIfRequired(
-                          () => setShowInviteSheet(true),
-                          () => {},
-                          SubscriptionContext.MULTIPLE_PARTIES
-                        );
-                      } else {
-                        setShowInviteSheet(true);
-                      }
+                      setShowInviteSheet(true);
                     }}
                   >
                     Invite
@@ -789,6 +780,8 @@ const Lobby = <ServerState extends BaseServerState>({
           updateParty={updateParty}
           leaveParty={leaveParty}
           deleteParty={deleteParty}
+          isSubscribed={isSubscribed}
+          subscribeModal={subscribeModal}
         />
       </aside>
     </>

@@ -823,6 +823,58 @@ describe('AuthProvider', () => {
       // was last committed. The modal must still be open at that point.
       expect(screen.getByText('Sign in with Google')).toBeInTheDocument();
     });
+
+    it('dismisses the login modal once a user is received after redirecting back', async () => {
+      const showLoginModalRef = { current: undefined as any };
+
+      window.electronAPI = {
+        openBrowser: jest.fn(),
+        encrypt: jest.fn(),
+        decrypt: jest.fn(() =>
+          Promise.resolve(JSON.stringify({ user: { id: 'test-user' } }))
+        ),
+        saveState: jest.fn(),
+      };
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = {
+            showLoginModal: context?.showLoginModal,
+            handleRestoreState: context?.handleRestoreState,
+          };
+        }, [context?.showLoginModal, context?.handleRestoreState]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current?.showLoginModal).toBeDefined();
+      });
+
+      showLoginModalRef.current.showLoginModal();
+      const googleButton = await screen.findByText('Sign in with Google');
+      fireEvent.click(googleButton);
+      expect(screen.getByText('Sign in with Google')).toBeInTheDocument();
+
+      window.history.pushState({}, '', '/?state=encoded-state');
+
+      await showLoginModalRef.current.handleRestoreState();
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Sign in with Google')
+        ).not.toBeInTheDocument();
+      });
+
+      delete window.electronAPI;
+    });
   });
 
   describe('error handling', () => {

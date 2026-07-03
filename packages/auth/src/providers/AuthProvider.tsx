@@ -300,6 +300,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
           }
           return currentUser || user;
         });
+        // Login succeeded, so dismiss the login modal if it was left open
+        // (e.g. across the redirect-back from an external/in-app browser)
+        setIsLoginModalOpen(false);
         if (!isElectron() && !isCapacitor()) {
           // Indicate that if browser closes, next reopen we can try to recover our session
           localStorage.setItem('recoverSession', 'true');

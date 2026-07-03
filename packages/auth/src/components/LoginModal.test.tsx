@@ -63,8 +63,12 @@ describe('LoginModal', () => {
 
     it('disables Google, Apple and email submit buttons while isLoggingIn is true', () => {
       render(<LoginModal {...defaultProps} isLoggingIn={true} />);
-      expect(screen.getByText('Sign in with Google').closest('button')).toBeDisabled();
-      expect(screen.getByText('Sign in with Apple').closest('button')).toBeDisabled();
+      expect(
+        screen.getByText('Sign in with Google').closest('button')
+      ).toBeDisabled();
+      expect(
+        screen.getByText('Sign in with Apple').closest('button')
+      ).toBeDisabled();
       expect(screen.getByRole('button', { name: 'Continue' })).toBeDisabled();
     });
 

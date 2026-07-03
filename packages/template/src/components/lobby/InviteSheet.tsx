@@ -6,6 +6,8 @@ import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
 import { shareOrCopyUrl } from '@bubblyclouds-app/ui/helpers/share';
 import { isIOS } from '../../helpers/capacitor';
 import { PartyConfirmationDialog } from '../PartyConfirmationDialog';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { RevenueCatContextInterface } from '../../providers/RevenueCatProvider';
 
 const DEFAULT_MAX = 5;
 
@@ -34,6 +36,8 @@ export function InviteSheet({
   updateParty,
   leaveParty,
   deleteParty,
+  isSubscribed,
+  subscribeModal,
 }: {
   open: boolean;
   onClose: () => void;
@@ -62,6 +66,8 @@ export function InviteSheet({
   ) => Promise<unknown>;
   leaveParty: (partyId: string) => Promise<unknown>;
   deleteParty: (partyId: string) => Promise<unknown>;
+  isSubscribed?: boolean;
+  subscribeModal?: RevenueCatContextInterface['subscribeModal'];
 }) {
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
   useEffect(() => {
@@ -111,6 +117,18 @@ export function InviteSheet({
       handleClose();
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleCreateClick = () => {
+    if (parties.length > 0 && !isSubscribed) {
+      subscribeModal?.showModalIfRequired(
+        create,
+        () => {},
+        SubscriptionContext.MULTIPLE_PARTIES
+      );
+    } else {
+      create();
     }
   };
 
@@ -370,7 +388,7 @@ export function InviteSheet({
           />
 
           <button
-            onClick={create}
+            onClick={handleCreateClick}
             disabled={isSaving || !teamName.trim() || !display.trim()}
             className="bg-theme-primary hover:bg-theme-primary-dark mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl text-base font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
             style={{ height: 54 }}
