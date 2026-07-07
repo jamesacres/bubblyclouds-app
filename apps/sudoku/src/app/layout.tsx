@@ -26,9 +26,8 @@ const pacifico = Pacifico({
 });
 
 export const metadata: Metadata = {
-  title: 'Sudoku Race',
-  description:
-    'Play and share to race sudoku with friends. Daily challenges & cross-device!',
+  title: APP_CONFIG.appName,
+  description: APP_CONFIG.appDescription,
   icons: [
     {
       url: '/icons/icon-48.webp',

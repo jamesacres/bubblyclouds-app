@@ -27,6 +27,11 @@ See Sudoku TODOs....
 
 ## Sudoku
 
+improve cold start click link to sudoku
+lobby should show signing in state, or sign in button?
+need to ensure the state is successfully saved, otherwise others wont see them in the lobby
+we should see others in lobby from cold start
+
 chat gpt app?
 
 Solver Test coverage

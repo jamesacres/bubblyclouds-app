@@ -626,7 +626,7 @@ function HomeComponent() {
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 LeaderboardComponent={Leaderboard}
-                gameName="Sudoku"
+                gameName={APP_CONFIG.gameName}
                 getDifficultyDisplay={getDifficultyDisplay}
               />
             )}

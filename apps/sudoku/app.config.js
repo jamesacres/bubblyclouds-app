@@ -1,5 +1,6 @@
 const APP = 'sudoku';
 const APP_NAME = 'Sudoku Race';
+const GAME_NAME = 'Sudoku';
 const DOMAIN = 'bubblyclouds.com';
 const REVERSE_DOMAIN = 'com.bubblyclouds';
 const COMPANY_NAME = 'Bubbly Clouds';
@@ -15,6 +16,8 @@ const APP_CONFIG = {
     'sessions.write',
   ],
   appName: APP_NAME,
+  appDescription: 'Play and share to race sudoku with friends. Daily challenges & cross-device!',
+  gameName: GAME_NAME,
   appId: `${REVERSE_DOMAIN}.${APP}`,
   appUrl: `https://${APP}.${DOMAIN}`,
   apiUrl: `https://api.${DOMAIN}`,
