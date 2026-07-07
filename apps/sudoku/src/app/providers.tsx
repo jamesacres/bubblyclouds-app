@@ -37,6 +37,7 @@ const platformServices: PlatformServices = {
   getCapacitorState,
   saveElectronState,
   app: APP_CONFIG.app,
+  gameName: APP_CONFIG.gameName,
   apiUrl: APP_CONFIG.apiUrl,
   authUrl: APP_CONFIG.authUrl,
   scope: APP_CONFIG.scope,
@@ -56,7 +57,7 @@ export function Providers({ children }: PropsWithChildren) {
             loginContextMessages={LOGIN_CONTEXT_MESSAGES}
             loginValueProps={LOGIN_VALUE_PROPS}
           >
-            <RevenueCatProvider>
+            <RevenueCatProvider apiKeys={APP_CONFIG.revenueCatApiKeys}>
               <PartiesProvider app={APP_CONFIG.app} apiUrl={APP_CONFIG.apiUrl}>
                 <SessionsProvider
                   stateType={StateType.PUZZLE}

@@ -34,6 +34,11 @@ const APP_CONFIG = {
   mobileDescription: `Get the best racing experience with our ${APP_NAME} app!`,
   desktopDescription: `Download ${APP_NAME}`,
   openInAppLabel: 'Open Puzzle',
+  revenueCatApiKeys: {
+    ios: 'appl_cSnwNkaTjlVONbHuKzVNTRjQsbT',
+    android: 'goog_NrLMlLbrRvQVKxXifUHmJBkSOXr',
+    web: 'rcb_ZoFwJlmCeBHaoVZNPhCiUqLXRAhf',
+  },
 };
 
 module.exports = { APP_CONFIG };

@@ -36,6 +36,7 @@ export interface UserContextInterface {
   handleAuthUrl: (options: { active: boolean }) => void;
   handleRestoreState: () => void;
   app: string;
+  gameName: string;
 }
 
 export const UserContext = React.createContext<
@@ -118,6 +119,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
     openBrowser,
     getCapacitorState,
     app,
+    gameName,
     authUrl,
     apiUrl,
   } = platformServices;
@@ -493,6 +495,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
         handleRestoreState,
         logout: handleLogout,
         app,
+        gameName,
       }}
     >
       {children}

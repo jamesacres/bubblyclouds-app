@@ -46,9 +46,16 @@ export const RevenueCatContext = React.createContext<
   RevenueCatContextInterface | undefined
 >(undefined);
 
-const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export interface RevenueCatApiKeys {
+  ios: string;
+  android: string;
+  web: string;
+}
+
+const RevenueCatProvider: React.FC<{
+  apiKeys: RevenueCatApiKeys;
+  children: React.ReactNode;
+}> = ({ apiKeys, children }) => {
   const userContext = useContext(UserContext);
   const { user, showLoginModal } = userContext || {};
   const [isLoading, setIsLoading] = useState(true);
@@ -124,12 +131,12 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
             if (isIOS()) {
               await CapacitorPurchases.configure({
                 appUserID: user.sub,
-                apiKey: 'appl_cSnwNkaTjlVONbHuKzVNTRjQsbT',
+                apiKey: apiKeys.ios,
               });
             } else if (isAndroid()) {
               await CapacitorPurchases.configure({
                 appUserID: user.sub,
-                apiKey: 'goog_NrLMlLbrRvQVKxXifUHmJBkSOXr',
+                apiKey: apiKeys.android,
               });
             }
             const offerings = await CapacitorPurchases.getOfferings();
@@ -151,7 +158,7 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
             WebPurchases.setLogLevel(WebLogLevel.Debug);
             WebPurchases.configure({
               appUserId: user.sub,
-              apiKey: 'rcb_ZoFwJlmCeBHaoVZNPhCiUqLXRAhf',
+              apiKey: apiKeys.web,
             });
             const offerings =
               await WebPurchases.getSharedInstance().getOfferings();
@@ -167,7 +174,7 @@ const RevenueCatProvider: React.FC<{ children: React.ReactNode }> = ({
         })();
       }
     }
-  }, [user]);
+  }, [user, apiKeys]);
 
   const purchasePackage = async (
     pkg: WebPackage | CapacitorPackage

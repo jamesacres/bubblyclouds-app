@@ -1,0 +1,12 @@
+{
+  "name": "@bubblyclouds-app/app-unblockrace",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.mjs",
+  "author": "James Acres",
+  "description": "Unblock Race",
+  "dependencies": {
+    "electron-serve": "^2.0.0",
+    "electron-store": "^9.0.0"
+  }
+}

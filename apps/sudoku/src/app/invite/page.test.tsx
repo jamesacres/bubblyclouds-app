@@ -126,6 +126,7 @@ describe('Invite Page', () => {
       logout: jest.fn(),
       handleAuthUrl: jest.fn(),
       app: 'sudoku',
+      gameName: 'Sudoku',
     };
 
     mockRevenueCatContext = {

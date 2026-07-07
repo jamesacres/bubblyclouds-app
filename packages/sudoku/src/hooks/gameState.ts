@@ -75,6 +75,7 @@ function useGameState({
 
   const { timer, setTimerNewSession, stopTimer, setPauseTimer, isPaused } =
     useTimer({
+      app,
       id: puzzleId,
     });
 
@@ -102,6 +103,7 @@ function useGameState({
 
   const { getValue: getLocalValue, saveValue: saveLocalValue } =
     useLocalStorage({
+      prefix: `${app}-`,
       id: puzzleId,
       type: StateType.PUZZLE,
     });

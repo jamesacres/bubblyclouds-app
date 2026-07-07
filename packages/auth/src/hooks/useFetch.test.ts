@@ -20,6 +20,7 @@ describe('useFetch', () => {
     getCapacitorState: jest.fn(() => Promise.resolve('')),
     saveCapacitorState: jest.fn(),
     app: 'test',
+    gameName: 'Test',
     apiUrl: 'https://api.bubblyclouds.com',
     authUrl: 'https://auth.bubblyclouds.com',
     scope: ['openid', 'profile'],

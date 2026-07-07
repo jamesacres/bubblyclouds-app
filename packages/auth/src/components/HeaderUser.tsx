@@ -29,10 +29,10 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
   companyUrl,
   companyName,
 }) => {
-  const { isLoggingIn, logout, user, app, showLoginModal } =
+  const { isLoggingIn, logout, user, gameName, showLoginModal } =
     React.useContext(UserContext) || {};
 
-  return user && logout && app ? (
+  return user && logout && gameName ? (
     <UserButton
       user={user}
       logout={logout}
@@ -40,7 +40,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
       subscriptionManagementUrl={subscriptionManagementUrl}
       showSubscribeModal={showSubscribeModal}
       deleteAccount={deleteAccount}
-      app={app}
+      gameName={gameName}
       privacyUrl={privacyUrl}
       termsUrl={termsUrl}
       creditsUrl={creditsUrl}

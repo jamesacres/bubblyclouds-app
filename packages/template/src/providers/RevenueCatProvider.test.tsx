@@ -37,6 +37,11 @@ const TestConsumer = () => {
 
 describe('RevenueCatProvider', () => {
   const mockUser: UserContextInterface['user'] = { sub: 'user1', name: 'Test' };
+  const mockApiKeys = {
+    ios: 'appl_test',
+    android: 'goog_test',
+    web: 'rcb_test',
+  };
 
   const renderWithUser = (
     user: UserContextInterface['user'] | null,
@@ -46,7 +51,7 @@ describe('RevenueCatProvider', () => {
       <UserContext.Provider
         value={{ user, showLoginModal } as unknown as UserContextInterface}
       >
-        <RevenueCatProvider>
+        <RevenueCatProvider apiKeys={mockApiKeys}>
           <TestConsumer />
         </RevenueCatProvider>
       </UserContext.Provider>
@@ -111,7 +116,7 @@ describe('RevenueCatProvider', () => {
       <UserContext.Provider
         value={{ user: mockUser } as unknown as UserContextInterface}
       >
-        <RevenueCatProvider>
+        <RevenueCatProvider apiKeys={mockApiKeys}>
           <Consumer />
         </RevenueCatProvider>
       </UserContext.Provider>
@@ -145,7 +150,7 @@ describe('RevenueCatProvider', () => {
             } as unknown as UserContextInterface
           }
         >
-          <RevenueCatProvider>
+          <RevenueCatProvider apiKeys={mockApiKeys}>
             <Consumer />
           </RevenueCatProvider>
         </UserContext.Provider>
@@ -177,7 +182,7 @@ describe('RevenueCatProvider', () => {
         <UserContext.Provider
           value={{ user: mockUser } as unknown as UserContextInterface}
         >
-          <RevenueCatProvider>
+          <RevenueCatProvider apiKeys={mockApiKeys}>
             <Consumer />
           </RevenueCatProvider>
         </UserContext.Provider>
@@ -200,7 +205,7 @@ describe('RevenueCatProvider', () => {
         <UserContext.Provider
           value={{ user: mockUser } as unknown as UserContextInterface}
         >
-          <RevenueCatProvider>
+          <RevenueCatProvider apiKeys={mockApiKeys}>
             <Consumer />
           </RevenueCatProvider>
         </UserContext.Provider>

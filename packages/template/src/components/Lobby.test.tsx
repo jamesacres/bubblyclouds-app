@@ -64,6 +64,7 @@ describe('Lobby', () => {
       handleAuthUrl: jest.fn(),
       handleRestoreState: jest.fn(),
       app: 'testapp',
+      gameName: 'Test App',
       ...context.user,
     };
     const revenueCatContext: RevenueCatContextInterface = {

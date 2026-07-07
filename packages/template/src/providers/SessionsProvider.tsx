@@ -92,10 +92,12 @@ export const SessionsProvider = <T extends {}>({
     listValues: listLocalStates,
     saveValue: saveLocalState,
   } = useLocalStorage({
+    prefix: `${app}-`,
     type: stateType,
   });
   const { listValues: listLocalTimers, saveValue: saveLocalTimer } =
     useLocalStorage({
+      prefix: `${app}-`,
       type: StateType.TIMER,
     });
 

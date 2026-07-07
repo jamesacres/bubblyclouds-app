@@ -11,11 +11,11 @@ export interface StateResult<T> {
 function useLocalStorage({
   type,
   id,
-  prefix = 'sudoku-',
+  prefix,
 }: {
   type: StateType;
   id?: string;
-  prefix?: string;
+  prefix: string;
 }) {
   const getStateKey = useCallback(
     (overrideId?: string) => {

@@ -20,6 +20,7 @@ const platformServices: PlatformServices = {
   getCapacitorState: notImplemented,
   saveElectronState: notImplemented,
   app: APP_CONFIG.app,
+  gameName: APP_CONFIG.gameName,
   apiUrl: APP_CONFIG.apiUrl,
   authUrl: APP_CONFIG.authUrl,
   scope: APP_CONFIG.scope,
