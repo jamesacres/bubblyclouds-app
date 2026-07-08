@@ -121,6 +121,12 @@ libraries) and **apps** (executable applications).
   - Sudoku-specific UI components
   - Depends on: `@games`, `@template`, `@auth`, `@ui`, `@types`
 
+- **`@bubblyclouds-app/unblockrace`** - Unblock Race sliding-block game logic
+  - Board string parsing/serialization and move validation
+  - Drag interaction, board rendering, and race chain (5-puzzle run) state
+  - Mock seed puzzle data until the real collections API exists
+  - Depends on: `@games`, `@template`, `@auth`, `@ui`, `@types`
+
 #### Game Features Layer (L4)
 
 - **`@bubblyclouds-app/games`** - Game-agnostic components and utilities

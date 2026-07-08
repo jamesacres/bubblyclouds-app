@@ -70,29 +70,25 @@ Solver PR review
 
 ## Unblock Race
 
-apps/unblockrace is currently a skeleton scaffolded from apps/sudoku with the
-sudoku-specific game logic and pages removed. The generic app shell (auth,
-parties/invites, testers, credits, premium features) is wired up; the actual
-sliding-block puzzle game still needs to be built.
+The sliding-block puzzle game is implemented per SPEC.md: the
+`@bubblyclouds-app/unblockrace` package (board model, drag interaction,
+useGameState, 5-puzzle chain runs, mock seed data from Fogleman's database)
+and the app pages (puzzle, home daily run, monthly collection) are wired up.
+Puzzle content is mocked from a static fixture until the real API exists.
 
 ### Features
 
-- Implement the sliding-block puzzle game logic (grid/board state, move
-  validation, win detection) as a new `@bubblyclouds-app/unblockrace` package,
-  following the same layering as `@sudoku` (depends on `@games`, `@template`,
-  `@auth`, `@ui`, `@types`)
-- Implement the puzzle board UI component(s) and wire them into
-  `src/app/puzzle/page.tsx` (currently stubbed)
-- Implement daily challenge puzzle generation/fetching and wire up
-  `openUnblockRaceOfTheDay` in `src/app/page.tsx`
-- Implement the monthly collection page (`src/app/collection/page.tsx`,
-  currently a placeholder) - equivalent to the sudoku puzzle book but without
-  the "book" framing
-- Implement `SimpleStateWrapper`/`GameState` in `src/app/page.tsx` (currently
-  stubbed) for the My Puzzles / Friends tabs
+- Update RaceTrack's hardcoded "Puzzle book" button
+  (`packages/games/src/components/RaceTrack.tsx`) to say "Collection" for this
+  app - make the label a prop so sudoku keeps "Puzzle book"
+- Replace the mock puzzle-content source (`helpers/mockData.ts` /
+  `CollectionProvider`) with the real API once the server supports unblock
+  collections (see Server project below)
 - Regenerate Android/iOS signing and app-specific assets (assetlinks.json
   fingerprints, apple-app-site-association appID, app icons/splash) - these
   were carried over from the sudoku app as placeholders
+- AI opponents/agents for local races (explicit non-goal of the v1 spec)
+- Vehicle theming/skins (explicit non-goal of the v1 spec)
 
 ### Server project
 

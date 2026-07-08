@@ -1,0 +1,1882 @@
+[
+  {
+    "boardString": "FBBCCoFoGoooAAGooooDDooooEEooooooooo",
+    "movesRequired": 4,
+    "clusterSize": 5136
+  },
+  {
+    "boardString": "oBBooooCCoooAAGoooFoGoooFDDEEooooooo",
+    "movesRequired": 4,
+    "clusterSize": 3782
+  },
+  {
+    "boardString": "oFBBCCoFGoooAAGooooDDooooEEooooooooo",
+    "movesRequired": 4,
+    "clusterSize": 3684
+  },
+  {
+    "boardString": "EBBBooEooFooAAoFooooCCooooDDoooooooo",
+    "movesRequired": 4,
+    "clusterSize": 3544
+  },
+  {
+    "boardString": "FBBCCoFoGoooAAGoooDDDooooEEooooooooo",
+    "movesRequired": 4,
+    "clusterSize": 3386
+  },
+  {
+    "boardString": "EBBGooEoFGooAAFoooCCCoooDDDooooooooo",
+    "movesRequired": 4,
+    "clusterSize": 3246
+  },
+  {
+    "boardString": "FBBCCoFoGoooAAGooooDDoooEEEooooooooo",
+    "movesRequired": 4,
+    "clusterSize": 3150
+  },
+  {
+    "boardString": "oGBBCCoGHoooAAHoooFDDEEoFooooooooooo",
+    "movesRequired": 4,
+    "clusterSize": 2771
+  },
+  {
+    "boardString": "oGBBCCoGHoooAAHIooFDDIooFoooooooEEoo",
+    "movesRequired": 5,
+    "clusterSize": 35708
+  },
+  {
+    "boardString": "EooBBBEooGoHAAoGoHoFCCoooFooooooooDD",
+    "movesRequired": 5,
+    "clusterSize": 31726
+  },
+  {
+    "boardString": "oFBBoHoFoGoHAAoGooEooCCCEoooooDDoooo",
+    "movesRequired": 5,
+    "clusterSize": 28565
+  },
+  {
+    "boardString": "FBBxooFoHCCoAAHoIooGDDIooGoooooooEEo",
+    "movesRequired": 5,
+    "clusterSize": 28014
+  },
+  {
+    "boardString": "FBBIooFoHIooAAHooooGCCDDoGooooEEoooo",
+    "movesRequired": 5,
+    "clusterSize": 24876
+  },
+  {
+    "boardString": "oGBBCCoGHoooAAHIooFDDIooFoooooFoEEoo",
+    "movesRequired": 5,
+    "clusterSize": 23458
+  },
+  {
+    "boardString": "BBBooHooGooHAAGoooFCCoxoFoooDDEEoooo",
+    "movesRequired": 5,
+    "clusterSize": 22499
+  },
+  {
+    "boardString": "oFBBxooFGoooAAGHooECCHooEoooooooDDoo",
+    "movesRequired": 5,
+    "clusterSize": 22300
+  },
+  {
+    "boardString": "FBBIoJFoHIoJAAHooooGCCxooGDDooEEoooo",
+    "movesRequired": 6,
+    "clusterSize": 130104
+  },
+  {
+    "boardString": "FBBooxFoHICCAAHIJooGDDJooGoooooooEEo",
+    "movesRequired": 6,
+    "clusterSize": 118303
+  },
+  {
+    "boardString": "FBBxooFoHCCJAAHoIJoGDDIooGoooooooEEo",
+    "movesRequired": 6,
+    "clusterSize": 97800
+  },
+  {
+    "boardString": "oGBBCCoGHooJAAHIoJFDDIooFoooooooEEoo",
+    "movesRequired": 6,
+    "clusterSize": 86248
+  },
+  {
+    "boardString": "oBBBooooGHCCAAGHoIFoDDoIFoooooooooEE",
+    "movesRequired": 6,
+    "clusterSize": 85952
+  },
+  {
+    "boardString": "BBCCoKDDoJoKAAoJooIooEEEIoooFFGGHHoo",
+    "movesRequired": 6,
+    "clusterSize": 83238
+  },
+  {
+    "boardString": "ooBBCCooDDoIAAoHoIoooHEEooFFooooGGoo",
+    "movesRequired": 6,
+    "clusterSize": 79070
+  },
+  {
+    "boardString": "FBBIoJFoHIoJAAHooooGCCxooGDDooEEEooo",
+    "movesRequired": 6,
+    "clusterSize": 79069
+  },
+  {
+    "boardString": "oIBBCCoIJDDoAAJoooHEEKooHFFKooooGGoo",
+    "movesRequired": 7,
+    "clusterSize": 211199
+  },
+  {
+    "boardString": "GBBJooGoIJCCAAIooKoHDDxKoHooEEFFoooo",
+    "movesRequired": 7,
+    "clusterSize": 195017
+  },
+  {
+    "boardString": "oBBCCoooDDIJAAoHIJoooHEEooFFooooGGoo",
+    "movesRequired": 7,
+    "clusterSize": 170823
+  },
+  {
+    "boardString": "GBBBooGooICCAAoIoJoHDDoJoHooEEFFoooo",
+    "movesRequired": 7,
+    "clusterSize": 170457
+  },
+  {
+    "boardString": "ooGBBoEoGoIJEoAAIJoooHCCoFoHoooFDDox",
+    "movesRequired": 7,
+    "clusterSize": 159930
+  },
+  {
+    "boardString": "oooIBBoCCIJKooAAJKooHDDoGoHoooGEEFFo",
+    "movesRequired": 7,
+    "clusterSize": 152847
+  },
+  {
+    "boardString": "oGBBBooGCCJKAAHoJKFoHDDoFooIooFEEIoo",
+    "movesRequired": 7,
+    "clusterSize": 152841
+  },
+  {
+    "boardString": "FooBBoFoHoIJAAHoIJoGCCCooGDDooEEoooo",
+    "movesRequired": 7,
+    "clusterSize": 149894
+  },
+  {
+    "boardString": "oHoBBKoHCCJKAAIoJKGoIoDDGEEoooooooFF",
+    "movesRequired": 8,
+    "clusterSize": 266148
+  },
+  {
+    "boardString": "oooBBJooCCIJAAGHIJooGHDDFoooooFoEEoo",
+    "movesRequired": 8,
+    "clusterSize": 175532
+  },
+  {
+    "boardString": "oooBBJoCCoIJAAHoIJGoHoDDGoooEEooooFF",
+    "movesRequired": 8,
+    "clusterSize": 171842
+  },
+  {
+    "boardString": "oooHBBFooHCCFoAAIJoDDoIJooGEEoooGooo",
+    "movesRequired": 8,
+    "clusterSize": 156270
+  },
+  {
+    "boardString": "oHoBBKoHCCJKAAIoJKGoIoDDGEEoooGoooFF",
+    "movesRequired": 8,
+    "clusterSize": 155632
+  },
+  {
+    "boardString": "FooHBBFooHCCFoAAIJooGoIJooGDDoEEoooo",
+    "movesRequired": 8,
+    "clusterSize": 146819
+  },
+  {
+    "boardString": "IBBCCoIDDDKoAAoJKooooJEEooFFoLGGHHoL",
+    "movesRequired": 8,
+    "clusterSize": 145389
+  },
+  {
+    "boardString": "FBBBooFoHICCAAHIJKoGDDJKoGooooEEooox",
+    "movesRequired": 8,
+    "clusterSize": 139870
+  },
+  {
+    "boardString": "FoIBBoFoIooLGAAoKLGHCCKooHoJDDEEoJoo",
+    "movesRequired": 9,
+    "clusterSize": 308818
+  },
+  {
+    "boardString": "FooIBBFGoICCFGAAJKooHoJKooHDDoEEoooo",
+    "movesRequired": 9,
+    "clusterSize": 270068
+  },
+  {
+    "boardString": "GBBBooGoIJCCAAIJoKoHDDoKoHEEooFFoooo",
+    "movesRequired": 9,
+    "clusterSize": 260601
+  },
+  {
+    "boardString": "oBBoooooHCCKAAHoJKGoDDJoGooIEEFFFIoo",
+    "movesRequired": 9,
+    "clusterSize": 260601
+  },
+  {
+    "boardString": "ooBBBoooHCCKAAHoJKGoDDJoGooIEEFFoIoo",
+    "movesRequired": 9,
+    "clusterSize": 260601
+  },
+  {
+    "boardString": "oxoBBooooICCAAoIJoGoDDJKGoHEEKFFHooo",
+    "movesRequired": 9,
+    "clusterSize": 241843
+  },
+  {
+    "boardString": "xooIBBGooICCGoAAJKooDDJKooHEEoFFHooo",
+    "movesRequired": 9,
+    "clusterSize": 239217
+  },
+  {
+    "boardString": "ooHBBoFoHooKFAAoJKoGCCJoxGoIDDEEoIoo",
+    "movesRequired": 9,
+    "clusterSize": 198028
+  },
+  {
+    "boardString": "oBBCCooooJDDAAoJKoHoEEKLHoIFFLGGIooo",
+    "movesRequired": 10,
+    "clusterSize": 308818
+  },
+  {
+    "boardString": "FoBBoJFoooIJooAAIKooGCCKooGHDDoEEHoo",
+    "movesRequired": 10,
+    "clusterSize": 217005
+  },
+  {
+    "boardString": "oooBBoGCCIJoGAAIJoooHIDDooHEEKooFFoK",
+    "movesRequired": 10,
+    "clusterSize": 213084
+  },
+  {
+    "boardString": "ooBBoJooCCIJooAAIJoooHDDGooHEEGooFFF",
+    "movesRequired": 10,
+    "clusterSize": 199586
+  },
+  {
+    "boardString": "oooHBBoooHCCAAooIJGDDDIJGoEEoKFFoooK",
+    "movesRequired": 10,
+    "clusterSize": 194197
+  },
+  {
+    "boardString": "oooooxEFooIoEFAAIJooGBBJooGHCCoDDHoo",
+    "movesRequired": 10,
+    "clusterSize": 186495
+  },
+  {
+    "boardString": "ooGHBBoFGHCCoFGAAJoooooJEoooIKEDDoIK",
+    "movesRequired": 10,
+    "clusterSize": 183876
+  },
+  {
+    "boardString": "ooBBooooHCCLAAHIKLGDDIKoGooJEEFFoJoo",
+    "movesRequired": 10,
+    "clusterSize": 179400
+  },
+  {
+    "boardString": "GoBBoKGoCCJKooAAJLooHDDLooHIEEoFFIoo",
+    "movesRequired": 11,
+    "clusterSize": 298666
+  },
+  {
+    "boardString": "GoBBoxGoCCJoooAAJKooHDDKooHIEEoFFIoo",
+    "movesRequired": 11,
+    "clusterSize": 279584
+  },
+  {
+    "boardString": "GoBBooGoCCJKooAAJKooHDDKooHIEEoFFIoo",
+    "movesRequired": 11,
+    "clusterSize": 277188
+  },
+  {
+    "boardString": "oGBBoKoGCCJKAAooJKFoHIooFoHIDDooooEE",
+    "movesRequired": 11,
+    "clusterSize": 270068
+  },
+  {
+    "boardString": "oHBBxooHooCCAAIoooGoIJDDGEEJoKooFFoK",
+    "movesRequired": 11,
+    "clusterSize": 241843
+  },
+  {
+    "boardString": "oHooBBoHCCxoAAIoooGoIJDDGEEJoKooFFoK",
+    "movesRequired": 11,
+    "clusterSize": 205078
+  },
+  {
+    "boardString": "oGBBJKoGooJKAAoIooFCCIooFoHDDDEEHooo",
+    "movesRequired": 11,
+    "clusterSize": 198274
+  },
+  {
+    "boardString": "oGBBoooGoooKAAoIJKFCCIJoFoHDDxEEHooo",
+    "movesRequired": 11,
+    "clusterSize": 198028
+  },
+  {
+    "boardString": "ooBBJoFGHoJKFGHAAKoCCIoKoooIDDEEoooo",
+    "movesRequired": 12,
+    "clusterSize": 260601
+  },
+  {
+    "boardString": "BBIooxGoIoCCGAAooKoHDDoKoHoJEEFFoJoo",
+    "movesRequired": 12,
+    "clusterSize": 239217
+  },
+  {
+    "boardString": "ooBBoxFGooJoFGAAJKoCCIoKooHIDDEEHooo",
+    "movesRequired": 12,
+    "clusterSize": 239217
+  },
+  {
+    "boardString": "oGHoBBoGHCCoAAHoooFooIJKFDDIJKoEEooo",
+    "movesRequired": 12,
+    "clusterSize": 208959
+  },
+  {
+    "boardString": "oGoBBooGCCJoAAHIJoFoHIDDFoEEoKoooooK",
+    "movesRequired": 12,
+    "clusterSize": 207982
+  },
+  {
+    "boardString": "ooBBooCCooJKGAAoJKGDDIJoooHIEEFFHooo",
+    "movesRequired": 12,
+    "clusterSize": 198274
+  },
+  {
+    "boardString": "BBooxooooICCAAoIJKGoDDJKGoHEEoFFHooo",
+    "movesRequired": 12,
+    "clusterSize": 198028
+  },
+  {
+    "boardString": "FBBoJoFCCoJKoGAAJKoGHIooooHIDDoooEEo",
+    "movesRequired": 12,
+    "clusterSize": 195905
+  },
+  {
+    "boardString": "ooHBBoFoHICCFAAIoooGoIJKoGDDJKooEEoo",
+    "movesRequired": 13,
+    "clusterSize": 208959
+  },
+  {
+    "boardString": "oGHoBBFGHoooFGAAJKCCooJKoooIDDEEoIoo",
+    "movesRequired": 13,
+    "clusterSize": 169757
+  },
+  {
+    "boardString": "FoBBKoFHIoKLGHIAALGCCJoLoooJDDooEEoo",
+    "movesRequired": 13,
+    "clusterSize": 166337
+  },
+  {
+    "boardString": "FGBBooFGCCJoFAAIJKoooIoKooHDDKEEHooo",
+    "movesRequired": 13,
+    "clusterSize": 162534
+  },
+  {
+    "boardString": "GBBooKGCCoJKAAHoJLooHDDLoooIEEFFFIoo",
+    "movesRequired": 13,
+    "clusterSize": 161576
+  },
+  {
+    "boardString": "FBBBooFoHICCAAHIoKoGooJKoGDDJKooooEE",
+    "movesRequired": 13,
+    "clusterSize": 159659
+  },
+  {
+    "boardString": "HBBoooHCCooLAAJKoLooJKDDoIEExooIFFGG",
+    "movesRequired": 13,
+    "clusterSize": 152519
+  },
+  {
+    "boardString": "oBBCCooxDDKoAAIJKoHoIJEEHoFFoLoGGooL",
+    "movesRequired": 13,
+    "clusterSize": 152519
+  },
+  {
+    "boardString": "BBoJoooHoJCCGHAAKoGDDoKoooIEEoFFIooo",
+    "movesRequired": 14,
+    "clusterSize": 207982
+  },
+  {
+    "boardString": "oBBIoooGoICCoGAAJKoDDoJKooHEEoFFHooo",
+    "movesRequired": 14,
+    "clusterSize": 207982
+  },
+  {
+    "boardString": "FBBJooFHoJCCGHAAKLGDDoKLooIooMEEIooM",
+    "movesRequired": 14,
+    "clusterSize": 188736
+  },
+  {
+    "boardString": "oGBBoooGHooKAAHooKFoHCCoFDDIJooEEIJo",
+    "movesRequired": 14,
+    "clusterSize": 182244
+  },
+  {
+    "boardString": "ooHIBBFoHIooFAAIoooGoCCKoGDDJKooEEJo",
+    "movesRequired": 14,
+    "clusterSize": 182244
+  },
+  {
+    "boardString": "xBBIoooGoICCFGAAJKFDDoJKooHooLEEHooL",
+    "movesRequired": 14,
+    "clusterSize": 181088
+  },
+  {
+    "boardString": "BBBIoooGoICCFGAAJKFDDoJKooHooLEEHooL",
+    "movesRequired": 14,
+    "clusterSize": 180466
+  },
+  {
+    "boardString": "FBBIooFGoIJKoGAAJKCCHoJoooHDDooEEooo",
+    "movesRequired": 14,
+    "clusterSize": 169757
+  },
+  {
+    "boardString": "BBoJoooHoJCCGHAAKLGDDoKLooIEEoFFIooo",
+    "movesRequired": 15,
+    "clusterSize": 541934
+  },
+  {
+    "boardString": "BBHooKFoHoJKFAAoJLoGCCoLoGoIDDEEoIoo",
+    "movesRequired": 15,
+    "clusterSize": 308818
+  },
+  {
+    "boardString": "BBooKLFHooKLFHoAAMGCCJoMGoIJDDEEIooo",
+    "movesRequired": 15,
+    "clusterSize": 188736
+  },
+  {
+    "boardString": "BBIoooGoICCCGAAoKLoHDDKLoHoJEEFFoJoo",
+    "movesRequired": 15,
+    "clusterSize": 184060
+  },
+  {
+    "boardString": "BBoJoooHoJCCGHAAKLGDDoKLooIEEEFFIooo",
+    "movesRequired": 15,
+    "clusterSize": 184060
+  },
+  {
+    "boardString": "BBHooxFoHoJxFAAoJKoGCCoKoGoIDDEEoIoo",
+    "movesRequired": 15,
+    "clusterSize": 166144
+  },
+  {
+    "boardString": "xGooooFGBBJoFAAIJoooHICCooHDDKooEEoK",
+    "movesRequired": 15,
+    "clusterSize": 156560
+  },
+  {
+    "boardString": "FBBIooFCCIoKAAHooKoGHDDooGEEJoooooJx",
+    "movesRequired": 15,
+    "clusterSize": 156560
+  },
+  {
+    "boardString": "xBBJoooooJCCGHAAKLGHDDKLooIEEoFFIooo",
+    "movesRequired": 16,
+    "clusterSize": 304788
+  },
+  {
+    "boardString": "BBIoooGoICCLGHAAKLoHDDKooooJEExFFJoo",
+    "movesRequired": 16,
+    "clusterSize": 304788
+  },
+  {
+    "boardString": "oIBBCCoIDDoLAAJooLHoJEEoHFFoKoGGooKo",
+    "movesRequired": 16,
+    "clusterSize": 263643
+  },
+  {
+    "boardString": "BBHoooFoHCCKFAAoJKoGDDJooGoIxoEEoIoo",
+    "movesRequired": 16,
+    "clusterSize": 205078
+  },
+  {
+    "boardString": "oBBIoooGoIxKFGAAJKFCCoJoooHDDoEEHooo",
+    "movesRequired": 16,
+    "clusterSize": 205078
+  },
+  {
+    "boardString": "BBHooKoGHoJKFGAAJLFCCIoLoooIDDEEEooo",
+    "movesRequired": 16,
+    "clusterSize": 180466
+  },
+  {
+    "boardString": "BBCCKLHDDoKLHoIAALEEIJoooooJFFooooGG",
+    "movesRequired": 16,
+    "clusterSize": 180466
+  },
+  {
+    "boardString": "oIBBCCoIDDooAAJKooHoJKEEHoFFoLHoGGoL",
+    "movesRequired": 16,
+    "clusterSize": 180466
+  },
+  {
+    "boardString": "GHoBBoGHCCKoGAAJKooooJDDooIEELFFIooL",
+    "movesRequired": 17,
+    "clusterSize": 293622
+  },
+  {
+    "boardString": "BBIooLGoICCLGAAoKooHDDKoxHoJEEFFoJoo",
+    "movesRequired": 17,
+    "clusterSize": 192278
+  },
+  {
+    "boardString": "BBoooKFooooKFAAoJLFGCCJLoGHIDDEEHIoo",
+    "movesRequired": 17,
+    "clusterSize": 166337
+  },
+  {
+    "boardString": "oGBBKooGHJKLAAHJoLCCIoooFoIDDoFEEooo",
+    "movesRequired": 17,
+    "clusterSize": 165337
+  },
+  {
+    "boardString": "BBooKLHCCoKLHoJAALDDJooooIEEoooIFFGG",
+    "movesRequired": 17,
+    "clusterSize": 156152
+  },
+  {
+    "boardString": "HBBCCoHDDooLAAJooLoIJEEooIFFKoGGGoKo",
+    "movesRequired": 17,
+    "clusterSize": 155808
+  },
+  {
+    "boardString": "FooIBBFCCIJKFGAAJKoGHooLDDHooLEEoooo",
+    "movesRequired": 17,
+    "clusterSize": 155808
+  },
+  {
+    "boardString": "BBHoooFoHoCCFGAAJKoGDDJKoooIxLEEoIoL",
+    "movesRequired": 17,
+    "clusterSize": 152519
+  },
+  {
+    "boardString": "BBoKooGIoKCCGIAALoHDDoLMHoJEEMFFJooo",
+    "movesRequired": 18,
+    "clusterSize": 278666
+  },
+  {
+    "boardString": "BBoJooxHoJCCGHAAKoGDDoKLooIEELFFIooo",
+    "movesRequired": 18,
+    "clusterSize": 192278
+  },
+  {
+    "boardString": "BBIoooGHICCoGHAAKoDDoJKooooJEEooFFox",
+    "movesRequired": 18,
+    "clusterSize": 156560
+  },
+  {
+    "boardString": "ooBBoxoooJCCAAoJKoGHDDKoGHIEEoFFIooo",
+    "movesRequired": 18,
+    "clusterSize": 156560
+  },
+  {
+    "boardString": "oBBIoKoooIxKAAooJLFGCCJLFGHoDDEEHooo",
+    "movesRequired": 18,
+    "clusterSize": 152519
+  },
+  {
+    "boardString": "xBBJooGHoJCCGHAAKoGDDoKLooIEELFFIooo",
+    "movesRequired": 18,
+    "clusterSize": 148126
+  },
+  {
+    "boardString": "BBHoooFGHCCKFGAAJKDDoIJooooIEEoxoooo",
+    "movesRequired": 18,
+    "clusterSize": 145378
+  },
+  {
+    "boardString": "FooxooFBBIoKAAHIoKoGHCCooGDDJoEEooJo",
+    "movesRequired": 18,
+    "clusterSize": 141224
+  },
+  {
+    "boardString": "BBIoooGHICCLGHAAKLDDoJKooooJEEooFFox",
+    "movesRequired": 19,
+    "clusterSize": 304788
+  },
+  {
+    "boardString": "ooBBoxoooJCCAAoJKLGHDDKLGHIEEoFFIooo",
+    "movesRequired": 19,
+    "clusterSize": 304788
+  },
+  {
+    "boardString": "BBJoooHIJCCMHIAALMDDoKLooooKEEFFGGoo",
+    "movesRequired": 19,
+    "clusterSize": 278666
+  },
+  {
+    "boardString": "BBIoooGHICCLGHAAKLDDoJKooooJEEoxFFoo",
+    "movesRequired": 19,
+    "clusterSize": 192278
+  },
+  {
+    "boardString": "BBIoooGHICCLGHAAKLDDoJKooooJEEooFFxo",
+    "movesRequired": 19,
+    "clusterSize": 192278
+  },
+  {
+    "boardString": "oxBBooooICCLAAIoKLGHDDKoGHoJEEFFoJoo",
+    "movesRequired": 19,
+    "clusterSize": 192278
+  },
+  {
+    "boardString": "xHooBBoHCCKLAAIoKLGoIDDLGEEJoooooJFF",
+    "movesRequired": 19,
+    "clusterSize": 161929
+  },
+  {
+    "boardString": "BBIoooGHICCLGHAAKLGDDJKooooJEEFFooox",
+    "movesRequired": 19,
+    "clusterSize": 161929
+  },
+  {
+    "boardString": "GoBBBLGCCJoLAAIJoooHIoDDoHEEKoFFooKo",
+    "movesRequired": 20,
+    "clusterSize": 293622
+  },
+  {
+    "boardString": "BBIooooHICCLoHAAKLDDoJKoGooJEEGFFFoo",
+    "movesRequired": 20,
+    "clusterSize": 293622
+  },
+  {
+    "boardString": "GHoBBBGHCCKoGAAJKooooJDDooIEELFFIooL",
+    "movesRequired": 20,
+    "clusterSize": 154363
+  },
+  {
+    "boardString": "GBBBooGooJCCAAoJKLoHDDKLoHIEELFFIooo",
+    "movesRequired": 20,
+    "clusterSize": 154363
+  },
+  {
+    "boardString": "BBIooLoHICCLoHAAKLDDoJKoGooJEEGFFFoo",
+    "movesRequired": 20,
+    "clusterSize": 154363
+  },
+  {
+    "boardString": "oHBBxooHCCoKAAIooKGoIDDoGEEoJoFFooJo",
+    "movesRequired": 20,
+    "clusterSize": 150584
+  },
+  {
+    "boardString": "xBBKooHIoKCCHIAALoDDJoLMooJEEMFFGGoo",
+    "movesRequired": 20,
+    "clusterSize": 147355
+  },
+  {
+    "boardString": "HBBKooHIoKCCHIAALoDDJoLMooJEEMFFGGoo",
+    "movesRequired": 20,
+    "clusterSize": 142135
+  },
+  {
+    "boardString": "ooIBBoCCIooxGHAAKLGHDDKLoooJEEoFFJoo",
+    "movesRequired": 21,
+    "clusterSize": 192278
+  },
+  {
+    "boardString": "ooIBBxCCIooLGHAAKLGHDDKLoooJEEoFFJoo",
+    "movesRequired": 21,
+    "clusterSize": 148126
+  },
+  {
+    "boardString": "FoxooKFoHBBKAAHIoooGoICCoGDDJoEEooJo",
+    "movesRequired": 21,
+    "clusterSize": 141224
+  },
+  {
+    "boardString": "BBHoooFoHxJKFAAIJKCCoIoLoGDDoLoGEEoo",
+    "movesRequired": 21,
+    "clusterSize": 120981
+  },
+  {
+    "boardString": "oGBBJKoGCCJKAAoIoLFDDIoLFoHxooEEHooo",
+    "movesRequired": 21,
+    "clusterSize": 120981
+  },
+  {
+    "boardString": "GBBJooGooJCCoHAAKLoHDDKLEEIooMFFIoxM",
+    "movesRequired": 21,
+    "clusterSize": 111656
+  },
+  {
+    "boardString": "oxBBooGooJCCGAAJKoGHDDKLoHIEELFFIooo",
+    "movesRequired": 21,
+    "clusterSize": 109396
+  },
+  {
+    "boardString": "ooIBBBCCIooxGHAAKLGHDDKLoooJEEoFFJoo",
+    "movesRequired": 21,
+    "clusterSize": 109396
+  },
+  {
+    "boardString": "oIBBCCoIDDoMAAJooMHoJEEMHFFKLoGGoKLo",
+    "movesRequired": 22,
+    "clusterSize": 142135
+  },
+  {
+    "boardString": "GBBxoLGoICCLAAIJoooHoJDDoHEEKoFFooKo",
+    "movesRequired": 22,
+    "clusterSize": 135210
+  },
+  {
+    "boardString": "FooIBBFxoIoKoGoAAKoGCCJLDDHoJLooHEEo",
+    "movesRequired": 22,
+    "clusterSize": 124080
+  },
+  {
+    "boardString": "oooIBBoCCIoKoGoAAKoGDDJLEEHoJLooHFFo",
+    "movesRequired": 22,
+    "clusterSize": 116220
+  },
+  {
+    "boardString": "ooHBBBFoHICCFAAIJooGooJKoGDDJKoooEEo",
+    "movesRequired": 22,
+    "clusterSize": 115760
+  },
+  {
+    "boardString": "HBBKooHooKCCoIAALMoIDDLMEEJooxFFJGGo",
+    "movesRequired": 22,
+    "clusterSize": 111656
+  },
+  {
+    "boardString": "ooxBBoooHCCKAAHIoKGooIDDGoEEJoooFFJo",
+    "movesRequired": 22,
+    "clusterSize": 103872
+  },
+  {
+    "boardString": "GBBBooGoIJCCAAIJKLoHDDKLoHoEEooxoFFo",
+    "movesRequired": 22,
+    "clusterSize": 99851
+  },
+  {
+    "boardString": "ooJBBMCCJoLMoIAALMHIoKDDHEEKoooFFGGo",
+    "movesRequired": 23,
+    "clusterSize": 142135
+  },
+  {
+    "boardString": "xGoooxFGBBJoFAAIJoooHICCooHDDKooEEoK",
+    "movesRequired": 23,
+    "clusterSize": 115632
+  },
+  {
+    "boardString": "oIBBCCoIDDoxAAJKooHoJKEEHoFFLMGGooLM",
+    "movesRequired": 23,
+    "clusterSize": 111656
+  },
+  {
+    "boardString": "ooIBBLCCIoKLGHAAKMGHDDKMoooJEEoFFJoo",
+    "movesRequired": 23,
+    "clusterSize": 108730
+  },
+  {
+    "boardString": "oooxooEoooIJEAAHIJoFoHBBoFGCCKDDGooK",
+    "movesRequired": 23,
+    "clusterSize": 107144
+  },
+  {
+    "boardString": "xGooxoFGBBJoFAAIJoooHICCooHDDKooEEoK",
+    "movesRequired": 23,
+    "clusterSize": 104098
+  },
+  {
+    "boardString": "BBBoxoooHCCKAAHIoKGooIDDGoEEJoooFFJo",
+    "movesRequired": 23,
+    "clusterSize": 95853
+  },
+  {
+    "boardString": "FHoooxFHBBKoGAAJKoGoIJCCooIDDLooEEoL",
+    "movesRequired": 23,
+    "clusterSize": 88201
+  },
+  {
+    "boardString": "GooJBBGCCJoLoHoAALoHDDKMEEIoKMooIFFo",
+    "movesRequired": 24,
+    "clusterSize": 278666
+  },
+  {
+    "boardString": "GooJBBGCCJoLoHoAALoHDDKoEEIoKxooIFFo",
+    "movesRequired": 24,
+    "clusterSize": 192278
+  },
+  {
+    "boardString": "xHBBoxGHCCKoGAAJKoooIJDDooIEELooFFoL",
+    "movesRequired": 24,
+    "clusterSize": 156892
+  },
+  {
+    "boardString": "oHBBBxoHCCoLAAIJoLGoIJDDGoEEKoFFooKo",
+    "movesRequired": 24,
+    "clusterSize": 148126
+  },
+  {
+    "boardString": "BBCCooHooKDDHAAKLoHIEELMoIJFFMGGJooo",
+    "movesRequired": 24,
+    "clusterSize": 142135
+  },
+  {
+    "boardString": "GooJBBGCCJoLoHoAALoHDDKxEEIoKoooIFFo",
+    "movesRequired": 24,
+    "clusterSize": 135210
+  },
+  {
+    "boardString": "oHBBxLoHCCoLAAIJoLGoIJDDGoEEKoFFooKo",
+    "movesRequired": 24,
+    "clusterSize": 109396
+  },
+  {
+    "boardString": "ooIBBBxoICCLGAAJoLGHoJDDoHEEKoFFooKo",
+    "movesRequired": 24,
+    "clusterSize": 109396
+  },
+  {
+    "boardString": "GHBBoxGHCCKoGAAJKooooJDDooIEELFFIooL",
+    "movesRequired": 25,
+    "clusterSize": 161929
+  },
+  {
+    "boardString": "ooJBBxGoJCCMGAAKoMHIoKDDHIEELoFFooLo",
+    "movesRequired": 25,
+    "clusterSize": 147355
+  },
+  {
+    "boardString": "GBBCCLGoIDDLAAIJoooHoJEEoHFFKoooooKo",
+    "movesRequired": 25,
+    "clusterSize": 116220
+  },
+  {
+    "boardString": "HBBCCLHDDJoLAAIJooooIoEEoFFFKoooGGKo",
+    "movesRequired": 25,
+    "clusterSize": 99195
+  },
+  {
+    "boardString": "ooIBBBGoICCLGAAJoLoHoJDDxHEEKoFFooKo",
+    "movesRequired": 25,
+    "clusterSize": 98987
+  },
+  {
+    "boardString": "xHBBKoGHCCKoGAAJKoooIJDDooIEELFFoooL",
+    "movesRequired": 25,
+    "clusterSize": 98411
+  },
+  {
+    "boardString": "oBBoKxCCDDKoHAAJooHoIJEEooIFFLGGoooL",
+    "movesRequired": 25,
+    "clusterSize": 96252
+  },
+  {
+    "boardString": "FBBIooFGoICCoGAAJKDDHoJKEEHooLxooooL",
+    "movesRequired": 25,
+    "clusterSize": 88201
+  },
+  {
+    "boardString": "HBBCCMHoJDDMAAJKoooIoKEEoIFFLoGGooLo",
+    "movesRequired": 26,
+    "clusterSize": 278666
+  },
+  {
+    "boardString": "ooJBBBGoJCCMGAAKoMHIoKDDHIEELoFFooLo",
+    "movesRequired": 26,
+    "clusterSize": 142135
+  },
+  {
+    "boardString": "BBooxoGooJCCGAAJKLGHDDKLoHIEEoFFIooo",
+    "movesRequired": 26,
+    "clusterSize": 98987
+  },
+  {
+    "boardString": "FooJBBFxoJoLGHoAALGHCCKMDDIoKMooIEEo",
+    "movesRequired": 26,
+    "clusterSize": 86518
+  },
+  {
+    "boardString": "xooIBBoCCIoKoGoAAKoGDDJLEEHoJLooHFFo",
+    "movesRequired": 26,
+    "clusterSize": 84437
+  },
+  {
+    "boardString": "GoBBxKGoHCCKAAHIoooooIDDoxEEJoFFooJo",
+    "movesRequired": 26,
+    "clusterSize": 82218
+  },
+  {
+    "boardString": "FoBBxKFoHCCKAAHIoooGoIDDoGEEJoooooJo",
+    "movesRequired": 26,
+    "clusterSize": 78542
+  },
+  {
+    "boardString": "oIBBLoGICCLoGAAKLoHoJKDDHoJEEMooFFoM",
+    "movesRequired": 26,
+    "clusterSize": 76834
+  },
+  {
+    "boardString": "GBBJooGooJCCoHAAKLoHDDKLEEIooMxoIFFM",
+    "movesRequired": 27,
+    "clusterSize": 147355
+  },
+  {
+    "boardString": "HBBCCMHoJDDMAAJKoooIoKEEoIFFLoGGGoLo",
+    "movesRequired": 27,
+    "clusterSize": 141944
+  },
+  {
+    "boardString": "GBBJooGooJCCoHAAKLoHDDKLEEIooxxoIFFo",
+    "movesRequired": 27,
+    "clusterSize": 108630
+  },
+  {
+    "boardString": "BBooKoCCooKoGHAAKoGHIJDDEEIJoLoFFFoL",
+    "movesRequired": 27,
+    "clusterSize": 95766
+  },
+  {
+    "boardString": "FoxoxKFoHBBKAAHIoooGoICCoGDDJoEEooJo",
+    "movesRequired": 27,
+    "clusterSize": 88766
+  },
+  {
+    "boardString": "xooIBBFCCIJKFGAAJKoGooJLDDHooLooHEEo",
+    "movesRequired": 27,
+    "clusterSize": 75007
+  },
+  {
+    "boardString": "xooJBBGCCJoLGHoAALoHDDKxEEIoKoooIFFo",
+    "movesRequired": 27,
+    "clusterSize": 73611
+  },
+  {
+    "boardString": "GBBJooGooJCCoHAAKLoHDDKLEEIooxoxIFFo",
+    "movesRequired": 27,
+    "clusterSize": 71274
+  },
+  {
+    "boardString": "GoBBxLGoICCLAAIJoooHoJDDoHEEKoFFooKo",
+    "movesRequired": 28,
+    "clusterSize": 192278
+  },
+  {
+    "boardString": "xoIBBLCCIooLGHAAKMGHDDKMoooJEEoFFJoo",
+    "movesRequired": 28,
+    "clusterSize": 147355
+  },
+  {
+    "boardString": "BBoKooGIoKCCGIAALMHDDoLMHoJEEMFFJooo",
+    "movesRequired": 28,
+    "clusterSize": 141944
+  },
+  {
+    "boardString": "GoxBBLGoICCLAAIJoooHoJDDoHEEKoFFooKo",
+    "movesRequired": 28,
+    "clusterSize": 135210
+  },
+  {
+    "boardString": "xoIBBoCCIooxGHAAKLGHDDKLoooJEEoFFJoo",
+    "movesRequired": 28,
+    "clusterSize": 108630
+  },
+  {
+    "boardString": "FooxoxFoBBoKAAHIoKoGHICCoGDDJoEEooJo",
+    "movesRequired": 28,
+    "clusterSize": 103358
+  },
+  {
+    "boardString": "xooJBBGCCJoLGHoAALoHDDKoEEIoKxooIFFo",
+    "movesRequired": 28,
+    "clusterSize": 103077
+  },
+  {
+    "boardString": "BBoJooxHoJCCGHAAKLGDDoKLooIEELFFIooo",
+    "movesRequired": 28,
+    "clusterSize": 99851
+  },
+  {
+    "boardString": "FooxxoFoHBBKAAHIoKoGoICCoGDDJooEEoJo",
+    "movesRequired": 29,
+    "clusterSize": 102578
+  },
+  {
+    "boardString": "GoBBxLGoICCLAAIJoooHoJDDoHEEKoFFFoKo",
+    "movesRequired": 29,
+    "clusterSize": 99851
+  },
+  {
+    "boardString": "BBoJooGooJCCGHAAKLGHDDKLEEIooxooIFFo",
+    "movesRequired": 29,
+    "clusterSize": 99851
+  },
+  {
+    "boardString": "GooxBBGoICCLAAIJoLoHoJDDoHEEKooFFoKo",
+    "movesRequired": 29,
+    "clusterSize": 81261
+  },
+  {
+    "boardString": "xBBBoLooICCLAAIJoLGHoJDDGHEEKoFFooKo",
+    "movesRequired": 29,
+    "clusterSize": 75675
+  },
+  {
+    "boardString": "xoIBBxCCIooLGHAAKLGHDDKLoooJEEoFFJoo",
+    "movesRequired": 29,
+    "clusterSize": 73890
+  },
+  {
+    "boardString": "oBBoxoooICCCAAIoKLGHDDKLGHoJEEFFoJoo",
+    "movesRequired": 29,
+    "clusterSize": 68868
+  },
+  {
+    "boardString": "BBBKLMHCCKLMHoJAAMDDJooooIEEoooIFFGG",
+    "movesRequired": 29,
+    "clusterSize": 68859
+  },
+  {
+    "boardString": "ooIBBLCCIooLGHAAKMGHDDKMGooJEEFFoJoo",
+    "movesRequired": 30,
+    "clusterSize": 141944
+  },
+  {
+    "boardString": "ooIBBoCCIooxGHAAKLGHDDKLGooJEEFFoJoo",
+    "movesRequired": 30,
+    "clusterSize": 99851
+  },
+  {
+    "boardString": "oxIBBoCCIooxGHAAKLGHDDKLoooJEEoFFJoo",
+    "movesRequired": 30,
+    "clusterSize": 71274
+  },
+  {
+    "boardString": "BBIooooHICCMoHAALMDDJoLoGoJKEEGFFKox",
+    "movesRequired": 30,
+    "clusterSize": 68637
+  },
+  {
+    "boardString": "ooxoBBooICCLAAIJoLGHoJDDGHEEKMFFooKM",
+    "movesRequired": 30,
+    "clusterSize": 59114
+  },
+  {
+    "boardString": "HBBoxLHoICCLAAIJoooooJDDoxEEKoFFGGKo",
+    "movesRequired": 30,
+    "clusterSize": 58178
+  },
+  {
+    "boardString": "FBBoxKFoHCCKAAHIoooGoIDDoGEEJoxoooJo",
+    "movesRequired": 30,
+    "clusterSize": 58114
+  },
+  {
+    "boardString": "xBBJooGHoJCCGHAAKLDDIoKLooIEELoFFoxo",
+    "movesRequired": 30,
+    "clusterSize": 57576
+  },
+  {
+    "boardString": "FBBBooFooIxoAAoIJooGCCJKoGHDDKEEHooo",
+    "movesRequired": 31,
+    "clusterSize": 94061
+  },
+  {
+    "boardString": "oBBxoLooICCLAAIoKoGHDDKoGHoJEExFFJoo",
+    "movesRequired": 31,
+    "clusterSize": 73611
+  },
+  {
+    "boardString": "ooIBBxGoICCLGAAJoLxHoJDDoHEEKoFFooKo",
+    "movesRequired": 31,
+    "clusterSize": 73611
+  },
+  {
+    "boardString": "oBBxoLooICCLAAIoKoGHDDKoGHoJEEGFFJoo",
+    "movesRequired": 31,
+    "clusterSize": 72799
+  },
+  {
+    "boardString": "ooIBBBGoICCLGAAJoLxHoJDDoHEEKoFFooKo",
+    "movesRequired": 31,
+    "clusterSize": 72799
+  },
+  {
+    "boardString": "GBBKoxGoIKCCAAIoLMoHDDLMoHJoEEFFJooo",
+    "movesRequired": 31,
+    "clusterSize": 68637
+  },
+  {
+    "boardString": "FoIxoxFoIBBLGAAJoLGHoJCCoHDDKoEEooKo",
+    "movesRequired": 31,
+    "clusterSize": 56028
+  },
+  {
+    "boardString": "ooIBBBCCIooxGHAAKLGHDDKLGooJEEFFoJoo",
+    "movesRequired": 31,
+    "clusterSize": 55335
+  },
+  {
+    "boardString": "GBBoxLGoICCLAAIJoooHoJDDoHEEKoxFFoKo",
+    "movesRequired": 32,
+    "clusterSize": 103077
+  },
+  {
+    "boardString": "FooxooFBBIoKAAHIoKoGHCCKoGDDJoooEEJo",
+    "movesRequired": 32,
+    "clusterSize": 75965
+  },
+  {
+    "boardString": "xBBKooHIoKCCHIAALoDDJoLMooJEEMFFGGoM",
+    "movesRequired": 32,
+    "clusterSize": 73017
+  },
+  {
+    "boardString": "ooxKBBooJKCCAAJoLoHIDDLoHIoEEMoFFGGM",
+    "movesRequired": 32,
+    "clusterSize": 57068
+  },
+  {
+    "boardString": "FooxoxFBBIooAAHIoKoGHCCKoGDDJooEEEJo",
+    "movesRequired": 32,
+    "clusterSize": 54621
+  },
+  {
+    "boardString": "FBBBoKFooIxKAAoIJKoGCCJooGHDDoEEHooo",
+    "movesRequired": 32,
+    "clusterSize": 53085
+  },
+  {
+    "boardString": "GoxxBBGoICCLAAIJoLoHoJDDoHEEKoFFooKo",
+    "movesRequired": 32,
+    "clusterSize": 50116
+  },
+  {
+    "boardString": "GoxBBxGoICCLAAIJoLoHoJDDoHEEKoFFooKo",
+    "movesRequired": 32,
+    "clusterSize": 50116
+  },
+  {
+    "boardString": "IBBCCMIoJDDMAAJKoooooKEEFFFoLoGGHHLo",
+    "movesRequired": 33,
+    "clusterSize": 68586
+  },
+  {
+    "boardString": "FBBBooFooIxKAAoIJKoGCCJLoGHDDLEEHooo",
+    "movesRequired": 33,
+    "clusterSize": 63293
+  },
+  {
+    "boardString": "FooxxoFBBIoKAAHIoKoGHCCKoGDDJooEEoJo",
+    "movesRequired": 33,
+    "clusterSize": 59489
+  },
+  {
+    "boardString": "xooJBBCCoJKLGHAAKLGHDDKMooIEEMFFIooo",
+    "movesRequired": 33,
+    "clusterSize": 54239
+  },
+  {
+    "boardString": "oIBBCCxIoKDDAAoKLMHoEELMHoJFFMGGJooo",
+    "movesRequired": 33,
+    "clusterSize": 53667
+  },
+  {
+    "boardString": "BBIoxLCCIooLGHAAKMGHDDKMGooJEEFFoJoo",
+    "movesRequired": 33,
+    "clusterSize": 51846
+  },
+  {
+    "boardString": "GBBoxLGoICCLAAIJoooHoJDDoHEEKoxFFFKo",
+    "movesRequired": 33,
+    "clusterSize": 47830
+  },
+  {
+    "boardString": "ooooxoFooJBBFAAJKoGHCCKLGHIDDLEEIoox",
+    "movesRequired": 33,
+    "clusterSize": 44966
+  },
+  {
+    "boardString": "BBJCCoDDJooxHIAALMHIEELMHooKFFGGoKoo",
+    "movesRequired": 34,
+    "clusterSize": 53667
+  },
+  {
+    "boardString": "xoHBBBFoHooKFAAIoKoGoICCoGDDJLEEooJL",
+    "movesRequired": 34,
+    "clusterSize": 53165
+  },
+  {
+    "boardString": "FooxooFBBIoxAAHIoKoGHCCKoGDDJoEEooJo",
+    "movesRequired": 34,
+    "clusterSize": 48290
+  },
+  {
+    "boardString": "xoIBBBGoICCKGAAJoKoHoJDDoHEEoLFFoooL",
+    "movesRequired": 34,
+    "clusterSize": 44932
+  },
+  {
+    "boardString": "GBBJCCGDDJKLoHAAKLoHooKxEEIoooooIFFo",
+    "movesRequired": 34,
+    "clusterSize": 39152
+  },
+  {
+    "boardString": "xBBCCLxoIDDLAAIJoooHoJEEoHFFKoGGooKo",
+    "movesRequired": 34,
+    "clusterSize": 38288
+  },
+  {
+    "boardString": "oooKBBGCCKLMGIAALMHIDDLNHoJEENFFJooo",
+    "movesRequired": 34,
+    "clusterSize": 34996
+  },
+  {
+    "boardString": "oGBBBKFGooJKFAAoJLFoHCCLooHIDDEEEIoo",
+    "movesRequired": 34,
+    "clusterSize": 32911
+  },
+  {
+    "boardString": "FooxooFBBIoKAAHIoKoGHCCLoGDDJLEEooJo",
+    "movesRequired": 35,
+    "clusterSize": 80039
+  },
+  {
+    "boardString": "oooxxoGBBJKLGAAJKLCCIooooHIDDooHEEFF",
+    "movesRequired": 35,
+    "clusterSize": 50092
+  },
+  {
+    "boardString": "oooxKxGBBJKoGAAJoLCCIooLoHIDDooHEEFF",
+    "movesRequired": 35,
+    "clusterSize": 49972
+  },
+  {
+    "boardString": "ooxoBBooHCCKAAHoJKFGDDJoFGoIEExooIoo",
+    "movesRequired": 35,
+    "clusterSize": 43240
+  },
+  {
+    "boardString": "GBBBKLGoCCKLAAHIoLDDHIoooooJEEFFoJoo",
+    "movesRequired": 35,
+    "clusterSize": 42410
+  },
+  {
+    "boardString": "BBIoxoGoICCCGAAJoLDDoJKLoHEEKooHFFox",
+    "movesRequired": 35,
+    "clusterSize": 37007
+  },
+  {
+    "boardString": "GBBBKLGoCCKLAAHIKoDDHIoooooJEEFFoJoo",
+    "movesRequired": 35,
+    "clusterSize": 35643
+  },
+  {
+    "boardString": "oHBBCCoHoJKoAAoJKLGDDDoLGoIEELFFIooo",
+    "movesRequired": 35,
+    "clusterSize": 32628
+  },
+  {
+    "boardString": "ooIBBLCCIoKLoHAAKLGHoJDDGEEJooooxFFo",
+    "movesRequired": 36,
+    "clusterSize": 72799
+  },
+  {
+    "boardString": "ooIBBBGoIJCCGAAJoLoHDDKLoHEEKoFFooKx",
+    "movesRequired": 36,
+    "clusterSize": 55852
+  },
+  {
+    "boardString": "FooxooFBBIoKAAHIoKoGHCCLoGDDJLxEEoJo",
+    "movesRequired": 36,
+    "clusterSize": 42836
+  },
+  {
+    "boardString": "oooxBBHCCKLoHAAKLMDDJooMoIJEEooIFFGG",
+    "movesRequired": 36,
+    "clusterSize": 39997
+  },
+  {
+    "boardString": "oIBBLoGICCLoGAAKLoooJKDDHoJEEMHFFFoM",
+    "movesRequired": 36,
+    "clusterSize": 37894
+  },
+  {
+    "boardString": "oIBBCCoIJDDLAAJooLHEEKoLHooKFFHGGGoo",
+    "movesRequired": 36,
+    "clusterSize": 32911
+  },
+  {
+    "boardString": "oGBBJKoGooJKooHAALCCHIoLFoxIDDFEEEoo",
+    "movesRequired": 36,
+    "clusterSize": 31284
+  },
+  {
+    "boardString": "ooxoBBooHCCKAAHoJKxGDDJooGoIEEoooIFF",
+    "movesRequired": 36,
+    "clusterSize": 30070
+  },
+  {
+    "boardString": "ooxoBBooICCLAAIoKLGHDDKoGHoJEExooJFF",
+    "movesRequired": 37,
+    "clusterSize": 72742
+  },
+  {
+    "boardString": "xoIBBBGoICCLGAAJoLoHoJDDoHEEKMFFooKM",
+    "movesRequired": 37,
+    "clusterSize": 66200
+  },
+  {
+    "boardString": "ooxoxoBBooJoFGAAJoFGHICCDDHIoKoEEEoK",
+    "movesRequired": 37,
+    "clusterSize": 45716
+  },
+  {
+    "boardString": "xBBBooHooKCCHAAKoooIDDoLoIJEELFFJGGL",
+    "movesRequired": 37,
+    "clusterSize": 30493
+  },
+  {
+    "boardString": "BBBJKLGCCJKLGoAAKoDDIooooHIooooHEEFF",
+    "movesRequired": 37,
+    "clusterSize": 28257
+  },
+  {
+    "boardString": "ooxBBoCCooJooGAAJooGHIDDEEHIoKoFFFoK",
+    "movesRequired": 37,
+    "clusterSize": 28224
+  },
+  {
+    "boardString": "BBGoIJooGoIJooGAAJFooHCCFDDHoooEEHoo",
+    "movesRequired": 37,
+    "clusterSize": 27462
+  },
+  {
+    "boardString": "BBBoJLCCooJLAAooKMGHDDKMGHIEEoFFIooo",
+    "movesRequired": 37,
+    "clusterSize": 26992
+  },
+  {
+    "boardString": "ooxBBoCCooKoGHAAKoGHIJDDEEIJoLoFFFoL",
+    "movesRequired": 38,
+    "clusterSize": 68464
+  },
+  {
+    "boardString": "GBBBoLGoHCCLAAHIKMoDDIKMoooJEEoFFJoo",
+    "movesRequired": 38,
+    "clusterSize": 40259
+  },
+  {
+    "boardString": "GooxooGoIJBBAAIJoooHoCCLoHDDKLEEFFKL",
+    "movesRequired": 38,
+    "clusterSize": 37995
+  },
+  {
+    "boardString": "ooxoBBCCooKLGHAAKLGHIDDLEEIJooFFFJoo",
+    "movesRequired": 38,
+    "clusterSize": 35545
+  },
+  {
+    "boardString": "xBBCCLooIDDLAAIoKoxHEEKooHoJFFoooJGG",
+    "movesRequired": 38,
+    "clusterSize": 30180
+  },
+  {
+    "boardString": "ooxKBBoooKCCAAJoooHIJDDMHIEELMFFGGLM",
+    "movesRequired": 38,
+    "clusterSize": 29202
+  },
+  {
+    "boardString": "HooxBBHCCKoLHAAKoLDDJooooIJEEooIFFGG",
+    "movesRequired": 38,
+    "clusterSize": 26770
+  },
+  {
+    "boardString": "GooxoxGBBJoKGAAJoKCCIooooHIDDooHEEFF",
+    "movesRequired": 38,
+    "clusterSize": 26770
+  },
+  {
+    "boardString": "BBHoxoFGHooKFGAAJKFCCCJooooIDDEEoIoo",
+    "movesRequired": 39,
+    "clusterSize": 28809
+  },
+  {
+    "boardString": "GooxxoGoIJBBAAIJoooHoCCLoHDDKLEEFFKL",
+    "movesRequired": 39,
+    "clusterSize": 28719
+  },
+  {
+    "boardString": "oBBBKMCCoIKMAAoILoGDDJLoGoHJEEFFHooo",
+    "movesRequired": 39,
+    "clusterSize": 28276
+  },
+  {
+    "boardString": "GooxxoGoIJBBAAIJKLCCDDKLoHoEEooHoFFo",
+    "movesRequired": 39,
+    "clusterSize": 23925
+  },
+  {
+    "boardString": "GooxoxGoIJBBAAIJKLCCDDKLoHoEEooHoFFo",
+    "movesRequired": 39,
+    "clusterSize": 23812
+  },
+  {
+    "boardString": "BBJooMHIJCCMHIAALMDDoKLoooxKEEFFGGoo",
+    "movesRequired": 39,
+    "clusterSize": 22114
+  },
+  {
+    "boardString": "FBBBooFooIxKAAoIJKoGCCJLxGHDDLEEHooo",
+    "movesRequired": 39,
+    "clusterSize": 21567
+  },
+  {
+    "boardString": "GBBBooGCCKoxAAIKoLoHIDDLoHJoEEFFJooo",
+    "movesRequired": 39,
+    "clusterSize": 21270
+  },
+  {
+    "boardString": "ooxBBLooICCLAAIoKoGDDJKoGHoJEExHFFFo",
+    "movesRequired": 40,
+    "clusterSize": 32053
+  },
+  {
+    "boardString": "GoIBBxGoICCMHAAJoMHooJDDEEoKLoFFoKLo",
+    "movesRequired": 40,
+    "clusterSize": 25723
+  },
+  {
+    "boardString": "oooxKoGBBJKLGAAJKLCCIooooHIDDooHEEFF",
+    "movesRequired": 40,
+    "clusterSize": 24328
+  },
+  {
+    "boardString": "HBBBoMHCCJoMAAIJLMDDIKLooooKEEFFGGoo",
+    "movesRequired": 40,
+    "clusterSize": 20592
+  },
+  {
+    "boardString": "xoHBBBFoHIoKFAAIoKoGCCCLoGDDJLEEooJo",
+    "movesRequired": 40,
+    "clusterSize": 20554
+  },
+  {
+    "boardString": "ooBBoxGCCCoLGAAIKLDDHIKoooHJEEFFoJoo",
+    "movesRequired": 40,
+    "clusterSize": 20448
+  },
+  {
+    "boardString": "xBBIooGCCIoLGAAJKLDDHJKMooHEEMoFFoxo",
+    "movesRequired": 40,
+    "clusterSize": 20426
+  },
+  {
+    "boardString": "BBHoxxFGHoooFGAAJKFCCCJKoooIDDEEoIoo",
+    "movesRequired": 40,
+    "clusterSize": 19761
+  },
+  {
+    "boardString": "BBHooLoGHCCLoGAAKoDDIoKoFoIJxoFEEJox",
+    "movesRequired": 41,
+    "clusterSize": 25258
+  },
+  {
+    "boardString": "oBBBKMCCoIKMAAoILNGDDJLNGoHJEEFFHooo",
+    "movesRequired": 41,
+    "clusterSize": 23979
+  },
+  {
+    "boardString": "GBBBoLGoHCCLAAHIKMoDDIKMoooJEEoFFJxo",
+    "movesRequired": 41,
+    "clusterSize": 20641
+  },
+  {
+    "boardString": "oooxooBBHooKoGHAAKFGCCJKFDDIJoooxIEE",
+    "movesRequired": 41,
+    "clusterSize": 18765
+  },
+  {
+    "boardString": "oooxKxGBBJKoGAAJKLCCIooLoHIDDooHEEFF",
+    "movesRequired": 41,
+    "clusterSize": 18263
+  },
+  {
+    "boardString": "BBoIJoCCCIJLAAoIKLGoDDKMGoHEEMFFHooo",
+    "movesRequired": 41,
+    "clusterSize": 16210
+  },
+  {
+    "boardString": "oooxKoGBBJKLGAAJKLCCIooLoHIDDooHEEFF",
+    "movesRequired": 41,
+    "clusterSize": 15920
+  },
+  {
+    "boardString": "BBHoxoFGHooKFGAAJKFCCCJKoooIDDEEoIoo",
+    "movesRequired": 41,
+    "clusterSize": 15601
+  },
+  {
+    "boardString": "FBBJoxFoHJxoAAHoKooGCCKLoGIDDLEEIooo",
+    "movesRequired": 42,
+    "clusterSize": 25258
+  },
+  {
+    "boardString": "BBHooLGoHCCLGoAAJoDDoIJoEEEIKoFFoIKo",
+    "movesRequired": 42,
+    "clusterSize": 19224
+  },
+  {
+    "boardString": "HoBBCCHoDDoKAAIooKooIEELFFIJoLGGGJoo",
+    "movesRequired": 42,
+    "clusterSize": 14908
+  },
+  {
+    "boardString": "FBBoKoFGHoKLFGHAALCCCJoLooIJDDEEIooo",
+    "movesRequired": 42,
+    "clusterSize": 12560
+  },
+  {
+    "boardString": "FBBIooFGoICCoGAAJKDDHoJKooHxJLxoEEEL",
+    "movesRequired": 42,
+    "clusterSize": 12507
+  },
+  {
+    "boardString": "BBCCKLGDDJKLGAAJooEEIJoooHIooooHFFFx",
+    "movesRequired": 42,
+    "clusterSize": 11308
+  },
+  {
+    "boardString": "GBBKooGHIKCCoHIAALxDDooLEEJooMFFJooM",
+    "movesRequired": 42,
+    "clusterSize": 10696
+  },
+  {
+    "boardString": "BBIooLCCIooLxAAooMoHJDDMGHJKEEGFFKoo",
+    "movesRequired": 42,
+    "clusterSize": 10696
+  },
+  {
+    "boardString": "xBBIooFGoICCFGAAJLDDHoJLooHxKooEEoKo",
+    "movesRequired": 43,
+    "clusterSize": 34917
+  },
+  {
+    "boardString": "oBBoJoooHxJLAAHoKLFGCCKoFGoIDDxEEIoo",
+    "movesRequired": 43,
+    "clusterSize": 34917
+  },
+  {
+    "boardString": "xBBIooFGoICCFGAAJLDDHoJLooHxKLoEEoKo",
+    "movesRequired": 43,
+    "clusterSize": 22007
+  },
+  {
+    "boardString": "HoBBBMHCCJLMAAIJLoDDIKLooooKEEoFFGGo",
+    "movesRequired": 43,
+    "clusterSize": 16930
+  },
+  {
+    "boardString": "FBBoKLFGHoKLFGHAAMCCIJoMooIJDDoEEoxo",
+    "movesRequired": 43,
+    "clusterSize": 15670
+  },
+  {
+    "boardString": "FBBJoxFoHJxoAAHoKLoGCCKLoGIDDLEEIooo",
+    "movesRequired": 43,
+    "clusterSize": 13961
+  },
+  {
+    "boardString": "BBHooLGoHCCLGoAAJoDDoIJoEEEIKoFFoIKx",
+    "movesRequired": 43,
+    "clusterSize": 13139
+  },
+  {
+    "boardString": "BBHooLGoHCCLGoAAJoDDoIJoEEEIKoFFFIKo",
+    "movesRequired": 43,
+    "clusterSize": 12590
+  },
+  {
+    "boardString": "EFoxIxEFBBIoEAAHooooGHCCooGDDJoooooJ",
+    "movesRequired": 44,
+    "clusterSize": 22024
+  },
+  {
+    "boardString": "oBBoJLooHxJLAAHoKLFGCCKoFGoIDDxEEIoo",
+    "movesRequired": 44,
+    "clusterSize": 22007
+  },
+  {
+    "boardString": "EFoxxoEFBBIoEAAHIoooGHCCooGDDJoooooJ",
+    "movesRequired": 44,
+    "clusterSize": 21750
+  },
+  {
+    "boardString": "GoBBooGCCCoLAAHIKLDDHIKLoooJEEoFFJoo",
+    "movesRequired": 44,
+    "clusterSize": 18565
+  },
+  {
+    "boardString": "GBBoLMGHIoLMGHIAANCCJKoNooJKDDoEEFFo",
+    "movesRequired": 44,
+    "clusterSize": 17324
+  },
+  {
+    "boardString": "FGoxBBFGCCJoFAAIJoooHIDDooHEEKoooooK",
+    "movesRequired": 44,
+    "clusterSize": 17149
+  },
+  {
+    "boardString": "GoBBooGCCCKoAAHIKLDDHIKLoooJEEoFFJoo",
+    "movesRequired": 44,
+    "clusterSize": 16014
+  },
+  {
+    "boardString": "BBHooxCCHooJooHAAJGooIDDGEEIoooxoIFF",
+    "movesRequired": 44,
+    "clusterSize": 13421
+  },
+  {
+    "boardString": "BBHooLGoHCCLGoAAJMDDoIJMEEEIKoFFoIKo",
+    "movesRequired": 45,
+    "clusterSize": 16210
+  },
+  {
+    "boardString": "FBBoKxFGHoKoFGHAALCCCJoLooIJDDEEIooo",
+    "movesRequired": 45,
+    "clusterSize": 13617
+  },
+  {
+    "boardString": "HBBCCoHooKDDAAoKLMoIEELMoIJoLxFFJGGo",
+    "movesRequired": 45,
+    "clusterSize": 12052
+  },
+  {
+    "boardString": "GooxoKGBBJoKAAIJoKCCIooooHIoDDoHEEFF",
+    "movesRequired": 45,
+    "clusterSize": 11811
+  },
+  {
+    "boardString": "GBBBooGCCCoLAAHIKLDDHIKLoooJEEoFFJoo",
+    "movesRequired": 45,
+    "clusterSize": 11516
+  },
+  {
+    "boardString": "BBCCLMHDDKLMHAAKooEEJKoooIJooxoIFFGG",
+    "movesRequired": 45,
+    "clusterSize": 10419
+  },
+  {
+    "boardString": "GoBBoxGCCCKoAAHIKLDDHIKLoooJEEoFFJoo",
+    "movesRequired": 45,
+    "clusterSize": 10066
+  },
+  {
+    "boardString": "GBBBooGCCCKoAAHIKLDDHIKLoooJEEoFFJoo",
+    "movesRequired": 45,
+    "clusterSize": 9904
+  },
+  {
+    "boardString": "xoIBBBGoIJCCGAAJKLoHDDKLoHEEKoFFooox",
+    "movesRequired": 46,
+    "clusterSize": 26686
+  },
+  {
+    "boardString": "BBHoooFGHoKxFGAAKLFCCJoLooIJDDooIEEx",
+    "movesRequired": 46,
+    "clusterSize": 15495
+  },
+  {
+    "boardString": "BBBKLoHCCKLoHoAALoDDJooooIJEEooIFFGG",
+    "movesRequired": 46,
+    "clusterSize": 12990
+  },
+  {
+    "boardString": "BBHooLGoHCCLGoAAJMDDoIJMEEEIKoFFFIKo",
+    "movesRequired": 46,
+    "clusterSize": 10658
+  },
+  {
+    "boardString": "GBBJCCGooJKLoHAAKLoHDDKxEEIoooxoIFFo",
+    "movesRequired": 46,
+    "clusterSize": 9583
+  },
+  {
+    "boardString": "oHoxBBoHCCKooAAJKoxoIJDDGoIEELGoFFoL",
+    "movesRequired": 46,
+    "clusterSize": 8436
+  },
+  {
+    "boardString": "BBJCCoDDJoLxHIAALMHIEELMHooKFFGGoKoo",
+    "movesRequired": 46,
+    "clusterSize": 8206
+  },
+  {
+    "boardString": "GxooBBGCCCoLAAHIKLDDHIKLoooJEEoFFJoo",
+    "movesRequired": 46,
+    "clusterSize": 7775
+  },
+  {
+    "boardString": "BBoxooCCoIoJGAAIoJGoHDDKEEHooKooHFFF",
+    "movesRequired": 47,
+    "clusterSize": 7651
+  },
+  {
+    "boardString": "BBCCCoDDoJoxHAAJoKHoIEEKFFIoooooIGGG",
+    "movesRequired": 47,
+    "clusterSize": 6625
+  },
+  {
+    "boardString": "BBCCoxDDoJoxHAAJoKHoIEEKFFIoooooIGGG",
+    "movesRequired": 47,
+    "clusterSize": 6625
+  },
+  {
+    "boardString": "BBCCLoooJoLMIoJAAMIDDEEMoFFKooGGGKHH",
+    "movesRequired": 47,
+    "clusterSize": 4968
+  },
+  {
+    "boardString": "xBBoIJooGoIJAAGoIKEFCCCKEFoHDDxooHoo",
+    "movesRequired": 47,
+    "clusterSize": 4772
+  },
+  {
+    "boardString": "BBJCCoIoJDDoIAAKooEEoKFFGGGKoLoxHHoL",
+    "movesRequired": 47,
+    "clusterSize": 4553
+  },
+  {
+    "boardString": "GxoBBoGCCCKLAAHIKLDDHIKLoooJEEoFFJoo",
+    "movesRequired": 47,
+    "clusterSize": 4387
+  },
+  {
+    "boardString": "FBBIKxFooIKoGAAJooGoHJCCGoHDDLEEEooL",
+    "movesRequired": 47,
+    "clusterSize": 2739
+  },
+  {
+    "boardString": "FGoxJxFGBBJoFAAIoooooICCooHDDKEEHooK",
+    "movesRequired": 48,
+    "clusterSize": 54515
+  },
+  {
+    "boardString": "FGoxxoFGBBJoFAAIJooooICCooHDDKEEHooK",
+    "movesRequired": 48,
+    "clusterSize": 53517
+  },
+  {
+    "boardString": "GHoxBBGHCCKoGAAJKooooJDDooIEELFFIooL",
+    "movesRequired": 48,
+    "clusterSize": 42215
+  },
+  {
+    "boardString": "BBBKLMHCCKLMHoAALoDDJooooIJEEooIFFGG",
+    "movesRequired": 48,
+    "clusterSize": 37740
+  },
+  {
+    "boardString": "xBBJKLooIJKLAAIooMGHCCxMGHDDooEEFFFo",
+    "movesRequired": 48,
+    "clusterSize": 7059
+  },
+  {
+    "boardString": "GooBBBGCCJoKAAHJoKooHDDKooIEEoooIFFF",
+    "movesRequired": 48,
+    "clusterSize": 5082
+  },
+  {
+    "boardString": "xBBJooooIJCCHoIAAKHDDooKHEEFFLoGGGoL",
+    "movesRequired": 48,
+    "clusterSize": 4155
+  },
+  {
+    "boardString": "ooHBBBooHJooAAIJoKCCIDDKFGEEoKFGoooo",
+    "movesRequired": 48,
+    "clusterSize": 2295
+  },
+  {
+    "boardString": "BBBKLMHCCKLMHoAALMDDJooooIJEEooIFFGG",
+    "movesRequired": 49,
+    "clusterSize": 24132
+  },
+  {
+    "boardString": "oooJBBoCCJLoAAIKLoDDIKEEHFFFoMHoGGoM",
+    "movesRequired": 49,
+    "clusterSize": 4192
+  },
+  {
+    "boardString": "oxBBKoCCCIKoAAHIooooHDDoGEEJooGFFJox",
+    "movesRequired": 49,
+    "clusterSize": 4135
+  },
+  {
+    "boardString": "oxBBoLCCCJoLAAIJooooIKDDHEEKooHFFGGo",
+    "movesRequired": 49,
+    "clusterSize": 3711
+  },
+  {
+    "boardString": "oxBBoKCCCIoKAAHIooooHDDoGEEJooGFFJox",
+    "movesRequired": 49,
+    "clusterSize": 3624
+  },
+  {
+    "boardString": "FBBoKoFGHoKLFGHAALCCCJoLooIJDDEEIoxo",
+    "movesRequired": 49,
+    "clusterSize": 3448
+  },
+  {
+    "boardString": "oxBBLoCCCJLoAAIJooooIKDDHEEKooHFFGGo",
+    "movesRequired": 49,
+    "clusterSize": 2665
+  },
+  {
+    "boardString": "oooJBBoCCJLoAAIKLoDDIKEEHFFFoMHGGGoM",
+    "movesRequired": 49,
+    "clusterSize": 2616
+  },
+  {
+    "boardString": "BBHooLFGHoKLFGAAKMFCCJoMooIJDDooIEEx",
+    "movesRequired": 50,
+    "clusterSize": 14385
+  },
+  {
+    "boardString": "ooIBBBooIKooAAJKoLCCJDDLGHEEoLGHFFoo",
+    "movesRequired": 50,
+    "clusterSize": 4643
+  },
+  {
+    "boardString": "ooooxoBBBHJoAAGHJKooGCCKFDDIooFEEIox",
+    "movesRequired": 50,
+    "clusterSize": 3874
+  },
+  {
+    "boardString": "ooooJxBBBHJoAAGHoKooGCCKFDDIooFEEIox",
+    "movesRequired": 50,
+    "clusterSize": 3676
+  },
+  {
+    "boardString": "ooooKxBBBIKoAAHIoLooHCCLGDDJooGEEJFF",
+    "movesRequired": 50,
+    "clusterSize": 3169
+  },
+  {
+    "boardString": "ooooxoBBBIKoAAHIKLooHCCLGDDJooGEEJFF",
+    "movesRequired": 50,
+    "clusterSize": 2966
+  },
+  {
+    "boardString": "ooxBBKCCoJoKHAAJooHoIJDDEEIooLFFFGGL",
+    "movesRequired": 50,
+    "clusterSize": 1845
+  },
+  {
+    "boardString": "BBBICCGooIoJGAAIoJooHDDKEEHooKooxoFF",
+    "movesRequired": 50,
+    "clusterSize": 1066
+  }
+]

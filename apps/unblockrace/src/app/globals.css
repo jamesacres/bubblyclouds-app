@@ -4,6 +4,7 @@
 @source "../../../../packages/template";
 @source "../../../../packages/types";
 @source "../../../../packages/ui";
+@source "../../../../packages/unblockrace";
 
 body {
   --ion-safe-area-top: var(

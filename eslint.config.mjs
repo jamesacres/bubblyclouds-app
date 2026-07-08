@@ -153,7 +153,7 @@ export default [
     },
   },
   {
-    files: ['**/next.config.mjs', '**/next.config.js'],
+    files: ['**/next.config.mjs', '**/next.config.js', '**/scripts/**/*.mjs'],
 
     languageOptions: {
       globals: {

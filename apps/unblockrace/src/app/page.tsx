@@ -27,19 +27,18 @@ import Image from 'next/image';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
-import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { APP_CONFIG } from '../../app.config.js';
-
-const calculateCompletionPercentageFromState = () => 0;
-const isPuzzleCheated = () => false;
-const buildPuzzleUrlFromState = () => '';
-
-// TODO unblock race state
-interface GameState extends BaseState {}
+import { GameState } from '@bubblyclouds-app/unblockrace/types/state';
+import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateCompletionPercentage';
+import { isPuzzleCheated } from '@bubblyclouds-app/unblockrace/helpers/cheatDetection';
+import { buildPuzzleUrlFromState } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
+import { buildPuzzleUrl } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
+import { getDailyRun } from '@bubblyclouds-app/unblockrace/helpers/mockData';
+import SimpleBoard from '@bubblyclouds-app/unblockrace/components/SimpleBoard';
+import CollectionCover from '@bubblyclouds-app/unblockrace/components/CollectionCover';
 
 const SimpleStateWrapper = ({ state }: { state: GameState }) => (
-  // TODO SimpleUnblockRace
-  <div>{JSON.stringify(state)}</div>
+  <SimpleBoard state={state} />
 );
 
 function HomeComponent() {
@@ -97,7 +96,15 @@ function HomeComponent() {
       showLoginModal?.(undefined, LoginContext.DAILY_PUZZLE);
       return;
     }
-    // TODO get puzzle of the day and navigate
+    // Mock daily run of 5 (SPEC.md §8) until the real API exists
+    const { runId, puzzles } = getDailyRun();
+    router.push(
+      buildPuzzleUrl(
+        puzzles.map((puzzle) => puzzle.boardString),
+        puzzles.map((puzzle) => puzzle.movesRequired),
+        { runId }
+      )
+    );
     setIsLoading(false);
   };
 
@@ -283,7 +290,7 @@ function HomeComponent() {
                 className="liquid-glass mb-3 flex w-full cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97] md:mb-0 md:hidden"
               >
                 <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
-                  {currentMonth} · 50 puzzles
+                  {currentMonth} · daily puzzles
                 </p>
                 <p className="mb-3 text-base font-black text-white">
                   Monthly collection
@@ -309,7 +316,9 @@ function HomeComponent() {
                         }
                       }
                     }}
-                  ></div>
+                  >
+                    <CollectionCover month={currentMonth} size="large" />
+                  </div>
                 </div>
                 <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/55">
                   <BookOpen className="h-2.5 w-2.5" />
@@ -349,7 +358,7 @@ function HomeComponent() {
                   className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
                 >
                   <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
-                    {currentMonth} · 50 puzzles
+                    {currentMonth} · daily puzzles
                   </p>
                   <p className="mb-3 text-base font-black text-white">
                     Monthly
@@ -372,7 +381,9 @@ function HomeComponent() {
                           }
                         }
                       }}
-                    ></div>
+                    >
+                      <CollectionCover month={currentMonth} size="large" />
+                    </div>
                   </div>
                   <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/55">
                     <BookOpen className="h-2.5 w-2.5" />

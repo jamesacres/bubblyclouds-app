@@ -9,6 +9,7 @@ import { ThemeColorProvider } from '@bubblyclouds-app/ui/providers/ThemeColorPro
 import RevenueCatProvider from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SessionsProvider } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import PartiesProvider from '@bubblyclouds-app/template/providers/PartiesProvider';
+import { CollectionProvider } from '@bubblyclouds-app/unblockrace/providers/CollectionProvider';
 import {
   isCapacitor,
   saveCapacitorState,
@@ -63,9 +64,11 @@ export function Providers({ children }: PropsWithChildren) {
                   app={APP_CONFIG.app}
                   apiUrl={APP_CONFIG.apiUrl}
                 >
-                  <ThemeProvider attribute="class">
-                    <ThemeColorProvider>{children}</ThemeColorProvider>
-                  </ThemeProvider>
+                  <CollectionProvider>
+                    <ThemeProvider attribute="class">
+                      <ThemeColorProvider>{children}</ThemeColorProvider>
+                    </ThemeProvider>
+                  </CollectionProvider>
                 </SessionsProvider>
               </PartiesProvider>
             </RevenueCatProvider>
