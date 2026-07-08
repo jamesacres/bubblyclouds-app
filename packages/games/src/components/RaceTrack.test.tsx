@@ -87,4 +87,53 @@ describe('RaceTrack', () => {
     render(<RaceTrack {...defaultProps} />);
     expect(screen.getByText(/Leaderboard/)).toBeInTheDocument();
   });
+
+  it('shows per-player stats on the leaderboard when provided', () => {
+    mockCalculateCompletionPercentageFromState.mockReturnValue(100);
+    const calculateStatsDisplayFromState = jest
+      .fn()
+      .mockImplementation((state) =>
+        state === defaultProps.state ? '9 moves' : '12 moves'
+      );
+    render(
+      <RaceTrack
+        {...defaultProps}
+        calculateStatsDisplayFromState={calculateStatsDisplayFromState}
+      />
+    );
+    expect(screen.getByText('9 moves')).toBeInTheDocument();
+    expect(screen.getByText('12 moves')).toBeInTheDocument();
+  });
+
+  it('omits stats when calculateStatsDisplayFromState is not passed', () => {
+    mockCalculateCompletionPercentageFromState.mockReturnValue(100);
+    render(<RaceTrack {...defaultProps} />);
+    expect(screen.queryByText(/moves/)).not.toBeInTheDocument();
+  });
+
+  it('shows the percentage in the legend by default', () => {
+    mockCalculateCompletionPercentageFromState.mockReturnValue(42);
+    render(<RaceTrack {...defaultProps} />);
+    expect(screen.getAllByText('(42%)').length).toBeGreaterThan(0);
+  });
+
+  it('replaces the legend percentage with the progress stats when provided', () => {
+    mockCalculateCompletionPercentageFromState.mockReturnValue(42);
+    const calculateProgressStatsDisplayFromState = jest
+      .fn()
+      .mockImplementation((state) =>
+        state === defaultProps.state ? '3/24 moves ⚡' : '8/24 moves ⚡'
+      );
+    render(
+      <RaceTrack
+        {...defaultProps}
+        calculateProgressStatsDisplayFromState={
+          calculateProgressStatsDisplayFromState
+        }
+      />
+    );
+    expect(screen.getByText('3/24 moves ⚡')).toBeInTheDocument();
+    expect(screen.getByText('8/24 moves ⚡')).toBeInTheDocument();
+    expect(screen.queryByText('(42%)')).not.toBeInTheDocument();
+  });
 });

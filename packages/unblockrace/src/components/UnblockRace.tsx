@@ -25,17 +25,31 @@ import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficu
 import { GameState, GameStateMetadata, ServerState } from '../types/state';
 import { useGameState } from '../hooks/useGameState';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
+import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay';
+import { calculateProgressStatsDisplayFromState } from '../helpers/calculateProgressStatsDisplay';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { solvedBoardString } from '../helpers/boardToString';
 import { difficultyForMoves } from '../helpers/difficulty';
 import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
 import { getDailyNumber } from '../helpers/mockData';
 import { addDailyRunId, canStartRun } from '../utils/dailyRunCounter';
+import {
+  RunStage,
+  completedStagesFromStorage,
+  firstIncompleteStage,
+} from '../helpers/stageResults';
 import Board from './Board';
 import Controls from './Controls';
 import SimpleBoard from './SimpleBoard';
-import RaceSummaryCard from './RaceSummaryCard';
+import StageResultPanel from './StageResultPanel';
 import CountdownOverlay from './CountdownOverlay';
+import StageTransition from './StageTransition';
+
+// A short beat after solving a non-final stage before the slide-across takes
+// over, so the win registers but the car's exit flows straight into the next
+// board (SPEC.md §4). Kept small: the carousel replays the exit in lockstep
+// with the slide, so a long pause here would just look like a stall.
+const SOLVE_TO_SLIDE_DELAY_MS = 240;
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleBoard state={state} />
@@ -44,34 +58,6 @@ const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
 const CompactSimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleBoard state={state} compact />
 );
-
-export interface RunStage {
-  boardString: string;
-  movesRequired: number;
-}
-
-// Restore mid-run progress from the sessions saved per stage (SPEC.md §4):
-// resume at the first stage without a completed local session.
-const firstIncompleteStage = (app: string, stages: RunStage[]): number => {
-  if (typeof window === 'undefined') {
-    return 0;
-  }
-  for (let i = 0; i < stages.length; i++) {
-    try {
-      const stored = localStorage.getItem(`${app}-${stages[i].boardString}`);
-      if (!stored) {
-        return i;
-      }
-      const parsed = JSON.parse(stored) as { state?: GameState };
-      if (!parsed.state?.completed) {
-        return i;
-      }
-    } catch {
-      return i;
-    }
-  }
-  return stages.length - 1;
-};
 
 const UnblockRace = ({
   run,
@@ -121,6 +107,20 @@ const UnblockRace = ({
   const [currentStageIndex, setCurrentStageIndex] = useState(() =>
     firstIncompleteStage(app, stages)
   );
+  // Ticked off in the stage-preview strip; kept in sync with storage on
+  // mount and updated eagerly when a stage completes in this session
+  const [completedStages, setCompletedStages] = useState(() =>
+    completedStagesFromStorage(app, stages)
+  );
+  // The seamless slide-across between stages (SPEC.md §4: the car's exit
+  // motion continues into the next board sliding in). Non-null only while
+  // the carousel is animating; carries the outgoing solved board and the
+  // slide direction. 'forward' advances to the next stage, 'back' jumps to
+  // an earlier one from the preview strip.
+  const [transition, setTransition] = useState<{
+    fromBoardString: string;
+    direction: 'forward' | 'back';
+  } | null>(null);
   const stage = stages[currentStageIndex];
   const initial = stage.boardString;
   const puzzleId = initial;
@@ -143,33 +143,39 @@ const UnblockRace = ({
     () => !alreadyCompleted && showRacingPrompt
   );
   const [showAnimation, setShowAnimation] = useState(false);
-  const [showSummary, setShowSummary] = useState(false);
+  // Set only when a non-final stage is solved live this session (not when a
+  // completed stage is restored on a jump-back), so auto-advance never fires
+  // for a stage the player deliberately navigated to review.
+  const [autoAdvanceArmed, setAutoAdvanceArmed] = useState(false);
 
   const isFinalStage = currentStageIndex === stages.length - 1;
 
-  // Run totals accumulated as stages complete for the run-level summary
-  // (SPEC.md §7): moves added when a stage completes, seconds when it
-  // advances (the current stage's own time is added at render time below)
-  const [runTotals, setRunTotals] = useState({ seconds: 0, moves: 0 });
-
   const onComplete = useCallback(
-    (completedAnswerStack: string[], completedMovesMade: number) => {
+    (
+      completedAnswerStack: string[],
+      completedMovesMade: number,
+      completedSeconds: number
+    ) => {
       if (alreadyCompleted || isPuzzleCheated(completedAnswerStack)) {
         return;
       }
-      setRunTotals((totals) => ({
-        ...totals,
-        moves: totals.moves + completedMovesMade,
-      }));
+      setCompletedStages((prev) => {
+        const next = new Map(prev);
+        next.set(currentStageIndex, {
+          seconds: completedSeconds,
+          movesMade: completedMovesMade,
+          movesRequired: stage.movesRequired,
+        });
+        return next;
+      });
       if (isFinalStage) {
         setShowAnimation(true);
         setTimeout(() => setShowAnimation(false), 10000);
+      } else {
+        setAutoAdvanceArmed(true);
       }
-      // Let the primary piece finish its slide off the grid (§9) before the
-      // stage summary appears
-      setTimeout(() => setShowSummary(true), 700);
     },
-    [alreadyCompleted, isFinalStage]
+    [alreadyCompleted, isFinalStage, currentStageIndex, stage.movesRequired]
   );
 
   const {
@@ -203,6 +209,14 @@ const UnblockRace = ({
     onComplete,
   });
 
+  // Latest live board, read by the deferred auto-advance without re-creating
+  // its timer. Captured as the outgoing (solved) board for the slide so the
+  // carousel shows exactly the arrangement the player finished on.
+  const answerRef = useRef(answer);
+  useEffect(() => {
+    answerRef.current = answer;
+  }, [answer]);
+
   const friendsOnClick = useCallback(() => {
     setShowLobby((prev) => !prev);
   }, [setShowLobby]);
@@ -223,26 +237,56 @@ const UnblockRace = ({
     setShowLobby(true);
   }, [setShowLobby]);
 
-  const advanceStage = useCallback(() => {
-    setShowSummary(false);
-    if (completed) {
-      setRunTotals((totals) => ({
-        ...totals,
-        seconds: totals.seconds + completed.seconds,
-      }));
-    }
-    if (currentStageIndex < stages.length - 1) {
-      // Swap the board without unmounting the racing chrome (SPEC.md §6) and
-      // start the next stage's timer fresh
-      setCurrentStageIndex(currentStageIndex + 1);
-      setTimerNewSession(null);
+  // Slide to another stage without unmounting the racing chrome (SPEC.md §6).
+  // The board carousel plays first; the destination's timer only starts once
+  // the slide (and, when advancing off a win, the car's exit) has finished —
+  // that happens in handleTransitionDone. `direction` drives the slide
+  // (SPEC.md §4): forward continues the car's exit into the next board.
+  const goToStage = useCallback(
+    (index: number, direction: 'forward' | 'back') => {
+      if (index === currentStageIndex || transition) {
+        return;
+      }
+      setAutoAdvanceArmed(false);
+      setTransition({ fromBoardString: answerRef.current, direction });
+      setCurrentStageIndex(index);
       setRaceStarted(true);
-    }
-  }, [completed, currentStageIndex, stages.length, setTimerNewSession]);
+    },
+    [currentStageIndex, transition]
+  );
 
-  const closeSummary = useCallback(() => {
-    setShowSummary(false);
-  }, []);
+  const advanceStage = useCallback(() => {
+    if (currentStageIndex < stages.length - 1) {
+      goToStage(currentStageIndex + 1, 'forward');
+    }
+  }, [currentStageIndex, stages.length, goToStage]);
+
+  // After solving a non-final stage live, kick off the seamless slide once
+  // the win has registered (SPEC.md §4: "auto slide ... after we've seen the
+  // animations"). The car's exit then continues across into the next board.
+  useEffect(() => {
+    if (!autoAdvanceArmed || transition) {
+      return;
+    }
+    const timeout = setTimeout(() => {
+      setAutoAdvanceArmed(false);
+      advanceStage();
+    }, SOLVE_TO_SLIDE_DELAY_MS);
+    return () => clearTimeout(timeout);
+  }, [autoAdvanceArmed, transition, advanceStage]);
+
+  // The slide is done: the destination stage is now centered. Start its timer
+  // fresh so the countdown (3-2-1) only appears after the animation, then the
+  // race clock begins (fixes the "timer doesn't start on the next puzzle"
+  // bug — a stopped/absent timer for the new puzzleId is reset here). A stage
+  // that's already completed (jumping back to review it) keeps its finished
+  // clock; the restore effect will settle it either way.
+  const handleTransitionDone = useCallback(() => {
+    setTransition(null);
+    if (!completedStages.has(currentStageIndex)) {
+      setTimerNewSession(null);
+    }
+  }, [completedStages, currentStageIndex, setTimerNewSession]);
 
   // Reference to the board for the celebration animation
   const gridRef = useRef<HTMLDivElement>(null);
@@ -319,7 +363,10 @@ const UnblockRace = ({
 
   // Timer and scroll management
   useEffect(() => {
-    const shouldPause = !hasSelectedMode || showLobby || showAppDownload;
+    // Freeze the clock during the stage slide so the next stage's time only
+    // starts on its post-slide countdown, not while the board is animating.
+    const shouldPause =
+      !hasSelectedMode || showLobby || showAppDownload || !!transition;
 
     setPauseTimer(shouldPause);
 
@@ -332,7 +379,7 @@ const UnblockRace = ({
       document.documentElement.style.height = '';
       document.body.style.height = '';
     }
-  }, [hasSelectedMode, showLobby, showAppDownload, setPauseTimer]);
+  }, [hasSelectedMode, showLobby, showAppDownload, transition, setPauseTimer]);
 
   // Cleanup: Always restore scrolling when component unmounts
   useEffect(() => {
@@ -451,6 +498,7 @@ const UnblockRace = ({
 
       {raceStarted &&
         !showLobby &&
+        !transition &&
         timer?.countdown != null &&
         timer.countdown > 0 && <CountdownOverlay countdown={timer.countdown} />}
 
@@ -463,49 +511,17 @@ const UnblockRace = ({
         />
       )}
 
-      {showSummary && completed && (
-        <RaceSummaryCard
-          dailyNumber={isDailyRun ? getDailyNumber() : undefined}
-          collectionPuzzleLabel={
-            metadata.unblockCollectionPuzzleId
-              ? `Collection puzzle ${metadata.unblockCollectionPuzzleId.split('-').pop()}`
-              : undefined
-          }
-          seconds={completed.seconds}
-          movesMade={movesMade}
-          movesRequired={stage.movesRequired}
-          opponentDeltaSeconds={opponentDeltaSeconds}
-          stageIndex={currentStageIndex}
-          stageCount={stages.length}
-          runTotals={
-            isFinalStage
-              ? {
-                  seconds: runTotals.seconds + completed.seconds,
-                  moves: runTotals.moves,
-                }
-              : undefined
-          }
-          onNextStage={advanceStage}
-          onClose={closeSummary}
-        />
-      )}
-
-      <div className="flex flex-col items-center lg:flex-row">
-        <div className="container mx-auto px-4 pb-4 lg:pb-0">
+      {/* Centered, board-width game column. Keeping the whole column at
+          max-w-xl means every inner block's `lg:mr-0` (a Sudoku-Race carry
+          over that hugs the right edge) has no extra space to hug into, so
+          the board, race track, timer and slide all stay centred on desktop
+          instead of pinned right. */}
+      <div className="flex flex-col items-center">
+        <div className="mx-auto w-full max-w-xl px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
               <div className="ml-auto mr-auto max-w-xl px-4 pb-1 lg:mr-0">
-                <div className="flex items-center justify-between">
-                  {stages.length > 1 ? (
-                    <span
-                      data-testid="stage-chip"
-                      className="bg-theme-primary/10 text-theme-primary dark:text-theme-primary-light inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold"
-                    >
-                      Stage {currentStageIndex + 1}/{stages.length}
-                    </span>
-                  ) : (
-                    <span />
-                  )}
+                <div className="flex items-center justify-end">
                   <span className="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent">
                     {appName}
                   </span>
@@ -531,12 +547,37 @@ const UnblockRace = ({
                 </div>
               </div>
 
+              <Controls
+                undo={undo}
+                redo={redo}
+                reset={reset}
+                isUndoDisabled={!!completed || isUndoDisabled}
+                isRedoDisabled={!!completed || isRedoDisabled}
+                isDisabled={!!completed}
+              />
+
               <div ref={gridRef}>
-                <Board
-                  boardString={answer}
-                  onMove={pushMove}
-                  isDisabled={!!completed || showLobby}
-                />
+                {transition ? (
+                  <StageTransition
+                    fromBoardString={transition.fromBoardString}
+                    direction={transition.direction}
+                    onDone={handleTransitionDone}
+                  >
+                    <Board
+                      key={puzzleId}
+                      boardString={answer}
+                      onMove={pushMove}
+                      isDisabled
+                    />
+                  </StageTransition>
+                ) : (
+                  <Board
+                    key={puzzleId}
+                    boardString={answer}
+                    onMove={pushMove}
+                    isDisabled={!!completed || showLobby}
+                  />
+                )}
               </div>
 
               {!showAnimation && (
@@ -552,54 +593,34 @@ const UnblockRace = ({
                   }
                   isPuzzleCheated={isPuzzleCheated}
                   onInviteFriends={handleInviteFriends}
+                  calculateStatsDisplayFromState={
+                    calculateStatsDisplayFromState
+                  }
+                  calculateProgressStatsDisplayFromState={
+                    calculateProgressStatsDisplayFromState
+                  }
                 />
               )}
 
-              <Controls
-                movesMade={movesMade}
-                movesRequired={stage.movesRequired}
-                undo={undo}
-                redo={redo}
-                reset={reset}
-                isUndoDisabled={isUndoDisabled}
-                isRedoDisabled={isRedoDisabled}
-                isDisabled={!!completed}
-              />
-
-              {/* Keep the run advanceable after the summary card is closed */}
-              {completed && !showSummary && !isFinalStage && (
-                <div className="ml-auto mr-auto max-w-xl px-4 pb-3 lg:mr-0">
-                  <button
-                    type="button"
-                    onClick={advanceStage}
-                    className="bg-theme-primary hover:bg-theme-primary-dark w-full cursor-pointer rounded-xl px-4 py-3 text-sm font-bold text-white transition-all duration-200 active:scale-95"
-                  >
-                    Next puzzle →
-                  </button>
-                </div>
-              )}
-
-              {/* Scrolling right shows what's coming up (SPEC.md §1) */}
+              {/* Inline stats (SPEC.md §7): per-stage times/moves for the
+                  whole run in one view — no modal — plus the run total once
+                  every stage is done. */}
               {stages.length > 1 && (
-                <div className="ml-auto mr-auto max-w-xl px-4 lg:mr-0">
-                  <div className="flex gap-2 overflow-x-auto pb-2">
-                    {stages.map((s, i) => (
-                      <div
-                        key={s.boardString}
-                        data-testid={`stage-preview-${i}`}
-                        className={`h-16 w-16 shrink-0 ${
-                          i === currentStageIndex
-                            ? 'ring-theme-primary rounded-lg ring-2'
-                            : i < currentStageIndex
-                              ? 'opacity-40'
-                              : 'opacity-70'
-                        }`}
-                      >
-                        <SimpleBoard initial={s.boardString} compact />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <StageResultPanel
+                  results={completedStages}
+                  stages={stages}
+                  currentStageIndex={currentStageIndex}
+                  goToStage={goToStage}
+                  isTransitioning={!!transition}
+                  opponentDeltaSeconds={opponentDeltaSeconds}
+                  runComplete={isFinalStage && !!completed}
+                  dailyNumber={isDailyRun ? getDailyNumber() : undefined}
+                  collectionPuzzleLabel={
+                    metadata.unblockCollectionPuzzleId
+                      ? `Collection puzzle ${metadata.unblockCollectionPuzzleId.split('-').pop()}`
+                      : undefined
+                  }
+                />
               )}
             </div>
           </div>

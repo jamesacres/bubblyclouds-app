@@ -2,8 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import Controls from './Controls';
 
 const defaultProps = {
-  movesMade: 3,
-  movesRequired: 10,
   undo: jest.fn(),
   redo: jest.fn(),
   reset: jest.fn(),
@@ -16,23 +14,12 @@ describe('Controls', () => {
     jest.clearAllMocks();
   });
 
-  it('shows moves made and required separately', () => {
+  it('renders the undo/redo/reset toolbar', () => {
     render(<Controls {...defaultProps} />);
-    expect(screen.getByTestId('move-counter')).toHaveTextContent(
-      '3/10 moves ⚡'
-    );
-  });
-
-  it('adds a warning affordance over par instead of clamping', () => {
-    render(<Controls {...defaultProps} movesMade={12} />);
-    expect(screen.getByTestId('move-counter')).toHaveTextContent('12/10');
-    expect(screen.getByLabelText('Over optimal moves')).toBeInTheDocument();
-  });
-
-  it('omits the required count when unknown', () => {
-    render(<Controls {...defaultProps} movesRequired={0} />);
-    expect(screen.getByTestId('move-counter')).toHaveTextContent('3');
-    expect(screen.getByTestId('move-counter')).not.toHaveTextContent('/');
+    expect(screen.getByTestId('controls-toolbar')).toBeInTheDocument();
+    expect(screen.getByLabelText('Undo')).toBeInTheDocument();
+    expect(screen.getByLabelText('Redo')).toBeInTheDocument();
+    expect(screen.getByLabelText('Reset')).toBeInTheDocument();
   });
 
   it('wires undo, redo and reset buttons', () => {
@@ -46,5 +33,12 @@ describe('Controls', () => {
   it('disables redo when there is nothing to redo', () => {
     render(<Controls {...defaultProps} />);
     expect(screen.getByLabelText('Redo')).toBeDisabled();
+  });
+
+  it('disables every button when the puzzle is complete', () => {
+    render(<Controls {...defaultProps} isDisabled />);
+    expect(screen.getByLabelText('Undo')).toBeDisabled();
+    expect(screen.getByLabelText('Redo')).toBeDisabled();
+    expect(screen.getByLabelText('Reset')).toBeDisabled();
   });
 });

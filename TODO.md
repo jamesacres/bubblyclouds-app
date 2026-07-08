@@ -1,7 +1,6 @@
 # TODO
 
 
-
 See Sudoku TODOs....
 
 # Framework

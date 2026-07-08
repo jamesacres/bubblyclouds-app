@@ -56,7 +56,11 @@ function useGameState({
   app: string;
   apiUrl: string;
   initialShowLobby?: boolean;
-  onComplete?: (answerStack: string[], movesMade: number) => void;
+  onComplete?: (
+    answerStack: string[],
+    movesMade: number,
+    seconds: number
+  ) => void;
 }) {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -259,7 +263,8 @@ function useGameState({
         };
         onComplete?.(
           [...answerStack, nextAnswer],
-          movesOffset + answerStack.length
+          movesOffset + answerStack.length,
+          completed.seconds
         );
       }
       setAnswerStack({

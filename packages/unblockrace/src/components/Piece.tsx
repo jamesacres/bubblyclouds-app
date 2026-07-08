@@ -1,9 +1,15 @@
 'use client';
 
-import { PointerEvent as ReactPointerEvent } from 'react';
+import { PointerEvent as ReactPointerEvent, useEffect, useState } from 'react';
 import { Piece as PieceType } from '../types/board';
 import { pieceCol, pieceRow } from '../helpers/piece';
 import { getPieceColor } from '../helpers/pieceColors';
+
+// How long the primary piece takes to slide off the grid edge on a win.
+// Exported so the stage-transition orchestrator (UnblockRace) can chain the
+// slide-to-next-puzzle immediately after, from one shared value instead of a
+// magic number that can drift out of sync.
+export const EXIT_ANIMATION_MS = 550;
 
 interface PieceProps {
   piece: PieceType;
@@ -40,17 +46,33 @@ const Piece = ({
   const color = getPieceColor(index);
   const isPrimary = index === 0;
 
+  // The primary piece commits to its resting (solved) cell in the same
+  // render that isExiting flips true — the drag handler clears the mid-drag
+  // transform at the same moment. A CSS transition needs a painted "from"
+  // frame to interpolate against; without one the piece snaps straight to
+  // the exit. Defer the exit transform one frame so the resting cell paints
+  // first, then the slide animates from there.
+  const [exitStarted, setExitStarted] = useState(false);
+  useEffect(() => {
+    if (!isExiting) {
+      return;
+    }
+    const frame = requestAnimationFrame(() => setExitStarted(true));
+    return () => cancelAnimationFrame(frame);
+  }, [isExiting]);
+
   // Slide the primary piece the remaining cells plus its own length so it
-  // fully clears the grid edge; transform % is relative to the piece width
-  const exitTransform = isExiting
-    ? `translate3d(${((width - col) / spanX) * 100}%, 0, 0)`
-    : undefined;
+  // fully clears the grid edge; transform % is relative to the piece width.
+  const exitTransform =
+    isExiting && exitStarted
+      ? `translate3d(${((width - col) / spanX) * 100}%, 0, 0)`
+      : undefined;
 
   return (
     <div
       data-testid={`piece-${String.fromCharCode(65 + index)}`}
       className={`absolute select-none ${onPointerDown ? 'cursor-grab active:cursor-grabbing' : ''} ${
-        isExiting ? 'transition-transform duration-500 ease-in' : ''
+        isExiting ? 'transition-transform ease-in' : ''
       }`}
       style={{
         left: `${(col / width) * 100}%`,
@@ -61,6 +83,7 @@ const Piece = ({
         // piece drag; set statically so the very first drag tracks too
         touchAction: onPointerDown ? 'none' : undefined,
         transform: exitTransform,
+        transitionDuration: isExiting ? `${EXIT_ANIMATION_MS}ms` : undefined,
       }}
       onPointerDown={
         onPointerDown ? (event) => onPointerDown(event, index) : undefined

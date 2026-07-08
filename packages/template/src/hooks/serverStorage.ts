@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useContext, useRef } from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import { useFetch } from '@bubblyclouds-app/auth/hooks/useFetch';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { StateType } from '@bubblyclouds-app/types/stateType';
@@ -115,6 +115,16 @@ function useServerStorage({
     state.current.id = newId;
     state.current.type = newType;
   };
+  // Callers that keep the same hook instance mounted across different ids
+  // (e.g. unblockrace's chained-run chrome swapping puzzleId per stage
+  // without remounting, SPEC.md §6) never call setIdAndType themselves, so
+  // the ref would otherwise stay frozen on the first id/type forever —
+  // every getValue/saveValue call would keep hitting the first puzzle's
+  // server key. Keep the ref in sync with the latest props automatically.
+  useEffect(() => {
+    state.current.id = initialId;
+    state.current.type = initialType;
+  }, [initialId, initialType]);
   const getStateKey = useCallback(() => {
     const { id, type } = state.current;
     if (!(id && type)) {

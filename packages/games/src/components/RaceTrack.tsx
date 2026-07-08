@@ -31,6 +31,14 @@ interface Arguments<
   isPuzzleCheated: (answerStack: State['answerStack']) => boolean;
   localAgentProgress?: AgentProgress[];
   onInviteFriends?: () => void;
+  // Optional short stats string (e.g. "12 moves") shown next to each
+  // finished player's time on the leaderboard. Games without a move-count
+  // concept (sudoku) can omit this — undefined return values are hidden.
+  calculateStatsDisplayFromState?: (state: State) => string | undefined;
+  // Optional live progress label (e.g. "3/24 moves ⚡") shown in place of the
+  // percentage in the inline legend, from move zero. Games without a
+  // move-count concept (sudoku) omit this and keep showing the percentage.
+  calculateProgressStatsDisplayFromState?: (state: State) => string | undefined;
 }
 
 interface PlayerProgress {
@@ -40,6 +48,8 @@ interface PlayerProgress {
   isCurrentUser: boolean;
   finishTime?: number;
   isPuzzleCheated: boolean;
+  statsDisplay?: string;
+  progressStatsDisplay?: string;
 }
 
 const RaceTrack = <
@@ -58,6 +68,8 @@ const RaceTrack = <
   isPuzzleCheated,
   localAgentProgress,
   onInviteFriends,
+  calculateStatsDisplayFromState,
+  calculateProgressStatsDisplayFromState,
 }: Arguments<State>) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
@@ -123,6 +135,8 @@ const RaceTrack = <
         finishTime,
         isPuzzleCheated:
           currentUserPercentage === 100 && isPuzzleCheated(state.answerStack),
+        statsDisplay: calculateStatsDisplayFromState?.(state),
+        progressStatsDisplay: calculateProgressStatsDisplayFromState?.(state),
       };
     }
 
@@ -158,6 +172,12 @@ const RaceTrack = <
                 percentage === 100 &&
                 !!session &&
                 isPuzzleCheated(session.state.answerStack),
+              statsDisplay: session
+                ? calculateStatsDisplayFromState?.(session.state)
+                : undefined,
+              progressStatsDisplay: session
+                ? calculateProgressStatsDisplayFromState?.(session.state)
+                : undefined,
             };
           }
         });
@@ -175,6 +195,8 @@ const RaceTrack = <
     getNicknameByUserId,
     calculateCompletionPercentageFromState,
     isPuzzleCheated,
+    calculateStatsDisplayFromState,
+    calculateProgressStatsDisplayFromState,
   ]);
 
   const finishedPlayers = useMemo(() => {
@@ -348,7 +370,7 @@ const RaceTrack = <
                   {player.isCurrentUser && ' 👑'}
                 </span>
                 <span className="text-gray-500 dark:text-gray-400">
-                  ({player.percentage}%)
+                  {player.progressStatsDisplay ?? `(${player.percentage}%)`}
                 </span>
               </div>
             );
@@ -436,6 +458,11 @@ const RaceTrack = <
                             >
                               {entry.data.nickname}
                             </span>
+                            {entry.data.statsDisplay && (
+                              <span className="text-xs text-gray-400 dark:text-gray-500">
+                                {entry.data.statsDisplay}
+                              </span>
+                            )}
                           </>
                         )}
                       </div>

@@ -12,13 +12,17 @@ interface BoardProps {
   boardString: string;
   onMove: (move: Move) => void;
   isDisabled?: boolean;
+  // Frozen render used as the outgoing board during a stage transition: no
+  // drag, and the primary piece stays at rest in its solved cell (the win
+  // exit slide is not replayed — the carousel carries it across instead).
+  isStatic?: boolean;
 }
 
 // Plain HTML/CSS board (SPEC.md §9): absolutely-positioned divs inside a
 // square aspect-ratio-locked container. Static layout is %-based; the
 // actively-dragged piece moves via translate3d written directly to the DOM
 // node by useDrag.
-const Board = ({ boardString, onMove, isDisabled }: BoardProps) => {
+const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
   const boardRef = useRef<HTMLDivElement>(null);
   const board = useMemo(() => parseBoardString(boardString), [boardString]);
   const solved = isSolved(board);
@@ -33,7 +37,7 @@ const Board = ({ boardString, onMove, isDisabled }: BoardProps) => {
     boardRef,
     board,
     onMove,
-    disabled: isDisabled || solved,
+    disabled: isStatic || isDisabled || solved,
   });
 
   const primaryRow = pieceRow(board.pieces[0], board.width);
@@ -63,6 +67,23 @@ const Board = ({ boardString, onMove, isDisabled }: BoardProps) => {
         />
       ))}
 
+      {/* Exit route: the primary piece's row, highlighted so the path out
+          reads as more than a static arrow — pulses while unsolved, flares
+          brighter as the piece slides through it on exit */}
+      <div
+        aria-hidden="true"
+        data-testid="exit-route"
+        className={`absolute right-0 ${solved ? 'duration-500' : 'animate-pulse'} transition-opacity`}
+        style={{
+          top: `${(primaryRow / board.height) * 100}%`,
+          height: `${(1 / board.height) * 100}%`,
+          width: `${(1 / board.width) * 100}%`,
+          background:
+            'linear-gradient(to right, transparent, color-mix(in srgb, var(--theme-primary) 35%, transparent))',
+          opacity: solved ? 1 : 0.7,
+        }}
+      />
+
       {/* Exit chevron on the grid edge at the primary piece's row, glowing
           in the theme colour so it reads as where the glow leads out */}
       <div
@@ -75,13 +96,14 @@ const Board = ({ boardString, onMove, isDisabled }: BoardProps) => {
         }}
       >
         <div
+          className={solved ? 'animate-pulse' : ''}
           style={{
             width: 0,
             height: 0,
             borderTop: '10px solid transparent',
             borderBottom: '10px solid transparent',
             borderLeft: '12px solid var(--theme-primary)',
-            filter: 'drop-shadow(0 0 6px var(--theme-primary))',
+            filter: `drop-shadow(0 0 ${solved ? 12 : 6}px var(--theme-primary))`,
           }}
         />
       </div>
@@ -119,11 +141,14 @@ const Board = ({ boardString, onMove, isDisabled }: BoardProps) => {
           width={board.width}
           height={board.height}
           isDragging={draggingPiece === index}
+          // The car's exit still plays on a static (outgoing) board so its
+          // slide off the right edge continues seamlessly into the next
+          // board arriving during a stage transition (SPEC.md §4).
           isExiting={solved && index === 0}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerCancel}
+          onPointerDown={isStatic ? undefined : onPointerDown}
+          onPointerMove={isStatic ? undefined : onPointerMove}
+          onPointerUp={isStatic ? undefined : onPointerUp}
+          onPointerCancel={isStatic ? undefined : onPointerCancel}
         />
       ))}
     </div>

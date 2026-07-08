@@ -33,6 +33,7 @@ describe('Board', () => {
     expect(screen.getByTestId('piece-B')).toBeInTheDocument();
     expect(screen.getByTestId('wall-33')).toBeInTheDocument();
     expect(screen.getByTestId('exit-marker')).toBeInTheDocument();
+    expect(screen.getByTestId('exit-route')).toBeInTheDocument();
   });
 
   it('commits a horizontal drag rounded to the nearest legal step', () => {
@@ -107,6 +108,18 @@ describe('Board', () => {
     fireEvent.pointerDown(piece, { pointerId: 1, clientX: 50, clientY: 250 });
     fireEvent.pointerMove(piece, { pointerId: 1, clientX: 145, clientY: 250 });
     fireEvent.pointerCancel(piece, { pointerId: 1 });
+
+    expect(onMove).not.toHaveBeenCalled();
+  });
+
+  it('renders but does not accept drags when static (transition ghost)', () => {
+    const onMove = jest.fn();
+    render(<Board boardString={INITIAL} onMove={onMove} isStatic />);
+    const piece = screen.getByTestId('piece-A');
+
+    fireEvent.pointerDown(piece, { pointerId: 1, clientX: 50, clientY: 250 });
+    fireEvent.pointerMove(piece, { pointerId: 1, clientX: 145, clientY: 250 });
+    fireEvent.pointerUp(piece, { pointerId: 1, clientX: 145, clientY: 250 });
 
     expect(onMove).not.toHaveBeenCalled();
   });

@@ -138,6 +138,7 @@ describe('useGameState', () => {
 
   it('completes when the primary piece reaches the exit', () => {
     mockTimer = {
+      seconds: 0,
       inProgress: {
         start: new Date().toISOString(),
         lastInteraction: new Date().toISOString(),
@@ -156,7 +157,11 @@ describe('useGameState', () => {
     });
     expect(result.current.completed).toBeDefined();
     expect(stopTimer).toHaveBeenCalled();
-    expect(onComplete).toHaveBeenCalledWith(expect.any(Array), 2);
+    expect(onComplete).toHaveBeenCalledWith(
+      expect.any(Array),
+      2,
+      expect.any(Number)
+    );
   });
 
   it('ignores moves after completion', () => {

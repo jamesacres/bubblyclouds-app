@@ -1,7 +1,6 @@
 'use client';
-import UnblockRace, {
-  RunStage,
-} from '@bubblyclouds-app/unblockrace/components/UnblockRace';
+import UnblockRace from '@bubblyclouds-app/unblockrace/components/UnblockRace';
+import { RunStage } from '@bubblyclouds-app/unblockrace/helpers/stageResults';
 import { puzzleTextToPuzzle } from '@bubblyclouds-app/unblockrace/helpers/puzzleTextToPuzzle';
 import { GameStateMetadata } from '@bubblyclouds-app/unblockrace/types/state';
 import { useWakeLock } from '@bubblyclouds-app/template/hooks/useWakeLock';
