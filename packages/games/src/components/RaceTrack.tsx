@@ -10,29 +10,25 @@ import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import Link from 'next/link';
 import { RefreshCw } from 'lucide-react';
-import {
-  BaseState,
-  BaseServerState,
-} from '@bubblyclouds-app/template/types/state';
+import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 
-interface Arguments<T> {
-  sessionParties: Parties<Session<BaseServerState<T>>>;
-  initial: T;
-  final: T;
-  answer: T;
+interface Arguments<
+  State extends {
+    answerStack: unknown[];
+    completed?: BaseState['completed'];
+  },
+> {
+  sessionParties: Parties<Session<State>>;
+  // The current user's live state, memoized by the parent so the memoised
+  // track only re-renders on real progress changes
+  state: State;
   userId?: string;
   onClick?: () => void;
-  completed?: BaseState['completed'];
   refreshSessionParties: () => void;
   isPolling: boolean;
-  answerStack: T[];
-  calculateCompletionPercentage: (
-    initial: T,
-    final: T,
-    latest: T | undefined
-  ) => number;
-  isPuzzleCheated: (answerStack: T[]) => boolean;
+  calculateCompletionPercentageFromState: (state: State) => number;
+  isPuzzleCheated: (answerStack: State['answerStack']) => boolean;
   localAgentProgress?: AgentProgress[];
   onInviteFriends?: () => void;
 }
@@ -46,22 +42,23 @@ interface PlayerProgress {
   isPuzzleCheated: boolean;
 }
 
-const RaceTrack = <T,>({
+const RaceTrack = <
+  State extends {
+    answerStack: unknown[];
+    completed?: BaseState['completed'];
+  },
+>({
   sessionParties,
-  initial,
-  final,
-  answer,
+  state,
   userId,
   onClick,
-  completed,
   refreshSessionParties,
   isPolling,
-  answerStack,
-  calculateCompletionPercentage,
+  calculateCompletionPercentageFromState,
   isPuzzleCheated,
   localAgentProgress,
   onInviteFriends,
-}: Arguments<T>) => {
+}: Arguments<State>) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
   // Track height state for responsive layout (SSR-safe)
@@ -113,13 +110,10 @@ const RaceTrack = <T,>({
 
     // Add current user's progress
     if (userId) {
-      const currentUserPercentage = calculateCompletionPercentage(
-        initial,
-        final,
-        answer
-      );
+      const currentUserPercentage =
+        calculateCompletionPercentageFromState(state);
 
-      const finishTime: number | undefined = completed?.seconds;
+      const finishTime: number | undefined = state.completed?.seconds;
 
       progressMap[userId] = {
         userId,
@@ -128,7 +122,7 @@ const RaceTrack = <T,>({
         isCurrentUser: true,
         finishTime,
         isPuzzleCheated:
-          currentUserPercentage === 100 && isPuzzleCheated(answerStack),
+          currentUserPercentage === 100 && isPuzzleCheated(state.answerStack),
       };
     }
 
@@ -143,11 +137,7 @@ const RaceTrack = <T,>({
           if (progressMap[memberId]) return;
 
           const percentage = session
-            ? calculateCompletionPercentage(
-                session.state.initial,
-                session.state.final,
-                session.state.answerStack[session.state.answerStack.length - 1]
-              )
+            ? calculateCompletionPercentageFromState(session.state)
             : 0;
 
           let finishTime: number | undefined = undefined;
@@ -180,14 +170,10 @@ const RaceTrack = <T,>({
     );
   }, [
     sessionParties,
-    initial,
-    final,
-    answer,
+    state,
     userId,
     getNicknameByUserId,
-    completed,
-    answerStack,
-    calculateCompletionPercentage,
+    calculateCompletionPercentageFromState,
     isPuzzleCheated,
   ]);
 
@@ -202,7 +188,8 @@ const RaceTrack = <T,>({
   }, [allPlayerProgress]);
 
   const isCompleted =
-    currentUserProgress?.percentage === 100 && !isPuzzleCheated(answerStack);
+    currentUserProgress?.percentage === 100 &&
+    !isPuzzleCheated(state.answerStack);
 
   return (
     <div className="mx-auto mb-2 mt-2 w-full max-w-xl lg:mr-0 lg:mt-4">

@@ -7,7 +7,6 @@ import { puzzleToPuzzleText } from '../helpers/puzzleTextToPuzzle';
 import SudokuBox from '../components/SudokuBox';
 import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
-import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
 import { isInitialCell } from '../helpers/checkAnswer';
 import {
   addDailyPuzzleId,
@@ -568,6 +567,13 @@ const Sudoku = ({
     [initial, final]
   );
 
+  // The current user's live state for the race track, matching the shape of
+  // opponents' synced sessions so one state-based calculation covers both
+  const raceTrackState = useMemo<ServerState>(
+    () => ({ initial, final, answerStack, completed, metadata }),
+    [initial, final, answerStack, completed, metadata]
+  );
+
   const puzzleDifficultyDisplay = useMemo(
     () =>
       metadata.difficulty
@@ -742,16 +748,14 @@ const Sudoku = ({
               {!showAnimation && (
                 <RaceTrack
                   sessionParties={sessionParties}
-                  initial={initial}
-                  final={final}
-                  answer={answer}
+                  state={raceTrackState}
                   userId={user?.sub || 'guest'}
                   onClick={raceTrackOnClick}
-                  completed={completed}
                   isPolling={isPolling}
                   refreshSessionParties={refreshSessionParties}
-                  answerStack={answerStack}
-                  calculateCompletionPercentage={calculateCompletionPercentage}
+                  calculateCompletionPercentageFromState={
+                    calculateCompletionPercentageFromState
+                  }
                   isPuzzleCheated={isPuzzleCheated}
                   localAgentProgress={localAgentProgress}
                   onInviteFriends={handleInviteFriends}

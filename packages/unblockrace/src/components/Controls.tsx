@@ -17,9 +17,9 @@ const controlButtonClass =
   'flex cursor-pointer items-center justify-center rounded-xl border border-stone-200 bg-white p-3 text-stone-700 transition-all duration-200 hover:bg-stone-50 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700';
 
 // Undo/reset/moves-counter bar, mirrors SudokuControls' role. The move
-// counter shows both numbers separately (SPEC.md §6) — moves are not
-// blended into the distance-based progress bar — with a warning affordance
-// when over the known-optimal count rather than clamping or hiding it.
+// counter shows both numbers explicitly (SPEC.md §6) alongside the
+// moves-based progress track, with a warning affordance when over the
+// known-optimal count rather than clamping or hiding it.
 const Controls = ({
   movesMade,
   movesRequired,

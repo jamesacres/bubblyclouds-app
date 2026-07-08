@@ -12,7 +12,9 @@ jest.mock('@bubblyclouds-app/template/utils/playerColors');
 const mockUseParties = usePartiesModule.useParties as jest.Mock;
 const mockGetPlayerColor = playerColorsModule.getPlayerColor as jest.Mock;
 const mockGetAllUserIds = playerColorsModule.getAllUserIds as jest.Mock;
-const mockCalculateCompletionPercentage = jest.fn().mockResolvedValue(0);
+const mockCalculateCompletionPercentageFromState = jest
+  .fn()
+  .mockResolvedValue(0);
 const mockIsPuzzleCheated = jest.fn().mockResolvedValue(false);
 
 describe('RaceTrack', () => {
@@ -27,24 +29,28 @@ describe('RaceTrack', () => {
             final: [],
             answerStack: [[]],
             completed: { seconds: 120, at: new Date().toISOString() },
-          } as any,
+          },
         },
       },
     },
   };
 
-  const defaultProps = {
-    sessionParties: mockSessionParties,
+  const currentUserState: BaseServerState = {
     initial: [],
     final: [],
-    answer: [],
+    answerStack: [],
+    completed: { seconds: 100, at: new Date().toISOString() },
+  };
+
+  const defaultProps = {
+    sessionParties: mockSessionParties,
+    state: currentUserState,
     userId: 'userId1',
     onClick: jest.fn(),
-    completed: { seconds: 100, at: new Date().toISOString() },
     refreshSessionParties: jest.fn(),
     isPolling: false,
-    answerStack: [],
-    calculateCompletionPercentage: mockCalculateCompletionPercentage,
+    calculateCompletionPercentageFromState:
+      mockCalculateCompletionPercentageFromState,
     isPuzzleCheated: mockIsPuzzleCheated,
   };
 
@@ -57,7 +63,7 @@ describe('RaceTrack', () => {
     });
     mockGetAllUserIds.mockReturnValue(['userId1', 'userId2']);
     mockGetPlayerColor.mockReturnValue('bg-blue-500');
-    mockCalculateCompletionPercentage.mockReturnValue(50);
+    mockCalculateCompletionPercentageFromState.mockReturnValue(50);
     mockIsPuzzleCheated.mockReturnValue(false);
   });
 
@@ -69,14 +75,14 @@ describe('RaceTrack', () => {
   });
 
   it('displays a leaderboard of finished players', () => {
-    mockCalculateCompletionPercentage.mockReturnValue(100);
+    mockCalculateCompletionPercentageFromState.mockReturnValue(100);
     render(<RaceTrack {...defaultProps} />);
     expect(screen.getByText(/1\./)).toBeInTheDocument();
   });
 
   it('shows completion UI when the current user has finished', () => {
-    mockCalculateCompletionPercentage.mockImplementation(
-      (initial, final, answer) => (answer === defaultProps.answer ? 100 : 50)
+    mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
+      state === defaultProps.state ? 100 : 50
     );
     render(<RaceTrack {...defaultProps} />);
     expect(screen.getByText(/Leaderboard/)).toBeInTheDocument();

@@ -4,24 +4,38 @@ import { useGameState } from './useGameState';
 import { solvedBoardString } from '../helpers/boardToString';
 import { GameStateMetadata } from '../types/state';
 
+// The mocked hook callbacks must be stable across renders (as the real
+// hooks' are): the restore effect depends on them, and a new identity per
+// render would re-run it forever once a local value is restored.
 const stopTimer = jest.fn();
 let mockTimer: object = {};
+const localGetValue = jest.fn();
+const localSaveValue = jest.fn();
+const serverGetValue = jest.fn();
+const serverSaveValue = jest.fn();
+const setTimerNewSession = jest.fn();
+const setPauseTimer = jest.fn();
+const getSessionParties = jest.fn();
+const patchFriendSessions = jest.fn();
 
 jest.mock('@bubblyclouds-app/template/hooks/localStorage', () => ({
-  useLocalStorage: () => ({ getValue: jest.fn(), saveValue: jest.fn() }),
+  useLocalStorage: () => ({
+    getValue: localGetValue,
+    saveValue: localSaveValue,
+  }),
 }));
 jest.mock('@bubblyclouds-app/template/hooks/serverStorage', () => ({
   useServerStorage: () => ({
-    getValue: jest.fn().mockResolvedValue(undefined),
-    saveValue: jest.fn().mockResolvedValue(undefined),
+    getValue: serverGetValue,
+    saveValue: serverSaveValue,
   }),
 }));
 jest.mock('@bubblyclouds-app/template/hooks/timer', () => ({
   useTimer: () => ({
     timer: mockTimer,
-    setTimerNewSession: jest.fn(),
+    setTimerNewSession,
     stopTimer,
-    setPauseTimer: jest.fn(),
+    setPauseTimer,
     isPaused: false,
   }),
 }));
@@ -33,8 +47,8 @@ jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
 }));
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: () => ({
-    getSessionParties: jest.fn(),
-    patchFriendSessions: jest.fn(),
+    getSessionParties,
+    patchFriendSessions,
   }),
 }));
 
@@ -72,6 +86,10 @@ describe('useGameState', () => {
   beforeEach(() => {
     mockTimer = {};
     stopTimer.mockClear();
+    localGetValue.mockReset();
+    localSaveValue.mockReset();
+    serverGetValue.mockReset().mockResolvedValue(undefined);
+    serverSaveValue.mockReset().mockResolvedValue(undefined);
   });
 
   it('initializes with the initial board as the answer', () => {
@@ -138,7 +156,7 @@ describe('useGameState', () => {
     });
     expect(result.current.completed).toBeDefined();
     expect(stopTimer).toHaveBeenCalled();
-    expect(onComplete).toHaveBeenCalled();
+    expect(onComplete).toHaveBeenCalledWith(expect.any(Array), 2);
   });
 
   it('ignores moves after completion', () => {
@@ -188,6 +206,62 @@ describe('useGameState', () => {
     expect(result.current.answer).toBe(nextInitial);
     expect(result.current.answerStack).toHaveLength(1);
     expect(result.current.isUndoDisabled).toBe(true);
+  });
+
+  it('tracks movesMade through moves, undo, redo and reset', () => {
+    const { result } = renderHook(() => useGameState(defaultProps));
+    expect(result.current.movesMade).toBe(0);
+    act(() => {
+      result.current.pushMove({ piece: 0, steps: 1 });
+    });
+    expect(result.current.movesMade).toBe(1);
+    act(() => {
+      result.current.undo();
+    });
+    expect(result.current.movesMade).toBe(0);
+    act(() => {
+      result.current.redo();
+    });
+    expect(result.current.movesMade).toBe(1);
+    act(() => {
+      result.current.reset();
+    });
+    expect(result.current.movesMade).toBe(0);
+  });
+
+  it('restores the true move count from persisted metadata', async () => {
+    // Persisted answer stacks are truncated, so the stack alone would
+    // under-count the 7 moves this session already made
+    localGetValue.mockReturnValue({
+      lastUpdated: Date.now(),
+      state: {
+        initial: INITIAL,
+        final: solvedBoardString(INITIAL),
+        answerStack: [INITIAL, A_MOVED],
+        metadata: { movesMade: '7' },
+      },
+    });
+    const { result } = renderHook(() => useGameState(defaultProps));
+    await act(async () => {});
+    expect(result.current.answerStack).toHaveLength(2);
+    expect(result.current.movesMade).toBe(7);
+    act(() => {
+      result.current.pushMove({ piece: 0, steps: -1 });
+    });
+    expect(result.current.movesMade).toBe(8);
+  });
+
+  it('persists movesMade in the saved metadata', async () => {
+    const { result } = renderHook(() => useGameState(defaultProps));
+    await act(async () => {});
+    act(() => {
+      result.current.pushMove({ piece: 0, steps: 1 });
+    });
+    expect(localSaveValue).toHaveBeenCalledWith(
+      expect.objectContaining({
+        metadata: expect.objectContaining({ movesMade: '1' }),
+      })
+    );
   });
 
   it('toggles lobby visibility', () => {

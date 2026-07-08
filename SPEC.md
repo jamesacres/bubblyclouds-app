@@ -263,44 +263,46 @@ built for Sudoku Race."
     - **Chain-level** (which of the 5 puzzles a racer is on): shown wherever
       the run as a whole is summarized (e.g. a "stage 3/5" chip in the
       header/lobby list). `RaceTrack`'s
-      `calculateCompletionPercentage(initial, final, latest)` prop, when used
+      `calculateCompletionPercentageFromState(state)` prop, when used
       to summarize a whole run in a party/friends list, returns
       `(completedStagesInRun / 5) * 100`.
     - **Stage-level** (live head-to-head on the *current* puzzle): this is
-      where the notes' distance-based visual + move-counter hybrid applies —
-      it is the primary in-race view while both racers are on the same
-      stage, not a replacement for the chain-level indicator above.
+      where the moves-based visual + move-counter view applies — it is the
+      primary in-race view while both racers are on the same stage, not a
+      replacement for the chain-level indicator above.
       Per-racer, per-stage:
       ```
       <RaceView>
         <PlayerTrack>
           <MoveCounter>12/15 moves ⚡</MoveCounter>
           <ProgressTrack>
-            <PrimaryPiece position={getCarDistance(state)} />
+            <PrimaryPiece position={getCarProgress(state)} />
             <FinishLine />
           </ProgressTrack>
         </PlayerTrack>
         <OpponentTrack>
           <MoveCounter>8/15 moves ⚡</MoveCounter>
           <ProgressTrack>
-            <PrimaryPiece position={getOpponentDistance(state)} />
+            <PrimaryPiece position={getOpponentProgress(state)} />
             <FinishLine />
           </ProgressTrack>
         </OpponentTrack>
       </RaceView>
       ```
-      - `getCarDistance(state)`: primary piece's column position relative to
-        the exit — `(maxColumn - primaryPiece.col) / maxColumn`, i.e. how far
-        along the board the primary piece physically is, not how many moves
-        were spent getting there. Intuitive and always accurate to the
-        actual board state (mirrors the notes' "Option 2: Distance-Based
-        Progress").
-      - Move counter: `movesMade / movesRequired` shown alongside, not
-        blended into the same bar — the notes are explicit that showing both
-        separately (not one derived metric) is what creates the "they're
-        ahead in moves, but I'm closer to exit" tension. `movesRequired`
-        comes from the seed data's known-optimal count (§3.1), so this is
-        available with zero extra computation.
+      - Track position: moves-based — `movesMade / movesRequired`, i.e. how
+        many moves were spent versus the stage's known-optimal count
+        (§3.1). The true `movesMade` is persisted in session metadata
+        because synced answer stacks are truncated. 100% is reserved for a
+        board whose primary piece is at the exit: an unsolved board caps at
+        99% no matter how many moves were made, so the final move fills the
+        bar only when it actually solves the stage. Sessions saved without
+        a known-optimal count fall back to distance-based progress (the
+        notes' "Option 2: Distance-Based Progress" — the primary piece's
+        column relative to the exit).
+      - Move counter: `movesMade / movesRequired` shown explicitly
+        alongside the track. `movesRequired` comes from the seed data's
+        known-optimal count (§3.1), so this is available with zero extra
+        computation.
       - Over-par handling: if `movesMade > movesRequired`, add a warning
         affordance (⚠️) next to the counter rather than clamping/hiding it —
         moving past optimal is valid, just not perfect. Optional "par"
@@ -308,9 +310,9 @@ built for Sudoku Race."
         optimal = ✓, over = still counts) — nice-to-have polish, not a
         blocker for v1.
       - This is per-stage: when a racer advances to stage N+1, both tracks
-        reset their distance/move-counter to the new stage's state. The
+        reset their progress/move-counter to the new stage's state. The
         chain-level indicator (stage 3/5) persists across the reset; the
-        stage-level distance/move view does not.
+        stage-level progress/move view does not.
 - **`CollectionProvider`** (was "BookProvider" in sudoku): same
   cache-per-month localStorage pattern, same `fetchCollectionData`/
   `clearCollectionData` shape, renamed types (`UnblockCollectionOfTheMonth`

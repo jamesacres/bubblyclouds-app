@@ -12,6 +12,7 @@ export interface GameStateMetadata {
   runId?: string;
   stageIndex?: string;
   movesRequired?: string;
+  movesMade?: string;
 }
 
 // State is the board string (SPEC.md §2): every move produces a new board

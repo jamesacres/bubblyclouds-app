@@ -24,7 +24,6 @@ import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { GameState, GameStateMetadata, ServerState } from '../types/state';
 import { useGameState } from '../hooks/useGameState';
-import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { solvedBoardString } from '../helpers/boardToString';
@@ -154,13 +153,13 @@ const UnblockRace = ({
   const [runTotals, setRunTotals] = useState({ seconds: 0, moves: 0 });
 
   const onComplete = useCallback(
-    (completedAnswerStack: string[]) => {
+    (completedAnswerStack: string[], completedMovesMade: number) => {
       if (alreadyCompleted || isPuzzleCheated(completedAnswerStack)) {
         return;
       }
       setRunTotals((totals) => ({
         ...totals,
-        moves: totals.moves + completedAnswerStack.length - 1,
+        moves: totals.moves + completedMovesMade,
       }));
       if (isFinalStage) {
         setShowAnimation(true);
@@ -176,6 +175,7 @@ const UnblockRace = ({
   const {
     answer,
     answerStack,
+    movesMade,
     pushMove,
     undo,
     redo,
@@ -363,7 +363,19 @@ const UnblockRace = ({
     [stages, runId]
   );
 
-  const movesMade = answerStack.length - 1;
+  // The current user's live state for the race track, with the live move
+  // count in metadata — the same shape opponents' synced sessions have, so
+  // one state-based calculation covers both.
+  const raceTrackState = useMemo<ServerState>(
+    () => ({
+      initial,
+      final,
+      answerStack,
+      completed,
+      metadata: { ...stageMetadata, movesMade: String(movesMade) },
+    }),
+    [initial, final, answerStack, completed, stageMetadata, movesMade]
+  );
 
   // Opponent comparison for the summary card (SPEC.md §7): fastest completed
   // friend session for this stage, omitted when no friend finished yet
@@ -530,16 +542,14 @@ const UnblockRace = ({
               {!showAnimation && (
                 <RaceTrack
                   sessionParties={sessionParties}
-                  initial={initial}
-                  final={final}
-                  answer={answer}
+                  state={raceTrackState}
                   userId={user?.sub || 'guest'}
                   onClick={raceTrackOnClick}
-                  completed={completed}
                   isPolling={isPolling}
                   refreshSessionParties={refreshSessionParties}
-                  answerStack={answerStack}
-                  calculateCompletionPercentage={calculateCompletionPercentage}
+                  calculateCompletionPercentageFromState={
+                    calculateCompletionPercentageFromState
+                  }
                   isPuzzleCheated={isPuzzleCheated}
                   onInviteFriends={handleInviteFriends}
                 />

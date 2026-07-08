@@ -24,6 +24,21 @@ import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 
 const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
 
+// Persisted answer stacks are truncated (last 3 snapshots on the server,
+// last 10 locally), so stack length under-counts moves after a restore. The
+// true count is persisted in metadata.movesMade; the offset is what the
+// truncation removed.
+const movesOffsetFromRestoredState = (state: {
+  answerStack: string[];
+  metadata?: Partial<GameStateMetadata>;
+}): number => {
+  const persistedMoves = Number(state.metadata?.movesMade);
+  const stackMoves = Math.max(state.answerStack.length - 1, 0);
+  return Number.isFinite(persistedMoves) && persistedMoves > stackMoves
+    ? persistedMoves - stackMoves
+    : 0;
+};
+
 function useGameState({
   final,
   initial,
@@ -41,7 +56,7 @@ function useGameState({
   app: string;
   apiUrl: string;
   initialShowLobby?: boolean;
-  onComplete?: (answerStack: string[]) => void;
+  onComplete?: (answerStack: string[], movesMade: number) => void;
 }) {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -100,6 +115,7 @@ function useGameState({
       completed?: GameState['completed'];
     }>({ answerStack: [initial], isDisabled: true });
   const [redoAnswerStack, setRedoAnswerStack] = useState<string[]>([]);
+  const [movesOffset, setMovesOffset] = useState(0);
   const [sessionParties, setSessionPartiesLocal] = useState<
     Parties<Session<ServerState>>
   >(() => {
@@ -228,6 +244,7 @@ function useGameState({
 
   // Answers
   const answer = answerStack[answerStack.length - 1];
+  const movesMade = movesOffset + Math.max(answerStack.length - 1, 0);
   const pushAnswer = useCallback(
     (nextAnswer: string) => {
       let completed: GameState['completed'] = undefined;
@@ -240,7 +257,10 @@ function useGameState({
           at: timerRef.current.inProgress.lastInteraction,
           seconds: calculateSeconds(timerRef.current),
         };
-        onComplete?.([...answerStack, nextAnswer]);
+        onComplete?.(
+          [...answerStack, nextAnswer],
+          movesOffset + answerStack.length
+        );
       }
       setAnswerStack({
         answerStack: [...answerStack, nextAnswer],
@@ -248,7 +268,7 @@ function useGameState({
       });
       setRedoAnswerStack([]);
     },
-    [answerStack, stopTimer, onComplete]
+    [answerStack, movesOffset, stopTimer, onComplete]
   );
 
   const pushMove = useCallback(
@@ -265,6 +285,7 @@ function useGameState({
 
   const reset = useCallback(() => {
     setRedoAnswerStack([]);
+    setMovesOffset(0);
     setAnswerStack({ answerStack: [initial] });
     setTimerNewSession(null);
   }, [initial, setTimerNewSession]);
@@ -314,6 +335,7 @@ function useGameState({
     setPrevPuzzleId(puzzleId);
     lastSavedAnswerRef.current = null;
     setRedoAnswerStack([]);
+    setMovesOffset(0);
     setSessionPartiesLocal({});
     setAnswerStack({ answerStack: [initial], isDisabled: true });
   }
@@ -324,6 +346,7 @@ function useGameState({
 
     const { localValue, serverValuePromise } = getValue() || {};
     if (localValue) {
+      setMovesOffset(movesOffsetFromRestoredState(localValue.state));
       setAnswerStack({
         answerStack: localValue.state.answerStack,
         isRestored: true,
@@ -346,6 +369,7 @@ function useGameState({
               serverValue.updatedAt.getTime() > localValue?.lastUpdated))
         ) {
           // Update local state and timer if server state is newer
+          setMovesOffset(movesOffsetFromRestoredState(serverValue.state));
           setAnswerStack({
             answerStack: serverValue.state.answerStack,
             isRestored: true,
@@ -505,7 +529,7 @@ function useGameState({
           initial,
           final,
           completed,
-          metadata,
+          metadata: { ...metadata, movesMade: String(movesMade) },
         },
         isSaveServerValue
       );
@@ -519,6 +543,7 @@ function useGameState({
   }, [
     puzzleId,
     answerStack,
+    movesMade,
     saveValue,
     isRestored,
     initial,
@@ -599,6 +624,7 @@ function useGameState({
   return {
     answer,
     answerStack,
+    movesMade,
     pushMove,
     undo,
     redo,
