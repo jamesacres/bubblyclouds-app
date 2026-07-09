@@ -13,7 +13,7 @@ describe('calculateProgressStatsDisplayFromState', () => {
         answerStack: [START],
         metadata: { movesMade: '0', movesRequired: '24' },
       })
-    ).toBe('0/24 moves ⚡');
+    ).toBe('0/24 moves');
   });
 
   it('reflects the persisted move count part-way through', () => {
@@ -24,7 +24,7 @@ describe('calculateProgressStatsDisplayFromState', () => {
         answerStack: [START, START, START, START],
         metadata: { movesMade: '3', movesRequired: '24' },
       })
-    ).toBe('3/24 moves ⚡');
+    ).toBe('3/24 moves');
   });
 
   it('adds a warning once over par', () => {
@@ -35,7 +35,7 @@ describe('calculateProgressStatsDisplayFromState', () => {
         answerStack: [START],
         metadata: { movesMade: '26', movesRequired: '24' },
       })
-    ).toBe('26/24 moves ⚡ ⚠️');
+    ).toBe('26/24 moves · over par');
   });
 
   it('falls back to the answer stack length when movesMade is missing', () => {
@@ -46,7 +46,7 @@ describe('calculateProgressStatsDisplayFromState', () => {
         answerStack: [START, START, START],
         metadata: { movesRequired: '24' },
       })
-    ).toBe('2/24 moves ⚡');
+    ).toBe('2/24 moves');
   });
 
   it('is undefined when the par is unknown', () => {

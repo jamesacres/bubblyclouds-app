@@ -37,7 +37,7 @@ jest.mock('@bubblyclouds-app/games/components/LobbyButton', () => {
 jest.mock('@bubblyclouds-app/ui/components/CelebrationAnimation', () => ({
   CelebrationAnimation: () => <div data-testid="celebration">Celebration</div>,
 }));
-jest.mock('@bubblyclouds-app/games/components/RaceTrack', () => {
+jest.mock('./UnblockRaceTrack', () => {
   const DummyRaceTrack = function DummyRaceTrack() {
     return <div data-testid="race-track">Race Track</div>;
   };

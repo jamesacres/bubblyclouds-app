@@ -20,10 +20,10 @@ export const calculateStatsDisplayFromState = (
   const parLabel =
     Number.isFinite(movesRequired) && movesRequired > 0
       ? movesMade > movesRequired
-        ? ' ⚠️'
+        ? ' · over par'
         : movesMade === movesRequired
-          ? ' ✓'
-          : ' 🌟'
+          ? ' · par'
+          : ' · under par'
       : '';
   return `${movesMade} move${movesMade === 1 ? '' : 's'}${parLabel}`;
 };

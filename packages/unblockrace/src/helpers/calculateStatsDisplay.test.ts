@@ -35,7 +35,7 @@ describe('calculateStatsDisplayFromState', () => {
         answerStack: [START, START, START],
         metadata: { movesMade: '2', movesRequired: '4' },
       })
-    ).toBe('2 moves 🌟');
+    ).toBe('2 moves · under par');
   });
 
   it('marks exact-par completion with a check', () => {
@@ -46,7 +46,7 @@ describe('calculateStatsDisplayFromState', () => {
         answerStack: [START, START, START, START, START],
         metadata: { movesMade: '4', movesRequired: '4' },
       })
-    ).toBe('4 moves ✓');
+    ).toBe('4 moves · par');
   });
 
   it('marks over-par completion with a warning', () => {
@@ -57,7 +57,7 @@ describe('calculateStatsDisplayFromState', () => {
         answerStack: [START],
         metadata: { movesMade: '5', movesRequired: '4' },
       })
-    ).toBe('5 moves ⚠️');
+    ).toBe('5 moves · over par');
   });
 
   it('falls back to the answer stack length when movesMade is missing', () => {

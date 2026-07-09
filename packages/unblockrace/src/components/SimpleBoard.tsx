@@ -1,7 +1,10 @@
+'use client';
+
 import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { parseBoardString } from '../helpers/parseBoardString';
 import { pieceCol, pieceRow } from '../helpers/piece';
 import { getPieceColor } from '../helpers/pieceColors';
+import { useThemeColorName } from '../hooks/useThemeColorName';
 
 interface SimpleBoardProps {
   initial?: string;
@@ -15,6 +18,7 @@ interface SimpleBoardProps {
 // rows, FriendsTab, session lists and the lobby).
 const SimpleBoard = (props: SimpleBoardProps) => {
   const { transparent, compact } = props;
+  const themeColor = useThemeColorName();
 
   let initial: string | undefined;
   let latest: string | undefined;
@@ -81,7 +85,7 @@ const SimpleBoard = (props: SimpleBoardProps) => {
                 position: 'absolute',
                 inset: '8%',
                 borderRadius: '22%',
-                background: getPieceColor(index),
+                background: getPieceColor(index, themeColor),
               }}
             />
           </div>

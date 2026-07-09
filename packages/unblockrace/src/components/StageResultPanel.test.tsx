@@ -87,9 +87,9 @@ describe('StageResultPanel', () => {
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('4/4');
     // A completed stage ticks off its thumbnail
     expect(screen.getByTestId('stage-preview-0-complete')).toBeInTheDocument();
-    // Over par gets the warning marker
-    expect(screen.getByTestId('stage-result-1')).toHaveTextContent('7/5');
-    expect(screen.getByTestId('stage-result-1')).toHaveTextContent('⚠️');
+    // Over par gets the amber warning treatment on its par chip
+    expect(screen.getByTestId('stage-par-1')).toHaveTextContent('7/5 moves');
+    expect(screen.getByTestId('stage-par-1')).toHaveClass('text-amber-600');
     // The final, not-yet-reached stage shows a placeholder and no tick
     expect(screen.getByTestId('stage-result-2')).toHaveTextContent('—');
     expect(

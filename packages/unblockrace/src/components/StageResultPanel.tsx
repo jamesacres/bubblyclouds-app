@@ -1,9 +1,10 @@
 'use client';
 
+import { Check, Flag, Target, Trophy } from 'lucide-react';
 import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
-import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { RunStage, StageResult } from '../helpers/stageResults';
 import { difficultyForMoves } from '../helpers/difficulty';
+import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
 import SimpleBoard from './SimpleBoard';
 
 interface StageResultPanelProps {
@@ -31,8 +32,8 @@ interface StageResultPanelProps {
   collectionPuzzleLabel?: string;
 }
 
-// Inline run panel (SPEC.md §7), replacing the old modal: one always-visible
-// view combining each stage's mini-board thumbnail — which doubles as the
+// Inline run panel (SPEC.md §7), replacing the old modal: a stepper of every
+// stage in the run — each mini-board thumbnail doubles as the
 // click-to-navigate link into that stage (SPEC.md §1) — with its per-stage
 // time/moves, plus the run total once every stage is done. Everything here is
 // already produced by useGameState by the time a stage completes.
@@ -68,11 +69,22 @@ const StageResultPanel = ({
     <div className="ml-auto mr-auto max-w-xl px-4 pb-3 lg:mr-0">
       <div
         data-testid="stage-result-panel"
-        className="rounded-2xl border border-stone-200 bg-white/70 p-4 dark:border-zinc-700 dark:bg-zinc-900/70"
+        className="rounded-2xl border border-stone-200/70 bg-white/70 p-4 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60"
       >
-        <div className="mb-2 flex items-baseline justify-between">
-          <h2 className="text-sm font-black tracking-tight text-stone-900 dark:text-white">
-            {runComplete ? '🏆 Run complete' : '🚗 Race progress'}
+        <div className="mb-1 flex items-baseline justify-between">
+          <h2 className="flex items-center gap-1.5 text-sm font-black tracking-tight text-stone-900 dark:text-white">
+            {runComplete ? (
+              <Trophy
+                className="h-4 w-4 text-amber-500 dark:text-amber-400"
+                aria-hidden="true"
+              />
+            ) : (
+              <Flag
+                className="h-4 w-4 text-stone-400 dark:text-zinc-500"
+                aria-hidden="true"
+              />
+            )}
+            {runComplete ? 'Run complete' : 'Race progress'}
             {dailyNumber !== undefined && ` · Daily #${dailyNumber}`}
             {collectionPuzzleLabel && ` · ${collectionPuzzleLabel}`}
           </h2>
@@ -83,7 +95,24 @@ const StageResultPanel = ({
           )}
         </div>
 
-        <ul className="space-y-2 text-sm">
+        {/* Run progress bar */}
+        {stageCount > 1 && (
+          <div className="mb-3 h-1 overflow-hidden rounded-full bg-stone-200 dark:bg-zinc-800">
+            <div
+              className="bg-theme-primary h-full rounded-full transition-all duration-500"
+              style={{ width: `${(results.size / stageCount) * 100}%` }}
+            />
+          </div>
+        )}
+
+        <ul className="relative space-y-3 text-sm">
+          {/* Connector line linking the stage thumbnails into one route */}
+          {stageCount > 1 && (
+            <div
+              aria-hidden="true"
+              className="absolute bottom-6 left-6 top-6 w-px bg-stone-200 dark:bg-white/10"
+            />
+          )}
           {stages.map((stage, i) => {
             const result = results.get(i);
             const isOverPar =
@@ -91,14 +120,14 @@ const StageResultPanel = ({
             const isUnderPar =
               !!result && result.movesMade < result.movesRequired;
             const isCurrent = i === currentStageIndex;
-            const difficulty = getDifficultyDisplay(
+            const difficulty = unblockDifficultyDisplay(
               difficultyForMoves(stage.movesRequired)
-            ).name;
+            );
             return (
               <li
                 key={stage.boardString}
                 data-testid={`stage-result-${i}`}
-                className={`flex items-center gap-3 ${
+                className={`relative flex items-center gap-3 ${
                   isCurrent
                     ? 'font-semibold text-stone-900 dark:text-white'
                     : 'text-stone-600 dark:text-zinc-300'
@@ -120,33 +149,33 @@ const StageResultPanel = ({
                   className="shrink-0"
                 >
                   <span
-                    className={`relative block h-12 w-12 ${
+                    className={`relative block h-12 w-12 rounded-lg bg-white dark:bg-zinc-900 ${
                       isCurrent
-                        ? 'ring-theme-primary rounded-lg ring-2'
+                        ? 'ring-theme-primary shadow-[0_0_14px_-4px_var(--theme-primary)] ring-2'
                         : result
-                          ? 'opacity-50'
-                          : 'opacity-70'
+                          ? 'opacity-60'
+                          : 'opacity-80'
                     }`}
                   >
                     <SimpleBoard initial={stage.boardString} compact />
                     {result && (
                       <span
                         data-testid={`stage-preview-${i}-complete`}
-                        className="bg-theme-primary absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-[0.625rem] text-white shadow"
+                        className="bg-theme-primary absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-white shadow"
                       >
-                        ✓
+                        <Check className="h-2.5 w-2.5" aria-hidden="true" />
                       </span>
                     )}
                   </span>
                 </button>
-                <span className="flex min-w-0 flex-col">
+                <span className="flex min-w-0 flex-col gap-0.5">
                   <span className="flex items-center gap-2">
                     <span>Stage {i + 1}</span>
                     <span
                       data-testid={`stage-difficulty-${i}`}
-                      className="text-xs font-semibold text-stone-400 dark:text-zinc-500"
+                      className={`rounded-full px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
                     >
-                      {difficulty}
+                      {difficulty.label}
                     </span>
                   </span>
                   {result ? (
@@ -155,16 +184,16 @@ const StageResultPanel = ({
                         {formatSeconds(result.seconds)}
                       </span>
                       <span
-                        className={
+                        data-testid={`stage-par-${i}`}
+                        className={`rounded-full px-1.5 py-px text-xs font-semibold ${
                           isOverPar
-                            ? 'text-amber-500'
+                            ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
                             : isUnderPar
-                              ? 'text-emerald-500'
-                              : 'text-stone-400 dark:text-zinc-500'
-                        }
+                              ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                              : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
+                        }`}
                       >
-                        {isUnderPar ? '🌟' : isOverPar ? '⚠️' : '⚡'}{' '}
-                        {result.movesMade}/{result.movesRequired}
+                        {result.movesMade}/{result.movesRequired} moves
                       </span>
                     </span>
                   ) : (
@@ -179,9 +208,13 @@ const StageResultPanel = ({
         {opponentDeltaSeconds !== undefined && (
           <p
             data-testid="stage-result-opponent"
-            className="mt-2 text-sm text-stone-600 dark:text-zinc-300"
+            className={`mt-3 flex items-center gap-1.5 text-sm font-medium ${
+              opponentDeltaSeconds >= 0
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : 'text-amber-600 dark:text-amber-400'
+            }`}
           >
-            🎯{' '}
+            <Target className="h-4 w-4" aria-hidden="true" />
             {opponentDeltaSeconds >= 0
               ? `Beat opponent by ${formatSeconds(opponentDeltaSeconds)}`
               : `${formatSeconds(-opponentDeltaSeconds)} behind opponent`}

@@ -12,7 +12,7 @@ interface ControlsProps {
 }
 
 const controlButtonClass =
-  'flex cursor-pointer items-center justify-center rounded-xl border border-stone-200 bg-white p-3 text-stone-700 transition-all duration-200 hover:bg-stone-50 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700';
+  'flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-stone-200/80 bg-white/70 px-3 py-3 text-stone-600 shadow-sm backdrop-blur transition-all duration-200 hover:bg-white hover:text-stone-900 active:scale-95 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-white/70 disabled:hover:text-stone-600 dark:border-white/10 dark:bg-zinc-900/60 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white dark:disabled:hover:bg-zinc-900/60 dark:disabled:hover:text-zinc-300';
 
 // Undo/redo/reset toolbar, sitting directly above the board (mirrors
 // SudokuControls' role). The live move count and difficulty that used to
@@ -28,7 +28,7 @@ const Controls = ({
   return (
     <div
       data-testid="controls-toolbar"
-      className="ml-auto mr-auto flex max-w-xl items-center gap-2 px-4 py-3 lg:mr-0"
+      className="ml-auto mr-auto flex w-full max-w-xl items-stretch gap-2 px-4 py-3 lg:mr-0"
     >
       <button
         type="button"
@@ -38,6 +38,7 @@ const Controls = ({
         disabled={isUndoDisabled || isDisabled}
       >
         <Undo2 className="h-5 w-5" />
+        <span className="text-xs font-semibold">Undo</span>
       </button>
       <button
         type="button"
@@ -47,6 +48,7 @@ const Controls = ({
         disabled={isRedoDisabled || isDisabled}
       >
         <Redo2 className="h-5 w-5" />
+        <span className="text-xs font-semibold">Redo</span>
       </button>
       <button
         type="button"
@@ -56,6 +58,7 @@ const Controls = ({
         disabled={isDisabled}
       >
         <RotateCcw className="h-5 w-5" />
+        <span className="text-xs font-semibold">Reset</span>
       </button>
     </div>
   );

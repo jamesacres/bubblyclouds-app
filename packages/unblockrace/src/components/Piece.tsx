@@ -16,6 +16,9 @@ interface PieceProps {
   index: number;
   width: number;
   height: number;
+  // Resolved fill colour (theme-aware, from Board). Falls back to the
+  // theme-agnostic palette when rendered standalone.
+  color?: string;
   isDragging?: boolean;
   // Win animation: the primary piece continues its slide fully off the
   // right edge of the grid (SPEC.md §9)
@@ -31,6 +34,7 @@ const Piece = ({
   index,
   width,
   height,
+  color,
   isDragging,
   isExiting,
   onPointerDown,
@@ -43,7 +47,7 @@ const Piece = ({
   const horizontal = piece.orientation === 'horizontal';
   const spanX = horizontal ? piece.size : 1;
   const spanY = horizontal ? 1 : piece.size;
-  const color = getPieceColor(index);
+  const fill = color ?? getPieceColor(index);
   const isPrimary = index === 0;
 
   // The primary piece commits to its resting (solved) cell in the same
@@ -97,13 +101,81 @@ const Piece = ({
           position: 'absolute',
           inset: '6%',
           borderRadius: '22%',
-          background: color,
-          filter: isDragging ? 'brightness(1.1)' : undefined,
+          // A lit-from-above gradient instead of a flat fill so pieces read
+          // as physical, glowing blocks; color-mix works for the primary's
+          // var(--theme-primary) too
+          background: `linear-gradient(150deg, color-mix(in srgb, ${fill} 78%, white) 0%, ${fill} 45%, color-mix(in srgb, ${fill} 80%, black) 100%)`,
+          filter: isDragging ? 'brightness(1.12)' : undefined,
           // Soft outer glow in the piece's own hue plus a brighter inner
-          // highlight edge — the neon treatment (SPEC.md §9)
-          boxShadow: `0 0 ${isPrimary ? 18 : 12}px 2px color-mix(in srgb, ${color} ${isDragging ? 70 : 50}%, transparent), inset 0 2px 3px rgba(255,255,255,0.35), inset 0 -2px 3px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.1)`,
+          // highlight edge — the neon treatment (SPEC.md §9). The hero
+          // piece glows noticeably harder than the pack.
+          boxShadow: `0 0 ${isPrimary ? 22 : 13}px ${isPrimary ? 3 : 2}px color-mix(in srgb, ${fill} ${isDragging ? 75 : isPrimary ? 62 : 45}%, transparent), inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.12)`,
         }}
-      />
+      >
+        {/* Glass highlight across the top edge */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '42%',
+            borderRadius: '22% 22% 40% 40%',
+            background:
+              'linear-gradient(to bottom, rgba(255,255,255,0.3), transparent)',
+          }}
+        />
+        {isPrimary ? (
+          // Headlights on the leading edge: the hero piece points at the
+          // exit, so it reads as "the car" even next to same-hue rivals
+          <>
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                right: '6%',
+                top: '24%',
+                width: '9%',
+                aspectRatio: '1',
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.95)',
+                boxShadow: '0 0 8px 2px rgba(255,255,255,0.8)',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                right: '6%',
+                bottom: '24%',
+                width: '9%',
+                aspectRatio: '1',
+                borderRadius: '50%',
+                background: 'rgba(255,255,255,0.95)',
+                boxShadow: '0 0 8px 2px rgba(255,255,255,0.8)',
+              }}
+            />
+          </>
+        ) : (
+          // Grip handle along the movement axis, so a piece's drag direction
+          // is readable before it is touched
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: horizontal ? '46%' : '14%',
+              height: horizontal ? '14%' : '46%',
+              borderRadius: 999,
+              background: 'rgba(255,255,255,0.22)',
+              boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.18)',
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };

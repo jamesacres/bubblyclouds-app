@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
-import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
 import LobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
@@ -25,11 +24,10 @@ import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficu
 import { GameState, GameStateMetadata, ServerState } from '../types/state';
 import { useGameState } from '../hooks/useGameState';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
-import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay';
-import { calculateProgressStatsDisplayFromState } from '../helpers/calculateProgressStatsDisplay';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { solvedBoardString } from '../helpers/boardToString';
 import { difficultyForMoves } from '../helpers/difficulty';
+import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
 import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
 import { getDailyNumber } from '../helpers/mockData';
 import { addDailyRunId, canStartRun } from '../utils/dailyRunCounter';
@@ -41,6 +39,7 @@ import {
 import Board from './Board';
 import Controls from './Controls';
 import SimpleBoard from './SimpleBoard';
+import UnblockRaceTrack from './UnblockRaceTrack';
 import StageResultPanel from './StageResultPanel';
 import CountdownOverlay from './CountdownOverlay';
 import StageTransition from './StageTransition';
@@ -454,8 +453,23 @@ const UnblockRace = ({
 
   const isDailyRun = runId.startsWith('oftheday-');
 
+  const stageDifficulty = unblockDifficultyDisplay(
+    difficultyForMoves(stage.movesRequired)
+  );
+
   return (
-    <div className="pb-32 lg:pb-0">
+    <div className="relative isolate pb-32 lg:pb-0">
+      {/* Ambient neon backdrop, matching the marketing page's blob
+          treatment so the game screen shares the brand atmosphere */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+      >
+        <div className="bg-theme-primary absolute -top-24 right-[-10%] h-80 w-80 rounded-full opacity-[0.07] blur-3xl dark:opacity-[0.14]" />
+        <div className="absolute left-[-12%] top-1/3 h-72 w-72 rounded-full bg-fuchsia-500 opacity-[0.05] blur-3xl dark:opacity-[0.1]" />
+        <div className="absolute bottom-0 right-[10%] h-64 w-64 rounded-full bg-cyan-500 opacity-[0.05] blur-3xl dark:opacity-[0.1]" />
+      </div>
+
       <AppDownloadModal
         isOpen={showAppDownload}
         onClose={handleAppDownloadClose}
@@ -520,21 +534,27 @@ const UnblockRace = ({
         <div className="mx-auto w-full max-w-xl px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              <div className="ml-auto mr-auto max-w-xl px-4 pb-1 lg:mr-0">
-                <div className="flex items-center justify-end">
-                  <span className="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent">
-                    {appName}
-                  </span>
-                </div>
-              </div>
-
               <div className="ml-auto mr-auto flex max-w-xl px-4 pb-1 lg:mr-0">
                 <div
-                  className="flex-nowrap items-center"
+                  className="flex flex-nowrap items-center gap-2"
                   role="group"
                   aria-label="Button group"
                 >
                   <LobbyButton friendsOnClick={friendsOnClick} />
+                  {stages.length > 1 && (
+                    <span
+                      data-testid="stage-chip"
+                      className="flex items-center gap-1.5 rounded-full border border-stone-200/70 bg-white/60 py-1 pl-2.5 pr-1 text-xs font-semibold text-stone-600 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60 dark:text-zinc-300"
+                    >
+                      Stage {currentStageIndex + 1}
+                      <span className="opacity-50">/ {stages.length}</span>
+                      <span
+                        className={`rounded-full px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide ${stageDifficulty.chipClass}`}
+                      >
+                        {stageDifficulty.label}
+                      </span>
+                    </span>
+                  )}
                 </div>
                 <div
                   className={`grow text-right ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}
@@ -581,24 +601,14 @@ const UnblockRace = ({
               </div>
 
               {!showAnimation && (
-                <RaceTrack
+                <UnblockRaceTrack
                   sessionParties={sessionParties}
                   state={raceTrackState}
                   userId={user?.sub || 'guest'}
                   onClick={raceTrackOnClick}
                   isPolling={isPolling}
                   refreshSessionParties={refreshSessionParties}
-                  calculateCompletionPercentageFromState={
-                    calculateCompletionPercentageFromState
-                  }
-                  isPuzzleCheated={isPuzzleCheated}
                   onInviteFriends={handleInviteFriends}
-                  calculateStatsDisplayFromState={
-                    calculateStatsDisplayFromState
-                  }
-                  calculateProgressStatsDisplayFromState={
-                    calculateProgressStatsDisplayFromState
-                  }
                 />
               )}
 

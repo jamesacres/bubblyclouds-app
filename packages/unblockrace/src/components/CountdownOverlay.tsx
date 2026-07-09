@@ -11,12 +11,19 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
 
   return (
     <div
-      className="fixed inset-0 z-[120] flex flex-col items-center justify-center gap-8 bg-white/10 dark:bg-[rgba(4,2,15,0.38)]"
+      className="fixed inset-0 z-[120] flex flex-col items-center justify-center gap-8 bg-white/20 dark:bg-[rgba(4,2,15,0.5)]"
       style={{
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
       }}
     >
+      <style>{`
+        @keyframes unblock-countdown-pop {
+          0% { transform: scale(1.6); opacity: 0; }
+          60% { transform: scale(0.95); opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+      `}</style>
       <div className="text-xs font-extrabold uppercase tracking-[0.2em] text-zinc-600 dark:text-white/50">
         Get ready
       </div>
@@ -38,8 +45,13 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
       </div>
       {isGo ? (
         <div
-          className="text-[120px] font-extrabold leading-none text-zinc-800 dark:text-white"
-          style={{ textShadow: '0 0 40px rgba(74,222,128,0.6)' }}
+          className="text-[120px] font-extrabold leading-none"
+          style={{
+            color: 'var(--theme-primary)',
+            textShadow:
+              '0 0 40px color-mix(in srgb, var(--theme-primary) 65%, transparent)',
+            animation: 'unblock-countdown-pop 300ms ease-out',
+          }}
         >
           GO!
         </div>
@@ -47,7 +59,11 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
         <div
           key={displayed}
           className="text-[120px] font-extrabold leading-none text-zinc-800 dark:text-white"
-          style={{ textShadow: '0 0 40px rgba(167,139,250,0.6)' }}
+          style={{
+            textShadow:
+              '0 0 40px color-mix(in srgb, var(--theme-primary) 55%, transparent)',
+            animation: 'unblock-countdown-pop 300ms ease-out',
+          }}
         >
           {displayed}
         </div>
