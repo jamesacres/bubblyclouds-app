@@ -105,12 +105,15 @@ const StageResultPanel = ({
           </div>
         )}
 
-        <ul className="relative space-y-3 text-sm">
+        {/* Horizontal filmstrip: the run reads as a left-to-right route, one
+            column per stage — thumbnail on top (the tap target), difficulty
+            and result beneath — instead of the old five-row list */}
+        <ul className="relative flex items-start gap-1.5 text-sm">
           {/* Connector line linking the stage thumbnails into one route */}
           {stageCount > 1 && (
             <div
               aria-hidden="true"
-              className="absolute bottom-6 left-6 top-6 w-px bg-stone-200 dark:bg-white/10"
+              className="absolute left-6 right-6 top-6 h-px bg-stone-200 dark:bg-white/10"
             />
           )}
           {stages.map((stage, i) => {
@@ -127,7 +130,7 @@ const StageResultPanel = ({
               <li
                 key={stage.boardString}
                 data-testid={`stage-result-${i}`}
-                className={`relative flex items-center gap-3 ${
+                className={`relative flex min-w-0 flex-1 flex-col items-center gap-1 text-center ${
                   isCurrent
                     ? 'font-semibold text-stone-900 dark:text-white'
                     : 'text-stone-600 dark:text-zinc-300'
@@ -158,6 +161,12 @@ const StageResultPanel = ({
                     }`}
                   >
                     <SimpleBoard initial={stage.boardString} compact />
+                    <span
+                      aria-hidden="true"
+                      className="absolute -left-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-stone-200 text-[0.6rem] font-bold text-stone-600 shadow dark:bg-zinc-700 dark:text-zinc-200"
+                    >
+                      {i + 1}
+                    </span>
                     {result && (
                       <span
                         data-testid={`stage-preview-${i}-complete`}
@@ -168,38 +177,34 @@ const StageResultPanel = ({
                     )}
                   </span>
                 </button>
-                <span className="flex min-w-0 flex-col gap-0.5">
-                  <span className="flex items-center gap-2">
-                    <span>Stage {i + 1}</span>
+                <span
+                  data-testid={`stage-difficulty-${i}`}
+                  className={`max-w-full truncate rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+                >
+                  {difficulty.label}
+                </span>
+                {result ? (
+                  <span className="flex flex-col items-center gap-0.5 tabular-nums">
+                    <span className="font-mono text-[0.65rem]">
+                      {formatSeconds(result.seconds)}
+                    </span>
                     <span
-                      data-testid={`stage-difficulty-${i}`}
-                      className={`rounded-full px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+                      data-testid={`stage-par-${i}`}
+                      className={`rounded-full px-1.5 py-px text-[0.65rem] font-semibold ${
+                        isOverPar
+                          ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                          : isUnderPar
+                            ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                            : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
+                      }`}
                     >
-                      {difficulty.label}
+                      {result.movesMade}/{result.movesRequired}
+                      <span className="sr-only"> moves</span>
                     </span>
                   </span>
-                  {result ? (
-                    <span className="flex items-center gap-2 tabular-nums">
-                      <span className="font-mono">
-                        {formatSeconds(result.seconds)}
-                      </span>
-                      <span
-                        data-testid={`stage-par-${i}`}
-                        className={`rounded-full px-1.5 py-px text-xs font-semibold ${
-                          isOverPar
-                            ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
-                            : isUnderPar
-                              ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                              : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
-                        }`}
-                      >
-                        {result.movesMade}/{result.movesRequired} moves
-                      </span>
-                    </span>
-                  ) : (
-                    <span className="text-stone-300 dark:text-zinc-600">—</span>
-                  )}
-                </span>
+                ) : (
+                  <span className="text-stone-300 dark:text-zinc-600">—</span>
+                )}
               </li>
             );
           })}

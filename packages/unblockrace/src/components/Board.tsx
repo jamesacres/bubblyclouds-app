@@ -57,6 +57,7 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
           ? '0 0 0 1px color-mix(in srgb, var(--theme-primary) 60%, transparent), 0 0 44px -4px color-mix(in srgb, var(--theme-primary) 55%, transparent)'
           : '0 0 0 1px color-mix(in srgb, var(--theme-primary) 28%, transparent), 0 0 36px -12px color-mix(in srgb, var(--theme-primary) 40%, transparent)',
         transition: 'box-shadow 500ms ease-out',
+        animation: solved ? 'unblock-solve-pop 450ms ease-out' : undefined,
       }}
     >
       <style>{`
@@ -68,6 +69,21 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
         @keyframes unblock-solve-sweep {
           from { transform: translateX(-100%); }
           to { transform: translateX(100%); }
+        }
+        @keyframes unblock-solve-pop {
+          0% { transform: scale(1); }
+          40% { transform: scale(1.015); }
+          100% { transform: scale(1); }
+        }
+        @keyframes unblock-exit-burst {
+          from { transform: translate(50%, -50%) scale(0.3); opacity: 0.9; }
+          to { transform: translate(50%, -50%) scale(2.4); opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [data-testid="unblock-board"],
+          [data-testid="unblock-board"] * {
+            animation: none !important;
+          }
         }
       `}</style>
 
@@ -87,7 +103,7 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
           }}
         >
           <div
-            className="absolute rounded-[18%] bg-zinc-900/[0.045] dark:bg-white/[0.04]"
+            className="absolute rounded-[18%] bg-zinc-900/[0.06] dark:bg-white/[0.07]"
             style={{ inset: '6%' }}
           />
         </div>
@@ -123,8 +139,8 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
           height: `${(1 / board.height) * 100}%`,
           width: `${(2 / board.width) * 100}%`,
           background:
-            'linear-gradient(to right, transparent, color-mix(in srgb, var(--theme-primary) 35%, transparent))',
-          opacity: solved ? 1 : 0.7,
+            'linear-gradient(to right, transparent, color-mix(in srgb, var(--theme-primary) 45%, transparent))',
+          opacity: solved ? 1 : 0.8,
         }}
       />
 
@@ -146,25 +162,64 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
               key={chevron}
               className="absolute"
               style={{
-                right: `${16 + chevron * 26}%`,
+                right: `${18 + chevron * 26}%`,
                 width: 0,
                 height: 0,
-                borderTop: '9px solid transparent',
-                borderBottom: '9px solid transparent',
-                borderLeft: '11px solid var(--theme-primary)',
+                borderTop: '10px solid transparent',
+                borderBottom: '10px solid transparent',
+                borderLeft: '13px solid var(--theme-primary)',
                 filter: 'drop-shadow(0 0 6px var(--theme-primary))',
                 opacity: 0,
                 animation: `unblock-exit-chevron 1.4s ease-in-out ${chevron * 0.7}s infinite`,
               }}
             />
           ))}
+          {/* Checkered finish sliver just inside the gate bar */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              right: 'max(5%, 4px)',
+              width: 'max(4.5%, 5px)',
+              height: '72%',
+              borderRadius: 2,
+              opacity: 0.55,
+              backgroundColor: 'rgba(255,255,255,0.9)',
+              backgroundImage: `
+                linear-gradient(45deg, black 25%, transparent 25%),
+                linear-gradient(-45deg, black 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, black 75%),
+                linear-gradient(-45deg, transparent 75%, black 75%)
+              `,
+              backgroundSize: '5px 5px',
+              backgroundPosition: '0 0, 0 2.5px, 2.5px -2.5px, -2.5px 0px',
+            }}
+          />
+          {/* Goal posts capping the gate bar top and bottom */}
+          {[{ top: '8%' }, { bottom: '8%' }].map((edgeOffset, post) => (
+            <div
+              key={post}
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                right: 0,
+                ...edgeOffset,
+                width: 'max(12%, 12px)',
+                height: 'max(4%, 3px)',
+                borderRadius: 2,
+                background: 'var(--theme-primary)',
+                boxShadow:
+                  '0 0 8px 1px color-mix(in srgb, var(--theme-primary) 60%, transparent)',
+              }}
+            />
+          ))}
           <div
             style={{
               width: 'max(4%, 3px)',
-              height: '64%',
+              height: '84%',
               borderRadius: 2,
               background: 'var(--theme-primary)',
-              boxShadow: `0 0 ${solved ? 18 : 10}px 2px color-mix(in srgb, var(--theme-primary) ${solved ? 85 : 65}%, transparent)`,
+              boxShadow: `0 0 ${solved ? 20 : 12}px 2px color-mix(in srgb, var(--theme-primary) ${solved ? 90 : 70}%, transparent)`,
               transition: 'box-shadow 500ms ease-out',
             }}
           />
@@ -235,6 +290,21 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
               background:
                 'linear-gradient(105deg, transparent 30%, color-mix(in srgb, var(--theme-primary) 22%, transparent) 50%, transparent 70%)',
               animation: 'unblock-solve-sweep 700ms ease-out forwards',
+            }}
+          />
+          {/* Radial burst out of the exit gate as the car crosses it */}
+          <div
+            data-testid="solve-burst"
+            className="absolute"
+            style={{
+              right: 0,
+              top: `${((primaryRow + 0.5) / board.height) * 100}%`,
+              width: '55%',
+              aspectRatio: '1',
+              borderRadius: '50%',
+              background:
+                'radial-gradient(circle, color-mix(in srgb, var(--theme-primary) 45%, transparent) 0%, transparent 65%)',
+              animation: 'unblock-exit-burst 650ms ease-out forwards',
             }}
           />
         </div>

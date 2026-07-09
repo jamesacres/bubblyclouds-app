@@ -2,7 +2,13 @@
 
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { LayoutGrid, RefreshCw, Trophy } from 'lucide-react';
+import {
+  ChevronRight,
+  LayoutGrid,
+  RefreshCw,
+  Trophy,
+  Users,
+} from 'lucide-react';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
@@ -63,7 +69,7 @@ const UnblockRaceTrack = ({
 
   useEffect(() => {
     const updateTrackHeight = () => {
-      setTrackHeight(window.innerWidth >= 1024 ? 56 : 48);
+      setTrackHeight(window.innerWidth >= 1024 ? 64 : 56);
     };
 
     updateTrackHeight();
@@ -193,125 +199,172 @@ const UnblockRaceTrack = ({
         onClick={() => onClick && onClick()}
         title="Click to view friends"
       >
-        {/* Track surface: glass strip matching the board's framing */}
-        <div className="relative h-12 overflow-visible rounded-xl border border-stone-200/70 bg-gradient-to-r from-stone-100 via-stone-50 to-stone-100 lg:h-14 dark:border-white/10 dark:from-zinc-900 dark:via-zinc-800/70 dark:to-zinc-900">
-          {/* Dashed centre line */}
-          <div
-            aria-hidden="true"
-            className="absolute left-10 right-14 top-1/2 h-px -translate-y-1/2 text-stone-400 opacity-50 dark:text-white dark:opacity-30"
-            style={{
-              backgroundImage:
-                'repeating-linear-gradient(to right, currentColor 0 8px, transparent 8px 16px)',
-            }}
-          />
+        {/* One card holds the labels, the driving lane and the legend so the
+            whole strip reads as a single tappable race panel */}
+        <div className="rounded-xl border border-stone-200/70 bg-white/60 p-2 backdrop-blur transition-transform duration-200 active:scale-[0.99] dark:border-white/10 dark:bg-zinc-900/60">
+          {/* Start/Finish labels above the lane, out of the cars' way */}
+          <div className="flex items-center justify-between px-0.5 pb-1">
+            <span className="text-[0.6rem] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+              Start
+            </span>
+            <span className="flex items-center gap-1 text-[0.6rem] font-black uppercase tracking-widest text-rose-600 dark:text-rose-400">
+              Finish
+              <span
+                aria-hidden="true"
+                className="h-3 w-3.5 rounded-[2px] border border-stone-400/60 bg-white dark:border-white/30"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(45deg, black 25%, transparent 25%),
+                    linear-gradient(-45deg, black 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, black 75%),
+                    linear-gradient(-45deg, transparent 75%, black 75%)
+                  `,
+                  backgroundSize: '3px 3px',
+                  backgroundPosition: '0 0, 0 1.5px, 1.5px -1.5px, -1.5px 0px',
+                }}
+              />
+            </span>
+          </div>
 
-          {/* Progress tick marks */}
-          {[25, 50, 75].map((tick) => (
+          {/* Driving lane: asphalt strip with edge lines, start line and a
+              checkered finish column */}
+          <div className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900">
+            {/* Lane edge lines */}
             <div
-              key={tick}
               aria-hidden="true"
-              className="absolute bottom-1.5 top-1.5 w-px bg-stone-300/70 dark:bg-white/10"
-              style={{ left: `${tick}%` }}
+              className="absolute inset-x-1 top-1 h-px bg-stone-300/80 dark:bg-white/15"
             />
-          ))}
-
-          {/* Start post */}
-          <span className="absolute left-1.5 top-1/2 -translate-y-1/2 rounded-md bg-emerald-500/15 px-1.5 py-0.5 text-[0.6rem] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
-            Start
-          </span>
-
-          {/* Finish post with checkered flag */}
-          <span className="absolute right-1.5 top-1/2 flex -translate-y-1/2 items-center gap-1 rounded-md bg-rose-500/15 px-1.5 py-0.5 text-[0.6rem] font-black uppercase tracking-widest text-rose-600 dark:text-rose-400">
-            Finish
-            <span
+            <div
               aria-hidden="true"
-              className="h-3 w-3.5 rounded-[2px] border border-stone-400/60 bg-white dark:border-white/30"
+              className="absolute inset-x-1 bottom-1 h-px bg-stone-300/80 dark:bg-white/15"
+            />
+
+            {/* Dashed centre line */}
+            <div
+              aria-hidden="true"
+              className="absolute left-3 right-6 top-1/2 h-px -translate-y-1/2 text-stone-400 opacity-50 dark:text-white dark:opacity-30"
               style={{
+                backgroundImage:
+                  'repeating-linear-gradient(to right, currentColor 0 8px, transparent 8px 16px)',
+              }}
+            />
+
+            {/* Progress tick marks */}
+            {[25, 50, 75].map((tick) => (
+              <div
+                key={tick}
+                aria-hidden="true"
+                className="absolute bottom-1.5 top-1.5 w-px bg-stone-300/70 dark:bg-white/10"
+                style={{ left: `${tick}%` }}
+              />
+            ))}
+
+            {/* Start line */}
+            <div
+              aria-hidden="true"
+              className="absolute bottom-1 top-1 flex gap-0.5"
+              style={{ left: '3%' }}
+            >
+              <div className="w-px bg-emerald-500/60" />
+              <div className="w-px bg-emerald-500/60" />
+            </div>
+
+            {/* Checkered finish column */}
+            <div
+              aria-hidden="true"
+              className="absolute bottom-1 right-1 top-1 w-2 rounded-sm opacity-60"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.9)',
                 backgroundImage: `
                   linear-gradient(45deg, black 25%, transparent 25%),
                   linear-gradient(-45deg, black 25%, transparent 25%),
                   linear-gradient(45deg, transparent 75%, black 75%),
                   linear-gradient(-45deg, transparent 75%, black 75%)
                 `,
-                backgroundSize: '3px 3px',
-                backgroundPosition: '0 0, 0 1.5px, 1.5px -1.5px, -1.5px 0px',
+                backgroundSize: '4px 4px',
+                backgroundPosition: '0 0, 0 2px, 2px -2px, -2px 0px',
               }}
             />
-          </span>
 
-          {/* Player cars: glowing pills in each player's colour; the current
-              user gets a ring instead of a crown emoji */}
-          {allPlayerProgress.map((player, index) => {
-            const colorClass = getPlayerColor(
-              player.userId,
-              allUserIds,
-              player.isCurrentUser
-            );
+            {/* Player cars: glowing pills in each player's colour; the
+                current user gets a ring instead of a crown emoji */}
+            {allPlayerProgress.map((player, index) => {
+              const colorClass = getPlayerColor(
+                player.userId,
+                allUserIds,
+                player.isCurrentUser
+              );
 
-            const totalPlayers = allPlayerProgress.length;
-            const playerHeight = Math.min(10, trackHeight / totalPlayers);
-            const verticalOffset = index * playerHeight + 4;
+              const totalPlayers = allPlayerProgress.length;
+              const playerHeight = Math.min(12, trackHeight / totalPlayers);
+              const verticalOffset = index * playerHeight + 6;
 
-            return (
-              <div
-                key={player.userId}
-                className="absolute transition-all duration-700 ease-out"
-                style={{
-                  left: `${Math.min(
-                    Math.max(player.percentage * 0.79 + 14, 14),
-                    93
-                  )}%`, // Scale 0-100% to 14-93% of track
-                  top: `${verticalOffset}px`,
-                  transform: 'translateX(-50%)',
-                }}
-              >
+              return (
                 <div
-                  className={`relative h-3.5 w-6 rounded-[5px] ${colorClass} shadow-md ${
-                    player.isCurrentUser
-                      ? 'ring-2 ring-stone-500/60 dark:ring-white/70'
-                      : ''
-                  }`}
+                  key={player.userId}
+                  className="absolute transition-all duration-700 ease-out"
+                  style={{
+                    // Scale 0-100% progress to 6-94% of the lane, clear of
+                    // the start line and finish column
+                    left: `${player.percentage * 0.88 + 6}%`,
+                    top: `${verticalOffset}px`,
+                    transform: 'translateX(-50%)',
+                  }}
                 >
-                  {/* Windshield */}
-                  <div className="absolute left-1/2 top-1/2 h-1.5 w-2 -translate-x-1/2 -translate-y-1/2 rounded-[2px] bg-white/50" />
-                  {/* Headlight on the leading edge */}
-                  <div className="absolute -right-px top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-white shadow-[0_0_4px_1px_rgba(255,255,255,0.8)]" />
+                  <div
+                    className={`relative h-3.5 w-6 rounded-[5px] ${colorClass} shadow-md ${
+                      player.isCurrentUser
+                        ? 'ring-2 ring-stone-500/60 dark:ring-white/70'
+                        : ''
+                    }`}
+                  >
+                    {/* Windshield */}
+                    <div className="absolute left-1/2 top-1/2 h-1.5 w-2 -translate-x-1/2 -translate-y-1/2 rounded-[2px] bg-white/50" />
+                    {/* Headlight on the leading edge */}
+                    <div className="absolute -right-px top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-white shadow-[0_0_4px_1px_rgba(255,255,255,0.8)]" />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
 
-        {/* Legend: one chip per racer, lowest to highest percentage */}
-        <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
-          {[...allPlayerProgress].reverse().map((player) => {
-            const colorClass = getPlayerColor(
-              player.userId,
-              allUserIds,
-              player.isCurrentUser
-            );
+          {/* Legend: one chip per racer, lowest to highest percentage, plus
+              the tap-for-opponents affordance */}
+          <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
+            {[...allPlayerProgress].reverse().map((player) => {
+              const colorClass = getPlayerColor(
+                player.userId,
+                allUserIds,
+                player.isCurrentUser
+              );
 
-            return (
-              <span
-                key={`${player.userId}-info`}
-                className="flex items-center gap-1.5 rounded-full border border-stone-200/70 bg-white/60 px-2 py-0.5 dark:border-white/10 dark:bg-zinc-900/60"
-              >
-                <span className={`h-2 w-2 rounded-full ${colorClass}`} />
+              return (
                 <span
-                  className={
-                    player.isCurrentUser
-                      ? 'font-semibold text-stone-900 dark:text-white'
-                      : 'text-stone-600 dark:text-zinc-300'
-                  }
+                  key={`${player.userId}-info`}
+                  className="flex items-center gap-1.5 rounded-full border border-stone-200/70 bg-white/60 px-2 py-0.5 dark:border-white/10 dark:bg-zinc-900/60"
                 >
-                  {player.nickname}
+                  <span className={`h-2 w-2 rounded-full ${colorClass}`} />
+                  <span
+                    className={
+                      player.isCurrentUser
+                        ? 'font-semibold text-stone-900 dark:text-white'
+                        : 'text-stone-600 dark:text-zinc-300'
+                    }
+                  >
+                    {player.nickname}
+                  </span>
+                  <span className="text-stone-400 dark:text-zinc-500">
+                    {player.progressStatsDisplay ?? `${player.percentage}%`}
+                  </span>
                 </span>
-                <span className="text-stone-400 dark:text-zinc-500">
-                  {player.progressStatsDisplay ?? `${player.percentage}%`}
-                </span>
-              </span>
-            );
-          })}
+              );
+            })}
+            <span className="ml-auto flex items-center gap-1 text-[0.65rem] font-semibold text-stone-400 dark:text-zinc-500">
+              <Users className="h-3 w-3" aria-hidden="true" />
+              Opponents
+              <ChevronRight className="h-3 w-3" aria-hidden="true" />
+            </span>
+          </div>
         </div>
 
         {/* Leaderboard for finished players */}

@@ -104,12 +104,13 @@ const Piece = ({
           // A lit-from-above gradient instead of a flat fill so pieces read
           // as physical, glowing blocks; color-mix works for the primary's
           // var(--theme-primary) too
-          background: `linear-gradient(150deg, color-mix(in srgb, ${fill} 78%, white) 0%, ${fill} 45%, color-mix(in srgb, ${fill} 80%, black) 100%)`,
+          background: `linear-gradient(150deg, color-mix(in srgb, ${fill} ${isPrimary ? 76 : 84}%, white) 0%, ${fill} 45%, color-mix(in srgb, ${fill} ${isPrimary ? 80 : 74}%, black) 100%)`,
           filter: isDragging ? 'brightness(1.12)' : undefined,
           // Soft outer glow in the piece's own hue plus a brighter inner
           // highlight edge — the neon treatment (SPEC.md §9). The hero
-          // piece glows noticeably harder than the pack.
-          boxShadow: `0 0 ${isPrimary ? 22 : 13}px ${isPrimary ? 3 : 2}px color-mix(in srgb, ${fill} ${isDragging ? 75 : isPrimary ? 62 : 45}%, transparent), inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.12)`,
+          // piece glows noticeably harder than the pack; rivals stay muted
+          // so the eye lands on the car first.
+          boxShadow: `0 0 ${isPrimary ? 26 : 9}px ${isPrimary ? 4 : 1}px color-mix(in srgb, ${fill} ${isDragging ? 75 : isPrimary ? 70 : 28}%, transparent), inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.12)`,
         }}
       >
         {/* Glass highlight across the top edge */}
@@ -127,9 +128,25 @@ const Piece = ({
           }}
         />
         {isPrimary ? (
-          // Headlights on the leading edge: the hero piece points at the
-          // exit, so it reads as "the car" even next to same-hue rivals
+          // Headlights on the leading edge plus a double racing stripe down
+          // the length: the hero piece points at the exit and reads as "the
+          // car" even next to same-hue rivals
           <>
+            {[38, 54].map((stripeTop) => (
+              <div
+                key={stripeTop}
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  left: '8%',
+                  right: '20%',
+                  top: `${stripeTop}%`,
+                  height: '8%',
+                  borderRadius: 999,
+                  background: 'rgba(255,255,255,0.3)',
+                }}
+              />
+            ))}
             <div
               aria-hidden="true"
               style={{
@@ -158,22 +175,28 @@ const Piece = ({
             />
           </>
         ) : (
-          // Grip handle along the movement axis, so a piece's drag direction
-          // is readable before it is touched
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: horizontal ? '46%' : '14%',
-              height: horizontal ? '14%' : '46%',
-              borderRadius: 999,
-              background: 'rgba(255,255,255,0.22)',
-              boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.18)',
-            }}
-          />
+          // Grip dots along the movement axis, so a piece's drag direction
+          // is readable before it is touched — quieter than the hero's
+          // stripes so rivals stay background players
+          <>
+            {[36, 64].map((position) => (
+              <div
+                key={position}
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  left: horizontal ? `${position}%` : '50%',
+                  top: horizontal ? '50%' : `${position}%`,
+                  transform: 'translate(-50%, -50%)',
+                  width: horizontal ? `${16 / piece.size}%` : '16%',
+                  aspectRatio: '1',
+                  borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.24)',
+                  boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.2)',
+                }}
+              />
+            ))}
+          </>
         )}
       </div>
     </div>

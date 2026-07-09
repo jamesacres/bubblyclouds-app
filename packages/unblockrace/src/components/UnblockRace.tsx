@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
-import LobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
@@ -38,6 +37,7 @@ import {
 } from '../helpers/stageResults';
 import Board from './Board';
 import Controls from './Controls';
+import RaceHud from './RaceHud';
 import SimpleBoard from './SimpleBoard';
 import UnblockRaceTrack from './UnblockRaceTrack';
 import StageResultPanel from './StageResultPanel';
@@ -457,17 +457,49 @@ const UnblockRace = ({
     difficultyForMoves(stage.movesRequired)
   );
 
+  const completedStageIndexes = useMemo(
+    () => new Set(completedStages.keys()),
+    [completedStages]
+  );
+
   return (
     <div className="relative isolate pb-32 lg:pb-0">
       {/* Ambient neon backdrop, matching the marketing page's blob
-          treatment so the game screen shares the brand atmosphere */}
+          treatment so the game screen shares the brand atmosphere, plus
+          slow-drifting speed lines so the screen reads "race" even at rest */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
-        <div className="bg-theme-primary absolute -top-24 right-[-10%] h-80 w-80 rounded-full opacity-[0.07] blur-3xl dark:opacity-[0.14]" />
-        <div className="absolute left-[-12%] top-1/3 h-72 w-72 rounded-full bg-fuchsia-500 opacity-[0.05] blur-3xl dark:opacity-[0.1]" />
-        <div className="absolute bottom-0 right-[10%] h-64 w-64 rounded-full bg-cyan-500 opacity-[0.05] blur-3xl dark:opacity-[0.1]" />
+        <style>{`
+          @keyframes unblock-speed-line {
+            from { transform: translateX(-110%); }
+            to { transform: translateX(360%); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .unblock-speed-line { animation: none !important; opacity: 0 !important; }
+          }
+        `}</style>
+        <div className="bg-theme-primary absolute -top-24 right-[-10%] h-80 w-80 rounded-full opacity-[0.11] blur-3xl dark:opacity-[0.2]" />
+        <div className="absolute left-[-12%] top-1/3 h-72 w-72 rounded-full bg-fuchsia-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
+        <div className="absolute bottom-0 right-[10%] h-64 w-64 rounded-full bg-cyan-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
+        {[
+          { top: '18%', duration: 7, delay: 0, color: 'var(--theme-primary)' },
+          { top: '46%', duration: 10, delay: 2.5, color: '#d946ef' },
+          { top: '74%', duration: 8.5, delay: 5, color: '#06b6d4' },
+        ].map((line) => (
+          <div
+            key={line.top}
+            className="unblock-speed-line absolute h-px w-1/3 opacity-25 dark:opacity-35"
+            style={{
+              top: line.top,
+              left: 0,
+              background: `linear-gradient(90deg, transparent, ${line.color}, transparent)`,
+              filter: 'blur(0.5px)',
+              animation: `unblock-speed-line ${line.duration}s linear ${line.delay}s infinite`,
+            }}
+          />
+        ))}
       </div>
 
       <AppDownloadModal
@@ -534,38 +566,26 @@ const UnblockRace = ({
         <div className="mx-auto w-full max-w-xl px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              <div className="ml-auto mr-auto flex max-w-xl px-4 pb-1 lg:mr-0">
-                <div
-                  className="flex flex-nowrap items-center gap-2"
-                  role="group"
-                  aria-label="Button group"
-                >
-                  <LobbyButton friendsOnClick={friendsOnClick} />
-                  {stages.length > 1 && (
-                    <span
-                      data-testid="stage-chip"
-                      className="flex items-center gap-1.5 rounded-full border border-stone-200/70 bg-white/60 py-1 pl-2.5 pr-1 text-xs font-semibold text-stone-600 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60 dark:text-zinc-300"
-                    >
-                      Stage {currentStageIndex + 1}
-                      <span className="opacity-50">/ {stages.length}</span>
-                      <span
-                        className={`rounded-full px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide ${stageDifficulty.chipClass}`}
-                      >
-                        {stageDifficulty.label}
-                      </span>
-                    </span>
-                  )}
-                </div>
-                <div
-                  className={`grow text-right ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}
-                >
-                  <TimerDisplay
-                    seconds={calculateSeconds(timer)}
-                    countdown={timer?.countdown}
-                    isComplete={!!completed}
-                  />
-                </div>
-              </div>
+              <RaceHud
+                onOpponentsClick={friendsOnClick}
+                stageCount={stages.length}
+                currentStageIndex={currentStageIndex}
+                completedStageIndexes={completedStageIndexes}
+                difficulty={stageDifficulty}
+                timer={
+                  <div
+                    className={
+                      timer?.countdown || !!completed ? 'text-2xl' : ''
+                    }
+                  >
+                    <TimerDisplay
+                      seconds={calculateSeconds(timer)}
+                      countdown={timer?.countdown}
+                      isComplete={!!completed}
+                    />
+                  </div>
+                }
+              />
 
               <Controls
                 undo={undo}
@@ -574,6 +594,8 @@ const UnblockRace = ({
                 isUndoDisabled={!!completed || isUndoDisabled}
                 isRedoDisabled={!!completed || isRedoDisabled}
                 isDisabled={!!completed}
+                movesMade={movesMade}
+                movesRequired={stage.movesRequired}
               />
 
               <div ref={gridRef}>
