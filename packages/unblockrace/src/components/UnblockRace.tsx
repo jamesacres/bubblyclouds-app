@@ -9,9 +9,9 @@ import {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
+import { ChevronRight } from 'lucide-react';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
-import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
@@ -37,6 +37,7 @@ import {
 } from '../helpers/stageResults';
 import Board from './Board';
 import Controls from './Controls';
+import RaceCelebration, { RACE_CELEBRATION_MS } from './RaceCelebration';
 import RaceHud from './RaceHud';
 import RaceTimer from './RaceTimer';
 import SimpleBoard from './SimpleBoard';
@@ -44,12 +45,6 @@ import UnblockRaceTrack from './UnblockRaceTrack';
 import StageResultPanel from './StageResultPanel';
 import CountdownOverlay from './CountdownOverlay';
 import StageTransition from './StageTransition';
-
-// A short beat after solving a non-final stage before the slide-across takes
-// over, so the win registers but the car's exit flows straight into the next
-// board (SPEC.md §4). Kept small: the carousel replays the exit in lockstep
-// with the slide, so a long pause here would just look like a stall.
-const SOLVE_TO_SLIDE_DELAY_MS = 240;
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleBoard state={state} />
@@ -146,16 +141,16 @@ const UnblockRace = ({
     () => !alreadyCompleted && showRacingPrompt
   );
   const [showAnimation, setShowAnimation] = useState(false);
-  // Per-stage win moment (non-final stages only): drives the "STAGE N
-  // CLEAR" slam over the board during the beat before the slide.
+  // Per-stage win moment (non-final stages only): the "STAGE N CLEAR" slam
+  // over the board. It holds until the player taps its Next-stage button —
+  // advancing is the player's call, not a timer's — and only that button or
+  // a preview-strip jump dismisses it.
   const [stageClear, setStageClear] = useState<{
     stage: number;
     seconds: number;
+    movesMade: number;
+    movesRequired: number;
   } | null>(null);
-  // Set only when a non-final stage is solved live this session (not when a
-  // completed stage is restored on a jump-back), so auto-advance never fires
-  // for a stage the player deliberately navigated to review.
-  const [autoAdvanceArmed, setAutoAdvanceArmed] = useState(false);
 
   const isFinalStage = currentStageIndex === stages.length - 1;
 
@@ -179,27 +174,18 @@ const UnblockRace = ({
       });
       if (isFinalStage) {
         setShowAnimation(true);
-        setTimeout(() => setShowAnimation(false), 10000);
+        setTimeout(() => setShowAnimation(false), RACE_CELEBRATION_MS);
       } else {
         setStageClear({
           stage: currentStageIndex + 1,
           seconds: completedSeconds,
+          movesMade: completedMovesMade,
+          movesRequired: stage.movesRequired,
         });
-        setAutoAdvanceArmed(true);
       }
     },
     [alreadyCompleted, isFinalStage, currentStageIndex, stage.movesRequired]
   );
-
-  // The slam outlives the 240ms pre-slide beat on purpose: it rides over
-  // the slide and fades while the next stage arrives.
-  useEffect(() => {
-    if (!stageClear) {
-      return;
-    }
-    const timeout = setTimeout(() => setStageClear(null), 1500);
-    return () => clearTimeout(timeout);
-  }, [stageClear]);
 
   const {
     answer,
@@ -270,7 +256,7 @@ const UnblockRace = ({
       if (index === currentStageIndex || transition) {
         return;
       }
-      setAutoAdvanceArmed(false);
+      setStageClear(null);
       setTransition({
         fromBoardString: answerRef.current,
         fromInitialBoardString: stages[currentStageIndex].boardString,
@@ -282,25 +268,15 @@ const UnblockRace = ({
     [currentStageIndex, transition, stages]
   );
 
+  // The stage-clear slam's call to action: dismiss the slam and kick off the
+  // seamless slide into the next board (SPEC.md §4's carousel, now started by
+  // the player instead of a timer).
   const advanceStage = useCallback(() => {
+    setStageClear(null);
     if (currentStageIndex < stages.length - 1) {
       goToStage(currentStageIndex + 1, 'forward');
     }
   }, [currentStageIndex, stages.length, goToStage]);
-
-  // After solving a non-final stage live, kick off the seamless slide once
-  // the win has registered (SPEC.md §4: "auto slide ... after we've seen the
-  // animations"). The car's exit then continues across into the next board.
-  useEffect(() => {
-    if (!autoAdvanceArmed || transition) {
-      return;
-    }
-    const timeout = setTimeout(() => {
-      setAutoAdvanceArmed(false);
-      advanceStage();
-    }, SOLVE_TO_SLIDE_DELAY_MS);
-    return () => clearTimeout(timeout);
-  }, [autoAdvanceArmed, transition, advanceStage]);
 
   // The slide is done: the destination stage is now centered. Start its timer
   // fresh so the countdown (3-2-1) only appears after the animation, then the
@@ -315,8 +291,17 @@ const UnblockRace = ({
     }
   }, [completedStages, currentStageIndex, setTimerNewSession]);
 
-  // Reference to the board for the celebration animation
-  const gridRef = useRef<HTMLDivElement>(null);
+  // Whole-run totals for the finish banner; the celebration fires only once
+  // every stage is in the map, so this is the full run by then.
+  const runTotals = useMemo(() => {
+    let seconds = 0;
+    let moves = 0;
+    for (const result of completedStages.values()) {
+      seconds += result.seconds;
+      moves += result.movesMade;
+    }
+    return { seconds, moves };
+  }, [completedStages]);
 
   const showAppDownload = useMemo(
     () => !isCapacitor() && !hasShownAppDownload,
@@ -577,9 +562,10 @@ const UnblockRace = ({
         timer.countdown > 0 && <CountdownOverlay countdown={timer.countdown} />}
 
       {completed && (
-        <CelebrationAnimation
+        <RaceCelebration
           isVisible={showAnimation}
-          gridRef={gridRef}
+          totalSeconds={runTotals.seconds}
+          totalMoves={runTotals.moves}
           completedGamesCount={completedGamesCount}
           isCapacitor={isCapacitor}
         />
@@ -625,7 +611,7 @@ const UnblockRace = ({
                 />
               </div>
 
-              <div ref={gridRef} className="relative">
+              <div className="relative">
                 {transition ? (
                   <StageTransition
                     fromBoardString={transition.fromBoardString}
@@ -651,29 +637,31 @@ const UnblockRace = ({
                   />
                 )}
 
-                {/* Stage-clear slam: rides the pre-slide beat and fades out
-                    over the incoming board, so every stage win lands with a
-                    headline, not just the final one */}
+                {/* Stage-clear slam: slams in over the solved board and
+                    holds — the run only continues when the player taps the
+                    Next-stage button, so every win gets its moment without
+                    the next puzzle stealing it */}
                 {stageClear && (
                   <div
                     data-testid="stage-clear-slam"
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-1"
+                    className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-1 rounded-2xl bg-black/30 backdrop-blur-[2px]"
                     style={{
-                      animation: 'unblock-stage-clear 1.5s ease-out forwards',
+                      animation: 'unblock-stage-clear 450ms ease-out both',
                     }}
                   >
                     <style>{`
                       @keyframes unblock-stage-clear {
                         0% { transform: scale(1.7); opacity: 0; }
-                        12% { transform: scale(0.96); opacity: 1; }
-                        18% { transform: scale(1); opacity: 1; }
-                        75% { transform: scale(1); opacity: 1; }
-                        100% { transform: scale(1); opacity: 0; }
+                        55% { transform: scale(0.96); opacity: 1; }
+                        100% { transform: scale(1); opacity: 1; }
                       }
                       @keyframes unblock-stage-clear-ring {
                         from { transform: scale(0.35); opacity: 0.8; }
                         to { transform: scale(1.6); opacity: 0; }
+                      }
+                      @keyframes unblock-stage-clear-cta {
+                        from { transform: translateY(12px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
                       }
                       @media (prefers-reduced-motion: reduce) {
                         [data-testid="stage-clear-slam"],
@@ -708,27 +696,96 @@ const UnblockRace = ({
                     >
                       Stage {stageClear.stage} clear
                     </div>
+                    {/* Result instruments: the same tiny-label-over-mono
+                        readout as the HUD's clock and gauge, so the win card
+                        reads as the dashboard's verdict — moves graded
+                        against par in the run's usual colours */}
                     <div
-                      className="font-mono text-xl font-bold tabular-nums text-white/90"
-                      style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}
+                      className="mt-1.5 flex items-stretch gap-2"
+                      style={{
+                        animation:
+                          'unblock-stage-clear-cta 400ms ease-out 150ms both',
+                      }}
                     >
-                      {formatSecondsShort(stageClear.seconds)}
+                      <div
+                        data-testid="stage-clear-time"
+                        className="flex min-w-24 flex-col items-center gap-1 rounded-xl bg-zinc-900/75 px-4 py-2 ring-1 ring-white/15 backdrop-blur"
+                      >
+                        <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/50">
+                          Time
+                        </span>
+                        <span className="font-mono text-xl font-bold tabular-nums leading-none text-white">
+                          {formatSecondsShort(stageClear.seconds)}
+                        </span>
+                      </div>
+                      <div
+                        data-testid="stage-clear-moves"
+                        className="flex min-w-24 flex-col items-center gap-1 rounded-xl bg-zinc-900/75 px-4 py-2 ring-1 ring-white/15 backdrop-blur"
+                      >
+                        <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/50">
+                          Moves
+                        </span>
+                        <span
+                          className={`font-mono text-xl font-bold tabular-nums leading-none ${
+                            stageClear.movesMade > stageClear.movesRequired
+                              ? 'text-amber-400'
+                              : stageClear.movesMade < stageClear.movesRequired
+                                ? 'text-emerald-400'
+                                : 'text-white'
+                          }`}
+                        >
+                          {stageClear.movesMade}/{stageClear.movesRequired}
+                        </span>
+                      </div>
                     </div>
+                    <div
+                      data-testid="stage-clear-par"
+                      className={`rounded-full px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-widest ${
+                        stageClear.movesMade > stageClear.movesRequired
+                          ? 'bg-amber-500/20 text-amber-300'
+                          : stageClear.movesMade < stageClear.movesRequired
+                            ? 'bg-emerald-500/20 text-emerald-300'
+                            : 'bg-white/15 text-white/85'
+                      }`}
+                      style={{
+                        animation:
+                          'unblock-stage-clear-cta 400ms ease-out 250ms both',
+                      }}
+                    >
+                      {stageClear.movesMade > stageClear.movesRequired
+                        ? `${stageClear.movesMade - stageClear.movesRequired} over par`
+                        : stageClear.movesMade < stageClear.movesRequired
+                          ? `${stageClear.movesRequired - stageClear.movesMade} under par`
+                          : 'On par'}
+                    </div>
+                    <button
+                      type="button"
+                      data-testid="next-stage-button"
+                      onClick={advanceStage}
+                      className="bg-theme-primary hover:bg-theme-primary-dark pointer-events-auto mt-3 flex cursor-pointer items-center gap-1 rounded-full px-6 py-2.5 text-sm font-black uppercase tracking-widest text-white transition-all duration-200 hover:scale-[1.03] active:scale-95"
+                      style={{
+                        boxShadow:
+                          '0 0 24px color-mix(in srgb, var(--theme-primary) 55%, transparent), 0 2px 8px rgba(0,0,0,0.35)',
+                        animation:
+                          'unblock-stage-clear-cta 400ms ease-out 350ms both',
+                      }}
+                    >
+                      Next stage
+                      <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                    </button>
                   </div>
                 )}
               </div>
 
-              {!showAnimation && (
-                <UnblockRaceTrack
-                  sessionParties={sessionParties}
-                  state={raceTrackState}
-                  userId={user?.sub || 'guest'}
-                  onClick={raceTrackOnClick}
-                  isPolling={isPolling}
-                  refreshSessionParties={refreshSessionParties}
-                  onInviteFriends={handleInviteFriends}
-                />
-              )}
+              <UnblockRaceTrack
+                sessionParties={sessionParties}
+                state={raceTrackState}
+                userId={user?.sub || 'guest'}
+                onClick={raceTrackOnClick}
+                isPolling={isPolling}
+                refreshSessionParties={refreshSessionParties}
+                onInviteFriends={handleInviteFriends}
+              />
 
               {/* Inline stats (SPEC.md §7): per-stage times/moves for the
                   whole run in one view — no modal — plus the run total once

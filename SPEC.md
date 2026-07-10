@@ -140,10 +140,11 @@ board string.
   `moves` pair is present (no commas), treat it as a 1-puzzle run.
 - **Stage transition**: when the current stage's `isSolved()` fires, the
   primary piece finishes its slide off the right edge of the grid (§9's win
-  animation), then the board swaps to the next `board[i]`/`moves[i]` pair
-  and `currentStageIndex` increments — visually, the piece's exit motion
-  continues into the next board sliding in from the left, matching "the car
-  and app scrolls across into the next puzzle position." The URL doesn't
+  animation) and a stage-clear overlay holds with a Next-stage button; when
+  the player taps it, the board swaps to the next `board[i]`/`moves[i]` pair
+  and `currentStageIndex` increments — visually, the board slides across
+  into the next puzzle, matching "the car and app scrolls across into the
+  next puzzle position." The URL doesn't
   need to change on stage transition (the full run is already encoded up
   front); `currentStageIndex` is tracked in component/session state instead,
   so a mid-run refresh can restore progress from the session rather than
@@ -250,7 +251,8 @@ built for Sudoku Race."
     the moment that stage completes — a racer who abandons the run after
     stage 2 of 5 still has stages 1–2's stats persisted normally; there's no
     "all or nothing" save tied to finishing the whole chain.
-  - On `isSolved()` for stage N, auto-advance `currentStageIndex` and route
+  - On `isSolved()` for stage N, offer a Next-stage button that advances
+    `currentStageIndex` and routes
     to stage N+1's board *without unmounting the racing chrome* — i.e. the
     puzzle board component swaps its `initial`/`final`/`boardString` props
     but `RaceTrack`/`Lobby`/party state stays mounted. This is what makes it

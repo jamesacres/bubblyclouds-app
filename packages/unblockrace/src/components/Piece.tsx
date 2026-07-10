@@ -117,7 +117,13 @@ const Piece = ({
           background: isPrimary
             ? `linear-gradient(150deg, color-mix(in srgb, ${fill} 76%, white) 0%, ${fill} 45%, color-mix(in srgb, ${fill} 80%, black) 100%)`
             : `linear-gradient(150deg, color-mix(in srgb, ${fill} 88%, white) 0%, color-mix(in srgb, ${fill} 92%, #52525b) 45%, color-mix(in srgb, ${fill} 70%, #27272a) 100%)`,
-          filter: isDragging ? 'brightness(1.12)' : undefined,
+          // Grab feedback is a physical lift — brighter, slightly scaled and
+          // casting a drop shadow — so the piece feels picked up, not tinted
+          filter: isDragging
+            ? 'brightness(1.12) drop-shadow(0 6px 10px rgba(0,0,0,0.35))'
+            : undefined,
+          transform: isDragging ? 'scale(1.04)' : undefined,
+          transition: 'transform 150ms ease-out, filter 150ms ease-out',
           // Soft outer glow in the piece's own hue plus a brighter inner
           // highlight edge — the neon treatment (SPEC.md §9). The hero
           // piece glows noticeably harder than the pack; rivals stay muted

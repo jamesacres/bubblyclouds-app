@@ -419,7 +419,7 @@ const UnblockRaceTrack = ({
                     key={player.userId}
                     className={`flex items-center justify-between px-3 py-2 ${
                       isFirst
-                        ? 'border-b border-stone-200 dark:border-zinc-700'
+                        ? 'border-b border-stone-200 bg-gradient-to-r from-amber-400/15 via-amber-400/5 to-transparent dark:border-zinc-700'
                         : ''
                     }`}
                   >

@@ -34,9 +34,16 @@ jest.mock('@bubblyclouds-app/games/components/LobbyButton', () => {
     default: DummyLobbyButton,
   };
 });
-jest.mock('@bubblyclouds-app/ui/components/CelebrationAnimation', () => ({
-  CelebrationAnimation: () => <div data-testid="celebration">Celebration</div>,
-}));
+jest.mock('./RaceCelebration', () => {
+  const DummyRaceCelebration = function DummyRaceCelebration() {
+    return <div data-testid="celebration">Celebration</div>;
+  };
+  return {
+    __esModule: true,
+    default: DummyRaceCelebration,
+    RACE_CELEBRATION_MS: 5500,
+  };
+});
 jest.mock('./UnblockRaceTrack', () => {
   const DummyRaceTrack = function DummyRaceTrack() {
     return <div data-testid="race-track">Race Track</div>;
@@ -130,15 +137,16 @@ const defaultProps = {
 };
 
 // The props of the most recent useGameState call — how the test reaches the
-// onComplete callback the component passed in (it drives auto-advance).
+// onComplete callback the component passed in (it raises the stage-clear
+// slam whose button drives the advance).
 const lastGameStateArgs = () =>
   mockUseGameState.mock.calls[mockUseGameState.mock.calls.length - 1][0];
 
 // Drive a stage transition to completion under fake timers. Two separate
 // act() advances so React flushes passive effects between them: the first
-// fires the armed auto-advance (which mounts StageTransition and schedules
-// its onDone timer), the second fires that onDone. A single combined advance
-// would elapse before the mid-flush onDone timer is even scheduled.
+// lets the freshly-mounted StageTransition schedule its onDone timer, the
+// second fires that onDone. A single combined advance would elapse before
+// the mid-flush onDone timer is even scheduled.
 const runTransition = () => {
   act(() => {
     jest.advanceTimersByTime(1200);
@@ -198,7 +206,7 @@ describe('UnblockRace', () => {
     );
   });
 
-  it('auto-advances to the next stage without unmounting the racing chrome', () => {
+  it('advances to the next stage via the stage-clear button without unmounting the racing chrome', () => {
     jest.useFakeTimers();
     try {
       mockUseGameState.mockReturnValue({
@@ -211,12 +219,30 @@ describe('UnblockRace', () => {
       render(<UnblockRace {...defaultProps} />);
       const raceTrack = screen.getByTestId('race-track');
 
-      // Solving a non-final stage arms the auto-advance; the car exit plays,
-      // then the board slides across into the next puzzle (SPEC.md §4).
+      // Solving a non-final stage raises the stage-clear slam and holds —
+      // no timer advances the run on its own.
       const onComplete = lastGameStateArgs().onComplete;
       act(() => {
         onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
       });
+      act(() => {
+        jest.advanceTimersByTime(5000);
+      });
+      expect(screen.getByTestId('stage-clear-slam')).toBeInTheDocument();
+      // The slam carries the stage's full result: time, moves vs par and
+      // the par verdict.
+      expect(screen.getByTestId('stage-clear-time')).toHaveTextContent('0:42');
+      expect(screen.getByTestId('stage-clear-moves')).toHaveTextContent('3/3');
+      expect(screen.getByTestId('stage-clear-par')).toHaveTextContent('On par');
+      expect(screen.getByTestId('stage-preview-0')).toHaveAttribute(
+        'aria-current',
+        'true'
+      );
+
+      // The player taps Next stage; the slam dismisses and the board slides
+      // across into the next puzzle (SPEC.md §4).
+      fireEvent.click(screen.getByTestId('next-stage-button'));
+      expect(screen.queryByTestId('stage-clear-slam')).not.toBeInTheDocument();
       runTransition();
 
       expect(screen.getByTestId('stage-preview-1')).toHaveAttribute(
@@ -305,7 +331,7 @@ describe('UnblockRace', () => {
       });
 
       // Ticked off in the chain strip and recorded in the inline results
-      // panel (SPEC.md §7) — before the auto-advance slide runs.
+      // panel (SPEC.md §7) — while the stage-clear slam is still holding.
       expect(
         screen.getByTestId('stage-preview-0-complete')
       ).toBeInTheDocument();
@@ -375,7 +401,10 @@ describe('UnblockRace', () => {
       });
       setTimerNewSession.mockClear();
       // The countdown/timer for the next stage only starts after the
-      // animations, i.e. once the slide's onDone fires.
+      // animations: the player taps Next stage, then the slide's onDone
+      // fires.
+      fireEvent.click(screen.getByTestId('next-stage-button'));
+      expect(setTimerNewSession).not.toHaveBeenCalled();
       runTransition();
 
       expect(setTimerNewSession).toHaveBeenCalledWith(null);
