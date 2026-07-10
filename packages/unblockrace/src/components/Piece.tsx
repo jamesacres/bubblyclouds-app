@@ -166,7 +166,11 @@ const Piece = ({
                       width: '10%',
                     }),
                 borderRadius: 999,
-                background: isPrimary ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.32)',
+                background: isPrimary ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.4)',
+                // A faint light rim so the tires still read against the dark
+                // board sockets — without it the "traffic" read is lost in
+                // dark mode
+                boxShadow: `0 0 0 1px rgba(255,255,255,${isPrimary ? 0.16 : 0.12})`,
               }}
             />
           ))
@@ -244,11 +248,13 @@ const Piece = ({
             ))}
           </>
         ) : (
-          // Rival cabin: one tinted glass canopy for a car, a row of bus
-          // windows for the size-3 rigs. Quieter than the hero's chrome —
+          // Rival glass: a car gets a front and a rear windshield band so
+          // its top reads as a car roof at a glance (one centred canopy
+          // used to read as a hole punched in the piece); the size-3 rigs
+          // keep a row of bus windows. Quieter than the hero's chrome —
           // no lights, dimmer glass — so rivals read as parked traffic.
           <>
-            {(piece.size >= 3 ? ['12%', '42%', '72%'] : ['32%']).map(
+            {(piece.size >= 3 ? ['12%', '42%', '72%'] : ['16%', '66%']).map(
               (along) => (
                 <div
                   key={`cabin-${along}`}
@@ -258,19 +264,19 @@ const Piece = ({
                     ...(horizontal
                       ? {
                           left: along,
-                          width: piece.size >= 3 ? '16%' : '36%',
-                          top: '22%',
-                          bottom: '22%',
+                          width: piece.size >= 3 ? '16%' : '18%',
+                          top: '20%',
+                          bottom: '20%',
                         }
                       : {
                           top: along,
-                          height: piece.size >= 3 ? '16%' : '36%',
-                          left: '22%',
-                          right: '22%',
+                          height: piece.size >= 3 ? '16%' : '18%',
+                          left: '20%',
+                          right: '20%',
                         }),
                     borderRadius: '30%',
                     background:
-                      'linear-gradient(150deg, rgba(15,23,42,0.4), rgba(15,23,42,0.22))',
+                      'linear-gradient(150deg, rgba(15,23,42,0.42), rgba(15,23,42,0.24))',
                     boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.3)',
                   }}
                 />

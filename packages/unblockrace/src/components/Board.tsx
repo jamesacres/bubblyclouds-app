@@ -12,6 +12,11 @@ import Piece from './Piece';
 
 interface BoardProps {
   boardString: string;
+  // The stage's starting layout. Piece colours are assigned from it, not the
+  // live board — the assignment is adjacency-aware, so deriving it from the
+  // live positions would reshuffle rival colours as pieces move. Falls back
+  // to boardString for standalone renders.
+  initialBoardString?: string;
   onMove: (move: Move) => void;
   isDisabled?: boolean;
   // Frozen render used as the outgoing board during a stage transition: no
@@ -24,14 +29,24 @@ interface BoardProps {
 // square aspect-ratio-locked container. Static layout is %-based; the
 // actively-dragged piece moves via translate3d written directly to the DOM
 // node by useDrag.
-const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
+const Board = ({
+  boardString,
+  initialBoardString,
+  onMove,
+  isDisabled,
+  isStatic,
+}: BoardProps) => {
   const boardRef = useRef<HTMLDivElement>(null);
   const board = useMemo(() => parseBoardString(boardString), [boardString]);
   const solved = isSolved(board);
   const themeColor = useThemeColorName();
+  const colorBoard = useMemo(
+    () => (initialBoardString ? parseBoardString(initialBoardString) : board),
+    [initialBoardString, board]
+  );
   const pieceColors = useMemo(
-    () => assignPieceColors(board, themeColor),
-    [board, themeColor]
+    () => assignPieceColors(colorBoard, themeColor),
+    [colorBoard, themeColor]
   );
 
   const {

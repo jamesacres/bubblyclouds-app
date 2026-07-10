@@ -116,7 +116,7 @@ describe('StageResultPanel', () => {
       opponentDeltaSeconds: 3,
     });
     expect(screen.getByTestId('stage-result-opponent')).toHaveTextContent(
-      'Beat opponent by 00:00:03'
+      'Beat opponent by 0:03'
     );
   });
 
@@ -127,7 +127,7 @@ describe('StageResultPanel', () => {
       opponentDeltaSeconds: -3,
     });
     expect(screen.getByTestId('stage-result-opponent')).toHaveTextContent(
-      '00:00:03 behind opponent'
+      '0:03 behind opponent'
     );
   });
 
@@ -141,10 +141,8 @@ describe('StageResultPanel', () => {
       ]),
       runComplete: true,
     });
-    // 30 + 40 = 70s = 00:01:10, 4 + 6 = 10 moves
-    expect(screen.getByTestId('stage-result-total')).toHaveTextContent(
-      '00:01:10'
-    );
+    // 30 + 40 = 70s = 1:10, 4 + 6 = 10 moves
+    expect(screen.getByTestId('stage-result-total')).toHaveTextContent('1:10');
     expect(screen.getByTestId('stage-result-total')).toHaveTextContent(
       '10 moves'
     );

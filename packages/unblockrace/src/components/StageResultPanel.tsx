@@ -1,7 +1,6 @@
 'use client';
 
 import { Car, Check, Flag, Target, Trophy } from 'lucide-react';
-import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { RunStage, StageResult } from '../helpers/stageResults';
 import { difficultyForMoves } from '../helpers/difficulty';
 import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
@@ -157,7 +156,7 @@ const StageResultPanel = ({
                   aria-current={isCurrent}
                   aria-label={`Stage ${i + 1}${
                     result
-                      ? `, completed in ${formatSeconds(result.seconds)}, ${result.movesMade} moves`
+                      ? `, completed in ${formatSecondsShort(result.seconds)}, ${result.movesMade} moves`
                       : ''
                   }`}
                   className="shrink-0"
@@ -205,32 +204,44 @@ const StageResultPanel = ({
                     )}
                   </span>
                 </button>
-                {/* One line per stage: a finished stage shows its time and
-                    moves-vs-par; an upcoming one shows what's ahead —
-                    difficulty and par — instead of a broken-looking dash */}
+                {/* Two stacked lines per stage — a chip plus a plain caption
+                    — so nothing ever wraps mid-pill in the narrow columns. A
+                    finished stage's chip is its moves-vs-par (that's what the
+                    colour grades) with the time as the caption; an upcoming
+                    stage's chip is its difficulty with the par as the
+                    caption. */}
                 {result ? (
-                  <span
-                    data-testid={`stage-par-${i}`}
-                    className={`rounded-full px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold tabular-nums ${
-                      isOverPar
-                        ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
-                        : isUnderPar
-                          ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                          : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
-                    }`}
-                  >
-                    {formatSecondsShort(result.seconds)} · {result.movesMade}/
-                    {result.movesRequired}
-                    <span className="sr-only"> moves</span>
-                  </span>
+                  <>
+                    <span
+                      data-testid={`stage-par-${i}`}
+                      className={`whitespace-nowrap rounded-full px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold tabular-nums ${
+                        isOverPar
+                          ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                          : isUnderPar
+                            ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                            : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
+                      }`}
+                    >
+                      {result.movesMade}/{result.movesRequired}
+                      <span className="sr-only"> moves</span>
+                    </span>
+                    <span className="whitespace-nowrap font-mono text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
+                      {formatSecondsShort(result.seconds)}
+                    </span>
+                  </>
                 ) : (
-                  <span
-                    data-testid={`stage-difficulty-${i}`}
-                    className={`max-w-full rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
-                  >
-                    {difficulty.shortLabel} · par {stage.movesRequired}
-                    <span className="sr-only">{` (${difficulty.label})`}</span>
-                  </span>
+                  <>
+                    <span
+                      data-testid={`stage-difficulty-${i}`}
+                      className={`whitespace-nowrap rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+                    >
+                      {difficulty.shortLabel}
+                      <span className="sr-only">{` (${difficulty.label})`}</span>
+                    </span>
+                    <span className="whitespace-nowrap text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
+                      par {stage.movesRequired}
+                    </span>
+                  </>
                 )}
               </li>
             );
@@ -248,8 +259,8 @@ const StageResultPanel = ({
           >
             <Target className="h-4 w-4" aria-hidden="true" />
             {opponentDeltaSeconds >= 0
-              ? `Beat opponent by ${formatSeconds(opponentDeltaSeconds)}`
-              : `${formatSeconds(-opponentDeltaSeconds)} behind opponent`}
+              ? `Beat opponent by ${formatSecondsShort(opponentDeltaSeconds)}`
+              : `${formatSecondsShort(-opponentDeltaSeconds)} behind opponent`}
           </p>
         )}
 
@@ -272,7 +283,9 @@ const StageResultPanel = ({
               Total
             </span>
             <span className="tabular-nums">
-              <span className="font-mono">{formatSeconds(totalSeconds)}</span>
+              <span className="font-mono">
+                {formatSecondsShort(totalSeconds)}
+              </span>
               {' · '}
               {totalMoves} moves
             </span>

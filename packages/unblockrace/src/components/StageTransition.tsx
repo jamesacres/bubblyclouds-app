@@ -16,6 +16,10 @@ interface StageTransitionProps {
   // the primary piece's win-exit still playing, so the car slides off this
   // board's right edge just as the track carries it toward the next.
   fromBoardString: string;
+  // The outgoing stage's starting layout, so the frozen board keeps the
+  // exact piece colours the player just played with (colour assignment is
+  // pinned to a stage's initial layout, not its live positions).
+  fromInitialBoardString?: string;
   // 'forward' when advancing to the next stage (incoming enters from the
   // right), 'back' when jumping to an earlier stage (incoming enters from
   // the left). Both primary pieces are the theme colour, so a forward slide
@@ -31,6 +35,7 @@ interface StageTransitionProps {
 // so the destination board slides into place as the solved board slides out.
 const StageTransition = ({
   fromBoardString,
+  fromInitialBoardString,
   direction,
   children,
   onDone,
@@ -42,7 +47,12 @@ const StageTransition = ({
 
   const outgoing = (
     <div key="outgoing" className="w-1/2 shrink-0">
-      <Board boardString={fromBoardString} onMove={noop} isStatic />
+      <Board
+        boardString={fromBoardString}
+        initialBoardString={fromInitialBoardString}
+        onMove={noop}
+        isStatic
+      />
     </div>
   );
   const incoming = (

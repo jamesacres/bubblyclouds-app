@@ -9,7 +9,6 @@ import {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
-import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
@@ -29,6 +28,7 @@ import { difficultyForMoves } from '../helpers/difficulty';
 import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
 import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
 import { getDailyNumber } from '../helpers/mockData';
+import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import { addDailyRunId, canStartRun } from '../utils/dailyRunCounter';
 import {
   RunStage,
@@ -119,6 +119,9 @@ const UnblockRace = ({
   // an earlier one from the preview strip.
   const [transition, setTransition] = useState<{
     fromBoardString: string;
+    // The outgoing stage's starting layout, so the frozen board keeps the
+    // piece colours the player just saw (colours are pinned per stage).
+    fromInitialBoardString: string;
     direction: 'forward' | 'back';
   } | null>(null);
   const stage = stages[currentStageIndex];
@@ -268,11 +271,15 @@ const UnblockRace = ({
         return;
       }
       setAutoAdvanceArmed(false);
-      setTransition({ fromBoardString: answerRef.current, direction });
+      setTransition({
+        fromBoardString: answerRef.current,
+        fromInitialBoardString: stages[currentStageIndex].boardString,
+        direction,
+      });
       setCurrentStageIndex(index);
       setRaceStarted(true);
     },
-    [currentStageIndex, transition]
+    [currentStageIndex, transition, stages]
   );
 
   const advanceStage = useCallback(() => {
@@ -622,12 +629,14 @@ const UnblockRace = ({
                 {transition ? (
                   <StageTransition
                     fromBoardString={transition.fromBoardString}
+                    fromInitialBoardString={transition.fromInitialBoardString}
                     direction={transition.direction}
                     onDone={handleTransitionDone}
                   >
                     <Board
                       key={puzzleId}
                       boardString={answer}
+                      initialBoardString={initial}
                       onMove={pushMove}
                       isDisabled
                     />
@@ -636,6 +645,7 @@ const UnblockRace = ({
                   <Board
                     key={puzzleId}
                     boardString={answer}
+                    initialBoardString={initial}
                     onMove={pushMove}
                     isDisabled={!!completed || showLobby}
                   />
@@ -702,7 +712,7 @@ const UnblockRace = ({
                       className="font-mono text-xl font-bold tabular-nums text-white/90"
                       style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}
                     >
-                      {formatSeconds(stageClear.seconds)}
+                      {formatSecondsShort(stageClear.seconds)}
                     </div>
                   </div>
                 )}

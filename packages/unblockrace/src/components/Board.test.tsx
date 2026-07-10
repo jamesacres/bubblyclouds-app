@@ -112,6 +112,51 @@ describe('Board', () => {
     expect(onMove).not.toHaveBeenCalled();
   });
 
+  it('keeps piece colours pinned to the initial layout as pieces move', () => {
+    // F starts orthogonally adjacent to B, so the adjacency-aware assignment
+    // steers F away from B's hue family. After F moves right it has no
+    // coloured neighbours — recolouring from the live board would give F a
+    // different hue mid-game.
+    const initial = [
+      'BBFFoo',
+      'oooooo',
+      'AAoooo',
+      'CCoooo',
+      'DDoooo',
+      'EEoooo',
+    ].join('');
+    const moved = [
+      'BBoFFo',
+      'oooooo',
+      'AAoooo',
+      'CCoooo',
+      'DDoooo',
+      'EEoooo',
+    ].join('');
+
+    const { rerender } = render(
+      <Board
+        boardString={initial}
+        initialBoardString={initial}
+        onMove={jest.fn()}
+      />
+    );
+    const pieceBody = screen.getByTestId('piece-F').firstChild as HTMLElement;
+    const colorBefore = pieceBody.style.background;
+
+    rerender(
+      <Board
+        boardString={moved}
+        initialBoardString={initial}
+        onMove={jest.fn()}
+      />
+    );
+
+    expect(
+      (screen.getByTestId('piece-F').firstChild as HTMLElement).style.background
+    ).toBe(colorBefore);
+  });
+
   it('renders but does not accept drags when static (transition ghost)', () => {
     const onMove = jest.fn();
     render(<Board boardString={INITIAL} onMove={onMove} isStatic />);

@@ -50,7 +50,19 @@ const SimpleBoard = (props: SimpleBoardProps) => {
     return null;
   }
 
-  const pieceColors = assignPieceColors(board, themeColor);
+  // Colours are pinned to the starting layout: the assignment is
+  // adjacency-aware, so deriving it from the live positions would recolour
+  // pieces move by move as a session progresses.
+  let colorBoard = board;
+  if (initial && boardString !== initial) {
+    try {
+      colorBoard = parseBoardString(initial);
+    } catch {
+      // keep the live board's colours if the initial string is unusable
+    }
+  }
+
+  const pieceColors = assignPieceColors(colorBoard, themeColor);
 
   const background = transparent ? '' : 'bg-zinc-50 dark:bg-zinc-900';
   return (

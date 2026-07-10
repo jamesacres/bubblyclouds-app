@@ -64,6 +64,13 @@ const RaceHud = ({
             );
           })}
         </span>
+        {/* Pips alone don't carry a count at a glance */}
+        <span
+          aria-hidden="true"
+          className="text-[0.6rem] font-bold tabular-nums text-stone-400 dark:text-zinc-500"
+        >
+          {currentStageIndex + 1}/{stageCount}
+        </span>
       </span>
     )}
 

@@ -16,8 +16,8 @@ import {
   getPlayerColor,
   getAllUserIds,
 } from '@bubblyclouds-app/template/utils/playerColors';
-import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { ServerState } from '../types/state';
+import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
@@ -303,9 +303,11 @@ const UnblockRaceTrack = ({
             />
 
             {/* Solo hint inside the otherwise-empty lane; the whole card
-                already opens the opponents lobby on tap */}
+                already opens the opponents lobby on tap. Pinned to the
+                bottom edge so it never collides with the player's car
+                driving the upper half of the lane. */}
             {allPlayerProgress.length <= 1 && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center">
+              <div className="absolute inset-0 z-10 flex items-end justify-center pb-1">
                 {/* Solid plaque so the lane's dashed centre line can't
                     strike through the words */}
                 <span className="flex items-center gap-1 rounded-full bg-zinc-900/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white/70 shadow-sm ring-1 ring-white/10">
@@ -392,7 +394,7 @@ const UnblockRaceTrack = ({
                       readout already lives in the HUD gauge */}
                   <span className="tabular-nums text-stone-400 dark:text-zinc-500">
                     {player.finishTime !== undefined && !player.isPuzzleCheated
-                      ? formatSeconds(player.finishTime)
+                      ? formatSecondsShort(player.finishTime)
                       : `${player.percentage}%`}
                   </span>
                 </span>
@@ -456,7 +458,7 @@ const UnblockRaceTrack = ({
                           : 'text-stone-500 dark:text-zinc-400'
                       }`}
                     >
-                      {formatSeconds(player.finishTime!)}
+                      {formatSecondsShort(player.finishTime!)}
                     </span>
                   </div>
                 );
@@ -508,7 +510,7 @@ const UnblockRaceTrack = ({
                   <div className="mt-0.5 text-xs text-stone-500 dark:text-zinc-400">
                     Your time:{' '}
                     <span className="font-mono tabular-nums">
-                      {formatSeconds(currentUserProgress.finishTime)}
+                      {formatSecondsShort(currentUserProgress.finishTime)}
                     </span>
                   </div>
                 </div>
