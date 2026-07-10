@@ -9,7 +9,6 @@ import {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
-import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
 import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
@@ -39,6 +38,7 @@ import {
 import Board from './Board';
 import Controls from './Controls';
 import RaceHud from './RaceHud';
+import RaceTimer from './RaceTimer';
 import SimpleBoard from './SimpleBoard';
 import UnblockRaceTrack from './UnblockRaceTrack';
 import StageResultPanel from './StageResultPanel';
@@ -597,19 +597,6 @@ const UnblockRace = ({
                   currentStageIndex={currentStageIndex}
                   completedStageIndexes={completedStageIndexes}
                   difficulty={stageDifficulty}
-                  timer={
-                    <div
-                      className={
-                        timer?.countdown || !!completed ? 'text-2xl' : 'text-lg'
-                      }
-                    >
-                      <TimerDisplay
-                        seconds={calculateSeconds(timer)}
-                        countdown={timer?.countdown}
-                        isComplete={!!completed}
-                      />
-                    </div>
-                  }
                 />
 
                 <Controls
@@ -621,6 +608,13 @@ const UnblockRace = ({
                   isDisabled={!!completed}
                   movesMade={movesMade}
                   movesRequired={stage.movesRequired}
+                  timer={
+                    <RaceTimer
+                      seconds={calculateSeconds(timer)}
+                      countdown={timer?.countdown}
+                      isComplete={!!completed}
+                    />
+                  }
                 />
               </div>
 
@@ -667,10 +661,34 @@ const UnblockRace = ({
                         75% { transform: scale(1); opacity: 1; }
                         100% { transform: scale(1); opacity: 0; }
                       }
+                      @keyframes unblock-stage-clear-ring {
+                        from { transform: scale(0.35); opacity: 0.8; }
+                        to { transform: scale(1.6); opacity: 0; }
+                      }
                       @media (prefers-reduced-motion: reduce) {
-                        [data-testid="stage-clear-slam"] { animation: none !important; }
+                        [data-testid="stage-clear-slam"],
+                        [data-testid="stage-clear-slam"] * { animation: none !important; }
                       }
                     `}</style>
+                    {/* Theme-colour shockwave rippling out behind the
+                        headline, so the win lands as an impact, not just
+                        text */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 flex items-center justify-center"
+                    >
+                      <div
+                        className="h-44 w-44 rounded-full"
+                        style={{
+                          border:
+                            '3px solid color-mix(in srgb, var(--theme-primary) 85%, white)',
+                          boxShadow:
+                            '0 0 24px color-mix(in srgb, var(--theme-primary) 60%, transparent), inset 0 0 24px color-mix(in srgb, var(--theme-primary) 40%, transparent)',
+                          animation:
+                            'unblock-stage-clear-ring 700ms ease-out forwards',
+                        }}
+                      />
+                    </div>
                     <div
                       className="text-4xl font-black uppercase tracking-tight text-white"
                       style={{

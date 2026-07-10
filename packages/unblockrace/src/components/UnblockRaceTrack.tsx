@@ -20,7 +20,6 @@ import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { ServerState } from '../types/state';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay';
-import { calculateProgressStatsDisplayFromState } from '../helpers/calculateProgressStatsDisplay';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 
 interface UnblockRaceTrackProps {
@@ -43,7 +42,6 @@ interface PlayerProgress {
   finishTime?: number;
   isPuzzleCheated: boolean;
   statsDisplay?: string;
-  progressStatsDisplay?: string;
 }
 
 // Unblock Race's own race strip. The shared @games RaceTrack keeps its kart
@@ -124,7 +122,6 @@ const UnblockRaceTrack = ({
         isPuzzleCheated:
           currentUserPercentage === 100 && isPuzzleCheated(state.answerStack),
         statsDisplay: calculateStatsDisplayFromState(state),
-        progressStatsDisplay: calculateProgressStatsDisplayFromState(state),
       };
     }
 
@@ -162,9 +159,6 @@ const UnblockRaceTrack = ({
                 isPuzzleCheated(session.state.answerStack),
               statsDisplay: session
                 ? calculateStatsDisplayFromState(session.state)
-                : undefined,
-              progressStatsDisplay: session
-                ? calculateProgressStatsDisplayFromState(session.state)
                 : undefined,
             };
           }
@@ -231,6 +225,26 @@ const UnblockRaceTrack = ({
               glance — with edge lines, start lights and a checkered finish
               column */}
           <div className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-zinc-800 via-zinc-700/90 to-zinc-800 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900">
+            <style>{`
+              @keyframes unblock-lane-shimmer {
+                from { transform: translateX(-120%); }
+                to { transform: translateX(520%); }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .unblock-lane-shimmer { animation: none !important; opacity: 0 !important; }
+              }
+            `}</style>
+            {/* Slow light sweep along the asphalt so the strip reads alive
+                even before anyone has moved */}
+            <div
+              aria-hidden="true"
+              className="unblock-lane-shimmer pointer-events-none absolute inset-y-0 w-1/4"
+              style={{
+                background:
+                  'linear-gradient(105deg, transparent, rgba(255,255,255,0.07), transparent)',
+                animation: 'unblock-lane-shimmer 5.5s linear infinite',
+              }}
+            />
             {/* Lane edge lines */}
             <div
               aria-hidden="true"
@@ -291,8 +305,10 @@ const UnblockRaceTrack = ({
             {/* Solo hint inside the otherwise-empty lane; the whole card
                 already opens the opponents lobby on tap */}
             {allPlayerProgress.length <= 1 && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="flex items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white/40">
+              <div className="absolute inset-0 z-10 flex items-center justify-center">
+                {/* Solid plaque so the lane's dashed centre line can't
+                    strike through the words */}
+                <span className="flex items-center gap-1 rounded-full bg-zinc-900/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white/70 shadow-sm ring-1 ring-white/10">
                   Invite friends to race
                   <ChevronRight className="h-3 w-3" aria-hidden="true" />
                 </span>
@@ -372,8 +388,12 @@ const UnblockRaceTrack = ({
                   >
                     {player.nickname}
                   </span>
-                  <span className="text-stone-400 dark:text-zinc-500">
-                    {player.progressStatsDisplay ?? `${player.percentage}%`}
+                  {/* Position or finish time only — the live moves-vs-par
+                      readout already lives in the HUD gauge */}
+                  <span className="tabular-nums text-stone-400 dark:text-zinc-500">
+                    {player.finishTime !== undefined && !player.isPuzzleCheated
+                      ? formatSeconds(player.finishTime)
+                      : `${player.percentage}%`}
                   </span>
                 </span>
               );

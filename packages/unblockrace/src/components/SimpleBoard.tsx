@@ -3,7 +3,7 @@
 import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { parseBoardString } from '../helpers/parseBoardString';
 import { pieceCol, pieceRow } from '../helpers/piece';
-import { getPieceColor } from '../helpers/pieceColors';
+import { assignPieceColors } from '../helpers/pieceColors';
 import { useThemeColorName } from '../hooks/useThemeColorName';
 
 interface SimpleBoardProps {
@@ -11,13 +11,17 @@ interface SimpleBoardProps {
   latest?: string;
   transparent?: boolean;
   compact?: boolean;
+  // Rivals render as neutral silhouettes so only the hero car carries
+  // colour — at thumbnail size the full palette is just noise (the stage
+  // filmstrip uses this; lobby previews keep the colours).
+  muteRivals?: boolean;
   state?: BaseState<string, string>;
 }
 
 // Non-interactive small render, mirrors SimpleSudoku (used in MyPuzzlesTab
 // rows, FriendsTab, session lists and the lobby).
 const SimpleBoard = (props: SimpleBoardProps) => {
-  const { transparent, compact } = props;
+  const { transparent, compact, muteRivals } = props;
   const themeColor = useThemeColorName();
 
   let initial: string | undefined;
@@ -46,6 +50,8 @@ const SimpleBoard = (props: SimpleBoardProps) => {
     return null;
   }
 
+  const pieceColors = assignPieceColors(board, themeColor);
+
   const background = transparent ? '' : 'bg-zinc-50 dark:bg-zinc-900';
   return (
     <div
@@ -69,6 +75,7 @@ const SimpleBoard = (props: SimpleBoardProps) => {
         const horizontal = piece.orientation === 'horizontal';
         const spanX = horizontal ? piece.size : 1;
         const spanY = horizontal ? 1 : piece.size;
+        const isPrimary = index === 0;
         return (
           <div
             key={String.fromCharCode(65 + index)}
@@ -81,11 +88,17 @@ const SimpleBoard = (props: SimpleBoardProps) => {
             }}
           >
             <div
+              className={
+                muteRivals && !isPrimary
+                  ? 'bg-stone-300/90 dark:bg-zinc-600/80'
+                  : undefined
+              }
               style={{
                 position: 'absolute',
                 inset: '8%',
                 borderRadius: '22%',
-                background: getPieceColor(index, themeColor),
+                background:
+                  muteRivals && !isPrimary ? undefined : pieceColors[index],
               }}
             />
           </div>

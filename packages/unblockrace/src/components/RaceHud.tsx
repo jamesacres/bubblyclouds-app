@@ -1,6 +1,5 @@
 'use client';
 
-import { ReactNode } from 'react';
 import { Users } from 'lucide-react';
 import { UnblockDifficultyDisplay } from '../helpers/difficultyDisplay';
 
@@ -13,21 +12,20 @@ interface RaceHudProps {
   // Difficulty of the current stage — shown as its own chip; pips stay in
   // the theme colour so a hard stage doesn't read as a warning light.
   difficulty: UnblockDifficultyDisplay;
-  timer: ReactNode;
 }
 
 // Top row of the HUD card (Controls is the bottom row): opponents on the
-// left, a stage pip strip with the difficulty chip in the middle, timer on
-// the right. Unblock Race's own chrome — the shared @games LobbyButton
-// keeps its styling for sudoku. Pip semantics: filled = done, ring =
-// upcoming, wide glowing pill = current.
+// left, a stage pip strip in the middle, the difficulty chip on the right.
+// The clock lives with the moves gauge in the bottom row, so nothing here
+// competes for width and the chip never truncates. Unblock Race's own
+// chrome — the shared @games LobbyButton keeps its styling for sudoku. Pip
+// semantics: filled = done, ring = upcoming, wide glowing pill = current.
 const RaceHud = ({
   onOpponentsClick,
   stageCount,
   currentStageIndex,
   completedStageIndexes,
   difficulty,
-  timer,
 }: RaceHudProps) => (
   <div
     data-testid="race-hud"
@@ -45,8 +43,8 @@ const RaceHud = ({
     {stageCount > 1 && (
       <span
         data-testid="stage-chip"
-        aria-label={`Stage ${currentStageIndex + 1} of ${stageCount}, ${difficulty.label}`}
-        className="flex min-w-0 items-center gap-2 whitespace-nowrap"
+        aria-label={`Stage ${currentStageIndex + 1} of ${stageCount}`}
+        className="flex items-center gap-1"
       >
         <span className="flex items-center gap-1" aria-hidden="true">
           {Array.from({ length: stageCount }, (_, i) => {
@@ -66,16 +64,14 @@ const RaceHud = ({
             );
           })}
         </span>
-        <span
-          className={`truncate rounded-full px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
-          aria-hidden="true"
-        >
-          {difficulty.shortLabel}
-        </span>
       </span>
     )}
 
-    <div className="ml-auto text-right font-mono tabular-nums">{timer}</div>
+    <span
+      className={`ml-auto shrink-0 rounded-full px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+    >
+      {difficulty.shortLabel}
+    </span>
   </div>
 );
 

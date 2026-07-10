@@ -6,7 +6,7 @@ import { parseBoardString } from '../helpers/parseBoardString';
 import { pieceRow } from '../helpers/piece';
 import { useDrag } from '../hooks/useDrag';
 import { isSolved } from '../helpers/isSolved';
-import { getPieceColor } from '../helpers/pieceColors';
+import { assignPieceColors } from '../helpers/pieceColors';
 import { useThemeColorName } from '../hooks/useThemeColorName';
 import Piece from './Piece';
 
@@ -29,6 +29,10 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
   const board = useMemo(() => parseBoardString(boardString), [boardString]);
   const solved = isSolved(board);
   const themeColor = useThemeColorName();
+  const pieceColors = useMemo(
+    () => assignPieceColors(board, themeColor),
+    [board, themeColor]
+  );
 
   const {
     draggingPiece,
@@ -79,6 +83,10 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
           from { transform: translate(50%, -50%) scale(0.3); opacity: 0.9; }
           to { transform: translate(50%, -50%) scale(2.4); opacity: 0; }
         }
+        @keyframes unblock-piece-enter {
+          from { transform: scale(0.55); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
         @media (prefers-reduced-motion: reduce) {
           [data-testid="unblock-board"],
           [data-testid="unblock-board"] * {
@@ -103,8 +111,12 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
           }}
         >
           <div
-            className="absolute rounded-[18%] bg-zinc-900/[0.06] dark:bg-white/[0.07]"
-            style={{ inset: '6%' }}
+            className="absolute rounded-[18%] bg-zinc-900/[0.07] dark:bg-white/[0.11]"
+            style={{
+              inset: '6%',
+              boxShadow:
+                'inset 0 1px 3px rgba(0,0,0,0.12), inset 0 -1px 1px rgba(255,255,255,0.06)',
+            }}
           />
         </div>
       ))}
@@ -218,24 +230,6 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
               backgroundPosition: '0 0, 0 2.5px, 2.5px -2.5px, -2.5px 0px',
             }}
           />
-          {/* Goal posts capping the gate bar top and bottom */}
-          {[{ top: '8%' }, { bottom: '8%' }].map((edgeOffset, post) => (
-            <div
-              key={post}
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                right: 0,
-                ...edgeOffset,
-                width: 'max(12%, 12px)',
-                height: 'max(4%, 3px)',
-                borderRadius: 2,
-                background: 'var(--theme-primary)',
-                boxShadow:
-                  '0 0 8px 1px color-mix(in srgb, var(--theme-primary) 60%, transparent)',
-              }}
-            />
-          ))}
           <div
             style={{
               width: 'max(4%, 3px)',
@@ -286,12 +280,15 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
           index={index}
           width={board.width}
           height={board.height}
-          color={getPieceColor(index, themeColor)}
+          color={pieceColors[index]}
           isDragging={draggingPiece === index}
           // The car's exit still plays on a static (outgoing) board so its
           // slide off the right edge continues seamlessly into the next
           // board arriving during a stage transition (SPEC.md §4).
           isExiting={solved && index === 0}
+          // Staggered pop-in as a stage arrives; the frozen outgoing board
+          // of a transition must not replay it.
+          entranceDelayMs={isStatic ? undefined : 60 + index * 40}
           onPointerDown={isStatic ? undefined : onPointerDown}
           onPointerMove={isStatic ? undefined : onPointerMove}
           onPointerUp={isStatic ? undefined : onPointerUp}

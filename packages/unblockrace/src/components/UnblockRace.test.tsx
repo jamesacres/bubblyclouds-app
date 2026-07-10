@@ -400,7 +400,7 @@ describe('UnblockRace', () => {
 
     render(<UnblockRace {...defaultProps} />);
 
-    expect(screen.getByTestId('stage-result-0')).toHaveTextContent('00:00:30');
+    expect(screen.getByTestId('stage-result-0')).toHaveTextContent('0:30');
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('3/3');
   });
 });

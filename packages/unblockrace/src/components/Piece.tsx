@@ -23,11 +23,19 @@ interface PieceProps {
   // Win animation: the primary piece continues its slide fully off the
   // right edge of the grid (SPEC.md §9)
   isExiting?: boolean;
+  // Staggered pop-in when a stage arrives; undefined skips the entrance
+  // (static transition boards, reduced-motion handled by Board's media rule).
+  entranceDelayMs?: number;
   onPointerDown?: (event: ReactPointerEvent, pieceIndex: number) => void;
   onPointerMove?: (event: ReactPointerEvent) => void;
   onPointerUp?: (event: ReactPointerEvent) => void;
   onPointerCancel?: (event: ReactPointerEvent) => void;
 }
+
+// Wheel offsets along the vehicle's long axis: two axles for a car, three
+// for the size-3 rigs, so every rival reads as traffic at a glance.
+const wheelPositions = (size: number): string[] =>
+  size >= 3 ? ['7%', '43%', '79%'] : ['12%', '70%'];
 
 const Piece = ({
   piece,
@@ -37,6 +45,7 @@ const Piece = ({
   color,
   isDragging,
   isExiting,
+  entranceDelayMs,
   onPointerDown,
   onPointerMove,
   onPointerUp,
@@ -100,7 +109,7 @@ const Piece = ({
         style={{
           position: 'absolute',
           inset: '6%',
-          borderRadius: isPrimary ? '30% / 42%' : '22%',
+          borderRadius: isPrimary ? '30% / 42%' : '26% / 34%',
           // A lit-from-above gradient instead of a flat fill so pieces read
           // as physical, glowing blocks; color-mix works for the primary's
           // var(--theme-primary) too. Rivals mix towards a neutral grey at
@@ -114,6 +123,10 @@ const Piece = ({
           // piece glows noticeably harder than the pack; rivals stay muted
           // so the eye lands on the car first.
           boxShadow: `0 0 ${isPrimary ? 26 : 7}px ${isPrimary ? 4 : 1}px color-mix(in srgb, ${fill} ${isDragging ? 75 : isPrimary ? 70 : 20}%, transparent), inset 0 2px 3px rgba(255,255,255,${isPrimary ? 0.4 : 0.28}), inset 0 -2px 4px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.12)`,
+          animation:
+            entranceDelayMs !== undefined
+              ? `unblock-piece-enter 340ms cubic-bezier(0.34, 1.4, 0.5, 1) ${entranceDelayMs}ms both`
+              : undefined,
         }}
       >
         {/* Glass highlight across the top edge */}
@@ -129,41 +142,41 @@ const Piece = ({
             background: `linear-gradient(to bottom, rgba(255,255,255,${isPrimary ? 0.3 : 0.2}), transparent)`,
           }}
         />
+        {/* Wheels on the flanks for every vehicle — the board is traffic,
+            not dominoes. Rivals' wheels sit fainter than the hero's so the
+            pack stays background players. */}
+        {wheelPositions(piece.size).flatMap((along) =>
+          (['top', 'bottom'] as const).map((edge) => (
+            <div
+              key={`${along}-${edge}`}
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                ...(horizontal
+                  ? {
+                      left: along,
+                      [edge]: '-3%',
+                      width: `${36 / piece.size}%`,
+                      height: '10%',
+                    }
+                  : {
+                      top: along,
+                      [edge === 'top' ? 'left' : 'right']: '-3%',
+                      height: `${36 / piece.size}%`,
+                      width: '10%',
+                    }),
+                borderRadius: 999,
+                background: isPrimary ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.32)',
+              }}
+            />
+          ))
+        )}
         {isPrimary ? (
           // Top-down car anatomy so the hero reads as "the car" at a
-          // glance: wheels on the flanks, a full-length racing stripe, a
-          // glass cabin over it, headlights on the leading edge and
-          // taillights on the rear — all pointing the car at the exit
+          // glance: a full-length racing stripe, a glass cabin over it,
+          // headlights on the leading edge and taillights on the rear —
+          // all pointing the car at the exit
           <>
-            {[
-              { along: '12%', edge: 'top' as const },
-              { along: '12%', edge: 'bottom' as const },
-              { along: '70%', edge: 'top' as const },
-              { along: '70%', edge: 'bottom' as const },
-            ].map((wheel, i) => (
-              <div
-                key={i}
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  ...(horizontal
-                    ? {
-                        left: wheel.along,
-                        [wheel.edge]: '-3%',
-                        width: '18%',
-                        height: '10%',
-                      }
-                    : {
-                        top: wheel.along,
-                        [wheel.edge === 'top' ? 'left' : 'right']: '-3%',
-                        height: '18%',
-                        width: '10%',
-                      }),
-                  borderRadius: 999,
-                  background: 'rgba(0,0,0,0.45)',
-                }}
-              />
-            ))}
             <div
               aria-hidden="true"
               style={{
@@ -231,27 +244,38 @@ const Piece = ({
             ))}
           </>
         ) : (
-          // Grip dots along the movement axis, so a piece's drag direction
-          // is readable before it is touched — quieter than the hero's
-          // stripes so rivals stay background players
+          // Rival cabin: one tinted glass canopy for a car, a row of bus
+          // windows for the size-3 rigs. Quieter than the hero's chrome —
+          // no lights, dimmer glass — so rivals read as parked traffic.
           <>
-            {[36, 64].map((position) => (
-              <div
-                key={position}
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  left: horizontal ? `${position}%` : '50%',
-                  top: horizontal ? '50%' : `${position}%`,
-                  transform: 'translate(-50%, -50%)',
-                  width: horizontal ? `${16 / piece.size}%` : '16%',
-                  aspectRatio: '1',
-                  borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.24)',
-                  boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.2)',
-                }}
-              />
-            ))}
+            {(piece.size >= 3 ? ['12%', '42%', '72%'] : ['32%']).map(
+              (along) => (
+                <div
+                  key={`cabin-${along}`}
+                  aria-hidden="true"
+                  style={{
+                    position: 'absolute',
+                    ...(horizontal
+                      ? {
+                          left: along,
+                          width: piece.size >= 3 ? '16%' : '36%',
+                          top: '22%',
+                          bottom: '22%',
+                        }
+                      : {
+                          top: along,
+                          height: piece.size >= 3 ? '16%' : '36%',
+                          left: '22%',
+                          right: '22%',
+                        }),
+                    borderRadius: '30%',
+                    background:
+                      'linear-gradient(150deg, rgba(15,23,42,0.4), rgba(15,23,42,0.22))',
+                    boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.3)',
+                  }}
+                />
+              )
+            )}
           </>
         )}
       </div>

@@ -5,6 +5,7 @@ import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { RunStage, StageResult } from '../helpers/stageResults';
 import { difficultyForMoves } from '../helpers/difficulty';
 import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
+import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import SimpleBoard from './SimpleBoard';
 
 interface StageResultPanelProps {
@@ -170,7 +171,13 @@ const StageResultPanel = ({
                           : 'opacity-80'
                     }`}
                   >
-                    <SimpleBoard initial={stage.boardString} compact />
+                    {/* muteRivals: at 48px only the hero car should carry
+                        colour — the full palette reads as static */}
+                    <SimpleBoard
+                      initial={stage.boardString}
+                      compact
+                      muteRivals
+                    />
                     {isCurrent ? (
                       // The car marker sits on the current stage: this is
                       // where you are on the route
@@ -198,40 +205,31 @@ const StageResultPanel = ({
                     )}
                   </span>
                 </button>
-                <span
-                  data-testid={`stage-difficulty-${i}`}
-                  className={`max-w-full rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
-                >
-                  {difficulty.shortLabel}
-                  <span className="sr-only">{` (${difficulty.label})`}</span>
-                </span>
+                {/* One line per stage: a finished stage shows its time and
+                    moves-vs-par; an upcoming one shows what's ahead —
+                    difficulty and par — instead of a broken-looking dash */}
                 {result ? (
-                  <span className="flex flex-col items-center gap-0.5 tabular-nums">
-                    <span className="font-mono text-[0.65rem]">
-                      {formatSeconds(result.seconds)}
-                    </span>
-                    <span
-                      data-testid={`stage-par-${i}`}
-                      className={`rounded-full px-1.5 py-px text-[0.65rem] font-semibold ${
-                        isOverPar
-                          ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
-                          : isUnderPar
-                            ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                            : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
-                      }`}
-                    >
-                      {result.movesMade}/{result.movesRequired}
-                      <span className="sr-only"> moves</span>
-                    </span>
+                  <span
+                    data-testid={`stage-par-${i}`}
+                    className={`rounded-full px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold tabular-nums ${
+                      isOverPar
+                        ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                        : isUnderPar
+                          ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                          : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
+                    }`}
+                  >
+                    {formatSecondsShort(result.seconds)} · {result.movesMade}/
+                    {result.movesRequired}
+                    <span className="sr-only"> moves</span>
                   </span>
                 ) : (
-                  // Pending stages keep the two-line footprint of a result
-                  // (time line + par chip) so the filmstrip columns align
-                  <span className="flex flex-col items-center gap-0.5 text-stone-400 dark:text-zinc-500">
-                    <span className="font-mono text-[0.65rem]">—</span>
-                    <span className="rounded-full bg-stone-500/10 px-1.5 py-px text-[0.65rem] font-semibold">
-                      par {stage.movesRequired}
-                    </span>
+                  <span
+                    data-testid={`stage-difficulty-${i}`}
+                    className={`max-w-full rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+                  >
+                    {difficulty.shortLabel} · par {stage.movesRequired}
+                    <span className="sr-only">{` (${difficulty.label})`}</span>
                   </span>
                 )}
               </li>
