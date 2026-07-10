@@ -10,15 +10,17 @@ interface RaceHudProps {
   currentStageIndex: number;
   // Stage indexes already solved, so their pips render filled.
   completedStageIndexes: Set<number>;
-  // Difficulty of the current stage — colours its pip and the a11y label.
+  // Difficulty of the current stage — shown as its own chip; pips stay in
+  // the theme colour so a hard stage doesn't read as a warning light.
   difficulty: UnblockDifficultyDisplay;
   timer: ReactNode;
 }
 
-// One-row HUD above the board: opponents on the left, a stage pip strip in
-// the middle (can't wrap, unlike the old text chip), timer on the right.
-// Unblock Race's own chrome — the shared @games LobbyButton keeps its
-// styling for sudoku.
+// Top row of the HUD card (Controls is the bottom row): opponents on the
+// left, a stage pip strip with the difficulty chip in the middle, timer on
+// the right. Unblock Race's own chrome — the shared @games LobbyButton
+// keeps its styling for sudoku. Pip semantics: filled = done, ring =
+// upcoming, wide glowing pill = current.
 const RaceHud = ({
   onOpponentsClick,
   stageCount,
@@ -29,7 +31,7 @@ const RaceHud = ({
 }: RaceHudProps) => (
   <div
     data-testid="race-hud"
-    className="ml-auto mr-auto flex w-full max-w-xl items-center gap-3 px-4 pb-1 lg:mr-0"
+    className="flex w-full items-center gap-3 px-3 pb-1 pt-2"
   >
     <button
       type="button"
@@ -44,7 +46,7 @@ const RaceHud = ({
       <span
         data-testid="stage-chip"
         aria-label={`Stage ${currentStageIndex + 1} of ${stageCount}, ${difficulty.label}`}
-        className="flex items-center gap-2 whitespace-nowrap"
+        className="flex min-w-0 items-center gap-2 whitespace-nowrap"
       >
         <span className="flex items-center gap-1" aria-hidden="true">
           {Array.from({ length: stageCount }, (_, i) => {
@@ -55,26 +57,25 @@ const RaceHud = ({
                 key={i}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
                   isCurrent
-                    ? `w-4 ${difficulty.dotClass}`
+                    ? 'bg-theme-primary w-4 shadow-[0_0_6px_var(--theme-primary)]'
                     : isDone
                       ? 'bg-theme-primary w-1.5'
-                      : 'w-1.5 bg-stone-300 dark:bg-white/15'
+                      : 'w-1.5 border border-stone-400/60 bg-transparent dark:border-white/25'
                 }`}
               />
             );
           })}
         </span>
         <span
-          className="text-xs font-bold tabular-nums text-stone-600 dark:text-zinc-300"
+          className={`truncate rounded-full px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
           aria-hidden="true"
         >
-          {currentStageIndex + 1}
-          <span className="opacity-50">/{stageCount}</span>
+          {difficulty.shortLabel}
         </span>
       </span>
     )}
 
-    <div className="ml-auto text-right">{timer}</div>
+    <div className="ml-auto text-right font-mono tabular-nums">{timer}</div>
   </div>
 );
 

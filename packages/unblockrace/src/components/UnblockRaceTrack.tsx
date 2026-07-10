@@ -226,23 +226,25 @@ const UnblockRaceTrack = ({
             </span>
           </div>
 
-          {/* Driving lane: asphalt strip with edge lines, start line and a
-              checkered finish column */}
-          <div className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900">
+          {/* Driving lane: proper asphalt in both themes — the dark strip
+              against the glass card is what makes it read "road" at a
+              glance — with edge lines, start lights and a checkered finish
+              column */}
+          <div className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-zinc-800 via-zinc-700/90 to-zinc-800 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900">
             {/* Lane edge lines */}
             <div
               aria-hidden="true"
-              className="absolute inset-x-1 top-1 h-px bg-stone-300/80 dark:bg-white/15"
+              className="absolute inset-x-1 top-1 h-px bg-white/20"
             />
             <div
               aria-hidden="true"
-              className="absolute inset-x-1 bottom-1 h-px bg-stone-300/80 dark:bg-white/15"
+              className="absolute inset-x-1 bottom-1 h-px bg-white/20"
             />
 
             {/* Dashed centre line */}
             <div
               aria-hidden="true"
-              className="absolute left-3 right-6 top-1/2 h-px -translate-y-1/2 text-stone-400 opacity-50 dark:text-white dark:opacity-30"
+              className="absolute left-3 right-6 top-1/2 h-px -translate-y-1/2 text-white opacity-30"
               style={{
                 backgroundImage:
                   'repeating-linear-gradient(to right, currentColor 0 8px, transparent 8px 16px)',
@@ -254,7 +256,7 @@ const UnblockRaceTrack = ({
               <div
                 key={tick}
                 aria-hidden="true"
-                className="absolute bottom-1.5 top-1.5 w-px bg-stone-300/70 dark:bg-white/10"
+                className="absolute bottom-1.5 top-1.5 w-px bg-white/10"
                 style={{ left: `${tick}%` }}
               />
             ))}
@@ -262,17 +264,17 @@ const UnblockRaceTrack = ({
             {/* Start line */}
             <div
               aria-hidden="true"
-              className="absolute bottom-1 top-1 flex gap-0.5"
+              className="absolute bottom-0.5 top-0.5 flex gap-0.5"
               style={{ left: '3%' }}
             >
-              <div className="w-px bg-emerald-500/60" />
-              <div className="w-px bg-emerald-500/60" />
+              <div className="w-px bg-emerald-400/80 shadow-[0_0_4px_rgba(52,211,153,0.8)]" />
+              <div className="w-px bg-emerald-400/80" />
             </div>
 
             {/* Checkered finish column */}
             <div
               aria-hidden="true"
-              className="absolute bottom-1 right-1 top-1 w-2 rounded-sm opacity-60"
+              className="absolute bottom-0.5 right-1 top-0.5 w-2.5 rounded-sm opacity-80"
               style={{
                 backgroundColor: 'rgba(255,255,255,0.9)',
                 backgroundImage: `
@@ -281,13 +283,25 @@ const UnblockRaceTrack = ({
                   linear-gradient(45deg, transparent 75%, black 75%),
                   linear-gradient(-45deg, transparent 75%, black 75%)
                 `,
-                backgroundSize: '4px 4px',
-                backgroundPosition: '0 0, 0 2px, 2px -2px, -2px 0px',
+                backgroundSize: '5px 5px',
+                backgroundPosition: '0 0, 0 2.5px, 2.5px -2.5px, -2.5px 0px',
               }}
             />
 
-            {/* Player cars: glowing pills in each player's colour; the
-                current user gets a ring instead of a crown emoji */}
+            {/* Solo hint inside the otherwise-empty lane; the whole card
+                already opens the opponents lobby on tap */}
+            {allPlayerProgress.length <= 1 && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="flex items-center gap-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white/40">
+                  Invite friends to race
+                  <ChevronRight className="h-3 w-3" aria-hidden="true" />
+                </span>
+              </div>
+            )}
+
+            {/* Player cars: glowing pills in each player's colour with a
+                motion trail; the current user gets a ring instead of a
+                crown emoji */}
             {allPlayerProgress.map((player, index) => {
               const colorClass = getPlayerColor(
                 player.userId,
@@ -311,17 +325,22 @@ const UnblockRaceTrack = ({
                     transform: 'translateX(-50%)',
                   }}
                 >
+                  {/* Motion trail streaking back toward the start line */}
+                  {player.percentage > 0 && (
+                    <div
+                      aria-hidden="true"
+                      className={`absolute right-full top-1/2 h-1 w-5 -translate-y-1/2 rounded-full opacity-50 ${colorClass} [mask-image:linear-gradient(to_left,black,transparent)]`}
+                    />
+                  )}
                   <div
-                    className={`relative h-3.5 w-6 rounded-[5px] ${colorClass} shadow-md ${
-                      player.isCurrentUser
-                        ? 'ring-2 ring-stone-500/60 dark:ring-white/70'
-                        : ''
+                    className={`relative h-4 w-7 rounded-[5px] ${colorClass} shadow-md ${
+                      player.isCurrentUser ? 'ring-2 ring-white/70' : ''
                     }`}
                   >
                     {/* Windshield */}
-                    <div className="absolute left-1/2 top-1/2 h-1.5 w-2 -translate-x-1/2 -translate-y-1/2 rounded-[2px] bg-white/50" />
+                    <div className="absolute left-1/2 top-1/2 h-2 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-[2px] bg-white/50" />
                     {/* Headlight on the leading edge */}
-                    <div className="absolute -right-px top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-white shadow-[0_0_4px_1px_rgba(255,255,255,0.8)]" />
+                    <div className="absolute -right-px top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-white shadow-[0_0_6px_2px_rgba(255,255,255,0.7)]" />
                   </div>
                 </div>
               );

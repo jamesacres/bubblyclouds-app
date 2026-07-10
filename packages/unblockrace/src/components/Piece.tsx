@@ -100,17 +100,20 @@ const Piece = ({
         style={{
           position: 'absolute',
           inset: '6%',
-          borderRadius: '22%',
+          borderRadius: isPrimary ? '30% / 42%' : '22%',
           // A lit-from-above gradient instead of a flat fill so pieces read
           // as physical, glowing blocks; color-mix works for the primary's
-          // var(--theme-primary) too
-          background: `linear-gradient(150deg, color-mix(in srgb, ${fill} ${isPrimary ? 76 : 84}%, white) 0%, ${fill} 45%, color-mix(in srgb, ${fill} ${isPrimary ? 80 : 74}%, black) 100%)`,
+          // var(--theme-primary) too. Rivals mix towards a neutral grey at
+          // the shadow end so the hero's clean saturated hue owns the board.
+          background: isPrimary
+            ? `linear-gradient(150deg, color-mix(in srgb, ${fill} 76%, white) 0%, ${fill} 45%, color-mix(in srgb, ${fill} 80%, black) 100%)`
+            : `linear-gradient(150deg, color-mix(in srgb, ${fill} 88%, white) 0%, color-mix(in srgb, ${fill} 92%, #52525b) 45%, color-mix(in srgb, ${fill} 70%, #27272a) 100%)`,
           filter: isDragging ? 'brightness(1.12)' : undefined,
           // Soft outer glow in the piece's own hue plus a brighter inner
           // highlight edge — the neon treatment (SPEC.md §9). The hero
           // piece glows noticeably harder than the pack; rivals stay muted
           // so the eye lands on the car first.
-          boxShadow: `0 0 ${isPrimary ? 26 : 9}px ${isPrimary ? 4 : 1}px color-mix(in srgb, ${fill} ${isDragging ? 75 : isPrimary ? 70 : 28}%, transparent), inset 0 2px 3px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.12)`,
+          boxShadow: `0 0 ${isPrimary ? 26 : 7}px ${isPrimary ? 4 : 1}px color-mix(in srgb, ${fill} ${isDragging ? 75 : isPrimary ? 70 : 20}%, transparent), inset 0 2px 3px rgba(255,255,255,${isPrimary ? 0.4 : 0.28}), inset 0 -2px 4px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.12)`,
         }}
       >
         {/* Glass highlight across the top edge */}
@@ -123,27 +126,41 @@ const Piece = ({
             right: 0,
             height: '42%',
             borderRadius: '22% 22% 40% 40%',
-            background:
-              'linear-gradient(to bottom, rgba(255,255,255,0.3), transparent)',
+            background: `linear-gradient(to bottom, rgba(255,255,255,${isPrimary ? 0.3 : 0.2}), transparent)`,
           }}
         />
         {isPrimary ? (
-          // Headlights on the leading edge plus a double racing stripe down
-          // the length: the hero piece points at the exit and reads as "the
-          // car" even next to same-hue rivals
+          // Top-down car anatomy so the hero reads as "the car" at a
+          // glance: wheels on the flanks, a full-length racing stripe, a
+          // glass cabin over it, headlights on the leading edge and
+          // taillights on the rear — all pointing the car at the exit
           <>
-            {[38, 54].map((stripeTop) => (
+            {[
+              { along: '12%', edge: 'top' as const },
+              { along: '12%', edge: 'bottom' as const },
+              { along: '70%', edge: 'top' as const },
+              { along: '70%', edge: 'bottom' as const },
+            ].map((wheel, i) => (
               <div
-                key={stripeTop}
+                key={i}
                 aria-hidden="true"
                 style={{
                   position: 'absolute',
-                  left: '8%',
-                  right: '20%',
-                  top: `${stripeTop}%`,
-                  height: '8%',
+                  ...(horizontal
+                    ? {
+                        left: wheel.along,
+                        [wheel.edge]: '-3%',
+                        width: '18%',
+                        height: '10%',
+                      }
+                    : {
+                        top: wheel.along,
+                        [wheel.edge === 'top' ? 'left' : 'right']: '-3%',
+                        height: '18%',
+                        width: '10%',
+                      }),
                   borderRadius: 999,
-                  background: 'rgba(255,255,255,0.3)',
+                  background: 'rgba(0,0,0,0.45)',
                 }}
               />
             ))}
@@ -151,28 +168,67 @@ const Piece = ({
               aria-hidden="true"
               style={{
                 position: 'absolute',
-                right: '6%',
-                top: '24%',
-                width: '9%',
-                aspectRatio: '1',
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.95)',
-                boxShadow: '0 0 8px 2px rgba(255,255,255,0.8)',
+                ...(horizontal
+                  ? { left: '4%', right: '4%', top: '42%', height: '16%' }
+                  : { top: '4%', bottom: '4%', left: '42%', width: '16%' }),
+                borderRadius: 999,
+                background: 'rgba(255,255,255,0.35)',
               }}
             />
             <div
               aria-hidden="true"
               style={{
                 position: 'absolute',
-                right: '6%',
-                bottom: '24%',
-                width: '9%',
-                aspectRatio: '1',
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.95)',
-                boxShadow: '0 0 8px 2px rgba(255,255,255,0.8)',
+                ...(horizontal
+                  ? { left: '34%', width: '30%', top: '16%', bottom: '16%' }
+                  : { top: '34%', height: '30%', left: '16%', right: '16%' }),
+                borderRadius: '26%',
+                background:
+                  'linear-gradient(150deg, rgba(15,23,42,0.55), rgba(15,23,42,0.35))',
+                boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.35)',
               }}
             />
+            {[26, 74].map((across) => (
+              <div
+                key={`headlight-${across}`}
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  ...(horizontal
+                    ? { right: '4%', top: `${across}%` }
+                    : { bottom: '4%', left: `${across}%` }),
+                  transform: horizontal
+                    ? 'translateY(-50%)'
+                    : 'translateX(-50%)',
+                  width: horizontal ? `${10 / piece.size}%` : '10%',
+                  aspectRatio: '1',
+                  borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.95)',
+                  boxShadow:
+                    '0 0 10px 3px rgba(255,255,255,0.85), 0 0 22px 6px rgba(255,255,240,0.35)',
+                }}
+              />
+            ))}
+            {[30, 70].map((across) => (
+              <div
+                key={`taillight-${across}`}
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  ...(horizontal
+                    ? { left: '4.5%', top: `${across}%` }
+                    : { top: '4.5%', left: `${across}%` }),
+                  transform: horizontal
+                    ? 'translateY(-50%)'
+                    : 'translateX(-50%)',
+                  width: horizontal ? `${7 / piece.size}%` : '7%',
+                  aspectRatio: '1',
+                  borderRadius: '50%',
+                  background: '#f87171',
+                  boxShadow: '0 0 6px 1px rgba(248,113,113,0.8)',
+                }}
+              />
+            ))}
           </>
         ) : (
           // Grip dots along the movement axis, so a piece's drag direction

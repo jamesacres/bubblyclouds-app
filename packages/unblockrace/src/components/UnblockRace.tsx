@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
+import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
@@ -142,6 +143,12 @@ const UnblockRace = ({
     () => !alreadyCompleted && showRacingPrompt
   );
   const [showAnimation, setShowAnimation] = useState(false);
+  // Per-stage win moment (non-final stages only): drives the "STAGE N
+  // CLEAR" slam over the board during the beat before the slide.
+  const [stageClear, setStageClear] = useState<{
+    stage: number;
+    seconds: number;
+  } | null>(null);
   // Set only when a non-final stage is solved live this session (not when a
   // completed stage is restored on a jump-back), so auto-advance never fires
   // for a stage the player deliberately navigated to review.
@@ -171,11 +178,25 @@ const UnblockRace = ({
         setShowAnimation(true);
         setTimeout(() => setShowAnimation(false), 10000);
       } else {
+        setStageClear({
+          stage: currentStageIndex + 1,
+          seconds: completedSeconds,
+        });
         setAutoAdvanceArmed(true);
       }
     },
     [alreadyCompleted, isFinalStage, currentStageIndex, stage.movesRequired]
   );
+
+  // The slam outlives the 240ms pre-slide beat on purpose: it rides over
+  // the slide and fades while the next stage arrives.
+  useEffect(() => {
+    if (!stageClear) {
+      return;
+    }
+    const timeout = setTimeout(() => setStageClear(null), 1500);
+    return () => clearTimeout(timeout);
+  }, [stageClear]);
 
   const {
     answer,
@@ -566,39 +587,44 @@ const UnblockRace = ({
         <div className="mx-auto w-full max-w-xl px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              <RaceHud
-                onOpponentsClick={friendsOnClick}
-                stageCount={stages.length}
-                currentStageIndex={currentStageIndex}
-                completedStageIndexes={completedStageIndexes}
-                difficulty={stageDifficulty}
-                timer={
-                  <div
-                    className={
-                      timer?.countdown || !!completed ? 'text-2xl' : ''
-                    }
-                  >
-                    <TimerDisplay
-                      seconds={calculateSeconds(timer)}
-                      countdown={timer?.countdown}
-                      isComplete={!!completed}
-                    />
-                  </div>
-                }
-              />
+              {/* One HUD card: race status on the top row, move gauge and
+                  toolbar on the bottom, so the chrome above the board reads
+                  as a single instrument cluster instead of two loose rows */}
+              <div className="mb-2 rounded-2xl border border-stone-200/70 bg-white/50 backdrop-blur dark:border-white/10 dark:bg-zinc-900/40">
+                <RaceHud
+                  onOpponentsClick={friendsOnClick}
+                  stageCount={stages.length}
+                  currentStageIndex={currentStageIndex}
+                  completedStageIndexes={completedStageIndexes}
+                  difficulty={stageDifficulty}
+                  timer={
+                    <div
+                      className={
+                        timer?.countdown || !!completed ? 'text-2xl' : 'text-lg'
+                      }
+                    >
+                      <TimerDisplay
+                        seconds={calculateSeconds(timer)}
+                        countdown={timer?.countdown}
+                        isComplete={!!completed}
+                      />
+                    </div>
+                  }
+                />
 
-              <Controls
-                undo={undo}
-                redo={redo}
-                reset={reset}
-                isUndoDisabled={!!completed || isUndoDisabled}
-                isRedoDisabled={!!completed || isRedoDisabled}
-                isDisabled={!!completed}
-                movesMade={movesMade}
-                movesRequired={stage.movesRequired}
-              />
+                <Controls
+                  undo={undo}
+                  redo={redo}
+                  reset={reset}
+                  isUndoDisabled={!!completed || isUndoDisabled}
+                  isRedoDisabled={!!completed || isRedoDisabled}
+                  isDisabled={!!completed}
+                  movesMade={movesMade}
+                  movesRequired={stage.movesRequired}
+                />
+              </div>
 
-              <div ref={gridRef}>
+              <div ref={gridRef} className="relative">
                 {transition ? (
                   <StageTransition
                     fromBoardString={transition.fromBoardString}
@@ -619,6 +645,48 @@ const UnblockRace = ({
                     onMove={pushMove}
                     isDisabled={!!completed || showLobby}
                   />
+                )}
+
+                {/* Stage-clear slam: rides the pre-slide beat and fades out
+                    over the incoming board, so every stage win lands with a
+                    headline, not just the final one */}
+                {stageClear && (
+                  <div
+                    data-testid="stage-clear-slam"
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-1"
+                    style={{
+                      animation: 'unblock-stage-clear 1.5s ease-out forwards',
+                    }}
+                  >
+                    <style>{`
+                      @keyframes unblock-stage-clear {
+                        0% { transform: scale(1.7); opacity: 0; }
+                        12% { transform: scale(0.96); opacity: 1; }
+                        18% { transform: scale(1); opacity: 1; }
+                        75% { transform: scale(1); opacity: 1; }
+                        100% { transform: scale(1); opacity: 0; }
+                      }
+                      @media (prefers-reduced-motion: reduce) {
+                        [data-testid="stage-clear-slam"] { animation: none !important; }
+                      }
+                    `}</style>
+                    <div
+                      className="text-4xl font-black uppercase tracking-tight text-white"
+                      style={{
+                        textShadow:
+                          '0 2px 12px rgba(0,0,0,0.55), 0 0 34px color-mix(in srgb, var(--theme-primary) 80%, transparent)',
+                      }}
+                    >
+                      Stage {stageClear.stage} clear
+                    </div>
+                    <div
+                      className="font-mono text-xl font-bold tabular-nums text-white/90"
+                      style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}
+                    >
+                      {formatSeconds(stageClear.seconds)}
+                    </div>
+                  </div>
                 )}
               </div>
 

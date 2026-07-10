@@ -1,6 +1,6 @@
 'use client';
 
-import { Check, Flag, Target, Trophy } from 'lucide-react';
+import { Car, Check, Flag, Target, Trophy } from 'lucide-react';
 import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { RunStage, StageResult } from '../helpers/stageResults';
 import { difficultyForMoves } from '../helpers/difficulty';
@@ -109,12 +109,22 @@ const StageResultPanel = ({
             column per stage — thumbnail on top (the tap target), difficulty
             and result beneath — instead of the old five-row list */}
         <ul className="relative flex items-start gap-1.5 text-sm">
-          {/* Connector line linking the stage thumbnails into one route */}
+          {/* Road linking the stage thumbnails into one route: an asphalt
+              strip with a dashed centre line, so the run itself reads as
+              the racecourse */}
           {stageCount > 1 && (
             <div
               aria-hidden="true"
-              className="absolute left-6 right-6 top-6 h-px bg-stone-200 dark:bg-white/10"
-            />
+              className="absolute left-6 right-6 top-5 h-2 rounded-full bg-stone-300/80 dark:bg-zinc-800"
+            >
+              <div
+                className="absolute inset-x-1 top-1/2 h-px -translate-y-1/2 text-white opacity-60 dark:opacity-30"
+                style={{
+                  backgroundImage:
+                    'repeating-linear-gradient(to right, currentColor 0 5px, transparent 5px 11px)',
+                }}
+              />
+            </div>
           )}
           {stages.map((stage, i) => {
             const result = results.get(i);
@@ -161,12 +171,23 @@ const StageResultPanel = ({
                     }`}
                   >
                     <SimpleBoard initial={stage.boardString} compact />
-                    <span
-                      aria-hidden="true"
-                      className="absolute -left-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-stone-200 text-[0.6rem] font-bold text-stone-600 shadow dark:bg-zinc-700 dark:text-zinc-200"
-                    >
-                      {i + 1}
-                    </span>
+                    {isCurrent ? (
+                      // The car marker sits on the current stage: this is
+                      // where you are on the route
+                      <span
+                        aria-hidden="true"
+                        className="bg-theme-primary absolute -left-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-white shadow"
+                      >
+                        <Car className="h-2.5 w-2.5" />
+                      </span>
+                    ) : (
+                      <span
+                        aria-hidden="true"
+                        className="absolute -left-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-stone-200 text-[0.6rem] font-bold text-stone-600 shadow dark:bg-zinc-700 dark:text-zinc-200"
+                      >
+                        {i + 1}
+                      </span>
+                    )}
                     {result && (
                       <span
                         data-testid={`stage-preview-${i}-complete`}
@@ -179,9 +200,10 @@ const StageResultPanel = ({
                 </button>
                 <span
                   data-testid={`stage-difficulty-${i}`}
-                  className={`max-w-full truncate rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+                  className={`max-w-full rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
                 >
-                  {difficulty.label}
+                  {difficulty.shortLabel}
+                  <span className="sr-only">{` (${difficulty.label})`}</span>
                 </span>
                 {result ? (
                   <span className="flex flex-col items-center gap-0.5 tabular-nums">
@@ -203,7 +225,14 @@ const StageResultPanel = ({
                     </span>
                   </span>
                 ) : (
-                  <span className="text-stone-300 dark:text-zinc-600">—</span>
+                  // Pending stages keep the two-line footprint of a result
+                  // (time line + par chip) so the filmstrip columns align
+                  <span className="flex flex-col items-center gap-0.5 text-stone-400 dark:text-zinc-500">
+                    <span className="font-mono text-[0.65rem]">—</span>
+                    <span className="rounded-full bg-stone-500/10 px-1.5 py-px text-[0.65rem] font-semibold">
+                      par {stage.movesRequired}
+                    </span>
+                  </span>
                 )}
               </li>
             );
@@ -229,9 +258,21 @@ const StageResultPanel = ({
         {runComplete && stageCount > 1 && (
           <div
             data-testid="stage-result-total"
-            className="mt-3 flex items-center justify-between border-t border-stone-200 pt-2 text-sm font-bold text-stone-900 dark:border-zinc-700 dark:text-white"
+            className="mt-3 flex items-center justify-between rounded-xl px-3 py-2 text-sm font-bold text-stone-900 dark:text-white"
+            style={{
+              background:
+                'linear-gradient(90deg, color-mix(in srgb, var(--theme-primary) 14%, transparent), color-mix(in srgb, var(--theme-primary) 5%, transparent))',
+              boxShadow:
+                'inset 0 0 0 1px color-mix(in srgb, var(--theme-primary) 30%, transparent)',
+            }}
           >
-            <span>Total</span>
+            <span className="flex items-center gap-1.5">
+              <Trophy
+                className="h-4 w-4 text-amber-500 dark:text-amber-400"
+                aria-hidden="true"
+              />
+              Total
+            </span>
             <span className="tabular-nums">
               <span className="font-mono">{formatSeconds(totalSeconds)}</span>
               {' · '}

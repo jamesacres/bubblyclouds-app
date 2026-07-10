@@ -127,36 +127,59 @@ const Board = ({ boardString, onMove, isDisabled, isStatic }: BoardProps) => {
         }}
       />
 
-      {/* Exit route: the primary piece's row, highlighted so the path out
-          reads as more than a static arrow — pulses while unsolved, flares
-          brighter as the piece slides through it on exit */}
+      {/* Exit route: the primary piece's full row rendered as a road lane —
+          a faint theme tint with a dashed centre line running to the gate,
+          so the way out reads as a road, not a gradient smudge */}
       <div
         aria-hidden="true"
         data-testid="exit-route"
-        className={`absolute right-0 ${solved ? 'duration-500' : 'animate-pulse'} transition-opacity`}
+        className={`absolute left-0 right-0 ${solved ? 'duration-500' : ''} transition-opacity`}
         style={{
           top: `${(primaryRow / board.height) * 100}%`,
           height: `${(1 / board.height) * 100}%`,
-          width: `${(2 / board.width) * 100}%`,
           background:
-            'linear-gradient(to right, transparent, color-mix(in srgb, var(--theme-primary) 45%, transparent))',
-          opacity: solved ? 1 : 0.8,
+            'linear-gradient(to right, color-mix(in srgb, var(--theme-primary) 4%, transparent), color-mix(in srgb, var(--theme-primary) 22%, transparent))',
+          opacity: solved ? 1 : 0.9,
         }}
-      />
+      >
+        <div
+          className="absolute left-[4%] right-[10%] top-1/2 h-px -translate-y-1/2"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(to right, color-mix(in srgb, var(--theme-primary) 55%, transparent) 0 10px, transparent 10px 22px)',
+          }}
+        />
+      </div>
 
-      {/* Exit gate at the primary piece's row: a glowing bar on the grid edge
-          with chevrons marching out through it, so where the glow leads out
-          is unmissable */}
+      {/* Exit gate at the primary piece's row: a glowing gantry on the grid
+          edge with chevrons marching out through it. Rendered above the
+          pieces (z-20 vs the dragged piece's inline z-10 within its own
+          stacking order) so an edge-hugging rival can never hide the way
+          out — the car passes underneath it like a finish gantry */}
       <div
         aria-hidden="true"
         data-testid="exit-marker"
-        className="absolute right-0 flex items-center justify-end"
+        className="pointer-events-none absolute right-0 z-20 flex items-center justify-end"
         style={{
           top: `${(primaryRow / board.height) * 100}%`,
           height: `${(1 / board.height) * 100}%`,
         }}
       >
         <div className="relative flex h-full w-full items-center justify-end">
+          {/* Dark notch flush to the frame edge, so the gate reads as an
+              opening cut into the board wall rather than a decal on it */}
+          <div
+            style={{
+              position: 'absolute',
+              right: 0,
+              top: '6%',
+              bottom: '6%',
+              width: 'max(14%, 12px)',
+              borderRadius: '6px 0 0 6px',
+              background:
+                'linear-gradient(to right, transparent, rgba(0,0,0,0.28))',
+            }}
+          />
           {[0, 1].map((chevron) => (
             <div
               key={chevron}

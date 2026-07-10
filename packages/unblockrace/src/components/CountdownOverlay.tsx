@@ -23,7 +23,53 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
           60% { transform: scale(0.95); opacity: 1; }
           100% { transform: scale(1); opacity: 1; }
         }
+        @keyframes unblock-go-line {
+          from { transform: translateX(40px) scaleX(0.3); opacity: 0.9; }
+          to { transform: translateX(190px) scaleX(1); opacity: 0; }
+        }
+        @keyframes unblock-go-flash {
+          from { opacity: 0.35; }
+          to { opacity: 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .unblock-go-burst { display: none; }
+        }
       `}</style>
+      {isGo && (
+        <div
+          aria-hidden="true"
+          className="unblock-go-burst pointer-events-none absolute inset-0"
+        >
+          {/* One quick full-screen flash plus speed lines radiating out of
+              the GO! so the race start pops, not just appears */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'color-mix(in srgb, var(--theme-primary) 60%, white)',
+              animation: 'unblock-go-flash 450ms ease-out forwards',
+            }}
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            {Array.from({ length: 10 }, (_, i) => (
+              <div
+                key={i}
+                className="absolute h-0.5 w-14"
+                style={{ transform: `rotate(${i * 36 + 8}deg)` }}
+              >
+                <div
+                  className="h-full w-full rounded-full"
+                  style={{
+                    background: 'var(--theme-primary)',
+                    filter: 'drop-shadow(0 0 6px var(--theme-primary))',
+                    animation: `unblock-go-line 550ms ease-out ${i % 2 ? 40 : 0}ms forwards`,
+                    opacity: 0,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <div className="text-xs font-extrabold uppercase tracking-[0.2em] text-zinc-600 dark:text-white/50">
         Get ready
       </div>
