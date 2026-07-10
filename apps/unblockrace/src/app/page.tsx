@@ -22,7 +22,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Users, Zap, Award, BookOpen } from 'lucide-react';
+import { Users, Zap, Award, BookOpen, ChevronsRight } from 'lucide-react';
 import Image from 'next/image';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
@@ -39,6 +39,109 @@ import CollectionCover from '@bubblyclouds-app/unblockrace/components/Collection
 
 const SimpleStateWrapper = ({ state }: { state: GameState }) => (
   <SimpleBoard state={state} />
+);
+
+const jamCell = (value: number) => `${(value / 6) * 100}%`;
+
+const jamPieceStyle = (
+  col: number,
+  row: number,
+  width: number,
+  height: number
+) => ({
+  left: jamCell(col),
+  top: jamCell(row),
+  width: jamCell(width),
+  height: jamCell(height),
+});
+
+const JAM_STATIC_PIECES = [
+  { col: 0, row: 0, width: 2, height: 1, color: '#06b6d4' },
+  { col: 0, row: 3, width: 1, height: 2, color: '#84cc16' },
+  { col: 0, row: 5, width: 3, height: 1, color: '#f97316' },
+  { col: 4, row: 4, width: 2, height: 1, color: '#14b8a6' },
+];
+
+// Looping preview of the game itself: two rivals slide clear, then the
+// theme-coloured hero block escapes through the exit (keyframes in
+// globals.css, choreographed on a shared 9s clock).
+const JamBoardPreview = () => (
+  <div
+    aria-hidden="true"
+    className="relative aspect-square w-full overflow-hidden rounded-2xl"
+    style={{
+      background: 'rgba(2,8,20,0.85)',
+      border: '1px solid rgba(148,163,184,0.16)',
+      backgroundImage:
+        'linear-gradient(rgba(148,163,184,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.09) 1px, transparent 1px)',
+      backgroundSize: 'calc(100% / 6) calc(100% / 6)',
+    }}
+  >
+    {JAM_STATIC_PIECES.map(({ col, row, width, height, color }) => (
+      <div
+        key={`${col}-${row}`}
+        className="absolute"
+        style={jamPieceStyle(col, row, width, height)}
+      >
+        <div
+          className="absolute"
+          style={{
+            inset: '8%',
+            borderRadius: '22%',
+            background: color,
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
+          }}
+        />
+      </div>
+    ))}
+    <div className="jam-rival-down absolute" style={jamPieceStyle(3, 0, 1, 3)}>
+      <div
+        className="absolute"
+        style={{
+          inset: '8%',
+          borderRadius: '22%',
+          background: '#f59e0b',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
+        }}
+      />
+    </div>
+    <div className="jam-rival-up absolute" style={jamPieceStyle(5, 1, 1, 2)}>
+      <div
+        className="absolute"
+        style={{
+          inset: '8%',
+          borderRadius: '22%',
+          background: '#f43f5e',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
+        }}
+      />
+    </div>
+    <div className="jam-hero absolute" style={jamPieceStyle(0, 2, 2, 1)}>
+      <div
+        className="absolute"
+        style={{
+          inset: '8%',
+          borderRadius: '22%',
+          background: 'var(--theme-primary)',
+          boxShadow:
+            '0 0 14px var(--theme-primary), inset 0 1px 0 rgba(255,255,255,0.4)',
+        }}
+      />
+    </div>
+    <div
+      className="absolute right-0 flex items-center justify-end pr-0.5"
+      style={{ top: jamCell(2), height: jamCell(1) }}
+    >
+      <div
+        className="absolute right-0 h-full w-[3px]"
+        style={{
+          background:
+            'linear-gradient(180deg, transparent, var(--theme-primary-light), transparent)',
+        }}
+      />
+      <ChevronsRight className="jam-exit-pulse h-4 w-4 text-cyan-300" />
+    </div>
+  </div>
 );
 
 function HomeComponent() {
@@ -142,27 +245,28 @@ function HomeComponent() {
   return (
     <>
       {tab === Tab.START_PUZZLE ? (
-        <div className="min-h-dvh bg-[#04020f] pb-32">
+        <div className="min-h-dvh bg-[#030711] pb-32">
           {/* ══ HERO ══════════════════════════════════════════════ */}
-          <div className="relative min-h-dvh overflow-hidden bg-[#04020f] px-5 pb-10">
+          <div className="relative min-h-dvh overflow-hidden bg-[#030711] px-5 pb-10">
             {/* Neon ambient blobs */}
             <div
               className="pointer-events-none absolute inset-0"
               aria-hidden="true"
             >
-              <div className="absolute -left-20 -top-40 h-[32rem] w-[32rem] rounded-full bg-violet-600/35 blur-[110px]" />
-              <div className="absolute -right-10 top-10 h-72 w-72 rounded-full bg-fuchsia-500/30 blur-[80px]" />
-              <div className="absolute bottom-10 left-1/3 h-56 w-80 rounded-full bg-cyan-400/20 blur-[70px]" />
-              <div className="absolute left-1/2 top-1/3 h-48 w-48 -translate-x-1/2 rounded-full bg-blue-500/20 blur-[60px]" />
+              <div className="absolute -left-20 -top-40 h-[32rem] w-[32rem] rounded-full bg-blue-600/35 blur-[110px]" />
+              <div className="absolute -right-10 top-10 h-72 w-72 rounded-full bg-cyan-400/25 blur-[80px]" />
+              <div className="absolute bottom-10 left-1/3 h-56 w-80 rounded-full bg-amber-400/15 blur-[70px]" />
+              <div className="absolute left-1/2 top-1/3 h-48 w-48 -translate-x-1/2 rounded-full bg-sky-500/20 blur-[60px]" />
             </div>
 
-            {/* Scanline overlay */}
+            {/* Faint board-grid overlay — blocks motif */}
             <div
               className="pointer-events-none absolute inset-0"
               aria-hidden="true"
               style={{
                 backgroundImage:
-                  'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.18) 2px, rgba(0,0,0,0.18) 4px)',
+                  'linear-gradient(rgba(148,163,184,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.05) 1px, transparent 1px)',
+                backgroundSize: '44px 44px',
               }}
             />
 
@@ -189,8 +293,8 @@ function HomeComponent() {
                     <span className="text-base font-bold tracking-tight text-white/70">
                       Unblock Race
                     </span>
-                    <span className="inline-flex items-center gap-1 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-fuchsia-300">
-                      <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
+                    <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-cyan-300">
+                      <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
                       Live
                     </span>
                   </div>
@@ -203,14 +307,19 @@ function HomeComponent() {
                   className="mb-2 text-[2.6rem] font-black leading-[1.1] tracking-tight text-white md:text-5xl"
                   style={{
                     textShadow:
-                      '0 0 12px rgba(167,139,250,0.9), 0 0 30px rgba(139,92,246,0.6), 0 0 60px rgba(139,92,246,0.3)',
+                      '0 0 12px rgba(56,189,248,0.75), 0 0 30px rgba(59,130,246,0.55), 0 0 60px rgba(59,130,246,0.3)',
                   }}
                 >
-                  Ready to Race? 🏁
+                  Clear the jam.
+                  <br />
+                  <span className="bg-gradient-to-r from-sky-300 via-cyan-200 to-blue-400 bg-clip-text text-transparent">
+                    Win the race
+                  </span>{' '}
+                  🏁
                 </h1>
                 <p className="mb-3 text-base font-medium leading-snug text-white/60 md:text-lg">
-                  Share the challenge — invite friends and see who&apos;s the
-                  fastest Unblock Race solver.
+                  Slide the blocks, break the glowing one free, and race your
+                  friends to the exit.
                 </p>
                 <SocialProof motivationalMessages={motivationalMessages} />
               </div>
@@ -230,12 +339,12 @@ function HomeComponent() {
                       className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 transition-all duration-200 active:scale-[0.95]"
                       style={{
                         background:
-                          'linear-gradient(135deg, rgba(139,92,246,0.4) 0%, rgba(217,70,239,0.3) 100%)',
-                        border: '1px solid rgba(167,139,250,0.3)',
+                          'linear-gradient(135deg, rgba(59,130,246,0.4) 0%, rgba(6,182,212,0.3) 100%)',
+                        border: '1px solid rgba(56,189,248,0.3)',
                       }}
                     >
-                      <Award className="h-3.5 w-3.5 text-violet-300" />
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-violet-300">
+                      <Award className="h-3.5 w-3.5 text-cyan-300" />
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-300">
                         Leaderboard
                       </span>
                     </button>
@@ -243,35 +352,78 @@ function HomeComponent() {
                 />
               </div>
 
-              {/* Daily challenges ─────────────────────────────── */}
+              {/* Daily race — animated jam board is the CTA ───── */}
               <div className="mb-4">
                 <div className="mb-3 flex items-center justify-between">
                   <h2 className="text-base font-black tracking-tight text-white">
-                    Daily challenges
+                    Daily race
                   </h2>
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
                     refreshes daily
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2.5">
-                  <button
-                    onClick={() => openUnblockRaceOfTheDay()}
-                    disabled={isLoading}
-                    className="difficulty-card-shine group relative flex cursor-pointer flex-col justify-end overflow-hidden rounded-[20px] pb-3.5 pl-3.5 pr-3.5 pt-10 text-left transition-all duration-200 hover:scale-[1.03] active:scale-[0.96] disabled:opacity-40"
-                    style={{
-                      background: `linear-gradient(160deg, #10b981 0%, #059669 100%)`,
-                      boxShadow:
-                        '0 0 28px rgba(16,185,129,0.55), 0 4px 16px rgba(16,185,129,0.3)',
-                      minHeight: '112px',
-                    }}
-                  >
-                    {/* Label */}
-                    <p className="relative text-base font-black leading-tight text-white">
-                      Race from Tricky to Expert
-                    </p>
-                  </button>
-                </div>
+                <button
+                  onClick={() => openUnblockRaceOfTheDay()}
+                  disabled={isLoading}
+                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] disabled:opacity-40"
+                  style={{
+                    background:
+                      'linear-gradient(155deg, rgba(30,64,175,0.5) 0%, rgba(4,12,30,0.92) 65%)',
+                    border: '1px solid rgba(59,130,246,0.35)',
+                    boxShadow:
+                      '0 0 32px rgba(59,130,246,0.25), 0 8px 24px rgba(2,6,23,0.6)',
+                  }}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-orbitron mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300">
+                        Today&apos;s race
+                      </p>
+                      <p className="mb-1 text-xl font-black leading-tight text-white">
+                        Tricky → Expert
+                      </p>
+                      <p className="mb-3 text-xs leading-snug text-white/50">
+                        Five boards, one clock — fastest escape wins.
+                      </p>
+                      <div className="mb-3 flex items-center gap-1.5">
+                        {[
+                          '#10b981',
+                          '#84cc16',
+                          '#f59e0b',
+                          '#f97316',
+                          '#f43f5e',
+                        ].map((color) => (
+                          <span
+                            key={color}
+                            className="h-2.5 w-2.5 rounded-[4px]"
+                            style={{
+                              background: color,
+                              boxShadow: `0 0 6px ${color}66`,
+                            }}
+                          />
+                        ))}
+                        <span className="ml-1 text-[10px] font-semibold uppercase tracking-wider text-white/35">
+                          5 stages
+                        </span>
+                      </div>
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold text-white"
+                        style={{
+                          background:
+                            'linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(6,182,212,0.4) 100%)',
+                          border: '1px solid rgba(56,189,248,0.4)',
+                        }}
+                      >
+                        <Zap className="h-3.5 w-3.5" />
+                        Start racing
+                      </span>
+                    </div>
+                    <div className="w-[42%] max-w-[210px] shrink-0">
+                      <JamBoardPreview />
+                    </div>
+                  </div>
+                </button>
 
                 <p className="mt-2 text-xs text-white/30">
                   More puzzles in the{' '}

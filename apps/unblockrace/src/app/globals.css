@@ -300,6 +300,44 @@ body {
 .animate-twinkle      { animation: twinkle 2s ease-in-out infinite; transform-origin: center center; }
 .animate-aprilShowers { animation: aprilShowers 4s ease-in-out infinite alternate; }
 
+/* ─── Gridlock hero board (homepage daily race card) ────────────
+   One shared 9s clock: the amber rival slides down, the rose rival
+   slides up, then the hero block escapes right through the exit and
+   everything resets for the next lap. */
+@keyframes jamRivalDown {
+  0%, 8%    { transform: translateY(0); }
+  20%, 74%  { transform: translateY(100%); }
+  86%, 100% { transform: translateY(0); }
+}
+@keyframes jamRivalUp {
+  0%, 24%   { transform: translateY(0); }
+  36%, 70%  { transform: translateY(-50%); }
+  82%, 100% { transform: translateY(0); }
+}
+@keyframes jamHeroEscape {
+  0%, 42%   { transform: translateX(0); opacity: 1; }
+  60%       { transform: translateX(315%); opacity: 1; }
+  61%       { transform: translateX(315%); opacity: 0; }
+  62%, 68%  { transform: translateX(0); opacity: 0; }
+  76%, 100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes jamExitPulse {
+  0%, 100% { opacity: 0.5; transform: translateX(0); }
+  50%      { opacity: 1; transform: translateX(2px); }
+}
+.jam-rival-down { animation: jamRivalDown 9s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
+.jam-rival-up   { animation: jamRivalUp 9s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
+.jam-hero       { animation: jamHeroEscape 9s cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+.jam-exit-pulse { animation: jamExitPulse 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .jam-rival-down,
+  .jam-rival-up,
+  .jam-hero,
+  .jam-exit-pulse {
+    animation: none;
+  }
+}
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still

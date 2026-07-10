@@ -125,6 +125,9 @@ jest.mock('lucide-react', () => ({
   Zap: () => <div data-testid="zap-icon">Zap Icon</div>,
   Award: () => <div data-testid="award-icon">Award Icon</div>,
   BookOpen: () => <div data-testid="book-open-icon">BookOpen Icon</div>,
+  ChevronsRight: () => (
+    <div data-testid="chevrons-right-icon">ChevronsRight Icon</div>
+  ),
 }));
 
 describe('Home Page', () => {
@@ -160,12 +163,12 @@ describe('Home Page', () => {
   describe('Tab navigation', () => {
     it('should render START_PUZZLE tab by default', () => {
       render(<Home />);
-      expect(screen.getByText('Daily challenges')).toBeInTheDocument();
+      expect(screen.getByText('Daily race')).toBeInTheDocument();
     });
 
     it('should display all footer tab buttons', () => {
       render(<Home />);
-      expect(screen.getByTestId('zap-icon')).toBeInTheDocument();
+      expect(screen.getAllByTestId('zap-icon').length).toBeGreaterThan(0);
       expect(screen.getByTestId('award-icon')).toBeInTheDocument();
       expect(screen.getAllByTestId('users-icon').length).toBeGreaterThan(0);
     });
@@ -188,14 +191,14 @@ describe('Home Page', () => {
       expect(screen.getByTestId('my-puzzles-tab')).toBeInTheDocument();
 
       fireEvent.click(screen.getByText('Start Race'));
-      expect(screen.getByText('Daily challenges')).toBeInTheDocument();
+      expect(screen.getByText('Daily race')).toBeInTheDocument();
     });
   });
 
-  describe('Daily challenges section', () => {
-    it('should render daily challenges heading', () => {
+  describe('Daily race section', () => {
+    it('should render daily race heading', () => {
       render(<Home />);
-      expect(screen.getByText('Daily challenges')).toBeInTheDocument();
+      expect(screen.getByText('Daily race')).toBeInTheDocument();
     });
   });
 
