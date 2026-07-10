@@ -144,6 +144,60 @@ const JamBoardPreview = () => (
   </div>
 );
 
+const RACE_LANE_BLOCKS = [
+  {
+    laneClass: 'race-lane-amber',
+    color: '#f59e0b',
+    glow: '0 0 8px rgba(245,158,11,0.5)',
+  },
+  {
+    laneClass: 'race-lane-hero',
+    color: 'var(--theme-primary)',
+    glow: '0 0 12px var(--theme-primary)',
+  },
+  {
+    laneClass: 'race-lane-rose',
+    color: '#f43f5e',
+    glow: '0 0 8px rgba(244,63,94,0.5)',
+  },
+];
+
+// Mini race for the Racing teams tile: three blocks burst toward the
+// checkered finish on the jam board's shared 9s clock and the
+// theme-coloured hero block edges the win (keyframes in globals.css).
+const RaceLanesPreview = () => (
+  <div
+    aria-hidden="true"
+    className="relative w-full overflow-hidden rounded-2xl"
+    style={{
+      background: 'rgba(2,8,20,0.85)',
+      border: '1px solid rgba(148,163,184,0.16)',
+    }}
+  >
+    <div
+      className="absolute bottom-1 right-1 top-1 w-2 rounded-sm opacity-60"
+      style={{
+        background:
+          'repeating-conic-gradient(rgba(255,255,255,0.8) 0% 25%, rgba(2,6,23,0.9) 0% 50%) 0 0 / 4px 4px',
+      }}
+    />
+    {RACE_LANE_BLOCKS.map(({ laneClass, color, glow }, lane) => (
+      <div
+        key={laneClass}
+        className={`flex h-9 items-center px-1.5 ${lane > 0 ? 'border-t border-white/5' : ''}`}
+      >
+        <div
+          className={`${laneClass} h-5 w-1/4 rounded-md`}
+          style={{
+            background: color,
+            boxShadow: `${glow}, inset 0 1px 0 rgba(255,255,255,0.35)`,
+          }}
+        />
+      </div>
+    ))}
+  </div>
+);
+
 function HomeComponent() {
   const searchParams = useSearchParams();
   const [tab, setTab] = useState(searchParams.get('tab') || Tab.START_PUZZLE);
@@ -436,117 +490,60 @@ function HomeComponent() {
                 </p>
               </div>
 
-              {/* Puzzle  — full width on mobile, left col on desktop */}
-              <button
-                onClick={openCollection}
-                className="liquid-glass mb-3 flex w-full cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97] md:mb-0 md:hidden"
-              >
-                <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
-                  {currentMonth} · daily puzzles
-                </p>
-                <p className="mb-3 text-base font-black text-white">
-                  Monthly collection
-                </p>
-                <div
-                  className="animate-float-card w-full overflow-hidden rounded-2xl"
-                  style={{ aspectRatio: '2/3' }}
-                >
-                  <div
-                    style={{
-                      transform: 'scale(var(---scale, 1))',
-                      transformOrigin: 'top left',
-                      width: '240px',
-                      height: '360px',
-                    }}
-                    ref={(el) => {
-                      if (el) {
-                        const parent = el.parentElement;
-                        if (parent) {
-                          const scale = parent.offsetWidth / 240;
-                          el.style.setProperty('---scale', String(scale));
-                          el.style.transform = `scale(${scale})`;
-                        }
-                      }
-                    }}
-                  >
-                    <CollectionCover month={currentMonth} size="large" />
-                  </div>
-                </div>
-                <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/55">
-                  <BookOpen className="h-2.5 w-2.5" />
-                  Browse puzzles
-                </span>
-              </button>
-
-              <div className="grid grid-cols-1 gap-3 md:hidden">
-                <button
-                  onClick={() => handleTabChange(Tab.FRIENDS)}
-                  className="liquid-glass flex cursor-pointer flex-col gap-2 rounded-2xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
-                >
-                  <div
-                    className="flex h-8 w-8 items-center justify-center rounded-lg"
-                    style={{
-                      background: 'rgba(255,255,255,0.1)',
-                      border: '1px solid rgba(255,255,255,0.14)',
-                    }}
-                  >
-                    <Users className="h-3.5 w-3.5 text-white/70" />
-                  </div>
-                  <p className="text-base font-black leading-tight text-white">
-                    Racing teams
-                  </p>
-                  <p className="text-xs leading-snug text-white/45">
-                    {friendsList?.length
-                      ? `Race ${friendsList.slice(0, 2).join(', ')} and more`
-                      : 'Challenge friends to a race'}
-                  </p>
-                </button>
-              </div>
-
-              {/* Desktop:  left (2fr), tiles stacked right (1fr) */}
-              <div className="hidden gap-3 md:grid md:grid-cols-[2fr_1fr]">
+              {/* Monthly collection + Racing teams — compact landscape
+                  cards sharing the daily race card's text-left,
+                  board-right layout */}
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-[3fr_2fr]">
                 <button
                   onClick={openCollection}
-                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
+                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
+                  style={{
+                    background:
+                      'linear-gradient(155deg, rgba(11,58,143,0.45) 0%, rgba(4,12,30,0.92) 60%, rgba(14,116,144,0.3) 100%)',
+                    border: '1px solid rgba(56,189,248,0.3)',
+                    boxShadow:
+                      '0 0 32px rgba(6,182,212,0.18), 0 8px 24px rgba(2,6,23,0.6)',
+                  }}
                 >
-                  <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
-                    {currentMonth} · daily puzzles
-                  </p>
-                  <p className="mb-3 text-base font-black text-white">
-                    Monthly
-                  </p>
-                  <div
-                    className="animate-float-card mx-auto w-full max-w-[300px] overflow-hidden rounded-2xl"
-                    style={{ aspectRatio: '2/3' }}
-                  >
-                    <div
-                      style={{
-                        width: '240px',
-                        height: '360px',
-                        transformOrigin: 'top left',
-                      }}
-                      ref={(el) => {
-                        if (el) {
-                          const parent = el.parentElement;
-                          if (parent) {
-                            el.style.transform = `scale(${parent.offsetWidth / 240})`;
-                          }
-                        }
-                      }}
-                    >
-                      <CollectionCover month={currentMonth} size="large" />
+                  <div className="flex items-center gap-4 md:gap-6">
+                    <div className="min-w-0 flex-1">
+                      <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-white/35">
+                        {currentMonth} · daily puzzles
+                      </p>
+                      <p className="mb-1 text-xl font-black leading-tight text-white md:text-2xl">
+                        Monthly collection
+                      </p>
+                      <p className="mb-3 text-xs leading-snug text-white/50 md:text-sm">
+                        A fresh jam for every day of {currentMonth} — clear them
+                        all before the month is out.
+                      </p>
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold text-white"
+                        style={{
+                          background:
+                            'linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(6,182,212,0.4) 100%)',
+                          border: '1px solid rgba(56,189,248,0.4)',
+                        }}
+                      >
+                        <BookOpen className="h-3.5 w-3.5" />
+                        Browse puzzles
+                      </span>
+                    </div>
+                    <div className="w-[34%] max-w-[150px] shrink-0">
+                      <div className="animate-float-card">
+                        <CollectionCover month={currentMonth} variant="tile" />
+                      </div>
                     </div>
                   </div>
-                  <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/55">
-                    <BookOpen className="h-2.5 w-2.5" />
-                    Browse puzzles
-                  </span>
                 </button>
-                <div className="flex flex-col gap-3">
-                  <button
-                    onClick={() => handleTabChange(Tab.FRIENDS)}
-                    className="liquid-glass flex flex-1 cursor-pointer flex-col gap-2 rounded-2xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
-                  >
+                <button
+                  onClick={() => handleTabChange(Tab.FRIENDS)}
+                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-white/35">
+                      Multiplayer
+                    </p>
                     <div
                       className="flex h-8 w-8 items-center justify-center rounded-lg"
                       style={{
@@ -556,16 +553,19 @@ function HomeComponent() {
                     >
                       <Users className="h-3.5 w-3.5 text-white/70" />
                     </div>
-                    <p className="text-base font-black leading-tight text-white">
-                      Racing teams
-                    </p>
-                    <p className="text-xs leading-snug text-white/45">
-                      {friendsList?.length
-                        ? `Race ${friendsList.slice(0, 2).join(', ')} and more`
-                        : 'Challenge friends to a race'}
-                    </p>
-                  </button>
-                </div>
+                  </div>
+                  <p className="mb-2 text-xl font-black leading-tight text-white md:text-2xl">
+                    Racing teams
+                  </p>
+                  <div className="my-auto py-2">
+                    <RaceLanesPreview />
+                  </div>
+                  <p className="mt-2 text-xs leading-snug text-white/45">
+                    {friendsList?.length
+                      ? `Race ${friendsList.slice(0, 2).join(', ')} and more`
+                      : 'Challenge friends to a race'}
+                  </p>
+                </button>
               </div>
             </div>
           </div>

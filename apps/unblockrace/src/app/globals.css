@@ -329,11 +329,52 @@ body {
 .jam-rival-up   { animation: jamRivalUp 9s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
 .jam-hero       { animation: jamHeroEscape 9s cubic-bezier(0.5, 0, 0.2, 1) infinite; }
 .jam-exit-pulse { animation: jamExitPulse 1.6s ease-in-out infinite; }
+
+/* ─── Racing teams lanes (homepage tile) ────────────────────────
+   Same 9s clock as the jam board: three blocks burst forward in
+   traffic-like steps toward the checkered finish; the theme-coloured
+   hero edges the win, then everyone resets under an opacity fade.
+   translateX % is relative to the block's own width (blocks are 25%
+   of the lane, so 288% ≈ the finish line). */
+@keyframes raceLaneHero {
+  0%, 6%    { transform: translateX(0); opacity: 1; }
+  20%, 28%  { transform: translateX(120%); opacity: 1; }
+  44%, 52%  { transform: translateX(200%); opacity: 1; }
+  68%, 86%  { transform: translateX(288%); opacity: 1; }
+  90%       { transform: translateX(288%); opacity: 0; }
+  91%, 94%  { transform: translateX(0); opacity: 0; }
+  100%      { transform: translateX(0); opacity: 1; }
+}
+@keyframes raceLaneAmber {
+  0%, 10%   { transform: translateX(0); opacity: 1; }
+  26%, 36%  { transform: translateX(80%); opacity: 1; }
+  54%, 62%  { transform: translateX(150%); opacity: 1; }
+  74%, 86%  { transform: translateX(210%); opacity: 1; }
+  90%       { transform: translateX(210%); opacity: 0; }
+  91%, 94%  { transform: translateX(0); opacity: 0; }
+  100%      { transform: translateX(0); opacity: 1; }
+}
+@keyframes raceLaneRose {
+  0%, 4%    { transform: translateX(0); opacity: 1; }
+  24%, 30%  { transform: translateX(100%); opacity: 1; }
+  50%, 60%  { transform: translateX(160%); opacity: 1; }
+  78%, 86%  { transform: translateX(244%); opacity: 1; }
+  90%       { transform: translateX(244%); opacity: 0; }
+  91%, 94%  { transform: translateX(0); opacity: 0; }
+  100%      { transform: translateX(0); opacity: 1; }
+}
+.race-lane-hero  { animation: raceLaneHero 9s cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+.race-lane-amber { animation: raceLaneAmber 9s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
+.race-lane-rose  { animation: raceLaneRose 9s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .jam-rival-down,
   .jam-rival-up,
   .jam-hero,
-  .jam-exit-pulse {
+  .jam-exit-pulse,
+  .race-lane-hero,
+  .race-lane-amber,
+  .race-lane-rose {
     animation: none;
   }
 }

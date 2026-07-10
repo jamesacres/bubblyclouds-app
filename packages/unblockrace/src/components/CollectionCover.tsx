@@ -3,6 +3,7 @@ import SimpleBoard from './SimpleBoard';
 interface CollectionCoverProps {
   month: string;
   size?: 'small' | 'medium' | 'large';
+  variant?: 'portrait' | 'tile';
 }
 
 const SIZES = {
@@ -15,9 +16,33 @@ const SIZES = {
 // database so the cover always looks like the game.
 const COVER_BOARD = 'FBBCCoFoGoooAAGooooDDooooEEooooooooo';
 
+const COVER_BACKGROUND =
+  'linear-gradient(160deg, #061231 0%, #0b3a8f 55%, #0e7490 100%)';
+const COVER_SHADOW =
+  '0 0 0 1px rgba(255,255,255,0.12), 0 0 30px rgba(56,189,248,0.35), inset 0 1px 0 rgba(255,255,255,0.18)';
+
 // Mirrors sudoku's BookCover role, reframed as "collection" — no "book"
-// language (TODO.md).
-const CollectionCover = ({ month, size = 'medium' }: CollectionCoverProps) => {
+// language (TODO.md). The tile variant is the same cover identity squeezed
+// into a near-square thumbnail; it fills the parent's width.
+const CollectionCover = ({
+  month,
+  size = 'medium',
+  variant = 'portrait',
+}: CollectionCoverProps) => {
+  if (variant === 'tile') {
+    return (
+      <div
+        className="flex w-full flex-col overflow-hidden rounded-2xl p-2.5"
+        style={{ background: COVER_BACKGROUND, boxShadow: COVER_SHADOW }}
+      >
+        <p className="mb-1.5 text-center text-[9px] font-bold uppercase tracking-widest text-white/60">
+          {month}
+        </p>
+        <SimpleBoard initial={COVER_BOARD} transparent compact />
+      </div>
+    );
+  }
+
   const { width, height } = SIZES[size];
 
   return (
@@ -26,10 +51,8 @@ const CollectionCover = ({ month, size = 'medium' }: CollectionCoverProps) => {
       style={{
         width,
         height,
-        background:
-          'linear-gradient(160deg, #1e1b4b 0%, #4c1d95 55%, #86198f 100%)',
-        boxShadow:
-          '0 0 0 1px rgba(255,255,255,0.12), 0 0 30px rgba(139,92,246,0.35), inset 0 1px 0 rgba(255,255,255,0.18)',
+        background: COVER_BACKGROUND,
+        boxShadow: COVER_SHADOW,
       }}
     >
       <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">
@@ -37,7 +60,7 @@ const CollectionCover = ({ month, size = 'medium' }: CollectionCoverProps) => {
       </p>
       <p
         className="mb-3 text-xl font-black leading-tight text-white"
-        style={{ textShadow: '0 0 14px rgba(167,139,250,0.8)' }}
+        style={{ textShadow: '0 0 14px rgba(103,232,249,0.8)' }}
       >
         {month}
       </p>
