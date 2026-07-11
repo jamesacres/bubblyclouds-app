@@ -4,6 +4,8 @@ import {
 } from '@bubblyclouds-app/template/types/state';
 import { Timer } from '@bubblyclouds-app/template/types/timer';
 
+export type UnblockMode = 'solo' | 'ai' | 'friends';
+
 // Unblock Race metadata. The board string itself is the puzzle identifier
 // (SPEC.md §4), so there is no separate id field here.
 export interface GameStateMetadata {
@@ -13,6 +15,8 @@ export interface GameStateMetadata {
   stageIndex?: string;
   movesRequired?: string;
   movesMade?: string;
+  mode?: UnblockMode;
+  agentNames?: string;
 }
 
 // State is the board string (SPEC.md §2): every move produces a new board

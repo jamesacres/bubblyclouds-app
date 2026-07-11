@@ -278,6 +278,50 @@ describe('useGameState', () => {
     expect(result.current.showLobby).toBe(true);
   });
 
+  it('persists the initial mode and agent names into saved metadata', async () => {
+    const { result } = renderHook(() =>
+      useGameState({
+        ...defaultProps,
+        initialMode: 'ai',
+        initialAgentNames: 'Bumblebee,Sage',
+      })
+    );
+    await act(async () => {});
+    expect(result.current.mode).toBe('ai');
+    expect(result.current.agentNames).toBe('Bumblebee,Sage');
+    act(() => {
+      result.current.pushMove({ piece: 0, steps: 1 });
+    });
+    expect(localSaveValue).toHaveBeenCalledWith(
+      expect.objectContaining({
+        metadata: expect.objectContaining({
+          mode: 'ai',
+          agentNames: 'Bumblebee,Sage',
+        }),
+      })
+    );
+  });
+
+  it('persists mode and agent names set through the exposed setters', async () => {
+    const { result } = renderHook(() => useGameState(defaultProps));
+    await act(async () => {});
+    act(() => {
+      result.current.setMode('ai');
+      result.current.setAgentNames('Puddle');
+    });
+    act(() => {
+      result.current.pushMove({ piece: 0, steps: 1 });
+    });
+    expect(localSaveValue).toHaveBeenCalledWith(
+      expect.objectContaining({
+        metadata: expect.objectContaining({
+          mode: 'ai',
+          agentNames: 'Puddle',
+        }),
+      })
+    );
+  });
+
   describe('chained-run stage sessions', () => {
     // A second stage in the run; its id is its board string
     const STAGE_2 = [

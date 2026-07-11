@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { Redo2, RotateCcw, Undo2 } from 'lucide-react';
+import { Lightbulb, Redo2, RotateCcw, Undo2 } from 'lucide-react';
 
 interface ControlsProps {
   undo: () => void;
@@ -10,6 +10,10 @@ interface ControlsProps {
   isUndoDisabled: boolean;
   isRedoDisabled: boolean;
   isDisabled?: boolean;
+  // "Ask for help": reveals the solver's next best move. The button only
+  // renders when the caller wires a handler (solver-less renders omit it).
+  onHint?: () => void;
+  isHintDisabled?: boolean;
   // Live move count against the stage's par; the gauge is omitted when the
   // caller doesn't track moves (e.g. standalone renders in tests).
   movesMade?: number;
@@ -41,6 +45,8 @@ const Controls = ({
   isUndoDisabled,
   isRedoDisabled,
   isDisabled,
+  onHint,
+  isHintDisabled,
   movesMade,
   movesRequired,
   timer,
@@ -115,6 +121,18 @@ const Controls = ({
         ) : null}
       </div>
       <div className="flex shrink-0 items-center gap-1.5">
+        {onHint ? (
+          <button
+            type="button"
+            aria-label="Hint"
+            title="Ask for help"
+            className={controlButtonClass}
+            onClick={onHint}
+            disabled={isHintDisabled || isDisabled}
+          >
+            <Lightbulb className="h-4.5 w-4.5" />
+          </button>
+        ) : null}
         <button
           type="button"
           aria-label="Undo"

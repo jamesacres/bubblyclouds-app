@@ -27,6 +27,20 @@ export interface PlayerRunResult {
   // a known move count — the "how far off par" verdict for the run so far.
   totalMovesDelta: number;
   completedStageCount: number;
+  // AI agents carry their display name (humans are resolved from party
+  // nicknames) and their kart emoji for the leaderboard row.
+  nickname?: string;
+  isAgent?: boolean;
+  emoji?: string;
+}
+
+// A local AI agent's deterministic run so far: its precomputed per-stage
+// results, recorded as the run reaches the end of each stage.
+export interface AgentRunInput {
+  agentId: string;
+  name: string;
+  emoji?: string;
+  stageResults: Map<number, PlayerStageResult>;
 }
 
 // Fold the per-stage server sessions (runStageParties, keyed by stage puzzle
@@ -35,16 +49,42 @@ export interface PlayerRunResult {
 // right even before the server echoes their finished session back. Players
 // with no completed stage yet are omitted — the live race strip already
 // covers in-progress positions.
+const runTotals = (stageResults: (PlayerStageResult | undefined)[]) => {
+  const completedResults = stageResults.filter(
+    (stageResult): stageResult is PlayerStageResult => stageResult !== undefined
+  );
+  return {
+    totalSeconds: completedResults.reduce(
+      (sum, stageResult) => sum + stageResult.seconds,
+      0
+    ),
+    totalMoves: completedResults.reduce(
+      (sum, stageResult) => sum + (stageResult.movesMade || 0),
+      0
+    ),
+    totalMovesDelta: completedResults.reduce(
+      (sum, stageResult) =>
+        stageResult.movesMade !== undefined
+          ? sum + stageResult.movesMade - stageResult.movesRequired
+          : sum,
+      0
+    ),
+    completedStageCount: completedResults.length,
+  };
+};
+
 export const calculateRunResults = ({
   stages,
   runStageParties,
   userId,
   ownResults,
+  agentResults,
 }: {
   stages: RunStage[];
   runStageParties: { [stageId: string]: Parties<Session<ServerState>> };
   userId?: string;
   ownResults: Map<number, StageResult>;
+  agentResults?: AgentRunInput[];
 }): PlayerRunResult[] => {
   const linesByUser = new Map<string, (PlayerStageResult | undefined)[]>();
   const lineFor = (memberId: string): (PlayerStageResult | undefined)[] => {
@@ -98,34 +138,33 @@ export const calculateRunResults = ({
     });
   }
 
-  return [...linesByUser.entries()]
-    .map(([memberId, stageResults]) => {
-      const completedResults = stageResults.filter(
-        (stageResult): stageResult is PlayerStageResult =>
-          stageResult !== undefined
-      );
-      return {
-        userId: memberId,
-        isCurrentUser: memberId === userId,
-        stageResults,
-        totalSeconds: completedResults.reduce(
-          (sum, stageResult) => sum + stageResult.seconds,
-          0
-        ),
-        totalMoves: completedResults.reduce(
-          (sum, stageResult) => sum + (stageResult.movesMade || 0),
-          0
-        ),
-        totalMovesDelta: completedResults.reduce(
-          (sum, stageResult) =>
-            stageResult.movesMade !== undefined
-              ? sum + stageResult.movesMade - stageResult.movesRequired
-              : sum,
-          0
-        ),
-        completedStageCount: completedResults.length,
-      };
+  const playerLines = [...linesByUser.entries()].map(
+    ([memberId, stageResults]): PlayerRunResult => ({
+      userId: memberId,
+      isCurrentUser: memberId === userId,
+      stageResults,
+      ...runTotals(stageResults),
     })
+  );
+
+  // Agents fold in like any other racer: their precomputed stage results are
+  // deterministic, so a line simply reads them out per stage.
+  const agentLines = (agentResults || []).map((agent): PlayerRunResult => {
+    const stageResults = stages.map((_, stageIndex) =>
+      agent.stageResults.get(stageIndex)
+    );
+    return {
+      userId: agent.agentId,
+      isCurrentUser: false,
+      stageResults,
+      ...runTotals(stageResults),
+      nickname: agent.name,
+      isAgent: true,
+      emoji: agent.emoji,
+    };
+  });
+
+  return [...playerLines, ...agentLines]
     .filter((result) => result.completedStageCount > 0)
     .sort(
       (a, b) =>

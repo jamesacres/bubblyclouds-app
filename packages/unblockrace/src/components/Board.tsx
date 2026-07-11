@@ -1,9 +1,9 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
+import { CSSProperties, useMemo, useRef } from 'react';
 import { Move } from '../types/board';
 import { parseBoardString } from '../helpers/parseBoardString';
-import { pieceRow } from '../helpers/piece';
+import { pieceRow, pieceStride } from '../helpers/piece';
 import { useDrag } from '../hooks/useDrag';
 import { isSolved } from '../helpers/isSolved';
 import { assignPieceColors } from '../helpers/pieceColors';
@@ -23,6 +23,10 @@ interface BoardProps {
   // drag, and the primary piece stays at rest in its solved cell (the win
   // exit slide is not replayed — the carousel carries it across instead).
   isStatic?: boolean;
+  // "Ask for help" overlay: a pulsing ring over the hinted piece plus a
+  // dashed ghost at its destination. Purely presentational — the caller owns
+  // when it appears and clears.
+  hint?: Move | null;
 }
 
 // Plain HTML/CSS board (SPEC.md §9): absolutely-positioned divs inside a
@@ -35,6 +39,7 @@ const Board = ({
   onMove,
   isDisabled,
   isStatic,
+  hint,
 }: BoardProps) => {
   const boardRef = useRef<HTMLDivElement>(null);
   const board = useMemo(() => parseBoardString(boardString), [boardString]);
@@ -63,6 +68,24 @@ const Board = ({
   });
 
   const primaryRow = pieceRow(board.pieces[0], board.width);
+
+  // Hint overlay geometry: the same %-based cell maths the sockets and
+  // pieces use, for the hinted piece's current rect and its destination
+  // (position + stride * steps).
+  const hintPiece =
+    hint != null && hint.piece >= 0 && hint.piece < board.pieces.length
+      ? board.pieces[hint.piece]
+      : undefined;
+  const hintRect = (position: number, size: number): CSSProperties => {
+    const spanX = hintPiece?.orientation === 'horizontal' ? size : 1;
+    const spanY = hintPiece?.orientation === 'horizontal' ? 1 : size;
+    return {
+      left: `${((position % board.width) / board.width) * 100}%`,
+      top: `${(Math.floor(position / board.width) / board.height) * 100}%`,
+      width: `${(spanX / board.width) * 100}%`,
+      height: `${(spanY / board.height) * 100}%`,
+    };
+  };
 
   return (
     <div
@@ -101,6 +124,10 @@ const Board = ({
         @keyframes unblock-piece-enter {
           from { transform: scale(0.55); opacity: 0; }
           to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes unblock-hint-pulse {
+          0%, 100% { transform: scale(1); opacity: 0.9; }
+          50% { transform: scale(1.06); opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
           [data-testid="unblock-board"],
@@ -310,6 +337,57 @@ const Board = ({
           onPointerCancel={isStatic ? undefined : onPointerCancel}
         />
       ))}
+
+      {/* Hint overlay: a pulsing theme-colour ring over the piece to move
+          and a dashed ghost at where it should land. Above the pieces so an
+          edge-to-edge rival can't hide it; pointer-events pass through so
+          the hinted piece stays draggable underneath. Reduced motion is
+          covered by the board-wide media rule above. */}
+      {hint != null && hintPiece && (
+        <>
+          <div
+            aria-hidden="true"
+            data-testid="hint-ring"
+            className="pointer-events-none absolute z-10"
+            style={hintRect(hintPiece.position, hintPiece.size)}
+          >
+            <div
+              className="absolute"
+              style={{
+                inset: '2%',
+                borderRadius: '26% / 34%',
+                border:
+                  '3px solid color-mix(in srgb, var(--theme-primary) 80%, white)',
+                boxShadow:
+                  '0 0 14px 2px color-mix(in srgb, var(--theme-primary) 60%, transparent), inset 0 0 10px color-mix(in srgb, var(--theme-primary) 35%, transparent)',
+                animation: 'unblock-hint-pulse 1.2s ease-in-out infinite',
+              }}
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            data-testid="hint-ghost"
+            className="pointer-events-none absolute z-10"
+            style={hintRect(
+              hintPiece.position +
+                pieceStride(hintPiece, board.width) * hint.steps,
+              hintPiece.size
+            )}
+          >
+            <div
+              className="absolute"
+              style={{
+                inset: '6%',
+                borderRadius: '26% / 34%',
+                border:
+                  '2px dashed color-mix(in srgb, var(--theme-primary) 70%, transparent)',
+                background:
+                  'color-mix(in srgb, var(--theme-primary) 35%, transparent)',
+              }}
+            />
+          </div>
+        </>
+      )}
 
       {/* Solve flare: a single theme-colour light sweep across the board as
           the car exits, so every stage win lands, not just the final one */}

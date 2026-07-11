@@ -41,4 +41,30 @@ describe('Controls', () => {
     expect(screen.getByLabelText('Redo')).toBeDisabled();
     expect(screen.getByLabelText('Reset')).toBeDisabled();
   });
+
+  it('omits the hint button when no handler is wired', () => {
+    render(<Controls {...defaultProps} />);
+    expect(screen.queryByLabelText('Hint')).not.toBeInTheDocument();
+  });
+
+  it('renders the hint button and fires onHint when clicked', () => {
+    const onHint = jest.fn();
+    render(<Controls {...defaultProps} onHint={onHint} />);
+    fireEvent.click(screen.getByLabelText('Hint'));
+    expect(onHint).toHaveBeenCalled();
+  });
+
+  it('disables the hint button when hints are unavailable', () => {
+    const onHint = jest.fn();
+    render(<Controls {...defaultProps} onHint={onHint} isHintDisabled />);
+    const hintButton = screen.getByLabelText('Hint');
+    expect(hintButton).toBeDisabled();
+    fireEvent.click(hintButton);
+    expect(onHint).not.toHaveBeenCalled();
+  });
+
+  it('disables the hint button when the whole toolbar is disabled', () => {
+    render(<Controls {...defaultProps} onHint={jest.fn()} isDisabled />);
+    expect(screen.getByLabelText('Hint')).toBeDisabled();
+  });
 });

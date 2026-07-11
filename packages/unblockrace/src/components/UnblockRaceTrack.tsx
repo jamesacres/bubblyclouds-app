@@ -10,6 +10,7 @@ import {
   Users,
 } from 'lucide-react';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
+import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import {
@@ -37,6 +38,9 @@ interface UnblockRaceTrackProps {
   // refreshed at the end of each stage. Replaces the single-stage finished
   // leaderboard so every stage's time (and the whole-run total) is visible.
   runResults?: PlayerRunResult[];
+  // Local AI rivals racing this stage. They aren't party members (no user
+  // id, no player colour) — their emoji is the kart.
+  localAgentProgress?: AgentProgress<ServerState>[];
 }
 
 interface PlayerProgress {
@@ -47,6 +51,18 @@ interface PlayerProgress {
   finishTime?: number;
   isPuzzleCheated: boolean;
   statsDisplay?: string;
+}
+
+// One line of the single-stage finished list: humans (with their colour dot)
+// and agents (with their emoji) merged and sorted by finish time.
+interface FinishedRacer {
+  key: string;
+  userId?: string;
+  nickname: string;
+  isCurrentUser: boolean;
+  statsDisplay?: string;
+  finishTime: number;
+  emoji?: string;
 }
 
 // Unblock Race's own race strip. The shared @games RaceTrack keeps its kart
@@ -62,6 +78,7 @@ const UnblockRaceTrack = ({
   isPolling,
   onInviteFriends,
   runResults,
+  localAgentProgress,
 }: UnblockRaceTrackProps) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
@@ -184,20 +201,57 @@ const UnblockRaceTrack = ({
       .sort((a, b) => a.finishTime! - b.finishTime!);
   }, [allPlayerProgress]);
 
+  const agentProgressList = useMemo(
+    () => localAgentProgress ?? [],
+    [localAgentProgress]
+  );
+
+  // Single-stage finished list: humans and finished agents in one order
+  const finishedRacers = useMemo((): FinishedRacer[] => {
+    const players = finishedPlayers.map(
+      (player): FinishedRacer => ({
+        key: player.userId,
+        userId: player.userId,
+        nickname: player.nickname,
+        isCurrentUser: player.isCurrentUser,
+        statsDisplay: player.statsDisplay,
+        finishTime: player.finishTime!,
+      })
+    );
+    const agents = agentProgressList
+      .filter((agent) => agent.finishTime !== undefined)
+      .map(
+        (agent): FinishedRacer => ({
+          key: `agent-${agent.agentId}`,
+          nickname: agent.name,
+          isCurrentUser: false,
+          statsDisplay: agent.state
+            ? calculateStatsDisplayFromState(agent.state)
+            : undefined,
+          finishTime: agent.finishTime!,
+          emoji: agent.emoji || '🤖',
+        })
+      );
+    return [...players, ...agents].sort((a, b) => a.finishTime - b.finishTime);
+  }, [finishedPlayers, agentProgressList]);
+
   const currentUserProgress = useMemo(() => {
     return allPlayerProgress.find((p) => p.isCurrentUser);
   }, [allPlayerProgress]);
 
-  // Resolve run-leaderboard names the same way the legend does: the current
-  // user is "You", opponents need a party nickname to appear.
+  // Resolve run-leaderboard names the same way the legend does: agents carry
+  // their own display name, the current user is "You", opponents need a
+  // party nickname to appear.
   const runLeaderboardRows = useMemo(
     () =>
       (runResults || [])
         .map((result) => ({
           ...result,
-          nickname: result.isCurrentUser
-            ? 'You'
-            : getNicknameByUserId(result.userId) || '',
+          nickname:
+            result.nickname ??
+            (result.isCurrentUser
+              ? 'You'
+              : getNicknameByUserId(result.userId) || ''),
         }))
         .filter((row) => row.nickname),
     [runResults, getNicknameByUserId]
@@ -327,16 +381,17 @@ const UnblockRaceTrack = ({
                 already opens the opponents lobby on tap. Pinned to the
                 bottom edge so it never collides with the player's car
                 driving the upper half of the lane. */}
-            {allPlayerProgress.length <= 1 && (
-              <div className="absolute inset-0 z-10 flex items-end justify-center pb-1">
-                {/* Solid plaque so the lane's dashed centre line can't
+            {allPlayerProgress.length <= 1 &&
+              agentProgressList.length === 0 && (
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-1">
+                  {/* Solid plaque so the lane's dashed centre line can't
                     strike through the words */}
-                <span className="flex items-center gap-1 rounded-full bg-zinc-900/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white/70 shadow-sm ring-1 ring-white/10">
-                  Invite friends to race
-                  <ChevronRight className="h-3 w-3" aria-hidden="true" />
-                </span>
-              </div>
-            )}
+                  <span className="flex items-center gap-1 rounded-full bg-zinc-900/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white/70 shadow-sm ring-1 ring-white/10">
+                    Invite friends to race
+                    <ChevronRight className="h-3 w-3" aria-hidden="true" />
+                  </span>
+                </div>
+              )}
 
             {/* Player cars: glowing pills in each player's colour with a
                 motion trail; the current user gets a ring instead of a
@@ -348,8 +403,9 @@ const UnblockRaceTrack = ({
                 player.isCurrentUser
               );
 
-              const totalPlayers = allPlayerProgress.length;
-              const playerHeight = Math.min(12, trackHeight / totalPlayers);
+              const totalRacers =
+                allPlayerProgress.length + agentProgressList.length;
+              const playerHeight = Math.min(12, trackHeight / totalRacers);
               const verticalOffset = index * playerHeight + 6;
 
               return (
@@ -381,6 +437,37 @@ const UnblockRaceTrack = ({
                     {/* Headlight on the leading edge */}
                     <div className="absolute -right-px top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-white shadow-[0_0_6px_2px_rgba(255,255,255,0.7)]" />
                   </div>
+                </div>
+              );
+            })}
+
+            {/* AI rivals: their emoji is the kart — agents aren't party
+                members, so they don't draw from the player colour pool */}
+            {agentProgressList.map((agent, index) => {
+              const totalRacers =
+                allPlayerProgress.length + agentProgressList.length;
+              const laneSlotHeight = Math.min(12, trackHeight / totalRacers);
+              const verticalOffset =
+                (allPlayerProgress.length + index) * laneSlotHeight + 6;
+              const percentage = Math.min(100, Math.max(0, agent.percentage));
+
+              return (
+                <div
+                  key={`agent-${agent.agentId}`}
+                  data-testid={`agent-kart-${agent.agentId}`}
+                  className="absolute transition-all duration-700 ease-out"
+                  style={{
+                    left: `${percentage * 0.88 + 6}%`,
+                    top: `${verticalOffset}px`,
+                    transform: 'translateX(-50%)',
+                  }}
+                >
+                  <span
+                    className="block"
+                    style={{ fontSize: '14px', lineHeight: 1 }}
+                  >
+                    {agent.emoji || '🤖'}
+                  </span>
                 </div>
               );
             })}
@@ -421,6 +508,23 @@ const UnblockRaceTrack = ({
                 </span>
               );
             })}
+            {agentProgressList.map((agent) => (
+              <span
+                key={`agent-legend-${agent.agentId}`}
+                data-testid={`agent-legend-${agent.agentId}`}
+                className="flex items-center gap-1.5 rounded-full border border-stone-200/70 bg-white/60 px-2 py-0.5 dark:border-white/10 dark:bg-zinc-900/60"
+              >
+                <span aria-hidden="true">{agent.emoji || '🤖'}</span>
+                <span className="text-stone-600 dark:text-zinc-300">
+                  {agent.name}
+                </span>
+                <span className="tabular-nums text-stone-400 dark:text-zinc-500">
+                  {agent.finishTime !== undefined
+                    ? formatSecondsShort(agent.finishTime)
+                    : `${Math.min(100, Math.max(0, agent.percentage))}%`}
+                </span>
+              </span>
+            ))}
             <span className="ml-auto flex items-center gap-1 text-[0.65rem] font-semibold text-stone-400 dark:text-zinc-500">
               <Users className="h-3 w-3" aria-hidden="true" />
               Opponents
@@ -488,9 +592,18 @@ const UnblockRaceTrack = ({
                                 >
                                   {index + 1}.
                                 </span>
-                                <span
-                                  className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(row.userId, allUserIds, row.isCurrentUser)}`}
-                                />
+                                {row.isAgent ? (
+                                  <span
+                                    aria-hidden="true"
+                                    className="shrink-0 text-sm leading-none"
+                                  >
+                                    {row.emoji || '🤖'}
+                                  </span>
+                                ) : (
+                                  <span
+                                    className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(row.userId, allUserIds, row.isCurrentUser)}`}
+                                  />
+                                )}
                                 <span
                                   className={`whitespace-nowrap text-sm ${
                                     row.isCurrentUser
@@ -596,14 +709,14 @@ const UnblockRaceTrack = ({
               </div>
             </div>
           )
-        ) : finishedPlayers.length > 0 ? (
+        ) : finishedRacers.length > 0 ? (
           <div className="mt-4">
             <div className="mt-2 overflow-hidden rounded-xl border border-stone-200/70 bg-white/60 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60">
-              {finishedPlayers.map((player, index) => {
+              {finishedRacers.map((racer, index) => {
                 const isFirst = index === 0;
                 return (
                   <div
-                    key={player.userId}
+                    key={racer.key}
                     className={`flex items-center justify-between px-3 py-2 ${
                       isFirst
                         ? 'border-b border-stone-200 bg-gradient-to-r from-amber-400/15 via-amber-400/5 to-transparent dark:border-zinc-700'
@@ -620,21 +733,30 @@ const UnblockRaceTrack = ({
                       >
                         {index + 1}.
                       </span>
-                      <span
-                        className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(player.userId, allUserIds, player.isCurrentUser)}`}
-                      />
+                      {racer.userId !== undefined ? (
+                        <span
+                          className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(racer.userId, allUserIds, racer.isCurrentUser)}`}
+                        />
+                      ) : (
+                        <span
+                          aria-hidden="true"
+                          className="shrink-0 text-sm leading-none"
+                        >
+                          {racer.emoji || '🤖'}
+                        </span>
+                      )}
                       <span
                         className={`text-sm ${
-                          player.isCurrentUser
+                          racer.isCurrentUser
                             ? 'font-semibold text-stone-900 dark:text-white'
                             : 'text-stone-700 dark:text-zinc-300'
                         }`}
                       >
-                        {player.nickname}
+                        {racer.nickname}
                       </span>
-                      {player.statsDisplay && (
+                      {racer.statsDisplay && (
                         <span className="text-xs text-stone-400 dark:text-zinc-500">
-                          {player.statsDisplay}
+                          {racer.statsDisplay}
                         </span>
                       )}
                     </div>
@@ -645,7 +767,7 @@ const UnblockRaceTrack = ({
                           : 'text-stone-500 dark:text-zinc-400'
                       }`}
                     >
-                      {formatSecondsShort(player.finishTime!)}
+                      {formatSecondsShort(racer.finishTime)}
                     </span>
                   </div>
                 );

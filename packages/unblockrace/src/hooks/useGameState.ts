@@ -2,7 +2,12 @@
 
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Move } from '../types/board';
-import { GameState, GameStateMetadata, ServerState } from '../types/state';
+import {
+  GameState,
+  GameStateMetadata,
+  ServerState,
+  UnblockMode,
+} from '../types/state';
 import { parseBoardString } from '../helpers/parseBoardString';
 import { boardToString } from '../helpers/boardToString';
 import { doMove } from '../helpers/doMove';
@@ -46,6 +51,8 @@ function useGameState({
   metadata,
   app,
   apiUrl,
+  initialMode,
+  initialAgentNames,
   initialShowLobby,
   onComplete,
   runStageIds,
@@ -56,6 +63,8 @@ function useGameState({
   metadata: Partial<GameStateMetadata>;
   app: string;
   apiUrl: string;
+  initialMode?: UnblockMode;
+  initialAgentNames?: string;
   initialShowLobby?: boolean;
   onComplete?: (
     answerStack: string[],
@@ -117,6 +126,10 @@ function useGameState({
   const { getSessionParties, patchFriendSessions } = useSessions<ServerState>();
 
   const [showLobby, setShowLobby] = useState(initialShowLobby ?? false);
+  const [mode, setMode] = useState<UnblockMode | undefined>(initialMode);
+  const [agentNames, setAgentNames] = useState<string | undefined>(
+    initialAgentNames
+  );
   const [{ answerStack, isRestored, isDisabled, completed }, setAnswerStack] =
     useState<{
       answerStack: string[];
@@ -585,7 +598,12 @@ function useGameState({
           initial,
           final,
           completed,
-          metadata: { ...metadata, movesMade: String(movesMade) },
+          metadata: {
+            ...metadata,
+            movesMade: String(movesMade),
+            mode,
+            agentNames,
+          },
         },
         isSaveServerValue
       );
@@ -607,6 +625,8 @@ function useGameState({
     isDisabled,
     completed,
     metadata,
+    mode,
+    agentNames,
     handleServerResponse,
   ]);
 
@@ -704,6 +724,10 @@ function useGameState({
     setShowLobby,
     isPaused,
     registerInteraction,
+    mode,
+    setMode,
+    agentNames,
+    setAgentNames,
   };
 }
 

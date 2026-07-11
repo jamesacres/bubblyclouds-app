@@ -36,6 +36,7 @@ export default [
       '**/postcss.config.js',
       '**/public/**/*.js',
       '**/public/**/*.wasm',
+      'packages/unblockrace/src/services/solverWasm.js',
     ],
   },
   ...compat.extends('eslint:recommended'),

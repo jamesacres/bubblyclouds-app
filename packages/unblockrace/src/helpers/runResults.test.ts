@@ -1,7 +1,7 @@
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { ServerState } from '../types/state';
 import { RunStage, StageResult } from './stageResults';
-import { calculateRunResults } from './runResults';
+import { AgentRunInput, calculateRunResults } from './runResults';
 
 const STAGE_1 = [
   'oooooo',
@@ -172,6 +172,90 @@ describe('calculateRunResults', () => {
         completedStageCount: 1,
       },
     ]);
+  });
+
+  it('folds agent results in as leaderboard lines sorted among the humans', () => {
+    const agentResults: AgentRunInput[] = [
+      {
+        agentId: 'agent-Bumblebee',
+        name: 'Bumblebee',
+        emoji: '🐝',
+        stageResults: new Map([
+          [0, { seconds: 30, movesMade: 5, movesRequired: 3 }],
+        ]),
+      },
+      {
+        agentId: 'agent-Sage',
+        name: 'Sage',
+        emoji: '🦉',
+        stageResults: new Map([
+          [0, { seconds: 8, movesMade: 3, movesRequired: 3 }],
+          [1, { seconds: 9, movesMade: 4, movesRequired: 4 }],
+        ]),
+      },
+    ];
+
+    const results = calculateRunResults({
+      stages: STAGES,
+      runStageParties: {},
+      userId: 'me',
+      ownResults: ownResults([
+        [0, 10],
+        [1, 15],
+      ]),
+      agentResults,
+    });
+
+    expect(results.map((result) => result.userId)).toEqual([
+      'agent-Sage',
+      'me',
+      'agent-Bumblebee',
+    ]);
+    expect(results[0]).toEqual({
+      userId: 'agent-Sage',
+      isCurrentUser: false,
+      stageResults: [
+        { seconds: 8, movesMade: 3, movesRequired: 3 },
+        { seconds: 9, movesMade: 4, movesRequired: 4 },
+      ],
+      totalSeconds: 17,
+      totalMoves: 7,
+      totalMovesDelta: 0,
+      completedStageCount: 2,
+      nickname: 'Sage',
+      isAgent: true,
+      emoji: '🦉',
+    });
+    // One completed stage ranks below the two-stage lines regardless of time
+    expect(results[2]).toEqual(
+      expect.objectContaining({
+        userId: 'agent-Bumblebee',
+        nickname: 'Bumblebee',
+        isAgent: true,
+        totalSeconds: 30,
+        totalMovesDelta: 2,
+        completedStageCount: 1,
+      })
+    );
+  });
+
+  it('omits agents with no completed stage yet', () => {
+    const results = calculateRunResults({
+      stages: STAGES,
+      runStageParties: {},
+      userId: 'me',
+      ownResults: ownResults([[0, 10]]),
+      agentResults: [
+        {
+          agentId: 'agent-Puddle',
+          name: 'Puddle',
+          emoji: '💧',
+          stageResults: new Map(),
+        },
+      ],
+    });
+
+    expect(results.map((result) => result.userId)).toEqual(['me']);
   });
 
   it('ignores cheated stage completions and players with no completed stage', () => {

@@ -3,8 +3,25 @@ import { render, screen, fireEvent, act } from '@testing-library/react';
 import UnblockRace from './UnblockRace';
 import { useGameState } from '../hooks/useGameState';
 import { solvedBoardString } from '../helpers/boardToString';
+import { getHint } from '../helpers/hint';
+import { createLocalAgents } from '../helpers/agentTimeline';
+import { DreyfusLevel, LocalAgent } from '../types/Agent';
 
 jest.mock('../hooks/useGameState');
+// No wasm in jsdom: the warm-up loader resolves to a stub and the hint flow
+// is driven through the mocked getHint.
+jest.mock('../services/solver', () => ({
+  isSolverSupported: jest.fn(() => true),
+  loadSolver: jest.fn(() => Promise.resolve({ solve: jest.fn() })),
+}));
+jest.mock('../helpers/hint', () => ({
+  getHint: jest.fn(),
+}));
+// Agent timelines are solver-built; the mock returns deterministic agents so
+// the tests control every timestamp.
+jest.mock('../helpers/agentTimeline', () => ({
+  createLocalAgents: jest.fn(),
+}));
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({ replace: jest.fn(), push: jest.fn() })),
 }));
@@ -20,8 +37,10 @@ jest.mock('@bubblyclouds-app/template/providers/RevenueCatProvider', () => ({
 jest.mock('@bubblyclouds-app/ui/components/TimerDisplay', () => ({
   TimerDisplay: () => <div data-testid="timer-display">Timer</div>,
 }));
+const mockLobbyProps = jest.fn();
 jest.mock('@bubblyclouds-app/template/components/Lobby', () => {
-  return function DummyLobby() {
+  return function DummyLobby(props: object) {
+    mockLobbyProps(props);
     return <div data-testid="lobby">Lobby</div>;
   };
 });
@@ -94,6 +113,10 @@ const STAGE_1_COMPLETED = [
 const mockUseGameState = useGameState as jest.MockedFunction<
   typeof useGameState
 >;
+const mockGetHint = getHint as jest.MockedFunction<typeof getHint>;
+const mockCreateLocalAgents = createLocalAgents as jest.MockedFunction<
+  typeof createLocalAgents
+>;
 
 const baseGameState = {
   answerStack: [STAGE_1],
@@ -115,6 +138,8 @@ const baseGameState = {
   setShowLobby: jest.fn(),
   isPaused: false,
   registerInteraction: jest.fn(),
+  setMode: jest.fn(),
+  setAgentNames: jest.fn(),
 } as unknown as ReturnType<typeof useGameState>;
 
 const defaultProps = {
@@ -446,6 +471,70 @@ describe('UnblockRace', () => {
     }
   });
 
+  it('shows the hint overlay on the board when a hint resolves to a move', async () => {
+    mockGetHint.mockResolvedValue({
+      kind: 'move',
+      move: { piece: 0, steps: 1 },
+    });
+
+    render(<UnblockRace {...defaultProps} />);
+    fireEvent.click(screen.getByLabelText('Hint'));
+
+    expect(await screen.findByTestId('hint-ring')).toBeInTheDocument();
+    expect(screen.getByTestId('hint-ghost')).toBeInTheDocument();
+    expect(mockGetHint).toHaveBeenCalledWith(STAGE_1);
+  });
+
+  it('clears the hint as soon as the board changes', async () => {
+    mockGetHint.mockResolvedValue({
+      kind: 'move',
+      move: { piece: 0, steps: 1 },
+    });
+
+    const { rerender } = render(<UnblockRace {...defaultProps} />);
+    fireEvent.click(screen.getByLabelText('Hint'));
+    await screen.findByTestId('hint-ring');
+
+    // The player makes a move: the hook returns the new answer and the
+    // effect on it drops the now-stale hint
+    mockUseGameState.mockReturnValue({
+      ...baseGameState,
+      answer: STAGE_1_COMPLETED,
+      answerStack: [STAGE_1, STAGE_1_COMPLETED],
+    } as ReturnType<typeof useGameState>);
+    rerender(<UnblockRace {...defaultProps} />);
+
+    expect(screen.queryByTestId('hint-ring')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('hint-ghost')).not.toBeInTheDocument();
+  });
+
+  it('shows a dismissible notice when the position is unsolvable', async () => {
+    mockGetHint.mockResolvedValue({ kind: 'unsolvable' });
+
+    render(<UnblockRace {...defaultProps} />);
+    fireEvent.click(screen.getByLabelText('Hint'));
+
+    const notice = await screen.findByTestId('hint-notice');
+    expect(notice).toHaveTextContent('No way through from here');
+    expect(screen.queryByTestId('hint-ring')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByLabelText('Dismiss hint notice'));
+    expect(screen.queryByTestId('hint-notice')).not.toBeInTheDocument();
+  });
+
+  it('disables the hint button once the stage is complete', () => {
+    mockUseGameState.mockReturnValue({
+      ...baseGameState,
+      answer: STAGE_1_COMPLETED,
+      answerStack: [STAGE_1, STAGE_1_COMPLETED],
+      completed: { at: new Date().toISOString(), seconds: 42 },
+    } as ReturnType<typeof useGameState>);
+
+    render(<UnblockRace {...defaultProps} />);
+
+    expect(screen.getByLabelText('Hint')).toBeDisabled();
+  });
+
   it('shows time and move stats for a completed stage in the results panel', () => {
     window.localStorage.setItem(
       `unblockrace-${STAGE_1}`,
@@ -463,5 +552,223 @@ describe('UnblockRace', () => {
 
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('0:30');
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('3/3');
+  });
+
+  describe('AI agents', () => {
+    const SOLVED_STAGE_1 = solvedBoardString(STAGE_1);
+
+    // A two-move timeline finishing at 2s: 33% after 1s, solved after 2s.
+    // States mirror what createAgentTimeline snapshots, so the real
+    // getAllAgentProgress derives percentages from them unmocked.
+    const testAgent = (
+      id: string,
+      name: string,
+      emoji: string
+    ): LocalAgent => ({
+      id,
+      name,
+      emoji,
+      skillLevel: DreyfusLevel.Novice,
+      timeline: {
+        steps: [
+          {
+            move: { piece: 0, steps: 1 },
+            timestamp: 1000,
+            state: {
+              initial: STAGE_1,
+              final: SOLVED_STAGE_1,
+              answerStack: [STAGE_1_COMPLETED],
+              metadata: { movesRequired: '3', movesMade: '1' },
+            },
+          },
+          {
+            move: { piece: 0, steps: 3 },
+            timestamp: 2000,
+            state: {
+              initial: STAGE_1,
+              final: SOLVED_STAGE_1,
+              answerStack: [SOLVED_STAGE_1],
+              metadata: { movesRequired: '3', movesMade: '2' },
+            },
+          },
+        ],
+        totalDuration: 2000,
+      },
+    });
+
+    const lastLobbyProps = () =>
+      mockLobbyProps.mock.calls[mockLobbyProps.mock.calls.length - 1][0];
+    const lastTrackProps = () =>
+      mockRaceTrackProps.mock.calls[
+        mockRaceTrackProps.mock.calls.length - 1
+      ][0];
+
+    it('offers the bot roster to the lobby', () => {
+      render(<UnblockRace {...defaultProps} />);
+      const lobbyProps = lastLobbyProps();
+      expect(lobbyProps.onAgentMode).toEqual(expect.any(Function));
+      expect(lobbyProps.onRemoveAgent).toEqual(expect.any(Function));
+      expect(lobbyProps.agentOptions).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ name: 'Bumblebee', emoji: '🐝' }),
+        ])
+      );
+      expect(lobbyProps.defaultSelectedAgentNames).toEqual([]);
+    });
+
+    it('builds solver timelines for the picked bots and puts their karts on the track', async () => {
+      mockCreateLocalAgents.mockResolvedValue([
+        testAgent('agent-0', 'Bumblebee', '🐝'),
+      ]);
+
+      render(<UnblockRace {...defaultProps} />);
+      await act(async () => {
+        lastLobbyProps().onAgentMode(['Bumblebee']);
+      });
+
+      expect(mockCreateLocalAgents).toHaveBeenCalledWith(
+        STAGE_1,
+        SOLVED_STAGE_1,
+        [expect.objectContaining({ name: 'Bumblebee' })],
+        'simple'
+      );
+      expect(baseGameState.setMode).toHaveBeenCalledWith('ai');
+      expect(baseGameState.setAgentNames).toHaveBeenCalledWith('Bumblebee');
+      expect(lastTrackProps().localAgentProgress).toEqual([
+        expect.objectContaining({
+          agentId: 'agent-0',
+          name: 'Bumblebee',
+          emoji: '🐝',
+          percentage: 0,
+        }),
+      ]);
+    });
+
+    it('advances the karts once the clock runs and records the run leaderboard line at stage end', async () => {
+      jest.useFakeTimers();
+      try {
+        mockUseGameState.mockReturnValue({
+          ...baseGameState,
+          answer: STAGE_1_COMPLETED,
+          answerStack: [STAGE_1, STAGE_1_COMPLETED],
+          timer: {
+            seconds: 0,
+            inProgress: {
+              start: new Date().toISOString(),
+              lastInteraction: new Date().toISOString(),
+            },
+          },
+          completed: { at: new Date().toISOString(), seconds: 42 },
+        } as ReturnType<typeof useGameState>);
+        mockCreateLocalAgents.mockResolvedValue([
+          testAgent('agent-0', 'Bumblebee', '🐝'),
+        ]);
+
+        render(<UnblockRace {...defaultProps} />);
+        await act(async () => {
+          lastLobbyProps().onAgentMode(['Bumblebee']);
+        });
+
+        // The 1s tick drives the kart: a third of the moves after 1s,
+        // finished (with its 2s time) after 2s — even though the player has
+        // already completed the stage.
+        act(() => {
+          jest.advanceTimersByTime(1100);
+        });
+        expect(lastTrackProps().localAgentProgress[0].percentage).toBe(33);
+        act(() => {
+          jest.advanceTimersByTime(1000);
+        });
+        expect(lastTrackProps().localAgentProgress[0]).toEqual(
+          expect.objectContaining({ percentage: 100, finishTime: 2 })
+        );
+
+        // The stage completing settles the agent's deterministic result
+        // onto the run leaderboard next to the player's own line.
+        act(() => {
+          lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
+        });
+        expect(lastTrackProps().runResults).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              userId: 'agent-Bumblebee',
+              nickname: 'Bumblebee',
+              isAgent: true,
+              emoji: '🐝',
+              stageResults: [
+                { seconds: 2, movesMade: 2, movesRequired: 3 },
+                undefined,
+              ],
+              totalSeconds: 2,
+              completedStageCount: 1,
+            }),
+            expect.objectContaining({ userId: 'guest', isCurrentUser: true }),
+          ])
+        );
+      } finally {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      }
+    });
+
+    it('removes a bot from the race and the saved selection', async () => {
+      mockCreateLocalAgents.mockResolvedValue([
+        testAgent('agent-0', 'Bumblebee', '🐝'),
+        testAgent('agent-1', 'Sage', '🦉'),
+      ]);
+
+      render(<UnblockRace {...defaultProps} />);
+      await act(async () => {
+        lastLobbyProps().onAgentMode(['Bumblebee', 'Sage']);
+      });
+      expect(lastTrackProps().localAgentProgress).toHaveLength(2);
+
+      act(() => {
+        lastLobbyProps().onRemoveAgent('agent-0');
+      });
+
+      expect(baseGameState.setAgentNames).toHaveBeenLastCalledWith('Sage');
+      expect(lastTrackProps().localAgentProgress).toEqual([
+        expect.objectContaining({ agentId: 'agent-1', name: 'Sage' }),
+      ]);
+    });
+
+    it('rebuilds the timelines for the next stage when the run advances', async () => {
+      jest.useFakeTimers();
+      try {
+        mockUseGameState.mockReturnValue({
+          ...baseGameState,
+          answer: STAGE_1_COMPLETED,
+          answerStack: [STAGE_1, STAGE_1_COMPLETED],
+          completed: { at: new Date().toISOString(), seconds: 42 },
+        } as ReturnType<typeof useGameState>);
+        mockCreateLocalAgents.mockResolvedValue([
+          testAgent('agent-0', 'Bumblebee', '🐝'),
+        ]);
+
+        render(<UnblockRace {...defaultProps} />);
+        await act(async () => {
+          lastLobbyProps().onAgentMode(['Bumblebee']);
+        });
+
+        act(() => {
+          lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
+        });
+        fireEvent.click(screen.getByTestId('next-stage-button'));
+        runTransition();
+        // Flush the stage-2 rebuild's solve so its setState lands inside act
+        await act(async () => {});
+
+        expect(mockCreateLocalAgents).toHaveBeenLastCalledWith(
+          STAGE_2,
+          solvedBoardString(STAGE_2),
+          [expect.objectContaining({ name: 'Bumblebee' })],
+          'simple'
+        );
+      } finally {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      }
+    });
   });
 });

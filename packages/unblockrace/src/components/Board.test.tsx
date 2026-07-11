@@ -157,6 +157,64 @@ describe('Board', () => {
     ).toBe(colorBefore);
   });
 
+  it('renders no hint overlay without a hint', () => {
+    const { rerender } = render(
+      <Board boardString={INITIAL} onMove={jest.fn()} />
+    );
+    expect(screen.queryByTestId('hint-ring')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('hint-ghost')).not.toBeInTheDocument();
+
+    rerender(<Board boardString={INITIAL} onMove={jest.fn()} hint={null} />);
+    expect(screen.queryByTestId('hint-ring')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('hint-ghost')).not.toBeInTheDocument();
+  });
+
+  it('draws the hint ring and destination ghost for a horizontal piece', () => {
+    // A sits at row 2, cols 0-1; +1 step slides it one cell right
+    render(
+      <Board
+        boardString={INITIAL}
+        onMove={jest.fn()}
+        hint={{ piece: 0, steps: 1 }}
+      />
+    );
+
+    const ring = screen.getByTestId('hint-ring');
+    expect(ring.style.left).toBe(`${(0 / 6) * 100}%`);
+    expect(ring.style.top).toBe(`${(2 / 6) * 100}%`);
+    expect(ring.style.width).toBe(`${(2 / 6) * 100}%`);
+    expect(ring.style.height).toBe(`${(1 / 6) * 100}%`);
+
+    const ghost = screen.getByTestId('hint-ghost');
+    expect(ghost.style.left).toBe(`${(1 / 6) * 100}%`);
+    expect(ghost.style.top).toBe(`${(2 / 6) * 100}%`);
+    expect(ghost.style.width).toBe(`${(2 / 6) * 100}%`);
+    expect(ghost.style.height).toBe(`${(1 / 6) * 100}%`);
+  });
+
+  it('draws the hint ring and destination ghost for a vertical piece', () => {
+    // B sits at rows 2-3, col 3; -1 step slides it one cell up
+    render(
+      <Board
+        boardString={INITIAL}
+        onMove={jest.fn()}
+        hint={{ piece: 1, steps: -1 }}
+      />
+    );
+
+    const ring = screen.getByTestId('hint-ring');
+    expect(ring.style.left).toBe(`${(3 / 6) * 100}%`);
+    expect(ring.style.top).toBe(`${(2 / 6) * 100}%`);
+    expect(ring.style.width).toBe(`${(1 / 6) * 100}%`);
+    expect(ring.style.height).toBe(`${(2 / 6) * 100}%`);
+
+    const ghost = screen.getByTestId('hint-ghost');
+    expect(ghost.style.left).toBe(`${(3 / 6) * 100}%`);
+    expect(ghost.style.top).toBe(`${(1 / 6) * 100}%`);
+    expect(ghost.style.width).toBe(`${(1 / 6) * 100}%`);
+    expect(ghost.style.height).toBe(`${(2 / 6) * 100}%`);
+  });
+
   it('renders but does not accept drags when static (transition ghost)', () => {
     const onMove = jest.fn();
     render(<Board boardString={INITIAL} onMove={onMove} isStatic />);

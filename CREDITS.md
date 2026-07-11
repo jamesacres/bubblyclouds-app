@@ -35,6 +35,19 @@ We are grateful to the following projects and their contributors:
 - **Description**: An extremely fast Sudoku solver optimized for solving puzzles
   with minimal clues and handling difficult cases.
 
+## Unblock Race Puzzles and Solving
+
+### Rush - Rush Hour Puzzle Solver and Database
+
+- **Project**: [Rush](https://github.com/fogleman/rush)
+- **Author**: Michael Fogleman
+- **Usage**: Puzzle database used for seed puzzles, and the C++ solver compiled
+  to WebAssembly for the hint system and AI agent solving
+- **License**:
+  [MIT License](https://github.com/fogleman/rush/blob/master/LICENSE.md)
+- **Description**: A fast Rush Hour puzzle solver and complete puzzle database
+  produced by exhaustively exploring the Rush Hour configuration space.
+
 ## Augmented Reality Features
 
 ### AR Browser Sudoku

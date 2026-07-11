@@ -9,6 +9,13 @@ interface CreditItem {
 
 const credits: CreditItem[] = [
   {
+    name: 'Rush',
+    description:
+      'Rush Hour puzzle solver and puzzle database by Michael Fogleman, compiled to WebAssembly',
+    url: 'https://github.com/fogleman/rush',
+    license: 'MIT',
+  },
+  {
     name: 'Next.js',
     description: 'React framework for production',
     url: 'https://nextjs.org',

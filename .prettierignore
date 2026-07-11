@@ -11,3 +11,6 @@ out/
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+# Ignore generated emscripten glue:
+packages/unblockrace/src/services/solverWasm.js

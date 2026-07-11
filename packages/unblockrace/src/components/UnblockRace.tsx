@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, X } from 'lucide-react';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
@@ -18,9 +18,17 @@ import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvid
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { GameState, GameStateMetadata, ServerState } from '../types/state';
+import { Move } from '../types/board';
+import { AgentConfig, LocalAgent } from '../types/Agent';
 import { useGameState } from '../hooks/useGameState';
+import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
+import { createLocalAgents } from '../helpers/agentTimeline';
+import { getAllAgentProgress } from '../helpers/agentProgress';
+import { getHint } from '../helpers/hint';
+import { loadSolver } from '../services/solver';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { solvedBoardString } from '../helpers/boardToString';
@@ -32,10 +40,11 @@ import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import { addDailyRunId, canStartRun } from '../utils/dailyRunCounter';
 import {
   RunStage,
+  StageResult,
   completedStagesFromStorage,
   firstIncompleteStage,
 } from '../helpers/stageResults';
-import { calculateRunResults } from '../helpers/runResults';
+import { AgentRunInput, calculateRunResults } from '../helpers/runResults';
 import Board from './Board';
 import Controls from './Controls';
 import RaceCelebration, { RACE_CELEBRATION_MS } from './RaceCelebration';
@@ -159,6 +168,55 @@ const UnblockRace = ({
 
   const isFinalStage = currentStageIndex === stages.length - 1;
 
+  // Local AI rivals (SPEC: agents race per stage). Their timelines are
+  // solver-built asynchronously, so the selected configs live in a ref the
+  // per-stage rebuild reads, and a build id discards any solve that lands
+  // after the stage (or the selection) has moved on.
+  const agentStartTimeMsRef = useRef<number | null>(null);
+  const agentConfigsRef = useRef<AgentConfig[]>([]);
+  const agentBuildIdRef = useRef(0);
+  const [agents, setAgents] = useState<LocalAgent[]>([]);
+  const [localAgentProgress, setLocalAgentProgress] = useState<
+    AgentProgress<ServerState>[]
+  >([]);
+  // Each agent's recorded result per stage, keyed by agent name (stable
+  // across the per-stage timeline rebuilds) — the deterministic side of the
+  // run leaderboard.
+  const [agentStageResults, setAgentStageResults] = useState<
+    Map<string, { emoji: string; stages: Map<number, StageResult> }>
+  >(new Map());
+
+  // Agents finish "offscreen" deterministically: the moment a stage ends
+  // (solved, or left via the preview strip) their precomputed time and move
+  // count for it go on the run leaderboard. Recording is idempotent, so a
+  // stage that is both completed and then advanced away from writes the
+  // same values twice.
+  const recordAgentStageResults = useCallback(
+    (stageIndex: number, stageMovesRequired: number) => {
+      if (agents.length === 0) {
+        return;
+      }
+      setAgentStageResults((prev) => {
+        const next = new Map(prev);
+        for (const agent of agents) {
+          if (agent.timeline.steps.length === 0) {
+            continue;
+          }
+          const existing = next.get(agent.name);
+          const stageMap = new Map(existing?.stages);
+          stageMap.set(stageIndex, {
+            seconds: Math.round(agent.timeline.totalDuration / 1000),
+            movesMade: agent.timeline.steps.length,
+            movesRequired: stageMovesRequired,
+          });
+          next.set(agent.name, { emoji: agent.emoji, stages: stageMap });
+        }
+        return next;
+      });
+    },
+    [agents]
+  );
+
   const onComplete = useCallback(
     (
       completedAnswerStack: string[],
@@ -177,6 +235,7 @@ const UnblockRace = ({
         });
         return next;
       });
+      recordAgentStageResults(currentStageIndex, stage.movesRequired);
       if (isFinalStage) {
         setShowAnimation(true);
         setTimeout(() => setShowAnimation(false), RACE_CELEBRATION_MS);
@@ -189,7 +248,13 @@ const UnblockRace = ({
         });
       }
     },
-    [alreadyCompleted, isFinalStage, currentStageIndex, stage.movesRequired]
+    [
+      alreadyCompleted,
+      isFinalStage,
+      currentStageIndex,
+      stage.movesRequired,
+      recordAgentStageResults,
+    ]
   );
 
   const {
@@ -213,6 +278,8 @@ const UnblockRace = ({
     showLobby,
     setShowLobby,
     isPaused,
+    setMode,
+    setAgentNames,
   } = useGameState({
     final,
     initial,
@@ -227,11 +294,166 @@ const UnblockRace = ({
 
   // Latest live board, read by the deferred auto-advance without re-creating
   // its timer. Captured as the outgoing (solved) board for the slide so the
-  // carousel shows exactly the arrangement the player finished on.
+  // carousel shows exactly the arrangement the player finished on. The hint
+  // handler also compares against it to discard results for a stale board.
   const answerRef = useRef(answer);
   useEffect(() => {
     answerRef.current = answer;
   }, [answer]);
+
+  // Bot selection from the lobby's agent sheet: build solver-driven
+  // timelines for the picked personas on the current stage. Mode and names
+  // persist immediately (they record the player's choice); the karts appear
+  // when the solve resolves — unless the stage moved on first.
+  const handleAgentMode = useCallback(
+    (selectedAgentNames: string[]) => {
+      const nameSet = new Set(selectedAgentNames);
+      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((config) =>
+        nameSet.has(config.name)
+      );
+      agentConfigsRef.current = selectedConfigs;
+      setMode('ai');
+      setAgentNames(selectedAgentNames.join(','));
+      const buildId = ++agentBuildIdRef.current;
+      void createLocalAgents(
+        initial,
+        final,
+        selectedConfigs,
+        difficultyForMoves(stage.movesRequired)
+      ).then((created) => {
+        if (agentBuildIdRef.current !== buildId) {
+          return;
+        }
+        setAgents(created);
+        setLocalAgentProgress(getAllAgentProgress(created, null));
+      });
+    },
+    [initial, final, stage.movesRequired, setMode, setAgentNames]
+  );
+
+  const onRemoveAgent = useCallback(
+    (agentId: string) => {
+      setAgents((prev) => {
+        const next = prev.filter((agent) => agent.id !== agentId);
+        agentConfigsRef.current = agentConfigsRef.current.filter((config) =>
+          next.some((agent) => agent.name === config.name)
+        );
+        setAgentNames(next.map((agent) => agent.name).join(',') || undefined);
+        return next;
+      });
+      setLocalAgentProgress((prev) =>
+        prev.filter((progress) => progress.agentId !== agentId)
+      );
+    },
+    [setAgentNames]
+  );
+
+  // Per-stage rebuild (agents race per stage): when the run moves to another
+  // board while agents are active, solve it and rebuild their timelines. The
+  // build id also discards a pending lobby-selection build for the old stage.
+  useEffect(() => {
+    agentStartTimeMsRef.current = null;
+    const configs = agentConfigsRef.current;
+    if (configs.length === 0) {
+      return;
+    }
+    const buildId = ++agentBuildIdRef.current;
+    let cancelled = false;
+    void createLocalAgents(
+      initial,
+      final,
+      configs,
+      difficultyForMoves(stage.movesRequired)
+    ).then((created) => {
+      if (cancelled || agentBuildIdRef.current !== buildId) {
+        return;
+      }
+      setAgents(created);
+      setLocalAgentProgress(getAllAgentProgress(created, null));
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initial, final, stage.movesRequired]);
+
+  // The agents' race clock starts when the stage's countdown finishes (the
+  // per-stage rebuild clears it for the next board).
+  useEffect(() => {
+    if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
+      agentStartTimeMsRef.current = Date.now();
+    }
+  }, [timer]);
+
+  // Tick the AI karts once a second — including after the player finishes,
+  // until every agent reaches 100%. State updates happen only inside the
+  // interval callback (the set-state-in-effect rule), and the interval
+  // retires itself once all agents are home.
+  useEffect(() => {
+    if (agents.length === 0) {
+      return;
+    }
+    const intervalId = setInterval(() => {
+      const startTimeMs = agentStartTimeMsRef.current;
+      const next = getAllAgentProgress(agents, startTimeMs);
+      setLocalAgentProgress((prev) =>
+        prev.length === next.length &&
+        prev.every(
+          (progress, index) => progress.percentage === next[index].percentage
+        )
+          ? prev
+          : next
+      );
+      if (
+        startTimeMs !== null &&
+        next.every((progress) => progress.percentage === 100)
+      ) {
+        clearInterval(intervalId);
+      }
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [agents]);
+
+  // "Ask for help" (free & unlimited — hinted moves still count toward par):
+  // the solver's next best move, drawn on the interactive board. Both hint
+  // and notice are stored keyed to the board they were computed for and only
+  // shown while the live board still matches — any move, undo, redo or stage
+  // change hides them without a clearing effect, and a solve that resolves
+  // after the board moved on is stale by construction.
+  const [hintState, setHintState] = useState<{
+    boardString: string;
+    move: Move;
+  } | null>(null);
+  const [hintNoticeState, setHintNoticeState] = useState<{
+    boardString: string;
+    message: string;
+  } | null>(null);
+  const hint =
+    hintState && hintState.boardString === answer ? hintState.move : null;
+  const hintNotice =
+    hintNoticeState && hintNoticeState.boardString === answer
+      ? hintNoticeState.message
+      : null;
+
+  const handleHint = useCallback(() => {
+    const boardAtRequest = answerRef.current;
+    void getHint(boardAtRequest).then((result) => {
+      if (result.kind === 'move') {
+        setHintState({ boardString: boardAtRequest, move: result.move });
+      } else if (result.kind === 'unsolvable') {
+        setHintNoticeState({
+          boardString: boardAtRequest,
+          message:
+            'No way through from here — undo or reset to get back on track',
+        });
+      }
+    });
+  }, []);
+
+  // Warm the solver so the first hint answers instantly; a load failure is
+  // swallowed here — getHint degrades to 'unavailable' on its own retry.
+  useEffect(() => {
+    void loadSolver().catch(() => undefined);
+  }, []);
 
   const friendsOnClick = useCallback(() => {
     setShowLobby((prev) => !prev);
@@ -263,6 +485,11 @@ const UnblockRace = ({
       if (index === currentStageIndex || transition) {
         return;
       }
+      // Leaving a stage settles the agents' deterministic results for it
+      recordAgentStageResults(
+        currentStageIndex,
+        stages[currentStageIndex].movesRequired
+      );
       setStageClear(null);
       setTransition({
         fromBoardString: answerRef.current,
@@ -272,7 +499,7 @@ const UnblockRace = ({
       setCurrentStageIndex(index);
       setRaceStarted(true);
     },
-    [currentStageIndex, transition, stages]
+    [currentStageIndex, transition, stages, recordAgentStageResults]
   );
 
   // The stage-clear slam's call to action: dismiss the slam and kick off the
@@ -486,6 +713,19 @@ const UnblockRace = ({
   // player's time per stage plus their running total, from the per-stage
   // sessions useGameState refreshes when a stage completes. Memoised so the
   // memoised track only re-renders when the results actually change.
+  const agentRunInputs = useMemo(
+    () =>
+      [...agentStageResults.entries()].map(
+        ([name, { emoji, stages: stageMap }]): AgentRunInput => ({
+          agentId: `agent-${name}`,
+          name,
+          emoji,
+          stageResults: stageMap,
+        })
+      ),
+    [agentStageResults]
+  );
+
   const runResults = useMemo(
     () =>
       stages.length > 1
@@ -494,9 +734,15 @@ const UnblockRace = ({
             runStageParties,
             userId: user?.sub || 'guest',
             ownResults: completedStages,
+            agentResults: agentRunInputs,
           })
         : undefined,
-    [stages, runStageParties, user?.sub, completedStages]
+    [stages, runStageParties, user?.sub, completedStages, agentRunInputs]
+  );
+
+  const currentAgentNames = useMemo(
+    () => agents.map((agent) => agent.name),
+    [agents]
   );
 
   return (
@@ -568,6 +814,11 @@ const UnblockRace = ({
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
         }
+        localAgentProgress={showLobby ? localAgentProgress : undefined}
+        onRemoveAgent={onRemoveAgent}
+        agentOptions={DEFAULT_AGENT_CONFIGS}
+        defaultSelectedAgentNames={currentAgentNames}
+        onAgentMode={handleAgentMode}
         puzzleDifficulty={puzzleDifficultyDisplay.name}
         puzzleDifficultyBadgeColor={puzzleDifficultyDisplay.badgeColor}
         puzzleMetaLabel={
@@ -623,6 +874,8 @@ const UnblockRace = ({
                   isUndoDisabled={!!completed || isUndoDisabled}
                   isRedoDisabled={!!completed || isRedoDisabled}
                   isDisabled={!!completed}
+                  onHint={handleHint}
+                  isHintDisabled={!!completed || !!transition || showLobby}
                   movesMade={movesMade}
                   movesRequired={stage.movesRequired}
                   timer={
@@ -634,6 +887,25 @@ const UnblockRace = ({
                   }
                 />
               </div>
+
+              {/* Hint verdict row: the same amber the move gauge flips to
+                  when a stage goes over par — a warning, not an error */}
+              {hintNotice && (
+                <div
+                  data-testid="hint-notice"
+                  className="mb-2 flex items-center justify-between gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-600 dark:text-amber-400"
+                >
+                  <span>{hintNotice}</span>
+                  <button
+                    type="button"
+                    aria-label="Dismiss hint notice"
+                    className="shrink-0 cursor-pointer opacity-70 transition-opacity hover:opacity-100"
+                    onClick={() => setHintNoticeState(null)}
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              )}
 
               <div className="relative">
                 {transition ? (
@@ -658,6 +930,7 @@ const UnblockRace = ({
                     initialBoardString={initial}
                     onMove={pushMove}
                     isDisabled={!!completed || showLobby}
+                    hint={hint}
                   />
                 )}
 
@@ -810,6 +1083,7 @@ const UnblockRace = ({
                 refreshSessionParties={refreshSessionParties}
                 onInviteFriends={handleInviteFriends}
                 runResults={runResults}
+                localAgentProgress={localAgentProgress}
               />
 
               {/* Inline stats (SPEC.md §7): per-stage times/moves for the
