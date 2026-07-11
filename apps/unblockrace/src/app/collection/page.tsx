@@ -18,6 +18,7 @@ import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficu
 import SimpleBoard from '@bubblyclouds-app/unblockrace/components/SimpleBoard';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/unblockrace/helpers/cheatDetection';
+import { movesDisplayFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateStatsDisplay';
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { APP_CONFIG } from '../../../app.config.js';
@@ -379,6 +380,7 @@ export default function CollectionPage() {
                     }
                     isPuzzleCheated={isPuzzleCheated}
                     buildPuzzleUrlFromState={buildPuzzleUrlFromState}
+                    getMovesDisplay={movesDisplayFromState}
                   />
                 </div>
               );

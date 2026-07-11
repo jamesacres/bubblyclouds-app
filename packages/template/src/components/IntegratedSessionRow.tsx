@@ -172,7 +172,45 @@ interface IntegratedSessionRowProps<
   calculateCompletionPercentageFromState: (state: State) => number;
   isPuzzleCheated: (state: State) => boolean;
   buildPuzzleUrlFromState: (state: State, isCompleted?: boolean) => string;
+  // Game-specific move count vs par for a session (e.g. unblockrace's
+  // movesMade/movesRequired metadata); when provided, completed rows show
+  // the moves graded against par alongside the time.
+  getMovesDisplay?: (
+    state: State
+  ) => { movesMade: number; movesRequired: number } | undefined;
 }
+
+// Move count graded against par, in the same colours as the game's
+// leaderboards — amber over par, emerald under, neutral on par — with the
+// golf-style delta saying exactly how far over or under
+const MovesDisplay = ({
+  moves,
+}: {
+  moves: { movesMade: number; movesRequired: number };
+}) => {
+  const movesDelta = moves.movesMade - moves.movesRequired;
+  return (
+    <span
+      className={`font-mono tabular-nums ${
+        movesDelta > 0
+          ? 'text-amber-600 dark:text-amber-400'
+          : movesDelta < 0
+            ? 'text-emerald-600 dark:text-emerald-400'
+            : 'opacity-75'
+      }`}
+    >
+      {moves.movesMade}/{moves.movesRequired}
+      {movesDelta !== 0 && ` ${movesDelta > 0 ? '+' : ''}${movesDelta}`}
+      <span className="sr-only">
+        {` moves, ${
+          movesDelta === 0
+            ? 'on par'
+            : `${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
+        }`}
+      </span>
+    </span>
+  );
+};
 
 // Helper to get user's session data for display
 const useUserSessionData = <State extends BaseServerState = BaseServerState>(
@@ -211,7 +249,10 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
   currentUserId: string | undefined,
   parties: Party[],
   isPuzzleCheated: (state: State) => boolean,
-  calculateCompletionPercentageFromState: (state: State) => number
+  calculateCompletionPercentageFromState: (state: State) => number,
+  getMovesDisplay?: (
+    state: State
+  ) => { movesMade: number; movesRequired: number } | undefined
 ) => {
   const friendSessionData: Array<{
     nickname: string;
@@ -220,6 +261,7 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
     completionTime: number | null;
     isCompleted: boolean;
     isCheated: boolean;
+    moves?: { movesMade: number; movesRequired: number };
   }> = [];
 
   Object.entries(friendSessions).forEach(([userId, userSessionData]) => {
@@ -248,6 +290,7 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
         completionTime: matchingSession.state.completed?.seconds || null,
         isCompleted: !!matchingSession.state.completed,
         isCheated: isPuzzleCheated(matchingSession.state),
+        moves: getMovesDisplay?.(matchingSession.state),
       });
     }
   });
@@ -272,6 +315,7 @@ export const IntegratedSessionRow = <
   buildPuzzleUrlFromState,
   getDifficultyDisplay,
   getTechniquesDisplay,
+  getMovesDisplay,
 }: IntegratedSessionRowProps<State, BookPuzzle, Techniques>) => {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -355,6 +399,7 @@ export const IntegratedSessionRow = <
       isCheated: boolean;
       isCurrentUser: boolean;
       isWinner: boolean;
+      moves?: { movesMade: number; movesRequired: number };
     }> = [];
 
     // Add user's session if they have actually played this puzzle, or if we're in MyPuzzlesTab
@@ -368,6 +413,9 @@ export const IntegratedSessionRow = <
         isCheated: actualSession ? isPuzzleCheated(actualSession.state) : false,
         isCurrentUser: true,
         isWinner: false, // Will be determined later
+        moves: actualSession
+          ? getMovesDisplay?.(actualSession.state)
+          : undefined,
       });
     }
 
@@ -378,7 +426,8 @@ export const IntegratedSessionRow = <
       user?.sub,
       parties || [],
       isPuzzleCheated,
-      calculateCompletionPercentageFromState
+      calculateCompletionPercentageFromState,
+      getMovesDisplay
     );
 
     friendData.forEach((friend) => {
@@ -436,6 +485,11 @@ export const IntegratedSessionRow = <
   };
 
   const playerSessions = getAllPlayerSessionsForPuzzle();
+
+  const ownMoves =
+    actualSession && !isPuzzleCheated(actualSession.state)
+      ? getMovesDisplay?.(actualSession.state)
+      : undefined;
 
   // Helper to get timer display
   const getTimerDisplay = () => {
@@ -523,6 +577,7 @@ export const IntegratedSessionRow = <
                   isCheated,
                   isCurrentUser,
                   isWinner,
+                  moves,
                 }) => (
                   <div
                     key={`${session.sessionId}-${userId || 'user'}`}
@@ -557,6 +612,9 @@ export const IntegratedSessionRow = <
                               {Math.floor(completionTime / 60)}m{' '}
                               {completionTime % 60}s
                             </span>
+                          )}
+                          {moves && !isCheated && (
+                            <MovesDisplay moves={moves} />
                           )}
                         </>
                       ) : isCurrentUser ? (
@@ -599,6 +657,7 @@ export const IntegratedSessionRow = <
                           {session.state.completed.seconds % 60}s
                         </span>
                       )}
+                      {ownMoves && <MovesDisplay moves={ownMoves} />}
                     </>
                   ) : (
                     <>

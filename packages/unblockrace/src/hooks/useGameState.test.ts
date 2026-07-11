@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderHook, act } from '@testing-library/react';
+import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useGameState } from './useGameState';
 import { solvedBoardString } from '../helpers/boardToString';
 import { GameStateMetadata } from '../types/state';
@@ -275,5 +276,131 @@ describe('useGameState', () => {
       result.current.setShowLobby(true);
     });
     expect(result.current.showLobby).toBe(true);
+  });
+
+  describe('chained-run stage sessions', () => {
+    // A second stage in the run; its id is its board string
+    const STAGE_2 = [
+      'oooooo',
+      'oooooo',
+      'ooAAoo',
+      'oooooo',
+      'oooooo',
+      'oooooo',
+    ].join('');
+
+    const friendSession = (seconds?: number) => ({
+      sessionId: `unblockrace-${STAGE_2}`,
+      state: {
+        initial: STAGE_2,
+        final: solvedBoardString(STAGE_2),
+        answerStack: [STAGE_2],
+        completed:
+          seconds === undefined
+            ? undefined
+            : { at: new Date().toISOString(), seconds },
+      },
+      updatedAt: new Date(),
+    });
+
+    const mockStageResponses = () => {
+      serverGetValue.mockImplementation(async (options?: { id?: string }) =>
+        options?.id
+          ? {
+              sessionId: `unblockrace-${options.id}`,
+              state: friendSession(30).state,
+              parties: {
+                party1: { memberSessions: { friend: friendSession(30) } },
+              },
+              updatedAt: new Date(),
+            }
+          : {
+              sessionId: `unblockrace-${INITIAL}`,
+              state: {
+                initial: INITIAL,
+                final: solvedBoardString(INITIAL),
+                answerStack: [INITIAL],
+              },
+              parties: {
+                party1: { memberSessions: { friend: friendSession() } },
+              },
+              updatedAt: new Date(),
+            }
+      );
+    };
+
+    // The end-of-stage fetch is gated on a logged-in user
+    const wrapper = ({ children }: { children: React.ReactNode }) =>
+      React.createElement(
+        UserContext.Provider,
+        { value: { user: { sub: 'me' } } as any },
+        children
+      );
+
+    const runProps = {
+      ...defaultProps,
+      runStageIds: [INITIAL, STAGE_2],
+    };
+
+    it('fetches every other stage session when the stage completes, not before', async () => {
+      mockTimer = {
+        seconds: 0,
+        inProgress: {
+          start: new Date().toISOString(),
+          lastInteraction: new Date().toISOString(),
+        },
+      };
+      mockStageResponses();
+      const { result } = renderHook(() => useGameState(runProps), { wrapper });
+      await act(async () => {});
+
+      // Mid-stage the poll only touches the current stage
+      expect(serverGetValue).not.toHaveBeenCalledWith({ id: STAGE_2 });
+
+      act(() => {
+        result.current.pushMove({ piece: 1, steps: 2 });
+      });
+      act(() => {
+        result.current.pushMove({ piece: 0, steps: 4 });
+      });
+      expect(result.current.completed).toBeDefined();
+      await act(async () => {});
+
+      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_2 });
+      expect(
+        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
+          ?.state.completed?.seconds
+      ).toBe(30);
+      expect(patchFriendSessions).toHaveBeenCalledWith(
+        `unblockrace-${STAGE_2}`,
+        expect.objectContaining({ friend: expect.anything() })
+      );
+    });
+
+    it('accumulates the current stage parties under its stage id', async () => {
+      mockStageResponses();
+      const { result } = renderHook(() => useGameState(runProps), { wrapper });
+      await act(async () => {});
+
+      expect(
+        result.current.runStageParties[INITIAL]?.party1?.memberSessions.friend
+      ).toBeDefined();
+    });
+
+    it('refreshes every stage session from the manual refresh', async () => {
+      mockStageResponses();
+      const { result } = renderHook(() => useGameState(runProps), { wrapper });
+      await act(async () => {});
+
+      await act(async () => {
+        await result.current.refreshSessionParties();
+      });
+
+      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_2 });
+      expect(
+        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
+          ?.state.completed?.seconds
+      ).toBe(30);
+    });
   });
 });

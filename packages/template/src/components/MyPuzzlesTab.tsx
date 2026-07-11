@@ -15,6 +15,9 @@ interface MyPuzzlesTabProps<State extends BaseServerState = BaseServerState> {
     name: string;
     badgeColor: string;
   };
+  getMovesDisplay?: (
+    state: State
+  ) => { movesMade: number; movesRequired: number } | undefined;
 }
 
 export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
@@ -24,6 +27,7 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
   isPuzzleCheated,
   buildPuzzleUrlFromState,
   getDifficultyDisplay,
+  getMovesDisplay,
 }: MyPuzzlesTabProps<State>) => {
   const allSessions = sessions?.sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
@@ -48,6 +52,7 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 getDifficultyDisplay={getDifficultyDisplay}
+                getMovesDisplay={getMovesDisplay}
               />
             ))}
           </ul>

@@ -48,6 +48,7 @@ function useGameState({
   apiUrl,
   initialShowLobby,
   onComplete,
+  runStageIds,
 }: {
   final: string;
   initial: string;
@@ -61,6 +62,11 @@ function useGameState({
     movesMade: number,
     seconds: number
   ) => void;
+  // Every stage's puzzle id in the chained run (SPEC.md §6), current stage
+  // included. When provided, polling keeps every stage's opponent sessions
+  // fresh — not just the current stage's — so the end-of-stage leaderboard
+  // can show each player's time per stage and their run total.
+  runStageIds?: string[];
 }) {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -129,19 +135,32 @@ function useGameState({
     );
     return initialSessionParties || {};
   });
-  const setSessionParties = useCallback(
-    (sessionParties: Parties<Session<ServerState>>) => {
-      setSessionPartiesLocal(sessionParties);
-      const partySessions = Object.values(sessionParties || {});
+  // Parties per stage of the whole run, keyed by stage puzzle id. Unlike
+  // sessionParties this accumulates across stage changes, so the run
+  // leaderboard can show every player's time on every stage.
+  const [runStageParties, setRunStagePartiesLocal] = useState<{
+    [stageId: string]: Parties<Session<ServerState>>;
+  }>({});
+  const setStageParties = useCallback(
+    (stageId: string, stageParties: Parties<Session<ServerState>>) => {
+      setRunStagePartiesLocal((prev) => ({ ...prev, [stageId]: stageParties }));
+      const partySessions = Object.values(stageParties || {});
       const userSessions: { [userId: string]: Session<ServerState> } = {};
       for (const partySession of partySessions) {
         if (partySession?.memberSessions) {
           Object.assign(userSessions, partySession.memberSessions);
         }
       }
-      patchFriendSessions(`${app}-${puzzleId}`, userSessions);
+      patchFriendSessions(`${app}-${stageId}`, userSessions);
     },
-    [patchFriendSessions, app, puzzleId]
+    [patchFriendSessions, app]
+  );
+  const setSessionParties = useCallback(
+    (sessionParties: Parties<Session<ServerState>>) => {
+      setSessionPartiesLocal(sessionParties);
+      setStageParties(puzzleId, sessionParties);
+    },
+    [setStageParties, puzzleId]
   );
   const hasSessionParties = sessionParties
     ? Object.keys(sessionParties).length
@@ -245,6 +264,38 @@ function useGameState({
     },
     [setSessionParties]
   );
+
+  // Stable key for the run's stage ids so callers passing a fresh array each
+  // render don't re-trigger the end-of-stage fetch.
+  const runStageIdsKey = (runStageIds || []).join(',');
+
+  // End-of-stage refresh, deliberately not part of the 30s poll: pull the
+  // latest server session for every other stage in the run so the leaderboard
+  // can show opponents' per-stage times and run totals. The current stage's
+  // session is already kept fresh by the restore/save/poll paths.
+  const fetchOtherStageParties = useCallback(async () => {
+    const otherStageIds = (
+      runStageIdsKey ? runStageIdsKey.split(',') : []
+    ).filter((stageId) => stageId !== puzzleId);
+    await Promise.all(
+      otherStageIds.map(async (stageId) => {
+        const serverValue = await getServerValue<ServerState>({ id: stageId });
+        if (serverValue?.parties && Object.keys(serverValue.parties).length) {
+          setStageParties(stageId, serverValue.parties);
+        }
+      })
+    );
+  }, [runStageIdsKey, puzzleId, getServerValue, setStageParties]);
+
+  // The leaderboard's end-of-stage update: the moment this stage's session is
+  // complete (solved now, or restored as solved), fetch every other stage once
+  // so each opponent's row can show their per-stage times. Mid-stage, only the
+  // current stage is polled.
+  useEffect(() => {
+    if (completed && user && hasSessionParties) {
+      fetchOtherStageParties();
+    }
+  }, [completed, user, hasSessionParties, fetchOtherStageParties]);
 
   // Answers
   const answer = answerStack[answerStack.length - 1];
@@ -587,14 +638,19 @@ function useGameState({
     setIsPolling(true);
     try {
       const { serverValuePromise } = getValue() || {};
-      const serverValue = await serverValuePromise;
+      // The refresh button only shows once the stage is finished, so this is
+      // an end-of-stage moment too: refresh the whole run's stages with it.
+      const [serverValue] = await Promise.all([
+        serverValuePromise,
+        fetchOtherStageParties(),
+      ]);
       if (serverValue?.parties && Object.keys(serverValue?.parties).length) {
         setSessionParties(serverValue.parties);
       }
     } finally {
       setIsPolling(false);
     }
-  }, [getValue, setSessionParties]);
+  }, [getValue, setSessionParties, fetchOtherStageParties]);
 
   // Check for inactivity and pause timer/polling if no interaction in 5 minutes
   useEffect(() => {
@@ -643,6 +699,7 @@ function useGameState({
     refreshSessionParties,
     isPolling,
     sessionParties,
+    runStageParties,
     showLobby,
     setShowLobby,
     isPaused,

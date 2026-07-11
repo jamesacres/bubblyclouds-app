@@ -31,6 +31,7 @@ import { APP_CONFIG } from '../../app.config.js';
 import { GameState } from '@bubblyclouds-app/unblockrace/types/state';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/unblockrace/helpers/cheatDetection';
+import { movesDisplayFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateStatsDisplay';
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
 import { buildPuzzleUrl } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
 import { getDailyRun } from '@bubblyclouds-app/unblockrace/helpers/mockData';
@@ -600,6 +601,7 @@ function HomeComponent() {
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 getDifficultyDisplay={getDifficultyDisplay}
+                getMovesDisplay={movesDisplayFromState}
               />
             )}
             {tab === Tab.FRIENDS && (
@@ -617,6 +619,7 @@ function HomeComponent() {
                 LeaderboardComponent={Leaderboard}
                 gameName={APP_CONFIG.gameName}
                 getDifficultyDisplay={getDifficultyDisplay}
+                getMovesDisplay={movesDisplayFromState}
               />
             )}
           </div>

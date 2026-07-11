@@ -35,6 +35,7 @@ import {
   completedStagesFromStorage,
   firstIncompleteStage,
 } from '../helpers/stageResults';
+import { calculateRunResults } from '../helpers/runResults';
 import Board from './Board';
 import Controls from './Controls';
 import RaceCelebration, { RACE_CELEBRATION_MS } from './RaceCelebration';
@@ -122,6 +123,10 @@ const UnblockRace = ({
   const stage = stages[currentStageIndex];
   const initial = stage.boardString;
   const puzzleId = initial;
+  const runStageIds = useMemo(
+    () => stages.map((runStage) => runStage.boardString),
+    [stages]
+  );
   const final = useMemo(() => solvedBoardString(initial), [initial]);
 
   const stageMetadata = useMemo<Partial<GameStateMetadata>>(
@@ -204,6 +209,7 @@ const UnblockRace = ({
     refreshSessionParties,
     isPolling,
     sessionParties,
+    runStageParties,
     showLobby,
     setShowLobby,
     isPaused,
@@ -216,6 +222,7 @@ const UnblockRace = ({
     apiUrl,
     initialShowLobby: !alreadyCompleted && showRacingPrompt,
     onComplete,
+    runStageIds,
   });
 
   // Latest live board, read by the deferred auto-advance without re-creating
@@ -473,6 +480,23 @@ const UnblockRace = ({
   const completedStageIndexes = useMemo(
     () => new Set(completedStages.keys()),
     [completedStages]
+  );
+
+  // The end-of-stage leaderboard's rows (multi-stage runs only): each
+  // player's time per stage plus their running total, from the per-stage
+  // sessions useGameState refreshes when a stage completes. Memoised so the
+  // memoised track only re-renders when the results actually change.
+  const runResults = useMemo(
+    () =>
+      stages.length > 1
+        ? calculateRunResults({
+            stages,
+            runStageParties,
+            userId: user?.sub || 'guest',
+            ownResults: completedStages,
+          })
+        : undefined,
+    [stages, runStageParties, user?.sub, completedStages]
   );
 
   return (
@@ -785,6 +809,7 @@ const UnblockRace = ({
                 isPolling={isPolling}
                 refreshSessionParties={refreshSessionParties}
                 onInviteFriends={handleInviteFriends}
+                runResults={runResults}
               />
 
               {/* Inline stats (SPEC.md §7): per-stage times/moves for the

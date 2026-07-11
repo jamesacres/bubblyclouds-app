@@ -37,6 +37,9 @@ interface FriendsTabProps<State extends BaseServerState = BaseServerState> {
     name: string;
     badgeColor: string;
   };
+  getMovesDisplay?: (
+    state: State
+  ) => { movesMade: number; movesRequired: number } | undefined;
 }
 
 export const FriendsTab = <State extends BaseServerState = BaseServerState>({
@@ -51,6 +54,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
   LeaderboardComponent,
   gameName,
   getDifficultyDisplay,
+  getMovesDisplay,
 }: FriendsTabProps<State>) => {
   const { sessions, friendSessions } = useSessions<State>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
@@ -246,6 +250,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                                           getDifficultyDisplay={
                                             getDifficultyDisplay
                                           }
+                                          getMovesDisplay={getMovesDisplay}
                                         />
                                       ))}
                                   </ul>

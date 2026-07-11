@@ -195,6 +195,30 @@ describe('IntegratedSessionRow', () => {
       // Should render the puzzle link
       expect(screen.getByTestId('puzzle-link')).toBeInTheDocument();
     });
+
+    it('should show moves graded against par when getMovesDisplay is provided', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: { seconds: 300 },
+          metadata: { movesMade: '12', movesRequired: '9' },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow
+            session={session}
+            getMovesDisplay={() => ({ movesMade: 12, movesRequired: 9 })}
+          />
+        </UserContext.Provider>
+      );
+
+      // Over par renders in the amber grading colour with the +N delta
+      expect(screen.getByText('12/9 +3')).toHaveClass('text-amber-600');
+    });
   });
 
   describe('puzzle title formatting', () => {

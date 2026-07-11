@@ -62,6 +62,36 @@ describe('useServerStorage', () => {
     expect(value?.state).toEqual({ a: 1 });
   });
 
+  it('getValue should fetch another session when an id override is given', async () => {
+    const mockData = {
+      state: { a: 1 },
+      updatedAt: new Date().toISOString(),
+      parties: {},
+    };
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockData),
+    });
+
+    const { result } = renderHook(
+      () =>
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
+      { wrapper }
+    );
+
+    await act(async () => {
+      await result.current.getValue({ id: '456' });
+    });
+
+    const request = mockFetch.mock.calls[0][0] as Request;
+    expect(request.url).toContain('/sessions/mockApp-456');
+  });
+
   it('saveValue should send a PATCH request', async () => {
     mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
     const { result } = renderHook(

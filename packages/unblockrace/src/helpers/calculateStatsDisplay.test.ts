@@ -1,4 +1,7 @@
-import { calculateStatsDisplayFromState } from './calculateStatsDisplay';
+import {
+  calculateStatsDisplayFromState,
+  movesDisplayFromState,
+} from './calculateStatsDisplay';
 
 const START = ['oooooo', 'oooooo', 'AAoooo', 'oooooo', 'oooooo', 'oooooo'].join(
   ''
@@ -27,7 +30,7 @@ describe('calculateStatsDisplayFromState', () => {
     ).toBe('1 move');
   });
 
-  it('marks under-par completion with a star', () => {
+  it('names the difference for under-par completion', () => {
     expect(
       calculateStatsDisplayFromState({
         initial: START,
@@ -35,10 +38,10 @@ describe('calculateStatsDisplayFromState', () => {
         answerStack: [START, START, START],
         metadata: { movesMade: '2', movesRequired: '4' },
       })
-    ).toBe('2 moves · under par');
+    ).toBe('2 moves · 2 under par');
   });
 
-  it('marks exact-par completion with a check', () => {
+  it('marks exact-par completion as par', () => {
     expect(
       calculateStatsDisplayFromState({
         initial: START,
@@ -49,7 +52,7 @@ describe('calculateStatsDisplayFromState', () => {
     ).toBe('4 moves · par');
   });
 
-  it('marks over-par completion with a warning', () => {
+  it('names the difference for over-par completion', () => {
     expect(
       calculateStatsDisplayFromState({
         initial: START,
@@ -57,7 +60,7 @@ describe('calculateStatsDisplayFromState', () => {
         answerStack: [START],
         metadata: { movesMade: '5', movesRequired: '4' },
       })
-    ).toBe('5 moves · over par');
+    ).toBe('5 moves · 1 over par');
   });
 
   it('falls back to the answer stack length when movesMade is missing', () => {
@@ -69,5 +72,37 @@ describe('calculateStatsDisplayFromState', () => {
         metadata: {},
       })
     ).toBe('2 moves');
+  });
+});
+
+describe('movesDisplayFromState', () => {
+  it('returns the structured moves-vs-par for a session with par metadata', () => {
+    expect(
+      movesDisplayFromState({
+        initial: START,
+        final: START,
+        answerStack: [START, START],
+        metadata: { movesMade: '5', movesRequired: '4' },
+      })
+    ).toEqual({ movesMade: 5, movesRequired: 4 });
+  });
+
+  it('is undefined without moves or without a par to grade against', () => {
+    expect(
+      movesDisplayFromState({
+        initial: START,
+        final: START,
+        answerStack: [START],
+        metadata: { movesRequired: '4' },
+      })
+    ).toBeUndefined();
+    expect(
+      movesDisplayFromState({
+        initial: START,
+        final: START,
+        answerStack: [START, START],
+        metadata: { movesMade: '2' },
+      })
+    ).toBeUndefined();
   });
 });

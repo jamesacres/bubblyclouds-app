@@ -21,6 +21,7 @@ import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
+import { PlayerRunResult } from '../helpers/runResults';
 
 interface UnblockRaceTrackProps {
   sessionParties: Parties<Session<ServerState>>;
@@ -32,6 +33,10 @@ interface UnblockRaceTrackProps {
   refreshSessionParties: () => void;
   isPolling: boolean;
   onInviteFriends?: () => void;
+  // Multi-stage runs only: each player's per-stage times and run total,
+  // refreshed at the end of each stage. Replaces the single-stage finished
+  // leaderboard so every stage's time (and the whole-run total) is visible.
+  runResults?: PlayerRunResult[];
 }
 
 interface PlayerProgress {
@@ -56,6 +61,7 @@ const UnblockRaceTrack = ({
   refreshSessionParties,
   isPolling,
   onInviteFriends,
+  runResults,
 }: UnblockRaceTrackProps) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
@@ -181,6 +187,21 @@ const UnblockRaceTrack = ({
   const currentUserProgress = useMemo(() => {
     return allPlayerProgress.find((p) => p.isCurrentUser);
   }, [allPlayerProgress]);
+
+  // Resolve run-leaderboard names the same way the legend does: the current
+  // user is "You", opponents need a party nickname to appear.
+  const runLeaderboardRows = useMemo(
+    () =>
+      (runResults || [])
+        .map((result) => ({
+          ...result,
+          nickname: result.isCurrentUser
+            ? 'You'
+            : getNicknameByUserId(result.userId) || '',
+        }))
+        .filter((row) => row.nickname),
+    [runResults, getNicknameByUserId]
+  );
 
   const isCompleted =
     currentUserProgress?.percentage === 100 &&
@@ -408,8 +429,174 @@ const UnblockRaceTrack = ({
           </div>
         </div>
 
-        {/* Leaderboard for finished players */}
-        {finishedPlayers.length > 0 && (
+        {/* Leaderboard: multi-stage runs get the end-of-stage breakdown —
+            each player's time per stage plus their run total — while single
+            puzzles keep the finished-players list */}
+        {runResults ? (
+          runLeaderboardRows.length > 0 && (
+            <div className="mt-4">
+              <div
+                data-testid="run-leaderboard"
+                className="mt-2 overflow-hidden rounded-xl border border-stone-200/70 bg-white/60 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60"
+              >
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="text-[0.6rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
+                        <th scope="col" className="px-3 py-1.5 text-left">
+                          Racer
+                        </th>
+                        {runLeaderboardRows[0].stageResults.map(
+                          (_, stageIndex) => (
+                            <th
+                              key={stageIndex}
+                              scope="col"
+                              className="px-1.5 py-1.5 text-right"
+                            >
+                              S{stageIndex + 1}
+                            </th>
+                          )
+                        )}
+                        <th scope="col" className="px-3 py-1.5 text-right">
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {runLeaderboardRows.map((row, index) => {
+                        const isFirst = index === 0;
+                        const runFinished =
+                          row.completedStageCount === row.stageResults.length;
+                        return (
+                          <tr
+                            key={row.userId}
+                            data-testid={`run-leaderboard-row-${index}`}
+                            className={
+                              isFirst
+                                ? 'border-b border-stone-200 bg-gradient-to-r from-amber-400/15 via-amber-400/5 to-transparent dark:border-zinc-700'
+                                : ''
+                            }
+                          >
+                            <td className="px-3 py-2">
+                              <span className="flex items-center gap-2.5">
+                                <span
+                                  className={`w-5 text-center text-sm font-semibold tabular-nums ${
+                                    isFirst
+                                      ? 'text-amber-500 dark:text-amber-400'
+                                      : 'text-stone-400 dark:text-zinc-500'
+                                  }`}
+                                >
+                                  {index + 1}.
+                                </span>
+                                <span
+                                  className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(row.userId, allUserIds, row.isCurrentUser)}`}
+                                />
+                                <span
+                                  className={`whitespace-nowrap text-sm ${
+                                    row.isCurrentUser
+                                      ? 'font-semibold text-stone-900 dark:text-white'
+                                      : 'text-stone-700 dark:text-zinc-300'
+                                  }`}
+                                >
+                                  {row.nickname}
+                                </span>
+                              </span>
+                            </td>
+                            {row.stageResults.map((stageResult, stageIndex) => {
+                              const movesDelta =
+                                stageResult?.movesMade !== undefined
+                                  ? stageResult.movesMade -
+                                    stageResult.movesRequired
+                                  : undefined;
+                              return (
+                                <td
+                                  key={stageIndex}
+                                  className="px-1.5 py-2 text-right align-top"
+                                >
+                                  {stageResult ? (
+                                    <>
+                                      <span className="block font-mono text-xs tabular-nums text-stone-500 dark:text-zinc-400">
+                                        {formatSecondsShort(
+                                          stageResult.seconds
+                                        )}
+                                      </span>
+                                      {/* Moves graded against par in the
+                                          run's usual colours, with the
+                                          golf-style delta saying exactly how
+                                          far over or under */}
+                                      {stageResult.movesMade !== undefined &&
+                                        movesDelta !== undefined && (
+                                          <span
+                                            className={`block font-mono text-[0.65rem] tabular-nums ${
+                                              movesDelta > 0
+                                                ? 'text-amber-600 dark:text-amber-400'
+                                                : movesDelta < 0
+                                                  ? 'text-emerald-600 dark:text-emerald-400'
+                                                  : 'text-stone-400 dark:text-zinc-500'
+                                            }`}
+                                          >
+                                            {stageResult.movesMade}/
+                                            {stageResult.movesRequired}
+                                            {movesDelta !== 0 &&
+                                              ` ${movesDelta > 0 ? '+' : ''}${movesDelta}`}
+                                            <span className="sr-only">
+                                              {` moves, ${
+                                                movesDelta === 0
+                                                  ? 'on par'
+                                                  : `${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
+                                              }`}
+                                            </span>
+                                          </span>
+                                        )}
+                                    </>
+                                  ) : (
+                                    <span className="font-mono text-xs text-stone-400 dark:text-zinc-600">
+                                      –
+                                    </span>
+                                  )}
+                                </td>
+                              );
+                            })}
+                            <td className="px-3 py-2 text-right align-top">
+                              <span
+                                className={`block font-mono text-sm tabular-nums ${
+                                  runFinished
+                                    ? 'font-semibold text-stone-900 dark:text-white'
+                                    : 'text-stone-500 dark:text-zinc-400'
+                                }`}
+                              >
+                                {formatSecondsShort(row.totalSeconds)}
+                              </span>
+                              {row.totalMoves > 0 && (
+                                <span className="block text-[0.65rem] tabular-nums text-stone-400 dark:text-zinc-500">
+                                  {row.totalMoves} moves
+                                  {' · '}
+                                  <span
+                                    className={
+                                      row.totalMovesDelta > 0
+                                        ? 'text-amber-600 dark:text-amber-400'
+                                        : row.totalMovesDelta < 0
+                                          ? 'text-emerald-600 dark:text-emerald-400'
+                                          : undefined
+                                    }
+                                  >
+                                    {row.totalMovesDelta === 0
+                                      ? 'par'
+                                      : `${row.totalMovesDelta > 0 ? '+' : ''}${row.totalMovesDelta}`}
+                                  </span>
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )
+        ) : finishedPlayers.length > 0 ? (
           <div className="mt-4">
             <div className="mt-2 overflow-hidden rounded-xl border border-stone-200/70 bg-white/60 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60">
               {finishedPlayers.map((player, index) => {
@@ -465,7 +652,7 @@ const UnblockRaceTrack = ({
               })}
             </div>
           </div>
-        )}
+        ) : null}
       </div>
 
       {isCompleted && (

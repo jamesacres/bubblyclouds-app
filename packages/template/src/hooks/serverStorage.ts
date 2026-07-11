@@ -125,17 +125,21 @@ function useServerStorage({
     state.current.id = initialId;
     state.current.type = initialType;
   }, [initialId, initialType]);
-  const getStateKey = useCallback(() => {
-    const { id, type } = state.current;
-    if (!(id && type)) {
-      throw Error('Unknown id and type');
-    }
-    let key = `${app}-${id}`;
-    if (type !== StateType.PUZZLE) {
-      key = `${key}-${type}`;
-    }
-    return key;
-  }, [app]);
+  const getStateKey = useCallback(
+    (overrideId?: string) => {
+      const { type } = state.current;
+      const id = overrideId ?? state.current.id;
+      if (!(id && type)) {
+        throw Error('Unknown id and type');
+      }
+      let key = `${app}-${id}`;
+      if (type !== StateType.PUZZLE) {
+        key = `${key}-${type}`;
+      }
+      return key;
+    },
+    [app]
+  );
 
   const isLoggedIn = useCallback(async () => {
     if (user) {
@@ -193,25 +197,31 @@ function useServerStorage({
     [fetch, isLoggedIn, isOnline, app, apiUrl]
   );
 
-  const getValue = useCallback(async <T>(): Promise<
-    ServerStateResult<T> | undefined
-  > => {
-    if (isOnline && (await isLoggedIn())) {
-      try {
-        const stateKey = getStateKey();
-        console.info('fetching session', stateKey);
-        const response = await fetch(
-          new Request(`${apiUrl}/sessions/${stateKey}`)
-        );
-        if (response.ok) {
-          return responseToResult(await response.json());
+  // `id` fetches a different session of the same type than the hook is bound
+  // to — used by unblockrace's chained runs to poll every stage's session
+  // while the hook stays keyed to the current stage.
+  const getValue = useCallback(
+    async <T>({ id }: { id?: string } = {}): Promise<
+      ServerStateResult<T> | undefined
+    > => {
+      if (isOnline && (await isLoggedIn())) {
+        try {
+          const stateKey = getStateKey(id);
+          console.info('fetching session', stateKey);
+          const response = await fetch(
+            new Request(`${apiUrl}/sessions/${stateKey}`)
+          );
+          if (response.ok) {
+            return responseToResult(await response.json());
+          }
+        } catch (e) {
+          console.error(e);
         }
-      } catch (e) {
-        console.error(e);
       }
-    }
-    return undefined;
-  }, [getStateKey, fetch, isLoggedIn, isOnline, apiUrl]);
+      return undefined;
+    },
+    [getStateKey, fetch, isLoggedIn, isOnline, apiUrl]
+  );
 
   const saveValue = useCallback(
     async <T>(state: T): Promise<ServerStateResult<T> | undefined> => {

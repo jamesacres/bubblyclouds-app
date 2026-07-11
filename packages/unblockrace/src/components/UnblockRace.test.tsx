@@ -44,8 +44,10 @@ jest.mock('./RaceCelebration', () => {
     RACE_CELEBRATION_MS: 5500,
   };
 });
+const mockRaceTrackProps = jest.fn();
 jest.mock('./UnblockRaceTrack', () => {
-  const DummyRaceTrack = function DummyRaceTrack() {
+  const DummyRaceTrack = function DummyRaceTrack(props: object) {
+    mockRaceTrackProps(props);
     return <div data-testid="race-track">Race Track</div>;
   };
   return {
@@ -108,6 +110,7 @@ const baseGameState = {
   refreshSessionParties: jest.fn(),
   isPolling: false,
   sessionParties: {},
+  runStageParties: {},
   showLobby: false,
   setShowLobby: jest.fn(),
   isPaused: false,
@@ -204,6 +207,35 @@ describe('UnblockRace', () => {
         }),
       })
     );
+  });
+
+  it('passes runStageIds to the hook and per-stage run results to the race track', () => {
+    render(<UnblockRace {...defaultProps} />);
+    expect(mockUseGameState).toHaveBeenLastCalledWith(
+      expect.objectContaining({ runStageIds: [STAGE_1, STAGE_2] })
+    );
+    // Nothing finished yet, so the run leaderboard has no rows
+    expect(mockRaceTrackProps.mock.calls.at(-1)?.[0].runResults).toEqual([]);
+
+    act(() => {
+      lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
+    });
+
+    // Completing stage 1 puts the player's own line on the leaderboard:
+    // their stage 1 time and the run total so far
+    expect(mockRaceTrackProps.mock.calls.at(-1)?.[0].runResults).toEqual([
+      expect.objectContaining({
+        userId: 'guest',
+        isCurrentUser: true,
+        stageResults: [
+          { seconds: 42, movesMade: 3, movesRequired: 3 },
+          undefined,
+        ],
+        totalSeconds: 42,
+        totalMoves: 3,
+        completedStageCount: 1,
+      }),
+    ]);
   });
 
   it('advances to the next stage via the stage-clear button without unmounting the racing chrome', () => {
