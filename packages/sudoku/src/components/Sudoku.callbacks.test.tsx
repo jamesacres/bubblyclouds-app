@@ -11,6 +11,7 @@ import { puzzleTextToPuzzle } from '../helpers/puzzleTextToPuzzle';
 import { createLocalAgents } from '../helpers/agentTimeline';
 import { getAllAgentProgress } from '../helpers/agentProgress';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
+import type { Timer } from '@bubblyclouds-app/template/types/timer';
 
 // This file targets the callback wiring inside Sudoku.tsx that the main
 // Sudoku.test.tsx suite leaves uncovered because it fully stubs out
@@ -240,7 +241,7 @@ describe('Sudoku callback wiring', () => {
       .map(() => Array(9).fill(null)),
     validateCell: jest.fn(),
     validateGrid: jest.fn(),
-    timer: { countdown: undefined },
+    timer: { countdown: undefined } as Partial<Timer>,
     reset: jest.fn(),
     reveal: jest.fn(),
     completed: false,

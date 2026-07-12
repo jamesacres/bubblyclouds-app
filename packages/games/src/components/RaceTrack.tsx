@@ -350,11 +350,11 @@ const RaceTrack = <
             </span>
           </div>
 
-          {/* Driving lane: proper asphalt in both themes — the dark strip
-              against the glass card is what makes it read "road" at a
-              glance — with edge lines, start lights and a checkered finish
-              column */}
-          <div className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-zinc-800 via-zinc-700/90 to-zinc-800 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900">
+          {/* Driving lane: pale near-white asphalt in light mode, dark
+              asphalt in dark mode — with edge lines, start lights and a
+              checkered finish column. Line/tick markings flip from
+              dark-on-light to light-on-dark so they stay legible in both. */}
+          <div className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900">
             <style>{`
               @keyframes race-lane-shimmer {
                 from { transform: translateX(-120%); }
@@ -371,6 +371,15 @@ const RaceTrack = <
               className="race-lane-shimmer pointer-events-none absolute inset-y-0 w-1/4"
               style={{
                 background:
+                  'linear-gradient(105deg, transparent, rgba(0,0,0,0.05), transparent)',
+                animation: 'race-lane-shimmer 5.5s linear infinite',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="race-lane-shimmer pointer-events-none absolute inset-y-0 hidden w-1/4 dark:block"
+              style={{
+                background:
                   'linear-gradient(105deg, transparent, rgba(255,255,255,0.07), transparent)',
                 animation: 'race-lane-shimmer 5.5s linear infinite',
               }}
@@ -378,17 +387,17 @@ const RaceTrack = <
             {/* Lane edge lines */}
             <div
               aria-hidden="true"
-              className="absolute inset-x-1 top-1 h-px bg-white/20"
+              className="absolute inset-x-1 top-1 h-px bg-stone-400/40 dark:bg-white/20"
             />
             <div
               aria-hidden="true"
-              className="absolute inset-x-1 bottom-1 h-px bg-white/20"
+              className="absolute inset-x-1 bottom-1 h-px bg-stone-400/40 dark:bg-white/20"
             />
 
             {/* Dashed centre line */}
             <div
               aria-hidden="true"
-              className="absolute left-3 right-6 top-1/2 h-px -translate-y-1/2 text-white opacity-30"
+              className="absolute left-3 right-6 top-1/2 h-px -translate-y-1/2 text-stone-500/50 dark:text-white dark:opacity-30"
               style={{
                 backgroundImage:
                   'repeating-linear-gradient(to right, currentColor 0 8px, transparent 8px 16px)',
@@ -400,7 +409,7 @@ const RaceTrack = <
               <div
                 key={tick}
                 aria-hidden="true"
-                className="absolute bottom-1.5 top-1.5 w-px bg-white/10"
+                className="absolute bottom-1.5 top-1.5 w-px bg-stone-400/30 dark:bg-white/10"
                 style={{ left: `${tick}%` }}
               />
             ))}
@@ -441,7 +450,7 @@ const RaceTrack = <
                 <div className="absolute inset-0 z-10 flex items-end justify-center pb-1">
                   {/* Solid plaque so the lane's dashed centre line can't
                     strike through the words */}
-                  <span className="flex items-center gap-1 rounded-full bg-zinc-900/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white/70 shadow-sm ring-1 ring-white/10">
+                  <span className="flex items-center gap-1 rounded-full bg-white/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-stone-500/80 shadow-sm ring-1 ring-stone-400/20 dark:bg-zinc-900/85 dark:text-white/70 dark:ring-white/10">
                     Invite friends to race
                     <ChevronRight className="h-3 w-3" aria-hidden="true" />
                   </span>

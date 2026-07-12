@@ -2,9 +2,17 @@ import React from 'react';
 import { render, renderHook, act, waitFor } from '@testing-library/react';
 import { useGameState } from './gameState';
 import type { Puzzle } from '../types/puzzle';
-import type { GameStateMetadata } from '../types/state';
-import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
-import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import type { GameState, GameStateMetadata } from '../types/state';
+import type { StateResult } from '@bubblyclouds-app/template/hooks/localStorage';
+import type { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
+import {
+  UserContext,
+  type UserContextInterface,
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
+import {
+  RevenueCatContext,
+  type RevenueCatContextInterface,
+} from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { useTimer } from '@bubblyclouds-app/template/hooks/timer';
 
@@ -32,10 +40,14 @@ jest.mock('@bubblyclouds-app/template/hooks/useParties', () => ({
   useParties: jest.fn(() => ({ parties: [] })),
 }));
 jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
-  UserContext: require('react').createContext(null),
+  UserContext: (require('react') as typeof React).createContext<
+    UserContextInterface | undefined
+  >(undefined),
 }));
 jest.mock('@bubblyclouds-app/template/providers/RevenueCatProvider', () => ({
-  RevenueCatContext: require('react').createContext(null),
+  RevenueCatContext: (require('react') as typeof React).createContext<
+    RevenueCatContextInterface | undefined
+  >(undefined),
 }));
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: jest.fn(),
@@ -74,30 +86,52 @@ describe('useGameState (extra coverage)', () => {
     apiUrl: 'https://api.test.com',
   };
 
+  type PartialGameState = {
+    answerStack: Puzzle<number>[];
+    completed?: GameState['completed'];
+  };
+  type ServerFixture = {
+    parties?: Parties<Partial<Session<{ completed?: boolean }>>>;
+    state?: PartialGameState;
+    updatedAt: Date;
+  };
+
   const localSaveValue = jest.fn();
-  const localGetValue = jest.fn(() => undefined);
-  const serverSaveValue = jest.fn(() =>
-    Promise.resolve({ parties: {}, state: undefined, updatedAt: undefined })
+  const localGetValue = jest.fn<StateResult<PartialGameState> | undefined, []>(
+    () => undefined
   );
-  const serverGetValue = jest.fn(() => Promise.resolve(undefined));
+  const serverSaveValue = jest.fn<Promise<ServerFixture | undefined>, []>(() =>
+    Promise.resolve({ parties: {}, state: undefined, updatedAt: new Date() })
+  );
+  const serverGetValue = jest.fn<Promise<ServerFixture | undefined>, []>(() =>
+    Promise.resolve(undefined)
+  );
   const getSessionPartiesMock = jest.fn(() => ({}));
   const patchFriendSessionsMock = jest.fn();
 
   const renderGameState = (
     props = defaultProps,
-    userContextValue: unknown = {
+    userContextValue: Partial<UserContextInterface> | undefined = {
       user: { sub: 'user-1' },
       isInitialised: true,
     },
-    revenueCatValue: unknown = {}
+    revenueCatValue:
+      | (Omit<Partial<RevenueCatContextInterface>, 'subscribeModal'> & {
+          subscribeModal?: Partial<
+            RevenueCatContextInterface['subscribeModal']
+          >;
+        })
+      | undefined = {}
   ) => {
     const wrapper = ({ children }: { children: React.ReactNode }) =>
       React.createElement(
         UserContext.Provider,
-        { value: userContextValue },
+        { value: userContextValue as UserContextInterface | undefined },
         React.createElement(
           RevenueCatContext.Provider,
-          { value: revenueCatValue },
+          {
+            value: revenueCatValue as RevenueCatContextInterface | undefined,
+          },
           children
         )
       );
@@ -473,7 +507,9 @@ describe('useGameState (extra coverage)', () => {
     // renderHook's `wrapper` option is fixed at mount and does not receive
     // updated props on rerender, so a stateful host component is used here
     // to flip from no user to a confirmed user after mount.
-    let setUserContextValue: (_value: unknown) => void = () => {};
+    let setUserContextValue: (
+      _value: Partial<UserContextInterface>
+    ) => void = () => {};
     const gameStateRef: { current: ReturnType<typeof useGameState> | null } = {
       current: null,
     };
@@ -486,7 +522,9 @@ describe('useGameState (extra coverage)', () => {
       return null;
     };
     const Harness = () => {
-      const [userContextValue, setValue] = React.useState<unknown>({
+      const [userContextValue, setValue] = React.useState<
+        Partial<UserContextInterface> | undefined
+      >({
         user: undefined,
         isInitialised: true,
       });
@@ -495,10 +533,10 @@ describe('useGameState (extra coverage)', () => {
       }, [setValue]);
       return React.createElement(
         UserContext.Provider,
-        { value: userContextValue },
+        { value: userContextValue as UserContextInterface | undefined },
         React.createElement(
           RevenueCatContext.Provider,
-          { value: {} },
+          { value: {} as RevenueCatContextInterface | undefined },
           React.createElement(GameStateProbe, {
             onResult: (r: ReturnType<typeof useGameState>) =>
               (gameStateRef.current = r),
