@@ -5,7 +5,7 @@ import { useParties } from '../hooks/useParties';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import { useSessions } from '../providers/SessionsProvider';
-import { Award, Loader, Lock } from 'lucide-react';
+import { Award, Loader, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
@@ -183,11 +183,14 @@ interface IntegratedSessionRowProps<
   // moves-vs-par grade); when provided, completed rows show the stars
   // alongside the moves chip.
   getStarRating?: (state: State) => number | undefined;
-  // When locked (e.g. the paywalled half of a collection), the tile is not a
+  // When locked (e.g. the paywalled part of a collection), the tile is not a
   // navigation link but a button that surfaces the paywall via onLockedClick,
-  // with a dimmed preview and a lock badge overlay.
+  // with a lightly dimmed preview and a premium "Plus" badge overlay — framed
+  // as an unlock, not a restriction.
   isLocked?: boolean;
   onLockedClick?: () => void;
+  // Overrides the premium overlay's pill label (default "Plus").
+  lockedLabel?: string;
 }
 
 // Move count graded against par, in the same colours as the game's
@@ -332,6 +335,7 @@ export const IntegratedSessionRow = <
   getStarRating,
   isLocked,
   onLockedClick,
+  lockedLabel = 'Plus',
 }: IntegratedSessionRowProps<State, BookPuzzle, Techniques>) => {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -529,24 +533,42 @@ export const IntegratedSessionRow = <
   };
 
   const rowInner = (
-    <div className={`relative ${isLocked ? 'opacity-50' : ''}`}>
+    <div className="relative">
       {isLocked && (
-        <span className="absolute right-2 top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-zinc-900/80 text-white shadow">
-          <Lock className="h-3.5 w-3.5" />
-        </span>
+        <>
+          {/* Premium veil: a gold-tinted wash over the board preview and a
+              "Plus" pill, so a paywalled puzzle reads as a reward waiting to
+              be unlocked rather than a door slammed shut. */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-amber-950/50 via-amber-900/10 to-transparent"
+          />
+          <span className="absolute right-2 top-2 z-20 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wide text-amber-950 shadow-md">
+            <Sparkles className="h-3 w-3" aria-hidden="true" />
+            {lockedLabel}
+          </span>
+        </>
       )}
-      <SimpleState state={session.state} />
+      <div className={isLocked ? 'opacity-80' : ''}>
+        <SimpleState state={session.state} />
+      </div>
       <div className="space-y-2 px-4 py-2">
         <div className="text-center text-gray-900 dark:text-white">
           <h3 className="text-sm font-semibold">{puzzleTitle}</h3>
-          <p className="text-xs opacity-75">
-            {getGameStatusText<State>(
-              session,
-              isPuzzleCheated,
-              calculateCompletionPercentageFromState,
-              userSessions
-            )}
-          </p>
+          {isLocked ? (
+            <p className="text-xs font-semibold text-amber-600 dark:text-amber-400">
+              Unlock with {lockedLabel}
+            </p>
+          ) : (
+            <p className="text-xs opacity-75">
+              {getGameStatusText<State>(
+                session,
+                isPuzzleCheated,
+                calculateCompletionPercentageFromState,
+                userSessions
+              )}
+            </p>
+          )}
         </div>
 
         {/* Difficulty Badge */}
@@ -605,136 +627,151 @@ export const IntegratedSessionRow = <
         </Link>
       )}
 
-      {/* Progress Section - Always show */}
-      <div className="border-t border-stone-200 bg-stone-100/50 dark:border-zinc-600 dark:bg-zinc-700/50">
-        <div className="p-2">
-          <div className="space-y-1">
-            {/* Show all players in sorted order, including user */}
-            {playerSessions.length > 0 ? (
-              playerSessions.map(
-                ({
-                  nickname,
-                  userId,
-                  completionPercentage,
-                  completionTime,
-                  isCompleted,
-                  isCheated,
-                  isCurrentUser,
-                  isWinner,
-                  moves,
-                  stars,
-                }) => (
-                  <div
-                    key={`${session.sessionId}-${userId || 'user'}`}
-                    className={`flex items-center justify-between rounded px-2 py-1 text-xs ${
-                      isWinner
-                        ? 'bg-yellow-100/70 text-yellow-900 dark:bg-yellow-950/30 dark:text-yellow-100'
-                        : isCurrentUser
-                          ? 'bg-green-100/50 text-green-900 dark:bg-green-950/30 dark:text-green-100'
-                          : 'bg-blue-100/50 text-blue-900 dark:bg-blue-950/30 dark:text-blue-100'
-                    }`}
-                  >
-                    <span className="flex items-center gap-1 font-medium">
-                      {isWinner && (
-                        <Award className="h-3 w-3 text-yellow-600 dark:text-yellow-400" />
-                      )}
-                      {nickname}
-                    </span>
-                    <div className="flex items-center gap-1">
-                      {isCompleted ? (
-                        <>
-                          <span
-                            className={
-                              isCheated
-                                ? 'text-orange-600 dark:text-orange-400'
-                                : 'text-green-600 dark:text-green-400'
-                            }
-                          >
-                            {isCheated ? '❌' : '✅'}
-                          </span>
-                          {completionTime && (
-                            <span className="text-xs opacity-75">
-                              {Math.floor(completionTime / 60)}m{' '}
-                              {completionTime % 60}s
-                            </span>
-                          )}
-                          {moves && !isCheated && (
-                            <MovesDisplay moves={moves} />
-                          )}
-                          {stars !== undefined && !isCheated && (
-                            <StarRating rating={stars} size="sm" />
-                          )}
-                        </>
-                      ) : isCurrentUser ? (
-                        <>
-                          {getTimerDisplay()}
-                          <span className="ml-1 opacity-75">
-                            {myPercentage}%
-                          </span>
-                        </>
-                      ) : (
-                        <span className="opacity-75">
-                          {completionPercentage}%
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                )
-              )
-            ) : (
-              /* Show only user when no friends or still loading */
-              <div className="flex items-center justify-between rounded bg-green-100/50 px-2 py-1 text-xs text-green-900 dark:bg-green-950/30 dark:text-green-100">
-                <span className="flex items-center gap-1 font-medium">You</span>
-                <div className="flex items-center gap-1">
-                  {isCompleted ? (
-                    <>
-                      <span
-                        className={
-                          actualSession && isPuzzleCheated(actualSession.state)
-                            ? 'text-orange-600 dark:text-orange-400'
-                            : 'text-green-600 dark:text-green-400'
-                        }
-                      >
-                        {actualSession && isPuzzleCheated(actualSession.state)
-                          ? '❌'
-                          : '✅'}
+      {/* Progress Section — for a Plus-locked tile this becomes an unlock
+          prompt instead of a meaningless "You 0%" row */}
+      {isLocked ? (
+        <button
+          type="button"
+          onClick={onLockedClick}
+          className="flex w-full cursor-pointer items-center justify-center gap-1.5 border-t border-amber-200/60 bg-amber-100/50 px-2 py-2 text-xs font-bold text-amber-700 transition-colors hover:bg-amber-100 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20"
+        >
+          <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+          Unlock with {lockedLabel}
+        </button>
+      ) : (
+        <div className="border-t border-stone-200 bg-stone-100/50 dark:border-zinc-600 dark:bg-zinc-700/50">
+          <div className="p-2">
+            <div className="space-y-1">
+              {/* Show all players in sorted order, including user */}
+              {playerSessions.length > 0 ? (
+                playerSessions.map(
+                  ({
+                    nickname,
+                    userId,
+                    completionPercentage,
+                    completionTime,
+                    isCompleted,
+                    isCheated,
+                    isCurrentUser,
+                    isWinner,
+                    moves,
+                    stars,
+                  }) => (
+                    <div
+                      key={`${session.sessionId}-${userId || 'user'}`}
+                      className={`flex items-center justify-between rounded px-2 py-1 text-xs ${
+                        isWinner
+                          ? 'bg-yellow-100/70 text-yellow-900 dark:bg-yellow-950/30 dark:text-yellow-100'
+                          : isCurrentUser
+                            ? 'bg-green-100/50 text-green-900 dark:bg-green-950/30 dark:text-green-100'
+                            : 'bg-blue-100/50 text-blue-900 dark:bg-blue-950/30 dark:text-blue-100'
+                      }`}
+                    >
+                      <span className="flex items-center gap-1 font-medium">
+                        {isWinner && (
+                          <Award className="h-3 w-3 text-yellow-600 dark:text-yellow-400" />
+                        )}
+                        {nickname}
                       </span>
-                      {session.state.completed && (
-                        <span className="text-xs opacity-75">
-                          {Math.floor(session.state.completed.seconds / 60)}m{' '}
-                          {session.state.completed.seconds % 60}s
-                        </span>
-                      )}
-                      {ownMoves && <MovesDisplay moves={ownMoves} />}
-                      {ownStars !== undefined && (
-                        <StarRating rating={ownStars} size="sm" />
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {getTimerDisplay()}
-                      <span className="ml-1 opacity-75">{myPercentage}%</span>
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Show subtle loading indicator for friends only */}
-            {parties &&
-              parties.length > 0 &&
-              isFriendSessionsLoading &&
-              playerSessions.length === 0 && (
-                <div className="flex items-center justify-center p-1 text-xs opacity-50">
-                  <Loader className="mr-1 h-2 w-2 animate-spin text-gray-400" />
-                  <span className="text-[10px] text-gray-500 dark:text-gray-500">
-                    Loading friends...
+                      <div className="flex items-center gap-1">
+                        {isCompleted ? (
+                          <>
+                            <span
+                              className={
+                                isCheated
+                                  ? 'text-orange-600 dark:text-orange-400'
+                                  : 'text-green-600 dark:text-green-400'
+                              }
+                            >
+                              {isCheated ? '❌' : '✅'}
+                            </span>
+                            {completionTime && (
+                              <span className="text-xs opacity-75">
+                                {Math.floor(completionTime / 60)}m{' '}
+                                {completionTime % 60}s
+                              </span>
+                            )}
+                            {moves && !isCheated && (
+                              <MovesDisplay moves={moves} />
+                            )}
+                            {stars !== undefined && !isCheated && (
+                              <StarRating rating={stars} size="sm" />
+                            )}
+                          </>
+                        ) : isCurrentUser ? (
+                          <>
+                            {getTimerDisplay()}
+                            <span className="ml-1 opacity-75">
+                              {myPercentage}%
+                            </span>
+                          </>
+                        ) : (
+                          <span className="opacity-75">
+                            {completionPercentage}%
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )
+                )
+              ) : (
+                /* Show only user when no friends or still loading */
+                <div className="flex items-center justify-between rounded bg-green-100/50 px-2 py-1 text-xs text-green-900 dark:bg-green-950/30 dark:text-green-100">
+                  <span className="flex items-center gap-1 font-medium">
+                    You
                   </span>
+                  <div className="flex items-center gap-1">
+                    {isCompleted ? (
+                      <>
+                        <span
+                          className={
+                            actualSession &&
+                            isPuzzleCheated(actualSession.state)
+                              ? 'text-orange-600 dark:text-orange-400'
+                              : 'text-green-600 dark:text-green-400'
+                          }
+                        >
+                          {actualSession && isPuzzleCheated(actualSession.state)
+                            ? '❌'
+                            : '✅'}
+                        </span>
+                        {session.state.completed && (
+                          <span className="text-xs opacity-75">
+                            {Math.floor(session.state.completed.seconds / 60)}m{' '}
+                            {session.state.completed.seconds % 60}s
+                          </span>
+                        )}
+                        {ownMoves && <MovesDisplay moves={ownMoves} />}
+                        {ownStars !== undefined && (
+                          <StarRating rating={ownStars} size="sm" />
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {getTimerDisplay()}
+                        <span className="ml-1 opacity-75">{myPercentage}%</span>
+                      </>
+                    )}
+                  </div>
                 </div>
               )}
+
+              {/* Show subtle loading indicator for friends only */}
+              {parties &&
+                parties.length > 0 &&
+                isFriendSessionsLoading &&
+                playerSessions.length === 0 && (
+                  <div className="flex items-center justify-center p-1 text-xs opacity-50">
+                    <Loader className="mr-1 h-2 w-2 animate-spin text-gray-400" />
+                    <span className="text-[10px] text-gray-500 dark:text-gray-500">
+                      Loading friends...
+                    </span>
+                  </div>
+                )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </li>
   );
 };

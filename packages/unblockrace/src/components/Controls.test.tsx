@@ -73,13 +73,8 @@ describe('Controls', () => {
     expect(screen.getByTestId('hint-rainbow-ring')).toBeInTheDocument();
   });
 
-  it('shows the free-hint badge when provided and omits it otherwise', () => {
-    const { rerender } = render(
-      <Controls {...defaultProps} onHint={jest.fn()} hintBadge="2 left" />
-    );
-    expect(screen.getByTestId('hint-badge')).toHaveTextContent('2 left');
-
-    rerender(<Controls {...defaultProps} onHint={jest.fn()} />);
+  it('never renders a free-hint count badge', () => {
+    render(<Controls {...defaultProps} onHint={jest.fn()} />);
     expect(screen.queryByTestId('hint-badge')).not.toBeInTheDocument();
   });
 });

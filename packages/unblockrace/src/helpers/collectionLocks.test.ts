@@ -13,29 +13,33 @@ const puzzle = (difficulty: string): UnblockCollectionPuzzle => ({
 });
 
 describe('lockedCollectionIndexes', () => {
-  it('locks the latter half of each difficulty band', () => {
+  it('gives the easy bands 3 free and locks the rest', () => {
     const puzzles = [
       puzzle('simple'),
       puzzle('simple'),
       puzzle('simple'),
       puzzle('simple'),
-      puzzle('hard'),
-      puzzle('hard'),
+      puzzle('simple'),
+      puzzle('expert'),
+      puzzle('expert'),
     ];
-    // simple band [0,1,2,3] → floor(4/2)=2 locked → indexes 2,3
-    // hard band [4,5] → floor(2/2)=1 locked → index 5
+    // simple band [0..4] → 3 free → indexes 3,4 locked
+    // expert band [5,6] → 1 free → index 6 locked
     expect([...lockedCollectionIndexes(puzzles)].sort((a, b) => a - b)).toEqual(
-      [2, 3, 5]
+      [3, 4, 6]
     );
   });
 
-  it('locks nothing in a band of one', () => {
-    expect(lockedCollectionIndexes([puzzle('simple')]).size).toBe(0);
+  it('locks nothing when a band is within its free allowance', () => {
+    const puzzles = [puzzle('simple'), puzzle('simple'), puzzle('simple')];
+    expect(lockedCollectionIndexes(puzzles).size).toBe(0);
   });
 
-  it('locks the second of a band of three (floor)', () => {
-    const puzzles = [puzzle('a'), puzzle('a'), puzzle('a')];
-    expect([...lockedCollectionIndexes(puzzles)]).toEqual([2]);
+  it('gives an unknown difficulty a single free taste', () => {
+    const puzzles = [puzzle('mystery'), puzzle('mystery'), puzzle('mystery')];
+    expect([...lockedCollectionIndexes(puzzles)].sort((a, b) => a - b)).toEqual(
+      [1, 2]
+    );
   });
 });
 

@@ -652,13 +652,13 @@ describe('UnblockRace', () => {
       expect(showModalIfRequired).not.toHaveBeenCalled();
     });
 
-    it('shows a free user their remaining hints and counts down as they spend them', async () => {
+    it('lets a free user hint with no count badge shown', async () => {
       renderWithRevenueCat(<UnblockRace {...defaultProps} />, {});
 
-      expect(screen.getByTestId('hint-badge')).toHaveTextContent('2 left');
+      expect(screen.queryByTestId('hint-badge')).not.toBeInTheDocument();
       fireEvent.click(screen.getByLabelText('Hint'));
       await screen.findByTestId('hint-ring');
-      expect(screen.getByTestId('hint-badge')).toHaveTextContent('1 left');
+      expect(screen.queryByTestId('hint-badge')).not.toBeInTheDocument();
     });
 
     it("opens the paywall on the free user's third hint of the day", async () => {
@@ -677,7 +677,7 @@ describe('UnblockRace', () => {
         showModalIfRequired,
       });
 
-      expect(screen.getByTestId('hint-badge')).toHaveTextContent('0 left');
+      expect(screen.queryByTestId('hint-badge')).not.toBeInTheDocument();
       fireEvent.click(screen.getByLabelText('Hint'));
 
       expect(showModalIfRequired).toHaveBeenCalledWith(
@@ -697,6 +697,7 @@ describe('UnblockRace', () => {
       mockUseGameState.mockReturnValue({
         ...baseGameState,
         answer: STAGE_1,
+        movesMade: 2,
         reset,
         setTimerNewSession,
       } as ReturnType<typeof useGameState>);
@@ -716,6 +717,7 @@ describe('UnblockRace', () => {
       mockUseGameState.mockReturnValue({
         ...baseGameState,
         answer: STAGE_1,
+        movesMade: 2,
         reset,
       } as ReturnType<typeof useGameState>);
 
@@ -903,84 +905,6 @@ describe('UnblockRace', () => {
     });
   });
 
-  describe('stuck nudge', () => {
-    it('pops over par and hides on the next board pointer-down', () => {
-      mockUseGameState.mockReturnValue({
-        ...baseGameState,
-        answer: STAGE_1,
-        answerStack: [STAGE_1, STAGE_1_COMPLETED, STAGE_1],
-        movesMade: 5,
-      } as ReturnType<typeof useGameState>);
-
-      render(<UnblockRace {...defaultProps} />);
-      // par is 3, movesMade 5 → over par → nudge shows
-      expect(screen.getByTestId('hint-nudge')).toBeInTheDocument();
-
-      fireEvent.pointerDown(screen.getByTestId('unblock-board'));
-      expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
-    });
-
-    it('pops after ~20s idle with no answer change', () => {
-      jest.useFakeTimers();
-      try {
-        mockUseGameState.mockReturnValue({
-          ...baseGameState,
-          answer: STAGE_1,
-          movesMade: 0,
-        } as ReturnType<typeof useGameState>);
-
-        render(<UnblockRace {...defaultProps} />);
-        expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
-
-        act(() => {
-          jest.advanceTimersByTime(21000);
-        });
-        expect(screen.getByTestId('hint-nudge')).toBeInTheDocument();
-      } finally {
-        jest.clearAllTimers();
-        jest.useRealTimers();
-      }
-    });
-
-    it('never pops on a completed board', () => {
-      mockUseGameState.mockReturnValue({
-        ...baseGameState,
-        answer: STAGE_1_COMPLETED,
-        answerStack: [STAGE_1, STAGE_1_COMPLETED],
-        movesMade: 9,
-        completed: { at: new Date().toISOString(), seconds: 42 },
-      } as ReturnType<typeof useGameState>);
-
-      render(<UnblockRace {...defaultProps} />);
-      expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
-    });
-
-    it('never pops while paused', () => {
-      mockUseGameState.mockReturnValue({
-        ...baseGameState,
-        answer: STAGE_1,
-        movesMade: 9,
-        isPaused: true,
-      } as ReturnType<typeof useGameState>);
-
-      render(<UnblockRace {...defaultProps} />);
-      expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
-    });
-
-    it('re-arms at most twice per stage', () => {
-      mockUseGameState.mockReturnValue({
-        ...baseGameState,
-        answer: STAGE_1,
-        movesMade: 9,
-      } as ReturnType<typeof useGameState>);
-
-      render(<UnblockRace {...defaultProps} />);
-      expect(screen.getByTestId('hint-nudge')).toBeInTheDocument();
-      fireEvent.pointerDown(screen.getByTestId('unblock-board'));
-      expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
-    });
-  });
-
   describe('no play limits', () => {
     it('never opens a paywall from starting runs, however many are played', () => {
       const showModalIfRequired = jest.fn();
@@ -1013,7 +937,7 @@ describe('UnblockRace', () => {
   });
 
   describe('continue-to-next-puzzle', () => {
-    // Four distinct board strings so each is its own collection puzzle.
+    // Six distinct board strings so each is its own collection puzzle.
     const P0 = STAGE_1;
     const P1 = STAGE_2;
     const P2 = STAGE_1_COMPLETED;
@@ -1025,15 +949,31 @@ describe('UnblockRace', () => {
       'oooooo',
       'oooooo',
     ].join('');
-    // Four simple puzzles → floor(4/2)=2 locked (indexes 2 and 3); indexes
-    // 0 and 1 are free ("first half of every difficulty is free").
+    const P4 = [
+      'oooooo',
+      'oooooo',
+      'oAABBo',
+      'oooooo',
+      'oooooo',
+      'oooooo',
+    ].join('');
+    const P5 = [
+      'oooooo',
+      'oooooo',
+      'AABBoo',
+      'oooooo',
+      'oooooo',
+      'oooooo',
+    ].join('');
+    // Three simple (all 3 free) + three expert (only 1 free) → indexes 4 and
+    // 5 are the Plus puzzles; 0–3 are free.
     const collectionData = {
       unblockCollectionId: 'ofthemonth-202607',
-      puzzles: [P0, P1, P2, P3].map((initial, i) => ({
+      puzzles: [P0, P1, P2, P3, P4, P5].map((initial, i) => ({
         initial,
         final: initial,
         movesRequired: 3 + i,
-        difficulty: 'simple',
+        difficulty: i < 3 ? 'simple' : 'expert',
       })),
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -1074,11 +1014,15 @@ describe('UnblockRace', () => {
     });
 
     it('shows the Plus-locked label when the next collection puzzle is locked', () => {
-      // With indexes 0 and 1 already done, the resolver's next stop is the
-      // locked index 2 — a free user sees the (Plus) CTA.
+      // Every free puzzle (0–3) is done, so the resolver's only remaining
+      // stops are the Plus puzzles (4, 5) — a free user sees the (Plus) CTA.
       mockUseCollection.mockReturnValue({ collectionData });
       mockUseSessions.mockReturnValue({
-        sessions: [completedSession(P1)],
+        sessions: [
+          completedSession(P1),
+          completedSession(P2),
+          completedSession(P3),
+        ],
       });
       mockUseGameState.mockReturnValue({
         ...baseGameState,

@@ -48,7 +48,6 @@ import { isCollectionPuzzleIdLocked } from '../helpers/collectionLocks';
 import {
   canUseHint,
   incrementHintCount,
-  getRemainingHints,
 } from '@bubblyclouds-app/template/utils/dailyActionCounter';
 import {
   NextCollectionPuzzle,
@@ -62,9 +61,9 @@ import {
 } from '../helpers/stageResults';
 import { AgentRunInput, calculateRunResults } from '../helpers/runResults';
 import NextPuzzlePanel from './NextPuzzlePanel';
+import CompletionSummary from './CompletionSummary';
 import PuzzleGate from './PuzzleGate';
 import ConfirmDialog from './ConfirmDialog';
-import HintNudge from './HintNudge';
 import Board from './Board';
 import Controls from './Controls';
 import RaceCelebration, { RACE_CELEBRATION_MS } from './RaceCelebration';
@@ -298,7 +297,6 @@ const UnblockRace = ({
     runStageParties,
     showLobby,
     setShowLobby,
-    isPaused,
     setMode,
     setAgentNames,
   } = useGameState({
@@ -455,10 +453,6 @@ const UnblockRace = ({
       ? hintNoticeState.message
       : null;
 
-  // Bumped whenever a free hint is spent so the button's "N left" badge
-  // recomputes from getRemainingHints() (localStorage is not reactive).
-  const [hintTick, setHintTick] = useState(0);
-
   const handleHint = useCallback(() => {
     const performHint = () => {
       const boardAtRequest = answerRef.current;
@@ -476,7 +470,6 @@ const UnblockRace = ({
       // Count the hint against the daily allowance only for non-subscribers
       if (!isSubscribed) {
         incrementHintCount();
-        setHintTick((tick) => tick + 1);
       }
     };
 
@@ -490,16 +483,6 @@ const UnblockRace = ({
       );
     }
   }, [isSubscribed, subscribeModal]);
-
-  // The badge on the hint button: "2 left" for free users, absent for
-  // subscribers (unlimited). Recomputed when a hint is spent (hintTick).
-  const hintBadge = useMemo(() => {
-    if (isSubscribed) {
-      return undefined;
-    }
-    void hintTick;
-    return `${getRemainingHints()} left`;
-  }, [isSubscribed, hintTick]);
 
   // Warm the solver so the first hint answers instantly; a load failure is
   // swallowed here — getHint degrades to 'unavailable' on its own retry.
@@ -529,96 +512,6 @@ const UnblockRace = ({
   const handleBackToCollection = useCallback(() => {
     router.replace('/collection');
   }, [router]);
-
-  // "Stuck? Try a hint" nudge: a speech bubble over the hint button when the
-  // player is either over par or idle ~20s on a live board. It's dismissed on
-  // the next board pointer-down and re-arms at most once more per stage, so it
-  // never becomes noise. It must never pop while paused, mid-transition, in
-  // the lobby, or on a completed/gated board — the idle clock is the game
-  // clock's, not the wall clock's.
-  const NUDGE_IDLE_MS = 20000;
-  const [showNudge, setShowNudge] = useState(false);
-  // How many times the nudge may still appear on this stage (arms twice, then
-  // stays quiet until the stage changes).
-  const nudgeArmedRef = useRef(2);
-  // When the answer stack last changed — the idle timer measures from here.
-  const lastAnswerChangeRef = useRef<number | null>(null);
-  // Set when the player dismisses the bubble by touching the board; blocks it
-  // from re-popping (over par is a persistent condition) until the next
-  // answer change gives a fresh trigger edge.
-  const nudgeDismissedRef = useRef(false);
-  // Last answer/stage the nudge state was reset for, so the interval can spot
-  // a change and re-arm without a synchronous set-state in a separate effect.
-  const nudgeAnswerRef = useRef(answer);
-  const nudgePuzzleRef = useRef(puzzleId);
-
-  const isOverPar = movesMade > stage.movesRequired;
-
-  // A single interval owns every nudge state change (the set-state-in-effect
-  // rule: local state is only ever mutated inside this async callback). It
-  // re-arms on an answer or stage change, hides when the board is not a live
-  // playable one, and pops on over-par or ~20s idle up to twice per stage.
-  useEffect(() => {
-    const evaluate = () => {
-      const now = Date.now();
-      if (
-        nudgePuzzleRef.current !== puzzleId ||
-        nudgeAnswerRef.current !== answer
-      ) {
-        const stageChanged = nudgePuzzleRef.current !== puzzleId;
-        nudgePuzzleRef.current = puzzleId;
-        nudgeAnswerRef.current = answer;
-        lastAnswerChangeRef.current = now;
-        nudgeDismissedRef.current = false;
-        if (stageChanged) {
-          nudgeArmedRef.current = 2;
-        }
-        setShowNudge(false);
-        return;
-      }
-      if (lastAnswerChangeRef.current === null) {
-        lastAnswerChangeRef.current = now;
-      }
-      const nudgeSuppressed =
-        !!completed ||
-        !!transition ||
-        isPaused ||
-        showLobby ||
-        isLockedCollectionPuzzle;
-      if (nudgeSuppressed) {
-        setShowNudge((prev) => (prev ? false : prev));
-        return;
-      }
-      if (nudgeArmedRef.current <= 0 || nudgeDismissedRef.current) {
-        return;
-      }
-      const idle = now - lastAnswerChangeRef.current >= NUDGE_IDLE_MS;
-      if (isOverPar || idle) {
-        nudgeArmedRef.current -= 1;
-        setShowNudge(true);
-      }
-    };
-    evaluate();
-    const intervalId = setInterval(evaluate, 1000);
-    return () => clearInterval(intervalId);
-  }, [
-    answer,
-    puzzleId,
-    completed,
-    transition,
-    isPaused,
-    showLobby,
-    isLockedCollectionPuzzle,
-    isOverPar,
-  ]);
-
-  // The next board pointer-down dismisses the nudge; it re-arms for a later
-  // over-par/idle trigger on this stage (up to the twice-per-stage cap) once
-  // the player next changes the board.
-  const handleBoardPointerDown = useCallback(() => {
-    nudgeDismissedRef.current = true;
-    setShowNudge(false);
-  }, []);
 
   const friendsOnClick = useCallback(() => {
     setShowLobby((prev) => !prev);
@@ -862,6 +755,60 @@ const UnblockRace = ({
 
   const isCollectionPuzzle = !!metadata.unblockCollectionPuzzleId;
   const isDailyRun = runId.startsWith('oftheday-');
+
+  // The result that stays put once the transient celebration fades — the
+  // slam and the RaceCelebration both clear themselves, so without this a
+  // finished puzzle (especially a single-stage collection puzzle) would leave
+  // the player staring at a blank board. For a multi-stage run it summarises
+  // the whole run once every stage is done; for a single puzzle it's that
+  // puzzle's own stars/time/moves/points.
+  const completionSummary = useMemo(() => {
+    if (!completed) {
+      return undefined;
+    }
+    if (stages.length > 1) {
+      if (!isFinalStage || runStars === undefined) {
+        return undefined;
+      }
+      return {
+        stars: runStars,
+        seconds: runTotals.seconds,
+        movesMade: runTotals.moves,
+        movesRequired: runTotalPar,
+        points: runPoints,
+        label: isDailyRun ? `Daily #${getDailyNumber()}` : undefined,
+      };
+    }
+    const result = completedStages.get(currentStageIndex);
+    if (!result) {
+      return undefined;
+    }
+    return {
+      stars: starRatingForMoves(result.movesMade, result.movesRequired),
+      seconds: result.seconds,
+      movesMade: result.movesMade,
+      movesRequired: result.movesRequired,
+      points: scoreStage(result.seconds, result.movesRequired, dayPuzzleIndex),
+      label: isCollectionPuzzle
+        ? `Collection puzzle ${metadata.unblockCollectionPuzzleId?.split('-').pop()}`
+        : undefined,
+    };
+  }, [
+    completed,
+    stages.length,
+    isFinalStage,
+    runStars,
+    runTotals,
+    runTotalPar,
+    runPoints,
+    isDailyRun,
+    completedStages,
+    currentStageIndex,
+    scoreStage,
+    dayPuzzleIndex,
+    isCollectionPuzzle,
+    metadata.unblockCollectionPuzzleId,
+  ]);
 
   // The continue-to-next-puzzle target: which collection puzzle to steer the
   // player into next once they finish. Shown for a single-stage collection
@@ -1224,38 +1171,53 @@ const UnblockRace = ({
         <div className="mx-auto w-full max-w-xl px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              {/* Top bar near the stage pips: jump back to the previous stage
-                  (multi-stage runs only) and retry the current one. Retry and
-                  the destructive Reset both confirm before wiping. */}
-              <div
-                data-testid="stage-top-bar"
-                className="mb-2 flex items-center justify-between gap-2"
-              >
-                <div className="flex items-center gap-2">
-                  {currentStageIndex > 0 && (
+              {/* Compact nav row: only rendered when there's actually
+                  something to do here — jumping back a stage (multi-stage
+                  runs) or retrying a stage that's been played/finished — so it
+                  never floats as an out-of-place button above a fresh board.
+                  Ghost-styled and small so it reads as secondary chrome
+                  tucked above the HUD, not a primary action. */}
+              {(currentStageIndex > 0 ||
+                movesMade > 0 ||
+                !!completed ||
+                completedStages.has(currentStageIndex)) && (
+                <div
+                  data-testid="stage-top-bar"
+                  className="mb-1.5 flex items-center justify-between gap-2"
+                >
+                  <div className="flex items-center gap-2">
+                    {currentStageIndex > 0 && (
+                      <button
+                        type="button"
+                        data-testid="previous-stage-button"
+                        onClick={handlePreviousStage}
+                        disabled={!!transition}
+                        className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
+                      >
+                        <ChevronLeft
+                          className="h-3.5 w-3.5"
+                          aria-hidden="true"
+                        />
+                        Previous
+                      </button>
+                    )}
+                  </div>
+                  {(movesMade > 0 ||
+                    !!completed ||
+                    completedStages.has(currentStageIndex)) && (
                     <button
                       type="button"
-                      data-testid="previous-stage-button"
-                      onClick={handlePreviousStage}
+                      data-testid="retry-stage-button"
+                      onClick={handleRetryClick}
                       disabled={!!transition}
-                      className="flex cursor-pointer items-center gap-1 rounded-full border border-stone-200/70 bg-white/60 px-3 py-1.5 text-xs font-semibold text-stone-700 backdrop-blur transition-all duration-200 hover:bg-white active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:bg-zinc-800"
+                      className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
                     >
-                      <ChevronLeft className="h-4 w-4" aria-hidden="true" />
-                      Previous
+                      <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
+                      Retry stage
                     </button>
                   )}
                 </div>
-                <button
-                  type="button"
-                  data-testid="retry-stage-button"
-                  onClick={handleRetryClick}
-                  disabled={!!transition}
-                  className="flex cursor-pointer items-center gap-1 rounded-full border border-stone-200/70 bg-white/60 px-3 py-1.5 text-xs font-semibold text-stone-700 backdrop-blur transition-all duration-200 hover:bg-white active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:bg-zinc-900/60 dark:text-zinc-200 dark:hover:bg-zinc-800"
-                >
-                  <RotateCcw className="h-4 w-4" aria-hidden="true" />
-                  Retry
-                </button>
-              </div>
+              )}
 
               {/* One HUD card: race status on the top row, move gauge and
                   toolbar on the bottom, so the chrome above the board reads
@@ -1278,7 +1240,6 @@ const UnblockRace = ({
                   isDisabled={!!completed}
                   onHint={handleHint}
                   isHintDisabled={!!completed || !!transition || showLobby}
-                  hintBadge={hintBadge}
                   movesMade={movesMade}
                   movesRequired={stage.movesRequired}
                   timer={
@@ -1327,18 +1288,16 @@ const UnblockRace = ({
                     />
                   </StageTransition>
                 ) : (
-                  <div onPointerDownCapture={handleBoardPointerDown}>
-                    <Board
-                      key={puzzleId}
-                      boardString={answer}
-                      initialBoardString={initial}
-                      onMove={pushMove}
-                      isDisabled={
-                        !!completed || showLobby || isLockedCollectionPuzzle
-                      }
-                      hint={hint}
-                    />
-                  </div>
+                  <Board
+                    key={puzzleId}
+                    boardString={answer}
+                    initialBoardString={initial}
+                    onMove={pushMove}
+                    isDisabled={
+                      !!completed || showLobby || isLockedCollectionPuzzle
+                    }
+                    hint={hint}
+                  />
                 )}
 
                 {/* Locked deep-link gate: a free user landing on a locked
@@ -1346,22 +1305,13 @@ const UnblockRace = ({
                     gate — the timer is already frozen by shouldPause. */}
                 {isLockedCollectionPuzzle && (
                   <PuzzleGate
-                    title="Locked pack"
-                    body="This puzzle is in the locked half of this month's pack. Unlock the entire pack with Plus."
-                    primaryLabel="Unlock the pack with Plus"
+                    title="Plus puzzle"
+                    body="This puzzle is part of the Plus collection. Unlock every puzzle in every month's pack — and keep the whole app ad free — with Plus."
+                    primaryLabel="Unlock with Plus"
                     onPrimary={handleUnlockCollection}
                     secondaryLabel="Back to collection"
                     onSecondary={handleBackToCollection}
                   />
-                )}
-
-                {/* "Stuck? Try a hint" nudge, anchored over the hint button
-                    area in the HUD — appears on over-par or ~20s idle, hidden
-                    on the next board pointer-down. */}
-                {showNudge && (
-                  <div className="pointer-events-none absolute -top-2 right-2 z-30 flex -translate-y-full justify-end">
-                    <HintNudge />
-                  </div>
                 )}
 
                 {/* Stage-clear slam: slams in over the solved board and
@@ -1371,8 +1321,10 @@ const UnblockRace = ({
                 {stageClear && (
                   <div
                     data-testid="stage-clear-slam"
-                    className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-1 rounded-2xl bg-black/30 backdrop-blur-[2px]"
+                    className="pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-1 overflow-hidden rounded-2xl backdrop-blur-md"
                     style={{
+                      background:
+                        'radial-gradient(120% 120% at 50% 40%, rgba(9,9,14,0.82) 0%, rgba(9,9,14,0.92) 55%, rgba(4,4,8,0.96) 100%)',
                       animation: 'unblock-stage-clear 450ms ease-out both',
                     }}
                   >
@@ -1561,6 +1513,20 @@ const UnblockRace = ({
                 )}
               </div>
 
+              {/* The finished result, kept visible under the board after the
+                  transient celebration fades (fixes the collection puzzle's
+                  result vanishing on completion). */}
+              {completionSummary && (
+                <CompletionSummary
+                  stars={completionSummary.stars}
+                  seconds={completionSummary.seconds}
+                  movesMade={completionSummary.movesMade}
+                  movesRequired={completionSummary.movesRequired}
+                  points={completionSummary.points}
+                  label={completionSummary.label}
+                />
+              )}
+
               {/* Continue-to-next-puzzle flow: once this puzzle is finished,
                   steer the player into the next collection puzzle. Shown for a
                   single-stage collection puzzle and after the final daily
@@ -1576,22 +1542,10 @@ const UnblockRace = ({
                   />
                 )}
 
-              <UnblockRaceTrack
-                sessionParties={sessionParties}
-                state={raceTrackState}
-                userId={user?.sub || 'guest'}
-                onClick={raceTrackOnClick}
-                isPolling={isPolling}
-                refreshSessionParties={refreshSessionParties}
-                onInviteFriends={handleInviteFriends}
-                runResults={runResults}
-                localAgentProgress={localAgentProgress}
-                rateApp={{ appName, appStoreUrl, googlePlayUrl }}
-              />
-
-              {/* Inline stats (SPEC.md §7): per-stage times/moves for the
-                  whole run in one view — no modal — plus the run total once
-                  every stage is done. */}
+              {/* Race progress (stage pips + per-stage stats) sits directly
+                  under the board so it stays in view on the win screen — it
+                  used to be pushed below the tall race track and lost off the
+                  bottom of the page. */}
               {stages.length > 1 && (
                 <StageResultPanel
                   results={completedStages}
@@ -1609,6 +1563,19 @@ const UnblockRace = ({
                   }
                 />
               )}
+
+              <UnblockRaceTrack
+                sessionParties={sessionParties}
+                state={raceTrackState}
+                userId={user?.sub || 'guest'}
+                onClick={raceTrackOnClick}
+                isPolling={isPolling}
+                refreshSessionParties={refreshSessionParties}
+                onInviteFriends={handleInviteFriends}
+                runResults={runResults}
+                localAgentProgress={localAgentProgress}
+                rateApp={{ appName, appStoreUrl, googlePlayUrl }}
+              />
             </div>
           </div>
         </div>

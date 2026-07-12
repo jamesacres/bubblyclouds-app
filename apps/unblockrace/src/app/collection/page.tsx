@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Sparkles } from 'lucide-react';
 import CollectionCover from '@bubblyclouds-app/unblockrace/components/CollectionCover';
 import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
@@ -14,7 +14,7 @@ import {
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { useCollection } from '@bubblyclouds-app/unblockrace/providers/CollectionProvider';
 import IntegratedSessionRow from '@bubblyclouds-app/template/components/IntegratedSessionRow';
-import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+import { getUnblockDifficultyDisplay } from '@bubblyclouds-app/unblockrace/helpers/difficultyDisplay';
 import SimpleBoard from '@bubblyclouds-app/unblockrace/components/SimpleBoard';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/unblockrace/helpers/cheatDetection';
@@ -282,11 +282,23 @@ export default function CollectionPage() {
                     in progress
                   </div>
                   {!isSubscribed && (
-                    <div className="rounded-lg border border-amber-300/40 bg-amber-400/15 px-3 py-1.5 text-sm font-medium text-amber-100 backdrop-blur-sm">
-                      {collectionData.puzzles.length - lockedIndexes.size} of{' '}
-                      {collectionData.puzzles.length} free this month — Plus
-                      unlocks all
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        subscribeModal?.showModalIfRequired(
+                          () => {},
+                          () => {},
+                          SubscriptionContext.COLLECTION_LOCKED
+                        )
+                      }
+                      className="group inline-flex cursor-pointer items-center gap-2 rounded-lg border border-amber-300/50 bg-gradient-to-r from-amber-400/20 to-amber-500/10 px-3 py-1.5 text-sm font-semibold text-amber-100 backdrop-blur-sm transition-all duration-200 hover:from-amber-400/30 hover:to-amber-500/20 active:scale-[0.98]"
+                    >
+                      <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                      Unlock every puzzle with Plus
+                      <span className="opacity-60 transition-transform duration-200 group-hover:translate-x-0.5">
+                        →
+                      </span>
+                    </button>
                   )}
                 </div>
               </div>
@@ -397,7 +409,7 @@ export default function CollectionPage() {
                       sudokuBookId:
                         collectionData?.unblockCollectionId || 'unknown',
                     }}
-                    getDifficultyDisplay={getDifficultyDisplay}
+                    getDifficultyDisplay={getUnblockDifficultyDisplay}
                     SimpleState={SimpleStateWrapper}
                     calculateCompletionPercentageFromState={
                       calculateCompletionPercentageFromState

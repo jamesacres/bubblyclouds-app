@@ -36,7 +36,8 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
         <strong>
           You&rsquo;ve used your {DAILY_LIMITS.HINT} free hints today.
         </strong>{' '}
-        Plus gives you unlimited hints — never get stuck again.
+        Plus gives you unlimited hints — never get stuck again — and keeps the
+        whole app ad free.
       </>
     ),
   },
@@ -56,11 +57,9 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-indigo-800 dark:text-indigo-200',
     content: (
       <>
-        🔒{' '}
-        <strong>
-          This puzzle is in the locked half of this month&rsquo;s pack.
-        </strong>{' '}
-        Plus unlocks the entire pack, every month.
+        ✨ <strong>This puzzle is part of the Plus collection.</strong> Plus
+        unlocks every puzzle in every month&rsquo;s pack, and keeps the whole
+        app ad free.
       </>
     ),
   },

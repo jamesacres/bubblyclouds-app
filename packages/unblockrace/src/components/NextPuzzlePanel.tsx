@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronRight, Lock } from 'lucide-react';
+import { ChevronRight, Sparkles } from 'lucide-react';
 import { NextCollectionPuzzle } from '../helpers/nextCollectionPuzzle';
 import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
 
@@ -13,10 +13,10 @@ interface NextPuzzlePanelProps {
 // The continue-to-next-puzzle flow: after a puzzle is finished this panel
 // steers the player straight into the next one so the session keeps rolling.
 // A big pulsing CTA reuses the stage-clear button's pill language so the two
-// "keep going" moments feel like the same button. When the next puzzle sits
-// in the locked half of the pack the CTA still navigates — Task 6's deep-link
-// gate catches it on arrival — but wears a Lock and "(Plus)" label so the
-// wall isn't a surprise.
+// "keep going" moments feel like the same button. When the next puzzle is a
+// Plus puzzle the CTA still navigates — the deep-link gate catches it on
+// arrival — but wears a sparkle and "(Plus)" label so the unlock isn't a
+// surprise, framed as a reward rather than a wall.
 const NextPuzzlePanel = ({
   next,
   progressLabel,
@@ -58,7 +58,7 @@ const NextPuzzlePanel = ({
       >
         {next.isLocked ? (
           <>
-            <Lock className="h-4 w-4" aria-hidden="true" />
+            <Sparkles className="h-4 w-4" aria-hidden="true" />
             Continue (Plus)
           </>
         ) : (

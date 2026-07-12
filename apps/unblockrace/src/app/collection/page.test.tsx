@@ -9,6 +9,7 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('lucide-react', () => ({
   ArrowUp: () => <div data-testid="arrow-up-icon">Arrow Up</div>,
+  Sparkles: () => <div data-testid="sparkles-icon">Sparkles</div>,
 }));
 
 jest.mock('@bubblyclouds-app/unblockrace/components/CollectionCover', () => ({

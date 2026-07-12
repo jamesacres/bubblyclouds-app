@@ -1,9 +1,23 @@
 import { UnblockCollectionPuzzle } from '../types/serverTypes';
 import { getCollectionOfTheMonth } from './mockData';
 
-// Per difficulty band, the first half is free and the latter floor(len/2)
-// puzzles are locked for free users. The collection is ordered ascending by
-// difficulty, so a band is a contiguous run of puzzles sharing a difficulty.
+// How many puzzles per difficulty band a free player can taste before the
+// rest of the band becomes Plus. The two easiest bands give a generous run of
+// free puzzles; the harder bands give a single taste each, so Plus reads as
+// "unlock the bulk of the pack", not "we took half your puzzles away". A band
+// with fewer puzzles than its allowance is entirely free.
+export const FREE_PUZZLES_PER_DIFFICULTY: { [key: string]: number } = {
+  simple: 3,
+  easy: 3,
+  intermediate: 1,
+  expert: 1,
+};
+
+const DEFAULT_FREE_PER_DIFFICULTY = 1;
+
+// The Plus-only puzzles: per difficulty band, the puzzles beyond that band's
+// free allowance. The collection is ordered ascending by difficulty, so a
+// band is a contiguous run of puzzles sharing a difficulty.
 export const lockedCollectionIndexes = (
   puzzles: UnblockCollectionPuzzle[]
 ): Set<number> => {
@@ -16,9 +30,10 @@ export const lockedCollectionIndexes = (
     bandIndexes.set(puzzle.difficulty, band);
   });
 
-  bandIndexes.forEach((indexes) => {
-    const lockedCount = Math.floor(indexes.length / 2);
-    indexes.slice(indexes.length - lockedCount).forEach((index) => {
+  bandIndexes.forEach((indexes, difficulty) => {
+    const freeCount =
+      FREE_PUZZLES_PER_DIFFICULTY[difficulty] ?? DEFAULT_FREE_PER_DIFFICULTY;
+    indexes.slice(freeCount).forEach((index) => {
       locked.add(index);
     });
   });

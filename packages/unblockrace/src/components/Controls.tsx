@@ -14,9 +14,6 @@ interface ControlsProps {
   // renders when the caller wires a handler (solver-less renders omit it).
   onHint?: () => void;
   isHintDisabled?: boolean;
-  // "N left" free-hint count shown beside the lightbulb for non-subscribers;
-  // omitted for subscribers (unlimited hints).
-  hintBadge?: string;
   // Live move count against the stage's par; the gauge is omitted when the
   // caller doesn't track moves (e.g. standalone renders in tests).
   movesMade?: number;
@@ -50,7 +47,6 @@ const Controls = ({
   isDisabled,
   onHint,
   isHintDisabled,
-  hintBadge,
   movesMade,
   movesRequired,
   timer,
@@ -134,7 +130,9 @@ const Controls = ({
             {/* Always-on animated rainbow ring: a spinning conic-gradient in
                 a wrapper whose padding forms the border width; the inner
                 button sits on top and masks the centre. Reduced motion stops
-                the spin (the gradient stays as a static ring). */}
+                the spin (the gradient stays as a static ring). The button
+                never disables on running out of hints — it opens the Plus
+                purchase instead, so help is always one tap away. */}
             <span
               data-testid="hint-rainbow-wrapper"
               className="relative inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl p-[2px]"
@@ -160,14 +158,6 @@ const Controls = ({
                 <Lightbulb className="h-4.5 w-4.5" />
               </button>
             </span>
-            {hintBadge ? (
-              <span
-                data-testid="hint-badge"
-                className="text-theme-primary dark:text-theme-primary-light text-[0.6rem] font-black uppercase tracking-wide"
-              >
-                {hintBadge}
-              </span>
-            ) : null}
           </span>
         ) : null}
         <button

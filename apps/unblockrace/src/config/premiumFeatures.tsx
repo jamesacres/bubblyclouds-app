@@ -2,6 +2,7 @@ import {
   Droplet,
   Lightbulb,
   LockOpen,
+  Sparkles,
   Undo2,
   Users,
   Watch,
@@ -15,6 +16,11 @@ export interface PremiumFeature {
 }
 
 export const PREMIUM_FEATURES: PremiumFeature[] = [
+  {
+    icon: Sparkles,
+    title: 'Always ad free',
+    description: 'No ads, ever — just you and the puzzles',
+  },
   {
     icon: Lightbulb,
     title: 'Unlimited hints',

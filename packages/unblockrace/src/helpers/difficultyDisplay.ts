@@ -42,3 +42,22 @@ export const unblockDifficultyDisplay = (
     shortLabel: difficulty,
     chipClass: 'bg-stone-500/10 text-stone-500 dark:text-zinc-400',
   };
+
+// Solid-fill badge variants for surfaces that render difficulty as a filled
+// pill (the collection tiles, My Puzzles, Friends), matching the shared
+// getDifficultyDisplay `{ name, badgeColor }` shape so Unblock can pass this
+// in place of the emoji-y sudoku version without touching sudoku. Keeps the
+// Unblock labels (e.g. "Beginner", not "Tricky") consistent everywhere.
+const BADGE_COLORS: { [key: string]: string } = {
+  simple: 'bg-emerald-500 text-white',
+  easy: 'bg-amber-500 text-white',
+  intermediate: 'bg-orange-500 text-white',
+  expert: 'bg-rose-500 text-white',
+};
+
+export const getUnblockDifficultyDisplay = (
+  difficulty: string
+): { name: string; badgeColor: string } => ({
+  name: unblockDifficultyDisplay(difficulty).label,
+  badgeColor: BADGE_COLORS[difficulty] || 'bg-stone-500 text-white',
+});

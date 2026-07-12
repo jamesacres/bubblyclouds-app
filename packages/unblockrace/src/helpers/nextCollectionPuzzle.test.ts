@@ -68,19 +68,20 @@ describe('getNextCollectionPuzzle', () => {
   });
 
   it('prefers unlocked puzzles for free users within a tier', () => {
-    // simple band [0..3]: floor(4/2)=2 locked → indexes 2,3 locked.
+    // simple band [0..4]: 3 free → indexes 3,4 are Plus.
     const collection = makeCollection([
       puzzle('a', 'simple'),
       puzzle('b', 'simple'),
       puzzle('c', 'simple'),
       puzzle('d', 'simple'),
+      puzzle('e', 'simple'),
     ]);
-    // current is index 1; same-band-after candidates: 2 (locked), 3 (locked).
-    // With b complete, candidates after: 2,3 both locked → falls through.
+    // current is index 3; the only same-band-after candidate is 4 (Plus),
+    // so a free user falls through to it and sees it flagged locked.
     const next = getNextCollectionPuzzle({
       collection,
-      completedInitials: new Set(['b']),
-      currentInitial: 'b',
+      completedInitials: new Set(['d']),
+      currentInitial: 'd',
       isSubscribed: false,
     });
     expect(next?.isLocked).toBe(true);
@@ -92,9 +93,10 @@ describe('getNextCollectionPuzzle', () => {
       puzzle('b', 'simple'),
       puzzle('c', 'simple'),
       puzzle('d', 'simple'),
+      puzzle('e', 'simple'),
     ]);
     // current index -1 (no current): all in tier 2. Free user prefers
-    // unlocked (0 or 1) over locked (2,3), then lowest index → index 0.
+    // unlocked (0,1,2) over Plus (3,4), then lowest index → index 0.
     const next = getNextCollectionPuzzle({
       collection,
       completedInitials: new Set(),
@@ -110,16 +112,17 @@ describe('getNextCollectionPuzzle', () => {
       puzzle('b', 'simple'),
       puzzle('c', 'simple'),
       puzzle('d', 'simple'),
+      puzzle('e', 'simple'),
     ]);
     const next = getNextCollectionPuzzle({
       collection,
-      completedInitials: new Set(['a', 'b']),
-      currentInitial: 'b',
+      completedInitials: new Set(['a', 'b', 'c', 'd']),
+      currentInitial: 'd',
       isSubscribed: true,
     });
-    // same band after index 1: index 2 (locked flag true but subscriber
-    // ignores it for ordering) → picks index 2.
-    expect(next?.index).toBe(2);
+    // same band after index 3: index 4 (Plus flag true but subscriber
+    // ignores it for ordering) → picks index 4.
+    expect(next?.index).toBe(4);
     expect(next?.isLocked).toBe(true);
   });
 });
