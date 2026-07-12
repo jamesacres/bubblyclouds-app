@@ -1,5 +1,9 @@
 # TODO
 
+* end game state sudoku, needs to reappear to avoid blank screen, and take learnings from unblock race for leaderboard points and continue buttons
+* need to make it clear that the collection/pack refreshes monthly and they're paying to get all new puzzles every month
+* need to check the how scoring works to check that it reads okay for unblock race
+* confirm no mentions of book for unblock race
 
 See Sudoku TODOs....
 
