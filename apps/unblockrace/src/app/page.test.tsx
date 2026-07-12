@@ -98,6 +98,14 @@ jest.mock('@bubblyclouds-app/template/components/SocialProof', () => {
   };
 });
 
+// RateAppButton only renders on Capacitor or mobile web; force mobile-web so
+// the rate-app prompt is exercised.
+jest.mock('@bubblyclouds-app/template/helpers/capacitor', () => ({
+  isCapacitor: () => false,
+  isIOS: () => false,
+  isAndroid: () => false,
+}));
+
 jest.mock('@bubblyclouds-app/ui/components/Footer', () => ({
   __esModule: true,
   default: function MockFooter({ children }: { children: React.ReactNode }) {
@@ -242,7 +250,21 @@ describe('Home Page', () => {
   });
 
   describe('Rate app section', () => {
+    const originalUserAgent = window.navigator.userAgent;
+
+    afterEach(() => {
+      Object.defineProperty(window.navigator, 'userAgent', {
+        value: originalUserAgent,
+        writable: true,
+      });
+    });
+
     it('should render the rate-app prompt on the START tab', () => {
+      Object.defineProperty(window.navigator, 'userAgent', {
+        value:
+          'Mozilla/5.0 (iPad; CPU OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15',
+        writable: true,
+      });
       render(<Home />);
       expect(screen.getByText(/Enjoying Unblock Race\?/i)).toBeInTheDocument();
     });

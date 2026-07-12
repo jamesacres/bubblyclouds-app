@@ -8,6 +8,13 @@ import { solvedBoardString } from '../helpers/boardToString';
 import { PlayerRunResult } from '../helpers/runResults';
 
 jest.mock('@bubblyclouds-app/template/hooks/useParties');
+// RateAppButton only renders on Capacitor or mobile web; force mobile-web so
+// the rate-app prompt is exercised.
+jest.mock('@bubblyclouds-app/template/helpers/capacitor', () => ({
+  isCapacitor: () => false,
+  isIOS: () => false,
+  isAndroid: () => false,
+}));
 jest.mock('next/link', () => {
   const DummyLink = ({
     children,
@@ -20,6 +27,17 @@ jest.mock('next/link', () => {
 });
 
 const mockUseParties = usePartiesModule.useParties as jest.Mock;
+
+const setUserAgent = (value: string) => {
+  Object.defineProperty(window.navigator, 'userAgent', {
+    value,
+    writable: true,
+  });
+};
+
+const DESKTOP_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)';
+const IOS_UA =
+  'Mozilla/5.0 (iPad; CPU OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15';
 
 const STAGE_1 = [
   'oooooo',
@@ -66,6 +84,7 @@ const defaultProps = {
 describe('UnblockRaceTrack', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    setUserAgent(DESKTOP_UA);
     mockUseParties.mockReturnValue({
       getNicknameByUserId: () => 'Pal',
       parties: [],
@@ -170,6 +189,7 @@ describe('UnblockRaceTrack', () => {
   });
 
   it('renders the rate-app prompt on the completed block when rateApp is passed', () => {
+    setUserAgent(IOS_UA);
     render(
       <UnblockRaceTrack
         {...defaultProps}

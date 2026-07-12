@@ -8,6 +8,24 @@ import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 
 jest.mock('@bubblyclouds-app/template/hooks/useParties');
 jest.mock('@bubblyclouds-app/template/utils/playerColors');
+// RateAppButton only renders on Capacitor or mobile web; force mobile-web so
+// the rate-app prompt is exercised.
+jest.mock('@bubblyclouds-app/template/helpers/capacitor', () => ({
+  isCapacitor: () => false,
+  isIOS: () => false,
+  isAndroid: () => false,
+}));
+
+const setUserAgent = (value: string) => {
+  Object.defineProperty(window.navigator, 'userAgent', {
+    value,
+    writable: true,
+  });
+};
+
+const DESKTOP_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)';
+const IOS_UA =
+  'Mozilla/5.0 (iPad; CPU OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15';
 
 const mockUseParties = usePartiesModule.useParties as jest.Mock;
 const mockGetPlayerColor = playerColorsModule.getPlayerColor as jest.Mock;
@@ -56,6 +74,7 @@ describe('RaceTrack', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    setUserAgent(DESKTOP_UA);
     mockUseParties.mockReturnValue({
       getNicknameByUserId: () => 'Player 2',
       parties: [],
@@ -138,6 +157,7 @@ describe('RaceTrack', () => {
   });
 
   it('renders the rate-app prompt on the completed block when rateApp is passed', () => {
+    setUserAgent(IOS_UA);
     mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
       state === defaultProps.state ? 100 : 50
     );
