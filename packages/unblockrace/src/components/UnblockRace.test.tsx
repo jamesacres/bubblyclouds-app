@@ -1,6 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import UnblockRace from './UnblockRace';
+import {
+  UserContext,
+  type UserContextInterface,
+} from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useGameState } from '../hooks/useGameState';
 import { solvedBoardString } from '../helpers/boardToString';
 import { getHint } from '../helpers/hint';
@@ -43,8 +47,23 @@ const mockUseCollection = jest.fn<{ collectionData: unknown }, []>(() => ({
 jest.mock('../providers/CollectionProvider', () => ({
   useCollection: () => mockUseCollection(),
 }));
+// Login is required before UnblockRace mounts its Lobby/board subtree at
+// all, so every test here runs as an authenticated, initialised user by
+// default; the auth-gate tests below override the context per-render to
+// cover the loading and signed-out states.
 jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
-  UserContext: React.createContext({}),
+  UserContext: React.createContext<UserContextInterface>({
+    user: { sub: 'user-123' },
+    loginRedirect: jest.fn(),
+    showLoginModal: jest.fn(),
+    isLoggingIn: false,
+    isInitialised: true,
+    logout: jest.fn(),
+    handleAuthUrl: jest.fn(),
+    handleRestoreState: jest.fn(),
+    app: 'unblockrace',
+    gameName: 'Unblock Race',
+  }),
 }));
 jest.mock('@bubblyclouds-app/template/providers/RevenueCatProvider', () => ({
   RevenueCatContext: React.createContext({}),
@@ -267,7 +286,7 @@ describe('UnblockRace', () => {
     // their stage 1 time and the run total so far
     expect(mockRaceTrackProps.mock.calls.at(-1)?.[0].runResults).toEqual([
       expect.objectContaining({
-        userId: 'guest',
+        userId: 'user-123',
         isCurrentUser: true,
         stageResults: [
           { seconds: 42, movesMade: 3, movesRequired: 3 },
@@ -1201,7 +1220,10 @@ describe('UnblockRace', () => {
               totalSeconds: 2,
               completedStageCount: 1,
             }),
-            expect.objectContaining({ userId: 'guest', isCurrentUser: true }),
+            expect.objectContaining({
+              userId: 'user-123',
+              isCurrentUser: true,
+            }),
           ])
         );
       } finally {
@@ -1268,6 +1290,80 @@ describe('UnblockRace', () => {
         jest.clearAllTimers();
         jest.useRealTimers();
       }
+    });
+  });
+
+  // Guest play was removed: login is required before the Lobby/board subtree
+  // mounts at all, so the puzzle-playing UI (and useGameState's restore
+  // effect that would create server game-state) never renders for a
+  // signed-out or still-resolving visitor. These tests override a handful
+  // of fields on the default auth context (see the AuthProvider mock above)
+  // per-render to cover the loading, signed-out, and signed-in states.
+  const defaultAuthContext: UserContextInterface = {
+    user: { sub: 'user-123' },
+    loginRedirect: jest.fn(),
+    showLoginModal: jest.fn(),
+    isLoggingIn: false,
+    isInitialised: true,
+    logout: jest.fn(),
+    handleAuthUrl: jest.fn(),
+    handleRestoreState: jest.fn(),
+    app: 'unblockrace',
+    gameName: 'Unblock Race',
+  };
+
+  const renderWithAuth = (
+    ui: React.ReactElement,
+    overrides: Partial<UserContextInterface>
+  ) =>
+    render(
+      <UserContext.Provider value={{ ...defaultAuthContext, ...overrides }}>
+        {ui}
+      </UserContext.Provider>
+    );
+
+  describe('auth gate', () => {
+    it('shows a loading state and no board while auth is still resolving', () => {
+      renderWithAuth(<UnblockRace {...defaultProps} />, {
+        user: undefined,
+        isInitialised: false,
+      });
+
+      expect(screen.getByTestId('auth-gate-loading')).toBeInTheDocument();
+      expect(screen.queryByTestId('unblock-board')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('race-track')).not.toBeInTheDocument();
+    });
+
+    it('shows the sign-in gate and no board once auth resolves without a user', () => {
+      renderWithAuth(<UnblockRace {...defaultProps} />, {
+        user: undefined,
+        isInitialised: true,
+      });
+
+      expect(screen.getByTestId('auth-gate')).toBeInTheDocument();
+      expect(screen.queryByTestId('unblock-board')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('race-track')).not.toBeInTheDocument();
+    });
+
+    it('opens the login modal automatically once auth resolves without a user', () => {
+      const showLoginModal = jest.fn();
+      renderWithAuth(<UnblockRace {...defaultProps} />, {
+        user: undefined,
+        isInitialised: true,
+        showLoginModal,
+      });
+
+      expect(showLoginModal).toHaveBeenCalledWith(undefined, 'puzzleEntry');
+    });
+
+    it('renders the board once a user is confirmed', () => {
+      renderWithAuth(<UnblockRace {...defaultProps} />, {
+        user: { sub: 'user-123' },
+        isInitialised: true,
+      });
+
+      expect(screen.queryByTestId('auth-gate')).not.toBeInTheDocument();
+      expect(screen.getByTestId('unblock-board')).toBeInTheDocument();
     });
   });
 });

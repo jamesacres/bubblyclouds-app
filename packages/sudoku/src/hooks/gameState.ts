@@ -41,7 +41,6 @@ import {
 import { useDocumentVisibility } from '@bubblyclouds-app/template/hooks/documentVisibility';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
-import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 import type { SubscriptionContext as SubscriptionContextType } from '@bubblyclouds-app/types/subscriptionContext';
 
 const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -70,10 +69,9 @@ function useGameState({
   onComplete?: (answerStack: Puzzle[]) => void;
 }) {
   const context = useContext(UserContext);
-  const { user, isInitialised, loginRedirect } = context || {};
+  const { user } = context || {};
   const { subscribeModal, isSubscribed } = useContext(RevenueCatContext) || {};
   const isDocumentVisible = useDocumentVisibility();
-  const { isOnline } = useOnline();
 
   const { timer, setTimerNewSession, stopTimer, setPauseTimer, isPaused } =
     useTimer({
@@ -469,16 +467,14 @@ function useGameState({
 
   // Restore and save state
   useEffect(() => {
-    // Cold start: auth is still resolving a token/session (e.g. app just
-    // launched, refresh-token exchange in flight). Wait for it to settle
-    // rather than treating "no user yet" as "definitely logged out" - this
-    // effect re-runs once isInitialised flips true.
-    if (!isInitialised) {
+    // The Lobby/board entry gate (packages/template AuthGate) keeps this
+    // component unmounted until a user is confirmed, so this only guards
+    // against the hook being reused somewhere that skips the gate.
+    if (!user) {
       return;
     }
 
     let active = true;
-    const hadUser = !!user;
 
     const { localValue, serverValuePromise } = getValue() || {};
     if (localValue) {
@@ -511,28 +507,6 @@ function useGameState({
           if (!serverValue.state.completed) {
             setTimerNewSession(serverValue.state.timer);
           }
-        } else if (
-          !serverValue &&
-          hadUser &&
-          isOnline &&
-          localValue?.state &&
-          !localValue.state.completed
-        ) {
-          // getServerValue only resolves undefined when offline or not
-          // logged in (see useServerStorage.getValue/isLoggedIn); we were
-          // online and had a user when this restore started, and there's
-          // unsynced local progress that needs the server to restore fully,
-          // so the session genuinely failed rather than merely being
-          // unavailable. isLoggedIn() has already exhausted its own
-          // retry/logout grace period by the time this promise settles, so
-          // send the user to log back in rather than silently discarding
-          // their progress. loginRedirect captures the current URL itself,
-          // so this returns to the same game after login.
-          loginRedirect?.({ userInitiated: false });
-          // Remove disabled flag, heard from server but ignored it
-          setAnswerStack((current) => {
-            return { ...current, isDisabled: undefined };
-          });
         } else {
           if (
             serverValue &&
@@ -573,9 +547,6 @@ function useGameState({
     saveValue,
     setSessionParties,
     handleServerResponse,
-    isInitialised,
-    isOnline,
-    loginRedirect,
   ]);
 
   useEffect(() => {

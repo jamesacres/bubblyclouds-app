@@ -280,7 +280,11 @@ describe('Sudoku callback wiring', () => {
     openInAppLabel: 'Open Puzzle',
   };
 
-  const mockUserContext = { user: { sub: 'user-123' } };
+  const mockUserContext = {
+    user: { sub: 'user-123' },
+    isInitialised: true,
+    showLoginModal: jest.fn(),
+  };
   const mockRevenueCatContext = {
     isSubscribed: false,
     subscribeModal: { showModalIfRequired: jest.fn() },

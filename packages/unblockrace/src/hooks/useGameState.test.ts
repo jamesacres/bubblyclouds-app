@@ -44,7 +44,10 @@ jest.mock('@bubblyclouds-app/template/hooks/useParties', () => ({
   useParties: () => ({ parties: [] }),
 }));
 jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
-  UserContext: React.createContext({}),
+  UserContext: React.createContext({
+    user: { sub: 'user-1' },
+    isInitialised: true,
+  }),
 }));
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: () => ({
@@ -98,6 +101,25 @@ describe('useGameState', () => {
     expect(result.current.answer).toBe(INITIAL);
     expect(result.current.isUndoDisabled).toBe(true);
     expect(result.current.isRedoDisabled).toBe(true);
+  });
+
+  // Login is required before UnblockRace mounts at all (gated by
+  // packages/template's AuthGate in the Lobby/board entry flow), so this
+  // hook no longer needs to defend against a signed-out session itself -
+  // this only guards the hook being reused somewhere that skips the gate.
+  it('does not run the restore effect without a confirmed user', async () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) =>
+      React.createElement(
+        UserContext.Provider,
+        { value: { user: undefined, isInitialised: true } as any },
+        children
+      );
+
+    renderHook(() => useGameState(defaultProps), { wrapper });
+    await act(async () => {});
+
+    expect(serverGetValue).not.toHaveBeenCalled();
+    expect(localGetValue).not.toHaveBeenCalled();
   });
 
   it('applies a move via pushMove', () => {

@@ -436,6 +436,13 @@ function useGameState({
 
   // Restore and save state
   useEffect(() => {
+    // The Lobby/board entry gate (packages/template AuthGate) keeps this
+    // component unmounted until a user is confirmed, so this only guards
+    // against the hook being reused somewhere that skips the gate.
+    if (!user) {
+      return;
+    }
+
     let active = true;
 
     const { localValue, serverValuePromise } = getValue() || {};

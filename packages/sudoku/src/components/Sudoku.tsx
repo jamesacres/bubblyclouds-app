@@ -16,6 +16,8 @@ import { useGameState } from '../hooks/gameState';
 import SudokuControls from '../components/SudokuControls';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
+import AuthGate from '@bubblyclouds-app/template/components/AuthGate';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import SimpleSudoku from '../components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { ServerState } from '../types/state';
@@ -103,7 +105,7 @@ const Sudoku = ({
 }) => {
   const router = useRouter();
   const context = useContext(UserContext);
-  const { user } = context || {};
+  const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
   const { sessions } = useSessions<GameState>();
 
@@ -600,6 +602,21 @@ const Sudoku = ({
 
   const currentAgentNames = useMemo(() => agents.map((a) => a.name), [agents]);
 
+  // Login is required before the puzzle mounts at all: while auth is
+  // resolving (isInitialised false) or no user is confirmed, replace the
+  // whole Lobby/board subtree with the gate rather than layering it on top,
+  // so no server game-state is ever created for a signed-out visitor.
+  if (!isInitialised || !user) {
+    return (
+      <AuthGate
+        isInitialised={!!isInitialised}
+        onSignInRequired={() =>
+          showLoginModal?.(undefined, LoginContext.PUZZLE_ENTRY)
+        }
+      />
+    );
+  }
+
   return (
     <div
       className={`${showAdvancedControls ? 'pb-120' : 'pb-90'} landscape:mb-120 lg:pb-0 sm:landscape:pb-[calc(60vh)] lg:landscape:mb-0 lg:landscape:pb-0`}
@@ -759,7 +776,7 @@ const Sudoku = ({
                 <RaceTrack
                   sessionParties={sessionParties}
                   state={raceTrackState}
-                  userId={user?.sub || 'guest'}
+                  userId={user.sub}
                   onClick={raceTrackOnClick}
                   isPolling={isPolling}
                   refreshSessionParties={refreshSessionParties}

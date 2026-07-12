@@ -8,4 +8,5 @@ export enum LoginContext {
   JOIN_TEAM = 'joinTeam',
   SUBSCRIBE = 'subscribe',
   RACE_LOBBY = 'raceLobby',
+  PUZZLE_ENTRY = 'puzzleEntry',
 }

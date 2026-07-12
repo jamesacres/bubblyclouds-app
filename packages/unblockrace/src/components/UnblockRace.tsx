@@ -11,6 +11,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight, RotateCcw, X } from 'lucide-react';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
+import AuthGate from '@bubblyclouds-app/template/components/AuthGate';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
@@ -19,6 +20,7 @@ import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { calculateSessionScore } from '@bubblyclouds-app/games/helpers/scoringUtils';
 import { SCORING_CONFIG } from '@bubblyclouds-app/games/helpers/scoringConfig';
@@ -120,7 +122,7 @@ const UnblockRace = ({
 }) => {
   const router = useRouter();
   const context = useContext(UserContext);
-  const { user } = context || {};
+  const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
   const { sessions } = useSessions<GameState>();
   const { collectionData } = useCollection();
@@ -1047,7 +1049,7 @@ const UnblockRace = ({
         ? calculateRunResults({
             stages,
             runStageParties,
-            userId: user?.sub || 'guest',
+            userId: user?.sub,
             ownResults: completedStages,
             agentResults: agentRunInputs,
           })
@@ -1059,6 +1061,21 @@ const UnblockRace = ({
     () => agents.map((agent) => agent.name),
     [agents]
   );
+
+  // Login is required before the puzzle mounts at all: while auth is
+  // resolving (isInitialised false) or no user is confirmed, replace the
+  // whole Lobby/board subtree with the gate rather than layering it on top,
+  // so no server game-state is ever created for a signed-out visitor.
+  if (!isInitialised || !user) {
+    return (
+      <AuthGate
+        isInitialised={!!isInitialised}
+        onSignInRequired={() =>
+          showLoginModal?.(undefined, LoginContext.PUZZLE_ENTRY)
+        }
+      />
+    );
+  }
 
   return (
     <div className="relative isolate pb-32 lg:pb-0">
@@ -1568,7 +1585,7 @@ const UnblockRace = ({
               <RaceTrack
                 sessionParties={sessionParties}
                 state={raceTrackState}
-                userId={user?.sub || 'guest'}
+                userId={user.sub}
                 onClick={raceTrackOnClick}
                 isPolling={isPolling}
                 refreshSessionParties={refreshSessionParties}

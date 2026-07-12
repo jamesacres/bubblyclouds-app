@@ -31,9 +31,6 @@ jest.mock('@bubblyclouds-app/template/hooks/timer', () => ({
 jest.mock('@bubblyclouds-app/template/hooks/useParties', () => ({
   useParties: jest.fn(() => ({ parties: [] })),
 }));
-jest.mock('@bubblyclouds-app/template/hooks/online', () => ({
-  useOnline: jest.fn(() => ({ isOnline: true, forceOffline: jest.fn() })),
-}));
 jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
   UserContext: require('react').createContext(null),
 }));
@@ -46,7 +43,6 @@ jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
 
 import { useLocalStorage } from '@bubblyclouds-app/template/hooks/localStorage';
 import { useSudokuServerStorage } from './useSudokuServerStorage';
-import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 
 const createPuzzle = (value: number = 0): Puzzle<number> => {
   const createBox = () => ({
@@ -133,10 +129,6 @@ describe('useGameState (extra coverage)', () => {
     (useSessions as jest.Mock).mockImplementation(() => ({
       getSessionParties: getSessionPartiesMock,
       patchFriendSessions: patchFriendSessionsMock,
-    }));
-    (useOnline as jest.Mock).mockImplementation(() => ({
-      isOnline: true,
-      forceOffline: jest.fn(),
     }));
   });
 
@@ -451,10 +443,14 @@ describe('useGameState (extra coverage)', () => {
     expect(result.current.answerStack).toEqual([mockInitial]);
   });
 
-  it('does not run the restore effect while auth is still initialising on cold start', async () => {
+  // Login is now required before Sudoku/UnblockRace mount at all (gated by
+  // packages/template's AuthGate in the Lobby/board entry flow), so this
+  // hook no longer redirects on a lost session itself - it just stays idle
+  // without a user, and the surrounding UI is responsible for getting one.
+  it('does not run the restore effect without a confirmed user', async () => {
     const { result } = renderGameState(defaultProps, {
       user: undefined,
-      isInitialised: false,
+      isInitialised: true,
     });
 
     // Give any pending microtasks a chance to run.
@@ -467,7 +463,7 @@ describe('useGameState (extra coverage)', () => {
     expect(result.current.answerStack).toEqual([mockInitial]);
   });
 
-  it('runs the restore effect once auth finishes initialising', async () => {
+  it('runs the restore effect once a user is present', async () => {
     const savedAnswerStack = [createPuzzle(0), createPuzzle(2)];
     localGetValue.mockReturnValueOnce({
       lastUpdated: Date.now(),
@@ -476,8 +472,7 @@ describe('useGameState (extra coverage)', () => {
 
     // renderHook's `wrapper` option is fixed at mount and does not receive
     // updated props on rerender, so a stateful host component is used here
-    // to flip isInitialised from false to true after mount, the same way
-    // AuthProvider flips it once its own cold-start resolution finishes.
+    // to flip from no user to a confirmed user after mount.
     let setUserContextValue: (_value: unknown) => void = () => {};
     const gameStateRef: { current: ReturnType<typeof useGameState> | null } = {
       current: null,
@@ -493,7 +488,7 @@ describe('useGameState (extra coverage)', () => {
     const Harness = () => {
       const [userContextValue, setValue] = React.useState<unknown>({
         user: undefined,
-        isInitialised: false,
+        isInitialised: true,
       });
       React.useEffect(() => {
         setUserContextValue = setValue;
@@ -525,84 +520,6 @@ describe('useGameState (extra coverage)', () => {
     await waitFor(() => {
       expect(gameStateRef.current?.answerStack).toEqual(savedAnswerStack);
     });
-  });
-
-  it('redirects to login when a previously-authenticated user genuinely loses their session', async () => {
-    const loginRedirect = jest.fn();
-    localGetValue.mockReturnValueOnce({
-      lastUpdated: Date.now(),
-      state: {
-        answerStack: [createPuzzle(0), createPuzzle(3)],
-        completed: undefined,
-      },
-    });
-    // Server returns undefined: offline or (per useServerStorage.isLoggedIn)
-    // the session genuinely failed after its own retry/logout grace period.
-    serverGetValue.mockReturnValueOnce(Promise.resolve(undefined));
-
-    renderGameState(defaultProps, {
-      user: { sub: 'user-1' },
-      isInitialised: true,
-      loginRedirect,
-    });
-
-    await waitFor(() => {
-      expect(loginRedirect).toHaveBeenCalledWith({ userInitiated: false });
-    });
-  });
-
-  it('does not redirect to login for a guest who was never logged in, even if the server call yields nothing', async () => {
-    const loginRedirect = jest.fn();
-    localGetValue.mockReturnValueOnce({
-      lastUpdated: Date.now(),
-      state: {
-        answerStack: [createPuzzle(0), createPuzzle(3)],
-        completed: undefined,
-      },
-    });
-    serverGetValue.mockReturnValueOnce(Promise.resolve(undefined));
-
-    const { result } = renderGameState(defaultProps, {
-      user: undefined,
-      isInitialised: true,
-      loginRedirect,
-    });
-
-    await waitFor(() => {
-      expect(result.current.answerStack).toEqual([
-        createPuzzle(0),
-        createPuzzle(3),
-      ]);
-    });
-    expect(loginRedirect).not.toHaveBeenCalled();
-  });
-
-  it('does not redirect to login when offline, even for a previously-authenticated user', async () => {
-    (useOnline as jest.Mock).mockReturnValue({
-      isOnline: false,
-      forceOffline: jest.fn(),
-    });
-    const loginRedirect = jest.fn();
-    localGetValue.mockReturnValueOnce({
-      lastUpdated: Date.now(),
-      state: {
-        answerStack: [createPuzzle(0), createPuzzle(3)],
-        completed: undefined,
-      },
-    });
-    serverGetValue.mockReturnValueOnce(Promise.resolve(undefined));
-
-    renderGameState(defaultProps, {
-      user: { sub: 'user-1' },
-      isInitialised: true,
-      loginRedirect,
-    });
-
-    await act(async () => {
-      await Promise.resolve();
-    });
-
-    expect(loginRedirect).not.toHaveBeenCalled();
   });
 
   it('selects the next cell to the right on ArrowRight and types a digit with number keys', async () => {

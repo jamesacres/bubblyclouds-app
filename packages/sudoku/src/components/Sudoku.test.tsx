@@ -227,6 +227,8 @@ describe('Sudoku', () => {
 
   const mockUserContext = {
     user: { sub: 'user-123' },
+    isInitialised: true,
+    showLoginModal: jest.fn(),
   };
 
   const mockRevenueCatContext = {
@@ -658,14 +660,19 @@ describe('Sudoku', () => {
   });
 
   describe('context requirements', () => {
-    it('should render without user context', () => {
+    // Guest play was removed: without a UserContext value at all (so both
+    // `user` and `isInitialised` are undefined), Sudoku now renders the
+    // sign-in gate instead of the board - no server game-state is created
+    // for a signed-out visitor.
+    it('renders the sign-in gate instead of the board without user context', () => {
       render(
         <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
           <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
         </RevenueCatContext.Provider>
       );
 
-      expect(screen.getAllByTestId('sudoku-box').length).toBeGreaterThan(0);
+      expect(screen.getByTestId('auth-gate')).toBeInTheDocument();
+      expect(screen.queryByTestId('sudoku-box')).not.toBeInTheDocument();
     });
 
     it('should render without RevenueCat context', () => {
@@ -676,6 +683,58 @@ describe('Sudoku', () => {
       );
 
       expect(screen.getAllByTestId('sudoku-box').length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('auth gate', () => {
+    it('shows a loading state and no board while auth is still resolving', () => {
+      render(
+        <UserContext.Provider
+          value={{ user: undefined, isInitialised: false } as any}
+        >
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      // lucide-react is mocked module-wide in this file (see the top-level
+      // jest.mock above), so AuthGate's Loader renders as this stub icon
+      // rather than its own auth-gate-loading testid.
+      expect(screen.getByTestId('loader-icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('sudoku-box')).not.toBeInTheDocument();
+    });
+
+    it('shows the sign-in gate once auth resolves without a user', () => {
+      render(
+        <UserContext.Provider
+          value={{ user: undefined, isInitialised: true } as any}
+        >
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      expect(screen.getByTestId('auth-gate')).toBeInTheDocument();
+      expect(screen.queryByTestId('sudoku-box')).not.toBeInTheDocument();
+    });
+
+    it('opens the login modal automatically once auth resolves without a user', () => {
+      const showLoginModal = jest.fn();
+      render(
+        <UserContext.Provider
+          value={
+            { user: undefined, isInitialised: true, showLoginModal } as any
+          }
+        >
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      expect(showLoginModal).toHaveBeenCalledWith(undefined, 'puzzleEntry');
     });
   });
 
