@@ -1,6 +1,12 @@
 import React from 'react';
 import { useContext, useRef, useEffect } from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  act,
+} from '@testing-library/react';
 import AuthProvider, {
   UserContext,
   UserContextInterface,
@@ -893,6 +899,28 @@ describe('AuthProvider', () => {
         );
       }).not.toThrow();
     });
+
+    it('should throw when rendered without a PlatformServicesProvider ancestor', () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      expect(() => {
+        render(
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              <div>Test</div>
+            </AuthProvider>
+          </FetchProvider>
+        );
+      }).toThrow('AuthProvider must be used within PlatformServicesProvider');
+
+      consoleErrorSpy.mockRestore();
+    });
   });
 
   describe('localStorage integration', () => {
@@ -932,6 +960,1029 @@ describe('AuthProvider', () => {
           expect(codeVerifier).toBeTruthy();
         });
       }
+    });
+  });
+
+  describe('platform-specific redirect URIs', () => {
+    it('should use a deep link scheme when running in Electron', async () => {
+      const electronPlatformServices: PlatformServices = {
+        ...mockPlatformServices,
+        isElectron: () => true,
+      };
+      const ElectronWrapper = ({ children }: { children: React.ReactNode }) => (
+        <PlatformServicesProvider services={electronPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      const loginRedirectRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(loginRedirectRef);
+        useEffect(() => {
+          ref.current.current = context?.loginRedirect;
+        }, [context?.loginRedirect]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <ElectronWrapper>
+          <TestComponent />
+        </ElectronWrapper>
+      );
+
+      await waitFor(() => {
+        expect(loginRedirectRef.current).toBeDefined();
+      });
+
+      await loginRedirectRef.current!({ userInitiated: true });
+
+      expect(electronPlatformServices.openBrowser).toHaveBeenCalledWith(
+        expect.stringContaining(
+          encodeURIComponent('com.bubblyclouds.test://-/auth.html')
+        )
+      );
+    });
+
+    it('should use Browser.open with a custom URL scheme when running in Capacitor', async () => {
+      const { Browser } = jest.requireMock('@capacitor/browser');
+      const capacitorPlatformServices: PlatformServices = {
+        ...mockPlatformServices,
+        isCapacitor: () => true,
+      };
+      const CapacitorWrapper = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
+        <PlatformServicesProvider services={capacitorPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      const loginRedirectRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(loginRedirectRef);
+        useEffect(() => {
+          ref.current.current = context?.loginRedirect;
+        }, [context?.loginRedirect]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <CapacitorWrapper>
+          <TestComponent />
+        </CapacitorWrapper>
+      );
+
+      await waitFor(() => {
+        expect(loginRedirectRef.current).toBeDefined();
+      });
+
+      await loginRedirectRef.current!({ userInitiated: true });
+
+      expect(Browser.open).toHaveBeenCalledWith(
+        expect.objectContaining({ windowName: '_self' })
+      );
+      const openCallUrl = Browser.open.mock.calls[0][0].url as string;
+      expect(openCallUrl).toContain(
+        encodeURIComponent('com.bubblyclouds.test://-/auth')
+      );
+    });
+
+    it('should complete the redirect flow when an identity provider and email are supplied', async () => {
+      // jsdom doesn't support intercepting window.location.href assignment,
+      // so we verify the identityProvider/email branches execute without
+      // throwing and that the surrounding PKCE state is still stored,
+      // proving the code path completed past those conditionals.
+      const loginRedirectRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(loginRedirectRef);
+        useEffect(() => {
+          ref.current.current = context?.loginRedirect;
+        }, [context?.loginRedirect]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(loginRedirectRef.current).toBeDefined();
+      });
+
+      await expect(
+        loginRedirectRef.current!({
+          userInitiated: true,
+          identityProvider: 'apple',
+          email: 'person@example.com',
+        })
+      ).resolves.toBeUndefined();
+
+      expect(localStorage.getItem('code_verifier')).toBe('test-verifier');
+      expect(localStorage.getItem('state')).toBeTruthy();
+    });
+
+    it('should reset isLoggingIn after the timeout even without a redirect completing', async () => {
+      jest.useFakeTimers({ legacyFakeTimers: false });
+
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        return (
+          <div>
+            <div data-testid="logging-in">
+              {context?.isLoggingIn ? 'yes' : 'no'}
+            </div>
+            <button
+              onClick={() => context?.loginRedirect({ userInitiated: true })}
+            >
+              Login
+            </button>
+          </div>
+        );
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await act(async () => {
+        fireEvent.click(screen.getByText('Login'));
+        // Flush the pkce() promise microtask queued inside loginRedirect
+        await Promise.resolve();
+      });
+
+      expect(screen.getByTestId('logging-in')).toHaveTextContent('yes');
+
+      act(() => {
+        jest.advanceTimersByTime(10000);
+      });
+
+      expect(screen.getByTestId('logging-in')).toHaveTextContent('no');
+
+      jest.useRealTimers();
+    });
+  });
+
+  describe('handleAuthUrl code exchange', () => {
+    const originalFetch = global.fetch;
+
+    afterEach(() => {
+      global.fetch = originalFetch;
+    });
+
+    it('should exchange the code for tokens and call handleUser when state and code_verifier match', async () => {
+      localStorage.setItem('state', 'matching-state');
+      localStorage.setItem('code_verifier', 'matching-verifier');
+      localStorage.setItem('restorePathname', '/puzzle/42');
+      window.history.pushState(
+        {},
+        '',
+        '/auth?code=abc123&state=matching-state'
+      );
+
+      // The id_token payload below decodes to
+      // {"sub":"user-123","name":"Exchanged User"}
+      const idToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTEyMyIsIm5hbWUiOiJFeGNoYW5nZWQgVXNlciJ9.test';
+      global.fetch = jest.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            access_token: 'access-token',
+            refresh_token: 'refresh-token',
+            id_token: idToken,
+            expires_in: 3600,
+          }),
+          { status: 200 }
+        )
+      );
+
+      const userRef = { current: undefined as any };
+      const handleAuthUrlRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef({ userRef, handleAuthUrlRef });
+        useEffect(() => {
+          ref.current.userRef.current = context?.user;
+          ref.current.handleAuthUrlRef.current = context?.handleAuthUrl;
+        }, [context?.user, context?.handleAuthUrl]);
+        return <div>User: {context?.user?.name || 'none'}</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleAuthUrlRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleAuthUrlRef.current!({ active: true });
+      });
+
+      expect(global.fetch).toHaveBeenCalled();
+      const [tokenRequest] = (global.fetch as jest.Mock).mock.calls[0];
+      expect((tokenRequest as Request).url).toBe(
+        'https://auth.bubblyclouds.com/oidc/token'
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText('User: Exchanged User')).toBeInTheDocument();
+      });
+
+      // localStorage should be cleared after a completed, active exchange
+      expect(localStorage.getItem('restorePathname')).toBeNull();
+      expect(localStorage.getItem('state')).toBeNull();
+      expect(localStorage.getItem('code_verifier')).toBeNull();
+    });
+
+    it('should skip the exchange when state does not match localStorage', async () => {
+      localStorage.setItem('state', 'expected-state');
+      localStorage.setItem('code_verifier', 'some-verifier');
+      window.history.pushState(
+        {},
+        '',
+        '/auth?code=abc123&state=mismatched-state'
+      );
+
+      global.fetch = jest.fn();
+
+      const handleAuthUrlRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(handleAuthUrlRef);
+        useEffect(() => {
+          ref.current.current = context?.handleAuthUrl;
+        }, [context?.handleAuthUrl]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleAuthUrlRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleAuthUrlRef.current!({ active: true });
+      });
+
+      expect(global.fetch).not.toHaveBeenCalled();
+    });
+
+    it('should skip the exchange when code_verifier is missing', async () => {
+      localStorage.setItem('state', 'matching-state');
+      window.history.pushState(
+        {},
+        '',
+        '/auth?code=abc123&state=matching-state'
+      );
+
+      global.fetch = jest.fn();
+
+      const handleAuthUrlRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(handleAuthUrlRef);
+        useEffect(() => {
+          ref.current.current = context?.handleAuthUrl;
+        }, [context?.handleAuthUrl]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleAuthUrlRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleAuthUrlRef.current!({ active: true });
+      });
+
+      expect(global.fetch).not.toHaveBeenCalled();
+    });
+
+    it('should catch and log errors thrown during code exchange without crashing', async () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      localStorage.setItem('state', 'matching-state');
+      localStorage.setItem('code_verifier', 'matching-verifier');
+      window.history.pushState(
+        {},
+        '',
+        '/auth?code=abc123&state=matching-state'
+      );
+
+      global.fetch = jest.fn().mockRejectedValue(new Error('network down'));
+
+      const handleAuthUrlRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(handleAuthUrlRef);
+        useEffect(() => {
+          ref.current.current = context?.handleAuthUrl;
+        }, [context?.handleAuthUrl]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleAuthUrlRef.current).toBeDefined();
+      });
+
+      await expect(
+        act(async () => {
+          await handleAuthUrlRef.current!({ active: true });
+        })
+      ).resolves.toBeUndefined();
+
+      await waitFor(() => {
+        expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
+      });
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should not navigate or clear localStorage when options.active is false', async () => {
+      localStorage.setItem('state', 'matching-state');
+      localStorage.setItem('code_verifier', 'matching-verifier');
+      localStorage.setItem('restorePathname', '/keep/me');
+      window.history.pushState(
+        {},
+        '',
+        '/auth?code=abc123&state=matching-state'
+      );
+
+      global.fetch = jest.fn();
+
+      const handleAuthUrlRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(handleAuthUrlRef);
+        useEffect(() => {
+          ref.current.current = context?.handleAuthUrl;
+        }, [context?.handleAuthUrl]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleAuthUrlRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleAuthUrlRef.current!({ active: false });
+      });
+
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(localStorage.getItem('restorePathname')).toBe('/keep/me');
+    });
+  });
+
+  describe('handleRestoreState', () => {
+    it('should throw when window.electronAPI is not available', async () => {
+      const handleRestoreStateRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(handleRestoreStateRef);
+        useEffect(() => {
+          ref.current.current = context?.handleRestoreState;
+        }, [context?.handleRestoreState]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleRestoreStateRef.current).toBeDefined();
+      });
+
+      delete window.electronAPI;
+
+      await expect(handleRestoreStateRef.current!()).rejects.toThrow(
+        'Electron API not available'
+      );
+    });
+  });
+
+  describe('login modal provider error handling', () => {
+    it('should keep the modal open and stop isLoggingIn when Google login redirect throws', async () => {
+      const capacitorPlatformServices: PlatformServices = {
+        ...mockPlatformServices,
+        isCapacitor: () => true,
+      };
+      const { Browser } = jest.requireMock('@capacitor/browser');
+      (Browser.open as jest.Mock).mockRejectedValueOnce(
+        new Error('browser failed to open')
+      );
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+
+      const CapacitorWrapper = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
+        <PlatformServicesProvider services={capacitorPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      const showLoginModalRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <CapacitorWrapper>
+          <TestComponent />
+        </CapacitorWrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      showLoginModalRef.current();
+
+      const googleButton = await screen.findByText('Sign in with Google');
+
+      await act(async () => {
+        fireEvent.click(googleButton);
+        await Promise.resolve();
+        await Promise.resolve();
+      });
+
+      expect(screen.getByText('Sign in with Google')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
+      });
+
+      consoleErrorSpy.mockRestore();
+    });
+
+    it('should keep the modal open and stop isLoggingIn when Apple login redirect throws', async () => {
+      const capacitorPlatformServices: PlatformServices = {
+        ...mockPlatformServices,
+        isCapacitor: () => true,
+      };
+      const { Browser } = jest.requireMock('@capacitor/browser');
+      (Browser.open as jest.Mock).mockRejectedValueOnce(
+        new Error('browser failed to open')
+      );
+
+      const CapacitorWrapper = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
+        <PlatformServicesProvider services={capacitorPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      const showLoginModalRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <CapacitorWrapper>
+          <TestComponent />
+        </CapacitorWrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      showLoginModalRef.current();
+
+      const appleButton = await screen.findByText('Sign in with Apple');
+
+      await act(async () => {
+        fireEvent.click(appleButton);
+        await Promise.resolve();
+        await Promise.resolve();
+      });
+
+      // The modal should still be open (still showing the Apple button)
+      // since the catch handler intentionally leaves it open for retry.
+      expect(screen.getByText('Sign in with Apple')).toBeInTheDocument();
+    });
+
+    it('should keep the modal open and stop isLoggingIn when email login redirect throws', async () => {
+      const capacitorPlatformServices: PlatformServices = {
+        ...mockPlatformServices,
+        isCapacitor: () => true,
+      };
+      const { Browser } = jest.requireMock('@capacitor/browser');
+      (Browser.open as jest.Mock).mockRejectedValueOnce(
+        new Error('browser failed to open')
+      );
+
+      const CapacitorWrapper = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
+        <PlatformServicesProvider services={capacitorPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      const showLoginModalRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(showLoginModalRef);
+        useEffect(() => {
+          ref.current.current = context?.showLoginModal;
+        }, [context?.showLoginModal]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <CapacitorWrapper>
+          <TestComponent />
+        </CapacitorWrapper>
+      );
+
+      await waitFor(() => {
+        expect(showLoginModalRef.current).toBeDefined();
+      });
+
+      showLoginModalRef.current();
+
+      const emailInput = await screen.findByPlaceholderText('your@email.com');
+      fireEvent.change(emailInput, { target: { value: 'me@example.com' } });
+      const continueButton = screen.getByText('Continue');
+
+      await act(async () => {
+        fireEvent.click(continueButton);
+        await Promise.resolve();
+        await Promise.resolve();
+      });
+
+      expect(screen.getByText('Sign in with Google')).toBeInTheDocument();
+    });
+  });
+
+  describe('handleUser branches', () => {
+    it('should ignore a second user when one is already set, logging a warning', async () => {
+      window.electronAPI = {
+        openBrowser: jest.fn(),
+        encrypt: jest.fn(),
+        decrypt: jest
+          .fn()
+          .mockResolvedValueOnce(
+            JSON.stringify({
+              accessToken: 'token',
+              accessExpiry: new Date(Date.now() + 3600000).toISOString(),
+              refreshToken: 'refresh',
+              refreshExpiry: new Date(Date.now() + 14 * 86400000).toISOString(),
+              user: { sub: 'first-user', name: 'First' },
+              userExpiry: new Date(Date.now() + 14 * 86400000).toISOString(),
+            })
+          )
+          .mockResolvedValueOnce(
+            JSON.stringify({
+              accessToken: 'token2',
+              accessExpiry: new Date(Date.now() + 3600000).toISOString(),
+              refreshToken: 'refresh2',
+              refreshExpiry: new Date(Date.now() + 14 * 86400000).toISOString(),
+              user: { sub: 'second-user', name: 'Second' },
+              userExpiry: new Date(Date.now() + 14 * 86400000).toISOString(),
+            })
+          ),
+        saveState: jest.fn(),
+      };
+      const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+
+      const userRef = { current: undefined as any };
+      const handleRestoreStateRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef({ userRef, handleRestoreStateRef });
+        useEffect(() => {
+          ref.current.userRef.current = context?.user;
+          ref.current.handleRestoreStateRef.current =
+            context?.handleRestoreState;
+        }, [context?.user, context?.handleRestoreState]);
+        return <div>User: {context?.user?.name || 'none'}</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleRestoreStateRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleRestoreStateRef.current!();
+      });
+
+      await waitFor(() => {
+        expect(screen.getByText('User: First')).toBeInTheDocument();
+      });
+
+      await act(async () => {
+        await handleRestoreStateRef.current!();
+      });
+
+      // Second user should be ignored, first user retained
+      expect(screen.getByText('User: First')).toBeInTheDocument();
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'handleUser ignoring new user, already got user'
+      );
+
+      consoleWarnSpy.mockRestore();
+      delete window.electronAPI;
+    });
+
+    it('should auto-redirect to login when recoverSession is true, online, and a restore yields no user', async () => {
+      // handleUser's recoverSession auto-redirect branch (no user +
+      // !isRestoreState) is normally reached from the initial mount effect,
+      // which is guarded by a module-level isInitialising flag that only
+      // fires once per module instance - already tripped by earlier tests
+      // in this file. We reach the same branch instead via
+      // handleRestoreState, which calls handleUser(await restoreState(...))
+      // with a single argument (isRestoreState defaults to false), so a
+      // decrypted state whose "user" field is null drives the same path.
+      window.electronAPI = {
+        openBrowser: jest.fn(),
+        encrypt: jest.fn(),
+        decrypt: jest.fn().mockResolvedValue(
+          JSON.stringify({
+            accessToken: null,
+            accessExpiry: null,
+            refreshToken: null,
+            refreshExpiry: null,
+            user: null,
+            userExpiry: null,
+          })
+        ),
+        saveState: jest.fn(),
+      };
+      localStorage.setItem('recoverSession', 'true');
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        value: true,
+      });
+
+      const isLoggingInRef = { current: false };
+      const handleRestoreStateRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef({ isLoggingInRef, handleRestoreStateRef });
+        useEffect(() => {
+          ref.current.isLoggingInRef.current = context?.isLoggingIn ?? false;
+          ref.current.handleRestoreStateRef.current =
+            context?.handleRestoreState;
+        }, [context?.isLoggingIn, context?.handleRestoreState]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleRestoreStateRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleRestoreStateRef.current!();
+      });
+
+      await waitFor(() => {
+        expect(localStorage.getItem('recoverSession')).toBe('false');
+      });
+
+      await waitFor(() => {
+        expect(isLoggingInRef.current).toBe(true);
+      });
+
+      delete window.electronAPI;
+    });
+  });
+
+  describe('restoreCapacitorState via handleUser', () => {
+    it('should restore a user from getCapacitorState when isCapacitor and no user is present', async () => {
+      const capacitorState = JSON.stringify({
+        accessToken: 'cap-token',
+        accessExpiry: new Date(Date.now() + 3600000).toISOString(),
+        refreshToken: 'cap-refresh',
+        refreshExpiry: new Date(Date.now() + 14 * 86400000).toISOString(),
+        user: { sub: 'capacitor-user', name: 'Capacitor User' },
+        userExpiry: new Date(Date.now() + 14 * 86400000).toISOString(),
+      });
+      const capacitorPlatformServices: PlatformServices = {
+        ...mockPlatformServices,
+        isCapacitor: () => true,
+        getCapacitorState: jest.fn().mockResolvedValue(capacitorState),
+      };
+
+      window.electronAPI = {
+        openBrowser: jest.fn(),
+        encrypt: jest.fn(),
+        decrypt: jest.fn().mockResolvedValue(
+          JSON.stringify({
+            accessToken: null,
+            accessExpiry: null,
+            refreshToken: null,
+            refreshExpiry: null,
+            user: null,
+            userExpiry: null,
+          })
+        ),
+        saveState: jest.fn(),
+      };
+
+      const CapacitorWrapper = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
+        <PlatformServicesProvider services={capacitorPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      const userRef = { current: undefined as any };
+      const handleRestoreStateRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef({ userRef, handleRestoreStateRef });
+        useEffect(() => {
+          ref.current.userRef.current = context?.user;
+          ref.current.handleRestoreStateRef.current =
+            context?.handleRestoreState;
+        }, [context?.user, context?.handleRestoreState]);
+        return <div>User: {context?.user?.name || 'none'}</div>;
+      };
+
+      render(
+        <CapacitorWrapper>
+          <TestComponent />
+        </CapacitorWrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleRestoreStateRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleRestoreStateRef.current!();
+      });
+
+      expect(capacitorPlatformServices.getCapacitorState).toHaveBeenCalled();
+
+      await waitFor(() => {
+        expect(screen.getByText('User: Capacitor User')).toBeInTheDocument();
+      });
+
+      delete window.electronAPI;
+    });
+
+    it('should log and stop retrying when getCapacitorState rejects', async () => {
+      const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const capacitorPlatformServices: PlatformServices = {
+        ...mockPlatformServices,
+        isCapacitor: () => true,
+        getCapacitorState: jest
+          .fn()
+          .mockRejectedValue(new Error('capacitor storage error')),
+      };
+
+      window.electronAPI = {
+        openBrowser: jest.fn(),
+        encrypt: jest.fn(),
+        decrypt: jest.fn().mockResolvedValue(
+          JSON.stringify({
+            accessToken: null,
+            accessExpiry: null,
+            refreshToken: null,
+            refreshExpiry: null,
+            user: null,
+            userExpiry: null,
+          })
+        ),
+        saveState: jest.fn(),
+      };
+
+      const CapacitorWrapper = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
+        <PlatformServicesProvider services={capacitorPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      const handleRestoreStateRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef(handleRestoreStateRef);
+        useEffect(() => {
+          ref.current.current = context?.handleRestoreState;
+        }, [context?.handleRestoreState]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <CapacitorWrapper>
+          <TestComponent />
+        </CapacitorWrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleRestoreStateRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleRestoreStateRef.current!();
+      });
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(expect.any(Error));
+
+      consoleWarnSpy.mockRestore();
+      delete window.electronAPI;
+    });
+  });
+
+  describe('browserFinished listener', () => {
+    it('should call restoreCapacitorState when the Browser reports browserFinished', async () => {
+      const { Browser } = jest.requireMock('@capacitor/browser');
+      let browserFinishedHandler: (() => void) | undefined;
+      (Browser.addListener as jest.Mock).mockImplementation(
+        (event: string, handler: () => void) => {
+          if (event === 'browserFinished') {
+            browserFinishedHandler = handler;
+          }
+        }
+      );
+
+      const capacitorPlatformServices: PlatformServices = {
+        ...mockPlatformServices,
+        isCapacitor: () => true,
+        getCapacitorState: jest.fn().mockResolvedValue(''),
+      };
+
+      const CapacitorWrapper = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
+        <PlatformServicesProvider services={capacitorPlatformServices}>
+          <FetchProvider>
+            <AuthProvider
+              scope={mockPlatformServices.scope}
+              logoSrc="/logo.png"
+              appName="Test App"
+              termsUrl="https://example.com/terms"
+              privacyUrl="https://example.com/privacy"
+            >
+              {children}
+            </AuthProvider>
+          </FetchProvider>
+        </PlatformServicesProvider>
+      );
+
+      render(
+        <CapacitorWrapper>
+          <div>Test</div>
+        </CapacitorWrapper>
+      );
+
+      await waitFor(() => {
+        expect(browserFinishedHandler).toBeDefined();
+      });
+
+      await act(async () => {
+        browserFinishedHandler!();
+        await Promise.resolve();
+      });
+
+      expect(capacitorPlatformServices.getCapacitorState).toHaveBeenCalled();
     });
   });
 

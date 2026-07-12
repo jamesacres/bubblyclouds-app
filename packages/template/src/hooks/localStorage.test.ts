@@ -145,7 +145,7 @@ describe('useLocalStorage', () => {
       expect(localStorage.getItem(`${prefix}default-id`)).toBeNull();
     });
 
-    it('should handle quota exceeded error gracefully', () => {
+    it('should handle quota exceeded error gracefully and retry the save after cleanup', () => {
       const { result } = renderHook(() =>
         useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
@@ -160,10 +160,7 @@ describe('useLocalStorage', () => {
         (key: string, value: string) => {
           callCount++;
           if (callCount === 1) {
-            const error = new DOMException('QuotaExceededError');
-            // @ts-expect-error - name is read-only but we need to set it for testing
-            error.name = 'QuotaExceededError';
-            throw error;
+            throw new DOMException('quota exceeded', 'QuotaExceededError');
           }
           // Call original mock implementation
           return mockImpl!(key, value);
@@ -174,10 +171,185 @@ describe('useLocalStorage', () => {
 
       result.current.saveValue(testData);
 
-      // Should attempt cleanup and retry
-      expect(localStorage.setItem).toHaveBeenCalled();
+      // Should attempt cleanup and retry, ultimately saving on the second call
+      expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+      expect(result.current.getValue()?.state).toEqual(testData);
 
       // Restore original mock implementation
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('removes puzzles older than three days first when quota is exceeded', () => {
+      localStorage.setItem(
+        `${prefix}old-puzzle`,
+        JSON.stringify({
+          state: { test: 'old' },
+          lastUpdated: Date.now() - 4 * 24 * 60 * 60 * 1000,
+        })
+      );
+      localStorage.setItem(
+        `${prefix}recent-puzzle`,
+        JSON.stringify({ state: { test: 'recent' }, lastUpdated: Date.now() })
+      );
+
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'new-puzzle' })
+      );
+
+      let callCount = 0;
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(
+        (key: string, value: string) => {
+          callCount++;
+          if (callCount === 1) {
+            throw new DOMException('quota exceeded', 'QuotaExceededError');
+          }
+          return mockImpl!(key, value);
+        }
+      );
+
+      result.current.saveValue({ test: 'new' });
+
+      expect(localStorage.getItem(`${prefix}old-puzzle`)).toBeNull();
+      expect(localStorage.getItem(`${prefix}recent-puzzle`)).toBeTruthy();
+
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('removes the oldest half of remaining items when no old puzzles are found', () => {
+      // Four puzzles, all recent (younger than 3 days) so the "old puzzle"
+      // cleanup pass removes nothing, forcing the fallback that removes the
+      // oldest 50% of remaining items by lastUpdated.
+      const now = Date.now();
+      localStorage.setItem(
+        `${prefix}oldest`,
+        JSON.stringify({ state: { i: 0 }, lastUpdated: now - 4000 })
+      );
+      localStorage.setItem(
+        `${prefix}second-oldest`,
+        JSON.stringify({ state: { i: 1 }, lastUpdated: now - 3000 })
+      );
+      localStorage.setItem(
+        `${prefix}second-newest`,
+        JSON.stringify({ state: { i: 2 }, lastUpdated: now - 2000 })
+      );
+      localStorage.setItem(
+        `${prefix}newest`,
+        JSON.stringify({ state: { i: 3 }, lastUpdated: now - 1000 })
+      );
+
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'brand-new' })
+      );
+
+      let callCount = 0;
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(
+        (key: string, value: string) => {
+          callCount++;
+          if (callCount === 1) {
+            throw new DOMException('quota exceeded', 'QuotaExceededError');
+          }
+          return mockImpl!(key, value);
+        }
+      );
+
+      result.current.saveValue({ test: 'new' });
+
+      // Oldest two of the four (50%) should be removed.
+      expect(localStorage.getItem(`${prefix}oldest`)).toBeNull();
+      expect(localStorage.getItem(`${prefix}second-oldest`)).toBeNull();
+      expect(localStorage.getItem(`${prefix}second-newest`)).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}newest`)).toBeTruthy();
+
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('removes corrupted entries while scanning for old puzzles during cleanup', () => {
+      localStorage.setItem(`${prefix}corrupted`, 'not valid json {]');
+
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
+      );
+
+      let callCount = 0;
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(
+        (key: string, value: string) => {
+          callCount++;
+          if (callCount === 1) {
+            throw new DOMException('quota exceeded', 'QuotaExceededError');
+          }
+          return mockImpl!(key, value);
+        }
+      );
+
+      result.current.saveValue({ test: 'new' });
+
+      expect(localStorage.getItem(`${prefix}corrupted`)).toBeNull();
+
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('logs an error when saving still fails after cleanup', () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
+      );
+
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(() => {
+        throw new DOMException('quota exceeded', 'QuotaExceededError');
+      });
+
+      expect(() => {
+        result.current.saveValue({ test: 'new' });
+      }).not.toThrow();
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to save to localStorage even after cleanup:',
+        expect.any(DOMException)
+      );
+
+      consoleErrorSpy.mockRestore();
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('logs a generic error for non-quota localStorage failures', () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
+      );
+
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(() => {
+        throw new Error('Some other storage failure');
+      });
+
+      expect(() => {
+        result.current.saveValue({ test: 'new' });
+      }).not.toThrow();
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Error saving to localStorage:',
+        expect.any(Error)
+      );
+
+      consoleErrorSpy.mockRestore();
       (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
     });
 

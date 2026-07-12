@@ -25,8 +25,11 @@ jest.mock('@bubblyclouds-app/template/hooks/timer', () => ({
 jest.mock('@bubblyclouds-app/template/hooks/useParties', () => ({
   useParties: () => ({ parties: [] }),
 }));
+jest.mock('@bubblyclouds-app/template/hooks/online', () => ({
+  useOnline: () => ({ isOnline: true, forceOffline: jest.fn() }),
+}));
 jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
-  UserContext: React.createContext({}),
+  UserContext: React.createContext({ isInitialised: true }),
 }));
 jest.mock('@bubblyclouds-app/template/providers/RevenueCatProvider', () => ({
   RevenueCatContext: React.createContext({}),
