@@ -4,6 +4,7 @@ import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
+import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
 import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { motivationalMessages } from '../config/motivationalMessages';
@@ -11,7 +12,7 @@ import Footer from '@bubblyclouds-app/ui/components/Footer';
 import MyPuzzlesTab from '@bubblyclouds-app/template/components/MyPuzzlesTab';
 import FriendsTab from '@bubblyclouds-app/template/components/FriendsTab';
 import ActivityWidget from '@bubblyclouds-app/games/components/ActivityWidget';
-import Leaderboard from '@bubblyclouds-app/games/components/Leaderboard';
+import UnblockLeaderboard from '../components/UnblockLeaderboard';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -32,6 +33,7 @@ import { GameState } from '@bubblyclouds-app/unblockrace/types/state';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/unblockrace/helpers/cheatDetection';
 import { movesDisplayFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateStatsDisplay';
+import { starRatingFromState } from '@bubblyclouds-app/unblockrace/helpers/starRating';
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
 import { buildPuzzleUrl } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
 import { getDailyRun } from '@bubblyclouds-app/unblockrace/helpers/mockData';
@@ -436,7 +438,7 @@ function HomeComponent() {
                         Today&apos;s race
                       </p>
                       <p className="mb-1 text-xl font-black leading-tight text-white">
-                        Tricky → Expert
+                        Beginner → Expert
                       </p>
                       <p className="mb-3 text-xs leading-snug text-white/50">
                         Five boards, one clock — fastest escape wins.
@@ -571,6 +573,14 @@ function HomeComponent() {
             </div>
           </div>
 
+          {/* Rate the app */}
+          <RateAppButton
+            variant="card"
+            appName={APP_CONFIG.gameName}
+            appStoreUrl={APP_CONFIG.appStoreUrl}
+            googlePlayUrl={APP_CONFIG.googlePlayUrl}
+          />
+
           {/* Premium features */}
           <PremiumFeatures
             features={PREMIUM_FEATURES}
@@ -602,6 +612,7 @@ function HomeComponent() {
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 getDifficultyDisplay={getDifficultyDisplay}
                 getMovesDisplay={movesDisplayFromState}
+                getStarRating={starRatingFromState}
               />
             )}
             {tab === Tab.FRIENDS && (
@@ -616,10 +627,11 @@ function HomeComponent() {
                 }
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
-                LeaderboardComponent={Leaderboard}
+                LeaderboardComponent={UnblockLeaderboard}
                 gameName={APP_CONFIG.gameName}
                 getDifficultyDisplay={getDifficultyDisplay}
                 getMovesDisplay={movesDisplayFromState}
+                getStarRating={starRatingFromState}
               />
             )}
           </div>

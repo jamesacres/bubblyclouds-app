@@ -28,7 +28,11 @@ implementation tasks only.
   back-to-back. Solving one immediately loads the next — no menu in between.
   Scrolling right shows what's coming up. We want to track stats for each
   puzzle even if they don't complete the whole chain that is fine.
-- **Daily limit**: 3 puzzles/day free, then gated behind Plus.
+- **No play limits**: the daily run (all 5 stages) and unlimited puzzles are
+  free — playing more makes players more likely to buy. Monetization is the
+  **hints paywall** (2 free hints/day, then Plus) plus collection locks (the
+  latter half of every difficulty band), undos (5 free/day), and a daily combo
+  multiplier. The former 3-runs/day limit has been removed.
 - **Shareable via puzzle IDs**: a shared link contains comma-separated puzzle
   IDs, fetched from the server (or, for now, the mock/seed data — see §8).
 - **Race view shows *stage*, not intra-stage progress**: opponents/AI show
@@ -257,10 +261,10 @@ built for Sudoku Race."
     puzzle board component swaps its `initial`/`final`/`boardString` props
     but `RaceTrack`/`Lobby`/party state stays mounted. This is what makes it
     feel like "sliding into the next challenge" instead of a page nav.
-  - Daily limit (3/day free per the notes): reuse
-    `@template/utils/dailyActionCounter` (`canUseUndo`/`canUseCheckGrid`
-    already exist there as the pattern for "N free actions per day, then
-    paywall") — add a `canStartRun`/`incrementRunCount` pair the same shape.
+  - No run limit: runs and puzzles are unlimited and free. The
+    `@template/utils/dailyActionCounter` "N free actions per day, then paywall"
+    pattern (`canUseUndo`, `canUseHint`) instead gates hints (2/day) and undos
+    (5/day) — the hints paywall is the primary upsell.
   - **Two levels of progress, don't conflate them**:
     - **Chain-level** (which of the 5 puzzles a racer is on): shown wherever
       the run as a whole is summarized (e.g. a "stage 3/5" chip in the

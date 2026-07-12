@@ -188,7 +188,7 @@ describe('Collection Page', () => {
     });
 
     render(<CollectionPage />);
-    expect(screen.getByText('Tricky')).toBeInTheDocument();
+    expect(screen.getByText('Beginner')).toBeInTheDocument();
     expect(screen.queryByText('Expert')).not.toBeInTheDocument();
   });
 

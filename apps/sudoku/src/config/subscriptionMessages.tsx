@@ -19,7 +19,10 @@ interface ContextMessage {
  * Each context provides specific messaging about why the subscription modal is being shown
  */
 export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
-  SubscriptionContext,
+  Exclude<
+    SubscriptionContext,
+    SubscriptionContext.HINT | SubscriptionContext.COLLECTION_LOCKED
+  >,
   ContextMessage
 > = {
   [SubscriptionContext.UNDO]: {

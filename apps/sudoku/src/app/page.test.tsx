@@ -168,6 +168,10 @@ jest.mock('lucide-react', () => ({
   RotateCcw: () => <div data-testid="rotate-ccw-icon">Rotate Icon</div>,
   BookOpen: () => <div data-testid="book-open-icon">BookOpen Icon</div>,
   Flame: () => <div data-testid="flame-icon">Flame Icon</div>,
+  Star: () => <div data-testid="star-icon">Star Icon</div>,
+  ExternalLink: () => (
+    <div data-testid="external-link-icon">ExternalLink Icon</div>
+  ),
 }));
 
 const makeSevenDays = (todayCount = 0) =>
@@ -348,6 +352,13 @@ describe('Home Page', () => {
     it('should render premium features component', () => {
       render(<Home />);
       expect(screen.getByTestId('premium-features')).toBeInTheDocument();
+    });
+  });
+
+  describe('Rate app section', () => {
+    it('should render the rate-app prompt on the START tab', () => {
+      render(<Home />);
+      expect(screen.getByText(/Enjoying Sudoku\?/i)).toBeInTheDocument();
     });
   });
 

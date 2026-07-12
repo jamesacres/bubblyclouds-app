@@ -6,6 +6,12 @@ import { solvedBoardString } from '../helpers/boardToString';
 import { getHint } from '../helpers/hint';
 import { createLocalAgents } from '../helpers/agentTimeline';
 import { DreyfusLevel, LocalAgent } from '../types/Agent';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { getCollectionOfTheMonth } from '../helpers/mockData';
+import { lockedCollectionIndexes } from '../helpers/collectionLocks';
+
+const now = new Date();
 
 jest.mock('../hooks/useGameState');
 // No wasm in jsdom: the warm-up loader resolves to a stub and the hint flow
@@ -25,8 +31,17 @@ jest.mock('../helpers/agentTimeline', () => ({
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({ replace: jest.fn(), push: jest.fn() })),
 }));
+const mockUseSessions = jest.fn<{ sessions: unknown[] }, []>(() => ({
+  sessions: [],
+}));
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
-  useSessions: jest.fn(() => ({ sessions: [] })),
+  useSessions: () => mockUseSessions(),
+}));
+const mockUseCollection = jest.fn<{ collectionData: unknown }, []>(() => ({
+  collectionData: null,
+}));
+jest.mock('../providers/CollectionProvider', () => ({
+  useCollection: () => mockUseCollection(),
 }));
 jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
   UserContext: React.createContext({}),
@@ -188,6 +203,8 @@ describe('UnblockRace', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     window.localStorage.clear();
+    mockUseSessions.mockReturnValue({ sessions: [] });
+    mockUseCollection.mockReturnValue({ collectionData: null });
     mockUseGameState.mockReturnValue({
       ...baseGameState,
       answer: STAGE_1,
@@ -552,6 +569,544 @@ describe('UnblockRace', () => {
 
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('0:30');
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('3/3');
+  });
+
+  describe('end-of-puzzle payoff', () => {
+    it('shows animated stars, a points count-up and a progress line on stage clear', () => {
+      jest.useFakeTimers();
+      try {
+        mockUseGameState.mockReturnValue({
+          ...baseGameState,
+          answer: STAGE_1_COMPLETED,
+          answerStack: [STAGE_1, STAGE_1_COMPLETED],
+          completed: { at: new Date().toISOString(), seconds: 42 },
+        } as ReturnType<typeof useGameState>);
+
+        render(<UnblockRace {...defaultProps} />);
+
+        act(() => {
+          lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
+        });
+
+        // 3 moves against par 3 → three filled stars
+        expect(screen.getByTestId('stage-clear-stars')).toBeInTheDocument();
+        expect(screen.getByLabelText('3 of 3 stars')).toBeInTheDocument();
+        // Points readout labelled as leaderboard points
+        expect(screen.getByTestId('stage-clear-points')).toHaveTextContent(
+          'Leaderboard points'
+        );
+        // Progress line frames how far through the 2-stage run this win is
+        expect(screen.getByTestId('stage-clear-progress')).toHaveTextContent(
+          'Stage 1 of 2 — 1 to go'
+        );
+      } finally {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      }
+    });
+  });
+
+  // Render inside a RevenueCat context so the hint/lock paywall paths can be
+  // exercised. The default mock provides an empty context ({}), which is the
+  // free, no-modal case; these helpers opt into a subscriber or a modal.
+  const renderWithRevenueCat = (
+    ui: React.ReactElement,
+    value: {
+      isSubscribed?: boolean;
+      showModalIfRequired?: jest.Mock;
+    }
+  ) =>
+    render(
+      <RevenueCatContext.Provider
+        value={
+          {
+            isSubscribed: value.isSubscribed ?? false,
+            subscribeModal: value.showModalIfRequired
+              ? { showModalIfRequired: value.showModalIfRequired }
+              : undefined,
+          } as unknown as React.ContextType<typeof RevenueCatContext>
+        }
+      >
+        {ui}
+      </RevenueCatContext.Provider>
+    );
+
+  describe('hint paywall', () => {
+    beforeEach(() => {
+      mockGetHint.mockResolvedValue({
+        kind: 'move',
+        move: { piece: 0, steps: 1 },
+      });
+    });
+
+    it('lets a subscriber hint without a badge or a paywall', async () => {
+      const showModalIfRequired = jest.fn();
+      renderWithRevenueCat(<UnblockRace {...defaultProps} />, {
+        isSubscribed: true,
+        showModalIfRequired,
+      });
+
+      expect(screen.queryByTestId('hint-badge')).not.toBeInTheDocument();
+      fireEvent.click(screen.getByLabelText('Hint'));
+      expect(await screen.findByTestId('hint-ring')).toBeInTheDocument();
+      expect(showModalIfRequired).not.toHaveBeenCalled();
+    });
+
+    it('shows a free user their remaining hints and counts down as they spend them', async () => {
+      renderWithRevenueCat(<UnblockRace {...defaultProps} />, {});
+
+      expect(screen.getByTestId('hint-badge')).toHaveTextContent('2 left');
+      fireEvent.click(screen.getByLabelText('Hint'));
+      await screen.findByTestId('hint-ring');
+      expect(screen.getByTestId('hint-badge')).toHaveTextContent('1 left');
+    });
+
+    it("opens the paywall on the free user's third hint of the day", async () => {
+      const showModalIfRequired = jest.fn();
+      window.localStorage.setItem(
+        'daily-action-counter',
+        JSON.stringify({
+          date: new Date().toISOString().split('T')[0],
+          hintCount: 2,
+          undoCount: 0,
+          checkGridCount: 0,
+        })
+      );
+
+      renderWithRevenueCat(<UnblockRace {...defaultProps} />, {
+        showModalIfRequired,
+      });
+
+      expect(screen.getByTestId('hint-badge')).toHaveTextContent('0 left');
+      fireEvent.click(screen.getByLabelText('Hint'));
+
+      expect(showModalIfRequired).toHaveBeenCalledWith(
+        expect.any(Function),
+        expect.any(Function),
+        SubscriptionContext.HINT
+      );
+      // The hint itself is withheld until the paywall's proceed callback runs
+      expect(screen.queryByTestId('hint-ring')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('retry and reset confirms', () => {
+    it('retries the current stage after confirming, on a fresh timer session', () => {
+      const reset = jest.fn();
+      const setTimerNewSession = jest.fn();
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1,
+        reset,
+        setTimerNewSession,
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...defaultProps} />);
+
+      fireEvent.click(screen.getByTestId('retry-stage-button'));
+      expect(screen.getByTestId('confirm-dialog')).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('confirm-dialog-confirm'));
+
+      expect(reset).toHaveBeenCalled();
+      expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
+    });
+
+    it('does not retry when the confirm is cancelled', () => {
+      const reset = jest.fn();
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1,
+        reset,
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...defaultProps} />);
+
+      fireEvent.click(screen.getByTestId('retry-stage-button'));
+      fireEvent.click(screen.getByTestId('confirm-dialog-cancel'));
+
+      expect(reset).not.toHaveBeenCalled();
+    });
+
+    it('clears a completed stage from the results panel when retried so the new result overwrites', () => {
+      window.localStorage.setItem(
+        `unblockrace-${STAGE_1}`,
+        JSON.stringify({
+          state: {
+            initial: STAGE_1,
+            answerStack: [solvedBoardString(STAGE_1)],
+            completed: { at: new Date().toISOString(), seconds: 30 },
+            metadata: { movesMade: '3' },
+          },
+        })
+      );
+      window.localStorage.setItem(
+        `unblockrace-${STAGE_2}`,
+        JSON.stringify({
+          state: {
+            initial: STAGE_2,
+            answerStack: [solvedBoardString(STAGE_2)],
+            completed: { at: new Date().toISOString(), seconds: 44 },
+            metadata: { movesMade: '5' },
+          },
+        })
+      );
+      const reset = jest.fn();
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1,
+        reset,
+      } as ReturnType<typeof useGameState>);
+
+      // Both stages complete in storage → resumes on the final stage (index
+      // 1), whose result the retry must clear.
+      render(<UnblockRace {...defaultProps} />);
+      expect(screen.getByTestId('stage-preview-1')).toHaveAttribute(
+        'aria-current',
+        'true'
+      );
+      expect(screen.getByTestId('stage-result-1')).toHaveTextContent('0:44');
+
+      fireEvent.click(screen.getByTestId('retry-stage-button'));
+      fireEvent.click(screen.getByTestId('confirm-dialog-confirm'));
+
+      // Its entry is dropped so the fresh solve overwrites rather than being
+      // ignored, and reset() starts a new timer session.
+      expect(reset).toHaveBeenCalled();
+      expect(screen.getByTestId('stage-result-1')).not.toHaveTextContent(
+        '0:44'
+      );
+    });
+
+    it('confirms before the destructive Controls reset fires', () => {
+      const reset = jest.fn();
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1,
+        reset,
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...defaultProps} />);
+
+      fireEvent.click(screen.getByLabelText('Reset'));
+      expect(screen.getByTestId('confirm-dialog')).toHaveTextContent(
+        'Reset this puzzle?'
+      );
+      // reset only fires after confirming
+      expect(reset).not.toHaveBeenCalled();
+      fireEvent.click(screen.getByTestId('confirm-dialog-confirm'));
+      expect(reset).toHaveBeenCalled();
+    });
+  });
+
+  describe('previous stage button', () => {
+    it('is hidden on the first stage', () => {
+      render(<UnblockRace {...defaultProps} />);
+      expect(
+        screen.queryByTestId('previous-stage-button')
+      ).not.toBeInTheDocument();
+    });
+
+    it('slides back to the earlier stage when on a later stage', () => {
+      jest.useFakeTimers();
+      try {
+        window.localStorage.setItem(
+          `unblockrace-${STAGE_1}`,
+          JSON.stringify({
+            state: {
+              initial: STAGE_1,
+              answerStack: [solvedBoardString(STAGE_1)],
+              completed: { at: new Date().toISOString(), seconds: 30 },
+            },
+          })
+        );
+
+        render(<UnblockRace {...defaultProps} />);
+        // Resumes on stage 1 (stage 0 complete), so Previous is available
+        expect(screen.getByTestId('stage-preview-1')).toHaveAttribute(
+          'aria-current',
+          'true'
+        );
+
+        fireEvent.click(screen.getByTestId('previous-stage-button'));
+        runTransition();
+
+        expect(screen.getByTestId('stage-preview-0')).toHaveAttribute(
+          'aria-current',
+          'true'
+        );
+      } finally {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      }
+    });
+  });
+
+  describe('locked deep-link gate', () => {
+    const LOCKED_MONTH = (() => {
+      const now = new Date();
+      const year = now.getUTCFullYear();
+      const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+      return `${year}${month}`;
+    })();
+
+    // Derive a genuinely locked and a genuinely free index from this month's
+    // deterministic collection so the test tracks the real lock geometry.
+    const collection = getCollectionOfTheMonth(
+      new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1))
+    );
+    const locked = lockedCollectionIndexes(collection.puzzles);
+    const lockedIndex = [...locked][0];
+    const freeIndex = collection.puzzles.findIndex(
+      (_, index) => !locked.has(index)
+    );
+
+    const lockedProps = {
+      ...defaultProps,
+      run: { stages: [{ boardString: STAGE_1, movesRequired: 3 }] },
+    };
+
+    it('gates a free user deep-linking into a locked collection puzzle', () => {
+      render(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
+          }}
+        />
+      );
+      expect(screen.getByTestId('puzzle-gate')).toBeInTheDocument();
+    });
+
+    it('does not gate an unlocked (first-half) collection puzzle', () => {
+      render(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${freeIndex}`,
+          }}
+        />
+      );
+      expect(screen.queryByTestId('puzzle-gate')).not.toBeInTheDocument();
+    });
+
+    it('lets a subscriber through the locked puzzle', () => {
+      renderWithRevenueCat(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
+          }}
+        />,
+        { isSubscribed: true }
+      );
+      expect(screen.queryByTestId('puzzle-gate')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('stuck nudge', () => {
+    it('pops over par and hides on the next board pointer-down', () => {
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1,
+        answerStack: [STAGE_1, STAGE_1_COMPLETED, STAGE_1],
+        movesMade: 5,
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...defaultProps} />);
+      // par is 3, movesMade 5 → over par → nudge shows
+      expect(screen.getByTestId('hint-nudge')).toBeInTheDocument();
+
+      fireEvent.pointerDown(screen.getByTestId('unblock-board'));
+      expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
+    });
+
+    it('pops after ~20s idle with no answer change', () => {
+      jest.useFakeTimers();
+      try {
+        mockUseGameState.mockReturnValue({
+          ...baseGameState,
+          answer: STAGE_1,
+          movesMade: 0,
+        } as ReturnType<typeof useGameState>);
+
+        render(<UnblockRace {...defaultProps} />);
+        expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
+
+        act(() => {
+          jest.advanceTimersByTime(21000);
+        });
+        expect(screen.getByTestId('hint-nudge')).toBeInTheDocument();
+      } finally {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      }
+    });
+
+    it('never pops on a completed board', () => {
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1_COMPLETED,
+        answerStack: [STAGE_1, STAGE_1_COMPLETED],
+        movesMade: 9,
+        completed: { at: new Date().toISOString(), seconds: 42 },
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...defaultProps} />);
+      expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
+    });
+
+    it('never pops while paused', () => {
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1,
+        movesMade: 9,
+        isPaused: true,
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...defaultProps} />);
+      expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
+    });
+
+    it('re-arms at most twice per stage', () => {
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1,
+        movesMade: 9,
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...defaultProps} />);
+      expect(screen.getByTestId('hint-nudge')).toBeInTheDocument();
+      fireEvent.pointerDown(screen.getByTestId('unblock-board'));
+      expect(screen.queryByTestId('hint-nudge')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('no play limits', () => {
+    it('never opens a paywall from starting runs, however many are played', () => {
+      const showModalIfRequired = jest.fn();
+      window.localStorage.setItem(
+        'daily-run-ids',
+        JSON.stringify({
+          date: new Date().toISOString().split('T')[0],
+          runIds: ['a', 'b', 'c', 'd', 'e'],
+        })
+      );
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1,
+        timer: {
+          countdown: 1,
+          seconds: 0,
+          inProgress: {
+            start: new Date().toISOString(),
+            lastInteraction: new Date().toISOString(),
+          },
+        },
+      } as ReturnType<typeof useGameState>);
+
+      renderWithRevenueCat(<UnblockRace {...defaultProps} />, {
+        showModalIfRequired,
+      });
+
+      expect(showModalIfRequired).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('continue-to-next-puzzle', () => {
+    // Four distinct board strings so each is its own collection puzzle.
+    const P0 = STAGE_1;
+    const P1 = STAGE_2;
+    const P2 = STAGE_1_COMPLETED;
+    const P3 = [
+      'oooooo',
+      'oooooo',
+      'ooAABo',
+      'ooooBo',
+      'oooooo',
+      'oooooo',
+    ].join('');
+    // Four simple puzzles → floor(4/2)=2 locked (indexes 2 and 3); indexes
+    // 0 and 1 are free ("first half of every difficulty is free").
+    const collectionData = {
+      unblockCollectionId: 'ofthemonth-202607',
+      puzzles: [P0, P1, P2, P3].map((initial, i) => ({
+        initial,
+        final: initial,
+        movesRequired: 3 + i,
+        difficulty: 'simple',
+      })),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    const collectionProps = {
+      ...defaultProps,
+      run: { stages: [{ boardString: P0, movesRequired: 3 }] },
+      metadata: { unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-0' },
+    };
+
+    const completedSession = (initial: string) => ({
+      sessionId: `unblockrace-${initial}`,
+      state: {
+        initial,
+        answerStack: [initial],
+        completed: { at: new Date().toISOString(), seconds: 20 },
+      },
+    });
+
+    it('renders the next-puzzle panel pointing at the next collection puzzle when completed', () => {
+      mockUseCollection.mockReturnValue({ collectionData });
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: P0,
+        answerStack: [P0],
+        completed: { at: new Date().toISOString(), seconds: 30 },
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...collectionProps} />);
+
+      expect(screen.getByTestId('next-puzzle-panel')).toBeInTheDocument();
+      // The resolver skips the just-finished P0 and steers to the next free
+      // puzzle (index 1).
+      expect(screen.getByTestId('next-puzzle-continue')).toHaveTextContent(
+        'Continue — next puzzle'
+      );
+    });
+
+    it('shows the Plus-locked label when the next collection puzzle is locked', () => {
+      // With indexes 0 and 1 already done, the resolver's next stop is the
+      // locked index 2 — a free user sees the (Plus) CTA.
+      mockUseCollection.mockReturnValue({ collectionData });
+      mockUseSessions.mockReturnValue({
+        sessions: [completedSession(P1)],
+      });
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: P0,
+        answerStack: [P0],
+        completed: { at: new Date().toISOString(), seconds: 30 },
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...collectionProps} />);
+
+      expect(screen.getByTestId('next-puzzle-continue')).toHaveTextContent(
+        'Continue (Plus)'
+      );
+    });
+
+    it('omits the panel when there is no next collection puzzle', () => {
+      mockUseCollection.mockReturnValue({ collectionData: null });
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: P0,
+        answerStack: [P0],
+        completed: { at: new Date().toISOString(), seconds: 30 },
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...collectionProps} />);
+
+      expect(screen.queryByTestId('next-puzzle-panel')).not.toBeInTheDocument();
+    });
   });
 
   describe('AI agents', () => {

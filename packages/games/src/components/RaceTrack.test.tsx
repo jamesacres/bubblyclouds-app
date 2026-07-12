@@ -136,4 +136,30 @@ describe('RaceTrack', () => {
     expect(screen.getByText('8/24 moves ⚡')).toBeInTheDocument();
     expect(screen.queryByText('(42%)')).not.toBeInTheDocument();
   });
+
+  it('renders the rate-app prompt on the completed block when rateApp is passed', () => {
+    mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
+      state === defaultProps.state ? 100 : 50
+    );
+    render(
+      <RaceTrack
+        {...defaultProps}
+        rateApp={{
+          appName: 'Sudoku Race',
+          appStoreUrl: 'https://apps.apple.com/app/sudoku-race/id123',
+          googlePlayUrl:
+            'https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku',
+        }}
+      />
+    );
+    expect(screen.getByText(/Enjoying Sudoku Race\?/i)).toBeInTheDocument();
+  });
+
+  it('omits the rate-app prompt when rateApp is not passed', () => {
+    mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
+      state === defaultProps.state ? 100 : 50
+    );
+    render(<RaceTrack {...defaultProps} />);
+    expect(screen.queryByText(/Enjoying/i)).not.toBeInTheDocument();
+  });
 });

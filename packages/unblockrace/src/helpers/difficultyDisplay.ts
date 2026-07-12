@@ -13,8 +13,8 @@ export interface UnblockDifficultyDisplay {
 
 const DIFFICULTY_DISPLAYS: { [key: string]: UnblockDifficultyDisplay } = {
   simple: {
-    label: 'Tricky',
-    shortLabel: 'Tricky',
+    label: 'Beginner',
+    shortLabel: 'Beginner',
     chipClass: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
   },
   easy: {

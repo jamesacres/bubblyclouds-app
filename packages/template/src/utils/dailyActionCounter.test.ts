@@ -4,12 +4,15 @@ import {
   getDailyActionData,
   incrementUndoCount,
   incrementCheckGridCount,
+  incrementHintCount,
   getUndoCount,
   getCheckGridCount,
+  getHintCount,
   getRemainingUndos,
   getRemainingCheckGrids,
+  getRemainingHints,
 } from '../utils/dailyActionCounter';
-import { canUseUndo, canUseCheckGrid } from './dailyActionCounter';
+import { canUseUndo, canUseCheckGrid, canUseHint } from './dailyActionCounter';
 import { DAILY_LIMITS } from '../config/dailyLimits';
 
 describe('dailyActionCounter', () => {
@@ -38,6 +41,7 @@ describe('dailyActionCounter', () => {
         date: getTodayDateString(),
         undoCount: 0,
         checkGridCount: 0,
+        hintCount: 0,
       });
     });
 
@@ -47,6 +51,7 @@ describe('dailyActionCounter', () => {
         date: today,
         undoCount: 3,
         checkGridCount: 2,
+        hintCount: 1,
       };
 
       localStorage.setItem('daily-action-counter', JSON.stringify(testData));
@@ -348,6 +353,146 @@ describe('dailyActionCounter', () => {
         const remaining = getRemainingCheckGrids();
         expect(remaining).toBe(DAILY_LIMITS.CHECK_GRID - (i + 1));
       }
+    });
+  });
+
+  describe('incrementHintCount', () => {
+    it('should increment hint count from 0', () => {
+      const count = incrementHintCount();
+      expect(count).toBe(1);
+    });
+
+    it('should increment hint count multiple times', () => {
+      incrementHintCount();
+      incrementHintCount();
+      const count = incrementHintCount();
+
+      expect(count).toBe(3);
+    });
+
+    it('should persist hint count to storage', () => {
+      incrementHintCount();
+      incrementHintCount();
+
+      const data = getDailyActionData();
+      expect(data.hintCount).toBe(2);
+    });
+
+    it('should not affect undo or check grid counts', () => {
+      incrementHintCount();
+      incrementHintCount();
+
+      const data = getDailyActionData();
+      expect(data.undoCount).toBe(0);
+      expect(data.checkGridCount).toBe(0);
+    });
+
+    it('should allow incrementing beyond limits', () => {
+      for (let i = 0; i < 10; i++) {
+        incrementHintCount();
+      }
+
+      const count = getHintCount();
+      expect(count).toBe(10);
+    });
+  });
+
+  describe('getHintCount', () => {
+    it('should return 0 when not set', () => {
+      expect(getHintCount()).toBe(0);
+    });
+
+    it('should return current hint count', () => {
+      incrementHintCount();
+      incrementHintCount();
+
+      expect(getHintCount()).toBe(2);
+    });
+
+    it('should return count from storage', () => {
+      const today = getTodayDateString();
+      localStorage.setItem(
+        'daily-action-counter',
+        JSON.stringify({
+          date: today,
+          undoCount: 2,
+          checkGridCount: 1,
+          hintCount: 2,
+        })
+      );
+
+      expect(getHintCount()).toBe(2);
+    });
+
+    it('should default to 0 for legacy data without hintCount', () => {
+      const today = getTodayDateString();
+      localStorage.setItem(
+        'daily-action-counter',
+        JSON.stringify({
+          date: today,
+          undoCount: 2,
+          checkGridCount: 1,
+        })
+      );
+
+      expect(getHintCount()).toBe(0);
+    });
+  });
+
+  describe('canUseHint', () => {
+    it('should return true when below limit', () => {
+      expect(canUseHint()).toBe(true);
+    });
+
+    it('should return true until limit is reached', () => {
+      for (let i = 0; i < DAILY_LIMITS.HINT; i++) {
+        expect(canUseHint()).toBe(true);
+        incrementHintCount();
+      }
+    });
+
+    it('should return false when limit is reached', () => {
+      for (let i = 0; i < DAILY_LIMITS.HINT; i++) {
+        incrementHintCount();
+      }
+
+      expect(canUseHint()).toBe(false);
+    });
+
+    it('should return false when limit is exceeded', () => {
+      for (let i = 0; i < DAILY_LIMITS.HINT + 5; i++) {
+        incrementHintCount();
+      }
+
+      expect(canUseHint()).toBe(false);
+    });
+  });
+
+  describe('getRemainingHints', () => {
+    it('should return total limit when at 0', () => {
+      expect(getRemainingHints()).toBe(DAILY_LIMITS.HINT);
+    });
+
+    it('should return remaining after increments', () => {
+      incrementHintCount();
+
+      expect(getRemainingHints()).toBe(DAILY_LIMITS.HINT - 1);
+    });
+
+    it('should return 0 when limit reached', () => {
+      for (let i = 0; i < DAILY_LIMITS.HINT; i++) {
+        incrementHintCount();
+      }
+
+      expect(getRemainingHints()).toBe(0);
+    });
+
+    it('should not return negative', () => {
+      for (let i = 0; i < DAILY_LIMITS.HINT + 10; i++) {
+        incrementHintCount();
+      }
+
+      expect(getRemainingHints()).toBe(0);
     });
   });
 

@@ -30,6 +30,7 @@ describe('ScoreBreakdown', () => {
     difficultyBonus: 30,
     speedBonus: 100,
     racingBonus: 50,
+    comboBonus: 0,
     ...overrides,
   });
 

@@ -5,8 +5,9 @@ import { useParties } from '../hooks/useParties';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import { useSessions } from '../providers/SessionsProvider';
-import { Award, Loader } from 'lucide-react';
+import { Award, Loader, Lock } from 'lucide-react';
 import Link from 'next/link';
+import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { BaseServerState } from '../types/state';
 
@@ -178,6 +179,15 @@ interface IntegratedSessionRowProps<
   getMovesDisplay?: (
     state: State
   ) => { movesMade: number; movesRequired: number } | undefined;
+  // Game-specific star rating for a completed session (e.g. unblockrace's
+  // moves-vs-par grade); when provided, completed rows show the stars
+  // alongside the moves chip.
+  getStarRating?: (state: State) => number | undefined;
+  // When locked (e.g. the paywalled half of a collection), the tile is not a
+  // navigation link but a button that surfaces the paywall via onLockedClick,
+  // with a dimmed preview and a lock badge overlay.
+  isLocked?: boolean;
+  onLockedClick?: () => void;
 }
 
 // Move count graded against par, in the same colours as the game's
@@ -252,7 +262,8 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
   calculateCompletionPercentageFromState: (state: State) => number,
   getMovesDisplay?: (
     state: State
-  ) => { movesMade: number; movesRequired: number } | undefined
+  ) => { movesMade: number; movesRequired: number } | undefined,
+  getStarRating?: (state: State) => number | undefined
 ) => {
   const friendSessionData: Array<{
     nickname: string;
@@ -262,6 +273,7 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
     isCompleted: boolean;
     isCheated: boolean;
     moves?: { movesMade: number; movesRequired: number };
+    stars?: number;
   }> = [];
 
   Object.entries(friendSessions).forEach(([userId, userSessionData]) => {
@@ -291,6 +303,7 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
         isCompleted: !!matchingSession.state.completed,
         isCheated: isPuzzleCheated(matchingSession.state),
         moves: getMovesDisplay?.(matchingSession.state),
+        stars: getStarRating?.(matchingSession.state),
       });
     }
   });
@@ -316,6 +329,9 @@ export const IntegratedSessionRow = <
   getDifficultyDisplay,
   getTechniquesDisplay,
   getMovesDisplay,
+  getStarRating,
+  isLocked,
+  onLockedClick,
 }: IntegratedSessionRowProps<State, BookPuzzle, Techniques>) => {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -400,6 +416,7 @@ export const IntegratedSessionRow = <
       isCurrentUser: boolean;
       isWinner: boolean;
       moves?: { movesMade: number; movesRequired: number };
+      stars?: number;
     }> = [];
 
     // Add user's session if they have actually played this puzzle, or if we're in MyPuzzlesTab
@@ -416,6 +433,7 @@ export const IntegratedSessionRow = <
         moves: actualSession
           ? getMovesDisplay?.(actualSession.state)
           : undefined,
+        stars: actualSession ? getStarRating?.(actualSession.state) : undefined,
       });
     }
 
@@ -427,7 +445,8 @@ export const IntegratedSessionRow = <
       parties || [],
       isPuzzleCheated,
       calculateCompletionPercentageFromState,
-      getMovesDisplay
+      getMovesDisplay,
+      getStarRating
     );
 
     friendData.forEach((friend) => {
@@ -491,6 +510,11 @@ export const IntegratedSessionRow = <
       ? getMovesDisplay?.(actualSession.state)
       : undefined;
 
+  const ownStars =
+    actualSession && !isPuzzleCheated(actualSession.state)
+      ? getStarRating?.(actualSession.state)
+      : undefined;
+
   // Helper to get timer display
   const getTimerDisplay = () => {
     if (actualSession?.state.timer !== undefined) {
@@ -504,62 +528,82 @@ export const IntegratedSessionRow = <
     return null;
   };
 
+  const rowInner = (
+    <div className={`relative ${isLocked ? 'opacity-50' : ''}`}>
+      {isLocked && (
+        <span className="absolute right-2 top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-zinc-900/80 text-white shadow">
+          <Lock className="h-3.5 w-3.5" />
+        </span>
+      )}
+      <SimpleState state={session.state} />
+      <div className="space-y-2 px-4 py-2">
+        <div className="text-center text-gray-900 dark:text-white">
+          <h3 className="text-sm font-semibold">{puzzleTitle}</h3>
+          <p className="text-xs opacity-75">
+            {getGameStatusText<State>(
+              session,
+              isPuzzleCheated,
+              calculateCompletionPercentageFromState,
+              userSessions
+            )}
+          </p>
+        </div>
+
+        {/* Difficulty Badge */}
+        {difficultyInfo && (
+          <div className="flex justify-center">
+            <span
+              className={`rounded-full px-2 py-1 text-xs font-medium ${difficultyInfo.badgeColor}`}
+            >
+              {difficultyInfo.name}
+            </span>
+          </div>
+        )}
+
+        {/* Techniques (show only if from book) */}
+        {techniques.length > 0 && (
+          <div
+            className={`space-y-2 rounded-lg p-3 text-white ${difficultyInfo?.badgeColor.replace('text-white', '') || 'bg-red-500'}`}
+          >
+            <h4 className="text-center text-sm font-semibold">
+              Recommended Techniques:
+            </h4>
+            <div className="flex flex-wrap justify-start gap-1">
+              {techniques.map((technique, i) => (
+                <span
+                  key={i}
+                  className={`rounded px-1.5 py-0.5 text-xs font-medium ${technique.color}`}
+                  title={`${technique.name} (${technique.count})`}
+                >
+                  {technique.name} ({technique.count})
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <li
       key={session.sessionId}
       className="rounded-lg border-2 border-stone-200 bg-stone-50/80 hover:bg-stone-100 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:bg-zinc-700"
     >
-      <Link href={buildPuzzleUrlFromState(session.state, isCompleted)}>
-        <div>
-          <SimpleState state={session.state} />
-          <div className="space-y-2 px-4 py-2">
-            <div className="text-center text-gray-900 dark:text-white">
-              <h3 className="text-sm font-semibold">{puzzleTitle}</h3>
-              <p className="text-xs opacity-75">
-                {getGameStatusText<State>(
-                  session,
-                  isPuzzleCheated,
-                  calculateCompletionPercentageFromState,
-                  userSessions
-                )}
-              </p>
-            </div>
-
-            {/* Difficulty Badge */}
-            {difficultyInfo && (
-              <div className="flex justify-center">
-                <span
-                  className={`rounded-full px-2 py-1 text-xs font-medium ${difficultyInfo.badgeColor}`}
-                >
-                  {difficultyInfo.name}
-                </span>
-              </div>
-            )}
-
-            {/* Techniques (show only if from book) */}
-            {techniques.length > 0 && (
-              <div
-                className={`space-y-2 rounded-lg p-3 text-white ${difficultyInfo?.badgeColor.replace('text-white', '') || 'bg-red-500'}`}
-              >
-                <h4 className="text-center text-sm font-semibold">
-                  Recommended Techniques:
-                </h4>
-                <div className="flex flex-wrap justify-start gap-1">
-                  {techniques.map((technique, i) => (
-                    <span
-                      key={i}
-                      className={`rounded px-1.5 py-0.5 text-xs font-medium ${technique.color}`}
-                      title={`${technique.name} (${technique.count})`}
-                    >
-                      {technique.name} ({technique.count})
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </Link>
+      {isLocked ? (
+        <button
+          type="button"
+          onClick={onLockedClick}
+          aria-label="Locked puzzle"
+          className="relative block w-full cursor-pointer text-left"
+        >
+          {rowInner}
+        </button>
+      ) : (
+        <Link href={buildPuzzleUrlFromState(session.state, isCompleted)}>
+          {rowInner}
+        </Link>
+      )}
 
       {/* Progress Section - Always show */}
       <div className="border-t border-stone-200 bg-stone-100/50 dark:border-zinc-600 dark:bg-zinc-700/50">
@@ -578,6 +622,7 @@ export const IntegratedSessionRow = <
                   isCurrentUser,
                   isWinner,
                   moves,
+                  stars,
                 }) => (
                   <div
                     key={`${session.sessionId}-${userId || 'user'}`}
@@ -615,6 +660,9 @@ export const IntegratedSessionRow = <
                           )}
                           {moves && !isCheated && (
                             <MovesDisplay moves={moves} />
+                          )}
+                          {stars !== undefined && !isCheated && (
+                            <StarRating rating={stars} size="sm" />
                           )}
                         </>
                       ) : isCurrentUser ? (
@@ -658,6 +706,9 @@ export const IntegratedSessionRow = <
                         </span>
                       )}
                       {ownMoves && <MovesDisplay moves={ownMoves} />}
+                      {ownStars !== undefined && (
+                        <StarRating rating={ownStars} size="sm" />
+                      )}
                     </>
                   ) : (
                     <>

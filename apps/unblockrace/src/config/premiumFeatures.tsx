@@ -1,4 +1,11 @@
-import { Calendar, Droplet, Users, Watch } from 'lucide-react';
+import {
+  Droplet,
+  Lightbulb,
+  LockOpen,
+  Undo2,
+  Users,
+  Watch,
+} from 'lucide-react';
 import { ComponentType } from 'react';
 
 export interface PremiumFeature {
@@ -9,9 +16,19 @@ export interface PremiumFeature {
 
 export const PREMIUM_FEATURES: PremiumFeature[] = [
   {
-    icon: Calendar,
-    title: 'Unlimited play and race',
-    description: 'Race friends in real-time more than once a day',
+    icon: Lightbulb,
+    title: 'Unlimited hints',
+    description: 'Never get stuck — get a hint whenever you need one',
+  },
+  {
+    icon: LockOpen,
+    title: 'Entire monthly pack unlocked, every month',
+    description: 'Play every puzzle in every difficulty, no locks',
+  },
+  {
+    icon: Undo2,
+    title: 'Unlimited undos',
+    description: 'Rewind as many moves as you like',
   },
   {
     icon: Watch,

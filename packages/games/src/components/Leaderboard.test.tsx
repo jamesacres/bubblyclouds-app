@@ -141,6 +141,7 @@ describe('Leaderboard', () => {
       difficultyBonus: 30,
       speedBonus: 100,
       racingBonus: 50,
+      comboBonus: 0,
       stats: {
         totalPuzzles: 10,
         dailyPuzzles: 3,

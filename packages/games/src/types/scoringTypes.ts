@@ -13,6 +13,7 @@ export interface FriendsLeaderboardScore {
     difficultyBonus: number;
     speedBonus: number;
     racingBonus: number;
+    comboBonus: number;
   };
   stats: {
     totalPuzzles: number;
@@ -27,6 +28,25 @@ export interface FriendsLeaderboardScore {
 
 export type PuzzleType = 'daily' | 'book' | 'scanned' | 'unknown';
 
+export interface DailyComboConfig {
+  increment: number;
+  max: number;
+}
+
+export interface ScoringOptions {
+  dailyCombo?: DailyComboConfig;
+}
+
+export interface SessionScore {
+  volumeScore: number;
+  baseScore: number;
+  difficultyBonus: number;
+  speedBonus: number;
+  comboMultiplier: number;
+  comboBonus: number;
+  total: number;
+}
+
 export interface ScoringResult {
   volumeScore: number;
   dailyPuzzleScore: number;
@@ -35,6 +55,7 @@ export interface ScoringResult {
   difficultyBonus: number;
   speedBonus: number;
   racingBonus: number;
+  comboBonus: number;
   stats: FriendsLeaderboardScore['stats'];
 }
 

@@ -168,4 +168,26 @@ describe('UnblockRaceTrack', () => {
       'Pal'
     );
   });
+
+  it('renders the rate-app prompt on the completed block when rateApp is passed', () => {
+    render(
+      <UnblockRaceTrack
+        {...defaultProps}
+        state={completedState}
+        rateApp={{
+          appName: 'Unblock Race',
+          appStoreUrl: 'https://apps.apple.com/app/unblock-race/idTODO',
+          googlePlayUrl:
+            'https://play.google.com/store/apps/details?id=com.bubblyclouds.unblockrace',
+        }}
+      />
+    );
+
+    expect(screen.getByText(/Enjoying Unblock Race\?/i)).toBeInTheDocument();
+  });
+
+  it('omits the rate-app prompt when rateApp is not passed', () => {
+    render(<UnblockRaceTrack {...defaultProps} state={completedState} />);
+    expect(screen.queryByText(/Enjoying/i)).not.toBeInTheDocument();
+  });
 });

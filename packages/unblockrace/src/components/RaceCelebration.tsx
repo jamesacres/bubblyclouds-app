@@ -3,6 +3,8 @@
 import { CSSProperties, useEffect } from 'react';
 import { InAppReview } from '@capacitor-community/in-app-review';
 import { Trophy } from 'lucide-react';
+import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
+import { CountUp } from '@bubblyclouds-app/ui/components/CountUp';
 import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import { getPieceColor } from '../helpers/pieceColors';
 
@@ -16,6 +18,11 @@ interface RaceCelebrationProps {
   // Whole-run totals for the banner (sum of every stage, not just the last).
   totalSeconds: number;
   totalMoves: number;
+  // Run-total star grade (total moves vs total par) and summed leaderboard
+  // points across every stage — the same addictive payoff the per-stage slam
+  // shows, tallied for the whole run. Omitted for runs that can't be graded.
+  stars?: number;
+  points?: number;
   completedGamesCount?: number;
   isCapacitor?: () => boolean;
 }
@@ -94,6 +101,8 @@ const RaceCelebration = ({
   isVisible,
   totalSeconds,
   totalMoves,
+  stars,
+  points,
   completedGamesCount = 0,
   isCapacitor,
 }: RaceCelebrationProps) => {
@@ -212,6 +221,16 @@ const RaceCelebration = ({
           <Trophy className="h-4 w-4 text-amber-400" aria-hidden="true" />
           Run complete
         </div>
+        {stars !== undefined && (
+          <div
+            data-testid="race-celebration-stars"
+            style={{
+              animation: 'unblock-banner-rise 400ms ease-out 450ms both',
+            }}
+          >
+            <StarRating rating={stars} size="lg" animated staggerMs={220} />
+          </div>
+        )}
         <div
           data-testid="race-celebration-totals"
           className="font-mono text-2xl font-bold tabular-nums text-white"
@@ -226,6 +245,26 @@ const RaceCelebration = ({
             · {totalMoves} moves
           </span>
         </div>
+        {points !== undefined && (
+          <div
+            data-testid="race-celebration-points"
+            className="flex flex-col items-center gap-0.5"
+            style={{
+              animation: 'unblock-banner-rise 400ms ease-out 650ms both',
+            }}
+          >
+            <CountUp
+              value={points}
+              prefix="+"
+              suffix=" pts"
+              startDelayMs={900}
+              className="font-mono text-3xl font-black tabular-nums text-amber-300"
+            />
+            <span className="text-[0.65rem] font-black uppercase tracking-widest text-white/60">
+              Leaderboard points
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Victory lap: the hero car streaks across below the banner with a

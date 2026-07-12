@@ -9,7 +9,7 @@ The Sudoku app has AI bot rivals (precomputed solver-driven timelines racing on 
 **Decisions made**:
 - **C++ → WASM via emscripten**, no separate npm package, no yalc. Artifacts: `solver.wasm` in `apps/unblockrace/public/solver/`; emscripten glue JS committed in `packages/unblockrace` (packages can't import from apps; the app serves the binary, the package loads it by URL — same split as tfjs: bundled glue + wasm fetched from public).
 - Emscripten build added to `/Users/jamesacres/Documents/git/rush` (James's clone; upstream PR possible later, like the tdoku PR).
-- Agents race **per stage**; hint is **free & unlimited**; credit fogleman/rush (MIT) in root `CREDITS.md` + the unblockrace credits page.
+- Agents race **per stage**; hint is the paywall (2 free/day, then Plus — see `PLAN-unblock-monetization-retention.md`); credit fogleman/rush (MIT) in root `CREDITS.md` + the unblockrace credits page.
 - Optional (only because it's trivial in TS): low-skill agents get non-optimal lines via reversible detour moves — see B5.
 
 Est. performance: hardest 50-move seed puzzles ~20–200ms on low-end mobile via WASM (native C++ is sub-ms–10ms; wasm ~1.2–2× native, low-end mobile ~5–10× desktop). Hints from mid-game states are cheaper. No perf gating needed.

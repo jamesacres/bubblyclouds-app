@@ -2,6 +2,7 @@ import {
   getPuzzleType,
   calculateSpeedBonus,
   calculateRacingBonus,
+  calculateSessionScore,
   calculateUserScore,
   formatTime,
   getUsernameFromParties,
@@ -19,7 +20,7 @@ const createEmptyPuzzle = () => {
 };
 
 // Helper to create server state result
-const createSession = (metadata?: any, seconds?: number) => {
+const createSession = (metadata?: any, seconds?: number, at?: string) => {
   return {
     sessionId: 'test-session',
     userId: 'user-1',
@@ -29,7 +30,7 @@ const createSession = (metadata?: any, seconds?: number) => {
       final: createEmptyPuzzle(),
       completed:
         seconds !== undefined
-          ? ({ at: '2024-01-01', seconds } as any)
+          ? ({ at: at ?? '2024-01-01', seconds } as any)
           : undefined,
       metadata,
     },
@@ -64,6 +65,26 @@ describe('scoringUtils', () => {
         sudokuBookPuzzleId: 'book-123',
       });
       expect(getPuzzleType(session)).toBe('daily');
+    });
+
+    it('should identify unblock daily run by runId starting "oftheday"', () => {
+      const session = createSession({ runId: 'oftheday-20260708' });
+      expect(getPuzzleType(session)).toBe('daily');
+    });
+
+    it('should identify unblock collection puzzle by unblockCollectionPuzzleId', () => {
+      const session = createSession({
+        unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3',
+      });
+      expect(getPuzzleType(session)).toBe('book');
+    });
+
+    it('should keep sudoku metadata precedence over unblock metadata', () => {
+      const session = createSession({
+        sudokuBookPuzzleId: 'book-123',
+        runId: 'oftheday-20260708',
+      });
+      expect(getPuzzleType(session)).toBe('book');
     });
   });
 
@@ -305,6 +326,257 @@ describe('scoringUtils', () => {
 
       expect(result.stats.fastestTime).toBe(0);
       expect(result.stats.averageTime).toBe(0);
+    });
+
+    it('should report comboBonus of 0 when no options are passed', () => {
+      const sessions = [
+        createSession({ sudokuId: 'oftheday_1', difficulty: 'expert' }, 100),
+        createSession({ sudokuBookPuzzleId: 'book-1' }, 200),
+      ];
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
+
+      expect(result.comboBonus).toBe(0);
+    });
+  });
+
+  describe('backward-compat parity (sudoku must stay bit-identical)', () => {
+    const sudokuFixtures = [
+      createSession(
+        { sudokuId: 'oftheday_1', difficulty: 'expert' },
+        120,
+        '2024-01-01T09:00:00Z'
+      ),
+      createSession(
+        { sudokuBookPuzzleId: 'book-9', difficulty: '8-fiendish' },
+        260,
+        '2024-01-01T10:00:00Z'
+      ),
+      createSession({ scannedAt: '2024-01-01' }, 700, '2024-01-01T11:00:00Z'),
+      createSession(
+        { sudokuId: 'oftheday_2', difficulty: 'simple' },
+        90,
+        '2024-01-02T09:00:00Z'
+      ),
+    ];
+
+    it('produces identical output with no options vs an undefined-combo baseline', () => {
+      const withoutOptions = calculateUserScore(
+        sudokuFixtures,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
+      const withEmptyOptions = calculateUserScore(
+        sudokuFixtures,
+        {},
+        'user-1',
+        isPuzzleCheated,
+        {}
+      );
+
+      expect(withEmptyOptions).toEqual(withoutOptions);
+      expect(withoutOptions.comboBonus).toBe(0);
+    });
+
+    it('matches the previously-expected numeric breakdown exactly', () => {
+      const result = calculateUserScore(
+        sudokuFixtures,
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
+
+      const expectedVolume = sudokuFixtures.length * 10;
+      const expectedDaily = 2 * SCORING_CONFIG.DAILY_PUZZLE_BASE;
+      const expectedBook = SCORING_CONFIG.BOOK_PUZZLE_BASE;
+      const expectedScanned = SCORING_CONFIG.SCANNED_PUZZLE_BASE;
+
+      const expectedDifficulty =
+        SCORING_CONFIG.DAILY_PUZZLE_BASE *
+          (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['expert'] - 1) +
+        SCORING_CONFIG.BOOK_PUZZLE_BASE *
+          (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['8-fiendish'] - 1) +
+        SCORING_CONFIG.DAILY_PUZZLE_BASE *
+          (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['simple'] - 1);
+
+      const expectedSpeed =
+        calculateSpeedBonus(120) +
+        calculateSpeedBonus(260) +
+        calculateSpeedBonus(700) +
+        calculateSpeedBonus(90);
+
+      expect(result.volumeScore).toBe(expectedVolume);
+      expect(result.dailyPuzzleScore).toBe(expectedDaily);
+      expect(result.bookPuzzleScore).toBe(expectedBook);
+      expect(result.scannedPuzzleScore).toBe(expectedScanned);
+      expect(result.difficultyBonus).toBeCloseTo(expectedDifficulty, 10);
+      expect(result.speedBonus).toBe(expectedSpeed);
+      expect(result.racingBonus).toBe(0);
+      expect(result.comboBonus).toBe(0);
+    });
+  });
+
+  describe('calculateSessionScore', () => {
+    it('has comboMultiplier 1 and comboBonus 0 without options', () => {
+      const session = createSession(
+        { sudokuId: 'oftheday_1', difficulty: 'expert' },
+        120
+      );
+      const score = calculateSessionScore(session);
+
+      expect(score.comboMultiplier).toBe(1);
+      expect(score.comboBonus).toBe(0);
+      expect(score.baseScore).toBe(SCORING_CONFIG.DAILY_PUZZLE_BASE);
+    });
+
+    it('matches the per-session contribution inside calculateUserScore', () => {
+      const session = createSession(
+        { sudokuBookPuzzleId: 'book-1', difficulty: '8-fiendish' },
+        200
+      );
+      const userScore = calculateUserScore(
+        [session],
+        {},
+        'user-1',
+        isPuzzleCheated
+      );
+      const sessionScore = calculateSessionScore(session);
+
+      expect(sessionScore.volumeScore).toBe(userScore.volumeScore);
+      expect(sessionScore.difficultyBonus).toBeCloseTo(
+        userScore.difficultyBonus,
+        10
+      );
+      expect(sessionScore.speedBonus).toBe(userScore.speedBonus);
+      expect(sessionScore.baseScore).toBe(userScore.bookPuzzleScore);
+    });
+
+    it('applies the combo multiplier to volume + base×difficulty + speed', () => {
+      const session = createSession(
+        { runId: 'oftheday-20260708', difficulty: 'expert' },
+        120
+      );
+      const dailyCombo = SCORING_CONFIG.DAILY_COMBO;
+      const score = calculateSessionScore(session, {
+        dailyCombo,
+        dayPuzzleIndex: 2,
+      });
+
+      const expectedMultiplier = 1 + 2 * dailyCombo.increment;
+      const diffMult = SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['expert'];
+      const comboBase =
+        SCORING_CONFIG.VOLUME_MULTIPLIER +
+        SCORING_CONFIG.DAILY_PUZZLE_BASE * diffMult +
+        calculateSpeedBonus(120);
+
+      expect(score.comboMultiplier).toBeCloseTo(expectedMultiplier, 10);
+      expect(score.comboBonus).toBeCloseTo(
+        (expectedMultiplier - 1) * comboBase,
+        10
+      );
+    });
+
+    it('caps the combo multiplier at max', () => {
+      const session = createSession({ runId: 'oftheday-20260708' }, 120);
+      const dailyCombo = SCORING_CONFIG.DAILY_COMBO;
+      const score = calculateSessionScore(session, {
+        dailyCombo,
+        dayPuzzleIndex: 100,
+      });
+
+      expect(score.comboMultiplier).toBe(dailyCombo.max);
+    });
+  });
+
+  describe('daily combo in calculateUserScore', () => {
+    const dailyCombo = SCORING_CONFIG.DAILY_COMBO;
+
+    it('groups completed sessions by UTC day and feeds an ascending index', () => {
+      const sessions = [
+        createSession({ runId: 'oftheday-1' }, 100, '2024-01-01T12:00:00Z'),
+        createSession({ runId: 'oftheday-2' }, 100, '2024-01-01T09:00:00Z'),
+        createSession({ runId: 'oftheday-3' }, 100, '2024-01-01T15:00:00Z'),
+      ];
+
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated,
+        { dailyCombo }
+      );
+
+      const perSession = calculateSessionScore(sessions[0], {
+        dailyCombo,
+        dayPuzzleIndex: 0,
+      });
+      const expectedCombo =
+        calculateSessionScore(sessions[1], { dailyCombo, dayPuzzleIndex: 0 })
+          .comboBonus +
+        calculateSessionScore(sessions[0], { dailyCombo, dayPuzzleIndex: 1 })
+          .comboBonus +
+        calculateSessionScore(sessions[2], { dailyCombo, dayPuzzleIndex: 2 })
+          .comboBonus;
+
+      expect(perSession.comboBonus).toBe(0);
+      expect(result.comboBonus).toBeCloseTo(expectedCombo, 10);
+      expect(result.comboBonus).toBeGreaterThan(0);
+    });
+
+    it('restarts the combo index per UTC day', () => {
+      const sessions = [
+        createSession({ runId: 'oftheday-1' }, 100, '2024-01-01T09:00:00Z'),
+        createSession({ runId: 'oftheday-2' }, 100, '2024-01-01T10:00:00Z'),
+        createSession({ runId: 'oftheday-3' }, 100, '2024-01-02T09:00:00Z'),
+      ];
+
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated,
+        { dailyCombo }
+      );
+
+      const expectedCombo = calculateSessionScore(sessions[1], {
+        dailyCombo,
+        dayPuzzleIndex: 1,
+      }).comboBonus;
+
+      expect(result.comboBonus).toBeCloseTo(expectedCombo, 10);
+    });
+
+    it('caps the combo multiplier for very active days', () => {
+      const sessions = Array.from({ length: 8 }, (_, index) =>
+        createSession(
+          { runId: `oftheday-${index}` },
+          100,
+          `2024-01-01T${String(index + 1).padStart(2, '0')}:00:00Z`
+        )
+      );
+
+      const result = calculateUserScore(
+        sessions,
+        {},
+        'user-1',
+        isPuzzleCheated,
+        { dailyCombo }
+      );
+
+      const expectedCombo = sessions.reduce(
+        (sum, session, index) =>
+          sum +
+          calculateSessionScore(session, { dailyCombo, dayPuzzleIndex: index })
+            .comboBonus,
+        0
+      );
+
+      expect(result.comboBonus).toBeCloseTo(expectedCombo, 10);
     });
   });
 

@@ -1,13 +1,15 @@
 'use client';
 import React from 'react';
-import { X, Zap, BookOpen, Trophy, Timer, ScanLine } from 'lucide-react';
+import { X, Zap, BookOpen, Trophy, Timer, ScanLine, Flame } from 'lucide-react';
 import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
+import { DailyComboConfig } from '../types/scoringTypes';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
 
 interface ScoringLegendProps {
   isOpen: boolean;
   onClose: () => void;
   gameName: string;
+  dailyCombo?: DailyComboConfig;
 }
 
 const DAILY_DIFFICULTIES = [
@@ -28,10 +30,21 @@ const multiplierBar = (mult: number, max: number) => {
   return pct;
 };
 
+const comboTiers = (dailyCombo: DailyComboConfig) => {
+  const tiers: { puzzle: number; mult: number }[] = [];
+  for (let index = 0; index < 6; index++) {
+    const mult = Math.min(1 + index * dailyCombo.increment, dailyCombo.max);
+    tiers.push({ puzzle: index + 1, mult });
+    if (mult >= dailyCombo.max) break;
+  }
+  return tiers;
+};
+
 const ScoringLegend: React.FC<ScoringLegendProps> = ({
   isOpen,
   onClose,
   gameName,
+  dailyCombo,
 }) => {
   if (!isOpen) return null;
 
@@ -248,6 +261,42 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
               })}
             </div>
           </section>
+
+          {/* Daily combo */}
+          {dailyCombo && (
+            <section>
+              <div className="mb-3 flex items-center gap-2">
+                <Flame className="h-4 w-4 text-amber-500" />
+                <h4 className="text-sm font-semibold text-zinc-900 dark:text-white">
+                  Daily combo
+                </h4>
+              </div>
+              <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-300">
+                Solve more puzzles on the same day to multiply each
+                puzzle&apos;s points, up to{' '}
+                <span className="font-semibold tabular-nums text-amber-500">
+                  {dailyCombo.max}×
+                </span>
+                .
+              </p>
+              <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
+                {comboTiers(dailyCombo).map(({ puzzle, mult }) => (
+                  <div
+                    key={puzzle}
+                    className="flex items-center justify-between px-4 py-3"
+                  >
+                    <span className="text-sm text-zinc-700 dark:text-zinc-300">
+                      Puzzle {puzzle}
+                      {mult >= dailyCombo.max ? '+' : ''} of the day
+                    </span>
+                    <span className="text-sm font-semibold tabular-nums text-amber-500">
+                      {mult.toFixed(1)}×
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </div>

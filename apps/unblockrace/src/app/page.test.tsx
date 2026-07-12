@@ -128,6 +128,10 @@ jest.mock('lucide-react', () => ({
   ChevronsRight: () => (
     <div data-testid="chevrons-right-icon">ChevronsRight Icon</div>
   ),
+  Star: () => <div data-testid="star-icon">Star Icon</div>,
+  ExternalLink: () => (
+    <div data-testid="external-link-icon">ExternalLink Icon</div>
+  ),
 }));
 
 describe('Home Page', () => {
@@ -234,6 +238,13 @@ describe('Home Page', () => {
     it('should render premium features component', () => {
       render(<Home />);
       expect(screen.getByTestId('premium-features')).toBeInTheDocument();
+    });
+  });
+
+  describe('Rate app section', () => {
+    it('should render the rate-app prompt on the START tab', () => {
+      render(<Home />);
+      expect(screen.getByText(/Enjoying Unblock Race\?/i)).toBeInTheDocument();
     });
   });
 

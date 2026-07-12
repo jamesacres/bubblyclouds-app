@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { RefreshCw } from 'lucide-react';
 import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
+import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
 
 interface Arguments<
   State extends {
@@ -39,6 +40,10 @@ interface Arguments<
   // percentage in the inline legend, from move zero. Games without a
   // move-count concept (sudoku) omit this and keep showing the percentage.
   calculateProgressStatsDisplayFromState?: (state: State) => string | undefined;
+  // Optional rate-app prompt shown on the completed block. Games that pass it
+  // render a Rate-it button below the "Challenge friends" card; omitting it
+  // leaves the completed block unchanged.
+  rateApp?: { appName: string; appStoreUrl: string; googlePlayUrl: string };
 }
 
 interface PlayerProgress {
@@ -70,6 +75,7 @@ const RaceTrack = <
   onInviteFriends,
   calculateStatsDisplayFromState,
   calculateProgressStatsDisplayFromState,
+  rateApp,
 }: Arguments<State>) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
@@ -545,6 +551,15 @@ const RaceTrack = <
                 </button>
               </div>
             </div>
+          )}
+
+          {rateApp && (
+            <RateAppButton
+              variant="inline"
+              appName={rateApp.appName}
+              appStoreUrl={rateApp.appStoreUrl}
+              googlePlayUrl={rateApp.googlePlayUrl}
+            />
           )}
         </div>
       )}

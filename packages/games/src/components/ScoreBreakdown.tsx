@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Award, Zap, Calendar, Book, Camera } from 'lucide-react';
+import { Award, Zap, Calendar, Book, Camera, Flame } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
 
@@ -62,6 +62,13 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
       detail: 'Beat friends who also completed',
       icon: <Award size={16} className="text-indigo-600" />,
       color: 'border-l-indigo-500',
+    },
+    {
+      label: 'Daily combo',
+      value: breakdown.comboBonus,
+      detail: 'More puzzles per day = bigger multiplier',
+      icon: <Flame size={16} className="text-pink-600" />,
+      color: 'border-l-pink-500',
     },
   ];
 

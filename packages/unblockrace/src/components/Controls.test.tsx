@@ -67,4 +67,19 @@ describe('Controls', () => {
     render(<Controls {...defaultProps} onHint={jest.fn()} isDisabled />);
     expect(screen.getByLabelText('Hint')).toBeDisabled();
   });
+
+  it('always renders the animated rainbow ring around the hint button', () => {
+    render(<Controls {...defaultProps} onHint={jest.fn()} />);
+    expect(screen.getByTestId('hint-rainbow-ring')).toBeInTheDocument();
+  });
+
+  it('shows the free-hint badge when provided and omits it otherwise', () => {
+    const { rerender } = render(
+      <Controls {...defaultProps} onHint={jest.fn()} hintBadge="2 left" />
+    );
+    expect(screen.getByTestId('hint-badge')).toHaveTextContent('2 left');
+
+    rerender(<Controls {...defaultProps} onHint={jest.fn()} />);
+    expect(screen.queryByTestId('hint-badge')).not.toBeInTheDocument();
+  });
 });

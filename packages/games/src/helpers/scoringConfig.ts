@@ -47,4 +47,6 @@ export const SCORING_CONFIG = {
   },
 
   RACING_BONUS_PER_PERSON: 100,
+
+  DAILY_COMBO: { increment: 0.1, max: 1.5 },
 };

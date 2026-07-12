@@ -13,6 +13,7 @@ import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
+import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
 import {
   getPlayerColor,
   getAllUserIds,
@@ -41,6 +42,9 @@ interface UnblockRaceTrackProps {
   // Local AI rivals racing this stage. They aren't party members (no user
   // id, no player colour) — their emoji is the kart.
   localAgentProgress?: AgentProgress<ServerState>[];
+  // Optional rate-app prompt shown on the completed block, below the
+  // "Challenge friends" card. Omitting it leaves the block unchanged.
+  rateApp?: { appName: string; appStoreUrl: string; googlePlayUrl: string };
 }
 
 interface PlayerProgress {
@@ -79,6 +83,7 @@ const UnblockRaceTrack = ({
   onInviteFriends,
   runResults,
   localAgentProgress,
+  rateApp,
 }: UnblockRaceTrackProps) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
 
@@ -831,6 +836,15 @@ const UnblockRaceTrack = ({
                 </button>
               </div>
             </div>
+          )}
+
+          {rateApp && (
+            <RateAppButton
+              variant="inline"
+              appName={rateApp.appName}
+              appStoreUrl={rateApp.appStoreUrl}
+              googlePlayUrl={rateApp.googlePlayUrl}
+            />
           )}
         </div>
       )}

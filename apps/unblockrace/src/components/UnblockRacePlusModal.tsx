@@ -10,9 +10,10 @@ const PLUS_DESCRIPTION = (
     <span className="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-sm font-semibold text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300">
       Unblock Race Plus
     </span>{' '}
-    to <span className="font-semibold">remove all speed limits</span>. Challenge
-    friends, climb leaderboards, and improve your solving speed. Keep it ad
-    free.
+    for <span className="font-semibold">unlimited hints</span>, the{' '}
+    <span className="font-semibold">entire monthly pack unlocked</span>, and{' '}
+    <span className="font-semibold">unlimited undos</span>. Challenge friends,
+    climb leaderboards, and keep it ad free.
   </p>
 );
 

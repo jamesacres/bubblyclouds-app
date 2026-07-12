@@ -6,6 +6,7 @@ import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import {
   FriendsLeaderboardScore,
   AllFriendsSessionsMap,
+  ScoringOptions,
 } from '../types/scoringTypes';
 import {
   calculateUserScore,
@@ -27,6 +28,7 @@ interface LeaderboardProps<TState extends BaseServerState = BaseServerState> {
   selectedParty?: Party;
   isPuzzleCheated: (state: TState) => boolean;
   gameName: string;
+  scoringOptions?: ScoringOptions;
 }
 
 function Leaderboard<TState extends BaseServerState = BaseServerState>({
@@ -37,6 +39,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
   selectedParty,
   isPuzzleCheated,
   gameName,
+  scoringOptions,
 }: LeaderboardProps<TState>) {
   const [showScoringLegend, setShowScoringLegend] = useState(false);
 
@@ -74,7 +77,8 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
         sessions,
         allFriendsSessions,
         user.sub,
-        isPuzzleCheated
+        isPuzzleCheated,
+        scoringOptions
       );
       const totalScore =
         userScore.volumeScore +
@@ -83,7 +87,8 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
         userScore.scannedPuzzleScore +
         userScore.difficultyBonus +
         userScore.speedBonus +
-        userScore.racingBonus;
+        userScore.racingBonus +
+        userScore.comboBonus;
 
       leaderboard.push({
         userId: user.sub,
@@ -97,6 +102,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
           difficultyBonus: userScore.difficultyBonus,
           speedBonus: userScore.speedBonus,
           racingBonus: userScore.racingBonus,
+          comboBonus: userScore.comboBonus,
         },
         stats: userScore.stats,
       });
@@ -113,7 +119,8 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
           userSession.sessions as ServerStateResult<TState>[],
           allFriendsSessions,
           userId,
-          isPuzzleCheated
+          isPuzzleCheated,
+          scoringOptions
         );
         const totalScore =
           friendScore.volumeScore +
@@ -122,7 +129,8 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
           friendScore.scannedPuzzleScore +
           friendScore.difficultyBonus +
           friendScore.speedBonus +
-          friendScore.racingBonus;
+          friendScore.racingBonus +
+          friendScore.comboBonus;
 
         leaderboard.push({
           userId,
@@ -139,6 +147,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
             difficultyBonus: friendScore.difficultyBonus,
             speedBonus: friendScore.speedBonus,
             racingBonus: friendScore.racingBonus,
+            comboBonus: friendScore.comboBonus,
           },
           stats: friendScore.stats,
         });
@@ -149,7 +158,15 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
     return leaderboard
       .filter((entry) => entry.stats.totalPuzzles > 0)
       .sort((a, b) => b.totalScore - a.totalScore);
-  }, [sessions, friendSessions, parties, user, selectedParty, isPuzzleCheated]);
+  }, [
+    sessions,
+    friendSessions,
+    parties,
+    user,
+    selectedParty,
+    isPuzzleCheated,
+    scoringOptions,
+  ]);
 
   if (leaderboardData.length === 0) {
     return null;
@@ -191,6 +208,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
         isOpen={showScoringLegend}
         onClose={() => setShowScoringLegend(false)}
         gameName={gameName}
+        dailyCombo={scoringOptions?.dailyCombo}
       />
     </div>
   );

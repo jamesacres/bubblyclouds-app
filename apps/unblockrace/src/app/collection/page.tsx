@@ -19,8 +19,12 @@ import SimpleBoard from '@bubblyclouds-app/unblockrace/components/SimpleBoard';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/unblockrace/helpers/cheatDetection';
 import { movesDisplayFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateStatsDisplay';
+import { starRatingFromState } from '@bubblyclouds-app/unblockrace/helpers/starRating';
+import { lockedCollectionIndexes } from '@bubblyclouds-app/unblockrace/helpers/collectionLocks';
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { APP_CONFIG } from '../../../app.config.js';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
@@ -44,6 +48,7 @@ export default function CollectionPage() {
     lazyLoadFriendSessions,
   } = useSessions<GameState>();
   const { parties } = useParties();
+  const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
 
   // Scroll to top functionality
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -153,6 +158,14 @@ export default function CollectionPage() {
 
     return newMockSessions;
   }, [collectionData, createMockSessionFromPuzzle]);
+
+  const lockedIndexes = useMemo(
+    () =>
+      collectionData?.puzzles
+        ? lockedCollectionIndexes(collectionData.puzzles)
+        : new Set<number>(),
+    [collectionData]
+  );
 
   const isLoading = collectionLoading || sessionsLoading;
 
@@ -268,6 +281,13 @@ export default function CollectionPage() {
                     }{' '}
                     in progress
                   </div>
+                  {!isSubscribed && (
+                    <div className="rounded-lg border border-amber-300/40 bg-amber-400/15 px-3 py-1.5 text-sm font-medium text-amber-100 backdrop-blur-sm">
+                      {collectionData.puzzles.length - lockedIndexes.size} of{' '}
+                      {collectionData.puzzles.length} free this month — Plus
+                      unlocks all
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -285,7 +305,7 @@ export default function CollectionPage() {
               {[
                 {
                   difficulty: 'simple',
-                  label: 'Tricky',
+                  label: 'Beginner',
                   color: 'bg-green-500 text-white',
                 },
                 {
@@ -363,6 +383,10 @@ export default function CollectionPage() {
                 );
               }
 
+              const isLocked = !isSubscribed && lockedIndexes.has(index);
+              const navigateToPuzzle = () =>
+                router.push(buildPuzzleUrlFromState(mockSession.state));
+
               return (
                 <div key={index} id={`puzzle-${index}`}>
                   <IntegratedSessionRow<ServerState, UnblockCollectionPuzzle>
@@ -381,6 +405,15 @@ export default function CollectionPage() {
                     isPuzzleCheated={isPuzzleCheated}
                     buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                     getMovesDisplay={movesDisplayFromState}
+                    getStarRating={starRatingFromState}
+                    isLocked={isLocked}
+                    onLockedClick={() =>
+                      subscribeModal?.showModalIfRequired(
+                        navigateToPuzzle,
+                        () => {},
+                        SubscriptionContext.COLLECTION_LOCKED
+                      )
+                    }
                   />
                 </div>
               );

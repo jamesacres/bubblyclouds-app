@@ -30,6 +30,35 @@ describe('RaceCelebration', () => {
     );
   });
 
+  it('renders the run-total stars and points when supplied', () => {
+    render(
+      <RaceCelebration
+        isVisible
+        totalSeconds={95}
+        totalMoves={42}
+        stars={3}
+        points={280}
+      />
+    );
+
+    expect(screen.getByTestId('race-celebration-stars')).toBeInTheDocument();
+    expect(screen.getByLabelText('3 of 3 stars')).toBeInTheDocument();
+    const points = screen.getByTestId('race-celebration-points');
+    expect(points).toHaveTextContent('+280 pts');
+    expect(points).toHaveTextContent('Leaderboard points');
+  });
+
+  it('omits stars and points when not supplied', () => {
+    render(<RaceCelebration isVisible totalSeconds={95} totalMoves={42} />);
+
+    expect(
+      screen.queryByTestId('race-celebration-stars')
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId('race-celebration-points')
+    ).not.toBeInTheDocument();
+  });
+
   it('requests an app review at a milestone count once the celebration ends', () => {
     jest.useFakeTimers();
     try {

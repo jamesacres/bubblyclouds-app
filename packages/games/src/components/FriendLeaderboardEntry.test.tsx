@@ -37,6 +37,7 @@ describe('FriendLeaderboardEntry', () => {
       difficultyBonus: 30,
       speedBonus: 100,
       racingBonus: 50,
+      comboBonus: 0,
     },
     stats: {
       totalPuzzles: 10,
@@ -369,6 +370,7 @@ describe('FriendLeaderboardEntry', () => {
           difficultyBonus: 75,
           speedBonus: 200,
           racingBonus: 100,
+          comboBonus: 0,
         },
       });
 

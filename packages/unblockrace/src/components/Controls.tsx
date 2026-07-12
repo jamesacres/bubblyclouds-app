@@ -14,6 +14,9 @@ interface ControlsProps {
   // renders when the caller wires a handler (solver-less renders omit it).
   onHint?: () => void;
   isHintDisabled?: boolean;
+  // "N left" free-hint count shown beside the lightbulb for non-subscribers;
+  // omitted for subscribers (unlimited hints).
+  hintBadge?: string;
   // Live move count against the stage's par; the gauge is omitted when the
   // caller doesn't track moves (e.g. standalone renders in tests).
   movesMade?: number;
@@ -47,6 +50,7 @@ const Controls = ({
   isDisabled,
   onHint,
   isHintDisabled,
+  hintBadge,
   movesMade,
   movesRequired,
   timer,
@@ -71,8 +75,12 @@ const Controls = ({
           0% { box-shadow: 0 0 0 0 rgba(245,158,11,0.7); }
           100% { box-shadow: 0 0 0 7px rgba(245,158,11,0); }
         }
+        @keyframes unblock-hint-rainbow-spin {
+          to { transform: rotate(360deg); }
+        }
         @media (prefers-reduced-motion: reduce) {
           [data-testid="moves-par"] * { animation: none !important; }
+          [data-testid="hint-rainbow-ring"] { animation: none !important; }
         }
       `}</style>
       <div className="flex min-w-0 flex-1 items-center gap-4">
@@ -122,16 +130,45 @@ const Controls = ({
       </div>
       <div className="flex shrink-0 items-center gap-1.5">
         {onHint ? (
-          <button
-            type="button"
-            aria-label="Hint"
-            title="Ask for help"
-            className={controlButtonClass}
-            onClick={onHint}
-            disabled={isHintDisabled || isDisabled}
-          >
-            <Lightbulb className="h-4.5 w-4.5" />
-          </button>
+          <span className="flex items-center gap-1.5">
+            {/* Always-on animated rainbow ring: a spinning conic-gradient in
+                a wrapper whose padding forms the border width; the inner
+                button sits on top and masks the centre. Reduced motion stops
+                the spin (the gradient stays as a static ring). */}
+            <span
+              data-testid="hint-rainbow-wrapper"
+              className="relative inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl p-[2px]"
+            >
+              <span
+                data-testid="hint-rainbow-ring"
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-1"
+                style={{
+                  background:
+                    'conic-gradient(from 0deg, #f87171, #fbbf24, #34d399, #60a5fa, #a78bfa, #f472b6, #f87171)',
+                  animation: 'unblock-hint-rainbow-spin 3s linear infinite',
+                }}
+              />
+              <button
+                type="button"
+                aria-label="Hint"
+                title="Ask for help"
+                className={`${controlButtonClass} relative h-full w-full`}
+                onClick={onHint}
+                disabled={isHintDisabled || isDisabled}
+              >
+                <Lightbulb className="h-4.5 w-4.5" />
+              </button>
+            </span>
+            {hintBadge ? (
+              <span
+                data-testid="hint-badge"
+                className="text-theme-primary dark:text-theme-primary-light text-[0.6rem] font-black uppercase tracking-wide"
+              >
+                {hintBadge}
+              </span>
+            ) : null}
+          </span>
         ) : null}
         <button
           type="button"

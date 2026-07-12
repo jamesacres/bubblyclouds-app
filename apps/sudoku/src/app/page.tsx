@@ -5,6 +5,7 @@ import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
+import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
 import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { motivationalMessages } from '../config/motivationalMessages';
@@ -580,6 +581,14 @@ function HomeComponent() {
               </div>
             </div>
           </div>
+
+          {/* Rate the app */}
+          <RateAppButton
+            variant="card"
+            appName={APP_CONFIG.gameName}
+            appStoreUrl={APP_CONFIG.appStoreUrl}
+            googlePlayUrl={APP_CONFIG.googlePlayUrl}
+          />
 
           {/* Premium features */}
           <PremiumFeatures

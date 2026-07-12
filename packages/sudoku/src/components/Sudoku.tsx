@@ -759,6 +759,7 @@ const Sudoku = ({
                   isPuzzleCheated={isPuzzleCheated}
                   localAgentProgress={localAgentProgress}
                   onInviteFriends={handleInviteFriends}
+                  rateApp={{ appName, appStoreUrl, googlePlayUrl }}
                 />
               )}
             </div>

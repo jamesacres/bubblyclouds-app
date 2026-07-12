@@ -8,6 +8,8 @@ export enum SubscriptionContext {
   REVEAL = 'reveal',
   THEME_COLOR = 'themeColor',
   DAILY_PUZZLE_LIMIT = 'dailyPuzzleLimit',
+  HINT = 'hint',
+  COLLECTION_LOCKED = 'collectionLocked',
   REMOVE_MEMBER = 'removeMember',
   MULTIPLE_PARTIES = 'multipleParties',
   PARTY_MAX_SIZE = 'maxSize',

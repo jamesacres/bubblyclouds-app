@@ -23,6 +23,12 @@ import {
   Session,
 } from '@bubblyclouds-app/types/serverTypes';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import {
+  canUseUndo,
+  incrementUndoCount,
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { useDocumentVisibility } from '@bubblyclouds-app/template/hooks/documentVisibility';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
@@ -79,6 +85,7 @@ function useGameState({
 }) {
   const context = useContext(UserContext);
   const { user } = context || {};
+  const { subscribeModal, isSubscribed } = useContext(RevenueCatContext) || {};
   const isDocumentVisible = useDocumentVisibility();
 
   const { timer, setTimerNewSession, stopTimer, setPauseTimer, isPaused } =
@@ -364,12 +371,28 @@ function useGameState({
   const isUndoDisabled = answerStack.length < 2;
   const undo = useCallback(() => {
     if (!isUndoDisabled && !completed) {
-      registerInteraction();
-      const lastAnswer = answerStack[answerStack.length - 1];
-      setRedoAnswerStack([...redoAnswerStack, lastAnswer]);
-      setAnswerStack({
-        answerStack: answerStack.slice(0, answerStack.length - 1),
-      });
+      const performUndo = () => {
+        registerInteraction();
+        const lastAnswer = answerStack[answerStack.length - 1];
+        setRedoAnswerStack([...redoAnswerStack, lastAnswer]);
+        setAnswerStack({
+          answerStack: answerStack.slice(0, answerStack.length - 1),
+        });
+        // Increment the daily counter only for non-subscribers
+        if (!isSubscribed) {
+          incrementUndoCount();
+        }
+      };
+
+      if (isSubscribed || canUseUndo()) {
+        performUndo();
+      } else if (subscribeModal) {
+        subscribeModal.showModalIfRequired(
+          performUndo,
+          () => {},
+          SubscriptionContext.UNDO
+        );
+      }
     }
   }, [
     isUndoDisabled,
@@ -377,6 +400,8 @@ function useGameState({
     answerStack,
     redoAnswerStack,
     registerInteraction,
+    isSubscribed,
+    subscribeModal,
   ]);
   const isRedoDisabled = !redoAnswerStack.length;
   const redo = useCallback(() => {
