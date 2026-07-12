@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Star } from 'lucide-react';
 import { isAndroid, isCapacitor, isIOS } from '../helpers/capacitor';
 
@@ -18,7 +19,15 @@ export const RateAppButton = ({
   variant = 'card',
   className,
 }: RateAppButtonProps) => {
-  const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  const userAgent =
+    mounted && typeof navigator !== 'undefined' ? navigator.userAgent : '';
   const isIOSWeb = /iPad|iPhone|iPod/.test(userAgent) && !isCapacitor();
   const isAndroidWeb = /Android/.test(userAgent) && !isCapacitor();
   const isMobileWeb = isIOSWeb || isAndroidWeb;
@@ -31,7 +40,7 @@ export const RateAppButton = ({
     window.open(url, '_blank', 'noopener');
   };
 
-  if (isCapacitor() || isMobileWeb) {
+  if (mounted && (isCapacitor() || isMobileWeb)) {
     const handleClick = () => {
       const useAndroidStore = isAndroid() || isAndroidWeb;
       if (isCapacitor()) {

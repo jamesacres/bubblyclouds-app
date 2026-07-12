@@ -4,7 +4,7 @@ import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { parseBoardString } from '../helpers/parseBoardString';
 import { pieceCol, pieceRow } from '../helpers/piece';
 import { assignPieceColors } from '../helpers/pieceColors';
-import { useThemeColorName } from '../hooks/useThemeColorName';
+import { useThemeColorName } from '@bubblyclouds-app/ui/hooks/useThemeColorName';
 
 interface SimpleBoardProps {
   initial?: string;

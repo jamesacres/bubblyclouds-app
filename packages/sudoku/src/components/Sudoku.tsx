@@ -35,6 +35,7 @@ import { DAILY_LIMITS } from '@bubblyclouds-app/template/config/dailyLimits';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
+import RaceCelebrationOverlay from '@bubblyclouds-app/ui/components/RaceCelebrationOverlay';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import LobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import { useRouter } from 'next/navigation';
@@ -55,7 +56,7 @@ import { DreyfusLevel } from '../types/Agent';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
-import CountdownOverlay from './CountdownOverlay';
+import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -650,12 +651,21 @@ const Sudoku = ({
         timer.countdown > 0 && <CountdownOverlay countdown={timer.countdown} />}
 
       {completed && (
-        <CelebrationAnimation
-          isVisible={showAnimation}
-          gridRef={gridRef}
-          completedGamesCount={completedGamesCount}
-          isCapacitor={isCapacitor}
-        />
+        <>
+          <CelebrationAnimation
+            isVisible={showAnimation}
+            gridRef={gridRef}
+            completedGamesCount={completedGamesCount}
+            isCapacitor={isCapacitor}
+          />
+          {/* Layer the shared confetti + banner + flash polish on top of the
+              exploding numbers. CelebrationAnimation's fireworks/numbers sit at
+              z-50/z-[9999]; the overlay's own z-[110] keeps the confetti rain
+              in front of the page but behind the exploding numbers so it frames
+              them rather than obscuring them. Presentation-only, so the review
+              prompt still lives solely in CelebrationAnimation. */}
+          <RaceCelebrationOverlay isVisible={showAnimation} title="Solved!" />
+        </>
       )}
 
       <div className="flex flex-col items-center lg:flex-row">

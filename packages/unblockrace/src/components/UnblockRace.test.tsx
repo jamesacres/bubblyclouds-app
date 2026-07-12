@@ -79,7 +79,7 @@ jest.mock('./RaceCelebration', () => {
   };
 });
 const mockRaceTrackProps = jest.fn();
-jest.mock('./UnblockRaceTrack', () => {
+jest.mock('@bubblyclouds-app/games/components/RaceTrack', () => {
   const DummyRaceTrack = function DummyRaceTrack(props: object) {
     mockRaceTrackProps(props);
     return <div data-testid="race-track">Race Track</div>;

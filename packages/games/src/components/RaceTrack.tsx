@@ -2,17 +2,23 @@
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { memo, useMemo, useState, useEffect, useRef } from 'react';
-import {
-  getPlayerColor,
-  getAllUserIds,
-} from '@bubblyclouds-app/template/utils/playerColors';
+import { getAllUserIds } from '@bubblyclouds-app/template/utils/playerColors';
+import { getRaceCarColor } from '@bubblyclouds-app/template/utils/raceCarColors';
+import { useThemeColorName } from '@bubblyclouds-app/ui/hooks/useThemeColorName';
 import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import Link from 'next/link';
-import { RefreshCw } from 'lucide-react';
+import {
+  ChevronRight,
+  LayoutGrid,
+  RefreshCw,
+  Trophy,
+  Users,
+} from 'lucide-react';
 import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
+import { PlayerRunResult } from '../types/scoringTypes';
 
 interface Arguments<
   State extends {
@@ -30,7 +36,9 @@ interface Arguments<
   isPolling: boolean;
   calculateCompletionPercentageFromState: (state: State) => number;
   isPuzzleCheated: (answerStack: State['answerStack']) => boolean;
-  localAgentProgress?: AgentProgress[];
+  // Local AI rivals racing this puzzle. They aren't party members (no user
+  // id, no player colour) — their emoji is the kart.
+  localAgentProgress?: AgentProgress<State>[];
   onInviteFriends?: () => void;
   // Optional short stats string (e.g. "12 moves") shown next to each
   // finished player's time on the leaderboard. Games without a move-count
@@ -44,6 +52,19 @@ interface Arguments<
   // render a Rate-it button below the "Challenge friends" card; omitting it
   // leaves the completed block unchanged.
   rateApp?: { appName: string; appStoreUrl: string; googlePlayUrl: string };
+  // Multi-stage runs only: each player's per-stage times and run total,
+  // refreshed at the end of each stage. When provided it replaces the
+  // single-stage finished leaderboard with the per-stage breakdown so every
+  // stage's time (and the whole-run total) is visible. Single-puzzle games
+  // (sudoku) omit it and keep the finished-players list.
+  runResults?: PlayerRunResult[];
+  // Second CTA link on the completed block. Defaults to the puzzle book;
+  // games with their own browse route (e.g. Unblock Race's collection) pass
+  // their own href/label/icon.
+  secondaryCta?: { href: string; label: string; icon?: 'book' | 'collection' };
+  // Formats finish/stage times in the leaderboard and legend. Defaults to the
+  // shared zero-padded hh:mm:ss; games can pass a compact form.
+  formatFinishTime?: (seconds: number) => string;
 }
 
 interface PlayerProgress {
@@ -55,6 +76,18 @@ interface PlayerProgress {
   isPuzzleCheated: boolean;
   statsDisplay?: string;
   progressStatsDisplay?: string;
+}
+
+// One line of the single-stage finished list: humans (with their colour dot)
+// and agents (with their emoji) merged and sorted by finish time.
+interface FinishedRacer {
+  key: string;
+  userId?: string;
+  nickname: string;
+  isCurrentUser: boolean;
+  statsDisplay?: string;
+  finishTime: number;
+  emoji?: string;
 }
 
 const RaceTrack = <
@@ -76,18 +109,27 @@ const RaceTrack = <
   calculateStatsDisplayFromState,
   calculateProgressStatsDisplayFromState,
   rateApp,
+  runResults,
+  secondaryCta,
+  formatFinishTime,
 }: Arguments<State>) => {
+  // Games that pass a formatter want finish times in the compact race chrome
+  // (legend chips); games that omit it keep the percentage in the legend and
+  // use the shared zero-padded hh:mm:ss on the leaderboard.
+  const formatTime = formatFinishTime ?? formatSeconds;
+  const showFinishTimeInLegend = formatFinishTime !== undefined;
   const { getNicknameByUserId, parties, refreshParties } = useParties();
+  const themeColor = useThemeColorName();
 
   // Track height state for responsive layout (SSR-safe)
-  const [trackHeight, setTrackHeight] = useState(40);
+  const [trackHeight, setTrackHeight] = useState(56);
 
   // Track member IDs we've seen to avoid repeated refreshes
   const seenMemberIds = useRef(new Set<string>());
 
   useEffect(() => {
     const updateTrackHeight = () => {
-      setTrackHeight(window.innerWidth >= 1024 ? 56 : 40);
+      setTrackHeight(window.innerWidth >= 1024 ? 64 : 56);
     };
 
     updateTrackHeight();
@@ -211,283 +253,587 @@ const RaceTrack = <
       .sort((a, b) => a.finishTime! - b.finishTime!);
   }, [allPlayerProgress]);
 
+  const agentProgressList = useMemo(
+    () => localAgentProgress ?? [],
+    [localAgentProgress]
+  );
+
+  // Single-stage finished list: humans and finished agents in one order
+  const finishedRacers = useMemo((): FinishedRacer[] => {
+    const players = finishedPlayers.map(
+      (player): FinishedRacer => ({
+        key: player.userId,
+        userId: player.userId,
+        nickname: player.nickname,
+        isCurrentUser: player.isCurrentUser,
+        statsDisplay: player.statsDisplay,
+        finishTime: player.finishTime!,
+      })
+    );
+    const agents = agentProgressList
+      .filter((agent) => agent.finishTime !== undefined)
+      .map(
+        (agent): FinishedRacer => ({
+          key: `agent-${agent.agentId}`,
+          nickname: agent.name,
+          isCurrentUser: false,
+          statsDisplay: agent.state
+            ? calculateStatsDisplayFromState?.(agent.state)
+            : undefined,
+          finishTime: agent.finishTime!,
+          emoji: agent.emoji || '🤖',
+        })
+      );
+    return [...players, ...agents].sort((a, b) => a.finishTime - b.finishTime);
+  }, [finishedPlayers, agentProgressList, calculateStatsDisplayFromState]);
+
   const currentUserProgress = useMemo(() => {
     return allPlayerProgress.find((p) => p.isCurrentUser);
   }, [allPlayerProgress]);
+
+  // Resolve run-leaderboard names the same way the legend does: agents carry
+  // their own display name, the current user is "You", opponents need a
+  // party nickname to appear.
+  const runLeaderboardRows = useMemo(
+    () =>
+      (runResults || [])
+        .map((result) => ({
+          ...result,
+          nickname:
+            result.nickname ??
+            (result.isCurrentUser
+              ? 'You'
+              : getNicknameByUserId(result.userId) || ''),
+        }))
+        .filter((row) => row.nickname),
+    [runResults, getNicknameByUserId]
+  );
 
   const isCompleted =
     currentUserProgress?.percentage === 100 &&
     !isPuzzleCheated(state.answerStack);
 
+  const SecondaryCtaIcon =
+    secondaryCta?.icon === 'collection' ? LayoutGrid : undefined;
+
   return (
     <div className="mx-auto mb-2 mt-2 w-full max-w-xl lg:mr-0 lg:mt-4">
-      {/* Compact race track design */}
       <div
         className="relative cursor-pointer"
         onClick={() => onClick && onClick()}
         title="Click to view friends"
       >
-        {/* Main track */}
-        <div className="relative h-10 overflow-visible rounded-lg bg-stone-100 lg:h-14 dark:bg-gray-800">
-          {/* Track surface with center line */}
-          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-            {/* Dashed center line */}
+        {/* One card holds the labels, the driving lane and the legend so the
+            whole strip reads as a single tappable race panel */}
+        <div className="rounded-xl border border-stone-200/70 bg-white/60 p-2 backdrop-blur transition-transform duration-200 active:scale-[0.99] dark:border-white/10 dark:bg-zinc-900/60">
+          {/* Start/Finish labels above the lane, out of the cars' way */}
+          <div className="flex items-center justify-between px-0.5 pb-1">
+            <span className="text-[0.6rem] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+              Start
+            </span>
+            <span className="flex items-center gap-1 text-[0.6rem] font-black uppercase tracking-widest text-rose-600 dark:text-rose-400">
+              Finish
+              <span
+                aria-hidden="true"
+                className="h-3 w-3.5 rounded-[2px] border border-stone-400/60 bg-white dark:border-white/30"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(45deg, black 25%, transparent 25%),
+                    linear-gradient(-45deg, black 25%, transparent 25%),
+                    linear-gradient(45deg, transparent 75%, black 75%),
+                    linear-gradient(-45deg, transparent 75%, black 75%)
+                  `,
+                  backgroundSize: '3px 3px',
+                  backgroundPosition: '0 0, 0 1.5px, 1.5px -1.5px, -1.5px 0px',
+                }}
+              />
+            </span>
+          </div>
+
+          {/* Driving lane: proper asphalt in both themes — the dark strip
+              against the glass card is what makes it read "road" at a
+              glance — with edge lines, start lights and a checkered finish
+              column */}
+          <div className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-zinc-800 via-zinc-700/90 to-zinc-800 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900">
+            <style>{`
+              @keyframes race-lane-shimmer {
+                from { transform: translateX(-120%); }
+                to { transform: translateX(520%); }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .race-lane-shimmer { animation: none !important; opacity: 0 !important; }
+              }
+            `}</style>
+            {/* Slow light sweep along the asphalt so the strip reads alive
+                even before anyone has moved */}
             <div
-              className="absolute left-6 right-16 top-1/2 h-0.5 -translate-y-1/2 transform bg-white opacity-60"
+              aria-hidden="true"
+              className="race-lane-shimmer pointer-events-none absolute inset-y-0 w-1/4"
+              style={{
+                background:
+                  'linear-gradient(105deg, transparent, rgba(255,255,255,0.07), transparent)',
+                animation: 'race-lane-shimmer 5.5s linear infinite',
+              }}
+            />
+            {/* Lane edge lines */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-1 top-1 h-px bg-white/20"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-1 bottom-1 h-px bg-white/20"
+            />
+
+            {/* Dashed centre line */}
+            <div
+              aria-hidden="true"
+              className="absolute left-3 right-6 top-1/2 h-px -translate-y-1/2 text-white opacity-30"
               style={{
                 backgroundImage:
-                  'repeating-linear-gradient(to right, white 0px, white 6px, transparent 6px, transparent 12px)',
+                  'repeating-linear-gradient(to right, currentColor 0 8px, transparent 8px 16px)',
               }}
-            ></div>
-          </div>
+            />
 
-          {/* START label inside track */}
-          <div className="absolute left-1 top-1/2 -translate-y-1/2 transform">
-            <span className="rounded bg-green-600 px-1.5 py-0.5 text-xs font-bold text-white">
-              START
-            </span>
-          </div>
+            {/* Progress tick marks */}
+            {[25, 50, 75].map((tick) => (
+              <div
+                key={tick}
+                aria-hidden="true"
+                className="absolute bottom-1.5 top-1.5 w-px bg-white/10"
+                style={{ left: `${tick}%` }}
+              />
+            ))}
 
-          {/* FINISH label and flag inside track */}
-          <div className="absolute right-1 top-1/2 flex -translate-y-1/2 transform items-center">
-            <span className="mr-1 rounded bg-red-600 px-1 py-0.5 text-xs font-bold text-white">
-              FINISH
-            </span>
-            {/* Checkered flag */}
+            {/* Start line */}
             <div
-              className="h-3 w-4 border border-gray-800 bg-white"
+              aria-hidden="true"
+              className="absolute bottom-0.5 top-0.5 flex gap-0.5"
+              style={{ left: '3%' }}
+            >
+              <div className="w-px bg-emerald-400/80 shadow-[0_0_4px_rgba(52,211,153,0.8)]" />
+              <div className="w-px bg-emerald-400/80" />
+            </div>
+
+            {/* Checkered finish column */}
+            <div
+              aria-hidden="true"
+              className="absolute bottom-0.5 right-1 top-0.5 w-2.5 rounded-sm opacity-80"
               style={{
+                backgroundColor: 'rgba(255,255,255,0.9)',
                 backgroundImage: `
                   linear-gradient(45deg, black 25%, transparent 25%),
                   linear-gradient(-45deg, black 25%, transparent 25%),
                   linear-gradient(45deg, transparent 75%, black 75%),
                   linear-gradient(-45deg, transparent 75%, black 75%)
                 `,
-                backgroundSize: '2px 2px',
-                backgroundPosition: '0 0, 0 1px, 1px -1px, -1px 0px',
+                backgroundSize: '5px 5px',
+                backgroundPosition: '0 0, 0 2.5px, 2.5px -2.5px, -2.5px 0px',
               }}
-            ></div>
+            />
+
+            {/* Solo hint inside the otherwise-empty lane; the whole card
+                already opens the opponents lobby on tap. Pinned to the
+                bottom edge so it never collides with the player's car
+                driving the upper half of the lane. */}
+            {allPlayerProgress.length <= 1 &&
+              agentProgressList.length === 0 && (
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-1">
+                  {/* Solid plaque so the lane's dashed centre line can't
+                    strike through the words */}
+                  <span className="flex items-center gap-1 rounded-full bg-zinc-900/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-white/70 shadow-sm ring-1 ring-white/10">
+                    Invite friends to race
+                    <ChevronRight className="h-3 w-3" aria-hidden="true" />
+                  </span>
+                </div>
+              )}
+
+            {/* Player cars: glowing pills in each player's colour with a
+                motion trail; the current user gets a ring instead of a
+                crown emoji */}
+            {allPlayerProgress.map((player, index) => {
+              const colorClass = getRaceCarColor(
+                player.userId,
+                allUserIds,
+                player.isCurrentUser,
+                themeColor
+              );
+
+              const totalRacers =
+                allPlayerProgress.length + agentProgressList.length;
+              const playerHeight = Math.min(12, trackHeight / totalRacers);
+              const verticalOffset = index * playerHeight + 6;
+
+              return (
+                <div
+                  key={player.userId}
+                  className="absolute transition-all duration-700 ease-out"
+                  style={{
+                    // Scale 0-100% progress to 6-94% of the lane, clear of
+                    // the start line and finish column
+                    left: `${player.percentage * 0.88 + 6}%`,
+                    top: `${verticalOffset}px`,
+                    transform: 'translateX(-50%)',
+                  }}
+                >
+                  {/* Motion trail streaking back toward the start line */}
+                  {player.percentage > 0 && (
+                    <div
+                      aria-hidden="true"
+                      className={`absolute right-full top-1/2 h-1 w-5 -translate-y-1/2 rounded-full opacity-50 ${colorClass} [mask-image:linear-gradient(to_left,black,transparent)]`}
+                    />
+                  )}
+                  <div
+                    className={`relative h-4 w-7 rounded-[5px] ${colorClass} shadow-md ${
+                      player.isCurrentUser ? 'ring-2 ring-white/70' : ''
+                    }`}
+                  >
+                    {/* Windshield */}
+                    <div className="absolute left-1/2 top-1/2 h-2 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-[2px] bg-white/50" />
+                    {/* Headlight on the leading edge */}
+                    <div className="absolute -right-px top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-white shadow-[0_0_6px_2px_rgba(255,255,255,0.7)]" />
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* AI rivals: their emoji is the kart — agents aren't party
+                members, so they don't draw from the player colour pool */}
+            {agentProgressList.map((agent, index) => {
+              const totalRacers =
+                allPlayerProgress.length + agentProgressList.length;
+              const laneSlotHeight = Math.min(12, trackHeight / totalRacers);
+              const verticalOffset =
+                (allPlayerProgress.length + index) * laneSlotHeight + 6;
+              const percentage = Math.min(100, Math.max(0, agent.percentage));
+
+              return (
+                <div
+                  key={`agent-${agent.agentId}`}
+                  data-testid={`agent-kart-${agent.agentId}`}
+                  className="absolute transition-all duration-700 ease-out"
+                  style={{
+                    left: `${percentage * 0.88 + 6}%`,
+                    top: `${verticalOffset}px`,
+                    transform: 'translateX(-50%)',
+                  }}
+                >
+                  <span
+                    className="block"
+                    style={{ fontSize: '14px', lineHeight: 1 }}
+                  >
+                    {agent.emoji || '🤖'}
+                  </span>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Progress tick marks */}
-          {[25, 50, 75].map((tick) => (
-            <div
-              key={tick}
-              className="absolute bottom-0 top-0 w-px bg-yellow-400 opacity-40"
-              style={{ left: `${tick}%` }}
-            ></div>
-          ))}
+          {/* Legend: one chip per racer, lowest to highest percentage, plus
+              the tap-for-opponents affordance */}
+          <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
+            {[...allPlayerProgress].reverse().map((player) => {
+              const colorClass = getRaceCarColor(
+                player.userId,
+                allUserIds,
+                player.isCurrentUser,
+                themeColor
+              );
 
-          {/* Player karts */}
-          {allPlayerProgress.map((player, index) => {
-            const colorClass = getPlayerColor(
-              player.userId,
-              allUserIds,
-              player.isCurrentUser
-            );
-
-            // Calculate vertical spacing within the track
-            const totalPlayers = allPlayerProgress.length;
-            const playerHeight = Math.min(8, trackHeight / totalPlayers);
-            const verticalOffset = index * playerHeight + 2;
-
-            return (
-              <div
-                key={player.userId}
-                className="absolute transform transition-all duration-700 ease-out"
-                style={{
-                  left: `${Math.min(
-                    Math.max(player.percentage * 0.83 + 12, 12),
-                    95
-                  )}%`, // Scale 0-100% to 12-95% of track
-                  top: `${verticalOffset}px`,
-                  transform: 'translateX(-50%)',
-                }}
-              >
-                {/* Smaller kart */}
-                <div
-                  className={`h-3 w-5 ${colorClass} relative rounded border border-gray-800 shadow-sm dark:border-gray-200`}
+              return (
+                <span
+                  key={`${player.userId}-info`}
+                  className="flex items-center gap-1.5 rounded-full border border-stone-200/70 bg-white/60 px-2 py-0.5 dark:border-white/10 dark:bg-zinc-900/60"
                 >
-                  {/* Tiny wheels */}
-                  <div className="absolute -left-0.5 top-0 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
-                  <div className="absolute -right-0.5 top-0 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
-                  <div className="absolute -left-0.5 bottom-0 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
-                  <div className="absolute -right-0.5 bottom-0 h-0.5 w-0.5 rounded-full bg-gray-800 dark:bg-gray-200"></div>
+                  <span className={`h-2 w-2 rounded-full ${colorClass}`} />
+                  <span
+                    className={
+                      player.isCurrentUser
+                        ? 'font-semibold text-stone-900 dark:text-white'
+                        : 'text-stone-600 dark:text-zinc-300'
+                    }
+                  >
+                    {player.nickname}
+                  </span>
+                  {/* Live progress label if the game provides one, otherwise
+                      the finish time once done (games that pass a formatter),
+                      else the raw percentage */}
+                  <span className="tabular-nums text-stone-400 dark:text-zinc-500">
+                    {player.progressStatsDisplay ??
+                      (showFinishTimeInLegend &&
+                      player.finishTime !== undefined &&
+                      !player.isPuzzleCheated
+                        ? formatTime(player.finishTime)
+                        : `(${player.percentage}%)`)}
+                  </span>
+                </span>
+              );
+            })}
+            {agentProgressList.map((agent) => (
+              <span
+                key={`agent-legend-${agent.agentId}`}
+                data-testid={`agent-legend-${agent.agentId}`}
+                className="flex items-center gap-1.5 rounded-full border border-stone-200/70 bg-white/60 px-2 py-0.5 dark:border-white/10 dark:bg-zinc-900/60"
+              >
+                <span aria-hidden="true">{agent.emoji || '🤖'}</span>
+                <span className="text-stone-600 dark:text-zinc-300">
+                  {agent.name}
+                </span>
+                <span className="tabular-nums text-stone-400 dark:text-zinc-500">
+                  {showFinishTimeInLegend && agent.finishTime !== undefined
+                    ? formatTime(agent.finishTime)
+                    : `${Math.min(100, Math.max(0, agent.percentage))}%`}
+                </span>
+              </span>
+            ))}
+            <span className="ml-auto flex items-center gap-1 text-[0.65rem] font-semibold text-stone-400 dark:text-zinc-500">
+              <Users className="h-3 w-3" aria-hidden="true" />
+              Opponents
+              <ChevronRight className="h-3 w-3" aria-hidden="true" />
+            </span>
+          </div>
+        </div>
 
-                  {/* Driver dot */}
-                  <div className="absolute left-1/2 top-0.5 h-1.5 w-1.5 -translate-x-1/2 transform rounded-full bg-yellow-300"></div>
-
-                  {/* Crown for current user */}
-                  {player.isCurrentUser && (
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 transform text-xs">
-                      👑
-                    </div>
-                  )}
+        {/* Leaderboard: multi-stage runs get the end-of-stage breakdown —
+            each player's time per stage plus their run total — while single
+            puzzles keep the finished-players list */}
+        {runResults ? (
+          runLeaderboardRows.length > 0 && (
+            <div className="mt-4">
+              <div
+                data-testid="run-leaderboard"
+                className="mt-2 overflow-hidden rounded-xl border border-stone-200/70 bg-white/60 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60"
+              >
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="text-[0.6rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
+                        <th scope="col" className="px-3 py-1.5 text-left">
+                          Racer
+                        </th>
+                        {runLeaderboardRows[0].stageResults.map(
+                          (_, stageIndex) => (
+                            <th
+                              key={stageIndex}
+                              scope="col"
+                              className="px-1.5 py-1.5 text-right"
+                            >
+                              S{stageIndex + 1}
+                            </th>
+                          )
+                        )}
+                        <th scope="col" className="px-3 py-1.5 text-right">
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {runLeaderboardRows.map((row, index) => {
+                        const isFirst = index === 0;
+                        const runFinished =
+                          row.completedStageCount === row.stageResults.length;
+                        return (
+                          <tr
+                            key={row.userId}
+                            data-testid={`run-leaderboard-row-${index}`}
+                            className={
+                              isFirst
+                                ? 'border-b border-stone-200 bg-gradient-to-r from-amber-400/15 via-amber-400/5 to-transparent dark:border-zinc-700'
+                                : ''
+                            }
+                          >
+                            <td className="px-3 py-2">
+                              <span className="flex items-center gap-2.5">
+                                <span
+                                  className={`w-5 text-center text-sm font-semibold tabular-nums ${
+                                    isFirst
+                                      ? 'text-amber-500 dark:text-amber-400'
+                                      : 'text-stone-400 dark:text-zinc-500'
+                                  }`}
+                                >
+                                  {index + 1}.
+                                </span>
+                                {row.isAgent ? (
+                                  <span
+                                    aria-hidden="true"
+                                    className="shrink-0 text-sm leading-none"
+                                  >
+                                    {row.emoji || '🤖'}
+                                  </span>
+                                ) : (
+                                  <span
+                                    className={`h-2 w-2 shrink-0 rounded-full ${getRaceCarColor(row.userId, allUserIds, row.isCurrentUser, themeColor)}`}
+                                  />
+                                )}
+                                <span
+                                  className={`whitespace-nowrap text-sm ${
+                                    row.isCurrentUser
+                                      ? 'font-semibold text-stone-900 dark:text-white'
+                                      : 'text-stone-700 dark:text-zinc-300'
+                                  }`}
+                                >
+                                  {row.nickname}
+                                </span>
+                              </span>
+                            </td>
+                            {row.stageResults.map((stageResult, stageIndex) => {
+                              const movesDelta =
+                                stageResult?.movesMade !== undefined
+                                  ? stageResult.movesMade -
+                                    stageResult.movesRequired
+                                  : undefined;
+                              return (
+                                <td
+                                  key={stageIndex}
+                                  className="px-1.5 py-2 text-right align-top"
+                                >
+                                  {stageResult ? (
+                                    <>
+                                      <span className="block font-mono text-xs tabular-nums text-stone-500 dark:text-zinc-400">
+                                        {formatTime(stageResult.seconds)}
+                                      </span>
+                                      {/* Moves graded against par in the
+                                          run's usual colours, with the
+                                          golf-style delta saying exactly how
+                                          far over or under */}
+                                      {stageResult.movesMade !== undefined &&
+                                        movesDelta !== undefined && (
+                                          <span
+                                            className={`block font-mono text-[0.65rem] tabular-nums ${
+                                              movesDelta > 0
+                                                ? 'text-amber-600 dark:text-amber-400'
+                                                : movesDelta < 0
+                                                  ? 'text-emerald-600 dark:text-emerald-400'
+                                                  : 'text-stone-400 dark:text-zinc-500'
+                                            }`}
+                                          >
+                                            {stageResult.movesMade}/
+                                            {stageResult.movesRequired}
+                                            {movesDelta !== 0 &&
+                                              ` ${movesDelta > 0 ? '+' : ''}${movesDelta}`}
+                                            <span className="sr-only">
+                                              {` moves, ${
+                                                movesDelta === 0
+                                                  ? 'on par'
+                                                  : `${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
+                                              }`}
+                                            </span>
+                                          </span>
+                                        )}
+                                    </>
+                                  ) : (
+                                    <span className="font-mono text-xs text-stone-400 dark:text-zinc-600">
+                                      –
+                                    </span>
+                                  )}
+                                </td>
+                              );
+                            })}
+                            <td className="px-3 py-2 text-right align-top">
+                              <span
+                                className={`block font-mono text-sm tabular-nums ${
+                                  runFinished
+                                    ? 'font-semibold text-stone-900 dark:text-white'
+                                    : 'text-stone-500 dark:text-zinc-400'
+                                }`}
+                              >
+                                {formatTime(row.totalSeconds)}
+                              </span>
+                              {row.totalMoves > 0 && (
+                                <span className="block text-[0.65rem] tabular-nums text-stone-400 dark:text-zinc-500">
+                                  {row.totalMoves} moves
+                                  {' · '}
+                                  <span
+                                    className={
+                                      row.totalMovesDelta > 0
+                                        ? 'text-amber-600 dark:text-amber-400'
+                                        : row.totalMovesDelta < 0
+                                          ? 'text-emerald-600 dark:text-emerald-400'
+                                          : undefined
+                                    }
+                                  >
+                                    {row.totalMovesDelta === 0
+                                      ? 'par'
+                                      : `${row.totalMovesDelta > 0 ? '+' : ''}${row.totalMovesDelta}`}
+                                  </span>
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            );
-          })}
-
-          {(localAgentProgress ?? []).map((agent, index) => (
-            <div
-              key={`agent-${agent.agentId}`}
-              className="absolute transform transition-all duration-700 ease-out"
-              style={{
-                left: `${Math.min(Math.max(Math.min(100, Math.max(0, agent.percentage)) * 0.83 + 12, 12), 95)}%`,
-                top: `${(allPlayerProgress.length + index) * Math.min(8, trackHeight / Math.max(allPlayerProgress.length + (localAgentProgress?.length ?? 0), 1)) + 2}px`,
-                transform: 'translateX(-50%)',
-              }}
-            >
-              <div
-                className="flex items-center justify-center text-sm"
-                style={{ fontSize: '14px', lineHeight: 1 }}
-              >
-                {agent.emoji || '🤖'}
-              </div>
             </div>
-          ))}
-        </div>
-
-        {/* Compact horizontal player legend - lowest to highest percentage */}
-        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-          {[...allPlayerProgress].reverse().map((player) => {
-            const colorClass = getPlayerColor(
-              player.userId,
-              allUserIds,
-              player.isCurrentUser
-            );
-
-            return (
-              <div
-                key={`${player.userId}-info`}
-                className="flex items-center gap-1"
-              >
-                {/* Color indicator */}
-                <div className={`h-2 w-2 rounded-full ${colorClass}`}></div>
-                {/* Player name with percentage */}
-                <span
-                  className={`font-medium ${
-                    player.isCurrentUser
-                      ? 'text-red-600 dark:text-red-400'
-                      : 'text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  {player.nickname}
-                  {player.isCurrentUser && ' 👑'}
-                </span>
-                <span className="text-gray-500 dark:text-gray-400">
-                  {player.progressStatsDisplay ?? `(${player.percentage}%)`}
-                </span>
-              </div>
-            );
-          })}
-
-          {(localAgentProgress ?? []).map((agent) => (
-            <div
-              key={`agent-legend-${agent.agentId}`}
-              className="flex items-center gap-1"
-            >
-              <span>{agent.emoji || '🤖'}</span>
-              <span className="font-medium text-gray-700 dark:text-gray-300">
-                {agent.name}
-              </span>
-              <span className="text-gray-500 dark:text-gray-400">
-                ({Math.min(100, Math.max(0, agent.percentage))}%)
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Leaderboard for finished players and agents */}
-        {(() => {
-          const finishedAgents = (localAgentProgress ?? []).filter(
-            (a) => a.finishTime !== undefined
-          );
-          const leaderboard: Array<
-            | { type: 'player'; data: PlayerProgress }
-            | { type: 'agent'; data: (typeof finishedAgents)[0] }
-          > = [
-            ...finishedPlayers.map((p) => ({
-              type: 'player' as const,
-              data: p,
-            })),
-            ...finishedAgents.map((a) => ({ type: 'agent' as const, data: a })),
-          ].sort((a, b) => a.data.finishTime! - b.data.finishTime!);
-
-          if (leaderboard.length === 0) return null;
-
-          return (
-            <div className="mt-4">
-              <div className="mt-2 overflow-hidden rounded-xl bg-stone-100 dark:bg-gray-800/80">
-                {leaderboard.map((entry, index) => {
-                  const isFirst = index === 0;
-                  const isCurrentUser =
-                    entry.type === 'player' && entry.data.isCurrentUser;
-                  return (
-                    <div
-                      key={
-                        entry.type === 'player'
-                          ? entry.data.userId
-                          : `agent-${entry.data.agentId}`
-                      }
-                      className={`flex items-center justify-between px-3 py-2 ${
-                        isFirst
-                          ? 'border-b border-stone-200 dark:border-gray-700'
-                          : ''
-                      }`}
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <span
-                          className={`w-5 text-center text-sm font-semibold tabular-nums ${
-                            isFirst
-                              ? 'text-amber-500 dark:text-amber-400'
-                              : 'text-gray-400 dark:text-gray-500'
-                          }`}
-                        >
-                          {index + 1}.
-                        </span>
-                        {entry.type === 'agent' ? (
-                          <span className="text-sm text-gray-700 dark:text-gray-300">
-                            {entry.data.emoji || '🤖'} {entry.data.name}
-                          </span>
-                        ) : (
-                          <>
-                            <div
-                              className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(entry.data.userId, allUserIds, entry.data.isCurrentUser)}`}
-                            ></div>
-                            <span
-                              className={`text-sm ${
-                                isCurrentUser
-                                  ? 'font-semibold text-gray-900 dark:text-white'
-                                  : 'text-gray-700 dark:text-gray-300'
-                              }`}
-                            >
-                              {entry.data.nickname}
-                            </span>
-                            {entry.data.statsDisplay && (
-                              <span className="text-xs text-gray-400 dark:text-gray-500">
-                                {entry.data.statsDisplay}
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </div>
+          )
+        ) : finishedRacers.length > 0 ? (
+          <div className="mt-4">
+            <div className="mt-2 overflow-hidden rounded-xl border border-stone-200/70 bg-white/60 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60">
+              {finishedRacers.map((racer, index) => {
+                const isFirst = index === 0;
+                return (
+                  <div
+                    key={racer.key}
+                    className={`flex items-center justify-between px-3 py-2 ${
+                      isFirst
+                        ? 'border-b border-stone-200 bg-gradient-to-r from-amber-400/15 via-amber-400/5 to-transparent dark:border-zinc-700'
+                        : ''
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
                       <span
-                        className={`font-mono text-sm tabular-nums ${
+                        className={`w-5 text-center text-sm font-semibold tabular-nums ${
                           isFirst
-                            ? 'font-semibold text-gray-900 dark:text-white'
-                            : 'text-gray-500 dark:text-gray-400'
+                            ? 'text-amber-500 dark:text-amber-400'
+                            : 'text-stone-400 dark:text-zinc-500'
                         }`}
                       >
-                        {formatSeconds(entry.data.finishTime!)}
+                        {index + 1}.
                       </span>
+                      {racer.userId !== undefined ? (
+                        <span
+                          className={`h-2 w-2 shrink-0 rounded-full ${getRaceCarColor(racer.userId, allUserIds, racer.isCurrentUser, themeColor)}`}
+                        />
+                      ) : (
+                        <span
+                          aria-hidden="true"
+                          className="shrink-0 text-sm leading-none"
+                        >
+                          {racer.emoji || '🤖'}
+                        </span>
+                      )}
+                      <span
+                        className={`text-sm ${
+                          racer.isCurrentUser
+                            ? 'font-semibold text-stone-900 dark:text-white'
+                            : 'text-stone-700 dark:text-zinc-300'
+                        }`}
+                      >
+                        {racer.nickname}
+                      </span>
+                      {racer.statsDisplay && (
+                        <span className="text-xs text-stone-400 dark:text-zinc-500">
+                          {racer.statsDisplay}
+                        </span>
+                      )}
                     </div>
-                  );
-                })}
-              </div>
+                    <span
+                      className={`font-mono text-sm tabular-nums ${
+                        isFirst
+                          ? 'font-semibold text-stone-900 dark:text-white'
+                          : 'text-stone-500 dark:text-zinc-400'
+                      }`}
+                    >
+                      {formatTime(racer.finishTime)}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-          );
-        })()}
+          </div>
+        ) : null}
       </div>
 
       {isCompleted && (
@@ -495,28 +841,30 @@ const RaceTrack = <
           <div className="flex items-center gap-2">
             <Link
               href={`/?tab=${Tab.FRIENDS}`}
-              className="bg-theme-primary hover:bg-theme-primary-dark inline-flex flex-1 items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+              className="bg-theme-primary hover:bg-theme-primary-dark inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span className="mr-2" role="img" aria-label="trophy">
-                🏆
-              </span>
+              <Trophy className="h-4 w-4" aria-hidden="true" />
               Leaderboard
             </Link>
             <Link
-              href="/book"
-              className="inline-flex flex-1 items-center justify-center rounded-xl bg-stone-100 px-4 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:scale-[1.02] hover:bg-stone-200 active:scale-[0.98] dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+              href={secondaryCta?.href ?? '/book'}
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-stone-100 px-4 py-2.5 text-sm font-semibold text-stone-700 transition-all duration-200 hover:scale-[1.02] hover:bg-stone-200 active:scale-[0.98] dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
             >
-              <span className="mr-2" role="img" aria-label="puzzle book">
-                📖
-              </span>
-              Puzzle book
+              {SecondaryCtaIcon ? (
+                <SecondaryCtaIcon className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <span className="mr-1" role="img" aria-label="puzzle book">
+                  📖
+                </span>
+              )}
+              {secondaryCta?.label ?? 'Puzzle book'}
             </Link>
             {finishedPlayers.length !== allPlayerProgress.length && (
               <button
                 onClick={refreshSessionParties}
                 disabled={isPolling}
                 title="Refresh scores"
-                className="inline-flex cursor-pointer items-center rounded-xl bg-stone-100 p-2.5 text-gray-600 transition-all duration-200 hover:bg-stone-200 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                className="inline-flex cursor-pointer items-center rounded-xl bg-stone-100 p-2.5 text-stone-600 transition-all duration-200 hover:bg-stone-200 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
               >
                 <RefreshCw
                   className={`h-4 w-4 ${isPolling ? 'animate-spin' : ''}`}
@@ -527,22 +875,22 @@ const RaceTrack = <
 
           {/* Challenge friends section */}
           {currentUserProgress?.finishTime && (
-            <div className="rounded-xl bg-stone-100 p-4 dark:bg-gray-800/80">
+            <div className="rounded-xl border border-stone-200/70 bg-white/60 p-4 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                  <div className="text-sm font-semibold text-stone-900 dark:text-white">
                     🏁 Challenge friends
                   </div>
-                  <div className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="mt-0.5 text-xs text-stone-500 dark:text-zinc-400">
                     Your time:{' '}
                     <span className="font-mono tabular-nums">
-                      {formatSeconds(currentUserProgress.finishTime)}
+                      {formatTime(currentUserProgress.finishTime)}
                     </span>
                   </div>
                 </div>
                 <button
                   onClick={onInviteFriends || onClick}
-                  className="inline-flex shrink-0 cursor-pointer items-center rounded-xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-gray-700 active:scale-[0.98] dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+                  className="inline-flex shrink-0 cursor-pointer items-center rounded-xl bg-stone-900 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-stone-700 active:scale-[0.98] dark:bg-white dark:text-stone-900 dark:hover:bg-stone-100"
                 >
                   <span className="mr-1.5" role="img" aria-label="racing">
                     🚀

@@ -36,6 +36,7 @@ import { getAllAgentProgress } from '../helpers/agentProgress';
 import { getHint } from '../helpers/hint';
 import { loadSolver } from '../services/solver';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
+import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { solvedBoardString } from '../helpers/boardToString';
 import { difficultyForMoves } from '../helpers/difficulty';
@@ -70,9 +71,9 @@ import RaceCelebration, { RACE_CELEBRATION_MS } from './RaceCelebration';
 import RaceHud from './RaceHud';
 import RaceTimer from './RaceTimer';
 import SimpleBoard from './SimpleBoard';
-import UnblockRaceTrack from './UnblockRaceTrack';
 import StageResultPanel from './StageResultPanel';
-import CountdownOverlay from './CountdownOverlay';
+import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
+import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
 import StageTransition from './StageTransition';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
@@ -1564,17 +1565,28 @@ const UnblockRace = ({
                 />
               )}
 
-              <UnblockRaceTrack
+              <RaceTrack
                 sessionParties={sessionParties}
                 state={raceTrackState}
                 userId={user?.sub || 'guest'}
                 onClick={raceTrackOnClick}
                 isPolling={isPolling}
                 refreshSessionParties={refreshSessionParties}
+                calculateCompletionPercentageFromState={
+                  calculateCompletionPercentageFromState
+                }
+                isPuzzleCheated={isPuzzleCheated}
+                calculateStatsDisplayFromState={calculateStatsDisplayFromState}
                 onInviteFriends={handleInviteFriends}
                 runResults={runResults}
                 localAgentProgress={localAgentProgress}
                 rateApp={{ appName, appStoreUrl, googlePlayUrl }}
+                secondaryCta={{
+                  href: '/collection',
+                  label: 'Collection',
+                  icon: 'collection',
+                }}
+                formatFinishTime={formatSecondsShort}
               />
             </div>
           </div>

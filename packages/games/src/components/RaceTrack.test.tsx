@@ -3,11 +3,19 @@ import { render, screen } from '@testing-library/react';
 import RaceTrack from './RaceTrack';
 import * as usePartiesModule from '@bubblyclouds-app/template/hooks/useParties';
 import * as playerColorsModule from '@bubblyclouds-app/template/utils/playerColors';
+import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { BaseServerState } from '@bubblyclouds-app/template/types/state';
+import { PlayerRunResult } from '../types/scoringTypes';
 
 jest.mock('@bubblyclouds-app/template/hooks/useParties');
-jest.mock('@bubblyclouds-app/template/utils/playerColors');
+jest.mock('@bubblyclouds-app/template/utils/playerColors', () => ({
+  ...jest.requireActual('@bubblyclouds-app/template/utils/playerColors'),
+  getAllUserIds: jest.fn(),
+}));
+jest.mock('@bubblyclouds-app/ui/hooks/useThemeColorName', () => ({
+  useThemeColorName: () => undefined,
+}));
 // RateAppButton only renders on Capacitor or mobile web; force mobile-web so
 // the rate-app prompt is exercised.
 jest.mock('@bubblyclouds-app/template/helpers/capacitor', () => ({
@@ -28,12 +36,25 @@ const IOS_UA =
   'Mozilla/5.0 (iPad; CPU OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15';
 
 const mockUseParties = usePartiesModule.useParties as jest.Mock;
-const mockGetPlayerColor = playerColorsModule.getPlayerColor as jest.Mock;
 const mockGetAllUserIds = playerColorsModule.getAllUserIds as jest.Mock;
-const mockCalculateCompletionPercentageFromState = jest
-  .fn()
-  .mockResolvedValue(0);
-const mockIsPuzzleCheated = jest.fn().mockResolvedValue(false);
+const mockCalculateCompletionPercentageFromState = jest.fn();
+const mockIsPuzzleCheated = jest.fn();
+
+const agent = (
+  overrides: Partial<AgentProgress<BaseServerState>>
+): AgentProgress<BaseServerState> => ({
+  agentId: 'agent-0',
+  name: 'Bumblebee',
+  emoji: '🐝',
+  percentage: 40,
+  skillLevel: 'novice',
+  ...overrides,
+});
+
+const shortTime = (seconds: number): string => {
+  const minutes = Math.floor(seconds / 60);
+  return `${minutes}:${`${seconds % 60}`.padStart(2, '0')}`;
+};
 
 describe('RaceTrack', () => {
   const mockSessionParties: Parties<Session<BaseServerState>> = {
@@ -81,15 +102,14 @@ describe('RaceTrack', () => {
       refreshParties: jest.fn(),
     });
     mockGetAllUserIds.mockReturnValue(['userId1', 'userId2']);
-    mockGetPlayerColor.mockReturnValue('bg-blue-500');
     mockCalculateCompletionPercentageFromState.mockReturnValue(50);
     mockIsPuzzleCheated.mockReturnValue(false);
   });
 
   it('renders the race track with players', () => {
     render(<RaceTrack {...defaultProps} />);
-    expect(screen.getByText('START')).toBeInTheDocument();
-    expect(screen.getByText('FINISH')).toBeInTheDocument();
+    expect(screen.getByText('Start')).toBeInTheDocument();
+    expect(screen.getByText('Finish')).toBeInTheDocument();
     expect(screen.getByText(/Player 2/)).toBeInTheDocument();
   });
 
@@ -105,6 +125,34 @@ describe('RaceTrack', () => {
     );
     render(<RaceTrack {...defaultProps} />);
     expect(screen.getByText(/Leaderboard/)).toBeInTheDocument();
+  });
+
+  it('links the secondary CTA to the puzzle book by default', () => {
+    mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
+      state === defaultProps.state ? 100 : 50
+    );
+    render(<RaceTrack {...defaultProps} />);
+    const bookLink = screen.getByText('Puzzle book').closest('a');
+    expect(bookLink).toHaveAttribute('href', '/book');
+  });
+
+  it('uses the secondary CTA override when provided', () => {
+    mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
+      state === defaultProps.state ? 100 : 50
+    );
+    render(
+      <RaceTrack
+        {...defaultProps}
+        secondaryCta={{
+          href: '/collection',
+          label: 'Collection',
+          icon: 'collection',
+        }}
+      />
+    );
+    const link = screen.getByText('Collection').closest('a');
+    expect(link).toHaveAttribute('href', '/collection');
+    expect(screen.queryByText('Puzzle book')).not.toBeInTheDocument();
   });
 
   it('shows per-player stats on the leaderboard when provided', () => {
@@ -136,6 +184,21 @@ describe('RaceTrack', () => {
     expect(screen.getAllByText('(42%)').length).toBeGreaterThan(0);
   });
 
+  it('keeps the percentage in the legend for finished players without a formatter', () => {
+    mockCalculateCompletionPercentageFromState.mockReturnValue(100);
+    render(<RaceTrack {...defaultProps} />);
+    // No formatFinishTime prop: the legend stays on percentages even once
+    // finished, preserving sudoku's behaviour.
+    expect(screen.getAllByText('(100%)').length).toBeGreaterThan(0);
+  });
+
+  it('shows finish times in the legend when a formatter is passed', () => {
+    mockCalculateCompletionPercentageFromState.mockReturnValue(100);
+    render(<RaceTrack {...defaultProps} formatFinishTime={shortTime} />);
+    // userId2 finished at 120s -> "2:00" (shown in the legend chip)
+    expect(screen.getAllByText('2:00').length).toBeGreaterThan(0);
+  });
+
   it('replaces the legend percentage with the progress stats when provided', () => {
     mockCalculateCompletionPercentageFromState.mockReturnValue(42);
     const calculateProgressStatsDisplayFromState = jest
@@ -154,6 +217,114 @@ describe('RaceTrack', () => {
     expect(screen.getByText('3/24 moves ⚡')).toBeInTheDocument();
     expect(screen.getByText('8/24 moves ⚡')).toBeInTheDocument();
     expect(screen.queryByText('(42%)')).not.toBeInTheDocument();
+  });
+
+  it('drives an emoji kart and a legend chip for each agent', () => {
+    render(
+      <RaceTrack
+        {...defaultProps}
+        localAgentProgress={[agent({ percentage: 40 })]}
+      />
+    );
+
+    expect(screen.getByTestId('agent-kart-agent-0')).toHaveTextContent('🐝');
+    const legend = screen.getByTestId('agent-legend-agent-0');
+    expect(legend).toHaveTextContent('Bumblebee');
+    expect(legend).toHaveTextContent('40%');
+  });
+
+  it('shows the finish time on a finished agent chip when a formatter is passed', () => {
+    render(
+      <RaceTrack
+        {...defaultProps}
+        formatFinishTime={shortTime}
+        localAgentProgress={[agent({ percentage: 100, finishTime: 65 })]}
+      />
+    );
+
+    expect(screen.getByTestId('agent-legend-agent-0')).toHaveTextContent(
+      '1:05'
+    );
+  });
+
+  it('merges finished agents into the single-stage finished list by time', () => {
+    // Player finished at 100s (userId1); the 5s agent should beat them.
+    mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
+      state === defaultProps.state ? 100 : 50
+    );
+    const calculateStatsDisplayFromState = jest.fn(() => '3 moves');
+    render(
+      <RaceTrack
+        {...defaultProps}
+        calculateStatsDisplayFromState={calculateStatsDisplayFromState}
+        localAgentProgress={[
+          agent({
+            percentage: 100,
+            finishTime: 5,
+            state: currentUserState,
+          }),
+        ]}
+      />
+    );
+
+    // The 5s agent beat the player's 100s finish
+    expect(screen.getByText('1.').parentElement).toHaveTextContent('Bumblebee');
+    expect(screen.getByText('2.').parentElement).toHaveTextContent('You');
+  });
+
+  it('renders the multi-stage run leaderboard when runResults is passed', () => {
+    const runResults: PlayerRunResult[] = [
+      {
+        userId: 'agent-Sage',
+        isCurrentUser: false,
+        stageResults: [{ seconds: 8, movesMade: 3, movesRequired: 3 }],
+        totalSeconds: 8,
+        totalMoves: 3,
+        totalMovesDelta: 0,
+        completedStageCount: 1,
+        nickname: 'Sage',
+        isAgent: true,
+        emoji: '🦉',
+      },
+      {
+        userId: 'userId1',
+        isCurrentUser: true,
+        stageResults: [{ seconds: 10, movesMade: 4, movesRequired: 3 }],
+        totalSeconds: 10,
+        totalMoves: 4,
+        totalMovesDelta: 1,
+        completedStageCount: 1,
+      },
+      {
+        userId: 'userId2',
+        isCurrentUser: false,
+        stageResults: [{ seconds: 12, movesMade: 3, movesRequired: 3 }],
+        totalSeconds: 12,
+        totalMoves: 3,
+        totalMovesDelta: 0,
+        completedStageCount: 1,
+      },
+    ];
+
+    render(
+      <RaceTrack
+        {...defaultProps}
+        runResults={runResults}
+        formatFinishTime={shortTime}
+      />
+    );
+
+    expect(screen.getByTestId('run-leaderboard')).toBeInTheDocument();
+    const agentRow = screen.getByTestId('run-leaderboard-row-0');
+    expect(agentRow).toHaveTextContent('Sage');
+    expect(agentRow).toHaveTextContent('🦉');
+    expect(screen.getByTestId('run-leaderboard-row-1')).toHaveTextContent(
+      'You'
+    );
+    // Humans still resolve through the party nickname lookup
+    expect(screen.getByTestId('run-leaderboard-row-2')).toHaveTextContent(
+      'Player 2'
+    );
   });
 
   it('renders the rate-app prompt on the completed block when rateApp is passed', () => {

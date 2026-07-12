@@ -1,3 +1,5 @@
+'use client';
+
 function CountdownOverlay({ countdown }: { countdown: number }) {
   // countdown value from server: 4→3→2→1. Display: 3→2→1→GO!
   const isGo = countdown === 1;
@@ -18,27 +20,27 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
       }}
     >
       <style>{`
-        @keyframes unblock-countdown-pop {
+        @keyframes race-countdown-pop {
           0% { transform: scale(1.6); opacity: 0; }
           60% { transform: scale(0.95); opacity: 1; }
           100% { transform: scale(1); opacity: 1; }
         }
-        @keyframes unblock-go-line {
+        @keyframes race-countdown-go-line {
           from { transform: translateX(40px) scaleX(0.3); opacity: 0.9; }
           to { transform: translateX(190px) scaleX(1); opacity: 0; }
         }
-        @keyframes unblock-go-flash {
+        @keyframes race-countdown-go-flash {
           from { opacity: 0.35; }
           to { opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .unblock-go-burst { display: none; }
+          .race-countdown-go-burst { display: none; }
         }
       `}</style>
       {isGo && (
         <div
           aria-hidden="true"
-          className="unblock-go-burst pointer-events-none absolute inset-0"
+          className="race-countdown-go-burst pointer-events-none absolute inset-0"
         >
           {/* One quick full-screen flash plus speed lines radiating out of
               the GO! so the race start pops, not just appears */}
@@ -46,7 +48,7 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
             className="absolute inset-0"
             style={{
               background: 'color-mix(in srgb, var(--theme-primary) 60%, white)',
-              animation: 'unblock-go-flash 450ms ease-out forwards',
+              animation: 'race-countdown-go-flash 450ms ease-out forwards',
             }}
           />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -61,7 +63,7 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
                   style={{
                     background: 'var(--theme-primary)',
                     filter: 'drop-shadow(0 0 6px var(--theme-primary))',
-                    animation: `unblock-go-line 550ms ease-out ${i % 2 ? 40 : 0}ms forwards`,
+                    animation: `race-countdown-go-line 550ms ease-out ${i % 2 ? 40 : 0}ms forwards`,
                     opacity: 0,
                   }}
                 />
@@ -96,7 +98,7 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
             color: 'var(--theme-primary)',
             textShadow:
               '0 0 40px color-mix(in srgb, var(--theme-primary) 65%, transparent)',
-            animation: 'unblock-countdown-pop 300ms ease-out',
+            animation: 'race-countdown-pop 300ms ease-out',
           }}
         >
           GO!
@@ -108,7 +110,7 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
           style={{
             textShadow:
               '0 0 40px color-mix(in srgb, var(--theme-primary) 55%, transparent)',
-            animation: 'unblock-countdown-pop 300ms ease-out',
+            animation: 'race-countdown-pop 300ms ease-out',
           }}
         >
           {displayed}

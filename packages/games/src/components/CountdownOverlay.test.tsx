@@ -36,16 +36,19 @@ describe('CountdownOverlay', () => {
   });
 
   describe('traffic lights', () => {
+    const getLights = (container: HTMLElement) =>
+      Array.from(container.querySelectorAll('.rounded-full')).filter(
+        (el) => (el as HTMLElement).style.width === '46px'
+      );
+
     it('renders three light elements', () => {
       const { container } = render(<CountdownOverlay countdown={4} />);
-      const lights = container.querySelectorAll('.rounded-full');
-      expect(lights).toHaveLength(3);
+      expect(getLights(container)).toHaveLength(3);
     });
 
     it('lights are all off at countdown 4', () => {
       const { container } = render(<CountdownOverlay countdown={4} />);
-      const lights = container.querySelectorAll('.rounded-full');
-      lights.forEach((light) => {
+      getLights(container).forEach((light) => {
         expect(light).not.toHaveStyle({ background: '#ef4444' });
         expect(light).not.toHaveStyle({ background: '#facc15' });
         expect(light).not.toHaveStyle({ background: '#4ade80' });
@@ -54,20 +57,20 @@ describe('CountdownOverlay', () => {
 
     it('first (red) light is on at countdown 3', () => {
       const { container } = render(<CountdownOverlay countdown={3} />);
-      const lights = container.querySelectorAll('.rounded-full');
+      const lights = getLights(container);
       expect(lights[0]).toHaveStyle({ background: '#ef4444' });
     });
 
     it('first and second lights are on at countdown 2', () => {
       const { container } = render(<CountdownOverlay countdown={2} />);
-      const lights = container.querySelectorAll('.rounded-full');
+      const lights = getLights(container);
       expect(lights[0]).toHaveStyle({ background: '#ef4444' });
       expect(lights[1]).toHaveStyle({ background: '#facc15' });
     });
 
     it('all three lights are on at countdown 1 (GO!)', () => {
       const { container } = render(<CountdownOverlay countdown={1} />);
-      const lights = container.querySelectorAll('.rounded-full');
+      const lights = getLights(container);
       expect(lights[0]).toHaveStyle({ background: '#ef4444' });
       expect(lights[1]).toHaveStyle({ background: '#facc15' });
       expect(lights[2]).toHaveStyle({ background: '#4ade80' });

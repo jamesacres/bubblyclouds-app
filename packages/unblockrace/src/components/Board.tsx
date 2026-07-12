@@ -7,7 +7,7 @@ import { pieceRow, pieceStride } from '../helpers/piece';
 import { useDrag } from '../hooks/useDrag';
 import { isSolved } from '../helpers/isSolved';
 import { assignPieceColors } from '../helpers/pieceColors';
-import { useThemeColorName } from '../hooks/useThemeColorName';
+import { useThemeColorName } from '@bubblyclouds-app/ui/hooks/useThemeColorName';
 import Piece from './Piece';
 
 interface BoardProps {

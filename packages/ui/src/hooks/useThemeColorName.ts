@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ThemeColor } from '@bubblyclouds-app/ui/providers/ThemeColorProvider';
+import { ThemeColor } from '../providers/ThemeColorProvider';
 
 const THEME_COLORS: ThemeColor[] = [
   'blue',
