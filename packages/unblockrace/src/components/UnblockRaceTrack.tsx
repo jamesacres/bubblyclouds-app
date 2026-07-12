@@ -14,16 +14,15 @@ import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
-import {
-  getPlayerColor,
-  getAllUserIds,
-} from '@bubblyclouds-app/template/utils/playerColors';
+import { getAllUserIds } from '@bubblyclouds-app/template/utils/playerColors';
 import { ServerState } from '../types/state';
 import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { PlayerRunResult } from '../helpers/runResults';
+import { getRaceCarColor } from '../helpers/raceCarColors';
+import { useThemeColorName } from '../hooks/useThemeColorName';
 
 interface UnblockRaceTrackProps {
   sessionParties: Parties<Session<ServerState>>;
@@ -86,6 +85,7 @@ const UnblockRaceTrack = ({
   rateApp,
 }: UnblockRaceTrackProps) => {
   const { getNicknameByUserId, parties, refreshParties } = useParties();
+  const themeColor = useThemeColorName();
 
   // Track height state for responsive layout (SSR-safe)
   const [trackHeight, setTrackHeight] = useState(48);
@@ -402,10 +402,11 @@ const UnblockRaceTrack = ({
                 motion trail; the current user gets a ring instead of a
                 crown emoji */}
             {allPlayerProgress.map((player, index) => {
-              const colorClass = getPlayerColor(
+              const colorClass = getRaceCarColor(
                 player.userId,
                 allUserIds,
-                player.isCurrentUser
+                player.isCurrentUser,
+                themeColor
               );
 
               const totalRacers =
@@ -482,10 +483,11 @@ const UnblockRaceTrack = ({
               the tap-for-opponents affordance */}
           <div className="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
             {[...allPlayerProgress].reverse().map((player) => {
-              const colorClass = getPlayerColor(
+              const colorClass = getRaceCarColor(
                 player.userId,
                 allUserIds,
-                player.isCurrentUser
+                player.isCurrentUser,
+                themeColor
               );
 
               return (
@@ -606,7 +608,7 @@ const UnblockRaceTrack = ({
                                   </span>
                                 ) : (
                                   <span
-                                    className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(row.userId, allUserIds, row.isCurrentUser)}`}
+                                    className={`h-2 w-2 shrink-0 rounded-full ${getRaceCarColor(row.userId, allUserIds, row.isCurrentUser, themeColor)}`}
                                   />
                                 )}
                                 <span
@@ -740,7 +742,7 @@ const UnblockRaceTrack = ({
                       </span>
                       {racer.userId !== undefined ? (
                         <span
-                          className={`h-2 w-2 shrink-0 rounded-full ${getPlayerColor(racer.userId, allUserIds, racer.isCurrentUser)}`}
+                          className={`h-2 w-2 shrink-0 rounded-full ${getRaceCarColor(racer.userId, allUserIds, racer.isCurrentUser, themeColor)}`}
                         />
                       ) : (
                         <span
