@@ -4,7 +4,7 @@ import { SUBSCRIPTION_CONTEXT_MESSAGES } from './subscriptionMessages';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 
 describe('SUBSCRIPTION_CONTEXT_MESSAGES', () => {
-  const expectedContexts = [
+  const expectedContexts: (keyof typeof SUBSCRIPTION_CONTEXT_MESSAGES)[] = [
     SubscriptionContext.HINT,
     SubscriptionContext.UNDO,
     SubscriptionContext.COLLECTION_LOCKED,
