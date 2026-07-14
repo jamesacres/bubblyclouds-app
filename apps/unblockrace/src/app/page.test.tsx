@@ -16,14 +16,30 @@ jest.mock('@bubblyclouds-app/template/components/MyPuzzlesTab', () => {
 });
 
 jest.mock('@bubblyclouds-app/template/components/FriendsTab', () => {
-  return function MockFriendsTab() {
-    return <div data-testid="friends-tab">Friends Tab</div>;
+  return function MockFriendsTab({ onRefresh }: { onRefresh?: () => void }) {
+    return (
+      <div data-testid="friends-tab">
+        Friends Tab
+        <button onClick={onRefresh}>Refresh leaderboard</button>
+      </div>
+    );
   };
 });
 
 jest.mock('@bubblyclouds-app/games/components/ActivityWidget', () => {
-  return function MockActivityWidget() {
-    return <div data-testid="activity-widget">Activity Widget</div>;
+  return function MockActivityWidget({
+    onClick,
+    action,
+  }: {
+    onClick?: () => void;
+    action?: React.ReactNode;
+  }) {
+    return (
+      <div data-testid="activity-widget" onClick={onClick}>
+        Activity Widget
+        {action}
+      </div>
+    );
   };
 });
 
@@ -181,7 +197,7 @@ describe('Home Page', () => {
     it('should display all footer tab buttons', () => {
       render(<Home />);
       expect(screen.getAllByTestId('zap-icon').length).toBeGreaterThan(0);
-      expect(screen.getByTestId('award-icon')).toBeInTheDocument();
+      expect(screen.getAllByTestId('award-icon').length).toBeGreaterThan(0);
       expect(screen.getAllByTestId('users-icon').length).toBeGreaterThan(0);
     });
 
@@ -338,6 +354,137 @@ describe('Home Page', () => {
 
       render(<Home />);
       expect(mockGetSearchParams).toHaveBeenCalledWith('tab');
+    });
+  });
+
+  describe('Daily race button', () => {
+    it('should prompt login and not navigate when user is not logged in', async () => {
+      render(<Home />);
+      fireEvent.click(screen.getByText('Start racing'));
+      expect(mockPush).not.toHaveBeenCalled();
+    });
+
+    it('should navigate to a puzzle URL when user is logged in', async () => {
+      const AuthProvider = jest.requireMock(
+        '@bubblyclouds-app/auth/providers/AuthProvider'
+      );
+      const originalContext = AuthProvider.UserContext;
+      AuthProvider.UserContext = React.createContext({
+        user: { sub: 'user-1' },
+        showLoginModal: jest.fn(),
+      });
+
+      render(<Home />);
+      fireEvent.click(screen.getByText('Start racing'));
+      expect(mockPush).toHaveBeenCalled();
+      expect(mockPush.mock.calls[0][0]).toEqual(
+        expect.stringContaining('runId=oftheday-')
+      );
+
+      AuthProvider.UserContext = originalContext;
+    });
+  });
+
+  describe('Monthly collection navigation when logged in', () => {
+    it('should navigate to /collection when the card is clicked', () => {
+      const AuthProvider = jest.requireMock(
+        '@bubblyclouds-app/auth/providers/AuthProvider'
+      );
+      const originalContext = AuthProvider.UserContext;
+      AuthProvider.UserContext = React.createContext({
+        user: { sub: 'user-1' },
+        showLoginModal: jest.fn(),
+      });
+
+      render(<Home />);
+      fireEvent.click(screen.getAllByText('Browse puzzles')[0]);
+      expect(mockPush).toHaveBeenCalledWith('/collection');
+
+      AuthProvider.UserContext = originalContext;
+    });
+  });
+
+  describe('Friends list from parties', () => {
+    it('should list friend nicknames excluding the current user', () => {
+      const useParties = jest.requireMock(
+        '@bubblyclouds-app/template/hooks/useParties'
+      ).useParties;
+      useParties.mockReturnValue({
+        parties: [
+          {
+            members: [
+              { userId: 'user-1', memberNickname: 'Me' },
+              { userId: 'user-2', memberNickname: 'Alex' },
+              { userId: 'user-3', memberNickname: 'Sam' },
+            ],
+          },
+        ],
+        refreshParties: jest.fn(),
+      });
+
+      render(<Home />);
+      expect(screen.getByText(/Race Me, Alex and more/)).toBeInTheDocument();
+    });
+
+    it('should lazily load friend sessions once parties are available', () => {
+      const useParties = jest.requireMock(
+        '@bubblyclouds-app/template/hooks/useParties'
+      ).useParties;
+      const useSessions = jest.requireMock(
+        '@bubblyclouds-app/template/providers/SessionsProvider'
+      ).useSessions;
+      const mockLazyLoad = jest.fn();
+      useParties.mockReturnValue({
+        parties: [{ members: [] }],
+        refreshParties: jest.fn(),
+      });
+      useSessions.mockReturnValue({
+        sessions: [],
+        refetchSessions: jest.fn(),
+        lazyLoadFriendSessions: mockLazyLoad,
+        fetchFriendSessions: jest.fn(),
+      });
+
+      render(<Home />);
+      expect(mockLazyLoad).toHaveBeenCalledWith([{ members: [] }]);
+    });
+  });
+
+  describe('Leaderboard shortcut in activity widget', () => {
+    it('should switch to the Friends tab without triggering the widget click', () => {
+      render(<Home />);
+      fireEvent.click(screen.getByText('Leaderboard'));
+      expect(screen.getByTestId('friends-tab')).toBeInTheDocument();
+    });
+  });
+
+  describe('Refreshing the leaderboard', () => {
+    it('should refresh parties and refetch friend sessions when parties exist', async () => {
+      const useParties = jest.requireMock(
+        '@bubblyclouds-app/template/hooks/useParties'
+      ).useParties;
+      const useSessions = jest.requireMock(
+        '@bubblyclouds-app/template/providers/SessionsProvider'
+      ).useSessions;
+      const mockRefreshParties = jest.fn().mockResolvedValue(undefined);
+      const mockFetchFriendSessions = jest.fn().mockResolvedValue(undefined);
+      useParties.mockReturnValue({
+        parties: [{ members: [] }],
+        refreshParties: mockRefreshParties,
+      });
+      useSessions.mockReturnValue({
+        sessions: [],
+        refetchSessions: jest.fn(),
+        lazyLoadFriendSessions: jest.fn(),
+        fetchFriendSessions: mockFetchFriendSessions,
+      });
+
+      render(<Home />);
+      fireEvent.click(screen.getByText('Racing Teams'));
+      fireEvent.click(screen.getByText('Refresh leaderboard'));
+
+      await screen.findByTestId('friends-tab');
+      expect(mockRefreshParties).toHaveBeenCalled();
     });
   });
 });
