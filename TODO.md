@@ -105,3 +105,26 @@ Puzzle content is mocked from a static fixture until the real API exists.
 - api add support for revenuecat api key and switching based on app before giving entitlement
 - api add support for unblock collections
 - node upgrade
+
+## Money Bags Race
+
+Blank framework app scaffolded from the unblockrace/sudoku pattern: homepage
+with 3 tabs (Home, My States, Racing Teams), login and party system, and a
+`/state?month=YYYY-MM` page that loads/saves an arbitrary JSON state per
+month (replacing the puzzle/game id concept - no puzzle of the day or puzzle
+book). No game logic or dedicated package exists yet.
+
+### Features
+
+- Design and implement the actual game/ledger data model (currently a raw
+  JSON textarea placeholder at `apps/moneybagsrace/src/app/state/page.tsx`)
+- Regenerate Android/iOS signing and app-specific assets (assetlinks.json
+  fingerprints, apple-app-site-association appID, app icons/splash, StoreKit
+  product ids) - these were carried over from unblockrace as placeholders
+- Replace placeholder icons/logo assets with Money Bags Race branding
+
+### Server project
+
+- revenuecat new project and apps and api keys
+- google play and app store new apps
+- api add support for revenuecat api key and switching based on app before giving entitlement
