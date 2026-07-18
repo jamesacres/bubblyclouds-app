@@ -182,7 +182,7 @@ describe('Invite Page', () => {
       });
     });
 
-    it('should redirect to puzzle after successful join', async () => {
+    it('should redirect to monthly entry after successful join', async () => {
       const mockRouterReplace = jest.fn();
       mockUseRouter.mockReturnValue({
         replace: mockRouterReplace,

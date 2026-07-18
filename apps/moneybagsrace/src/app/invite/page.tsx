@@ -284,9 +284,9 @@ function InviteComponent() {
                     </p>
                     <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 p-4 dark:from-blue-900/20 dark:to-purple-900/20">
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        💡 <strong>Pro tip:</strong> All future states you save
-                        will be shared with your team members for friendly
-                        competition!
+                        💡 <strong>Pro tip:</strong> Your monthly net worth
+                        entries will be shared with your team members for a
+                        friendly race!
                       </p>
                     </div>
                   </div>

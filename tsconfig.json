@@ -39,6 +39,8 @@
       "@bubblyclouds-app/ui/*": ["./packages/ui/src/*"],
       "@bubblyclouds-app/games": ["./packages/games/src"],
       "@bubblyclouds-app/games/*": ["./packages/games/src/*"],
+      "@bubblyclouds-app/moneybagsrace": ["./packages/moneybagsrace/src"],
+      "@bubblyclouds-app/moneybagsrace/*": ["./packages/moneybagsrace/src/*"],
       "@bubblyclouds-app/sudoku": ["./packages/sudoku/src"],
       "@bubblyclouds-app/sudoku/*": ["./packages/sudoku/src/*"],
       "@bubblyclouds-app/template": ["./packages/template/src"],

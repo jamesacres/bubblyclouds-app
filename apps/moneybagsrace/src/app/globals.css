@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @source "../../../../packages/auth";
 @source "../../../../packages/games";
+@source "../../../../packages/moneybagsrace";
 @source "../../../../packages/template";
 @source "../../../../packages/types";
 @source "../../../../packages/ui";

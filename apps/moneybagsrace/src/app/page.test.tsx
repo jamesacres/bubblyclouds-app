@@ -1,50 +1,30 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  currentMonthId,
+  previousMonthId,
+} from '@bubblyclouds-app/moneybagsrace/helpers/monthId';
+import { HouseholdData } from '@bubblyclouds-app/moneybagsrace/types/household';
+import { MonthlySnapshotData } from '@bubblyclouds-app/moneybagsrace/types/snapshot';
+import { AccountKind } from '@bubblyclouds-app/moneybagsrace/types/accounts';
 import Home from './page';
 import * as nextNavigation from 'next/navigation';
 
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
-  useSearchParams: jest.fn(),
 }));
 
-jest.mock('../components/MyStatesTab', () => {
-  return function MockMyStatesTab() {
-    return <div data-testid="my-states-tab">My States Tab</div>;
-  };
-});
+jest.mock('@bubblyclouds-app/moneybagsrace/hooks/useHousehold', () => ({
+  useHousehold: jest.fn(),
+}));
 
-jest.mock('../components/RacingTeamsTab', () => {
-  return function MockRacingTeamsTab({
-    onRefresh,
-  }: {
-    onRefresh?: () => void;
-  }) {
-    return (
-      <div data-testid="racing-teams-tab">
-        Racing Teams Tab
-        <button onClick={onRefresh}>Refresh leaderboard</button>
-      </div>
-    );
-  };
-});
+jest.mock('@bubblyclouds-app/moneybagsrace/hooks/useRetirementModel', () => ({
+  useRetirementModel: jest.fn(),
+}));
 
-jest.mock('@bubblyclouds-app/games/components/ActivityWidget', () => {
-  return function MockActivityWidget({
-    onClick,
-    action,
-  }: {
-    onClick?: () => void;
-    action?: React.ReactNode;
-  }) {
-    return (
-      <div data-testid="activity-widget" onClick={onClick}>
-        Activity Widget
-        {action}
-      </div>
-    );
-  };
-});
+jest.mock('@bubblyclouds-app/moneybagsrace/engine/solver', () => ({
+  findEarliestRetirementAsync: jest.fn(),
+}));
 
 jest.mock('@bubblyclouds-app/template/hooks/online', () => ({
   useOnline: jest.fn(() => ({
@@ -53,55 +33,25 @@ jest.mock('@bubblyclouds-app/template/hooks/online', () => ({
   })),
 }));
 
-jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => {
-  const mockUseSessions = jest.fn(() => ({
-    sessions: [],
-    refetchSessions: jest.fn(),
-    lazyLoadFriendSessions: jest.fn(),
-    fetchFriendSessions: jest.fn(),
-  }));
-
-  return {
-    SessionsProvider: ({ children }: { children: React.ReactNode }) => (
-      <>{children}</>
-    ),
-    useSessions: mockUseSessions,
-  };
-});
+const mockShowLoginModal = jest.fn();
 
 jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
   UserContext: React.createContext({
     user: null,
-    loginRedirect: jest.fn(),
+    showLoginModal: (...args: unknown[]) => mockShowLoginModal(...args),
     isInitialised: true,
   }),
-}));
-
-jest.mock('@bubblyclouds-app/template/providers/PartiesProvider', () => {
-  return {
-    __esModule: true,
-    default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  };
-});
-
-jest.mock('@bubblyclouds-app/template/hooks/useParties', () => ({
-  useParties: jest.fn(() => ({
-    parties: [],
-    refreshParties: jest.fn(),
-  })),
-}));
-
-jest.mock('@bubblyclouds-app/types/tabs', () => ({
-  Tab: {
-    START_PUZZLE: 'START_PUZZLE',
-    MY_PUZZLES: 'MY_PUZZLES',
-    FRIENDS: 'FRIENDS',
-  },
 }));
 
 jest.mock('@bubblyclouds-app/template/components/PremiumFeatures', () => ({
   PremiumFeatures: function MockPremiumFeatures() {
     return <div data-testid="premium-features">Premium Features</div>;
+  },
+}));
+
+jest.mock('@bubblyclouds-app/template/components/RateAppButton', () => ({
+  RateAppButton: function MockRateAppButton() {
+    return <div data-testid="rate-app-button">Rate App</div>;
   },
 }));
 
@@ -118,255 +68,373 @@ jest.mock('@bubblyclouds-app/ui/components/Footer', () => ({
   },
 }));
 
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: (props: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-    className?: string;
-  }) => {
-    const { ...rest } = props;
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img {...rest} />;
-  },
+jest.mock('lucide-react', () => ({
+  Home: () => <div data-testid="home-icon" />,
+  LineChart: () => <div data-testid="line-chart-icon" />,
+  Settings: () => <div data-testid="settings-icon" />,
+  Zap: () => <div data-testid="zap-icon" />,
+  NotebookPen: () => <div data-testid="notebook-pen-icon" />,
 }));
 
-jest.mock('lucide-react', () => ({
-  Users: () => <div data-testid="users-icon">Users Icon</div>,
-  Zap: () => <div data-testid="zap-icon">Zap Icon</div>,
-  Award: () => <div data-testid="award-icon">Award Icon</div>,
-}));
+const snapshot = (
+  month: string,
+  balancePence: number,
+  complete = true
+): MonthlySnapshotData => ({
+  schemaVersion: 1,
+  month,
+  accounts: [
+    {
+      accountId: 'isa-1',
+      kind: AccountKind.INVESTMENT,
+      name: 'Stocks ISA',
+      balancePence,
+    },
+  ],
+  complete,
+});
+
+const ASSUMPTIONS = {
+  inflationRatePct: 2.5,
+  returnScenarios: { lowerRealPct: 2, centralRealPct: 5, upperRealPct: 7 },
+  taxBands: [],
+  statePensionAnnualPence: 0,
+  targetSuccessRatePct: 90,
+};
+
+const emptyHousehold = (): HouseholdData => ({
+  partyId: undefined,
+  members: [{ userId: 'user-1', nickname: 'James', isUser: true }],
+  months: {},
+  orderedMonths: [],
+  effectiveAssumptions: ASSUMPTIONS,
+});
+
+const householdWithTwoMonths = (): HouseholdData => {
+  const month = currentMonthId();
+  const previous = previousMonthId(month);
+  return {
+    partyId: 'party-1',
+    members: [{ userId: 'user-1', nickname: 'James', isUser: true }],
+    months: {
+      [previous]: {
+        month: previous,
+        memberSnapshots: { 'user-1': snapshot(previous, 1_000_000) },
+        effectiveShared: undefined,
+        complete: true,
+      },
+      [month]: {
+        month,
+        memberSnapshots: { 'user-1': snapshot(month, 1_100_000) },
+        effectiveShared: undefined,
+        complete: true,
+      },
+    },
+    orderedMonths: [previous, month],
+    effectiveAssumptions: ASSUMPTIONS,
+  };
+};
+
+const mockUseHousehold = jest.requireMock(
+  '@bubblyclouds-app/moneybagsrace/hooks/useHousehold'
+).useHousehold as jest.Mock;
+const mockUseRetirementModel = jest.requireMock(
+  '@bubblyclouds-app/moneybagsrace/hooks/useRetirementModel'
+).useRetirementModel as jest.Mock;
+const mockFindEarliestRetirementAsync = jest.requireMock(
+  '@bubblyclouds-app/moneybagsrace/engine/solver'
+).findEarliestRetirementAsync as jest.Mock;
+const AuthProvider = jest.requireMock(
+  '@bubblyclouds-app/auth/providers/AuthProvider'
+);
+
+const withUser = () => {
+  const originalContext = AuthProvider.UserContext;
+  AuthProvider.UserContext = React.createContext({
+    user: { sub: 'user-1' },
+    showLoginModal: mockShowLoginModal,
+    isInitialised: true,
+  });
+  return () => {
+    AuthProvider.UserContext = originalContext;
+  };
+};
 
 describe('Home Page', () => {
   const mockPush = jest.fn();
-  const mockReplaceState = jest.fn();
-  const mockScrollTo = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
-
     (nextNavigation.useRouter as jest.Mock).mockReturnValue({
       push: mockPush,
     });
-
-    (nextNavigation.useSearchParams as jest.Mock).mockReturnValue({
-      get: jest.fn((key: string) => {
-        if (key === 'tab') return null;
-        return null;
-      }),
+    mockUseHousehold.mockReturnValue({
+      household: emptyHousehold(),
+      isLoading: false,
     });
-
-    window.history.replaceState = mockReplaceState;
-    window.scrollTo = mockScrollTo;
+    mockUseRetirementModel.mockReturnValue({
+      members: [],
+      assumptions: ASSUMPTIONS,
+      readiness: { ready: false, missingDob: [], hasSnapshots: false },
+    });
   });
 
-  describe('Default Home export with Suspense', () => {
-    it('should render Home component wrapped in Suspense', () => {
+  describe('logged out', () => {
+    it('renders the marketing section with a sign-in call to action', () => {
       render(<Home />);
+      expect(screen.getByText('Sign in to start tracking')).toBeInTheDocument();
+      expect(
+        screen.queryByTestId('net-worth-headline')
+      ).not.toBeInTheDocument();
+    });
+
+    it('prompts login when the sign-in card is clicked', () => {
+      render(<Home />);
+      fireEvent.click(screen.getByText('Sign in to start tracking'));
+      expect(mockShowLoginModal).toHaveBeenCalled();
+    });
+
+    it('keeps the premium features, rate app and footer sections', () => {
+      render(<Home />);
+      expect(screen.getByTestId('premium-features')).toBeInTheDocument();
+      expect(screen.getByTestId('rate-app-button')).toBeInTheDocument();
       expect(screen.getByTestId('footer')).toBeInTheDocument();
     });
   });
 
-  describe('Tab navigation', () => {
-    it('should render START_PUZZLE tab by default', () => {
-      render(<Home />);
-      expect(screen.getByText('This month')).toBeInTheDocument();
+  describe('logged in dashboard', () => {
+    let restore: () => void;
+
+    beforeEach(() => {
+      restore = withUser();
     });
 
-    it('should display all footer tab buttons', () => {
-      render(<Home />);
-      expect(screen.getAllByTestId('zap-icon').length).toBeGreaterThan(0);
-      expect(screen.getAllByTestId('award-icon').length).toBeGreaterThan(0);
-      expect(screen.getAllByTestId('users-icon').length).toBeGreaterThan(0);
+    afterEach(() => {
+      restore();
     });
 
-    it('should switch to MY_PUZZLES tab when clicked', () => {
-      render(<Home />);
-      fireEvent.click(screen.getByText('My States'));
-      expect(screen.getByTestId('my-states-tab')).toBeInTheDocument();
-    });
-
-    it('should switch to FRIENDS tab when clicked', () => {
-      render(<Home />);
-      fireEvent.click(screen.getByText('Racing Teams'));
-      expect(screen.getByTestId('racing-teams-tab')).toBeInTheDocument();
-    });
-
-    it('should handle tab switching and maintain state', () => {
-      render(<Home />);
-      fireEvent.click(screen.getByText('My States'));
-      expect(screen.getByTestId('my-states-tab')).toBeInTheDocument();
-
-      fireEvent.click(screen.getByText('Home'));
-      expect(screen.getByText('This month')).toBeInTheDocument();
-    });
-  });
-
-  describe('Footer tabs styling', () => {
-    it('should highlight active tab', () => {
-      render(<Home />);
-      const homeButton = screen.getByText('Home').closest('button');
-      expect(homeButton).toHaveClass('text-theme-primary');
-    });
-
-    it('should show inactive tabs in gray', () => {
-      render(<Home />);
-      const myStatesButton = screen.getByText('My States').closest('button');
-      expect(myStatesButton).toHaveClass('text-gray-500');
-    });
-  });
-
-  describe('Premium Features section', () => {
-    it('should render premium features component', () => {
-      render(<Home />);
-      expect(screen.getByTestId('premium-features')).toBeInTheDocument();
-    });
-  });
-
-  describe('Activity widget', () => {
-    it('should show activity widget on MY_PUZZLES tab', () => {
-      render(<Home />);
-      fireEvent.click(screen.getByText('My States'));
-      expect(screen.getByTestId('activity-widget')).toBeInTheDocument();
-    });
-
-    it('should show activity widget on START_PUZZLE tab', () => {
-      render(<Home />);
-      expect(screen.getByTestId('activity-widget')).toBeInTheDocument();
-    });
-  });
-
-  describe('URL management', () => {
-    it('should use history.replaceState when changing tabs', () => {
-      render(<Home />);
-      fireEvent.click(screen.getByText('My States'));
-      expect(mockReplaceState).toHaveBeenCalled();
-    });
-
-    it('should scroll to top when changing tabs', () => {
-      render(<Home />);
-      fireEvent.click(screen.getByText('My States'));
-      expect(mockScrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
-    });
-  });
-
-  describe('Content padding', () => {
-    it('should have bottom padding to avoid footer overlap', () => {
-      const { container } = render(<Home />);
-      expect(container.querySelector('.h-32')).toBeInTheDocument();
-    });
-  });
-
-  describe('This month button', () => {
-    it('should prompt login and not navigate when user is not logged in', async () => {
-      render(<Home />);
-      fireEvent.click(screen.getByText('Open'));
-      expect(mockPush).not.toHaveBeenCalled();
-    });
-
-    it('should navigate to the state page when user is logged in', async () => {
-      const AuthProvider = jest.requireMock(
-        '@bubblyclouds-app/auth/providers/AuthProvider'
-      );
-      const originalContext = AuthProvider.UserContext;
-      AuthProvider.UserContext = React.createContext({
-        user: { sub: 'user-1' },
-        showLoginModal: jest.fn(),
+    it('shows a loading placeholder while household data loads', () => {
+      mockUseHousehold.mockReturnValue({
+        household: emptyHousehold(),
+        isLoading: true,
       });
-
       render(<Home />);
-      fireEvent.click(screen.getByText('Open'));
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringContaining('/state?month=')
-      );
-
-      AuthProvider.UserContext = originalContext;
+      expect(screen.getByTestId('dashboard-loading')).toBeInTheDocument();
+      expect(
+        screen.queryByTestId('net-worth-headline')
+      ).not.toBeInTheDocument();
     });
-  });
 
-  describe('Friends list from parties', () => {
-    it('should list friend nicknames excluding the current user', () => {
-      const useParties = jest.requireMock(
-        '@bubblyclouds-app/template/hooks/useParties'
-      ).useParties;
-      useParties.mockReturnValue({
-        parties: [
+    it('shows the household headline with month-on-month change', () => {
+      mockUseHousehold.mockReturnValue({
+        household: householdWithTwoMonths(),
+        isLoading: false,
+      });
+      render(<Home />);
+      expect(screen.getByTestId('net-worth-headline')).toBeInTheDocument();
+      expect(screen.getAllByText('£11,000').length).toBeGreaterThan(0);
+      expect(screen.getByTestId('net-worth-headline-change')).toHaveTextContent(
+        '+£1,000.00 (+10.0%) vs last month'
+      );
+    });
+
+    it('shows per-member stat cards with their own change', () => {
+      mockUseHousehold.mockReturnValue({
+        household: householdWithTwoMonths(),
+        isLoading: false,
+      });
+      render(<Home />);
+      const card = screen.getByTestId('stat-card');
+      expect(card).toHaveTextContent('James');
+      expect(screen.getByTestId('stat-card-change')).toHaveTextContent(
+        '+£1,000.00 (+10.0%)'
+      );
+    });
+
+    it('shows the entry-due card when the current month is incomplete', () => {
+      render(<Home />);
+      expect(screen.getByTestId('entry-due-card')).toBeInTheDocument();
+      expect(screen.getByText('Waiting on: James')).toBeInTheDocument();
+      expect(screen.getByTestId('entry-due-card')).toHaveAttribute(
+        'href',
+        `/state?month=${currentMonthId()}`
+      );
+    });
+
+    it('hides the entry-due card once the current month is complete', () => {
+      mockUseHousehold.mockReturnValue({
+        household: householdWithTwoMonths(),
+        isLoading: false,
+      });
+      render(<Home />);
+      expect(screen.queryByTestId('entry-due-card')).not.toBeInTheDocument();
+    });
+
+    it('shows the retirement setup CTA when the model is not ready', () => {
+      render(<Home />);
+      const cta = screen.getByTestId('retirement-setup-cta');
+      expect(cta).toHaveTextContent('Set up retirement planning');
+      expect(cta).toHaveAttribute('href', '/settings');
+      expect(
+        screen.queryByTestId('retirement-ready-card')
+      ).not.toBeInTheDocument();
+    });
+
+    it('links to the retirement screen when ready without a remembered withdrawal', () => {
+      mockUseRetirementModel.mockReturnValue({
+        members: [],
+        startMonth: currentMonthId(),
+        assumptions: ASSUMPTIONS,
+        readiness: { ready: true, missingDob: [], hasSnapshots: true },
+      });
+      render(<Home />);
+      const card = screen.getByTestId('retirement-ready-card');
+      expect(card).toHaveTextContent('Run your retirement plan');
+      expect(card).toHaveAttribute('href', '/retirement');
+      expect(mockFindEarliestRetirementAsync).not.toHaveBeenCalled();
+    });
+
+    describe('live solver headline', () => {
+      const readyModelWithDefaults = () => ({
+        members: [
           {
-            members: [
-              { userId: 'user-1', memberNickname: 'Me' },
-              { userId: 'user-2', memberNickname: 'Alex' },
-              { userId: 'user-3', memberNickname: 'Sam' },
-            ],
+            userId: 'user-1',
+            dateOfBirth: '1989-03-15',
+            balancesPencePerWrapper: {},
+            contributions: { monthlyPencePerWrapper: {}, stepChanges: [] },
+            overrides: {},
           },
         ],
-        refreshParties: jest.fn(),
+        startMonth: currentMonthId(),
+        assumptions: {
+          ...ASSUMPTIONS,
+          defaultWithdrawalAnnualPence: 2_400_000,
+          defaultPlanToAge: 92,
+        },
+        readiness: { ready: true, missingDob: [], hasSnapshots: true },
       });
 
-      render(<Home />);
-      expect(screen.getByText(/With Me, Alex and more/)).toBeInTheDocument();
+      beforeEach(() => {
+        mockUseHousehold.mockReturnValue({
+          household: householdWithTwoMonths(),
+          isLoading: false,
+        });
+        mockUseRetirementModel.mockReturnValue(readyModelWithDefaults());
+        mockFindEarliestRetirementAsync.mockResolvedValue({
+          earliestRetirementMonth: '2041-03',
+          achievedSuccessRatePct: 91.2,
+          agesAtRetirement: { 'user-1': 52 },
+        });
+      });
+
+      it('auto-runs the solver with the remembered defaults and shows the headline', async () => {
+        render(<Home />);
+        expect(await screen.findByTestId('solver-headline')).toHaveTextContent(
+          'You can retire in March 2041 (age 52) at 90% confidence'
+        );
+        expect(screen.getByTestId('retirement-headline-card')).toHaveAttribute(
+          'href',
+          '/retirement'
+        );
+        expect(mockFindEarliestRetirementAsync).toHaveBeenCalledWith(
+          expect.objectContaining({
+            startMonth: currentMonthId(),
+            planToAge: 92,
+            withdrawalAnnualPence: 2_400_000,
+            includeStatePension: true,
+            applyTax: true,
+            runs: 5000,
+            seed: expect.any(Number),
+          }),
+          expect.objectContaining({
+            windowYears: 40,
+            signal: expect.any(AbortSignal),
+          })
+        );
+      });
+
+      it('shows the loading state with progress while solving', async () => {
+        mockFindEarliestRetirementAsync.mockImplementation(
+          (
+            _base: unknown,
+            options: { onProgress?: (_done: number, _total: number) => void }
+          ) => {
+            options.onProgress?.(3, 12);
+            return new Promise(() => {});
+          }
+        );
+        render(<Home />);
+        expect(
+          await screen.findByTestId('solver-headline-loading')
+        ).toBeInTheDocument();
+        // The solve starts on a deferred tick, so wait for its first
+        // progress callback to land
+        await waitFor(() =>
+          expect(screen.getByTestId('solver-headline-progress')).toHaveStyle({
+            width: '25%',
+          })
+        );
+      });
+
+      it('shows the unachievable state when the solver finds no date', async () => {
+        mockFindEarliestRetirementAsync.mockResolvedValue({
+          agesAtRetirement: {},
+        });
+        render(<Home />);
+        expect(
+          await screen.findByTestId('solver-headline-unachievable')
+        ).toHaveTextContent(
+          'Not yet achievable within 40 years — try the retirement planner'
+        );
+      });
     });
 
-    it('should lazily load friend sessions once parties are available', () => {
-      const useParties = jest.requireMock(
-        '@bubblyclouds-app/template/hooks/useParties'
-      ).useParties;
-      const useSessions = jest.requireMock(
-        '@bubblyclouds-app/template/providers/SessionsProvider'
-      ).useSessions;
-      const mockLazyLoad = jest.fn();
-      useParties.mockReturnValue({
-        parties: [{ members: [] }],
-        refreshParties: jest.fn(),
-      });
-      useSessions.mockReturnValue({
-        sessions: [],
-        refetchSessions: jest.fn(),
-        lazyLoadFriendSessions: mockLazyLoad,
-        fetchFriendSessions: jest.fn(),
-      });
-
+    it('shows the invite-partner CTA when there is no party', () => {
       render(<Home />);
-      expect(mockLazyLoad).toHaveBeenCalledWith([{ members: [] }]);
+      expect(screen.getByTestId('invite-partner-cta')).toHaveAttribute(
+        'href',
+        '/settings'
+      );
+    });
+
+    it('hides the invite-partner CTA when a party exists', () => {
+      mockUseHousehold.mockReturnValue({
+        household: householdWithTwoMonths(),
+        isLoading: false,
+      });
+      render(<Home />);
+      expect(
+        screen.queryByTestId('invite-partner-cta')
+      ).not.toBeInTheDocument();
+    });
+
+    it('renders navigation cards to the main screens', () => {
+      render(<Home />);
+      expect(screen.getByText('Monthly entry').closest('a')).toHaveAttribute(
+        'href',
+        `/state?month=${currentMonthId()}`
+      );
+      expect(
+        screen.getByText('Net worth over time').closest('a')
+      ).toHaveAttribute('href', '/history');
+      expect(
+        screen.getByText('Growth projection').closest('a')
+      ).toHaveAttribute('href', '/projection');
+      expect(
+        screen.getByText('Accounts & assumptions').closest('a')
+      ).toHaveAttribute('href', '/settings');
     });
   });
 
-  describe('Racing teams shortcut in activity widget', () => {
-    it('should switch to the Friends tab without triggering the widget click', () => {
+  describe('footer navigation', () => {
+    it('navigates to history and settings from the footer', () => {
       render(<Home />);
-      fireEvent.click(screen.getByText('View team'));
-      expect(screen.getByTestId('racing-teams-tab')).toBeInTheDocument();
-    });
-  });
-
-  describe('Refreshing the leaderboard', () => {
-    it('should refresh parties and refetch friend sessions when parties exist', async () => {
-      const useParties = jest.requireMock(
-        '@bubblyclouds-app/template/hooks/useParties'
-      ).useParties;
-      const useSessions = jest.requireMock(
-        '@bubblyclouds-app/template/providers/SessionsProvider'
-      ).useSessions;
-      const mockRefreshParties = jest.fn().mockResolvedValue(undefined);
-      const mockFetchFriendSessions = jest.fn().mockResolvedValue(undefined);
-      useParties.mockReturnValue({
-        parties: [{ members: [] }],
-        refreshParties: mockRefreshParties,
-      });
-      useSessions.mockReturnValue({
-        sessions: [],
-        refetchSessions: jest.fn(),
-        lazyLoadFriendSessions: jest.fn(),
-        fetchFriendSessions: mockFetchFriendSessions,
-      });
-
-      render(<Home />);
-      fireEvent.click(screen.getByText('Racing Teams'));
-      fireEvent.click(screen.getByText('Refresh leaderboard'));
-
-      await screen.findByTestId('racing-teams-tab');
-      expect(mockRefreshParties).toHaveBeenCalled();
+      fireEvent.click(screen.getByText('History'));
+      expect(mockPush).toHaveBeenCalledWith('/history');
+      fireEvent.click(screen.getByText('Settings'));
+      expect(mockPush).toHaveBeenCalledWith('/settings');
+      fireEvent.click(screen.getByText('Home'));
+      expect(mockPush).toHaveBeenCalledWith('/');
     });
   });
 });

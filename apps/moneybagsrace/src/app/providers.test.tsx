@@ -69,6 +69,15 @@ jest.mock('@bubblyclouds-app/template/providers/PartiesProvider', () => ({
   ),
 }));
 
+jest.mock(
+  '@bubblyclouds-app/moneybagsrace/providers/MoneyBagsDataProvider',
+  () => ({
+    MoneyBagsDataProvider: ({ children }: { children: React.ReactNode }) => (
+      <div data-testid="money-bags-data-provider">{children}</div>
+    ),
+  })
+);
+
 jest.mock('next-themes', () => ({
   ThemeProvider: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="theme-provider">{children}</div>
@@ -200,6 +209,18 @@ describe('Providers', () => {
       );
 
       expect(screen.getByTestId('sessions-provider')).toBeInTheDocument();
+    });
+
+    it('should render MoneyBagsDataProvider', () => {
+      render(
+        <Providers>
+          <div>Test</div>
+        </Providers>
+      );
+
+      expect(
+        screen.getByTestId('money-bags-data-provider')
+      ).toBeInTheDocument();
     });
 
     it('should render ThemeProvider', () => {
@@ -344,7 +365,7 @@ describe('Providers', () => {
       expect(sessionsProvider).toBeInTheDocument();
     });
 
-    it('should have ThemeProvider inside SessionsProvider', () => {
+    it('should have MoneyBagsDataProvider inside SessionsProvider', () => {
       const { container } = render(
         <Providers>
           <div>Test</div>
@@ -354,7 +375,24 @@ describe('Providers', () => {
       const sessionsProvider = container.querySelector(
         '[data-testid="sessions-provider"]'
       );
-      const themeProvider = sessionsProvider?.querySelector(
+      const moneyBagsDataProvider = sessionsProvider?.querySelector(
+        '[data-testid="money-bags-data-provider"]'
+      );
+
+      expect(moneyBagsDataProvider).toBeInTheDocument();
+    });
+
+    it('should have ThemeProvider inside MoneyBagsDataProvider', () => {
+      const { container } = render(
+        <Providers>
+          <div>Test</div>
+        </Providers>
+      );
+
+      const moneyBagsDataProvider = container.querySelector(
+        '[data-testid="money-bags-data-provider"]'
+      );
+      const themeProvider = moneyBagsDataProvider?.querySelector(
         '[data-testid="theme-provider"]'
       );
 

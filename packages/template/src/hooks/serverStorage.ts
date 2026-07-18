@@ -224,13 +224,17 @@ function useServerStorage({
   );
 
   const saveValue = useCallback(
-    async <T>(state: T): Promise<ServerStateResult<T> | undefined> => {
+    async <T>(
+      state: T,
+      options?: { expiresAt?: Date }
+    ): Promise<ServerStateResult<T> | undefined> => {
       if (isOnline && (await isLoggedIn())) {
         try {
           const stateKey = getStateKey();
           console.info('saving session', stateKey);
           const inOneMonth = new Date();
           inOneMonth.setDate(inOneMonth.getDate() + 32);
+          const expiresAt = options?.expiresAt ?? inOneMonth;
           const response = await fetch(
             new Request(`${apiUrl}/sessions/${stateKey}`, {
               method: 'PATCH',
@@ -239,7 +243,7 @@ function useServerStorage({
               },
               body: JSON.stringify({
                 state,
-                expiresAt: inOneMonth.toISOString(),
+                expiresAt: expiresAt.toISOString(),
               }),
             })
           );

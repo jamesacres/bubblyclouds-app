@@ -26,6 +26,8 @@ const config = {
   },
   moduleNameMapper: {
     '^@/(.+)$': '<rootDir>/src/$1',
+    '^@bubblyclouds-app/moneybagsrace/(.*)$':
+      '<rootDir>/../../packages/moneybagsrace/src/$1',
     '^next/image$': '<rootDir>/../../jest.setup.nextImage.js',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],

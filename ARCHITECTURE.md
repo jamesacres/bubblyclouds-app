@@ -127,6 +127,15 @@ libraries) and **apps** (executable applications).
   - Mock seed puzzle data until the real collections API exists
   - Depends on: `@games`, `@template`, `@auth`, `@ui`, `@types`
 
+- **`@bubblyclouds-app/moneybagsrace`** - Money Bags Race net worth domain
+  logic
+  - Net worth types, month/session helpers, and money maths
+  - Monte Carlo retirement engine (projection, simulation, solver,
+    sensitivity) with embedded returns dataset
+  - Data provider/hooks over template server storage and domain components
+    incl. recharts charts
+  - Depends on: `@template`, `@auth`, `@ui`, `@types`
+
 #### Game Features Layer (L4)
 
 - **`@bubblyclouds-app/games`** - Game-agnostic components and utilities
@@ -1006,7 +1015,7 @@ pnpm test
 
 ## Summary
 
-- **8 packages** organized in **7 layers** (L0-L6):
+- **9 packages** organized in **7 layers** (L0-L6):
   - L0-L1: Foundation (`@types`, `@ui`, `@blog`)
     - `@types`: Zero dependencies, foundational types
     - `@ui`: Generic UI components, depends on `@types`
@@ -1015,9 +1024,9 @@ pnpm test
   - L2: Infrastructure (`@auth`)
   - L3: Collaboration (`@template`)
   - L4: Game Features (`@games`)
-  - L5: Game-Specific (`@sudoku`)
-  - L6: Applications (`@app-sudoku`, `@app-bubblyclouds`, `@app-jamesacres`, `@app-stephenesch`)
-- **4 apps** consuming packages as needed
+  - L5: Game-Specific (`@sudoku`, `@unblockrace`, `@moneybagsrace`)
+  - L6: Applications (`@app-sudoku`, `@app-unblockrace`, `@app-moneybagsrace`, `@app-bubblyclouds`, `@app-jamesacres`, `@app-stephenesch`)
+- **6 apps** consuming packages as needed
 - **Just-in-Time pattern** for fast development without build steps
 - **Clear dependency flow** enforced by package.json and tooling
 - **Explicit guidelines** for where to add each type of code

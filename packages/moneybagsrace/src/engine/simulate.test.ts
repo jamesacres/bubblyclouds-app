@@ -1,0 +1,558 @@
+import { GLOBAL_EQUITY_ANNUAL_RETURNS } from '../data/globalEquityReturns';
+import { InvestmentWrapper } from '../types/accounts';
+import { HouseholdAssumptions } from '../types/assumptions';
+import {
+  AnnualReturn,
+  FailureKind,
+  SimulationInputs,
+  SimulationMember,
+} from '../types/simulation';
+import { runRetirementSimulation } from './simulate';
+import { DEFAULT_TAX_BANDS } from './tax';
+
+const STATE_PENSION_PENCE = 1_197_300;
+
+const flatReturns = (realPct: number): AnnualReturn[] => [
+  { year: 2000, realPct, nominalPct: realPct },
+];
+
+const ZERO_RETURNS = flatReturns(0);
+
+const assumptions: HouseholdAssumptions = {
+  inflationRatePct: 2.5,
+  returnScenarios: { lowerRealPct: 2, centralRealPct: 5, upperRealPct: 7 },
+  taxBands: DEFAULT_TAX_BANDS,
+  statePensionAnnualPence: STATE_PENSION_PENCE,
+  targetSuccessRatePct: 90,
+};
+
+const makeMember = (
+  overrides: Partial<SimulationMember> = {}
+): SimulationMember => ({
+  userId: 'member-1',
+  dateOfBirth: '1970-01-01',
+  balancesPencePerWrapper: {},
+  contributions: { monthlyPencePerWrapper: {}, stepChanges: [] },
+  overrides: {},
+  ...overrides,
+});
+
+const makeInputs = (
+  overrides: Partial<SimulationInputs> = {}
+): SimulationInputs => ({
+  members: [makeMember()],
+  startMonth: '2030-01',
+  retirementMonth: '2030-01',
+  planToAge: 70,
+  withdrawalAnnualPence: 1_000_000,
+  includeStatePension: false,
+  applyTax: false,
+  assumptions,
+  returns: ZERO_RETURNS,
+  runs: 5,
+  seed: 1,
+  ...overrides,
+});
+
+describe('runRetirementSimulation input validation', () => {
+  it('rejects zero runs', () => {
+    expect(() => runRetirementSimulation(makeInputs({ runs: 0 }))).toThrow(
+      'at least one run'
+    );
+  });
+
+  it('rejects an empty household', () => {
+    expect(() => runRetirementSimulation(makeInputs({ members: [] }))).toThrow(
+      'at least one member'
+    );
+  });
+
+  it('rejects an empty returns dataset', () => {
+    expect(() => runRetirementSimulation(makeInputs({ returns: [] }))).toThrow(
+      'returns dataset'
+    );
+  });
+});
+
+describe('zero-volatility analytic cases (single member, all ISA)', () => {
+  // DOB 1970-01-01, retiring 2030-01 at age 60, planToAge 70 => exactly 10
+  // annual withdrawal steps of 1,000,000 pence each
+  const isaInputs = (isaPence: number): SimulationInputs =>
+    makeInputs({
+      members: [
+        makeMember({
+          balancesPencePerWrapper: { [InvestmentWrapper.ISA]: isaPence },
+        }),
+      ],
+    });
+
+  it('succeeds with wealth exactly equal to total withdrawals, ending at zero', () => {
+    const result = runRetirementSimulation(isaInputs(10_000_000));
+    expect(result.successRatePct).toBe(100);
+    expect(result.failures.count).toBe(0);
+    expect(result.failures.medianFailureYear).toBeUndefined();
+    expect(result.endingWealthPercentilesPence).toEqual({
+      p5: 0,
+      p25: 0,
+      p50: 0,
+      p75: 0,
+      p95: 0,
+    });
+  });
+
+  it('tracks exact wealth along the percentile path', () => {
+    const result = runRetirementSimulation(isaInputs(10_500_000));
+    expect(result.successRatePct).toBe(100);
+    expect(result.percentilePathsPence).toHaveLength(11);
+    expect(result.percentilePathsPence[0]).toEqual({
+      year: 2030,
+      p5: 10_500_000,
+      p25: 10_500_000,
+      p50: 10_500_000,
+      p75: 10_500_000,
+      p95: 10_500_000,
+    });
+    expect(result.percentilePathsPence[1].p50).toBe(9_500_000);
+    expect(result.percentilePathsPence[10]).toEqual({
+      year: 2040,
+      p5: 500_000,
+      p25: 500_000,
+      p50: 500_000,
+      p75: 500_000,
+      p95: 500_000,
+    });
+    expect(result.endingWealthPercentilesPence.p50).toBe(500_000);
+  });
+
+  it('fails in the final year when one penny short of total withdrawals', () => {
+    const result = runRetirementSimulation(isaInputs(9_999_999));
+    expect(result.successRatePct).toBe(0);
+    expect(result.failures.count).toBe(5);
+    expect(result.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(5);
+    expect(result.failures.byKind[FailureKind.BRIDGE_EXHAUSTED]).toBe(0);
+    expect(result.failures.medianFailureYear).toBe(2039);
+    expect(result.endingWealthPercentilesPence.p95).toBe(0);
+  });
+
+  it('withdraws at the start of the year before applying growth', () => {
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 2_000_000 },
+          }),
+        ],
+        planToAge: 61,
+        returns: flatReturns(10),
+      })
+    );
+    expect(result.endingWealthPercentilesPence.p50).toBe(1_100_000);
+  });
+
+  it('compounds remaining wealth annually when no withdrawal is needed', () => {
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 1_000_000 },
+          }),
+        ],
+        planToAge: 62,
+        withdrawalAnnualPence: 0,
+        returns: flatReturns(10),
+      })
+    );
+    expect(result.percentilePathsPence.map((point) => point.p50)).toEqual([
+      1_000_000, 1_100_000, 1_210_000,
+    ]);
+    expect(result.successRatePct).toBe(100);
+  });
+});
+
+describe('accumulation phase', () => {
+  // planToAge equals the age at retirement, so there are no withdrawal
+  // steps and ending wealth is the wealth accumulated by retirement
+  it('applies monthly contributions from the month after startMonth through retirementMonth', () => {
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            contributions: {
+              monthlyPencePerWrapper: { [InvestmentWrapper.ISA]: 100_000 },
+              stepChanges: [],
+            },
+          }),
+        ],
+        startMonth: '2029-01',
+        retirementMonth: '2030-01',
+        planToAge: 60,
+      })
+    );
+    expect(result.successRatePct).toBe(100);
+    expect(result.percentilePathsPence).toEqual([
+      {
+        year: 2030,
+        p5: 1_200_000,
+        p25: 1_200_000,
+        p50: 1_200_000,
+        p75: 1_200_000,
+        p95: 1_200_000,
+      },
+    ]);
+    expect(result.endingWealthPercentilesPence.p50).toBe(1_200_000);
+  });
+
+  it('honours contribution step changes', () => {
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            contributions: {
+              monthlyPencePerWrapper: { [InvestmentWrapper.ISA]: 100_000 },
+              stepChanges: [
+                {
+                  fromMonth: '2029-07',
+                  wrapper: InvestmentWrapper.ISA,
+                  monthlyPence: 200_000,
+                },
+              ],
+            },
+          }),
+        ],
+        startMonth: '2029-01',
+        retirementMonth: '2030-01',
+        planToAge: 60,
+      })
+    );
+    // 5 months (Feb-Jun) at 100,000 + 7 months (Jul-Jan) at 200,000
+    expect(result.endingWealthPercentilesPence.p50).toBe(1_900_000);
+  });
+
+  it('pro-rates a partial accumulation year geometrically', () => {
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 1_000_000 },
+          }),
+        ],
+        startMonth: '2029-01',
+        retirementMonth: '2030-07',
+        planToAge: 60,
+        returns: flatReturns(10),
+      })
+    );
+    // 18 months at a flat 10%/yr => 1.1^1.5 growth
+    const expectedPence = Math.round(1_000_000 * 1.1 ** 1.5);
+    expect(
+      Math.abs(result.endingWealthPercentilesPence.p50 - expectedPence)
+    ).toBeLessThanOrEqual(1);
+  });
+});
+
+describe('portfolio extremes', () => {
+  it('gives 100% success for a huge portfolio', () => {
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: {
+              [InvestmentWrapper.ISA]: 1_000_000_000_000,
+            },
+          }),
+        ],
+        planToAge: 95,
+        withdrawalAnnualPence: 2_000_000,
+        returns: GLOBAL_EQUITY_ANNUAL_RETURNS,
+        runs: 200,
+        seed: 42,
+      })
+    );
+    expect(result.successRatePct).toBe(100);
+    expect(result.failures.count).toBe(0);
+  });
+
+  it('gives 0% success with WEALTH_EXHAUSTED for a zero portfolio', () => {
+    const result = runRetirementSimulation(
+      makeInputs({
+        planToAge: 95,
+        withdrawalAnnualPence: 2_000_000,
+        returns: GLOBAL_EQUITY_ANNUAL_RETURNS,
+        runs: 20,
+        seed: 42,
+      })
+    );
+    expect(result.successRatePct).toBe(0);
+    expect(result.failures.count).toBe(20);
+    expect(result.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(20);
+    expect(result.failures.byKind[FailureKind.BRIDGE_EXHAUSTED]).toBe(0);
+    expect(result.failures.medianFailureYear).toBe(2030);
+    expect(result.endingWealthPercentilesPence.p95).toBe(0);
+  });
+});
+
+describe('access rules', () => {
+  it('fails with BRIDGE_EXHAUSTED when a SIPP-only member retires long before NMPA', () => {
+    // DOB 1990-01-01 => NMPA 57; retiring 2030-01 at age 40 with 5 years of
+    // withdrawals, all before pension access
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1990-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 100_000_000 },
+          }),
+        ],
+        planToAge: 45,
+        withdrawalAnnualPence: 2_000_000,
+        runs: 10,
+        seed: 7,
+      })
+    );
+    expect(result.successRatePct).toBe(0);
+    expect(result.failures.byKind[FailureKind.BRIDGE_EXHAUSTED]).toBe(10);
+    expect(result.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(0);
+    expect(result.failures.medianFailureYear).toBe(2030);
+  });
+
+  it('spends the bridge before touching an unlocked pension', () => {
+    // DOB 1965-01-01 => NMPA 55, so the SIPP is unlocked at 65 -- but two
+    // years of withdrawals fit in the ISA, so with tax on the SIPP must end
+    // exactly untouched (any pension draw would leak tax)
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1965-01-01',
+            balancesPencePerWrapper: {
+              [InvestmentWrapper.ISA]: 2_000_000,
+              [InvestmentWrapper.SIPP]: 5_000_000,
+            },
+          }),
+        ],
+        planToAge: 67,
+        applyTax: true,
+      })
+    );
+    expect(result.successRatePct).toBe(100);
+    expect(result.endingWealthPercentilesPence.p50).toBe(5_000_000);
+  });
+
+  it('splits pension withdrawals across members so each uses their own tax bands', () => {
+    // Equal SIPPs and a net need of exactly two personal allowances' worth
+    // of gross pension: the proportional split keeps each member's taxable
+    // slice inside their allowance, so no tax leaks at all
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            userId: 'member-1',
+            dateOfBirth: '1965-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 10_000_000 },
+          }),
+          makeMember({
+            userId: 'member-2',
+            dateOfBirth: '1965-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 10_000_000 },
+          }),
+        ],
+        planToAge: 66,
+        withdrawalAnnualPence: 2_514_000,
+        applyTax: true,
+      })
+    );
+    expect(result.successRatePct).toBe(100);
+    expect(result.endingWealthPercentilesPence.p50).toBe(17_486_000);
+  });
+});
+
+describe('state pension toggle', () => {
+  // DOB 1958-01-01 => state pension age 66; retiring 2030-01 at age 72 the
+  // member draws state pension every withdrawal year. The ISA holds exactly
+  // 10 years of (withdrawal - state pension), so the run succeeds iff the
+  // state pension is included.
+  const spInputs = (includeStatePension: boolean): SimulationInputs =>
+    makeInputs({
+      members: [
+        makeMember({
+          dateOfBirth: '1958-01-01',
+          balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 8_027_000 },
+        }),
+      ],
+      planToAge: 82,
+      withdrawalAnnualPence: 2_000_000,
+      includeStatePension,
+    });
+
+  it('raises the success rate for the same seed', () => {
+    const withStatePension = runRetirementSimulation(spInputs(true));
+    const withoutStatePension = runRetirementSimulation(spInputs(false));
+    expect(withStatePension.successRatePct).toBe(100);
+    expect(withoutStatePension.successRatePct).toBe(0);
+    expect(withStatePension.successRatePct).toBeGreaterThan(
+      withoutStatePension.successRatePct
+    );
+  });
+
+  it('raises the success rate on a marginal stochastic portfolio', () => {
+    const stochasticInputs = (includeStatePension: boolean): SimulationInputs =>
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1958-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 60_000_000 },
+          }),
+        ],
+        planToAge: 95,
+        withdrawalAnnualPence: 3_000_000,
+        includeStatePension,
+        returns: GLOBAL_EQUITY_ANNUAL_RETURNS,
+        runs: 300,
+        seed: 5,
+      });
+    const withStatePension = runRetirementSimulation(stochasticInputs(true));
+    const withoutStatePension = runRetirementSimulation(
+      stochasticInputs(false)
+    );
+    expect(withStatePension.successRatePct).toBeGreaterThan(
+      withoutStatePension.successRatePct
+    );
+  });
+
+  it('honours a per-member state pension override', () => {
+    const overriddenPence = 500_000;
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1958-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 8_027_000 },
+            overrides: { statePensionAnnualPenceOverride: overriddenPence },
+          }),
+        ],
+        planToAge: 82,
+        withdrawalAnnualPence: 2_000_000,
+        includeStatePension: true,
+      })
+    );
+    // Need is now 1,500,000/yr, so the 8,027,000 ISA runs out in year 6
+    expect(result.successRatePct).toBe(0);
+    expect(result.failures.medianFailureYear).toBe(2035);
+  });
+});
+
+describe('tax toggle', () => {
+  // SIPP holds exactly 10 years of net withdrawals: tax-naive succeeds
+  // exactly; grossing-up (~2,057,177/yr for a 2,000,000 net) fails
+  const taxInputs = (applyTax: boolean): SimulationInputs =>
+    makeInputs({
+      members: [
+        makeMember({
+          dateOfBirth: '1965-01-01',
+          balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 20_000_000 },
+        }),
+      ],
+      planToAge: 75,
+      withdrawalAnnualPence: 2_000_000,
+      applyTax,
+    });
+
+  it('lowers the success rate for the same seed when pension withdrawals occur', () => {
+    const withTax = runRetirementSimulation(taxInputs(true));
+    const withoutTax = runRetirementSimulation(taxInputs(false));
+    expect(withoutTax.successRatePct).toBe(100);
+    expect(withoutTax.endingWealthPercentilesPence.p50).toBe(0);
+    expect(withTax.successRatePct).toBe(0);
+    expect(withTax.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(5);
+    expect(withTax.successRatePct).toBeLessThan(withoutTax.successRatePct);
+  });
+
+  it('lowers the success rate on a marginal stochastic portfolio', () => {
+    const stochasticInputs = (applyTax: boolean): SimulationInputs =>
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1965-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 50_000_000 },
+          }),
+        ],
+        planToAge: 95,
+        withdrawalAnnualPence: 3_000_000,
+        applyTax,
+        returns: GLOBAL_EQUITY_ANNUAL_RETURNS,
+        runs: 300,
+        seed: 9,
+      });
+    const withTax = runRetirementSimulation(stochasticInputs(true));
+    const withoutTax = runRetirementSimulation(stochasticInputs(false));
+    expect(withTax.successRatePct).toBeLessThan(withoutTax.successRatePct);
+  });
+});
+
+describe('stochastic results', () => {
+  const mixedInputs = (): SimulationInputs =>
+    makeInputs({
+      members: [
+        makeMember({
+          userId: 'member-1',
+          dateOfBirth: '1968-05-10',
+          balancesPencePerWrapper: {
+            [InvestmentWrapper.ISA]: 30_000_000,
+            [InvestmentWrapper.SIPP]: 40_000_000,
+          },
+          contributions: {
+            monthlyPencePerWrapper: { [InvestmentWrapper.ISA]: 50_000 },
+            stepChanges: [],
+          },
+        }),
+        makeMember({
+          userId: 'member-2',
+          dateOfBirth: '1972-03-04',
+          balancesPencePerWrapper: {
+            [InvestmentWrapper.GIA]: 10_000_000,
+            [InvestmentWrapper.COMPANY_PENSION]: 20_000_000,
+          },
+        }),
+      ],
+      startMonth: '2026-07',
+      retirementMonth: '2030-06',
+      planToAge: 90,
+      withdrawalAnnualPence: 4_000_000,
+      includeStatePension: true,
+      applyTax: true,
+      returns: GLOBAL_EQUITY_ANNUAL_RETURNS,
+      runs: 150,
+      seed: 11,
+    });
+
+  it('is deterministic for the same inputs and seed', () => {
+    expect(runRetirementSimulation(mixedInputs())).toEqual(
+      runRetirementSimulation(mixedInputs())
+    );
+  });
+
+  it('produces ordered percentiles and a consistent path shape', () => {
+    const result = runRetirementSimulation(mixedInputs());
+    // Oldest member (DOB 1968-05-10) is 62 at retirement in 2030-06, so
+    // there are 28 withdrawal years plus the at-retirement point
+    expect(result.percentilePathsPence).toHaveLength(29);
+    result.percentilePathsPence.forEach((point, index) => {
+      expect(point.year).toBe(2030 + index);
+      expect(point.p5).toBeLessThanOrEqual(point.p25);
+      expect(point.p25).toBeLessThanOrEqual(point.p50);
+      expect(point.p50).toBeLessThanOrEqual(point.p75);
+      expect(point.p75).toBeLessThanOrEqual(point.p95);
+    });
+    const ending = result.endingWealthPercentilesPence;
+    expect(ending.p5).toBeLessThanOrEqual(ending.p25);
+    expect(ending.p25).toBeLessThanOrEqual(ending.p50);
+    expect(ending.p50).toBeLessThanOrEqual(ending.p75);
+    expect(ending.p75).toBeLessThanOrEqual(ending.p95);
+    expect(result.successRatePct).toBeGreaterThanOrEqual(0);
+    expect(result.successRatePct).toBeLessThanOrEqual(100);
+    expect(result.failures.count).toBe(
+      result.failures.byKind[FailureKind.BRIDGE_EXHAUSTED] +
+        result.failures.byKind[FailureKind.WEALTH_EXHAUSTED]
+    );
+  });
+});

@@ -11,9 +11,9 @@ This monorepo uses a **7-layer package architecture** with clear dependency
 rules:
 
 ```
-L6: @app-sudoku, @app-bubblyclouds, @app-jamesacres, @app-stephenesch (Next.js applications)
+L6: @app-sudoku, @app-unblockrace, @app-moneybagsrace, @app-bubblyclouds, @app-jamesacres, @app-stephenesch (Next.js applications)
      ↓
-L5: @sudoku (game-specific logic)
+L5: @sudoku, @unblockrace, @moneybagsrace (app-specific logic)
      ↓
 L4: @games (game-agnostic features)
      ↓
@@ -362,6 +362,8 @@ bubblyclouds-app/
 │   │   ├── public/      # Static assets
 │   │   ├── deploy/      # AWS CDK stack for S3/CloudFront deployment
 │   │   └── package.json
+│   ├── unblockrace/     # Unblock Race application
+│   ├── moneybagsrace/   # Money Bags Race application
 │   ├── bubblyclouds/    # Bubblyclouds website
 │   │   ├── src/         # App source code
 │   │   ├── public/      # Static assets
@@ -384,6 +386,8 @@ bubblyclouds-app/
 │   ├── template/        # Collaborative features package
 │   ├── games/           # Game-agnostic game features
 │   ├── sudoku/          # Sudoku-specific logic
+│   ├── unblockrace/     # Unblock Race-specific logic
+│   ├── moneybagsrace/   # Money Bags Race net worth domain logic
 │   ├── blog/            # Blog components & utilities package
 │   └── types/           # Shared TypeScript types
 │

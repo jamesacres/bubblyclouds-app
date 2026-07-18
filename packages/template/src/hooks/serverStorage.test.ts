@@ -114,6 +114,61 @@ describe('useServerStorage', () => {
     );
   });
 
+  it('saveValue should default the PATCH body expiresAt to 32 days from now', async () => {
+    jest.useFakeTimers().setSystemTime(Date.parse('2026-01-01T00:00:00.000Z'));
+    try {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({}),
+      });
+      const { result } = renderHook(
+        () =>
+          useServerStorage({
+            app: 'mockApp',
+            apiUrl: 'mockApiUrl',
+            type: StateType.PUZZLE,
+            id: '123',
+          }),
+        { wrapper }
+      );
+
+      await act(async () => {
+        await result.current.saveValue({ data: 'test' });
+      });
+
+      const request = mockFetch.mock.calls[0][0];
+      expect(request.method).toBe('PATCH');
+      expect(JSON.parse(request.body).expiresAt).toBe(
+        '2026-02-02T00:00:00.000Z'
+      );
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+
+  it('saveValue should use the provided expiresAt override in the PATCH body', async () => {
+    mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+    const { result } = renderHook(
+      () =>
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
+      { wrapper }
+    );
+
+    const expiresAt = new Date('2030-06-15T12:00:00.000Z');
+    await act(async () => {
+      await result.current.saveValue({ data: 'test' }, { expiresAt });
+    });
+
+    const request = mockFetch.mock.calls[0][0];
+    expect(request.method).toBe('PATCH');
+    expect(JSON.parse(request.body).expiresAt).toBe('2030-06-15T12:00:00.000Z');
+  });
+
   it('listParties should fetch parties and their members', async () => {
     const mockPartyResponse = [
       {

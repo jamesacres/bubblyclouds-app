@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@bubblyclouds-app/auth": "workspace:*",
-    "@bubblyclouds-app/games": "workspace:*",
+    "@bubblyclouds-app/moneybagsrace": "workspace:*",
     "@bubblyclouds-app/template": "workspace:*",
     "@bubblyclouds-app/types": "workspace:*",
     "@bubblyclouds-app/ui": "workspace:*",

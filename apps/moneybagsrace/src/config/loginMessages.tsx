@@ -19,12 +19,12 @@ export const LOGIN_CONTEXT_MESSAGES: Partial<
   },
   [LoginContext.PUZZLE_ENTRY]: {
     textColor: 'text-violet-200',
-    content: <>Sign in to save your state</>,
+    content: <>Sign in to save your net worth</>,
   },
 };
 
 export const LOGIN_VALUE_PROPS = [
-  'Save your progress',
-  'Race friends',
-  'Track your history',
+  'Track your net worth',
+  'Race friends and family',
+  'Plan your retirement',
 ];
