@@ -1,11 +1,14 @@
 'use client';
 import { useState } from 'react';
-import { Archive, ArchiveRestore, ChevronDown, ChevronUp } from 'lucide-react';
 import {
-  KIND_LABELS,
-  WRAPPER_LABELS,
-  accountBadgeLabel,
-} from '../helpers/accountLabels';
+  Archive,
+  ArchiveRestore,
+  ChevronDown,
+  ChevronUp,
+  GripVertical,
+  Trash2,
+} from 'lucide-react';
+import { KIND_LABELS, WRAPPER_LABELS } from '../helpers/accountLabels';
 import {
   AccountDefinition,
   AccountKind,
@@ -21,19 +24,25 @@ const createAccountId = (): string =>
 const selectClassName =
   'rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-900 outline-none dark:border-white/10 dark:bg-white/5 dark:text-white';
 
+const rowSelectClassName =
+  'rounded-lg border border-zinc-200 bg-white px-2 py-1 text-xs font-semibold text-zinc-600 outline-none dark:border-white/10 dark:bg-white/5 dark:text-white/70';
+
 export const AccountManager = ({
   accounts,
   currentMonth,
+  accountIdsWithData,
   onChange,
 }: {
   accounts: AccountDefinition[];
   currentMonth: MonthId;
+  accountIdsWithData: Set<string>;
   onChange: (accounts: AccountDefinition[]) => void;
 }) => {
   const [newName, setNewName] = useState('');
   const [newKind, setNewKind] = useState(AccountKind.INVESTMENT);
   const [newWrapper, setNewWrapper] = useState(InvestmentWrapper.ISA);
   const [showArchived, setShowArchived] = useState(false);
+  const [draggingId, setDraggingId] = useState<string | undefined>(undefined);
 
   const isArchived = (account: AccountDefinition): boolean =>
     account.archivedMonth !== undefined &&
@@ -79,6 +88,37 @@ export const AccountManager = ({
     setNewName('');
   };
 
+  const changeKind = (accountId: string, kind: AccountKind) => {
+    updateAccount(accountId, (account) => {
+      if (kind === AccountKind.INVESTMENT) {
+        return {
+          ...account,
+          kind,
+          wrapper: account.wrapper ?? InvestmentWrapper.ISA,
+        };
+      }
+      const next = { ...account, kind };
+      delete next.wrapper;
+      return next;
+    });
+  };
+
+  const changeWrapper = (accountId: string, wrapper: InvestmentWrapper) => {
+    updateAccount(accountId, (account) => ({ ...account, wrapper }));
+  };
+
+  const applyOrder = (ordered: AccountDefinition[]) => {
+    const sortOrderByAccountId = new Map(
+      ordered.map((account, position) => [account.accountId, position])
+    );
+    onChange(
+      accounts.map((account) => {
+        const sortOrder = sortOrderByAccountId.get(account.accountId);
+        return sortOrder === undefined ? account : { ...account, sortOrder };
+      })
+    );
+  };
+
   const move = (accountId: string, direction: -1 | 1) => {
     const index = activeAccounts.findIndex(
       (account) => account.accountId === accountId
@@ -92,15 +132,30 @@ export const AccountManager = ({
       reordered[targetIndex],
       reordered[index],
     ];
-    const sortOrderByAccountId = new Map(
-      reordered.map((account, position) => [account.accountId, position])
+    applyOrder(reordered);
+  };
+
+  const reorderByDrop = (draggedId: string, targetId: string) => {
+    if (draggedId === targetId) {
+      return;
+    }
+    const fromIndex = activeAccounts.findIndex(
+      (account) => account.accountId === draggedId
     );
-    onChange(
-      accounts.map((account) => {
-        const sortOrder = sortOrderByAccountId.get(account.accountId);
-        return sortOrder === undefined ? account : { ...account, sortOrder };
-      })
+    const toIndex = activeAccounts.findIndex(
+      (account) => account.accountId === targetId
     );
+    if (fromIndex < 0 || toIndex < 0) {
+      return;
+    }
+    const reordered = [...activeAccounts];
+    const [dragged] = reordered.splice(fromIndex, 1);
+    reordered.splice(toIndex, 0, dragged);
+    applyOrder(reordered);
+  };
+
+  const removeAccount = (accountId: string) => {
+    onChange(accounts.filter((account) => account.accountId !== accountId));
   };
 
   const archive = (accountId: string) => {
@@ -126,51 +181,120 @@ export const AccountManager = ({
         </p>
       ) : (
         <ul className="flex flex-col divide-y divide-zinc-100 dark:divide-white/10">
-          {activeAccounts.map((account, index) => (
-            <li
-              key={account.accountId}
-              className="flex items-center gap-2 py-2"
-            >
-              <input
-                type="text"
-                aria-label={`Rename ${account.name}`}
-                value={account.name}
-                onChange={(event) =>
-                  updateAccount(account.accountId, (previous) => ({
-                    ...previous,
-                    name: event.target.value,
-                  }))
-                }
-                className="min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-900 outline-none dark:border-white/10 dark:bg-white/5 dark:text-white"
-              />
-              <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:bg-white/10 dark:text-white/50">
-                {accountBadgeLabel(account.kind, account.wrapper)}
-              </span>
-              <button
-                aria-label={`Move ${account.name} up`}
-                disabled={index === 0}
-                onClick={() => move(account.accountId, -1)}
-                className="cursor-pointer rounded-lg p-1.5 text-zinc-500 transition-all duration-200 active:scale-95 disabled:opacity-30 dark:text-white/50"
+          {activeAccounts.map((account, index) => {
+            const hasData = accountIdsWithData.has(account.accountId);
+            return (
+              <li
+                key={account.accountId}
+                draggable
+                onDragStart={() => setDraggingId(account.accountId)}
+                onDragEnd={() => setDraggingId(undefined)}
+                onDragOver={(event) => event.preventDefault()}
+                onDrop={(event) => {
+                  event.preventDefault();
+                  if (draggingId) {
+                    reorderByDrop(draggingId, account.accountId);
+                  }
+                  setDraggingId(undefined);
+                }}
+                className={`flex flex-wrap items-center gap-2 py-2 ${
+                  draggingId === account.accountId ? 'opacity-50' : ''
+                }`}
               >
-                <ChevronUp className="h-4 w-4" />
-              </button>
-              <button
-                aria-label={`Move ${account.name} down`}
-                disabled={index === activeAccounts.length - 1}
-                onClick={() => move(account.accountId, 1)}
-                className="cursor-pointer rounded-lg p-1.5 text-zinc-500 transition-all duration-200 active:scale-95 disabled:opacity-30 dark:text-white/50"
-              >
-                <ChevronDown className="h-4 w-4" />
-              </button>
-              <button
-                aria-label={`Archive ${account.name}`}
-                onClick={() => archive(account.accountId)}
-                className="cursor-pointer rounded-lg p-1.5 text-zinc-500 transition-all duration-200 active:scale-95 dark:text-white/50"
-              >
-                <Archive className="h-4 w-4" />
-              </button>
-            </li>
-          ))}
+                <span
+                  aria-hidden="true"
+                  className="cursor-grab text-zinc-400 active:cursor-grabbing dark:text-white/30"
+                >
+                  <GripVertical className="h-4 w-4" />
+                </span>
+                <input
+                  type="text"
+                  aria-label={`Rename ${account.name}`}
+                  value={account.name}
+                  onChange={(event) =>
+                    updateAccount(account.accountId, (previous) => ({
+                      ...previous,
+                      name: event.target.value,
+                    }))
+                  }
+                  className="min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-900 outline-none dark:border-white/10 dark:bg-white/5 dark:text-white"
+                />
+                <select
+                  aria-label={`Type of ${account.name}`}
+                  value={account.kind}
+                  onChange={(event) => {
+                    const kind = Object.values(AccountKind).find(
+                      (candidate) => candidate === event.target.value
+                    );
+                    if (kind) {
+                      changeKind(account.accountId, kind);
+                    }
+                  }}
+                  className={rowSelectClassName}
+                >
+                  {Object.values(AccountKind).map((kind) => (
+                    <option key={kind} value={kind}>
+                      {KIND_LABELS[kind]}
+                    </option>
+                  ))}
+                </select>
+                {account.kind === AccountKind.INVESTMENT && (
+                  <select
+                    aria-label={`Wrapper of ${account.name}`}
+                    value={account.wrapper ?? InvestmentWrapper.ISA}
+                    onChange={(event) => {
+                      const wrapper = Object.values(InvestmentWrapper).find(
+                        (candidate) => candidate === event.target.value
+                      );
+                      if (wrapper) {
+                        changeWrapper(account.accountId, wrapper);
+                      }
+                    }}
+                    className={rowSelectClassName}
+                  >
+                    {Object.values(InvestmentWrapper).map((wrapper) => (
+                      <option key={wrapper} value={wrapper}>
+                        {WRAPPER_LABELS[wrapper]}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                <button
+                  aria-label={`Move ${account.name} up`}
+                  disabled={index === 0}
+                  onClick={() => move(account.accountId, -1)}
+                  className="cursor-pointer rounded-lg p-1.5 text-zinc-500 transition-all duration-200 active:scale-95 disabled:opacity-30 dark:text-white/50"
+                >
+                  <ChevronUp className="h-4 w-4" />
+                </button>
+                <button
+                  aria-label={`Move ${account.name} down`}
+                  disabled={index === activeAccounts.length - 1}
+                  onClick={() => move(account.accountId, 1)}
+                  className="cursor-pointer rounded-lg p-1.5 text-zinc-500 transition-all duration-200 active:scale-95 disabled:opacity-30 dark:text-white/50"
+                >
+                  <ChevronDown className="h-4 w-4" />
+                </button>
+                {hasData ? (
+                  <button
+                    aria-label={`Archive ${account.name}`}
+                    onClick={() => archive(account.accountId)}
+                    className="cursor-pointer rounded-lg p-1.5 text-zinc-500 transition-all duration-200 active:scale-95 dark:text-white/50"
+                  >
+                    <Archive className="h-4 w-4" />
+                  </button>
+                ) : (
+                  <button
+                    aria-label={`Delete ${account.name}`}
+                    onClick={() => removeAccount(account.accountId)}
+                    className="cursor-pointer rounded-lg p-1.5 text-red-500 transition-all duration-200 active:scale-95 dark:text-red-400"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
 
@@ -264,7 +388,9 @@ export const AccountManager = ({
                     {account.name}
                   </span>
                   <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:bg-white/10 dark:text-white/50">
-                    {accountBadgeLabel(account.kind, account.wrapper)}
+                    {account.kind === AccountKind.INVESTMENT && account.wrapper
+                      ? WRAPPER_LABELS[account.wrapper]
+                      : KIND_LABELS[account.kind]}
                   </span>
                   <button
                     aria-label={`Unarchive ${account.name}`}

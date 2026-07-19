@@ -15,19 +15,31 @@ import { formatPence } from '../helpers/money';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { SimulationResult } from '../types/simulation';
 import { formatPenceCompact } from './NetWorthChart';
-import { NetWorthMode } from './RealNominalToggle';
+import { modeLabel, NetWorthMode } from './RealNominalToggle';
 
+const PATH_COLOR = '#38bdf8';
+const MEDIAN_COLOR = '#0ea5e9';
 const BAND_COLOR = '#38bdf8';
-const MEDIAN_COLOR = '#38bdf8';
 
-interface PercentilePathsChartProps {
+interface MonteCarloPathsChartProps {
   paths: SimulationResult['percentilePathsPence'];
-  // Defaults to real (today's money); nominal restates each year with
-  // (1 + infl)^yearOffset from the first path year.
-  mode?: NetWorthMode;
-  inflationRatePct?: number;
+  sampledPaths: SimulationResult['sampledPathsPence'];
+  mode: NetWorthMode;
+  // Real values restate to nominal (future pounds) with (1 + infl)^yearOffset,
+  // where the offset counts calendar years from the retirement year.
+  inflationRatePct: number;
 }
 
+interface ChartRow {
+  year: number;
+  outerBase: number;
+  outerBand: number;
+  median: number;
+  [runKey: `run${number}`]: number;
+}
+
+// Restate a real (today's-money) value into nominal future pounds for a given
+// number of years after retirement.
 const toDisplayPence = (
   realPence: number,
   mode: NetWorthMode,
@@ -38,79 +50,70 @@ const toDisplayPence = (
     ? Math.round(realPence * (1 + inflationRatePct / 100) ** yearOffset)
     : realPence;
 
-interface PercentileRow {
-  year: number;
-  p5: number;
-  p25: number;
-  p50: number;
-  p75: number;
-  p95: number;
-  outerBase: number;
-  outerBand: number;
-  innerBase: number;
-  innerBand: number;
-}
-
-const PERCENTILE_TOOLTIP_ROWS: {
-  key: 'p95' | 'p75' | 'p50' | 'p25' | 'p5';
-  label: string;
-}[] = [
-  { key: 'p95', label: '95th' },
-  { key: 'p75', label: '75th' },
-  { key: 'p50', label: 'Median' },
-  { key: 'p25', label: '25th' },
-  { key: 'p5', label: '5th' },
-];
-
-// Percentile paths of simulated wealth (spec §6.2): p5–p95 and p25–p75 bands
-// via stacked areas (transparent base + band height), median line on top
-const PercentilePathsChart = ({
+const MonteCarloPathsChart = ({
   paths,
-  mode = 'real',
-  inflationRatePct = 0,
-}: PercentilePathsChartProps) => {
+  sampledPaths,
+  mode,
+  inflationRatePct,
+}: MonteCarloPathsChartProps) => {
   const dark = useDarkMode();
 
-  const rows = useMemo<PercentileRow[]>(() => {
+  const rows = useMemo<ChartRow[]>(() => {
     const baseYear = paths[0]?.year ?? 0;
-    return paths.map((point) => {
+    return paths.map((point, yearIndex) => {
       const offset = point.year - baseYear;
-      const scale = (value: number): number =>
-        toDisplayPence(value, mode, inflationRatePct, offset);
-      const p5 = scale(point.p5);
-      const p25 = scale(point.p25);
-      const p50 = scale(point.p50);
-      const p75 = scale(point.p75);
-      const p95 = scale(point.p95);
-      return {
+      const row: ChartRow = {
         year: point.year,
-        p5,
-        p25,
-        p50,
-        p75,
-        p95,
-        outerBase: p5,
-        outerBand: p95 - p5,
-        innerBase: p25,
-        innerBand: p75 - p25,
+        outerBase: toDisplayPence(point.p5, mode, inflationRatePct, offset),
+        outerBand: toDisplayPence(
+          point.p95 - point.p5,
+          mode,
+          inflationRatePct,
+          offset
+        ),
+        median: toDisplayPence(point.p50, mode, inflationRatePct, offset),
       };
+      for (const sampled of sampledPaths) {
+        const runValue = sampled.totalsPence[yearIndex];
+        if (runValue !== undefined) {
+          row[`run${sampled.runIndex}`] = toDisplayPence(
+            runValue,
+            mode,
+            inflationRatePct,
+            offset
+          );
+        }
+      }
+      return row;
     });
-  }, [paths, mode, inflationRatePct]);
+  }, [paths, sampledPaths, mode, inflationRatePct]);
 
   if (rows.length === 0) {
     return (
       <div
-        data-testid="percentile-paths-empty"
+        data-testid="monte-carlo-paths-empty"
         className="rounded-2xl border border-zinc-200 bg-white p-6 text-center text-sm text-zinc-500 dark:border-white/10 dark:bg-white/5 dark:text-white/60"
       >
-        Run a simulation to see the range of outcomes year by year.
+        Run a simulation to see individual outcome paths.
       </div>
     );
   }
 
   return (
-    <div data-testid="percentile-paths-chart">
-      <ResponsiveContainer width="100%" height={300}>
+    <div data-testid="monte-carlo-paths-chart">
+      <p
+        data-testid="monte-carlo-paths-mode"
+        className="mb-1 text-xs font-semibold text-zinc-500 dark:text-white/50"
+      >
+        {modeLabel(mode)}
+      </p>
+      <p
+        data-testid="monte-carlo-paths-count"
+        className="mb-2 text-xs text-zinc-400 dark:text-white/40"
+      >
+        {sampledPaths.length} simulated paths
+      </p>
+      <ResponsiveContainer width="100%" height={320}>
         <ComposedChart
           data={rows}
           margin={{ top: 4, right: 4, left: 4, bottom: 0 }}
@@ -137,7 +140,7 @@ const PercentilePathsChart = ({
             cursor={{ stroke: 'rgba(56,189,248,0.3)' }}
             content={({ active, payload, label }) => {
               if (!active || !payload?.length) return null;
-              const row: PercentileRow = payload[0].payload;
+              const row = payload[0].payload as ChartRow;
               return (
                 <div
                   style={{
@@ -150,13 +153,7 @@ const PercentilePathsChart = ({
                   }}
                 >
                   <div style={{ fontWeight: 700 }}>{label}</div>
-                  {PERCENTILE_TOOLTIP_ROWS.map(({ key, label: rowLabel }) => (
-                    <div key={key}>
-                      {rowLabel}
-                      {': '}
-                      {formatPence(row[key])}
-                    </div>
-                  ))}
+                  <div>Median: {formatPence(row.median)}</div>
                 </div>
               );
             }}
@@ -169,6 +166,7 @@ const PercentilePathsChart = ({
             fill="none"
             legendType="none"
             tooltipType="none"
+            isAnimationActive={false}
           />
           <Area
             dataKey="outerBand"
@@ -176,31 +174,33 @@ const PercentilePathsChart = ({
             stackId="outer"
             stroke="none"
             fill={BAND_COLOR}
-            fillOpacity={0.15}
-          />
-          <Area
-            dataKey="innerBase"
-            stackId="inner"
-            stroke="none"
-            fill="none"
-            legendType="none"
+            fillOpacity={0.12}
             tooltipType="none"
+            isAnimationActive={false}
           />
-          <Area
-            dataKey="innerBand"
-            name="25th–75th percentile"
-            stackId="inner"
-            stroke="none"
-            fill={BAND_COLOR}
-            fillOpacity={0.3}
-          />
+          {sampledPaths.map((sampled) => (
+            <Line
+              key={sampled.runIndex}
+              type="monotone"
+              dataKey={`run${sampled.runIndex}`}
+              stroke={PATH_COLOR}
+              strokeWidth={1}
+              strokeOpacity={0.12}
+              dot={false}
+              legendType="none"
+              tooltipType="none"
+              isAnimationActive={false}
+            />
+          ))}
           <Line
             type="monotone"
-            dataKey="p50"
+            dataKey="median"
             name="Median"
             stroke={MEDIAN_COLOR}
-            strokeWidth={2}
+            strokeWidth={2.5}
             dot={false}
+            tooltipType="none"
+            isAnimationActive={false}
           />
         </ComposedChart>
       </ResponsiveContainer>
@@ -208,4 +208,4 @@ const PercentilePathsChart = ({
   );
 };
 
-export default PercentilePathsChart;
+export default MonteCarloPathsChart;

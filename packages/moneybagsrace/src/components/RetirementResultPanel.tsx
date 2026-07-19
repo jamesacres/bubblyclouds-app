@@ -33,6 +33,8 @@ const FAILURE_EXPLANATIONS: { [key in FailureKind]: string } = {
     'accessible savings (ISA/GIA) ran out before pension access age',
   [FailureKind.WEALTH_EXHAUSTED]:
     'total wealth ran out before the end of the plan',
+  [FailureKind.INCOME_BELOW_FLOOR]:
+    'balance-linked income fell below the desired withdrawal',
 };
 
 const labelClassName =
@@ -108,6 +110,13 @@ const RetirementResultPanel = ({
                 {failures.byKind[FailureKind.WEALTH_EXHAUSTED]} wealth exhausted
                 — {FAILURE_EXPLANATIONS[FailureKind.WEALTH_EXHAUSTED]}.
               </li>
+              {failures.byKind[FailureKind.INCOME_BELOW_FLOOR] > 0 && (
+                <li data-testid="failure-income-floor">
+                  {failures.byKind[FailureKind.INCOME_BELOW_FLOOR]} income below
+                  floor — {FAILURE_EXPLANATIONS[FailureKind.INCOME_BELOW_FLOOR]}
+                  .
+                </li>
+              )}
             </ul>
           </div>
         )}

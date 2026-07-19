@@ -1,7 +1,14 @@
 'use client';
 import Link from 'next/link';
-import { useContext, useState } from 'react';
-import { ArrowLeft, Users } from 'lucide-react';
+import {
+  FocusEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { ArrowLeft, Check, Users } from 'lucide-react';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
@@ -25,23 +32,28 @@ const sectionClassName =
 const numberFieldClassName =
   'w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-900 outline-none dark:border-white/10 dark:bg-white/5 dark:text-white';
 
-const SaveButton = ({
-  onSave,
-  isSaving,
-  isDirty,
-}: {
-  onSave: () => void;
-  isSaving: boolean;
-  isDirty: boolean;
-}) => (
-  <button
-    onClick={onSave}
-    disabled={isSaving || !isDirty}
-    className="bg-theme-primary cursor-pointer self-start rounded-xl px-4 py-2 text-sm font-semibold text-white transition-all duration-200 active:scale-95 disabled:opacity-50"
-  >
-    {isSaving ? 'Saving…' : 'Save'}
-  </button>
-);
+type SaveState = 'saving' | 'saved';
+
+const SaveStatus = ({ state }: { state: SaveState | undefined }) => {
+  if (!state) {
+    return null;
+  }
+  return (
+    <span
+      role="status"
+      className="inline-flex items-center gap-1 self-start text-xs font-medium text-zinc-400 dark:text-white/40"
+    >
+      {state === 'saving' ? (
+        'Saving…'
+      ) : (
+        <>
+          <Check className="h-3.5 w-3.5" />
+          Saved
+        </>
+      )}
+    </span>
+  );
+};
 
 function PartySection() {
   const context = useContext(UserContext);
@@ -160,6 +172,7 @@ export default function SettingsPage() {
   const { user, showLoginModal } = context || {};
   const {
     household,
+    ownUserId,
     ownProfile,
     isLoading,
     saveOwnProfile,
@@ -172,38 +185,105 @@ export default function SettingsPage() {
   const [assumptionsEdits, setAssumptionsEdits] = useState<
     HouseholdAssumptions | undefined
   >(undefined);
-  const [savingSection, setSavingSection] = useState<
-    'profile' | 'assumptions' | undefined
+  const [profileSaveState, setProfileSaveState] = useState<
+    SaveState | undefined
+  >(undefined);
+  const [assumptionsSaveState, setAssumptionsSaveState] = useState<
+    SaveState | undefined
   >(undefined);
 
   const profile = profileEdits ?? ownProfile ?? EMPTY_PROFILE;
   const assumptions = assumptionsEdits ?? household.effectiveAssumptions;
 
-  const handleSaveProfile = async () => {
-    if (!user) {
-      showLoginModal?.(undefined, LoginContext.PUZZLE_ENTRY);
-      return;
-    }
-    setSavingSection('profile');
-    try {
-      await saveOwnProfile(profile);
-      setProfileEdits(undefined);
-    } finally {
-      setSavingSection(undefined);
-    }
-  };
+  const profileEditsRef = useRef(profileEdits);
+  const assumptionsEditsRef = useRef(assumptionsEdits);
 
-  const handleSaveAssumptions = async () => {
+  useEffect(() => {
+    profileEditsRef.current = profileEdits;
+  }, [profileEdits]);
+
+  useEffect(() => {
+    assumptionsEditsRef.current = assumptionsEdits;
+  }, [assumptionsEdits]);
+
+  const accountIdsWithData = new Set<string>();
+  for (const month of Object.values(household.months)) {
+    for (const snapshotAccount of month.memberSnapshots[ownUserId]?.accounts ??
+      []) {
+      accountIdsWithData.add(snapshotAccount.accountId);
+    }
+  }
+
+  const flushProfile = useCallback(async () => {
+    const pending = profileEditsRef.current;
+    if (pending === undefined) {
+      return;
+    }
     if (!user) {
       showLoginModal?.(undefined, LoginContext.PUZZLE_ENTRY);
       return;
     }
-    setSavingSection('assumptions');
+    setProfileSaveState('saving');
     try {
-      await saveSharedAssumptions(assumptions);
+      await saveOwnProfile(pending);
+      setProfileEdits(undefined);
+      setProfileSaveState('saved');
+    } catch {
+      setProfileSaveState(undefined);
+    }
+  }, [user, showLoginModal, saveOwnProfile]);
+
+  const flushAssumptions = useCallback(async () => {
+    const pending = assumptionsEditsRef.current;
+    if (pending === undefined) {
+      return;
+    }
+    if (!user) {
+      showLoginModal?.(undefined, LoginContext.PUZZLE_ENTRY);
+      return;
+    }
+    setAssumptionsSaveState('saving');
+    try {
+      await saveSharedAssumptions(pending);
       setAssumptionsEdits(undefined);
-    } finally {
-      setSavingSection(undefined);
+      setAssumptionsSaveState('saved');
+    } catch {
+      setAssumptionsSaveState(undefined);
+    }
+  }, [user, showLoginModal, saveSharedAssumptions]);
+
+  const editProfile = useCallback((next: ProfileData) => {
+    setProfileEdits(next);
+    setProfileSaveState(undefined);
+  }, []);
+
+  const editAssumptions = useCallback((next: HouseholdAssumptions) => {
+    setAssumptionsEdits(next);
+    setAssumptionsSaveState(undefined);
+  }, []);
+
+  const flushProfileRef = useRef(flushProfile);
+  const flushAssumptionsRef = useRef(flushAssumptions);
+
+  useEffect(() => {
+    flushProfileRef.current = flushProfile;
+    flushAssumptionsRef.current = flushAssumptions;
+  }, [flushProfile, flushAssumptions]);
+
+  useEffect(
+    () => () => {
+      void flushProfileRef.current();
+      void flushAssumptionsRef.current();
+    },
+    []
+  );
+
+  const handleSectionBlur = (
+    event: FocusEvent<HTMLElement>,
+    flush: () => void
+  ) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      flush();
     }
   };
 
@@ -213,7 +293,7 @@ export default function SettingsPage() {
   ) => {
     const parsed = Number(raw);
     const value = raw === '' || Number.isNaN(parsed) ? undefined : parsed;
-    setProfileEdits({
+    editProfile({
       ...profile,
       overrides: { ...profile.overrides, [key]: value },
     });
@@ -225,6 +305,10 @@ export default function SettingsPage() {
         <div className="flex flex-col gap-1 pb-6 pt-5">
           <Link
             href="/"
+            onClick={() => {
+              void flushProfile();
+              void flushAssumptions();
+            }}
             className="mb-2 inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -239,25 +323,28 @@ export default function SettingsPage() {
           <p className="text-sm text-zinc-500 dark:text-zinc-400">Loading…</p>
         ) : (
           <div className="flex flex-col gap-4">
-            <section className={sectionClassName} aria-label="Accounts">
+            <section
+              className={sectionClassName}
+              aria-label="Accounts"
+              onBlur={(event) => handleSectionBlur(event, flushProfile)}
+            >
               <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
                 Accounts
               </h2>
               <AccountManager
                 accounts={profile.accounts}
                 currentMonth={currentMonthId()}
-                onChange={(accounts) =>
-                  setProfileEdits({ ...profile, accounts })
-                }
+                accountIdsWithData={accountIdsWithData}
+                onChange={(accounts) => editProfile({ ...profile, accounts })}
               />
-              <SaveButton
-                onSave={handleSaveProfile}
-                isSaving={savingSection === 'profile'}
-                isDirty={profileEdits !== undefined}
-              />
+              <SaveStatus state={profileSaveState} />
             </section>
 
-            <section className={sectionClassName} aria-label="You">
+            <section
+              className={sectionClassName}
+              aria-label="You"
+              onBlur={(event) => handleSectionBlur(event, flushProfile)}
+            >
               <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
                 You
               </h2>
@@ -273,7 +360,7 @@ export default function SettingsPage() {
                   type="date"
                   value={profile.dateOfBirth ?? ''}
                   onChange={(event) =>
-                    setProfileEdits({
+                    editProfile({
                       ...profile,
                       dateOfBirth: event.target.value || undefined,
                     })
@@ -327,7 +414,7 @@ export default function SettingsPage() {
                   profile.overrides.statePensionAnnualPenceOverride ?? 0
                 }
                 onChangePence={(pence) =>
-                  setProfileEdits({
+                  editProfile({
                     ...profile,
                     overrides: {
                       ...profile.overrides,
@@ -337,14 +424,14 @@ export default function SettingsPage() {
                   })
                 }
               />
-              <SaveButton
-                onSave={handleSaveProfile}
-                isSaving={savingSection === 'profile'}
-                isDirty={profileEdits !== undefined}
-              />
+              <SaveStatus state={profileSaveState} />
             </section>
 
-            <section className={sectionClassName} aria-label="Contributions">
+            <section
+              className={sectionClassName}
+              aria-label="Contributions"
+              onBlur={(event) => handleSectionBlur(event, flushProfile)}
+            >
               <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
                 Contributions
               </h2>
@@ -352,17 +439,17 @@ export default function SettingsPage() {
                 plan={profile.contributions}
                 currentMonth={currentMonthId()}
                 onChange={(contributions) =>
-                  setProfileEdits({ ...profile, contributions })
+                  editProfile({ ...profile, contributions })
                 }
               />
-              <SaveButton
-                onSave={handleSaveProfile}
-                isSaving={savingSection === 'profile'}
-                isDirty={profileEdits !== undefined}
-              />
+              <SaveStatus state={profileSaveState} />
             </section>
 
-            <section className={sectionClassName} aria-label="Assumptions">
+            <section
+              className={sectionClassName}
+              aria-label="Assumptions"
+              onBlur={(event) => handleSectionBlur(event, flushAssumptions)}
+            >
               <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
                 Assumptions
               </h2>
@@ -371,13 +458,9 @@ export default function SettingsPage() {
               </p>
               <AssumptionsForm
                 assumptions={assumptions}
-                onChange={setAssumptionsEdits}
+                onChange={editAssumptions}
               />
-              <SaveButton
-                onSave={handleSaveAssumptions}
-                isSaving={savingSection === 'assumptions'}
-                isDirty={assumptionsEdits !== undefined}
-              />
+              <SaveStatus state={assumptionsSaveState} />
             </section>
 
             <section className={sectionClassName} aria-label="Party">

@@ -2,7 +2,15 @@ import { addMonths, monthsBetween } from '../helpers/monthId';
 import { InvestmentWrapper } from '../types/accounts';
 import { MonthId } from '../types/monthId';
 import {
+  DEFAULT_FIXED_PERCENT_RATE_PCT,
+  DEFAULT_GUARDRAIL_WIDTH_PCT,
+  WithdrawalStrategy,
+  WithdrawalStrategyKind,
+} from '../types/assumptions';
+import {
   FailureKind,
+  PercentileBand,
+  SampledRunPath,
   SimulationInputs,
   SimulationMember,
   SimulationResult,
@@ -17,10 +25,17 @@ import {
 } from './tax';
 
 // Everything runs in today's-money (real) terms: growth is bootstrapped from
-// the dataset's REAL annual returns, so the constant net withdrawal keeps its
-// purchasing power without explicit inflation handling.
+// the dataset's REAL annual returns, so a constant net withdrawal keeps its
+// purchasing power without explicit inflation handling. Balance-linked
+// strategies (fixed-percent, guardrails, RMD) recompute the year's target from
+// the current real portfolio, so their income also stays in real terms.
 
 const ALL_WRAPPERS: InvestmentWrapper[] = Object.values(InvestmentWrapper);
+
+// Cap on how many individual run trajectories are retained for the Monte Carlo
+// spaghetti chart; sampled by run index so the subset is deterministic and the
+// UI payload stays bounded regardless of the run count.
+export const MAX_SAMPLED_PATHS = 120;
 
 const BRIDGE_WITHDRAWAL_ORDER: InvestmentWrapper[] = [
   InvestmentWrapper.ISA,
@@ -70,7 +85,20 @@ export interface SimulationRunOutcome {
   endingWealthPence: number;
   failure?: SimulationRunFailure;
   pathTotalsPence: number[];
+  // Net household income delivered each withdrawal year (real terms). Index i
+  // aligns with withdrawal step i; there is no entry for the at-retirement
+  // point, so this array is one shorter than pathTotalsPence.
+  incomeAnnualPence: number[];
 }
+
+const resolveStrategy = (
+  strategy: WithdrawalStrategy | undefined
+): Required<WithdrawalStrategy> => ({
+  kind: strategy?.kind ?? WithdrawalStrategyKind.FIXED_REAL,
+  fixedPercentRatePct:
+    strategy?.fixedPercentRatePct ?? DEFAULT_FIXED_PERCENT_RATE_PCT,
+  guardrailWidthPct: strategy?.guardrailWidthPct ?? DEFAULT_GUARDRAIL_WIDTH_PCT,
+});
 
 const isoDateAtMonthStart = (monthId: MonthId): string => `${monthId}-01`;
 
@@ -221,7 +249,60 @@ export const runSimulationOnce = (
     }
   };
 
-  const pathTotalsPence: number[] = [totalWealthPence()];
+  const strategy = resolveStrategy(inputs.withdrawalStrategy);
+  const wealthAtRetirementPence = totalWealthPence();
+  const floorNetPence = inputs.withdrawalAnnualPence;
+  const guardrailInitialRate =
+    (strategy.fixedPercentRatePct ?? DEFAULT_FIXED_PERCENT_RATE_PCT) / 100;
+  const guardrailBandWidth = strategy.guardrailWidthPct / 100;
+  // Carried between years for GUARDRAILS: the running desired withdrawal that
+  // the capital-preservation / prosperity rules ratchet up or down. It starts
+  // at the initial rate applied to the starting portfolio; with no starting
+  // portfolio it falls back to the desired withdrawal.
+  let guardrailWithdrawalPence =
+    wealthAtRetirementPence > 0
+      ? guardrailInitialRate * wealthAtRetirementPence
+      : inputs.withdrawalAnnualPence;
+
+  // The desired gross household withdrawal (before state pension offset) for
+  // the year, given the strategy and the current real portfolio.
+  const desiredWithdrawalForYear = (
+    currentWealthPence: number,
+    stepIndex: number
+  ): number => {
+    switch (strategy.kind) {
+      case WithdrawalStrategyKind.FIXED_PERCENT:
+        return guardrailInitialRate * currentWealthPence;
+      case WithdrawalStrategyKind.RMD: {
+        const remainingYears = Math.max(
+          1,
+          context.withdrawalYearStartIsoDates.length - stepIndex
+        );
+        return currentWealthPence / remainingYears;
+      }
+      case WithdrawalStrategyKind.GUARDRAILS: {
+        if (currentWealthPence <= 0) {
+          return guardrailWithdrawalPence;
+        }
+        const currentRate = guardrailWithdrawalPence / currentWealthPence;
+        if (currentRate > guardrailInitialRate * (1 + guardrailBandWidth)) {
+          guardrailWithdrawalPence *= 0.9;
+        } else if (
+          currentRate <
+          guardrailInitialRate * (1 - guardrailBandWidth)
+        ) {
+          guardrailWithdrawalPence *= 1.1;
+        }
+        return guardrailWithdrawalPence;
+      }
+      case WithdrawalStrategyKind.FIXED_REAL:
+      default:
+        return inputs.withdrawalAnnualPence;
+    }
+  };
+
+  const pathTotalsPence: number[] = [wealthAtRetirementPence];
+  const incomeAnnualPence: number[] = [];
   let failure: SimulationRunFailure | undefined;
 
   // Withdrawal phase, annual steps: state pension first, then bridge
@@ -229,9 +310,17 @@ export const runSimulationOnce = (
   // proportionally to their balance in it), then unlocked pensions
   // proportionally to members' pension balances. Withdrawals happen at the
   // start of the year; growth applies to what remains.
-  for (const stepStartIsoDate of context.withdrawalYearStartIsoDates) {
-    if (failure) {
+  for (
+    let stepIndex = 0;
+    stepIndex < context.withdrawalYearStartIsoDates.length;
+    stepIndex += 1
+  ) {
+    const stepStartIsoDate = context.withdrawalYearStartIsoDates[stepIndex];
+    // Exhaustion halts the run (pot empty). A floor breach only flags the run
+    // as failed; the balance-linked strategies keep simulating and paying out.
+    if (failure && failure.kind !== FailureKind.INCOME_BELOW_FLOOR) {
       pathTotalsPence.push(0);
+      incomeAnnualPence.push(0);
       continue;
     }
 
@@ -242,11 +331,17 @@ export const runSimulationOnce = (
         ? memberContext.statePensionAnnualPence
         : 0
     );
-    let needNetPence = Math.max(
-      0,
-      inputs.withdrawalAnnualPence -
-        statePensionByMember.reduce((total, pence) => total + pence, 0)
+    const statePensionTotalPence = statePensionByMember.reduce(
+      (total, pence) => total + pence,
+      0
     );
+    const desiredWithdrawalPence = desiredWithdrawalForYear(
+      totalWealthPence(),
+      stepIndex
+    );
+    const targetNetPence = Math.max(desiredWithdrawalPence, 0);
+    let needNetPence = Math.max(0, targetNetPence - statePensionTotalPence);
+    const needNetAtStartPence = needNetPence;
 
     for (const wrapper of BRIDGE_WITHDRAWAL_ORDER) {
       if (needNetPence <= FLOW_EPSILON_PENCE) {
@@ -342,7 +437,31 @@ export const runSimulationOnce = (
       }
     }
 
-    if (needNetPence > FAILURE_EPSILON_PENCE) {
+    const deliveredFromPortfolioPence = needNetAtStartPence - needNetPence;
+    const deliveredIncomePence =
+      statePensionTotalPence + deliveredFromPortfolioPence;
+
+    // Strategies that draw a fraction of the current portfolio (fixed-percent,
+    // RMD) can never exhaust it from withdrawals alone, so their "failure" is
+    // income falling below the desired floor rather than an empty pot. The
+    // fixed-real and guardrails strategies keep the original exhaustion
+    // semantics: an unmet net need means the accessible pot ran dry.
+    const usesFloorFailure =
+      strategy.kind === WithdrawalStrategyKind.FIXED_PERCENT ||
+      strategy.kind === WithdrawalStrategyKind.RMD;
+
+    if (usesFloorFailure) {
+      incomeAnnualPence.push(deliveredIncomePence);
+      if (
+        !failure &&
+        deliveredIncomePence < floorNetPence - FAILURE_EPSILON_PENCE
+      ) {
+        failure = {
+          kind: FailureKind.INCOME_BELOW_FLOOR,
+          year: yearOfIsoDate(stepStartIsoDate),
+        };
+      }
+    } else if (needNetPence > FAILURE_EPSILON_PENCE) {
       // Everything accessible has been drained (the pension loop only exits
       // with unlocked pensions empty), so remaining wealth is exactly the
       // still-locked pensions of members below their NMPA: nonzero means the
@@ -356,7 +475,10 @@ export const runSimulationOnce = (
         year: yearOfIsoDate(stepStartIsoDate),
       };
       pathTotalsPence.push(0);
+      incomeAnnualPence.push(deliveredIncomePence);
       continue;
+    } else {
+      incomeAnnualPence.push(deliveredIncomePence);
     }
 
     const growthFactor = 1 + drawAnnualRealPct() / 100;
@@ -368,10 +490,17 @@ export const runSimulationOnce = (
     pathTotalsPence.push(totalWealthPence());
   }
 
+  // Exhaustion failures zero the reported ending wealth (the pot is empty or
+  // only holds still-locked pensions the plan never reached). Floor-based
+  // strategies never exhaust, so they always report the real remaining pot.
+  const isExhaustionFailure =
+    failure?.kind === FailureKind.BRIDGE_EXHAUSTED ||
+    failure?.kind === FailureKind.WEALTH_EXHAUSTED;
   return {
-    endingWealthPence: failure ? 0 : totalWealthPence(),
+    endingWealthPence: isExhaustionFailure ? 0 : totalWealthPence(),
     failure,
     pathTotalsPence,
+    incomeAnnualPence,
   };
 };
 
@@ -389,9 +518,7 @@ const percentileFromSorted = (
   );
 };
 
-const percentileSummary = (
-  values: number[]
-): { p5: number; p25: number; p50: number; p75: number; p95: number } => {
+const percentileSummary = (values: number[]): PercentileBand => {
   const sorted = [...values].sort((first, second) => first - second);
   return {
     p5: percentileFromSorted(sorted, 5),
@@ -402,6 +529,19 @@ const percentileSummary = (
   };
 };
 
+// Evenly spaced run indices (always including the first and last available
+// run) so the retained subset is deterministic and spread across the runs.
+const sampleRunIndexes = (runCount: number, maxSamples: number): number[] => {
+  if (runCount <= maxSamples) {
+    return Array.from({ length: runCount }, (_, index) => index);
+  }
+  const indexes: number[] = [];
+  for (let sample = 0; sample < maxSamples; sample += 1) {
+    indexes.push(Math.round((sample * (runCount - 1)) / (maxSamples - 1)));
+  }
+  return indexes;
+};
+
 export const aggregateSimulationOutcomes = (
   context: SimulationContext,
   outcomes: SimulationRunOutcome[]
@@ -409,6 +549,7 @@ export const aggregateSimulationOutcomes = (
   const byKind: Record<FailureKind, number> = {
     [FailureKind.BRIDGE_EXHAUSTED]: 0,
     [FailureKind.WEALTH_EXHAUSTED]: 0,
+    [FailureKind.INCOME_BELOW_FLOOR]: 0,
   };
   const failureYears: number[] = [];
   for (const outcome of outcomes) {
@@ -423,6 +564,14 @@ export const aggregateSimulationOutcomes = (
     failureYears.length > 0
       ? failureYears[Math.floor((failureYears.length - 1) / 2)]
       : undefined;
+  const incomeYears = context.pathYears.slice(1);
+  const sampledPathsPence: SampledRunPath[] = sampleRunIndexes(
+    outcomes.length,
+    MAX_SAMPLED_PATHS
+  ).map((runIndex) => ({
+    runIndex,
+    totalsPence: outcomes[runIndex].pathTotalsPence,
+  }));
   return {
     successRatePct:
       ((outcomes.length - failureYears.length) / outcomes.length) * 100,
@@ -435,6 +584,13 @@ export const aggregateSimulationOutcomes = (
         outcomes.map((outcome) => outcome.pathTotalsPence[pathIndex])
       ),
     })),
+    incomePathsPence: incomeYears.map((year, incomeIndex) => ({
+      year,
+      ...percentileSummary(
+        outcomes.map((outcome) => outcome.incomeAnnualPence[incomeIndex])
+      ),
+    })),
+    sampledPathsPence,
     failures: {
       count: failureYears.length,
       medianFailureYear,

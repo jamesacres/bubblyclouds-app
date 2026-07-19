@@ -161,6 +161,85 @@ describe('useMonthEntry', () => {
     ]);
   });
 
+  it('merges a newly-added profile account into an existing snapshot month', async () => {
+    // June snapshot was saved before "new-cash" (createdMonth 2026-06) was
+    // added to the profile, so it holds only the frozen "isa" balance.
+    const juneSnapshot = snapshot('2026-06', {
+      enteredAt: '2026-06-17T00:00:00Z',
+      accounts: [
+        {
+          accountId: 'isa',
+          kind: AccountKind.INVESTMENT,
+          wrapper: InvestmentWrapper.ISA,
+          name: 'ISA',
+          balancePence: 120_000,
+        },
+      ],
+    });
+    const value = buildValue({
+      '2026-05': householdMonth(
+        '2026-05',
+        { 'user-1': maySnapshot, 'user-2': undefined },
+        mayShared
+      ),
+      '2026-06': householdMonth(
+        '2026-06',
+        { 'user-1': juneSnapshot, 'user-2': undefined },
+        mayShared
+      ),
+    });
+    const { result } = renderMonthEntry(value);
+
+    // Frozen "isa" balance preserved; the new account appended and editable.
+    expect(result.current.accounts).toEqual([
+      {
+        accountId: 'isa',
+        kind: AccountKind.INVESTMENT,
+        wrapper: InvestmentWrapper.ISA,
+        name: 'ISA',
+        balancePence: 120_000,
+      },
+      {
+        accountId: 'new-cash',
+        kind: AccountKind.CASH,
+        wrapper: undefined,
+        name: 'New bank',
+        balancePence: 0,
+      },
+    ]);
+
+    act(() => {
+      result.current.setBalance('new-cash', 42_000);
+    });
+    expect(
+      result.current.accounts.find(
+        (account) => account.accountId === 'new-cash'
+      )?.balancePence
+    ).toBe(42_000);
+
+    await act(async () => {
+      await result.current.save();
+    });
+
+    const [, data] = (value.saveOwnSnapshot as jest.Mock).mock.calls[0];
+    expect(data.accounts).toEqual([
+      {
+        accountId: 'isa',
+        kind: AccountKind.INVESTMENT,
+        wrapper: InvestmentWrapper.ISA,
+        name: 'ISA',
+        balancePence: 120_000,
+      },
+      {
+        accountId: 'new-cash',
+        kind: AccountKind.CASH,
+        wrapper: undefined,
+        name: 'New bank',
+        balancePence: 42_000,
+      },
+    ]);
+  });
+
   it('shows the archived account in its own historical month', () => {
     const value = buildValue({
       '2026-05': householdMonth(
@@ -214,7 +293,7 @@ describe('useMonthEntry', () => {
     expect(result.current.sharedUpdatedAt).toBe('2026-06-17T00:00:00Z');
   });
 
-  it('saves edited balances and completion using the live account list', async () => {
+  it('saves edited balances using the live account list', async () => {
     const value = buildValue({
       '2026-05': householdMonth(
         '2026-05',
@@ -228,12 +307,8 @@ describe('useMonthEntry', () => {
     act(() => {
       result.current.setBalance('isa', 123_456);
     });
-    act(() => {
-      result.current.markComplete();
-    });
     expect(result.current.isDirty).toBe(true);
     expect(result.current.accounts[0].balancePence).toBe(123_456);
-    expect(result.current.complete).toBe(true);
 
     await act(async () => {
       await result.current.save();
@@ -313,27 +388,40 @@ describe('useMonthEntry', () => {
     expect(data.enteredAt).toBe('2026-05-17T00:00:00Z');
   });
 
-  it('reports partner completion and household month completion', () => {
+  it('reports partner completion from snapshot existence', () => {
     const value = buildValue({
       '2026-06': householdMonth(
         '2026-06',
         {
-          'user-1': snapshot('2026-06', { complete: true }),
-          'user-2': snapshot('2026-06', {
-            complete: true,
-            shared: mayShared,
-          }),
+          'user-1': snapshot('2026-06'),
+          'user-2': snapshot('2026-06', { shared: mayShared }),
         },
-        mayShared,
-        true
+        mayShared
       ),
     });
     const { result } = renderMonthEntry(value);
 
     expect(result.current.partnerCompletion).toEqual([
-      { userId: 'user-2', nickname: 'Sam', complete: true },
+      { userId: 'user-2', nickname: 'Sam', entered: true },
     ]);
-    expect(result.current.monthComplete).toBe(true);
+  });
+
+  it('reports a partner as not entered when they have no snapshot', () => {
+    const value = buildValue({
+      '2026-06': householdMonth(
+        '2026-06',
+        {
+          'user-1': snapshot('2026-06'),
+          'user-2': undefined,
+        },
+        mayShared
+      ),
+    });
+    const { result } = renderMonthEntry(value);
+
+    expect(result.current.partnerCompletion).toEqual([
+      { userId: 'user-2', nickname: 'Sam', entered: false },
+    ]);
   });
 
   it('resets pending edits when the month changes', () => {

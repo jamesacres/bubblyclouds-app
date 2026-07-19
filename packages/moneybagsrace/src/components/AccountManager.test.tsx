@@ -37,6 +37,9 @@ describe('AccountManager', () => {
     }),
   ];
 
+  const noData = new Set<string>();
+  const withData = (...ids: string[]) => new Set<string>(ids);
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -46,6 +49,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={accounts}
         currentMonth={currentMonth}
+        accountIdsWithData={noData}
         onChange={onChange}
       />
     );
@@ -60,6 +64,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={accounts}
         currentMonth={currentMonth}
+        accountIdsWithData={noData}
         onChange={onChange}
       />
     );
@@ -76,6 +81,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={accounts}
         currentMonth={currentMonth}
+        accountIdsWithData={withData('monzo')}
         onChange={onChange}
       />
     );
@@ -92,6 +98,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={accounts}
         currentMonth={currentMonth}
+        accountIdsWithData={noData}
         onChange={onChange}
       />
     );
@@ -109,6 +116,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={accounts}
         currentMonth={currentMonth}
+        accountIdsWithData={noData}
         onChange={onChange}
       />
     );
@@ -125,6 +133,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={accounts}
         currentMonth={currentMonth}
+        accountIdsWithData={noData}
         onChange={onChange}
       />
     );
@@ -137,6 +146,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={accounts}
         currentMonth={currentMonth}
+        accountIdsWithData={noData}
         onChange={onChange}
       />
     );
@@ -163,6 +173,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={accounts}
         currentMonth={currentMonth}
+        accountIdsWithData={noData}
         onChange={onChange}
       />
     );
@@ -184,6 +195,7 @@ describe('AccountManager', () => {
       <AccountManager
         accounts={[]}
         currentMonth={currentMonth}
+        accountIdsWithData={noData}
         onChange={onChange}
       />
     );
@@ -193,5 +205,109 @@ describe('AccountManager', () => {
     expect(screen.getByText('Add')).toBeDisabled();
     fireEvent.click(screen.getByText('Add'));
     expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('deletes an active account with no saved data', () => {
+    render(
+      <AccountManager
+        accounts={accounts}
+        currentMonth={currentMonth}
+        accountIdsWithData={noData}
+        onChange={onChange}
+      />
+    );
+    expect(screen.queryByLabelText('Archive Monzo')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('Delete Monzo'));
+    const updated: AccountDefinition[] = onChange.mock.calls[0][0];
+    expect(
+      updated.find((candidate) => candidate.accountId === 'monzo')
+    ).toBeUndefined();
+    expect(updated).toHaveLength(2);
+  });
+
+  it('offers archive but not delete for an account with saved data', () => {
+    render(
+      <AccountManager
+        accounts={accounts}
+        currentMonth={currentMonth}
+        accountIdsWithData={withData('monzo')}
+        onChange={onChange}
+      />
+    );
+    expect(screen.getByLabelText('Archive Monzo')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Delete Monzo')).not.toBeInTheDocument();
+  });
+
+  it('changes an existing account kind and defaults a wrapper on investment', () => {
+    render(
+      <AccountManager
+        accounts={accounts}
+        currentMonth={currentMonth}
+        accountIdsWithData={noData}
+        onChange={onChange}
+      />
+    );
+    fireEvent.change(screen.getByLabelText('Type of Monzo'), {
+      target: { value: AccountKind.INVESTMENT },
+    });
+    const updated: AccountDefinition[] = onChange.mock.calls[0][0];
+    const monzo = updated.find((candidate) => candidate.accountId === 'monzo');
+    expect(monzo?.kind).toBe(AccountKind.INVESTMENT);
+    expect(monzo?.wrapper).toBe(InvestmentWrapper.ISA);
+  });
+
+  it('drops the wrapper when an investment account becomes cash', () => {
+    render(
+      <AccountManager
+        accounts={accounts}
+        currentMonth={currentMonth}
+        accountIdsWithData={noData}
+        onChange={onChange}
+      />
+    );
+    fireEvent.change(screen.getByLabelText('Type of Vanguard ISA'), {
+      target: { value: AccountKind.CASH },
+    });
+    const updated: AccountDefinition[] = onChange.mock.calls[0][0];
+    const isa = updated.find((candidate) => candidate.accountId === 'isa');
+    expect(isa?.kind).toBe(AccountKind.CASH);
+    expect(isa?.wrapper).toBeUndefined();
+  });
+
+  it('changes the wrapper of an existing investment account', () => {
+    render(
+      <AccountManager
+        accounts={accounts}
+        currentMonth={currentMonth}
+        accountIdsWithData={noData}
+        onChange={onChange}
+      />
+    );
+    fireEvent.change(screen.getByLabelText('Wrapper of Vanguard ISA'), {
+      target: { value: InvestmentWrapper.SIPP },
+    });
+    const updated: AccountDefinition[] = onChange.mock.calls[0][0];
+    const isa = updated.find((candidate) => candidate.accountId === 'isa');
+    expect(isa?.wrapper).toBe(InvestmentWrapper.SIPP);
+  });
+
+  it('reorders active accounts by dropping one onto another', () => {
+    render(
+      <AccountManager
+        accounts={accounts}
+        currentMonth={currentMonth}
+        accountIdsWithData={noData}
+        onChange={onChange}
+      />
+    );
+    const rows = screen.getAllByRole('listitem');
+    fireEvent.dragStart(rows[1]);
+    fireEvent.dragOver(rows[0]);
+    fireEvent.drop(rows[0]);
+    const updated: AccountDefinition[] = onChange.mock.calls[0][0];
+    const sortOrderOf = (accountId: string) =>
+      updated.find((candidate) => candidate.accountId === accountId)?.sortOrder;
+    expect(sortOrderOf('monzo')).toBe(0);
+    expect(sortOrderOf('isa')).toBe(1);
   });
 });

@@ -16,11 +16,14 @@ const result = (
     p95: 300_000_000,
   },
   percentilePathsPence: [],
+  incomePathsPence: [],
+  sampledPathsPence: [],
   failures: {
     count: 0,
     byKind: {
       [FailureKind.BRIDGE_EXHAUSTED]: 0,
       [FailureKind.WEALTH_EXHAUSTED]: 0,
+      [FailureKind.INCOME_BELOW_FLOOR]: 0,
     },
   },
   ...overrides,
@@ -67,6 +70,7 @@ describe('RetirementResultPanel', () => {
             byKind: {
               [FailureKind.BRIDGE_EXHAUSTED]: 800,
               [FailureKind.WEALTH_EXHAUSTED]: 500,
+              [FailureKind.INCOME_BELOW_FLOOR]: 0,
             },
           },
         })}

@@ -86,14 +86,11 @@ const buildEntry = (overrides: Partial<MonthEntry> = {}): MonthEntry => ({
   sharedHouseValuePence: 30_000_000,
   sharedMortgageBalancePence: 10_000_000,
   sharedUpdatedAt: undefined,
-  complete: false,
-  monthComplete: false,
-  partnerCompletion: [{ userId: 'user-2', nickname: 'Sam', complete: false }],
+  partnerCompletion: [{ userId: 'user-2', nickname: 'Sam', entered: false }],
   isDirty: false,
   isSaving: false,
   setBalance: jest.fn(),
   setShared: jest.fn(),
-  markComplete: jest.fn(),
   save: jest.fn().mockResolvedValue(undefined),
   ...overrides,
 });
@@ -178,18 +175,24 @@ describe('State Page (monthly entry)', () => {
     expect(screen.getByText('Sam: not yet entered')).toBeInTheDocument();
   });
 
-  it('shows complete chips when the partner and month are complete', () => {
+  it('shows the entered chip when the partner has a snapshot', () => {
     mockUseMonthEntry.mockReturnValue(
       buildEntry({
-        monthComplete: true,
         partnerCompletion: [
-          { userId: 'user-2', nickname: 'Sam', complete: true },
+          { userId: 'user-2', nickname: 'Sam', entered: true },
         ],
       })
     );
     renderWithUser({ sub: 'user-1' });
-    expect(screen.getByText('Month complete')).toBeInTheDocument();
     expect(screen.getByText('Sam: entered')).toBeInTheDocument();
+  });
+
+  it('does not render any mark-complete controls', () => {
+    renderWithUser({ sub: 'user-1' });
+    expect(screen.queryByText('Mark month complete')).not.toBeInTheDocument();
+    expect(screen.queryByText('Marked complete')).not.toBeInTheDocument();
+    expect(screen.queryByText('Month complete')).not.toBeInTheDocument();
+    expect(screen.queryByText('Save')).not.toBeInTheDocument();
   });
 
   it('edits an account balance', () => {
@@ -255,37 +258,51 @@ describe('State Page (monthly entry)', () => {
     expect(screen.getByText(/Updated by Sam/)).toBeInTheDocument();
   });
 
-  it('marks the month complete', () => {
-    const entry = buildEntry();
+  it('autosaves on blur when there are dirty edits', async () => {
+    const entry = buildEntry({ isDirty: true });
     mockUseMonthEntry.mockReturnValue(entry);
     renderWithUser({ sub: 'user-1' });
-    fireEvent.click(screen.getByText('Mark month complete'));
-    expect(entry.markComplete).toHaveBeenCalled();
+    const inputs = screen.getAllByLabelText('Current balance');
+    fireEvent.focus(inputs[0]);
+    fireEvent.blur(inputs[0]);
+    await waitFor(() => expect(entry.save).toHaveBeenCalled());
   });
 
-  it('shows a completed badge instead of the button when complete', () => {
-    mockUseMonthEntry.mockReturnValue(buildEntry({ complete: true }));
+  it('does not autosave on blur when nothing is dirty', () => {
+    const entry = buildEntry({ isDirty: false });
+    mockUseMonthEntry.mockReturnValue(entry);
     renderWithUser({ sub: 'user-1' });
-    expect(screen.getByText('Marked complete')).toBeInTheDocument();
-    expect(screen.queryByText('Mark month complete')).not.toBeInTheDocument();
+    const inputs = screen.getAllByLabelText('Current balance');
+    fireEvent.focus(inputs[0]);
+    fireEvent.blur(inputs[0]);
+    expect(entry.save).not.toHaveBeenCalled();
   });
 
-  it('prompts login when saving while logged out', () => {
-    const entry = buildEntry();
+  it('prompts login instead of saving when a blur autosave fires logged out', () => {
+    const entry = buildEntry({ isDirty: true });
     mockUseMonthEntry.mockReturnValue(entry);
     const showLoginModal = jest.fn();
     renderWithUser(undefined, showLoginModal);
-    fireEvent.click(screen.getByText('Save'));
+    const inputs = screen.getAllByLabelText('Current balance');
+    fireEvent.focus(inputs[0]);
+    fireEvent.blur(inputs[0]);
     expect(showLoginModal).toHaveBeenCalled();
     expect(entry.save).not.toHaveBeenCalled();
   });
 
-  it('saves when logged in', async () => {
-    const entry = buildEntry();
+  it('flushes a pending save when navigating to another month', async () => {
+    const entry = buildEntry({ isDirty: true });
     mockUseMonthEntry.mockReturnValue(entry);
     renderWithUser({ sub: 'user-1' });
-    fireEvent.click(screen.getByText('Save'));
+    fireEvent.click(screen.getByLabelText('Next month'));
     await waitFor(() => expect(entry.save).toHaveBeenCalled());
+    expect(mockPush).toHaveBeenCalledWith('/state?month=2026-08');
+  });
+
+  it('shows a saving indicator while a save is in flight', () => {
+    mockUseMonthEntry.mockReturnValue(buildEntry({ isSaving: true }));
+    renderWithUser({ sub: 'user-1' });
+    expect(screen.getByText('Saving…')).toBeInTheDocument();
   });
 
   it('shows the empty state pointing to settings when no accounts exist', () => {

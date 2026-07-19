@@ -246,7 +246,7 @@ function Hero() {
 }
 
 function Dashboard() {
-  const { household, isLoading } = useHousehold();
+  const { household, isLoading, ownUserId } = useHousehold();
   const series = buildNetWorthSeries(
     household,
     'nominal',
@@ -257,17 +257,15 @@ function Dashboard() {
 
   const month = currentMonthId();
   const currentMonth = household.months[month];
-  const entryDue = currentMonth?.complete !== true;
+  const entryDue = currentMonth?.memberSnapshots[ownUserId] === undefined;
   const doneNicknames = household.members
     .filter(
-      (member) =>
-        currentMonth?.memberSnapshots[member.userId]?.complete === true
+      (member) => currentMonth?.memberSnapshots[member.userId] !== undefined
     )
     .map((member) => member.nickname);
   const outstandingNicknames = household.members
     .filter(
-      (member) =>
-        currentMonth?.memberSnapshots[member.userId]?.complete !== true
+      (member) => currentMonth?.memberSnapshots[member.userId] === undefined
     )
     .map((member) => member.nickname);
 
@@ -336,22 +334,10 @@ function Dashboard() {
           description="Update this month's balances"
         />
         <NavCard
-          href="/history"
-          label="History"
-          title="Net worth over time"
-          description="Charts and month-on-month stats"
-        />
-        <NavCard
           href="/projection"
           label="Projection"
           title="Growth projection"
           description="Fan chart with contribution controls"
-        />
-        <NavCard
-          href="/settings"
-          label="Settings"
-          title="Accounts & assumptions"
-          description="Accounts, contributions, party and assumptions"
         />
       </div>
     </div>

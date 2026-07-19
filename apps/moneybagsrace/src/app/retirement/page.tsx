@@ -1,8 +1,12 @@
 'use client';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { CurrencyInput } from '@bubblyclouds-app/moneybagsrace/components/CurrencyInput';
+import MonteCarloPathsChart from '@bubblyclouds-app/moneybagsrace/components/MonteCarloPathsChart';
 import PercentilePathsChart from '@bubblyclouds-app/moneybagsrace/components/PercentilePathsChart';
 import { PercentSlider } from '@bubblyclouds-app/moneybagsrace/components/PercentSlider';
+import RealNominalToggle, {
+  NetWorthMode,
+} from '@bubblyclouds-app/moneybagsrace/components/RealNominalToggle';
 import RetirementResultPanel from '@bubblyclouds-app/moneybagsrace/components/RetirementResultPanel';
 import SensitivityTable from '@bubblyclouds-app/moneybagsrace/components/SensitivityTable';
 import SolverHeadline from '@bubblyclouds-app/moneybagsrace/components/SolverHeadline';
@@ -22,7 +26,14 @@ import {
 } from '@bubblyclouds-app/moneybagsrace/helpers/monthId';
 import { useHousehold } from '@bubblyclouds-app/moneybagsrace/hooks/useHousehold';
 import { useRetirementModel } from '@bubblyclouds-app/moneybagsrace/hooks/useRetirementModel';
-import { HouseholdAssumptions } from '@bubblyclouds-app/moneybagsrace/types/assumptions';
+import {
+  DEFAULT_FIXED_PERCENT_RATE_PCT,
+  DEFAULT_GUARDRAIL_WIDTH_PCT,
+  DEFAULT_WITHDRAWAL_STRATEGY,
+  HouseholdAssumptions,
+  WithdrawalStrategy,
+  WithdrawalStrategyKind,
+} from '@bubblyclouds-app/moneybagsrace/types/assumptions';
 import { MonthId } from '@bubblyclouds-app/moneybagsrace/types/monthId';
 import {
   SensitivityResult,
@@ -35,6 +46,36 @@ import { useContext, useEffect, useRef, useState } from 'react';
 
 const RUNS = 5000;
 const DEFAULT_PLAN_TO_AGE = 95;
+
+const STRATEGY_OPTIONS: {
+  kind: WithdrawalStrategyKind;
+  label: string;
+  description: string;
+}[] = [
+  {
+    kind: WithdrawalStrategyKind.FIXED_REAL,
+    label: 'Fixed real',
+    description: 'Spend the same amount every year (inflation-proofed).',
+  },
+  {
+    kind: WithdrawalStrategyKind.FIXED_PERCENT,
+    label: 'Fixed %',
+    description: 'Spend a fixed percent of the pot; income rises and falls.',
+  },
+  {
+    kind: WithdrawalStrategyKind.GUARDRAILS,
+    label: 'Guardrails',
+    description: 'Adjust spending up or down when the withdrawal rate drifts.',
+  },
+  {
+    kind: WithdrawalStrategyKind.RMD,
+    label: 'RMD',
+    description: 'Spend the pot divided by the years of plan remaining.',
+  },
+];
+
+const strategyDescription = (kind: WithdrawalStrategyKind): string =>
+  STRATEGY_OPTIONS.find((option) => option.kind === kind)?.description ?? '';
 
 type DateMode = 'earliest' | 'specific';
 type RunPhase = 'idle' | 'solving' | 'simulating' | 'sensitivity';
@@ -127,6 +168,10 @@ export default function RetirementPage() {
     undefined
   );
   const [targetEdit, setTargetEdit] = useState<number | undefined>(undefined);
+  const [strategyEdit, setStrategyEdit] = useState<
+    WithdrawalStrategy | undefined
+  >(undefined);
+  const [resultMode, setResultMode] = useState<NetWorthMode>('real');
   const [dateMode, setDateMode] = useState<DateMode>('earliest');
   const [retirementMonth, setRetirementMonth] = useState<MonthId>(() =>
     addMonths(currentMonthId(), 12)
@@ -140,6 +185,21 @@ export default function RetirementPage() {
   const planToAge =
     planToAgeEdit ?? assumptions.defaultPlanToAge ?? DEFAULT_PLAN_TO_AGE;
   const targetSuccessRatePct = targetEdit ?? assumptions.targetSuccessRatePct;
+  const strategy: WithdrawalStrategy =
+    strategyEdit ??
+    assumptions.defaultWithdrawalStrategy ??
+    DEFAULT_WITHDRAWAL_STRATEGY;
+  const fixedPercentRatePct =
+    strategy.fixedPercentRatePct ?? DEFAULT_FIXED_PERCENT_RATE_PCT;
+  const guardrailWidthPct =
+    strategy.guardrailWidthPct ?? DEFAULT_GUARDRAIL_WIDTH_PCT;
+
+  const selectStrategy = (kind: WithdrawalStrategyKind) =>
+    setStrategyEdit({
+      kind,
+      fixedPercentRatePct,
+      guardrailWidthPct,
+    });
 
   // One seed per page load (created lazily in the run handler, off the
   // render path): re-runs within a visit are reproducible and comparable
@@ -169,17 +229,24 @@ export default function RetirementPage() {
     setProgress(0);
     const seed = seedRef.current ?? Date.now() >>> 0;
     seedRef.current = seed;
+    const runStrategy: WithdrawalStrategy = {
+      kind: strategy.kind,
+      fixedPercentRatePct,
+      guardrailWidthPct,
+    };
     const runAssumptions: HouseholdAssumptions = {
       ...assumptions,
       targetSuccessRatePct,
       defaultWithdrawalAnnualPence: withdrawalAnnualPence,
       defaultPlanToAge: planToAge,
+      defaultWithdrawalStrategy: runStrategy,
     };
     const base: SolverBaseInputs = {
       members,
       startMonth,
       planToAge,
       withdrawalAnnualPence,
+      withdrawalStrategy: runStrategy,
       includeStatePension,
       applyTax,
       assumptions: runAssumptions,
@@ -298,6 +365,88 @@ export default function RetirementPage() {
                 />
               </div>
 
+              <div className="flex flex-col gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                  Withdrawal strategy
+                </span>
+                <div
+                  role="group"
+                  aria-label="Withdrawal strategy"
+                  className="flex flex-wrap gap-2"
+                >
+                  {STRATEGY_OPTIONS.map((option) => (
+                    <button
+                      key={option.kind}
+                      type="button"
+                      aria-pressed={strategy.kind === option.kind}
+                      onClick={() => selectStrategy(option.kind)}
+                      className={modeChipClassName(
+                        strategy.kind === option.kind
+                      )}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+                <p
+                  data-testid="strategy-description"
+                  className="text-xs text-zinc-500 dark:text-white/50"
+                >
+                  {strategyDescription(strategy.kind)}
+                </p>
+                {strategy.kind === WithdrawalStrategyKind.FIXED_PERCENT && (
+                  <PercentSlider
+                    id="fixed-percent-rate"
+                    label="Withdrawal rate"
+                    value={fixedPercentRatePct}
+                    onChange={(value) =>
+                      setStrategyEdit({
+                        kind: WithdrawalStrategyKind.FIXED_PERCENT,
+                        fixedPercentRatePct: value,
+                        guardrailWidthPct,
+                      })
+                    }
+                    min={1}
+                    max={10}
+                    step={1}
+                  />
+                )}
+                {strategy.kind === WithdrawalStrategyKind.GUARDRAILS && (
+                  <>
+                    <PercentSlider
+                      id="guardrail-initial-rate"
+                      label="Initial withdrawal rate"
+                      value={fixedPercentRatePct}
+                      onChange={(value) =>
+                        setStrategyEdit({
+                          kind: WithdrawalStrategyKind.GUARDRAILS,
+                          fixedPercentRatePct: value,
+                          guardrailWidthPct,
+                        })
+                      }
+                      min={1}
+                      max={10}
+                      step={1}
+                    />
+                    <PercentSlider
+                      id="guardrail-width"
+                      label="Guardrail width"
+                      value={guardrailWidthPct}
+                      onChange={(value) =>
+                        setStrategyEdit({
+                          kind: WithdrawalStrategyKind.GUARDRAILS,
+                          fixedPercentRatePct,
+                          guardrailWidthPct: value,
+                        })
+                      }
+                      min={5}
+                      max={40}
+                      step={5}
+                    />
+                  </>
+                )}
+              </div>
+
               <div
                 role="group"
                 aria-label="Retirement date mode"
@@ -414,8 +563,20 @@ export default function RetirementPage() {
                   result={outcome.result}
                   targetSuccessRatePct={targetSuccessRatePct}
                 />
+                <RealNominalToggle
+                  value={resultMode}
+                  onChange={setResultMode}
+                />
+                <MonteCarloPathsChart
+                  paths={outcome.result.percentilePathsPence}
+                  sampledPaths={outcome.result.sampledPathsPence}
+                  mode={resultMode}
+                  inflationRatePct={assumptions.inflationRatePct}
+                />
                 <PercentilePathsChart
                   paths={outcome.result.percentilePathsPence}
+                  mode={resultMode}
+                  inflationRatePct={assumptions.inflationRatePct}
                 />
               </section>
             )}
@@ -437,10 +598,22 @@ export default function RetirementPage() {
                   </p>
                 )}
                 {outcome.resultAtDate && (
-                  <RetirementResultPanel
-                    result={outcome.resultAtDate}
-                    targetSuccessRatePct={targetSuccessRatePct}
-                  />
+                  <>
+                    <RetirementResultPanel
+                      result={outcome.resultAtDate}
+                      targetSuccessRatePct={targetSuccessRatePct}
+                    />
+                    <RealNominalToggle
+                      value={resultMode}
+                      onChange={setResultMode}
+                    />
+                    <MonteCarloPathsChart
+                      paths={outcome.resultAtDate.percentilePathsPence}
+                      sampledPaths={outcome.resultAtDate.sampledPathsPence}
+                      mode={resultMode}
+                      inflationRatePct={assumptions.inflationRatePct}
+                    />
+                  </>
                 )}
                 {outcome.sensitivity && (
                   <SensitivityTable

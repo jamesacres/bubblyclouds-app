@@ -170,6 +170,7 @@ describe('Home Page', () => {
     });
     mockUseHousehold.mockReturnValue({
       household: emptyHousehold(),
+      ownUserId: 'user-1',
       isLoading: false,
     });
     mockUseRetirementModel.mockReturnValue({
@@ -216,6 +217,7 @@ describe('Home Page', () => {
     it('shows a loading placeholder while household data loads', () => {
       mockUseHousehold.mockReturnValue({
         household: emptyHousehold(),
+        ownUserId: 'user-1',
         isLoading: true,
       });
       render(<Home />);
@@ -228,6 +230,7 @@ describe('Home Page', () => {
     it('shows the household headline with month-on-month change', () => {
       mockUseHousehold.mockReturnValue({
         household: householdWithTwoMonths(),
+        ownUserId: 'user-1',
         isLoading: false,
       });
       render(<Home />);
@@ -241,6 +244,7 @@ describe('Home Page', () => {
     it('shows per-member stat cards with their own change', () => {
       mockUseHousehold.mockReturnValue({
         household: householdWithTwoMonths(),
+        ownUserId: 'user-1',
         isLoading: false,
       });
       render(<Home />);
@@ -264,6 +268,7 @@ describe('Home Page', () => {
     it('hides the entry-due card once the current month is complete', () => {
       mockUseHousehold.mockReturnValue({
         household: householdWithTwoMonths(),
+        ownUserId: 'user-1',
         isLoading: false,
       });
       render(<Home />);
@@ -317,6 +322,7 @@ describe('Home Page', () => {
       beforeEach(() => {
         mockUseHousehold.mockReturnValue({
           household: householdWithTwoMonths(),
+          ownUserId: 'user-1',
           isLoading: false,
         });
         mockUseRetirementModel.mockReturnValue(readyModelWithDefaults());
@@ -400,6 +406,7 @@ describe('Home Page', () => {
     it('hides the invite-partner CTA when a party exists', () => {
       mockUseHousehold.mockReturnValue({
         household: householdWithTwoMonths(),
+        ownUserId: 'user-1',
         isLoading: false,
       });
       render(<Home />);
@@ -408,21 +415,19 @@ describe('Home Page', () => {
       ).not.toBeInTheDocument();
     });
 
-    it('renders navigation cards to the main screens', () => {
+    it('renders navigation cards only for screens not in the footer', () => {
       render(<Home />);
       expect(screen.getByText('Monthly entry').closest('a')).toHaveAttribute(
         'href',
         `/state?month=${currentMonthId()}`
       );
       expect(
-        screen.getByText('Net worth over time').closest('a')
-      ).toHaveAttribute('href', '/history');
-      expect(
         screen.getByText('Growth projection').closest('a')
       ).toHaveAttribute('href', '/projection');
+      expect(screen.queryByText('Net worth over time')).not.toBeInTheDocument();
       expect(
-        screen.getByText('Accounts & assumptions').closest('a')
-      ).toHaveAttribute('href', '/settings');
+        screen.queryByText('Accounts & assumptions')
+      ).not.toBeInTheDocument();
     });
   });
 

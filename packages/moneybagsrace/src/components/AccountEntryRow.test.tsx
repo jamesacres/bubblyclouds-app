@@ -64,4 +64,13 @@ describe('AccountEntryRow', () => {
     fireEvent.change(input, { target: { value: '12345.67' } });
     expect(defaultProps.onChangeBalance).toHaveBeenCalledWith(1_234_567);
   });
+
+  it('commits on blur so the page can autosave', () => {
+    const onCommit = jest.fn();
+    render(<AccountEntryRow {...defaultProps} onCommit={onCommit} />);
+    const input = screen.getByLabelText('Current balance');
+    fireEvent.focus(input);
+    fireEvent.blur(input);
+    expect(onCommit).toHaveBeenCalledTimes(1);
+  });
 });

@@ -122,10 +122,9 @@ describe('Settings Page', () => {
     expect(screen.getByText('Loading…')).toBeInTheDocument();
   });
 
-  it('disables save until a profile edit is made, then saves it', async () => {
+  it('autosaves account edits when the Accounts section loses focus', async () => {
     renderWithUser({ sub: 'user-1' });
-    const saveButtons = screen.getAllByText('Save');
-    expect(saveButtons[0]).toBeDisabled();
+    expect(screen.queryByText('Save')).not.toBeInTheDocument();
 
     fireEvent.change(screen.getByPlaceholderText('Account name'), {
       target: { value: 'Monzo' },
@@ -134,17 +133,20 @@ describe('Settings Page', () => {
       target: { value: AccountKind.CASH },
     });
     fireEvent.click(screen.getByText('Add'));
-    expect(saveButtons[0]).not.toBeDisabled();
+    expect(saveOwnProfile).not.toHaveBeenCalled();
 
-    fireEvent.click(saveButtons[0]);
+    fireEvent.blur(screen.getByRole('region', { name: 'Accounts' }));
     await waitFor(() => expect(saveOwnProfile).toHaveBeenCalled());
     const saved: ProfileData = saveOwnProfile.mock.calls[0][0];
     expect(saved.accounts).toHaveLength(2);
     expect(saved.accounts[1].name).toBe('Monzo');
     expect(saved.accounts[1].kind).toBe(AccountKind.CASH);
+    await waitFor(() =>
+      expect(screen.getAllByText('Saved').length).toBeGreaterThan(0)
+    );
   });
 
-  it('saves date of birth and overrides from the You section', async () => {
+  it('autosaves date of birth and overrides when the You section blurs', async () => {
     renderWithUser({ sub: 'user-1' });
     fireEvent.change(screen.getByLabelText('Date of birth'), {
       target: { value: '1989-03-04' },
@@ -152,19 +154,19 @@ describe('Settings Page', () => {
     fireEvent.change(screen.getByLabelText('Pension access age override'), {
       target: { value: '58' },
     });
-    fireEvent.click(screen.getAllByText('Save')[1]);
+    fireEvent.blur(screen.getByRole('region', { name: 'You' }));
     await waitFor(() => expect(saveOwnProfile).toHaveBeenCalled());
     const saved: ProfileData = saveOwnProfile.mock.calls[0][0];
     expect(saved.dateOfBirth).toBe('1989-03-04');
     expect(saved.overrides.nmpaAgeOverride).toBe(58);
   });
 
-  it('saves contribution edits', async () => {
+  it('autosaves contribution edits when the section blurs', async () => {
     renderWithUser({ sub: 'user-1' });
     const input = screen.getByLabelText('SIPP monthly');
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: '400' } });
-    fireEvent.click(screen.getAllByText('Save')[2]);
+    fireEvent.blur(screen.getByRole('region', { name: 'Contributions' }));
     await waitFor(() => expect(saveOwnProfile).toHaveBeenCalled());
     const saved: ProfileData = saveOwnProfile.mock.calls[0][0];
     expect(
@@ -172,12 +174,12 @@ describe('Settings Page', () => {
     ).toBe(40_000);
   });
 
-  it('saves shared assumptions separately', async () => {
+  it('autosaves shared assumptions separately when the section blurs', async () => {
     renderWithUser({ sub: 'user-1' });
     fireEvent.change(screen.getByLabelText('Inflation rate'), {
       target: { value: '3' },
     });
-    fireEvent.click(screen.getAllByText('Save')[3]);
+    fireEvent.blur(screen.getByRole('region', { name: 'Assumptions' }));
     await waitFor(() => expect(saveSharedAssumptions).toHaveBeenCalled());
     expect(saveSharedAssumptions).toHaveBeenCalledWith({
       ...DEFAULT_ASSUMPTIONS,
@@ -186,13 +188,23 @@ describe('Settings Page', () => {
     expect(saveOwnProfile).not.toHaveBeenCalled();
   });
 
+  it('flushes pending edits when navigating home', async () => {
+    renderWithUser({ sub: 'user-1' });
+    fireEvent.change(screen.getByLabelText('Date of birth'), {
+      target: { value: '1989-03-04' },
+    });
+    fireEvent.click(screen.getByText('Home'));
+    await waitFor(() => expect(saveOwnProfile).toHaveBeenCalled());
+    expect(saveOwnProfile.mock.calls[0][0].dateOfBirth).toBe('1989-03-04');
+  });
+
   it('prompts login instead of saving when logged out', () => {
     const showLoginModal = jest.fn();
     renderWithUser(undefined, showLoginModal);
     fireEvent.change(screen.getByLabelText('Date of birth'), {
       target: { value: '1989-03-04' },
     });
-    fireEvent.click(screen.getAllByText('Save')[1]);
+    fireEvent.blur(screen.getByRole('region', { name: 'You' }));
     expect(showLoginModal).toHaveBeenCalled();
     expect(saveOwnProfile).not.toHaveBeenCalled();
   });

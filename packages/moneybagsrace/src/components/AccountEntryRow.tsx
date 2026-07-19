@@ -12,6 +12,7 @@ export const AccountEntryRow = ({
   balancePence,
   previousBalancePence,
   onChangeBalance,
+  onCommit,
 }: {
   accountId: string;
   kind: AccountKind;
@@ -20,6 +21,7 @@ export const AccountEntryRow = ({
   balancePence: number;
   previousBalancePence?: number;
   onChangeBalance: (balancePence: number) => void;
+  onCommit?: () => void;
 }) => (
   <div className="flex flex-col gap-1 py-3">
     <div className="flex items-center gap-2">
@@ -37,6 +39,7 @@ export const AccountEntryRow = ({
       }
       valuePence={balancePence}
       onChangePence={onChangeBalance}
+      onBlur={onCommit}
       allowNegative={kind !== AccountKind.CREDIT_CARD}
     />
     {previousBalancePence !== undefined && (

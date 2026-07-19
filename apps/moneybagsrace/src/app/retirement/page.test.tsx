@@ -48,6 +48,25 @@ jest.mock(
   })
 );
 
+jest.mock(
+  '@bubblyclouds-app/moneybagsrace/components/MonteCarloPathsChart',
+  () => ({
+    __esModule: true,
+    default: function MockMonteCarloPathsChart({
+      sampledPaths,
+    }: {
+      sampledPaths: unknown[];
+    }) {
+      return (
+        <div
+          data-testid="monte-carlo-paths-stub"
+          data-sample-count={sampledPaths.length}
+        />
+      );
+    },
+  })
+);
+
 // Headless UI's Switch does not expose role="switch" in this jest
 // environment, so stub the ui Toggle with an accessible equivalent.
 jest.mock('@bubblyclouds-app/ui/components/NotesToggle', () => ({
@@ -109,12 +128,21 @@ const SIM_RESULT: SimulationResult = {
     { year: 2041, p5: 1, p25: 2, p50: 3, p75: 4, p95: 5 },
     { year: 2042, p5: 1, p25: 2, p50: 3, p75: 4, p95: 5 },
   ],
+  incomePathsPence: [
+    { year: 2041, p5: 1, p25: 2, p50: 3, p75: 4, p95: 5 },
+    { year: 2042, p5: 1, p25: 2, p50: 3, p75: 4, p95: 5 },
+  ],
+  sampledPathsPence: [
+    { runIndex: 0, totalsPence: [10, 8] },
+    { runIndex: 1, totalsPence: [10, 12] },
+  ],
   failures: {
     count: 440,
     medianFailureYear: 2052,
     byKind: {
       [FailureKind.BRIDGE_EXHAUSTED]: 240,
       [FailureKind.WEALTH_EXHAUSTED]: 200,
+      [FailureKind.INCOME_BELOW_FLOOR]: 0,
     },
   },
 };
@@ -341,6 +369,11 @@ describe('Retirement Page', () => {
         'data-path-count',
         '2'
       );
+      expect(screen.getByTestId('monte-carlo-paths-stub')).toHaveAttribute(
+        'data-sample-count',
+        '2'
+      );
+      expect(screen.getByTestId('real-nominal-toggle')).toBeInTheDocument();
       expect(screen.getByTestId('success-rate')).toHaveTextContent('91.2%');
       expect(mockRunAsync).toHaveBeenCalledWith(
         expect.objectContaining({ retirementMonth: '2035-06' }),
@@ -348,6 +381,62 @@ describe('Retirement Page', () => {
       );
       expect(mockSolver).not.toHaveBeenCalled();
       expect(mockSensitivity).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('withdrawal strategy', () => {
+    it('defaults to fixed-real and threads it into the run', async () => {
+      render(<RetirementPage />);
+      expect(screen.getByTestId('strategy-description')).toHaveTextContent(
+        'Spend the same amount every year'
+      );
+      runSimulation();
+      await waitFor(() =>
+        expect(mockSolver).toHaveBeenCalledWith(
+          expect.objectContaining({
+            withdrawalStrategy: expect.objectContaining({
+              kind: 'FIXED_REAL',
+            }),
+          }),
+          expect.anything()
+        )
+      );
+    });
+
+    it('runs the fixed-percent strategy with its rate and persists it', async () => {
+      render(<RetirementPage />);
+      fireEvent.click(screen.getByRole('button', { name: 'Fixed %' }));
+      expect(screen.getByLabelText('Withdrawal rate')).toBeInTheDocument();
+      runSimulation();
+      await waitFor(() =>
+        expect(mockSolver).toHaveBeenCalledWith(
+          expect.objectContaining({
+            withdrawalStrategy: expect.objectContaining({
+              kind: 'FIXED_PERCENT',
+              fixedPercentRatePct: 4,
+            }),
+          }),
+          expect.anything()
+        )
+      );
+      await waitFor(() =>
+        expect(mockSaveSharedAssumptions).toHaveBeenCalledWith(
+          expect.objectContaining({
+            defaultWithdrawalStrategy: expect.objectContaining({
+              kind: 'FIXED_PERCENT',
+            }),
+          })
+        )
+      );
+    });
+
+    it('exposes the guardrail width control for the guardrails strategy', () => {
+      render(<RetirementPage />);
+      fireEvent.click(screen.getByRole('button', { name: 'Guardrails' }));
+      expect(
+        screen.getByLabelText('Initial withdrawal rate')
+      ).toBeInTheDocument();
+      expect(screen.getByLabelText('Guardrail width')).toBeInTheDocument();
     });
   });
 

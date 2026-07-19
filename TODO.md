@@ -1,5 +1,27 @@
 # TODO
 
+Waitlist, only allow us two to login for now
+
+
+Fixes and improvements (all done on feature/money-bags-init)
+* [x] We added new accounts but it did not allow us to update them on the current month after when we had already set some values. — profile accounts now merge into existing saved snapshots
+* [x] The mark month as complete, is that necessary? — removed; a month is "entered" once a snapshot exists
+* [x] Homepage has multiple buttons which go to the same page? — removed redundant History/Settings nav cards (footer already has them)
+* [x] Remove need to press save — autosave on blur/navigation across entry + settings
+* [x] Add ability to delete an account permenantly if it's only just been added with no data? — delete when no snapshot references it, else archive-only
+* [x] Add ability to edit an investment type after it's been saved? — inline kind/wrapper editing in AccountManager
+* [x] Reorder by dragging? — native HTML5 drag-to-reorder (up/down kept for keyboard)
+* [x] needs to graph the monte carlo simulations — MonteCarloPathsChart spaghetti + percentile bands
+* [x] withdrawal amount adjusted by inflation? — engine is real-terms; added explicit real/nominal view
+* [x] needs to support all the different withdrawal strategies: fixed-real, fixed-%, guardrails (Guyton-Klinger), RMD/lifetime-expectancy
+https://www.youtube.com/watch?v=Qpjxv74htog
+https://www.morningstar.com/retirement/morningstars-retirement-income-research-finding-your-safe-withdrawal-rate
+
+
+
+
+
+
 Something similar to bulb Rush game
 
 * end game state sudoku, needs to reappear to avoid blank screen, and take learnings from unblock race for leaderboard points and continue buttons

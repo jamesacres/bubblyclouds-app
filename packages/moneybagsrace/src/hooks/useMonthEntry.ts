@@ -16,7 +16,7 @@ export interface MonthEntryAccountRow {
 export interface PartnerCompletion {
   userId: string;
   nickname: string;
-  complete: boolean;
+  entered: boolean;
 }
 
 export interface MonthEntry {
@@ -27,14 +27,11 @@ export interface MonthEntry {
   // Set only when this month already has an effective shared entry (LWW
   // across members) — undefined when values are pre-filled or empty.
   sharedUpdatedAt?: string;
-  complete: boolean;
-  monthComplete: boolean;
   partnerCompletion: PartnerCompletion[];
   isDirty: boolean;
   isSaving: boolean;
   setBalance: (accountId: string, balancePence: number) => void;
   setShared: (houseValuePence: number, mortgageBalancePence: number) => void;
-  markComplete: () => void;
   save: () => Promise<void>;
 }
 
@@ -52,15 +49,11 @@ export function useMonthEntry(month: MonthId): MonthEntry {
   const [sharedEdit, setSharedEdit] = useState<SharedEdit | undefined>(
     undefined
   );
-  const [completeEdit, setCompleteEdit] = useState<boolean | undefined>(
-    undefined
-  );
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     setBalanceEdits({});
     setSharedEdit(undefined);
-    setCompleteEdit(undefined);
   }, [month]);
 
   const householdMonth = household.months[month];
@@ -94,8 +87,10 @@ export function useMonthEntry(month: MonthId): MonthEntry {
     [earlierMonths, household.months]
   );
 
-  // Frozen snapshot list if a snapshot exists; otherwise live profile
-  // definitions filtered createdMonth <= month < archivedMonth.
+  // Frozen snapshot list (preserving historical balances) merged with any
+  // active profile accounts added since, so newly-added accounts remain
+  // editable on a month that already has a saved snapshot. Without a snapshot,
+  // live profile definitions filtered createdMonth <= month < archivedMonth.
   const accounts = useMemo<MonthEntryAccountRow[]>(() => {
     const previousBalances = new Map<string, number>(
       (previousOwnSnapshot?.accounts ?? []).map((account) => [
@@ -103,28 +98,45 @@ export function useMonthEntry(month: MonthId): MonthEntry {
         account.balancePence,
       ])
     );
-    const base: MonthEntryAccountRow[] = ownSnapshot
-      ? ownSnapshot.accounts.map((account) => ({
+    const activeProfileAccounts = (ownProfile?.accounts ?? [])
+      .filter(
+        (definition) =>
+          definition.createdMonth <= month &&
+          (!definition.archivedMonth || month < definition.archivedMonth)
+      )
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+    let base: MonthEntryAccountRow[];
+    if (ownSnapshot) {
+      const snapshotIds = new Set(
+        ownSnapshot.accounts.map((account) => account.accountId)
+      );
+      base = [
+        ...ownSnapshot.accounts.map((account) => ({
           accountId: account.accountId,
           kind: account.kind,
           wrapper: account.wrapper,
           name: account.name,
           balancePence: account.balancePence,
-        }))
-      : (ownProfile?.accounts ?? [])
-          .filter(
-            (definition) =>
-              definition.createdMonth <= month &&
-              (!definition.archivedMonth || month < definition.archivedMonth)
-          )
-          .sort((a, b) => a.sortOrder - b.sortOrder)
+        })),
+        ...activeProfileAccounts
+          .filter((definition) => !snapshotIds.has(definition.accountId))
           .map((definition) => ({
             accountId: definition.accountId,
             kind: definition.kind,
             wrapper: definition.wrapper,
             name: definition.name,
             balancePence: previousBalances.get(definition.accountId) ?? 0,
-          }));
+          })),
+      ];
+    } else {
+      base = activeProfileAccounts.map((definition) => ({
+        accountId: definition.accountId,
+        kind: definition.kind,
+        wrapper: definition.wrapper,
+        name: definition.name,
+        balancePence: previousBalances.get(definition.accountId) ?? 0,
+      }));
+    }
     return base.map((account) => ({
       ...account,
       balancePence: balanceEdits[account.accountId] ?? account.balancePence,
@@ -143,11 +155,8 @@ export function useMonthEntry(month: MonthId): MonthEntry {
     previousShared?.mortgageBalancePence ??
     0;
 
-  const complete = completeEdit ?? ownSnapshot?.complete ?? false;
   const isDirty =
-    Object.keys(balanceEdits).length > 0 ||
-    sharedEdit !== undefined ||
-    completeEdit !== undefined;
+    Object.keys(balanceEdits).length > 0 || sharedEdit !== undefined;
 
   const setBalance = useCallback((accountId: string, balancePence: number) => {
     setBalanceEdits((previous) => ({ ...previous, [accountId]: balancePence }));
@@ -159,10 +168,6 @@ export function useMonthEntry(month: MonthId): MonthEntry {
     },
     []
   );
-
-  const markComplete = useCallback(() => {
-    setCompleteEdit(true);
-  }, []);
 
   const save = useCallback(async () => {
     const now = new Date().toISOString();
@@ -187,7 +192,9 @@ export function useMonthEntry(month: MonthId): MonthEntry {
       month,
       enteredAt: ownSnapshot?.enteredAt ?? now,
       accounts: snapshotAccounts,
-      complete,
+      // A month counts as entered once a snapshot exists; there is no manual
+      // complete step. Always true for backward compatibility with readers.
+      complete: true,
       ...(shared ? { shared } : {}),
     };
     setIsSaving(true);
@@ -195,11 +202,10 @@ export function useMonthEntry(month: MonthId): MonthEntry {
       await saveOwnSnapshot(month, data);
       setBalanceEdits({});
       setSharedEdit(undefined);
-      setCompleteEdit(undefined);
     } finally {
       setIsSaving(false);
     }
-  }, [accounts, complete, month, ownSnapshot, saveOwnSnapshot, sharedEdit]);
+  }, [accounts, month, ownSnapshot, saveOwnSnapshot, sharedEdit]);
 
   const partnerCompletion = useMemo<PartnerCompletion[]>(
     () =>
@@ -208,8 +214,7 @@ export function useMonthEntry(month: MonthId): MonthEntry {
         .map((member) => ({
           userId: member.userId,
           nickname: member.nickname,
-          complete:
-            householdMonth?.memberSnapshots[member.userId]?.complete === true,
+          entered: householdMonth?.memberSnapshots[member.userId] !== undefined,
         })),
     [household.members, householdMonth]
   );
@@ -220,14 +225,11 @@ export function useMonthEntry(month: MonthId): MonthEntry {
     sharedHouseValuePence,
     sharedMortgageBalancePence,
     sharedUpdatedAt: effectiveShared?.updatedAt,
-    complete,
-    monthComplete: householdMonth?.complete ?? false,
     partnerCompletion,
     isDirty,
     isSaving,
     setBalance,
     setShared,
-    markComplete,
     save,
   };
 }

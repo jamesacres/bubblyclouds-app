@@ -1,5 +1,5 @@
 import { InvestmentWrapper } from './accounts';
-import { HouseholdAssumptions } from './assumptions';
+import { HouseholdAssumptions, WithdrawalStrategy } from './assumptions';
 import { MonthId } from './monthId';
 import { ContributionPlan, MemberRetirementOverrides } from './profile';
 
@@ -23,6 +23,7 @@ export interface SimulationInputs {
   retirementMonth: MonthId;
   planToAge: number;
   withdrawalAnnualPence: number; // household, today's money, net
+  withdrawalStrategy?: WithdrawalStrategy; // defaults to FIXED_REAL
   includeStatePension: boolean; // per-run toggle
   applyTax: boolean; // per-run toggle
   assumptions: HouseholdAssumptions;
@@ -34,25 +35,36 @@ export interface SimulationInputs {
 export enum FailureKind {
   BRIDGE_EXHAUSTED = 'BRIDGE_EXHAUSTED',
   WEALTH_EXHAUSTED = 'WEALTH_EXHAUSTED',
+  INCOME_BELOW_FLOOR = 'INCOME_BELOW_FLOOR',
+}
+
+export interface PercentileBand {
+  p5: number;
+  p25: number;
+  p50: number;
+  p75: number;
+  p95: number;
+}
+
+export interface PercentilePathPoint extends PercentileBand {
+  year: number;
+}
+
+export interface SampledRunPath {
+  runIndex: number;
+  totalsPence: number[];
 }
 
 export interface SimulationResult {
   successRatePct: number;
-  endingWealthPercentilesPence: {
-    p5: number;
-    p25: number;
-    p50: number;
-    p75: number;
-    p95: number;
-  };
-  percentilePathsPence: {
-    year: number;
-    p5: number;
-    p25: number;
-    p50: number;
-    p75: number;
-    p95: number;
-  }[];
+  endingWealthPercentilesPence: PercentileBand;
+  percentilePathsPence: PercentilePathPoint[];
+  // Per-year net household income (real terms). Constant by construction for
+  // FIXED_REAL; varies for the balance-linked strategies.
+  incomePathsPence: PercentilePathPoint[];
+  // A bounded, deterministically sampled subset of individual run wealth
+  // trajectories (by run index) for the Monte Carlo spaghetti chart.
+  sampledPathsPence: SampledRunPath[];
   failures: {
     count: number;
     medianFailureYear?: number;
