@@ -1,5 +1,5 @@
 import { AccountDefinition, InvestmentWrapper } from './accounts';
-import { SharedAssumptionsEntry } from './assumptions';
+import { SharedAssumptionsEntry, WithdrawalStrategy } from './assumptions';
 import { MonthId } from './monthId';
 
 export interface ContributionStepChange {
@@ -17,6 +17,8 @@ export interface MemberRetirementOverrides {
   nmpaAgeOverride?: number;
   statePensionAgeOverride?: number;
   statePensionAnnualPenceOverride?: number; // partial NI records
+  desiredWithdrawalAnnualPence?: number; // this member's personal plan target
+  withdrawalStrategy?: WithdrawalStrategy; // this member's personal strategy
 }
 
 export interface ProfileData {

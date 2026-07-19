@@ -1,6 +1,7 @@
 'use client';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { CurrencyInput } from '@bubblyclouds-app/moneybagsrace/components/CurrencyInput';
+import LifetimeValueChart from '@bubblyclouds-app/moneybagsrace/components/LifetimeValueChart';
 import MonteCarloPathsChart from '@bubblyclouds-app/moneybagsrace/components/MonteCarloPathsChart';
 import PercentilePathsChart from '@bubblyclouds-app/moneybagsrace/components/PercentilePathsChart';
 import { PercentSlider } from '@bubblyclouds-app/moneybagsrace/components/PercentSlider';
@@ -12,6 +13,7 @@ import SensitivityTable from '@bubblyclouds-app/moneybagsrace/components/Sensiti
 import SolverHeadline from '@bubblyclouds-app/moneybagsrace/components/SolverHeadline';
 import { ToggleRow } from '@bubblyclouds-app/moneybagsrace/components/ToggleRow';
 import { GLOBAL_EQUITY_ANNUAL_RETURNS } from '@bubblyclouds-app/moneybagsrace/data/globalEquityReturns';
+import { formatPence } from '@bubblyclouds-app/moneybagsrace/helpers/money';
 import { runRetirementSimulationAsync } from '@bubblyclouds-app/moneybagsrace/engine/runAsync';
 import { computeSensitivityAsync } from '@bubblyclouds-app/moneybagsrace/engine/sensitivity';
 import {
@@ -26,9 +28,16 @@ import {
 } from '@bubblyclouds-app/moneybagsrace/helpers/monthId';
 import { useHousehold } from '@bubblyclouds-app/moneybagsrace/hooks/useHousehold';
 import { useRetirementModel } from '@bubblyclouds-app/moneybagsrace/hooks/useRetirementModel';
+import { EMPTY_PROFILE } from '@bubblyclouds-app/moneybagsrace/providers/MoneyBagsDataProvider';
 import {
+  DEFAULT_ENDOWMENT_AVERAGING_YEARS,
   DEFAULT_FIXED_PERCENT_RATE_PCT,
   DEFAULT_GUARDRAIL_WIDTH_PCT,
+  DEFAULT_PROBABILITY_GUARDRAIL_LOWER_PCT,
+  DEFAULT_PROBABILITY_GUARDRAIL_UPPER_PCT,
+  DEFAULT_SPENDING_DECLINE_PCT_PER_YEAR,
+  DEFAULT_VANGUARD_CEILING_PCT,
+  DEFAULT_VANGUARD_FLOOR_PCT,
   DEFAULT_WITHDRAWAL_STRATEGY,
   HouseholdAssumptions,
   WithdrawalStrategy,
@@ -36,6 +45,7 @@ import {
 } from '@bubblyclouds-app/moneybagsrace/types/assumptions';
 import { MonthId } from '@bubblyclouds-app/moneybagsrace/types/monthId';
 import {
+  SimulationMember,
   SensitivityResult,
   SimulationResult,
   SolverResult,
@@ -71,6 +81,34 @@ const STRATEGY_OPTIONS: {
     kind: WithdrawalStrategyKind.RMD,
     label: 'RMD',
     description: 'Spend the pot divided by the years of plan remaining.',
+  },
+  {
+    kind: WithdrawalStrategyKind.FIXED_REAL_NO_INFLATION_AFTER_LOSS,
+    label: 'Forgo inflation after loss',
+    description:
+      'Fixed real, but skip the inflation rise the year after a loss.',
+  },
+  {
+    kind: WithdrawalStrategyKind.VANGUARD_DYNAMIC,
+    label: 'Vanguard dynamic',
+    description:
+      'Spend a % of the pot, but cap how much the amount can change each year.',
+  },
+  {
+    kind: WithdrawalStrategyKind.SPENDING_DECLINE,
+    label: 'Spending declines',
+    description: 'Fixed real that gently tapers down as you age.',
+  },
+  {
+    kind: WithdrawalStrategyKind.ENDOWMENT_TEN_YEAR_AVG,
+    label: 'Endowment 10-yr avg',
+    description: "Spend a % of your pot's smoothed 10-year average value.",
+  },
+  {
+    kind: WithdrawalStrategyKind.PROBABILITY_GUARDRAILS,
+    label: 'Probability guardrails',
+    description:
+      'Adjust spending up or down as your plan’s funding health drifts.',
   },
 ];
 
@@ -113,6 +151,340 @@ const modeChipClassName = (isActive: boolean): string =>
       ? 'border-cyan-500/40 bg-cyan-500/20 text-zinc-900 dark:text-white'
       : 'border-zinc-200 bg-white text-zinc-500 hover:text-zinc-700 dark:border-white/15 dark:bg-white/5 dark:text-white/50 dark:hover:text-white/80'
   }`;
+
+const resolveStrategyParam = (
+  strategy: WithdrawalStrategy,
+  key: keyof WithdrawalStrategy,
+  fallback: number
+): number => {
+  const value = strategy[key];
+  return typeof value === 'number' ? value : fallback;
+};
+
+// A labelled number field for the strategy params that PercentSlider's
+// range control doesn't suit (negative / fractional bands).
+const NumberField = ({
+  id,
+  label,
+  value,
+  onChange,
+  min,
+  max,
+  step,
+  disabled,
+}: {
+  id: string;
+  label: string;
+  value: number;
+  onChange: (value: number) => void;
+  min: number;
+  max: number;
+  step: number;
+  disabled?: boolean;
+}) => (
+  <div className="flex flex-col gap-1">
+    <label
+      htmlFor={id}
+      className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40"
+    >
+      {label}
+    </label>
+    <input
+      id={id}
+      type="number"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      disabled={disabled}
+      onChange={(event) => {
+        const parsed = Number(event.target.value);
+        if (!Number.isNaN(parsed)) {
+          onChange(parsed);
+        }
+      }}
+      className={`${numberFieldClassName} disabled:opacity-60`}
+    />
+  </div>
+);
+
+// Per-strategy parameter controls, shared by the own (editable) and partner
+// (disabled) member cards. The disabled flag makes the partner's card
+// read-only while still surfacing their resolved settings.
+const StrategyParams = ({
+  userId,
+  strategy,
+  onChange,
+  disabled,
+}: {
+  userId: string;
+  strategy: WithdrawalStrategy;
+  onChange: (strategy: WithdrawalStrategy) => void;
+  disabled: boolean;
+}) => {
+  const rate = resolveStrategyParam(
+    strategy,
+    'fixedPercentRatePct',
+    DEFAULT_FIXED_PERCENT_RATE_PCT
+  );
+  const width = resolveStrategyParam(
+    strategy,
+    'guardrailWidthPct',
+    DEFAULT_GUARDRAIL_WIDTH_PCT
+  );
+  const patch = (next: Partial<WithdrawalStrategy>) => {
+    if (disabled) {
+      return;
+    }
+    onChange({ ...strategy, ...next });
+  };
+
+  switch (strategy.kind) {
+    case WithdrawalStrategyKind.FIXED_PERCENT:
+    case WithdrawalStrategyKind.ENDOWMENT_TEN_YEAR_AVG:
+    case WithdrawalStrategyKind.VANGUARD_DYNAMIC:
+      return (
+        <>
+          <PercentSlider
+            id={`member-${userId}-rate`}
+            label="Withdrawal rate"
+            value={rate}
+            onChange={(value) => patch({ fixedPercentRatePct: value })}
+            min={1}
+            max={10}
+            step={1}
+          />
+          {strategy.kind === WithdrawalStrategyKind.VANGUARD_DYNAMIC && (
+            <>
+              <NumberField
+                id={`member-${userId}-floor`}
+                label="Yearly decrease floor (%)"
+                value={resolveStrategyParam(
+                  strategy,
+                  'vanguardFloorPct',
+                  DEFAULT_VANGUARD_FLOOR_PCT
+                )}
+                onChange={(value) => patch({ vanguardFloorPct: value })}
+                min={-5}
+                max={0}
+                step={0.5}
+                disabled={disabled}
+              />
+              <NumberField
+                id={`member-${userId}-ceiling`}
+                label="Yearly increase ceiling (%)"
+                value={resolveStrategyParam(
+                  strategy,
+                  'vanguardCeilingPct',
+                  DEFAULT_VANGUARD_CEILING_PCT
+                )}
+                onChange={(value) => patch({ vanguardCeilingPct: value })}
+                min={0}
+                max={15}
+                step={0.5}
+                disabled={disabled}
+              />
+            </>
+          )}
+          {strategy.kind === WithdrawalStrategyKind.ENDOWMENT_TEN_YEAR_AVG && (
+            <NumberField
+              id={`member-${userId}-averaging-years`}
+              label="Averaging years"
+              value={resolveStrategyParam(
+                strategy,
+                'endowmentAveragingYears',
+                DEFAULT_ENDOWMENT_AVERAGING_YEARS
+              )}
+              onChange={(value) => patch({ endowmentAveragingYears: value })}
+              min={1}
+              max={20}
+              step={1}
+              disabled={disabled}
+            />
+          )}
+        </>
+      );
+    case WithdrawalStrategyKind.GUARDRAILS:
+      return (
+        <>
+          <PercentSlider
+            id={`member-${userId}-initial-rate`}
+            label="Initial withdrawal rate"
+            value={rate}
+            onChange={(value) => patch({ fixedPercentRatePct: value })}
+            min={1}
+            max={10}
+            step={1}
+          />
+          <PercentSlider
+            id={`member-${userId}-guardrail-width`}
+            label="Guardrail width"
+            value={width}
+            onChange={(value) => patch({ guardrailWidthPct: value })}
+            min={5}
+            max={40}
+            step={5}
+          />
+        </>
+      );
+    case WithdrawalStrategyKind.SPENDING_DECLINE:
+      return (
+        <NumberField
+          id={`member-${userId}-decline`}
+          label="Annual decline (%)"
+          value={resolveStrategyParam(
+            strategy,
+            'spendingDeclinePctPerYear',
+            DEFAULT_SPENDING_DECLINE_PCT_PER_YEAR
+          )}
+          onChange={(value) => patch({ spendingDeclinePctPerYear: value })}
+          min={-5}
+          max={0}
+          step={0.5}
+          disabled={disabled}
+        />
+      );
+    case WithdrawalStrategyKind.PROBABILITY_GUARDRAILS:
+      return (
+        <>
+          <NumberField
+            id={`member-${userId}-prob-lower`}
+            label="Lower funded band (%)"
+            value={resolveStrategyParam(
+              strategy,
+              'probabilityGuardrailLowerPct',
+              DEFAULT_PROBABILITY_GUARDRAIL_LOWER_PCT
+            )}
+            onChange={(value) => patch({ probabilityGuardrailLowerPct: value })}
+            min={40}
+            max={100}
+            step={1}
+            disabled={disabled}
+          />
+          <NumberField
+            id={`member-${userId}-prob-upper`}
+            label="Upper funded band (%)"
+            value={resolveStrategyParam(
+              strategy,
+              'probabilityGuardrailUpperPct',
+              DEFAULT_PROBABILITY_GUARDRAIL_UPPER_PCT
+            )}
+            onChange={(value) => patch({ probabilityGuardrailUpperPct: value })}
+            min={80}
+            max={130}
+            step={1}
+            disabled={disabled}
+          />
+        </>
+      );
+    default:
+      return null;
+  }
+};
+
+// One member's personal plan: their desired withdrawal + strategy + params.
+// Only the current user's own card is editable; the partner's card mirrors
+// projection's "you can only edit your own" pattern with disabled inputs.
+const MemberPlanCard = ({
+  userId,
+  nickname,
+  isOwn,
+  desiredWithdrawalAnnualPence,
+  strategy,
+  onWithdrawalChange,
+  onStrategyChange,
+}: {
+  userId: string;
+  nickname: string;
+  isOwn: boolean;
+  desiredWithdrawalAnnualPence: number;
+  strategy: WithdrawalStrategy;
+  onWithdrawalChange: (pence: number) => void;
+  onStrategyChange: (strategy: WithdrawalStrategy) => void;
+}) => {
+  const selectStrategy = (kind: WithdrawalStrategyKind) => {
+    if (!isOwn) {
+      return;
+    }
+    onStrategyChange({ ...strategy, kind });
+  };
+  return (
+    <div
+      data-testid={`member-plan-${userId}`}
+      className="flex flex-col gap-3 rounded-2xl border border-zinc-200/80 p-4 dark:border-white/10"
+    >
+      <div className="flex items-baseline justify-between gap-2">
+        <h3 className="text-base font-bold tracking-tight text-zinc-900 dark:text-white">
+          {nickname}’s personal plan
+        </h3>
+        {!isOwn && (
+          <span className="text-xs font-medium text-zinc-400 dark:text-white/35">
+            Read-only
+          </span>
+        )}
+      </div>
+      {isOwn ? (
+        <CurrencyInput
+          id={`member-withdrawal-${userId}`}
+          label="Desired annual withdrawal (net, today's money)"
+          valuePence={desiredWithdrawalAnnualPence}
+          onChangePence={onWithdrawalChange}
+        />
+      ) : (
+        <div className="flex flex-col gap-1">
+          <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+            Desired annual withdrawal (net, today's money)
+          </span>
+          <p
+            data-testid={`member-withdrawal-${userId}`}
+            className="text-sm font-semibold text-zinc-900 dark:text-white"
+          >
+            {formatPence(desiredWithdrawalAnnualPence)}
+          </p>
+        </div>
+      )}
+
+      <div className="flex flex-col gap-2">
+        <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+          Withdrawal strategy
+        </span>
+        <div
+          role="group"
+          aria-label={`${nickname}’s withdrawal strategy`}
+          className="flex flex-wrap gap-2"
+        >
+          {STRATEGY_OPTIONS.map((option) => (
+            <button
+              key={option.kind}
+              type="button"
+              data-testid={`member-strategy-${userId}-${option.kind}`}
+              aria-pressed={strategy.kind === option.kind}
+              disabled={!isOwn}
+              onClick={() => selectStrategy(option.kind)}
+              className={`${modeChipClassName(
+                strategy.kind === option.kind
+              )} disabled:cursor-default disabled:opacity-70`}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+        <p
+          data-testid={`member-strategy-description-${userId}`}
+          className="text-xs text-zinc-500 dark:text-white/50"
+        >
+          {strategyDescription(strategy.kind)}
+        </p>
+        <StrategyParams
+          userId={userId}
+          strategy={strategy}
+          onChange={onStrategyChange}
+          disabled={!isOwn}
+        />
+      </div>
+    </div>
+  );
+};
 
 function NotReady({
   missingDob,
@@ -158,19 +530,32 @@ function NotReady({
 export default function RetirementPage() {
   const context = useContext(UserContext);
   const { user } = context || {};
-  const { ownUserId, saveSharedAssumptions } = useHousehold();
-  const { members, startMonth, assumptions, readiness } = useRetirementModel();
+  const {
+    household,
+    ownUserId,
+    ownProfile,
+    saveOwnProfile,
+    saveSharedAssumptions,
+  } = useHousehold();
+  const {
+    members,
+    startMonth,
+    assumptions,
+    readiness,
+    householdDesiredWithdrawalAnnualPence,
+  } = useRetirementModel();
 
-  const [withdrawalEdit, setWithdrawalEdit] = useState<number | undefined>(
-    undefined
-  );
+  // Per-member local edits, keyed by userId; only the own card writes any.
+  const [withdrawalEdits, setWithdrawalEdits] = useState<
+    Record<string, number>
+  >({});
+  const [strategyEdits, setStrategyEdits] = useState<
+    Record<string, WithdrawalStrategy>
+  >({});
   const [planToAgeEdit, setPlanToAgeEdit] = useState<number | undefined>(
     undefined
   );
   const [targetEdit, setTargetEdit] = useState<number | undefined>(undefined);
-  const [strategyEdit, setStrategyEdit] = useState<
-    WithdrawalStrategy | undefined
-  >(undefined);
   const [resultMode, setResultMode] = useState<NetWorthMode>('real');
   const [dateMode, setDateMode] = useState<DateMode>('earliest');
   const [retirementMonth, setRetirementMonth] = useState<MonthId>(() =>
@@ -179,31 +564,28 @@ export default function RetirementPage() {
   const [includeStatePension, setIncludeStatePension] = useState(true);
   const [applyTax, setApplyTax] = useState(true);
 
-  // Remembered defaults (spec §6.2) come from shared assumptions until edited
-  const withdrawalAnnualPence =
-    withdrawalEdit ?? assumptions.defaultWithdrawalAnnualPence ?? 0;
   const planToAge =
     planToAgeEdit ?? assumptions.defaultPlanToAge ?? DEFAULT_PLAN_TO_AGE;
   const targetSuccessRatePct = targetEdit ?? assumptions.targetSuccessRatePct;
-  const strategy: WithdrawalStrategy =
-    strategyEdit ??
-    assumptions.defaultWithdrawalStrategy ??
-    DEFAULT_WITHDRAWAL_STRATEGY;
-  const fixedPercentRatePct =
-    strategy.fixedPercentRatePct ?? DEFAULT_FIXED_PERCENT_RATE_PCT;
-  const guardrailWidthPct =
-    strategy.guardrailWidthPct ?? DEFAULT_GUARDRAIL_WIDTH_PCT;
 
-  const selectStrategy = (kind: WithdrawalStrategyKind) =>
-    setStrategyEdit({
-      kind,
-      fixedPercentRatePct,
-      guardrailWidthPct,
-    });
+  const memberNicknames = Object.fromEntries(
+    household.members.map((member) => [member.userId, member.nickname])
+  );
 
-  // One seed per page load (created lazily in the run handler, off the
-  // render path): re-runs within a visit are reproducible and comparable
-  // while a fresh visit resamples returns
+  // Each member's effective plan: local own-card edits win over the resolved
+  // per-member settings from the model.
+  const memberWithdrawal = (member: SimulationMember): number =>
+    withdrawalEdits[member.userId] ?? member.desiredWithdrawalAnnualPence;
+  const memberStrategy = (member: SimulationMember): WithdrawalStrategy =>
+    strategyEdits[member.userId] ?? member.withdrawalStrategy;
+
+  // Household combined = Σ per-member desired, with any own-card edits applied.
+  // Falls back to the model's household figure when there are no members.
+  const householdWithdrawalPence =
+    members.length > 0
+      ? members.reduce((total, member) => total + memberWithdrawal(member), 0)
+      : householdDesiredWithdrawalAnnualPence;
+
   const seedRef = useRef<number | undefined>(undefined);
 
   const [phase, setPhase] = useState<RunPhase>('idle');
@@ -212,11 +594,17 @@ export default function RetirementPage() {
   const [runFailed, setRunFailed] = useState(false);
   const abortRef = useRef<AbortController | undefined>(undefined);
 
-  // Simulation work never blocks the render path: it starts on the Run
-  // button and any in-flight run is cancelled on unmount
   useEffect(() => () => abortRef.current?.abort(), []);
 
   const isRunning = phase !== 'idle';
+
+  // Thread the own-card edits onto each member so the run reflects the
+  // in-progress edits before they are persisted.
+  const runMembers: SimulationMember[] = members.map((member) => ({
+    ...member,
+    desiredWithdrawalAnnualPence: memberWithdrawal(member),
+    withdrawalStrategy: memberStrategy(member),
+  }));
 
   const handleRun = async () => {
     if (startMonth === undefined || isRunning) {
@@ -229,24 +617,23 @@ export default function RetirementPage() {
     setProgress(0);
     const seed = seedRef.current ?? Date.now() >>> 0;
     seedRef.current = seed;
-    const runStrategy: WithdrawalStrategy = {
-      kind: strategy.kind,
-      fixedPercentRatePct,
-      guardrailWidthPct,
-    };
+    const ownMember = runMembers.find((member) => member.userId === ownUserId);
     const runAssumptions: HouseholdAssumptions = {
       ...assumptions,
       targetSuccessRatePct,
-      defaultWithdrawalAnnualPence: withdrawalAnnualPence,
+      defaultWithdrawalAnnualPence: householdWithdrawalPence,
       defaultPlanToAge: planToAge,
-      defaultWithdrawalStrategy: runStrategy,
+      defaultWithdrawalStrategy:
+        ownMember?.withdrawalStrategy ??
+        assumptions.defaultWithdrawalStrategy ??
+        DEFAULT_WITHDRAWAL_STRATEGY,
     };
     const base: SolverBaseInputs = {
-      members,
+      members: runMembers,
       startMonth,
       planToAge,
-      withdrawalAnnualPence,
-      withdrawalStrategy: runStrategy,
+      withdrawalAnnualPence: householdWithdrawalPence,
+      withdrawalStrategy: runAssumptions.defaultWithdrawalStrategy,
       includeStatePension,
       applyTax,
       assumptions: runAssumptions,
@@ -294,8 +681,20 @@ export default function RetirementPage() {
           );
         }
       }
-      // Remember this run's inputs as the household defaults (spec §6.2)
       if (user) {
+        // Persist the current user's personal plan into their own profile,
+        // and the genuinely shared knobs into shared assumptions.
+        if (ownMember) {
+          await saveOwnProfile({
+            ...(ownProfile ?? EMPTY_PROFILE),
+            overrides: {
+              ...(ownProfile ?? EMPTY_PROFILE).overrides,
+              desiredWithdrawalAnnualPence:
+                ownMember.desiredWithdrawalAnnualPence,
+              withdrawalStrategy: ownMember.withdrawalStrategy,
+            },
+          });
+        }
         await saveSharedAssumptions(runAssumptions);
       }
     } catch (error) {
@@ -335,13 +734,63 @@ export default function RetirementPage() {
           />
         ) : (
           <div className="flex flex-col gap-4">
+            <section
+              className={sectionClassName}
+              aria-label="Household summary"
+            >
+              <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
+                Household — combined across both of you
+              </h2>
+              <div className="flex flex-col gap-1">
+                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                  Combined desired annual withdrawal
+                </span>
+                <p
+                  data-testid="household-withdrawal-total"
+                  className="text-2xl font-black tabular-nums text-zinc-900 dark:text-white"
+                >
+                  {formatPence(householdWithdrawalPence)}
+                </p>
+                <p className="text-xs text-zinc-500 dark:text-white/45">
+                  The sum of each person’s personal plan below — you retire
+                  together on one date.
+                </p>
+              </div>
+            </section>
+
+            <section className={sectionClassName} aria-label="Personal plans">
+              <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
+                Personal plans
+              </h2>
+              <p className="text-xs text-zinc-500 dark:text-white/45">
+                Each person runs their own pots, withdrawal and strategy. You
+                can only edit your own plan.
+              </p>
+              {members.map((member) => (
+                <MemberPlanCard
+                  key={member.userId}
+                  userId={member.userId}
+                  nickname={memberNicknames[member.userId] ?? member.userId}
+                  isOwn={member.userId === ownUserId}
+                  desiredWithdrawalAnnualPence={memberWithdrawal(member)}
+                  strategy={memberStrategy(member)}
+                  onWithdrawalChange={(pence) =>
+                    setWithdrawalEdits((previous) => ({
+                      ...previous,
+                      [member.userId]: pence,
+                    }))
+                  }
+                  onStrategyChange={(strategy) =>
+                    setStrategyEdits((previous) => ({
+                      ...previous,
+                      [member.userId]: strategy,
+                    }))
+                  }
+                />
+              ))}
+            </section>
+
             <section className={sectionClassName} aria-label="Plan inputs">
-              <CurrencyInput
-                id="withdrawal-annual"
-                label="Desired annual withdrawal (net, today's money)"
-                valuePence={withdrawalAnnualPence}
-                onChangePence={setWithdrawalEdit}
-              />
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="plan-to-age"
@@ -363,88 +812,6 @@ export default function RetirementPage() {
                   }}
                   className={numberFieldClassName}
                 />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
-                  Withdrawal strategy
-                </span>
-                <div
-                  role="group"
-                  aria-label="Withdrawal strategy"
-                  className="flex flex-wrap gap-2"
-                >
-                  {STRATEGY_OPTIONS.map((option) => (
-                    <button
-                      key={option.kind}
-                      type="button"
-                      aria-pressed={strategy.kind === option.kind}
-                      onClick={() => selectStrategy(option.kind)}
-                      className={modeChipClassName(
-                        strategy.kind === option.kind
-                      )}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-                <p
-                  data-testid="strategy-description"
-                  className="text-xs text-zinc-500 dark:text-white/50"
-                >
-                  {strategyDescription(strategy.kind)}
-                </p>
-                {strategy.kind === WithdrawalStrategyKind.FIXED_PERCENT && (
-                  <PercentSlider
-                    id="fixed-percent-rate"
-                    label="Withdrawal rate"
-                    value={fixedPercentRatePct}
-                    onChange={(value) =>
-                      setStrategyEdit({
-                        kind: WithdrawalStrategyKind.FIXED_PERCENT,
-                        fixedPercentRatePct: value,
-                        guardrailWidthPct,
-                      })
-                    }
-                    min={1}
-                    max={10}
-                    step={1}
-                  />
-                )}
-                {strategy.kind === WithdrawalStrategyKind.GUARDRAILS && (
-                  <>
-                    <PercentSlider
-                      id="guardrail-initial-rate"
-                      label="Initial withdrawal rate"
-                      value={fixedPercentRatePct}
-                      onChange={(value) =>
-                        setStrategyEdit({
-                          kind: WithdrawalStrategyKind.GUARDRAILS,
-                          fixedPercentRatePct: value,
-                          guardrailWidthPct,
-                        })
-                      }
-                      min={1}
-                      max={10}
-                      step={1}
-                    />
-                    <PercentSlider
-                      id="guardrail-width"
-                      label="Guardrail width"
-                      value={guardrailWidthPct}
-                      onChange={(value) =>
-                        setStrategyEdit({
-                          kind: WithdrawalStrategyKind.GUARDRAILS,
-                          fixedPercentRatePct,
-                          guardrailWidthPct: value,
-                        })
-                      }
-                      min={5}
-                      max={40}
-                      step={5}
-                    />
-                  </>
-                )}
               </div>
 
               <div
@@ -537,7 +904,7 @@ export default function RetirementPage() {
               ) : (
                 <button
                   onClick={handleRun}
-                  disabled={withdrawalAnnualPence <= 0}
+                  disabled={householdWithdrawalPence <= 0}
                   className="bg-theme-primary cursor-pointer self-start rounded-xl px-4 py-2 text-sm font-semibold text-white transition-all duration-200 active:scale-95 disabled:opacity-50"
                 >
                   Run simulation
@@ -559,9 +926,13 @@ export default function RetirementPage() {
                 <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
                   Retiring {monthIdToLabel(outcome.retirementMonth)}
                 </h2>
+                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                  Household success (both plans combined)
+                </p>
                 <RetirementResultPanel
                   result={outcome.result}
                   targetSuccessRatePct={targetSuccessRatePct}
+                  memberNicknames={memberNicknames}
                 />
                 <RealNominalToggle
                   value={resultMode}
@@ -578,11 +949,22 @@ export default function RetirementPage() {
                   mode={resultMode}
                   inflationRatePct={assumptions.inflationRatePct}
                 />
+                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                  Lifetime value — total withdrawn over time
+                </p>
+                <LifetimeValueChart
+                  paths={outcome.result.cumulativeIncomePathsPence}
+                  mode={resultMode}
+                  inflationRatePct={assumptions.inflationRatePct}
+                />
               </section>
             )}
 
             {outcome?.kind === 'earliest' && (
               <section className={sectionClassName} aria-label="Results">
+                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                  Household success (both plans combined)
+                </p>
                 <SolverHeadline
                   result={outcome.solver}
                   targetSuccessRatePct={targetSuccessRatePct}
@@ -602,6 +984,7 @@ export default function RetirementPage() {
                     <RetirementResultPanel
                       result={outcome.resultAtDate}
                       targetSuccessRatePct={targetSuccessRatePct}
+                      memberNicknames={memberNicknames}
                     />
                     <RealNominalToggle
                       value={resultMode}
@@ -610,6 +993,14 @@ export default function RetirementPage() {
                     <MonteCarloPathsChart
                       paths={outcome.resultAtDate.percentilePathsPence}
                       sampledPaths={outcome.resultAtDate.sampledPathsPence}
+                      mode={resultMode}
+                      inflationRatePct={assumptions.inflationRatePct}
+                    />
+                    <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                      Lifetime value — total withdrawn over time
+                    </p>
+                    <LifetimeValueChart
+                      paths={outcome.resultAtDate.cumulativeIncomePathsPence}
                       mode={resultMode}
                       inflationRatePct={assumptions.inflationRatePct}
                     />

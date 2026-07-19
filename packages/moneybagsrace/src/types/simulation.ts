@@ -9,6 +9,10 @@ export interface SimulationMember {
   balancesPencePerWrapper: Partial<Record<InvestmentWrapper, number>>; // latest snapshot
   contributions: ContributionPlan;
   overrides: MemberRetirementOverrides;
+  // Resolved by useRetirementModel so the engine never reaches into
+  // profile/assumptions: this member's personal desired withdrawal and strategy.
+  desiredWithdrawalAnnualPence: number;
+  withdrawalStrategy: WithdrawalStrategy;
 }
 
 export interface AnnualReturn {
@@ -22,8 +26,11 @@ export interface SimulationInputs {
   startMonth: MonthId;
   retirementMonth: MonthId;
   planToAge: number;
-  withdrawalAnnualPence: number; // household, today's money, net
-  withdrawalStrategy?: WithdrawalStrategy; // defaults to FIXED_REAL
+  // Household FALLBACK (today's money, net). The per-member
+  // desiredWithdrawalAnnualPence / withdrawalStrategy fields win; these remain
+  // for back-compat consumers (sensitivity/solver) and the floor fallback.
+  withdrawalAnnualPence: number;
+  withdrawalStrategy?: WithdrawalStrategy; // household fallback; defaults to FIXED_REAL
   includeStatePension: boolean; // per-run toggle
   applyTax: boolean; // per-run toggle
   assumptions: HouseholdAssumptions;
@@ -55,6 +62,26 @@ export interface SampledRunPath {
   totalsPence: number[];
 }
 
+export interface MemberBreakdown {
+  userId: string;
+  successRatePct: number;
+  incomePathsPence: PercentilePathPoint[];
+  // Running total of net income withdrawn from retirement to each year (real
+  // terms); index 0 is the retirement year at zero.
+  cumulativeIncomePathsPence: PercentilePathPoint[];
+  // Total net income withdrawn over the whole plan (the final cumulative
+  // point), percentiled across runs.
+  totalLifetimeWithdrawalsPence: PercentileBand;
+  // Total lifetime withdrawals plus the ending pot, percentiled across runs.
+  combinedTotalPence: PercentileBand;
+  endingWealthPercentilesPence: PercentileBand;
+  failures: {
+    count: number;
+    medianFailureYear?: number;
+    byKind: Record<FailureKind, number>;
+  };
+}
+
 export interface SimulationResult {
   successRatePct: number;
   endingWealthPercentilesPence: PercentileBand;
@@ -62,6 +89,16 @@ export interface SimulationResult {
   // Per-year net household income (real terms). Constant by construction for
   // FIXED_REAL; varies for the balance-linked strategies.
   incomePathsPence: PercentilePathPoint[];
+  // Running total of net household income withdrawn from retirement to each
+  // year (real terms); index 0 is the retirement year at zero. The lifetime
+  // value graphed over time.
+  cumulativeIncomePathsPence: PercentilePathPoint[];
+  // Total net household income withdrawn over the whole plan, percentiled
+  // across runs (the "how much did this strategy let us take out" figure).
+  totalLifetimeWithdrawalsPence: PercentileBand;
+  // Total lifetime withdrawals plus what is left in the pot at the end, so
+  // strategies that spend less but leave more stay comparable.
+  combinedTotalPence: PercentileBand;
   // A bounded, deterministically sampled subset of individual run wealth
   // trajectories (by run index) for the Monte Carlo spaghetti chart.
   sampledPathsPence: SampledRunPath[];
@@ -70,6 +107,9 @@ export interface SimulationResult {
     medianFailureYear?: number;
     byKind: Record<FailureKind, number>;
   };
+  // Per-member rollup of the household result; the top-level fields above are
+  // the household headline.
+  memberBreakdowns: MemberBreakdown[];
 }
 
 export interface SolverResult {

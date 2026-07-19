@@ -69,8 +69,8 @@ export default function ProjectionPage() {
             Projection
           </h1>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Your investments projected at the lower, central and upper return
-            scenarios.
+            Household growth projection — both of you combined, at the lower,
+            central and upper return scenarios.
           </p>
         </div>
 
@@ -131,8 +131,8 @@ export default function ProjectionPage() {
               Your contributions
             </h2>
             <p className="text-xs text-zinc-400 dark:text-white/35">
-              The projection combines every household member&apos;s
-              contributions from their profiles; you can only edit your own.
+              The fan chart above is your household combined; these
+              contributions are personal — you can only edit your own.
             </p>
             <ContributionsForm
               plan={plan}

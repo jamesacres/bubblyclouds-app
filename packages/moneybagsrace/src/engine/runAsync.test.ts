@@ -1,6 +1,9 @@
 import { GLOBAL_EQUITY_ANNUAL_RETURNS } from '../data/globalEquityReturns';
 import { InvestmentWrapper } from '../types/accounts';
-import { HouseholdAssumptions } from '../types/assumptions';
+import {
+  HouseholdAssumptions,
+  WithdrawalStrategyKind,
+} from '../types/assumptions';
 import { SimulationInputs } from '../types/simulation';
 import { runRetirementSimulationAsync } from './runAsync';
 import { runRetirementSimulation } from './simulate';
@@ -27,6 +30,8 @@ const makeInputs = (
       },
       contributions: { monthlyPencePerWrapper: {}, stepChanges: [] },
       overrides: {},
+      desiredWithdrawalAnnualPence: 0,
+      withdrawalStrategy: { kind: WithdrawalStrategyKind.FIXED_REAL },
     },
   ],
   startMonth: '2030-01',

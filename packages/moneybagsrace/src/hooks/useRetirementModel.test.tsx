@@ -6,6 +6,7 @@ import {
   MoneyBagsDataContextValue,
 } from '../providers/MoneyBagsDataProvider';
 import { AccountKind, InvestmentWrapper } from '../types/accounts';
+import { DEFAULT_WITHDRAWAL_STRATEGY } from '../types/assumptions';
 import { HouseholdData, HouseholdMember } from '../types/household';
 import { ProfileData } from '../types/profile';
 import { MonthlySnapshotData } from '../types/snapshot';
@@ -168,6 +169,8 @@ describe('useRetirementModel', () => {
       },
       contributions: jamesContributions,
       overrides: jamesOverrides,
+      desiredWithdrawalAnnualPence: 0,
+      withdrawalStrategy: DEFAULT_WITHDRAWAL_STRATEGY,
     });
     expect(samMember.balancesPencePerWrapper).toEqual({
       [InvestmentWrapper.ISA]: 75_000,
@@ -210,5 +213,78 @@ describe('useRetirementModel', () => {
       missingDob: [],
       hasSnapshots: false,
     });
+  });
+
+  it('splits a legacy household default equally across members without overrides', () => {
+    const withoutOverrides: HouseholdMember = {
+      userId: 'user-1',
+      nickname: 'James',
+      isUser: true,
+      profile: profileWith({ dateOfBirth: '1990-01-01' }),
+    };
+    const sam: HouseholdMember = {
+      userId: 'user-2',
+      nickname: 'Sam',
+      isUser: false,
+      profile: profileWith({ dateOfBirth: '1992-02-02' }),
+    };
+    const value = buildValue([withoutOverrides, sam], {
+      '2026-05': {
+        month: '2026-05',
+        memberSnapshots: { 'user-1': maySnapshot, 'user-2': undefined },
+        complete: false,
+      },
+    });
+    value.household.effectiveAssumptions = {
+      ...DEFAULT_ASSUMPTIONS,
+      defaultWithdrawalAnnualPence: 4_000_000,
+    };
+    const { result } = renderModel(value);
+
+    const [jamesMember, samMember] = result.current.members;
+    expect(jamesMember.desiredWithdrawalAnnualPence).toBe(2_000_000);
+    expect(samMember.desiredWithdrawalAnnualPence).toBe(2_000_000);
+    expect(result.current.householdDesiredWithdrawalAnnualPence).toBe(
+      4_000_000
+    );
+  });
+
+  it('uses a per-member override in place of the household split', () => {
+    const withOverride: HouseholdMember = {
+      userId: 'user-1',
+      nickname: 'James',
+      isUser: true,
+      profile: profileWith({
+        dateOfBirth: '1990-01-01',
+        overrides: { desiredWithdrawalAnnualPence: 3_600_000 },
+      }),
+    };
+    const sam: HouseholdMember = {
+      userId: 'user-2',
+      nickname: 'Sam',
+      isUser: false,
+      profile: profileWith({ dateOfBirth: '1992-02-02' }),
+    };
+    const value = buildValue([withOverride, sam], {
+      '2026-05': {
+        month: '2026-05',
+        memberSnapshots: { 'user-1': maySnapshot, 'user-2': undefined },
+        complete: false,
+      },
+    });
+    value.household.effectiveAssumptions = {
+      ...DEFAULT_ASSUMPTIONS,
+      defaultWithdrawalAnnualPence: 4_000_000,
+    };
+    const { result } = renderModel(value);
+
+    const [jamesMember, samMember] = result.current.members;
+    // James's own plan target wins; Sam still draws the equal split of the
+    // legacy household default (4,000,000 / 2 member count).
+    expect(jamesMember.desiredWithdrawalAnnualPence).toBe(3_600_000);
+    expect(samMember.desiredWithdrawalAnnualPence).toBe(2_000_000);
+    expect(result.current.householdDesiredWithdrawalAnnualPence).toBe(
+      5_600_000
+    );
   });
 });

@@ -20,7 +20,12 @@ import { AccountManager } from '@bubblyclouds-app/moneybagsrace/components/Accou
 import { AssumptionsForm } from '@bubblyclouds-app/moneybagsrace/components/AssumptionsForm';
 import { ContributionsForm } from '@bubblyclouds-app/moneybagsrace/components/ContributionsForm';
 import { CurrencyInput } from '@bubblyclouds-app/moneybagsrace/components/CurrencyInput';
-import { HouseholdAssumptions } from '@bubblyclouds-app/moneybagsrace/types/assumptions';
+import {
+  DEFAULT_WITHDRAWAL_STRATEGY,
+  HouseholdAssumptions,
+  WithdrawalStrategy,
+  WithdrawalStrategyKind,
+} from '@bubblyclouds-app/moneybagsrace/types/assumptions';
 import { ProfileData } from '@bubblyclouds-app/moneybagsrace/types/profile';
 import { APP_CONFIG } from '../../../app.config.js';
 
@@ -31,6 +36,34 @@ const sectionClassName =
 
 const numberFieldClassName =
   'w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm font-semibold text-zinc-900 outline-none dark:border-white/10 dark:bg-white/5 dark:text-white';
+
+const chipClassName = (isActive: boolean): string =>
+  `cursor-pointer rounded-full border px-3 py-1.5 text-xs font-bold transition-all duration-200 ${
+    isActive
+      ? 'border-cyan-500/40 bg-cyan-500/20 text-zinc-900 dark:text-white'
+      : 'border-zinc-200 bg-white text-zinc-500 hover:text-zinc-700 dark:border-white/15 dark:bg-white/5 dark:text-white/50 dark:hover:text-white/80'
+  }`;
+
+const STRATEGY_LABELS: { kind: WithdrawalStrategyKind; label: string }[] = [
+  { kind: WithdrawalStrategyKind.FIXED_REAL, label: 'Fixed real' },
+  { kind: WithdrawalStrategyKind.FIXED_PERCENT, label: 'Fixed %' },
+  { kind: WithdrawalStrategyKind.GUARDRAILS, label: 'Guardrails' },
+  { kind: WithdrawalStrategyKind.RMD, label: 'RMD' },
+  {
+    kind: WithdrawalStrategyKind.FIXED_REAL_NO_INFLATION_AFTER_LOSS,
+    label: 'Forgo inflation after loss',
+  },
+  { kind: WithdrawalStrategyKind.VANGUARD_DYNAMIC, label: 'Vanguard dynamic' },
+  { kind: WithdrawalStrategyKind.SPENDING_DECLINE, label: 'Spending declines' },
+  {
+    kind: WithdrawalStrategyKind.ENDOWMENT_TEN_YEAR_AVG,
+    label: 'Endowment 10-yr avg',
+  },
+  {
+    kind: WithdrawalStrategyKind.PROBABILITY_GUARDRAILS,
+    label: 'Probability guardrails',
+  },
+];
 
 type SaveState = 'saving' | 'saved';
 
@@ -424,6 +457,81 @@ export default function SettingsPage() {
                   })
                 }
               />
+              <SaveStatus state={profileSaveState} />
+            </section>
+
+            <section
+              className={sectionClassName}
+              aria-label="Your personal plan"
+              onBlur={(event) => handleSectionBlur(event, flushProfile)}
+            >
+              <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
+                Your personal plan
+              </h2>
+              <p className="text-xs text-zinc-400 dark:text-white/35">
+                Only you — your own desired withdrawal and default strategy for
+                the retirement planner.
+              </p>
+              <CurrencyInput
+                id="own-desired-withdrawal"
+                label="Desired annual withdrawal (net, today's money)"
+                valuePence={profile.overrides.desiredWithdrawalAnnualPence ?? 0}
+                onChangePence={(pence) =>
+                  editProfile({
+                    ...profile,
+                    overrides: {
+                      ...profile.overrides,
+                      desiredWithdrawalAnnualPence:
+                        pence === 0 ? undefined : pence,
+                    },
+                  })
+                }
+              />
+              <div className="flex flex-col gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                  Default withdrawal strategy
+                </span>
+                <div
+                  role="group"
+                  aria-label="Default withdrawal strategy"
+                  className="flex flex-wrap gap-2"
+                >
+                  {STRATEGY_LABELS.map((option) => {
+                    const isActive =
+                      (
+                        profile.overrides.withdrawalStrategy ??
+                        DEFAULT_WITHDRAWAL_STRATEGY
+                      ).kind === option.kind;
+                    return (
+                      <button
+                        key={option.kind}
+                        type="button"
+                        aria-pressed={isActive}
+                        onClick={() => {
+                          const next: WithdrawalStrategy = {
+                            ...(profile.overrides.withdrawalStrategy ??
+                              DEFAULT_WITHDRAWAL_STRATEGY),
+                            kind: option.kind,
+                          };
+                          editProfile({
+                            ...profile,
+                            overrides: {
+                              ...profile.overrides,
+                              withdrawalStrategy: next,
+                            },
+                          });
+                        }}
+                        className={chipClassName(isActive)}
+                      >
+                        {option.label}
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="text-xs text-zinc-400 dark:text-white/35">
+                  Fine-tune the strategy’s parameters on the Retirement screen.
+                </p>
+              </div>
               <SaveStatus state={profileSaveState} />
             </section>
 

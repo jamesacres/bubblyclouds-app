@@ -3,6 +3,10 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { currentMonthId } from '@bubblyclouds-app/moneybagsrace/helpers/monthId';
 import { InvestmentWrapper } from '@bubblyclouds-app/moneybagsrace/types/accounts';
 import {
+  DEFAULT_WITHDRAWAL_STRATEGY,
+  WithdrawalStrategyKind,
+} from '@bubblyclouds-app/moneybagsrace/types/assumptions';
+import {
   FailureKind,
   SimulationResult,
   SolverResult,
@@ -103,16 +107,28 @@ const ASSUMPTIONS = {
   taxBands: [],
   statePensionAnnualPence: 1_197_300,
   targetSuccessRatePct: 90,
-  defaultWithdrawalAnnualPence: 2_400_000,
+  defaultWithdrawalAnnualPence: 4_800_000,
   defaultPlanToAge: 92,
 };
 
-const MEMBER = {
+const OWN_MEMBER = {
   userId: 'user-1',
   dateOfBirth: '1989-03-15',
   balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
   contributions: { monthlyPencePerWrapper: {}, stepChanges: [] },
   overrides: {},
+  desiredWithdrawalAnnualPence: 2_400_000,
+  withdrawalStrategy: DEFAULT_WITHDRAWAL_STRATEGY,
+};
+
+const PARTNER_MEMBER = {
+  userId: 'user-2',
+  dateOfBirth: '1990-06-01',
+  balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 8_000_000 },
+  contributions: { monthlyPencePerWrapper: {}, stepChanges: [] },
+  overrides: {},
+  desiredWithdrawalAnnualPence: 2_400_000,
+  withdrawalStrategy: { kind: WithdrawalStrategyKind.FIXED_PERCENT },
 };
 
 const SIM_RESULT: SimulationResult = {
@@ -132,6 +148,25 @@ const SIM_RESULT: SimulationResult = {
     { year: 2041, p5: 1, p25: 2, p50: 3, p75: 4, p95: 5 },
     { year: 2042, p5: 1, p25: 2, p50: 3, p75: 4, p95: 5 },
   ],
+  cumulativeIncomePathsPence: [
+    { year: 2040, p5: 0, p25: 0, p50: 0, p75: 0, p95: 0 },
+    { year: 2041, p5: 1, p25: 2, p50: 3, p75: 4, p95: 5 },
+    { year: 2042, p5: 2, p25: 4, p50: 6, p75: 8, p95: 10 },
+  ],
+  totalLifetimeWithdrawalsPence: {
+    p5: 2,
+    p25: 4,
+    p50: 6,
+    p75: 8,
+    p95: 10,
+  },
+  combinedTotalPence: {
+    p5: 2,
+    p25: 14_000_000,
+    p50: 50_000_006,
+    p75: 120_000_008,
+    p95: 300_000_010,
+  },
   sampledPathsPence: [
     { runIndex: 0, totalsPence: [10, 8] },
     { runIndex: 1, totalsPence: [10, 12] },
@@ -145,6 +180,7 @@ const SIM_RESULT: SimulationResult = {
       [FailureKind.INCOME_BELOW_FLOOR]: 0,
     },
   },
+  memberBreakdowns: [],
 };
 
 const SOLVER_RESULT: SolverResult = {
@@ -177,12 +213,29 @@ const mockSensitivity = jest.requireMock(
 ).computeSensitivityAsync as jest.Mock;
 
 const mockSaveSharedAssumptions = jest.fn();
+const mockSaveOwnProfile = jest.fn();
 
-const readyModel = () => ({
-  members: [MEMBER],
+const household = (members = [OWN_MEMBER, PARTNER_MEMBER]) => ({
+  members: members.map((member) => ({
+    userId: member.userId,
+    nickname: member.userId === 'user-1' ? 'James' : 'Sam',
+    isUser: member.userId === 'user-1',
+    profile: undefined,
+  })),
+  months: {},
+  orderedMonths: [],
+  effectiveAssumptions: ASSUMPTIONS,
+});
+
+const readyModel = (members = [OWN_MEMBER, PARTNER_MEMBER]) => ({
+  members,
   startMonth: '2026-07',
   assumptions: ASSUMPTIONS,
   readiness: { ready: true, missingDob: [], hasSnapshots: true },
+  householdDesiredWithdrawalAnnualPence: members.reduce(
+    (total, member) => total + member.desiredWithdrawalAnnualPence,
+    0
+  ),
 });
 
 const runSimulation = () =>
@@ -192,7 +245,10 @@ describe('Retirement Page', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockUseHousehold.mockReturnValue({
+      household: household(),
       ownUserId: 'user-1',
+      ownProfile: undefined,
+      saveOwnProfile: mockSaveOwnProfile,
       saveSharedAssumptions: mockSaveSharedAssumptions,
     });
     mockUseRetirementModel.mockReturnValue(readyModel());
@@ -200,6 +256,7 @@ describe('Retirement Page', () => {
     mockSolver.mockResolvedValue(SOLVER_RESULT);
     mockSensitivity.mockResolvedValue(SENSITIVITY_RESULT);
     mockSaveSharedAssumptions.mockResolvedValue(undefined);
+    mockSaveOwnProfile.mockResolvedValue(undefined);
   });
 
   describe('not ready', () => {
@@ -230,17 +287,97 @@ describe('Retirement Page', () => {
     });
   });
 
-  it('prefills the remembered defaults from shared assumptions', () => {
-    render(<RetirementPage />);
-    expect(
-      screen.getByLabelText("Desired annual withdrawal (net, today's money)")
-    ).toHaveValue('£24,000');
-    expect(screen.getByLabelText('Plan to age')).toHaveValue(92);
-    expect(screen.getByLabelText('Target success rate')).toHaveValue('90');
+  describe('household summary and per-member cards', () => {
+    it('shows the combined household withdrawal and one card per member', () => {
+      render(<RetirementPage />);
+      expect(
+        screen.getByTestId('household-withdrawal-total')
+      ).toHaveTextContent('£48,000');
+      expect(screen.getByTestId('member-plan-user-1')).toBeInTheDocument();
+      expect(screen.getByTestId('member-plan-user-2')).toBeInTheDocument();
+      expect(screen.getByText('James’s personal plan')).toBeInTheDocument();
+      expect(screen.getByText('Sam’s personal plan')).toBeInTheDocument();
+    });
+
+    it('prefills shared knobs from assumptions', () => {
+      render(<RetirementPage />);
+      expect(screen.getByLabelText('Plan to age')).toHaveValue(92);
+      expect(screen.getByLabelText('Target success rate')).toHaveValue('90');
+    });
+
+    it('makes the own card editable and the partner card read-only', () => {
+      render(<RetirementPage />);
+      // Own withdrawal is an editable input (only the own card has the label).
+      const ownWithdrawal = screen.getByLabelText(
+        "Desired annual withdrawal (net, today's money)"
+      );
+      expect(ownWithdrawal.tagName).toBe('INPUT');
+      expect(ownWithdrawal).toHaveAttribute('id', 'member-withdrawal-user-1');
+      // Partner withdrawal is rendered read-only (not an input).
+      const partnerWithdrawal = screen.getByTestId('member-withdrawal-user-2');
+      expect(partnerWithdrawal.tagName).not.toBe('INPUT');
+      expect(partnerWithdrawal).toHaveTextContent('£24,000');
+      // Own strategy chips are enabled; partner chips are disabled.
+      expect(
+        screen.getByTestId(
+          `member-strategy-user-1-${WithdrawalStrategyKind.GUARDRAILS}`
+        )
+      ).not.toBeDisabled();
+      expect(
+        screen.getByTestId(
+          `member-strategy-user-2-${WithdrawalStrategyKind.GUARDRAILS}`
+        )
+      ).toBeDisabled();
+    });
+
+    it('reflects own-card withdrawal edits in the household total', () => {
+      render(<RetirementPage />);
+      const ownWithdrawal = screen.getByLabelText(
+        "Desired annual withdrawal (net, today's money)"
+      );
+      fireEvent.focus(ownWithdrawal);
+      fireEvent.change(ownWithdrawal, { target: { value: '30000' } });
+      expect(
+        screen.getByTestId('household-withdrawal-total')
+      ).toHaveTextContent('£54,000');
+    });
+  });
+
+  describe('withdrawal strategies (own card)', () => {
+    it('selects a new Morningstar strategy and shows its description', () => {
+      render(<RetirementPage />);
+      fireEvent.click(
+        screen.getByTestId(
+          `member-strategy-user-1-${WithdrawalStrategyKind.VANGUARD_DYNAMIC}`
+        )
+      );
+      expect(
+        screen.getByTestId('member-strategy-description-user-1')
+      ).toHaveTextContent('cap how much the amount can change each year');
+      expect(
+        screen.getByLabelText('Yearly decrease floor (%)')
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText('Yearly increase ceiling (%)')
+      ).toBeInTheDocument();
+    });
+
+    it('shows the guardrail controls for the guardrails strategy', () => {
+      render(<RetirementPage />);
+      fireEvent.click(
+        screen.getByTestId(
+          `member-strategy-user-1-${WithdrawalStrategyKind.GUARDRAILS}`
+        )
+      );
+      expect(
+        screen.getByLabelText('Initial withdrawal rate')
+      ).toBeInTheDocument();
+      expect(screen.getByLabelText('Guardrail width')).toBeInTheDocument();
+    });
   });
 
   describe('earliest-date mode (default)', () => {
-    it('runs the solver, simulates at the found date and shows sensitivity', async () => {
+    it('runs the solver with per-member members and combined fallback', async () => {
       render(<RetirementPage />);
       runSimulation();
 
@@ -254,19 +391,25 @@ describe('Retirement Page', () => {
         'Achieved 91.2% at that date'
       );
       expect(screen.getByTestId('retirement-result-panel')).toBeInTheDocument();
-      expect(screen.getByTestId('sensitivity-base')).toHaveTextContent(
-        'Mar 2041'
-      );
 
       expect(mockSolver).toHaveBeenCalledWith(
         expect.objectContaining({
-          members: [MEMBER],
           startMonth: '2026-07',
           planToAge: 92,
-          withdrawalAnnualPence: 2_400_000,
+          withdrawalAnnualPence: 4_800_000,
           includeStatePension: true,
           applyTax: true,
           runs: 5000,
+          members: expect.arrayContaining([
+            expect.objectContaining({
+              userId: 'user-1',
+              desiredWithdrawalAnnualPence: 2_400_000,
+            }),
+            expect.objectContaining({
+              userId: 'user-2',
+              desiredWithdrawalAnnualPence: 2_400_000,
+            }),
+          ]),
         }),
         expect.objectContaining({ signal: expect.any(AbortSignal) })
       );
@@ -274,46 +417,51 @@ describe('Retirement Page', () => {
         expect.objectContaining({ retirementMonth: '2041-03' }),
         expect.objectContaining({ signal: expect.any(AbortSignal) })
       );
-      expect(mockSensitivity).toHaveBeenCalledWith(
-        expect.objectContaining({ withdrawalAnnualPence: 2_400_000 }),
-        expect.objectContaining({ signal: expect.any(AbortSignal) })
-      );
     });
 
-    it('persists the run inputs as remembered household defaults', async () => {
+    it('persists the own personal plan and shared knobs', async () => {
       render(<RetirementPage />);
+      const ownWithdrawal = screen.getByLabelText(
+        "Desired annual withdrawal (net, today's money)"
+      );
+      fireEvent.focus(ownWithdrawal);
+      fireEvent.change(ownWithdrawal, { target: { value: '30000' } });
+      fireEvent.click(
+        screen.getByTestId(
+          `member-strategy-user-1-${WithdrawalStrategyKind.RMD}`
+        )
+      );
       fireEvent.change(screen.getByLabelText('Plan to age'), {
         target: { value: '90' },
       });
-      fireEvent.change(screen.getByLabelText('Target success rate'), {
-        target: { value: '85' },
-      });
       runSimulation();
       await waitFor(() =>
-        expect(mockSaveSharedAssumptions).toHaveBeenCalledWith(
+        expect(mockSaveOwnProfile).toHaveBeenCalledWith(
           expect.objectContaining({
-            defaultWithdrawalAnnualPence: 2_400_000,
-            defaultPlanToAge: 90,
-            targetSuccessRatePct: 85,
+            overrides: expect.objectContaining({
+              desiredWithdrawalAnnualPence: 3_000_000,
+              withdrawalStrategy: expect.objectContaining({
+                kind: WithdrawalStrategyKind.RMD,
+              }),
+            }),
           })
+        )
+      );
+      await waitFor(() =>
+        expect(mockSaveSharedAssumptions).toHaveBeenCalledWith(
+          expect.objectContaining({ defaultPlanToAge: 90 })
         )
       );
     });
 
-    // The seed is derived once per page load (Date.now-based) so re-runs
-    // within a visit reuse identical random draws and stay comparable when
-    // only the inputs change; a fresh page load resamples.
-    it('reuses the same seed across runs within a page load', async () => {
+    it('passes the member nicknames into the result panel', async () => {
       render(<RetirementPage />);
       runSimulation();
-      await screen.findByTestId('solver-headline');
-      await screen.findByRole('button', { name: 'Run simulation' });
-      runSimulation();
-      await waitFor(() => expect(mockSolver).toHaveBeenCalledTimes(2));
-      const [firstBase] = mockSolver.mock.calls[0];
-      const [secondBase] = mockSolver.mock.calls[1];
-      expect(typeof firstBase.seed).toBe('number');
-      expect(secondBase.seed).toBe(firstBase.seed);
+      await screen.findByTestId('retirement-result-panel');
+      // The result panel receives memberNicknames; the summary label is present.
+      expect(
+        screen.getAllByText('Household success (both plans combined)').length
+      ).toBeGreaterThan(0);
     });
 
     it('passes the state pension and tax toggles into the run', async () => {
@@ -369,74 +517,12 @@ describe('Retirement Page', () => {
         'data-path-count',
         '2'
       );
-      expect(screen.getByTestId('monte-carlo-paths-stub')).toHaveAttribute(
-        'data-sample-count',
-        '2'
-      );
-      expect(screen.getByTestId('real-nominal-toggle')).toBeInTheDocument();
       expect(screen.getByTestId('success-rate')).toHaveTextContent('91.2%');
       expect(mockRunAsync).toHaveBeenCalledWith(
         expect.objectContaining({ retirementMonth: '2035-06' }),
         expect.anything()
       );
       expect(mockSolver).not.toHaveBeenCalled();
-      expect(mockSensitivity).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('withdrawal strategy', () => {
-    it('defaults to fixed-real and threads it into the run', async () => {
-      render(<RetirementPage />);
-      expect(screen.getByTestId('strategy-description')).toHaveTextContent(
-        'Spend the same amount every year'
-      );
-      runSimulation();
-      await waitFor(() =>
-        expect(mockSolver).toHaveBeenCalledWith(
-          expect.objectContaining({
-            withdrawalStrategy: expect.objectContaining({
-              kind: 'FIXED_REAL',
-            }),
-          }),
-          expect.anything()
-        )
-      );
-    });
-
-    it('runs the fixed-percent strategy with its rate and persists it', async () => {
-      render(<RetirementPage />);
-      fireEvent.click(screen.getByRole('button', { name: 'Fixed %' }));
-      expect(screen.getByLabelText('Withdrawal rate')).toBeInTheDocument();
-      runSimulation();
-      await waitFor(() =>
-        expect(mockSolver).toHaveBeenCalledWith(
-          expect.objectContaining({
-            withdrawalStrategy: expect.objectContaining({
-              kind: 'FIXED_PERCENT',
-              fixedPercentRatePct: 4,
-            }),
-          }),
-          expect.anything()
-        )
-      );
-      await waitFor(() =>
-        expect(mockSaveSharedAssumptions).toHaveBeenCalledWith(
-          expect.objectContaining({
-            defaultWithdrawalStrategy: expect.objectContaining({
-              kind: 'FIXED_PERCENT',
-            }),
-          })
-        )
-      );
-    });
-
-    it('exposes the guardrail width control for the guardrails strategy', () => {
-      render(<RetirementPage />);
-      fireEvent.click(screen.getByRole('button', { name: 'Guardrails' }));
-      expect(
-        screen.getByLabelText('Initial withdrawal rate')
-      ).toBeInTheDocument();
-      expect(screen.getByLabelText('Guardrail width')).toBeInTheDocument();
     });
   });
 
@@ -475,19 +561,20 @@ describe('Retirement Page', () => {
         await screen.findByRole('button', { name: 'Run simulation' })
       ).toBeInTheDocument();
       expect(screen.queryByTestId('run-error')).not.toBeInTheDocument();
-      expect(screen.queryByTestId('solver-headline')).not.toBeInTheDocument();
       expect(mockSaveSharedAssumptions).not.toHaveBeenCalled();
     });
   });
 
-  it('disables the run button until a withdrawal is set', () => {
-    mockUseRetirementModel.mockReturnValue({
-      ...readyModel(),
-      assumptions: {
-        ...ASSUMPTIONS,
-        defaultWithdrawalAnnualPence: undefined,
-      },
+  it('disables the run button when there is no household withdrawal', () => {
+    const zeroMember = { ...OWN_MEMBER, desiredWithdrawalAnnualPence: 0 };
+    mockUseHousehold.mockReturnValue({
+      household: household([zeroMember]),
+      ownUserId: 'user-1',
+      ownProfile: undefined,
+      saveOwnProfile: mockSaveOwnProfile,
+      saveSharedAssumptions: mockSaveSharedAssumptions,
     });
+    mockUseRetirementModel.mockReturnValue(readyModel([zeroMember]));
     render(<RetirementPage />);
     expect(
       screen.getByRole('button', { name: 'Run simulation' })

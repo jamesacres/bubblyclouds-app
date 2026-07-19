@@ -100,10 +100,26 @@ describe('Settings Page', () => {
     renderWithUser({ sub: 'user-1' });
     expect(screen.getByText('Accounts')).toBeInTheDocument();
     expect(screen.getByText('You')).toBeInTheDocument();
+    expect(screen.getByText('Your personal plan')).toBeInTheDocument();
     expect(screen.getByText('Contributions')).toBeInTheDocument();
     expect(screen.getByText('Assumptions')).toBeInTheDocument();
     expect(screen.getByText('Party')).toBeInTheDocument();
     expect(screen.getByDisplayValue('Vanguard ISA')).toBeInTheDocument();
+  });
+
+  it('autosaves the personal withdrawal and default strategy on blur', async () => {
+    renderWithUser({ sub: 'user-1' });
+    const withdrawal = screen.getByLabelText(
+      "Desired annual withdrawal (net, today's money)"
+    );
+    fireEvent.focus(withdrawal);
+    fireEvent.change(withdrawal, { target: { value: '20000' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Guardrails' }));
+    fireEvent.blur(screen.getByRole('region', { name: 'Your personal plan' }));
+    await waitFor(() => expect(saveOwnProfile).toHaveBeenCalled());
+    const saved: ProfileData = saveOwnProfile.mock.calls[0][0];
+    expect(saved.overrides.desiredWithdrawalAnnualPence).toBe(2_000_000);
+    expect(saved.overrides.withdrawalStrategy?.kind).toBe('GUARDRAILS');
   });
 
   it('shows a loading state', () => {

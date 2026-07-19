@@ -105,6 +105,34 @@ export const applyContributionDelta = (
   }));
 };
 
+// Household-wide annual desired-withdrawal delta spread across members
+// proportionally to each member's current desiredWithdrawalAnnualPence; when
+// every member's desired withdrawal is zero, the delta is split equally. Each
+// member's resulting desired withdrawal is floored at zero.
+export const applyWithdrawalDelta = (
+  members: SimulationMember[],
+  deltaPence: number
+): SimulationMember[] => {
+  const householdDesiredPence = members.reduce(
+    (total, member) => total + member.desiredWithdrawalAnnualPence,
+    0
+  );
+  return members.map((member) => {
+    const memberDelta =
+      householdDesiredPence > 0
+        ? (deltaPence * member.desiredWithdrawalAnnualPence) /
+          householdDesiredPence
+        : deltaPence / members.length;
+    return {
+      ...member,
+      desiredWithdrawalAnnualPence: Math.max(
+        0,
+        Math.round(member.desiredWithdrawalAnnualPence + memberDelta)
+      ),
+    };
+  });
+};
+
 interface SensitivityVariants {
   withdrawalPlus5k: SolverBaseInputs;
   withdrawalMinus5k: SolverBaseInputs;
@@ -112,19 +140,30 @@ interface SensitivityVariants {
   contributionsMinus500: SolverBaseInputs;
 }
 
+// Shift the household desired withdrawal by delta via the proportional
+// per-member split (applyWithdrawalDelta), keeping the household
+// withdrawalAnnualPence fallback in step with the new sum of members' desired.
+const withWithdrawalDelta = (
+  base: SolverBaseInputs,
+  deltaPence: number
+): SolverBaseInputs => {
+  const members = applyWithdrawalDelta(base.members, deltaPence);
+  const withdrawalAnnualPence = members.reduce(
+    (total, member) => total + member.desiredWithdrawalAnnualPence,
+    0
+  );
+  return { ...base, members, withdrawalAnnualPence };
+};
+
 const buildVariants = (base: SolverBaseInputs): SensitivityVariants => ({
-  withdrawalPlus5k: {
-    ...base,
-    withdrawalAnnualPence:
-      base.withdrawalAnnualPence + SENSITIVITY_WITHDRAWAL_DELTA_PENCE,
-  },
-  withdrawalMinus5k: {
-    ...base,
-    withdrawalAnnualPence: Math.max(
-      0,
-      base.withdrawalAnnualPence - SENSITIVITY_WITHDRAWAL_DELTA_PENCE
-    ),
-  },
+  withdrawalPlus5k: withWithdrawalDelta(
+    base,
+    SENSITIVITY_WITHDRAWAL_DELTA_PENCE
+  ),
+  withdrawalMinus5k: withWithdrawalDelta(
+    base,
+    -SENSITIVITY_WITHDRAWAL_DELTA_PENCE
+  ),
   contributionsPlus500: {
     ...base,
     members: applyContributionDelta(

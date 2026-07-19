@@ -38,29 +38,64 @@ const makeMember = (
   balancesPencePerWrapper: {},
   contributions: { monthlyPencePerWrapper: {}, stepChanges: [] },
   overrides: {},
+  desiredWithdrawalAnnualPence: 0,
+  withdrawalStrategy: { kind: WithdrawalStrategyKind.FIXED_REAL },
   ...overrides,
 });
 
+// Personal plans read each member's own desiredWithdrawalAnnualPence /
+// withdrawalStrategy. To keep these single-earner household fixtures meaningful,
+// the household withdrawalAnnualPence / withdrawalStrategy passed to makeInputs
+// is projected onto the first member unless that member set its own non-default.
+const withHouseholdPlan = (
+  members: SimulationMember[],
+  householdWithdrawalPence: number,
+  householdStrategy: SimulationInputs['withdrawalStrategy']
+): SimulationMember[] =>
+  members.map((member, index) =>
+    index === 0
+      ? {
+          ...member,
+          desiredWithdrawalAnnualPence:
+            member.desiredWithdrawalAnnualPence || householdWithdrawalPence,
+          withdrawalStrategy:
+            member.withdrawalStrategy.kind === WithdrawalStrategyKind.FIXED_REAL
+              ? (householdStrategy ?? member.withdrawalStrategy)
+              : member.withdrawalStrategy,
+        }
+      : member
+  );
+
 const makeInputs = (
   overrides: Partial<SimulationInputs> = {}
-): SimulationInputs => ({
-  members: [
-    makeMember({
-      balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
-    }),
-  ],
-  startMonth: '2030-01',
-  retirementMonth: '2030-01',
-  planToAge: 70,
-  withdrawalAnnualPence: 1_000_000,
-  includeStatePension: false,
-  applyTax: false,
-  assumptions,
-  returns: flatReturns(0),
-  runs: 5,
-  seed: 1,
-  ...overrides,
-});
+): SimulationInputs => {
+  const base: SimulationInputs = {
+    members: [
+      makeMember({
+        balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+      }),
+    ],
+    startMonth: '2030-01',
+    retirementMonth: '2030-01',
+    planToAge: 70,
+    withdrawalAnnualPence: 1_000_000,
+    includeStatePension: false,
+    applyTax: false,
+    assumptions,
+    returns: flatReturns(0),
+    runs: 5,
+    seed: 1,
+    ...overrides,
+  };
+  return {
+    ...base,
+    members: withHouseholdPlan(
+      base.members,
+      base.withdrawalAnnualPence,
+      base.withdrawalStrategy
+    ),
+  };
+};
 
 describe('FIXED_REAL strategy (default)', () => {
   it('matches an explicit FIXED_REAL strategy to the default', () => {
@@ -112,25 +147,37 @@ describe('FIXED_PERCENT strategy', () => {
     ).toBeGreaterThan(0);
   });
 
-  it('never exhausts the pot but fails on the income floor', () => {
+  it('never exhausts and always delivers its own fraction from an accessible pot', () => {
+    // The floor now IS the year's fixed-percent target, so an accessible ISA
+    // always delivers it exactly: no exhaustion, no floor breach.
     const result = runRetirementSimulation(inputs());
     expect(result.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(0);
     expect(result.failures.byKind[FailureKind.BRIDGE_EXHAUSTED]).toBe(0);
-    // 4% of 1,000,000 is 40,000, below the 100,000 floor, so every run fails
-    // on the income floor rather than exhausting
-    expect(result.failures.byKind[FailureKind.INCOME_BELOW_FLOOR]).toBe(5);
-    expect(result.successRatePct).toBe(0);
+    expect(result.failures.byKind[FailureKind.INCOME_BELOW_FLOOR]).toBe(0);
+    expect(result.successRatePct).toBe(100);
   });
 
-  it('succeeds when the fixed percent clears the floor every year', () => {
-    // Income declines from 40,000 in year one to ~27,700 by the final year, so
-    // a 25,000 floor is cleared every year and every run succeeds.
-    const result = runRetirementSimulation({
-      ...inputs(),
-      withdrawalAnnualPence: 25_000,
-    });
-    expect(result.successRatePct).toBe(100);
-    expect(result.failures.count).toBe(0);
+  it('fails on the income floor when the target cannot be delivered before NMPA', () => {
+    // DOB 1990-01-01 => NMPA 57; retiring at 40 the 4% target lands entirely on
+    // a still-locked SIPP, so nothing is delivered and every run breaches the
+    // income floor without exhausting the (locked) pot.
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1990-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 1_000_000 },
+          }),
+        ],
+        planToAge: 45,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.FIXED_PERCENT,
+          fixedPercentRatePct: 4,
+        },
+      })
+    );
+    expect(result.failures.byKind[FailureKind.INCOME_BELOW_FLOOR]).toBe(5);
+    expect(result.successRatePct).toBe(0);
   });
 });
 
@@ -221,6 +268,217 @@ describe('GUARDRAILS strategy', () => {
   });
 });
 
+describe('FIXED_REAL_NO_INFLATION_AFTER_LOSS strategy', () => {
+  // Every year is a loss year here, so the real target is deflated by one year
+  // of inflation persistently — it compounds down and never re-inflates.
+  it('erodes the real target after each loss year and never re-inflates', () => {
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: {
+              [InvestmentWrapper.ISA]: 100_000_000,
+            },
+          }),
+        ],
+        withdrawalAnnualPence: 1_000_000,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.FIXED_REAL_NO_INFLATION_AFTER_LOSS,
+        },
+        returns: flatReturns(-10),
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    // Year 1 draws the full desired 1,000,000 (no prior return to react to)
+    expect(outcome.incomeAnnualPence[0]).toBeCloseTo(1_000_000, 0);
+    // Each subsequent year saw a loss the year before, so the deflator compounds
+    // by another year of 2.5% inflation and never recovers.
+    expect(outcome.incomeAnnualPence[1]).toBeCloseTo(1_000_000 / 1.025, 0);
+    expect(outcome.incomeAnnualPence[2]).toBeCloseTo(1_000_000 / 1.025 ** 2, 0);
+  });
+
+  it('leaves the target untouched when no year makes a loss', () => {
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: {
+              [InvestmentWrapper.ISA]: 100_000_000,
+            },
+          }),
+        ],
+        withdrawalAnnualPence: 1_000_000,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.FIXED_REAL_NO_INFLATION_AFTER_LOSS,
+        },
+        returns: flatReturns(5),
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    for (const income of outcome.incomeAnnualPence) {
+      expect(income).toBeCloseTo(1_000_000, 0);
+    }
+  });
+});
+
+describe('VANGUARD_DYNAMIC strategy', () => {
+  it('clamps a crash-year cut at the floor', () => {
+    // 4% of 1,000,000 = 40,000 year one. A -50% crash would push the raw target
+    // to 4% of 480,000 = 19,200, but the -1.5% floor holds it at 40,000*0.985.
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 1_000_000 },
+          }),
+        ],
+        withdrawalAnnualPence: 40_000,
+        returns: flatReturns(-50),
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.VANGUARD_DYNAMIC,
+          fixedPercentRatePct: 4,
+          vanguardFloorPct: -1.5,
+          vanguardCeilingPct: 5,
+        },
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    expect(outcome.incomeAnnualPence[0]).toBeCloseTo(40_000, 0);
+    expect(outcome.incomeAnnualPence[1]).toBeCloseTo(40_000 * 0.985, 0);
+  });
+
+  it('clamps a boom-year rise at the ceiling', () => {
+    // 4% of 1,000,000 = 40,000 year one. A +100% boom would push the raw target
+    // to 4% of 1,920,000 = 76,800, but the +5% ceiling holds it at 40,000*1.05.
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 1_000_000 },
+          }),
+        ],
+        withdrawalAnnualPence: 40_000,
+        returns: flatReturns(100),
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.VANGUARD_DYNAMIC,
+          fixedPercentRatePct: 4,
+          vanguardFloorPct: -1.5,
+          vanguardCeilingPct: 5,
+        },
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    expect(outcome.incomeAnnualPence[0]).toBeCloseTo(40_000, 0);
+    expect(outcome.incomeAnnualPence[1]).toBeCloseTo(40_000 * 1.05, 0);
+  });
+});
+
+describe('SPENDING_DECLINE strategy', () => {
+  it('tapers the desired spend geometrically each year', () => {
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: {
+              [InvestmentWrapper.ISA]: 100_000_000,
+            },
+          }),
+        ],
+        withdrawalAnnualPence: 1_000_000,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.SPENDING_DECLINE,
+          spendingDeclinePctPerYear: -10,
+        },
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    expect(outcome.incomeAnnualPence[0]).toBeCloseTo(1_000_000, 0);
+    expect(outcome.incomeAnnualPence[1]).toBeCloseTo(900_000, 0);
+    expect(outcome.incomeAnnualPence[2]).toBeCloseTo(810_000, 0);
+  });
+});
+
+describe('ENDOWMENT_TEN_YEAR_AVG strategy', () => {
+  it('smooths income against a step change in wealth via the rolling average', () => {
+    // Zero return keeps wealth flat once withdrawals settle; a 3-year window on
+    // a 1,000,000 pot at 4% pays 40,000 the first year and lags as the average
+    // of the (shrinking) history catches up.
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 1_000_000 },
+          }),
+        ],
+        withdrawalAnnualPence: 40_000,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.ENDOWMENT_TEN_YEAR_AVG,
+          fixedPercentRatePct: 4,
+          endowmentAveragingYears: 3,
+        },
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    // Year 1: history [1,000,000] => 4% * 1,000,000 = 40,000
+    expect(outcome.incomeAnnualPence[0]).toBeCloseTo(40_000, 0);
+    // Year 2: pot is 960,000; history avg (1,000,000 + 960,000)/2 = 980,000 =>
+    // 4% => 39,200, i.e. lagging the current pot's own 4% of 38,400.
+    expect(outcome.incomeAnnualPence[1]).toBeCloseTo(39_200, 0);
+  });
+});
+
+describe('PROBABILITY_GUARDRAILS strategy', () => {
+  // The funded ratio is memberWealth / (carriedSpend * annuityFactor) at the
+  // lower real return; below the lower band the spend is cut ×0.9, above the
+  // upper band it is raised ×1.1.
+  it('cuts the carried spend when the funded ratio is below the lower band', () => {
+    // 500,000 pot, 100,000 carried spend, lowerRealPct 2%, 10-year horizon.
+    // annuityFactor(0.02, 10) ≈ 8.9826, required ≈ 898,259, funded ≈ 0.557 <
+    // 0.80 => cut to 90,000.
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 500_000 },
+          }),
+        ],
+        withdrawalAnnualPence: 100_000,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.PROBABILITY_GUARDRAILS,
+          probabilityGuardrailLowerPct: 80,
+          probabilityGuardrailUpperPct: 99,
+        },
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    expect(outcome.incomeAnnualPence[0]).toBeCloseTo(90_000, 0);
+  });
+
+  it('raises the carried spend when the funded ratio is above the upper band', () => {
+    // A very large pot against a small carried spend makes the funded ratio far
+    // above 0.99, so the first year steps the spend up ×1.1.
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: {
+              [InvestmentWrapper.ISA]: 100_000_000,
+            },
+          }),
+        ],
+        withdrawalAnnualPence: 100_000,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.PROBABILITY_GUARDRAILS,
+          probabilityGuardrailLowerPct: 80,
+          probabilityGuardrailUpperPct: 99,
+        },
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    expect(outcome.incomeAnnualPence[0]).toBeCloseTo(110_000, 0);
+  });
+});
+
 describe('sampled Monte Carlo paths', () => {
   it('caps the sampled paths and keeps their trajectories', () => {
     const context = prepareSimulationContext(
@@ -247,5 +505,92 @@ describe('sampled Monte Carlo paths', () => {
     expect(result.sampledPathsPence.map((path) => path.runIndex)).toEqual([
       0, 1, 2, 3, 4,
     ]);
+  });
+});
+
+describe('lifetime value metrics', () => {
+  it('accumulates a fixed-real income into a monotonic lifetime total', () => {
+    // 100,000 ISA, 10,000/yr desired, zero return: withdraws 10,000 a year and
+    // exhausts the pot exactly over the 10-year plan, so lifetime withdrawals
+    // total the whole pot and nothing is left.
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+          }),
+        ],
+        withdrawalAnnualPence: 1_000_000,
+        withdrawalStrategy: { kind: WithdrawalStrategyKind.FIXED_REAL },
+      })
+    );
+    const cumulative = result.cumulativeIncomePathsPence;
+    expect(cumulative[0].p50).toBe(0);
+    for (let index = 1; index < cumulative.length; index += 1) {
+      expect(cumulative[index].p50).toBeGreaterThanOrEqual(
+        cumulative[index - 1].p50
+      );
+    }
+    // The final cumulative point is the total lifetime withdrawals band.
+    expect(cumulative[cumulative.length - 1].p50).toBe(
+      result.totalLifetimeWithdrawalsPence.p50
+    );
+    expect(result.totalLifetimeWithdrawalsPence.p50).toBeCloseTo(10_000_000, 0);
+    expect(result.endingWealthPercentilesPence.p50).toBeCloseTo(0, 0);
+  });
+
+  it('combines lifetime withdrawals with the ending pot', () => {
+    // Fixed-percent never exhausts, so a real ending pot remains and the
+    // combined total exceeds lifetime withdrawals alone.
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+          }),
+        ],
+        withdrawalAnnualPence: 100_000,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.FIXED_PERCENT,
+          fixedPercentRatePct: 4,
+        },
+      })
+    );
+    expect(result.combinedTotalPence.p50).toBeCloseTo(
+      result.totalLifetimeWithdrawalsPence.p50 +
+        result.endingWealthPercentilesPence.p50,
+      0
+    );
+    expect(result.combinedTotalPence.p50).toBeGreaterThan(
+      result.totalLifetimeWithdrawalsPence.p50
+    );
+  });
+
+  it('reports lifetime value per member that rolls up to the household', () => {
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            userId: 'a',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+          }),
+          makeMember({
+            userId: 'b',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 6_000_000 },
+          }),
+        ],
+        withdrawalAnnualPence: 1_000_000,
+        withdrawalStrategy: { kind: WithdrawalStrategyKind.FIXED_REAL },
+      })
+    );
+    expect(result.memberBreakdowns).toHaveLength(2);
+    for (const breakdown of result.memberBreakdowns) {
+      expect(breakdown.cumulativeIncomePathsPence[0].p50).toBe(0);
+      expect(
+        breakdown.cumulativeIncomePathsPence[
+          breakdown.cumulativeIncomePathsPence.length - 1
+        ].p50
+      ).toBe(breakdown.totalLifetimeWithdrawalsPence.p50);
+    }
   });
 });

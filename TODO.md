@@ -13,7 +13,8 @@ Fixes and improvements (all done on feature/money-bags-init)
 * [x] Reorder by dragging? — native HTML5 drag-to-reorder (up/down kept for keyboard)
 * [x] needs to graph the monte carlo simulations — MonteCarloPathsChart spaghetti + percentile bands
 * [x] withdrawal amount adjusted by inflation? — engine is real-terms; added explicit real/nominal view
-* [x] needs to support all the different withdrawal strategies: fixed-real, fixed-%, guardrails (Guyton-Klinger), RMD/lifetime-expectancy
+* [x] needs to support all the different withdrawal strategies: all 8 Morningstar income strategies — fixed-real, fixed-%, guardrails (Guyton-Klinger), RMD/lifetime-expectancy, forgo-inflation-after-loss, Vanguard dynamic, spending-declines-with-age, endowment 10-yr average, probability guardrails (funded-ratio proxy)
+* [x] personal-vs-household clarity — each partner runs their own personal plan (own pots, withdrawal, strategy, access ages); household headline is the combined rollup (fail if either fails); Retirement / Projection / Dashboard / Settings each label personal vs combined
 https://www.youtube.com/watch?v=Qpjxv74htog
 https://www.morningstar.com/retirement/morningstars-retirement-income-research-finding-your-safe-withdrawal-rate
 

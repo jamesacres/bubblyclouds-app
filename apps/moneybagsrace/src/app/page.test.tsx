@@ -317,6 +317,7 @@ describe('Home Page', () => {
           defaultPlanToAge: 92,
         },
         readiness: { ready: true, missingDob: [], hasSnapshots: true },
+        householdDesiredWithdrawalAnnualPence: 2_400_000,
       });
 
       beforeEach(() => {

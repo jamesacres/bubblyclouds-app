@@ -1,13 +1,21 @@
 import { GLOBAL_EQUITY_ANNUAL_RETURNS } from '../data/globalEquityReturns';
 import { InvestmentWrapper } from '../types/accounts';
-import { HouseholdAssumptions } from '../types/assumptions';
+import {
+  HouseholdAssumptions,
+  WithdrawalStrategyKind,
+} from '../types/assumptions';
 import {
   AnnualReturn,
   FailureKind,
   SimulationInputs,
   SimulationMember,
 } from '../types/simulation';
-import { runRetirementSimulation } from './simulate';
+import {
+  prepareSimulationContext,
+  runRetirementSimulation,
+  runSimulationOnce,
+} from './simulate';
+import { runRetirementSimulationAsync } from './runAsync';
 import { DEFAULT_TAX_BANDS } from './tax';
 
 const STATE_PENSION_PENCE = 1_197_300;
@@ -34,25 +42,47 @@ const makeMember = (
   balancesPencePerWrapper: {},
   contributions: { monthlyPencePerWrapper: {}, stepChanges: [] },
   overrides: {},
+  desiredWithdrawalAnnualPence: 0,
+  withdrawalStrategy: { kind: WithdrawalStrategyKind.FIXED_REAL },
   ...overrides,
 });
 
+// Personal plans read each member's own desiredWithdrawalAnnualPence. These
+// fixtures are single-earner households, so the household withdrawalAnnualPence
+// is projected onto the first member unless that member set its own; the
+// resulting household plan is the sum of the personal plans.
+const withHouseholdWithdrawal = (
+  members: SimulationMember[],
+  householdWithdrawalPence: number
+): SimulationMember[] =>
+  members.map((member, index) =>
+    index === 0 && !member.desiredWithdrawalAnnualPence
+      ? { ...member, desiredWithdrawalAnnualPence: householdWithdrawalPence }
+      : member
+  );
+
 const makeInputs = (
   overrides: Partial<SimulationInputs> = {}
-): SimulationInputs => ({
-  members: [makeMember()],
-  startMonth: '2030-01',
-  retirementMonth: '2030-01',
-  planToAge: 70,
-  withdrawalAnnualPence: 1_000_000,
-  includeStatePension: false,
-  applyTax: false,
-  assumptions,
-  returns: ZERO_RETURNS,
-  runs: 5,
-  seed: 1,
-  ...overrides,
-});
+): SimulationInputs => {
+  const base: SimulationInputs = {
+    members: [makeMember()],
+    startMonth: '2030-01',
+    retirementMonth: '2030-01',
+    planToAge: 70,
+    withdrawalAnnualPence: 1_000_000,
+    includeStatePension: false,
+    applyTax: false,
+    assumptions,
+    returns: ZERO_RETURNS,
+    runs: 5,
+    seed: 1,
+    ...overrides,
+  };
+  return {
+    ...base,
+    members: withHouseholdWithdrawal(base.members, base.withdrawalAnnualPence),
+  };
+};
 
 describe('runRetirementSimulation input validation', () => {
   it('rejects zero runs', () => {
@@ -338,10 +368,11 @@ describe('access rules', () => {
     expect(result.endingWealthPercentilesPence.p50).toBe(5_000_000);
   });
 
-  it('splits pension withdrawals across members so each uses their own tax bands', () => {
-    // Equal SIPPs and a net need of exactly two personal allowances' worth
-    // of gross pension: the proportional split keeps each member's taxable
-    // slice inside their allowance, so no tax leaks at all
+  it('runs each member’s pension against their own personal tax bands', () => {
+    // Personal plans: each member drains only their own SIPP against their own
+    // tax bands. A per-member net desired of 1,676,000 grosses up to a taxable
+    // slice of exactly the personal allowance (1,676,000 * 0.75 = 1,257,000),
+    // so neither member pays tax and each ends with 10,000,000 - 1,676,000.
     const result = runRetirementSimulation(
       makeInputs({
         members: [
@@ -349,20 +380,128 @@ describe('access rules', () => {
             userId: 'member-1',
             dateOfBirth: '1965-01-01',
             balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 10_000_000 },
+            desiredWithdrawalAnnualPence: 1_676_000,
           }),
           makeMember({
             userId: 'member-2',
             dateOfBirth: '1965-01-01',
             balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 10_000_000 },
+            desiredWithdrawalAnnualPence: 1_676_000,
           }),
         ],
         planToAge: 66,
-        withdrawalAnnualPence: 2_514_000,
         applyTax: true,
       })
     );
     expect(result.successRatePct).toBe(100);
-    expect(result.endingWealthPercentilesPence.p50).toBe(17_486_000);
+    expect(result.endingWealthPercentilesPence.p50).toBe(16_648_000);
+    expect(result.memberBreakdowns.map((m) => m.userId)).toEqual([
+      'member-1',
+      'member-2',
+    ]);
+    for (const breakdown of result.memberBreakdowns) {
+      expect(breakdown.successRatePct).toBe(100);
+    }
+  });
+
+  it('fails the household when only one member’s plan fails (retire together)', () => {
+    // Member A holds enough ISA to cover 10 years at 1,000,000; member B is a
+    // penny short, so B exhausts and the household run fails even though A does
+    // not. Per-member outcomes attribute the failure to B alone.
+    const context = prepareSimulationContext(
+      makeInputs({
+        members: [
+          makeMember({
+            userId: 'A',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+            desiredWithdrawalAnnualPence: 1_000_000,
+          }),
+          makeMember({
+            userId: 'B',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 9_999_999 },
+            desiredWithdrawalAnnualPence: 1_000_000,
+          }),
+        ],
+        withdrawalAnnualPence: 2_000_000,
+      })
+    );
+    const outcome = runSimulationOnce(context, 0);
+    expect(outcome.failure?.kind).toBe(FailureKind.WEALTH_EXHAUSTED);
+    const memberA = outcome.memberOutcomes.find((m) => m.userId === 'A');
+    const memberB = outcome.memberOutcomes.find((m) => m.userId === 'B');
+    expect(memberA?.failure).toBeUndefined();
+    expect(memberB?.failure?.kind).toBe(FailureKind.WEALTH_EXHAUSTED);
+
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            userId: 'A',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+            desiredWithdrawalAnnualPence: 1_000_000,
+          }),
+          makeMember({
+            userId: 'B',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 9_999_999 },
+            desiredWithdrawalAnnualPence: 1_000_000,
+          }),
+        ],
+        withdrawalAnnualPence: 2_000_000,
+      })
+    );
+    expect(result.successRatePct).toBeLessThan(100);
+    expect(result.successRatePct).toBe(0);
+  });
+});
+
+describe('per-member breakdowns', () => {
+  const twoMemberInputs = (): SimulationInputs =>
+    makeInputs({
+      members: [
+        makeMember({
+          userId: 'A',
+          balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+          desiredWithdrawalAnnualPence: 1_000_000,
+        }),
+        makeMember({
+          userId: 'B',
+          balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 9_999_999 },
+          desiredWithdrawalAnnualPence: 1_000_000,
+        }),
+      ],
+      withdrawalAnnualPence: 2_000_000,
+    });
+
+  it('has one breakdown per member with the right userIds in member order', () => {
+    const result = runRetirementSimulation(twoMemberInputs());
+    expect(result.memberBreakdowns).toHaveLength(2);
+    expect(result.memberBreakdowns.map((m) => m.userId)).toEqual(['A', 'B']);
+  });
+
+  it('keeps the household success rate at or below every member (A succeeds, B fails)', () => {
+    const result = runRetirementSimulation(twoMemberInputs());
+    const memberA = result.memberBreakdowns.find((m) => m.userId === 'A');
+    const memberB = result.memberBreakdowns.find((m) => m.userId === 'B');
+    expect(memberA?.successRatePct).toBe(100);
+    expect(memberB?.successRatePct).toBe(0);
+    const minMemberSuccess = Math.min(
+      ...result.memberBreakdowns.map((m) => m.successRatePct)
+    );
+    expect(result.successRatePct).toBeLessThanOrEqual(minMemberSuccess);
+    expect(result.successRatePct).toBe(0);
+    expect(memberB?.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(
+      memberB?.failures.count
+    );
+  });
+
+  it('gives each member an income path with one point per income year', () => {
+    const inputs = twoMemberInputs();
+    const context = prepareSimulationContext(inputs);
+    const incomeYears = context.pathYears.length - 1;
+    const result = runRetirementSimulation(inputs);
+    for (const breakdown of result.memberBreakdowns) {
+      expect(breakdown.incomePathsPence).toHaveLength(incomeYears);
+    }
   });
 });
 
@@ -529,6 +668,60 @@ describe('stochastic results', () => {
     expect(runRetirementSimulation(mixedInputs())).toEqual(
       runRetirementSimulation(mixedInputs())
     );
+  });
+
+  it('matches the async result for two members on different strategies', async () => {
+    // Two members sharing the same market but each on their own personal plan
+    // and strategy; the single-RNG / shared-draw design must keep sync and
+    // async byte-for-byte identical.
+    const mixedStrategyInputs = (): SimulationInputs =>
+      makeInputs({
+        members: [
+          makeMember({
+            userId: 'member-1',
+            dateOfBirth: '1966-02-01',
+            balancesPencePerWrapper: {
+              [InvestmentWrapper.ISA]: 40_000_000,
+              [InvestmentWrapper.SIPP]: 30_000_000,
+            },
+            desiredWithdrawalAnnualPence: 2_400_000,
+            withdrawalStrategy: {
+              kind: WithdrawalStrategyKind.VANGUARD_DYNAMIC,
+              fixedPercentRatePct: 4,
+            },
+          }),
+          makeMember({
+            userId: 'member-2',
+            dateOfBirth: '1969-09-20',
+            balancesPencePerWrapper: {
+              [InvestmentWrapper.GIA]: 20_000_000,
+              [InvestmentWrapper.COMPANY_PENSION]: 25_000_000,
+            },
+            desiredWithdrawalAnnualPence: 1_800_000,
+            withdrawalStrategy: {
+              kind: WithdrawalStrategyKind.SPENDING_DECLINE,
+              spendingDeclinePctPerYear: -1.5,
+            },
+          }),
+        ],
+        startMonth: '2027-03',
+        retirementMonth: '2031-05',
+        planToAge: 92,
+        withdrawalAnnualPence: 4_200_000,
+        includeStatePension: true,
+        applyTax: true,
+        returns: GLOBAL_EQUITY_ANNUAL_RETURNS,
+        runs: 123,
+        seed: 17,
+      });
+    const syncResult = runRetirementSimulation(mixedStrategyInputs());
+    for (const chunkSize of [10, 123, 1000]) {
+      const asyncResult = await runRetirementSimulationAsync(
+        mixedStrategyInputs(),
+        { chunkSize }
+      );
+      expect(asyncResult).toEqual(syncResult);
+    }
   });
 
   it('produces ordered percentiles and a consistent path shape', () => {

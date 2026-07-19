@@ -51,7 +51,13 @@ const SOLVER_WINDOW_YEARS = 40;
 
 function RetirementSection() {
   const { household } = useHousehold();
-  const { members, startMonth, assumptions, readiness } = useRetirementModel();
+  const {
+    members,
+    startMonth,
+    assumptions,
+    readiness,
+    householdDesiredWithdrawalAnnualPence,
+  } = useRetirementModel();
   const [solver, setSolver] = useState<SolverResult | undefined>(undefined);
   const [isRunning, setIsRunning] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -60,7 +66,9 @@ function RetirementSection() {
   // snapshot lands (the model change re-runs the effect)
   const seedRef = useRef<number | undefined>(undefined);
 
-  const defaultWithdrawalAnnualPence = assumptions.defaultWithdrawalAnnualPence;
+  // A run is possible once any member has a resolved desired withdrawal
+  // (personal override or the read-time migration split).
+  const hasDesiredWithdrawal = householdDesiredWithdrawalAnnualPence > 0;
   const primaryUserId = household.members.find(
     (member) => member.isUser
   )?.userId;
@@ -68,11 +76,7 @@ function RetirementSection() {
   // The solve runs off the render path: started in an effect once remembered
   // defaults exist, cancelled on unmount or when the model changes
   useEffect(() => {
-    if (
-      !readiness.ready ||
-      startMonth === undefined ||
-      defaultWithdrawalAnnualPence === undefined
-    ) {
+    if (!readiness.ready || startMonth === undefined || !hasDesiredWithdrawal) {
       return;
     }
     const controller = new AbortController();
@@ -89,7 +93,7 @@ function RetirementSection() {
           members,
           startMonth,
           planToAge: assumptions.defaultPlanToAge ?? 95,
-          withdrawalAnnualPence: defaultWithdrawalAnnualPence,
+          withdrawalAnnualPence: householdDesiredWithdrawalAnnualPence,
           includeStatePension: true,
           applyTax: true,
           assumptions,
@@ -119,7 +123,8 @@ function RetirementSection() {
     };
   }, [
     assumptions,
-    defaultWithdrawalAnnualPence,
+    hasDesiredWithdrawal,
+    householdDesiredWithdrawalAnnualPence,
     members,
     readiness.ready,
     startMonth,
@@ -145,7 +150,7 @@ function RetirementSection() {
       </Link>
     );
   }
-  if (defaultWithdrawalAnnualPence === undefined) {
+  if (!hasDesiredWithdrawal) {
     return (
       <Link
         href="/retirement"
@@ -185,7 +190,8 @@ function RetirementSection() {
         />
       </div>
       <p className="mt-2 text-xs leading-snug text-white/45">
-        Open the retirement planner to adjust the plan
+        Household — you both retire together. Open the planner to adjust each
+        personal plan.
       </p>
     </Link>
   );
@@ -277,23 +283,33 @@ function Dashboard() {
             Loading your balances…
           </p>
         ) : (
-          <NetWorthHeadline
-            valuePence={latest?.householdPence ?? 0}
-            change={change}
-          />
+          <>
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-white/35">
+              Household net worth
+            </p>
+            <NetWorthHeadline
+              valuePence={latest?.householdPence ?? 0}
+              change={change}
+            />
+          </>
         )}
       </div>
 
       {!isLoading && latest && household.members.length > 0 && (
-        <div className="grid grid-cols-2 gap-3">
-          {household.members.map((member) => (
-            <StatCard
-              key={member.userId}
-              label={member.nickname}
-              valuePence={latest.perMemberPence[member.userId] ?? 0}
-              change={memberMonthOnMonthChange(series, member.userId)}
-            />
-          ))}
+        <div className="flex flex-col gap-2">
+          <p className="px-1 text-xs font-semibold uppercase tracking-wider text-white/35">
+            Personal — each of you
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            {household.members.map((member) => (
+              <StatCard
+                key={member.userId}
+                label={member.nickname}
+                valuePence={latest.perMemberPence[member.userId] ?? 0}
+                change={memberMonthOnMonthChange(series, member.userId)}
+              />
+            ))}
+          </div>
         </div>
       )}
 
