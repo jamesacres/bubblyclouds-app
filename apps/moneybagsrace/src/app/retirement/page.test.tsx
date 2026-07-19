@@ -454,6 +454,16 @@ describe('Retirement Page', () => {
       );
     });
 
+    it('explains the Monte Carlo method and its historical data source', async () => {
+      render(<RetirementPage />);
+      runSimulation();
+      const explainer = await screen.findByTestId('monte-carlo-explainer');
+      expect(explainer).toHaveTextContent('Monte Carlo');
+      expect(explainer).toHaveTextContent('it uses real historical data');
+      expect(explainer).toHaveTextContent('1900–2023');
+      expect(explainer).toHaveTextContent('124 years of history');
+    });
+
     it('passes the member nicknames into the result panel', async () => {
       render(<RetirementPage />);
       runSimulation();
@@ -497,6 +507,58 @@ describe('Retirement Page', () => {
       render(<RetirementPage />);
       runSimulation();
       expect(await screen.findByTestId('run-error')).toBeInTheDocument();
+    });
+  });
+
+  describe('stale results after editing inputs', () => {
+    it('freezes the shown target against the run and flags edits as stale until re-run', async () => {
+      render(<RetirementPage />);
+      runSimulation();
+      await screen.findByTestId('retirement-result-panel');
+
+      // Results graded against the run's target (90%), not the live slider.
+      expect(screen.getByTestId('retirement-result-panel')).toHaveTextContent(
+        'Target 90%'
+      );
+      expect(
+        screen.queryByTestId('stale-results-hint')
+      ).not.toBeInTheDocument();
+
+      // Moving the target slider must not re-label the already-shown results.
+      fireEvent.change(screen.getByLabelText('Target success rate'), {
+        target: { value: '80' },
+      });
+      expect(screen.getByTestId('retirement-result-panel')).toHaveTextContent(
+        'Target 90%'
+      );
+      expect(screen.getByTestId('stale-results-hint')).toBeInTheDocument();
+
+      // Re-running clears the stale flag and re-grades against the new target.
+      runSimulation();
+      await waitFor(() =>
+        expect(
+          screen.queryByTestId('stale-results-hint')
+        ).not.toBeInTheDocument()
+      );
+      expect(screen.getByTestId('retirement-result-panel')).toHaveTextContent(
+        'Target 80%'
+      );
+    });
+
+    it('flags a strategy edit as stale without re-running the simulation', async () => {
+      render(<RetirementPage />);
+      runSimulation();
+      await screen.findByTestId('retirement-result-panel');
+      expect(mockSolver).toHaveBeenCalledTimes(1);
+
+      fireEvent.click(
+        screen.getByTestId(
+          `member-strategy-user-1-${WithdrawalStrategyKind.RMD}`
+        )
+      );
+      expect(screen.getByTestId('stale-results-hint')).toBeInTheDocument();
+      // The edit alone must not trigger another run.
+      expect(mockSolver).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -16,6 +16,7 @@ import { useDarkMode } from '../hooks/useDarkMode';
 import { SimulationResult } from '../types/simulation';
 import { formatPenceCompact } from './NetWorthChart';
 import { NetWorthMode } from './RealNominalToggle';
+import { YearAgeAxisTick } from './YearAgeAxisTick';
 
 const BAND_COLOR = '#38bdf8';
 const MEDIAN_COLOR = '#38bdf8';
@@ -26,6 +27,8 @@ interface PercentilePathsChartProps {
   // (1 + infl)^yearOffset from the first path year.
   mode?: NetWorthMode;
   inflationRatePct?: number;
+  // When set, each x-axis tick shows the owner's age at that year underneath.
+  birthYear?: number;
 }
 
 const toDisplayPence = (
@@ -68,6 +71,7 @@ const PercentilePathsChart = ({
   paths,
   mode = 'real',
   inflationRatePct = 0,
+  birthYear,
 }: PercentilePathsChartProps) => {
   const dark = useDarkMode();
 
@@ -122,9 +126,10 @@ const PercentilePathsChart = ({
           />
           <XAxis
             dataKey="year"
-            tick={{ fontSize: 11, fill: 'currentColor' }}
+            tick={<YearAgeAxisTick birthYear={birthYear} />}
             tickLine={false}
             axisLine={false}
+            height={birthYear !== undefined ? 34 : 20}
           />
           <YAxis
             tick={{ fontSize: 11, fill: 'currentColor' }}

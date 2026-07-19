@@ -147,12 +147,36 @@ describe('FIXED_PERCENT strategy', () => {
     ).toBeGreaterThan(0);
   });
 
-  it('never exhausts and always delivers its own fraction from an accessible pot', () => {
-    // The floor now IS the year's fixed-percent target, so an accessible ISA
-    // always delivers it exactly: no exhaustion, no floor breach.
+  it('never exhausts but floor-fails once its income drops below the desired spend', () => {
+    // 4% of the pot never empties an accessible ISA, but the desired spend is
+    // 100,000 and the first year only delivers 40,000, so the income floor
+    // breaches immediately even though the pot is never exhausted.
     const result = runRetirementSimulation(inputs());
     expect(result.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(0);
     expect(result.failures.byKind[FailureKind.BRIDGE_EXHAUSTED]).toBe(0);
+    expect(result.failures.byKind[FailureKind.INCOME_BELOW_FLOOR]).toBe(5);
+    expect(result.failures.medianFailureYear).toBe(2030);
+    expect(result.successRatePct).toBe(0);
+  });
+
+  it('does not floor-fail when the fixed-percent income meets the desired spend', () => {
+    // A modest 20,000 desired spend against a 40,000 first-year draw: income
+    // stays above the floor for long enough that no run breaches over the plan.
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 1_000_000 },
+          }),
+        ],
+        planToAge: 62,
+        withdrawalAnnualPence: 20_000,
+        withdrawalStrategy: {
+          kind: WithdrawalStrategyKind.FIXED_PERCENT,
+          fixedPercentRatePct: 4,
+        },
+      })
+    );
     expect(result.failures.byKind[FailureKind.INCOME_BELOW_FLOOR]).toBe(0);
     expect(result.successRatePct).toBe(100);
   });

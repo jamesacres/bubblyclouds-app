@@ -16,6 +16,7 @@ import { useDarkMode } from '../hooks/useDarkMode';
 import { SimulationResult } from '../types/simulation';
 import { formatPenceCompact } from './NetWorthChart';
 import { modeLabel, NetWorthMode } from './RealNominalToggle';
+import { YearAgeAxisTick } from './YearAgeAxisTick';
 
 const PATH_COLOR = '#38bdf8';
 const MEDIAN_COLOR = '#0ea5e9';
@@ -28,6 +29,8 @@ interface MonteCarloPathsChartProps {
   // Real values restate to nominal (future pounds) with (1 + infl)^yearOffset,
   // where the offset counts calendar years from the retirement year.
   inflationRatePct: number;
+  // When set, each x-axis tick shows the owner's age at that year underneath.
+  birthYear?: number;
 }
 
 interface ChartRow {
@@ -55,6 +58,7 @@ const MonteCarloPathsChart = ({
   sampledPaths,
   mode,
   inflationRatePct,
+  birthYear,
 }: MonteCarloPathsChartProps) => {
   const dark = useDarkMode();
 
@@ -125,9 +129,10 @@ const MonteCarloPathsChart = ({
           />
           <XAxis
             dataKey="year"
-            tick={{ fontSize: 11, fill: 'currentColor' }}
+            tick={<YearAgeAxisTick birthYear={birthYear} />}
             tickLine={false}
             axisLine={false}
+            height={birthYear !== undefined ? 34 : 20}
           />
           <YAxis
             tick={{ fontSize: 11, fill: 'currentColor' }}

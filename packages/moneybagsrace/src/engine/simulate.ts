@@ -440,14 +440,21 @@ export const runSimulationOnce = (
   };
 
   // FIXED_PERCENT / RMD / ENDOWMENT draw a fraction of the current pot and so
-  // can never exhaust it from withdrawals alone; their failure is delivered
-  // income falling below the year's desired target (income-below-floor). Every
-  // other strategy keeps exhaustion semantics: an unmet net need means the
+  // can never exhaust it from withdrawals alone; by default their failure is
+  // delivered income falling below the year's desired target (income-below-floor).
+  // Every other strategy keeps exhaustion semantics: an unmet net need means the
   // accessible pot ran dry.
-  const usesFloorFailure = (plan: MemberPlan): boolean =>
+  const isFractionOfPotStrategy = (plan: MemberPlan): boolean =>
     plan.strategy.kind === WithdrawalStrategyKind.FIXED_PERCENT ||
     plan.strategy.kind === WithdrawalStrategyKind.RMD ||
     plan.strategy.kind === WithdrawalStrategyKind.ENDOWMENT_TEN_YEAR_AVG;
+
+  // When the run opts in, the fraction-of-pot strategies drop income-below-floor
+  // and fail on exhaustion instead: the run only fails once their pot is
+  // effectively depleted, matching the semantics of the other strategies.
+  const usesFloorFailure = (plan: MemberPlan): boolean =>
+    isFractionOfPotStrategy(plan) &&
+    !inputs.potExhaustedFailureForFractionStrategies;
 
   // Realised real growth of the most recent completed withdrawal year, shared
   // by every member (single market). Undefined before the first year.
@@ -546,17 +553,45 @@ export const runSimulationOnce = (
 
       if (usesFloorFailure(plan)) {
         plan.incomeAnnualPence.push(deliveredIncomePence);
-        // Floor comparison uses this year's per-member desired target so the
-        // fraction-of-portfolio and declining-target strategies compare like
-        // for like.
+        // The floor is the member's actual desired real withdrawal, NOT this
+        // year's strategy target: a fraction-of-pot target is by construction
+        // always deliverable from an accessible pot (delivered == target), so
+        // comparing against it could never breach. Failure is the delivered
+        // income falling short of what the retiree actually wanted to spend.
         if (
           !plan.failure &&
-          deliveredIncomePence < targetNetPence - FAILURE_EPSILON_PENCE
+          deliveredIncomePence <
+            plan.desiredWithdrawalPence - FAILURE_EPSILON_PENCE
         ) {
           plan.failure = {
             kind: FailureKind.INCOME_BELOW_FLOOR,
             year: yearOfIsoDate(stepStartIsoDate),
           };
+        }
+        continue;
+      }
+
+      // Fraction-of-pot strategies with income-below-floor disabled: they never
+      // leave unmet need (the target shrinks with the pot), so exhaustion is
+      // detected directly on the remaining pot being effectively depleted. A
+      // constant-fraction pot (fixed-percent/endowment) never reaches zero, and
+      // RMD only empties in its FINAL year by design (pot / 1 remaining year),
+      // which is a planned spend-down, not a failure -- so the last withdrawal
+      // year is excluded and these strategies effectively never fail here.
+      if (isFractionOfPotStrategy(plan)) {
+        plan.incomeAnnualPence.push(deliveredIncomePence);
+        const isFinalWithdrawalYear =
+          stepIndex === context.withdrawalYearStartIsoDates.length - 1;
+        if (
+          !plan.failure &&
+          !isFinalWithdrawalYear &&
+          memberWealthPence(plan) <= FAILURE_EPSILON_PENCE
+        ) {
+          plan.failure = {
+            kind: FailureKind.WEALTH_EXHAUSTED,
+            year: yearOfIsoDate(stepStartIsoDate),
+          };
+          plan.pathTotalsPence.push(0);
         }
         continue;
       }

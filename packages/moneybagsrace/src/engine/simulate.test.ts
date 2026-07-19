@@ -454,6 +454,122 @@ describe('access rules', () => {
   });
 });
 
+describe('pot-exhausted failure toggle for fraction-of-pot strategies', () => {
+  // DOB 1975-01-01 => NMPA 57; retiring 2030-01 at age 55 with the whole pot in
+  // a still-locked SIPP, so a fraction-of-pot strategy cannot deliver its target
+  // in the early years even though the pot is full.
+  const lockedFixedPercentInputs = (
+    overrides: Partial<SimulationInputs> = {}
+  ): SimulationInputs =>
+    makeInputs({
+      members: [
+        makeMember({
+          dateOfBirth: '1975-01-01',
+          balancesPencePerWrapper: { [InvestmentWrapper.SIPP]: 100_000_000 },
+          withdrawalStrategy: {
+            kind: WithdrawalStrategyKind.FIXED_PERCENT,
+            fixedPercentRatePct: 4,
+          },
+        }),
+      ],
+      planToAge: 58,
+      withdrawalAnnualPence: 2_000_000,
+      runs: 10,
+      seed: 7,
+      ...overrides,
+    });
+
+  it('fails with INCOME_BELOW_FLOOR by default when the target cannot be delivered', () => {
+    const result = runRetirementSimulation(lockedFixedPercentInputs());
+    expect(result.successRatePct).toBe(0);
+    expect(result.failures.byKind[FailureKind.INCOME_BELOW_FLOOR]).toBe(10);
+    expect(result.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(0);
+  });
+
+  it('floor-fails FIXED_PERCENT when its income falls below the desired spend', () => {
+    // Accessible pot, 4% of pot each year against a 2,000,000 desired spend:
+    // the very first draw (4% of 10,000,000 = 400,000) is already below the
+    // desired, so the floor breaches immediately even though the pot is fine.
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1965-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+            desiredWithdrawalAnnualPence: 2_000_000,
+            withdrawalStrategy: {
+              kind: WithdrawalStrategyKind.FIXED_PERCENT,
+              fixedPercentRatePct: 4,
+            },
+          }),
+        ],
+        planToAge: 66,
+        withdrawalAnnualPence: 2_000_000,
+      })
+    );
+    expect(result.successRatePct).toBe(0);
+    expect(result.failures.byKind[FailureKind.INCOME_BELOW_FLOOR]).toBe(5);
+    expect(result.failures.medianFailureYear).toBe(2030);
+  });
+
+  it('does not fail when the pot survives and pot-exhausted failure is enabled', () => {
+    const result = runRetirementSimulation(
+      lockedFixedPercentInputs({
+        potExhaustedFailureForFractionStrategies: true,
+      })
+    );
+    expect(result.successRatePct).toBe(100);
+    expect(result.failures.count).toBe(0);
+  });
+
+  it('does not treat an RMD final-year spend-down as exhaustion', () => {
+    // RMD draws pot / remaining-years, so the final withdrawal year empties the
+    // pot entirely by design. That planned spend-down is not a failure: with
+    // pot-exhausted failure on, RMD is effectively unfailable like fixed-percent.
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1965-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+            withdrawalStrategy: { kind: WithdrawalStrategyKind.RMD },
+          }),
+        ],
+        planToAge: 66,
+        withdrawalAnnualPence: 2_000_000,
+        potExhaustedFailureForFractionStrategies: true,
+      })
+    );
+    expect(result.successRatePct).toBe(100);
+    expect(result.failures.byKind[FailureKind.WEALTH_EXHAUSTED]).toBe(0);
+    expect(result.failures.byKind[FailureKind.INCOME_BELOW_FLOOR]).toBe(0);
+  });
+
+  it('does not floor-fail RMD on an accessible pot even with the toggle off', () => {
+    // With an accessible (unlocked) pot RMD always delivers its scheduled draw,
+    // so the income-below-floor default never triggers: RMD only floor-fails
+    // when its target draws on money that is not yet accessible (locked pension).
+    const result = runRetirementSimulation(
+      makeInputs({
+        members: [
+          makeMember({
+            dateOfBirth: '1965-01-01',
+            balancesPencePerWrapper: { [InvestmentWrapper.ISA]: 10_000_000 },
+            withdrawalStrategy: { kind: WithdrawalStrategyKind.RMD },
+          }),
+        ],
+        planToAge: 66,
+        withdrawalAnnualPence: 2_000_000,
+        returns: GLOBAL_EQUITY_ANNUAL_RETURNS,
+        runs: 20,
+        seed: 7,
+      })
+    );
+    expect(result.successRatePct).toBe(100);
+    expect(result.failures.count).toBe(0);
+  });
+});
+
 describe('per-member breakdowns', () => {
   const twoMemberInputs = (): SimulationInputs =>
     makeInputs({

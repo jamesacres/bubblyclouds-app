@@ -33,6 +33,13 @@ export interface SimulationInputs {
   withdrawalStrategy?: WithdrawalStrategy; // household fallback; defaults to FIXED_REAL
   includeStatePension: boolean; // per-run toggle
   applyTax: boolean; // per-run toggle
+  // Per-run toggle. The fraction-of-pot strategies (FIXED_PERCENT / RMD /
+  // ENDOWMENT) draw a slice of the current portfolio and so never exhaust it
+  // from withdrawals alone. By default their failure is delivered income
+  // falling below the year's desired target (INCOME_BELOW_FLOOR). When this is
+  // true they instead fail on exhaustion semantics like the other strategies:
+  // the run fails only once the pot is effectively depleted.
+  potExhaustedFailureForFractionStrategies?: boolean;
   assumptions: HouseholdAssumptions;
   returns: AnnualReturn[]; // injected dataset (swappable)
   runs: number; // default 5000

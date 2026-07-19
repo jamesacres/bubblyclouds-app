@@ -1,6 +1,7 @@
 'use client';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { CurrencyInput } from '@bubblyclouds-app/moneybagsrace/components/CurrencyInput';
+import IncomeVsTargetChart from '@bubblyclouds-app/moneybagsrace/components/IncomeVsTargetChart';
 import LifetimeValueChart from '@bubblyclouds-app/moneybagsrace/components/LifetimeValueChart';
 import MonteCarloPathsChart from '@bubblyclouds-app/moneybagsrace/components/MonteCarloPathsChart';
 import PercentilePathsChart from '@bubblyclouds-app/moneybagsrace/components/PercentilePathsChart';
@@ -128,6 +129,14 @@ interface SpecificOutcome {
   kind: 'specific';
   retirementMonth: MonthId;
   result: SimulationResult;
+  // The target the results were graded against, frozen at run time so later
+  // slider edits don't re-colour the displayed results before a re-run.
+  targetSuccessRatePct: number;
+  // The household desired real withdrawal this run targeted, frozen so the
+  // income-vs-target chart keeps comparing against what the run actually used.
+  targetWithdrawalPence: number;
+  // Signature of the inputs this run used; drives the stale-results hint.
+  signature: string;
 }
 
 interface EarliestOutcome {
@@ -135,6 +144,9 @@ interface EarliestOutcome {
   solver: SolverResult;
   resultAtDate?: SimulationResult;
   sensitivity?: SensitivityResult;
+  targetSuccessRatePct: number;
+  targetWithdrawalPence: number;
+  signature: string;
 }
 
 type Outcome = SpecificOutcome | EarliestOutcome;
@@ -252,7 +264,7 @@ const StrategyParams = ({
             onChange={(value) => patch({ fixedPercentRatePct: value })}
             min={1}
             max={10}
-            step={1}
+            step={0.5}
           />
           {strategy.kind === WithdrawalStrategyKind.VANGUARD_DYNAMIC && (
             <>
@@ -314,7 +326,7 @@ const StrategyParams = ({
             onChange={(value) => patch({ fixedPercentRatePct: value })}
             min={1}
             max={10}
-            step={1}
+            step={0.5}
           />
           <PercentSlider
             id={`member-${userId}-guardrail-width`}
@@ -527,6 +539,68 @@ function NotReady({
   );
 }
 
+// Year span of the loaded returns dataset, so the explainer copy stays
+// accurate if the series is swapped for a licensed or updated one.
+const RETURNS_FIRST_YEAR = GLOBAL_EQUITY_ANNUAL_RETURNS[0]?.year;
+const RETURNS_LAST_YEAR =
+  GLOBAL_EQUITY_ANNUAL_RETURNS[GLOBAL_EQUITY_ANNUAL_RETURNS.length - 1]?.year;
+
+// Expandable "how this works" note under the Monte Carlo chart. Explains that
+// each path is a random sequence of real historical market years (bootstrap),
+// not a bell-curve model, so the numbers are grounded in what actually happened.
+function MonteCarloExplainer() {
+  return (
+    <details
+      data-testid="monte-carlo-explainer"
+      className="rounded-2xl border border-zinc-200/80 bg-zinc-50/60 px-4 py-3 text-sm dark:border-white/10 dark:bg-white/5"
+    >
+      <summary className="cursor-pointer font-semibold text-zinc-700 dark:text-white/80">
+        How this simulation works
+      </summary>
+      <div className="mt-3 flex flex-col gap-2 text-zinc-600 dark:text-white/60">
+        <p>
+          Each faint line is one possible future for your pot. We build{' '}
+          {RUNS.toLocaleString('en-GB')} of them — this is the Monte Carlo
+          method: run the plan thousands of times under different market luck
+          and see how often it survives.
+        </p>
+        <p>
+          <span className="font-semibold text-zinc-700 dark:text-white/80">
+            Yes — it uses real historical data.
+          </span>{' '}
+          For every year of every run we draw an actual world-equity return at
+          random from{' '}
+          {RETURNS_FIRST_YEAR !== undefined && RETURNS_LAST_YEAR !== undefined
+            ? `${RETURNS_FIRST_YEAR}–${RETURNS_LAST_YEAR} (${GLOBAL_EQUITY_ANNUAL_RETURNS.length} years of history)`
+            : 'over a century of market history'}
+          , then string those years together. So a single run might hand you
+          1974’s crash next to 1985’s boom — a fresh shuffle of years that
+          really happened, rather than a smooth bell-curve guess.
+        </p>
+        <p>
+          Returns are in today’s money (inflation already stripped out), so a
+          steady spend keeps its buying power. The success rate is the share of
+          runs where your money outlasts your plan; the shaded band spans the
+          5th to 95th percentile, and the bold line is the median outcome.
+        </p>
+      </div>
+    </details>
+  );
+}
+
+// Shown above the results when a plan input has changed since the last run:
+// the figures below reflect the previous inputs until the user re-runs.
+function StaleResultsHint() {
+  return (
+    <p
+      data-testid="stale-results-hint"
+      className="rounded-xl border border-amber-300/60 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-700 dark:border-amber-400/30 dark:bg-amber-400/10 dark:text-amber-300"
+    >
+      Inputs changed — run the simulation again to update these results.
+    </p>
+  );
+}
+
 export default function RetirementPage() {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -563,6 +637,10 @@ export default function RetirementPage() {
   );
   const [includeStatePension, setIncludeStatePension] = useState(true);
   const [applyTax, setApplyTax] = useState(true);
+  const [
+    potExhaustedFailureForFractionStrategies,
+    setPotExhaustedFailureForFractionStrategies,
+  ] = useState(false);
 
   const planToAge =
     planToAgeEdit ?? assumptions.defaultPlanToAge ?? DEFAULT_PLAN_TO_AGE;
@@ -571,6 +649,19 @@ export default function RetirementPage() {
   const memberNicknames = Object.fromEntries(
     household.members.map((member) => [member.userId, member.nickname])
   );
+
+  // The owner's birth year, so the result charts can show the owner's age
+  // beneath each calendar year on the x-axis.
+  const ownBirthYear = (() => {
+    const ownDateOfBirth = members.find(
+      (member) => member.userId === ownUserId
+    )?.dateOfBirth;
+    if (!ownDateOfBirth) {
+      return undefined;
+    }
+    const year = Number(ownDateOfBirth.slice(0, 4));
+    return Number.isFinite(year) ? year : undefined;
+  })();
 
   // Each member's effective plan: local own-card edits win over the resolved
   // per-member settings from the model.
@@ -606,12 +697,39 @@ export default function RetirementPage() {
     withdrawalStrategy: memberStrategy(member),
   }));
 
+  // A signature of every input that changes a run's numbers. Frozen into the
+  // outcome at run time; when the current signature drifts from it, the shown
+  // results are stale and the user is nudged to re-run.
+  const runSignature = JSON.stringify({
+    members: runMembers.map((member) => ({
+      userId: member.userId,
+      desiredWithdrawalAnnualPence: member.desiredWithdrawalAnnualPence,
+      withdrawalStrategy: member.withdrawalStrategy,
+    })),
+    startMonth,
+    planToAge,
+    householdWithdrawalPence,
+    targetSuccessRatePct,
+    includeStatePension,
+    applyTax,
+    potExhaustedFailureForFractionStrategies,
+    dateMode,
+    retirementMonth: dateMode === 'specific' ? retirementMonth : undefined,
+  });
+
+  const isStale = outcome !== undefined && outcome.signature !== runSignature;
+
   const handleRun = async () => {
     if (startMonth === undefined || isRunning) {
       return;
     }
     const controller = new AbortController();
     abortRef.current = controller;
+    // Freeze the target and input signature this run is graded against, so the
+    // displayed results stay pinned to it until the next explicit run.
+    const runTargetSuccessRatePct = targetSuccessRatePct;
+    const runTargetWithdrawalPence = householdWithdrawalPence;
+    const signature = runSignature;
     setOutcome(undefined);
     setRunFailed(false);
     setProgress(0);
@@ -636,6 +754,7 @@ export default function RetirementPage() {
       withdrawalStrategy: runAssumptions.defaultWithdrawalStrategy,
       includeStatePension,
       applyTax,
+      potExhaustedFailureForFractionStrategies,
       assumptions: runAssumptions,
       returns: GLOBAL_EQUITY_ANNUAL_RETURNS,
       runs: RUNS,
@@ -650,7 +769,14 @@ export default function RetirementPage() {
           { ...base, retirementMonth },
           { signal: controller.signal, onProgress }
         );
-        setOutcome({ kind: 'specific', retirementMonth, result });
+        setOutcome({
+          kind: 'specific',
+          retirementMonth,
+          result,
+          targetSuccessRatePct: runTargetSuccessRatePct,
+          targetWithdrawalPence: runTargetWithdrawalPence,
+          signature,
+        });
       } else {
         setPhase('solving');
         const solver = await findEarliestRetirementAsync(base, {
@@ -666,7 +792,14 @@ export default function RetirementPage() {
             { signal: controller.signal, onProgress }
           );
         }
-        setOutcome({ kind: 'earliest', solver, resultAtDate });
+        setOutcome({
+          kind: 'earliest',
+          solver,
+          resultAtDate,
+          targetSuccessRatePct: runTargetSuccessRatePct,
+          targetWithdrawalPence: runTargetWithdrawalPence,
+          signature,
+        });
         if (solver.earliestRetirementMonth !== undefined) {
           setPhase('sensitivity');
           setProgress(0);
@@ -722,8 +855,9 @@ export default function RetirementPage() {
             Retirement
           </h1>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Simulate withdrawals with {RUNS.toLocaleString('en-GB')} runs over
-            historical global equity returns.
+            A Monte Carlo simulation: {RUNS.toLocaleString('en-GB')} runs, each
+            a random shuffle of real historical market years. Full details are
+            under the chart once you run it.
           </p>
         </div>
 
@@ -870,6 +1004,12 @@ export default function RetirementPage() {
                 isEnabled={applyTax}
                 setEnabled={setApplyTax}
               />
+              <ToggleRow
+                label="Fail on pot exhaustion"
+                description="For fixed-percent, RMD and endowment strategies, count a failure only when the pot runs out rather than when income drops below the target"
+                isEnabled={potExhaustedFailureForFractionStrategies}
+                setEnabled={setPotExhaustedFailureForFractionStrategies}
+              />
               <PercentSlider
                 id="target-success"
                 label="Target success rate"
@@ -923,6 +1063,7 @@ export default function RetirementPage() {
 
             {outcome?.kind === 'specific' && (
               <section className={sectionClassName} aria-label="Results">
+                {isStale && <StaleResultsHint />}
                 <h2 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-white">
                   Retiring {monthIdToLabel(outcome.retirementMonth)}
                 </h2>
@@ -931,7 +1072,7 @@ export default function RetirementPage() {
                 </p>
                 <RetirementResultPanel
                   result={outcome.result}
-                  targetSuccessRatePct={targetSuccessRatePct}
+                  targetSuccessRatePct={outcome.targetSuccessRatePct}
                   memberNicknames={memberNicknames}
                 />
                 <RealNominalToggle
@@ -943,11 +1084,14 @@ export default function RetirementPage() {
                   sampledPaths={outcome.result.sampledPathsPence}
                   mode={resultMode}
                   inflationRatePct={assumptions.inflationRatePct}
+                  birthYear={ownBirthYear}
                 />
+                <MonteCarloExplainer />
                 <PercentilePathsChart
                   paths={outcome.result.percentilePathsPence}
                   mode={resultMode}
                   inflationRatePct={assumptions.inflationRatePct}
+                  birthYear={ownBirthYear}
                 />
                 <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
                   Lifetime value — total withdrawn over time
@@ -956,18 +1100,30 @@ export default function RetirementPage() {
                   paths={outcome.result.cumulativeIncomePathsPence}
                   mode={resultMode}
                   inflationRatePct={assumptions.inflationRatePct}
+                  birthYear={ownBirthYear}
+                />
+                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                  Yearly income vs target
+                </p>
+                <IncomeVsTargetChart
+                  paths={outcome.result.incomePathsPence}
+                  targetPence={outcome.targetWithdrawalPence}
+                  mode={resultMode}
+                  inflationRatePct={assumptions.inflationRatePct}
+                  birthYear={ownBirthYear}
                 />
               </section>
             )}
 
             {outcome?.kind === 'earliest' && (
               <section className={sectionClassName} aria-label="Results">
+                {isStale && <StaleResultsHint />}
                 <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
                   Household success (both plans combined)
                 </p>
                 <SolverHeadline
                   result={outcome.solver}
-                  targetSuccessRatePct={targetSuccessRatePct}
+                  targetSuccessRatePct={outcome.targetSuccessRatePct}
                   primaryUserId={ownUserId}
                 />
                 {outcome.solver.achievedSuccessRatePct !== undefined && (
@@ -983,7 +1139,7 @@ export default function RetirementPage() {
                   <>
                     <RetirementResultPanel
                       result={outcome.resultAtDate}
-                      targetSuccessRatePct={targetSuccessRatePct}
+                      targetSuccessRatePct={outcome.targetSuccessRatePct}
                       memberNicknames={memberNicknames}
                     />
                     <RealNominalToggle
@@ -995,7 +1151,9 @@ export default function RetirementPage() {
                       sampledPaths={outcome.resultAtDate.sampledPathsPence}
                       mode={resultMode}
                       inflationRatePct={assumptions.inflationRatePct}
+                      birthYear={ownBirthYear}
                     />
+                    <MonteCarloExplainer />
                     <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
                       Lifetime value — total withdrawn over time
                     </p>
@@ -1003,6 +1161,17 @@ export default function RetirementPage() {
                       paths={outcome.resultAtDate.cumulativeIncomePathsPence}
                       mode={resultMode}
                       inflationRatePct={assumptions.inflationRatePct}
+                      birthYear={ownBirthYear}
+                    />
+                    <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-white/40">
+                      Yearly income vs target
+                    </p>
+                    <IncomeVsTargetChart
+                      paths={outcome.resultAtDate.incomePathsPence}
+                      targetPence={outcome.targetWithdrawalPence}
+                      mode={resultMode}
+                      inflationRatePct={assumptions.inflationRatePct}
+                      birthYear={ownBirthYear}
                     />
                   </>
                 )}

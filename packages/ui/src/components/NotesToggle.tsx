@@ -11,7 +11,7 @@ export const Toggle = ({
     <Switch
       checked={isEnabled}
       onChange={setEnabled}
-      className={`relative flex h-7 w-12 cursor-pointer rounded-full p-1 transition-colors duration-200 ease-in-out focus:outline-none ${
+      className={`relative flex h-7 w-12 shrink-0 cursor-pointer rounded-full p-1 transition-colors duration-200 ease-in-out focus:outline-none ${
         isEnabled ? 'bg-theme-primary' : 'bg-gray-400 dark:bg-gray-600'
       }`}
     >

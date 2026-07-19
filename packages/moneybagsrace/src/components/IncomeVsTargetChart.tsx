@@ -6,6 +6,7 @@ import {
   ComposedChart,
   Legend,
   Line,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -18,13 +19,17 @@ import { formatPenceCompact } from './NetWorthChart';
 import { NetWorthMode } from './RealNominalToggle';
 import { YearAgeAxisTick } from './YearAgeAxisTick';
 
-const BAND_COLOR = '#34d399';
-const MEDIAN_COLOR = '#34d399';
+const BAND_COLOR = '#60a5fa';
+const MEDIAN_COLOR = '#2563eb';
+const TARGET_COLOR = '#f59e0b';
+const SHORTFALL_COLOR = '#ef4444';
 
-interface LifetimeValueChartProps {
-  // The cumulative withdrawals path (SimulationResult.cumulativeIncomePathsPence
-  // for the household, or a member's own).
-  paths: SimulationResult['cumulativeIncomePathsPence'];
+interface IncomeVsTargetChartProps {
+  // Per-year net income delivered each withdrawal year
+  // (SimulationResult.incomePathsPence for the household, or a member's own).
+  paths: SimulationResult['incomePathsPence'];
+  // The desired real annual withdrawal this run targeted (today's money).
+  targetPence: number;
   // Defaults to real (today's money); nominal restates each year with
   // (1 + infl)^yearOffset from the first path year.
   mode?: NetWorthMode;
@@ -43,8 +48,9 @@ const toDisplayPence = (
     ? Math.round(realPence * (1 + inflationRatePct / 100) ** yearOffset)
     : realPence;
 
-interface LifetimeRow {
+interface IncomeRow {
   year: number;
+  target: number;
   p5: number;
   p25: number;
   p50: number;
@@ -54,9 +60,17 @@ interface LifetimeRow {
   outerBand: number;
   innerBase: number;
   innerBand: number;
+  belowTarget: boolean;
 }
 
-const LIFETIME_TOOLTIP_ROWS: {
+// Contiguous [startYear, endYear] spans where the median income fell below the
+// target; each becomes a shaded reference area on the chart.
+interface ShortfallSpan {
+  startYear: number;
+  endYear: number;
+}
+
+const INCOME_TOOLTIP_ROWS: {
   key: 'p95' | 'p75' | 'p50' | 'p25' | 'p5';
   label: string;
 }[] = [
@@ -67,18 +81,19 @@ const LIFETIME_TOOLTIP_ROWS: {
   { key: 'p5', label: '5th' },
 ];
 
-// Cumulative net income withdrawn from the pot over the plan (real terms): the
-// lifetime value a strategy delivers, with p5–p95 and p25–p75 bands (stacked
-// transparent base + band height) and the median running total on top.
-const LifetimeValueChart = ({
+// Per-year net income delivered against the desired spend (real terms): the
+// p5–p95 and p25–p75 bands with the median income line, a dashed target line,
+// and shaded years where the median income fell short of the target.
+const IncomeVsTargetChart = ({
   paths,
+  targetPence,
   mode = 'real',
   inflationRatePct = 0,
   birthYear,
-}: LifetimeValueChartProps) => {
+}: IncomeVsTargetChartProps) => {
   const dark = useDarkMode();
 
-  const rows = useMemo<LifetimeRow[]>(() => {
+  const rows = useMemo<IncomeRow[]>(() => {
     const baseYear = paths[0]?.year ?? 0;
     return paths.map((point) => {
       const offset = point.year - baseYear;
@@ -89,8 +104,10 @@ const LifetimeValueChart = ({
       const p50 = scale(point.p50);
       const p75 = scale(point.p75);
       const p95 = scale(point.p95);
+      const target = scale(targetPence);
       return {
         year: point.year,
+        target,
         p5,
         p25,
         p50,
@@ -100,23 +117,47 @@ const LifetimeValueChart = ({
         outerBand: p95 - p5,
         innerBase: p25,
         innerBand: p75 - p25,
+        belowTarget: p50 < target,
       };
     });
-  }, [paths, mode, inflationRatePct]);
+  }, [paths, targetPence, mode, inflationRatePct]);
+
+  const shortfallSpans = useMemo<ShortfallSpan[]>(() => {
+    const spans: ShortfallSpan[] = [];
+    let open: ShortfallSpan | undefined;
+    for (const row of rows) {
+      if (row.belowTarget) {
+        if (open) {
+          open.endYear = row.year;
+        } else {
+          open = { startYear: row.year, endYear: row.year };
+        }
+      } else if (open) {
+        spans.push(open);
+        open = undefined;
+      }
+    }
+    if (open) {
+      spans.push(open);
+    }
+    return spans;
+  }, [rows]);
 
   if (rows.length === 0) {
     return (
       <div
-        data-testid="lifetime-value-empty"
+        data-testid="income-vs-target-empty"
         className="rounded-2xl border border-zinc-200 bg-white p-6 text-center text-sm text-zinc-500 dark:border-white/10 dark:bg-white/5 dark:text-white/60"
       >
-        Run a simulation to see the total withdrawn build up year by year.
+        Run a simulation to see each year&apos;s income against the target.
       </div>
     );
   }
 
+  const shortfallYearCount = rows.filter((row) => row.belowTarget).length;
+
   return (
-    <div data-testid="lifetime-value-chart">
+    <div data-testid="income-vs-target-chart">
       <ResponsiveContainer width="100%" height={300}>
         <ComposedChart
           data={rows}
@@ -129,9 +170,12 @@ const LifetimeValueChart = ({
           />
           <XAxis
             dataKey="year"
+            type="number"
+            domain={['dataMin', 'dataMax']}
             tick={<YearAgeAxisTick birthYear={birthYear} />}
             tickLine={false}
             axisLine={false}
+            allowDecimals={false}
             height={birthYear !== undefined ? 34 : 20}
           />
           <YAxis
@@ -141,11 +185,21 @@ const LifetimeValueChart = ({
             width={52}
             tickFormatter={formatPenceCompact}
           />
+          {shortfallSpans.map((span) => (
+            <ReferenceArea
+              key={`${span.startYear}-${span.endYear}`}
+              x1={span.startYear}
+              x2={span.endYear}
+              fill={SHORTFALL_COLOR}
+              fillOpacity={0.12}
+              ifOverflow="extendDomain"
+            />
+          ))}
           <Tooltip
-            cursor={{ stroke: 'rgba(52,211,153,0.3)' }}
+            cursor={{ stroke: 'rgba(37,99,235,0.3)' }}
             content={({ active, payload, label }) => {
               if (!active || !payload?.length) return null;
-              const row: LifetimeRow = payload[0].payload;
+              const row: IncomeRow = payload[0].payload;
               return (
                 <div
                   style={{
@@ -158,13 +212,21 @@ const LifetimeValueChart = ({
                   }}
                 >
                   <div style={{ fontWeight: 700 }}>{label}</div>
-                  {LIFETIME_TOOLTIP_ROWS.map(({ key, label: rowLabel }) => (
+                  <div style={{ color: TARGET_COLOR }}>
+                    Target: {formatPence(row.target)}
+                  </div>
+                  {INCOME_TOOLTIP_ROWS.map(({ key, label: rowLabel }) => (
                     <div key={key}>
                       {rowLabel}
                       {': '}
                       {formatPence(row[key])}
                     </div>
                   ))}
+                  {row.belowTarget && (
+                    <div style={{ color: SHORTFALL_COLOR, fontWeight: 600 }}>
+                      Median below target
+                    </div>
+                  )}
                 </div>
               );
             }}
@@ -205,15 +267,34 @@ const LifetimeValueChart = ({
           <Line
             type="monotone"
             dataKey="p50"
-            name="Median total withdrawn"
+            name="Median income"
             stroke={MEDIAN_COLOR}
             strokeWidth={2}
             dot={false}
           />
+          <Line
+            type="monotone"
+            dataKey="target"
+            name="Target spend"
+            stroke={TARGET_COLOR}
+            strokeWidth={2}
+            strokeDasharray="5 4"
+            dot={false}
+          />
         </ComposedChart>
       </ResponsiveContainer>
+      {shortfallYearCount > 0 && (
+        <p
+          data-testid="income-vs-target-shortfall"
+          className="mt-1 text-[10px] text-zinc-400 dark:text-white/35"
+        >
+          Shaded years: median income below the {formatPence(targetPence)}{' '}
+          target ({shortfallYearCount}{' '}
+          {shortfallYearCount === 1 ? 'year' : 'years'}).
+        </p>
+      )}
     </div>
   );
 };
 
-export default LifetimeValueChart;
+export default IncomeVsTargetChart;
