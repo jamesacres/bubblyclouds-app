@@ -90,7 +90,9 @@ export function useMonthEntry(month: MonthId): MonthEntry {
   // Frozen snapshot list (preserving historical balances) merged with any
   // active profile accounts added since, so newly-added accounts remain
   // editable on a month that already has a saved snapshot. Without a snapshot,
-  // live profile definitions filtered createdMonth <= month < archivedMonth.
+  // live profile definitions filtered to those not archived before this month.
+  // createdMonth is deliberately not a lower bound: an account added later can
+  // still have its balance backfilled for earlier months.
   const accounts = useMemo<MonthEntryAccountRow[]>(() => {
     const previousBalances = new Map<string, number>(
       (previousOwnSnapshot?.accounts ?? []).map((account) => [
@@ -101,8 +103,7 @@ export function useMonthEntry(month: MonthId): MonthEntry {
     const activeProfileAccounts = (ownProfile?.accounts ?? [])
       .filter(
         (definition) =>
-          definition.createdMonth <= month &&
-          (!definition.archivedMonth || month < definition.archivedMonth)
+          !definition.archivedMonth || month < definition.archivedMonth
       )
       .sort((a, b) => a.sortOrder - b.sortOrder);
     let base: MonthEntryAccountRow[];

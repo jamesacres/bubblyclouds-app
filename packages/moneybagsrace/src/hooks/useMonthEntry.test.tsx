@@ -161,6 +161,37 @@ describe('useMonthEntry', () => {
     ]);
   });
 
+  it('shows later-created accounts for earlier months so their balances can be backfilled', () => {
+    const value = buildValue({});
+    // April is before "new-cash" (createdMonth 2026-06) was added and before
+    // "old-cash" (archivedMonth 2026-06) was archived.
+    const { result } = renderMonthEntry(value, '2026-04');
+
+    expect(result.current.accounts).toEqual([
+      {
+        accountId: 'isa',
+        kind: AccountKind.INVESTMENT,
+        wrapper: InvestmentWrapper.ISA,
+        name: 'ISA',
+        balancePence: 0,
+      },
+      {
+        accountId: 'new-cash',
+        kind: AccountKind.CASH,
+        wrapper: undefined,
+        name: 'New bank',
+        balancePence: 0,
+      },
+      {
+        accountId: 'old-cash',
+        kind: AccountKind.CASH,
+        wrapper: undefined,
+        name: 'Closed bank',
+        balancePence: 0,
+      },
+    ]);
+  });
+
   it('merges a newly-added profile account into an existing snapshot month', async () => {
     // June snapshot was saved before "new-cash" (createdMonth 2026-06) was
     // added to the profile, so it holds only the frozen "isa" balance.
@@ -240,7 +271,7 @@ describe('useMonthEntry', () => {
     ]);
   });
 
-  it('shows the archived account in its own historical month', () => {
+  it('shows the archived account in its own historical month and appends a later-created account for backfill', () => {
     const value = buildValue({
       '2026-05': householdMonth(
         '2026-05',
@@ -250,9 +281,10 @@ describe('useMonthEntry', () => {
     });
     const { result } = renderMonthEntry(value, '2026-05');
 
-    // Frozen snapshot list wins over the profile definitions.
+    // Frozen snapshot balances preserved for "isa"/"old-cash"; "new-cash"
+    // (createdMonth 2026-06) is appended so it can be backfilled into May.
     expect(result.current.accounts.map((account) => account.accountId)).toEqual(
-      ['isa', 'old-cash']
+      ['isa', 'old-cash', 'new-cash']
     );
   });
 
