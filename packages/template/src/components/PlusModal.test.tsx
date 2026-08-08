@@ -98,13 +98,13 @@ describe('PlusModal', () => {
       {
         identifier: 'monthly_plan',
         webBillingProduct: {
-          currentPrice: { formattedPrice: '$9.99' },
+          price: { formattedPrice: '$9.99' },
         },
       } as any,
       {
         identifier: 'lifetime_plan',
         webBillingProduct: {
-          currentPrice: { formattedPrice: '$49.99' },
+          price: { formattedPrice: '$49.99' },
         },
       } as any,
     ],
