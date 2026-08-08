@@ -28,19 +28,17 @@ const APP_CONFIG = {
   privacyUrl: `https://${DOMAIN}/privacy`,
   termsUrl: `https://${DOMAIN}/terms`,
   creditsUrl: '/credits',
-  // TODO
-  appStoreUrl: 'https://apps.apple.com/app/unblock-race/idTODO',
+  appStoreUrl: 'https://apps.apple.com/app/unblock-race/id6799411805',
   googlePlayUrl:
     'https://play.google.com/store/apps/details?id=com.bubblyclouds.unblockrace',
   deepLinkScheme: `${REVERSE_DOMAIN}.${APP}`,
   mobileDescription: `Get the best experience with our ${APP_NAME} app!`,
   desktopDescription: `Download ${APP_NAME}`,
   openInAppLabel: 'Open Puzzle',
-  // TODO: create an Unblock Race app in RevenueCat and set its API keys here
   revenueCatApiKeys: {
-    ios: 'TODO',
-    android: 'TODO',
-    web: 'TODO',
+    ios: 'appl_mzpsWpSHbDcxskYqAMcRLCtLOfH',
+    android: 'goog_PpQoFURGCTltCJTrkAQgwsHLaIj',
+    web: 'rcb_CDdnzbxceciOovuvwvEShqStvFph',
   },
 };
 
