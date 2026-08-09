@@ -29,11 +29,11 @@ afterEach(() => {
 
 describe('difficultyToSolveBounds', () => {
   it('maps each difficulty tier to its bounds', () => {
-    expect(difficultyToSolveBounds('simple')).toEqual([15000, 40000, 150000]);
-    expect(difficultyToSolveBounds('easy')).toEqual([30000, 80000, 300000]);
-    expect(difficultyToSolveBounds('intermediate')).toEqual([
-      60000, 150000, 480000,
+    expect(difficultyToSolveBounds('beginner')).toEqual([15000, 40000, 150000]);
+    expect(difficultyToSolveBounds('challenging')).toEqual([
+      30000, 80000, 300000,
     ]);
+    expect(difficultyToSolveBounds('hard')).toEqual([60000, 150000, 480000]);
     expect(difficultyToSolveBounds('expert')).toEqual([100000, 240000, 720000]);
   });
 
@@ -82,7 +82,7 @@ describe('skillLevelTargetDuration', () => {
 
   it('draws beginners from the slow half and experts from the fast half', () => {
     jest.spyOn(Math, 'random').mockReturnValue(0.5);
-    const bounds = DIFFICULTY_SOLVE_BOUNDS_MS.simple;
+    const bounds = DIFFICULTY_SOLVE_BOUNDS_MS.beginner;
     const [fastest, median, slowest] = bounds;
 
     const expert = skillLevelTargetDuration(DreyfusLevel.Expert, bounds);

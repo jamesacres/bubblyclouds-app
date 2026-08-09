@@ -17,7 +17,7 @@
     "./types/*": "./src/types/*.ts",
     "./services/*": "./src/services/*.ts",
     "./utils/*": "./src/utils/*.ts",
-    "./mockData/*": "./src/mockData/*"
+    "./fixtures/*": "./src/fixtures/*"
   },
   "scripts": {
     "type-check": "tsc --noEmit",

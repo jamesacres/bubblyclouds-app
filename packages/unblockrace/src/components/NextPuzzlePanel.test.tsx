@@ -9,7 +9,7 @@ const makeNext = (
     initial: 'oooooo',
     final: 'oooooo',
     movesRequired: 5,
-    difficulty: 'intermediate',
+    difficulty: 'hard',
   },
   index: 3,
   unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3',

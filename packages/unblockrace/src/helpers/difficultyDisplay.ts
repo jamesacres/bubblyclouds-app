@@ -5,31 +5,24 @@
 // matches the neon aesthetic.
 export interface UnblockDifficultyDisplay {
   label: string;
-  // Fits the filmstrip's narrow chips without truncating ("Challenging"
-  // used to render as "CHALLE…" at five stages on a phone).
-  shortLabel: string;
   chipClass: string;
 }
 
 const DIFFICULTY_DISPLAYS: { [key: string]: UnblockDifficultyDisplay } = {
-  simple: {
+  beginner: {
     label: 'Beginner',
-    shortLabel: 'Beginner',
     chipClass: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
   },
-  easy: {
+  challenging: {
     label: 'Challenging',
-    shortLabel: 'Tough',
     chipClass: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
   },
-  intermediate: {
+  hard: {
     label: 'Hard',
-    shortLabel: 'Hard',
     chipClass: 'bg-orange-500/15 text-orange-600 dark:text-orange-400',
   },
   expert: {
     label: 'Expert',
-    shortLabel: 'Expert',
     chipClass: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
   },
 };
@@ -39,7 +32,6 @@ export const unblockDifficultyDisplay = (
 ): UnblockDifficultyDisplay =>
   DIFFICULTY_DISPLAYS[difficulty] || {
     label: difficulty,
-    shortLabel: difficulty,
     chipClass: 'bg-stone-500/10 text-stone-500 dark:text-zinc-400',
   };
 
@@ -49,15 +41,21 @@ export const unblockDifficultyDisplay = (
 // in place of the emoji-y sudoku version without touching sudoku. Keeps the
 // Unblock labels (e.g. "Beginner", not "Tricky") consistent everywhere.
 const BADGE_COLORS: { [key: string]: string } = {
-  simple: 'bg-emerald-500 text-white',
-  easy: 'bg-amber-500 text-white',
-  intermediate: 'bg-orange-500 text-white',
+  beginner: 'bg-emerald-500 text-white',
+  challenging: 'bg-amber-500 text-white',
+  hard: 'bg-orange-500 text-white',
   expert: 'bg-rose-500 text-white',
 };
 
+// Returns undefined for ids outside the current vocabulary (e.g. 'simple'
+// from before the beginner/challenging/hard/expert rename, still present in
+// old sessions) so stale data doesn't surface as a raw-id badge.
 export const getUnblockDifficultyDisplay = (
   difficulty: string
-): { name: string; badgeColor: string } => ({
-  name: unblockDifficultyDisplay(difficulty).label,
-  badgeColor: BADGE_COLORS[difficulty] || 'bg-stone-500 text-white',
-});
+): { name: string; badgeColor: string } | undefined => {
+  const badgeColor = BADGE_COLORS[difficulty];
+  if (!badgeColor) {
+    return undefined;
+  }
+  return { name: unblockDifficultyDisplay(difficulty).label, badgeColor };
+};

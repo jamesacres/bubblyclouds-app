@@ -59,12 +59,12 @@ describe('StageResultPanel', () => {
     renderPanel({
       stages: [
         { boardString: boardWithPieceAt(0), movesRequired: 5 },
-        { boardString: boardWithPieceAt(1), movesRequired: 15 },
+        { boardString: boardWithPieceAt(1), movesRequired: 18 },
         { boardString: boardWithPieceAt(2), movesRequired: 25 },
       ],
     });
     // difficultyForMoves → unblockDifficultyDisplay: 5=Beginner,
-    // 15=Challenging, 25=Hard. Shown even though no stage has completed yet.
+    // 18=Challenging, 25=Hard. Shown even though no stage has completed yet.
     expect(screen.getByTestId('stage-difficulty-0')).toHaveTextContent(
       'Beginner'
     );

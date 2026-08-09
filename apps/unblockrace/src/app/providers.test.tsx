@@ -69,6 +69,13 @@ jest.mock('@bubblyclouds-app/template/providers/PartiesProvider', () => ({
   ),
 }));
 
+jest.mock('@bubblyclouds-app/unblockrace/providers/CollectionProvider', () => ({
+  __esModule: true,
+  CollectionProvider: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="collection-provider">{children}</div>
+  ),
+}));
+
 jest.mock('next-themes', () => ({
   ThemeProvider: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="theme-provider">{children}</div>
@@ -200,6 +207,16 @@ describe('Providers', () => {
       );
 
       expect(screen.getByTestId('sessions-provider')).toBeInTheDocument();
+    });
+
+    it('should render CollectionProvider', () => {
+      render(
+        <Providers>
+          <div>Test</div>
+        </Providers>
+      );
+
+      expect(screen.getByTestId('collection-provider')).toBeInTheDocument();
     });
 
     it('should render ThemeProvider', () => {
@@ -344,7 +361,7 @@ describe('Providers', () => {
       expect(sessionsProvider).toBeInTheDocument();
     });
 
-    it('should have ThemeProvider inside SessionsProvider', () => {
+    it('should have CollectionProvider inside SessionsProvider', () => {
       const { container } = render(
         <Providers>
           <div>Test</div>
@@ -354,7 +371,24 @@ describe('Providers', () => {
       const sessionsProvider = container.querySelector(
         '[data-testid="sessions-provider"]'
       );
-      const themeProvider = sessionsProvider?.querySelector(
+      const collectionProvider = sessionsProvider?.querySelector(
+        '[data-testid="collection-provider"]'
+      );
+
+      expect(collectionProvider).toBeInTheDocument();
+    });
+
+    it('should have ThemeProvider inside CollectionProvider', () => {
+      const { container } = render(
+        <Providers>
+          <div>Test</div>
+        </Providers>
+      );
+
+      const collectionProvider = container.querySelector(
+        '[data-testid="collection-provider"]'
+      );
+      const themeProvider = collectionProvider?.querySelector(
         '[data-testid="theme-provider"]'
       );
 

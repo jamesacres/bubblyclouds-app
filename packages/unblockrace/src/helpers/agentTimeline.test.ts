@@ -14,7 +14,7 @@ jest.mock('../services/solver', () => ({
 
 const mockLoadSolver = jest.mocked(loadSolver);
 
-// Fixture from src/mockData/puzzles.json (movesRequired 4) with its known
+// Fixture from src/fixtures/puzzles.json (movesRequired 4) with its known
 // optimal solution, verified by replay below: D-1 E-1 G+2 A+4.
 const SIMPLE_BOARD = 'FBBCCoFoGoooAAGooooDDooooEEooooooooo';
 const SIMPLE_MOVES: Move[] = [
@@ -24,7 +24,7 @@ const SIMPLE_MOVES: Move[] = [
   { piece: 0, steps: 4 },
 ];
 
-// Fixture from src/mockData/puzzles.json (movesRequired 8) — long enough for
+// Fixture from src/fixtures/puzzles.json (movesRequired 8) — long enough for
 // low-skill agents to take detours.
 const LONG_BOARD = 'oHoBBKoHCCJKAAIoJKGoIoDDGEEoooooooFF';
 const LONG_MOVES: Move[] = [
@@ -245,11 +245,11 @@ describe('createAgentTimeline', () => {
       SIMPLE_BOARD,
       solvedBoardString(SIMPLE_BOARD),
       makeConfig('Sage', DreyfusLevel.Expert),
-      'simple',
+      'beginner',
       SIMPLE_MOVES
     );
 
-    // Expert band [0, 0.3] at draw 0.99 in simple bounds [15s, 40s]:
+    // Expert band [0, 0.3] at draw 0.99 in beginner bounds [15s, 40s]:
     // 15000 + 25000 * 0.297 = 22425.
     expect(timeline.totalDuration).toBeCloseTo(22425);
     const lastTimestamp = timeline.steps[timeline.steps.length - 1].timestamp;
@@ -286,7 +286,7 @@ describe('createLocalAgents', () => {
         makeConfig('Sage', DreyfusLevel.Expert),
         makeConfig('Compass', DreyfusLevel.Competent),
       ],
-      'simple'
+      'beginner'
     );
 
     expect(solve).toHaveBeenCalledTimes(1);
@@ -314,7 +314,7 @@ describe('createLocalAgents', () => {
       SIMPLE_BOARD,
       solvedBoardString(SIMPLE_BOARD),
       [makeConfig('Sage', DreyfusLevel.Expert)],
-      'simple'
+      'beginner'
     );
 
     expect(agents).toHaveLength(1);

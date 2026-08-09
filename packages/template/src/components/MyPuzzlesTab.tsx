@@ -11,10 +11,12 @@ interface MyPuzzlesTabProps<State extends BaseServerState = BaseServerState> {
   calculateCompletionPercentageFromState: (state: State) => number;
   isPuzzleCheated: (state: State) => boolean;
   buildPuzzleUrlFromState: (state: State, isCompleted?: boolean) => string;
-  getDifficultyDisplay: (difficulty: string) => {
-    name: string;
-    badgeColor: string;
-  };
+  getDifficultyDisplay: (difficulty: string) =>
+    | {
+        name: string;
+        badgeColor: string;
+      }
+    | undefined;
   getMovesDisplay?: (
     state: State
   ) => { movesMade: number; movesRequired: number } | undefined;

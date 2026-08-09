@@ -61,6 +61,12 @@ function PuzzlePageComponent() {
     <div>
       {run && (
         <UnblockRace
+          // Force a full remount when navigating to a different puzzle/run
+          // (e.g. "continue to next puzzle" after a daily run): otherwise
+          // UnblockRace's currentStageIndex/completedStages state — seeded
+          // once via useState initializers — stays stuck from the previous
+          // run and can index past the new, shorter stages array.
+          key={board}
           run={{ stages: run.stages, runId: run.runId }}
           metadata={run.metadata}
           alreadyCompleted={alreadyCompleted}

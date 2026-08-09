@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import Home from './page';
 import * as nextNavigation from 'next/navigation';
 
@@ -55,6 +55,16 @@ jest.mock('@bubblyclouds-app/template/hooks/online', () => ({
     isOnline: true,
   })),
 }));
+
+const mockGetUnblockRaceOfTheDay = jest.fn();
+jest.mock(
+  '@bubblyclouds-app/unblockrace/hooks/useUnblockServerStorage',
+  () => ({
+    useUnblockServerStorage: () => ({
+      getUnblockRaceOfTheDay: mockGetUnblockRaceOfTheDay,
+    }),
+  })
+);
 
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => {
   const mockUseSessions = jest.fn(() => ({
@@ -165,6 +175,15 @@ describe('Home Page', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+
+    mockGetUnblockRaceOfTheDay.mockResolvedValue({
+      runId: 'oftheday-20260708',
+      puzzles: [
+        { initial: 'a', final: 'a', movesRequired: 3, difficulty: 'beginner' },
+      ],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
     (nextNavigation.useRouter as jest.Mock).mockReturnValue({
       push: mockPush,
@@ -375,11 +394,35 @@ describe('Home Page', () => {
       });
 
       render(<Home />);
-      fireEvent.click(screen.getByText('Start racing'));
+      await act(async () => {
+        fireEvent.click(screen.getByText('Start racing'));
+      });
+      expect(mockGetUnblockRaceOfTheDay).toHaveBeenCalled();
       expect(mockPush).toHaveBeenCalled();
       expect(mockPush.mock.calls[0][0]).toEqual(
         expect.stringContaining('runId=oftheday-')
       );
+
+      AuthProvider.UserContext = originalContext;
+    });
+
+    it('should not navigate when the daily run fetch fails', async () => {
+      mockGetUnblockRaceOfTheDay.mockResolvedValue(undefined);
+      const AuthProvider = jest.requireMock(
+        '@bubblyclouds-app/auth/providers/AuthProvider'
+      );
+      const originalContext = AuthProvider.UserContext;
+      AuthProvider.UserContext = React.createContext({
+        user: { sub: 'user-1' },
+        showLoginModal: jest.fn(),
+      });
+
+      render(<Home />);
+      await act(async () => {
+        fireEvent.click(screen.getByText('Start racing'));
+      });
+
+      expect(mockPush).not.toHaveBeenCalled();
 
       AuthProvider.UserContext = originalContext;
     });

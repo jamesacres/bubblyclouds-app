@@ -77,10 +77,21 @@ export const getNextCollectionPuzzle = (args: {
   const lockedPenalty = (index: number): number =>
     !isSubscribed && locked.has(index) ? 1 : 0;
 
+  const bandRankOf = (index: number): number =>
+    bandOrder.indexOf(puzzles[index].difficulty);
+
   candidates.sort((a, b) => {
     const tierDiff = tierRank(a.index) - tierRank(b.index);
     if (tierDiff !== 0) {
       return tierDiff;
+    }
+    // Within a tier, stay in band order first — "prefer unlocked" is a
+    // same-band tiebreaker (SPEC: unlocked puzzles are preferred within
+    // each tier), not a license to skip a nearer locked puzzle for a
+    // farther unlocked one in a later band.
+    const bandDiff = bandRankOf(a.index) - bandRankOf(b.index);
+    if (bandDiff !== 0) {
+      return bandDiff;
     }
     const lockDiff = lockedPenalty(a.index) - lockedPenalty(b.index);
     if (lockDiff !== 0) {

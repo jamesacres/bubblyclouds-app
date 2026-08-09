@@ -178,7 +178,7 @@ describe('Collection Page', () => {
       collectionData: {
         unblockCollectionId: 'ofthemonth-202607',
         puzzles: [
-          collectionPuzzle(BOARD, 'simple'),
+          collectionPuzzle(BOARD, 'beginner'),
           collectionPuzzle(`${BOARD.slice(0, -1)}x`, 'expert'),
         ],
       },
@@ -201,7 +201,7 @@ describe('Collection Page', () => {
     useCollection.mockReturnValue({
       collectionData: {
         unblockCollectionId: 'ofthemonth-202607',
-        puzzles: [collectionPuzzle(BOARD, 'simple')],
+        puzzles: [collectionPuzzle(BOARD, 'beginner')],
       },
       isLoading: false,
       error: null,
@@ -272,8 +272,8 @@ describe('Collection Page', () => {
     const collectionData = {
       unblockCollectionId: 'ofthemonth-202607',
       puzzles: [
-        collectionPuzzle(BOARD, 'simple'),
-        collectionPuzzle(`${BOARD.slice(0, -1)}x`, 'simple'),
+        collectionPuzzle(BOARD, 'beginner'),
+        collectionPuzzle(`${BOARD.slice(0, -1)}x`, 'beginner'),
       ],
     };
 
@@ -364,7 +364,7 @@ describe('Collection Page', () => {
       useCollection.mockReturnValue({
         collectionData: {
           unblockCollectionId: 'ofthemonth-202607',
-          puzzles: [collectionPuzzle(BOARD, 'simple')],
+          puzzles: [collectionPuzzle(BOARD, 'beginner')],
         },
         isLoading: false,
         error: null,
@@ -430,7 +430,7 @@ describe('Collection Page', () => {
       useCollection.mockReturnValue({
         collectionData: {
           unblockCollectionId: 'ofthemonth-202607',
-          puzzles: [collectionPuzzle(BOARD, 'simple')],
+          puzzles: [collectionPuzzle(BOARD, 'beginner')],
         },
         isLoading: false,
         error: null,

@@ -11,7 +11,7 @@ interface CompletionSummaryProps {
   movesMade: number;
   movesRequired: number;
   points?: number;
-  // "Daily #12" / "Collection puzzle 4" — what was just finished.
+  // "Daily · Aug 8" / "Collection puzzle 4" — what was just finished.
   label?: string;
 }
 

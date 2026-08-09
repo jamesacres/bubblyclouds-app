@@ -1,16 +1,15 @@
-// Difficulty tiers by known-optimal move count (SPEC.md §8's difficulty-tier
-// idea). Values match the standard difficulties that
-// @bubblyclouds-app/games' getDifficultyDisplay already maps:
-// simple = Beginner, easy = Challenging, intermediate = Hard, expert = Expert.
+// Difficulty tiers by known-optimal move count, matching the API's own
+// bands (UnblockRaceDifficulty): 1-15 beginner, 16-20 challenging, 21-30
+// hard, 31-60 expert.
 export const difficultyForMoves = (movesRequired: number): string => {
-  if (movesRequired <= 10) {
-    return 'simple';
+  if (movesRequired <= 15) {
+    return 'beginner';
   }
-  if (movesRequired <= 18) {
-    return 'easy';
+  if (movesRequired <= 20) {
+    return 'challenging';
   }
-  if (movesRequired <= 28) {
-    return 'intermediate';
+  if (movesRequired <= 30) {
+    return 'hard';
   }
   return 'expert';
 };

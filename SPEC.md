@@ -331,7 +331,7 @@ Per the notes, completing a stage (or a whole run) shows a summary card,
 e.g.:
 
 ```
-🚗 Unblock Race - Daily #127
+🚗 Unblock Race - Daily · Aug 8
 🏁 Escaped in 0:47
 🎯 Beat opponent by 3 seconds
 ⚡ 12 moves (optimal: 11)
@@ -341,14 +341,14 @@ Everything needed for this is already produced by §6's state model — this
 section just says where each line comes from and when to show it, no new
 data collection required:
 
-- **Puzzle number/label** (`Daily #127`): only meaningful for the daily
-  challenge, not the collection or an ad-hoc shared run. Derive from the
-  existing daily-puzzle counter convention
-  (`packages/sudoku/src/utils/dailyPuzzleCounter.ts` — mirror its
-  day-since-epoch/launch-date counting, don't invent a new numbering
-  scheme). For collection/shared-run completions, omit this line or replace
-  it with the collection puzzle's index (`unblockCollectionPuzzleId`)
-  instead.
+- **Puzzle label** (`Daily · Aug 8`): only meaningful for the daily
+  challenge, not the collection or an ad-hoc shared run. A plain UTC
+  calendar-date label (`helpers/dailyLabel.ts`) — not a numbered counter,
+  since the API mints its own opaque `unblockRaceId` per day rather than a
+  sequential index, so there's no launch-date/day-since-epoch scheme to
+  derive a number from. For collection/shared-run completions, omit this
+  line or replace it with the collection puzzle's index
+  (`unblockCollectionPuzzleId`) instead.
 - **Time** (`Escaped in 0:47`): `calculateSeconds(timer)` — already computed
   by `useGameState`'s `completed.seconds` field (direct port from sudoku's
   `gameState.ts`, §6), formatted with `@ui/helpers/formatSeconds` (already

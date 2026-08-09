@@ -316,17 +316,17 @@ export default function CollectionPage() {
             <div className="flex flex-wrap gap-2">
               {[
                 {
-                  difficulty: 'simple',
+                  difficulty: 'beginner',
                   label: 'Beginner',
                   color: 'bg-green-500 text-white',
                 },
                 {
-                  difficulty: 'easy',
+                  difficulty: 'challenging',
                   label: 'Challenging',
                   color: 'bg-yellow-500 text-white',
                 },
                 {
-                  difficulty: 'intermediate',
+                  difficulty: 'hard',
                   label: 'Hard',
                   color: 'bg-orange-500 text-white',
                 },

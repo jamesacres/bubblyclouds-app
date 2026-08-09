@@ -9,9 +9,9 @@ export const DIFFICULTY_SOLVE_BOUNDS_MS: Record<
   string,
   [number, number, number]
 > = {
-  simple: [secs(15), secs(40), secs(150)],
-  easy: [secs(30), secs(80), secs(300)],
-  intermediate: [secs(60), secs(150), secs(480)],
+  beginner: [secs(15), secs(40), secs(150)],
+  challenging: [secs(30), secs(80), secs(300)],
+  hard: [secs(60), secs(150), secs(480)],
   expert: [secs(100), secs(240), secs(720)],
 };
 

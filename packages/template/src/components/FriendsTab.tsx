@@ -33,10 +33,12 @@ interface FriendsTabProps<State extends BaseServerState = BaseServerState> {
     isPuzzleCheated: (state: State) => boolean;
     gameName: string;
   }>;
-  getDifficultyDisplay: (difficulty: string) => {
-    name: string;
-    badgeColor: string;
-  };
+  getDifficultyDisplay: (difficulty: string) =>
+    | {
+        name: string;
+        badgeColor: string;
+      }
+    | undefined;
   getMovesDisplay?: (
     state: State
   ) => { movesMade: number; movesRequired: number } | undefined;

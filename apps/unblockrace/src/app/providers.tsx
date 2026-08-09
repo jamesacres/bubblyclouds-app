@@ -64,7 +64,10 @@ export function Providers({ children }: PropsWithChildren) {
                   app={APP_CONFIG.app}
                   apiUrl={APP_CONFIG.apiUrl}
                 >
-                  <CollectionProvider>
+                  <CollectionProvider
+                    app={APP_CONFIG.app}
+                    apiUrl={APP_CONFIG.apiUrl}
+                  >
                     <ThemeProvider attribute="class">
                       <ThemeColorProvider>{children}</ThemeColorProvider>
                     </ThemeProvider>

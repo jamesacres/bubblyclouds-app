@@ -26,7 +26,7 @@ import {
 import { Users, Zap, Award, BookOpen, ChevronsRight } from 'lucide-react';
 import Image from 'next/image';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
-import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
+import { getUnblockDifficultyDisplay } from '@bubblyclouds-app/unblockrace/helpers/difficultyDisplay';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { APP_CONFIG } from '../../app.config.js';
 import { GameState } from '@bubblyclouds-app/unblockrace/types/state';
@@ -36,7 +36,7 @@ import { movesDisplayFromState } from '@bubblyclouds-app/unblockrace/helpers/cal
 import { starRatingFromState } from '@bubblyclouds-app/unblockrace/helpers/starRating';
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
 import { buildPuzzleUrl } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
-import { getDailyRun } from '@bubblyclouds-app/unblockrace/helpers/mockData';
+import { useUnblockServerStorage } from '@bubblyclouds-app/unblockrace/hooks/useUnblockServerStorage';
 import SimpleBoard from '@bubblyclouds-app/unblockrace/components/SimpleBoard';
 import CollectionCover from '@bubblyclouds-app/unblockrace/components/CollectionCover';
 
@@ -216,6 +216,10 @@ function HomeComponent() {
   const { user, showLoginModal } = context || {};
   useOnline();
   const [isLoading, setIsLoading] = useState(false);
+  const { getUnblockRaceOfTheDay } = useUnblockServerStorage({
+    app: APP_CONFIG.app,
+    apiUrl: APP_CONFIG.apiUrl,
+  });
   const { parties, refreshParties } = useParties({});
   const {
     sessions,
@@ -256,16 +260,18 @@ function HomeComponent() {
       showLoginModal?.(undefined, LoginContext.DAILY_PUZZLE);
       return;
     }
-    // Mock daily run of 5 (SPEC.md §8) until the real API exists
-    const { runId, puzzles } = getDailyRun();
+    const run = await getUnblockRaceOfTheDay();
+    setIsLoading(false);
+    if (!run) {
+      return;
+    }
     router.push(
       buildPuzzleUrl(
-        puzzles.map((puzzle) => puzzle.boardString),
-        puzzles.map((puzzle) => puzzle.movesRequired),
-        { runId }
+        run.puzzles.map((puzzle) => puzzle.initial),
+        run.puzzles.map((puzzle) => puzzle.movesRequired),
+        { runId: run.runId }
       )
     );
-    setIsLoading(false);
   };
 
   const openCollection = (): void => {
@@ -610,7 +616,7 @@ function HomeComponent() {
                 }
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
-                getDifficultyDisplay={getDifficultyDisplay}
+                getDifficultyDisplay={getUnblockDifficultyDisplay}
                 getMovesDisplay={movesDisplayFromState}
                 getStarRating={starRatingFromState}
               />
@@ -629,7 +635,7 @@ function HomeComponent() {
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 LeaderboardComponent={UnblockLeaderboard}
                 gameName={APP_CONFIG.gameName}
-                getDifficultyDisplay={getDifficultyDisplay}
+                getDifficultyDisplay={getUnblockDifficultyDisplay}
                 getMovesDisplay={movesDisplayFromState}
                 getStarRating={starRatingFromState}
               />

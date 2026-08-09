@@ -1,6 +1,6 @@
 import { parseBoardString } from './parseBoardString';
 import { boardToString } from './boardToString';
-import puzzles from '../mockData/puzzles.json';
+import puzzles from '../fixtures/puzzles.json';
 
 // Reference board from SPEC.md §1 (60 moves). Its labels skip C, so it is
 // not canonical — boardToString relabels pieces consecutively.

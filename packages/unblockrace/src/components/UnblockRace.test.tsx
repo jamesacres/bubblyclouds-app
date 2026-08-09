@@ -12,10 +12,7 @@ import { createLocalAgents } from '../helpers/agentTimeline';
 import { DreyfusLevel, LocalAgent } from '../types/Agent';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
-import { getCollectionOfTheMonth } from '../helpers/mockData';
 import { lockedCollectionIndexes } from '../helpers/collectionLocks';
-
-const now = new Date();
 
 jest.mock('../hooks/useGameState');
 // No wasm in jsdom: the warm-up loader resolves to a stub and the hint flow
@@ -32,8 +29,10 @@ jest.mock('../helpers/hint', () => ({
 jest.mock('../helpers/agentTimeline', () => ({
   createLocalAgents: jest.fn(),
 }));
+const mockPush = jest.fn();
+const mockReplace = jest.fn();
 jest.mock('next/navigation', () => ({
-  useRouter: jest.fn(() => ({ replace: jest.fn(), push: jest.fn() })),
+  useRouter: jest.fn(() => ({ replace: mockReplace, push: mockPush })),
 }));
 const mockUseSessions = jest.fn<{ sessions: unknown[] }, []>(() => ({
   sessions: [],
@@ -41,8 +40,13 @@ const mockUseSessions = jest.fn<{ sessions: unknown[] }, []>(() => ({
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: () => mockUseSessions(),
 }));
-const mockUseCollection = jest.fn<{ collectionData: unknown }, []>(() => ({
+const mockFetchCollectionData = jest.fn();
+const mockUseCollection = jest.fn<
+  { collectionData: unknown; fetchCollectionData: () => void },
+  []
+>(() => ({
   collectionData: null,
+  fetchCollectionData: mockFetchCollectionData,
 }));
 jest.mock('../providers/CollectionProvider', () => ({
   useCollection: () => mockUseCollection(),
@@ -223,7 +227,10 @@ describe('UnblockRace', () => {
     jest.clearAllMocks();
     window.localStorage.clear();
     mockUseSessions.mockReturnValue({ sessions: [] });
-    mockUseCollection.mockReturnValue({ collectionData: null });
+    mockUseCollection.mockReturnValue({
+      collectionData: null,
+      fetchCollectionData: mockFetchCollectionData,
+    });
     mockUseGameState.mockReturnValue({
       ...baseGameState,
       answer: STAGE_1,
@@ -267,6 +274,30 @@ describe('UnblockRace', () => {
           movesRequired: '3',
         }),
       })
+    );
+  });
+
+  it('passes the lobby the challenging label and its badge colour, not the sudoku vocabulary', () => {
+    // Regression test: the lobby's difficulty chip used @games'
+    // getDifficultyDisplay, whose map only covers sudoku's difficulty ids
+    // (simple/easy/intermediate/expert). Unblock Race's own difficultyForMoves
+    // returns beginner/challenging/hard/expert, none of which match, so it
+    // fell through to the raw-string, uncoloured fallback — "challenging"
+    // rendered with no chip colour. It must use Unblock's own display map.
+    render(
+      <UnblockRace
+        {...defaultProps}
+        run={{
+          stages: [{ boardString: STAGE_1, movesRequired: 18 }],
+        }}
+      />
+    );
+    const lobbyProps = mockLobbyProps.mock.calls[
+      mockLobbyProps.mock.calls.length - 1
+    ][0] as { puzzleDifficulty: string; puzzleDifficultyBadgeColor: string };
+    expect(lobbyProps.puzzleDifficulty).toBe('Challenging');
+    expect(lobbyProps.puzzleDifficultyBadgeColor).toBe(
+      'bg-amber-500 text-white'
     );
   });
 
@@ -863,21 +894,24 @@ describe('UnblockRace', () => {
   });
 
   describe('locked deep-link gate', () => {
-    const LOCKED_MONTH = (() => {
-      const now = new Date();
-      const year = now.getUTCFullYear();
-      const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-      return `${year}${month}`;
-    })();
+    const LOCKED_MONTH = '202607';
 
-    // Derive a genuinely locked and a genuinely free index from this month's
-    // deterministic collection so the test tracks the real lock geometry.
-    const collection = getCollectionOfTheMonth(
-      new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1))
-    );
-    const locked = lockedCollectionIndexes(collection.puzzles);
+    // Three beginner (all free) + three expert (only 1 free) → indexes 4 and 5
+    // are the Plus puzzles; 0–3 are free (matches FREE_PUZZLES_PER_DIFFICULTY).
+    const gateCollectionData = {
+      unblockCollectionId: `ofthemonth-${LOCKED_MONTH}`,
+      puzzles: [0, 1, 2, 3, 4, 5].map((i) => ({
+        initial: `puzzle-${i}`,
+        final: `puzzle-${i}`,
+        movesRequired: 3 + i,
+        difficulty: i < 3 ? 'beginner' : 'expert',
+      })),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const locked = lockedCollectionIndexes(gateCollectionData.puzzles);
     const lockedIndex = [...locked][0];
-    const freeIndex = collection.puzzles.findIndex(
+    const freeIndex = gateCollectionData.puzzles.findIndex(
       (_, index) => !locked.has(index)
     );
 
@@ -886,31 +920,15 @@ describe('UnblockRace', () => {
       run: { stages: [{ boardString: STAGE_1, movesRequired: 3 }] },
     };
 
-    it('gates a free user deep-linking into a locked collection puzzle', () => {
-      render(
-        <UnblockRace
-          {...lockedProps}
-          metadata={{
-            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
-          }}
-        />
-      );
-      expect(screen.getByTestId('puzzle-gate')).toBeInTheDocument();
+    beforeEach(() => {
+      mockUseCollection.mockReturnValue({
+        collectionData: gateCollectionData,
+        fetchCollectionData: mockFetchCollectionData,
+      });
     });
 
-    it('does not gate an unlocked (first-half) collection puzzle', () => {
-      render(
-        <UnblockRace
-          {...lockedProps}
-          metadata={{
-            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${freeIndex}`,
-          }}
-        />
-      );
-      expect(screen.queryByTestId('puzzle-gate')).not.toBeInTheDocument();
-    });
-
-    it('lets a subscriber through the locked puzzle', () => {
+    it('opens the Plus modal for a free user deep-linking into a locked collection puzzle', () => {
+      const showModalIfRequired = jest.fn();
       renderWithRevenueCat(
         <UnblockRace
           {...lockedProps}
@@ -918,9 +936,162 @@ describe('UnblockRace', () => {
             unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
           }}
         />,
-        { isSubscribed: true }
+        { showModalIfRequired }
       );
-      expect(screen.queryByTestId('puzzle-gate')).not.toBeInTheDocument();
+      expect(showModalIfRequired).toHaveBeenCalledWith(
+        expect.any(Function),
+        expect.any(Function),
+        SubscriptionContext.COLLECTION_LOCKED
+      );
+    });
+
+    it('opens the modal only once even when subscribeModal is a fresh object on every render', () => {
+      // Regression test: RevenueCatProvider builds its context value's
+      // subscribeModal as a new object literal every render (including the
+      // one showModalIfRequired's own setIsOpen triggers). Depending on that
+      // object directly in the trigger effect caused an infinite open loop
+      // ("Maximum update depth exceeded") the moment the modal opened.
+      const showModalIfRequired = jest.fn();
+      const { rerender } = renderWithRevenueCat(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
+          }}
+        />,
+        { showModalIfRequired }
+      );
+
+      rerender(
+        <RevenueCatContext.Provider
+          value={
+            {
+              isSubscribed: false,
+              subscribeModal: { showModalIfRequired },
+            } as unknown as React.ContextType<typeof RevenueCatContext>
+          }
+        >
+          <UnblockRace
+            {...lockedProps}
+            metadata={{
+              unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
+            }}
+          />
+        </RevenueCatContext.Provider>
+      );
+
+      expect(showModalIfRequired).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not gate an unlocked (first-half) collection puzzle', () => {
+      const showModalIfRequired = jest.fn();
+      renderWithRevenueCat(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${freeIndex}`,
+          }}
+        />,
+        { showModalIfRequired }
+      );
+      expect(showModalIfRequired).not.toHaveBeenCalled();
+    });
+
+    it('lets a subscriber through the locked puzzle without opening the modal', () => {
+      const showModalIfRequired = jest.fn();
+      renderWithRevenueCat(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
+          }}
+        />,
+        { isSubscribed: true, showModalIfRequired }
+      );
+      expect(showModalIfRequired).not.toHaveBeenCalled();
+    });
+
+    it('backing out of the Plus modal returns to the collection', () => {
+      const showModalIfRequired = jest.fn();
+      renderWithRevenueCat(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
+          }}
+        />,
+        { showModalIfRequired }
+      );
+
+      const cancelCallback = showModalIfRequired.mock.calls[0][1] as () => void;
+      act(() => {
+        cancelCallback();
+      });
+
+      expect(mockReplace).toHaveBeenCalledWith('/collection');
+    });
+
+    it('pauses the timer and disables the board while collectionData is still loading, before the lock is confirmed', () => {
+      // Regression test: collectionData is fetched async (via
+      // fetchCollectionData in an effect), so on first mount for a
+      // collection-puzzle deep link it can still be null. Without treating
+      // that as "gated", the puzzle would be briefly playable and the timer
+      // would briefly run before flipping to locked once the fetch
+      // resolves — the bug report was exactly this: no Plus modal, and the
+      // countdown started running.
+      mockUseCollection.mockReturnValue({
+        collectionData: null,
+        fetchCollectionData: mockFetchCollectionData,
+      });
+      const showModalIfRequired = jest.fn();
+
+      renderWithRevenueCat(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
+          }}
+        />,
+        { showModalIfRequired }
+      );
+
+      // Not yet known to be locked, so the modal doesn't open (it would be
+      // wrong to claim that before we've confirmed it)...
+      expect(showModalIfRequired).not.toHaveBeenCalled();
+      // ...but the board must not be playable and the timer must not run
+      // during this pending window.
+      expect(baseGameState.setPauseTimer).toHaveBeenLastCalledWith(true);
+    });
+
+    it('does not start a countdown when the lobby is dismissed on a locked puzzle', () => {
+      // Regression test: "Start playing" in the lobby used to unconditionally
+      // start a countdown session. On a locked puzzle isBoardGated freezes
+      // that countdown immediately (shouldPause), so it got stuck mid-count
+      // as a full-screen overlay (z-[120]) permanently hiding whatever paywall
+      // UI sat underneath it — no countdown finishing, no Plus info visible.
+      renderWithRevenueCat(
+        <UnblockRace
+          {...lockedProps}
+          metadata={{
+            unblockCollectionPuzzleId: `ofthemonth-${LOCKED_MONTH}-puzzle-${lockedIndex}`,
+          }}
+        />,
+        { showModalIfRequired: jest.fn() }
+      );
+
+      const lobbyProps = mockLobbyProps.mock.calls[
+        mockLobbyProps.mock.calls.length - 1
+      ][0] as {
+        onStartRace?: () => void;
+        setShowLobby: (_value: boolean) => void;
+      };
+
+      act(() => {
+        lobbyProps.onStartRace?.();
+        lobbyProps.setShowLobby(false);
+      });
+
+      expect(screen.queryByText('Get ready')).not.toBeInTheDocument();
     });
   });
 
@@ -984,7 +1155,7 @@ describe('UnblockRace', () => {
       'oooooo',
       'oooooo',
     ].join('');
-    // Three simple (all 3 free) + three expert (only 1 free) → indexes 4 and
+    // Three beginner (all 3 free) + three expert (only 1 free) → indexes 4 and
     // 5 are the Plus puzzles; 0–3 are free.
     const collectionData = {
       unblockCollectionId: 'ofthemonth-202607',
@@ -992,7 +1163,7 @@ describe('UnblockRace', () => {
         initial,
         final: initial,
         movesRequired: 3 + i,
-        difficulty: i < 3 ? 'simple' : 'expert',
+        difficulty: i < 3 ? 'beginner' : 'expert',
       })),
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -1014,7 +1185,10 @@ describe('UnblockRace', () => {
     });
 
     it('renders the next-puzzle panel pointing at the next collection puzzle when completed', () => {
-      mockUseCollection.mockReturnValue({ collectionData });
+      mockUseCollection.mockReturnValue({
+        collectionData,
+        fetchCollectionData: mockFetchCollectionData,
+      });
       mockUseGameState.mockReturnValue({
         ...baseGameState,
         answer: P0,
@@ -1035,7 +1209,10 @@ describe('UnblockRace', () => {
     it('shows the Plus-locked label when the next collection puzzle is locked', () => {
       // Every free puzzle (0–3) is done, so the resolver's only remaining
       // stops are the Plus puzzles (4, 5) — a free user sees the (Plus) CTA.
-      mockUseCollection.mockReturnValue({ collectionData });
+      mockUseCollection.mockReturnValue({
+        collectionData,
+        fetchCollectionData: mockFetchCollectionData,
+      });
       mockUseSessions.mockReturnValue({
         sessions: [
           completedSession(P1),
@@ -1057,8 +1234,84 @@ describe('UnblockRace', () => {
       );
     });
 
+    it('regression: clicking continue into a locked puzzle pushes a URL that gates on arrival (last-free-puzzle repro)', () => {
+      // End-to-end version of the bug report: finish the last free puzzle,
+      // click continue, and confirm both (a) the URL actually points at the
+      // locked puzzle's own id/board (not back at the one just finished),
+      // and (b) mounting UnblockRace fresh with exactly those props — the
+      // same as a hard page reload — opens the Plus modal immediately.
+      mockUseCollection.mockReturnValue({
+        collectionData,
+        fetchCollectionData: mockFetchCollectionData,
+      });
+      mockUseSessions.mockReturnValue({
+        sessions: [
+          completedSession(P1),
+          completedSession(P2),
+          completedSession(P3),
+        ],
+      });
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: P0,
+        answerStack: [P0],
+        completed: { at: new Date().toISOString(), seconds: 30 },
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...collectionProps} />);
+      fireEvent.click(screen.getByTestId('next-puzzle-continue'));
+
+      expect(mockPush).toHaveBeenCalledTimes(1);
+      const pushedUrl = mockPush.mock.calls[0][0] as string;
+      const params = new URLSearchParams(pushedUrl.split('?')[1]);
+      const nextBoard = params.get('board');
+      const nextUnblockCollectionPuzzleId = params.get(
+        'unblockCollectionPuzzleId'
+      );
+
+      // Sanity: it's genuinely a different, Plus-only puzzle (index 4 or 5).
+      expect(nextUnblockCollectionPuzzleId).toMatch(
+        /^ofthemonth-202607-puzzle-[45]$/
+      );
+      expect(nextBoard).not.toBe(P0);
+
+      // Now simulate landing on that URL fresh (a full reload): render a
+      // brand-new UnblockRace with the metadata the URL carries — a valid
+      // board is substituted here (STAGE_2) since P4/P5 are simplified
+      // fixtures never meant to be parsed as real boards; the gate check
+      // depends only on metadata.unblockCollectionPuzzleId + collectionData,
+      // not on which board is showing.
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_2,
+        answerStack: [STAGE_2],
+        completed: undefined,
+      } as ReturnType<typeof useGameState>);
+
+      const showModalIfRequired = jest.fn();
+      renderWithRevenueCat(
+        <UnblockRace
+          {...defaultProps}
+          run={{ stages: [{ boardString: STAGE_2, movesRequired: 7 }] }}
+          metadata={{
+            unblockCollectionPuzzleId: nextUnblockCollectionPuzzleId!,
+          }}
+        />,
+        { showModalIfRequired }
+      );
+
+      expect(showModalIfRequired).toHaveBeenCalledWith(
+        expect.any(Function),
+        expect.any(Function),
+        SubscriptionContext.COLLECTION_LOCKED
+      );
+    });
+
     it('omits the panel when there is no next collection puzzle', () => {
-      mockUseCollection.mockReturnValue({ collectionData: null });
+      mockUseCollection.mockReturnValue({
+        collectionData: null,
+        fetchCollectionData: mockFetchCollectionData,
+      });
       mockUseGameState.mockReturnValue({
         ...baseGameState,
         answer: P0,
@@ -1148,7 +1401,7 @@ describe('UnblockRace', () => {
         STAGE_1,
         SOLVED_STAGE_1,
         [expect.objectContaining({ name: 'Bumblebee' })],
-        'simple'
+        'beginner'
       );
       expect(baseGameState.setMode).toHaveBeenCalledWith('ai');
       expect(baseGameState.setAgentNames).toHaveBeenCalledWith('Bumblebee');
@@ -1284,7 +1537,7 @@ describe('UnblockRace', () => {
           STAGE_2,
           solvedBoardString(STAGE_2),
           [expect.objectContaining({ name: 'Bumblebee' })],
-          'simple'
+          'beginner'
         );
       } finally {
         jest.clearAllTimers();

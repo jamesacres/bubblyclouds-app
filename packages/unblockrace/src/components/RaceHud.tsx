@@ -77,7 +77,7 @@ const RaceHud = ({
     <span
       className={`ml-auto shrink-0 rounded-full px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
     >
-      {difficulty.shortLabel}
+      {difficulty.label}
     </span>
   </div>
 );

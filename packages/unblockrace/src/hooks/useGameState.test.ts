@@ -76,7 +76,7 @@ const A_MOVED = [
 ].join('');
 
 describe('useGameState', () => {
-  const metadata: Partial<GameStateMetadata> = { difficulty: 'simple' };
+  const metadata: Partial<GameStateMetadata> = { difficulty: 'beginner' };
 
   const defaultProps = {
     initial: INITIAL,

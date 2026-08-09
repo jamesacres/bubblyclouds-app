@@ -8,7 +8,8 @@ import {
   ReactNode,
 } from 'react';
 import { UnblockCollectionOfTheMonth } from '../types/serverTypes';
-import { getCollectionOfTheMonth } from '../helpers/mockData';
+import { useUnblockServerStorage } from '../hooks/useUnblockServerStorage';
+import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 
 interface CollectionContextType {
   collectionData: UnblockCollectionOfTheMonth | null;
@@ -22,7 +23,14 @@ const CollectionContext = createContext<CollectionContextType | null>(null);
 
 interface CollectionProviderProps {
   children: ReactNode;
+  app: string;
+  apiUrl: string;
 }
+
+// Bump this when the cached shape changes incompatibly (e.g. the puzzle
+// difficulty vocabulary) so old localStorage entries are treated as a cache
+// miss and refetched, instead of serving stale/unrecognized values forever.
+const CACHE_VERSION = 2;
 
 // Helper to get current month key for caching
 const getCurrentMonthKey = (): string => {
@@ -34,7 +42,7 @@ const getCurrentMonthKey = (): string => {
     }
   );
   const currentYear = new Date().getFullYear();
-  return `unblock_collection_${currentYear}_${currentMonth}`;
+  return `unblock_collection_v${CACHE_VERSION}_${currentYear}_${currentMonth}`;
 };
 
 // Helper to load collection data from localStorage
@@ -81,7 +89,7 @@ const saveCachedCollectionData = (data: UnblockCollectionOfTheMonth): void => {
     ];
 
     allMonths.forEach((month) => {
-      const oldKey = `unblock_collection_${currentYear}_${month}`;
+      const oldKey = `unblock_collection_v${CACHE_VERSION}_${currentYear}_${month}`;
       if (oldKey !== monthKey && localStorage.getItem(oldKey)) {
         localStorage.removeItem(oldKey);
       }
@@ -89,21 +97,38 @@ const saveCachedCollectionData = (data: UnblockCollectionOfTheMonth): void => {
 
     // Also clean up previous year's data
     allMonths.forEach((month) => {
-      const oldYearKey = `unblock_collection_${currentYear - 1}_${month}`;
+      const oldYearKey = `unblock_collection_v${CACHE_VERSION}_${currentYear - 1}_${month}`;
       if (localStorage.getItem(oldYearKey)) {
         localStorage.removeItem(oldYearKey);
       }
+    });
+
+    // Clean up the original, unversioned cache keys (pre-v2, when the
+    // puzzle difficulty vocabulary changed) — they'd otherwise sit unused
+    // forever since they no longer match getCurrentMonthKey.
+    allMonths.forEach((month) => {
+      localStorage.removeItem(`unblock_collection_${currentYear}_${month}`);
+      localStorage.removeItem(`unblock_collection_${currentYear - 1}_${month}`);
     });
   } catch (err) {
     console.warn('Failed to save cached collection data:', err);
   }
 };
 
-export const CollectionProvider = ({ children }: CollectionProviderProps) => {
+export const CollectionProvider = ({
+  children,
+  app,
+  apiUrl,
+}: CollectionProviderProps) => {
   const [collectionData, setCollectionData] =
     useState<UnblockCollectionOfTheMonth | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { getUnblockRaceCollectionOfTheMonth } = useUnblockServerStorage({
+    app,
+    apiUrl,
+  });
+  const { isOnline } = useOnline();
 
   const fetchCollectionData = useCallback(async () => {
     // If data already exists or currently loading, don't fetch again
@@ -122,18 +147,24 @@ export const CollectionProvider = ({ children }: CollectionProviderProps) => {
     setError(null);
 
     try {
-      // Mock puzzle-content source (SPEC.md §8): deterministic monthly pick
-      // from the seed fixture until the real collections API exists.
-      const result = getCollectionOfTheMonth();
-      setCollectionData(result);
-      saveCachedCollectionData(result);
+      const result = await getUnblockRaceCollectionOfTheMonth();
+      if (result) {
+        setCollectionData(result);
+        saveCachedCollectionData(result);
+      } else {
+        if (!isOnline) {
+          setError('You are offline, please check your connection');
+        } else {
+          setError('Failed to load puzzle collection');
+        }
+      }
     } catch (err) {
       console.error(err);
       setError('Failed to load puzzle collection');
     } finally {
       setIsLoading(false);
     }
-  }, [collectionData, isLoading]);
+  }, [collectionData, isLoading, getUnblockRaceCollectionOfTheMonth, isOnline]);
 
   const clearCollectionData = useCallback(() => {
     setCollectionData(null);

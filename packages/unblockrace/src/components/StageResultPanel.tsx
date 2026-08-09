@@ -27,8 +27,8 @@ interface StageResultPanelProps {
   // True once the final stage is solved — promotes the panel to a run-level
   // summary (SPEC.md §7's run total alongside the per-stage lines).
   runComplete: boolean;
-  // Daily #N label, only meaningful for the daily challenge (SPEC.md §7).
-  dailyNumber?: number;
+  // "Daily · Aug 8" label, only meaningful for the daily challenge (SPEC.md §7).
+  dailyLabel?: string;
   collectionPuzzleLabel?: string;
 }
 
@@ -45,7 +45,7 @@ const StageResultPanel = ({
   isTransitioning,
   opponentDeltaSeconds,
   runComplete,
-  dailyNumber,
+  dailyLabel,
   collectionPuzzleLabel,
 }: StageResultPanelProps) => {
   const stageCount = stages.length;
@@ -85,7 +85,7 @@ const StageResultPanel = ({
               />
             )}
             {runComplete ? 'Run complete' : 'Race progress'}
-            {dailyNumber !== undefined && ` · Daily #${dailyNumber}`}
+            {dailyLabel && ` · ${dailyLabel}`}
             {collectionPuzzleLabel && ` · ${collectionPuzzleLabel}`}
           </h2>
           {stageCount > 1 && (
@@ -235,8 +235,7 @@ const StageResultPanel = ({
                       data-testid={`stage-difficulty-${i}`}
                       className={`whitespace-nowrap rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
                     >
-                      {difficulty.shortLabel}
-                      <span className="sr-only">{` (${difficulty.label})`}</span>
+                      {difficulty.label}
                     </span>
                     <span className="whitespace-nowrap text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
                       par {stage.movesRequired}

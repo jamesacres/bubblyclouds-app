@@ -21,7 +21,6 @@ import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueC
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
-import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { calculateSessionScore } from '@bubblyclouds-app/games/helpers/scoringUtils';
 import { SCORING_CONFIG } from '@bubblyclouds-app/games/helpers/scoringConfig';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
@@ -42,9 +41,12 @@ import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { solvedBoardString } from '../helpers/boardToString';
 import { difficultyForMoves } from '../helpers/difficulty';
-import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
+import {
+  unblockDifficultyDisplay,
+  getUnblockDifficultyDisplay,
+} from '../helpers/difficultyDisplay';
 import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
-import { getDailyNumber } from '../helpers/mockData';
+import { getDailyLabel } from '../helpers/dailyLabel';
 import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import { starRatingForMoves } from '../helpers/starRating';
 import { isCollectionPuzzleIdLocked } from '../helpers/collectionLocks';
@@ -65,7 +67,6 @@ import {
 import { AgentRunInput, calculateRunResults } from '../helpers/runResults';
 import NextPuzzlePanel from './NextPuzzlePanel';
 import CompletionSummary from './CompletionSummary';
-import PuzzleGate from './PuzzleGate';
 import ConfirmDialog from './ConfirmDialog';
 import Board from './Board';
 import Controls from './Controls';
@@ -125,7 +126,7 @@ const UnblockRace = ({
   const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
   const { sessions } = useSessions<GameState>();
-  const { collectionData } = useCollection();
+  const { collectionData, fetchCollectionData } = useCollection();
 
   const { stages } = run;
   // The board string doubles as the run id when none was minted (§4: the
@@ -497,24 +498,54 @@ const UnblockRace = ({
   // of a difficulty band): seal the board behind a gate so no countdown ever
   // starts. Only collection runs carry an unblockCollectionPuzzleId, and an
   // already-completed puzzle stays playable (they earned it).
+  //
+  // Whether a given puzzle is locked can't be known until collectionData has
+  // loaded (fetched async above), so isPendingLockCheck holds the puzzle in
+  // the same disabled/timer-paused state as a confirmed lock for that
+  // window — otherwise the board would be briefly playable and the timer
+  // would briefly run before flipping to locked once the fetch resolves.
+  const isPendingLockCheck =
+    !isSubscribed &&
+    !completed &&
+    !alreadyCompleted &&
+    !!metadata.unblockCollectionPuzzleId &&
+    !collectionData;
   const isLockedCollectionPuzzle =
     !isSubscribed &&
     !completed &&
     !alreadyCompleted &&
     !!metadata.unblockCollectionPuzzleId &&
-    isCollectionPuzzleIdLocked(metadata.unblockCollectionPuzzleId);
-
-  const handleUnlockCollection = useCallback(() => {
-    subscribeModal?.showModalIfRequired(
-      () => {},
-      () => {},
-      SubscriptionContext.COLLECTION_LOCKED
+    isCollectionPuzzleIdLocked(
+      metadata.unblockCollectionPuzzleId,
+      collectionData?.puzzles || []
     );
-  }, [subscribeModal]);
+  const isBoardGated = isPendingLockCheck || isLockedCollectionPuzzle;
 
   const handleBackToCollection = useCallback(() => {
     router.replace('/collection');
   }, [router]);
+
+  // A locked deep-link never gets its own paywall copy: it opens the same
+  // Plus modal the collection grid uses for a locked puzzle (SubscriptionContext
+  // .COLLECTION_LOCKED already carries that messaging), so there's one place
+  // that explains Plus instead of two. Backing out of the modal returns to
+  // the collection rather than leaving the player stranded on a sealed board.
+  //
+  // hasOpenedLockModalRef guards against re-opening: subscribeModal is a new
+  // object every RevenueCatProvider render (including the one its own
+  // showModalIfRequired triggers), so depending on it directly would re-run
+  // this effect and reopen the modal in an infinite loop.
+  const hasOpenedLockModalRef = useRef(false);
+  useEffect(() => {
+    if (isLockedCollectionPuzzle && !hasOpenedLockModalRef.current) {
+      hasOpenedLockModalRef.current = true;
+      subscribeModal?.showModalIfRequired(
+        () => {},
+        handleBackToCollection,
+        SubscriptionContext.COLLECTION_LOCKED
+      );
+    }
+  }, [isLockedCollectionPuzzle, subscribeModal, handleBackToCollection]);
 
   const friendsOnClick = useCallback(() => {
     setShowLobby((prev) => !prev);
@@ -524,13 +555,23 @@ const UnblockRace = ({
     [setShowLobby]
   );
 
+  // A gated puzzle (see isBoardGated below) must never start a countdown:
+  // shouldPause freezes it immediately via isBoardGated, so a countdown
+  // started here would get stuck mid-count as a full-screen overlay,
+  // permanently hiding the Plus modal underneath. Dismiss the lobby without
+  // starting a session so the modal (triggered separately once the lock is
+  // confirmed) is visible instead.
   const handleStartRace = useCallback(() => {
+    if (isBoardGated) {
+      setHasManuallySelectedMode(true);
+      return;
+    }
     if (!raceStarted) {
       setTimerNewSession();
     }
     setRaceStarted(true);
     setHasManuallySelectedMode(true);
-  }, [setTimerNewSession, raceStarted]);
+  }, [setTimerNewSession, raceStarted, isBoardGated]);
 
   const handleInviteFriends = useCallback(() => {
     setShowLobby(true);
@@ -759,6 +800,18 @@ const UnblockRace = ({
   const isCollectionPuzzle = !!metadata.unblockCollectionPuzzleId;
   const isDailyRun = runId.startsWith('oftheday-');
 
+  // The continue-to-next-puzzle flow and the collection-puzzle lock gate
+  // both need collectionData, but nothing else on this page fetches it —
+  // only the collection list page does. Landing here directly (a daily-run
+  // "continue" hop, a deep link, a fresh page load) would otherwise leave
+  // collectionData null forever, silently breaking "continue" with no
+  // navigation and no error.
+  useEffect(() => {
+    if (isCollectionPuzzle || isDailyRun) {
+      fetchCollectionData();
+    }
+  }, [isCollectionPuzzle, isDailyRun, fetchCollectionData]);
+
   // The result that stays put once the transient celebration fades — the
   // slam and the RaceCelebration both clear themselves, so without this a
   // finished puzzle (especially a single-stage collection puzzle) would leave
@@ -779,7 +832,7 @@ const UnblockRace = ({
         movesMade: runTotals.moves,
         movesRequired: runTotalPar,
         points: runPoints,
-        label: isDailyRun ? `Daily #${getDailyNumber()}` : undefined,
+        label: isDailyRun ? getDailyLabel() : undefined,
       };
     }
     const result = completedStages.get(currentStageIndex);
@@ -924,7 +977,7 @@ const UnblockRace = ({
       showLobby ||
       showAppDownload ||
       !!transition ||
-      isLockedCollectionPuzzle;
+      isBoardGated;
 
     setPauseTimer(shouldPause);
 
@@ -942,7 +995,7 @@ const UnblockRace = ({
     showLobby,
     showAppDownload,
     transition,
-    isLockedCollectionPuzzle,
+    isBoardGated,
     setPauseTimer,
   ]);
 
@@ -960,9 +1013,20 @@ const UnblockRace = ({
     [initial, final]
   );
 
-  const puzzleDifficultyDisplay = useMemo(
-    () => getDifficultyDisplay(difficultyForMoves(stage.movesRequired)),
+  // difficultyForMoves always returns a current-vocabulary id, so this is
+  // always defined; the undefined case only arises for stale ids from old
+  // sessions (see getUnblockDifficultyDisplay).
+  const puzzleDifficulty = useMemo(
+    () => difficultyForMoves(stage.movesRequired),
     [stage.movesRequired]
+  );
+  const puzzleDifficultyDisplay = useMemo(
+    () =>
+      getUnblockDifficultyDisplay(puzzleDifficulty) || {
+        name: unblockDifficultyDisplay(puzzleDifficulty).label,
+        badgeColor: 'bg-stone-500 text-white',
+      },
+    [puzzleDifficulty]
   );
 
   const redirectUri = useMemo(
@@ -1311,24 +1375,8 @@ const UnblockRace = ({
                     boardString={answer}
                     initialBoardString={initial}
                     onMove={pushMove}
-                    isDisabled={
-                      !!completed || showLobby || isLockedCollectionPuzzle
-                    }
+                    isDisabled={!!completed || showLobby || isBoardGated}
                     hint={hint}
-                  />
-                )}
-
-                {/* Locked deep-link gate: a free user landing on a locked
-                    collection puzzle sees the board sealed behind a paywall
-                    gate — the timer is already frozen by shouldPause. */}
-                {isLockedCollectionPuzzle && (
-                  <PuzzleGate
-                    title="Plus puzzle"
-                    body="This puzzle is part of the Plus collection. Unlock every puzzle in every month's pack — and keep the whole app ad free — with Plus."
-                    primaryLabel="Unlock with Plus"
-                    onPrimary={handleUnlockCollection}
-                    secondaryLabel="Back to collection"
-                    onSecondary={handleBackToCollection}
                   />
                 )}
 
@@ -1573,7 +1621,7 @@ const UnblockRace = ({
                   isTransitioning={!!transition}
                   opponentDeltaSeconds={opponentDeltaSeconds}
                   runComplete={isFinalStage && !!completed}
-                  dailyNumber={isDailyRun ? getDailyNumber() : undefined}
+                  dailyLabel={isDailyRun ? getDailyLabel() : undefined}
                   collectionPuzzleLabel={
                     metadata.unblockCollectionPuzzleId
                       ? `Collection puzzle ${metadata.unblockCollectionPuzzleId.split('-').pop()}`

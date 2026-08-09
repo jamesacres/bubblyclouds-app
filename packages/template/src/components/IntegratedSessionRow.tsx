@@ -158,10 +158,12 @@ interface IntegratedSessionRowProps<
     sudokuBookId: string;
   };
   // Helper functions for displaying difficulty and techniques (required when bookPuzzle is provided)
-  getDifficultyDisplay?: (difficulty: string) => {
-    name: string;
-    badgeColor: string;
-  };
+  getDifficultyDisplay?: (difficulty: string) =>
+    | {
+        name: string;
+        badgeColor: string;
+      }
+    | undefined;
   getTechniquesDisplay?: (techniques?: Techniques) => Array<{
     name: string;
     count: number;
@@ -347,11 +349,12 @@ export const IntegratedSessionRow = <
   // Extract metadata information
   const metadataInfo = extractMetadataInfo(metadata);
 
-  // Get difficulty information
+  // Get difficulty information. getDifficultyDisplay returns undefined for
+  // ids outside its current vocabulary (e.g. a pre-rename difficulty id
+  // still on an old session), so stale data doesn't surface as a raw-id badge.
   const difficultyInfo = (() => {
-    // Use metadata difficulty
     if (metadataInfo?.difficulty && getDifficultyDisplay) {
-      return getDifficultyDisplay(metadataInfo.difficulty);
+      return getDifficultyDisplay(metadataInfo.difficulty) || null;
     }
     return null;
   })();

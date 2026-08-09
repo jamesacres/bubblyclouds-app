@@ -11,7 +11,7 @@ import {
   getAllAgentProgress,
 } from './agentProgress';
 
-// Fixture from src/mockData/puzzles.json (movesRequired 4): the primary piece
+// Fixture from src/fixtures/puzzles.json (movesRequired 4): the primary piece
 // starts at column 0, so the distance fallback reads 0% before any move.
 const INITIAL = 'FBBCCoFoGoooAAGooooDDooooEEooooooooo';
 const FINAL = solvedBoardString(INITIAL);
