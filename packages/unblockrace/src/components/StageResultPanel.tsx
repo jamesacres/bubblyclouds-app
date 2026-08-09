@@ -1,6 +1,7 @@
 'use client';
 
-import { Car, Check, Flag, Target, Trophy } from 'lucide-react';
+import { memo } from 'react';
+import { Car, Check, Flag, RotateCcw, Target, Trophy } from 'lucide-react';
 import { RunStage, StageResult } from '../helpers/stageResults';
 import { difficultyForMoves } from '../helpers/difficulty';
 import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
@@ -30,6 +31,10 @@ interface StageResultPanelProps {
   // "Daily · Aug 8" label, only meaningful for the daily challenge (SPEC.md §7).
   dailyLabel?: string;
   collectionPuzzleLabel?: string;
+  // Retry the current stage — only shown once it has a result (the HUD's
+  // Reset button is disabled by then, so this is the only way to redo it).
+  onRetry: () => void;
+  isRetryDisabled: boolean;
 }
 
 // Inline run panel (SPEC.md §7), replacing the old modal: a stepper of every
@@ -37,7 +42,9 @@ interface StageResultPanelProps {
 // click-to-navigate link into that stage (SPEC.md §1) — with its per-stage
 // time/moves, plus the run total once every stage is done. Everything here is
 // already produced by useGameState by the time a stage completes.
-const StageResultPanel = ({
+// Memoized so the parent's 1s race timer tick doesn't re-render this panel —
+// none of its props are timer-driven.
+const StageResultPanel = memo(function StageResultPanel({
   results,
   stages,
   currentStageIndex,
@@ -47,8 +54,11 @@ const StageResultPanel = ({
   runComplete,
   dailyLabel,
   collectionPuzzleLabel,
-}: StageResultPanelProps) => {
+  onRetry,
+  isRetryDisabled,
+}: StageResultPanelProps) {
   const stageCount = stages.length;
+  const canRetryCurrentStage = results.has(currentStageIndex);
 
   // The panel now carries the stage previews too, so it stays visible for the
   // whole run — the thumbnails show what's coming up before any stage is done.
@@ -65,13 +75,30 @@ const StageResultPanel = ({
     0
   );
 
+  // Adjacent upcoming stages (no result yet) sharing the same difficulty get
+  // one merged chip spanning both columns instead of two touching pills of
+  // the same colour, which otherwise read as a single overlapping shape.
+  // A stage only merges with its immediate predecessor — a run of 3+ same
+  // difficulty stages becomes one chip spanning all of them.
+  const difficultyLabels = stages.map(
+    (stage) =>
+      unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired)).label
+  );
+  const mergesWithPrevious = stages.map(
+    (_, i) =>
+      i > 0 &&
+      !results.has(i) &&
+      !results.has(i - 1) &&
+      difficultyLabels[i] === difficultyLabels[i - 1]
+  );
+
   return (
-    <div className="ml-auto mr-auto max-w-xl px-4 pb-3 lg:mr-0">
+    <div className="pb-3">
       <div
         data-testid="stage-result-panel"
         className="rounded-2xl border border-stone-200/70 bg-white/70 p-4 backdrop-blur dark:border-white/10 dark:bg-zinc-900/60"
       >
-        <div className="mb-1 flex items-baseline justify-between">
+        <div className="mb-1 flex items-baseline justify-between gap-2">
           <h2 className="flex items-center gap-1.5 text-sm font-black tracking-tight text-stone-900 dark:text-white">
             {runComplete ? (
               <Trophy
@@ -89,11 +116,26 @@ const StageResultPanel = ({
             {collectionPuzzleLabel && ` · ${collectionPuzzleLabel}`}
           </h2>
           {stageCount > 1 && (
-            <span className="text-xs font-semibold text-stone-400 dark:text-zinc-500">
+            <span className="shrink-0 text-xs font-semibold text-stone-400 dark:text-zinc-500">
               {results.size}/{stageCount} stages
             </span>
           )}
         </div>
+
+        {canRetryCurrentStage && (
+          <div className="mb-1 flex justify-end">
+            <button
+              type="button"
+              data-testid="retry-stage-button"
+              onClick={onRetry}
+              disabled={isRetryDisabled}
+              className="flex cursor-pointer items-center gap-1 rounded-lg px-1.5 py-0.5 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
+            >
+              <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
+              Retry stage
+            </button>
+          </div>
+        )}
 
         {/* Run progress bar */}
         {stageCount > 1 && (
@@ -136,6 +178,16 @@ const StageResultPanel = ({
             const difficulty = unblockDifficultyDisplay(
               difficultyForMoves(stage.movesRequired)
             );
+            // This stage's own pill is folded into the previous stage's
+            // fused group (label suppressed); this stage instead starts a
+            // fused group if the next stage folds into it, in which case its
+            // label needs to centre across every column the group spans.
+            const isMergedAway = mergesWithPrevious[i];
+            const startsMergedGroup = mergesWithPrevious[i + 1];
+            let mergedGroupSize = 1;
+            while (mergesWithPrevious[i + mergedGroupSize]) {
+              mergedGroupSize++;
+            }
             return (
               <li
                 key={stage.boardString}
@@ -204,43 +256,63 @@ const StageResultPanel = ({
                     )}
                   </span>
                 </button>
-                {/* Two stacked lines per stage — a chip plus a plain caption
-                    — so nothing ever wraps mid-pill in the narrow columns. A
-                    finished stage's chip is its moves-vs-par (that's what the
-                    colour grades) with the time as the caption; an upcoming
-                    stage's chip is its difficulty with the par as the
-                    caption. */}
-                {result ? (
-                  <>
+                {/* Two stacked lines per stage — a difficulty pill on top,
+                    the result-dependent caption beneath it. Each pill stays
+                    in normal flow (its own column's height/position never
+                    moves), but adjacent same-difficulty pills fuse into one
+                    shape: the label only renders on the first of the group,
+                    the touching inner corners square off, and a negative
+                    margin on the trailing pill bridges the strip's gap. */}
+                <span
+                  data-testid={`stage-difficulty-${i}`}
+                  className={`relative flex h-[1.15rem] w-full items-center justify-center whitespace-nowrap px-1.5 text-center text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass} ${
+                    isMergedAway ? '-ml-1.5 rounded-l-none' : 'rounded-l-full'
+                  } ${startsMergedGroup ? 'rounded-r-none' : 'rounded-r-full'}`}
+                  style={
+                    isMergedAway
+                      ? { width: 'calc(100% + 0.375rem)' }
+                      : undefined
+                  }
+                >
+                  {/* The label centres across every column the fused group
+                      spans, not just this first pill's own column, via an
+                      overlay sized to the group's total width. */}
+                  {!isMergedAway && (
                     <span
-                      data-testid={`stage-par-${i}`}
-                      className={`whitespace-nowrap rounded-full px-1.5 py-0.5 font-mono text-[0.65rem] font-semibold tabular-nums ${
-                        isOverPar
-                          ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
-                          : isUnderPar
-                            ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
-                            : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
-                      }`}
-                    >
-                      {result.movesMade}/{result.movesRequired}
-                      <span className="sr-only"> moves</span>
-                    </span>
-                    <span className="whitespace-nowrap font-mono text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
-                      {formatSecondsShort(result.seconds)}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span
-                      data-testid={`stage-difficulty-${i}`}
-                      className={`whitespace-nowrap rounded-full px-1.5 py-0.5 text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+                      className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
+                      style={
+                        mergedGroupSize > 1
+                          ? {
+                              width: `calc(${mergedGroupSize * 100}% + ${
+                                (mergedGroupSize - 1) * 0.375
+                              }rem)`,
+                            }
+                          : undefined
+                      }
                     >
                       {difficulty.label}
                     </span>
-                    <span className="whitespace-nowrap text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
-                      par {stage.movesRequired}
-                    </span>
-                  </>
+                  )}
+                </span>
+                {result ? (
+                  <span
+                    data-testid={`stage-par-${i}`}
+                    className={`whitespace-nowrap rounded-full px-1.5 py-0.5 font-mono text-[0.6rem] font-semibold tabular-nums ${
+                      isOverPar
+                        ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
+                        : isUnderPar
+                          ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                          : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
+                    }`}
+                  >
+                    {result.movesMade}/{result.movesRequired}
+                    <span className="sr-only"> moves ·</span>{' '}
+                    {formatSecondsShort(result.seconds)}
+                  </span>
+                ) : (
+                  <span className="whitespace-nowrap text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
+                    par {stage.movesRequired}
+                  </span>
                 )}
               </li>
             );
@@ -293,6 +365,6 @@ const StageResultPanel = ({
       </div>
     </div>
   );
-};
+});
 
 export default StageResultPanel;

@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, ChevronRight, RotateCcw, X } from 'lucide-react';
+import { ChevronRight, X } from 'lucide-react';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import AuthGate from '@bubblyclouds-app/template/components/AuthGate';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
@@ -75,6 +75,7 @@ import RaceHud from './RaceHud';
 import RaceTimer from './RaceTimer';
 import SimpleBoard from './SimpleBoard';
 import StageResultPanel from './StageResultPanel';
+import StageTopBar from './StageTopBar';
 import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
 import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
 import StageTransition from './StageTransition';
@@ -1042,6 +1043,20 @@ const UnblockRace = ({
   // The current user's live state for the race track, with the live move
   // count in metadata — the same shape opponents' synced sessions have, so
   // one state-based calculation covers both.
+  const rateApp = useMemo(
+    () => ({ appName, appStoreUrl, googlePlayUrl }),
+    [appName, appStoreUrl, googlePlayUrl]
+  );
+
+  const raceTrackSecondaryCta = useMemo(
+    () => ({
+      href: '/collection' as const,
+      label: 'Collection',
+      icon: 'collection' as const,
+    }),
+    []
+  );
+
   const raceTrackState = useMemo<ServerState>(
     () => ({
       initial,
@@ -1081,8 +1096,9 @@ const UnblockRace = ({
     return fastestFriendSeconds - completed.seconds;
   }, [completed, sessionParties, user?.sub]);
 
-  const stageDifficulty = unblockDifficultyDisplay(
-    difficultyForMoves(stage.movesRequired)
+  const stageDifficulty = useMemo(
+    () => unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired)),
+    [stage.movesRequired]
   );
 
   const completedStageIndexes = useMemo(
@@ -1253,53 +1269,35 @@ const UnblockRace = ({
         <div className="mx-auto w-full max-w-xl px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              {/* Compact nav row: only rendered when there's actually
-                  something to do here — jumping back a stage (multi-stage
-                  runs) or retrying a stage that's been played/finished — so it
-                  never floats as an out-of-place button above a fresh board.
-                  Ghost-styled and small so it reads as secondary chrome
-                  tucked above the HUD, not a primary action. */}
-              {(currentStageIndex > 0 ||
-                movesMade > 0 ||
-                !!completed ||
-                completedStages.has(currentStageIndex)) && (
-                <div
-                  data-testid="stage-top-bar"
-                  className="mb-1.5 flex items-center justify-between gap-2"
-                >
-                  <div className="flex items-center gap-2">
-                    {currentStageIndex > 0 && (
-                      <button
-                        type="button"
-                        data-testid="previous-stage-button"
-                        onClick={handlePreviousStage}
-                        disabled={!!transition}
-                        className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
-                      >
-                        <ChevronLeft
-                          className="h-3.5 w-3.5"
-                          aria-hidden="true"
-                        />
-                        Previous
-                      </button>
-                    )}
-                  </div>
-                  {(movesMade > 0 ||
-                    !!completed ||
-                    completedStages.has(currentStageIndex)) && (
-                    <button
-                      type="button"
-                      data-testid="retry-stage-button"
-                      onClick={handleRetryClick}
-                      disabled={!!transition}
-                      className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
-                    >
-                      <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
-                      Retry stage
-                    </button>
-                  )}
-                </div>
+              {/* Race progress (stage pips + per-stage stats) sits at the
+                  top of the column, above the HUD and board, so it's the
+                  first thing in view whether you're mid-run or just landed
+                  on a finished stage. */}
+              {stages.length > 1 && (
+                <StageResultPanel
+                  results={completedStages}
+                  stages={stages}
+                  currentStageIndex={currentStageIndex}
+                  goToStage={goToStage}
+                  isTransitioning={!!transition}
+                  opponentDeltaSeconds={opponentDeltaSeconds}
+                  runComplete={isFinalStage && !!completed}
+                  dailyLabel={isDailyRun ? getDailyLabel() : undefined}
+                  collectionPuzzleLabel={
+                    metadata.unblockCollectionPuzzleId
+                      ? `Collection puzzle ${metadata.unblockCollectionPuzzleId.split('-').pop()}`
+                      : undefined
+                  }
+                  onRetry={handleRetryClick}
+                  isRetryDisabled={!!transition}
+                />
               )}
+
+              <StageTopBar
+                showPrevious={currentStageIndex > 0}
+                isDisabled={!!transition}
+                onPrevious={handlePreviousStage}
+              />
 
               {/* One HUD card: race status on the top row, move gauge and
                   toolbar on the bottom, so the chrome above the board reads
@@ -1313,25 +1311,28 @@ const UnblockRace = ({
                   difficulty={stageDifficulty}
                 />
 
-                <Controls
-                  undo={undo}
-                  redo={redo}
-                  reset={handleResetClick}
-                  isUndoDisabled={!!completed || isUndoDisabled}
-                  isRedoDisabled={!!completed || isRedoDisabled}
-                  isDisabled={!!completed}
-                  onHint={handleHint}
-                  isHintDisabled={!!completed || !!transition || showLobby}
-                  movesMade={movesMade}
-                  movesRequired={stage.movesRequired}
-                  timer={
-                    <RaceTimer
-                      seconds={calculateSeconds(timer)}
-                      countdown={timer?.countdown}
-                      isComplete={!!completed}
-                    />
-                  }
-                />
+                <div className="flex w-full items-center gap-4 px-3 pb-2.5 pt-1">
+                  {/* Rendered as Controls's sibling, not its prop, so the
+                      1s tick that re-renders this clock never re-runs
+                      Controls's own body (moves gauge, undo/redo, hint). */}
+                  <RaceTimer
+                    seconds={calculateSeconds(timer)}
+                    countdown={timer?.countdown}
+                    isComplete={!!completed}
+                  />
+                  <Controls
+                    undo={undo}
+                    redo={redo}
+                    reset={handleResetClick}
+                    isUndoDisabled={!!completed || isUndoDisabled}
+                    isRedoDisabled={!!completed || isRedoDisabled}
+                    isDisabled={!!completed}
+                    onHint={handleHint}
+                    isHintDisabled={!!completed || !!transition || showLobby}
+                    movesMade={movesMade}
+                    movesRequired={stage.movesRequired}
+                  />
+                </div>
               </div>
 
               {/* Hint verdict row: the same amber the move gauge flips to
@@ -1590,6 +1591,10 @@ const UnblockRace = ({
                   movesRequired={completionSummary.movesRequired}
                   points={completionSummary.points}
                   label={completionSummary.label}
+                  // Multi-stage runs get retry from StageResultPanel's
+                  // header instead — this covers single-stage puzzles,
+                  // which have no stage panel to host it.
+                  onRetry={stages.length <= 1 ? handleRetryClick : undefined}
                 />
               )}
 
@@ -1608,28 +1613,6 @@ const UnblockRace = ({
                   />
                 )}
 
-              {/* Race progress (stage pips + per-stage stats) sits directly
-                  under the board so it stays in view on the win screen — it
-                  used to be pushed below the tall race track and lost off the
-                  bottom of the page. */}
-              {stages.length > 1 && (
-                <StageResultPanel
-                  results={completedStages}
-                  stages={stages}
-                  currentStageIndex={currentStageIndex}
-                  goToStage={goToStage}
-                  isTransitioning={!!transition}
-                  opponentDeltaSeconds={opponentDeltaSeconds}
-                  runComplete={isFinalStage && !!completed}
-                  dailyLabel={isDailyRun ? getDailyLabel() : undefined}
-                  collectionPuzzleLabel={
-                    metadata.unblockCollectionPuzzleId
-                      ? `Collection puzzle ${metadata.unblockCollectionPuzzleId.split('-').pop()}`
-                      : undefined
-                  }
-                />
-              )}
-
               <RaceTrack
                 sessionParties={sessionParties}
                 state={raceTrackState}
@@ -1645,12 +1628,8 @@ const UnblockRace = ({
                 onInviteFriends={handleInviteFriends}
                 runResults={runResults}
                 localAgentProgress={localAgentProgress}
-                rateApp={{ appName, appStoreUrl, googlePlayUrl }}
-                secondaryCta={{
-                  href: '/collection',
-                  label: 'Collection',
-                  icon: 'collection',
-                }}
+                rateApp={rateApp}
+                secondaryCta={raceTrackSecondaryCta}
                 formatFinishTime={formatSecondsShort}
               />
             </div>

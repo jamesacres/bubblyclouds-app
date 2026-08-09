@@ -155,6 +155,12 @@ function useGameState({
     );
     return initialSessionParties || {};
   });
+
+  // Reference to sessionParties to read inside the polling effect without
+  // tearing down and recreating the interval on every successful poll
+  const sessionPartiesRef = useRef(sessionParties);
+  sessionPartiesRef.current = sessionParties;
+
   // Parties per stage of the whole run, keyed by stage puzzle id. Unlike
   // sessionParties this accumulates across stage changes, so the run
   // leaderboard can show every player's time on every stage.
@@ -545,7 +551,7 @@ function useGameState({
         timeSinceLastSave >= 30000 &&
         timeSinceLastSave < 60000 * 30 &&
         (completed || timeSinceLastInteraction < INACTIVITY_MS) &&
-        Object.values(sessionParties).find(
+        Object.values(sessionPartiesRef.current).find(
           (party) =>
             party &&
             Object.values(party.memberSessions).find(
@@ -590,7 +596,6 @@ function useGameState({
     isPaused,
     isDocumentVisible,
     hasSessionParties,
-    sessionParties,
     user,
     completed,
   ]);

@@ -1,5 +1,6 @@
 'use client';
 
+import { RotateCcw } from 'lucide-react';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { formatSecondsShort } from '../helpers/formatSecondsShort';
 
@@ -13,6 +14,11 @@ interface CompletionSummaryProps {
   points?: number;
   // "Daily · Aug 8" / "Collection puzzle 4" — what was just finished.
   label?: string;
+  // Single-stage runs have no StageResultPanel to host the retry option
+  // (that panel only renders for multi-stage runs), so this is the only
+  // place a finished single-stage puzzle can be retried — the HUD's Reset
+  // button is disabled once completed.
+  onRetry?: () => void;
 }
 
 // The result that stays put once the finish celebration has faded. The
@@ -27,6 +33,7 @@ const CompletionSummary = ({
   movesRequired,
   points,
   label,
+  onRetry,
 }: CompletionSummaryProps) => {
   const delta = movesMade - movesRequired;
 
@@ -39,6 +46,17 @@ const CompletionSummary = ({
         <span className="text-[0.65rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
           {label} · complete
         </span>
+      )}
+      {onRetry && (
+        <button
+          type="button"
+          data-testid="retry-stage-button"
+          onClick={onRetry}
+          className="flex cursor-pointer items-center gap-1 rounded-lg px-1.5 py-0.5 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
+        >
+          <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
+          Retry
+        </button>
       )}
       <StarRating rating={stars} size="lg" />
       <div className="mt-1 flex items-stretch gap-2">

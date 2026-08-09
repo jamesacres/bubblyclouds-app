@@ -741,7 +741,33 @@ describe('UnblockRace', () => {
   });
 
   describe('retry and reset confirms', () => {
+    // Retry now lives in StageResultPanel's header and only shows once the
+    // current stage has a result (the HUD's Reset button is disabled by
+    // then), so both stages are completed in storage — that resumes on the
+    // final stage with a result already recorded for it.
     it('retries the current stage after confirming, on a fresh timer session', () => {
+      window.localStorage.setItem(
+        `unblockrace-${STAGE_1}`,
+        JSON.stringify({
+          state: {
+            initial: STAGE_1,
+            answerStack: [solvedBoardString(STAGE_1)],
+            completed: { at: new Date().toISOString(), seconds: 30 },
+            metadata: { movesMade: '2' },
+          },
+        })
+      );
+      window.localStorage.setItem(
+        `unblockrace-${STAGE_2}`,
+        JSON.stringify({
+          state: {
+            initial: STAGE_2,
+            answerStack: [solvedBoardString(STAGE_2)],
+            completed: { at: new Date().toISOString(), seconds: 44 },
+            metadata: { movesMade: '5' },
+          },
+        })
+      );
       const reset = jest.fn();
       const setTimerNewSession = jest.fn();
       mockUseGameState.mockReturnValue({
@@ -763,6 +789,28 @@ describe('UnblockRace', () => {
     });
 
     it('does not retry when the confirm is cancelled', () => {
+      window.localStorage.setItem(
+        `unblockrace-${STAGE_1}`,
+        JSON.stringify({
+          state: {
+            initial: STAGE_1,
+            answerStack: [solvedBoardString(STAGE_1)],
+            completed: { at: new Date().toISOString(), seconds: 30 },
+            metadata: { movesMade: '2' },
+          },
+        })
+      );
+      window.localStorage.setItem(
+        `unblockrace-${STAGE_2}`,
+        JSON.stringify({
+          state: {
+            initial: STAGE_2,
+            answerStack: [solvedBoardString(STAGE_2)],
+            completed: { at: new Date().toISOString(), seconds: 44 },
+            metadata: { movesMade: '5' },
+          },
+        })
+      );
       const reset = jest.fn();
       mockUseGameState.mockReturnValue({
         ...baseGameState,

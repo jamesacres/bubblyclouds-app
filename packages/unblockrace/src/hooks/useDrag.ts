@@ -4,6 +4,7 @@ import {
   PointerEvent as ReactPointerEvent,
   RefObject,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -243,6 +244,18 @@ function useDrag({
     },
     [startSettle]
   );
+
+  // A settle scheduled just before unmount (e.g. a stage transition right
+  // after a move) would otherwise still fire and mutate the detached piece
+  // element / call setDraggingPiece on a gone component.
+  useEffect(() => {
+    return () => {
+      const drag = dragRef.current;
+      if (drag?.settleTimeout !== undefined) {
+        clearTimeout(drag.settleTimeout);
+      }
+    };
+  }, []);
 
   return {
     draggingPiece,

@@ -38,6 +38,8 @@ const renderPanel = (props: Partial<ComponentProps<typeof StageResultPanel>>) =>
       goToStage={jest.fn()}
       isTransitioning={false}
       runComplete={false}
+      onRetry={jest.fn()}
+      isRetryDisabled={false}
       {...props}
     />
   );
@@ -87,6 +89,13 @@ describe('StageResultPanel', () => {
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('4/4');
     // A completed stage ticks off its thumbnail
     expect(screen.getByTestId('stage-preview-0-complete')).toBeInTheDocument();
+    // A completed stage still shows its difficulty pill, not just the result
+    expect(screen.getByTestId('stage-difficulty-0')).toHaveTextContent(
+      'Beginner'
+    );
+    expect(screen.getByTestId('stage-difficulty-0')).not.toHaveClass(
+      'invisible'
+    );
     // Over par gets the amber warning treatment on its par chip
     expect(screen.getByTestId('stage-par-1')).toHaveTextContent('7/5 moves');
     expect(screen.getByTestId('stage-par-1')).toHaveClass('text-amber-600');
@@ -147,5 +156,123 @@ describe('StageResultPanel', () => {
       '10 moves'
     );
     expect(screen.getByText(/Run complete/)).toBeInTheDocument();
+  });
+
+  it('hides the retry button when the current stage has no result yet', () => {
+    renderPanel({
+      stages: stagesOf(3),
+      currentStageIndex: 1,
+      results: results([]),
+    });
+    expect(screen.queryByTestId('retry-stage-button')).not.toBeInTheDocument();
+  });
+
+  it('shows the retry button once the current stage has a result', () => {
+    renderPanel({
+      stages: stagesOf(3),
+      currentStageIndex: 0,
+      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+    });
+    expect(screen.getByTestId('retry-stage-button')).toBeInTheDocument();
+  });
+
+  it('calls onRetry when the retry button is clicked', () => {
+    const onRetry = jest.fn();
+    renderPanel({
+      stages: stagesOf(3),
+      currentStageIndex: 0,
+      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+      onRetry,
+    });
+    fireEvent.click(screen.getByTestId('retry-stage-button'));
+    expect(onRetry).toHaveBeenCalledTimes(1);
+  });
+
+  it('disables the retry button mid-transition', () => {
+    renderPanel({
+      stages: stagesOf(3),
+      currentStageIndex: 0,
+      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+      isRetryDisabled: true,
+    });
+    expect(screen.getByTestId('retry-stage-button')).toBeDisabled();
+  });
+
+  it('merges adjacent upcoming stages that share the same difficulty into one fused pill', () => {
+    // par 17 and par 20 are both "Challenging" (difficultyForMoves), par 5 is
+    // "Beginner" and par 44 is "Expert" — only the middle pair should merge.
+    renderPanel({
+      stages: [
+        { boardString: boardWithPieceAt(0), movesRequired: 5 },
+        { boardString: boardWithPieceAt(1), movesRequired: 17 },
+        { boardString: boardWithPieceAt(2), movesRequired: 20 },
+        { boardString: boardWithPieceAt(3), movesRequired: 44 },
+      ],
+    });
+    expect(screen.getByTestId('stage-difficulty-0')).toHaveTextContent(
+      'Beginner'
+    );
+    // The first of the merged pair keeps the label and squares off its
+    // trailing corner so it reads as fusing into the next pill.
+    expect(screen.getByTestId('stage-difficulty-1')).toHaveTextContent(
+      'Challenging'
+    );
+    expect(screen.getByTestId('stage-difficulty-1')).toHaveClass(
+      'rounded-r-none'
+    );
+    // The second of the merged pair renders no label — its pill is just the
+    // fused colour block, still in normal flow so its own par caption below
+    // never shifts.
+    expect(screen.getByTestId('stage-difficulty-2')).toHaveTextContent('');
+    expect(screen.getByTestId('stage-difficulty-2')).toHaveClass(
+      'rounded-l-none'
+    );
+    expect(screen.getByTestId('stage-difficulty-3')).toHaveTextContent(
+      'Expert'
+    );
+  });
+
+  it('does not merge a stage that already has a result with an upcoming one of the same difficulty', () => {
+    renderPanel({
+      stages: [
+        { boardString: boardWithPieceAt(0), movesRequired: 17 },
+        { boardString: boardWithPieceAt(1), movesRequired: 17 },
+      ],
+      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+    });
+    expect(screen.getByTestId('stage-difficulty-1')).toHaveTextContent(
+      'Challenging'
+    );
+    expect(screen.getByTestId('stage-difficulty-1')).not.toHaveClass(
+      'rounded-l-none'
+    );
+  });
+
+  it('squares off both corners of a middle pill in a run of 3+ same-difficulty stages', () => {
+    renderPanel({
+      stages: [
+        { boardString: boardWithPieceAt(0), movesRequired: 17 },
+        { boardString: boardWithPieceAt(1), movesRequired: 17 },
+        { boardString: boardWithPieceAt(2), movesRequired: 17 },
+      ],
+    });
+    expect(screen.getByTestId('stage-difficulty-0')).toHaveClass(
+      'rounded-r-none'
+    );
+    expect(screen.getByTestId('stage-difficulty-0')).not.toHaveClass(
+      'rounded-l-none'
+    );
+    expect(screen.getByTestId('stage-difficulty-1')).toHaveClass(
+      'rounded-l-none',
+      'rounded-r-none'
+    );
+    expect(screen.getByTestId('stage-difficulty-1')).toHaveTextContent('');
+    expect(screen.getByTestId('stage-difficulty-2')).toHaveClass(
+      'rounded-l-none'
+    );
+    expect(screen.getByTestId('stage-difficulty-2')).not.toHaveClass(
+      'rounded-r-none'
+    );
+    expect(screen.getByTestId('stage-difficulty-2')).toHaveTextContent('');
   });
 });

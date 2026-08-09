@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { memo } from 'react';
 import { Lightbulb, Redo2, RotateCcw, Undo2 } from 'lucide-react';
 
 interface ControlsProps {
@@ -18,9 +18,6 @@ interface ControlsProps {
   // caller doesn't track moves (e.g. standalone renders in tests).
   movesMade?: number;
   movesRequired?: number;
-  // The clock instrument (RaceTimer), rendered as the moves gauge's twin so
-  // the row reads as one instrument cluster.
-  timer?: ReactNode;
 }
 
 const controlButtonBaseClass =
@@ -37,8 +34,14 @@ const resetButtonClass = `${controlButtonBaseClass} hover:text-rose-600 dark:hov
 // fills toward par and flips amber once over — with the undo/redo toolbar
 // and, past a divider, the destructive reset on the right. The par count
 // drives the race percentage, so it lives next to the action instead of
-// buried in the race-track legend.
-const Controls = ({
+// buried in the race-track legend. RaceTimer renders as this component's
+// sibling (see UnblockRace.tsx) rather than a prop, so the 1s tick that
+// re-renders the clock never re-runs this component's body — the "contents"
+// wrapper below keeps its two children flex items of that outer row instead
+// of introducing a nested flex layer.
+// Memoized so re-renders in the parent that don't touch these props (e.g.
+// unrelated dialog state, or the timer tick) skip it entirely.
+const Controls = memo(function Controls({
   undo,
   redo,
   reset,
@@ -49,8 +52,7 @@ const Controls = ({
   isHintDisabled,
   movesMade,
   movesRequired,
-  timer,
-}: ControlsProps) => {
+}: ControlsProps) {
   const showMoves = movesMade !== undefined && movesRequired !== undefined;
   const isOverPar = showMoves && movesMade > movesRequired;
   const parFraction = showMoves
@@ -58,10 +60,7 @@ const Controls = ({
     : 0;
 
   return (
-    <div
-      data-testid="controls-toolbar"
-      className="flex w-full items-center justify-between gap-3 px-3 pb-2.5 pt-1"
-    >
+    <div data-testid="controls-toolbar" className="contents">
       <style>{`
         @keyframes unblock-move-pop {
           0% { transform: scale(1.35); }
@@ -80,7 +79,6 @@ const Controls = ({
         }
       `}</style>
       <div className="flex min-w-0 flex-1 items-center gap-4">
-        {timer}
         {showMoves ? (
           <span
             data-testid="moves-par"
@@ -194,6 +192,6 @@ const Controls = ({
       </div>
     </div>
   );
-};
+});
 
 export default Controls;

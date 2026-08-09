@@ -1,6 +1,6 @@
 'use client';
 
-import { CSSProperties, useMemo, useRef } from 'react';
+import { CSSProperties, memo, useMemo, useRef } from 'react';
 import { Move } from '../types/board';
 import { parseBoardString } from '../helpers/parseBoardString';
 import { pieceRow, pieceStride } from '../helpers/piece';
@@ -33,14 +33,16 @@ interface BoardProps {
 // square aspect-ratio-locked container. Static layout is %-based; the
 // actively-dragged piece moves via translate3d written directly to the DOM
 // node by useDrag.
-const Board = ({
+// Memoized: none of its props tie to the parent's per-second race timer, so
+// without this the whole piece grid re-rendered on every tick.
+const Board = memo(function Board({
   boardString,
   initialBoardString,
   onMove,
   isDisabled,
   isStatic,
   hint,
-}: BoardProps) => {
+}: BoardProps) {
   const boardRef = useRef<HTMLDivElement>(null);
   const board = useMemo(() => parseBoardString(boardString), [boardString]);
   const solved = isSolved(board);
@@ -424,6 +426,6 @@ const Board = ({
       )}
     </div>
   );
-};
+});
 
 export default Board;

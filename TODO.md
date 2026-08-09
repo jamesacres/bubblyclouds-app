@@ -8,7 +8,8 @@ improve puzzle grid stars and time one line, show par on all tiles?
 lobby should show number of moved not just the solved time for those who have completed it and in progress?
 improve ease of going to the next puzzle via button when complete, always show same text?
 fix leaderboard scoring guidance
-fix rerendering on every timer tick
+homepage enjoying rate button wrong width
+save to server when making moves every x seconds in addition to when complete?
 
 - Star rating according to par on the tile, at end animate the stars and the points going up on the leaderboard. Needs to be as addictive as possible to press continue to next puzzle in the monthly collection and the daily stage. On both sudoku and unblock, Need to add rate app button on homepage, below completed puzzle. Premium gate after 3rd stage on the puzzle of the day - unlock remaining stages or try one from the collection. Maybe hint and undo. Leaderboard puzzles per day multiplier to encourage more. Lock off 50% of puzzles per difficulty in the collection when opening one or going to next it allows going back to collection or purchase. getting plus unlocks entire pack each month only 3.99 lifetime or 0.99 one month. Try an easier puzzle from the collection prompt on the 3rd puzzle. Max 5 puzzles per day without plus.
 - Level system
