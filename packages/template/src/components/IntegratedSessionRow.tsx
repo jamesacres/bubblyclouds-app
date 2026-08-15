@@ -662,7 +662,7 @@ export const IntegratedSessionRow = <
                   }) => (
                     <div
                       key={`${session.sessionId}-${userId || 'user'}`}
-                      className={`flex items-center justify-between rounded px-2 py-1 text-xs ${
+                      className={`flex w-full flex-col gap-0.5 rounded px-2 py-1 text-xs ${
                         isWinner
                           ? 'bg-yellow-100/70 text-yellow-900 dark:bg-yellow-950/30 dark:text-yellow-100'
                           : isCurrentUser
@@ -670,92 +670,106 @@ export const IntegratedSessionRow = <
                             : 'bg-blue-100/50 text-blue-900 dark:bg-blue-950/30 dark:text-blue-100'
                       }`}
                     >
-                      <span className="flex items-center gap-1 font-medium">
+                      <span className="flex min-w-0 items-center gap-1 truncate font-medium">
                         {isWinner && (
-                          <Award className="h-3 w-3 text-yellow-600 dark:text-yellow-400" />
+                          <Award className="h-3 w-3 shrink-0 text-yellow-600 dark:text-yellow-400" />
                         )}
-                        {nickname}
+                        <span className="truncate">{nickname}</span>
                       </span>
-                      <div className="flex items-center gap-1">
+                      <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
                         {isCompleted ? (
                           <>
                             <span
-                              className={
+                              className={`shrink-0 ${
                                 isCheated
                                   ? 'text-orange-600 dark:text-orange-400'
                                   : 'text-green-600 dark:text-green-400'
-                              }
+                              }`}
                             >
                               {isCheated ? '❌' : '✅'}
                             </span>
                             {completionTime && (
-                              <span className="text-xs opacity-75">
+                              <span className="shrink-0 text-xs opacity-75">
                                 {Math.floor(completionTime / 60)}m{' '}
                                 {completionTime % 60}s
                               </span>
                             )}
                             {moves && !isCheated && (
-                              <MovesDisplay moves={moves} />
-                            )}
-                            {stars !== undefined && !isCheated && (
-                              <StarRating rating={stars} size="sm" />
+                              <span className="shrink-0">
+                                <MovesDisplay moves={moves} />
+                              </span>
                             )}
                           </>
                         ) : isCurrentUser ? (
                           <>
                             {getTimerDisplay()}
-                            <span className="ml-1 opacity-75">
+                            <span className="ml-1 shrink-0 opacity-75">
                               {myPercentage}%
                             </span>
                           </>
                         ) : (
-                          <span className="opacity-75">
+                          <span className="shrink-0 opacity-75">
                             {completionPercentage}%
                           </span>
                         )}
                       </div>
+                      {isCompleted && !isCheated && stars !== undefined && (
+                        <div className="flex min-w-0 items-center">
+                          <StarRating rating={stars} size="sm" />
+                        </div>
+                      )}
                     </div>
                   )
                 )
               ) : (
                 /* Show only user when no friends or still loading */
-                <div className="flex items-center justify-between rounded bg-green-100/50 px-2 py-1 text-xs text-green-900 dark:bg-green-950/30 dark:text-green-100">
-                  <span className="flex items-center gap-1 font-medium">
+                <div className="flex w-full flex-col gap-0.5 rounded bg-green-100/50 px-2 py-1 text-xs text-green-900 dark:bg-green-950/30 dark:text-green-100">
+                  <span className="flex min-w-0 items-center gap-1 truncate font-medium">
                     You
                   </span>
-                  <div className="flex items-center gap-1">
+                  <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
                     {isCompleted ? (
                       <>
                         <span
-                          className={
+                          className={`shrink-0 ${
                             actualSession &&
                             isPuzzleCheated(actualSession.state)
                               ? 'text-orange-600 dark:text-orange-400'
                               : 'text-green-600 dark:text-green-400'
-                          }
+                          }`}
                         >
                           {actualSession && isPuzzleCheated(actualSession.state)
                             ? '❌'
                             : '✅'}
                         </span>
                         {session.state.completed && (
-                          <span className="text-xs opacity-75">
+                          <span className="shrink-0 text-xs opacity-75">
                             {Math.floor(session.state.completed.seconds / 60)}m{' '}
                             {session.state.completed.seconds % 60}s
                           </span>
                         )}
-                        {ownMoves && <MovesDisplay moves={ownMoves} />}
-                        {ownStars !== undefined && (
-                          <StarRating rating={ownStars} size="sm" />
+                        {ownMoves && (
+                          <span className="shrink-0">
+                            <MovesDisplay moves={ownMoves} />
+                          </span>
                         )}
                       </>
                     ) : (
                       <>
                         {getTimerDisplay()}
-                        <span className="ml-1 opacity-75">{myPercentage}%</span>
+                        <span className="ml-1 shrink-0 opacity-75">
+                          {myPercentage}%
+                        </span>
                       </>
                     )}
                   </div>
+                  {isCompleted &&
+                    !(actualSession && isPuzzleCheated(actualSession.state)) &&
+                    ownStars !== undefined && (
+                      <div className="flex min-w-0 items-center">
+                        <StarRating rating={ownStars} size="sm" />
+                      </div>
+                    )}
                 </div>
               )}
 
