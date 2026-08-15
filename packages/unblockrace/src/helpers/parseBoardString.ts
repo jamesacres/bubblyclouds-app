@@ -16,6 +16,12 @@ export const validateBoard = (board: Board): void => {
   if (height < MIN_BOARD_SIZE) {
     throw new Error(`board height must be >= ${MIN_BOARD_SIZE}`);
   }
+  if (width > MAX_BOARD_SIZE) {
+    throw new Error(`board width must be <= ${MAX_BOARD_SIZE}`);
+  }
+  if (height > MAX_BOARD_SIZE) {
+    throw new Error(`board height must be <= ${MAX_BOARD_SIZE}`);
+  }
   if (pieces.length < 1) {
     throw new Error('board must have at least one piece');
   }

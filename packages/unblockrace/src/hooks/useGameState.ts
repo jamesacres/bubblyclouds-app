@@ -434,6 +434,7 @@ function useGameState({
   if (prevPuzzleId !== puzzleId) {
     setPrevPuzzleId(puzzleId);
     lastSavedAnswerRef.current = null;
+    lastInteractionRef.current = Date.now();
     setRedoAnswerStack([]);
     setMovesOffset(0);
     setSessionPartiesLocal({});
@@ -559,6 +560,7 @@ function useGameState({
             )
         )
       ) {
+        pollingIgnoreCounterRef.current += 1;
         const currentIgnoreCounter = pollingIgnoreCounterRef.current;
         const { serverValuePromise } = getValue() || {};
 
