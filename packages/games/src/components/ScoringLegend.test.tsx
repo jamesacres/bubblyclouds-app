@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import ScoringLegend from './ScoringLegend';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
 import {
@@ -585,6 +585,120 @@ describe('ScoringLegend', () => {
       );
 
       expect(screen.getByText('Speed bonuses')).toBeInTheDocument();
+    });
+  });
+
+  describe('daily combo section', () => {
+    it('should not display the daily combo section when dailyCombo is not provided', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Test Game"
+        />
+      );
+
+      expect(screen.queryByText('Daily combo')).not.toBeInTheDocument();
+    });
+
+    it('should display the daily combo section when dailyCombo is provided', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 0.5, max: 3 }}
+        />
+      );
+
+      expect(screen.getByText('Daily combo')).toBeInTheDocument();
+      expect(screen.getByText(/Solve more puzzles/)).toBeInTheDocument();
+    });
+
+    it('should display the max multiplier in the description', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 0.5, max: 3 }}
+        />
+      );
+
+      expect(screen.getByText('3×', { selector: 'span' })).toBeInTheDocument();
+    });
+
+    it('should render one tier per puzzle up to the max multiplier', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 0.5, max: 3 }}
+        />
+      );
+
+      const comboSection = screen
+        .getByText('Puzzle 1 of the day')
+        .closest('div.divide-y') as HTMLElement;
+
+      expect(
+        within(comboSection).getByText('Puzzle 1 of the day')
+      ).toBeInTheDocument();
+      expect(within(comboSection).getByText('1.0×')).toBeInTheDocument();
+      expect(
+        within(comboSection).getByText('Puzzle 2 of the day')
+      ).toBeInTheDocument();
+      expect(within(comboSection).getByText('1.5×')).toBeInTheDocument();
+      expect(
+        within(comboSection).getByText('Puzzle 3 of the day')
+      ).toBeInTheDocument();
+      expect(within(comboSection).getByText('2.0×')).toBeInTheDocument();
+      expect(
+        within(comboSection).getByText('Puzzle 4 of the day')
+      ).toBeInTheDocument();
+      expect(within(comboSection).getByText('2.5×')).toBeInTheDocument();
+      expect(
+        within(comboSection).getByText('Puzzle 5+ of the day')
+      ).toBeInTheDocument();
+
+      // Multiplier caps at max — no tier beyond it should render.
+      expect(
+        within(comboSection).queryByText('Puzzle 6 of the day')
+      ).not.toBeInTheDocument();
+      expect(
+        within(comboSection).queryByText('Puzzle 6+ of the day')
+      ).not.toBeInTheDocument();
+    });
+
+    it('should mark the tier that reaches the max multiplier with a "+" suffix', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 1, max: 2 }}
+        />
+      );
+
+      // increment 1, max 2: puzzle 1 -> 1.0x, puzzle 2 -> 2.0x (hits max, gets "+")
+      expect(screen.getByText('Puzzle 1 of the day')).toBeInTheDocument();
+      expect(screen.getByText('Puzzle 2+ of the day')).toBeInTheDocument();
+      expect(screen.queryByText('Puzzle 3 of the day')).not.toBeInTheDocument();
+    });
+
+    it('should cap the tier list at 6 puzzles even if max is never reached', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 0.1, max: 10 }}
+        />
+      );
+
+      expect(screen.getByText('Puzzle 6 of the day')).toBeInTheDocument();
+      expect(screen.queryByText('Puzzle 7 of the day')).not.toBeInTheDocument();
     });
   });
 

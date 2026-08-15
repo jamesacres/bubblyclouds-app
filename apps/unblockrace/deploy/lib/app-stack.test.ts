@@ -3,7 +3,7 @@ import { Template } from 'aws-cdk-lib/assertions';
 import { UnblockRaceAppStack } from './app-stack';
 
 describe('AppStack', () => {
-  it('should match the snapshot', () => {
+  const buildTemplate = () => {
     const app = new App();
     const appStack = new UnblockRaceAppStack(app, 'UnblockRaceAppStack', {
       env: {
@@ -15,7 +15,37 @@ describe('AppStack', () => {
       domainName: 'jest.test',
       subdomain: undefined,
     });
-    const template = Template.fromStack(appStack);
+    return Template.fromStack(appStack);
+  };
+
+  it('should match the snapshot', () => {
+    const template = buildTemplate();
     expect(template.toJSON()).toMatchSnapshot();
+  });
+
+  it('should block all public access on every S3 bucket', () => {
+    const template = buildTemplate();
+    template.allResourcesProperties('AWS::S3::Bucket', {
+      PublicAccessBlockConfiguration: {
+        BlockPublicAcls: true,
+        BlockPublicPolicy: true,
+        IgnorePublicAcls: true,
+        RestrictPublicBuckets: true,
+      },
+    });
+  });
+
+  it('should require TLS 1.2 and redirect viewers to HTTPS on the CloudFront distribution', () => {
+    const template = buildTemplate();
+    template.hasResourceProperties('AWS::CloudFront::Distribution', {
+      DistributionConfig: {
+        ViewerCertificate: {
+          MinimumProtocolVersion: 'TLSv1.2_2021',
+        },
+        DefaultCacheBehavior: {
+          ViewerProtocolPolicy: 'redirect-to-https',
+        },
+      },
+    });
   });
 });
