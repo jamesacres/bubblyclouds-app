@@ -2,14 +2,14 @@
 import React from 'react';
 import { X, Zap, BookOpen, Trophy, Timer, ScanLine, Flame } from 'lucide-react';
 import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
-import { DailyComboConfig } from '../types/scoringTypes';
+import { DailyComboConfig, SpeedThresholds } from '../types/scoringTypes';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
 
-// One collection-difficulty tier for the legend's multiplier table: `key`
-// is the metadata.difficulty string scoring keys off, `label` is what's
-// shown for it, `multiplier` is its own display value (not looked up from
-// SCORING_CONFIG — a game's collection tiers may live outside that shared
-// map entirely, see ScoringOptions.difficultyMultipliers).
+// One difficulty tier for the legend's multiplier tables (daily and
+// collection): `key` is the metadata.difficulty string scoring keys off,
+// `label` is what's shown for it, `multiplier` is its own display value
+// (not looked up from SCORING_CONFIG — a game's tiers may live outside that
+// shared map entirely, see ScoringOptions.difficultyMultipliers).
 export interface CollectionDifficultyTier {
   key: string;
   label: string;
@@ -27,11 +27,24 @@ const DEFAULT_COLLECTION_DIFFICULTIES: CollectionDifficultyTier[] =
     multiplier: SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[key],
   }));
 
+const DEFAULT_DAILY_DIFFICULTIES: CollectionDifficultyTier[] = [
+  { key: Difficulty.SIMPLE, label: 'Tricky' },
+  { key: Difficulty.EASY, label: 'Challenging' },
+  { key: Difficulty.INTERMEDIATE, label: 'Hard' },
+].map(({ key, label }) => ({
+  key,
+  label,
+  multiplier: SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[key],
+}));
+
 interface ScoringLegendProps {
   isOpen: boolean;
   onClose: () => void;
   gameName: string;
   dailyCombo?: DailyComboConfig;
+  // The difficulty tiers for this game's daily puzzles — defaults to
+  // sudoku's Tricky/Challenging/Hard.
+  dailyDifficulties?: CollectionDifficultyTier[];
   // What this game calls its collection-type puzzles and the difficulty
   // tiers that apply to them — defaults to sudoku's monthly puzzle book.
   collectionLabel?: string;
@@ -40,20 +53,23 @@ interface ScoringLegendProps {
   // set scannedAt, so its players can never earn this base score) — default
   // true keeps sudoku's legend unchanged.
   showScannedPuzzles?: boolean;
+  // Overrides SCORING_CONFIG.SPEED_THRESHOLDS for the speed bonuses section —
+  // defaults to sudoku's 3/5/10/20 min cutoffs.
+  speedThresholds?: SpeedThresholds;
 }
 
-const DAILY_DIFFICULTIES = [
-  { key: Difficulty.SIMPLE, label: 'Tricky', stars: 1 },
-  { key: Difficulty.EASY, label: 'Challenging', stars: 2 },
-  { key: Difficulty.INTERMEDIATE, label: 'Hard', stars: 3 },
+const SPEED_TIERS = [
+  { key: 'LIGHTNING', label: 'Lightning' },
+  { key: 'FAST', label: 'Fast' },
+  { key: 'QUICK', label: 'Quick' },
+  { key: 'STEADY', label: 'Steady' },
 ] as const;
 
-const SPEED_TIERS = [
-  { key: 'LIGHTNING', label: 'Lightning', threshold: '3 min' },
-  { key: 'FAST', label: 'Fast', threshold: '5 min' },
-  { key: 'QUICK', label: 'Quick', threshold: '10 min' },
-  { key: 'STEADY', label: 'Steady', threshold: '20 min' },
-] as const;
+// e.g. 30 -> "30 sec", 60 -> "1 min", 90 -> "1.5 min"
+const formatThreshold = (seconds: number): string =>
+  seconds < 60
+    ? `${seconds} sec`
+    : `${parseFloat((seconds / 60).toFixed(1))} min`;
 
 const multiplierBar = (mult: number, max: number) => {
   const pct = Math.round((mult / max) * 100);
@@ -75,11 +91,17 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
   onClose,
   gameName,
   dailyCombo,
+  dailyDifficulties = DEFAULT_DAILY_DIFFICULTIES,
   collectionLabel = 'Book',
   collectionDifficulties = DEFAULT_COLLECTION_DIFFICULTIES,
   showScannedPuzzles = true,
+  speedThresholds = SCORING_CONFIG.SPEED_THRESHOLDS,
 }) => {
   if (!isOpen) return null;
+
+  const sortedDailyDifficulties = [...dailyDifficulties].sort(
+    (a, b) => a.multiplier - b.multiplier
+  );
 
   const sortedCollectionDifficulties = [...collectionDifficulties].sort(
     (a, b) => a.multiplier - b.multiplier
@@ -87,6 +109,23 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
 
   const maxCollectionMult = Math.max(
     ...sortedCollectionDifficulties.map((d) => d.multiplier)
+  );
+
+  // Unblock Race scores daily and collection puzzles off the identical
+  // tier list — showing "of the Day" and "puzzles" as two duplicate blocks
+  // is just noise, so collapse them into one shared section when the tiers
+  // match. Sudoku's tiers differ (Tricky/Challenging/Hard vs its book's
+  // eleven-tier scale), so it keeps the two separate sections.
+  const dailyAndCollectionMatch =
+    sortedDailyDifficulties.length === sortedCollectionDifficulties.length &&
+    sortedDailyDifficulties.every(
+      (tier, index) =>
+        tier.key === sortedCollectionDifficulties[index].key &&
+        tier.multiplier === sortedCollectionDifficulties[index].multiplier
+    );
+
+  const maxDailyMult = Math.max(
+    ...sortedDailyDifficulties.map((d) => d.multiplier)
   );
 
   return (
@@ -198,67 +237,100 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
               </h4>
             </div>
 
-            {/* Daily */}
-            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-              {gameName} of the Day
-            </p>
-            <div className="mb-4 divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
-              {DAILY_DIFFICULTIES.map(({ key, label, stars }) => {
-                const mult = SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[key];
-                return (
-                  <div
-                    key={key}
-                    className="flex items-center justify-between px-4 py-3"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-zinc-700 dark:text-zinc-300">
-                        {label}
-                      </span>
-                      <span className="text-[10px] text-amber-500">
-                        {'★'.repeat(stars)}
-                        {'☆'.repeat(3 - stars)}
-                      </span>
-                    </div>
-                    <span className="text-sm font-semibold tabular-nums text-zinc-900 dark:text-white">
-                      {mult}×
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Collection */}
-            <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-              {collectionLabel} puzzles
-            </p>
-            <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
-              {sortedCollectionDifficulties.map(
-                ({ key, label, multiplier }) => {
-                  const mult = multiplier;
-                  const barPct = multiplierBar(mult, maxCollectionMult);
-
-                  return (
-                    <div
-                      key={key}
-                      className="flex items-center gap-3 px-4 py-2.5"
-                    >
-                      <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
-                        {label}
-                      </span>
-                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
-                        <div
-                          className="h-full rounded-full bg-amber-500"
-                          style={{ width: `${barPct}%` }}
-                        />
+            {dailyAndCollectionMatch ? (
+              <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
+                {sortedCollectionDifficulties.map(
+                  ({ key, label, multiplier }) => {
+                    const barPct = multiplierBar(multiplier, maxCollectionMult);
+                    return (
+                      <div
+                        key={key}
+                        className="flex items-center gap-3 px-4 py-2.5"
+                      >
+                        <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                          {label}
+                        </span>
+                        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+                          <div
+                            className="h-full rounded-full bg-amber-500"
+                            style={{ width: `${barPct}%` }}
+                          />
+                        </div>
+                        <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
+                          {multiplier}×
+                        </span>
                       </div>
-                      <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
-                        {mult}×
-                      </span>
-                    </div>
-                  );
-                }
-              )}
-            </div>
+                    );
+                  }
+                )}
+              </div>
+            ) : (
+              <>
+                {/* Daily */}
+                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                  {gameName} of the Day
+                </p>
+                <div className="mb-4 divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
+                  {sortedDailyDifficulties.map(({ key, label, multiplier }) => {
+                    const barPct = multiplierBar(multiplier, maxDailyMult);
+                    return (
+                      <div
+                        key={key}
+                        className="flex items-center gap-3 px-4 py-2.5"
+                      >
+                        <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                          {label}
+                        </span>
+                        <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+                          <div
+                            className="h-full rounded-full bg-amber-500"
+                            style={{ width: `${barPct}%` }}
+                          />
+                        </div>
+                        <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
+                          {multiplier}×
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Collection */}
+                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+                  {collectionLabel} puzzles
+                </p>
+                <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
+                  {sortedCollectionDifficulties.map(
+                    ({ key, label, multiplier }) => {
+                      const barPct = multiplierBar(
+                        multiplier,
+                        maxCollectionMult
+                      );
+
+                      return (
+                        <div
+                          key={key}
+                          className="flex items-center gap-3 px-4 py-2.5"
+                        >
+                          <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                            {label}
+                          </span>
+                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+                            <div
+                              className="h-full rounded-full bg-amber-500"
+                              style={{ width: `${barPct}%` }}
+                            />
+                          </div>
+                          <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
+                            {multiplier}×
+                          </span>
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
+              </>
+            )}
           </section>
 
           {/* Speed bonuses */}
@@ -270,8 +342,9 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
               </h4>
             </div>
             <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
-              {SPEED_TIERS.map(({ key, label, threshold }) => {
+              {SPEED_TIERS.map(({ key, label }) => {
                 const bonus = SCORING_CONFIG.SPEED_BONUSES[key];
+                const threshold = formatThreshold(speedThresholds[key]);
                 return (
                   <div
                     key={key}

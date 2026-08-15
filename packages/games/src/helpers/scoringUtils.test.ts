@@ -124,6 +124,25 @@ describe('scoringUtils', () => {
       expect(bonus).toBe(0);
     });
 
+    it('should use custom speed thresholds when provided (e.g. Unblock Race)', () => {
+      const unblockThresholds = {
+        LIGHTNING: 30,
+        FAST: 60,
+        QUICK: 300,
+        STEADY: 600,
+      };
+
+      // 42s is under sudoku's 180s LIGHTNING threshold, but under Unblock
+      // Race's own tighter thresholds it lands in FAST (30 < 42 <= 60).
+      expect(calculateSpeedBonus(42, unblockThresholds)).toBe(
+        SCORING_CONFIG.SPEED_BONUSES.FAST
+      );
+      expect(calculateSpeedBonus(20, unblockThresholds)).toBe(
+        SCORING_CONFIG.SPEED_BONUSES.LIGHTNING
+      );
+      expect(calculateSpeedBonus(700, unblockThresholds)).toBe(0);
+    });
+
     it('should handle boundary values', () => {
       expect(
         calculateSpeedBonus(SCORING_CONFIG.SPEED_THRESHOLDS.LIGHTNING)
@@ -539,6 +558,25 @@ describe('scoringUtils', () => {
         SCORING_CONFIG.DAILY_PUZZLE_BASE *
           (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['simple'] - 1),
         10
+      );
+    });
+
+    it('uses speedThresholds override instead of the shared default when supplied', () => {
+      // Unblock Race puzzles are solved much faster than sudoku's — 42s would
+      // be sudoku's LIGHTNING tier (<=180s) but Unblock Race's own tighter
+      // thresholds put it in FAST (<=60s) instead.
+      const session = createSession({ runId: 'oftheday-20260708' }, 42);
+
+      const defaultScore = calculateSessionScore(session);
+      expect(defaultScore.speedBonus).toBe(
+        SCORING_CONFIG.SPEED_BONUSES.LIGHTNING
+      );
+
+      const overriddenScore = calculateSessionScore(session, {
+        speedThresholds: { LIGHTNING: 30, FAST: 60, QUICK: 300, STEADY: 600 },
+      });
+      expect(overriddenScore.speedBonus).toBe(
+        SCORING_CONFIG.SPEED_BONUSES.FAST
       );
     });
   });

@@ -33,6 +33,13 @@ export interface DailyComboConfig {
   max: number;
 }
 
+export interface SpeedThresholds {
+  LIGHTNING: number;
+  FAST: number;
+  QUICK: number;
+  STEADY: number;
+}
+
 export interface ScoringOptions {
   dailyCombo?: DailyComboConfig;
   // Overrides/extends SCORING_CONFIG.DIFFICULTY_MULTIPLIERS for this call —
@@ -41,6 +48,11 @@ export interface ScoringOptions {
   // game's multiplier for a same-named tier (e.g. both games having an
   // "expert" difficulty at different multipliers).
   difficultyMultipliers?: Record<string, number>;
+  // Overrides SCORING_CONFIG.SPEED_THRESHOLDS for this call — a game whose
+  // puzzles are typically solved much faster or slower than sudoku's (e.g.
+  // Unblock Race) can supply its own second-based cutoffs while keeping the
+  // shared SPEED_BONUSES point values.
+  speedThresholds?: SpeedThresholds;
 }
 
 export interface SessionScore {

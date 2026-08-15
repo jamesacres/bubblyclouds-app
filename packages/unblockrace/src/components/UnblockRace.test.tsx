@@ -697,8 +697,9 @@ describe('UnblockRace', () => {
         act(() => {
           lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
         });
-        // 10 volume + 500 lightning speed bonus, comboIndex 0 (x1 multiplier)
-        expect(finalPointsIn('stage-clear-points')).toBe('510');
+        // 10 volume + 300 fast speed bonus (42s is under Unblock Race's own
+        // 60s FAST threshold, not its 30s LIGHTNING one), comboIndex 0 (x1)
+        expect(finalPointsIn('stage-clear-points')).toBe('310');
 
         fireEvent.click(screen.getByTestId('next-stage-button'));
         runTransition();
@@ -721,8 +722,8 @@ describe('UnblockRace', () => {
           .getByText(/^\+\d+ pts$/)
           .textContent?.match(/\+(\d+) pts/)?.[1];
         // Run total = stage 1 (comboIndex 0, x1) + stage 2 (comboIndex 1,
-        // x1.1) = 510 + 561 = 1071, not 510 + 510 = 1020 (the pre-fix bug).
-        expect(summaryPoints).toBe('1071');
+        // x1.1) = 310 + 341 = 651, not 310 + 310 = 620 (the pre-fix bug).
+        expect(summaryPoints).toBe('651');
       } finally {
         jest.clearAllTimers();
         jest.useRealTimers();
@@ -762,7 +763,7 @@ describe('UnblockRace', () => {
       // If STAGE_1's own synced session weren't excluded, dayPuzzleIndex
       // would be 1 instead of 0, bumping the combo multiplier and inflating
       // stage 1's own popup points above the un-combo'd baseline.
-      expect(finalPointsIn('stage-clear-points')).toBe('510');
+      expect(finalPointsIn('stage-clear-points')).toBe('310');
     });
 
     it("scores an expert-tier stage's popup with Unblock Race's own 4x multiplier, not sudoku's shared 2x", () => {

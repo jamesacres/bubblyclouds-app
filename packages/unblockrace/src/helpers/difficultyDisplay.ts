@@ -74,3 +74,15 @@ export const UNBLOCK_DIFFICULTY_MULTIPLIERS: { [key: string]: number } = {
   hard: 3.0,
   expert: 4.0,
 };
+
+// Unblock Race's own speed-bonus cutoffs (seconds) — sliding-block puzzles
+// are solved much faster than sudoku, so the shared SCORING_CONFIG
+// thresholds (3/5/10/20 min) would put nearly every run in the top Lightning
+// tier. Pass this as ScoringOptions.speedThresholds; the SPEED_BONUSES point
+// values themselves stay shared with sudoku.
+export const UNBLOCK_SPEED_THRESHOLDS = {
+  LIGHTNING: 30,
+  FAST: 60,
+  QUICK: 300,
+  STEADY: 600,
+};

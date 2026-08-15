@@ -29,6 +29,9 @@ interface LeaderboardProps<TState extends BaseServerState = BaseServerState> {
   isPuzzleCheated: (state: TState) => boolean;
   gameName: string;
   scoringOptions?: ScoringOptions;
+  // The difficulty tiers for this game's daily puzzles — defaults to
+  // sudoku's Tricky/Challenging/Hard.
+  dailyDifficulties?: CollectionDifficultyTier[];
   // What this game calls its collection-type puzzles and the difficulty
   // tiers that apply to them — sudoku's monthly puzzle book (the default,
   // matching its pre-existing copy) vs Unblock Race's own collections.
@@ -47,6 +50,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
   isPuzzleCheated,
   gameName,
   scoringOptions,
+  dailyDifficulties,
   collectionLabel,
   collectionDetailNoun,
   collectionDifficulties,
@@ -222,9 +226,11 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
         onClose={() => setShowScoringLegend(false)}
         gameName={gameName}
         dailyCombo={scoringOptions?.dailyCombo}
+        dailyDifficulties={dailyDifficulties}
         collectionLabel={collectionLabel}
         collectionDifficulties={collectionDifficulties}
         showScannedPuzzles={showScannedPuzzles}
+        speedThresholds={scoringOptions?.speedThresholds}
       />
     </div>
   );

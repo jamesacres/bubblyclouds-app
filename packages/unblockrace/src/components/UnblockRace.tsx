@@ -45,6 +45,7 @@ import {
   unblockDifficultyDisplay,
   getUnblockDifficultyDisplay,
   UNBLOCK_DIFFICULTY_MULTIPLIERS,
+  UNBLOCK_SPEED_THRESHOLDS,
 } from '../helpers/difficultyDisplay';
 import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
 import { getDailyLabel } from '../helpers/dailyLabel';
@@ -759,6 +760,7 @@ const UnblockRace = ({
         dailyCombo: SCORING_CONFIG.DAILY_COMBO,
         dayPuzzleIndex: stageComboIndex,
         difficultyMultipliers: UNBLOCK_DIFFICULTY_MULTIPLIERS,
+        speedThresholds: UNBLOCK_SPEED_THRESHOLDS,
       }).total;
     },
     [app, puzzleId, initial, final, metadata, runId]

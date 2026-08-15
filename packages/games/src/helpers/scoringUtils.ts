@@ -8,6 +8,7 @@ import {
   SessionScore,
   DailyComboConfig,
   AllFriendsSessionsMap,
+  SpeedThresholds,
 } from '../types/scoringTypes';
 
 export const getPuzzleType = <
@@ -34,17 +35,20 @@ export const getPuzzleIdentifier = <
   return session.sessionId;
 };
 
-export const calculateSpeedBonus = (completionTimeSeconds: number): number => {
-  if (completionTimeSeconds <= SCORING_CONFIG.SPEED_THRESHOLDS.LIGHTNING) {
+export const calculateSpeedBonus = (
+  completionTimeSeconds: number,
+  speedThresholds: SpeedThresholds = SCORING_CONFIG.SPEED_THRESHOLDS
+): number => {
+  if (completionTimeSeconds <= speedThresholds.LIGHTNING) {
     return SCORING_CONFIG.SPEED_BONUSES.LIGHTNING;
   }
-  if (completionTimeSeconds <= SCORING_CONFIG.SPEED_THRESHOLDS.FAST) {
+  if (completionTimeSeconds <= speedThresholds.FAST) {
     return SCORING_CONFIG.SPEED_BONUSES.FAST;
   }
-  if (completionTimeSeconds <= SCORING_CONFIG.SPEED_THRESHOLDS.QUICK) {
+  if (completionTimeSeconds <= speedThresholds.QUICK) {
     return SCORING_CONFIG.SPEED_BONUSES.QUICK;
   }
-  if (completionTimeSeconds <= SCORING_CONFIG.SPEED_THRESHOLDS.STEADY) {
+  if (completionTimeSeconds <= speedThresholds.STEADY) {
     return SCORING_CONFIG.SPEED_BONUSES.STEADY;
   }
   return 0;
@@ -101,6 +105,7 @@ export const calculateSessionScore = <
     dailyCombo?: DailyComboConfig;
     dayPuzzleIndex?: number;
     difficultyMultipliers?: Record<string, number>;
+    speedThresholds?: SpeedThresholds;
   }
 ): SessionScore => {
   const completionTime = session.state.completed?.seconds || 0;
@@ -134,7 +139,10 @@ export const calculateSessionScore = <
   }
 
   const difficultyBonus = baseScore * (difficultyMultiplier - 1);
-  const speedBonus = calculateSpeedBonus(completionTime);
+  const speedBonus = calculateSpeedBonus(
+    completionTime,
+    options?.speedThresholds
+  );
 
   let comboMultiplier = 1;
   if (options?.dailyCombo && options.dayPuzzleIndex !== undefined) {
@@ -252,6 +260,7 @@ export const calculateUserScore = <
       dailyCombo: options?.dailyCombo,
       dayPuzzleIndex: dayPuzzleIndexBySession.get(session),
       difficultyMultipliers: options?.difficultyMultipliers,
+      speedThresholds: options?.speedThresholds,
     });
 
     volumeScore += sessionScore.volumeScore;

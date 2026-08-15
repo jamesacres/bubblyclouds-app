@@ -424,6 +424,45 @@ describe('ScoringLegend', () => {
       expect(screen.getAllByText('1×').length).toBeGreaterThan(0);
       expect(screen.getAllByText('4×').length).toBeGreaterThan(0);
     });
+
+    it('should merge daily and collection into one section when their tiers match (e.g. Unblock Race)', () => {
+      const unblockTiers = [
+        {
+          key: UnblockRaceDifficulty.BEGINNER,
+          label: 'Beginner',
+          multiplier: 1.0,
+        },
+        {
+          key: UnblockRaceDifficulty.CHALLENGING,
+          label: 'Challenging',
+          multiplier: 2.0,
+        },
+        { key: UnblockRaceDifficulty.HARD, label: 'Hard', multiplier: 3.0 },
+        {
+          key: UnblockRaceDifficulty.EXPERT,
+          label: 'Expert',
+          multiplier: 4.0,
+        },
+      ];
+
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          collectionLabel="Collection"
+          dailyDifficulties={unblockTiers}
+          collectionDifficulties={unblockTiers}
+        />
+      );
+
+      expect(
+        screen.queryByText('Unblock Race of the Day')
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText('Collection puzzles')).not.toBeInTheDocument();
+      expect(screen.getAllByText('Beginner')).toHaveLength(1);
+      expect(screen.getAllByText('Expert')).toHaveLength(1);
+    });
   });
 
   describe('speed bonuses section', () => {
@@ -449,6 +488,28 @@ describe('ScoringLegend', () => {
       );
 
       expect(screen.getByText(/under 3 min/i)).toBeInTheDocument();
+    });
+
+    it('should use custom speed thresholds when provided (e.g. Unblock Race)', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          speedThresholds={{
+            LIGHTNING: 30,
+            FAST: 60,
+            QUICK: 300,
+            STEADY: 600,
+          }}
+        />
+      );
+
+      expect(screen.getByText(/under 30 sec/i)).toBeInTheDocument();
+      expect(screen.getByText(/under 1 min/i)).toBeInTheDocument();
+      expect(screen.getByText(/under 5 min/i)).toBeInTheDocument();
+      expect(screen.getByText(/under 10 min/i)).toBeInTheDocument();
+      expect(screen.queryByText(/under 3 min/i)).not.toBeInTheDocument();
     });
 
     it('should display fast speed bonus', () => {

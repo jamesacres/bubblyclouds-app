@@ -10,6 +10,7 @@ import { UnblockRaceDifficulty } from '@bubblyclouds-app/games/types/difficulty'
 import {
   unblockDifficultyDisplay,
   UNBLOCK_DIFFICULTY_MULTIPLIERS,
+  UNBLOCK_SPEED_THRESHOLDS,
 } from '@bubblyclouds-app/unblockrace/helpers/difficultyDisplay';
 
 interface UnblockLeaderboardProps<
@@ -25,8 +26,10 @@ interface UnblockLeaderboardProps<
 }
 
 // Unblock Race's own difficulty tiers for the scoring legend, in place of
-// sudoku's default puzzle-book tiers.
-const UNBLOCK_COLLECTION_DIFFICULTIES = [
+// sudoku's default puzzle-book tiers. Used for both the daily and collection
+// sections since Unblock Race scores both puzzle types off the same
+// beginner/challenging/hard/expert multipliers (see UNBLOCK_DIFFICULTY_MULTIPLIERS).
+const UNBLOCK_DIFFICULTIES = [
   UnblockRaceDifficulty.BEGINNER,
   UnblockRaceDifficulty.CHALLENGING,
   UnblockRaceDifficulty.HARD,
@@ -46,10 +49,12 @@ function UnblockLeaderboard<State extends BaseServerState = BaseServerState>(
       scoringOptions={{
         dailyCombo: SCORING_CONFIG.DAILY_COMBO,
         difficultyMultipliers: UNBLOCK_DIFFICULTY_MULTIPLIERS,
+        speedThresholds: UNBLOCK_SPEED_THRESHOLDS,
       }}
+      dailyDifficulties={UNBLOCK_DIFFICULTIES}
       collectionLabel="Collection"
       collectionDetailNoun="collections"
-      collectionDifficulties={UNBLOCK_COLLECTION_DIFFICULTIES}
+      collectionDifficulties={UNBLOCK_DIFFICULTIES}
       showScannedPuzzles={false}
     />
   );
