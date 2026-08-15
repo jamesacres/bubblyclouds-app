@@ -276,7 +276,7 @@ function HomeComponent() {
 
   const openCollection = (): void => {
     if (!user) {
-      showLoginModal?.(undefined, LoginContext.PUZZLE_BOOK);
+      showLoginModal?.(undefined, LoginContext.COLLECTION);
       return;
     }
     router.push('/collection');

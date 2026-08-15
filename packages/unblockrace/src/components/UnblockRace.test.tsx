@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, within } from '@testing-library/react';
 import UnblockRace from './UnblockRace';
 import {
   UserContext,
@@ -144,6 +144,17 @@ const STAGE_1_COMPLETED = [
   'oooooo',
   'oAABoo',
   'oooBoo',
+  'oooooo',
+  'oooooo',
+].join('');
+// STAGE_2 with only piece A nudged one cell left — a single-piece change
+// from STAGE_2 (B untouched), same shape as STAGE_1_COMPLETED, for tests
+// that complete stage 2.
+const STAGE_2_COMPLETED = [
+  'oooooo',
+  'oooooo',
+  'AAooBo',
+  'ooooBo',
   'oooooo',
   'oooooo',
 ].join('');
@@ -621,6 +632,16 @@ describe('UnblockRace', () => {
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('3/3');
   });
 
+  // CountUp renders two spans for its value: an animated aria-hidden one
+  // (starts at 0, ticks up over rAF frames) and a screen-reader-only
+  // aria-live one that always holds the final value immediately. Reading
+  // points off a container's plain textContent risks grabbing the
+  // mid-animation figure, so pull the final value from the sr-only span.
+  const finalPointsIn = (testId: string): string | undefined =>
+    within(screen.getByTestId(testId))
+      .getByText(/^\+\d+ pts$/, { selector: '.sr-only' })
+      .textContent?.match(/\+(\d+) pts/)?.[1];
+
   describe('end-of-puzzle payoff', () => {
     it('shows animated stars, a points count-up and a progress line on stage clear', () => {
       jest.useFakeTimers();
@@ -649,6 +670,145 @@ describe('UnblockRace', () => {
         expect(screen.getByTestId('stage-clear-progress')).toHaveTextContent(
           'Stage 1 of 2 — 1 to go'
         );
+      } finally {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      }
+    });
+
+    it("compounds stage 2's popup with its own combo index instead of the flat dayPuzzleIndex", () => {
+      // Regression for the bug where every stage's "+N pts" popup was scored
+      // with the same day-baseline combo index, under-reporting stage 2+ of
+      // a run: the authoritative run total increments the combo index once
+      // per completed stage, so stage 2's popup must too.
+      jest.useFakeTimers();
+      try {
+        mockUseGameState.mockReturnValue({
+          ...baseGameState,
+          answer: STAGE_1_COMPLETED,
+          answerStack: [STAGE_1, STAGE_1_COMPLETED],
+          completed: { at: new Date().toISOString(), seconds: 42 },
+        } as ReturnType<typeof useGameState>);
+
+        render(<UnblockRace {...defaultProps} />);
+
+        // Stage 1 clears with dayPuzzleIndex 0 (no prior sessions today) —
+        // comboMultiplier 1, so points are the plain volume + speed bonus.
+        act(() => {
+          lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
+        });
+        // 10 volume + 500 lightning speed bonus, comboIndex 0 (x1 multiplier)
+        expect(finalPointsIn('stage-clear-points')).toBe('510');
+
+        fireEvent.click(screen.getByTestId('next-stage-button'));
+        runTransition();
+
+        mockUseGameState.mockReturnValue({
+          ...baseGameState,
+          answer: STAGE_2_COMPLETED,
+          answerStack: [STAGE_2, STAGE_2_COMPLETED],
+          completed: { at: new Date().toISOString(), seconds: 42 },
+        } as ReturnType<typeof useGameState>);
+
+        act(() => {
+          lastGameStateArgs().onComplete?.([STAGE_2, STAGE_2_COMPLETED], 5, 42);
+        });
+
+        // Stage 2 is the run's final stage, so it goes straight to the
+        // celebration rather than another stage-clear slam; read its points
+        // off the completion summary instead (plain text there, no CountUp).
+        const summaryPoints = within(screen.getByTestId('completion-summary'))
+          .getByText(/^\+\d+ pts$/)
+          .textContent?.match(/\+(\d+) pts/)?.[1];
+        // Run total = stage 1 (comboIndex 0, x1) + stage 2 (comboIndex 1,
+        // x1.1) = 510 + 561 = 1071, not 510 + 510 = 1020 (the pre-fix bug).
+        expect(summaryPoints).toBe('1071');
+      } finally {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      }
+    });
+
+    it("excludes every stage of the current run from dayPuzzleIndex, not just the current stage's own session", () => {
+      // Regression: dayPuzzleIndex used to filter out only the current
+      // stage's own session id, so once an earlier stage in this run synced
+      // to the server, its session would count toward today's combo
+      // baseline a second time on top of scoreStage's own per-stage combo
+      // offset. Every stage's session id must be excluded.
+      mockUseSessions.mockReturnValue({
+        sessions: [
+          {
+            sessionId: `unblockrace-${STAGE_1}`,
+            state: {
+              answerStack: [STAGE_1, STAGE_1_COMPLETED],
+              completed: { at: new Date().toISOString(), seconds: 42 },
+            },
+          },
+        ],
+      });
+      mockUseGameState.mockReturnValue({
+        ...baseGameState,
+        answer: STAGE_1_COMPLETED,
+        answerStack: [STAGE_1, STAGE_1_COMPLETED],
+        completed: { at: new Date().toISOString(), seconds: 42 },
+      } as ReturnType<typeof useGameState>);
+
+      render(<UnblockRace {...defaultProps} />);
+
+      act(() => {
+        lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
+      });
+
+      // If STAGE_1's own synced session weren't excluded, dayPuzzleIndex
+      // would be 1 instead of 0, bumping the combo multiplier and inflating
+      // stage 1's own popup points above the un-combo'd baseline.
+      expect(finalPointsIn('stage-clear-points')).toBe('510');
+    });
+
+    it("scores an expert-tier stage's popup with Unblock Race's own 4x multiplier, not sudoku's shared 2x", () => {
+      // Regression: sudoku's daily Difficulty.EXPERT and Unblock Race's own
+      // expert tier both write the literal metadata.difficulty string
+      // 'expert' — a real collision in the shared, flat
+      // SCORING_CONFIG.DIFFICULTY_MULTIPLIERS map (sudoku's daily expert is
+      // 2x). UnblockRace.tsx must pass its own UNBLOCK_DIFFICULTY_MULTIPLIERS
+      // override (1x/2x/3x/4x) so its expert tier scores at 4x, matching
+      // sudoku's own max (BookPuzzleDifficulty.BEYOND_HELL), not 2x.
+      jest.useFakeTimers();
+      try {
+        mockUseGameState.mockReturnValue({
+          ...baseGameState,
+          answer: STAGE_1_COMPLETED,
+          answerStack: [STAGE_1, STAGE_1_COMPLETED],
+          // Above every speed threshold so speedBonus is 0 and doesn't
+          // muddy the difficulty-multiplier assertion.
+          completed: { at: new Date().toISOString(), seconds: 1300 },
+        } as ReturnType<typeof useGameState>);
+
+        render(
+          <UnblockRace
+            {...defaultProps}
+            run={{
+              stages: [{ boardString: STAGE_1, movesRequired: 31 }], // > 30 moves → 'expert'
+            }}
+            metadata={{ unblockCollectionPuzzleId: 'ofthemonth-x-puzzle-0' }}
+          />
+        );
+
+        act(() => {
+          lastGameStateArgs().onComplete?.(
+            [STAGE_1, STAGE_1_COMPLETED],
+            31,
+            1300
+          );
+        });
+
+        // collectionPuzzleBase(150) * 4x multiplier = 600 difficulty-scaled
+        // base; +10 volume; +0 speed (slow); comboIndex 0 so no combo bonus.
+        expect(
+          within(screen.getByTestId('completion-summary')).getByText(
+            /^\+\d+ pts$/
+          )
+        ).toHaveTextContent('+610 pts');
       } finally {
         jest.clearAllTimers();
         jest.useRealTimers();

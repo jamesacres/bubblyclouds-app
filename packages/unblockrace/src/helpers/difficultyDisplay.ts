@@ -59,3 +59,18 @@ export const getUnblockDifficultyDisplay = (
   }
   return { name: unblockDifficultyDisplay(difficulty).label, badgeColor };
 };
+
+// Unblock Race's own scoring difficulty multipliers — a clean 1x/2x/3x/4x
+// scale topping out at the same max as sudoku's book puzzles
+// (BookPuzzleDifficulty.BEYOND_HELL, also 4.0). Kept out of the shared
+// @games SCORING_CONFIG.DIFFICULTY_MULTIPLIERS map since 'expert' there
+// already means sudoku's daily-puzzle expert (2.0) — pass this as
+// ScoringOptions.difficultyMultipliers wherever Unblock Race calls
+// calculateSessionScore/calculateUserScore instead, so the leaderboard and
+// the in-game "+N pts" popup agree.
+export const UNBLOCK_DIFFICULTY_MULTIPLIERS: { [key: string]: number } = {
+  beginner: 1.0,
+  challenging: 2.0,
+  hard: 3.0,
+  expert: 4.0,
+};

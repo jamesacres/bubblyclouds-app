@@ -16,10 +16,10 @@ export const getPuzzleType = <
   session: ServerStateResult<BaseServerState<unknown, unknown, TMetadata>>
 ): PuzzleType => {
   if (session.state.metadata?.sudokuId?.includes('oftheday')) return 'daily';
-  if (session.state.metadata?.sudokuBookPuzzleId) return 'book';
+  if (session.state.metadata?.sudokuBookPuzzleId) return 'collection';
   if (session.state.metadata?.scannedAt) return 'scanned';
   if (session.state.metadata?.runId?.startsWith('oftheday')) return 'daily';
-  if (session.state.metadata?.unblockCollectionPuzzleId) return 'book';
+  if (session.state.metadata?.unblockCollectionPuzzleId) return 'collection';
   return 'unknown';
 };
 
@@ -97,7 +97,11 @@ export const calculateSessionScore = <
   >,
 >(
   session: ServerStateResult<TState>,
-  options?: { dailyCombo?: DailyComboConfig; dayPuzzleIndex?: number }
+  options?: {
+    dailyCombo?: DailyComboConfig;
+    dayPuzzleIndex?: number;
+    difficultyMultipliers?: Record<string, number>;
+  }
 ): SessionScore => {
   const completionTime = session.state.completed?.seconds || 0;
 
@@ -106,22 +110,22 @@ export const calculateSessionScore = <
   const puzzleType = getPuzzleType(session);
   let baseScore = 0;
   let difficultyMultiplier = 1;
+  const difficultyMultipliers = {
+    ...SCORING_CONFIG.DIFFICULTY_MULTIPLIERS,
+    ...options?.difficultyMultipliers,
+  };
 
   switch (puzzleType) {
     case 'daily':
       baseScore = SCORING_CONFIG.DAILY_PUZZLE_BASE;
       difficultyMultiplier =
-        SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[
-          session.state.metadata?.difficulty || ''
-        ] || 1;
+        difficultyMultipliers[session.state.metadata?.difficulty || ''] || 1;
       break;
 
-    case 'book':
-      baseScore = SCORING_CONFIG.BOOK_PUZZLE_BASE;
+    case 'collection':
+      baseScore = SCORING_CONFIG.COLLECTION_PUZZLE_BASE;
       difficultyMultiplier =
-        SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[
-          session.state.metadata?.difficulty || ''
-        ] || 1;
+        difficultyMultipliers[session.state.metadata?.difficulty || ''] || 1;
       break;
 
     case 'scanned':
@@ -204,7 +208,7 @@ export const calculateUserScore = <
 
   let volumeScore = 0;
   let dailyPuzzleScore = 0;
-  let bookPuzzleScore = 0;
+  let collectionPuzzleScore = 0;
   let scannedPuzzleScore = 0;
   let difficultyBonus = 0;
   let speedBonus = 0;
@@ -214,7 +218,7 @@ export const calculateUserScore = <
   const stats = {
     totalPuzzles: recent30DaySessions.length,
     dailyPuzzles: 0,
-    bookPuzzles: 0,
+    collectionPuzzles: 0,
     scannedPuzzles: 0,
     averageTime: 0,
     fastestTime: Infinity,
@@ -234,9 +238,9 @@ export const calculateUserScore = <
         stats.dailyPuzzles++;
         dailyPuzzleScore += SCORING_CONFIG.DAILY_PUZZLE_BASE;
         break;
-      case 'book':
-        stats.bookPuzzles++;
-        bookPuzzleScore += SCORING_CONFIG.BOOK_PUZZLE_BASE;
+      case 'collection':
+        stats.collectionPuzzles++;
+        collectionPuzzleScore += SCORING_CONFIG.COLLECTION_PUZZLE_BASE;
         break;
       case 'scanned':
         stats.scannedPuzzles++;
@@ -247,6 +251,7 @@ export const calculateUserScore = <
     const sessionScore = calculateSessionScore(session, {
       dailyCombo: options?.dailyCombo,
       dayPuzzleIndex: dayPuzzleIndexBySession.get(session),
+      difficultyMultipliers: options?.difficultyMultipliers,
     });
 
     volumeScore += sessionScore.volumeScore;
@@ -270,7 +275,7 @@ export const calculateUserScore = <
   return {
     volumeScore,
     dailyPuzzleScore,
-    bookPuzzleScore,
+    collectionPuzzleScore,
     scannedPuzzleScore,
     difficultyBonus,
     speedBonus,

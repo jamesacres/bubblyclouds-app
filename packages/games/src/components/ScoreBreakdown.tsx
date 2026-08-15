@@ -1,17 +1,25 @@
 'use client';
 import React from 'react';
-import { Award, Zap, Calendar, Book, Camera, Flame } from 'lucide-react';
+import { Award, Zap, Calendar, Library, Camera, Flame } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
 
 interface ScoreBreakdownProps {
   breakdown: FriendsLeaderboardScore['breakdown'];
   stats: FriendsLeaderboardScore['stats'];
+  // What this game calls its collection-type puzzles: sudoku's monthly
+  // puzzle book stays "Book puzzles" / "puzzle books", Unblock Race's puzzle
+  // collections say "Collection puzzles" / "collections" — same underlying
+  // collectionPuzzleScore/stats either way.
+  collectionLabel?: string;
+  collectionDetailNoun?: string;
 }
 
 const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
   breakdown,
   stats,
+  collectionLabel = 'Book',
+  collectionDetailNoun = 'puzzle books',
 }) => {
   const breakdownItems = [
     {
@@ -29,10 +37,10 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
       color: 'border-l-blue-500',
     },
     {
-      label: 'Book Puzzles',
-      value: breakdown.bookPuzzleScore,
-      detail: `${stats.bookPuzzles} from puzzle books`,
-      icon: <Book size={16} className="text-purple-600" />,
+      label: `${collectionLabel} Puzzles`,
+      value: breakdown.collectionPuzzleScore,
+      detail: `${stats.collectionPuzzles} from ${collectionDetailNoun}`,
+      icon: <Library size={16} className="text-purple-600" />,
       color: 'border-l-purple-500',
     },
     {

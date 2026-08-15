@@ -44,6 +44,7 @@ import { difficultyForMoves } from '../helpers/difficulty';
 import {
   unblockDifficultyDisplay,
   getUnblockDifficultyDisplay,
+  UNBLOCK_DIFFICULTY_MULTIPLIERS,
 } from '../helpers/difficultyDisplay';
 import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
 import { getDailyLabel } from '../helpers/dailyLabel';
@@ -700,16 +701,21 @@ const UnblockRace = ({
   // "+N pts" the player sees is the real number their total goes up by.
   // dayPuzzleIndex is how many other puzzles they'd already finished today —
   // the combo multiplier compounds through the day — read from the sessions
-  // list already in scope (the current stage's own session is excluded so it
-  // isn't double-counted while it settles).
+  // list already in scope. Every stage of this run is excluded, not just the
+  // current one: scoreStage's own comboIndex argument already accounts for
+  // this run's earlier stages (see runPoints/stageClearPoints below), so
+  // counting them again here from a synced session would double them up.
+  const runSessionIds = useMemo(
+    () => new Set(runStageIds.map((stageId) => `${app}-${stageId}`)),
+    [runStageIds, app]
+  );
   const dayPuzzleIndex = useMemo(() => {
     if (!sessions) {
       return 0;
     }
     const todayKey = new Date().toISOString().slice(0, 10);
-    const currentSessionId = `${app}-${puzzleId}`;
     return sessions.filter((session) => {
-      if (session.sessionId === currentSessionId) {
+      if (runSessionIds.has(session.sessionId)) {
         return false;
       }
       const completedAt = session.state.completed?.at;
@@ -721,7 +727,7 @@ const UnblockRace = ({
       }
       return new Date(completedAt).toISOString().slice(0, 10) === todayKey;
     }).length;
-  }, [sessions, app, puzzleId]);
+  }, [sessions, runSessionIds]);
 
   // Score one completed stage as calculateSessionScore expects, from the
   // stage's own time/difficulty and the run's metadata (runId/collection id
@@ -752,6 +758,7 @@ const UnblockRace = ({
       return calculateSessionScore(session, {
         dailyCombo: SCORING_CONFIG.DAILY_COMBO,
         dayPuzzleIndex: stageComboIndex,
+        difficultyMultipliers: UNBLOCK_DIFFICULTY_MULTIPLIERS,
       }).total;
     },
     [app, puzzleId, initial, final, metadata, runId]
@@ -763,7 +770,11 @@ const UnblockRace = ({
     ? starRatingForMoves(stageClear.movesMade, stageClear.movesRequired)
     : 0;
   const stageClearPoints = stageClear
-    ? scoreStage(stageClear.seconds, stageClear.movesRequired, dayPuzzleIndex)
+    ? scoreStage(
+        stageClear.seconds,
+        stageClear.movesRequired,
+        dayPuzzleIndex + stageClear.stage - 1
+      )
     : 0;
 
   // Run-total payoff for the finish celebration: stars grade the whole run's

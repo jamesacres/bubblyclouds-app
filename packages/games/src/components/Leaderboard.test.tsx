@@ -136,7 +136,7 @@ describe('Leaderboard', () => {
     (scoringUtils.calculateUserScore as jest.Mock).mockReturnValue({
       volumeScore: 100,
       dailyPuzzleScore: 50,
-      bookPuzzleScore: 75,
+      collectionPuzzleScore: 75,
       scannedPuzzleScore: 25,
       difficultyBonus: 30,
       speedBonus: 100,
@@ -145,7 +145,7 @@ describe('Leaderboard', () => {
       stats: {
         totalPuzzles: 10,
         dailyPuzzles: 3,
-        bookPuzzles: 4,
+        collectionPuzzles: 4,
         scannedPuzzles: 3,
         averageTime: 120,
         fastestTime: 60,

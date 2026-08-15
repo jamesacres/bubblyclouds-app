@@ -2,7 +2,11 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ScoringLegend from './ScoringLegend';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
-import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
+import {
+  Difficulty,
+  BookPuzzleDifficulty,
+  UnblockRaceDifficulty,
+} from '../types/difficulty';
 
 describe('ScoringLegend', () => {
   const mockOnClose = jest.fn();
@@ -288,6 +292,22 @@ describe('ScoringLegend', () => {
         screen.getByText(`+${SCORING_CONFIG.SCANNED_PUZZLE_BASE}`)
       ).toBeInTheDocument();
     });
+
+    it('should hide the scanned puzzle base points when showScannedPuzzles is false (e.g. Unblock Race, which has no scanning feature)', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          showScannedPuzzles={false}
+        />
+      );
+
+      expect(screen.queryByText('Scanned puzzle')).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(`+${SCORING_CONFIG.SCANNED_PUZZLE_BASE}`)
+      ).not.toBeInTheDocument();
+    });
   });
 
   describe('difficulty multipliers section', () => {
@@ -365,6 +385,44 @@ describe('ScoringLegend', () => {
       expect(screen.getByText('Book puzzles')).toBeInTheDocument();
       const bookDifficulties = Object.values(BookPuzzleDifficulty);
       expect(bookDifficulties.length).toBeGreaterThan(0);
+    });
+
+    it('should use custom collection label and tiers when provided (e.g. Unblock Race)', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          collectionLabel="Collection"
+          collectionDifficulties={[
+            {
+              key: UnblockRaceDifficulty.BEGINNER,
+              label: 'Beginner',
+              multiplier: 1.0,
+            },
+            {
+              key: UnblockRaceDifficulty.CHALLENGING,
+              label: 'Challenging',
+              multiplier: 2.0,
+            },
+            { key: UnblockRaceDifficulty.HARD, label: 'Hard', multiplier: 3.0 },
+            {
+              key: UnblockRaceDifficulty.EXPERT,
+              label: 'Expert',
+              multiplier: 4.0,
+            },
+          ]}
+        />
+      );
+
+      expect(screen.getByText('Collection puzzles')).toBeInTheDocument();
+      expect(screen.queryByText('Book puzzles')).not.toBeInTheDocument();
+      expect(screen.getByText('Beginner')).toBeInTheDocument();
+      expect(screen.getByText('Expert')).toBeInTheDocument();
+      expect(screen.queryByText('Very Easy')).not.toBeInTheDocument();
+
+      expect(screen.getAllByText('1×').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('4×').length).toBeGreaterThan(0);
     });
   });
 

@@ -219,7 +219,7 @@ export default function CollectionPage() {
               </p>
               <button
                 onClick={() =>
-                  showLoginModal?.(undefined, LoginContext.PUZZLE_BOOK)
+                  showLoginModal?.(undefined, LoginContext.COLLECTION)
                 }
                 className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
               >

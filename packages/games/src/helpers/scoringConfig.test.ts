@@ -1,5 +1,9 @@
 import { SCORING_CONFIG } from './scoringConfig';
-import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
+import {
+  Difficulty,
+  BookPuzzleDifficulty,
+  UnblockRaceDifficulty,
+} from '../types/difficulty';
 
 describe('scoringConfig', () => {
   describe('Base Score Constants', () => {
@@ -8,9 +12,9 @@ describe('scoringConfig', () => {
       expect(typeof SCORING_CONFIG.DAILY_PUZZLE_BASE).toBe('number');
     });
 
-    it('should define BOOK_PUZZLE_BASE score', () => {
-      expect(SCORING_CONFIG.BOOK_PUZZLE_BASE).toBe(150);
-      expect(typeof SCORING_CONFIG.BOOK_PUZZLE_BASE).toBe('number');
+    it('should define COLLECTION_PUZZLE_BASE score', () => {
+      expect(SCORING_CONFIG.COLLECTION_PUZZLE_BASE).toBe(150);
+      expect(typeof SCORING_CONFIG.COLLECTION_PUZZLE_BASE).toBe('number');
     });
 
     it('should define SCANNED_PUZZLE_BASE score', () => {
@@ -23,8 +27,8 @@ describe('scoringConfig', () => {
       expect(typeof SCORING_CONFIG.VOLUME_MULTIPLIER).toBe('number');
     });
 
-    it('should have book puzzles worth more than daily puzzles', () => {
-      expect(SCORING_CONFIG.BOOK_PUZZLE_BASE).toBeGreaterThan(
+    it('should have collection puzzles worth more than daily puzzles', () => {
+      expect(SCORING_CONFIG.COLLECTION_PUZZLE_BASE).toBeGreaterThan(
         SCORING_CONFIG.DAILY_PUZZLE_BASE
       );
     });
@@ -60,6 +64,19 @@ describe('scoringConfig', () => {
       expect(multipliers[BookPuzzleDifficulty.DEVILISH]).toBe(3.2);
       expect(multipliers[BookPuzzleDifficulty.HELL]).toBe(3.6);
       expect(multipliers[BookPuzzleDifficulty.BEYOND_HELL]).toBe(4.0);
+    });
+
+    it('should not define Unblock Race difficulties (it supplies its own via ScoringOptions.difficultyMultipliers)', () => {
+      const multipliers = SCORING_CONFIG.DIFFICULTY_MULTIPLIERS;
+
+      expect(multipliers[UnblockRaceDifficulty.BEGINNER]).toBeUndefined();
+      expect(multipliers[UnblockRaceDifficulty.CHALLENGING]).toBeUndefined();
+      expect(multipliers[UnblockRaceDifficulty.HARD]).toBeUndefined();
+      // EXPERT is 'expert', shared with Difficulty.EXPERT — it resolves to
+      // sudoku's daily-puzzle multiplier here, not Unblock Race's own.
+      expect(multipliers[UnblockRaceDifficulty.EXPERT]).toBe(
+        multipliers[Difficulty.EXPERT]
+      );
     });
 
     it('should have increasing multipliers for increasing difficulty', () => {
@@ -235,7 +252,7 @@ describe('scoringConfig', () => {
 
     it('should have all required properties', () => {
       expect(SCORING_CONFIG).toHaveProperty('DAILY_PUZZLE_BASE');
-      expect(SCORING_CONFIG).toHaveProperty('BOOK_PUZZLE_BASE');
+      expect(SCORING_CONFIG).toHaveProperty('COLLECTION_PUZZLE_BASE');
       expect(SCORING_CONFIG).toHaveProperty('SCANNED_PUZZLE_BASE');
       expect(SCORING_CONFIG).toHaveProperty('VOLUME_MULTIPLIER');
       expect(SCORING_CONFIG).toHaveProperty('DIFFICULTY_MULTIPLIERS');
@@ -269,11 +286,11 @@ describe('scoringConfig', () => {
       expect(dailyWithEasy).toBe(120);
     });
 
-    it('should handle numeric calculations with book puzzles', () => {
-      const bookWithModerate =
-        SCORING_CONFIG.BOOK_PUZZLE_BASE *
+    it('should handle numeric calculations with collection puzzles', () => {
+      const collectionWithModerate =
+        SCORING_CONFIG.COLLECTION_PUZZLE_BASE *
         SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[BookPuzzleDifficulty.MODERATE];
-      expect(bookWithModerate).toBe(210);
+      expect(collectionWithModerate).toBe(210);
     });
   });
 });

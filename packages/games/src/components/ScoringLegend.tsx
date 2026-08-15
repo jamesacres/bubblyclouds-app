@@ -5,11 +5,41 @@ import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
 import { DailyComboConfig } from '../types/scoringTypes';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
 
+// One collection-difficulty tier for the legend's multiplier table: `key`
+// is the metadata.difficulty string scoring keys off, `label` is what's
+// shown for it, `multiplier` is its own display value (not looked up from
+// SCORING_CONFIG — a game's collection tiers may live outside that shared
+// map entirely, see ScoringOptions.difficultyMultipliers).
+export interface CollectionDifficultyTier {
+  key: string;
+  label: string;
+  multiplier: number;
+}
+
+const DEFAULT_COLLECTION_DIFFICULTIES: CollectionDifficultyTier[] =
+  Object.values(BookPuzzleDifficulty).map((key) => ({
+    key,
+    label: key
+      .replace(/^\d+-/, '')
+      .split('-')
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' '),
+    multiplier: SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[key],
+  }));
+
 interface ScoringLegendProps {
   isOpen: boolean;
   onClose: () => void;
   gameName: string;
   dailyCombo?: DailyComboConfig;
+  // What this game calls its collection-type puzzles and the difficulty
+  // tiers that apply to them — defaults to sudoku's monthly puzzle book.
+  collectionLabel?: string;
+  collectionDifficulties?: CollectionDifficultyTier[];
+  // Scanning a physical puzzle is sudoku-only (Unblock Race sessions never
+  // set scannedAt, so its players can never earn this base score) — default
+  // true keeps sudoku's legend unchanged.
+  showScannedPuzzles?: boolean;
 }
 
 const DAILY_DIFFICULTIES = [
@@ -45,17 +75,18 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
   onClose,
   gameName,
   dailyCombo,
+  collectionLabel = 'Book',
+  collectionDifficulties = DEFAULT_COLLECTION_DIFFICULTIES,
+  showScannedPuzzles = true,
 }) => {
   if (!isOpen) return null;
 
-  const bookDifficulties = Object.values(BookPuzzleDifficulty).sort(
-    (a, b) =>
-      SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[a] -
-      SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[b]
+  const sortedCollectionDifficulties = [...collectionDifficulties].sort(
+    (a, b) => a.multiplier - b.multiplier
   );
 
-  const maxBookMult = Math.max(
-    ...bookDifficulties.map((d) => SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[d])
+  const maxCollectionMult = Math.max(
+    ...sortedCollectionDifficulties.map((d) => d.multiplier)
   );
 
   return (
@@ -130,14 +161,18 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                 },
                 {
                   icon: BookOpen,
-                  label: 'Book puzzle',
-                  value: SCORING_CONFIG.BOOK_PUZZLE_BASE,
+                  label: `${collectionLabel} puzzle`,
+                  value: SCORING_CONFIG.COLLECTION_PUZZLE_BASE,
                 },
-                {
-                  icon: ScanLine,
-                  label: 'Scanned puzzle',
-                  value: SCORING_CONFIG.SCANNED_PUZZLE_BASE,
-                },
+                ...(showScannedPuzzles
+                  ? [
+                      {
+                        icon: ScanLine,
+                        label: 'Scanned puzzle',
+                        value: SCORING_CONFIG.SCANNED_PUZZLE_BASE,
+                      },
+                    ]
+                  : []),
               ].map(({ label, value }) => (
                 <div
                   key={label}
@@ -192,40 +227,37 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
               })}
             </div>
 
-            {/* Book */}
+            {/* Collection */}
             <p className="mb-2 text-xs font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-              Book puzzles
+              {collectionLabel} puzzles
             </p>
             <div className="divide-y divide-zinc-200 overflow-hidden rounded-2xl bg-zinc-100 dark:divide-zinc-800 dark:bg-zinc-900">
-              {bookDifficulties.map((difficulty) => {
-                const mult = SCORING_CONFIG.DIFFICULTY_MULTIPLIERS[difficulty];
-                const displayName = difficulty
-                  .replace(/^\d+-/, '')
-                  .split('-')
-                  .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                  .join(' ');
-                const barPct = multiplierBar(mult, maxBookMult);
+              {sortedCollectionDifficulties.map(
+                ({ key, label, multiplier }) => {
+                  const mult = multiplier;
+                  const barPct = multiplierBar(mult, maxCollectionMult);
 
-                return (
-                  <div
-                    key={difficulty}
-                    className="flex items-center gap-3 px-4 py-2.5"
-                  >
-                    <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
-                      {displayName}
-                    </span>
-                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
-                      <div
-                        className="h-full rounded-full bg-amber-500"
-                        style={{ width: `${barPct}%` }}
-                      />
+                  return (
+                    <div
+                      key={key}
+                      className="flex items-center gap-3 px-4 py-2.5"
+                    >
+                      <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                        {label}
+                      </span>
+                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
+                        <div
+                          className="h-full rounded-full bg-amber-500"
+                          style={{ width: `${barPct}%` }}
+                        />
+                      </div>
+                      <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
+                        {mult}×
+                      </span>
                     </div>
-                    <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
-                      {mult}×
-                    </span>
-                  </div>
-                );
-              })}
+                  );
+                }
+              )}
             </div>
           </section>
 

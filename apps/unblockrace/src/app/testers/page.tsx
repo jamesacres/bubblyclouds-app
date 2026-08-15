@@ -31,8 +31,8 @@ function TestersContent() {
               <strong>I need your help</strong> to test my new Unblock Race app
               and provide feedback before launch. Please keep the app installed
               for at least the next month and host races with your friends and
-              family! Work your way through the monthly book, daily challenges,
-              try the camera import.
+              family! Work your way through the monthly collection and the daily
+              challenges.
             </p>
             <p className="text-md mt-4 text-gray-600 dark:text-gray-300">
               Once you have installed the app, join the Racing Team which will
@@ -299,13 +299,13 @@ function TestersContent() {
 
             <div className="group rounded-2xl border border-gray-200 bg-white p-8 shadow-lg transition-all hover:-translate-y-2 hover:shadow-2xl dark:border-gray-700 dark:bg-gray-800">
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-green-600 text-2xl text-white shadow-lg">
-                📖
+                🧩
               </div>
               <h3 className="mb-4 text-2xl font-bold text-green-600 dark:text-green-400">
-                Monthly Puzzle Books
+                Monthly Collections
               </h3>
               <p className="leading-relaxed text-gray-600 dark:text-gray-300">
-                Technique-focused puzzle collections designed to challenge and
+                Curated puzzle collections designed to challenge and
                 systematically improve your solving skills.
               </p>
             </div>

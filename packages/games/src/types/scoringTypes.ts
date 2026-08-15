@@ -8,7 +8,7 @@ export interface FriendsLeaderboardScore {
   breakdown: {
     volumeScore: number;
     dailyPuzzleScore: number;
-    bookPuzzleScore: number;
+    collectionPuzzleScore: number;
     scannedPuzzleScore: number;
     difficultyBonus: number;
     speedBonus: number;
@@ -18,7 +18,7 @@ export interface FriendsLeaderboardScore {
   stats: {
     totalPuzzles: number;
     dailyPuzzles: number;
-    bookPuzzles: number;
+    collectionPuzzles: number;
     scannedPuzzles: number;
     averageTime: number;
     fastestTime: number;
@@ -26,7 +26,7 @@ export interface FriendsLeaderboardScore {
   };
 }
 
-export type PuzzleType = 'daily' | 'book' | 'scanned' | 'unknown';
+export type PuzzleType = 'daily' | 'collection' | 'scanned' | 'unknown';
 
 export interface DailyComboConfig {
   increment: number;
@@ -35,6 +35,12 @@ export interface DailyComboConfig {
 
 export interface ScoringOptions {
   dailyCombo?: DailyComboConfig;
+  // Overrides/extends SCORING_CONFIG.DIFFICULTY_MULTIPLIERS for this call —
+  // lets a game supply its own difficulty tiers (keyed by the same
+  // metadata.difficulty strings it writes) without colliding with another
+  // game's multiplier for a same-named tier (e.g. both games having an
+  // "expert" difficulty at different multipliers).
+  difficultyMultipliers?: Record<string, number>;
 }
 
 export interface SessionScore {
@@ -50,7 +56,7 @@ export interface SessionScore {
 export interface ScoringResult {
   volumeScore: number;
   dailyPuzzleScore: number;
-  bookPuzzleScore: number;
+  collectionPuzzleScore: number;
   scannedPuzzleScore: number;
   difficultyBonus: number;
   speedBonus: number;

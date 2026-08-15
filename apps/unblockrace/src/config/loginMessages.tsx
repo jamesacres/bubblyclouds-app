@@ -13,9 +13,9 @@ export const LOGIN_CONTEXT_MESSAGES: Partial<
     textColor: 'text-violet-200',
     content: <>Sign in to start today&rsquo;s puzzle</>,
   },
-  [LoginContext.PUZZLE_BOOK]: {
+  [LoginContext.COLLECTION]: {
     textColor: 'text-fuchsia-200',
-    content: <>Sign in to browse the puzzle book</>,
+    content: <>Sign in to browse the collection</>,
   },
   [LoginContext.JOIN_TEAM]: {
     textColor: 'text-blue-200',

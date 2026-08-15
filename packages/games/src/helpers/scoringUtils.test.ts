@@ -44,9 +44,9 @@ describe('scoringUtils', () => {
       expect(getPuzzleType(session)).toBe('daily');
     });
 
-    it('should identify book puzzle by sudokuBookPuzzleId', () => {
+    it('should identify collection puzzle by sudokuBookPuzzleId', () => {
       const session = createSession({ sudokuBookPuzzleId: 'book-123' });
-      expect(getPuzzleType(session)).toBe('book');
+      expect(getPuzzleType(session)).toBe('collection');
     });
 
     it('should identify scanned puzzle by scannedAt', () => {
@@ -76,7 +76,7 @@ describe('scoringUtils', () => {
       const session = createSession({
         unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3',
       });
-      expect(getPuzzleType(session)).toBe('book');
+      expect(getPuzzleType(session)).toBe('collection');
     });
 
     it('should keep sudoku metadata precedence over unblock metadata', () => {
@@ -84,7 +84,7 @@ describe('scoringUtils', () => {
         sudokuBookPuzzleId: 'book-123',
         runId: 'oftheday-20260708',
       });
-      expect(getPuzzleType(session)).toBe('book');
+      expect(getPuzzleType(session)).toBe('collection');
     });
   });
 
@@ -303,7 +303,7 @@ describe('scoringUtils', () => {
       );
 
       expect(result.stats.dailyPuzzles).toBe(1);
-      expect(result.stats.bookPuzzles).toBe(1);
+      expect(result.stats.collectionPuzzles).toBe(1);
       expect(result.stats.scannedPuzzles).toBe(1);
     });
 
@@ -393,13 +393,13 @@ describe('scoringUtils', () => {
 
       const expectedVolume = sudokuFixtures.length * 10;
       const expectedDaily = 2 * SCORING_CONFIG.DAILY_PUZZLE_BASE;
-      const expectedBook = SCORING_CONFIG.BOOK_PUZZLE_BASE;
+      const expectedCollection = SCORING_CONFIG.COLLECTION_PUZZLE_BASE;
       const expectedScanned = SCORING_CONFIG.SCANNED_PUZZLE_BASE;
 
       const expectedDifficulty =
         SCORING_CONFIG.DAILY_PUZZLE_BASE *
           (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['expert'] - 1) +
-        SCORING_CONFIG.BOOK_PUZZLE_BASE *
+        SCORING_CONFIG.COLLECTION_PUZZLE_BASE *
           (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['8-fiendish'] - 1) +
         SCORING_CONFIG.DAILY_PUZZLE_BASE *
           (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['simple'] - 1);
@@ -412,7 +412,7 @@ describe('scoringUtils', () => {
 
       expect(result.volumeScore).toBe(expectedVolume);
       expect(result.dailyPuzzleScore).toBe(expectedDaily);
-      expect(result.bookPuzzleScore).toBe(expectedBook);
+      expect(result.collectionPuzzleScore).toBe(expectedCollection);
       expect(result.scannedPuzzleScore).toBe(expectedScanned);
       expect(result.difficultyBonus).toBeCloseTo(expectedDifficulty, 10);
       expect(result.speedBonus).toBe(expectedSpeed);
@@ -453,7 +453,7 @@ describe('scoringUtils', () => {
         10
       );
       expect(sessionScore.speedBonus).toBe(userScore.speedBonus);
-      expect(sessionScore.baseScore).toBe(userScore.bookPuzzleScore);
+      expect(sessionScore.baseScore).toBe(userScore.collectionPuzzleScore);
     });
 
     it('applies the combo multiplier to volume + base×difficulty + speed', () => {
@@ -490,6 +490,56 @@ describe('scoringUtils', () => {
       });
 
       expect(score.comboMultiplier).toBe(dailyCombo.max);
+    });
+
+    it('overrides the shared difficulty multiplier with options.difficultyMultipliers', () => {
+      // Unblock Race's own daily runs write metadata.difficulty: 'expert',
+      // the same literal string sudoku's daily Difficulty.EXPERT uses — a
+      // real collision in SCORING_CONFIG.DIFFICULTY_MULTIPLIERS's flat map.
+      // difficultyMultipliers lets a caller supply its own value for that
+      // key without touching the shared default.
+      const session = createSession(
+        { runId: 'oftheday-20260708', difficulty: 'expert' },
+        700 // above every speed threshold, so speedBonus is 0 and doesn't
+        // muddy the difficultyBonus assertion
+      );
+
+      const defaultScore = calculateSessionScore(session);
+      expect(defaultScore.baseScore).toBe(SCORING_CONFIG.DAILY_PUZZLE_BASE);
+      expect(defaultScore.difficultyBonus).toBeCloseTo(
+        SCORING_CONFIG.DAILY_PUZZLE_BASE *
+          (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['expert'] - 1),
+        10
+      );
+
+      const overriddenScore = calculateSessionScore(session, {
+        difficultyMultipliers: { expert: 4.0 },
+      });
+      expect(overriddenScore.difficultyBonus).toBeCloseTo(
+        SCORING_CONFIG.DAILY_PUZZLE_BASE * (4.0 - 1),
+        10
+      );
+      expect(overriddenScore.difficultyBonus).not.toBeCloseTo(
+        defaultScore.difficultyBonus,
+        5
+      );
+    });
+
+    it('leaves other difficulty keys at their shared default when only one key is overridden', () => {
+      const session = createSession(
+        { sudokuId: 'oftheday_1', difficulty: 'simple' },
+        700
+      );
+
+      const score = calculateSessionScore(session, {
+        difficultyMultipliers: { expert: 4.0 },
+      });
+
+      expect(score.difficultyBonus).toBeCloseTo(
+        SCORING_CONFIG.DAILY_PUZZLE_BASE *
+          (SCORING_CONFIG.DIFFICULTY_MULTIPLIERS['simple'] - 1),
+        10
+      );
     });
   });
 
