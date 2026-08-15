@@ -13,10 +13,16 @@ const SUPPORTED_BOARD_LENGTH = 36;
 export const isSolverSupported = (boardString: string): boolean =>
   boardString.length === SUPPORTED_BOARD_LENGTH;
 
+const MOVE_PATTERN = /^([A-Z])([+-]\d+)$/;
+
 const parseMove = (label: string): Move => {
-  const piece = label.charCodeAt(0) - 65;
-  const steps = parseInt(label.slice(1), 10);
-  if (piece < 0 || piece > 25 || Number.isNaN(steps) || steps === 0) {
+  const match = MOVE_PATTERN.exec(label);
+  if (!match) {
+    throw new Error(`Solver returned an unparseable move: ${label}`);
+  }
+  const piece = match[1].charCodeAt(0) - 65;
+  const steps = parseInt(match[2], 10);
+  if (steps === 0) {
     throw new Error(`Solver returned an unparseable move: ${label}`);
   }
   return { piece, steps };

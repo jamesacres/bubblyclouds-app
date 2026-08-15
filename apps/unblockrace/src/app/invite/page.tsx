@@ -78,7 +78,9 @@ function InviteComponent() {
     (redirectUri: string | undefined) => {
       let uri =
         redirectUri &&
-        new RegExp('^/puzzle\\?initial=[1-9.]+&final=[1-9]+').test(redirectUri)
+        new RegExp('^/puzzle\\?board=[0-9A-Za-z.,%]+&moves=[0-9,]+').test(
+          redirectUri
+        )
           ? redirectUri
           : '/';
 

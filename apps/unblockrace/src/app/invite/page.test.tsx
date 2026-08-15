@@ -48,7 +48,7 @@ describe('Invite Page', () => {
   const mockPublicInvite: PublicInvite = {
     resourceId: 'party-456',
     description: 'Test Racing Team',
-    redirectUri: '/puzzle?initial=1&final=9',
+    redirectUri: '/puzzle?board=AABoooooooo&moves=5',
     sessionId: 'session-123',
     entitlementDuration: EntitlementDuration.ONE_MONTH,
   };
@@ -219,7 +219,7 @@ describe('Invite Page', () => {
 
       await waitFor(() => {
         expect(mockRouterReplace).toHaveBeenCalledWith(
-          '/puzzle?initial=1&final=9'
+          '/puzzle?board=AABoooooooo&moves=5'
         );
       });
     });
@@ -238,7 +238,7 @@ describe('Invite Page', () => {
       await waitFor(
         () => {
           expect(mockRouterReplace).toHaveBeenCalledWith(
-            '/puzzle?initial=1&final=9'
+            '/puzzle?board=AABoooooooo&moves=5'
           );
         },
         { timeout: 3000 }
