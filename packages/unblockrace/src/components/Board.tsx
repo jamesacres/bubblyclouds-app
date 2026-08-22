@@ -302,14 +302,14 @@ const Board = memo(function Board({
           }}
         >
           <div
-            className="bg-stone-300 dark:bg-zinc-800"
+            className="bg-stone-300 [--wall-border:rgba(0,0,0,0.15)] [--wall-stripe:rgba(0,0,0,0.1)] dark:bg-zinc-700 dark:[--wall-border:rgba(255,255,255,0.25)] dark:[--wall-stripe:rgba(255,255,255,0.22)]"
             style={{
               position: 'absolute',
               inset: '7%',
               borderRadius: '18%',
               backgroundImage:
-                'repeating-linear-gradient(45deg, rgba(0,0,0,0.1) 0 4px, transparent 4px 9px)',
-              border: '1px solid rgba(0,0,0,0.15)',
+                'repeating-linear-gradient(45deg, var(--wall-stripe) 0 4px, transparent 4px 9px)',
+              border: '1px solid var(--wall-border)',
               boxShadow:
                 'inset 0 2px 6px rgba(0,0,0,0.35), inset 0 -1px 2px rgba(255,255,255,0.08)',
             }}

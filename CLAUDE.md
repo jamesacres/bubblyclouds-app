@@ -10,6 +10,7 @@ Architecture:
 
 Rules:
 
+- Do not run the server or web browser to verify unless asked, finish the task and the user will verify
 - Do not add unnecessary comments
 - Do not cast, we should fix the actual types or use generics
 - Do not use any, use unknown if we don't know what it is, or fix the types
