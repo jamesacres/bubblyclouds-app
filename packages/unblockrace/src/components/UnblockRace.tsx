@@ -66,7 +66,12 @@ import {
   completedStagesFromStorage,
   firstIncompleteStage,
 } from '../helpers/stageResults';
-import { AgentRunInput, calculateRunResults } from '../helpers/runResults';
+import {
+  AgentRunInput,
+  calculateMostRecentUpdatedAtByUserId,
+  calculatePresenceStageByUserId,
+  calculateRunResults,
+} from '../helpers/runResults';
 import NextPuzzlePanel from './NextPuzzlePanel';
 import CompletionSummary from './CompletionSummary';
 import ConfirmDialog from './ConfirmDialog';
@@ -301,6 +306,7 @@ const UnblockRace = ({
     refreshSessionParties,
     isPolling,
     sessionParties,
+    hasSessionPartiesFromServer,
     runStageParties,
     showLobby,
     setShowLobby,
@@ -1155,6 +1161,77 @@ const UnblockRace = ({
     [agents]
   );
 
+  // Which stage each OTHER party member is present on right now — including
+  // stages they haven't finished yet. calculateRunResults (below) only ever
+  // records a stage once it's completed, so a friend actively playing a
+  // stage the current user has already moved past (or not reached yet)
+  // would otherwise have no data anywhere and show as offline in the Lobby.
+  // Presence is purely a "where are they" signal, kept separate from
+  // completedStageCount so it never inflates the whole-run percentage.
+  const presenceStageByUserId = useMemo(
+    () =>
+      stages.length > 1
+        ? calculatePresenceStageByUserId({
+            stages,
+            runStageParties,
+            userId: user?.sub,
+          })
+        : new Map<string, number>(),
+    [stages, runStageParties, user?.sub]
+  );
+
+  // Each OTHER party member's most recent session updatedAt across every
+  // stage we have data for — the Lobby's online/away split needs this rather
+  // than just the current stage's own session, since a friend can go stale
+  // on OUR stage (moved on without us ever seeing them complete it) while
+  // actively playing a later one right now.
+  const mostRecentUpdatedAtByUserId = useMemo(
+    () =>
+      stages.length > 1
+        ? calculateMostRecentUpdatedAtByUserId({
+            stages,
+            runStageParties,
+            userId: user?.sub,
+          })
+        : new Map<string, Date>(),
+    [stages, runStageParties, user?.sub]
+  );
+
+  // Multi-stage runs only: Lobby's opponent list (both human party members
+  // and AI opponents) needs each opponent's completed-stage count and time
+  // total so it can show "Stage N of M" instead of a per-stage percentage,
+  // and surface human opponents who've moved past the stage sessionParties
+  // covers. Agent rows are keyed by their agentId, matching
+  // localAgentProgress, so the same map serves both lookups.
+  const runProgressByUserId = useMemo(() => {
+    if (!runResults) {
+      return undefined;
+    }
+    const map: Record<
+      string,
+      { completedStageCount: number; totalSeconds: number }
+    > = {};
+    for (const result of runResults) {
+      if (result.isCurrentUser) {
+        continue;
+      }
+      map[result.userId] = {
+        completedStageCount: result.completedStageCount,
+        totalSeconds: result.totalSeconds,
+      };
+    }
+    // Add opponents who are present (playing, not yet finished) on a stage
+    // but have zero completed stages, so calculateRunResults omitted them
+    // entirely (it filters out completedStageCount === 0 rows). They still
+    // need a "Stage N of M" line so they don't fall through to offline.
+    presenceStageByUserId.forEach((stageIndex, userId) => {
+      if (!map[userId]) {
+        map[userId] = { completedStageCount: stageIndex, totalSeconds: 0 };
+      }
+    });
+    return map;
+  }, [runResults, presenceStageByUserId]);
+
   // Login is required before the puzzle mounts at all: while auth is
   // resolving (isInitialised false) or no user is confirmed, replace the
   // whole Lobby/board subtree with the gate rather than layering it on top,
@@ -1253,6 +1330,10 @@ const UnblockRace = ({
         }
         initialState={puzzleInitialState}
         onStartRace={handleStartRace}
+        runProgressByUserId={runProgressByUserId}
+        totalStages={stages.length > 1 ? stages.length : undefined}
+        mostRecentUpdatedAtByUserId={mostRecentUpdatedAtByUserId}
+        hasSessionPartiesFromServer={hasSessionPartiesFromServer}
       />
 
       {raceStarted &&
@@ -1640,6 +1721,8 @@ const UnblockRace = ({
                 calculateStatsDisplayFromState={calculateStatsDisplayFromState}
                 onInviteFriends={handleInviteFriends}
                 runResults={runResults}
+                totalStages={stages.length}
+                presenceStageByUserId={presenceStageByUserId}
                 localAgentProgress={localAgentProgress}
                 rateApp={rateApp}
                 secondaryCta={raceTrackSecondaryCta}

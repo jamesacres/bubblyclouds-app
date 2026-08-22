@@ -327,6 +327,217 @@ describe('RaceTrack', () => {
     );
   });
 
+  it('includes a presence-only opponent in the leaderboard table with dashes for every stage, ranked after anyone with a result', () => {
+    // userId2 has just started a stage — zero completed stages, so
+    // calculateRunResults would never produce a line for them. The table
+    // already renders "–" for any stage without a result, so they still
+    // belong in the table, just with every cell dashed and ranked last.
+    const runResults: PlayerRunResult[] = [
+      {
+        userId: 'userId1',
+        isCurrentUser: true,
+        stageResults: [{ seconds: 10, movesMade: 4, movesRequired: 3 }],
+        totalSeconds: 10,
+        totalMoves: 4,
+        totalMovesDelta: 1,
+        completedStageCount: 1,
+      },
+    ];
+
+    render(
+      <RaceTrack
+        {...defaultProps}
+        runResults={runResults}
+        totalStages={3}
+        presenceStageByUserId={new Map([['userId2', 0]])}
+      />
+    );
+
+    expect(screen.getByTestId('run-leaderboard-row-0')).toHaveTextContent(
+      'You'
+    );
+    const presenceRow = screen.getByTestId('run-leaderboard-row-1');
+    expect(presenceRow).toHaveTextContent('Player 2');
+    expect(presenceRow).toHaveTextContent('–');
+  });
+
+  it('positions karts by whole-run progress when totalStages is passed', () => {
+    // userId2 has finished stage 1 (of 3) and is live on stage 2 at 50%;
+    // the current user hasn't completed any stage and is live at 20% of
+    // stage 1. Whole-run: userId2 = (1 + 0.5) / 3 = 50%, userId1 = (0 + 0.2)
+    // / 3 ≈ 7%. Without totalStages this would read userId2 as behind
+    // (their in-stage 50% < the party session's raw percentage), which is
+    // the bug this covers.
+    mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
+      state === defaultProps.state ? 20 : 50
+    );
+    const runResults: PlayerRunResult[] = [
+      {
+        userId: 'userId2',
+        isCurrentUser: false,
+        stageResults: [{ seconds: 8, movesMade: 3, movesRequired: 3 }],
+        totalSeconds: 8,
+        totalMoves: 3,
+        totalMovesDelta: 0,
+        completedStageCount: 1,
+      },
+    ];
+
+    render(
+      <RaceTrack {...defaultProps} runResults={runResults} totalStages={3} />
+    );
+
+    // userId2 is ahead overall (50%) despite a lower in-stage percentage
+    // than the raw 50% would otherwise suggest is "even" with a stage-1-only
+    // racer — the key assertion is the stage badges, which prove each racer
+    // is being read on their own stage rather than compared like-for-like.
+    expect(screen.getByTestId('stage-badge-userId1')).toHaveTextContent('S1');
+    expect(screen.getByTestId('stage-badge-userId2')).toHaveTextContent('S2');
+  });
+
+  it('positions an AI agent kart by whole-run progress too, not just its raw per-stage percentage', () => {
+    // Agent has finished stage 1 (of 3) and is live on stage 2 at 40%
+    // in-stage — same snap-back bug as a human opponent moving to a new
+    // stage, since agent.percentage on its own only ever describes the
+    // current stage.
+    const runResults: PlayerRunResult[] = [
+      {
+        userId: 'agent-0',
+        isCurrentUser: false,
+        stageResults: [{ seconds: 8, movesMade: 3, movesRequired: 3 }],
+        totalSeconds: 8,
+        totalMoves: 3,
+        totalMovesDelta: 0,
+        completedStageCount: 1,
+        nickname: 'Bumblebee',
+        isAgent: true,
+        emoji: '🐝',
+      },
+    ];
+
+    render(
+      <RaceTrack
+        {...defaultProps}
+        runResults={runResults}
+        totalStages={3}
+        localAgentProgress={[agent({ percentage: 40 })]}
+      />
+    );
+
+    // Whole-run: (1 + 0.4) / 3 = 47%, not the raw 40%.
+    expect(screen.getByTestId('agent-legend-agent-0')).toHaveTextContent('47%');
+    expect(screen.getByTestId('stage-badge-agent-0')).toHaveTextContent('S2');
+  });
+
+  it('keeps an opponent on the track after they move past the shared stage', () => {
+    // userId2 is no longer in sessionParties (they moved to stage 3, off
+    // the current stage's party), but has a leaderboard line from
+    // runStageParties showing 2 completed stages. They must still appear on
+    // the track instead of disappearing.
+    mockCalculateCompletionPercentageFromState.mockReturnValue(10);
+    const runResults: PlayerRunResult[] = [
+      {
+        userId: 'userId2',
+        isCurrentUser: false,
+        stageResults: [
+          { seconds: 8, movesMade: 3, movesRequired: 3 },
+          { seconds: 9, movesMade: 3, movesRequired: 3 },
+        ],
+        totalSeconds: 17,
+        totalMoves: 6,
+        totalMovesDelta: 0,
+        completedStageCount: 2,
+      },
+    ];
+
+    render(
+      <RaceTrack
+        {...defaultProps}
+        sessionParties={{}}
+        runResults={runResults}
+        totalStages={5}
+      />
+    );
+
+    expect(screen.getAllByText(/Player 2/).length).toBeGreaterThan(0);
+    expect(screen.getByTestId('stage-badge-userId2')).toHaveTextContent('S3');
+  });
+
+  it('shows a brand new opponent racing an earlier stage for the first time, even with zero completed stages', () => {
+    // userId2 has just started stage 1 (the current user is on stage 3) and
+    // hasn't finished anything yet — calculateRunResults omits anyone with
+    // completedStageCount 0, so runResults alone can't surface them.
+    // presenceStageByUserId (from any live session, completed or not) is the
+    // only source that knows they exist.
+    mockCalculateCompletionPercentageFromState.mockReturnValue(10);
+    render(
+      <RaceTrack
+        {...defaultProps}
+        sessionParties={{}}
+        runResults={[]}
+        totalStages={5}
+        presenceStageByUserId={new Map([['userId2', 0]])}
+      />
+    );
+
+    expect(screen.getAllByText(/Player 2/).length).toBeGreaterThan(0);
+    expect(screen.getByTestId('stage-badge-userId2')).toHaveTextContent('S1');
+  });
+
+  it('does not duplicate an opponent already surfaced from runResults when they also appear in presenceStageByUserId', () => {
+    const runResults: PlayerRunResult[] = [
+      {
+        userId: 'userId2',
+        isCurrentUser: false,
+        stageResults: [{ seconds: 8, movesMade: 3, movesRequired: 3 }],
+        totalSeconds: 8,
+        totalMoves: 3,
+        totalMovesDelta: 0,
+        completedStageCount: 1,
+      },
+    ];
+
+    render(
+      <RaceTrack
+        {...defaultProps}
+        sessionParties={{}}
+        runResults={runResults}
+        totalStages={5}
+        presenceStageByUserId={new Map([['userId2', 1]])}
+      />
+    );
+
+    // Only one kart/legend chip for userId2, using the runResults-derived
+    // stage number (S2), not overwritten by the presence fallback.
+    expect(screen.getByTestId('stage-badge-userId2')).toHaveTextContent('S2');
+  });
+
+  it('only shows the completed block once the whole run is finished', () => {
+    // Current user finished stage 1 of 3 (state.completed is set for this
+    // stage), but the run overall is not done — the Leaderboard/Puzzle book
+    // card must not show yet.
+    mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
+      state === defaultProps.state ? 100 : 50
+    );
+    const runResults: PlayerRunResult[] = [
+      {
+        userId: 'userId1',
+        isCurrentUser: true,
+        stageResults: [{ seconds: 10, movesMade: 4, movesRequired: 3 }],
+        totalSeconds: 10,
+        totalMoves: 4,
+        totalMovesDelta: 1,
+        completedStageCount: 1,
+      },
+    ];
+
+    render(
+      <RaceTrack {...defaultProps} runResults={runResults} totalStages={3} />
+    );
+
+    expect(screen.queryByText(/Leaderboard/)).not.toBeInTheDocument();
+  });
+
   it('renders the rate-app prompt on the completed block when rateApp is passed', () => {
     setUserAgent(IOS_UA);
     mockCalculateCompletionPercentageFromState.mockImplementation((state) =>

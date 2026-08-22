@@ -1,7 +1,12 @@
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { ServerState } from '../types/state';
 import { RunStage, StageResult } from './stageResults';
-import { AgentRunInput, calculateRunResults } from './runResults';
+import {
+  AgentRunInput,
+  calculateMostRecentUpdatedAtByUserId,
+  calculatePresenceStageByUserId,
+  calculateRunResults,
+} from './runResults';
 
 const STAGE_1 = [
   'oooooo',
@@ -286,5 +291,114 @@ describe('calculateRunResults', () => {
         completedStageCount: 1,
       },
     ]);
+  });
+});
+
+describe('calculatePresenceStageByUserId', () => {
+  // A friend who has NOT finished stage 1 yet — calculateRunResults omits
+  // them entirely (completedStageCount === 0 is filtered out), so without
+  // this presence signal they'd have no data anywhere and show as offline.
+  it('includes a friend who is present but has not completed any stage yet', () => {
+    const presence = calculatePresenceStageByUserId({
+      stages: STAGES,
+      runStageParties: {
+        [STAGE_1]: partiesWith({ friend: session(undefined) }),
+      },
+      userId: 'me',
+    });
+
+    expect(presence.get('friend')).toBe(0);
+  });
+
+  it('reports the latest stage a player has any session on, not the earliest', () => {
+    const presence = calculatePresenceStageByUserId({
+      stages: STAGES,
+      runStageParties: {
+        [STAGE_1]: partiesWith({ friend: session(20) }),
+        [STAGE_2]: partiesWith({ friend: session(undefined) }),
+      },
+      userId: 'me',
+    });
+
+    expect(presence.get('friend')).toBe(1);
+  });
+
+  it('excludes the current user from the presence map', () => {
+    const presence = calculatePresenceStageByUserId({
+      stages: STAGES,
+      runStageParties: {
+        [STAGE_1]: partiesWith({ me: session(10) }),
+      },
+      userId: 'me',
+    });
+
+    expect(presence.has('me')).toBe(false);
+  });
+
+  it('returns an empty map when no stage has any party data yet', () => {
+    const presence = calculatePresenceStageByUserId({
+      stages: STAGES,
+      runStageParties: {},
+      userId: 'me',
+    });
+
+    expect(presence.size).toBe(0);
+  });
+});
+
+describe('calculateMostRecentUpdatedAtByUserId', () => {
+  const sessionAt = (updatedAt: string): Session<ServerState> => ({
+    sessionId: 'session',
+    state: {
+      initial: STAGE_1,
+      final: STAGE_2,
+      answerStack: FAIR_STACK,
+    },
+    updatedAt: new Date(updatedAt),
+  });
+
+  it('picks the LATEST updatedAt across stages, not the earliest or the last one seen', () => {
+    // A friend who went stale on the stage we're watching (STAGE_1) can
+    // still be actively playing a later one (STAGE_2) right now — the
+    // Lobby's online/away split needs the true latest, not whichever stage
+    // happens to be iterated last.
+    const mostRecent = calculateMostRecentUpdatedAtByUserId({
+      stages: STAGES,
+      runStageParties: {
+        [STAGE_1]: partiesWith({
+          friend: sessionAt('2026-07-11T00:00:00.000Z'),
+        }),
+        [STAGE_2]: partiesWith({
+          friend: sessionAt('2026-07-11T02:00:00.000Z'),
+        }),
+      },
+      userId: 'me',
+    });
+
+    expect(mostRecent.get('friend')).toEqual(
+      new Date('2026-07-11T02:00:00.000Z')
+    );
+  });
+
+  it('excludes the current user from the map', () => {
+    const mostRecent = calculateMostRecentUpdatedAtByUserId({
+      stages: STAGES,
+      runStageParties: {
+        [STAGE_1]: partiesWith({ me: sessionAt('2026-07-11T00:00:00.000Z') }),
+      },
+      userId: 'me',
+    });
+
+    expect(mostRecent.has('me')).toBe(false);
+  });
+
+  it('returns an empty map when no stage has any party data yet', () => {
+    const mostRecent = calculateMostRecentUpdatedAtByUserId({
+      stages: STAGES,
+      runStageParties: {},
+      userId: 'me',
+    });
+
+    expect(mostRecent.size).toBe(0);
   });
 });

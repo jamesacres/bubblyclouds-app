@@ -3,7 +3,7 @@
 Waitlist, only allow us two to login for now
 update with stephens improvements
 
-fix invite page redirect
+shows collection puzzle 0 - complete
 lobby should show number of moved not just the solved time for those who have completed it and in progress?
 homepage enjoying rate button wrong width
 save to server when making moves every x seconds in addition to when complete?

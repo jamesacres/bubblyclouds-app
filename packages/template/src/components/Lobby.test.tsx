@@ -1,5 +1,11 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from '@testing-library/react';
 import Lobby from './Lobby';
 import {
   UserContext,
@@ -484,7 +490,132 @@ describe('Lobby', () => {
       deleteParty: jest.fn(),
     });
     renderComponent();
+    // The Lobby also calls refreshParties once immediately on open (see the
+    // "fires refreshParties once immediately when the Lobby opens" test) —
+    // the click here adds one more on top of that.
+    const callsAfterOpen = refreshParties.mock.calls.length;
     fireEvent.click(screen.getByLabelText('Refresh online opponents'));
+    expect(refreshParties).toHaveBeenCalledTimes(callsAfterOpen + 1);
+  });
+
+  it('fires refreshParties once immediately when the Lobby opens, not just on the first 30s interval tick', () => {
+    // Regression: without an immediate call, a friend who's already ahead
+    // on stages we haven't reached yet would show as stuck on whatever
+    // stage we last knew about them on until either 30s passed or the
+    // manual refresh button was pressed.
+    const refreshParties = jest.fn();
+    mockUseParties.mockReturnValue({
+      parties: [],
+      isLoading: false,
+      showCreateParty: false,
+      setShowCreateParty: jest.fn(),
+      isSaving: false,
+      memberNickname: '',
+      setMemberNickname: jest.fn(),
+      partyName: '',
+      setPartyName: jest.fn(),
+      saveParty: jest.fn(),
+      refreshParties,
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
+    });
+    renderComponent();
+    expect(refreshParties).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not loop-call refreshParties as its own isLoading transitions settle', async () => {
+    // refreshParties itself flips isLoading true then false around its own
+    // work — the immediate-on-open effect depends on isLoading (to wait for
+    // useParties' own initial load to finish before firing), so a bug where
+    // it re-fires on every isLoading transition would call refreshParties
+    // again every time this component re-renders with isLoading swinging
+    // back to false, looping forever.
+    const refreshParties = jest.fn();
+    let isLoading = false;
+    mockUseParties.mockImplementation(() => ({
+      parties: [],
+      isLoading,
+      showCreateParty: false,
+      setShowCreateParty: jest.fn(),
+      isSaving: false,
+      memberNickname: '',
+      setMemberNickname: jest.fn(),
+      partyName: '',
+      setPartyName: jest.fn(),
+      saveParty: jest.fn(),
+      refreshParties,
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
+    }));
+    const { rerender } = renderComponent();
+    expect(refreshParties).toHaveBeenCalledTimes(1);
+
+    const wrappedTree = (
+      <UserContext.Provider value={{ user: { sub: 'user1' } } as any}>
+        <RevenueCatContext.Provider value={{ isSubscribed: false } as any}>
+          <Lobby {...defaultProps} />
+        </RevenueCatContext.Provider>
+      </UserContext.Provider>
+    );
+    isLoading = true;
+    rerender(wrappedTree);
+    isLoading = false;
+    rerender(wrappedTree);
+    isLoading = true;
+    rerender(wrappedTree);
+    isLoading = false;
+    rerender(wrappedTree);
+
+    expect(refreshParties).toHaveBeenCalledTimes(1);
+  });
+
+  it('fires refreshParties once auth resolves on a hard reload, even though isLoading never toggled before that', () => {
+    // Regression: on a hard page reload, auth (UserContext's `user`) isn't
+    // resolved yet on first render, so useParties' own lazyLoadParties
+    // no-ops (it requires `user`) and isLoading stays false throughout —
+    // the immediate-on-open effect's old `!isLoading` check alone was
+    // satisfied on THAT first render, so it fired refreshParties, which
+    // itself also no-ops without `user` (PartiesProvider.refreshParties
+    // warns and returns early) — and the once-per-open ref got marked as
+    // "already fired" regardless, permanently suppressing the real
+    // fetch once `user` resolved moments later. Navigating from elsewhere
+    // in the app (where `user` is already resolved) never hit this window.
+    const refreshParties = jest.fn();
+    mockUseParties.mockReturnValue({
+      parties: [],
+      isLoading: false,
+      showCreateParty: false,
+      setShowCreateParty: jest.fn(),
+      isSaving: false,
+      memberNickname: '',
+      setMemberNickname: jest.fn(),
+      partyName: '',
+      setPartyName: jest.fn(),
+      saveParty: jest.fn(),
+      refreshParties,
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
+    });
+    const { rerender } = renderComponent({}, { user: { user: undefined } });
+    expect(refreshParties).not.toHaveBeenCalled();
+
+    rerender(
+      <UserContext.Provider value={{ user: { sub: 'user1' } } as any}>
+        <RevenueCatContext.Provider value={{ isSubscribed: false } as any}>
+          <Lobby {...defaultProps} />
+        </RevenueCatContext.Provider>
+      </UserContext.Provider>
+    );
+
     expect(refreshParties).toHaveBeenCalledTimes(1);
   });
 
@@ -641,6 +772,82 @@ describe('Lobby', () => {
     });
     expect(screen.getByText('Away Alice')).toBeInTheDocument();
     expect(screen.getByText('Away')).toBeInTheDocument();
+  });
+
+  it('shows the "Online opponents" count as 0 (not the away count) when every known opponent is away', () => {
+    // Regression: the header count used to sum active + away + run-only
+    // members, so with a single away opponent it read "Online opponents 1"
+    // right next to "Away 1" and an empty Online list underneath — which
+    // looked exactly like a bug (a stale "online" count that never actually
+    // showed anyone online), even though the number was a differently-scoped
+    // total. The header should only ever count what's rendered under it.
+    mockUseParties.mockReturnValue({
+      parties: [
+        {
+          partyId: '1',
+          appId: 'app-1',
+          partyName: 'Party 1',
+          isOwner: true,
+          members: [
+            {
+              userId: 'other1',
+              resourceId: 'res-other1',
+              memberNickname: 'Away Alice',
+              isUser: false,
+              isOwner: false,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+          ],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: 'user1',
+        },
+      ],
+      isLoading: false,
+      showCreateParty: false,
+      setShowCreateParty: jest.fn(),
+      isSaving: false,
+      memberNickname: '',
+      setMemberNickname: jest.fn(),
+      partyName: '',
+      setPartyName: jest.fn(),
+      saveParty: jest.fn(),
+      refreshParties: jest.fn(),
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
+    });
+    renderComponent({
+      sessionParties: {
+        '1': {
+          memberSessions: {
+            other1: {
+              sessionId: 's1',
+              state: { answerStack: [], initial: [], final: [] },
+              updatedAt: new Date(Date.now() - 60 * 60 * 1000),
+            } satisfies Session<BaseServerState>,
+          },
+        },
+      },
+    });
+    const onlineHeading = screen.getByText('Online opponents');
+    expect(
+      within(onlineHeading.parentElement!).getByText('0')
+    ).toBeInTheDocument();
+    // Away's own count still correctly reads 1, and its section still shows.
+    expect(screen.getByText('Away Alice')).toBeInTheDocument();
+    const awayHeading = screen.getByText('Away');
+    expect(
+      within(awayHeading.parentElement!).getByText('1')
+    ).toBeInTheDocument();
+    // The "no opponents online" placeholder must stay suppressed — there IS
+    // a known opponent, just an away one, not zero opponents overall.
+    expect(
+      screen.queryByText('No opponents online — invite friends to race!')
+    ).not.toBeInTheDocument();
   });
 
   it('renders the puzzle header when puzzleDifficulty is provided', () => {
@@ -875,5 +1082,195 @@ describe('Lobby', () => {
     fireEvent.error(img);
     expect(screen.getByText('⚡')).toBeInTheDocument();
     expect(screen.queryByAltText('Bolt')).not.toBeInTheDocument();
+  });
+
+  describe('multi-stage runs (runProgressByUserId/totalStages)', () => {
+    const singlePartyWithMember = (memberNickname: string) => ({
+      parties: [
+        {
+          partyId: '1',
+          appId: 'app-1',
+          partyName: 'Party 1',
+          isOwner: true,
+          members: [
+            {
+              userId: 'other1',
+              resourceId: 'res-other1',
+              memberNickname,
+              isUser: false,
+              isOwner: false,
+              createdAt: new Date(),
+              updatedAt: new Date(),
+            },
+          ],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          createdBy: 'user1',
+        },
+      ],
+      isLoading: false,
+      showCreateParty: false,
+      setShowCreateParty: jest.fn(),
+      isSaving: false,
+      memberNickname: '',
+      setMemberNickname: jest.fn(),
+      partyName: '',
+      setPartyName: jest.fn(),
+      saveParty: jest.fn(),
+      refreshParties: jest.fn(),
+      updateParty: jest.fn(),
+      getNicknameByUserId: jest.fn(),
+      leaveParty: jest.fn(),
+      removeMember: jest.fn(),
+      deleteParty: jest.fn(),
+    });
+
+    it('shows "Stage N of M" for an online opponent instead of the current-stage percentage', () => {
+      mockUseParties.mockReturnValue(singlePartyWithMember('Alice'));
+      renderComponent({
+        sessionParties: {
+          '1': {
+            memberSessions: {
+              other1: {
+                sessionId: 's1',
+                state: {
+                  answerStack: [],
+                  initial: [],
+                  final: [],
+                  timer: {
+                    seconds: 20,
+                    inProgress: {
+                      start: new Date().toISOString(),
+                      lastInteraction: new Date().toISOString(),
+                    },
+                  },
+                },
+                updatedAt: new Date(),
+              } satisfies Session<BaseServerState>,
+            },
+          },
+        },
+        runProgressByUserId: {
+          other1: { completedStageCount: 1, totalSeconds: 30 },
+        },
+        totalStages: 3,
+      });
+      expect(screen.getByText('Alice')).toBeInTheDocument();
+      expect(screen.getByText(/Stage 2 of 3/)).toBeInTheDocument();
+    });
+
+    it('surfaces an opponent who has moved past the current stage under Online opponents, not Offline', () => {
+      mockUseParties.mockReturnValue(singlePartyWithMember('Bob'));
+      renderComponent({
+        // Bob has left this stage's party entirely — sessionParties only
+        // ever covers the current stage.
+        sessionParties: {},
+        runProgressByUserId: {
+          other1: { completedStageCount: 2, totalSeconds: 55 },
+        },
+        totalStages: 5,
+      });
+      expect(screen.getByText('Online opponents')).toBeInTheDocument();
+      expect(
+        screen.queryByText('Racing another stage')
+      ).not.toBeInTheDocument();
+      expect(screen.getByText('Bob')).toBeInTheDocument();
+      expect(screen.getByText(/Stage 3 of 5/)).toBeInTheDocument();
+      expect(
+        screen.queryByText('Offline · in your teams')
+      ).not.toBeInTheDocument();
+    });
+
+    it('shows a friend as Online (not Away) when their CURRENT-stage session is stale but they are recently active on a different stage', () => {
+      // Regression: a friend can leave our stage mid-puzzle without ever
+      // marking it completed (so the "friend completed our stage" trigger
+      // that fetches later-stage data never fires) while still actively
+      // playing a later stage right now. Judging them solely by their
+      // stale session on OUR stage misclassified them as "Away" forever.
+      mockUseParties.mockReturnValue(singlePartyWithMember('Bob'));
+      renderComponent({
+        sessionParties: {
+          '1': {
+            memberSessions: {
+              other1: {
+                sessionId: 's1',
+                state: { answerStack: [], initial: [], final: [] },
+                // Stale on the stage we're watching...
+                updatedAt: new Date(Date.now() - 60 * 60 * 1000),
+              } satisfies Session<BaseServerState>,
+            },
+          },
+        },
+        runProgressByUserId: {
+          other1: { completedStageCount: 2, totalSeconds: 55 },
+        },
+        totalStages: 5,
+        // ...but recently active on a later stage.
+        mostRecentUpdatedAtByUserId: new Map([
+          ['other1', new Date(Date.now() - 2 * 60 * 1000)],
+        ]),
+      });
+      const onlineHeading = screen.getByText('Online opponents');
+      expect(
+        within(onlineHeading.parentElement!).getByText('1')
+      ).toBeInTheDocument();
+      expect(screen.getByText('Bob')).toBeInTheDocument();
+      expect(screen.queryByText('Away')).not.toBeInTheDocument();
+    });
+
+    it('shows a friend racing a different stage as Away once their cross-stage activity itself goes stale', () => {
+      mockUseParties.mockReturnValue(singlePartyWithMember('Bob'));
+      renderComponent({
+        // No session at all for the stage we're watching.
+        sessionParties: {},
+        runProgressByUserId: {
+          other1: { completedStageCount: 2, totalSeconds: 55 },
+        },
+        totalStages: 5,
+        mostRecentUpdatedAtByUserId: new Map([
+          ['other1', new Date(Date.now() - 60 * 60 * 1000)],
+        ]),
+      });
+      const awayHeading = screen.getByText('Away');
+      expect(
+        within(awayHeading.parentElement!).getByText('1')
+      ).toBeInTheDocument();
+      expect(screen.getByText('Bob')).toBeInTheDocument();
+      expect(screen.getByText(/last seen/)).toBeInTheDocument();
+    });
+
+    it('shows "Stage N of M" for an AI opponent instead of its raw per-stage percentage', () => {
+      renderComponent({
+        localAgentProgress: [
+          { agentId: 'agent-0', name: 'Bolt', emoji: '⚡', percentage: 40 },
+        ],
+        runProgressByUserId: {
+          'agent-0': { completedStageCount: 1, totalSeconds: 30 },
+        },
+        totalStages: 3,
+      });
+      expect(screen.getByText('Bolt')).toBeInTheDocument();
+      expect(screen.getByText(/Stage 2 of 3/)).toBeInTheDocument();
+    });
+
+    it('shows "Finished the run" for an AI opponent only once it has completed every stage, not just the current one', () => {
+      renderComponent({
+        localAgentProgress: [
+          {
+            agentId: 'agent-0',
+            name: 'Bolt',
+            emoji: '⚡',
+            percentage: 100,
+            finishTime: 12,
+          },
+        ],
+        runProgressByUserId: {
+          'agent-0': { completedStageCount: 1, totalSeconds: 12 },
+        },
+        totalStages: 3,
+      });
+      expect(screen.getByText(/Stage 2 of 3/)).toBeInTheDocument();
+      expect(screen.queryByText(/Finished the run/)).not.toBeInTheDocument();
+    });
   });
 });

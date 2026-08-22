@@ -47,6 +47,81 @@ const runTotals = (stageResults: (PlayerStageResult | undefined)[]) => {
   };
 };
 
+// Which stage each OTHER party member is currently present on — the latest
+// stage index where we've seen any session for them, completed or still in
+// progress. Separate from calculateRunResults, which only ever records a
+// stage once it's completed (so the leaderboard's per-stage times stay
+// finished-only): a friend actively playing an earlier stage the current
+// user has already moved past would otherwise have no session data anywhere
+// (they haven't finished it, so calculateRunResults filters them out
+// entirely) and show as offline. This only tells the Lobby/track "they're
+// here, on stage N" — never a stage time.
+export const calculatePresenceStageByUserId = ({
+  stages,
+  runStageParties,
+  userId,
+}: {
+  stages: RunStage[];
+  runStageParties: { [stageId: string]: Parties<Session<ServerState>> };
+  userId?: string;
+}): Map<string, number> => {
+  const presenceByUserId = new Map<string, number>();
+  stages.forEach((stage, stageIndex) => {
+    const parties = runStageParties[stage.boardString];
+    for (const party of Object.values(parties || {})) {
+      for (const memberId of Object.keys(party?.memberSessions || {})) {
+        if (memberId === userId) {
+          continue;
+        }
+        const currentLatest = presenceByUserId.get(memberId);
+        if (currentLatest === undefined || stageIndex > currentLatest) {
+          presenceByUserId.set(memberId, stageIndex);
+        }
+      }
+    }
+  });
+  return presenceByUserId;
+};
+
+// Each OTHER party member's most recent session updatedAt across every stage
+// we have data for. Online/away in the Lobby needs this, not just the
+// current stage's own session: a friend whose session on OUR stage has gone
+// stale (they moved on without ever completing it in a way we saw) can still
+// be actively playing a later stage right now — judging them by the current
+// stage's staleness alone would misclassify them as away indefinitely.
+export const calculateMostRecentUpdatedAtByUserId = ({
+  stages,
+  runStageParties,
+  userId,
+}: {
+  stages: RunStage[];
+  runStageParties: { [stageId: string]: Parties<Session<ServerState>> };
+  userId?: string;
+}): Map<string, Date> => {
+  const mostRecentByUserId = new Map<string, Date>();
+  stages.forEach((stage) => {
+    const parties = runStageParties[stage.boardString];
+    for (const party of Object.values(parties || {})) {
+      for (const [memberId, session] of Object.entries(
+        party?.memberSessions || {}
+      )) {
+        if (memberId === userId || !session) {
+          continue;
+        }
+        const updatedAt =
+          session.updatedAt instanceof Date
+            ? session.updatedAt
+            : new Date(session.updatedAt);
+        const current = mostRecentByUserId.get(memberId);
+        if (!current || updatedAt.getTime() > current.getTime()) {
+          mostRecentByUserId.set(memberId, updatedAt);
+        }
+      }
+    }
+  });
+  return mostRecentByUserId;
+};
+
 export const calculateRunResults = ({
   stages,
   runStageParties,

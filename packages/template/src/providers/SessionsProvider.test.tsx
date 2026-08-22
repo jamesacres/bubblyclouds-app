@@ -1043,6 +1043,180 @@ describe('SessionsProvider', () => {
     });
   });
 
+  describe('fetchFriendSessions forceRefetch', () => {
+    // A friend already fetched once (loaded, not currently loading) is
+    // normally skipped on a later call — the whole point of forceRefetch is
+    // to bypass that and notice their session having CHANGED since (e.g.
+    // completed a stage after we last checked), not just appearing for the
+    // first time. Regression coverage for a bug where a friend's stage-1
+    // completion was never picked up because periodic polling kept hitting
+    // this cache.
+    const mockParties: Party[] = [
+      {
+        partyId: 'party-1',
+        partyName: 'Test Party',
+        members: [{ userId: 'friend-1', memberNickname: 'Friend' }],
+      } as unknown as Party,
+    ];
+
+    it('does not refetch an already-loaded friend by default', async () => {
+      const listValues = jest.fn(
+        (_opts?: { partyId?: string; userId?: string }) => Promise.resolve([])
+      );
+      (useServerStorage as jest.Mock).mockReturnValue({
+        listValues,
+        getValue: jest.fn(() => Promise.resolve(undefined)),
+        saveValue: jest.fn(() => Promise.resolve(undefined)),
+      });
+
+      const fetchFriendSessionsRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useSessions();
+        const ref = React.useRef(fetchFriendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = context.fetchFriendSessions;
+        }, [context.fetchFriendSessions]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
+            <TestComponent />
+          </SessionsProvider>
+        </UserContext.Provider>
+      );
+
+      await act(async () => {
+        await fetchFriendSessionsRef.current?.(mockParties);
+      });
+      // listValues() with no args is called once by the provider's own
+      // initial session load — filter to the friend-scoped calls only.
+      const friendCallsAfterFirst = listValues.mock.calls.filter(
+        ([opts]) => opts?.userId === 'friend-1'
+      ).length;
+      expect(friendCallsAfterFirst).toBe(1);
+
+      await act(async () => {
+        await fetchFriendSessionsRef.current?.(mockParties);
+      });
+      const friendCallsAfterSecond = listValues.mock.calls.filter(
+        ([opts]) => opts?.userId === 'friend-1'
+      ).length;
+      expect(friendCallsAfterSecond).toBe(1);
+    });
+
+    it('refetches an already-loaded friend when forceRefetch is true', async () => {
+      const listValues = jest.fn(
+        (_opts?: { partyId?: string; userId?: string }) => Promise.resolve([])
+      );
+      (useServerStorage as jest.Mock).mockReturnValue({
+        listValues,
+        getValue: jest.fn(() => Promise.resolve(undefined)),
+        saveValue: jest.fn(() => Promise.resolve(undefined)),
+      });
+
+      const fetchFriendSessionsRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useSessions();
+        const ref = React.useRef(fetchFriendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = context.fetchFriendSessions;
+        }, [context.fetchFriendSessions]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
+            <TestComponent />
+          </SessionsProvider>
+        </UserContext.Provider>
+      );
+
+      await act(async () => {
+        await fetchFriendSessionsRef.current?.(mockParties);
+      });
+      await act(async () => {
+        await fetchFriendSessionsRef.current?.(mockParties, true);
+      });
+
+      const friendCalls = listValues.mock.calls.filter(
+        ([opts]) => opts?.userId === 'friend-1'
+      ).length;
+      expect(friendCalls).toBe(2);
+    });
+
+    // Regression: setFriendSessions only takes effect on this provider's
+    // NEXT render — a caller that awaits fetchFriendSessions and then reads
+    // the `friendSessions` context value (or a getSessionParties closure
+    // captured before the call) synchronously after would still see the
+    // PREVIOUS render's data, missing whatever was just fetched. The fix is
+    // for fetchFriendSessions to return the up-to-date map directly, so a
+    // caller never has to wait for a render that may not happen in time.
+    it('resolves with the freshly-fetched session already included, without waiting for a re-render', async () => {
+      const listValues = jest.fn(
+        (opts?: { partyId?: string; userId?: string }) => {
+          if (opts?.userId === 'friend-1') {
+            return Promise.resolve([
+              {
+                sessionId: 'mockApp-stage-1',
+                state: { completed: { at: 'x', seconds: 42 } } as any,
+                updatedAt: new Date(),
+              },
+            ]);
+          }
+          return Promise.resolve([]);
+        }
+      );
+      (useServerStorage as jest.Mock).mockReturnValue({
+        listValues,
+        getValue: jest.fn(() => Promise.resolve(undefined)),
+        saveValue: jest.fn(() => Promise.resolve(undefined)),
+      });
+
+      const fetchFriendSessionsRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useSessions();
+        const ref = React.useRef(fetchFriendSessionsRef);
+        React.useEffect(() => {
+          ref.current.current = context.fetchFriendSessions;
+        }, [context.fetchFriendSessions]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <SessionsProvider
+            stateType={StateType.PUZZLE}
+            app="mockApp"
+            apiUrl="mockApiUrl"
+          >
+            <TestComponent />
+          </SessionsProvider>
+        </UserContext.Provider>
+      );
+
+      let returned: any;
+      await act(async () => {
+        returned = await fetchFriendSessionsRef.current?.(mockParties);
+      });
+
+      expect(returned['friend-1'].sessions[0].sessionId).toBe(
+        'mockApp-stage-1'
+      );
+      expect(returned['friend-1'].sessions[0].state.completed.seconds).toBe(42);
+    });
+  });
+
   describe('session sorting and filtering', () => {
     it('should sort sessions with most recent first', () => {
       const setSessionsRef = { current: undefined as any };

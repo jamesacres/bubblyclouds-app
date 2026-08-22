@@ -76,6 +76,36 @@ interface Arguments<ServerState extends BaseServerState> {
   puzzleMetaLabel?: string;
   initialState?: ServerState;
   onStartRace?: () => void;
+  // Multi-stage runs only: each opponent's completed-stage count and time
+  // total, keyed by user id — replaces the per-stage percentage/finish time
+  // in each row with "Stage N of M" / the run total, and surfaces opponents
+  // who've moved on to a stage we have no live session for (they'd
+  // otherwise vanish from the list once they leave sessionParties, which is
+  // scoped to the current stage only).
+  runProgressByUserId?: Record<
+    string,
+    { completedStageCount: number; totalSeconds: number }
+  >;
+  totalStages?: number;
+  // Multi-stage runs only: each OTHER party member's most recent session
+  // updatedAt across every stage we have data for, not just the current
+  // one — online/away is decided from this instead of the current stage's
+  // own session alone, since a friend can go stale on OUR stage (moved on
+  // without us ever seeing them complete it) while actively playing a later
+  // one right now.
+  mostRecentUpdatedAtByUserId?: Map<string, Date>;
+  // True once the current stage's own server session GET has resolved at
+  // least once. The immediate-on-open other-stage fetch below waits on this
+  // (when provided) rather than firing the instant the Lobby opens: on a
+  // hard reload landing directly on the Lobby (the default), that fetch's
+  // "did a friend complete our current stage" check reads from sessionParties
+  // — which is still empty at that instant — and since the immediate fetch
+  // only ever fires once per Lobby-open, racing ahead of this would
+  // permanently miss a friend who's already ahead of us until the next
+  // manual refresh or 30s poll tick. Single-puzzle games (sudoku, or
+  // unblockrace runs where this isn't wired up) omit it and keep the old
+  // immediate-on-open behaviour.
+  hasSessionPartiesFromServer?: boolean;
 }
 
 const AgentAvatar = ({ name, emoji }: { name: string; emoji?: string }) => {
@@ -132,6 +162,10 @@ const Lobby = <ServerState extends BaseServerState>({
   puzzleMetaLabel,
   initialState,
   onStartRace,
+  runProgressByUserId,
+  totalStages,
+  mostRecentUpdatedAtByUserId,
+  hasSessionPartiesFromServer,
 }: Arguments<ServerState>) => {
   const context = useContext(UserContext);
   const { user, showLoginModal } = context || {};
@@ -153,8 +187,59 @@ const Lobby = <ServerState extends BaseServerState>({
 
   const [now, setNow] = useState<number>(() => Date.now());
 
+  // Fires refreshParties exactly once per Lobby-open (not on every isLoading
+  // transition, which refreshParties itself causes — see below), so it
+  // doesn't self-trigger in a loop.
+  const hasKickedOffOpenRefreshRef = useRef(false);
+  useEffect(() => {
+    if (!showLobby) {
+      hasKickedOffOpenRefreshRef.current = false;
+    }
+  }, [showLobby]);
+
   useEffect(() => {
     if (!showLobby || !isDocumentVisible) return;
+    // Fire immediately on open (once useParties' own initial lazyLoadParties
+    // has finished, not racing it — refreshParties silently no-ops while
+    // isLoading is already true, so calling it before that first load
+    // settles would skip refreshSessionParties on this render and wait for
+    // the interval instead), not just on the first interval tick — the
+    // Lobby is the only screen that fetches other-stage friend sessions
+    // while it's open (RaceTrack's own poll stops while showLobby is true),
+    // so without this a friend who's already finished stages we haven't
+    // reached shows as stuck on whatever stage we last knew about them on
+    // until either 30s pass or the manual refresh button is pressed. Gated
+    // on a ref, not just isLoading, because refreshParties itself flips
+    // isLoading true then false around its own work — depending on isLoading
+    // directly would re-fire this effect (and call refreshParties again)
+    // every time that happens, looping forever.
+    //
+    // Also requires `user`: on a hard page reload, auth hasn't resolved yet
+    // when this first runs, so isLoading is still false (lazyLoadParties
+    // itself requires `user` and no-ops without it) — without this check,
+    // refreshParties() would fire while `user` is still undefined, itself
+    // silently no-op (PartiesProvider.refreshParties also requires `user`),
+    // and permanently mark the ref as "already fired," so the real fetch
+    // once auth resolves moments later would never happen. Navigating from
+    // within the app (user already resolved from a prior page) never hit
+    // this, which is why it only reproduced on a fresh reload.
+    //
+    // Also waits on hasSessionPartiesFromServer (when the caller provides
+    // it — multi-stage runs only): refreshSessionParties' later-stage check
+    // depends on the current stage's own session data, which on a hard
+    // reload landing directly on the Lobby (the default) hasn't loaded yet
+    // at this instant — firing anyway would race ahead of it and, being a
+    // one-shot per Lobby-open, permanently miss a friend who's already ahead
+    // of us until the next manual refresh or 30s poll tick.
+    if (
+      !isLoading &&
+      user &&
+      hasSessionPartiesFromServer !== false &&
+      !hasKickedOffOpenRefreshRef.current
+    ) {
+      hasKickedOffOpenRefreshRef.current = true;
+      refreshParties();
+    }
     const id = setInterval(() => {
       refreshParties();
       setNow(Date.now());
@@ -162,7 +247,14 @@ const Lobby = <ServerState extends BaseServerState>({
     return () => {
       clearInterval(id);
     };
-  }, [showLobby, isDocumentVisible, refreshParties]);
+  }, [
+    showLobby,
+    isDocumentVisible,
+    isLoading,
+    user,
+    hasSessionPartiesFromServer,
+    refreshParties,
+  ]);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -190,25 +282,52 @@ const Lobby = <ServerState extends BaseServerState>({
     [app, puzzleId, redirectUri, appUrl, createInvite]
   );
 
-  // Online opponents: members with an active session, excluding yourself.
-  // Collect all party memberships per user so we can show labels and remove buttons.
+  // A member's most recent known activity, for the active/away split —
+  // mostRecentUpdatedAtByUserId (built across every stage we have data for,
+  // multi-stage runs only) takes priority over the current stage's own
+  // session: a friend can go stale on OUR stage (moved on without us ever
+  // seeing them complete it) while actively playing a later one right now,
+  // and judging them by the current stage's staleness alone would
+  // misclassify them as away indefinitely. Falls back to the current-stage
+  // session's own updatedAt for single-puzzle games, where no such map
+  // exists.
+  const mostRecentActivityAt = useCallback(
+    (userId: string, currentStageSession?: Session<ServerState>) => {
+      const acrossStages = mostRecentUpdatedAtByUserId?.get(userId);
+      if (acrossStages) {
+        return acrossStages.getTime();
+      }
+      if (!currentStageSession) {
+        return undefined;
+      }
+      return currentStageSession.updatedAt instanceof Date
+        ? currentStageSession.updatedAt.getTime()
+        : new Date(currentStageSession.updatedAt).getTime();
+    },
+    [mostRecentUpdatedAtByUserId]
+  );
+
+  // Every other party member known to be part of this run, whether or not
+  // they have a live session on the CURRENT stage — a session here is only
+  // used for the richer OnlinePlayerRow display (board preview, timer);
+  // absence of one just means they're on a different stage right now.
   const onlineMembers = useMemo(() => {
     const byUser = new Map<
       string,
       {
         userId: string;
         memberNickname: string;
-        session: Session<ServerState>;
+        session?: Session<ServerState>;
         parties: { partyId: string; partyName: string; isOwner: boolean }[];
       }
     >();
     for (const party of parties) {
       const sessionParty = sessionParties[party.partyId];
-      if (!sessionParty) continue;
       for (const m of party.members) {
         if (m.isUser) continue;
-        const session = sessionParty.memberSessions[m.userId];
-        if (!session) continue;
+        const session = sessionParty?.memberSessions[m.userId];
+        const isKnownRunParticipant = !!runProgressByUserId?.[m.userId];
+        if (!session && !isKnownRunParticipant) continue;
         const existing = byUser.get(m.userId);
         if (existing) {
           existing.parties.push({
@@ -216,6 +335,7 @@ const Lobby = <ServerState extends BaseServerState>({
             partyName: party.partyName,
             isOwner: party.isOwner,
           });
+          existing.session = existing.session ?? session;
         } else {
           byUser.set(m.userId, {
             userId: m.userId,
@@ -233,25 +353,68 @@ const Lobby = <ServerState extends BaseServerState>({
       }
     }
     return Array.from(byUser.values());
-  }, [parties, sessionParties]);
+  }, [parties, sessionParties, runProgressByUserId]);
 
-  // Split online members into active (playing/finished) and away (idle 30+ min)
-  const { activePlayers, awayPlayers } = useMemo(() => {
-    const active: typeof onlineMembers = [];
-    const away: typeof onlineMembers = [];
-    for (const m of onlineMembers) {
-      const updatedAt =
-        m.session.updatedAt instanceof Date
-          ? m.session.updatedAt.getTime()
-          : new Date(m.session.updatedAt).getTime();
-      if (now - updatedAt < AWAY_THRESHOLD_MS) {
-        active.push(m);
-      } else {
-        away.push(m);
+  // Split online members into active (playing/finished) and away (idle 30+
+  // min) by their actual most recent activity — not by whether they happen
+  // to have a session on the CURRENT stage. A member with no current-stage
+  // session (racing a different stage — OnlinePlayerRow falls back to the
+  // runProgress-only "Stage N of M" display for these) still gets an
+  // active/away verdict from mostRecentActivityAt when we have cross-stage
+  // data for them; only truly unknown recency (no map entry at all) skips
+  // straight to runOnly-active, since there's nothing to time out.
+  const { activePlayers, awayPlayers, runOnlyMembers, runOnlyAwayMembers } =
+    useMemo(() => {
+      const active: {
+        userId: string;
+        memberNickname: string;
+        session: Session<ServerState>;
+        parties: { partyId: string; partyName: string; isOwner: boolean }[];
+      }[] = [];
+      const away: typeof active = [];
+      const runOnly: {
+        userId: string;
+        memberNickname: string;
+        parties: { partyId: string; partyName: string; isOwner: boolean }[];
+        lastActiveAt?: Date;
+      }[] = [];
+      const runOnlyAway: typeof runOnly = [];
+      for (const m of onlineMembers) {
+        const activityAt = mostRecentActivityAt(m.userId, m.session);
+        const isRecentlyActive =
+          activityAt === undefined || now - activityAt < AWAY_THRESHOLD_MS;
+        if (m.session) {
+          if (isRecentlyActive) {
+            active.push({ ...m, session: m.session });
+          } else {
+            away.push({ ...m, session: m.session });
+          }
+        } else {
+          const row = {
+            userId: m.userId,
+            memberNickname: m.memberNickname,
+            parties: m.parties,
+            lastActiveAt: mostRecentUpdatedAtByUserId?.get(m.userId),
+          };
+          if (isRecentlyActive) {
+            runOnly.push(row);
+          } else {
+            runOnlyAway.push(row);
+          }
+        }
       }
-    }
-    return { activePlayers: active, awayPlayers: away };
-  }, [onlineMembers, now]);
+      return {
+        activePlayers: active,
+        awayPlayers: away,
+        runOnlyMembers: runOnly,
+        runOnlyAwayMembers: runOnlyAway,
+      };
+    }, [onlineMembers, now, mostRecentActivityAt, mostRecentUpdatedAtByUserId]);
+  const runOnlyMemberIds = useMemo(
+    () =>
+      new Set([...runOnlyMembers, ...runOnlyAwayMembers].map((m) => m.userId)),
+    [runOnlyMembers, runOnlyAwayMembers]
+  );
 
   // Offline party members: members with no active session, grouped by userId.
   const offlineMembers = useMemo(() => {
@@ -268,6 +431,7 @@ const Lobby = <ServerState extends BaseServerState>({
       for (const m of party.members) {
         if (m.isUser) continue;
         if (sessionParty && sessionParty.memberSessions[m.userId]) continue;
+        if (runOnlyMemberIds.has(m.userId)) continue;
         const existing = byUser.get(m.userId);
         if (existing) {
           existing.parties.push({
@@ -291,11 +455,41 @@ const Lobby = <ServerState extends BaseServerState>({
       }
     }
     return Array.from(byUser.values());
-  }, [parties, sessionParties]);
+  }, [parties, sessionParties, runOnlyMemberIds]);
 
-  const onlineOpponentCount = activePlayers.length + awayPlayers.length;
+  const runProgressForRow = useCallback(
+    (
+      memberUserId: string
+    ):
+      | {
+          completedStageCount: number;
+          totalStages: number;
+          totalSeconds: number;
+        }
+      | undefined => {
+      const progress = runProgressByUserId?.[memberUserId];
+      if (!progress || !totalStages) {
+        return undefined;
+      }
+      return { ...progress, totalStages };
+    },
+    [runProgressByUserId, totalStages]
+  );
+
+  // The "Online opponents" section header count must match what's actually
+  // rendered under it (activePlayers + runOnlyMembers) — awayPlayers get
+  // their own separate "Away" section/count below, so including them here
+  // too made the header read as "N online" while the Online list itself was
+  // empty and everyone sat in Away, which looked like a bug even though the
+  // number was a (differently-scoped) total.
+  const onlineOpponentCount = activePlayers.length + runOnlyMembers.length;
+  const totalKnownOpponentCount =
+    activePlayers.length +
+    awayPlayers.length +
+    runOnlyMembers.length +
+    runOnlyAwayMembers.length;
   const aiCount = localAgentProgress?.length ?? 0;
-  const humanRivals = onlineOpponentCount;
+  const humanRivals = totalKnownOpponentCount;
   const totalRivals = humanRivals + aiCount;
 
   let raceSummary: string;
@@ -434,39 +628,62 @@ const Lobby = <ServerState extends BaseServerState>({
             />
 
             <div className="mb-4 flex flex-col gap-2.5">
-              {activePlayers.length > 0 ? (
-                activePlayers.map((m) => (
-                  <OnlinePlayerRow
-                    key={m.userId}
-                    userId={m.userId}
-                    memberNickname={m.memberNickname}
-                    session={m.session}
-                    parties={m.parties}
-                    now={now}
-                    isAway={false}
-                    calculateCompletionPercentageFromState={
-                      calculateCompletionPercentageFromState
-                    }
-                    CompactSimpleState={CompactSimpleState}
-                    onSetConfirmRemove={setConfirmRemove}
-                  />
-                ))
-              ) : (
+              {activePlayers.length > 0 || runOnlyMembers.length > 0 ? (
+                <>
+                  {activePlayers.map((m) => (
+                    <OnlinePlayerRow
+                      key={m.userId}
+                      userId={m.userId}
+                      memberNickname={m.memberNickname}
+                      session={m.session}
+                      parties={m.parties}
+                      now={now}
+                      isAway={false}
+                      calculateCompletionPercentageFromState={
+                        calculateCompletionPercentageFromState
+                      }
+                      CompactSimpleState={CompactSimpleState}
+                      onSetConfirmRemove={setConfirmRemove}
+                      runProgress={runProgressForRow(m.userId)}
+                    />
+                  ))}
+                  {/* Racing another stage: no live session for the current
+                      stage, so OnlinePlayerRow falls back to the
+                      runProgress-only "Stage N of M" display */}
+                  {runOnlyMembers.map((m) => (
+                    <OnlinePlayerRow
+                      key={m.userId}
+                      userId={m.userId}
+                      memberNickname={m.memberNickname}
+                      parties={m.parties}
+                      now={now}
+                      isAway={false}
+                      calculateCompletionPercentageFromState={
+                        calculateCompletionPercentageFromState
+                      }
+                      CompactSimpleState={CompactSimpleState}
+                      onSetConfirmRemove={setConfirmRemove}
+                      runProgress={runProgressForRow(m.userId)}
+                      lastActiveAt={m.lastActiveAt}
+                    />
+                  ))}
+                </>
+              ) : totalKnownOpponentCount === 0 ? (
                 <p
                   className="text-sm italic"
                   style={{ color: 'rgba(255,255,255,0.4)' }}
                 >
                   No opponents online — invite friends to race!
                 </p>
-              )}
+              ) : null}
             </div>
 
-            {awayPlayers.length > 0 && (
+            {awayPlayers.length + runOnlyAwayMembers.length > 0 && (
               <div className="mb-5">
                 <SectionHead
                   icon={Moon}
                   title="Away"
-                  count={awayPlayers.length}
+                  count={awayPlayers.length + runOnlyAwayMembers.length}
                 />
                 <div className="flex flex-col gap-2.5">
                   {awayPlayers.map((m) => (
@@ -483,6 +700,26 @@ const Lobby = <ServerState extends BaseServerState>({
                       }
                       CompactSimpleState={CompactSimpleState}
                       onSetConfirmRemove={setConfirmRemove}
+                      runProgress={runProgressForRow(m.userId)}
+                    />
+                  ))}
+                  {/* Racing another stage but idle there too (no session for
+                      the current stage, so no board preview) */}
+                  {runOnlyAwayMembers.map((m) => (
+                    <OnlinePlayerRow
+                      key={m.userId}
+                      userId={m.userId}
+                      memberNickname={m.memberNickname}
+                      parties={m.parties}
+                      now={now}
+                      isAway={true}
+                      calculateCompletionPercentageFromState={
+                        calculateCompletionPercentageFromState
+                      }
+                      CompactSimpleState={CompactSimpleState}
+                      onSetConfirmRemove={setConfirmRemove}
+                      runProgress={runProgressForRow(m.userId)}
+                      lastActiveAt={m.lastActiveAt}
                     />
                   ))}
                 </div>
@@ -598,8 +835,23 @@ const Lobby = <ServerState extends BaseServerState>({
             {aiCount > 0 ? (
               <div className="mb-4 flex flex-col gap-2.5">
                 {localAgentProgress?.map((agent) => {
-                  const isFinished = agent.percentage >= 100;
-                  const isRacing = agent.percentage > 0;
+                  // Multi-stage runs: mirror OnlinePlayerRow — "finished"
+                  // means the whole run, not just the current stage, and the
+                  // label is "Stage N of M" rather than a raw percentage
+                  // that resets each time the agent advances a stage.
+                  const runProgress = runProgressForRow(agent.agentId);
+                  const isRunComplete = runProgress
+                    ? runProgress.completedStageCount >= runProgress.totalStages
+                    : undefined;
+                  const isFinished = isRunComplete ?? agent.percentage >= 100;
+                  const isRacing = runProgress ? true : agent.percentage > 0;
+                  const elapsedSeconds =
+                    runProgress && isFinished
+                      ? runProgress.totalSeconds
+                      : agent.finishTime;
+                  const progressLabel = runProgress
+                    ? `Stage ${Math.min(runProgress.completedStageCount + 1, runProgress.totalStages)} of ${runProgress.totalStages}`
+                    : `${Math.round(agent.percentage)}%`;
                   return (
                     <div
                       key={agent.agentId}
@@ -630,9 +882,11 @@ const Lobby = <ServerState extends BaseServerState>({
                               }}
                             >
                               <Clock size={12} color="rgba(255,255,255,0.45)" />
-                              {isFinished && agent.finishTime != null
-                                ? `Solved in ${fmtClock(agent.finishTime)}`
-                                : `${Math.round(agent.percentage)}%`}
+                              {isFinished && elapsedSeconds != null
+                                ? runProgress
+                                  ? `Finished the run in ${fmtClock(elapsedSeconds)}`
+                                  : `Solved in ${fmtClock(elapsedSeconds)}`
+                                : progressLabel}
                             </span>
                           </div>
                         )}

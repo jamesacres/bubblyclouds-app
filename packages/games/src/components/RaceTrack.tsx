@@ -56,8 +56,23 @@ interface Arguments<
   // refreshed at the end of each stage. When provided it replaces the
   // single-stage finished leaderboard with the per-stage breakdown so every
   // stage's time (and the whole-run total) is visible. Single-puzzle games
-  // (sudoku) omit it and keep the finished-players list.
+  // (sudoku) omit it and keep the finished-players list. Also drives the live
+  // track: with runResults present, kart position is the whole-run fraction
+  // (stages completed + progress on the current one) instead of just the
+  // current stage's percentage, so a player who has moved on to a later
+  // stage doesn't appear to snap back to the start.
   runResults?: PlayerRunResult[];
+  // Total stages in the run, required alongside runResults to normalise the
+  // whole-run fraction. Omit for single-puzzle games.
+  totalStages?: number;
+  // Multi-stage runs only: which stage (0-based) each OTHER player has been
+  // seen on, completed or still in progress — unlike runResults (which only
+  // ever records a stage once finished), this also covers a player actively
+  // racing a stage for the first time. Without it, a brand new opponent who
+  // starts a stage the current user has already passed (zero completed
+  // stages, so absent from runResults) would never appear on the track at
+  // all.
+  presenceStageByUserId?: Map<string, number>;
   // Second CTA link on the completed block. Defaults to the puzzle book;
   // games with their own browse route (e.g. Unblock Race's collection) pass
   // their own href/label/icon.
@@ -76,6 +91,9 @@ interface PlayerProgress {
   isPuzzleCheated: boolean;
   statsDisplay?: string;
   progressStatsDisplay?: string;
+  // Multi-stage runs only (runResults provided): which stage this player is
+  // currently on, 1-based, for the "Stage N" badge next to their kart.
+  currentStageNumber?: number;
 }
 
 // One line of the single-stage finished list: humans (with their colour dot)
@@ -89,6 +107,32 @@ interface FinishedRacer {
   finishTime: number;
   emoji?: string;
 }
+
+// Combines a player's completed-stage count with their live percentage on
+// the stage they're currently on (0 when unknown, e.g. an opponent who has
+// moved to a stage we have no live session for) into one whole-run
+// percentage. completedStageCount only ever increases, so this can never
+// move a player backwards even though their in-stage percentage resets to 0
+// at the start of each new stage. Kept outside the component (rather than a
+// closure) so it isn't itself a render-scoped dependency.
+const toRunPercentage = (
+  userId: string,
+  currentStagePercentage: number,
+  runResultsByUserId: Map<string, PlayerRunResult>,
+  totalStages: number
+): { percentage: number; currentStageNumber: number } => {
+  const completedStageCount =
+    runResultsByUserId.get(userId)?.completedStageCount ?? 0;
+  if (completedStageCount >= totalStages) {
+    return { percentage: 100, currentStageNumber: totalStages };
+  }
+  const runFraction =
+    (completedStageCount + currentStagePercentage / 100) / totalStages;
+  return {
+    percentage: Math.min(99, Math.round(runFraction * 100)),
+    currentStageNumber: completedStageCount + 1,
+  };
+};
 
 const RaceTrack = <
   State extends {
@@ -110,6 +154,8 @@ const RaceTrack = <
   calculateProgressStatsDisplayFromState,
   rateApp,
   runResults,
+  totalStages,
+  presenceStageByUserId,
   secondaryCta,
   formatFinishTime,
 }: Arguments<State>) => {
@@ -164,14 +210,37 @@ const RaceTrack = <
   // Get consistent ordering of all user IDs for color assignment
   const allUserIds = useMemo(() => getAllUserIds(parties), [parties]);
 
+  // Multi-stage runs only: each player's completed-stage count, from the
+  // same run leaderboard data as the table below. Used to turn a per-stage
+  // percentage into a whole-run position so a player who has moved on to a
+  // later stage doesn't appear to snap back to the start of the track.
+  const runResultsByUserId = useMemo(() => {
+    const map = new Map<string, PlayerRunResult>();
+    (runResults || []).forEach((result) => map.set(result.userId, result));
+    return map;
+  }, [runResults]);
+  const isRunAware = !!runResults && !!totalStages && totalStages > 1;
+
   // Calculate and collect progress for all unique users
   const allPlayerProgress = useMemo((): PlayerProgress[] => {
     const progressMap: Record<string, PlayerProgress> = {};
 
     // Add current user's progress
     if (userId) {
-      const currentUserPercentage =
+      const currentStagePercentage =
         calculateCompletionPercentageFromState(state);
+      const { percentage: currentUserPercentage, currentStageNumber } =
+        isRunAware
+          ? toRunPercentage(
+              userId,
+              currentStagePercentage,
+              runResultsByUserId,
+              totalStages!
+            )
+          : {
+              percentage: currentStagePercentage,
+              currentStageNumber: undefined,
+            };
 
       const finishTime: number | undefined = state.completed?.seconds;
 
@@ -182,9 +251,10 @@ const RaceTrack = <
         isCurrentUser: true,
         finishTime,
         isPuzzleCheated:
-          currentUserPercentage === 100 && isPuzzleCheated(state.answerStack),
+          currentStagePercentage === 100 && isPuzzleCheated(state.answerStack),
         statsDisplay: calculateStatsDisplayFromState?.(state),
         progressStatsDisplay: calculateProgressStatsDisplayFromState?.(state),
+        currentStageNumber,
       };
     }
 
@@ -198,9 +268,20 @@ const RaceTrack = <
           // Skip if we've already processed this user
           if (progressMap[memberId]) return;
 
-          const percentage = session
+          const currentStagePercentage = session
             ? calculateCompletionPercentageFromState(session.state)
             : 0;
+          const { percentage, currentStageNumber } = isRunAware
+            ? toRunPercentage(
+                memberId,
+                currentStagePercentage,
+                runResultsByUserId,
+                totalStages!
+              )
+            : {
+                percentage: currentStagePercentage,
+                currentStageNumber: undefined,
+              };
 
           let finishTime: number | undefined = undefined;
           if (session?.state.completed) {
@@ -217,7 +298,7 @@ const RaceTrack = <
               isCurrentUser: false,
               finishTime,
               isPuzzleCheated:
-                percentage === 100 &&
+                currentStagePercentage === 100 &&
                 !!session &&
                 isPuzzleCheated(session.state.answerStack),
               statsDisplay: session
@@ -226,11 +307,67 @@ const RaceTrack = <
               progressStatsDisplay: session
                 ? calculateProgressStatsDisplayFromState?.(session.state)
                 : undefined,
+              currentStageNumber,
             };
           }
         });
       }
     });
+
+    // Multi-stage runs only: an opponent who has moved past the stage we
+    // have a live session for (or who we've never shared a stage's
+    // sessionParties with) still has a leaderboard line once they've
+    // completed at least one stage — surface them on the track too, docked
+    // at the start of their current stage since we have no live in-stage
+    // percentage for them.
+    if (isRunAware) {
+      runResultsByUserId.forEach((result, memberId) => {
+        if (progressMap[memberId] || result.isAgent) return;
+        const nickname = getNicknameByUserId(memberId) || '';
+        if (!nickname) return;
+        const { percentage, currentStageNumber } = toRunPercentage(
+          memberId,
+          0,
+          runResultsByUserId,
+          totalStages!
+        );
+        progressMap[memberId] = {
+          userId: memberId,
+          nickname,
+          percentage,
+          isCurrentUser: false,
+          isPuzzleCheated: false,
+          currentStageNumber,
+        };
+      });
+    }
+
+    // Multi-stage runs only: an opponent present on some stage (racing it
+    // for the first time, or already finished it) but with zero completed
+    // stages overall has no line in runResultsByUserId (calculateRunResults
+    // omits anyone with completedStageCount 0) — without this they'd be
+    // invisible on the track entirely. Docked at the start of their stage,
+    // same as the runResultsByUserId fallback above, since we have no live
+    // in-stage percentage for them either.
+    if (isRunAware && presenceStageByUserId) {
+      presenceStageByUserId.forEach((stageIndex, memberId) => {
+        if (progressMap[memberId]) return;
+        const nickname = getNicknameByUserId(memberId) || '';
+        if (!nickname) return;
+        const percentage = Math.min(
+          99,
+          Math.round((stageIndex / totalStages!) * 100)
+        );
+        progressMap[memberId] = {
+          userId: memberId,
+          nickname,
+          percentage,
+          isCurrentUser: false,
+          isPuzzleCheated: false,
+          currentStageNumber: stageIndex + 1,
+        };
+      });
+    }
 
     // Convert to array and sort by percentage (highest first)
     return Object.values(progressMap).sort(
@@ -245,6 +382,10 @@ const RaceTrack = <
     isPuzzleCheated,
     calculateStatsDisplayFromState,
     calculateProgressStatsDisplayFromState,
+    isRunAware,
+    runResultsByUserId,
+    totalStages,
+    presenceStageByUserId,
   ]);
 
   const finishedPlayers = useMemo(() => {
@@ -253,10 +394,25 @@ const RaceTrack = <
       .sort((a, b) => a.finishTime! - b.finishTime!);
   }, [allPlayerProgress]);
 
-  const agentProgressList = useMemo(
-    () => localAgentProgress ?? [],
-    [localAgentProgress]
-  );
+  // Agents follow the same whole-run positioning as human players: with
+  // runResults present, their kart position and stage badge come from their
+  // completed-stage count (agent rows are keyed by agentId in runResults),
+  // not their raw per-stage percentage, so they don't snap back to the
+  // start of the track when they advance to a new stage either.
+  const agentProgressList = useMemo(() => {
+    return (localAgentProgress ?? []).map((agent) => {
+      if (!isRunAware) {
+        return { ...agent, currentStageNumber: undefined };
+      }
+      const { percentage, currentStageNumber } = toRunPercentage(
+        agent.agentId,
+        agent.percentage,
+        runResultsByUserId,
+        totalStages!
+      );
+      return { ...agent, percentage, currentStageNumber };
+    });
+  }, [localAgentProgress, isRunAware, runResultsByUserId, totalStages]);
 
   // Single-stage finished list: humans and finished agents in one order
   const finishedRacers = useMemo((): FinishedRacer[] => {
@@ -293,21 +449,40 @@ const RaceTrack = <
 
   // Resolve run-leaderboard names the same way the legend does: agents carry
   // their own display name, the current user is "You", opponents need a
-  // party nickname to appear.
-  const runLeaderboardRows = useMemo(
-    () =>
-      (runResults || [])
-        .map((result) => ({
-          ...result,
-          nickname:
-            result.nickname ??
-            (result.isCurrentUser
-              ? 'You'
-              : getNicknameByUserId(result.userId) || ''),
-        }))
-        .filter((row) => row.nickname),
-    [runResults, getNicknameByUserId]
-  );
+  // party nickname to appear. Also folds in presence-only opponents — no
+  // completed stage yet, so calculateRunResults has no line for them, but
+  // the table already renders "–" for any stage without a result, so a
+  // presence-only row (dashes all the way across) is consistent with how
+  // every other unfinished stage already displays.
+  const runLeaderboardRows = useMemo(() => {
+    const rows = (runResults || []).map((result) => ({
+      ...result,
+      nickname:
+        result.nickname ??
+        (result.isCurrentUser
+          ? 'You'
+          : getNicknameByUserId(result.userId) || ''),
+    }));
+    const knownUserIds = new Set(rows.map((row) => row.userId));
+    if (presenceStageByUserId && totalStages) {
+      presenceStageByUserId.forEach((_stageIndex, memberId) => {
+        if (knownUserIds.has(memberId)) return;
+        const nickname = getNicknameByUserId(memberId) || '';
+        if (!nickname) return;
+        rows.push({
+          userId: memberId,
+          isCurrentUser: false,
+          stageResults: new Array(totalStages).fill(undefined),
+          totalSeconds: 0,
+          totalMoves: 0,
+          totalMovesDelta: 0,
+          completedStageCount: 0,
+          nickname,
+        });
+      });
+    }
+    return rows.filter((row) => row.nickname);
+  }, [runResults, getNicknameByUserId, presenceStageByUserId, totalStages]);
 
   const isCompleted =
     currentUserProgress?.percentage === 100 &&
@@ -564,6 +739,18 @@ const RaceTrack = <
                   >
                     {player.nickname}
                   </span>
+                  {/* Multi-stage runs only: which stage this racer is
+                      currently on, so their position on the whole-run track
+                      doesn't read as "behind" when they're really ahead on a
+                      later stage */}
+                  {player.currentStageNumber !== undefined && (
+                    <span
+                      data-testid={`stage-badge-${player.userId}`}
+                      className="rounded-full bg-stone-200/80 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-stone-500 dark:bg-white/10 dark:text-zinc-400"
+                    >
+                      S{player.currentStageNumber}
+                    </span>
+                  )}
                   {/* Live progress label if the game provides one, otherwise
                       the finish time once done (games that pass a formatter),
                       else the raw percentage */}
@@ -588,6 +775,14 @@ const RaceTrack = <
                 <span className="text-stone-600 dark:text-zinc-300">
                   {agent.name}
                 </span>
+                {agent.currentStageNumber !== undefined && (
+                  <span
+                    data-testid={`stage-badge-${agent.agentId}`}
+                    className="rounded-full bg-stone-200/80 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-stone-500 dark:bg-white/10 dark:text-zinc-400"
+                  >
+                    S{agent.currentStageNumber}
+                  </span>
+                )}
                 <span className="tabular-nums text-stone-400 dark:text-zinc-500">
                   {showFinishTimeInLegend && agent.finishTime !== undefined
                     ? formatTime(agent.finishTime)

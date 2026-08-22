@@ -1,6 +1,13 @@
 'use client';
 
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Move } from '../types/board';
 import {
   GameState,
@@ -19,9 +26,11 @@ import { useTimer } from '@bubblyclouds-app/template/hooks/timer';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
 import {
   Parties,
+  Party,
   ServerStateResult,
   Session,
 } from '@bubblyclouds-app/types/serverTypes';
+import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import {
@@ -34,6 +43,32 @@ import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvid
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 
 const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+
+// Mirrors SessionsProvider's getSessionParties, but reads from an explicit
+// UserSessions snapshot rather than the provider's own friendSessions state.
+// fetchFriendSessions's setFriendSessions call only takes effect on the
+// provider's NEXT render — a caller that awaits fetchFriendSessions and then
+// immediately calls getSessionParties would still read the PREVIOUS render's
+// friendSessions, missing whatever was just fetched. Building the party
+// shape from the snapshot fetchFriendSessions returns directly sidesteps
+// that render-timing gap entirely.
+const sessionPartiesFromSnapshot = <State>(
+  parties: Party[],
+  friendSessions: UserSessions<State>,
+  sessionId: string
+): Parties<Session<State>> =>
+  parties.reduce((result: Parties<Session<State>>, party) => {
+    const memberSessions = Object.entries(friendSessions || {}).reduce(
+      (acc: { [userId: string]: Session<State> }, [userId, userSessions]) => {
+        const session = userSessions?.sessions?.find(
+          (s) => s.sessionId === sessionId
+        );
+        return session ? { ...acc, [userId]: session } : acc;
+      },
+      {}
+    );
+    return { ...result, [party.partyId]: { memberSessions } };
+  }, {});
 
 // Persisted answer stacks are truncated (last 3 snapshots on the server,
 // last 10 locally), so stack length under-counts moves after a restore. The
@@ -130,7 +165,40 @@ function useGameState({
       type: StateType.PUZZLE,
     });
   const { parties } = useParties();
-  const { getSessionParties, patchFriendSessions } = useSessions<ServerState>();
+  const {
+    getSessionParties,
+    patchFriendSessions,
+    fetchFriendSessions,
+    lazyLoadFriendSessions,
+  } = useSessions<ServerState>();
+
+  // fetchFriendSessions and patchFriendSessions are re-created by
+  // SessionsProvider whenever friendSessions/isFriendSessionsLoading change
+  // (i.e. every time WE write to them via patchFriendSessions below) — using
+  // them directly as useCallback/useEffect dependencies would retrigger
+  // fetchOtherStageParties every time it writes its own result, looping
+  // forever. Refs always read the latest function without being a dependency
+  // that changes identity.
+  const fetchFriendSessionsRef = useRef(fetchFriendSessions);
+  fetchFriendSessionsRef.current = fetchFriendSessions;
+  const patchFriendSessionsRef = useRef(patchFriendSessions);
+  patchFriendSessionsRef.current = patchFriendSessions;
+
+  // Warms up SessionsProvider's friendSessions cache on mount — the
+  // homepage does this eagerly too (its own lazyLoadFriendSessions call), so
+  // landing here via a client-side navigation from the homepage already has
+  // it. Landing directly on a stage/run URL via a hard reload starts with an
+  // empty cache and nothing else in this hook calls this unconditionally
+  // (fetchOtherStageParties's own triggers are event-gated, meant to notice
+  // CHANGES after the fact, not to do the initial load) — without this, the
+  // Lobby would show no online opponents at all until the periodic poll or a
+  // manual refresh eventually ran. lazyLoadFriendSessions no-ops once
+  // already loaded, so this is safe to call unconditionally every mount.
+  useEffect(() => {
+    if (parties.length > 0) {
+      lazyLoadFriendSessions(parties);
+    }
+  }, [parties, lazyLoadFriendSessions]);
 
   const [showLobby, setShowLobby] = useState(initialShowLobby ?? false);
   const [mode, setMode] = useState<UnblockMode | undefined>(initialMode);
@@ -161,6 +229,17 @@ function useGameState({
   const sessionPartiesRef = useRef(sessionParties);
   sessionPartiesRef.current = sessionParties;
 
+  // True once the current stage's own server GET has resolved at least once
+  // (distinct from `isRestored`, which flips true from LOCAL storage alone,
+  // possibly before the server response — that response is specifically
+  // what carries the current stage's friend session data, which
+  // fetchLaterStageParties's "did a friend complete our current stage"
+  // check depends on). The Lobby's one-shot immediate-on-open other-stage
+  // fetch waits on this so it doesn't race ahead of that data and
+  // permanently miss a friend who's already ahead of us.
+  const [hasSessionPartiesFromServer, setHasSessionPartiesFromServer] =
+    useState(false);
+
   // Parties per stage of the whole run, keyed by stage puzzle id. Unlike
   // sessionParties this accumulates across stage changes, so the run
   // leaderboard can show every player's time on every stage.
@@ -177,9 +256,14 @@ function useGameState({
           Object.assign(userSessions, partySession.memberSessions);
         }
       }
-      patchFriendSessions(`${app}-${stageId}`, userSessions);
+      // patchFriendSessions is read via a ref, not as a dependency: its
+      // identity changes with SessionsProvider's isFriendSessionsLoading
+      // flag, which this very call can flip — depending on it directly would
+      // make setStageParties (and everything downstream, including
+      // fetchOtherStageParties) unstable across its own writes.
+      patchFriendSessionsRef.current(`${app}-${stageId}`, userSessions);
     },
-    [patchFriendSessions, app]
+    [app]
   );
   const setSessionParties = useCallback(
     (sessionParties: Parties<Session<ServerState>>) => {
@@ -295,33 +379,196 @@ function useGameState({
   // render don't re-trigger the end-of-stage fetch.
   const runStageIdsKey = (runStageIds || []).join(',');
 
-  // End-of-stage refresh, deliberately not part of the 30s poll: pull the
-  // latest server session for every other stage in the run so the leaderboard
-  // can show opponents' per-stage times and run totals. The current stage's
-  // session is already kept fresh by the restore/save/poll paths.
-  const fetchOtherStageParties = useCallback(async () => {
-    const otherStageIds = (
-      runStageIdsKey ? runStageIdsKey.split(',') : []
-    ).filter((stageId) => stageId !== puzzleId);
+  // Reference to runStageParties to read inside fetchOtherStageParties
+  // without that callback's identity changing every time a fetch writes its
+  // own result back via setStageParties.
+  const runStagePartiesRef = useRef(runStageParties);
+  runStagePartiesRef.current = runStageParties;
+
+  const knownFriendIds = useCallback(
+    (): Set<string> =>
+      new Set(
+        parties.flatMap((party) =>
+          party.members.filter((m) => !m.isUser).map((m) => m.userId)
+        )
+      ),
+    [parties]
+  );
+
+  // A stage still needs (re)fetching if any party member we know of either
+  // has no session there yet, or has one that isn't completed — a friend
+  // still in progress on it might finish at any time, so it stays a
+  // candidate until every known member's session on it reads as completed.
+  // A stage with no data at all is always unresolved.
+  const unresolvedStageIds = useCallback(
+    (stageIds: string[]): string[] => {
+      const friendIds = knownFriendIds();
+      if (!friendIds.size) {
+        return [];
+      }
+      return stageIds.filter((stageId) => {
+        const stageParties = runStagePartiesRef.current[stageId];
+        if (!stageParties) {
+          return true;
+        }
+        const knownSessions = new Map(
+          Object.values(stageParties).flatMap((party) =>
+            Object.entries(party?.memberSessions || {})
+          )
+        );
+        return [...friendIds].some((memberId) => {
+          const session = knownSessions.get(memberId);
+          return !session || !session.state.completed;
+        });
+      });
+    },
+    [knownFriendIds]
+  );
+
+  // Every stage id split into earlier (already played by us, in
+  // runStageParties from when we did) and later (never started — a GET
+  // there would 404, since we have no session row on the server for it).
+  const earlierAndLaterStageIds = useCallback((): {
+    earlierStageIds: string[];
+    laterStageIds: string[];
+  } => {
+    const stageIds = runStageIdsKey ? runStageIdsKey.split(',') : [];
+    const currentIndex = stageIds.indexOf(puzzleId);
+    if (currentIndex === -1) {
+      return { earlierStageIds: [], laterStageIds: [] };
+    }
+    return {
+      earlierStageIds: stageIds.slice(0, currentIndex),
+      laterStageIds: stageIds.slice(currentIndex + 1),
+    };
+  }, [runStageIdsKey, puzzleId]);
+
+  // Earlier-stage refresh: for a stage we've already completed, our own
+  // session row exists there, so a direct per-stage GET works (unlike a
+  // stage we've never started, which 404s) and — being a single request
+  // scoped to that stage's own party data — is cheaper than the bulk
+  // fetchFriendSessions call. Only re-fetches stages still unresolved (some
+  // known friend hasn't completed it there yet); once every known friend has
+  // finished a stage, it drops out and is never GET again.
+  const fetchEarlierStageParties = useCallback(async () => {
+    const { earlierStageIds } = earlierAndLaterStageIds();
+    const stageIds = unresolvedStageIds(earlierStageIds);
     await Promise.all(
-      otherStageIds.map(async (stageId) => {
+      stageIds.map(async (stageId) => {
         const serverValue = await getServerValue<ServerState>({ id: stageId });
         if (serverValue?.parties && Object.keys(serverValue.parties).length) {
           setStageParties(stageId, serverValue.parties);
         }
       })
     );
-  }, [runStageIdsKey, puzzleId, getServerValue, setStageParties]);
+  }, [
+    earlierAndLaterStageIds,
+    unresolvedStageIds,
+    getServerValue,
+    setStageParties,
+  ]);
 
-  // The leaderboard's end-of-stage update: the moment this stage's session is
-  // complete (solved now, or restored as solved), fetch every other stage once
-  // so each opponent's row can show their per-stage times. Mid-stage, only the
-  // current stage is polled.
-  useEffect(() => {
-    if (completed && user && hasSessionParties) {
-      fetchOtherStageParties();
+  // Whether any known friend has completed the CURRENT stage, per the live
+  // sessionParties state (not a ref) — this must be a reactive dependency of
+  // fetchLaterStageParties, not read out of a ref inside it, so the effect
+  // below re-runs (and re-checks) the moment sessionParties itself updates
+  // with a friend's completion, rather than racing the restore/poll effect
+  // that sets it (both fire independently on mount; a ref read synchronously
+  // inside an unrelated mount effect can't be relied on to see it yet).
+  const aFriendCompletedCurrentStage = useMemo(
+    () =>
+      Object.values(sessionParties || {}).some((party) =>
+        Object.entries(party?.memberSessions || {}).some(
+          ([memberId, session]) =>
+            knownFriendIds().has(memberId) && !!session?.state.completed
+        )
+      ),
+    [sessionParties, knownFriendIds]
+  );
+
+  // Later-stage refresh: gated on a friend having completed OUR current
+  // stage — the one signal we have that they've moved on to a stage we
+  // haven't started ourselves (a direct GET there would 404 for us, so this
+  // has to go through fetchFriendSessions, a party-scoped bulk list per
+  // friend, not a per-user-per-stage GET). Once triggered, applies to every
+  // later stage still unresolved in one call, not just the very next one —
+  // a friend could already be more than one stage ahead by the time we
+  // notice they've left ours.
+  const fetchLaterStageParties = useCallback(async () => {
+    if (!aFriendCompletedCurrentStage) {
+      return;
     }
-  }, [completed, user, hasSessionParties, fetchOtherStageParties]);
+    const { laterStageIds } = earlierAndLaterStageIds();
+    const stageIds = unresolvedStageIds(laterStageIds);
+    if (!stageIds.length) {
+      return;
+    }
+    // Built from the snapshot fetchFriendSessions returns directly (see
+    // sessionPartiesFromSnapshot above), not getSessionPartiesRef — the
+    // provider's friendSessions state wouldn't reflect what was just fetched
+    // until its next render, which may not have happened yet here.
+    const freshFriendSessions = await fetchFriendSessionsRef.current(
+      parties,
+      true
+    );
+    stageIds.forEach((stageId) => {
+      const stageParties = sessionPartiesFromSnapshot(
+        parties,
+        freshFriendSessions,
+        `${app}-${stageId}`
+      );
+      if (Object.keys(stageParties).length) {
+        setStageParties(stageId, stageParties);
+      }
+    });
+  }, [
+    aFriendCompletedCurrentStage,
+    earlierAndLaterStageIds,
+    unresolvedStageIds,
+    parties,
+    app,
+    setStageParties,
+  ]);
+
+  const fetchOtherStageParties = useCallback(async () => {
+    await Promise.all([fetchEarlierStageParties(), fetchLaterStageParties()]);
+  }, [fetchEarlierStageParties, fetchLaterStageParties]);
+
+  // Backfill every unresolved other stage once on mount/stage-change (covers
+  // a friend who was already ahead of or behind us before we ever opened
+  // this run) and then keep it periodically fresh for as long as the
+  // RaceTrack itself is the visible screen (showLobby false) — while the
+  // Lobby is open instead, its own poll covers the same ground, so this
+  // would otherwise be a redundant second poll running at the same time.
+  useEffect(() => {
+    if (
+      !user ||
+      !runStageIdsKey ||
+      !isDocumentVisible ||
+      isPaused ||
+      showLobby
+    ) {
+      return;
+    }
+    let active = true;
+    fetchOtherStageParties();
+    const intervalId = setInterval(() => {
+      if (active) {
+        fetchOtherStageParties();
+      }
+    }, 30000);
+    return () => {
+      active = false;
+      clearInterval(intervalId);
+    };
+  }, [
+    user,
+    runStageIdsKey,
+    isDocumentVisible,
+    isPaused,
+    showLobby,
+    fetchOtherStageParties,
+  ]);
 
   // Answers
   const answer = answerStack[answerStack.length - 1];
@@ -438,6 +685,7 @@ function useGameState({
     setRedoAnswerStack([]);
     setMovesOffset(0);
     setSessionPartiesLocal({});
+    setHasSessionPartiesFromServer(false);
     setAnswerStack({ answerStack: [initial], isDisabled: true });
   }
 
@@ -465,6 +713,7 @@ function useGameState({
 
     serverValuePromise.then((serverValue) => {
       if (active) {
+        setHasSessionPartiesFromServer(true);
         if (serverValue?.parties && Object.keys(serverValue?.parties).length) {
           setSessionParties(serverValue.parties);
         }
@@ -697,8 +946,13 @@ function useGameState({
     setIsPolling(true);
     try {
       const { serverValuePromise } = getValue() || {};
-      // The refresh button only shows once the stage is finished, so this is
-      // an end-of-stage moment too: refresh the whole run's stages with it.
+      // Refreshes the whole run's stages alongside the current one: called
+      // both by the manual refresh button (shown once the stage is
+      // finished) and by PartiesProvider's refreshParties, which the Lobby
+      // polls every 30s while open — this is what keeps other-stage
+      // opponent presence fresh while the Lobby is the visible screen,
+      // taking over from the RaceTrack-only interval above (which stops
+      // polling once showLobby is true, to avoid the two overlapping).
       const [serverValue] = await Promise.all([
         serverValuePromise,
         fetchOtherStageParties(),
@@ -758,6 +1012,7 @@ function useGameState({
     refreshSessionParties,
     isPolling,
     sessionParties,
+    hasSessionPartiesFromServer,
     runStageParties,
     showLobby,
     setShowLobby,

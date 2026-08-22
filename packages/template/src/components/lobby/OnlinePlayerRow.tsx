@@ -10,7 +10,12 @@ import { fmtClock, fmtElapsed } from '../../helpers/playerAvatar';
 interface Props<ServerState extends BaseServerState> {
   userId: string;
   memberNickname: string;
-  session: Session<ServerState>;
+  // Absent for a player we have no live session for — multi-stage runs
+  // only, when they're racing a stage other than the one sessionParties
+  // covers (see runProgress below). Every session-derived field (percentage,
+  // away/lobby state, last-seen, board preview) is skipped in that case;
+  // runProgress carries everything we do know about them instead.
+  session?: Session<ServerState>;
   parties: { partyId: string; partyName: string; isOwner: boolean }[];
   now: number;
   isAway: boolean;
@@ -21,6 +26,26 @@ interface Props<ServerState extends BaseServerState> {
     memberNickname: string;
     ownedParties: { partyId: string; partyName: string }[];
   }) => void;
+  // Multi-stage runs only: how many stages this player has completed so
+  // far (and their summed time across those stages), out of the run's
+  // total. session/pct above are scoped to whichever stage `session`
+  // belongs to, so once provided this replaces the percentage and the
+  // finish time in the clock label — the raw in-stage percentage isn't a
+  // meaningful "how far through the run" figure once players are spread
+  // across different stages, and the current stage's own completed.seconds
+  // isn't the run's total time.
+  runProgress?: {
+    completedStageCount: number;
+    totalStages: number;
+    totalSeconds: number;
+  };
+  // Multi-stage runs only: this player's most recent known activity across
+  // EVERY stage, not just whichever one `session` belongs to — used for the
+  // "last seen" label when away. Falls back to session.updatedAt when
+  // absent (single-puzzle games, or no cross-stage data available), and is
+  // required to show "last seen" at all when there's no session (a run-only
+  // row racing a different stage) since there's nothing else to time from.
+  lastActiveAt?: Date;
 }
 
 export function OnlinePlayerRow<ServerState extends BaseServerState>({
@@ -33,32 +58,59 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
   calculateCompletionPercentageFromState,
   CompactSimpleState,
   onSetConfirmRemove,
+  runProgress,
+  lastActiveAt,
 }: Props<ServerState>) {
-  const pct = calculateCompletionPercentageFromState(session.state);
-  const isFinished = !!session.state.completed;
+  const pct = session
+    ? calculateCompletionPercentageFromState(session.state)
+    : 0;
+  const isRunComplete = runProgress
+    ? runProgress.completedStageCount >= runProgress.totalStages
+    : undefined;
+  const isFinished = isRunComplete ?? !!session?.state.completed;
   const elapsedSeconds =
-    session.state.completed?.seconds ?? session.state.timer?.seconds ?? 0;
+    runProgress && isFinished
+      ? runProgress.totalSeconds
+      : (session?.state.completed?.seconds ??
+        session?.state.timer?.seconds ??
+        0);
   const ownedParties = parties.filter((p) => p.isOwner);
   const hasStarted =
-    !isAway && !!session.state.timer && session.state.timer.seconds > 0;
-  const isInLobby = !isAway && !isFinished && !hasStarted;
+    !isAway && !!session?.state.timer && session.state.timer.seconds > 0;
+  // No live session (racing a stage sessionParties doesn't cover): they're
+  // definitely not sitting in the lobby, and there's nothing to call "away"
+  // relative to, so this always reads as actively racing.
+  const isInLobby = !!session && !isAway && !isFinished && !hasStarted;
 
-  const updatedAtMs =
-    session.updatedAt instanceof Date
-      ? session.updatedAt.getTime()
-      : new Date(session.updatedAt).getTime();
-  const lastSeenLabel = isAway ? fmtElapsed(now - updatedAtMs) : null;
+  const updatedAtMs = lastActiveAt
+    ? lastActiveAt.getTime()
+    : session
+      ? session.updatedAt instanceof Date
+        ? session.updatedAt.getTime()
+        : new Date(session.updatedAt).getTime()
+      : undefined;
+  const lastSeenLabel =
+    isAway && updatedAtMs !== undefined ? fmtElapsed(now - updatedAtMs) : null;
 
   const cardBg = isAway ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.04)';
   const cardBorder = isAway
     ? '1px solid rgba(255,255,255,0.07)'
     : '1px solid rgba(255,255,255,0.09)';
 
+  // Multi-stage runs: "Stage N of M" instead of a raw percentage, since the
+  // percentage only ever describes progress on whichever single stage
+  // `session` happens to be for.
+  const progressLabel = runProgress
+    ? `Stage ${Math.min(runProgress.completedStageCount + 1, runProgress.totalStages)} of ${runProgress.totalStages}`
+    : `${Math.round(pct)}%`;
+
   const clockLabel = isFinished
-    ? `Solved in ${fmtClock(elapsedSeconds)}`
+    ? runProgress
+      ? `Finished the run in ${fmtClock(elapsedSeconds)}`
+      : `Solved in ${fmtClock(elapsedSeconds)}`
     : isAway
-      ? `${Math.round(pct)}% · ${fmtClock(elapsedSeconds)} · last seen ${lastSeenLabel}`
-      : `${Math.round(pct)}% · ${fmtClock(elapsedSeconds)}`;
+      ? `${progressLabel} · ${fmtClock(elapsedSeconds)} · last seen ${lastSeenLabel}`
+      : `${progressLabel} · ${fmtClock(elapsedSeconds)}`;
 
   return (
     <div
@@ -110,7 +162,7 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
           )}
         </div>
       </div>
-      {!isInLobby && (
+      {!isInLobby && session && (
         <div
           className={[
             'pointer-events-none flex-shrink-0 overflow-hidden rounded-lg',
