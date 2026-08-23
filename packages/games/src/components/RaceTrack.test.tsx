@@ -233,6 +233,37 @@ describe('RaceTrack', () => {
     expect(legend).toHaveTextContent('40%');
   });
 
+  it('keeps every kart fully inside the driving lane however many racers there are, without overlap', () => {
+    // Regression: the lane-packing math used to only shrink the per-lane
+    // step, not clamp the running offset, so with enough racers the last
+    // few karts' top position pushed their bottom edge past the
+    // (overflow-hidden) lane and they visually vanished off the bottom.
+    const manyAgents = ['🐝', '🦉', '🦊', '🐧', '🦝', '🕷️'].map(
+      (emoji, index) =>
+        agent({ agentId: `agent-${index}`, emoji, percentage: 40 })
+    );
+    render(<RaceTrack {...defaultProps} localAgentProgress={manyAgents} />);
+
+    // jsdom's default window.innerWidth (1024) resolves trackHeight to the
+    // desktop 64px lane; every kart is ~16px tall.
+    const TRACK_HEIGHT_PX = 64;
+    const KART_HEIGHT_PX = 16;
+
+    const tops = manyAgents.map((a) => {
+      const style = screen.getByTestId(`agent-kart-${a.agentId}`).style;
+      return parseFloat(style.top);
+    });
+
+    for (const top of tops) {
+      expect(top).toBeGreaterThanOrEqual(0);
+      expect(top + KART_HEIGHT_PX).toBeLessThanOrEqual(TRACK_HEIGHT_PX);
+    }
+    // Distinct, ascending offsets: karts spread out rather than stacking.
+    const sorted = [...tops].sort((a, b) => a - b);
+    expect(tops).toEqual(sorted);
+    expect(new Set(tops).size).toBe(tops.length);
+  });
+
   it('shows the finish time on a finished agent chip when a formatter is passed', () => {
     render(
       <RaceTrack

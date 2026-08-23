@@ -92,7 +92,7 @@ function TestersContent() {
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                     Accept your{' '}
                     <a
-                      href="https://play.google.com/apps/testing/com.bubblyclouds.unblock"
+                      href="https://play.google.com/apps/testing/com.bubblyclouds.unblockrace"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
@@ -112,7 +112,7 @@ function TestersContent() {
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                     Download{' '}
                     <a
-                      href="https://play.google.com/store/apps/details?id=com.bubblyclouds.unblock&hl=en-US&ah=ITbKJ68PGTBctQ5v5pSRAaHUniM&pli=1"
+                      href="https://play.google.com/store/apps/details?id=com.bubblyclouds.unblockrace&hl=en-US&ah=ITbKJ68PGTBctQ5v5pSRAaHUniM&pli=1"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"

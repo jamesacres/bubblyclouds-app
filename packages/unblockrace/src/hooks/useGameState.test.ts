@@ -634,5 +634,159 @@ describe('useGameState', () => {
         serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
       ).toBe(false);
     });
+
+    // STAGE_0 is runStageIds[0] — the run's first stage, i.e. "stage 1".
+    it('stops polling every other stage once stage 1 shows no friend ever started this run', async () => {
+      jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
+      try {
+        // The party's friend has no session on stage 1 at all — they were
+        // never even offered this run's first puzzle — but WOULD have a
+        // completed session on stage 2 if it were ever fetched, so a stray
+        // fetch there would be caught by the assertion below.
+        serverGetValue.mockImplementation(async (options?: { id?: string }) => {
+          if (options?.id === STAGE_0) {
+            return { parties: {} };
+          }
+          if (options?.id) {
+            return {
+              parties: {
+                party1: {
+                  memberSessions: { friend: friendSessionFor(options.id, 30) },
+                },
+              },
+            };
+          }
+          return {
+            sessionId: `unblockrace-${INITIAL}`,
+            state: {
+              initial: INITIAL,
+              final: solvedBoardString(INITIAL),
+              answerStack: [INITIAL],
+            },
+            parties: {},
+            updatedAt: new Date(),
+          };
+        });
+
+        renderHook(() => useGameState(runProps), { wrapper });
+        await act(async () => {});
+
+        // Bootstrap pass: stage 1 (STAGE_0) had to be checked to learn no
+        // friend has started the run — this one GET is expected.
+        expect(
+          serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_0)
+        ).toBe(true);
+        // STAGE_2 must never be fetched: no friend has started stage 1, so
+        // there's nothing worth polling any other stage for.
+        expect(
+          serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
+        ).toBe(false);
+
+        const callsAfterMount = serverGetValue.mock.calls.length;
+
+        await act(async () => {
+          jest.advanceTimersByTime(60000);
+        });
+
+        // No further GETs on the 30s poll — polling is fully quiet once
+        // we've learned nobody joined this run.
+        expect(serverGetValue.mock.calls.length).toBe(callsAfterMount);
+      } finally {
+        jest.useRealTimers();
+      }
+    });
+
+    it('still notices a friend who starts stage 1 later, via a manual refresh (a friend can join at any time)', async () => {
+      // Starts with nobody on stage 1 — same as the "stops polling" case —
+      // then a friend appears there before the manual refresh runs.
+      let friendHasStartedStage1 = false;
+      serverGetValue.mockImplementation(async (options?: { id?: string }) => {
+        if (options?.id === STAGE_0) {
+          return friendHasStartedStage1
+            ? {
+                parties: {
+                  party1: {
+                    memberSessions: {
+                      friend: friendSessionFor(STAGE_0, undefined),
+                    },
+                  },
+                },
+              }
+            : { parties: {} };
+        }
+        if (options?.id) {
+          return {
+            parties: {
+              party1: {
+                memberSessions: { friend: friendSessionFor(options.id, 30) },
+              },
+            },
+          };
+        }
+        return {
+          sessionId: `unblockrace-${INITIAL}`,
+          state: {
+            initial: INITIAL,
+            final: solvedBoardString(INITIAL),
+            answerStack: [INITIAL],
+          },
+          parties: {},
+          updatedAt: new Date(),
+        };
+      });
+
+      const { result } = renderHook(() => useGameState(runProps), {
+        wrapper,
+      });
+      await act(async () => {});
+
+      expect(
+        serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
+      ).toBe(false);
+
+      // The friend joins, then the player hits manual refresh.
+      friendHasStartedStage1 = true;
+      await act(async () => {
+        await result.current.refreshSessionParties();
+      });
+
+      expect(
+        result.current.runStageParties[STAGE_0]?.party1?.memberSessions.friend
+      ).toBeDefined();
+      // Now that stage 1 has a friend, the other (unresolved) stage is
+      // worth checking too.
+      expect(
+        serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
+      ).toBe(true);
+    });
+
+    it('stops re-checking stage 1 once every friend there has completed it, even on manual refresh', async () => {
+      jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
+      try {
+        // The friend has ALREADY completed stage 1 from the start.
+        mockCurrentStageResponse(20);
+        const { result } = renderHook(() => useGameState(runProps), {
+          wrapper,
+        });
+        await act(async () => {});
+
+        const callsToStage0AfterMount = serverGetValue.mock.calls.filter(
+          (call) => call[0]?.id === STAGE_0
+        ).length;
+        expect(callsToStage0AfterMount).toBeGreaterThan(0);
+
+        await act(async () => {
+          await result.current.refreshSessionParties();
+        });
+
+        // A completed stage 1 is resolved — refresh must not re-GET it.
+        const callsToStage0AfterRefresh = serverGetValue.mock.calls.filter(
+          (call) => call[0]?.id === STAGE_0
+        ).length;
+        expect(callsToStage0AfterRefresh).toBe(callsToStage0AfterMount);
+      } finally {
+        jest.useRealTimers();
+      }
+    });
   });
 });

@@ -29,7 +29,7 @@ import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { useCollection } from '../providers/CollectionProvider';
 import { GameState, GameStateMetadata, ServerState } from '../types/state';
 import { Move } from '../types/board';
-import { AgentConfig, LocalAgent } from '../types/Agent';
+import { AgentConfig, DreyfusLevel, LocalAgent } from '../types/Agent';
 import { useGameState } from '../hooks/useGameState';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
 import { createLocalAgents } from '../helpers/agentTimeline';
@@ -200,13 +200,46 @@ const UnblockRace = ({
 
   const isFinalStage = currentStageIndex === stages.length - 1;
 
-  // Local AI rivals (SPEC: agents race per stage). Their timelines are
-  // solver-built asynchronously, so the selected configs live in a ref the
-  // per-stage rebuild reads, and a build id discards any solve that lands
-  // after the stage (or the selection) has moved on.
-  const agentStartTimeMsRef = useRef<number | null>(null);
-  const agentConfigsRef = useRef<AgentConfig[]>([]);
-  const agentBuildIdRef = useRef(0);
+  // AI opponents are opted in by default (one random persona per Dreyfus
+  // level, same picker as Sudoku Race): computed once so the roster is
+  // stable for the life of this run.
+  const [defaultAgentSelection] = useState<string[]>(() => {
+    const pickFromLevel = (level: DreyfusLevel) => {
+      const pool = DEFAULT_AGENT_CONFIGS.filter((c) => c.skillLevel === level);
+      return pool[Math.floor(Math.random() * pool.length)].name;
+    };
+    return [
+      pickFromLevel(DreyfusLevel.Novice),
+      pickFromLevel(DreyfusLevel.AdvancedBeginner),
+      pickFromLevel(DreyfusLevel.Competent),
+      pickFromLevel(DreyfusLevel.Proficient),
+      pickFromLevel(DreyfusLevel.Expert),
+    ];
+  });
+
+  // Local AI rivals (SPEC: each agent races the whole run on its OWN clock,
+  // independent of the player's stage AND of every other agent — a fast
+  // agent must not sit waiting on a slow one). Timelines are solver-built
+  // asynchronously, so the selected configs live in a ref the rebuild reads,
+  // and a per-agent build id discards any solve that lands after that
+  // agent's stage (or the selection) has moved on. agentStageIndexByIdRef /
+  // agentStartTimeByIdRef track each agent's own progress through the run,
+  // keyed by agent id — every agent always starts at stage 0, even when the
+  // player resumes a later stage after a reload, and never reads from
+  // `currentStageIndex` or storage.
+  const agentStageIndexByIdRef = useRef<Map<string, number>>(new Map());
+  const agentStartTimeByIdRef = useRef<Map<string, number | null>>(new Map());
+  const agentConfigsRef = useRef<AgentConfig[]>(
+    DEFAULT_AGENT_CONFIGS.filter((config) =>
+      defaultAgentSelection.includes(config.name)
+    )
+  );
+  const agentBuildIdByIdRef = useRef<Map<string, number>>(new Map());
+  // Which agents are mid-"stage clear" gap (about to rebuild for their next
+  // stage) or have finished the whole run — both stop the tick loop from
+  // repeatedly recording/advancing the same agent every second.
+  const advancingAgentIdsRef = useRef<Set<string>>(new Set());
+  const finishedAgentIdsRef = useRef<Set<string>>(new Set());
   const [agents, setAgents] = useState<LocalAgent[]>([]);
   const [localAgentProgress, setLocalAgentProgress] = useState<
     AgentProgress<ServerState>[]
@@ -218,35 +251,30 @@ const UnblockRace = ({
     Map<string, { emoji: string; stages: Map<number, StageResult> }>
   >(new Map());
 
-  // Agents finish "offscreen" deterministically: the moment a stage ends
-  // (solved, or left via the preview strip) their precomputed time and move
-  // count for it go on the run leaderboard. Recording is idempotent, so a
-  // stage that is both completed and then advanced away from writes the
-  // same values twice.
-  const recordAgentStageResults = useCallback(
-    (stageIndex: number, stageMovesRequired: number) => {
-      if (agents.length === 0) {
+  // Each agent finishes "offscreen" deterministically, on its OWN stage
+  // clock: the moment one agent's timeline for its current stage completes,
+  // its precomputed time and move count for that stage go on the run
+  // leaderboard — independent of which stage the player, or any other
+  // agent, is currently on. Recording is idempotent.
+  const recordAgentStageResult = useCallback(
+    (agent: LocalAgent, stageIndex: number, stageMovesRequired: number) => {
+      if (agent.timeline.steps.length === 0) {
         return;
       }
       setAgentStageResults((prev) => {
         const next = new Map(prev);
-        for (const agent of agents) {
-          if (agent.timeline.steps.length === 0) {
-            continue;
-          }
-          const existing = next.get(agent.name);
-          const stageMap = new Map(existing?.stages);
-          stageMap.set(stageIndex, {
-            seconds: Math.round(agent.timeline.totalDuration / 1000),
-            movesMade: agent.timeline.steps.length,
-            movesRequired: stageMovesRequired,
-          });
-          next.set(agent.name, { emoji: agent.emoji, stages: stageMap });
-        }
+        const existing = next.get(agent.name);
+        const stageMap = new Map(existing?.stages);
+        stageMap.set(stageIndex, {
+          seconds: Math.round(agent.timeline.totalDuration / 1000),
+          movesMade: agent.timeline.steps.length,
+          movesRequired: stageMovesRequired,
+        });
+        next.set(agent.name, { emoji: agent.emoji, stages: stageMap });
         return next;
       });
     },
-    [agents]
+    []
   );
 
   const onComplete = useCallback(
@@ -267,7 +295,6 @@ const UnblockRace = ({
         });
         return next;
       });
-      recordAgentStageResults(currentStageIndex, stage.movesRequired);
       if (isFinalStage) {
         setShowAnimation(true);
         setTimeout(() => setShowAnimation(false), RACE_CELEBRATION_MS);
@@ -280,13 +307,7 @@ const UnblockRace = ({
         });
       }
     },
-    [
-      alreadyCompleted,
-      isFinalStage,
-      currentStageIndex,
-      stage.movesRequired,
-      recordAgentStageResults,
-    ]
+    [alreadyCompleted, isFinalStage, currentStageIndex, stage.movesRequired]
   );
 
   const {
@@ -319,6 +340,8 @@ const UnblockRace = ({
     metadata: stageMetadata,
     app,
     apiUrl,
+    initialMode: 'ai',
+    initialAgentNames: defaultAgentSelection.join(','),
     initialShowLobby: !alreadyCompleted && showRacingPrompt,
     onComplete,
     runStageIds,
@@ -333,10 +356,49 @@ const UnblockRace = ({
     answerRef.current = answer;
   }, [answer]);
 
-  // Bot selection from the lobby's agent sheet: build solver-driven
-  // timelines for the picked personas on the current stage. Mode and names
-  // persist immediately (they record the player's choice); the karts appear
-  // when the solve resolves — unless the stage moved on first.
+  // Builds (or rebuilds) a single agent's timeline for whichever stage
+  // agentStageIndexByIdRef currently has for it — that agent's own board,
+  // not necessarily the player's or any other agent's. A per-agent build id
+  // discards any solve that lands after that agent's stage (or the roster)
+  // has moved on again.
+  const buildOneAgentForStage = useCallback(
+    (config: AgentConfig, stageIndex: number) => {
+      const agentId = `agent-${config.name}`;
+      const agentStage = stages[stageIndex];
+      const agentInitial = agentStage.boardString;
+      const agentFinal = solvedBoardString(agentInitial);
+      const buildId = (agentBuildIdByIdRef.current.get(agentId) ?? 0) + 1;
+      agentBuildIdByIdRef.current.set(agentId, buildId);
+      void createLocalAgents(
+        agentInitial,
+        agentFinal,
+        [config],
+        difficultyForMoves(agentStage.movesRequired)
+      ).then((created) => {
+        if (agentBuildIdByIdRef.current.get(agentId) !== buildId) {
+          return;
+        }
+        const [builtAgent] = created;
+        if (!builtAgent) {
+          return;
+        }
+        setAgents((prev) => [
+          ...prev.filter((agent) => agent.id !== agentId),
+          builtAgent,
+        ]);
+        setLocalAgentProgress((prev) => [
+          ...prev.filter((progress) => progress.agentId !== agentId),
+          ...getAllAgentProgress([builtAgent], null),
+        ]);
+      });
+    },
+    [stages]
+  );
+
+  // Bot selection from the lobby's agent sheet: every (re)selected agent
+  // starts fresh at stage 0 (SPEC: AI opponents always start at stage 1).
+  // Mode and names persist immediately (they record the player's choice);
+  // each kart appears as its solve resolves.
   const handleAgentMode = useCallback(
     (selectedAgentNames: string[]) => {
       const nameSet = new Set(selectedAgentNames);
@@ -346,22 +408,31 @@ const UnblockRace = ({
       agentConfigsRef.current = selectedConfigs;
       setMode('ai');
       setAgentNames(selectedAgentNames.join(','));
-      const buildId = ++agentBuildIdRef.current;
-      void createLocalAgents(
-        initial,
-        final,
-        selectedConfigs,
-        difficultyForMoves(stage.movesRequired)
-      ).then((created) => {
-        if (agentBuildIdRef.current !== buildId) {
-          return;
-        }
-        setAgents(created);
-        setLocalAgentProgress(getAllAgentProgress(created, null));
-      });
+      for (const config of selectedConfigs) {
+        const agentId = `agent-${config.name}`;
+        agentStageIndexByIdRef.current.set(agentId, 0);
+        agentStartTimeByIdRef.current.set(agentId, null);
+        advancingAgentIdsRef.current.delete(agentId);
+        finishedAgentIdsRef.current.delete(agentId);
+        buildOneAgentForStage(config, 0);
+      }
     },
-    [initial, final, stage.movesRequired, setMode, setAgentNames]
+    [buildOneAgentForStage, setMode, setAgentNames]
   );
+
+  // Solve the default roster once on mount so the lobby can show it as
+  // already selected (SPEC: AI opponents are opted in by default) — this
+  // only builds the preview; each agent's race clock stays null until
+  // handleStartRace actually starts the race.
+  useEffect(() => {
+    for (const config of agentConfigsRef.current) {
+      const agentId = `agent-${config.name}`;
+      agentStageIndexByIdRef.current.set(agentId, 0);
+      agentStartTimeByIdRef.current.set(agentId, null);
+      buildOneAgentForStage(config, 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onRemoveAgent = useCallback(
     (agentId: string) => {
@@ -376,74 +447,106 @@ const UnblockRace = ({
       setLocalAgentProgress((prev) =>
         prev.filter((progress) => progress.agentId !== agentId)
       );
+      agentStageIndexByIdRef.current.delete(agentId);
+      agentStartTimeByIdRef.current.delete(agentId);
+      advancingAgentIdsRef.current.delete(agentId);
+      finishedAgentIdsRef.current.delete(agentId);
+      // Invalidate any in-flight solve for this agent (e.g. the mount-time
+      // roster build) so it can't resurrect the agent via setAgents once it
+      // resolves after removal.
+      agentBuildIdByIdRef.current.set(
+        agentId,
+        (agentBuildIdByIdRef.current.get(agentId) ?? 0) + 1
+      );
     },
     [setAgentNames]
   );
 
-  // Per-stage rebuild (agents race per stage): when the run moves to another
-  // board while agents are active, solve it and rebuild their timelines. The
-  // build id also discards a pending lobby-selection build for the old stage.
+  // Each agent's race clock starts only once the player actually starts the
+  // race (not on mount, and not on the ambient session countdown, which can
+  // finish while the lobby is still showing).
   useEffect(() => {
-    agentStartTimeMsRef.current = null;
-    const configs = agentConfigsRef.current;
-    if (configs.length === 0) {
+    if (!raceStarted) {
       return;
     }
-    const buildId = ++agentBuildIdRef.current;
-    let cancelled = false;
-    void createLocalAgents(
-      initial,
-      final,
-      configs,
-      difficultyForMoves(stage.movesRequired)
-    ).then((created) => {
-      if (cancelled || agentBuildIdRef.current !== buildId) {
-        return;
+    for (const agent of agents) {
+      if (agentStartTimeByIdRef.current.get(agent.id) == null) {
+        agentStartTimeByIdRef.current.set(agent.id, Date.now());
       }
-      setAgents(created);
-      setLocalAgentProgress(getAllAgentProgress(created, null));
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [initial, final, stage.movesRequired]);
-
-  // The agents' race clock starts when the stage's countdown finishes (the
-  // per-stage rebuild clears it for the next board).
-  useEffect(() => {
-    if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
-      agentStartTimeMsRef.current = Date.now();
     }
-  }, [timer]);
+  }, [raceStarted, agents]);
 
-  // Tick the AI karts once a second — including after the player finishes,
-  // until every agent reaches 100%. State updates happen only inside the
-  // interval callback (the set-state-in-effect rule), and the interval
-  // retires itself once all agents are home.
+  // Tick the AI karts once a second, each entirely on its OWN clock: the
+  // instant one agent's timeline for its current stage completes, record
+  // that stage's result and — after a short "stage clear" beat — advance
+  // just that agent to its next stage and rebuild its timeline, independent
+  // of whichever stage the player, or any other agent, is currently on. A
+  // fast agent never waits on a slower one. Runs until every agent finishes
+  // the whole run.
+  const AGENT_STAGE_GAP_MS = 1500;
   useEffect(() => {
-    if (agents.length === 0) {
+    if (agents.length === 0 || !raceStarted) {
       return;
     }
     const intervalId = setInterval(() => {
-      const startTimeMs = agentStartTimeMsRef.current;
-      const next = getAllAgentProgress(agents, startTimeMs);
-      setLocalAgentProgress((prev) =>
-        prev.length === next.length &&
-        prev.every(
-          (progress, index) => progress.percentage === next[index].percentage
-        )
-          ? prev
-          : next
-      );
-      if (
-        startTimeMs !== null &&
-        next.every((progress) => progress.percentage === 100)
-      ) {
-        clearInterval(intervalId);
+      for (const agent of agents) {
+        if (
+          advancingAgentIdsRef.current.has(agent.id) ||
+          finishedAgentIdsRef.current.has(agent.id)
+        ) {
+          continue;
+        }
+        const startTimeMs = agentStartTimeByIdRef.current.get(agent.id);
+        if (startTimeMs == null) {
+          continue;
+        }
+        const [progress] = getAllAgentProgress([agent], startTimeMs);
+        setLocalAgentProgress((prev) =>
+          prev.some(
+            (p) =>
+              p.agentId === agent.id && p.percentage === progress.percentage
+          )
+            ? prev
+            : [...prev.filter((p) => p.agentId !== agent.id), progress]
+        );
+        if (progress.percentage !== 100) {
+          continue;
+        }
+        const finishedStageIndex =
+          agentStageIndexByIdRef.current.get(agent.id) ?? 0;
+        recordAgentStageResult(
+          agent,
+          finishedStageIndex,
+          stages[finishedStageIndex].movesRequired
+        );
+        if (finishedStageIndex >= stages.length - 1) {
+          finishedAgentIdsRef.current.add(agent.id);
+          continue;
+        }
+        advancingAgentIdsRef.current.add(agent.id);
+        const config = agentConfigsRef.current.find(
+          (c) => `agent-${c.name}` === agent.id
+        );
+        setTimeout(() => {
+          advancingAgentIdsRef.current.delete(agent.id);
+          if (!config) {
+            return;
+          }
+          const nextStageIndex = finishedStageIndex + 1;
+          agentStageIndexByIdRef.current.set(agent.id, nextStageIndex);
+          agentStartTimeByIdRef.current.set(agent.id, Date.now());
+          buildOneAgentForStage(config, nextStageIndex);
+        }, AGENT_STAGE_GAP_MS);
       }
     }, 1000);
     return () => clearInterval(intervalId);
-  }, [agents]);
+  }, [
+    agents,
+    raceStarted,
+    stages,
+    recordAgentStageResult,
+    buildOneAgentForStage,
+  ]);
 
   // "Ask for help" (2 free hints/day, then Plus — hinted moves still count
   // toward par): the solver's next best move, drawn on the interactive board.
@@ -577,10 +680,30 @@ const UnblockRace = ({
     }
     if (!raceStarted) {
       setTimerNewSession();
+      // Safety net: the roster is normally already built for the lobby
+      // preview by mount time, but if any agent isn't yet (e.g. a
+      // still-pending solve), make sure it exists before the clock below
+      // starts ticking for it.
+      const builtIds = new Set(agents.map((agent) => agent.id));
+      for (const config of agentConfigsRef.current) {
+        const agentId = `agent-${config.name}`;
+        if (!builtIds.has(agentId)) {
+          buildOneAgentForStage(
+            config,
+            agentStageIndexByIdRef.current.get(agentId) ?? 0
+          );
+        }
+      }
     }
     setRaceStarted(true);
     setHasManuallySelectedMode(true);
-  }, [setTimerNewSession, raceStarted, isBoardGated]);
+  }, [
+    setTimerNewSession,
+    raceStarted,
+    isBoardGated,
+    agents,
+    buildOneAgentForStage,
+  ]);
 
   const handleInviteFriends = useCallback(() => {
     setShowLobby(true);
@@ -596,11 +719,6 @@ const UnblockRace = ({
       if (index === currentStageIndex || transition) {
         return;
       }
-      // Leaving a stage settles the agents' deterministic results for it
-      recordAgentStageResults(
-        currentStageIndex,
-        stages[currentStageIndex].movesRequired
-      );
       setStageClear(null);
       setTransition({
         fromBoardString: answerRef.current,
@@ -610,7 +728,7 @@ const UnblockRace = ({
       setCurrentStageIndex(index);
       setRaceStarted(true);
     },
-    [currentStageIndex, transition, stages, recordAgentStageResults]
+    [currentStageIndex, transition, stages]
   );
 
   // The stage-clear slam's call to action: dismiss the slam and kick off the
@@ -1156,8 +1274,14 @@ const UnblockRace = ({
     [stages, runStageParties, user?.sub, completedStages, agentRunInputs]
   );
 
+  // Falls back to the configured (picked/default) names on the rare render
+  // where the roster's mount-time solve hasn't resolved yet, so the lobby
+  // sheet's pre-checked selection is never briefly empty.
   const currentAgentNames = useMemo(
-    () => agents.map((agent) => agent.name),
+    () =>
+      agents.length > 0
+        ? agents.map((agent) => agent.name)
+        : agentConfigsRef.current.map((config) => config.name),
     [agents]
   );
 

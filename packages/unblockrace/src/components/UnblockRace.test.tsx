@@ -246,6 +246,10 @@ describe('UnblockRace', () => {
       ...baseGameState,
       answer: STAGE_1,
     } as ReturnType<typeof useGameState>);
+    // AI opponents are opted in by default, so every render solves a roster
+    // for the lobby preview on mount; give it a harmless default so tests
+    // that don't care about agents don't have to mock this themselves.
+    mockCreateLocalAgents.mockResolvedValue([]);
   });
 
   it('renders the board, race track and marks the current stage', () => {
@@ -1576,6 +1580,34 @@ describe('UnblockRace', () => {
       },
     });
 
+    // A single-move timeline finishing much later than testAgent's 2s, for
+    // tests that need one agent to still be mid-stage while another finishes.
+    const slowTestAgent = (
+      id: string,
+      name: string,
+      emoji: string
+    ): LocalAgent => ({
+      id,
+      name,
+      emoji,
+      skillLevel: DreyfusLevel.Novice,
+      timeline: {
+        steps: [
+          {
+            move: { piece: 0, steps: 1 },
+            timestamp: 10000,
+            state: {
+              initial: STAGE_1,
+              final: SOLVED_STAGE_1,
+              answerStack: [SOLVED_STAGE_1],
+              metadata: { movesRequired: '3', movesMade: '1' },
+            },
+          },
+        ],
+        totalDuration: 10000,
+      },
+    });
+
     const lastLobbyProps = () =>
       mockLobbyProps.mock.calls[mockLobbyProps.mock.calls.length - 1][0];
     const lastTrackProps = () =>
@@ -1583,7 +1615,7 @@ describe('UnblockRace', () => {
         mockRaceTrackProps.mock.calls.length - 1
       ][0];
 
-    it('offers the bot roster to the lobby', () => {
+    it('offers the bot roster to the lobby, opted in by default', () => {
       render(<UnblockRace {...defaultProps} />);
       const lobbyProps = lastLobbyProps();
       expect(lobbyProps.onAgentMode).toEqual(expect.any(Function));
@@ -1593,12 +1625,22 @@ describe('UnblockRace', () => {
           expect.objectContaining({ name: 'Bumblebee', emoji: '🐝' }),
         ])
       );
-      expect(lobbyProps.defaultSelectedAgentNames).toEqual([]);
+      // One random persona per Dreyfus level is pre-selected — the player
+      // never has to opt in manually to race against AI opponents.
+      expect(lobbyProps.defaultSelectedAgentNames).toHaveLength(5);
+      const optionNames = new Set(
+        (lobbyProps.agentOptions as { name: string }[]).map(
+          (option) => option.name
+        )
+      );
+      for (const name of lobbyProps.defaultSelectedAgentNames as string[]) {
+        expect(optionNames.has(name)).toBe(true);
+      }
     });
 
     it('builds solver timelines for the picked bots and puts their karts on the track', async () => {
       mockCreateLocalAgents.mockResolvedValue([
-        testAgent('agent-0', 'Bumblebee', '🐝'),
+        testAgent('agent-Bumblebee', 'Bumblebee', '🐝'),
       ]);
 
       render(<UnblockRace {...defaultProps} />);
@@ -1616,7 +1658,7 @@ describe('UnblockRace', () => {
       expect(baseGameState.setAgentNames).toHaveBeenCalledWith('Bumblebee');
       expect(lastTrackProps().localAgentProgress).toEqual([
         expect.objectContaining({
-          agentId: 'agent-0',
+          agentId: 'agent-Bumblebee',
           name: 'Bumblebee',
           emoji: '🐝',
           percentage: 0,
@@ -1624,24 +1666,16 @@ describe('UnblockRace', () => {
       ]);
     });
 
-    it('advances the karts once the clock runs and records the run leaderboard line at stage end', async () => {
+    it('advances the karts once the race starts and records the run leaderboard line at stage end', async () => {
       jest.useFakeTimers();
       try {
         mockUseGameState.mockReturnValue({
           ...baseGameState,
-          answer: STAGE_1_COMPLETED,
-          answerStack: [STAGE_1, STAGE_1_COMPLETED],
-          timer: {
-            seconds: 0,
-            inProgress: {
-              start: new Date().toISOString(),
-              lastInteraction: new Date().toISOString(),
-            },
-          },
-          completed: { at: new Date().toISOString(), seconds: 42 },
+          answer: STAGE_1,
+          answerStack: [STAGE_1],
         } as ReturnType<typeof useGameState>);
         mockCreateLocalAgents.mockResolvedValue([
-          testAgent('agent-0', 'Bumblebee', '🐝'),
+          testAgent('agent-Bumblebee', 'Bumblebee', '🐝'),
         ]);
 
         render(<UnblockRace {...defaultProps} />);
@@ -1649,9 +1683,19 @@ describe('UnblockRace', () => {
           lastLobbyProps().onAgentMode(['Bumblebee']);
         });
 
+        // The kart doesn't move at all until the player actually starts the
+        // race — not on mount, and not before onStartRace fires.
+        act(() => {
+          jest.advanceTimersByTime(3000);
+        });
+        expect(lastTrackProps().localAgentProgress[0].percentage).toBe(0);
+
+        await act(async () => {
+          lastLobbyProps().onStartRace();
+        });
+
         // The 1s tick drives the kart: a third of the moves after 1s,
-        // finished (with its 2s time) after 2s — even though the player has
-        // already completed the stage.
+        // finished (with its 2s time) after 2s.
         act(() => {
           jest.advanceTimersByTime(1100);
         });
@@ -1663,11 +1707,8 @@ describe('UnblockRace', () => {
           expect.objectContaining({ percentage: 100, finishTime: 2 })
         );
 
-        // The stage completing settles the agent's deterministic result
-        // onto the run leaderboard next to the player's own line.
-        act(() => {
-          lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
-        });
+        // The agent's own stage completing settles its deterministic result
+        // onto the run leaderboard, independent of the player's own stage.
         expect(lastTrackProps().runResults).toEqual(
           expect.arrayContaining([
             expect.objectContaining({
@@ -1682,10 +1723,6 @@ describe('UnblockRace', () => {
               totalSeconds: 2,
               completedStageCount: 1,
             }),
-            expect.objectContaining({
-              userId: 'user-123',
-              isCurrentUser: true,
-            }),
           ])
         );
       } finally {
@@ -1695,10 +1732,20 @@ describe('UnblockRace', () => {
     });
 
     it('removes a bot from the race and the saved selection', async () => {
-      mockCreateLocalAgents.mockResolvedValue([
-        testAgent('agent-0', 'Bumblebee', '🐝'),
-        testAgent('agent-1', 'Sage', '🦉'),
-      ]);
+      // Each agent is now solved individually (one call per config, not one
+      // batched call for the whole roster), so the mock must return only
+      // the agent matching the config it was actually called with.
+      const rosterByName: Record<string, LocalAgent> = {
+        Bumblebee: testAgent('agent-Bumblebee', 'Bumblebee', '🐝'),
+        Sage: testAgent('agent-Sage', 'Sage', '🦉'),
+      };
+      mockCreateLocalAgents.mockImplementation(
+        async (_initial, _final, configs) => [
+          rosterByName[
+            (configs as { name: string }[])[0].name as keyof typeof rosterByName
+          ],
+        ]
+      );
 
       render(<UnblockRace {...defaultProps} />);
       await act(async () => {
@@ -1707,39 +1754,69 @@ describe('UnblockRace', () => {
       expect(lastTrackProps().localAgentProgress).toHaveLength(2);
 
       act(() => {
-        lastLobbyProps().onRemoveAgent('agent-0');
+        lastLobbyProps().onRemoveAgent('agent-Bumblebee');
       });
 
       expect(baseGameState.setAgentNames).toHaveBeenLastCalledWith('Sage');
       expect(lastTrackProps().localAgentProgress).toEqual([
-        expect.objectContaining({ agentId: 'agent-1', name: 'Sage' }),
+        expect.objectContaining({ agentId: 'agent-Sage', name: 'Sage' }),
       ]);
     });
 
-    it('rebuilds the timelines for the next stage when the run advances', async () => {
+    it('advances agents to the next stage on their own clock once they finish, independent of the player', async () => {
       jest.useFakeTimers();
       try {
         mockUseGameState.mockReturnValue({
           ...baseGameState,
-          answer: STAGE_1_COMPLETED,
-          answerStack: [STAGE_1, STAGE_1_COMPLETED],
-          completed: { at: new Date().toISOString(), seconds: 42 },
+          answer: STAGE_1,
+          answerStack: [STAGE_1],
         } as ReturnType<typeof useGameState>);
         mockCreateLocalAgents.mockResolvedValue([
-          testAgent('agent-0', 'Bumblebee', '🐝'),
+          testAgent('agent-Bumblebee', 'Bumblebee', '🐝'),
         ]);
 
         render(<UnblockRace {...defaultProps} />);
         await act(async () => {
           lastLobbyProps().onAgentMode(['Bumblebee']);
         });
-
-        act(() => {
-          lastGameStateArgs().onComplete?.([STAGE_1, STAGE_1_COMPLETED], 3, 42);
+        await act(async () => {
+          lastLobbyProps().onStartRace();
         });
-        fireEvent.click(screen.getByTestId('next-stage-button'));
-        runTransition();
-        // Flush the stage-2 rebuild's solve so its setState lands inside act
+
+        // The agent's stage-1 timeline finishes at 2s; the tick that notices
+        // this settles stage 1's result and, after the "stage clear" gap,
+        // rebuilds the agent's timeline for stage 2 — even though the player
+        // (per useGameState's mocked answer) never left stage 1.
+        act(() => {
+          jest.advanceTimersByTime(2100);
+        });
+        expect(lastTrackProps().runResults).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              userId: 'agent-Bumblebee',
+              completedStageCount: 1,
+            }),
+          ])
+        );
+        // Regression: the live kart's agentId must match the run-results
+        // row's userId, or RaceTrack's whole-run lookup (userId keyed) never
+        // finds this agent's completed-stage count — the kart and its S1/S2
+        // badge would then stay stuck showing raw in-stage progress forever,
+        // even though the leaderboard already recorded stage 1 as done.
+        const resultRow = lastTrackProps().runResults.find(
+          (result: { userId: string }) => result.userId === 'agent-Bumblebee'
+        );
+        expect(
+          lastTrackProps().localAgentProgress.some(
+            (progress: { agentId: string }) =>
+              progress.agentId === resultRow.userId
+          )
+        ).toBe(true);
+
+        mockCreateLocalAgents.mockClear();
+        act(() => {
+          jest.advanceTimersByTime(1500);
+        });
         await act(async () => {});
 
         expect(mockCreateLocalAgents).toHaveBeenLastCalledWith(
@@ -1752,6 +1829,115 @@ describe('UnblockRace', () => {
         jest.clearAllTimers();
         jest.useRealTimers();
       }
+    });
+
+    it('lets a fast agent advance to the next stage without waiting for a slower one', async () => {
+      // Regression: agent advancement used to be gated on every agent
+      // reaching 100% before ANY of them moved on, so a slow agent stalled
+      // the whole roster indefinitely. Each agent must advance the moment
+      // IT finishes, independent of the others.
+      jest.useFakeTimers();
+      try {
+        mockUseGameState.mockReturnValue({
+          ...baseGameState,
+          answer: STAGE_1,
+          answerStack: [STAGE_1],
+        } as ReturnType<typeof useGameState>);
+        const rosterByName: Record<string, LocalAgent> = {
+          Bumblebee: testAgent('agent-Bumblebee', 'Bumblebee', '🐝'),
+          Sage: slowTestAgent('agent-Sage', 'Sage', '🦉'),
+        };
+        mockCreateLocalAgents.mockImplementation(
+          async (_initial, _final, configs) => [
+            rosterByName[
+              (configs as { name: string }[])[0]
+                .name as keyof typeof rosterByName
+            ],
+          ]
+        );
+
+        render(<UnblockRace {...defaultProps} />);
+        await act(async () => {
+          lastLobbyProps().onAgentMode(['Bumblebee', 'Sage']);
+        });
+        await act(async () => {
+          lastLobbyProps().onStartRace();
+        });
+
+        // Bumblebee's 2s stage-1 timeline finishes; Sage's 10s one doesn't.
+        act(() => {
+          jest.advanceTimersByTime(2100);
+        });
+        expect(
+          lastTrackProps().localAgentProgress.find(
+            (p: { agentId: string }) => p.agentId === 'agent-Bumblebee'
+          ).percentage
+        ).toBe(100);
+        expect(
+          lastTrackProps().localAgentProgress.find(
+            (p: { agentId: string }) => p.agentId === 'agent-Sage'
+          ).percentage
+        ).toBeLessThan(100);
+
+        mockCreateLocalAgents.mockClear();
+        act(() => {
+          jest.advanceTimersByTime(1500);
+        });
+        await act(async () => {});
+
+        // Only the finished agent (Bumblebee) gets rebuilt for stage 2 —
+        // Sage is left alone, still running its own stage-1 timeline.
+        expect(mockCreateLocalAgents).toHaveBeenCalledWith(
+          STAGE_2,
+          solvedBoardString(STAGE_2),
+          [expect.objectContaining({ name: 'Bumblebee' })],
+          'beginner'
+        );
+        expect(mockCreateLocalAgents).not.toHaveBeenCalledWith(
+          expect.anything(),
+          expect.anything(),
+          [expect.objectContaining({ name: 'Sage' })],
+          expect.anything()
+        );
+        expect(
+          lastTrackProps().localAgentProgress.find(
+            (p: { agentId: string }) => p.agentId === 'agent-Sage'
+          ).percentage
+        ).toBeLessThan(100);
+      } finally {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      }
+    });
+
+    it('always starts agents at stage 1, even when the player resumes a later stage', async () => {
+      window.localStorage.setItem(
+        `unblockrace-${STAGE_1}`,
+        JSON.stringify({
+          state: {
+            answerStack: [STAGE_1, STAGE_1_COMPLETED],
+            completed: { at: new Date().toISOString(), seconds: 10 },
+            metadata: { movesMade: '2' },
+          },
+        })
+      );
+      mockCreateLocalAgents.mockResolvedValue([
+        testAgent('agent-Bumblebee', 'Bumblebee', '🐝'),
+      ]);
+
+      render(<UnblockRace {...defaultProps} />);
+      await act(async () => {
+        lastLobbyProps().onAgentMode(['Bumblebee']);
+      });
+
+      // The player resumes on stage 2 (stage 1 already completed locally),
+      // but the agent's roster is still solved against stage 1's board.
+      expect(mockCreateLocalAgents).toHaveBeenLastCalledWith(
+        STAGE_1,
+        SOLVED_STAGE_1,
+        [expect.objectContaining({ name: 'Bumblebee' })],
+        'beginner'
+      );
     });
   });
 

@@ -293,12 +293,12 @@ describe('createLocalAgents', () => {
     expect(solve).toHaveBeenCalledWith(SIMPLE_BOARD);
     expect(agents).toHaveLength(2);
     expect(agents[0]).toMatchObject({
-      id: 'agent-0',
+      id: 'agent-Sage',
       name: 'Sage',
       emoji: '🤖',
       skillLevel: DreyfusLevel.Expert,
     });
-    expect(agents[1].id).toBe('agent-1');
+    expect(agents[1].id).toBe('agent-Compass');
     for (const agent of agents) {
       expect(agent.timeline.steps).toHaveLength(SIMPLE_MOVES.length);
     }

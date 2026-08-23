@@ -134,6 +134,31 @@ const toRunPercentage = (
   };
 };
 
+// Both the player pill and the agent emoji are ~16px tall, so every lane
+// needs at least that much room plus a little breathing space between
+// karts. Used to size and clamp each racer's vertical slot in the lane so
+// the pack fills the track from top to bottom without any kart's bottom
+// edge ever clipping past the (overflow-hidden) driving lane, however many
+// racers there are.
+const KART_SLOT_PX = 16;
+
+// Evenly distributes `totalRacers` karts down the driving lane, from just
+// below the top edge to just above the bottom edge, so they spread out
+// (never overlapping while there's room) but can never push a kart's
+// bottom edge past `trackHeight` (never overflow, whatever the race size).
+const laneVerticalOffset = (
+  index: number,
+  totalRacers: number,
+  trackHeight: number
+): number => {
+  const usableHeight = Math.max(trackHeight - KART_SLOT_PX, 0);
+  if (totalRacers <= 1) {
+    return usableHeight / 2;
+  }
+  const step = usableHeight / totalRacers;
+  return Math.min(index * step, usableHeight);
+};
+
 const RaceTrack = <
   State extends {
     answerStack: unknown[];
@@ -645,8 +670,12 @@ const RaceTrack = <
 
               const totalRacers =
                 allPlayerProgress.length + agentProgressList.length;
-              const playerHeight = Math.min(12, trackHeight / totalRacers);
-              const verticalOffset = index * playerHeight + 6;
+              const verticalOffset = laneVerticalOffset(
+                index,
+                totalRacers,
+                trackHeight
+              );
+              const percentage = Math.min(100, Math.max(0, player.percentage));
 
               return (
                 <div
@@ -655,13 +684,13 @@ const RaceTrack = <
                   style={{
                     // Scale 0-100% progress to 6-94% of the lane, clear of
                     // the start line and finish column
-                    left: `${player.percentage * 0.88 + 6}%`,
+                    left: `${percentage * 0.88 + 6}%`,
                     top: `${verticalOffset}px`,
                     transform: 'translateX(-50%)',
                   }}
                 >
                   {/* Motion trail streaking back toward the start line */}
-                  {player.percentage > 0 && (
+                  {percentage > 0 && (
                     <div
                       aria-hidden="true"
                       className={`absolute right-full top-1/2 h-1 w-5 -translate-y-1/2 rounded-full opacity-50 ${colorClass} [mask-image:linear-gradient(to_left,black,transparent)]`}
@@ -686,9 +715,11 @@ const RaceTrack = <
             {agentProgressList.map((agent, index) => {
               const totalRacers =
                 allPlayerProgress.length + agentProgressList.length;
-              const laneSlotHeight = Math.min(12, trackHeight / totalRacers);
-              const verticalOffset =
-                (allPlayerProgress.length + index) * laneSlotHeight + 6;
+              const verticalOffset = laneVerticalOffset(
+                allPlayerProgress.length + index,
+                totalRacers,
+                trackHeight
+              );
               const percentage = Math.min(100, Math.max(0, agent.percentage));
 
               return (

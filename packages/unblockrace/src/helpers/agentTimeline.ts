@@ -159,10 +159,15 @@ export async function createLocalAgents(
     console.error('createLocalAgents: solver failed', initial, error);
   }
 
-  return agentConfigs.reduce<LocalAgent[]>((acc, config, index) => {
+  return agentConfigs.reduce<LocalAgent[]>((acc, config) => {
     try {
       acc.push({
-        id: `agent-${index}`,
+        // Stable across per-stage timeline rebuilds and matching the run
+        // leaderboard's agentId (`agent-${name}`, keyed by name since
+        // results are recorded per-agent-name): an index-based id would
+        // point a rebuilt agent's live kart at the wrong (or no) run-results
+        // row, since positions can shift as agents are added/removed.
+        id: `agent-${config.name}`,
         name: config.name,
         emoji: config.emoji,
         skillLevel: config.skillLevel,
