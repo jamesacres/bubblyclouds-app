@@ -27,6 +27,7 @@ import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSe
 import {
   Parties,
   Party,
+  ServerStateNotFoundResult,
   ServerStateResult,
   Session,
 } from '@bubblyclouds-app/types/serverTypes';
@@ -292,7 +293,11 @@ function useGameState({
 
   const getValue = useCallback((): {
     localValue: { lastUpdated: number; state: GameState } | undefined;
-    serverValuePromise: Promise<ServerStateResult<ServerState> | undefined>;
+    serverValuePromise: Promise<
+      | ServerStateResult<ServerState>
+      | ServerStateNotFoundResult<ServerState>
+      | undefined
+    >;
   } => {
     const localValue = getLocalValue<GameState>();
     const serverValuePromise = getServerValue<ServerState>();
@@ -719,6 +724,7 @@ function useGameState({
         }
         if (
           serverValue &&
+          'state' in serverValue &&
           (!localValue?.lastUpdated ||
             (localValue?.lastUpdated &&
               serverValue?.state &&
@@ -739,13 +745,19 @@ function useGameState({
           if (
             localValue?.state &&
             localValue?.lastUpdated &&
-            (serverValue?.updatedAt?.getTime() || 0) <
+            ((serverValue &&
+              'state' in serverValue &&
+              serverValue?.updatedAt?.getTime()) ||
+              0) <
               Math.floor(localValue.lastUpdated / 1000) * 1000
           ) {
             // Server value is behind local! Update the server!
             console.warn(
               'Server behind local, updating server',
-              serverValue?.updatedAt?.getTime() || 0,
+              (serverValue &&
+                'state' in serverValue &&
+                serverValue?.updatedAt?.getTime()) ||
+                0,
               Math.floor(localValue.lastUpdated / 1000) * 1000
             );
             // Track saveValue call timestamp and increment ignore counter

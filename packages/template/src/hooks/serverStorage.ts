@@ -17,42 +17,47 @@ import {
   Invite,
   InviteResponse,
   PublicInvite,
+  ServerStateNotFoundResult,
 } from '@bubblyclouds-app/types/serverTypes';
+import { constants } from 'http2';
+
+const stateResponsePartiesToResult = <T>(
+  parties: StateResponse<T>['parties']
+): ServerStateResult<T>['parties'] =>
+  Object.entries(parties).reduce((result, [partyId, partyResponse]) => {
+    if (!partyResponse || !partyResponse.memberSessions) {
+      return result;
+    }
+    return {
+      ...result,
+      [partyId]: {
+        memberSessions: Object.entries(partyResponse.memberSessions).reduce(
+          (result, [userId, memberSessionResponse]) => {
+            if (!memberSessionResponse) {
+              return result;
+            }
+            const memberSessionResult: Session<T> = {
+              sessionId: memberSessionResponse.sessionId,
+              state: memberSessionResponse.state,
+              updatedAt: new Date(memberSessionResponse.updatedAt),
+            };
+            return {
+              ...result,
+              [userId]: memberSessionResult,
+            };
+          },
+          {}
+        ),
+      },
+    };
+  }, {});
 
 const responseToResult = <T>(
   response: StateResponse<T>
 ): ServerStateResult<T> => {
   return {
     parties: response.parties
-      ? Object.entries(response.parties).reduce(
-          (result, [partyId, partyResponse]) => {
-            if (!partyResponse || !partyResponse.memberSessions) {
-              return result;
-            }
-            return {
-              ...result,
-              [partyId]: {
-                memberSessions: Object.entries(
-                  partyResponse.memberSessions
-                ).reduce((result, [userId, memberSessionResponse]) => {
-                  if (!memberSessionResponse) {
-                    return result;
-                  }
-                  const memberSessionResult: Session<T> = {
-                    sessionId: response.sessionId,
-                    state: memberSessionResponse.state,
-                    updatedAt: new Date(memberSessionResponse.updatedAt),
-                  };
-                  return {
-                    ...result,
-                    [userId]: memberSessionResult,
-                  };
-                }, {}),
-              },
-            };
-          },
-          {}
-        )
+      ? stateResponsePartiesToResult(response.parties)
       : undefined,
     sessionId: response.sessionId,
     state: response.state,
@@ -202,7 +207,7 @@ function useServerStorage({
   // while the hook stays keyed to the current stage.
   const getValue = useCallback(
     async <T>({ id }: { id?: string } = {}): Promise<
-      ServerStateResult<T> | undefined
+      ServerStateResult<T> | ServerStateNotFoundResult<T> | undefined
     > => {
       if (isOnline && (await isLoggedIn())) {
         try {
@@ -213,6 +218,17 @@ function useServerStorage({
           );
           if (response.ok) {
             return responseToResult(await response.json());
+          }
+          if (
+            response.status === constants.HTTP_STATUS_NOT_FOUND &&
+            response.headers.get('content-type')?.includes('application/json')
+          ) {
+            const responseJson = await response.json();
+            if (responseJson.parties) {
+              return {
+                parties: stateResponsePartiesToResult(responseJson.parties),
+              };
+            }
           }
         } catch (e) {
           console.error(e);

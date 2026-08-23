@@ -25,6 +25,7 @@ import { useTimer } from '@bubblyclouds-app/template/hooks/timer';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
 import {
   Parties,
+  ServerStateNotFoundResult,
   ServerStateResult,
   Session,
 } from '@bubblyclouds-app/types/serverTypes';
@@ -179,7 +180,11 @@ function useGameState({
 
   const getValue = useCallback((): {
     localValue: { lastUpdated: number; state: GameState } | undefined;
-    serverValuePromise: Promise<ServerStateResult<ServerState> | undefined>;
+    serverValuePromise: Promise<
+      | ServerStateResult<ServerState>
+      | ServerStateNotFoundResult<ServerState>
+      | undefined
+    >;
   } => {
     let localValue = getLocalValue<GameState>();
     const serverValuePromise = getServerValue<ServerState>();
@@ -492,6 +497,8 @@ function useGameState({
           setSessionParties(serverValue.parties);
         }
         if (
+          serverValue &&
+          'state' in serverValue &&
           serverValue?.state &&
           (!localValue?.lastUpdated ||
             (localValue?.lastUpdated &&
@@ -510,6 +517,7 @@ function useGameState({
         } else {
           if (
             serverValue &&
+            'state' in serverValue &&
             localValue?.state &&
             localValue?.lastUpdated &&
             (serverValue?.updatedAt?.getTime() || 0) <
