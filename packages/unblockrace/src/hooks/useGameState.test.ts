@@ -18,7 +18,6 @@ const setTimerNewSession = jest.fn();
 const setPauseTimer = jest.fn();
 const getSessionParties = jest.fn();
 const patchFriendSessions = jest.fn();
-const fetchFriendSessions = jest.fn();
 const lazyLoadFriendSessions = jest.fn();
 
 jest.mock('@bubblyclouds-app/template/hooks/localStorage', () => ({
@@ -57,21 +56,19 @@ jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
     isInitialised: true,
   }),
 }));
-// getSessionParties/fetchFriendSessions get a NEW function identity on every
-// call, mirroring the real SessionsProvider (their useCallback deps include
-// friendSessions/isFriendSessionsLoading, which patchFriendSessions itself
-// changes on every write) — a regression here previously fed straight back
-// into fetchOtherStageParties's own dependency array via useEffect and
-// looped forever, making hundreds of requests. Wrapping the shared jest.fn()
-// in a fresh arrow function each render reproduces that churn while still
-// routing through one spy the tests can assert call counts on.
+// getSessionParties gets a NEW function identity on every call, mirroring
+// the real SessionsProvider (its useCallback deps include friendSessions,
+// which patchFriendSessions itself changes on every write) — a regression
+// here previously fed straight back into fetchOtherStageParties's own
+// dependency array via useEffect and looped forever, making hundreds of
+// requests. Wrapping the shared jest.fn() in a fresh arrow function each
+// render reproduces that churn while still routing through one spy the
+// tests can assert call counts on.
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: () => ({
     getSessionParties: (...args: Parameters<typeof getSessionParties>) =>
       getSessionParties(...args),
     patchFriendSessions,
-    fetchFriendSessions: (...args: Parameters<typeof fetchFriendSessions>) =>
-      fetchFriendSessions(...args),
     lazyLoadFriendSessions,
   }),
 }));
@@ -116,7 +113,6 @@ describe('useGameState', () => {
     serverSaveValue.mockReset().mockResolvedValue(undefined);
     getSessionParties.mockReset().mockReturnValue({});
     patchFriendSessions.mockReset();
-    fetchFriendSessions.mockReset().mockResolvedValue({});
     lazyLoadFriendSessions.mockReset().mockResolvedValue(undefined);
     emptyParties.length = 0;
   });
@@ -402,43 +398,25 @@ describe('useGameState', () => {
       },
       updatedAt: new Date(),
     });
-    const friendSession = (seconds?: number) =>
-      friendSessionFor(STAGE_2, seconds);
 
-    // Current stage's own session, from the restore/save/poll path
-    // (unaffected by the fetchFriendSessions change) — a friend has NOT
-    // completed the current stage by default. Also answers earlier-stage
-    // GETs (options.id === STAGE_0) when earlierFriendCompletedSeconds is
-    // given, since a stage we've already played is fetched via a direct
-    // per-stage GET, not fetchFriendSessions.
-    const mockCurrentStageResponse = (
-      friendCompletedSeconds?: number,
-      earlierFriendCompletedSeconds?: number
-    ) => {
+    // Current stage's own session, from the restore/save/poll path — a
+    // friend has NOT completed the current stage by default. Also answers
+    // GETs for any other stage id (options.id) when otherStageFriendSeconds
+    // is given: since the 404 response now carries party member sessions
+    // too, a direct per-stage GET works uniformly whether we've already
+    // played that stage or never started it.
+    const mockCurrentStageResponse = (otherStageFriendSeconds?: number) => {
       serverGetValue.mockImplementation(async (options?: { id?: string }) => {
-        if (options?.id === STAGE_0) {
+        if (options?.id) {
           return {
-            sessionId: `unblockrace-${STAGE_0}`,
-            state: {
-              initial: STAGE_0,
-              final: solvedBoardString(STAGE_0),
-              answerStack: [STAGE_0],
-            },
             parties: {
               party1: {
                 memberSessions: {
-                  friend: friendSessionFor(
-                    STAGE_0,
-                    earlierFriendCompletedSeconds
-                  ),
+                  friend: friendSessionFor(options.id, otherStageFriendSeconds),
                 },
               },
             },
-            updatedAt: new Date(),
           };
-        }
-        if (options?.id) {
-          return undefined;
         }
         return {
           sessionId: `unblockrace-${INITIAL}`,
@@ -450,7 +428,7 @@ describe('useGameState', () => {
           parties: {
             party1: {
               memberSessions: {
-                friend: friendSession(friendCompletedSeconds),
+                friend: friendSessionFor(STAGE_2),
               },
             },
           },
@@ -459,34 +437,13 @@ describe('useGameState', () => {
       });
     };
 
-    // Other-stage data now comes directly from fetchFriendSessions's
-    // RETURNED snapshot (built into runStageParties via
-    // sessionPartiesFromSnapshot in useGameState.ts) — not from reading
-    // getSessionParties/the SessionsProvider context afterwards, which
-    // wouldn't reflect a just-completed fetch until the provider's next
-    // render. useParties()'s `parties` needs a real party too, since
-    // sessionPartiesFromSnapshot keys its result by party.partyId.
-    const mockOtherStageParties = () => {
-      emptyParties.push({
-        partyId: 'party1',
-        partyName: 'Party 1',
-        members: [{ userId: 'friend', memberNickname: 'Player 2' }],
-      });
-      fetchFriendSessions.mockResolvedValue({
-        friend: {
-          isLoading: false,
-          sessions: [friendSession(30)],
-        },
-      });
-    };
-
     // The end-of-stage fetch is gated on a logged-in user. A stable object,
     // not a fresh literal per render: the real AuthProvider keeps `user`'s
     // identity stable across unrelated re-renders (React useState), and
     // fetchOtherStageParties's triggering effect depends on `user` — a new
     // identity on every render here would retrigger it regardless of the
-    // fetchOtherStageParties/getSessionParties/fetchFriendSessions stability
-    // this describe block is otherwise testing.
+    // fetchOtherStageParties/getSessionParties stability this describe
+    // block is otherwise testing.
     const wrapperUserContextValue = { user: { sub: 'me' } } as any;
     const wrapper = ({ children }: { children: React.ReactNode }) =>
       React.createElement(
@@ -496,33 +453,41 @@ describe('useGameState', () => {
       );
 
     // puzzleId (INITIAL) sits in the middle: STAGE_0 is an earlier stage
-    // we've already played, STAGE_2 a later one we've never started.
+    // we've already played, STAGE_2 a later one we've never started —
+    // both are now fetched identically via a direct per-stage GET.
     const runProps = {
       ...defaultProps,
       runStageIds: [STAGE_0, INITIAL, STAGE_2],
     };
 
-    it('does NOT fetch a later stage via fetchFriendSessions until a friend has completed the current stage', async () => {
-      // A direct GET on STAGE_2 would 404 (we've never played it), so the
-      // only way to learn about it is fetchFriendSessions — and the only
-      // signal we have that a friend might be there is them finishing the
-      // stage we're currently sharing a live session with them on.
-      mockCurrentStageResponse(undefined);
-      mockOtherStageParties();
-      const { result } = renderHook(() => useGameState(runProps), { wrapper });
-      await act(async () => {});
-
-      expect(fetchFriendSessions).not.toHaveBeenCalled();
-      expect(result.current.runStageParties[STAGE_2]).toBeUndefined();
+    beforeEach(() => {
+      emptyParties.push({
+        partyId: 'party1',
+        partyName: 'Party 1',
+        members: [{ userId: 'friend', memberNickname: 'Player 2' }],
+      });
     });
 
-    it('fetches later stages via fetchFriendSessions once a friend completes the current stage', async () => {
-      mockCurrentStageResponse(45);
-      mockOtherStageParties();
+    it('fetches every other stage via a direct per-stage GET, earlier and later alike', async () => {
+      mockCurrentStageResponse(undefined);
       const { result } = renderHook(() => useGameState(runProps), { wrapper });
       await act(async () => {});
 
-      expect(fetchFriendSessions).toHaveBeenCalledWith(emptyParties, true);
+      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_0 });
+      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_2 });
+      expect(
+        result.current.runStageParties[STAGE_0]?.party1?.memberSessions.friend
+      ).toBeDefined();
+      expect(
+        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
+      ).toBeDefined();
+    });
+
+    it('reflects a later (never-started) stage session from the 404 response body', async () => {
+      mockCurrentStageResponse(30);
+      const { result } = renderHook(() => useGameState(runProps), { wrapper });
+      await act(async () => {});
+
       expect(
         result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
           ?.state.completed?.seconds
@@ -533,66 +498,10 @@ describe('useGameState', () => {
       );
     });
 
-    it('stops calling fetchFriendSessions once the only later stage is confirmed complete for every known friend', async () => {
+    it('stops GETting an other stage once every known friend has completed it there', async () => {
       jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
       try {
-        // Friend completed the current stage (triggers the check) AND has
-        // already completed STAGE_2 (the only later stage) — once we've
-        // confirmed that, there is nothing left to learn from them.
-        mockCurrentStageResponse(45);
-        mockOtherStageParties();
-        const { result } = renderHook(() => useGameState(runProps), {
-          wrapper,
-        });
-        await act(async () => {});
-
-        const callsAfterMount = fetchFriendSessions.mock.calls.length;
-        expect(callsAfterMount).toBeGreaterThan(0);
-        expect(
-          result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
-            ?.state.completed?.seconds
-        ).toBe(30);
-
-        await act(async () => {
-          jest.advanceTimersByTime(30000);
-        });
-
-        expect(fetchFriendSessions.mock.calls.length).toBe(callsAfterMount);
-      } finally {
-        jest.useRealTimers();
-      }
-    });
-
-    it('fetches an earlier (already-played) stage via a direct GET, not fetchFriendSessions', async () => {
-      // We have our own session on STAGE_0 already, so a per-stage GET
-      // works there (unlike a stage we've never started) and is cheaper
-      // than the bulk friend-sessions fetch.
-      mockCurrentStageResponse(undefined, undefined);
-      emptyParties.push({
-        partyId: 'party1',
-        partyName: 'Party 1',
-        members: [{ userId: 'friend', memberNickname: 'Player 2' }],
-      });
-      const { result } = renderHook(() => useGameState(runProps), { wrapper });
-      await act(async () => {});
-
-      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_0 });
-      expect(fetchFriendSessions).not.toHaveBeenCalled();
-      expect(
-        result.current.runStageParties[STAGE_0]?.party1?.memberSessions.friend
-          ?.state.completed
-      ).toBeUndefined();
-    });
-
-    it('stops GETting an earlier stage once every known friend has completed it there', async () => {
-      jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
-      try {
-        mockCurrentStageResponse(undefined, 20);
-        emptyParties.push({
-          partyId: 'party1',
-          partyName: 'Party 1',
-          members: [{ userId: 'friend', memberNickname: 'Player 2' }],
-        });
+        mockCurrentStageResponse(20);
         const { result } = renderHook(() => useGameState(runProps), {
           wrapper,
         });
@@ -620,15 +529,10 @@ describe('useGameState', () => {
       }
     });
 
-    it('keeps GETting an earlier stage on a 30s interval while a friend there is still in progress', async () => {
+    it('keeps GETting an other stage on a 30s interval while a friend there is still in progress', async () => {
       jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
       try {
-        mockCurrentStageResponse(undefined, undefined);
-        emptyParties.push({
-          partyId: 'party1',
-          partyName: 'Party 1',
-          members: [{ userId: 'friend', memberNickname: 'Player 2' }],
-        });
+        mockCurrentStageResponse(undefined);
         const { result } = renderHook(() => useGameState(runProps), {
           wrapper,
         });
@@ -656,33 +560,31 @@ describe('useGameState', () => {
       }
     });
 
-    it('does not loop-fetch when getSessionParties/fetchFriendSessions change identity on every render (regression: this previously made hundreds of requests)', async () => {
-      // getSessionParties and fetchFriendSessions are wrapped with a fresh
-      // arrow function on every useSessions() call in this test file's mock
-      // (see the jest.mock above), matching how the real SessionsProvider
-      // re-creates them whenever patchFriendSessions writes to
-      // friendSessions. If fetchOtherStageParties or its triggering effect
-      // ever depend on those identities directly again instead of via a ref,
-      // this test hangs/times out exactly like the real bug did.
-      mockCurrentStageResponse(45);
-      mockOtherStageParties();
+    it('does not loop-fetch when getSessionParties changes identity on every render (regression: this previously made hundreds of requests)', async () => {
+      // getSessionParties is wrapped with a fresh arrow function on every
+      // useSessions() call in this test file's mock (see the jest.mock
+      // above), matching how the real SessionsProvider re-creates it
+      // whenever patchFriendSessions writes to friendSessions. If
+      // fetchOtherStageParties or its triggering effect ever depend on that
+      // identity directly again instead of via a ref, this test
+      // hangs/times out exactly like the real bug did.
+      mockCurrentStageResponse(30);
       const { result, rerender } = renderHook(() => useGameState(runProps), {
         wrapper,
       });
       await act(async () => {});
 
-      const callsAfterMount = fetchFriendSessions.mock.calls.length;
+      const callsAfterMount = serverGetValue.mock.calls.length;
       expect(callsAfterMount).toBeGreaterThan(0);
 
-      // Force several more renders with the same opponent-ahead condition
-      // still true — a real infinite loop would keep calling
-      // fetchFriendSessions on every one of these.
+      // Force several more renders with the same conditions still true — a
+      // real infinite loop would keep issuing GETs on every one of these.
       rerender();
       rerender();
       rerender();
       await act(async () => {});
 
-      expect(fetchFriendSessions.mock.calls.length).toBe(callsAfterMount);
+      expect(serverGetValue.mock.calls.length).toBe(callsAfterMount);
       expect(
         result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
           ?.state.completed?.seconds
@@ -691,7 +593,6 @@ describe('useGameState', () => {
 
     it('accumulates the current stage parties under its stage id', async () => {
       mockCurrentStageResponse();
-      mockOtherStageParties();
       const { result } = renderHook(() => useGameState(runProps), { wrapper });
       await act(async () => {});
 
@@ -701,13 +602,7 @@ describe('useGameState', () => {
     });
 
     it('refreshes every stage session from the manual refresh', async () => {
-      mockCurrentStageResponse(45, undefined);
-      mockOtherStageParties();
-      emptyParties.push({
-        partyId: 'party1',
-        partyName: 'Party 1',
-        members: [{ userId: 'friend', memberNickname: 'Player 2' }],
-      });
+      mockCurrentStageResponse(30);
       const { result } = renderHook(() => useGameState(runProps), { wrapper });
       await act(async () => {});
 
@@ -715,8 +610,8 @@ describe('useGameState', () => {
         await result.current.refreshSessionParties();
       });
 
-      expect(fetchFriendSessions).toHaveBeenCalledWith(emptyParties, true);
       expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_0 });
+      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_2 });
       expect(
         result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
           ?.state.completed?.seconds
@@ -724,13 +619,7 @@ describe('useGameState', () => {
     });
 
     it('does not poll other-stage sessions while the Lobby is open — Lobby has its own poll for that', async () => {
-      mockCurrentStageResponse(45, undefined);
-      mockOtherStageParties();
-      emptyParties.push({
-        partyId: 'party1',
-        partyName: 'Party 1',
-        members: [{ userId: 'friend', memberNickname: 'Player 2' }],
-      });
+      mockCurrentStageResponse(30);
       const { result } = renderHook(
         () => useGameState({ ...runProps, initialShowLobby: true }),
         { wrapper }
@@ -738,9 +627,11 @@ describe('useGameState', () => {
       await act(async () => {});
 
       expect(result.current.showLobby).toBe(true);
-      expect(fetchFriendSessions).not.toHaveBeenCalled();
       expect(
         serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_0)
+      ).toBe(false);
+      expect(
+        serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
       ).toBe(false);
     });
   });

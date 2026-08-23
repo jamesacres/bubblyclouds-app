@@ -3,8 +3,6 @@
 Waitlist, only allow us two to login for now
 update with stephens improvements
 
-CHANGE 404 to include the party member responses despite us not having saved a session yet, and replace the fetch all sessions with that
-
 re-test ai opponent timeline works across stages now, when completing stages etc
 server should store unblockCollectionPuzzleId with invite url, and the same for daily? otherwise the next puzzle link wont load etc.
 shows collection puzzle 0 - complete

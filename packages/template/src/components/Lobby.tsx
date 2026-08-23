@@ -97,14 +97,10 @@ interface Arguments<ServerState extends BaseServerState> {
   // True once the current stage's own server session GET has resolved at
   // least once. The immediate-on-open other-stage fetch below waits on this
   // (when provided) rather than firing the instant the Lobby opens: on a
-  // hard reload landing directly on the Lobby (the default), that fetch's
-  // "did a friend complete our current stage" check reads from sessionParties
-  // — which is still empty at that instant — and since the immediate fetch
-  // only ever fires once per Lobby-open, racing ahead of this would
-  // permanently miss a friend who's already ahead of us until the next
-  // manual refresh or 30s poll tick. Single-puzzle games (sudoku, or
-  // unblockrace runs where this isn't wired up) omit it and keep the old
-  // immediate-on-open behaviour.
+  // hard reload landing directly on the Lobby (the default), firing before
+  // this resolves would just have nothing new to report yet. Single-puzzle
+  // games (sudoku, or unblockrace runs where this isn't wired up) omit it
+  // and keep the old immediate-on-open behaviour.
   hasSessionPartiesFromServer?: boolean;
 }
 
@@ -225,12 +221,12 @@ const Lobby = <ServerState extends BaseServerState>({
     // this, which is why it only reproduced on a fresh reload.
     //
     // Also waits on hasSessionPartiesFromServer (when the caller provides
-    // it — multi-stage runs only): refreshSessionParties' later-stage check
-    // depends on the current stage's own session data, which on a hard
-    // reload landing directly on the Lobby (the default) hasn't loaded yet
-    // at this instant — firing anyway would race ahead of it and, being a
-    // one-shot per Lobby-open, permanently miss a friend who's already ahead
-    // of us until the next manual refresh or 30s poll tick.
+    // it — multi-stage runs only): on a hard reload landing directly on the
+    // Lobby (the default), the current stage's own session data hasn't
+    // loaded yet at this instant — firing the one-shot other-stage fetch
+    // anyway would just do so with nothing new to report, missing whatever
+    // the server GET was about to bring back until the next manual refresh
+    // or 30s poll tick.
     if (
       !isLoading &&
       user &&

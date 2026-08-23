@@ -19,7 +19,8 @@ import {
   PublicInvite,
   ServerStateNotFoundResult,
 } from '@bubblyclouds-app/types/serverTypes';
-import { constants } from 'http2';
+
+const HTTP_STATUS_NOT_FOUND = 404;
 
 const stateResponsePartiesToResult = <T>(
   parties: StateResponse<T>['parties']
@@ -220,7 +221,7 @@ function useServerStorage({
             return responseToResult(await response.json());
           }
           if (
-            response.status === constants.HTTP_STATUS_NOT_FOUND &&
+            response.status === HTTP_STATUS_NOT_FOUND &&
             response.headers.get('content-type')?.includes('application/json')
           ) {
             const responseJson = await response.json();
