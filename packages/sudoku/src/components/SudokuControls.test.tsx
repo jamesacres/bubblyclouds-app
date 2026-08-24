@@ -436,62 +436,71 @@ describe('SudokuControls', () => {
 
   describe('reset and reveal actions', () => {
     it('should show confirmation dialog for reset', () => {
-      window.confirm = jest.fn(() => true);
-
       render(<SudokuControls {...defaultProps} />);
 
       const resetButton = screen.getByText('Reset');
       fireEvent.click(resetButton);
 
-      expect(window.confirm).toHaveBeenCalledWith(
-        expect.stringContaining('reset')
-      );
+      expect(screen.getByTestId('confirm-dialog')).toBeInTheDocument();
+      expect(screen.getByText('Reset the whole grid?')).toBeInTheDocument();
+      expect(
+        screen.getByText('Are you sure you wish to reset the whole grid?')
+      ).toBeInTheDocument();
     });
 
     it('should call reset when confirmed', () => {
-      window.confirm = jest.fn(() => true);
-
       render(<SudokuControls {...defaultProps} />);
 
       const resetButton = screen.getByText('Reset');
       fireEvent.click(resetButton);
+      fireEvent.click(screen.getByTestId('confirm-dialog-confirm'));
 
       expect(mockReset).toHaveBeenCalled();
     });
 
     it('should not call reset when not confirmed', () => {
-      window.confirm = jest.fn(() => false);
-
       render(<SudokuControls {...defaultProps} />);
 
       const resetButton = screen.getByText('Reset');
       fireEvent.click(resetButton);
+      fireEvent.click(screen.getByTestId('confirm-dialog-cancel'));
 
       expect(mockReset).not.toHaveBeenCalled();
+      expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
     });
 
     it('should show confirmation dialog for reveal', () => {
-      window.confirm = jest.fn(() => true);
-
       render(<SudokuControls {...defaultProps} />);
 
       const revealButton = screen.getByText('Reveal');
       fireEvent.click(revealButton);
 
-      expect(window.confirm).toHaveBeenCalledWith(
-        expect.stringContaining('reveal')
-      );
+      expect(screen.getByTestId('confirm-dialog')).toBeInTheDocument();
+      expect(screen.getByText('Reveal the whole grid?')).toBeInTheDocument();
+      expect(
+        screen.getByText('Are you sure you wish to reveal the whole grid?')
+      ).toBeInTheDocument();
     });
 
     it('should call reveal when confirmed', () => {
-      window.confirm = jest.fn(() => true);
-
       render(<SudokuControls {...defaultProps} />);
 
       const revealButton = screen.getByText('Reveal');
       fireEvent.click(revealButton);
+      fireEvent.click(screen.getByTestId('confirm-dialog-confirm'));
 
       expect(mockReveal).toHaveBeenCalled();
+    });
+
+    it('should not call reveal when not confirmed', () => {
+      render(<SudokuControls {...defaultProps} />);
+
+      const revealButton = screen.getByText('Reveal');
+      fireEvent.click(revealButton);
+      fireEvent.click(screen.getByTestId('confirm-dialog-cancel'));
+
+      expect(mockReveal).not.toHaveBeenCalled();
+      expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
     });
 
     it('should show premium indicator on reveal button when not subscribed', () => {

@@ -1,5 +1,5 @@
 import { Move } from '../types/board';
-import { AgentConfig, DreyfusLevel } from '../types/Agent';
+import { AgentConfig, DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
 import { loadSolver, SolverApi, SolverResult } from '../services/solver';
 import { createAgentTimeline, createLocalAgents } from './agentTimeline';
 import { parseBoardString } from './parseBoardString';

@@ -1,9 +1,8 @@
-import { DreyfusLevel, TimingCurve, TimingState } from '../types/Agent';
+import { TimingCurve, TimingState } from '@bubblyclouds-app/games/types/Agent';
 import {
   DIFFICULTY_SOLVE_BOUNDS_MS,
   calculateMoveExecutionTime,
   difficultyToSolveBounds,
-  skillLevelTargetDuration,
 } from './moveTiming';
 
 // A curve with all randomness sources disabled so the multiplier logic is
@@ -50,48 +49,6 @@ describe('difficultyToSolveBounds', () => {
       expect(fastest).toBeLessThan(median);
       expect(median).toBeLessThan(slowest);
     }
-  });
-});
-
-describe('skillLevelTargetDuration', () => {
-  it('orders skill levels from fast to slow at a fixed random draw', () => {
-    jest.spyOn(Math, 'random').mockReturnValue(0.5);
-    for (const bounds of Object.values(DIFFICULTY_SOLVE_BOUNDS_MS)) {
-      const expert = skillLevelTargetDuration(DreyfusLevel.Expert, bounds);
-      const proficient = skillLevelTargetDuration(
-        DreyfusLevel.Proficient,
-        bounds
-      );
-      const competent = skillLevelTargetDuration(
-        DreyfusLevel.Competent,
-        bounds
-      );
-      const advancedBeginner = skillLevelTargetDuration(
-        DreyfusLevel.AdvancedBeginner,
-        bounds
-      );
-      const novice = skillLevelTargetDuration(DreyfusLevel.Novice, bounds);
-
-      expect(expert).toBeLessThan(proficient);
-      expect(proficient).toBeLessThan(competent);
-      expect(competent).toBeLessThan(advancedBeginner);
-      expect(advancedBeginner).toBeLessThan(novice);
-      expect(expert).toBeLessThan(novice);
-    }
-  });
-
-  it('draws beginners from the slow half and experts from the fast half', () => {
-    jest.spyOn(Math, 'random').mockReturnValue(0.5);
-    const bounds = DIFFICULTY_SOLVE_BOUNDS_MS.beginner;
-    const [fastest, median, slowest] = bounds;
-
-    const expert = skillLevelTargetDuration(DreyfusLevel.Expert, bounds);
-    expect(expert).toBeGreaterThanOrEqual(fastest);
-    expect(expert).toBeLessThanOrEqual(median);
-
-    const novice = skillLevelTargetDuration(DreyfusLevel.Novice, bounds);
-    expect(novice).toBeGreaterThanOrEqual(median);
-    expect(novice).toBeLessThanOrEqual(slowest);
   });
 });
 

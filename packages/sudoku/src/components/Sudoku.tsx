@@ -52,13 +52,20 @@ import {
 import { CellHighlight } from '../types/CellHighlight';
 import ChainOverlay from '../components/ChainOverlay';
 import { createLocalAgents } from '../helpers/agentTimeline';
-import { getAllAgentProgress } from '../helpers/agentProgress';
+import { getAllAgentProgress } from '@bubblyclouds-app/games/helpers/agentProgress';
+import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
-import { DreyfusLevel } from '../types/Agent';
+import { DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
 import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
+
+const buildPristineAgentState = (firstState: ServerState): ServerState => ({
+  initial: firstState.initial,
+  final: firstState.final,
+  answerStack: [],
+});
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -145,8 +152,17 @@ const Sudoku = ({
     }
   );
   const [localAgentProgress, setLocalAgentProgress] = useState<
-    ReturnType<typeof getAllAgentProgress>
-  >(() => (shouldAutoOpen ? getAllAgentProgress(agents, null) : []));
+    AgentProgress<ServerState>[]
+  >(() =>
+    shouldAutoOpen
+      ? getAllAgentProgress(
+          agents,
+          null,
+          buildPristineAgentState,
+          calculateCompletionPercentageFromState
+        )
+      : []
+  );
 
   const [hasShownAppDownload, setHasShownAppDownload] = useState(false);
   const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(
@@ -230,7 +246,12 @@ const Sudoku = ({
     if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
       agentStartTimeMsRef.current = Date.now();
     }
-    const next = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+    const next = getAllAgentProgress(
+      agents,
+      agentStartTimeMsRef.current,
+      buildPristineAgentState,
+      calculateCompletionPercentageFromState
+    );
     setLocalAgentProgress((prev) =>
       prev.length === next.length &&
       prev.every((p, i) => p.percentage === next[i].percentage)
@@ -243,7 +264,12 @@ const Sudoku = ({
     if (!completed || agentStartTimeMsRef.current === null) return;
 
     const interval = setInterval(() => {
-      const next = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+      const next = getAllAgentProgress(
+        agents,
+        agentStartTimeMsRef.current,
+        buildPristineAgentState,
+        calculateCompletionPercentageFromState
+      );
       setLocalAgentProgress((prev) => {
         if (
           prev.length === next.length &&
@@ -470,7 +496,14 @@ const Sudoku = ({
         metadata.difficulty
       );
       setAgents(created);
-      setLocalAgentProgress(getAllAgentProgress(created, null));
+      setLocalAgentProgress(
+        getAllAgentProgress(
+          created,
+          null,
+          buildPristineAgentState,
+          calculateCompletionPercentageFromState
+        )
+      );
       setHasManuallySelectedMode(true);
       setMode('ai');
       setAgentNames(selectedAgentNames.join(','));

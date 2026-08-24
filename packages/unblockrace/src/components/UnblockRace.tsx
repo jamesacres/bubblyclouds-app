@@ -29,11 +29,11 @@ import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { useCollection } from '../providers/CollectionProvider';
 import { GameState, GameStateMetadata, ServerState } from '../types/state';
 import { Move } from '../types/board';
-import { AgentConfig, DreyfusLevel, LocalAgent } from '../types/Agent';
+import { AgentConfig, DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
 import { useGameState } from '../hooks/useGameState';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
-import { createLocalAgents } from '../helpers/agentTimeline';
-import { getAllAgentProgress } from '../helpers/agentProgress';
+import { createLocalAgents, LocalAgent } from '../helpers/agentTimeline';
+import { getAllAgentProgress } from '@bubblyclouds-app/games/helpers/agentProgress';
 import { getHint } from '../helpers/hint';
 import { loadSolver } from '../services/solver';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
@@ -74,7 +74,7 @@ import {
 } from '../helpers/runResults';
 import NextPuzzlePanel from './NextPuzzlePanel';
 import CompletionSummary from './CompletionSummary';
-import ConfirmDialog from './ConfirmDialog';
+import ConfirmDialog from '@bubblyclouds-app/games/components/ConfirmDialog';
 import Board from './Board';
 import Controls from './Controls';
 import RaceCelebration, { RACE_CELEBRATION_MS } from './RaceCelebration';
@@ -86,6 +86,12 @@ import StageTopBar from './StageTopBar';
 import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
 import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
 import StageTransition from './StageTransition';
+
+const buildPristineAgentState = (firstState: ServerState): ServerState => ({
+  initial: firstState.initial,
+  final: firstState.final,
+  answerStack: [],
+});
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleBoard state={state} />
@@ -388,7 +394,12 @@ const UnblockRace = ({
         ]);
         setLocalAgentProgress((prev) => [
           ...prev.filter((progress) => progress.agentId !== agentId),
-          ...getAllAgentProgress([builtAgent], null),
+          ...getAllAgentProgress(
+            [builtAgent],
+            null,
+            buildPristineAgentState,
+            calculateCompletionPercentageFromState
+          ),
         ]);
       });
     },
@@ -500,7 +511,12 @@ const UnblockRace = ({
         if (startTimeMs == null) {
           continue;
         }
-        const [progress] = getAllAgentProgress([agent], startTimeMs);
+        const [progress] = getAllAgentProgress(
+          [agent],
+          startTimeMs,
+          buildPristineAgentState,
+          calculateCompletionPercentageFromState
+        );
         setLocalAgentProgress((prev) =>
           prev.some(
             (p) =>

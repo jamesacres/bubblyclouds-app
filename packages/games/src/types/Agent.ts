@@ -1,6 +1,3 @@
-import { Move } from './board';
-import { ServerState } from './state';
-
 export enum DreyfusLevel {
   Novice = 'novice',
   AdvancedBeginner = 'advancedBeginner',
@@ -9,14 +6,13 @@ export enum DreyfusLevel {
   Expert = 'expert',
 }
 
-export interface AgentStep {
-  move: Move;
+export type AgentStep<Extra, State> = Extra & {
   timestamp: number;
-  state: ServerState;
-}
+  state: State;
+};
 
-export interface AgentTimeline {
-  steps: AgentStep[];
+export interface AgentTimeline<Extra, State> {
+  steps: AgentStep<Extra, State>[];
   totalDuration: number;
 }
 
@@ -52,10 +48,10 @@ export interface AgentConfig {
   };
 }
 
-export interface LocalAgent {
+export interface LocalAgent<Extra, State> {
   id: string;
   name: string;
   emoji: string;
   skillLevel: DreyfusLevel;
-  timeline: AgentTimeline;
+  timeline: AgentTimeline<Extra, State>;
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+
 interface ConfirmDialogProps {
   isOpen: boolean;
   title: string;
@@ -9,8 +11,11 @@ interface ConfirmDialogProps {
   onCancel: () => void;
 }
 
-// A small "are you sure?" modal for the destructive stage actions (Retry,
-// Reset). Renders nothing when closed so it stays out of the tab order until
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+// A small "are you sure?" modal for destructive actions (Retry, Reset,
+// Reveal). Renders nothing when closed so it stays out of the tab order until
 // summoned; the backdrop click and Cancel both back out without acting.
 const ConfirmDialog = ({
   isOpen,
@@ -20,12 +25,74 @@ const ConfirmDialog = ({
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) => {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const cancelButtonRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    previouslyFocusedRef.current = document.activeElement as HTMLElement;
+    cancelButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onCancel();
+        return;
+      }
+
+      if (event.key !== 'Tab' || !dialogRef.current) {
+        return;
+      }
+
+      const focusableElements = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+      );
+      if (focusableElements.length === 0) {
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey) {
+        if (
+          activeElement === firstElement ||
+          !dialogRef.current.contains(activeElement)
+        ) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        if (
+          activeElement === lastElement ||
+          !dialogRef.current.contains(activeElement)
+        ) {
+          event.preventDefault();
+          firstElement.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      previouslyFocusedRef.current?.focus();
+    };
+  }, [isOpen, onCancel]);
+
   if (!isOpen) {
     return null;
   }
 
   return (
     <div
+      ref={dialogRef}
       data-testid="confirm-dialog"
       role="dialog"
       aria-modal="true"
@@ -55,6 +122,7 @@ const ConfirmDialog = ({
         </p>
         <div className="mt-4 flex items-center justify-center gap-2">
           <button
+            ref={cancelButtonRef}
             type="button"
             data-testid="confirm-dialog-cancel"
             onClick={onCancel}

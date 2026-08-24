@@ -1,5 +1,5 @@
 import { Technique } from 'human-sudoku-solver';
-import { DreyfusLevel } from '../types/Agent';
+import { DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
 import { getTechniqueLevel, canAgentUseTechnique } from './techniqueCategories';
 
 describe('getTechniqueLevel', () => {

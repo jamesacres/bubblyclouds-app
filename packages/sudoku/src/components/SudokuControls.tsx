@@ -22,6 +22,7 @@ import { NumberPad } from '@bubblyclouds-app/games/components/NumberPad';
 import { Toggle as NotesToggle } from '@bubblyclouds-app/ui/components/NotesToggle';
 import React, { memo, useState, useRef, useCallback, useEffect } from 'react';
 import { HintBox } from '@bubblyclouds-app/games/components/HintBox';
+import ConfirmDialog from '@bubblyclouds-app/games/components/ConfirmDialog';
 import {
   canUseUndo,
   canUseCheckGrid,
@@ -147,6 +148,22 @@ const SudokuControls = ({
   const hasShownRainbowNudgeRef = useRef<boolean>(false);
   const [showRainbowNudge, setShowRainbowNudge] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // The destructive Reset and Reveal actions both funnel through an "are you
+  // sure?" confirm before wiping/revealing the grid. The pending action is
+  // held here so the same ConfirmDialog serves both, with its own copy.
+  const [confirmAction, setConfirmAction] = useState<'reset' | 'reveal' | null>(
+    null
+  );
+
+  const handleConfirmDialogConfirm = useCallback(() => {
+    if (confirmAction === 'reset') {
+      reset();
+    } else if (confirmAction === 'reveal') {
+      reveal();
+    }
+    setConfirmAction(null);
+  }, [confirmAction, reset, reveal]);
 
   const resetInactivityTimer = useCallback(() => {
     if (timeoutRef.current) {
@@ -678,22 +695,14 @@ const SudokuControls = ({
                 </div>
                 <div className="grid grid-cols-2 gap-2 overflow-visible">
                   <button
-                    onClick={() => {
-                      window.confirm(
-                        'Are you sure you wish to reset the whole grid?'
-                      ) && reset();
-                    }}
+                    onClick={() => setConfirmAction('reset')}
                     className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
                     <RefreshCw size={15} />
                     Reset
                   </button>
                   <button
-                    onClick={() => {
-                      window.confirm(
-                        'Are you sure you wish to reveal the whole grid?'
-                      ) && reveal();
-                    }}
+                    onClick={() => setConfirmAction('reveal')}
                     className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
                     <Unlock size={15} />
@@ -710,6 +719,23 @@ const SudokuControls = ({
           </div>
         )}
       </div>
+
+      <ConfirmDialog
+        isOpen={confirmAction !== null}
+        title={
+          confirmAction === 'reset'
+            ? 'Reset the whole grid?'
+            : 'Reveal the whole grid?'
+        }
+        body={
+          confirmAction === 'reset'
+            ? 'Are you sure you wish to reset the whole grid?'
+            : 'Are you sure you wish to reveal the whole grid?'
+        }
+        confirmLabel={confirmAction === 'reset' ? 'Reset' : 'Reveal'}
+        onConfirm={handleConfirmDialogConfirm}
+        onCancel={() => setConfirmAction(null)}
+      />
     </div>
   );
 };

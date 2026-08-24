@@ -1,7 +1,7 @@
 import { puzzleToGrid, gridToPuzzle, humanSolve } from 'human-sudoku-solver';
 import { createAgentTimeline, createLocalAgents } from './agentTimeline';
 import { puzzleTextToPuzzle } from './puzzleTextToPuzzle';
-import { DreyfusLevel, AgentConfig } from '../types/Agent';
+import { DreyfusLevel, AgentConfig } from '@bubblyclouds-app/games/types/Agent';
 import { Difficulty } from '@bubblyclouds-app/games/types/difficulty';
 
 const INITIAL_TEXT =

@@ -113,7 +113,7 @@ jest.mock('../helpers/agentTimeline', () => ({
   createLocalAgents: jest.fn(() => []),
 }));
 
-jest.mock('../helpers/agentProgress', () => ({
+jest.mock('@bubblyclouds-app/games/helpers/agentProgress', () => ({
   getAllAgentProgress: jest.fn(() => []),
 }));
 

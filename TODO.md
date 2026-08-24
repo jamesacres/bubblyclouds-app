@@ -4,6 +4,8 @@ Waitlist, only allow us two to login for now
 update with stephens improvements
 
 re-test ai opponent timeline works across stages now, when completing stages etc
+monthly covers for collection
+add same locks to sudoku, and lock on the hints
 server should store unblockCollectionPuzzleId with invite url, and the same for daily? otherwise the next puzzle link wont load etc.
 shows collection puzzle 0 - complete
 lobby should show number of moved not just the solved time for those who have completed it and in progress?

@@ -8,8 +8,8 @@ import {
 import { useGameState } from '../hooks/useGameState';
 import { solvedBoardString } from '../helpers/boardToString';
 import { getHint } from '../helpers/hint';
-import { createLocalAgents } from '../helpers/agentTimeline';
-import { DreyfusLevel, LocalAgent } from '../types/Agent';
+import { createLocalAgents, LocalAgent } from '../helpers/agentTimeline';
+import { DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { lockedCollectionIndexes } from '../helpers/collectionLocks';

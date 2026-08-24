@@ -9,7 +9,7 @@ import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvid
 import { useRouter } from 'next/navigation';
 import { puzzleTextToPuzzle } from '../helpers/puzzleTextToPuzzle';
 import { createLocalAgents } from '../helpers/agentTimeline';
-import { getAllAgentProgress } from '../helpers/agentProgress';
+import { getAllAgentProgress } from '@bubblyclouds-app/games/helpers/agentProgress';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import type { Timer } from '@bubblyclouds-app/template/types/timer';
 
@@ -158,7 +158,7 @@ jest.mock('../helpers/agentTimeline', () => ({
   ]),
 }));
 
-jest.mock('../helpers/agentProgress', () => ({
+jest.mock('@bubblyclouds-app/games/helpers/agentProgress', () => ({
   getAllAgentProgress: jest.fn(() => [
     {
       agentId: 'agent-0',

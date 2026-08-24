@@ -1,4 +1,4 @@
-import { DreyfusLevel } from '../types/Agent';
+import { DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
 import { DEFAULT_AGENT_CONFIGS } from './defaultAgents';
 
 describe('DEFAULT_AGENT_CONFIGS', () => {

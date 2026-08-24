@@ -1,9 +1,8 @@
 import { Difficulty } from '@bubblyclouds-app/games/types/difficulty';
-import { DreyfusLevel, TimingCurve, TimingState } from '../types/Agent';
+import { TimingCurve, TimingState } from '@bubblyclouds-app/games/types/Agent';
 import {
   difficultyToMultiplier,
   difficultyToSolveBounds,
-  skillLevelTargetDuration,
   calculateExecutionTime,
   DIFFICULTY_SOLVE_BOUNDS_MS,
 } from './techniqueTiming';
@@ -52,48 +51,6 @@ describe('difficultyToSolveBounds', () => {
     expect(difficultyToSolveBounds(Difficulty.SIMPLE)).toEqual(
       DIFFICULTY_SOLVE_BOUNDS_MS[Difficulty.SIMPLE]
     );
-  });
-});
-
-describe('skillLevelTargetDuration', () => {
-  const bounds: [number, number, number] = [60000, 120000, 300000];
-
-  it('positions Expert duration within [fastest, median], nearer the fastest end', () => {
-    jest.spyOn(Math, 'random').mockReturnValue(0);
-    const duration = skillLevelTargetDuration(DreyfusLevel.Expert, bounds);
-    expect(duration).toBe(60000);
-  });
-
-  it('positions Novice duration within [median, slowest], drawing from the slow half', () => {
-    jest.spyOn(Math, 'random').mockReturnValue(0);
-    const duration = skillLevelTargetDuration(DreyfusLevel.Novice, bounds);
-    // lo for Novice band is 0.8, so position = 0.8 at random()=0
-    expect(duration).toBeCloseTo(120000 + (300000 - 120000) * 0.8);
-  });
-
-  it('keeps Competent duration at or above medianMs - 60000 as a floor', () => {
-    jest.spyOn(Math, 'random').mockReturnValue(0);
-    const duration = skillLevelTargetDuration(DreyfusLevel.Competent, bounds);
-    expect(duration).toBeGreaterThanOrEqual(120000 - 60000);
-  });
-
-  it('produces durations ordered fastest-to-slowest across skill levels on average', () => {
-    jest.spyOn(Math, 'random').mockReturnValue(0.5);
-    const expert = skillLevelTargetDuration(DreyfusLevel.Expert, bounds);
-    const proficient = skillLevelTargetDuration(
-      DreyfusLevel.Proficient,
-      bounds
-    );
-    const competent = skillLevelTargetDuration(DreyfusLevel.Competent, bounds);
-    const advancedBeginner = skillLevelTargetDuration(
-      DreyfusLevel.AdvancedBeginner,
-      bounds
-    );
-    const novice = skillLevelTargetDuration(DreyfusLevel.Novice, bounds);
-
-    expect(expert).toBeLessThanOrEqual(proficient);
-    expect(proficient).toBeLessThanOrEqual(competent);
-    expect(advancedBeginner).toBeLessThanOrEqual(novice);
   });
 });
 
