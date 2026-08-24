@@ -365,9 +365,13 @@ describe('useGameState', () => {
     );
   });
 
+  // The chained-run polling machinery itself (fetchOtherStageParties, the
+  // 30s interval, stage-1 gating, etc.) now lives in
+  // @bubblyclouds-app/games's useRunStagePolling and is covered there by
+  // packages/games/src/hooks/useRunStagePolling.test.ts. This is a slim
+  // integration check that useGameState wires runStageIds/runStageParties/
+  // refreshSessionParties through to that hook correctly end-to-end.
   describe('chained-run stage sessions', () => {
-    // An earlier stage in the run (already played by us) and a later one
-    // (never started by us), each identified by their board string.
     const STAGE_0 = [
       'oooooo',
       'oooooo',
@@ -399,51 +403,6 @@ describe('useGameState', () => {
       updatedAt: new Date(),
     });
 
-    // Current stage's own session, from the restore/save/poll path — a
-    // friend has NOT completed the current stage by default. Also answers
-    // GETs for any other stage id (options.id) when otherStageFriendSeconds
-    // is given: since the 404 response now carries party member sessions
-    // too, a direct per-stage GET works uniformly whether we've already
-    // played that stage or never started it.
-    const mockCurrentStageResponse = (otherStageFriendSeconds?: number) => {
-      serverGetValue.mockImplementation(async (options?: { id?: string }) => {
-        if (options?.id) {
-          return {
-            parties: {
-              party1: {
-                memberSessions: {
-                  friend: friendSessionFor(options.id, otherStageFriendSeconds),
-                },
-              },
-            },
-          };
-        }
-        return {
-          sessionId: `unblockrace-${INITIAL}`,
-          state: {
-            initial: INITIAL,
-            final: solvedBoardString(INITIAL),
-            answerStack: [INITIAL],
-          },
-          parties: {
-            party1: {
-              memberSessions: {
-                friend: friendSessionFor(STAGE_2),
-              },
-            },
-          },
-          updatedAt: new Date(),
-        };
-      });
-    };
-
-    // The end-of-stage fetch is gated on a logged-in user. A stable object,
-    // not a fresh literal per render: the real AuthProvider keeps `user`'s
-    // identity stable across unrelated re-renders (React useState), and
-    // fetchOtherStageParties's triggering effect depends on `user` — a new
-    // identity on every render here would retrigger it regardless of the
-    // fetchOtherStageParties/getSessionParties stability this describe
-    // block is otherwise testing.
     const wrapperUserContextValue = { user: { sub: 'me' } } as any;
     const wrapper = ({ children }: { children: React.ReactNode }) =>
       React.createElement(
@@ -452,9 +411,6 @@ describe('useGameState', () => {
         children
       );
 
-    // puzzleId (INITIAL) sits in the middle: STAGE_0 is an earlier stage
-    // we've already played, STAGE_2 a later one we've never started —
-    // both are now fetched identically via a direct per-stage GET.
     const runProps = {
       ...defaultProps,
       runStageIds: [STAGE_0, INITIAL, STAGE_2],
@@ -466,254 +422,7 @@ describe('useGameState', () => {
         partyName: 'Party 1',
         members: [{ userId: 'friend', memberNickname: 'Player 2' }],
       });
-    });
-
-    it('fetches every other stage via a direct per-stage GET, earlier and later alike', async () => {
-      mockCurrentStageResponse(undefined);
-      const { result } = renderHook(() => useGameState(runProps), { wrapper });
-      await act(async () => {});
-
-      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_0 });
-      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_2 });
-      expect(
-        result.current.runStageParties[STAGE_0]?.party1?.memberSessions.friend
-      ).toBeDefined();
-      expect(
-        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
-      ).toBeDefined();
-    });
-
-    it('reflects a later (never-started) stage session from the 404 response body', async () => {
-      mockCurrentStageResponse(30);
-      const { result } = renderHook(() => useGameState(runProps), { wrapper });
-      await act(async () => {});
-
-      expect(
-        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
-          ?.state.completed?.seconds
-      ).toBe(30);
-      expect(patchFriendSessions).toHaveBeenCalledWith(
-        `unblockrace-${STAGE_2}`,
-        expect.objectContaining({ friend: expect.anything() })
-      );
-    });
-
-    it('stops GETting an other stage once every known friend has completed it there', async () => {
-      jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
-      try {
-        mockCurrentStageResponse(20);
-        const { result } = renderHook(() => useGameState(runProps), {
-          wrapper,
-        });
-        await act(async () => {});
-
-        expect(
-          result.current.runStageParties[STAGE_0]?.party1?.memberSessions.friend
-            ?.state.completed?.seconds
-        ).toBe(20);
-        const callsAfterMount = serverGetValue.mock.calls.filter(
-          (call) => call[0]?.id === STAGE_0
-        ).length;
-        expect(callsAfterMount).toBeGreaterThan(0);
-
-        await act(async () => {
-          jest.advanceTimersByTime(30000);
-        });
-
-        const callsAfterInterval = serverGetValue.mock.calls.filter(
-          (call) => call[0]?.id === STAGE_0
-        ).length;
-        expect(callsAfterInterval).toBe(callsAfterMount);
-      } finally {
-        jest.useRealTimers();
-      }
-    });
-
-    it('keeps GETting an other stage on a 30s interval while a friend there is still in progress', async () => {
-      jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
-      try {
-        mockCurrentStageResponse(undefined);
-        const { result } = renderHook(() => useGameState(runProps), {
-          wrapper,
-        });
-        await act(async () => {});
-
-        const callsAfterMount = serverGetValue.mock.calls.filter(
-          (call) => call[0]?.id === STAGE_0
-        ).length;
-        expect(callsAfterMount).toBeGreaterThan(0);
-
-        await act(async () => {
-          jest.advanceTimersByTime(30000);
-        });
-
-        const callsAfterInterval = serverGetValue.mock.calls.filter(
-          (call) => call[0]?.id === STAGE_0
-        ).length;
-        expect(callsAfterInterval).toBeGreaterThan(callsAfterMount);
-        expect(
-          result.current.runStageParties[STAGE_0]?.party1?.memberSessions.friend
-            ?.state.completed
-        ).toBeUndefined();
-      } finally {
-        jest.useRealTimers();
-      }
-    });
-
-    it('does not loop-fetch when getSessionParties changes identity on every render (regression: this previously made hundreds of requests)', async () => {
-      // getSessionParties is wrapped with a fresh arrow function on every
-      // useSessions() call in this test file's mock (see the jest.mock
-      // above), matching how the real SessionsProvider re-creates it
-      // whenever patchFriendSessions writes to friendSessions. If
-      // fetchOtherStageParties or its triggering effect ever depend on that
-      // identity directly again instead of via a ref, this test
-      // hangs/times out exactly like the real bug did.
-      mockCurrentStageResponse(30);
-      const { result, rerender } = renderHook(() => useGameState(runProps), {
-        wrapper,
-      });
-      await act(async () => {});
-
-      const callsAfterMount = serverGetValue.mock.calls.length;
-      expect(callsAfterMount).toBeGreaterThan(0);
-
-      // Force several more renders with the same conditions still true — a
-      // real infinite loop would keep issuing GETs on every one of these.
-      rerender();
-      rerender();
-      rerender();
-      await act(async () => {});
-
-      expect(serverGetValue.mock.calls.length).toBe(callsAfterMount);
-      expect(
-        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
-          ?.state.completed?.seconds
-      ).toBe(30);
-    });
-
-    it('accumulates the current stage parties under its stage id', async () => {
-      mockCurrentStageResponse();
-      const { result } = renderHook(() => useGameState(runProps), { wrapper });
-      await act(async () => {});
-
-      expect(
-        result.current.runStageParties[INITIAL]?.party1?.memberSessions.friend
-      ).toBeDefined();
-    });
-
-    it('refreshes every stage session from the manual refresh', async () => {
-      mockCurrentStageResponse(30);
-      const { result } = renderHook(() => useGameState(runProps), { wrapper });
-      await act(async () => {});
-
-      await act(async () => {
-        await result.current.refreshSessionParties();
-      });
-
-      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_0 });
-      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_2 });
-      expect(
-        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
-          ?.state.completed?.seconds
-      ).toBe(30);
-    });
-
-    it('does not poll other-stage sessions while the Lobby is open — Lobby has its own poll for that', async () => {
-      mockCurrentStageResponse(30);
-      const { result } = renderHook(
-        () => useGameState({ ...runProps, initialShowLobby: true }),
-        { wrapper }
-      );
-      await act(async () => {});
-
-      expect(result.current.showLobby).toBe(true);
-      expect(
-        serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_0)
-      ).toBe(false);
-      expect(
-        serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
-      ).toBe(false);
-    });
-
-    // STAGE_0 is runStageIds[0] — the run's first stage, i.e. "stage 1".
-    it('stops polling every other stage once stage 1 shows no friend ever started this run', async () => {
-      jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
-      try {
-        // The party's friend has no session on stage 1 at all — they were
-        // never even offered this run's first puzzle — but WOULD have a
-        // completed session on stage 2 if it were ever fetched, so a stray
-        // fetch there would be caught by the assertion below.
-        serverGetValue.mockImplementation(async (options?: { id?: string }) => {
-          if (options?.id === STAGE_0) {
-            return { parties: {} };
-          }
-          if (options?.id) {
-            return {
-              parties: {
-                party1: {
-                  memberSessions: { friend: friendSessionFor(options.id, 30) },
-                },
-              },
-            };
-          }
-          return {
-            sessionId: `unblockrace-${INITIAL}`,
-            state: {
-              initial: INITIAL,
-              final: solvedBoardString(INITIAL),
-              answerStack: [INITIAL],
-            },
-            parties: {},
-            updatedAt: new Date(),
-          };
-        });
-
-        renderHook(() => useGameState(runProps), { wrapper });
-        await act(async () => {});
-
-        // Bootstrap pass: stage 1 (STAGE_0) had to be checked to learn no
-        // friend has started the run — this one GET is expected.
-        expect(
-          serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_0)
-        ).toBe(true);
-        // STAGE_2 must never be fetched: no friend has started stage 1, so
-        // there's nothing worth polling any other stage for.
-        expect(
-          serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
-        ).toBe(false);
-
-        const callsAfterMount = serverGetValue.mock.calls.length;
-
-        await act(async () => {
-          jest.advanceTimersByTime(60000);
-        });
-
-        // No further GETs on the 30s poll — polling is fully quiet once
-        // we've learned nobody joined this run.
-        expect(serverGetValue.mock.calls.length).toBe(callsAfterMount);
-      } finally {
-        jest.useRealTimers();
-      }
-    });
-
-    it('still notices a friend who starts stage 1 later, via a manual refresh (a friend can join at any time)', async () => {
-      // Starts with nobody on stage 1 — same as the "stops polling" case —
-      // then a friend appears there before the manual refresh runs.
-      let friendHasStartedStage1 = false;
       serverGetValue.mockImplementation(async (options?: { id?: string }) => {
-        if (options?.id === STAGE_0) {
-          return friendHasStartedStage1
-            ? {
-                parties: {
-                  party1: {
-                    memberSessions: {
-                      friend: friendSessionFor(STAGE_0, undefined),
-                    },
-                  },
-                },
-              }
-            : { parties: {} };
-        }
         if (options?.id) {
           return {
             parties: {
@@ -730,63 +439,56 @@ describe('useGameState', () => {
             final: solvedBoardString(INITIAL),
             answerStack: [INITIAL],
           },
-          parties: {},
+          parties: {
+            party1: { memberSessions: { friend: friendSessionFor(STAGE_2) } },
+          },
           updatedAt: new Date(),
         };
       });
+    });
 
-      const { result } = renderHook(() => useGameState(runProps), {
-        wrapper,
-      });
+    it('surfaces every stage of the run in runStageParties', async () => {
+      const { result } = renderHook(() => useGameState(runProps), { wrapper });
       await act(async () => {});
-
-      expect(
-        serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
-      ).toBe(false);
-
-      // The friend joins, then the player hits manual refresh.
-      friendHasStartedStage1 = true;
-      await act(async () => {
-        await result.current.refreshSessionParties();
-      });
 
       expect(
         result.current.runStageParties[STAGE_0]?.party1?.memberSessions.friend
       ).toBeDefined();
-      // Now that stage 1 has a friend, the other (unresolved) stage is
-      // worth checking too.
       expect(
-        serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_2)
-      ).toBe(true);
+        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
+      ).toBeDefined();
+      expect(
+        result.current.runStageParties[INITIAL]?.party1?.memberSessions.friend
+      ).toBeDefined();
     });
 
-    it('stops re-checking stage 1 once every friend there has completed it, even on manual refresh', async () => {
-      jest.useFakeTimers({ doNotFake: ['queueMicrotask'] });
-      try {
-        // The friend has ALREADY completed stage 1 from the start.
-        mockCurrentStageResponse(20);
-        const { result } = renderHook(() => useGameState(runProps), {
-          wrapper,
-        });
-        await act(async () => {});
+    it('refreshSessionParties refreshes every stage session, including the current one', async () => {
+      const { result } = renderHook(() => useGameState(runProps), { wrapper });
+      await act(async () => {});
 
-        const callsToStage0AfterMount = serverGetValue.mock.calls.filter(
-          (call) => call[0]?.id === STAGE_0
-        ).length;
-        expect(callsToStage0AfterMount).toBeGreaterThan(0);
+      await act(async () => {
+        await result.current.refreshSessionParties();
+      });
 
-        await act(async () => {
-          await result.current.refreshSessionParties();
-        });
+      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_0 });
+      expect(serverGetValue).toHaveBeenCalledWith({ id: STAGE_2 });
+      expect(
+        result.current.runStageParties[STAGE_2]?.party1?.memberSessions.friend
+          ?.state.completed?.seconds
+      ).toBe(30);
+    });
 
-        // A completed stage 1 is resolved — refresh must not re-GET it.
-        const callsToStage0AfterRefresh = serverGetValue.mock.calls.filter(
-          (call) => call[0]?.id === STAGE_0
-        ).length;
-        expect(callsToStage0AfterRefresh).toBe(callsToStage0AfterMount);
-      } finally {
-        jest.useRealTimers();
-      }
+    it('does not poll other-stage sessions while the Lobby is open', async () => {
+      const { result } = renderHook(
+        () => useGameState({ ...runProps, initialShowLobby: true }),
+        { wrapper }
+      );
+      await act(async () => {});
+
+      expect(result.current.showLobby).toBe(true);
+      expect(
+        serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_0)
+      ).toBe(false);
     });
   });
 });

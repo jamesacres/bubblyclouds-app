@@ -1,7 +1,7 @@
 'use client';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
-import { memo, useMemo, useState, useEffect, useRef } from 'react';
+import { memo, ReactNode, useMemo, useState, useEffect, useRef } from 'react';
 import { getAllUserIds } from '@bubblyclouds-app/template/utils/playerColors';
 import { getRaceCarColor } from '@bubblyclouds-app/template/utils/raceCarColors';
 import { useThemeColorName } from '@bubblyclouds-app/ui/hooks/useThemeColorName';
@@ -18,13 +18,14 @@ import {
 import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
-import { PlayerRunResult } from '../types/scoringTypes';
+import { PlayerRunResult, PlayerStageResult } from '../types/scoringTypes';
 
 interface Arguments<
   State extends {
     answerStack: unknown[];
     completed?: BaseState['completed'];
   },
+  Score = unknown,
 > {
   sessionParties: Parties<Session<State>>;
   // The current user's live state, memoized by the parent so the memoised
@@ -61,10 +62,21 @@ interface Arguments<
   // (stages completed + progress on the current one) instead of just the
   // current stage's percentage, so a player who has moved on to a later
   // stage doesn't appear to snap back to the start.
-  runResults?: PlayerRunResult[];
+  runResults?: PlayerRunResult<Score>[];
   // Total stages in the run, required alongside runResults to normalise the
   // whole-run fraction. Omit for single-puzzle games.
   totalStages?: number;
+  // Optional per-stage score readout under the time in the leaderboard table
+  // (e.g. Unblock Race's "4/3 +1" moves-vs-par line). Games whose Score has
+  // nothing to show here (or that don't pass runResults) omit it.
+  renderStageScore?: (score: Score) => ReactNode;
+  // Optional run-total score readout under the total time in the
+  // leaderboard's last column (e.g. Unblock Race's "7 moves · +1"). Takes
+  // every completed stage result for the row so the total can be derived
+  // from them, mirroring how the caller derives it elsewhere.
+  renderTotalScore?: (
+    stageResults: (PlayerStageResult<Score> | undefined)[]
+  ) => ReactNode;
   // Multi-stage runs only: which stage (0-based) each OTHER player has been
   // seen on, completed or still in progress — unlike runResults (which only
   // ever records a stage once finished), this also covers a player actively
@@ -115,10 +127,10 @@ interface FinishedRacer {
 // move a player backwards even though their in-stage percentage resets to 0
 // at the start of each new stage. Kept outside the component (rather than a
 // closure) so it isn't itself a render-scoped dependency.
-const toRunPercentage = (
+const toRunPercentage = <Score,>(
   userId: string,
   currentStagePercentage: number,
-  runResultsByUserId: Map<string, PlayerRunResult>,
+  runResultsByUserId: Map<string, PlayerRunResult<Score>>,
   totalStages: number
 ): { percentage: number; currentStageNumber: number } => {
   const completedStageCount =
@@ -164,6 +176,7 @@ const RaceTrack = <
     answerStack: unknown[];
     completed?: BaseState['completed'];
   },
+  Score = unknown,
 >({
   sessionParties,
   state,
@@ -180,10 +193,12 @@ const RaceTrack = <
   rateApp,
   runResults,
   totalStages,
+  renderStageScore,
+  renderTotalScore,
   presenceStageByUserId,
   secondaryCta,
   formatFinishTime,
-}: Arguments<State>) => {
+}: Arguments<State, Score>) => {
   // Games that pass a formatter want finish times in the compact race chrome
   // (legend chips); games that omit it keep the percentage in the legend and
   // use the shared zero-padded hh:mm:ss on the leaderboard.
@@ -240,7 +255,7 @@ const RaceTrack = <
   // percentage into a whole-run position so a player who has moved on to a
   // later stage doesn't appear to snap back to the start of the track.
   const runResultsByUserId = useMemo(() => {
-    const map = new Map<string, PlayerRunResult>();
+    const map = new Map<string, PlayerRunResult<Score>>();
     (runResults || []).forEach((result) => map.set(result.userId, result));
     return map;
   }, [runResults]);
@@ -499,8 +514,6 @@ const RaceTrack = <
           isCurrentUser: false,
           stageResults: new Array(totalStages).fill(undefined),
           totalSeconds: 0,
-          totalMoves: 0,
-          totalMovesDelta: 0,
           completedStageCount: 0,
           nickname,
         });
@@ -911,59 +924,25 @@ const RaceTrack = <
                                 </span>
                               </span>
                             </td>
-                            {row.stageResults.map((stageResult, stageIndex) => {
-                              const movesDelta =
-                                stageResult?.movesMade !== undefined
-                                  ? stageResult.movesMade -
-                                    stageResult.movesRequired
-                                  : undefined;
-                              return (
-                                <td
-                                  key={stageIndex}
-                                  className="px-1.5 py-2 text-right align-top"
-                                >
-                                  {stageResult ? (
-                                    <>
-                                      <span className="block font-mono text-xs tabular-nums text-stone-500 dark:text-zinc-400">
-                                        {formatTime(stageResult.seconds)}
-                                      </span>
-                                      {/* Moves graded against par in the
-                                          run's usual colours, with the
-                                          golf-style delta saying exactly how
-                                          far over or under */}
-                                      {stageResult.movesMade !== undefined &&
-                                        movesDelta !== undefined && (
-                                          <span
-                                            className={`block font-mono text-[0.65rem] tabular-nums ${
-                                              movesDelta > 0
-                                                ? 'text-amber-600 dark:text-amber-400'
-                                                : movesDelta < 0
-                                                  ? 'text-emerald-600 dark:text-emerald-400'
-                                                  : 'text-stone-400 dark:text-zinc-500'
-                                            }`}
-                                          >
-                                            {stageResult.movesMade}/
-                                            {stageResult.movesRequired}
-                                            {movesDelta !== 0 &&
-                                              ` ${movesDelta > 0 ? '+' : ''}${movesDelta}`}
-                                            <span className="sr-only">
-                                              {` moves, ${
-                                                movesDelta === 0
-                                                  ? 'on par'
-                                                  : `${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
-                                              }`}
-                                            </span>
-                                          </span>
-                                        )}
-                                    </>
-                                  ) : (
-                                    <span className="font-mono text-xs text-stone-400 dark:text-zinc-600">
-                                      –
+                            {row.stageResults.map((stageResult, stageIndex) => (
+                              <td
+                                key={stageIndex}
+                                className="px-1.5 py-2 text-right align-top"
+                              >
+                                {stageResult ? (
+                                  <>
+                                    <span className="block font-mono text-xs tabular-nums text-stone-500 dark:text-zinc-400">
+                                      {formatTime(stageResult.seconds)}
                                     </span>
-                                  )}
-                                </td>
-                              );
-                            })}
+                                    {renderStageScore?.(stageResult.score)}
+                                  </>
+                                ) : (
+                                  <span className="font-mono text-xs text-stone-400 dark:text-zinc-600">
+                                    –
+                                  </span>
+                                )}
+                              </td>
+                            ))}
                             <td className="px-3 py-2 text-right align-top">
                               <span
                                 className={`block font-mono text-sm tabular-nums ${
@@ -974,25 +953,7 @@ const RaceTrack = <
                               >
                                 {formatTime(row.totalSeconds)}
                               </span>
-                              {row.totalMoves > 0 && (
-                                <span className="block text-[0.65rem] tabular-nums text-stone-400 dark:text-zinc-500">
-                                  {row.totalMoves} moves
-                                  {' · '}
-                                  <span
-                                    className={
-                                      row.totalMovesDelta > 0
-                                        ? 'text-amber-600 dark:text-amber-400'
-                                        : row.totalMovesDelta < 0
-                                          ? 'text-emerald-600 dark:text-emerald-400'
-                                          : undefined
-                                    }
-                                  >
-                                    {row.totalMovesDelta === 0
-                                      ? 'par'
-                                      : `${row.totalMovesDelta > 0 ? '+' : ''}${row.totalMovesDelta}`}
-                                  </span>
-                                </span>
-                              )}
+                              {renderTotalScore?.(row.stageResults)}
                             </td>
                           </tr>
                         );

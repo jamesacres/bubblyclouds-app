@@ -31,7 +31,7 @@ function PuzzlePageComponent() {
     const movesList = (moves || '').split(',');
     try {
       const stages: RunStage[] = boards.map((boardString, i) => ({
-        boardString: puzzleTextToPuzzle(boardString),
+        stageId: puzzleTextToPuzzle(boardString),
         movesRequired: Number(movesList[i]) || 0,
       }));
       const metadata: Partial<GameStateMetadata> = {

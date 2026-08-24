@@ -194,8 +194,8 @@ const baseGameState = {
 const defaultProps = {
   run: {
     stages: [
-      { boardString: STAGE_1, movesRequired: 3 },
-      { boardString: STAGE_2, movesRequired: 5 },
+      { stageId: STAGE_1, movesRequired: 3 },
+      { stageId: STAGE_2, movesRequired: 5 },
     ],
     runId: 'test-run',
   },
@@ -303,7 +303,7 @@ describe('UnblockRace', () => {
       <UnblockRace
         {...defaultProps}
         run={{
-          stages: [{ boardString: STAGE_1, movesRequired: 18 }],
+          stages: [{ stageId: STAGE_1, movesRequired: 18 }],
         }}
       />
     );
@@ -335,11 +335,10 @@ describe('UnblockRace', () => {
         userId: 'user-123',
         isCurrentUser: true,
         stageResults: [
-          { seconds: 42, movesMade: 3, movesRequired: 3 },
+          { seconds: 42, score: { movesMade: 3, movesRequired: 3 } },
           undefined,
         ],
         totalSeconds: 42,
-        totalMoves: 3,
         completedStageCount: 1,
       }),
     ]);
@@ -426,7 +425,7 @@ describe('UnblockRace', () => {
     render(
       <UnblockRace
         {...defaultProps}
-        run={{ stages: [{ boardString: STAGE_1, movesRequired: 3 }] }}
+        run={{ stages: [{ stageId: STAGE_1, movesRequired: 3 }] }}
       />
     );
     expect(screen.queryByTestId('stage-preview-0')).not.toBeInTheDocument();
@@ -793,7 +792,7 @@ describe('UnblockRace', () => {
           <UnblockRace
             {...defaultProps}
             run={{
-              stages: [{ boardString: STAGE_1, movesRequired: 31 }], // > 30 moves → 'expert'
+              stages: [{ stageId: STAGE_1, movesRequired: 31 }], // > 30 moves → 'expert'
             }}
             metadata={{ unblockCollectionPuzzleId: 'ofthemonth-x-puzzle-0' }}
           />
@@ -1130,7 +1129,7 @@ describe('UnblockRace', () => {
 
     const lockedProps = {
       ...defaultProps,
-      run: { stages: [{ boardString: STAGE_1, movesRequired: 3 }] },
+      run: { stages: [{ stageId: STAGE_1, movesRequired: 3 }] },
     };
 
     beforeEach(() => {
@@ -1384,7 +1383,7 @@ describe('UnblockRace', () => {
 
     const collectionProps = {
       ...defaultProps,
-      run: { stages: [{ boardString: P0, movesRequired: 3 }] },
+      run: { stages: [{ stageId: P0, movesRequired: 3 }] },
       metadata: { unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-0' },
     };
 
@@ -1505,7 +1504,7 @@ describe('UnblockRace', () => {
       renderWithRevenueCat(
         <UnblockRace
           {...defaultProps}
-          run={{ stages: [{ boardString: STAGE_2, movesRequired: 7 }] }}
+          run={{ stages: [{ stageId: STAGE_2, movesRequired: 7 }] }}
           metadata={{
             unblockCollectionPuzzleId: nextUnblockCollectionPuzzleId!,
           }}
@@ -1717,7 +1716,7 @@ describe('UnblockRace', () => {
               isAgent: true,
               emoji: '🐝',
               stageResults: [
-                { seconds: 2, movesMade: 2, movesRequired: 3 },
+                { seconds: 2, score: { movesMade: 2, movesRequired: 3 } },
                 undefined,
               ],
               totalSeconds: 2,

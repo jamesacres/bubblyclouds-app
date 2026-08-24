@@ -83,27 +83,22 @@ export type AllFriendsSessionsMap = Record<
 >;
 
 // One completed stage on a player's leaderboard line: their time and their
-// move count graded against the stage's par (movesRequired). movesMade is
-// undefined when the synced session predates move-count metadata.
-export interface PlayerStageResult {
+// game-specific score for that stage (e.g. unblockrace's moves-vs-par).
+export interface PlayerStageResult<Score> {
   seconds: number;
-  movesMade?: number;
-  movesRequired: number;
+  score: Score;
 }
 
 // One player's line on the end-of-stage leaderboard: their result for each
 // stage of the run (undefined until they complete that stage fairly) plus
 // the running totals across the stages they have finished — the final
-// stage's totals are the whole run added together.
-export interface PlayerRunResult {
+// stage's totals are the whole run added together. Score-specific totals
+// (e.g. total moves) are the caller's own concern, layered on top of this.
+export interface PlayerRunResult<Score> {
   userId: string;
   isCurrentUser: boolean;
-  stageResults: (PlayerStageResult | undefined)[];
+  stageResults: (PlayerStageResult<Score> | undefined)[];
   totalSeconds: number;
-  totalMoves: number;
-  // Moves over (+) or under (−) par, summed across the completed stages with
-  // a known move count — the "how far off par" verdict for the run so far.
-  totalMovesDelta: number;
   completedStageCount: number;
   // AI agents carry their display name (humans are resolved from party
   // nicknames) and their kart emoji for the leaderboard row.

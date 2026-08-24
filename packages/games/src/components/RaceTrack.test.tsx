@@ -8,6 +8,14 @@ import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 import { PlayerRunResult } from '../types/scoringTypes';
 
+interface TestScore {
+  movesMade: number;
+  movesRequired: number;
+}
+
+const renderStageScore = (score: TestScore) =>
+  `${score.movesMade}/${score.movesRequired}`;
+
 jest.mock('@bubblyclouds-app/template/hooks/useParties');
 jest.mock('@bubblyclouds-app/template/utils/playerColors', () => ({
   ...jest.requireActual('@bubblyclouds-app/template/utils/playerColors'),
@@ -304,14 +312,14 @@ describe('RaceTrack', () => {
   });
 
   it('renders the multi-stage run leaderboard when runResults is passed', () => {
-    const runResults: PlayerRunResult[] = [
+    const runResults: PlayerRunResult<TestScore>[] = [
       {
         userId: 'agent-Sage',
         isCurrentUser: false,
-        stageResults: [{ seconds: 8, movesMade: 3, movesRequired: 3 }],
+        stageResults: [
+          { seconds: 8, score: { movesMade: 3, movesRequired: 3 } },
+        ],
         totalSeconds: 8,
-        totalMoves: 3,
-        totalMovesDelta: 0,
         completedStageCount: 1,
         nickname: 'Sage',
         isAgent: true,
@@ -320,19 +328,19 @@ describe('RaceTrack', () => {
       {
         userId: 'userId1',
         isCurrentUser: true,
-        stageResults: [{ seconds: 10, movesMade: 4, movesRequired: 3 }],
+        stageResults: [
+          { seconds: 10, score: { movesMade: 4, movesRequired: 3 } },
+        ],
         totalSeconds: 10,
-        totalMoves: 4,
-        totalMovesDelta: 1,
         completedStageCount: 1,
       },
       {
         userId: 'userId2',
         isCurrentUser: false,
-        stageResults: [{ seconds: 12, movesMade: 3, movesRequired: 3 }],
+        stageResults: [
+          { seconds: 12, score: { movesMade: 3, movesRequired: 3 } },
+        ],
         totalSeconds: 12,
-        totalMoves: 3,
-        totalMovesDelta: 0,
         completedStageCount: 1,
       },
     ];
@@ -342,6 +350,7 @@ describe('RaceTrack', () => {
         {...defaultProps}
         runResults={runResults}
         formatFinishTime={shortTime}
+        renderStageScore={renderStageScore}
       />
     );
 
@@ -349,6 +358,9 @@ describe('RaceTrack', () => {
     const agentRow = screen.getByTestId('run-leaderboard-row-0');
     expect(agentRow).toHaveTextContent('Sage');
     expect(agentRow).toHaveTextContent('🦉');
+    // renderStageScore is a game-supplied callback, not built into
+    // RaceTrack itself — this proves it actually renders per-stage.
+    expect(agentRow).toHaveTextContent('3/3');
     expect(screen.getByTestId('run-leaderboard-row-1')).toHaveTextContent(
       'You'
     );
@@ -358,19 +370,37 @@ describe('RaceTrack', () => {
     );
   });
 
+  it('omits the per-stage score row when renderStageScore is not passed', () => {
+    const runResults: PlayerRunResult<TestScore>[] = [
+      {
+        userId: 'userId1',
+        isCurrentUser: true,
+        stageResults: [
+          { seconds: 10, score: { movesMade: 4, movesRequired: 3 } },
+        ],
+        totalSeconds: 10,
+        completedStageCount: 1,
+      },
+    ];
+
+    render(<RaceTrack {...defaultProps} runResults={runResults} />);
+
+    expect(screen.queryByText('4/3')).not.toBeInTheDocument();
+  });
+
   it('includes a presence-only opponent in the leaderboard table with dashes for every stage, ranked after anyone with a result', () => {
     // userId2 has just started a stage — zero completed stages, so
     // calculateRunResults would never produce a line for them. The table
     // already renders "–" for any stage without a result, so they still
     // belong in the table, just with every cell dashed and ranked last.
-    const runResults: PlayerRunResult[] = [
+    const runResults: PlayerRunResult<TestScore>[] = [
       {
         userId: 'userId1',
         isCurrentUser: true,
-        stageResults: [{ seconds: 10, movesMade: 4, movesRequired: 3 }],
+        stageResults: [
+          { seconds: 10, score: { movesMade: 4, movesRequired: 3 } },
+        ],
         totalSeconds: 10,
-        totalMoves: 4,
-        totalMovesDelta: 1,
         completedStageCount: 1,
       },
     ];
@@ -402,14 +432,14 @@ describe('RaceTrack', () => {
     mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
       state === defaultProps.state ? 20 : 50
     );
-    const runResults: PlayerRunResult[] = [
+    const runResults: PlayerRunResult<TestScore>[] = [
       {
         userId: 'userId2',
         isCurrentUser: false,
-        stageResults: [{ seconds: 8, movesMade: 3, movesRequired: 3 }],
+        stageResults: [
+          { seconds: 8, score: { movesMade: 3, movesRequired: 3 } },
+        ],
         totalSeconds: 8,
-        totalMoves: 3,
-        totalMovesDelta: 0,
         completedStageCount: 1,
       },
     ];
@@ -431,14 +461,14 @@ describe('RaceTrack', () => {
     // in-stage — same snap-back bug as a human opponent moving to a new
     // stage, since agent.percentage on its own only ever describes the
     // current stage.
-    const runResults: PlayerRunResult[] = [
+    const runResults: PlayerRunResult<TestScore>[] = [
       {
         userId: 'agent-0',
         isCurrentUser: false,
-        stageResults: [{ seconds: 8, movesMade: 3, movesRequired: 3 }],
+        stageResults: [
+          { seconds: 8, score: { movesMade: 3, movesRequired: 3 } },
+        ],
         totalSeconds: 8,
-        totalMoves: 3,
-        totalMovesDelta: 0,
         completedStageCount: 1,
         nickname: 'Bumblebee',
         isAgent: true,
@@ -466,17 +496,15 @@ describe('RaceTrack', () => {
     // runStageParties showing 2 completed stages. They must still appear on
     // the track instead of disappearing.
     mockCalculateCompletionPercentageFromState.mockReturnValue(10);
-    const runResults: PlayerRunResult[] = [
+    const runResults: PlayerRunResult<TestScore>[] = [
       {
         userId: 'userId2',
         isCurrentUser: false,
         stageResults: [
-          { seconds: 8, movesMade: 3, movesRequired: 3 },
-          { seconds: 9, movesMade: 3, movesRequired: 3 },
+          { seconds: 8, score: { movesMade: 3, movesRequired: 3 } },
+          { seconds: 9, score: { movesMade: 3, movesRequired: 3 } },
         ],
         totalSeconds: 17,
-        totalMoves: 6,
-        totalMovesDelta: 0,
         completedStageCount: 2,
       },
     ];
@@ -516,14 +544,14 @@ describe('RaceTrack', () => {
   });
 
   it('does not duplicate an opponent already surfaced from runResults when they also appear in presenceStageByUserId', () => {
-    const runResults: PlayerRunResult[] = [
+    const runResults: PlayerRunResult<TestScore>[] = [
       {
         userId: 'userId2',
         isCurrentUser: false,
-        stageResults: [{ seconds: 8, movesMade: 3, movesRequired: 3 }],
+        stageResults: [
+          { seconds: 8, score: { movesMade: 3, movesRequired: 3 } },
+        ],
         totalSeconds: 8,
-        totalMoves: 3,
-        totalMovesDelta: 0,
         completedStageCount: 1,
       },
     ];
@@ -550,14 +578,14 @@ describe('RaceTrack', () => {
     mockCalculateCompletionPercentageFromState.mockImplementation((state) =>
       state === defaultProps.state ? 100 : 50
     );
-    const runResults: PlayerRunResult[] = [
+    const runResults: PlayerRunResult<TestScore>[] = [
       {
         userId: 'userId1',
         isCurrentUser: true,
-        stageResults: [{ seconds: 10, movesMade: 4, movesRequired: 3 }],
+        stageResults: [
+          { seconds: 10, score: { movesMade: 4, movesRequired: 3 } },
+        ],
         totalSeconds: 10,
-        totalMoves: 4,
-        totalMovesDelta: 1,
         completedStageCount: 1,
       },
     ];

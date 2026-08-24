@@ -62,16 +62,18 @@ import {
 } from '../helpers/nextCollectionPuzzle';
 import {
   RunStage,
-  StageResult,
-  completedStagesFromStorage,
-  firstIncompleteStage,
+  StageScore,
+  extractScore as extractStageScoreFromGameState,
 } from '../helpers/stageResults';
 import {
-  AgentRunInput,
-  calculateMostRecentUpdatedAtByUserId,
-  calculatePresenceStageByUserId,
-  calculateRunResults,
-} from '../helpers/runResults';
+  completedStagesFromStorage as genericCompletedStagesFromStorage,
+  firstIncompleteStage as genericFirstIncompleteStage,
+} from '@bubblyclouds-app/games/helpers/runStageStorage';
+import {
+  calculateMostRecentUpdatedAtByUserId as genericCalculateMostRecentUpdatedAtByUserId,
+  calculatePresenceStageByUserId as genericCalculatePresenceStageByUserId,
+} from '@bubblyclouds-app/games/helpers/runResults';
+import { AgentRunInput, calculateRunResults } from '../helpers/runResults';
 import NextPuzzlePanel from './NextPuzzlePanel';
 import CompletionSummary from './CompletionSummary';
 import ConfirmDialog from '@bubblyclouds-app/games/components/ConfirmDialog';
@@ -86,12 +88,89 @@ import StageTopBar from './StageTopBar';
 import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
 import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
 import StageTransition from './StageTransition';
+import { PlayerStageResult } from '@bubblyclouds-app/games/types/scoringTypes';
 
 const buildPristineAgentState = (firstState: ServerState): ServerState => ({
   initial: firstState.initial,
   final: firstState.final,
   answerStack: [],
 });
+
+// Moves graded against par in the run's usual colours, with the golf-style
+// delta saying exactly how far over or under — RaceTrack's per-stage score
+// slot in the leaderboard table (SPEC.md §7).
+const renderStageScore = (score: StageScore) => {
+  if (score.movesMade === undefined) {
+    return null;
+  }
+  const movesDelta = score.movesMade - score.movesRequired;
+  return (
+    <span
+      className={`block font-mono text-[0.65rem] tabular-nums ${
+        movesDelta > 0
+          ? 'text-amber-600 dark:text-amber-400'
+          : movesDelta < 0
+            ? 'text-emerald-600 dark:text-emerald-400'
+            : 'text-stone-400 dark:text-zinc-500'
+      }`}
+    >
+      {score.movesMade}/{score.movesRequired}
+      {movesDelta !== 0 && ` ${movesDelta > 0 ? '+' : ''}${movesDelta}`}
+      <span className="sr-only">
+        {` moves, ${
+          movesDelta === 0
+            ? 'on par'
+            : `${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
+        }`}
+      </span>
+    </span>
+  );
+};
+
+// Run-total moves readout under the total time in the leaderboard's last
+// column — mirrors runResults.ts's own totalMoves/totalMovesDelta math over
+// the row's completed stage results.
+const renderTotalScore = (
+  stageResults: (PlayerStageResult<StageScore> | undefined)[]
+) => {
+  const completedResults = stageResults.filter(
+    (stageResult): stageResult is NonNullable<typeof stageResult> =>
+      stageResult !== undefined
+  );
+  const totalMoves = completedResults.reduce(
+    (sum, stageResult) => sum + (stageResult.score.movesMade || 0),
+    0
+  );
+  if (totalMoves <= 0) {
+    return null;
+  }
+  const totalMovesDelta = completedResults.reduce(
+    (sum, stageResult) =>
+      stageResult.score.movesMade !== undefined
+        ? sum + stageResult.score.movesMade - stageResult.score.movesRequired
+        : sum,
+    0
+  );
+  return (
+    <span className="block text-[0.65rem] tabular-nums text-stone-400 dark:text-zinc-500">
+      {totalMoves} moves
+      {' · '}
+      <span
+        className={
+          totalMovesDelta > 0
+            ? 'text-amber-600 dark:text-amber-400'
+            : totalMovesDelta < 0
+              ? 'text-emerald-600 dark:text-emerald-400'
+              : undefined
+        }
+      >
+        {totalMovesDelta === 0
+          ? 'par'
+          : `${totalMovesDelta > 0 ? '+' : ''}${totalMovesDelta}`}
+      </span>
+    </span>
+  );
+};
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleBoard state={state} />
@@ -145,15 +224,19 @@ const UnblockRace = ({
   const { stages } = run;
   // The board string doubles as the run id when none was minted (§4: the
   // board string is the identifier)
-  const runId = run.runId || stages[0].boardString;
+  const runId = run.runId || stages[0].stageId;
 
   const [currentStageIndex, setCurrentStageIndex] = useState(() =>
-    firstIncompleteStage(app, stages)
+    genericFirstIncompleteStage<RunStage, GameState>(app, stages)
   );
   // Ticked off in the stage-preview strip; kept in sync with storage on
   // mount and updated eagerly when a stage completes in this session
   const [completedStages, setCompletedStages] = useState(() =>
-    completedStagesFromStorage(app, stages)
+    genericCompletedStagesFromStorage<RunStage, GameState, StageScore>(
+      app,
+      stages,
+      extractStageScoreFromGameState
+    )
   );
   // The seamless slide-across between stages (SPEC.md §4: the car's exit
   // motion continues into the next board sliding in). Non-null only while
@@ -168,10 +251,10 @@ const UnblockRace = ({
     direction: 'forward' | 'back';
   } | null>(null);
   const stage = stages[currentStageIndex];
-  const initial = stage.boardString;
+  const initial = stage.stageId;
   const puzzleId = initial;
   const runStageIds = useMemo(
-    () => stages.map((runStage) => runStage.boardString),
+    () => stages.map((runStage) => runStage.stageId),
     [stages]
   );
   const final = useMemo(() => solvedBoardString(initial), [initial]);
@@ -254,7 +337,10 @@ const UnblockRace = ({
   // across the per-stage timeline rebuilds) — the deterministic side of the
   // run leaderboard.
   const [agentStageResults, setAgentStageResults] = useState<
-    Map<string, { emoji: string; stages: Map<number, StageResult> }>
+    Map<
+      string,
+      { emoji: string; stages: Map<number, PlayerStageResult<StageScore>> }
+    >
   >(new Map());
 
   // Each agent finishes "offscreen" deterministically, on its OWN stage
@@ -273,8 +359,10 @@ const UnblockRace = ({
         const stageMap = new Map(existing?.stages);
         stageMap.set(stageIndex, {
           seconds: Math.round(agent.timeline.totalDuration / 1000),
-          movesMade: agent.timeline.steps.length,
-          movesRequired: stageMovesRequired,
+          score: {
+            movesMade: agent.timeline.steps.length,
+            movesRequired: stageMovesRequired,
+          },
         });
         next.set(agent.name, { emoji: agent.emoji, stages: stageMap });
         return next;
@@ -296,8 +384,10 @@ const UnblockRace = ({
         const next = new Map(prev);
         next.set(currentStageIndex, {
           seconds: completedSeconds,
-          movesMade: completedMovesMade,
-          movesRequired: stage.movesRequired,
+          score: {
+            movesMade: completedMovesMade,
+            movesRequired: stage.movesRequired,
+          },
         });
         return next;
       });
@@ -371,7 +461,7 @@ const UnblockRace = ({
     (config: AgentConfig, stageIndex: number) => {
       const agentId = `agent-${config.name}`;
       const agentStage = stages[stageIndex];
-      const agentInitial = agentStage.boardString;
+      const agentInitial = agentStage.stageId;
       const agentFinal = solvedBoardString(agentInitial);
       const buildId = (agentBuildIdByIdRef.current.get(agentId) ?? 0) + 1;
       agentBuildIdByIdRef.current.set(agentId, buildId);
@@ -738,7 +828,7 @@ const UnblockRace = ({
       setStageClear(null);
       setTransition({
         fromBoardString: answerRef.current,
-        fromInitialBoardString: stages[currentStageIndex].boardString,
+        fromInitialBoardString: stages[currentStageIndex].stageId,
         direction,
       });
       setCurrentStageIndex(index);
@@ -831,7 +921,7 @@ const UnblockRace = ({
     let moves = 0;
     for (const result of completedStages.values()) {
       seconds += result.seconds;
-      moves += result.movesMade;
+      moves += result.score.movesMade ?? 0;
     }
     return { seconds, moves };
   }, [completedStages]);
@@ -945,7 +1035,11 @@ const UnblockRace = ({
       if (!result) {
         continue;
       }
-      points += scoreStage(result.seconds, result.movesRequired, comboIndex);
+      points += scoreStage(
+        result.seconds,
+        result.score.movesRequired,
+        comboIndex
+      );
       comboIndex += 1;
     }
     return points;
@@ -993,12 +1087,20 @@ const UnblockRace = ({
     if (!result) {
       return undefined;
     }
+    // completedStages is populated by stageResults.ts's own extractScore,
+    // which always returns a defined movesMade (defaults to 0) — the
+    // fallback is type-narrowing only, never actually exercised here.
+    const movesMade = result.score.movesMade ?? 0;
     return {
-      stars: starRatingForMoves(result.movesMade, result.movesRequired),
+      stars: starRatingForMoves(movesMade, result.score.movesRequired),
       seconds: result.seconds,
-      movesMade: result.movesMade,
-      movesRequired: result.movesRequired,
-      points: scoreStage(result.seconds, result.movesRequired, dayPuzzleIndex),
+      movesMade,
+      movesRequired: result.score.movesRequired,
+      points: scoreStage(
+        result.seconds,
+        result.score.movesRequired,
+        dayPuzzleIndex
+      ),
       label: isCollectionPuzzle
         ? `Collection puzzle ${metadata.unblockCollectionPuzzleId?.split('-').pop()}`
         : undefined,
@@ -1186,7 +1288,7 @@ const UnblockRace = ({
   const redirectUri = useMemo(
     () =>
       buildPuzzleUrl(
-        stages.map((s) => s.boardString),
+        stages.map((s) => s.stageId),
         stages.map((s) => s.movesRequired),
         { runId }
       ),
@@ -1311,7 +1413,7 @@ const UnblockRace = ({
   const presenceStageByUserId = useMemo(
     () =>
       stages.length > 1
-        ? calculatePresenceStageByUserId({
+        ? genericCalculatePresenceStageByUserId<RunStage, ServerState>({
             stages,
             runStageParties,
             userId: user?.sub,
@@ -1328,7 +1430,7 @@ const UnblockRace = ({
   const mostRecentUpdatedAtByUserId = useMemo(
     () =>
       stages.length > 1
-        ? calculateMostRecentUpdatedAtByUserId({
+        ? genericCalculateMostRecentUpdatedAtByUserId<RunStage, ServerState>({
             stages,
             runStageParties,
             userId: user?.sub,
@@ -1862,6 +1964,8 @@ const UnblockRace = ({
                 onInviteFriends={handleInviteFriends}
                 runResults={runResults}
                 totalStages={stages.length}
+                renderStageScore={renderStageScore}
+                renderTotalScore={renderTotalScore}
                 presenceStageByUserId={presenceStageByUserId}
                 localAgentProgress={localAgentProgress}
                 rateApp={rateApp}

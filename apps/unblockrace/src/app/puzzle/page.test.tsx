@@ -20,7 +20,7 @@ jest.mock('@bubblyclouds-app/unblockrace/components/UnblockRace', () => {
   const DummyUnblockRace = function DummyUnblockRace({
     run,
   }: {
-    run: { stages: { boardString: string; movesRequired: number }[] };
+    run: { stages: { stageId: string; movesRequired: number }[] };
   }) {
     // Mirrors UnblockRace's own useState(() => ...) initializers: only fires
     // once per mount, so a stale instance reused across a stage-count change
@@ -29,7 +29,7 @@ jest.mock('@bubblyclouds-app/unblockrace/components/UnblockRace', () => {
     return (
       <div data-testid="unblock-race">
         {run.stages
-          .map((stage) => `${stage.boardString}:${stage.movesRequired}`)
+          .map((stage) => `${stage.stageId}:${stage.movesRequired}`)
           .join('|')}
       </div>
     );
@@ -122,7 +122,7 @@ describe('Puzzle Page', () => {
     // the component instance were reused across a "continue to next puzzle"
     // navigation — e.g. from a 5-stage daily run down to a 1-stage
     // collection puzzle — currentStageIndex could stay pointed past the end
-    // of the new, shorter stages array and crash on stages[index].boardString.
+    // of the new, shorter stages array and crash on stages[index].stageId.
     const dailyRunParams = new URLSearchParams();
     dailyRunParams.set('board', `${BOARD_1},${BOARD_2}`);
     dailyRunParams.set('moves', '3,5');

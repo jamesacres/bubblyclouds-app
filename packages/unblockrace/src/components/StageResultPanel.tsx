@@ -2,7 +2,8 @@
 
 import { memo } from 'react';
 import { Car, Check, Flag, RotateCcw, Target, Trophy } from 'lucide-react';
-import { RunStage, StageResult } from '../helpers/stageResults';
+import { RunStage, StageScore } from '../helpers/stageResults';
+import { PlayerStageResult } from '@bubblyclouds-app/games/types/scoringTypes';
 import { difficultyForMoves } from '../helpers/difficulty';
 import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
 import { formatSecondsShort } from '../helpers/formatSecondsShort';
@@ -12,7 +13,7 @@ interface StageResultPanelProps {
   // Per-stage results keyed by stage index (SPEC.md §6: stats persist per
   // stage even if the run isn't finished). Drives the "all stages in one
   // view" readout the summary popup used to hide.
-  results: Map<number, StageResult>;
+  results: Map<number, PlayerStageResult<StageScore>>;
   // The run's stages, so each row can render its own mini board thumbnail
   // that doubles as the click-to-navigate link into that stage.
   stages: RunStage[];
@@ -71,7 +72,7 @@ const StageResultPanel = memo(function StageResultPanel({
     0
   );
   const totalMoves = [...results.values()].reduce(
-    (sum, r) => sum + r.movesMade,
+    (sum, r) => sum + (r.score.movesMade ?? 0),
     0
   );
 
@@ -171,9 +172,11 @@ const StageResultPanel = memo(function StageResultPanel({
           {stages.map((stage, i) => {
             const result = results.get(i);
             const isOverPar =
-              !!result && result.movesMade > result.movesRequired;
+              !!result &&
+              (result.score.movesMade ?? 0) > result.score.movesRequired;
             const isUnderPar =
-              !!result && result.movesMade < result.movesRequired;
+              !!result &&
+              (result.score.movesMade ?? 0) < result.score.movesRequired;
             const isCurrent = i === currentStageIndex;
             const difficulty = unblockDifficultyDisplay(
               difficultyForMoves(stage.movesRequired)
@@ -190,7 +193,7 @@ const StageResultPanel = memo(function StageResultPanel({
             }
             return (
               <li
-                key={stage.boardString}
+                key={stage.stageId}
                 data-testid={`stage-result-${i}`}
                 className={`relative flex min-w-0 flex-1 flex-col items-center gap-1 text-center ${
                   isCurrent
@@ -208,7 +211,7 @@ const StageResultPanel = memo(function StageResultPanel({
                   aria-current={isCurrent}
                   aria-label={`Stage ${i + 1}${
                     result
-                      ? `, completed in ${formatSecondsShort(result.seconds)}, ${result.movesMade} moves`
+                      ? `, completed in ${formatSecondsShort(result.seconds)}, ${result.score.movesMade ?? 0} moves`
                       : ''
                   }`}
                   className="shrink-0"
@@ -224,11 +227,7 @@ const StageResultPanel = memo(function StageResultPanel({
                   >
                     {/* muteRivals: at 48px only the hero car should carry
                         colour — the full palette reads as static */}
-                    <SimpleBoard
-                      initial={stage.boardString}
-                      compact
-                      muteRivals
-                    />
+                    <SimpleBoard initial={stage.stageId} compact muteRivals />
                     {isCurrent ? (
                       // The car marker sits on the current stage: this is
                       // where you are on the route
@@ -305,7 +304,7 @@ const StageResultPanel = memo(function StageResultPanel({
                           : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
                     }`}
                   >
-                    {result.movesMade}/{result.movesRequired}
+                    {result.score.movesMade ?? 0}/{result.score.movesRequired}
                     <span className="sr-only"> moves ·</span>{' '}
                     {formatSecondsShort(result.seconds)}
                   </span>

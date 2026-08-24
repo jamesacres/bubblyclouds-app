@@ -1,7 +1,8 @@
 import { ComponentProps } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import StageResultPanel from './StageResultPanel';
-import { RunStage, StageResult } from '../helpers/stageResults';
+import { RunStage, StageScore } from '../helpers/stageResults';
+import { PlayerStageResult } from '@bubblyclouds-app/games/types/scoringTypes';
 
 // A distinct valid 6x6 board per stage: piece A (horizontal, size 2) sits at a
 // different column each time, so every stage has a unique board string (the
@@ -22,12 +23,12 @@ const boardWithPieceAt = (col: number): string => {
 
 const stagesOf = (count: number): RunStage[] =>
   Array.from({ length: count }, (_, i) => ({
-    boardString: boardWithPieceAt(i),
+    stageId: boardWithPieceAt(i),
     movesRequired: 5,
   }));
 
-const results = (entries: [number, StageResult][]) =>
-  new Map<number, StageResult>(entries);
+const results = (entries: [number, PlayerStageResult<StageScore>][]) =>
+  new Map<number, PlayerStageResult<StageScore>>(entries);
 
 const renderPanel = (props: Partial<ComponentProps<typeof StageResultPanel>>) =>
   render(
@@ -60,9 +61,9 @@ describe('StageResultPanel', () => {
   it('shows the difficulty next to every stage from its par', () => {
     renderPanel({
       stages: [
-        { boardString: boardWithPieceAt(0), movesRequired: 5 },
-        { boardString: boardWithPieceAt(1), movesRequired: 18 },
-        { boardString: boardWithPieceAt(2), movesRequired: 25 },
+        { stageId: boardWithPieceAt(0), movesRequired: 5 },
+        { stageId: boardWithPieceAt(1), movesRequired: 18 },
+        { stageId: boardWithPieceAt(2), movesRequired: 25 },
       ],
     });
     // difficultyForMoves → unblockDifficultyDisplay: 5=Beginner,
@@ -81,8 +82,8 @@ describe('StageResultPanel', () => {
       stages: stagesOf(3),
       currentStageIndex: 1,
       results: results([
-        [0, { seconds: 30, movesMade: 4, movesRequired: 4 }],
-        [1, { seconds: 45, movesMade: 7, movesRequired: 5 }],
+        [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
+        [1, { seconds: 45, score: { movesMade: 7, movesRequired: 5 } }],
       ]),
     });
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('0:30');
@@ -121,7 +122,9 @@ describe('StageResultPanel', () => {
   it('shows the opponent delta when provided', () => {
     renderPanel({
       stages: stagesOf(2),
-      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+      results: results([
+        [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
+      ]),
       opponentDeltaSeconds: 3,
     });
     expect(screen.getByTestId('stage-result-opponent')).toHaveTextContent(
@@ -132,7 +135,9 @@ describe('StageResultPanel', () => {
   it('phrases a negative delta as behind the opponent', () => {
     renderPanel({
       stages: stagesOf(2),
-      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+      results: results([
+        [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
+      ]),
       opponentDeltaSeconds: -3,
     });
     expect(screen.getByTestId('stage-result-opponent')).toHaveTextContent(
@@ -145,8 +150,8 @@ describe('StageResultPanel', () => {
       stages: stagesOf(2),
       currentStageIndex: 1,
       results: results([
-        [0, { seconds: 30, movesMade: 4, movesRequired: 4 }],
-        [1, { seconds: 40, movesMade: 6, movesRequired: 5 }],
+        [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
+        [1, { seconds: 40, score: { movesMade: 6, movesRequired: 5 } }],
       ]),
       runComplete: true,
     });
@@ -171,7 +176,9 @@ describe('StageResultPanel', () => {
     renderPanel({
       stages: stagesOf(3),
       currentStageIndex: 0,
-      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+      results: results([
+        [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
+      ]),
     });
     expect(screen.getByTestId('retry-stage-button')).toBeInTheDocument();
   });
@@ -181,7 +188,9 @@ describe('StageResultPanel', () => {
     renderPanel({
       stages: stagesOf(3),
       currentStageIndex: 0,
-      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+      results: results([
+        [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
+      ]),
       onRetry,
     });
     fireEvent.click(screen.getByTestId('retry-stage-button'));
@@ -192,7 +201,9 @@ describe('StageResultPanel', () => {
     renderPanel({
       stages: stagesOf(3),
       currentStageIndex: 0,
-      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+      results: results([
+        [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
+      ]),
       isRetryDisabled: true,
     });
     expect(screen.getByTestId('retry-stage-button')).toBeDisabled();
@@ -203,10 +214,10 @@ describe('StageResultPanel', () => {
     // "Beginner" and par 44 is "Expert" — only the middle pair should merge.
     renderPanel({
       stages: [
-        { boardString: boardWithPieceAt(0), movesRequired: 5 },
-        { boardString: boardWithPieceAt(1), movesRequired: 17 },
-        { boardString: boardWithPieceAt(2), movesRequired: 20 },
-        { boardString: boardWithPieceAt(3), movesRequired: 44 },
+        { stageId: boardWithPieceAt(0), movesRequired: 5 },
+        { stageId: boardWithPieceAt(1), movesRequired: 17 },
+        { stageId: boardWithPieceAt(2), movesRequired: 20 },
+        { stageId: boardWithPieceAt(3), movesRequired: 44 },
       ],
     });
     expect(screen.getByTestId('stage-difficulty-0')).toHaveTextContent(
@@ -235,10 +246,12 @@ describe('StageResultPanel', () => {
   it('does not merge a stage that already has a result with an upcoming one of the same difficulty', () => {
     renderPanel({
       stages: [
-        { boardString: boardWithPieceAt(0), movesRequired: 17 },
-        { boardString: boardWithPieceAt(1), movesRequired: 17 },
+        { stageId: boardWithPieceAt(0), movesRequired: 17 },
+        { stageId: boardWithPieceAt(1), movesRequired: 17 },
       ],
-      results: results([[0, { seconds: 30, movesMade: 4, movesRequired: 4 }]]),
+      results: results([
+        [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
+      ]),
     });
     expect(screen.getByTestId('stage-difficulty-1')).toHaveTextContent(
       'Challenging'
@@ -251,9 +264,9 @@ describe('StageResultPanel', () => {
   it('squares off both corners of a middle pill in a run of 3+ same-difficulty stages', () => {
     renderPanel({
       stages: [
-        { boardString: boardWithPieceAt(0), movesRequired: 17 },
-        { boardString: boardWithPieceAt(1), movesRequired: 17 },
-        { boardString: boardWithPieceAt(2), movesRequired: 17 },
+        { stageId: boardWithPieceAt(0), movesRequired: 17 },
+        { stageId: boardWithPieceAt(1), movesRequired: 17 },
+        { stageId: boardWithPieceAt(2), movesRequired: 17 },
       ],
     });
     expect(screen.getByTestId('stage-difficulty-0')).toHaveClass(
