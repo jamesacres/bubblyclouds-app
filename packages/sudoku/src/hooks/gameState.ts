@@ -43,8 +43,15 @@ import { useDocumentVisibility } from '@bubblyclouds-app/template/hooks/document
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import type { SubscriptionContext as SubscriptionContextType } from '@bubblyclouds-app/types/subscriptionContext';
-
-const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+import { useHandleServerResponse } from '@bubblyclouds-app/games/hooks/handleServerResponse';
+import {
+  useInactivityPause,
+  INACTIVITY_MS,
+} from '@bubblyclouds-app/games/hooks/inactivityPause';
+import {
+  shrinkAnswerStack,
+  shrinkAnswerStackLocal,
+} from '@bubblyclouds-app/games/helpers/shrinkAnswerStack';
 
 function useGameState({
   final,
@@ -90,17 +97,9 @@ function useGameState({
   // Track last saved answer to prevent unnecessary saves
   const lastSavedAnswerRef = useRef<Puzzle | null>(null);
 
-  // Track if timer is paused due to inactivity
-  const [isPausedDueToInactivity, setIsPausedDueToInactivity] = useState(false);
-  const isPausedDueToInactivityRef = useRef(isPausedDueToInactivity);
-
   useEffect(() => {
     timerRef.current = timer;
   }, [timer]);
-
-  useEffect(() => {
-    isPausedDueToInactivityRef.current = isPausedDueToInactivity;
-  }, [isPausedDueToInactivity]);
 
   const { getValue: getLocalValue, saveValue: saveLocalValue } =
     useLocalStorage({
@@ -163,19 +162,24 @@ function useGameState({
 
   const [selectedCell, setSelectedCellState] = useState<null | string>(null);
   const lastSelectedCellChangeRef = useRef<number>(Date.now());
+  const { isPausedDueToInactivityRef } = useInactivityPause({
+    lastInteractionRef: lastSelectedCellChangeRef,
+    completed,
+    isPaused,
+    setPauseTimer,
+  });
   const setSelectedCell = useCallback(
     (selectedCell: string | null) => {
       if (!completed) {
         lastSelectedCellChangeRef.current = Date.now();
         // Resume timer if it was paused due to inactivity
         if (isPausedDueToInactivityRef.current) {
-          setIsPausedDueToInactivity(false);
           setPauseTimer(false);
         }
         setSelectedCellState(selectedCell);
       }
     },
-    [completed, setPauseTimer]
+    [completed, setPauseTimer, isPausedDueToInactivityRef]
   );
 
   const getValue = useCallback((): {
@@ -190,24 +194,6 @@ function useGameState({
     const serverValuePromise = getServerValue<ServerState>();
     return { localValue, serverValuePromise };
   }, [getLocalValue, getServerValue]);
-
-  const shrinkAnswerStack = useCallback((answerStack: Puzzle[]): Puzzle[] => {
-    // Only store the last 3 guesses on the server
-    return answerStack.slice(-3);
-  }, []);
-
-  const shrinkAnswerStackLocal = useCallback(
-    (answerStack: Puzzle[], completed?: GameState['completed']): Puzzle[] => {
-      // For completed puzzles, only store the last 2 states (needed for cheat detection)
-      if (completed) {
-        return answerStack.slice(-2);
-      }
-      // For in-progress puzzles, store last 10 moves to support undo/redo
-      // while preventing excessive storage usage
-      return answerStack.slice(-10);
-    },
-    []
-  );
 
   const saveValue = useCallback(
     (
@@ -250,29 +236,9 @@ function useGameState({
         : undefined;
       return { localValue, serverValuePromise };
     },
-    [
-      saveLocalValue,
-      saveServerValue,
-      timerRef,
-      shrinkAnswerStack,
-      shrinkAnswerStackLocal,
-    ]
+    [saveLocalValue, saveServerValue, timerRef]
   );
-  const handleServerResponse = useCallback(
-    (
-      active: boolean,
-      serverValue: ServerStateResult<ServerState> | undefined
-    ) => {
-      if (
-        active &&
-        serverValue?.parties &&
-        Object.keys(serverValue.parties).length
-      ) {
-        setSessionParties(serverValue.parties);
-      }
-    },
-    [setSessionParties]
-  );
+  const handleServerResponse = useHandleServerResponse(setSessionParties);
 
   // Answers
   const answer = answerStack[answerStack.length - 1];
@@ -813,38 +779,6 @@ function useGameState({
       setIsPolling(false);
     }
   }, [getValue, setSessionParties]);
-
-  // Check for inactivity and pause timer/polling if no selectedCell change in 5 minutes
-  useEffect(() => {
-    let intervalId: ReturnType<typeof setInterval>;
-
-    if (!completed) {
-      intervalId = setInterval(() => {
-        const now = Date.now();
-        const timeSinceLastChange = now - lastSelectedCellChangeRef.current;
-
-        if (timeSinceLastChange >= INACTIVITY_MS) {
-          if (!isPaused && !isPausedDueToInactivity) {
-            console.info('pausing due to inactivity');
-            setIsPausedDueToInactivity(true);
-            setPauseTimer(true);
-          }
-        } else {
-          if (isPausedDueToInactivity) {
-            console.info('resuming after inactivity');
-            setIsPausedDueToInactivity(false);
-            setPauseTimer(false);
-          }
-        }
-      }, 60000); // Check every minute
-    }
-
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [completed, isPaused, isPausedDueToInactivity, setPauseTimer]);
 
   return {
     answer,

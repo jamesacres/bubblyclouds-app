@@ -33,8 +33,15 @@ import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext
 import { useDocumentVisibility } from '@bubblyclouds-app/template/hooks/documentVisibility';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
-
-const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+import { useHandleServerResponse } from '@bubblyclouds-app/games/hooks/handleServerResponse';
+import {
+  useInactivityPause,
+  INACTIVITY_MS,
+} from '@bubblyclouds-app/games/hooks/inactivityPause';
+import {
+  shrinkAnswerStack,
+  shrinkAnswerStackLocal,
+} from '@bubblyclouds-app/games/helpers/shrinkAnswerStack';
 
 // Persisted answer stacks are truncated (last 3 snapshots on the server,
 // last 10 locally), so stack length under-counts moves after a restore. The
@@ -105,17 +112,9 @@ function useGameState({
   // Track last saved answer to prevent unnecessary saves
   const lastSavedAnswerRef = useRef<string | null>(null);
 
-  // Track if timer is paused due to inactivity
-  const [isPausedDueToInactivity, setIsPausedDueToInactivity] = useState(false);
-  const isPausedDueToInactivityRef = useRef(isPausedDueToInactivity);
-
   useEffect(() => {
     timerRef.current = timer;
   }, [timer]);
-
-  useEffect(() => {
-    isPausedDueToInactivityRef.current = isPausedDueToInactivity;
-  }, [isPausedDueToInactivity]);
 
   const { getValue: getLocalValue, saveValue: saveLocalValue } =
     useLocalStorage({
@@ -235,16 +234,21 @@ function useGameState({
   // Interaction tracking replaces sudoku's selected-cell tracking: every
   // committed move counts as an interaction for the inactivity pause.
   const lastInteractionRef = useRef<number>(Date.now());
+  const { isPausedDueToInactivityRef } = useInactivityPause({
+    lastInteractionRef,
+    completed,
+    isPaused,
+    setPauseTimer,
+  });
   const registerInteraction = useCallback(() => {
     if (!completed) {
       lastInteractionRef.current = Date.now();
       // Resume timer if it was paused due to inactivity
       if (isPausedDueToInactivityRef.current) {
-        setIsPausedDueToInactivity(false);
         setPauseTimer(false);
       }
     }
-  }, [completed, setPauseTimer]);
+  }, [completed, setPauseTimer, isPausedDueToInactivityRef]);
 
   const getValue = useCallback((): {
     localValue: { lastUpdated: number; state: GameState } | undefined;
@@ -258,24 +262,6 @@ function useGameState({
     const serverValuePromise = getServerValue<ServerState>();
     return { localValue, serverValuePromise };
   }, [getLocalValue, getServerValue]);
-
-  const shrinkAnswerStack = useCallback((answerStack: string[]): string[] => {
-    // Only store the last 3 board snapshots on the server
-    return answerStack.slice(-3);
-  }, []);
-
-  const shrinkAnswerStackLocal = useCallback(
-    (answerStack: string[], completed?: GameState['completed']): string[] => {
-      // For completed puzzles, only store the last 2 states (needed for cheat detection)
-      if (completed) {
-        return answerStack.slice(-2);
-      }
-      // For in-progress puzzles, store last 10 moves to support undo/redo
-      // while preventing excessive storage usage
-      return answerStack.slice(-10);
-    },
-    []
-  );
 
   const saveValue = useCallback(
     (
@@ -311,29 +297,9 @@ function useGameState({
         : undefined;
       return { localValue, serverValuePromise };
     },
-    [
-      saveLocalValue,
-      saveServerValue,
-      timerRef,
-      shrinkAnswerStack,
-      shrinkAnswerStackLocal,
-    ]
+    [saveLocalValue, saveServerValue, timerRef]
   );
-  const handleServerResponse = useCallback(
-    (
-      active: boolean,
-      serverValue: ServerStateResult<ServerState> | undefined
-    ) => {
-      if (
-        active &&
-        serverValue?.parties &&
-        Object.keys(serverValue.parties).length
-      ) {
-        setSessionParties(serverValue.parties);
-      }
-    },
-    [setSessionParties]
-  );
+  const handleServerResponse = useHandleServerResponse(setSessionParties);
 
   // Stable key for the run's stage ids so callers passing a fresh array each
   // render don't re-trigger the end-of-stage fetch.
@@ -976,36 +942,6 @@ function useGameState({
       setIsPolling(false);
     }
   }, [getValue, setSessionParties, fetchOtherStageParties]);
-
-  // Check for inactivity and pause timer/polling if no interaction in 5 minutes
-  useEffect(() => {
-    let intervalId: ReturnType<typeof setInterval>;
-
-    if (!completed) {
-      intervalId = setInterval(() => {
-        const now = Date.now();
-        const timeSinceLastInteraction = now - lastInteractionRef.current;
-
-        if (timeSinceLastInteraction >= INACTIVITY_MS) {
-          if (!isPaused && !isPausedDueToInactivity) {
-            setIsPausedDueToInactivity(true);
-            setPauseTimer(true);
-          }
-        } else {
-          if (isPausedDueToInactivity) {
-            setIsPausedDueToInactivity(false);
-            setPauseTimer(false);
-          }
-        }
-      }, 60000); // Check every minute
-    }
-
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [completed, isPaused, isPausedDueToInactivity, setPauseTimer]);
 
   return {
     answer,
