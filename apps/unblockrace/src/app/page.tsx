@@ -579,12 +579,14 @@ function HomeComponent() {
           </div>
 
           {/* Rate the app */}
-          <RateAppButton
-            variant="card"
-            appName={APP_CONFIG.gameName}
-            appStoreUrl={APP_CONFIG.appStoreUrl}
-            googlePlayUrl={APP_CONFIG.googlePlayUrl}
-          />
+          <div className="container mx-auto max-w-4xl px-5">
+            <RateAppButton
+              variant="card"
+              appName={APP_CONFIG.gameName}
+              appStoreUrl={APP_CONFIG.appStoreUrl}
+              googlePlayUrl={APP_CONFIG.googlePlayUrl}
+            />
+          </div>
 
           {/* Premium features */}
           <PremiumFeatures

@@ -9,6 +9,10 @@ interface CollectionCoverProps {
   background: string;
   shadow: string;
   titleGlow: string;
+  // Optional decorative badge (e.g. a themed emoji) shown in the corner of
+  // the portrait variant, with an optional CSS animation class applied to it.
+  icon?: string;
+  iconAnimationClass?: string;
   // The board preview shown on the cover — the caller's own thumbnail
   // render, so the cover always looks like the game it belongs to.
   children: ReactNode;
@@ -33,6 +37,8 @@ const CollectionCover = ({
   background,
   shadow,
   titleGlow,
+  icon,
+  iconAnimationClass,
   children,
 }: CollectionCoverProps) => {
   if (variant === 'tile') {
@@ -61,6 +67,14 @@ const CollectionCover = ({
         boxShadow: shadow,
       }}
     >
+      {icon && (
+        <div
+          className={`absolute right-3 top-3 text-2xl opacity-80 ${iconAnimationClass || ''}`}
+          aria-hidden="true"
+        >
+          {icon}
+        </div>
+      )}
       <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">
         {kicker}
       </p>

@@ -54,6 +54,25 @@ describe('CollectionCover', () => {
     expect(screen.getByText('Weekly set')).toBeInTheDocument();
   });
 
+  it('renders an icon badge with its animation class when supplied', () => {
+    render(
+      <CollectionCover
+        {...baseProps}
+        title="July 2026"
+        icon="🏁"
+        iconAnimationClass="animate-wave"
+      />
+    );
+    const badge = screen.getByText('🏁');
+    expect(badge).toBeInTheDocument();
+    expect(badge.className).toContain('animate-wave');
+  });
+
+  it('omits the icon badge when none is supplied', () => {
+    render(<CollectionCover {...baseProps} title="July 2026" />);
+    expect(screen.queryByText('🏁')).not.toBeInTheDocument();
+  });
+
   it('renders the caller-supplied board preview in both variants', () => {
     const { container: portrait } = render(
       <CollectionCover {...baseProps} title="July 2026" variant="portrait" />
