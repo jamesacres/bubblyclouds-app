@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo } from 'react';
 import { InAppReview } from '@capacitor-community/in-app-review';
 import { Trophy } from 'lucide-react';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
@@ -8,28 +8,22 @@ import { CountUp } from '@bubblyclouds-app/ui/components/CountUp';
 import RaceCelebrationOverlay, {
   CELEBRATION_MS,
 } from '@bubblyclouds-app/ui/components/RaceCelebrationOverlay';
-import { formatSecondsShort } from '../helpers/formatSecondsShort';
-import { getPieceColor } from '../helpers/pieceColors';
 
 // How long the finish celebration owns the screen. Passthrough of the shared
-// overlay's timing so UnblockRace's showAnimation window stays in sync without
-// a second magic number.
+// overlay's timing so a game's own showAnimation window stays in sync
+// without a second magic number.
 export const RACE_CELEBRATION_MS = CELEBRATION_MS;
-
-// Confetti wears the board's own piece palette so the rain reads as this game
-// bursting, not a generic party. Scattered/coloured once — one shared palette
-// per page load is indistinguishable to the player.
-const CONFETTI_COLORS = Array.from({ length: 10 }, (_, i) =>
-  getPieceColor(1 + i)
-);
 
 interface RaceCelebrationProps {
   isVisible: boolean;
-  // Whole-run totals for the banner (sum of every stage, not just the last).
-  totalSeconds: number;
-  totalMoves: number;
-  // Run-total star grade (total moves vs total par) and summed leaderboard
-  // points across every stage — the same addictive payoff the per-stage slam
+  // The run-total readout (e.g. "1:35 · 42 moves") — formatting and the
+  // scoring dimension shown are entirely the caller's concern.
+  statsLine: ReactNode;
+  // Confetti wears the caller's own palette so the rain reads as this
+  // game bursting, not a generic party.
+  confettiColors: string[];
+  // Run-total star grade (total score vs total par) and summed leaderboard
+  // points across every stage — the same addictive payoff a per-stage slam
   // shows, tallied for the whole run. Omitted for runs that can't be graded.
   stars?: number;
   points?: number;
@@ -37,17 +31,17 @@ interface RaceCelebrationProps {
   isCapacitor?: () => boolean;
 }
 
-// Unblock Race's own finish celebration — the shared @ui CelebrationAnimation
-// keeps its exploding-numbers styling for sudoku (this board has no text
+// A game's own finish celebration — the shared @ui CelebrationAnimation
+// keeps its exploding-numbers styling for sudoku (that board has no text
 // cells for it to explode, and it blanks the grid while it runs). This one is
 // a race podium moment built on the shared RaceCelebrationOverlay: checkered/
 // palette confetti rain, a FINISH! banner slam carrying the run totals, and
-// the hero car taking a victory lap across the screen. The board stays visible
+// a hero car taking a victory lap across the screen. The board stays visible
 // and glowing underneath throughout.
 const RaceCelebration = ({
   isVisible,
-  totalSeconds,
-  totalMoves,
+  statsLine,
+  confettiColors,
   stars,
   points,
   completedGamesCount = 0,
@@ -67,7 +61,7 @@ const RaceCelebration = ({
             completedGamesCount
           )
         ) {
-          InAppReview.requestReview().catch((e) => {
+          InAppReview.requestReview().catch((e: unknown) => {
             console.error(e);
           });
         }
@@ -101,11 +95,7 @@ const RaceCelebration = ({
             animation: 'celebration-banner-rise 400ms ease-out 500ms both',
           }}
         >
-          {formatSecondsShort(totalSeconds)}
-          <span className="text-base font-semibold text-white/75">
-            {' '}
-            · {totalMoves} moves
-          </span>
+          {statsLine}
         </div>
         {points !== undefined && (
           <div
@@ -129,7 +119,7 @@ const RaceCelebration = ({
         )}
       </>
     ),
-    [stars, points, totalSeconds, totalMoves]
+    [stars, points, statsLine]
   );
 
   if (!isVisible) {
@@ -141,7 +131,7 @@ const RaceCelebration = ({
       <RaceCelebrationOverlay
         isVisible={isVisible}
         title="Finish!"
-        confettiColors={CONFETTI_COLORS}
+        confettiColors={confettiColors}
         checkered
         badge={
           <div className="flex items-center gap-2 rounded-full bg-zinc-900/85 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-lg ring-1 ring-white/15">
@@ -158,11 +148,11 @@ const RaceCelebration = ({
           style={{
             top: '68%',
             left: '-12%',
-            animation: `unblock-victory-lap 1500ms cubic-bezier(0.5, 0, 0.7, 1) 700ms both`,
+            animation: `race-celebration-victory-lap 1500ms cubic-bezier(0.5, 0, 0.7, 1) 700ms both`,
           }}
         >
           <style>{`
-            @keyframes unblock-victory-lap {
+            @keyframes race-celebration-victory-lap {
               from { left: -12%; }
               to { left: 112%; }
             }

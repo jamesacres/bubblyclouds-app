@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import RaceHud from './RaceHud';
-import { UnblockDifficultyDisplay } from '../helpers/difficultyDisplay';
+import { DifficultyDisplay } from '../types/difficultyDisplay';
 
-const difficulty: UnblockDifficultyDisplay = {
+const difficulty: DifficultyDisplay = {
   label: 'Challenging',
   chipClass: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
 };

@@ -1,27 +1,18 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import NextPuzzlePanel from './NextPuzzlePanel';
-import { NextCollectionPuzzle } from '../helpers/nextCollectionPuzzle';
+import { DifficultyDisplay } from '../types/difficultyDisplay';
 
-const makeNext = (
-  overrides: Partial<NextCollectionPuzzle> = {}
-): NextCollectionPuzzle => ({
-  puzzle: {
-    initial: 'oooooo',
-    final: 'oooooo',
-    movesRequired: 5,
-    difficulty: 'hard',
-  },
-  index: 3,
-  unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3',
-  isLocked: false,
-  ...overrides,
-});
+const difficulty: DifficultyDisplay = {
+  label: 'Hard',
+  chipClass: 'bg-orange-500/15 text-orange-600 dark:text-orange-400',
+};
 
 describe('NextPuzzlePanel', () => {
   it('renders the continue CTA, difficulty badge and progress label', () => {
     render(
       <NextPuzzlePanel
-        next={makeNext()}
+        difficulty={difficulty}
+        isLocked={false}
         progressLabel="3 of 8 Hard complete"
         onContinue={jest.fn()}
       />
@@ -41,7 +32,8 @@ describe('NextPuzzlePanel', () => {
     const onContinue = jest.fn();
     render(
       <NextPuzzlePanel
-        next={makeNext()}
+        difficulty={difficulty}
+        isLocked={false}
         progressLabel="progress"
         onContinue={onContinue}
       />
@@ -54,7 +46,8 @@ describe('NextPuzzlePanel', () => {
   it('shows the Plus-locked label when the next puzzle is locked', () => {
     render(
       <NextPuzzlePanel
-        next={makeNext({ isLocked: true })}
+        difficulty={difficulty}
+        isLocked
         progressLabel="progress"
         onContinue={jest.fn()}
       />
@@ -69,7 +62,8 @@ describe('NextPuzzlePanel', () => {
     const onContinue = jest.fn();
     render(
       <NextPuzzlePanel
-        next={makeNext({ isLocked: true })}
+        difficulty={difficulty}
+        isLocked
         progressLabel="progress"
         onContinue={onContinue}
       />

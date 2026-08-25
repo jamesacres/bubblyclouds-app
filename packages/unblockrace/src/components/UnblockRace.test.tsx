@@ -91,7 +91,7 @@ jest.mock('@bubblyclouds-app/games/components/LobbyButton', () => {
     default: DummyLobbyButton,
   };
 });
-jest.mock('./RaceCelebration', () => {
+jest.mock('@bubblyclouds-app/games/components/RaceCelebration', () => {
   const DummyRaceCelebration = function DummyRaceCelebration() {
     return <div data-testid="celebration">Celebration</div>;
   };

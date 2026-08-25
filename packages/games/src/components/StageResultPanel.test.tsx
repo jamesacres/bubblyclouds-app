@@ -1,8 +1,18 @@
 import { ComponentProps } from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import StageResultPanel from './StageResultPanel';
-import { RunStage, StageScore } from '../helpers/stageResults';
-import { PlayerStageResult } from '@bubblyclouds-app/games/types/scoringTypes';
+import { RunStage } from '../types/runTypes';
+import { PlayerStageResult } from '../types/scoringTypes';
+import { DifficultyDisplay } from '../types/difficultyDisplay';
+
+interface TestStage extends RunStage {
+  movesRequired: number;
+}
+
+interface TestScore {
+  movesMade: number;
+  movesRequired: number;
+}
 
 // A distinct valid 6x6 board per stage: piece A (horizontal, size 2) sits at a
 // different column each time, so every stage has a unique board string (the
@@ -21,18 +31,65 @@ const boardWithPieceAt = (col: number): string => {
   ].join('');
 };
 
-const stagesOf = (count: number): RunStage[] =>
+const stagesOf = (count: number): TestStage[] =>
   Array.from({ length: count }, (_, i) => ({
     stageId: boardWithPieceAt(i),
     movesRequired: 5,
   }));
 
-const results = (entries: [number, PlayerStageResult<StageScore>][]) =>
-  new Map<number, PlayerStageResult<StageScore>>(entries);
+const results = (entries: [number, PlayerStageResult<TestScore>][]) =>
+  new Map<number, PlayerStageResult<TestScore>>(entries);
 
-const renderPanel = (props: Partial<ComponentProps<typeof StageResultPanel>>) =>
+const DIFFICULTY_DISPLAYS: { [key: string]: DifficultyDisplay } = {
+  beginner: { label: 'Beginner', chipClass: 'bg-emerald-500/15' },
+  challenging: { label: 'Challenging', chipClass: 'bg-amber-500/15' },
+  hard: { label: 'Hard', chipClass: 'bg-orange-500/15' },
+  expert: { label: 'Expert', chipClass: 'bg-rose-500/15' },
+};
+
+const difficultyForMoves = (moves: number): string => {
+  if (moves <= 15) return 'beginner';
+  if (moves <= 20) return 'challenging';
+  if (moves <= 30) return 'hard';
+  return 'expert';
+};
+
+const getDifficultyDisplay = (stage: TestStage): DifficultyDisplay =>
+  DIFFICULTY_DISPLAYS[difficultyForMoves(stage.movesRequired)];
+
+const formatSeconds = (totalSeconds: number): string => {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = Math.floor(totalSeconds % 60);
+  return `${minutes}:${`${seconds}`.padStart(2, '0')}`;
+};
+
+const renderResult = (result: PlayerStageResult<TestScore>) => {
+  const { movesMade, movesRequired } = result.score;
+  const parState =
+    movesMade > movesRequired
+      ? ('over' as const)
+      : movesMade < movesRequired
+        ? ('under' as const)
+        : ('met' as const);
+  return { content: `${movesMade}/${movesRequired} moves`, parState };
+};
+
+const renderUpcoming = (stage: TestStage) => `par ${stage.movesRequired}`;
+
+const renderTotal = (results: PlayerStageResult<TestScore>[]) => {
+  const totalMoves = results.reduce((sum, r) => sum + r.score.movesMade, 0);
+  return `${totalMoves} moves`;
+};
+
+const renderThumbnail = (stage: TestStage) => (
+  <div data-testid={`thumbnail-${stage.stageId}`} />
+);
+
+const renderPanel = (
+  props: Partial<ComponentProps<typeof StageResultPanel<TestStage, TestScore>>>
+) =>
   render(
-    <StageResultPanel
+    <StageResultPanel<TestStage, TestScore>
       results={results([])}
       stages={stagesOf(3)}
       currentStageIndex={0}
@@ -41,6 +98,12 @@ const renderPanel = (props: Partial<ComponentProps<typeof StageResultPanel>>) =>
       runComplete={false}
       onRetry={jest.fn()}
       isRetryDisabled={false}
+      formatSeconds={formatSeconds}
+      renderThumbnail={renderThumbnail}
+      getDifficultyDisplay={getDifficultyDisplay}
+      renderResult={renderResult}
+      renderUpcoming={renderUpcoming}
+      renderTotal={renderTotal}
       {...props}
     />
   );
@@ -66,8 +129,6 @@ describe('StageResultPanel', () => {
         { stageId: boardWithPieceAt(2), movesRequired: 25 },
       ],
     });
-    // difficultyForMoves → unblockDifficultyDisplay: 5=Beginner,
-    // 18=Challenging, 25=Hard. Shown even though no stage has completed yet.
     expect(screen.getByTestId('stage-difficulty-0')).toHaveTextContent(
       'Beginner'
     );
@@ -77,7 +138,7 @@ describe('StageResultPanel', () => {
     expect(screen.getByTestId('stage-difficulty-2')).toHaveTextContent('Hard');
   });
 
-  it('lists completed stages with time and moves against par', () => {
+  it('lists completed stages with time and score against par', () => {
     renderPanel({
       stages: stagesOf(3),
       currentStageIndex: 1,
@@ -88,19 +149,15 @@ describe('StageResultPanel', () => {
     });
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('0:30');
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('4/4');
-    // A completed stage ticks off its thumbnail
     expect(screen.getByTestId('stage-preview-0-complete')).toBeInTheDocument();
-    // A completed stage still shows its difficulty pill, not just the result
     expect(screen.getByTestId('stage-difficulty-0')).toHaveTextContent(
       'Beginner'
     );
     expect(screen.getByTestId('stage-difficulty-0')).not.toHaveClass(
       'invisible'
     );
-    // Over par gets the amber warning treatment on its par chip
     expect(screen.getByTestId('stage-par-1')).toHaveTextContent('7/5 moves');
     expect(screen.getByTestId('stage-par-1')).toHaveClass('text-amber-600');
-    // The final, not-yet-reached stage shows what's ahead and no tick
     expect(screen.getByTestId('stage-result-2')).toHaveTextContent('par 5');
     expect(
       screen.queryByTestId('stage-preview-2-complete')
@@ -210,8 +267,6 @@ describe('StageResultPanel', () => {
   });
 
   it('merges adjacent upcoming stages that share the same difficulty into one fused pill', () => {
-    // par 17 and par 20 are both "Challenging" (difficultyForMoves), par 5 is
-    // "Beginner" and par 44 is "Expert" — only the middle pair should merge.
     renderPanel({
       stages: [
         { stageId: boardWithPieceAt(0), movesRequired: 5 },
@@ -223,17 +278,12 @@ describe('StageResultPanel', () => {
     expect(screen.getByTestId('stage-difficulty-0')).toHaveTextContent(
       'Beginner'
     );
-    // The first of the merged pair keeps the label and squares off its
-    // trailing corner so it reads as fusing into the next pill.
     expect(screen.getByTestId('stage-difficulty-1')).toHaveTextContent(
       'Challenging'
     );
     expect(screen.getByTestId('stage-difficulty-1')).toHaveClass(
       'rounded-r-none'
     );
-    // The second of the merged pair renders no label — its pill is just the
-    // fused colour block, still in normal flow so its own par caption below
-    // never shifts.
     expect(screen.getByTestId('stage-difficulty-2')).toHaveTextContent('');
     expect(screen.getByTestId('stage-difficulty-2')).toHaveClass(
       'rounded-l-none'

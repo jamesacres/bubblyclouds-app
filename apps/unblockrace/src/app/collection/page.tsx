@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { ArrowUp, Sparkles } from 'lucide-react';
-import CollectionCover from '@bubblyclouds-app/unblockrace/components/CollectionCover';
+import CollectionCover from '@bubblyclouds-app/unblockrace/components/UnblockCollectionCover';
 import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';

@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 import { Users } from 'lucide-react';
-import { UnblockDifficultyDisplay } from '../helpers/difficultyDisplay';
+import { DifficultyDisplay } from '../types/difficultyDisplay';
 
 interface RaceHudProps {
   onOpponentsClick: () => void;
@@ -12,18 +12,19 @@ interface RaceHudProps {
   completedStageIndexes: Set<number>;
   // Difficulty of the current stage — shown as its own chip; pips stay in
   // the theme colour so a hard stage doesn't read as a warning light.
-  difficulty: UnblockDifficultyDisplay;
+  difficulty: DifficultyDisplay;
 }
 
-// Top row of the HUD card (Controls is the bottom row): opponents on the
-// left, a stage pip strip in the middle, the difficulty chip on the right.
-// The clock lives with the moves gauge in the bottom row, so nothing here
-// competes for width and the chip never truncates. Unblock Race's own
-// chrome — the shared @games LobbyButton keeps its styling for sudoku. Pip
-// semantics: filled = done, ring = upcoming, wide glowing pill = current.
-// Memoized so the 1s race timer tick (which re-renders the parent
-// UnblockRace tree every second) doesn't also re-render this row — none of
-// its props change on a tick.
+// Top row of a multi-stage race's HUD card (a game's own Controls forms the
+// bottom row): opponents on the left, a stage pip strip in the middle, the
+// difficulty chip on the right. A game's own clock instrument lives with its
+// own move/score gauge in the bottom row, so nothing here competes for width
+// and the chip never truncates. This is a game's own chrome — the shared
+// @games LobbyButton keeps its styling for sudoku. Pip semantics: filled =
+// done, ring = upcoming, wide glowing pill = current.
+// Memoized so a 1s race timer tick (which re-renders the parent tree every
+// second) doesn't also re-render this row — none of its props change on a
+// tick.
 const RaceHud = memo(function RaceHud({
   onOpponentsClick,
   stageCount,

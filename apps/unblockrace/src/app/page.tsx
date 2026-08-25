@@ -38,7 +38,7 @@ import { buildPuzzleUrlFromState } from '@bubblyclouds-app/unblockrace/helpers/b
 import { buildPuzzleUrl } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzleUrl';
 import { useUnblockServerStorage } from '@bubblyclouds-app/unblockrace/hooks/useUnblockServerStorage';
 import SimpleBoard from '@bubblyclouds-app/unblockrace/components/SimpleBoard';
-import CollectionCover from '@bubblyclouds-app/unblockrace/components/CollectionCover';
+import CollectionCover from '@bubblyclouds-app/unblockrace/components/UnblockCollectionCover';
 
 const SimpleStateWrapper = ({ state }: { state: GameState }) => (
   <SimpleBoard state={state} />

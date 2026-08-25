@@ -78,27 +78,39 @@ import {
   calculatePresenceStageByUserId as genericCalculatePresenceStageByUserId,
 } from '@bubblyclouds-app/games/helpers/runResults';
 import { AgentRunInput, calculateRunResults } from '../helpers/runResults';
-import NextPuzzlePanel from './NextPuzzlePanel';
-import CompletionSummary from './CompletionSummary';
+import NextPuzzlePanel from '@bubblyclouds-app/games/components/NextPuzzlePanel';
+import CompletionSummary from '@bubblyclouds-app/games/components/CompletionSummary';
 import ConfirmDialog from '@bubblyclouds-app/games/components/ConfirmDialog';
 import Board from './Board';
 import Controls from './Controls';
-import RaceCelebration, { RACE_CELEBRATION_MS } from './RaceCelebration';
-import RaceHud from './RaceHud';
-import RaceTimer from './RaceTimer';
+import RaceCelebration, {
+  RACE_CELEBRATION_MS,
+} from '@bubblyclouds-app/games/components/RaceCelebration';
+import RaceHud from '@bubblyclouds-app/games/components/RaceHud';
+import RaceTimer from '@bubblyclouds-app/games/components/RaceTimer';
 import SimpleBoard from './SimpleBoard';
-import StageResultPanel from './StageResultPanel';
-import StageTopBar from './StageTopBar';
+import StageResultPanel from '@bubblyclouds-app/games/components/StageResultPanel';
+import StageTopBar from '@bubblyclouds-app/games/components/StageTopBar';
 import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
 import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
-import StageTransition from './StageTransition';
+import StageTransition from '@bubblyclouds-app/games/components/StageTransition';
 import { PlayerStageResult } from '@bubblyclouds-app/games/types/scoringTypes';
+import { getPieceColor } from '../helpers/pieceColors';
+
+const noop = () => {};
 
 const buildPristineAgentState = (firstState: ServerState): ServerState => ({
   initial: firstState.initial,
   final: firstState.final,
   answerStack: [],
 });
+
+// Confetti wears the board's own piece palette so the celebration's rain
+// reads as this game bursting, not a generic party. Scattered/coloured once
+// — one shared palette per page load is indistinguishable to the player.
+const CONFETTI_COLORS = Array.from({ length: 10 }, (_, i) =>
+  getPieceColor(1 + i)
+);
 
 // Moves graded against par in the run's usual colours, with the golf-style
 // delta saying exactly how far over or under — RaceTrack's per-stage score
@@ -174,6 +186,47 @@ const renderTotalScore = (
       </span>
     </span>
   );
+};
+
+// StageResultPanel's per-stage difficulty chip: unblockDifficultyDisplay's
+// label/chipClass pair, banded from the stage's own known-optimal par.
+const getStageDifficultyDisplay = (stage: RunStage) =>
+  unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired));
+
+// StageResultPanel's completed-stage result chip: moves made against par,
+// with the over/under/met-par state driving the chip's colour treatment.
+const renderStageResult = (result: PlayerStageResult<StageScore>) => {
+  const movesMade = result.score.movesMade ?? 0;
+  const movesRequired = result.score.movesRequired;
+  const parState =
+    movesMade > movesRequired
+      ? ('over' as const)
+      : movesMade < movesRequired
+        ? ('under' as const)
+        : ('met' as const);
+  return {
+    content: (
+      <>
+        {movesMade}/{movesRequired}
+        <span className="sr-only"> moves</span>
+      </>
+    ),
+    parState,
+  };
+};
+
+// StageResultPanel's not-yet-reached stage caption.
+const renderStageUpcoming = (stage: RunStage) => `par ${stage.movesRequired}`;
+
+// StageResultPanel's run-total row: the moves half of "1:10 · 10 moves".
+const renderStageResultTotal = (
+  results: PlayerStageResult<StageScore>[]
+): string => {
+  const totalMoves = results.reduce(
+    (sum, r) => sum + (r.score.movesMade ?? 0),
+    0
+  );
+  return `${totalMoves} moves`;
 };
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
@@ -1579,8 +1632,16 @@ const UnblockRace = ({
       {completed && (
         <RaceCelebration
           isVisible={showAnimation}
-          totalSeconds={runTotals.seconds}
-          totalMoves={runTotals.moves}
+          statsLine={
+            <>
+              {formatSecondsShort(runTotals.seconds)}
+              <span className="text-base font-semibold text-white/75">
+                {' '}
+                · {runTotals.moves} moves
+              </span>
+            </>
+          }
+          confettiColors={CONFETTI_COLORS}
           stars={runStars}
           points={runPoints}
           completedGamesCount={completedGamesCount}
@@ -1602,7 +1663,7 @@ const UnblockRace = ({
                   first thing in view whether you're mid-run or just landed
                   on a finished stage. */}
               {stages.length > 1 && (
-                <StageResultPanel
+                <StageResultPanel<RunStage, StageScore>
                   results={completedStages}
                   stages={stages}
                   currentStageIndex={currentStageIndex}
@@ -1618,6 +1679,14 @@ const UnblockRace = ({
                   }
                   onRetry={handleRetryClick}
                   isRetryDisabled={!!transition}
+                  formatSeconds={formatSecondsShort}
+                  renderThumbnail={(stage) => (
+                    <SimpleBoard initial={stage.stageId} compact muteRivals />
+                  )}
+                  getDifficultyDisplay={getStageDifficultyDisplay}
+                  renderResult={renderStageResult}
+                  renderUpcoming={renderStageUpcoming}
+                  renderTotal={renderStageResultTotal}
                 />
               )}
 
@@ -1647,6 +1716,7 @@ const UnblockRace = ({
                     seconds={calculateSeconds(timer)}
                     countdown={timer?.countdown}
                     isComplete={!!completed}
+                    formatSeconds={formatSecondsShort}
                   />
                   <Controls
                     undo={undo}
@@ -1685,8 +1755,14 @@ const UnblockRace = ({
               <div className="relative">
                 {transition ? (
                   <StageTransition
-                    fromBoardString={transition.fromBoardString}
-                    fromInitialBoardString={transition.fromInitialBoardString}
+                    renderFrom={
+                      <Board
+                        boardString={transition.fromBoardString}
+                        initialBoardString={transition.fromInitialBoardString}
+                        onMove={noop}
+                        isStatic
+                      />
+                    }
                     direction={transition.direction}
                     onDone={handleTransitionDone}
                   >
@@ -1914,9 +1990,37 @@ const UnblockRace = ({
               {completionSummary && (
                 <CompletionSummary
                   stars={completionSummary.stars}
-                  seconds={completionSummary.seconds}
-                  movesMade={completionSummary.movesMade}
-                  movesRequired={completionSummary.movesRequired}
+                  statCells={
+                    <>
+                      <div className="flex min-w-20 flex-col items-center gap-0.5 rounded-xl bg-stone-100/80 px-4 py-2 dark:bg-zinc-800/70">
+                        <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
+                          Time
+                        </span>
+                        <span className="font-mono text-lg font-bold tabular-nums leading-none text-stone-900 dark:text-white">
+                          {formatSecondsShort(completionSummary.seconds)}
+                        </span>
+                      </div>
+                      <div className="flex min-w-20 flex-col items-center gap-0.5 rounded-xl bg-stone-100/80 px-4 py-2 dark:bg-zinc-800/70">
+                        <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
+                          Moves
+                        </span>
+                        <span
+                          className={`font-mono text-lg font-bold tabular-nums leading-none ${
+                            completionSummary.movesMade >
+                            completionSummary.movesRequired
+                              ? 'text-amber-600 dark:text-amber-400'
+                              : completionSummary.movesMade <
+                                  completionSummary.movesRequired
+                                ? 'text-emerald-600 dark:text-emerald-400'
+                                : 'text-stone-900 dark:text-white'
+                          }`}
+                        >
+                          {completionSummary.movesMade}/
+                          {completionSummary.movesRequired}
+                        </span>
+                      </div>
+                    </>
+                  }
                   points={completionSummary.points}
                   label={completionSummary.label}
                   // Multi-stage runs get retry from StageResultPanel's
@@ -1935,7 +2039,10 @@ const UnblockRace = ({
                 nextCollectionPuzzle &&
                 (isCollectionPuzzle || (isDailyRun && isFinalStage)) && (
                   <NextPuzzlePanel
-                    next={nextCollectionPuzzle}
+                    difficulty={unblockDifficultyDisplay(
+                      nextCollectionPuzzle.puzzle.difficulty
+                    )}
+                    isLocked={nextCollectionPuzzle.isLocked}
                     progressLabel={nextPuzzleProgressLabel}
                     onContinue={handleContinueToNext}
                   />

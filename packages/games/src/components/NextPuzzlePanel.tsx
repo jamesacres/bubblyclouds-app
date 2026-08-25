@@ -1,11 +1,11 @@
 'use client';
 
 import { ChevronRight, Sparkles } from 'lucide-react';
-import { NextCollectionPuzzle } from '../helpers/nextCollectionPuzzle';
-import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
+import { DifficultyDisplay } from '../types/difficultyDisplay';
 
 interface NextPuzzlePanelProps {
-  next: NextCollectionPuzzle;
+  difficulty: DifficultyDisplay;
+  isLocked: boolean;
   progressLabel: string;
   onContinue: () => void;
 }
@@ -14,16 +14,15 @@ interface NextPuzzlePanelProps {
 // steers the player straight into the next one so the session keeps rolling.
 // A big pulsing CTA reuses the stage-clear button's pill language so the two
 // "keep going" moments feel like the same button. When the next puzzle is a
-// Plus puzzle the CTA still navigates — the deep-link gate catches it on
-// arrival — but wears a sparkle and "(Plus)" label so the unlock isn't a
-// surprise, framed as a reward rather than a wall.
+// premium puzzle the CTA still navigates — the caller's deep-link gate
+// catches it on arrival — but wears a sparkle and "(Plus)" label so the
+// unlock isn't a surprise, framed as a reward rather than a wall.
 const NextPuzzlePanel = ({
-  next,
+  difficulty,
+  isLocked,
   progressLabel,
   onContinue,
 }: NextPuzzlePanelProps) => {
-  const difficulty = unblockDifficultyDisplay(next.puzzle.difficulty);
-
   return (
     <div
       data-testid="next-puzzle-panel"
@@ -56,7 +55,7 @@ const NextPuzzlePanel = ({
         className="bg-theme-primary hover:bg-theme-primary-dark flex cursor-pointer items-center gap-1.5 rounded-full px-6 py-2.5 text-sm font-black uppercase tracking-widest text-white transition-all duration-200 hover:scale-[1.03] active:scale-95"
         style={{ animation: 'next-puzzle-pulse 2s ease-in-out infinite' }}
       >
-        {next.isLocked ? (
+        {isLocked ? (
           <>
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             Continue (Plus)

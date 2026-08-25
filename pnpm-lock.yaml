@@ -819,6 +819,9 @@ importers:
       '@bubblyclouds-app/ui':
         specifier: workspace:*
         version: link:../ui
+      '@capacitor-community/in-app-review':
+        specifier: ^8.0.0
+        version: 8.0.0(@capacitor/core@8.3.1)
       lucide-react:
         specifier: ^0.563.0
         version: 0.563.0(react@19.2.4)

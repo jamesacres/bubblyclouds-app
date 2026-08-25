@@ -1,20 +1,25 @@
 'use client';
 
 import { Flag } from 'lucide-react';
-import { formatSecondsShort } from '../helpers/formatSecondsShort';
 
 interface RaceTimerProps {
   seconds: number;
   countdown?: number;
   isComplete?: boolean;
+  formatSeconds: (seconds: number) => string;
 }
 
-// Unblock Race's own clock instrument — the shared @ui TimerDisplay keeps its
-// watch-icon styling for sudoku. Styled as the twin of the moves gauge (tiny
-// uppercase label over a mono readout) so the HUD's bottom row reads as one
-// instrument cluster. The full-screen CountdownOverlay owns the 3-2-1 moment,
-// so during the countdown this just idles dimmed at zero.
-const RaceTimer = ({ seconds, countdown, isComplete }: RaceTimerProps) => (
+// A game's own clock instrument — the shared @ui TimerDisplay keeps its
+// watch-icon styling for sudoku. Styled as the twin of a moves/score gauge
+// (tiny uppercase label over a mono readout) so the HUD's bottom row reads
+// as one instrument cluster. A full-screen countdown overlay owns the
+// 3-2-1 moment, so during the countdown this just idles dimmed at zero.
+const RaceTimer = ({
+  seconds,
+  countdown,
+  isComplete,
+  formatSeconds,
+}: RaceTimerProps) => (
   <span
     data-testid="race-timer"
     className={`flex flex-col gap-1 ${
@@ -30,7 +35,7 @@ const RaceTimer = ({ seconds, countdown, isComplete }: RaceTimerProps) => (
       Time
     </span>
     <span className="font-mono text-sm font-semibold tabular-nums leading-none">
-      {formatSecondsShort(countdown ? 0 : seconds)}
+      {formatSeconds(countdown ? 0 : seconds)}
     </span>
   </span>
 );

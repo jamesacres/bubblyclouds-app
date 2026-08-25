@@ -1,14 +1,11 @@
+import { DifficultyDisplay } from '@bubblyclouds-app/games/types/difficultyDisplay';
+
 // Emoji-free difficulty presentation for Unblock Race's own chrome. The
 // shared @games getDifficultyDisplay keeps its emoji styling for the sudoku
 // app and for shared surfaces like the Lobby; this maps the same difficulty
 // ids (see difficultyForMoves) to a clean label plus a chip class that
 // matches the neon aesthetic.
-export interface UnblockDifficultyDisplay {
-  label: string;
-  chipClass: string;
-}
-
-const DIFFICULTY_DISPLAYS: { [key: string]: UnblockDifficultyDisplay } = {
+const DIFFICULTY_DISPLAYS: { [key: string]: DifficultyDisplay } = {
   beginner: {
     label: 'Beginner',
     chipClass: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
@@ -29,7 +26,7 @@ const DIFFICULTY_DISPLAYS: { [key: string]: UnblockDifficultyDisplay } = {
 
 export const unblockDifficultyDisplay = (
   difficulty: string
-): UnblockDifficultyDisplay =>
+): DifficultyDisplay =>
   DIFFICULTY_DISPLAYS[difficulty] || {
     label: difficulty,
     chipClass: 'bg-stone-500/10 text-stone-500 dark:text-zinc-400',

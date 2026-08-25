@@ -12,16 +12,19 @@ jest.mock('lucide-react', () => ({
   Sparkles: () => <div data-testid="sparkles-icon">Sparkles</div>,
 }));
 
-jest.mock('@bubblyclouds-app/unblockrace/components/CollectionCover', () => ({
-  __esModule: true,
-  default: function MockCollectionCover({ size }: { size?: string }) {
-    return (
-      <div data-testid={`collection-cover-${size || 'default'}`}>
-        Collection Cover
-      </div>
-    );
-  },
-}));
+jest.mock(
+  '@bubblyclouds-app/unblockrace/components/UnblockCollectionCover',
+  () => ({
+    __esModule: true,
+    default: function MockCollectionCover({ size }: { size?: string }) {
+      return (
+        <div data-testid={`collection-cover-${size || 'default'}`}>
+          Collection Cover
+        </div>
+      );
+    },
+  })
+);
 
 jest.mock('@bubblyclouds-app/template/components/IntegratedSessionRow', () => {
   return function MockIntegratedSessionRow({

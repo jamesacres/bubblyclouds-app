@@ -1,9 +1,17 @@
-import SimpleBoard from './SimpleBoard';
+import { ReactNode } from 'react';
 
 interface CollectionCoverProps {
-  month: string;
+  title: string;
+  gameLabel: string;
+  kicker?: string;
   size?: 'small' | 'medium' | 'large';
   variant?: 'portrait' | 'tile';
+  background: string;
+  shadow: string;
+  titleGlow: string;
+  // The board preview shown on the cover — the caller's own thumbnail
+  // render, so the cover always looks like the game it belongs to.
+  children: ReactNode;
 }
 
 const SIZES = {
@@ -12,33 +20,31 @@ const SIZES = {
   large: { width: 240, height: 360 },
 };
 
-// Decorative board shown on the cover — a real (easy) board from the seed
-// database so the cover always looks like the game.
-const COVER_BOARD = 'FBBCCoFoGoooAAGooooDDooooEEooooooooo';
-
-const COVER_BACKGROUND =
-  'linear-gradient(160deg, #061231 0%, #0b3a8f 55%, #0e7490 100%)';
-const COVER_SHADOW =
-  '0 0 0 1px rgba(255,255,255,0.12), 0 0 30px rgba(56,189,248,0.35), inset 0 1px 0 rgba(255,255,255,0.18)';
-
-// Mirrors sudoku's BookCover role, reframed as "collection" — no "book"
-// language (TODO.md). The tile variant is the same cover identity squeezed
-// into a near-square thumbnail; it fills the parent's width.
+// Mirrors sudoku's BookCover role, reframed as "collection" — a game's own
+// identity (colours, kicker copy, footer label) is entirely the caller's.
+// The tile variant is the same cover identity squeezed into a near-square
+// thumbnail; it fills the parent's width.
 const CollectionCover = ({
-  month,
+  title,
+  gameLabel,
+  kicker = 'Monthly collection',
   size = 'medium',
   variant = 'portrait',
+  background,
+  shadow,
+  titleGlow,
+  children,
 }: CollectionCoverProps) => {
   if (variant === 'tile') {
     return (
       <div
         className="flex w-full flex-col overflow-hidden rounded-2xl p-2.5"
-        style={{ background: COVER_BACKGROUND, boxShadow: COVER_SHADOW }}
+        style={{ background, boxShadow: shadow }}
       >
         <p className="mb-1.5 text-center text-[9px] font-bold uppercase tracking-widest text-white/60">
-          {month}
+          {title}
         </p>
-        <SimpleBoard initial={COVER_BOARD} transparent compact />
+        {children}
       </div>
     );
   }
@@ -51,24 +57,22 @@ const CollectionCover = ({
       style={{
         width,
         height,
-        background: COVER_BACKGROUND,
-        boxShadow: COVER_SHADOW,
+        background,
+        boxShadow: shadow,
       }}
     >
       <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">
-        Monthly collection
+        {kicker}
       </p>
       <p
         className="mb-3 text-xl font-black leading-tight text-white"
-        style={{ textShadow: '0 0 14px rgba(103,232,249,0.8)' }}
+        style={{ textShadow: `0 0 14px ${titleGlow}` }}
       >
-        {month}
+        {title}
       </p>
-      <div className="mt-auto">
-        <SimpleBoard initial={COVER_BOARD} transparent compact />
-      </div>
+      <div className="mt-auto">{children}</div>
       <p className="mt-3 text-center text-[10px] font-bold uppercase tracking-widest text-white/40">
-        Unblock Race
+        {gameLabel}
       </p>
     </div>
   );

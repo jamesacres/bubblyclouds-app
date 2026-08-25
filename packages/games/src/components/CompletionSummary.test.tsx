@@ -1,16 +1,33 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import CompletionSummary from './CompletionSummary';
 
+const movesStatCell = (movesMade: number, movesRequired: number) => {
+  const delta = movesMade - movesRequired;
+  const colorClass =
+    delta > 0
+      ? 'text-amber-600'
+      : delta < 0
+        ? 'text-emerald-600'
+        : 'text-stone-900';
+  return (
+    <>
+      <div>
+        <span>Time</span>
+        <span>2:05</span>
+      </div>
+      <div>
+        <span>Moves</span>
+        <span className={colorClass}>
+          {movesMade}/{movesRequired}
+        </span>
+      </div>
+    </>
+  );
+};
+
 describe('CompletionSummary', () => {
-  it('renders stars, time, and moves', () => {
-    render(
-      <CompletionSummary
-        stars={2}
-        seconds={125}
-        movesMade={10}
-        movesRequired={10}
-      />
-    );
+  it('renders stars and the caller-supplied stat cells', () => {
+    render(<CompletionSummary stars={2} statCells={movesStatCell(10, 10)} />);
 
     expect(screen.getByTestId('completion-summary')).toBeInTheDocument();
     expect(screen.getByLabelText('2 of 3 stars')).toBeInTheDocument();
@@ -19,14 +36,7 @@ describe('CompletionSummary', () => {
   });
 
   it('omits the label when not supplied', () => {
-    render(
-      <CompletionSummary
-        stars={1}
-        seconds={10}
-        movesMade={5}
-        movesRequired={5}
-      />
-    );
+    render(<CompletionSummary stars={1} statCells={movesStatCell(5, 5)} />);
 
     expect(screen.getByTestId('completion-summary')).not.toHaveTextContent(
       'complete'
@@ -37,9 +47,7 @@ describe('CompletionSummary', () => {
     render(
       <CompletionSummary
         stars={3}
-        seconds={10}
-        movesMade={5}
-        movesRequired={5}
+        statCells={movesStatCell(5, 5)}
         label="Daily · Aug 8"
       />
     );
@@ -48,27 +56,14 @@ describe('CompletionSummary', () => {
   });
 
   it('omits points when not supplied', () => {
-    render(
-      <CompletionSummary
-        stars={3}
-        seconds={10}
-        movesMade={5}
-        movesRequired={5}
-      />
-    );
+    render(<CompletionSummary stars={3} statCells={movesStatCell(5, 5)} />);
 
     expect(screen.queryByText('Leaderboard points')).not.toBeInTheDocument();
   });
 
   it('shows points when supplied, including zero', () => {
     render(
-      <CompletionSummary
-        stars={3}
-        seconds={10}
-        movesMade={5}
-        movesRequired={5}
-        points={0}
-      />
+      <CompletionSummary stars={3} statCells={movesStatCell(5, 5)} points={0} />
     );
 
     expect(screen.getByText('+0 pts')).toBeInTheDocument();
@@ -76,14 +71,7 @@ describe('CompletionSummary', () => {
   });
 
   it('omits the retry button when onRetry is not supplied', () => {
-    render(
-      <CompletionSummary
-        stars={3}
-        seconds={10}
-        movesMade={5}
-        movesRequired={5}
-      />
-    );
+    render(<CompletionSummary stars={3} statCells={movesStatCell(5, 5)} />);
 
     expect(screen.queryByTestId('retry-stage-button')).not.toBeInTheDocument();
   });
@@ -93,9 +81,7 @@ describe('CompletionSummary', () => {
     render(
       <CompletionSummary
         stars={3}
-        seconds={10}
-        movesMade={5}
-        movesRequired={5}
+        statCells={movesStatCell(5, 5)}
         onRetry={onRetry}
       />
     );
@@ -104,45 +90,15 @@ describe('CompletionSummary', () => {
     expect(onRetry).toHaveBeenCalledTimes(1);
   });
 
-  it('colors the moves count amber when over par', () => {
-    render(
-      <CompletionSummary
-        stars={1}
-        seconds={10}
-        movesMade={8}
-        movesRequired={5}
-      />
-    );
+  it('renders caller-supplied over-par styling', () => {
+    render(<CompletionSummary stars={1} statCells={movesStatCell(8, 5)} />);
 
     expect(screen.getByText('8/5')).toHaveClass('text-amber-600');
   });
 
-  it('colors the moves count emerald when under par', () => {
-    render(
-      <CompletionSummary
-        stars={3}
-        seconds={10}
-        movesMade={3}
-        movesRequired={5}
-      />
-    );
+  it('renders caller-supplied under-par styling', () => {
+    render(<CompletionSummary stars={3} statCells={movesStatCell(3, 5)} />);
 
     expect(screen.getByText('3/5')).toHaveClass('text-emerald-600');
-  });
-
-  it('colors the moves count neutral when exactly at par', () => {
-    render(
-      <CompletionSummary
-        stars={3}
-        seconds={10}
-        movesMade={5}
-        movesRequired={5}
-      />
-    );
-
-    const moves = screen.getByText('5/5');
-    expect(moves).not.toHaveClass('text-amber-600');
-    expect(moves).not.toHaveClass('text-emerald-600');
-    expect(moves).toHaveClass('text-stone-900');
   });
 });

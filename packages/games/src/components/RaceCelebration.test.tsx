@@ -8,6 +8,8 @@ jest.mock('@capacitor-community/in-app-review', () => ({
   },
 }));
 
+const confettiColors = ['#d946ef', '#22d3ee'];
+
 describe('RaceCelebration', () => {
   beforeEach(() => {
     requestReview.mockClear();
@@ -15,13 +17,23 @@ describe('RaceCelebration', () => {
 
   it('renders nothing when not visible', () => {
     render(
-      <RaceCelebration isVisible={false} totalSeconds={95} totalMoves={42} />
+      <RaceCelebration
+        isVisible={false}
+        statsLine="1:35 · 42 moves"
+        confettiColors={confettiColors}
+      />
     );
     expect(screen.queryByTestId('race-celebration')).not.toBeInTheDocument();
   });
 
   it('shows the finish banner with the run totals', () => {
-    render(<RaceCelebration isVisible totalSeconds={95} totalMoves={42} />);
+    render(
+      <RaceCelebration
+        isVisible
+        statsLine="1:35 · 42 moves"
+        confettiColors={confettiColors}
+      />
+    );
     expect(screen.getByTestId('race-celebration')).toBeInTheDocument();
     expect(screen.getByText('Finish!')).toBeInTheDocument();
     expect(screen.getByText('Run complete')).toBeInTheDocument();
@@ -34,8 +46,8 @@ describe('RaceCelebration', () => {
     render(
       <RaceCelebration
         isVisible
-        totalSeconds={95}
-        totalMoves={42}
+        statsLine="1:35 · 42 moves"
+        confettiColors={confettiColors}
         stars={3}
         points={280}
       />
@@ -49,7 +61,13 @@ describe('RaceCelebration', () => {
   });
 
   it('omits stars and points when not supplied', () => {
-    render(<RaceCelebration isVisible totalSeconds={95} totalMoves={42} />);
+    render(
+      <RaceCelebration
+        isVisible
+        statsLine="1:35 · 42 moves"
+        confettiColors={confettiColors}
+      />
+    );
 
     expect(
       screen.queryByTestId('race-celebration-stars')
@@ -65,8 +83,8 @@ describe('RaceCelebration', () => {
       render(
         <RaceCelebration
           isVisible
-          totalSeconds={10}
-          totalMoves={5}
+          statsLine="0:10 · 5 moves"
+          confettiColors={confettiColors}
           completedGamesCount={5}
           isCapacitor={() => true}
         />
@@ -87,8 +105,8 @@ describe('RaceCelebration', () => {
       render(
         <RaceCelebration
           isVisible
-          totalSeconds={10}
-          totalMoves={5}
+          statsLine="0:10 · 5 moves"
+          confettiColors={confettiColors}
           completedGamesCount={3}
           isCapacitor={() => true}
         />

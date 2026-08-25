@@ -1,22 +1,18 @@
 'use client';
 
-import { memo } from 'react';
+import { ReactNode, memo } from 'react';
 import { Car, Check, Flag, RotateCcw, Target, Trophy } from 'lucide-react';
-import { RunStage, StageScore } from '../helpers/stageResults';
-import { PlayerStageResult } from '@bubblyclouds-app/games/types/scoringTypes';
-import { difficultyForMoves } from '../helpers/difficulty';
-import { unblockDifficultyDisplay } from '../helpers/difficultyDisplay';
-import { formatSecondsShort } from '../helpers/formatSecondsShort';
-import SimpleBoard from './SimpleBoard';
+import { RunStage } from '../types/runTypes';
+import { PlayerStageResult } from '../types/scoringTypes';
+import { DifficultyDisplay } from '../types/difficultyDisplay';
 
-interface StageResultPanelProps {
-  // Per-stage results keyed by stage index (SPEC.md §6: stats persist per
-  // stage even if the run isn't finished). Drives the "all stages in one
-  // view" readout the summary popup used to hide.
-  results: Map<number, PlayerStageResult<StageScore>>;
+interface StageResultPanelProps<Stage extends RunStage, Score> {
+  // Per-stage results keyed by stage index — stats persist per stage even
+  // if the run isn't finished. Drives the "all stages in one view" readout.
+  results: Map<number, PlayerStageResult<Score>>;
   // The run's stages, so each row can render its own mini board thumbnail
   // that doubles as the click-to-navigate link into that stage.
-  stages: RunStage[];
+  stages: Stage[];
   currentStageIndex: number;
   // Slide to a stage; direction lets the carousel animate the right way.
   goToStage: (index: number, direction: 'forward' | 'back') => void;
@@ -27,25 +23,40 @@ interface StageResultPanelProps {
   // negative = behind them; omitted when no friend has finished it yet.
   opponentDeltaSeconds?: number;
   // True once the final stage is solved — promotes the panel to a run-level
-  // summary (SPEC.md §7's run total alongside the per-stage lines).
+  // summary (the run total alongside the per-stage lines).
   runComplete: boolean;
-  // "Daily · Aug 8" label, only meaningful for the daily challenge (SPEC.md §7).
+  // "Daily · Aug 8" label, only meaningful for a daily challenge.
   dailyLabel?: string;
   collectionPuzzleLabel?: string;
-  // Retry the current stage — only shown once it has a result (the HUD's
-  // Reset button is disabled by then, so this is the only way to redo it).
+  // Retry the current stage — only shown once it has a result.
   onRetry: () => void;
   isRetryDisabled: boolean;
+  formatSeconds: (seconds: number) => string;
+  // The mini board preview for a stage's thumbnail/nav tile.
+  renderThumbnail: (stage: Stage, index: number) => ReactNode;
+  // A stage's difficulty, used both for its own chip and to decide which
+  // adjacent upcoming stages fuse into one pill.
+  getDifficultyDisplay: (stage: Stage) => DifficultyDisplay;
+  // The score readout for a completed stage's result chip (e.g. "7/5 moves")
+  // plus whether it renders in the over/under/met-par colour treatment.
+  renderResult: (
+    result: PlayerStageResult<Score>,
+    stage: Stage
+  ) => { content: ReactNode; parState: 'over' | 'under' | 'met' };
+  // The caption for a stage with no result yet (e.g. "par 5").
+  renderUpcoming: (stage: Stage) => ReactNode;
+  // The score-specific part of the run-total row (e.g. "10 moves") — total
+  // time is already summed and formatted generically.
+  renderTotal: (results: PlayerStageResult<Score>[]) => ReactNode;
 }
 
-// Inline run panel (SPEC.md §7), replacing the old modal: a stepper of every
-// stage in the run — each mini-board thumbnail doubles as the
-// click-to-navigate link into that stage (SPEC.md §1) — with its per-stage
-// time/moves, plus the run total once every stage is done. Everything here is
-// already produced by useGameState by the time a stage completes.
+// Inline run panel, replacing an old modal: a stepper of every stage in the
+// run — each mini-board thumbnail doubles as the click-to-navigate link into
+// that stage — with its per-stage time/score, plus the run total once every
+// stage is done.
 // Memoized so the parent's 1s race timer tick doesn't re-render this panel —
 // none of its props are timer-driven.
-const StageResultPanel = memo(function StageResultPanel({
+function StageResultPanelInner<Stage extends RunStage, Score>({
   results,
   stages,
   currentStageIndex,
@@ -57,7 +68,13 @@ const StageResultPanel = memo(function StageResultPanel({
   collectionPuzzleLabel,
   onRetry,
   isRetryDisabled,
-}: StageResultPanelProps) {
+  formatSeconds,
+  renderThumbnail,
+  getDifficultyDisplay,
+  renderResult,
+  renderUpcoming,
+  renderTotal,
+}: StageResultPanelProps<Stage, Score>) {
   const stageCount = stages.length;
   const canRetryCurrentStage = results.has(currentStageIndex);
 
@@ -67,14 +84,8 @@ const StageResultPanel = memo(function StageResultPanel({
     return null;
   }
 
-  const totalSeconds = [...results.values()].reduce(
-    (sum, r) => sum + r.seconds,
-    0
-  );
-  const totalMoves = [...results.values()].reduce(
-    (sum, r) => sum + (r.score.movesMade ?? 0),
-    0
-  );
+  const resultList = [...results.values()];
+  const totalSeconds = resultList.reduce((sum, r) => sum + r.seconds, 0);
 
   // Adjacent upcoming stages (no result yet) sharing the same difficulty get
   // one merged chip spanning both columns instead of two touching pills of
@@ -82,8 +93,7 @@ const StageResultPanel = memo(function StageResultPanel({
   // A stage only merges with its immediate predecessor — a run of 3+ same
   // difficulty stages becomes one chip spanning all of them.
   const difficultyLabels = stages.map(
-    (stage) =>
-      unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired)).label
+    (stage) => getDifficultyDisplay(stage).label
   );
   const mergesWithPrevious = stages.map(
     (_, i) =>
@@ -150,7 +160,7 @@ const StageResultPanel = memo(function StageResultPanel({
 
         {/* Horizontal filmstrip: the run reads as a left-to-right route, one
             column per stage — thumbnail on top (the tap target), difficulty
-            and result beneath — instead of the old five-row list */}
+            and result beneath — instead of a row list */}
         <ul className="relative flex items-start gap-1.5 text-sm">
           {/* Road linking the stage thumbnails into one route: an asphalt
               strip with a dashed centre line, so the run itself reads as
@@ -171,16 +181,9 @@ const StageResultPanel = memo(function StageResultPanel({
           )}
           {stages.map((stage, i) => {
             const result = results.get(i);
-            const isOverPar =
-              !!result &&
-              (result.score.movesMade ?? 0) > result.score.movesRequired;
-            const isUnderPar =
-              !!result &&
-              (result.score.movesMade ?? 0) < result.score.movesRequired;
+            const rendered = result ? renderResult(result, stage) : undefined;
             const isCurrent = i === currentStageIndex;
-            const difficulty = unblockDifficultyDisplay(
-              difficultyForMoves(stage.movesRequired)
-            );
+            const difficulty = getDifficultyDisplay(stage);
             // This stage's own pill is folded into the previous stage's
             // fused group (label suppressed); this stage instead starts a
             // fused group if the next stage folds into it, in which case its
@@ -211,7 +214,7 @@ const StageResultPanel = memo(function StageResultPanel({
                   aria-current={isCurrent}
                   aria-label={`Stage ${i + 1}${
                     result
-                      ? `, completed in ${formatSecondsShort(result.seconds)}, ${result.score.movesMade ?? 0} moves`
+                      ? `, completed in ${formatSeconds(result.seconds)}`
                       : ''
                   }`}
                   className="shrink-0"
@@ -225,9 +228,7 @@ const StageResultPanel = memo(function StageResultPanel({
                           : 'opacity-80'
                     }`}
                   >
-                    {/* muteRivals: at 48px only the hero car should carry
-                        colour — the full palette reads as static */}
-                    <SimpleBoard initial={stage.stageId} compact muteRivals />
+                    {renderThumbnail(stage, i)}
                     {isCurrent ? (
                       // The car marker sits on the current stage: this is
                       // where you are on the route
@@ -293,24 +294,24 @@ const StageResultPanel = memo(function StageResultPanel({
                     </span>
                   )}
                 </span>
-                {result ? (
+                {result && rendered ? (
                   <span
                     data-testid={`stage-par-${i}`}
                     className={`whitespace-nowrap rounded-full px-1.5 py-0.5 font-mono text-[0.6rem] font-semibold tabular-nums ${
-                      isOverPar
+                      rendered.parState === 'over'
                         ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
-                        : isUnderPar
+                        : rendered.parState === 'under'
                           ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
                           : 'bg-stone-500/10 text-stone-500 dark:text-zinc-400'
                     }`}
                   >
-                    {result.score.movesMade ?? 0}/{result.score.movesRequired}
-                    <span className="sr-only"> moves ·</span>{' '}
-                    {formatSecondsShort(result.seconds)}
+                    {rendered.content}
+                    <span className="sr-only"> ·</span>{' '}
+                    {formatSeconds(result.seconds)}
                   </span>
                 ) : (
                   <span className="whitespace-nowrap text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
-                    par {stage.movesRequired}
+                    {renderUpcoming(stage)}
                   </span>
                 )}
               </li>
@@ -329,8 +330,8 @@ const StageResultPanel = memo(function StageResultPanel({
           >
             <Target className="h-4 w-4" aria-hidden="true" />
             {opponentDeltaSeconds >= 0
-              ? `Beat opponent by ${formatSecondsShort(opponentDeltaSeconds)}`
-              : `${formatSecondsShort(-opponentDeltaSeconds)} behind opponent`}
+              ? `Beat opponent by ${formatSeconds(opponentDeltaSeconds)}`
+              : `${formatSeconds(-opponentDeltaSeconds)} behind opponent`}
           </p>
         )}
 
@@ -353,17 +354,21 @@ const StageResultPanel = memo(function StageResultPanel({
               Total
             </span>
             <span className="tabular-nums">
-              <span className="font-mono">
-                {formatSecondsShort(totalSeconds)}
-              </span>
+              <span className="font-mono">{formatSeconds(totalSeconds)}</span>
               {' · '}
-              {totalMoves} moves
+              {renderTotal(resultList)}
             </span>
           </div>
         )}
       </div>
     </div>
   );
-});
+}
+
+// memo() erases the generic type parameter, so this cast-free wrapper keeps
+// StageResultPanel<Score> callable with its own Score per call site.
+const StageResultPanel = memo(
+  StageResultPanelInner
+) as typeof StageResultPanelInner;
 
 export default StageResultPanel;
