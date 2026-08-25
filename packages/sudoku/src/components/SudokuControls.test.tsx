@@ -58,16 +58,18 @@ import {
 } from '@testing-library/react';
 import SudokuControls from './SudokuControls';
 
-// Mock the canUseUndo and canUseCheckGrid functions
+// Mock the canUseUndo, canUseCheckGrid and canUseHint functions
 jest.mock('@bubblyclouds-app/template/utils/dailyActionCounter', () => ({
   ...jest.requireActual('@bubblyclouds-app/template/utils/dailyActionCounter'),
   canUseUndo: jest.fn(() => true),
   canUseCheckGrid: jest.fn(() => true),
+  canUseHint: jest.fn(() => true),
 }));
 
 import {
   canUseUndo,
   canUseCheckGrid,
+  canUseHint,
 } from '@bubblyclouds-app/template/utils/dailyActionCounter';
 
 describe('SudokuControls', () => {
@@ -89,6 +91,7 @@ describe('SudokuControls', () => {
   const mockOnRevealEliminations = jest.fn();
   const mockOnHideHint = jest.fn();
   const mockOnClearSelection = jest.fn();
+  const mockCanRequestHint = jest.fn(() => true);
 
   const defaultProps = {
     selectedCell: null,
@@ -112,6 +115,7 @@ describe('SudokuControls', () => {
     onAdvancedToggle: mockOnAdvancedToggle,
     isSubscribed: false,
     getHint: mockGetHint,
+    canRequestHint: mockCanRequestHint,
     onShowWhere: mockOnShowWhere,
     onRevealEliminations: mockOnRevealEliminations,
     onHideHint: mockOnHideHint,
@@ -701,6 +705,35 @@ describe('SudokuControls', () => {
       render(<SudokuControls {...defaultProps} />);
       fireEvent.click(screen.getByText('Ask for help'));
       expect(mockGetHint).toHaveBeenCalled();
+    });
+
+    it('should not call getHint when canRequestHint returns false', () => {
+      const mockBlockedCanRequestHint = jest.fn(() => false);
+      render(
+        <SudokuControls
+          {...defaultProps}
+          canRequestHint={mockBlockedCanRequestHint}
+        />
+      );
+      fireEvent.click(screen.getByText('Ask for help'));
+      expect(mockBlockedCanRequestHint).toHaveBeenCalled();
+      expect(mockGetHint).not.toHaveBeenCalled();
+    });
+
+    it("should show premium indicator on hint when not subscribed and can't use", () => {
+      (canUseHint as jest.Mock).mockReturnValue(false);
+      render(<SudokuControls {...defaultProps} isSubscribed={false} />);
+      const hintButton = screen.getByText('Ask for help').closest('button');
+      const premiumIndicator = hintButton?.querySelector('.bg-gradient-to-r');
+      expect(premiumIndicator).toBeInTheDocument();
+    });
+
+    it('should not show premium indicator on hint when subscribed', () => {
+      (canUseHint as jest.Mock).mockReturnValue(false);
+      render(<SudokuControls {...defaultProps} isSubscribed={true} />);
+      const hintButton = screen.getByText('Ask for help').closest('button');
+      const premiumIndicator = hintButton?.querySelector('.bg-gradient-to-r');
+      expect(premiumIndicator).not.toBeInTheDocument();
     });
 
     it('should show "No hint available" when getHint returns null', () => {

@@ -6,6 +6,9 @@ export const DAILY_LIMITS = {
   /** Number of free undo actions per day */
   UNDO: 5,
 
+  /** Number of free hint actions per day */
+  HINT: 2,
+
   /** Number of free grid check actions per day */
   CHECK_GRID: 5,
 

@@ -34,6 +34,10 @@ import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { DAILY_LIMITS } from '@bubblyclouds-app/template/config/dailyLimits';
+import {
+  canUseHint,
+  incrementHintCount,
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
@@ -419,8 +423,27 @@ const Sudoku = ({
       }
     }
 
+    // Count the hint against the daily allowance only for non-subscribers
+    if (!isSubscribed) {
+      incrementHintCount();
+    }
+
     return hint;
-  }, [answer]);
+  }, [answer, isSubscribed]);
+
+  // 2 free hints/day, then Plus — gated ahead of getHint so a blocked
+  // request never opens the chat UI with a hint that was never computed.
+  const canRequestHint = useCallback(() => {
+    if (isSubscribed || canUseHint()) {
+      return true;
+    }
+    subscribeModal?.showModalIfRequired(
+      () => {},
+      () => {},
+      SubscriptionContext.HINT
+    );
+    return false;
+  }, [isSubscribed, subscribeModal]);
 
   const [cellHighlights, setCellHighlights] = useState<
     Map<string, CellHighlight>
@@ -915,6 +938,7 @@ const Sudoku = ({
                 onAdvancedToggle={setShowAdvancedControls}
                 isSubscribed={isSubscribed}
                 getHint={getHint}
+                canRequestHint={canRequestHint}
                 user={user}
                 onShowWhere={onShowWhere}
                 onRevealEliminations={onRevealEliminations}

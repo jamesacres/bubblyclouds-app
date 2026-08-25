@@ -26,6 +26,7 @@ import ConfirmDialog from '@bubblyclouds-app/games/components/ConfirmDialog';
 import {
   canUseUndo,
   canUseCheckGrid,
+  canUseHint,
 } from '@bubblyclouds-app/template/utils/dailyActionCounter';
 
 const TECHNIQUE_NAMES: Record<Technique, string> = {
@@ -96,6 +97,7 @@ interface Arguments {
   onAdvancedToggle?: (_expanded: boolean) => void;
   isSubscribed?: boolean;
   getHint: () => HintResult | null | 'invalid';
+  canRequestHint: () => boolean;
   user?: UserProfile;
   onShowWhere: (_hint: HintResult) => void;
   onRevealEliminations: (_hint: HintResult) => void;
@@ -125,6 +127,7 @@ const SudokuControls = ({
   onAdvancedToggle,
   isSubscribed,
   getHint,
+  canRequestHint,
   user,
   onShowWhere,
   onRevealEliminations,
@@ -237,6 +240,11 @@ const SudokuControls = ({
   }, [copyGrid]);
 
   const handleHint = useCallback(() => {
+    // Blocked (daily limit reached, paywall shown elsewhere): leave the
+    // controls panel untouched rather than opening the chat UI with a
+    // hint that was never computed.
+    if (!canRequestHint()) return;
+
     openingHintRef.current = true;
     onClearSelection();
     const result = getHint();
@@ -251,7 +259,7 @@ const SudokuControls = ({
         setTimeout(() => setUserTyping(false), 600);
       }
     }, 800);
-  }, [getHint, onClearSelection]);
+  }, [canRequestHint, getHint, onClearSelection]);
 
   const handleCloseHint = useCallback(() => {
     setHint(undefined);
@@ -576,10 +584,15 @@ const SudokuControls = ({
             <div className="flex-1">
               <button
                 onClick={handleHint}
-                className={`${showRainbowNudge ? 'rainbow-border-wrap' : ''} flex cursor-pointer items-center gap-1 rounded-md bg-gray-100 px-1.5 py-1 text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500`}
+                className={`${showRainbowNudge ? 'rainbow-border-wrap' : ''} relative flex cursor-pointer items-center gap-1 rounded-md bg-gray-100 px-1.5 py-1 text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500`}
               >
                 <MessageCircle size={10} />
                 Ask for help
+                {!isSubscribed && !canUseHint() && (
+                  <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                    ✨
+                  </span>
+                )}
               </button>
             </div>
             <div className="flex items-center gap-3">

@@ -19,9 +19,23 @@ interface ContextMessage {
  * Each context provides specific messaging about why the subscription modal is being shown
  */
 export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
-  Exclude<SubscriptionContext, SubscriptionContext.HINT>,
+  SubscriptionContext,
   ContextMessage
 > = {
+  [SubscriptionContext.HINT]: {
+    bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+    textColor: 'text-orange-800 dark:text-orange-200',
+    content: (
+      <>
+        💡{' '}
+        <strong>
+          You&rsquo;ve used your {DAILY_LIMITS.HINT} free hints today.
+        </strong>{' '}
+        Plus gives you unlimited hints — never get stuck again — and keeps the
+        whole app ad free.
+      </>
+    ),
+  },
   [SubscriptionContext.UNDO]: {
     bgColor: 'bg-orange-50 dark:bg-orange-900/20',
     textColor: 'text-orange-800 dark:text-orange-200',
