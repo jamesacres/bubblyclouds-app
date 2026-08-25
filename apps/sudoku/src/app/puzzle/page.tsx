@@ -61,6 +61,12 @@ function PuzzlePageComponent() {
     <div>
       {puzzle && (
         <Sudoku
+          // Force a full remount when navigating to a different puzzle
+          // (e.g. "next puzzle" after finishing a collection puzzle):
+          // otherwise Sudoku's agents/localAgentProgress state — seeded once
+          // via useState initializers — stays stuck from the previous
+          // puzzle, showing AI karts at their old finishing positions.
+          key={puzzle.puzzleId}
           puzzle={puzzle}
           alreadyCompleted={alreadyCompleted}
           showRacingPrompt={showRacingPrompt}
