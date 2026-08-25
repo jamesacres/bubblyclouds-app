@@ -55,7 +55,10 @@ import { createLocalAgents } from '../helpers/agentTimeline';
 import { getAllAgentProgress } from '@bubblyclouds-app/games/helpers/agentProgress';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
-import { DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
+import {
+  selectDefaultAgents,
+  selectAgentConfigsByName,
+} from '@bubblyclouds-app/games/helpers/selectDefaultAgents';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
@@ -118,19 +121,9 @@ const Sudoku = ({
 
   const difficultyMultiplier = difficultyToMultiplier(metadata.difficulty);
 
-  const [defaultAgentSelection] = useState<string[]>(() => {
-    const pickFromLevel = (level: DreyfusLevel) => {
-      const pool = DEFAULT_AGENT_CONFIGS.filter((c) => c.skillLevel === level);
-      return pool[Math.floor(Math.random() * pool.length)].name;
-    };
-    return [
-      pickFromLevel(DreyfusLevel.Novice),
-      pickFromLevel(DreyfusLevel.AdvancedBeginner),
-      pickFromLevel(DreyfusLevel.Competent),
-      pickFromLevel(DreyfusLevel.Proficient),
-      pickFromLevel(DreyfusLevel.Expert),
-    ];
-  });
+  const [defaultAgentSelection] = useState<string[]>(() =>
+    selectDefaultAgents(DEFAULT_AGENT_CONFIGS)
+  );
 
   const shouldAutoOpen = !alreadyCompleted && showRacingPromptProp;
 
@@ -138,9 +131,9 @@ const Sudoku = ({
   const [agents, setAgents] = useState<ReturnType<typeof createLocalAgents>>(
     () => {
       if (!shouldAutoOpen) return [];
-      const nameSet = new Set(defaultAgentSelection);
-      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((c) =>
-        nameSet.has(c.name)
+      const selectedConfigs = selectAgentConfigsByName(
+        DEFAULT_AGENT_CONFIGS,
+        defaultAgentSelection
       );
       return createLocalAgents(
         initial,
@@ -484,9 +477,9 @@ const Sudoku = ({
 
   const handleAgentMode = useCallback(
     (selectedAgentNames: string[]) => {
-      const nameSet = new Set(selectedAgentNames);
-      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((c) =>
-        nameSet.has(c.name)
+      const selectedConfigs = selectAgentConfigsByName(
+        DEFAULT_AGENT_CONFIGS,
+        selectedAgentNames
       );
       const created = createLocalAgents(
         initial,

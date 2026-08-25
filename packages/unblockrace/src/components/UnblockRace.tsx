@@ -29,9 +29,13 @@ import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { useCollection } from '../providers/CollectionProvider';
 import { GameState, GameStateMetadata, ServerState } from '../types/state';
 import { Move } from '../types/board';
-import { AgentConfig, DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
+import { AgentConfig } from '@bubblyclouds-app/games/types/Agent';
 import { useGameState } from '../hooks/useGameState';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
+import {
+  selectDefaultAgents,
+  selectAgentConfigsByName,
+} from '@bubblyclouds-app/games/helpers/selectDefaultAgents';
 import { createLocalAgents, LocalAgent } from '../helpers/agentTimeline';
 import { getAllAgentProgress } from '@bubblyclouds-app/games/helpers/agentProgress';
 import { getHint } from '../helpers/hint';
@@ -292,19 +296,9 @@ const UnblockRace = ({
   // AI opponents are opted in by default (one random persona per Dreyfus
   // level, same picker as Sudoku Race): computed once so the roster is
   // stable for the life of this run.
-  const [defaultAgentSelection] = useState<string[]>(() => {
-    const pickFromLevel = (level: DreyfusLevel) => {
-      const pool = DEFAULT_AGENT_CONFIGS.filter((c) => c.skillLevel === level);
-      return pool[Math.floor(Math.random() * pool.length)].name;
-    };
-    return [
-      pickFromLevel(DreyfusLevel.Novice),
-      pickFromLevel(DreyfusLevel.AdvancedBeginner),
-      pickFromLevel(DreyfusLevel.Competent),
-      pickFromLevel(DreyfusLevel.Proficient),
-      pickFromLevel(DreyfusLevel.Expert),
-    ];
-  });
+  const [defaultAgentSelection] = useState<string[]>(() =>
+    selectDefaultAgents(DEFAULT_AGENT_CONFIGS)
+  );
 
   // Local AI rivals (SPEC: each agent races the whole run on its OWN clock,
   // independent of the player's stage AND of every other agent — a fast
@@ -319,9 +313,7 @@ const UnblockRace = ({
   const agentStageIndexByIdRef = useRef<Map<string, number>>(new Map());
   const agentStartTimeByIdRef = useRef<Map<string, number | null>>(new Map());
   const agentConfigsRef = useRef<AgentConfig[]>(
-    DEFAULT_AGENT_CONFIGS.filter((config) =>
-      defaultAgentSelection.includes(config.name)
-    )
+    selectAgentConfigsByName(DEFAULT_AGENT_CONFIGS, defaultAgentSelection)
   );
   const agentBuildIdByIdRef = useRef<Map<string, number>>(new Map());
   // Which agents are mid-"stage clear" gap (about to rebuild for their next
@@ -502,9 +494,9 @@ const UnblockRace = ({
   // each kart appears as its solve resolves.
   const handleAgentMode = useCallback(
     (selectedAgentNames: string[]) => {
-      const nameSet = new Set(selectedAgentNames);
-      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((config) =>
-        nameSet.has(config.name)
+      const selectedConfigs = selectAgentConfigsByName(
+        DEFAULT_AGENT_CONFIGS,
+        selectedAgentNames
       );
       agentConfigsRef.current = selectedConfigs;
       setMode('ai');
