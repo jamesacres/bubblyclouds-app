@@ -19,10 +19,7 @@ interface ContextMessage {
  * Each context provides specific messaging about why the subscription modal is being shown
  */
 export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
-  Exclude<
-    SubscriptionContext,
-    SubscriptionContext.HINT | SubscriptionContext.COLLECTION_LOCKED
-  >,
+  Exclude<SubscriptionContext, SubscriptionContext.HINT>,
   ContextMessage
 > = {
   [SubscriptionContext.UNDO]: {
@@ -76,6 +73,17 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
         🧩 <strong>You&rsquo;ve reached your daily puzzle limit!</strong> Free
         users can play {DAILY_LIMITS.PUZZLE} puzzle per day. The limit resets
         tomorrow, or subscribe for unlimited puzzles.
+      </>
+    ),
+  },
+  [SubscriptionContext.COLLECTION_LOCKED]: {
+    bgColor: 'bg-indigo-50 dark:bg-indigo-900/20',
+    textColor: 'text-indigo-800 dark:text-indigo-200',
+    content: (
+      <>
+        ✨ <strong>This puzzle is part of the Plus book.</strong> Plus unlocks
+        every puzzle in every month&rsquo;s book, and keeps the whole app ad
+        free.
       </>
     ),
   },

@@ -18,6 +18,17 @@ jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
 jest.mock('../hooks/useDrag', () => ({
   useDrag: jest.fn(() => ({})),
 }));
+const mockFetchBookData = jest.fn();
+const mockUseBook = jest.fn<
+  { bookData: unknown; fetchBookData: () => void },
+  []
+>(() => ({
+  bookData: null,
+  fetchBookData: mockFetchBookData,
+}));
+jest.mock('../providers/BookProvider', () => ({
+  useBook: () => mockUseBook(),
+}));
 
 jest.mock('lucide-react', () => ({
   Award: () => <svg data-testid="award-icon" />,

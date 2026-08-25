@@ -63,6 +63,8 @@ import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
 import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
+import { useBook } from '../providers/BookProvider';
+import { isBookPuzzleIdLocked } from '../helpers/bookLocks';
 
 const buildPristineAgentState = (firstState: ServerState): ServerState => ({
   initial: firstState.initial,
@@ -118,6 +120,7 @@ const Sudoku = ({
   const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
   const { sessions } = useSessions<GameState>();
+  const { bookData, fetchBookData } = useBook();
 
   const difficultyMultiplier = difficultyToMultiplier(metadata.difficulty);
 
@@ -287,11 +290,73 @@ const Sudoku = ({
 
   const [raceStarted, setRaceStarted] = useState(false);
 
+  // The book lock gate only concerns book puzzles; nothing else fetches
+  // bookData, so a deep link straight to a puzzle URL would otherwise leave
+  // it null forever.
+  const isBookPuzzle = !!metadata.sudokuBookPuzzleId;
+  useEffect(() => {
+    if (isBookPuzzle) {
+      fetchBookData();
+    }
+  }, [isBookPuzzle, fetchBookData]);
+
+  // A free user deep-linking into a locked book puzzle (the latter half of a
+  // difficulty band): seal the board behind a gate so no countdown ever
+  // starts. An already-completed puzzle stays playable (they earned it).
+  //
+  // Whether a given puzzle is locked can't be known until bookData has
+  // loaded (fetched async above), so isPendingLockCheck holds the puzzle in
+  // the same disabled/timer-paused state as a confirmed lock for that
+  // window.
+  const isPendingLockCheck =
+    !isSubscribed &&
+    !completed &&
+    !alreadyCompleted &&
+    isBookPuzzle &&
+    !bookData;
+  const isLockedBookPuzzle =
+    !isSubscribed &&
+    !completed &&
+    !alreadyCompleted &&
+    !!metadata.sudokuBookPuzzleId &&
+    isBookPuzzleIdLocked(metadata.sudokuBookPuzzleId, bookData?.puzzles || []);
+  const isBoardGated = isPendingLockCheck || isLockedBookPuzzle;
+
+  const handleBackToBook = useCallback(() => {
+    router.replace('/book');
+  }, [router]);
+
+  // A locked deep-link opens the same Plus modal the book grid uses for a
+  // locked puzzle (SubscriptionContext.COLLECTION_LOCKED already carries
+  // that messaging), so there's one place that explains Plus. Backing out
+  // of the modal returns to the book rather than leaving the player
+  // stranded on a sealed board.
+  //
+  // hasOpenedLockModalRef guards against re-opening: subscribeModal is a new
+  // object every RevenueCatProvider render (including the one its own
+  // showModalIfRequired triggers), so depending on it directly would re-run
+  // this effect and reopen the modal in an infinite loop.
+  const hasOpenedLockModalRef = useRef(false);
+  useEffect(() => {
+    if (isLockedBookPuzzle && !hasOpenedLockModalRef.current) {
+      hasOpenedLockModalRef.current = true;
+      subscribeModal?.showModalIfRequired(
+        () => {},
+        handleBackToBook,
+        SubscriptionContext.COLLECTION_LOCKED
+      );
+    }
+  }, [isLockedBookPuzzle, subscribeModal, handleBackToBook]);
+
   const handleStartRace = useCallback(() => {
+    if (isBoardGated) {
+      setHasManuallySelectedMode(true);
+      return;
+    }
     if (!raceStarted) setTimerNewSession();
     setRaceStarted(true);
     setHasManuallySelectedMode(true);
-  }, [setTimerNewSession, raceStarted]);
+  }, [setTimerNewSession, raceStarted, isBoardGated]);
 
   const handleInviteFriends = useCallback(() => {
     setShowLobby(true);
@@ -567,7 +632,8 @@ const Sudoku = ({
 
   // Timer and scroll management
   useEffect(() => {
-    const shouldPause = !hasSelectedMode || showLobby || showAppDownload;
+    const shouldPause =
+      !hasSelectedMode || showLobby || showAppDownload || isBoardGated;
 
     setPauseTimer(shouldPause);
 
@@ -580,7 +646,13 @@ const Sudoku = ({
       document.documentElement.style.height = '';
       document.body.style.height = '';
     }
-  }, [hasSelectedMode, showLobby, showAppDownload, setPauseTimer]);
+  }, [
+    hasSelectedMode,
+    showLobby,
+    showAppDownload,
+    isBoardGated,
+    setPauseTimer,
+  ]);
 
   // Cleanup: Always restore scrolling when component unmounts
   useEffect(() => {

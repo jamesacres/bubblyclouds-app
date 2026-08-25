@@ -1,3 +1,7 @@
+import {
+  lockedCollectionIndexes as genericLockedCollectionIndexes,
+  isCollectionPuzzleIdLocked as genericIsCollectionPuzzleIdLocked,
+} from '@bubblyclouds-app/games/helpers/collectionLocks';
 import { UnblockCollectionPuzzle } from '../types/serverTypes';
 
 // How many puzzles per difficulty band a free player can taste before the
@@ -14,31 +18,20 @@ export const FREE_PUZZLES_PER_DIFFICULTY: { [key: string]: number } = {
 
 const DEFAULT_FREE_PER_DIFFICULTY = 1;
 
+const getDifficulty = (puzzle: UnblockCollectionPuzzle) => puzzle.difficulty;
+
 // The Plus-only puzzles: per difficulty band, the puzzles beyond that band's
 // free allowance. The collection is ordered ascending by difficulty, so a
 // band is a contiguous run of puzzles sharing a difficulty.
 export const lockedCollectionIndexes = (
   puzzles: UnblockCollectionPuzzle[]
-): Set<number> => {
-  const locked = new Set<number>();
-  const bandIndexes = new Map<string, number[]>();
-
-  puzzles.forEach((puzzle, index) => {
-    const band = bandIndexes.get(puzzle.difficulty) ?? [];
-    band.push(index);
-    bandIndexes.set(puzzle.difficulty, band);
-  });
-
-  bandIndexes.forEach((indexes, difficulty) => {
-    const freeCount =
-      FREE_PUZZLES_PER_DIFFICULTY[difficulty] ?? DEFAULT_FREE_PER_DIFFICULTY;
-    indexes.slice(freeCount).forEach((index) => {
-      locked.add(index);
-    });
-  });
-
-  return locked;
-};
+): Set<number> =>
+  genericLockedCollectionIndexes(
+    puzzles,
+    getDifficulty,
+    FREE_PUZZLES_PER_DIFFICULTY,
+    DEFAULT_FREE_PER_DIFFICULTY
+  );
 
 // Whether a collection puzzle id (<unblockCollectionId>-puzzle-N) falls in
 // the locked half of its difficulty band. Takes the already-fetched
@@ -47,11 +40,11 @@ export const lockedCollectionIndexes = (
 export const isCollectionPuzzleIdLocked = (
   id: string,
   puzzles: UnblockCollectionPuzzle[]
-): boolean => {
-  const match = /-puzzle-(\d+)$/.exec(id);
-  if (!match) {
-    return false;
-  }
-  const puzzleIndex = Number(match[1]);
-  return lockedCollectionIndexes(puzzles).has(puzzleIndex);
-};
+): boolean =>
+  genericIsCollectionPuzzleIdLocked(
+    id,
+    puzzles,
+    getDifficulty,
+    FREE_PUZZLES_PER_DIFFICULTY,
+    DEFAULT_FREE_PER_DIFFICULTY
+  );

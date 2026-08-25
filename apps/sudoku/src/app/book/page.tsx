@@ -1,8 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Sparkles } from 'lucide-react';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
-import { useContext, useEffect, useState, useCallback } from 'react';
+import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
@@ -25,8 +25,11 @@ import { sha256 } from '@bubblyclouds-app/template/helpers/sha256';
 import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/sudoku/helpers/cheatDetection';
+import { lockedBookIndexes } from '@bubblyclouds-app/sudoku/helpers/bookLocks';
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -50,6 +53,7 @@ export default function BookPage() {
   } = useSessions<GameState>();
   const { parties } = useParties();
   const { isOnline } = useOnline();
+  const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
 
   // State for mock sessions
   const [mockSessions, setMockSessions] = useState<{
@@ -163,6 +167,14 @@ export default function BookPage() {
 
     createAllMockSessions();
   }, [bookData, createMockSessionFromPuzzle]);
+
+  const lockedIndexes = useMemo(
+    () =>
+      bookData?.puzzles
+        ? lockedBookIndexes(bookData.puzzles)
+        : new Set<number>(),
+    [bookData]
+  );
 
   const isLoading = bookLoading || sessionsLoading;
 
@@ -301,6 +313,25 @@ export default function BookPage() {
                     }{' '}
                     in progress
                   </div>
+                  {!isSubscribed && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        subscribeModal?.showModalIfRequired(
+                          () => {},
+                          () => {},
+                          SubscriptionContext.COLLECTION_LOCKED
+                        )
+                      }
+                      className="group inline-flex cursor-pointer items-center gap-2 rounded-lg border border-amber-300/50 bg-gradient-to-r from-amber-400/20 to-amber-500/10 px-3 py-1.5 text-sm font-semibold text-amber-100 backdrop-blur-sm transition-all duration-200 hover:from-amber-400/30 hover:to-amber-500/20 active:scale-[0.98]"
+                    >
+                      <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                      Unlock every puzzle with Plus
+                      <span className="opacity-60 transition-transform duration-200 group-hover:translate-x-0.5">
+                        →
+                      </span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -430,6 +461,10 @@ export default function BookPage() {
                 );
               }
 
+              const isLocked = !isSubscribed && lockedIndexes.has(index);
+              const navigateToPuzzle = () =>
+                router.push(buildPuzzleUrlFromState(mockSession.state));
+
               return (
                 <div key={index} id={`puzzle-${index}`}>
                   <IntegratedSessionRow<
@@ -451,6 +486,14 @@ export default function BookPage() {
                     }
                     isPuzzleCheated={isPuzzleCheated}
                     buildPuzzleUrlFromState={buildPuzzleUrlFromState}
+                    isLocked={isLocked}
+                    onLockedClick={() =>
+                      subscribeModal?.showModalIfRequired(
+                        navigateToPuzzle,
+                        () => {},
+                        SubscriptionContext.COLLECTION_LOCKED
+                      )
+                    }
                   />
                 </div>
               );

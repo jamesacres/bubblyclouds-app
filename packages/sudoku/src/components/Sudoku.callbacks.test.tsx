@@ -35,6 +35,12 @@ jest.mock('../hooks/useDrag', () => ({
     handleDragStart: jest.fn(),
   })),
 }));
+jest.mock('../providers/BookProvider', () => ({
+  useBook: jest.fn(() => ({
+    bookData: null,
+    fetchBookData: jest.fn(),
+  })),
+}));
 
 jest.mock('lucide-react', () => ({
   Award: () => <svg data-testid="award-icon" />,
