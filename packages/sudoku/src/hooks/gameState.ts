@@ -44,14 +44,12 @@ import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvid
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import type { SubscriptionContext as SubscriptionContextType } from '@bubblyclouds-app/types/subscriptionContext';
 import { useHandleServerResponse } from '@bubblyclouds-app/games/hooks/handleServerResponse';
-import {
-  useInactivityPause,
-  INACTIVITY_MS,
-} from '@bubblyclouds-app/games/hooks/inactivityPause';
+import { useInactivityPause } from '@bubblyclouds-app/games/hooks/inactivityPause';
 import {
   shrinkAnswerStack,
   shrinkAnswerStackLocal,
 } from '@bubblyclouds-app/games/helpers/shrinkAnswerStack';
+import { useGameSessionState } from '@bubblyclouds-app/games/hooks/useGameSessionState';
 
 function useGameState({
   final,
@@ -159,6 +157,11 @@ function useGameState({
   const hasSessionParties = sessionParties
     ? Object.keys(sessionParties).length
     : 0;
+
+  // Reference to sessionParties to read inside the polling effect without
+  // tearing down and recreating the interval on every successful poll
+  const sessionPartiesRef = useRef(sessionParties);
+  sessionPartiesRef.current = sessionParties;
 
   const [selectedCell, setSelectedCellState] = useState<null | string>(null);
   const lastSelectedCellChangeRef = useRef<number>(Date.now());
@@ -436,175 +439,24 @@ function useGameState({
     setValidation(undefined);
   }, [answer, selectedCell]);
 
-  // Restore and save state
-  useEffect(() => {
-    // The Lobby/board entry gate (packages/template AuthGate) keeps this
-    // component unmounted until a user is confirmed, so this only guards
-    // against the hook being reused somewhere that skips the gate.
-    if (!user) {
-      return;
-    }
-
-    let active = true;
-
-    const { localValue, serverValuePromise } = getValue() || {};
-    if (localValue) {
-      setAnswerStack({
-        answerStack: localValue.state.answerStack,
-        isRestored: true,
-        isDisabled: true, // disable until heard from server
-        completed: localValue.state.completed,
-      });
-    }
-
-    serverValuePromise.then((serverValue) => {
-      if (active) {
-        if (serverValue?.parties && Object.keys(serverValue?.parties).length) {
-          setSessionParties(serverValue.parties);
-        }
-        if (
-          serverValue &&
-          'state' in serverValue &&
-          serverValue?.state &&
-          (!localValue?.lastUpdated ||
-            (localValue?.lastUpdated &&
-              serverValue?.updatedAt &&
-              serverValue.updatedAt.getTime() > localValue?.lastUpdated))
-        ) {
-          // Update local state and timer if server state is newer
-          setAnswerStack({
-            answerStack: serverValue.state.answerStack,
-            isRestored: true,
-            completed: serverValue.state.completed,
-          });
-          if (!serverValue.state.completed) {
-            setTimerNewSession(serverValue.state.timer);
-          }
-        } else {
-          if (
-            serverValue &&
-            'state' in serverValue &&
-            localValue?.state &&
-            localValue?.lastUpdated &&
-            (serverValue?.updatedAt?.getTime() || 0) <
-              Math.floor(localValue.lastUpdated / 1000) * 1000
-          ) {
-            // Server value is behind local! Update the server!
-            console.warn(
-              'Server behind local, updating server',
-              serverValue?.updatedAt?.getTime() || 0,
-              Math.floor(localValue.lastUpdated / 1000) * 1000
-            );
-            // Track saveValue call timestamp and increment ignore counter
-            lastSaveTimeRef.current = Date.now();
-            pollingIgnoreCounterRef.current += 1;
-            saveValue(localValue.state).serverValuePromise?.then((result) =>
-              handleServerResponse(active, result)
-            );
-          }
-          // Remove disabled flag, heard from server but ignored it
-          setAnswerStack((current) => {
-            return { ...current, isDisabled: undefined };
-          });
-        }
-      }
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [
+  useGameSessionState({
     user,
     puzzleId,
     getValue,
+    setAnswerStack,
     setTimerNewSession,
     saveValue,
     setSessionParties,
     handleServerResponse,
-  ]);
-
-  useEffect(() => {
-    let active = true;
-    let intervalId: ReturnType<typeof setInterval>;
-
-    const pollGetValue = () => {
-      console.info('pollGetValue');
-
-      if (!hasSessionParties || !user) {
-        return;
-      }
-
-      const now = Date.now();
-      const timeSinceLastSave = now - lastSaveTimeRef.current;
-      const timeSinceLastSelectedCellChange =
-        now - lastSelectedCellChangeRef.current;
-
-      // Only poll if more than 30 seconds has passed since last saveValue call
-      // And less than 30 minutes
-      // And there are sessions still in progress
-      // And selectedCell has changed within the last 5 minutes
-      if (
-        !isPaused &&
-        isDocumentVisible &&
-        active &&
-        timeSinceLastSave >= 30000 &&
-        timeSinceLastSave < 60000 * 30 &&
-        (completed || timeSinceLastSelectedCellChange < INACTIVITY_MS) &&
-        Object.values(sessionParties).find(
-          (party) =>
-            party &&
-            Object.values(party.memberSessions).find(
-              (session) => !session?.state.completed
-            )
-        )
-      ) {
-        console.info('polling stale session parties..');
-        const currentIgnoreCounter = pollingIgnoreCounterRef.current;
-        const { serverValuePromise } = getValue() || {};
-
-        serverValuePromise?.then((serverValue) => {
-          // Ignore response if a saveValue call happened after this polling request
-          if (
-            !isPaused &&
-            active &&
-            pollingIgnoreCounterRef.current === currentIgnoreCounter
-          ) {
-            if (
-              serverValue?.parties &&
-              Object.keys(serverValue.parties).length
-            ) {
-              setSessionParties(serverValue.parties);
-            }
-          }
-        });
-      } else {
-        console.info('skipping poll');
-      }
-    };
-
-    if (active && !isPaused && isDocumentVisible && hasSessionParties && user) {
-      console.info('setting up polling..');
-      intervalId = setInterval(pollGetValue, 30000);
-    } else {
-      console.info('not setting up polling, no need');
-    }
-
-    return () => {
-      active = false;
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [
-    getValue,
-    setSessionParties,
+    lastSaveTimeRef,
+    pollingIgnoreCounterRef,
+    lastInteractionRef: lastSelectedCellChangeRef,
+    sessionPartiesRef,
     isPaused,
     isDocumentVisible,
     hasSessionParties,
-    sessionParties,
-    user,
     completed,
-  ]);
+  });
 
   useEffect(() => {
     let active = true;

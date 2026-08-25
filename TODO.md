@@ -3,6 +3,11 @@
 Waitlist, only allow us two to login for now
 update with stephens improvements
 
+
+
+identify other duplicated code like default agents
+move components for stages into generic games, passing in unblock race board for example
+
 re-test ai opponent timeline works across stages now, when completing stages etc
 monthly covers for collection
 add same locks to sudoku, and lock on the hints
