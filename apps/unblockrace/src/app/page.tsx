@@ -516,14 +516,14 @@ function HomeComponent() {
                   <div className="flex items-center gap-4 md:gap-6">
                     <div className="min-w-0 flex-1">
                       <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-white/35">
-                        {currentMonth} · daily puzzles
+                        {currentMonth} · 50 puzzles
                       </p>
                       <p className="mb-1 text-xl font-black leading-tight text-white md:text-2xl">
                         Monthly collection
                       </p>
                       <p className="mb-3 text-xs leading-snug text-white/50 md:text-sm">
-                        A fresh jam for every day of {currentMonth} — clear them
-                        all before the month is out.
+                        50 fresh jams for {currentMonth} — clear them all before
+                        the month is out.
                       </p>
                       <span
                         className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold text-white"
