@@ -34,8 +34,13 @@ const mockReplace = jest.fn();
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({ replace: mockReplace, push: mockPush })),
 }));
-const mockUseSessions = jest.fn<{ sessions: unknown[] }, []>(() => ({
+const mockFetchSessions = jest.fn();
+const mockUseSessions = jest.fn<
+  { sessions: unknown[]; fetchSessions: jest.Mock },
+  []
+>(() => ({
   sessions: [],
+  fetchSessions: mockFetchSessions,
 }));
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: () => mockUseSessions(),
@@ -105,7 +110,11 @@ const mockRaceTrackProps = jest.fn();
 jest.mock('@bubblyclouds-app/games/components/RaceTrack', () => {
   const DummyRaceTrack = function DummyRaceTrack(props: object) {
     mockRaceTrackProps(props);
-    return <div data-testid="race-track">Race Track</div>;
+    return (
+      <div id="race-track" data-testid="race-track">
+        Race Track
+      </div>
+    );
   };
   return {
     __esModule: true,
@@ -237,7 +246,10 @@ describe('UnblockRace', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     window.localStorage.clear();
-    mockUseSessions.mockReturnValue({ sessions: [] });
+    mockUseSessions.mockReturnValue({
+      sessions: [],
+      fetchSessions: mockFetchSessions,
+    });
     mockUseCollection.mockReturnValue({
       collectionData: null,
       fetchCollectionData: mockFetchCollectionData,
@@ -313,6 +325,80 @@ describe('UnblockRace', () => {
     expect(lobbyProps.puzzleDifficulty).toBe('Challenging');
     expect(lobbyProps.puzzleDifficultyBadgeColor).toBe(
       'bg-amber-500 text-white'
+    );
+  });
+
+  it('passes the lobby moves-vs-par and star-rating callbacks so opponent rows can show move counts', () => {
+    render(<UnblockRace {...defaultProps} />);
+    const lobbyProps = mockLobbyProps.mock.calls[
+      mockLobbyProps.mock.calls.length - 1
+    ][0] as {
+      getMovesDisplay: (_state: unknown) => unknown;
+      getStarRating: (_state: unknown) => unknown;
+    };
+    expect(
+      lobbyProps.getMovesDisplay({
+        answerStack: [STAGE_1, STAGE_1_COMPLETED],
+        metadata: { movesMade: '5', movesRequired: '3' },
+      })
+    ).toEqual({ movesMade: 5, movesRequired: 3 });
+    expect(
+      lobbyProps.getStarRating({
+        answerStack: [STAGE_1, STAGE_1_COMPLETED],
+        completed: { at: new Date().toISOString(), seconds: 30 },
+        metadata: { movesMade: '3', movesRequired: '3' },
+      })
+    ).toBe(3);
+  });
+
+  it('includes unblockCollectionPuzzleId in the lobby invite/share URL for a collection puzzle', () => {
+    // Regression test: the invite link was rebuilt from just { runId },
+    // dropping unblockCollectionPuzzleId from the incoming metadata — an
+    // invited friend would land on the puzzle with no collection id in their
+    // own session, breaking "My Puzzles" labelling and locking for them.
+    render(
+      <UnblockRace
+        {...defaultProps}
+        metadata={{ unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3' }}
+      />
+    );
+    const lobbyProps = mockLobbyProps.mock.calls[
+      mockLobbyProps.mock.calls.length - 1
+    ][0] as { redirectUri: string };
+    expect(lobbyProps.redirectUri).toContain(
+      'unblockCollectionPuzzleId=ofthemonth-202607-puzzle-3'
+    );
+  });
+
+  it('fetches sessions on mount for a collection puzzle, so a fresh page load can show an accurate completed count', () => {
+    // Regression: only the home/collection list pages called
+    // refetchSessions(), so sessions stayed null forever on a direct/reload
+    // navigation straight to a puzzle. The "X of Y <difficulty> complete"
+    // progress label derives its "X" from sessions, silently reading a null
+    // sessions list as zero completions and getting stuck at "0 of Y" even
+    // when puzzles were actually complete.
+    render(
+      <UnblockRace
+        {...defaultProps}
+        metadata={{ unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3' }}
+      />
+    );
+    expect(mockFetchSessions).toHaveBeenCalled();
+  });
+
+  it('shows a 1-based collection puzzle number in the results panel, not the raw 0-based index', () => {
+    // Regression: unblockCollectionPuzzleId's trailing segment is a 0-based
+    // index (apps/unblockrace/src/app/collection/page.tsx), but the label
+    // rendered it raw — puzzle index 0 showed as "Collection puzzle 0"
+    // instead of "Collection puzzle 1".
+    render(
+      <UnblockRace
+        {...defaultProps}
+        metadata={{ unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-0' }}
+      />
+    );
+    expect(screen.getByTestId('stage-result-panel')).toHaveTextContent(
+      'Collection puzzle 1'
     );
   });
 
@@ -635,6 +721,47 @@ describe('UnblockRace', () => {
     expect(screen.getByTestId('stage-result-0')).toHaveTextContent('3/3');
   });
 
+  it('scrolls to the race track when "View racing stats" is clicked', () => {
+    // jsdom doesn't implement scrollIntoView; stub it so the click handler
+    // can call it without throwing, and so we can assert it fired.
+    const scrollIntoView = jest.fn();
+    window.HTMLElement.prototype.scrollIntoView = scrollIntoView;
+
+    // The button only shows once the CURRENT stage has a result
+    // (canRetryCurrentStage), so complete both stages to keep the resumed
+    // current stage index (the last one) in step with its own result.
+    window.localStorage.setItem(
+      `unblockrace-${STAGE_1}`,
+      JSON.stringify({
+        state: {
+          initial: STAGE_1,
+          answerStack: [solvedBoardString(STAGE_1)],
+          completed: { at: new Date().toISOString(), seconds: 30 },
+          metadata: { movesMade: '3' },
+        },
+      })
+    );
+    window.localStorage.setItem(
+      `unblockrace-${STAGE_2}`,
+      JSON.stringify({
+        state: {
+          initial: STAGE_2,
+          answerStack: [solvedBoardString(STAGE_2)],
+          completed: { at: new Date().toISOString(), seconds: 20 },
+          metadata: { movesMade: '5' },
+        },
+      })
+    );
+
+    render(<UnblockRace {...defaultProps} />);
+    fireEvent.click(screen.getByTestId('stage-result-view-stats'));
+
+    expect(scrollIntoView).toHaveBeenCalledWith({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  });
+
   // CountUp renders two spans for its value: an animated aria-hidden one
   // (starts at 0, ticks up over rAF frames) and a screen-reader-only
   // aria-live one that always holds the final value immediately. Reading
@@ -749,6 +876,7 @@ describe('UnblockRace', () => {
             },
           },
         ],
+        fetchSessions: mockFetchSessions,
       });
       mockUseGameState.mockReturnValue({
         ...baseGameState,
@@ -1431,6 +1559,7 @@ describe('UnblockRace', () => {
           completedSession(P2),
           completedSession(P3),
         ],
+        fetchSessions: mockFetchSessions,
       });
       mockUseGameState.mockReturnValue({
         ...baseGameState,
@@ -1462,6 +1591,7 @@ describe('UnblockRace', () => {
           completedSession(P2),
           completedSession(P3),
         ],
+        fetchSessions: mockFetchSessions,
       });
       mockUseGameState.mockReturnValue({
         ...baseGameState,

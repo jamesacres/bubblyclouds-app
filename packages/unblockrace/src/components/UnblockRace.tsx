@@ -41,7 +41,10 @@ import { getAllAgentProgress } from '@bubblyclouds-app/games/helpers/agentProgre
 import { getHint } from '../helpers/hint';
 import { loadSolver } from '../services/solver';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
-import { calculateStatsDisplayFromState } from '../helpers/calculateStatsDisplay';
+import {
+  calculateStatsDisplayFromState,
+  movesDisplayFromState,
+} from '../helpers/calculateStatsDisplay';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
 import { solvedBoardString } from '../helpers/boardToString';
 import { difficultyForMoves } from '../helpers/difficulty';
@@ -53,8 +56,9 @@ import {
 } from '../helpers/difficultyDisplay';
 import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
 import { getDailyLabel } from '../helpers/dailyLabel';
+import { getCollectionPuzzleLabel } from '../helpers/collectionPuzzleLabel';
 import { formatSecondsShort } from '../helpers/formatSecondsShort';
-import { starRatingForMoves } from '../helpers/starRating';
+import { starRatingForMoves, starRatingFromState } from '../helpers/starRating';
 import { isCollectionPuzzleIdLocked } from '../helpers/collectionLocks';
 import {
   canUseHint,
@@ -275,7 +279,7 @@ const UnblockRace = ({
   const context = useContext(UserContext);
   const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
-  const { sessions } = useSessions<GameState>();
+  const { sessions, fetchSessions } = useSessions<GameState>();
   const { collectionData, fetchCollectionData } = useCollection();
 
   const { stages } = run;
@@ -1105,6 +1109,17 @@ const UnblockRace = ({
     }
   }, [isCollectionPuzzle, isDailyRun, fetchCollectionData]);
 
+  // The "X of Y <difficulty> complete" progress label also needs sessions,
+  // but only the home/collection list pages fetch those. Landing here
+  // directly leaves sessions null forever (fetchSessions is a no-op once
+  // populated elsewhere), silently showing "0 of Y" even when puzzles are
+  // already complete.
+  useEffect(() => {
+    if (isCollectionPuzzle || isDailyRun) {
+      fetchSessions();
+    }
+  }, [isCollectionPuzzle, isDailyRun, fetchSessions]);
+
   // The result that stays put once the transient celebration fades — the
   // slam and the RaceCelebration both clear themselves, so without this a
   // finished puzzle (especially a single-stage collection puzzle) would leave
@@ -1146,9 +1161,10 @@ const UnblockRace = ({
         result.score.movesRequired,
         dayPuzzleIndex
       ),
-      label: isCollectionPuzzle
-        ? `Collection puzzle ${metadata.unblockCollectionPuzzleId?.split('-').pop()}`
-        : undefined,
+      label:
+        isCollectionPuzzle && metadata.unblockCollectionPuzzleId
+          ? getCollectionPuzzleLabel(metadata.unblockCollectionPuzzleId)
+          : undefined,
     };
   }, [
     completed,
@@ -1335,9 +1351,9 @@ const UnblockRace = ({
       buildPuzzleUrl(
         stages.map((s) => s.stageId),
         stages.map((s) => s.movesRequired),
-        { runId }
+        { runId, unblockCollectionPuzzleId: metadata.unblockCollectionPuzzleId }
       ),
-    [stages, runId]
+    [stages, runId, metadata.unblockCollectionPuzzleId]
   );
 
   // The current user's live state for the race track, with the live move
@@ -1368,33 +1384,14 @@ const UnblockRace = ({
     [initial, final, answerStack, completed, stageMetadata, movesMade]
   );
 
-  // Opponent comparison for the summary card (SPEC.md §7): fastest completed
-  // friend session for this stage, omitted when no friend finished yet
-  const opponentDeltaSeconds = useMemo(() => {
-    if (!completed) {
-      return undefined;
-    }
-    let fastestFriendSeconds: number | undefined;
-    for (const party of Object.values(sessionParties)) {
-      for (const [memberUserId, session] of Object.entries(
-        party?.memberSessions || {}
-      )) {
-        const friendSeconds = session?.state.completed?.seconds;
-        if (
-          memberUserId !== user?.sub &&
-          friendSeconds !== undefined &&
-          (fastestFriendSeconds === undefined ||
-            friendSeconds < fastestFriendSeconds)
-        ) {
-          fastestFriendSeconds = friendSeconds;
-        }
-      }
-    }
-    if (fastestFriendSeconds === undefined) {
-      return undefined;
-    }
-    return fastestFriendSeconds - completed.seconds;
-  }, [completed, sessionParties, user?.sub]);
+  // Scrolls down to the race track's full stats/leaderboard from the
+  // stage-result panel's "View racing stats" button, which sits at the top
+  // of the column, well above it.
+  const scrollToRaceTrack = useCallback(() => {
+    document
+      .getElementById('race-track')
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
 
   const stageDifficulty = useMemo(
     () => unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired)),
@@ -1603,6 +1600,8 @@ const UnblockRace = ({
         calculateCompletionPercentageFromState={
           calculateCompletionPercentageFromState
         }
+        getMovesDisplay={movesDisplayFromState}
+        getStarRating={starRatingFromState}
         localAgentProgress={showLobby ? localAgentProgress : undefined}
         onRemoveAgent={onRemoveAgent}
         agentOptions={DEFAULT_AGENT_CONFIGS}
@@ -1669,12 +1668,14 @@ const UnblockRace = ({
                   currentStageIndex={currentStageIndex}
                   goToStage={goToStage}
                   isTransitioning={!!transition}
-                  opponentDeltaSeconds={opponentDeltaSeconds}
+                  onViewStats={scrollToRaceTrack}
                   runComplete={isFinalStage && !!completed}
                   dailyLabel={isDailyRun ? getDailyLabel() : undefined}
                   collectionPuzzleLabel={
                     metadata.unblockCollectionPuzzleId
-                      ? `Collection puzzle ${metadata.unblockCollectionPuzzleId.split('-').pop()}`
+                      ? getCollectionPuzzleLabel(
+                          metadata.unblockCollectionPuzzleId
+                        )
                       : undefined
                   }
                   onRetry={handleRetryClick}

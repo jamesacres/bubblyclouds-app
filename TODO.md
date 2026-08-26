@@ -4,16 +4,6 @@ Waitlist, only allow us two to login for now
 update with stephens improvements
 
 
-
-re-test ai opponent timeline works across stages now, when completing stages etc
-monthly covers for collection
-add same locks to sudoku, and lock on the hints
-server should store unblockCollectionPuzzleId with invite url, and the same for daily? otherwise the next puzzle link wont load etc.
-shows collection puzzle 0 - complete
-lobby should show number of moved not just the solved time for those who have completed it and in progress?
-homepage enjoying rate button wrong width
-save to server when making moves every x seconds in addition to when complete?
-
 - Level system
 
 
@@ -40,12 +30,7 @@ https://www.morningstar.com/retirement/morningstars-retirement-income-research-f
 Something similar to bulb Rush game
 
 * end game state sudoku, needs to reappear to avoid blank screen, and take learnings from unblock race for leaderboard points and continue buttons
-* need to make it clear that the collection/pack refreshes monthly and they're paying to get all new puzzles every month
-* need to check the how scoring works to check that it reads okay for unblock race
-* confirm no mentions of book for unblock race
 * app store admin, revenue cat admin, update app ids and api keys
-* serverside upgrades and add new endpoints for unblock race monthly and daily
-* check multiplayer stages, check it works okay when moving between stages and the refreshable stats at the end etc
 
 See Sudoku TODOs....
 
@@ -119,21 +104,8 @@ The sliding-block puzzle game is implemented per SPEC.md: the
 `@bubblyclouds-app/unblockrace` package (board model, drag interaction,
 useGameState, 5-puzzle chain runs, mock seed data from Fogleman's database)
 and the app pages (puzzle, home daily run, monthly collection) are wired up.
-Puzzle content is mocked from a static fixture until the real API exists.
 
 ### Features
-
-- Update RaceTrack's hardcoded "Puzzle book" button
-  (`packages/games/src/components/RaceTrack.tsx`) to say "Collection" for this
-  app - make the label a prop so sudoku keeps "Puzzle book"
-- Replace the mock puzzle-content source (`helpers/mockData.ts` /
-  `CollectionProvider`) with the real API once the server supports unblock
-  collections (see Server project below)
-- Regenerate Android/iOS signing and app-specific assets (assetlinks.json
-  fingerprints, apple-app-site-association appID, app icons/splash) - these
-  were carried over from the sudoku app as placeholders
-- AI opponents/agents for local races (explicit non-goal of the v1 spec)
-- Vehicle theming/skins (explicit non-goal of the v1 spec)
 
 ### Server project
 

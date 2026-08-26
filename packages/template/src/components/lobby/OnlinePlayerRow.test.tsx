@@ -192,6 +192,95 @@ describe('OnlinePlayerRow', () => {
     expect(screen.queryByLabelText('Remove Alice')).not.toBeInTheDocument();
   });
 
+  describe('getMovesDisplay / getStarRating', () => {
+    it('shows moves graded against par for an in-progress player', () => {
+      const session = makeSession({
+        timer: {
+          seconds: 30,
+          inProgress: {
+            start: '2026-06-10T10:00:00Z',
+            lastInteraction: '2026-06-10T10:00:30Z',
+          },
+        },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          calculateCompletionPercentageFromState={() => 40}
+          getMovesDisplay={() => ({ movesMade: 12, movesRequired: 8 })}
+        />
+      );
+      expect(screen.getByText('40% · 0:30')).toBeInTheDocument();
+      expect(screen.getByText('12/8 +4')).toBeInTheDocument();
+    });
+
+    it('shows moves and star rating for a finished player', () => {
+      const session = makeSession({
+        completed: { at: '2026-06-10T10:00:30Z', seconds: 30 },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          getMovesDisplay={() => ({ movesMade: 8, movesRequired: 8 })}
+          getStarRating={() => 3}
+        />
+      );
+      expect(screen.getByText('Solved in 0:30')).toBeInTheDocument();
+      expect(screen.getByText('8/8')).toBeInTheDocument();
+      expect(screen.getByLabelText('3 of 3 stars')).toBeInTheDocument();
+    });
+
+    it('does not show a star rating while the player is still in progress', () => {
+      const session = makeSession({
+        timer: {
+          seconds: 30,
+          inProgress: {
+            start: '2026-06-10T10:00:00Z',
+            lastInteraction: '2026-06-10T10:00:30Z',
+          },
+        },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          getStarRating={() => 3}
+        />
+      );
+      expect(screen.queryByLabelText(/stars/)).not.toBeInTheDocument();
+    });
+
+    it('does not render a moves chip when getMovesDisplay returns undefined', () => {
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={makeSession({
+            timer: {
+              seconds: 30,
+              inProgress: {
+                start: '2026-06-10T10:00:00Z',
+                lastInteraction: '2026-06-10T10:00:30Z',
+              },
+            },
+          })}
+          getMovesDisplay={() => undefined}
+        />
+      );
+      expect(screen.queryByText(/\//)).not.toBeInTheDocument();
+    });
+
+    it('omits moves and stars entirely when no callbacks are provided', () => {
+      const session = makeSession({
+        completed: { at: '2026-06-10T10:00:30Z', seconds: 30 },
+      });
+      render(<OnlinePlayerRow {...defaultProps} session={session} />);
+      expect(screen.getByText('Solved in 0:30')).toBeInTheDocument();
+      expect(screen.queryByText(/\//)).not.toBeInTheDocument();
+    });
+  });
+
   describe('runProgress (multi-stage runs)', () => {
     it('shows "Stage N of M" instead of the current-stage percentage', () => {
       const session = makeSession({

@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { BaseServerState } from '../types/state';
+import { MovesDisplay } from './MovesDisplay';
 
 // Function to get game status text
 const getGameStatusText = <State extends BaseServerState = BaseServerState>(
@@ -35,6 +36,21 @@ const getGameStatusText = <State extends BaseServerState = BaseServerState>(
   return `${percentage}% complete`;
 };
 
+const MONTH_NAMES = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+
 // Helper function to format date from YYYYMMDD to "Mon DD"
 const formatDateString = (dateString: string) => {
   // dateString is in format YYYYMMDD
@@ -48,21 +64,7 @@ const formatDateString = (dateString: string) => {
   const date = new Date(`${year}-${month}-${day}`);
 
   // Format as "Aug 17th"
-  const monthNames = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-  const monthName = monthNames[date.getMonth()];
+  const monthName = MONTH_NAMES[date.getMonth()];
   const dayNum = date.getDate();
 
   // Add ordinal suffix (st, nd, rd, th)
@@ -90,12 +92,14 @@ const extractMetadataInfo = (
     sudokuId: string;
     sudokuBookPuzzleId: string;
     scannedAt: string;
+    runId: string;
+    unblockCollectionPuzzleId: string;
   }>
 ) => {
   if (!metadata) return null;
 
   const info: {
-    type: 'daily' | 'book' | 'scanned' | 'other';
+    type: 'daily' | 'book' | 'scanned' | 'collection' | 'other';
     difficulty?: string;
     date?: string;
     bookInfo?: { year: string; month: string; number: number };
@@ -131,6 +135,33 @@ const extractMetadataInfo = (
   // Check for scanned puzzles
   if (metadata.scannedAt && metadata.scannedAt !== 'undefined') {
     info.type = 'scanned';
+  }
+
+  // Unblock Race daily run (format: oftheday-${YYYYMMDD})
+  if (metadata.runId?.startsWith('oftheday-')) {
+    const parts = metadata.runId.split('-');
+    if (parts.length >= 2) {
+      info.type = 'daily';
+      info.date = parts[1];
+    }
+  }
+
+  // Unblock Race collection puzzle
+  // (format: ofthemonth-${YYYYMM}-puzzle-${index})
+  if (metadata.unblockCollectionPuzzleId?.startsWith('ofthemonth-')) {
+    const parts = metadata.unblockCollectionPuzzleId.split('-');
+    if (parts.length >= 4) {
+      info.type = 'collection';
+      const yearMonth = parts[1];
+      const number = parseInt(parts[3]);
+      if (yearMonth.length === 6) {
+        info.bookInfo = {
+          year: yearMonth.substring(0, 4),
+          month: yearMonth.substring(4, 6),
+          number: number + 1, // Convert 0-based index to 1-based
+        };
+      }
+    }
   }
 
   // Use difficulty from metadata if available
@@ -195,38 +226,6 @@ interface IntegratedSessionRowProps<
   lockedLabel?: string;
 }
 
-// Move count graded against par, in the same colours as the game's
-// leaderboards — amber over par, emerald under, neutral on par — with the
-// golf-style delta saying exactly how far over or under
-const MovesDisplay = ({
-  moves,
-}: {
-  moves: { movesMade: number; movesRequired: number };
-}) => {
-  const movesDelta = moves.movesMade - moves.movesRequired;
-  return (
-    <span
-      className={`font-mono tabular-nums ${
-        movesDelta > 0
-          ? 'text-amber-600 dark:text-amber-400'
-          : movesDelta < 0
-            ? 'text-emerald-600 dark:text-emerald-400'
-            : 'opacity-75'
-      }`}
-    >
-      {moves.movesMade}/{moves.movesRequired}
-      {movesDelta !== 0 && ` ${movesDelta > 0 ? '+' : ''}${movesDelta}`}
-      <span className="sr-only">
-        {` moves, ${
-          movesDelta === 0
-            ? 'on par'
-            : `${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
-        }`}
-      </span>
-    </span>
-  );
-};
-
 // Helper to get user's session data for display
 const useUserSessionData = <State extends BaseServerState = BaseServerState>(
   session: ServerStateResult<State>,
@@ -275,6 +274,7 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
     userId: string;
     completionPercentage: number;
     completionTime: number | null;
+    inProgressSeconds: number | null;
     isCompleted: boolean;
     isCheated: boolean;
     moves?: { movesMade: number; movesRequired: number };
@@ -305,6 +305,10 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
         userId,
         completionPercentage,
         completionTime: matchingSession.state.completed?.seconds || null,
+        inProgressSeconds:
+          matchingSession.state.timer !== undefined
+            ? calculateSeconds(matchingSession.state.timer)
+            : null,
         isCompleted: !!matchingSession.state.completed,
         isCheated: isPuzzleCheated(matchingSession.state),
         moves: getMovesDisplay?.(matchingSession.state),
@@ -376,25 +380,15 @@ export const IntegratedSessionRow = <
       return `Daily ${formatDateString(metadataInfo.date)}`;
     }
     if (metadataInfo?.type === 'book' && metadataInfo.bookInfo) {
-      const monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
-      const monthName = monthNames[parseInt(metadataInfo.bookInfo.month) - 1];
+      const monthName = MONTH_NAMES[parseInt(metadataInfo.bookInfo.month) - 1];
       return `Book ${monthName} #${metadataInfo.bookInfo.number}`;
     }
     if (metadataInfo?.type === 'scanned') {
       return 'Scanned Puzzle';
+    }
+    if (metadataInfo?.type === 'collection' && metadataInfo.bookInfo) {
+      const monthName = MONTH_NAMES[parseInt(metadataInfo.bookInfo.month) - 1];
+      return `Collection ${monthName} #${metadataInfo.bookInfo.number}`;
     }
     return '';
   })();
@@ -418,6 +412,7 @@ export const IntegratedSessionRow = <
       userId: string | null;
       completionPercentage: number;
       completionTime: number | null;
+      inProgressSeconds: number | null;
       isCompleted: boolean;
       isCheated: boolean;
       isCurrentUser: boolean;
@@ -433,6 +428,10 @@ export const IntegratedSessionRow = <
         userId: null,
         completionPercentage: myPercentage,
         completionTime: actualSession?.state.completed?.seconds || null,
+        inProgressSeconds:
+          actualSession?.state.timer !== undefined
+            ? calculateSeconds(actualSession.state.timer)
+            : null,
         isCompleted,
         isCheated: actualSession ? isPuzzleCheated(actualSession.state) : false,
         isCurrentUser: true,
@@ -653,6 +652,7 @@ export const IntegratedSessionRow = <
                     userId,
                     completionPercentage,
                     completionTime,
+                    inProgressSeconds,
                     isCompleted,
                     isCheated,
                     isCurrentUser,
@@ -702,15 +702,38 @@ export const IntegratedSessionRow = <
                           </>
                         ) : isCurrentUser ? (
                           <>
-                            {getTimerDisplay()}
+                            {inProgressSeconds !== null && (
+                              <span className="text-xs opacity-75">
+                                {Math.floor(inProgressSeconds / 60)}m{' '}
+                                {inProgressSeconds % 60}s
+                              </span>
+                            )}
                             <span className="ml-1 shrink-0 opacity-75">
                               {myPercentage}%
                             </span>
+                            {moves && (
+                              <span className="shrink-0">
+                                <MovesDisplay moves={moves} />
+                              </span>
+                            )}
                           </>
                         ) : (
-                          <span className="shrink-0 opacity-75">
-                            {completionPercentage}%
-                          </span>
+                          <>
+                            {inProgressSeconds !== null && (
+                              <span className="text-xs opacity-75">
+                                {Math.floor(inProgressSeconds / 60)}m{' '}
+                                {inProgressSeconds % 60}s
+                              </span>
+                            )}
+                            <span className="ml-1 shrink-0 opacity-75">
+                              {completionPercentage}%
+                            </span>
+                            {moves && (
+                              <span className="shrink-0">
+                                <MovesDisplay moves={moves} />
+                              </span>
+                            )}
+                          </>
                         )}
                       </div>
                       {isCompleted && !isCheated && stars !== undefined && (
@@ -760,6 +783,11 @@ export const IntegratedSessionRow = <
                         <span className="ml-1 shrink-0 opacity-75">
                           {myPercentage}%
                         </span>
+                        {ownMoves && (
+                          <span className="shrink-0">
+                            <MovesDisplay moves={ownMoves} />
+                          </span>
+                        )}
                       </>
                     )}
                   </div>

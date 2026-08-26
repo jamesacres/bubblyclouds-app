@@ -1,7 +1,15 @@
 'use client';
 
 import { ReactNode, memo } from 'react';
-import { Car, Check, Flag, RotateCcw, Target, Trophy } from 'lucide-react';
+import {
+  BarChart3,
+  Car,
+  Check,
+  ChevronDown,
+  Flag,
+  RotateCcw,
+  Trophy,
+} from 'lucide-react';
 import { RunStage } from '../types/runTypes';
 import { PlayerStageResult } from '../types/scoringTypes';
 import { DifficultyDisplay } from '../types/difficultyDisplay';
@@ -19,9 +27,9 @@ interface StageResultPanelProps<Stage extends RunStage, Score> {
   // Truthy while a slide is mid-flight — disables the thumbnails so a stage
   // change can't be kicked off on top of another.
   isTransitioning: boolean;
-  // Positive = beat the fastest friend who finished the current stage,
-  // negative = behind them; omitted when no friend has finished it yet.
-  opponentDeltaSeconds?: number;
+  // Scrolls down to the full racing stats (the run leaderboard); omitted
+  // when there's nowhere to scroll to (e.g. no other racers).
+  onViewStats?: () => void;
   // True once the final stage is solved — promotes the panel to a run-level
   // summary (the run total alongside the per-stage lines).
   runComplete: boolean;
@@ -62,7 +70,7 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
   currentStageIndex,
   goToStage,
   isTransitioning,
-  opponentDeltaSeconds,
+  onViewStats,
   runComplete,
   dailyLabel,
   collectionPuzzleLabel,
@@ -319,20 +327,21 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
           })}
         </ul>
 
-        {opponentDeltaSeconds !== undefined && (
-          <p
-            data-testid="stage-result-opponent"
-            className={`mt-3 flex items-center gap-1.5 text-sm font-medium ${
-              opponentDeltaSeconds >= 0
-                ? 'text-emerald-600 dark:text-emerald-400'
-                : 'text-amber-600 dark:text-amber-400'
-            }`}
+        {onViewStats && canRetryCurrentStage && (
+          <button
+            type="button"
+            data-testid="stage-result-view-stats"
+            onClick={onViewStats}
+            className="mt-3 flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-sm font-bold text-stone-600 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-900 active:scale-[0.98] dark:text-zinc-300 dark:hover:bg-white/5 dark:hover:text-white"
+            style={{
+              boxShadow:
+                'inset 0 0 0 1px color-mix(in srgb, currentColor 20%, transparent)',
+            }}
           >
-            <Target className="h-4 w-4" aria-hidden="true" />
-            {opponentDeltaSeconds >= 0
-              ? `Beat opponent by ${formatSeconds(opponentDeltaSeconds)}`
-              : `${formatSeconds(-opponentDeltaSeconds)} behind opponent`}
-          </p>
+            <BarChart3 className="h-4 w-4" aria-hidden="true" />
+            View racing stats
+            <ChevronDown className="h-4 w-4" aria-hidden="true" />
+          </button>
         )}
 
         {runComplete && stageCount > 1 && (

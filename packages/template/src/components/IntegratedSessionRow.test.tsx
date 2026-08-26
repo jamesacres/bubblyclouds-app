@@ -219,6 +219,30 @@ describe('IntegratedSessionRow', () => {
       // Over par renders in the amber grading colour with the +N delta
       expect(screen.getByText('12/9 +3')).toHaveClass('text-amber-600');
     });
+
+    it('shows moves graded against par for an in-progress (not yet completed) puzzle', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: undefined,
+          metadata: { movesMade: '5', movesRequired: '8' },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow
+            session={session}
+            getMovesDisplay={() => ({ movesMade: 5, movesRequired: 8 })}
+          />
+        </UserContext.Provider>
+      );
+
+      // Under par renders in the emerald grading colour with the -N delta
+      expect(screen.getByText('5/8 -3')).toHaveClass('text-emerald-600');
+    });
   });
 
   describe('puzzle title formatting', () => {
@@ -793,6 +817,103 @@ describe('IntegratedSessionRow', () => {
       expect(screen.getByText('You')).toBeInTheDocument();
     });
 
+    it('shows moves graded against par for both a friend and the current user while both are still in progress', () => {
+      const session = createMockSession();
+      setFriendSessionsAndParties(
+        {
+          'friend-1': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: session.sessionId,
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: undefined,
+                  metadata: { movesMade: '4', movesRequired: '10' },
+                },
+              },
+            ],
+          },
+        },
+        [
+          {
+            partyId: 'p1',
+            members: [{ userId: 'friend-1', memberNickname: 'Friendly Fox' }],
+          },
+        ]
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow
+            session={session}
+            getMovesDisplay={(state) =>
+              state.metadata?.movesMade && state.metadata?.movesRequired
+                ? {
+                    movesMade: Number(state.metadata.movesMade),
+                    movesRequired: Number(state.metadata.movesRequired),
+                  }
+                : undefined
+            }
+          />
+        </UserContext.Provider>
+      );
+
+      // Friend, in progress, under par
+      expect(screen.getByText('4/10 -6')).toBeInTheDocument();
+    });
+
+    it("shows the friend's own elapsed time while in progress, not the current user's", () => {
+      // Regression: the in-progress timer branch called getTimerDisplay(),
+      // which always reads the current user's own actualSession.state.timer
+      // regardless of which row (friend or "You") it renders in — so a
+      // friend's in-progress row showed no timer at all (or, if the current
+      // user also had a session, silently showed the wrong person's time).
+      const session = createMockSession();
+      setFriendSessionsAndParties(
+        {
+          'friend-1': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: session.sessionId,
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: undefined,
+                  timer: { startTime: 0, pausedTime: 0 } as any,
+                  metadata: {},
+                },
+              },
+            ],
+          },
+        },
+        [
+          {
+            partyId: 'p1',
+            members: [{ userId: 'friend-1', memberNickname: 'Friendly Fox' }],
+          },
+        ]
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      // calculateSeconds is mocked (beforeEach) to return 120 regardless of
+      // the timer passed in — this confirms it was called at all for the
+      // friend's own session (proving the friend's timer is actually read),
+      // not that it stayed null/absent as before the fix.
+      expect(screen.getByText('2m 0s')).toBeInTheDocument();
+    });
+
     it('falls back to "Unknown" when the friend is not found in any party', () => {
       const session = createMockSession();
       setFriendSessionsAndParties(
@@ -1009,6 +1130,53 @@ describe('IntegratedSessionRow', () => {
 
       // month 03 -> Mar, index 4 -> displayed as 1-based (5)
       expect(screen.getByText('Book Mar #5')).toBeInTheDocument();
+    });
+  });
+
+  describe('unblock race title', () => {
+    it('formats the title for a daily run using runId', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: undefined,
+          metadata: {
+            runId: 'oftheday-20240115',
+          },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      expect(screen.getByText('Daily Jan 15th')).toBeInTheDocument();
+    });
+
+    it('formats the title for a collection puzzle using unblockCollectionPuzzleId', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: undefined,
+          metadata: {
+            unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3',
+          },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      // month 07 -> Jul, index 3 -> displayed as 1-based (4)
+      expect(screen.getByText('Collection Jul #4')).toBeInTheDocument();
     });
   });
 });

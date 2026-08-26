@@ -1,10 +1,12 @@
 import { ComponentType } from 'react';
 import { Clock, Trash } from 'lucide-react';
 import { Session } from '@bubblyclouds-app/types/serverTypes';
+import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { BaseServerState } from '../../types/state';
 import { PlayerAvatar } from './PlayerAvatar';
 import { PartyTag } from './PartyTag';
 import { FinishedBadge } from './FinishedBadge';
+import { MovesDisplay } from '../MovesDisplay';
 import { fmtClock, fmtElapsed } from '../../helpers/playerAvatar';
 
 interface Props<ServerState extends BaseServerState> {
@@ -21,6 +23,15 @@ interface Props<ServerState extends BaseServerState> {
   isAway: boolean;
   calculateCompletionPercentageFromState: (state: ServerState) => number;
   CompactSimpleState: ComponentType<{ state: ServerState }>;
+  // Game-specific move count vs par (e.g. unblockrace's movesMade/
+  // movesRequired metadata), live while racing and once finished. Games
+  // with no moves concept (sudoku) simply omit this.
+  getMovesDisplay?: (
+    state: ServerState
+  ) => { movesMade: number; movesRequired: number } | undefined;
+  // Game-specific star rating for a completed session; shown alongside the
+  // moves chip once finished.
+  getStarRating?: (state: ServerState) => number | undefined;
   onSetConfirmRemove: (data: {
     userId: string;
     memberNickname: string;
@@ -60,10 +71,14 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
   onSetConfirmRemove,
   runProgress,
   lastActiveAt,
+  getMovesDisplay,
+  getStarRating,
 }: Props<ServerState>) {
   const pct = session
     ? calculateCompletionPercentageFromState(session.state)
     : 0;
+  const moves = session ? getMovesDisplay?.(session.state) : undefined;
+  const stars = session ? getStarRating?.(session.state) : undefined;
   const isRunComplete = runProgress
     ? runProgress.completedStageCount >= runProgress.totalStages
     : undefined;
@@ -159,6 +174,14 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
               <Clock size={12} color="rgba(255,255,255,0.45)" />
               {clockLabel}
             </span>
+          )}
+          {!isInLobby && moves && (
+            <span className="text-[12.5px] font-bold">
+              <MovesDisplay moves={moves} />
+            </span>
+          )}
+          {isFinished && stars !== undefined && (
+            <StarRating rating={stars} size="sm" />
           )}
         </div>
       </div>

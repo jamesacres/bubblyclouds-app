@@ -66,6 +66,17 @@ interface Arguments<ServerState extends BaseServerState> {
   SimpleState: ComponentType<{ state: ServerState }>;
   CompactSimpleState?: ComponentType<{ state: ServerState }>;
   calculateCompletionPercentageFromState: (state: ServerState) => number;
+  // Game-specific move count vs par (e.g. unblockrace's movesMade/
+  // movesRequired metadata), live while racing and once finished; when
+  // provided, each opponent's row shows moves graded against par alongside
+  // their time. Games with no moves concept (sudoku) simply omit this.
+  getMovesDisplay?: (
+    state: ServerState
+  ) => { movesMade: number; movesRequired: number } | undefined;
+  // Game-specific star rating for a completed session (e.g. unblockrace's
+  // moves-vs-par grade); when provided, a finished opponent's row shows the
+  // star rating alongside the moves chip.
+  getStarRating?: (state: ServerState) => number | undefined;
   localAgentProgress?: AgentProgress<ServerState>[];
   onRemoveAgent?: (agentId: string) => void;
   agentOptions?: AgentOption[];
@@ -148,6 +159,8 @@ const Lobby = <ServerState extends BaseServerState>({
   SimpleState,
   CompactSimpleState = SimpleState,
   calculateCompletionPercentageFromState,
+  getMovesDisplay,
+  getStarRating,
   localAgentProgress,
   onRemoveAgent,
   agentOptions = [],
@@ -641,6 +654,8 @@ const Lobby = <ServerState extends BaseServerState>({
                       CompactSimpleState={CompactSimpleState}
                       onSetConfirmRemove={setConfirmRemove}
                       runProgress={runProgressForRow(m.userId)}
+                      getMovesDisplay={getMovesDisplay}
+                      getStarRating={getStarRating}
                     />
                   ))}
                   {/* Racing another stage: no live session for the current
@@ -697,6 +712,8 @@ const Lobby = <ServerState extends BaseServerState>({
                       CompactSimpleState={CompactSimpleState}
                       onSetConfirmRemove={setConfirmRemove}
                       runProgress={runProgressForRow(m.userId)}
+                      getMovesDisplay={getMovesDisplay}
+                      getStarRating={getStarRating}
                     />
                   ))}
                   {/* Racing another stage but idle there too (no session for

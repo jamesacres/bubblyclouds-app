@@ -176,30 +176,40 @@ describe('StageResultPanel', () => {
     expect(screen.getByTestId('stage-preview-1')).toBeDisabled();
   });
 
-  it('shows the opponent delta when provided', () => {
+  it('shows a "View racing stats" button once the current stage has a result, when onViewStats is provided', () => {
+    const onViewStats = jest.fn();
     renderPanel({
       stages: stagesOf(2),
       results: results([
         [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
       ]),
-      opponentDeltaSeconds: 3,
+      onViewStats,
     });
-    expect(screen.getByTestId('stage-result-opponent')).toHaveTextContent(
-      'Beat opponent by 0:03'
-    );
+    fireEvent.click(screen.getByTestId('stage-result-view-stats'));
+    expect(onViewStats).toHaveBeenCalledTimes(1);
   });
 
-  it('phrases a negative delta as behind the opponent', () => {
+  it('omits the "View racing stats" button when onViewStats is not provided', () => {
     renderPanel({
       stages: stagesOf(2),
       results: results([
         [0, { seconds: 30, score: { movesMade: 4, movesRequired: 4 } }],
       ]),
-      opponentDeltaSeconds: -3,
     });
-    expect(screen.getByTestId('stage-result-opponent')).toHaveTextContent(
-      '0:03 behind opponent'
-    );
+    expect(
+      screen.queryByTestId('stage-result-view-stats')
+    ).not.toBeInTheDocument();
+  });
+
+  it('omits the "View racing stats" button before the current stage has a result', () => {
+    renderPanel({
+      stages: stagesOf(2),
+      results: results([]),
+      onViewStats: jest.fn(),
+    });
+    expect(
+      screen.queryByTestId('stage-result-view-stats')
+    ).not.toBeInTheDocument();
   });
 
   it('shows the run total once complete', () => {

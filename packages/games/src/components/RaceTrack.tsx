@@ -530,7 +530,10 @@ const RaceTrack = <
     secondaryCta?.icon === 'collection' ? LayoutGrid : undefined;
 
   return (
-    <div className="mx-auto mb-2 mt-2 w-full max-w-xl lg:mr-0 lg:mt-4">
+    <div
+      id="race-track"
+      className="mx-auto mb-2 mt-2 w-full max-w-xl lg:mr-0 lg:mt-4"
+    >
       <div
         className="relative cursor-pointer"
         onClick={() => onClick && onClick()}
