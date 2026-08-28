@@ -5,6 +5,9 @@ import { AgentConfig, DreyfusLevel } from '../types/Agent';
 export const selectDefaultAgents = (agentConfigs: AgentConfig[]): string[] => {
   const pickFromLevel = (level: DreyfusLevel) => {
     const pool = agentConfigs.filter((c) => c.skillLevel === level);
+    if (pool.length === 0) {
+      throw new Error(`No agent configs found for Dreyfus level: ${level}`);
+    }
     return pool[Math.floor(Math.random() * pool.length)].name;
   };
   return [

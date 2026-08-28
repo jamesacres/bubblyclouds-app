@@ -1,7 +1,7 @@
 'use client';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
-import { memo, ReactNode, useMemo, useState, useEffect, useRef } from 'react';
+import { ReactNode, useMemo, useState, useEffect, useRef } from 'react';
 import { getAllUserIds } from '@bubblyclouds-app/template/utils/playerColors';
 import { getRaceCarColor } from '@bubblyclouds-app/template/utils/raceCarColors';
 import { useThemeColorName } from '@bubblyclouds-app/ui/hooks/useThemeColorName';
@@ -19,6 +19,7 @@ import { BaseState } from '@bubblyclouds-app/template/types/state';
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
 import { PlayerRunResult, PlayerStageResult } from '../types/scoringTypes';
+import { genericMemo } from '../helpers/genericMemo';
 
 interface Arguments<
   State extends {
@@ -1115,6 +1116,6 @@ const RaceTrack = <
 };
 
 // Prevent re-render on timer change
-const MemoisedRaceTrack = memo(RaceTrack) as typeof RaceTrack;
+const MemoisedRaceTrack = genericMemo(RaceTrack);
 
 export default MemoisedRaceTrack;

@@ -6,8 +6,7 @@ import {
   Session,
 } from '@bubblyclouds-app/types/serverTypes';
 import { Timer } from '@bubblyclouds-app/template/types/timer';
-
-const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds, mirrors games/hooks/inactivityPause
+import { INACTIVITY_MS } from './inactivityPause';
 
 interface RestorableState<StackItem> {
   answerStack: StackItem[];

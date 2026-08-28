@@ -58,6 +58,15 @@ describe('selectDefaultAgents', () => {
     );
     expect(picks.size).toBeGreaterThan(1);
   });
+
+  it('throws when a Dreyfus level has no configs', () => {
+    const missingLevel = AGENT_CONFIGS.filter(
+      (c) => c.skillLevel !== DreyfusLevel.Expert
+    );
+    expect(() => selectDefaultAgents(missingLevel)).toThrow(
+      DreyfusLevel.Expert
+    );
+  });
 });
 
 describe('selectAgentConfigsByName', () => {

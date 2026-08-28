@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, memo } from 'react';
+import { ReactNode } from 'react';
 import {
   BarChart3,
   Car,
@@ -13,6 +13,7 @@ import {
 import { RunStage } from '../types/runTypes';
 import { PlayerStageResult } from '../types/scoringTypes';
 import { DifficultyDisplay } from '../types/difficultyDisplay';
+import { genericMemo } from '../helpers/genericMemo';
 
 interface StageResultPanelProps<Stage extends RunStage, Score> {
   // Per-stage results keyed by stage index — stats persist per stage even
@@ -374,10 +375,6 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
   );
 }
 
-// memo() erases the generic type parameter, so this cast-free wrapper keeps
-// StageResultPanel<Score> callable with its own Score per call site.
-const StageResultPanel = memo(
-  StageResultPanelInner
-) as typeof StageResultPanelInner;
+const StageResultPanel = genericMemo(StageResultPanelInner);
 
 export default StageResultPanel;
