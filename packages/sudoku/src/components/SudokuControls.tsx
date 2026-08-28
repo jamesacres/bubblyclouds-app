@@ -75,6 +75,7 @@ const TECHNIQUE_NAMES: Record<Technique, string> = {
 };
 
 interface Arguments {
+  disabled?: boolean;
   selectedCell: string | null;
   isInputDisabled: boolean;
   isValidateCellDisabled: boolean;
@@ -106,6 +107,7 @@ interface Arguments {
 }
 
 const SudokuControls = ({
+  disabled,
   selectedCell,
   isInputDisabled,
   isValidateCellDisabled,
@@ -240,10 +242,11 @@ const SudokuControls = ({
   }, [copyGrid]);
 
   const handleHint = useCallback(() => {
-    // Blocked (daily limit reached, paywall shown elsewhere): leave the
-    // controls panel untouched rather than opening the chat UI with a
-    // hint that was never computed.
-    if (!canRequestHint()) return;
+    // Blocked (daily limit reached, paywall shown elsewhere, or the whole
+    // board is gated behind a locked-puzzle paywall): leave the controls
+    // panel untouched rather than opening the chat UI with a hint that was
+    // never computed.
+    if (disabled || !canRequestHint()) return;
 
     openingHintRef.current = true;
     onClearSelection();
@@ -259,7 +262,7 @@ const SudokuControls = ({
         setTimeout(() => setUserTyping(false), 600);
       }
     }, 800);
-  }, [canRequestHint, getHint, onClearSelection]);
+  }, [disabled, canRequestHint, getHint, onClearSelection]);
 
   const handleCloseHint = useCallback(() => {
     setHint(undefined);
@@ -654,7 +657,7 @@ const SudokuControls = ({
                   )}
                 </button>
                 <button
-                  disabled={isRedoDisabled}
+                  disabled={disabled || isRedoDisabled}
                   onClick={() => redo()}
                   className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 dark:disabled:bg-zinc-800"
                 >
@@ -682,6 +685,7 @@ const SudokuControls = ({
                     Cell
                   </button>
                   <button
+                    disabled={disabled}
                     onClick={() => validateGrid()}
                     className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
@@ -694,7 +698,7 @@ const SudokuControls = ({
                     )}
                   </button>
                   <button
-                    disabled={!isZoomMode && isInputDisabled}
+                    disabled={disabled || (!isZoomMode && isInputDisabled)}
                     onClick={() => setIsZoomMode(!isZoomMode)}
                     className={`flex cursor-pointer items-center justify-center gap-1.5 rounded-lg px-2 py-2.5 text-sm font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:disabled:bg-zinc-800 ${
                       isZoomMode
@@ -708,6 +712,7 @@ const SudokuControls = ({
                 </div>
                 <div className="grid grid-cols-2 gap-2 overflow-visible">
                   <button
+                    disabled={disabled}
                     onClick={() => setConfirmAction('reset')}
                     className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
@@ -715,6 +720,7 @@ const SudokuControls = ({
                     Reset
                   </button>
                   <button
+                    disabled={disabled}
                     onClick={() => setConfirmAction('reveal')}
                     className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >

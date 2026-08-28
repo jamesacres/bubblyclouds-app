@@ -126,6 +126,29 @@ const Sudoku = ({
   const { sessions } = useSessions<GameState>();
   const { bookData, fetchBookData } = useBook();
 
+  // A free user deep-linking into a locked book puzzle (the latter half of a
+  // difficulty band): seal the board behind a gate so no countdown ever
+  // starts and no input is accepted. An already-completed puzzle stays
+  // playable (they earned it) — that half of the check lives here since
+  // `completed` (session-in-progress state) isn't known until useGameState
+  // runs below; useGameState ANDs it back in via isBoardGatedIgnoringCompleted
+  // to block keyboard input on a locked puzzle too.
+  //
+  // Whether a given puzzle is locked can't be known until bookData has
+  // loaded (fetched async below), so isPendingLockCheck holds the puzzle in
+  // the same disabled/timer-paused state as a confirmed lock for that
+  // window.
+  const isBookPuzzle = !!metadata.sudokuBookPuzzleId;
+  const isPendingLockCheckIgnoringCompleted =
+    !isSubscribed && !alreadyCompleted && isBookPuzzle && !bookData;
+  const isLockedBookPuzzleIgnoringCompleted =
+    !isSubscribed &&
+    !alreadyCompleted &&
+    !!metadata.sudokuBookPuzzleId &&
+    isBookPuzzleIdLocked(metadata.sudokuBookPuzzleId, bookData?.puzzles || []);
+  const isBoardGatedIgnoringCompleted =
+    isPendingLockCheckIgnoringCompleted || isLockedBookPuzzleIgnoringCompleted;
+
   const difficultyMultiplier = difficultyToMultiplier(metadata.difficulty);
 
   const [defaultAgentSelection] = useState<string[]>(() =>
@@ -226,6 +249,7 @@ const Sudoku = ({
       : undefined,
     initialShowLobby: shouldAutoOpen,
     onComplete,
+    isBoardGatedIgnoringCompleted,
   });
 
   const onRemoveAgent = useCallback(
@@ -297,34 +321,16 @@ const Sudoku = ({
   // The book lock gate only concerns book puzzles; nothing else fetches
   // bookData, so a deep link straight to a puzzle URL would otherwise leave
   // it null forever.
-  const isBookPuzzle = !!metadata.sudokuBookPuzzleId;
   useEffect(() => {
     if (isBookPuzzle) {
       fetchBookData();
     }
   }, [isBookPuzzle, fetchBookData]);
 
-  // A free user deep-linking into a locked book puzzle (the latter half of a
-  // difficulty band): seal the board behind a gate so no countdown ever
-  // starts. An already-completed puzzle stays playable (they earned it).
-  //
-  // Whether a given puzzle is locked can't be known until bookData has
-  // loaded (fetched async above), so isPendingLockCheck holds the puzzle in
-  // the same disabled/timer-paused state as a confirmed lock for that
-  // window.
-  const isPendingLockCheck =
-    !isSubscribed &&
-    !completed &&
-    !alreadyCompleted &&
-    isBookPuzzle &&
-    !bookData;
-  const isLockedBookPuzzle =
-    !isSubscribed &&
-    !completed &&
-    !alreadyCompleted &&
-    !!metadata.sudokuBookPuzzleId &&
-    isBookPuzzleIdLocked(metadata.sudokuBookPuzzleId, bookData?.puzzles || []);
-  const isBoardGated = isPendingLockCheck || isLockedBookPuzzle;
+  // completed (session-in-progress state, only known post-useGameState) also
+  // lifts the gate, same as alreadyCompleted above.
+  const isLockedBookPuzzle = !completed && isLockedBookPuzzleIgnoringCompleted;
+  const isBoardGated = !completed && isBoardGatedIgnoringCompleted;
 
   const handleBackToBook = useCallback(() => {
     router.replace('/book');
@@ -713,10 +719,15 @@ const Sudoku = ({
     [metadata]
   );
 
-  const isInputDisabled = !selectedCell || isInitialCell(selectedCell, initial);
+  const isInputDisabled =
+    isBoardGated || !selectedCell || isInitialCell(selectedCell, initial);
   const isValidateCellDisabled =
-    !selectedCell || isInitialCell(selectedCell, initial) || !selectedAnswer();
+    isBoardGated ||
+    !selectedCell ||
+    isInitialCell(selectedCell, initial) ||
+    !selectedAnswer();
   const isDeleteDisabled =
+    isBoardGated ||
     !selectedCell ||
     isInitialCell(selectedCell, initial) ||
     (!selectedAnswer() && !selectedCellHasNotes());
@@ -840,7 +851,10 @@ const Sudoku = ({
               <div className="relative overflow-visible lg:overflow-hidden">
                 <div
                   ref={gridRef}
+                  aria-disabled={isBoardGated}
                   className={`border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative ml-auto mr-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900 ${
+                    isBoardGated ? 'pointer-events-none' : ''
+                  } ${
                     dragStarted
                       ? 'cursor-grabbing'
                       : isZoomMode && selectedCell
@@ -917,6 +931,7 @@ const Sudoku = ({
           {!completed && (
             <div className="fixed inset-x-0 bottom-0 z-10 lg:relative">
               <SudokuControls
+                disabled={isBoardGated}
                 selectedCell={selectedCell}
                 isInputDisabled={isInputDisabled}
                 isValidateCellDisabled={isValidateCellDisabled}

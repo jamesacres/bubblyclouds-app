@@ -62,6 +62,7 @@ function useGameState({
   initialAgentNames,
   initialShowLobby,
   onComplete,
+  isBoardGatedIgnoringCompleted,
 }: {
   final: Puzzle<number>;
   initial: Puzzle<number>;
@@ -73,6 +74,11 @@ function useGameState({
   initialAgentNames?: string;
   initialShowLobby?: boolean;
   onComplete?: (answerStack: Puzzle[]) => void;
+  // Whether this puzzle is sealed behind the book paywall, not accounting
+  // for `completed` (this hook's own state, unknown to the caller at call
+  // time) — combined with it below so keyboard input is blocked on a
+  // locked puzzle the same way pointer input already is.
+  isBoardGatedIgnoringCompleted?: boolean;
 }) {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -530,7 +536,9 @@ function useGameState({
       const insideForm = /^(?:input|textarea|select|button)$/i.test(
         (<HTMLElement>e.target)?.tagName
       );
-      return completed || showLobby || insideForm;
+      return (
+        completed || showLobby || insideForm || isBoardGatedIgnoringCompleted
+      );
     };
     const keyupHandler = (e: KeyboardEvent) => {
       if (ignoreKeyboard(e)) {
@@ -616,6 +624,7 @@ function useGameState({
     validateCell,
     validateGrid,
     showLobby,
+    isBoardGatedIgnoringCompleted,
   ]);
 
   const [isPolling, setIsPolling] = useState(false);

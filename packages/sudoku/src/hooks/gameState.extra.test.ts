@@ -110,7 +110,7 @@ describe('useGameState (extra coverage)', () => {
   const patchFriendSessionsMock = jest.fn();
 
   const renderGameState = (
-    props = defaultProps,
+    props: Parameters<typeof useGameState>[0] = defaultProps,
     userContextValue: Partial<UserContextInterface> | undefined = {
       user: { sub: 'user-1' },
       isInitialised: true,
@@ -650,6 +650,31 @@ describe('useGameState (extra coverage)', () => {
     // 0 is a legitimate numeric answer value (typeof 0 === 'number'), so
     // clearing a cell reads back as 0, not undefined.
     expect(result.current.selectedAnswer()).toBe(0);
+  });
+
+  it('ignores keyboard input while isBoardGatedIgnoringCompleted is true, for a locked book puzzle', async () => {
+    const { result } = renderGameState(
+      { ...defaultProps, isBoardGatedIgnoringCompleted: true },
+      { user: { sub: 'user-1' }, isInitialised: true },
+      {
+        isSubscribed: false,
+        subscribeModal: { showModalIfRequired: jest.fn() },
+      }
+    );
+
+    await act(async () => {
+      result.current.setSelectedCell(cellId(0, 0, 0, 0));
+    });
+    await act(async () => {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: '7' }));
+    });
+
+    expect(result.current.selectedAnswer()).toBe(0);
+
+    await act(async () => {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    });
+    expect(result.current.selectedCell).toBe(cellId(0, 0, 0, 0));
   });
 
   it('refreshes session parties on demand and toggles isPolling', async () => {

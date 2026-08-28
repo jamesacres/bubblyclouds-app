@@ -46,8 +46,10 @@ jest.mock('../components/SudokuBox', () => {
   };
 });
 
+const mockSudokuControlsProps = jest.fn();
 jest.mock('../components/SudokuControls', () => {
-  return function DummySudokuControls() {
+  return function DummySudokuControls(props: any) {
+    mockSudokuControlsProps(props);
     return <div data-testid="sudoku-controls">Sudoku Controls</div>;
   };
 });
@@ -147,6 +149,12 @@ jest.mock('../helpers/checkAnswer', () => ({
   isInitialCell: jest.fn(() => false),
 }));
 
+const mockIsBookPuzzleIdLocked = jest.fn((..._args: unknown[]) => false);
+jest.mock('../helpers/bookLocks', () => ({
+  isBookPuzzleIdLocked: (...args: unknown[]) =>
+    mockIsBookPuzzleIdLocked(...args),
+}));
+
 jest.mock('@bubblyclouds-app/template/helpers/calculateSeconds', () => ({
   calculateSeconds: jest.fn(() => 120),
 }));
@@ -244,7 +252,7 @@ describe('Sudoku', () => {
 
   const mockRevenueCatContext = {
     isSubscribed: false,
-    subscribeModal: jest.fn(),
+    subscribeModal: { showModalIfRequired: jest.fn() },
   };
 
   beforeEach(() => {
@@ -852,6 +860,92 @@ describe('Sudoku', () => {
       );
 
       expect(screen.getAllByTestId('sudoku-box').length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('book lock gating', () => {
+    const lockedPuzzle = {
+      ...mockPuzzle,
+      metadata: { sudokuBookPuzzleId: 'book-1-puzzle-5' },
+    };
+
+    it('blocks grid input and disables controls for a locked book puzzle', () => {
+      mockUseBook.mockReturnValue({
+        bookData: { puzzles: [] },
+        fetchBookData: mockFetchBookData,
+      });
+      mockIsBookPuzzleIdLocked.mockReturnValue(true);
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={lockedPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      const grid = screen
+        .getAllByTestId('sudoku-box')[0]
+        .closest('[aria-disabled]');
+      expect(grid).toHaveAttribute('aria-disabled', 'true');
+      expect(grid).toHaveClass('pointer-events-none');
+
+      expect(mockSudokuControlsProps).toHaveBeenLastCalledWith(
+        expect.objectContaining({ disabled: true })
+      );
+    });
+
+    it('leaves the grid interactive once bookData confirms the puzzle is unlocked', () => {
+      mockUseBook.mockReturnValue({
+        bookData: { puzzles: [] },
+        fetchBookData: mockFetchBookData,
+      });
+      mockIsBookPuzzleIdLocked.mockReturnValue(false);
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={lockedPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      const grid = screen
+        .getAllByTestId('sudoku-box')[0]
+        .closest('[aria-disabled]');
+      expect(grid).toHaveAttribute('aria-disabled', 'false');
+      expect(grid).not.toHaveClass('pointer-events-none');
+
+      expect(mockSudokuControlsProps).toHaveBeenLastCalledWith(
+        expect.objectContaining({ disabled: false })
+      );
+    });
+
+    it('does not gate a locked book puzzle for a subscribed user', () => {
+      mockUseBook.mockReturnValue({
+        bookData: { puzzles: [] },
+        fetchBookData: mockFetchBookData,
+      });
+      mockIsBookPuzzleIdLocked.mockReturnValue(true);
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <RevenueCatContext.Provider
+            value={{ ...mockRevenueCatContext, isSubscribed: true } as any}
+          >
+            <Sudoku puzzle={lockedPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      const grid = screen
+        .getAllByTestId('sudoku-box')[0]
+        .closest('[aria-disabled]');
+      expect(grid).toHaveAttribute('aria-disabled', 'false');
+
+      expect(mockSudokuControlsProps).toHaveBeenLastCalledWith(
+        expect.objectContaining({ disabled: false })
+      );
     });
   });
 
