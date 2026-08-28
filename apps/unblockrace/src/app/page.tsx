@@ -343,11 +343,11 @@ function HomeComponent() {
                   }}
                 >
                   <Image
-                    src="/icons/icon-animated.webp"
+                    src="/icons/icon-128.webp"
                     alt="Unblock Race"
-                    width={44}
-                    height={44}
-                    className="h-[44px] w-[44px]"
+                    width={64}
+                    height={64}
+                    className="h-[64px] w-[64px]"
                   />
                 </div>
                 <div>
