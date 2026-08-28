@@ -151,18 +151,21 @@ function useGameSessionState<
             setTimerNewSession(serverValue.state.timer);
           }
         } else {
+          const serverUpdatedAt =
+            (serverValue &&
+              'state' in serverValue &&
+              serverValue?.updatedAt?.getTime()) ||
+            0;
           if (
-            serverValue &&
-            'state' in serverValue &&
             localValue?.state &&
             localValue?.lastUpdated &&
-            (serverValue?.updatedAt?.getTime() || 0) <
-              Math.floor(localValue.lastUpdated / 1000) * 1000
+            serverUpdatedAt < Math.floor(localValue.lastUpdated / 1000) * 1000
           ) {
-            // Server value is behind local! Update the server!
+            // Server value is behind local (or has never seen this puzzle)!
+            // Update the server!
             console.warn(
               'Server behind local, updating server',
-              serverValue?.updatedAt?.getTime() || 0,
+              serverUpdatedAt,
               Math.floor(localValue.lastUpdated / 1000) * 1000
             );
             // Track saveValue call timestamp and increment ignore counter

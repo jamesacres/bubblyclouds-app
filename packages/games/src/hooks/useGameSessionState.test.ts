@@ -198,6 +198,24 @@ describe('useGameSessionState', () => {
       });
     });
 
+    it('pushes local state back to the server when the server has never seen this puzzle', async () => {
+      const serverValue: ServerStateNotFoundResult<TestState> = {};
+      const localState = { answerStack: ['a', 'b'] };
+      getValue.mockReturnValue({
+        localValue: { lastUpdated: 60000, state: localState },
+        serverValuePromise: Promise.resolve(serverValue),
+      });
+      saveValue.mockReturnValue({
+        localValue: undefined,
+        serverValuePromise: Promise.resolve(undefined),
+      });
+
+      renderSessionState();
+      await act(async () => {});
+
+      expect(saveValue).toHaveBeenCalledWith(localState);
+    });
+
     it('reports session parties from the server response', async () => {
       const serverValue: ServerStateResult<TestState> = {
         sessionId: `app-${puzzleId}`,
