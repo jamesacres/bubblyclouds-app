@@ -1,6 +1,8 @@
 import React from 'react';
 import { renderHook, act } from '@testing-library/react';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
+import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { useGameState } from './useGameState';
 import { solvedBoardString } from '../helpers/boardToString';
 import { GameStateMetadata } from '../types/state';
@@ -489,6 +491,95 @@ describe('useGameState', () => {
       expect(
         serverGetValue.mock.calls.some((call) => call[0]?.id === STAGE_0)
       ).toBe(false);
+    });
+  });
+
+  describe('undo gating', () => {
+    const showModalIfRequired = jest.fn();
+
+    const revenueCatWrapper =
+      (value: { isSubscribed: boolean }) =>
+      ({ children }: { children: React.ReactNode }) =>
+        React.createElement(
+          RevenueCatContext.Provider,
+          {
+            value: {
+              isSubscribed: value.isSubscribed,
+              subscribeModal: { showModalIfRequired },
+            } as unknown as React.ContextType<typeof RevenueCatContext>,
+          },
+          children
+        );
+
+    beforeEach(() => {
+      showModalIfRequired.mockClear();
+      window.localStorage.clear();
+    });
+
+    it('lets a subscriber undo without touching the paywall or the daily counter', () => {
+      const { result } = renderHook(() => useGameState(defaultProps), {
+        wrapper: revenueCatWrapper({ isSubscribed: true }),
+      });
+      act(() => {
+        result.current.pushMove({ piece: 0, steps: 1 });
+      });
+      expect(result.current.isUndoDisabled).toBe(false);
+
+      act(() => {
+        result.current.undo();
+      });
+
+      expect(showModalIfRequired).not.toHaveBeenCalled();
+      // No daily-action-counter entry was written for a subscriber
+      expect(window.localStorage.getItem('daily-action-counter')).toBeNull();
+    });
+
+    it('lets a free user undo while they have free undos left', () => {
+      const { result } = renderHook(() => useGameState(defaultProps), {
+        wrapper: revenueCatWrapper({ isSubscribed: false }),
+      });
+      act(() => {
+        result.current.pushMove({ piece: 0, steps: 1 });
+      });
+
+      act(() => {
+        result.current.undo();
+      });
+
+      expect(showModalIfRequired).not.toHaveBeenCalled();
+      const stored = JSON.parse(
+        window.localStorage.getItem('daily-action-counter') || '{}'
+      );
+      expect(stored.undoCount).toBe(1);
+    });
+
+    it('opens the undo paywall once the free user is out of undos', () => {
+      window.localStorage.setItem(
+        'daily-action-counter',
+        JSON.stringify({
+          date: new Date().toISOString().split('T')[0],
+          undoCount: 5,
+          checkGridCount: 0,
+          hintCount: 0,
+        })
+      );
+
+      const { result } = renderHook(() => useGameState(defaultProps), {
+        wrapper: revenueCatWrapper({ isSubscribed: false }),
+      });
+      act(() => {
+        result.current.pushMove({ piece: 0, steps: 1 });
+      });
+
+      act(() => {
+        result.current.undo();
+      });
+
+      expect(showModalIfRequired).toHaveBeenCalledWith(
+        expect.any(Function),
+        expect.any(Function),
+        SubscriptionContext.UNDO
+      );
     });
   });
 });
