@@ -22,9 +22,11 @@ import { NumberPad } from '@bubblyclouds-app/games/components/NumberPad';
 import { Toggle as NotesToggle } from '@bubblyclouds-app/ui/components/NotesToggle';
 import React, { memo, useState, useRef, useCallback, useEffect } from 'react';
 import { HintBox } from '@bubblyclouds-app/games/components/HintBox';
+import ConfirmDialog from '@bubblyclouds-app/games/components/ConfirmDialog';
 import {
   canUseUndo,
   canUseCheckGrid,
+  canUseHint,
 } from '@bubblyclouds-app/template/utils/dailyActionCounter';
 
 const TECHNIQUE_NAMES: Record<Technique, string> = {
@@ -73,6 +75,7 @@ const TECHNIQUE_NAMES: Record<Technique, string> = {
 };
 
 interface Arguments {
+  disabled?: boolean;
   selectedCell: string | null;
   isInputDisabled: boolean;
   isValidateCellDisabled: boolean;
@@ -95,6 +98,7 @@ interface Arguments {
   onAdvancedToggle?: (_expanded: boolean) => void;
   isSubscribed?: boolean;
   getHint: () => HintResult | null | 'invalid';
+  canRequestHint: () => boolean;
   user?: UserProfile;
   onShowWhere: (_hint: HintResult) => void;
   onRevealEliminations: (_hint: HintResult) => void;
@@ -103,6 +107,7 @@ interface Arguments {
 }
 
 const SudokuControls = ({
+  disabled,
   selectedCell,
   isInputDisabled,
   isValidateCellDisabled,
@@ -124,6 +129,7 @@ const SudokuControls = ({
   onAdvancedToggle,
   isSubscribed,
   getHint,
+  canRequestHint,
   user,
   onShowWhere,
   onRevealEliminations,
@@ -147,6 +153,22 @@ const SudokuControls = ({
   const hasShownRainbowNudgeRef = useRef<boolean>(false);
   const [showRainbowNudge, setShowRainbowNudge] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // The destructive Reset and Reveal actions both funnel through an "are you
+  // sure?" confirm before wiping/revealing the grid. The pending action is
+  // held here so the same ConfirmDialog serves both, with its own copy.
+  const [confirmAction, setConfirmAction] = useState<'reset' | 'reveal' | null>(
+    null
+  );
+
+  const handleConfirmDialogConfirm = useCallback(() => {
+    if (confirmAction === 'reset') {
+      reset();
+    } else if (confirmAction === 'reveal') {
+      reveal();
+    }
+    setConfirmAction(null);
+  }, [confirmAction, reset, reveal]);
 
   const resetInactivityTimer = useCallback(() => {
     if (timeoutRef.current) {
@@ -220,6 +242,12 @@ const SudokuControls = ({
   }, [copyGrid]);
 
   const handleHint = useCallback(() => {
+    // Blocked (daily limit reached, paywall shown elsewhere, or the whole
+    // board is gated behind a locked-puzzle paywall): leave the controls
+    // panel untouched rather than opening the chat UI with a hint that was
+    // never computed.
+    if (disabled || !canRequestHint()) return;
+
     openingHintRef.current = true;
     onClearSelection();
     const result = getHint();
@@ -234,7 +262,7 @@ const SudokuControls = ({
         setTimeout(() => setUserTyping(false), 600);
       }
     }, 800);
-  }, [getHint, onClearSelection]);
+  }, [disabled, canRequestHint, getHint, onClearSelection]);
 
   const handleCloseHint = useCallback(() => {
     setHint(undefined);
@@ -559,10 +587,15 @@ const SudokuControls = ({
             <div className="flex-1">
               <button
                 onClick={handleHint}
-                className={`${showRainbowNudge ? 'rainbow-border-wrap' : ''} flex cursor-pointer items-center gap-1 rounded-md bg-gray-100 px-1.5 py-1 text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500`}
+                className={`${showRainbowNudge ? 'rainbow-border-wrap' : ''} relative flex cursor-pointer items-center gap-1 rounded-md bg-gray-100 px-1.5 py-1 text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500`}
               >
                 <MessageCircle size={10} />
                 Ask for help
+                {!isSubscribed && !canUseHint() && (
+                  <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                    ✨
+                  </span>
+                )}
               </button>
             </div>
             <div className="flex items-center gap-3">
@@ -624,7 +657,7 @@ const SudokuControls = ({
                   )}
                 </button>
                 <button
-                  disabled={isRedoDisabled}
+                  disabled={disabled || isRedoDisabled}
                   onClick={() => redo()}
                   className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 dark:disabled:bg-zinc-800"
                 >
@@ -652,6 +685,7 @@ const SudokuControls = ({
                     Cell
                   </button>
                   <button
+                    disabled={disabled}
                     onClick={() => validateGrid()}
                     className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
@@ -664,7 +698,7 @@ const SudokuControls = ({
                     )}
                   </button>
                   <button
-                    disabled={!isZoomMode && isInputDisabled}
+                    disabled={disabled || (!isZoomMode && isInputDisabled)}
                     onClick={() => setIsZoomMode(!isZoomMode)}
                     className={`flex cursor-pointer items-center justify-center gap-1.5 rounded-lg px-2 py-2.5 text-sm font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:disabled:bg-zinc-800 ${
                       isZoomMode
@@ -678,22 +712,16 @@ const SudokuControls = ({
                 </div>
                 <div className="grid grid-cols-2 gap-2 overflow-visible">
                   <button
-                    onClick={() => {
-                      window.confirm(
-                        'Are you sure you wish to reset the whole grid?'
-                      ) && reset();
-                    }}
+                    disabled={disabled}
+                    onClick={() => setConfirmAction('reset')}
                     className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
                     <RefreshCw size={15} />
                     Reset
                   </button>
                   <button
-                    onClick={() => {
-                      window.confirm(
-                        'Are you sure you wish to reveal the whole grid?'
-                      ) && reveal();
-                    }}
+                    disabled={disabled}
+                    onClick={() => setConfirmAction('reveal')}
                     className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
                     <Unlock size={15} />
@@ -710,6 +738,23 @@ const SudokuControls = ({
           </div>
         )}
       </div>
+
+      <ConfirmDialog
+        isOpen={confirmAction !== null}
+        title={
+          confirmAction === 'reset'
+            ? 'Reset the whole grid?'
+            : 'Reveal the whole grid?'
+        }
+        body={
+          confirmAction === 'reset'
+            ? 'Are you sure you wish to reset the whole grid?'
+            : 'Are you sure you wish to reveal the whole grid?'
+        }
+        confirmLabel={confirmAction === 'reset' ? 'Reset' : 'Reveal'}
+        onConfirm={handleConfirmDialogConfirm}
+        onCancel={() => setConfirmAction(null)}
+      />
     </div>
   );
 };

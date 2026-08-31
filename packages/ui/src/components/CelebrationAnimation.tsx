@@ -1,6 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { InAppReview } from '@capacitor-community/in-app-review';
+import { CELEBRATION_MS } from './RaceCelebrationOverlay';
+
+// The exploding-numbers animation holds each piece in place for a beat, then
+// sends it flying — rescaled from the CSS keyframe percentages below so the
+// hold + explosion both fit inside CELEBRATION_MS instead of the fixed 7s
+// duration they were originally authored for.
+const EXPLOSION_ANIMATION_MS = CELEBRATION_MS;
+const EXPLOSION_HOLD_PERCENT = 30;
 
 interface CelebrationAnimationProps {
   isVisible: boolean;
@@ -138,7 +146,8 @@ const CelebrationAnimation: React.FC<CelebrationAnimationProps> = ({
         } catch (e) {
           console.error('Error requesting app review:', e);
         }
-      }, 9000); // Extended to 9 seconds (2 second pause + 7 second animation)
+      }, CELEBRATION_MS); // Matches RaceCelebrationOverlay so the grid, RaceTrack
+      // and overlay all reappear together with no blank gap between them.
 
       return () => {
         clearTimeout(timer);
@@ -166,7 +175,9 @@ const CelebrationAnimation: React.FC<CelebrationAnimationProps> = ({
                 RAINBOW_COLORS[
                   Math.floor(Math.random() * RAINBOW_COLORS.length)
                 ],
-              animation: `firework-burst 2s ease-out ${Math.random() * 7}s forwards`,
+              // Burst duration + delay both scale off the overall
+              // celebration window so every firework finishes inside it.
+              animation: `firework-burst ${EXPLOSION_ANIMATION_MS * 0.36}ms ease-out ${Math.random() * EXPLOSION_ANIMATION_MS * 0.64}ms forwards`,
               boxShadow: '0 0 20px 4px currentColor',
             }}
           />
@@ -203,7 +214,7 @@ const CelebrationAnimation: React.FC<CelebrationAnimationProps> = ({
               textShadow: piece.glow,
               width: '40px',
               height: '40px',
-              animation: `number-explode-${piece.id} 7s ease-out forwards`,
+              animation: `number-explode-${piece.id} ${EXPLOSION_ANIMATION_MS}ms ease-out forwards`,
               transformOrigin: 'center',
               zIndex: 9999,
               transform: `scale(${piece.size})`,
@@ -222,13 +233,12 @@ const CelebrationAnimation: React.FC<CelebrationAnimationProps> = ({
                 transform: scale(${piece.size}) translate(0, 0) rotate(0);
                 opacity: 1;
               }
-              /* Hold in place for 2 seconds (28.6% of 7 seconds) */
-              28.6% {
+              /* Hold in place before exploding outward */
+              ${EXPLOSION_HOLD_PERCENT}% {
                 transform: scale(${piece.size}) translate(0, 0) rotate(0);
                 opacity: 1;
               }
-              /* Start movement after 2 seconds */
-              35% {
+              ${EXPLOSION_HOLD_PERCENT + 5}% {
                 transform: scale(${piece.size}) translate(${piece.directionX * 50}px, ${piece.directionY * 50}px) rotate(${piece.rotation * 0.1}deg);
                 opacity: 1;
               }

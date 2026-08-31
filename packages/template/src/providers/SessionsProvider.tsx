@@ -33,7 +33,23 @@ interface SessionsContextType<T = any> {
   // Friend sessions
   friendSessions: UserSessions<T>;
   isFriendSessionsLoading: boolean;
-  fetchFriendSessions: (parties: Party[]) => Promise<void>;
+  // forceRefetch (default false) bypasses the per-user cache — without it,
+  // a friend already fetched once (loaded, not currently loading) is never
+  // fetched again even on a later call, so callers that need to notice a
+  // friend's session CHANGING after the first fetch (not just appearing)
+  // must pass true.
+  //
+  // Returns the up-to-date friendSessions map directly, rather than callers
+  // reading the `friendSessions` context value straight after awaiting this
+  // — setFriendSessions here only takes effect on SessionsProvider's next
+  // render, so a caller that awaits this call and then immediately reads
+  // `friendSessions` (or a getSessionParties closure captured before this
+  // call) would still see the PREVIOUS render's value, missing whatever was
+  // just fetched.
+  fetchFriendSessions: (
+    parties: Party[],
+    forceRefetch?: boolean
+  ) => Promise<UserSessions<T>>;
   lazyLoadFriendSessions: (parties: Party[]) => Promise<void>;
   clearFriendSessions: () => void;
   getSessionParties: (
@@ -92,10 +108,12 @@ export const SessionsProvider = <T extends {}>({
     listValues: listLocalStates,
     saveValue: saveLocalState,
   } = useLocalStorage({
+    prefix: `${app}-`,
     type: stateType,
   });
   const { listValues: listLocalTimers, saveValue: saveLocalTimer } =
     useLocalStorage({
+      prefix: `${app}-`,
       type: StateType.TIMER,
     });
 
@@ -255,9 +273,12 @@ export const SessionsProvider = <T extends {}>({
   }, []);
 
   const fetchFriendSessions = useCallback(
-    async (parties: Party[]) => {
+    async (
+      parties: Party[],
+      forceRefetch = false
+    ): Promise<UserSessions<T>> => {
       if (isFriendSessionsLoading) {
-        return;
+        return friendSessionsRef.current;
       }
 
       if (!hasFriendSessionsInitialized) {
@@ -277,10 +298,16 @@ export const SessionsProvider = <T extends {}>({
           )
         );
 
-        // Set loading state for each user first
+        // Set loading state for each user first. Normally a friend already
+        // loaded (not currently loading) is skipped — but forceRefetch
+        // callers specifically want to notice a friend's session having
+        // CHANGED since the last fetch (e.g. they've since completed a
+        // stage), not just appearing for the first time, so re-fetch
+        // everyone regardless of what's cached.
         const loadingStates: UserSessions<T> = {};
         friendUserIds.forEach((userId) => {
           if (
+            forceRefetch ||
             !friendSessionsRef.current[userId] ||
             (!friendSessionsRef.current[userId]?.isLoading &&
               !friendSessionsRef.current[userId]?.sessions)
@@ -335,19 +362,24 @@ export const SessionsProvider = <T extends {}>({
 
         const results = await Promise.all(fetchPromises);
 
-        // Update state with results
-        setFriendSessions((prev) => {
-          const updated = { ...prev };
-          results.forEach(({ userId, sessions }) => {
-            updated[userId] = {
-              isLoading: false,
-              sessions: sessions || undefined,
-            };
-          });
-          return updated;
+        // Merge into a snapshot we both return directly AND push into state
+        // via setFriendSessions — the state update only takes effect on this
+        // provider's NEXT render, but callers awaiting this promise (e.g. a
+        // manual refresh button) need the fresh data immediately, before any
+        // re-render has had a chance to happen.
+        const updated: UserSessions<T> = { ...friendSessionsRef.current };
+        results.forEach(({ userId, sessions }) => {
+          updated[userId] = {
+            isLoading: false,
+            sessions: sessions || undefined,
+          };
         });
+        friendSessionsRef.current = updated;
+        setFriendSessions(updated);
+        return updated;
       } catch (error) {
         console.error('Error fetching friend sessions:', error);
+        return friendSessionsRef.current;
       } finally {
         setIsFriendSessionsLoading(false);
       }

@@ -16,18 +16,26 @@ jest.mock('@bubblyclouds-app/template/hooks/useWakeLock', () => ({
   })),
 }));
 
+const mockSudokuMount = jest.fn();
 jest.mock('@bubblyclouds-app/sudoku/components/Sudoku', () => {
   return function MockSudoku({
+    puzzle,
     alreadyCompleted,
     showRacingPrompt,
   }: {
-    puzzle?: any;
+    puzzle: { puzzleId: string };
     alreadyCompleted: boolean;
     showRacingPrompt: boolean;
   }) {
+    // Mirrors Sudoku's own useState(() => ...) initializers (e.g.
+    // agents/localAgentProgress): only fires once per mount, so a stale
+    // instance reused across a puzzle change would not re-run this and the
+    // test would catch it via mount count.
+    React.useState(() => mockSudokuMount());
     return (
       <div data-testid="sudoku-component">
         <div data-testid="puzzle-status">
+          {puzzle.puzzleId}
           {alreadyCompleted && <span>Already Completed</span>}
           {showRacingPrompt && <span>Show Racing Prompt</span>}
         </div>
@@ -63,6 +71,7 @@ describe('Puzzle Page', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockSudokuMount.mockClear();
     mockUseSearchParams.mockReturnValue(new URLSearchParams());
     mockUseRouter.mockReturnValue({
       push: jest.fn(),
@@ -167,6 +176,47 @@ describe('Puzzle Page', () => {
           screen.queryByText('Show Racing Prompt')
         ).not.toBeInTheDocument();
       });
+    });
+  });
+
+  describe('Remount on puzzle change', () => {
+    it('remounts Sudoku when navigating to a different puzzle (e.g. next puzzle after a collection puzzle)', async () => {
+      // Regression test: Sudoku seeds agents/localAgentProgress via
+      // useState(() => ...) initializers that only run once per mount. If
+      // the component instance were reused across a "next puzzle"
+      // navigation, stale AI agent positions from the previous puzzle would
+      // still be shown until the player made progress on the new one.
+      const firstParams = new URLSearchParams();
+      firstParams.set('initial', '1');
+      firstParams.set('final', '2');
+      mockUseSearchParams.mockReturnValue(firstParams);
+
+      const { rerender } = renderComponent();
+      await waitFor(() => {
+        expect(screen.getByTestId('puzzle-status')).toHaveTextContent(
+          'mocked-hash-1'
+        );
+      });
+      expect(mockSudokuMount).toHaveBeenCalledTimes(1);
+
+      const nextParams = new URLSearchParams();
+      nextParams.set('initial', '3');
+      nextParams.set('final', '4');
+      mockUseSearchParams.mockReturnValue(nextParams);
+      rerender(
+        <Suspense fallback={<div>Loading...</div>}>
+          <PuzzlePage />
+        </Suspense>
+      );
+
+      await waitFor(() => {
+        expect(screen.getByTestId('puzzle-status')).toHaveTextContent(
+          'mocked-hash-3'
+        );
+      });
+      // A fresh mount (not a prop update on the same instance) proves
+      // agents/localAgentProgress were reseeded for the new puzzle.
+      expect(mockSudokuMount).toHaveBeenCalledTimes(2);
     });
   });
 

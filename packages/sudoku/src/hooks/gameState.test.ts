@@ -26,7 +26,10 @@ jest.mock('@bubblyclouds-app/template/hooks/useParties', () => ({
   useParties: () => ({ parties: [] }),
 }));
 jest.mock('@bubblyclouds-app/auth/providers/AuthProvider', () => ({
-  UserContext: React.createContext({}),
+  UserContext: React.createContext({
+    isInitialised: true,
+    user: { sub: 'user-1' },
+  }),
 }));
 jest.mock('@bubblyclouds-app/template/providers/RevenueCatProvider', () => ({
   RevenueCatContext: React.createContext({}),

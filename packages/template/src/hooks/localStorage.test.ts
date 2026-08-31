@@ -4,6 +4,8 @@ import { renderHook, act } from '@testing-library/react';
 import { useLocalStorage } from './localStorage';
 import { StateType } from '@bubblyclouds-app/types/stateType';
 
+const prefix = 'mockapp-';
+
 describe('useLocalStorage', () => {
   beforeEach(() => {
     localStorage.clear();
@@ -13,57 +15,40 @@ describe('useLocalStorage', () => {
   describe('initialization', () => {
     it('should initialize with correct parameters', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'test-puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'test-puzzle-1' })
       );
 
       expect(result.current).toBeDefined();
       expect(result.current.getValue).toBeDefined();
       expect(result.current.saveValue).toBeDefined();
       expect(result.current.listValues).toBeDefined();
-      expect(result.current.prefix).toBe('sudoku-');
+      expect(result.current.prefix).toBe(prefix);
     });
 
-    it('should use custom prefix when provided', () => {
+    it('should use the provided prefix', () => {
       const { result } = renderHook(() =>
         useLocalStorage({
+          prefix: 'custom-',
           type: StateType.PUZZLE,
           id: 'test-id',
-          prefix: 'custom-',
         })
       );
 
       expect(result.current.prefix).toBe('custom-');
-    });
-
-    it('should default to sudoku- prefix', () => {
-      const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'test-id',
-        })
-      );
-
-      expect(result.current.prefix).toBe('sudoku-');
     });
   });
 
   describe('saveValue', () => {
     it('should save value to localStorage', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const testData = { test: 'data', number: 42 };
 
       result.current.saveValue(testData);
 
-      const stored = localStorage.getItem('sudoku-puzzle-1');
+      const stored = localStorage.getItem(`${prefix}puzzle-1`);
       expect(stored).toBeDefined();
       const parsed = JSON.parse(stored!);
       expect(parsed.state).toEqual(testData);
@@ -71,7 +56,7 @@ describe('useLocalStorage', () => {
 
     it('should save and retrieve a value', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'puzzle1' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle1' })
       );
       const testData = { a: 1, b: 'test' };
       const beforeTime = Date.now();
@@ -89,10 +74,7 @@ describe('useLocalStorage', () => {
 
     it('should include lastUpdated timestamp', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const testData = { test: 'data' };
@@ -101,7 +83,7 @@ describe('useLocalStorage', () => {
       result.current.saveValue(testData);
 
       const afterTime = Date.now();
-      const stored = localStorage.getItem('sudoku-puzzle-1');
+      const stored = localStorage.getItem(`${prefix}puzzle-1`);
       const parsed = JSON.parse(stored!);
 
       expect(parsed.lastUpdated).toBeGreaterThanOrEqual(beforeTime);
@@ -110,10 +92,7 @@ describe('useLocalStorage', () => {
 
     it('should return the saved value with lastUpdated', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const testData = { test: 'data' };
@@ -132,17 +111,11 @@ describe('useLocalStorage', () => {
 
     it('should handle different StateTypes correctly', () => {
       const { result: timerResult } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.TIMER,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.TIMER, id: 'puzzle-1' })
       );
 
       const { result: puzzleResult } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const timerData = { seconds: 100 };
@@ -153,16 +126,13 @@ describe('useLocalStorage', () => {
         puzzleResult.current.saveValue(puzzleData);
       });
 
-      expect(localStorage.getItem('sudoku-puzzle-1')).toBeTruthy();
-      expect(localStorage.getItem('sudoku-puzzle-1-TIMER')).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}puzzle-1`)).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}puzzle-1-TIMER`)).toBeTruthy();
     });
 
     it('should use overrideId when provided', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'default-id',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'default-id' })
       );
 
       const testData = { test: 'data' };
@@ -171,16 +141,13 @@ describe('useLocalStorage', () => {
         result.current.saveValue(testData, { overrideId: 'override-id' });
       });
 
-      expect(localStorage.getItem('sudoku-override-id')).toBeTruthy();
-      expect(localStorage.getItem('sudoku-default-id')).toBeNull();
+      expect(localStorage.getItem(`${prefix}override-id`)).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}default-id`)).toBeNull();
     });
 
-    it('should handle quota exceeded error gracefully', () => {
+    it('should handle quota exceeded error gracefully and retry the save after cleanup', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       // Mock localStorage to simulate quota exceeded
@@ -193,10 +160,7 @@ describe('useLocalStorage', () => {
         (key: string, value: string) => {
           callCount++;
           if (callCount === 1) {
-            const error = new DOMException('QuotaExceededError');
-            // @ts-expect-error - name is read-only but we need to set it for testing
-            error.name = 'QuotaExceededError';
-            throw error;
+            throw new DOMException('quota exceeded', 'QuotaExceededError');
           }
           // Call original mock implementation
           return mockImpl!(key, value);
@@ -207,19 +171,191 @@ describe('useLocalStorage', () => {
 
       result.current.saveValue(testData);
 
-      // Should attempt cleanup and retry
-      expect(localStorage.setItem).toHaveBeenCalled();
+      // Should attempt cleanup and retry, ultimately saving on the second call
+      expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+      expect(result.current.getValue()?.state).toEqual(testData);
 
       // Restore original mock implementation
       (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
     });
 
+    it('removes puzzles older than three days first when quota is exceeded', () => {
+      localStorage.setItem(
+        `${prefix}old-puzzle`,
+        JSON.stringify({
+          state: { test: 'old' },
+          lastUpdated: Date.now() - 4 * 24 * 60 * 60 * 1000,
+        })
+      );
+      localStorage.setItem(
+        `${prefix}recent-puzzle`,
+        JSON.stringify({ state: { test: 'recent' }, lastUpdated: Date.now() })
+      );
+
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'new-puzzle' })
+      );
+
+      let callCount = 0;
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(
+        (key: string, value: string) => {
+          callCount++;
+          if (callCount === 1) {
+            throw new DOMException('quota exceeded', 'QuotaExceededError');
+          }
+          return mockImpl!(key, value);
+        }
+      );
+
+      result.current.saveValue({ test: 'new' });
+
+      expect(localStorage.getItem(`${prefix}old-puzzle`)).toBeNull();
+      expect(localStorage.getItem(`${prefix}recent-puzzle`)).toBeTruthy();
+
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('removes the oldest half of remaining items when no old puzzles are found', () => {
+      // Four puzzles, all recent (younger than 3 days) so the "old puzzle"
+      // cleanup pass removes nothing, forcing the fallback that removes the
+      // oldest 50% of remaining items by lastUpdated.
+      const now = Date.now();
+      localStorage.setItem(
+        `${prefix}oldest`,
+        JSON.stringify({ state: { i: 0 }, lastUpdated: now - 4000 })
+      );
+      localStorage.setItem(
+        `${prefix}second-oldest`,
+        JSON.stringify({ state: { i: 1 }, lastUpdated: now - 3000 })
+      );
+      localStorage.setItem(
+        `${prefix}second-newest`,
+        JSON.stringify({ state: { i: 2 }, lastUpdated: now - 2000 })
+      );
+      localStorage.setItem(
+        `${prefix}newest`,
+        JSON.stringify({ state: { i: 3 }, lastUpdated: now - 1000 })
+      );
+
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'brand-new' })
+      );
+
+      let callCount = 0;
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(
+        (key: string, value: string) => {
+          callCount++;
+          if (callCount === 1) {
+            throw new DOMException('quota exceeded', 'QuotaExceededError');
+          }
+          return mockImpl!(key, value);
+        }
+      );
+
+      result.current.saveValue({ test: 'new' });
+
+      // Oldest two of the four (50%) should be removed.
+      expect(localStorage.getItem(`${prefix}oldest`)).toBeNull();
+      expect(localStorage.getItem(`${prefix}second-oldest`)).toBeNull();
+      expect(localStorage.getItem(`${prefix}second-newest`)).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}newest`)).toBeTruthy();
+
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('removes corrupted entries while scanning for old puzzles during cleanup', () => {
+      localStorage.setItem(`${prefix}corrupted`, 'not valid json {]');
+
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
+      );
+
+      let callCount = 0;
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(
+        (key: string, value: string) => {
+          callCount++;
+          if (callCount === 1) {
+            throw new DOMException('quota exceeded', 'QuotaExceededError');
+          }
+          return mockImpl!(key, value);
+        }
+      );
+
+      result.current.saveValue({ test: 'new' });
+
+      expect(localStorage.getItem(`${prefix}corrupted`)).toBeNull();
+
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('logs an error when saving still fails after cleanup', () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
+      );
+
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(() => {
+        throw new DOMException('quota exceeded', 'QuotaExceededError');
+      });
+
+      expect(() => {
+        result.current.saveValue({ test: 'new' });
+      }).not.toThrow();
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Failed to save to localStorage even after cleanup:',
+        expect.any(DOMException)
+      );
+
+      consoleErrorSpy.mockRestore();
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
+    it('logs a generic error for non-quota localStorage failures', () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+      const { result } = renderHook(() =>
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
+      );
+
+      const mockImpl = (
+        localStorage.setItem as jest.Mock
+      ).getMockImplementation();
+      (localStorage.setItem as jest.Mock).mockImplementation(() => {
+        throw new Error('Some other storage failure');
+      });
+
+      expect(() => {
+        result.current.saveValue({ test: 'new' });
+      }).not.toThrow();
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'Error saving to localStorage:',
+        expect.any(Error)
+      );
+
+      consoleErrorSpy.mockRestore();
+      (localStorage.setItem as jest.Mock).mockImplementation(mockImpl!);
+    });
+
     it('should handle JSON serialization error', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const circularObject: any = { test: 'data' };
@@ -235,7 +371,7 @@ describe('useLocalStorage', () => {
 
     it('should update timestamp on value save', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'timestampTest' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'timestampTest' })
       );
 
       let firstTimestamp: number;
@@ -255,7 +391,7 @@ describe('useLocalStorage', () => {
 
     it('should save value with custom override ID', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE })
+        useLocalStorage({ prefix, type: StateType.PUZZLE })
       );
 
       const customId = 'custom-puzzle-id';
@@ -264,7 +400,7 @@ describe('useLocalStorage', () => {
       });
 
       const { result: retrieveResult } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: customId })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: customId })
       );
 
       const retrieved = retrieveResult.current.getValue();
@@ -273,7 +409,7 @@ describe('useLocalStorage', () => {
 
     it('should save complex nested objects', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'nested' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'nested' })
       );
 
       const complexData = {
@@ -298,7 +434,11 @@ describe('useLocalStorage', () => {
 
     it('should handle null or undefined gracefully', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'undefined-test' })
+        useLocalStorage({
+          prefix,
+          type: StateType.PUZZLE,
+          id: 'undefined-test',
+        })
       );
 
       expect(() => {
@@ -314,10 +454,7 @@ describe('useLocalStorage', () => {
   describe('getValue', () => {
     it('should retrieve saved value from localStorage', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const testData = { test: 'data', number: 42 };
@@ -334,6 +471,7 @@ describe('useLocalStorage', () => {
     it('should return undefined if value not found', () => {
       const { result } = renderHook(() =>
         useLocalStorage({
+          prefix,
           type: StateType.PUZZLE,
           id: 'non-existent-id',
         })
@@ -346,7 +484,7 @@ describe('useLocalStorage', () => {
 
     it('should return undefined for a non-existent key', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'nonexistent' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'nonexistent' })
       );
       const retrieved = result.current.getValue();
       expect(retrieved).toBeUndefined();
@@ -354,10 +492,7 @@ describe('useLocalStorage', () => {
 
     it('should use overrideId when provided', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'default-id',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'default-id' })
       );
 
       const testData = { test: 'data' };
@@ -375,13 +510,10 @@ describe('useLocalStorage', () => {
 
     it('should handle corrupted JSON gracefully', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
-      localStorage.setItem('sudoku-puzzle-1', 'invalid json {]');
+      localStorage.setItem(`${prefix}puzzle-1`, 'invalid json {]');
 
       const retrievedValue = result.current.getValue();
 
@@ -390,10 +522,7 @@ describe('useLocalStorage', () => {
 
     it('should preserve complex nested objects', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const complexData = {
@@ -413,7 +542,7 @@ describe('useLocalStorage', () => {
 
     it('should retrieve values across hook instances', () => {
       const { result: hook1 } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'shared' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'shared' })
       );
 
       act(() => {
@@ -422,7 +551,7 @@ describe('useLocalStorage', () => {
 
       // Create a new hook instance
       const { result: hook2 } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'shared' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'shared' })
       );
 
       const retrieved = hook2.current.getValue();
@@ -431,7 +560,7 @@ describe('useLocalStorage', () => {
 
     it('should maintain sessionId in stored results', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'session-test' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'session-test' })
       );
 
       act(() => {
@@ -444,7 +573,7 @@ describe('useLocalStorage', () => {
 
     it('should return state result with proper structure', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'structure' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'structure' })
       );
 
       const testData = { value: 42 };
@@ -462,21 +591,18 @@ describe('useLocalStorage', () => {
   describe('listValues', () => {
     it('should list all puzzle values', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const data1 = { test: 'data1' };
       const data2 = { test: 'data2' };
 
       localStorage.setItem(
-        'sudoku-puzzle-1',
+        `${prefix}puzzle-1`,
         JSON.stringify({ state: data1, lastUpdated: Date.now() })
       );
       localStorage.setItem(
-        'sudoku-puzzle-2',
+        `${prefix}puzzle-2`,
         JSON.stringify({ state: data2, lastUpdated: Date.now() })
       );
 
@@ -493,7 +619,7 @@ describe('useLocalStorage', () => {
 
     it('should list all values of a given type', () => {
       const { result: puzzleHook } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE })
+        useLocalStorage({ prefix, type: StateType.PUZZLE })
       );
 
       act(() => {
@@ -514,46 +640,37 @@ describe('useLocalStorage', () => {
 
     it('should list values with sessionId', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const data = { test: 'data' };
 
       localStorage.setItem(
-        'sudoku-puzzle-1',
+        `${prefix}puzzle-1`,
         JSON.stringify({ state: data, lastUpdated: Date.now() })
       );
 
       const listedValues = result.current.listValues();
 
       expect(listedValues?.length).toBeGreaterThan(0);
-      expect(listedValues?.[0]?.sessionId).toBe('sudoku-puzzle-1');
+      expect(listedValues?.[0]?.sessionId).toBe(`${prefix}puzzle-1`);
     });
 
     it('should filter by StateType', () => {
       const puzzleHook = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const timerHook = renderHook(() =>
-        useLocalStorage({
-          type: StateType.TIMER,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.TIMER, id: 'puzzle-1' })
       );
 
       localStorage.setItem(
-        'sudoku-puzzle-1',
+        `${prefix}puzzle-1`,
         JSON.stringify({ state: { test: 'puzzle' }, lastUpdated: Date.now() })
       );
       localStorage.setItem(
-        'sudoku-puzzle-1-TIMER',
+        `${prefix}puzzle-1-TIMER`,
         JSON.stringify({ state: { seconds: 100 }, lastUpdated: Date.now() })
       );
 
@@ -566,40 +683,34 @@ describe('useLocalStorage', () => {
 
     it('should remove entries older than one month', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const oneMonthAgo = Date.now() - 32 * 24 * 60 * 60 * 1000;
       const recentTime = Date.now();
 
       localStorage.setItem(
-        'sudoku-old-puzzle',
+        `${prefix}old-puzzle`,
         JSON.stringify({ state: { test: 'old' }, lastUpdated: oneMonthAgo })
       );
       localStorage.setItem(
-        'sudoku-recent-puzzle',
+        `${prefix}recent-puzzle`,
         JSON.stringify({ state: { test: 'recent' }, lastUpdated: recentTime })
       );
 
       const listedValues = result.current.listValues();
 
       expect(
-        listedValues?.some((v: any) => v.sessionId === 'sudoku-old-puzzle')
+        listedValues?.some((v: any) => v.sessionId === `${prefix}old-puzzle`)
       ).toBeFalsy();
       expect(
-        listedValues?.some((v: any) => v.sessionId === 'sudoku-recent-puzzle')
+        listedValues?.some((v: any) => v.sessionId === `${prefix}recent-puzzle`)
       ).toBeTruthy();
     });
 
     it('should handle empty localStorage gracefully', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const listedValues = result.current.listValues();
@@ -609,17 +720,14 @@ describe('useLocalStorage', () => {
 
     it('should skip corrupted entries', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       localStorage.setItem(
-        'sudoku-valid-puzzle',
+        `${prefix}valid-puzzle`,
         JSON.stringify({ state: { test: 'valid' }, lastUpdated: Date.now() })
       );
-      localStorage.setItem('sudoku-invalid-puzzle', 'invalid json {]');
+      localStorage.setItem(`${prefix}invalid-puzzle`, 'invalid json {]');
 
       const listedValues = result.current.listValues();
 
@@ -630,7 +738,7 @@ describe('useLocalStorage', () => {
 
     it('should list multiple puzzles', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE })
+        useLocalStorage({ prefix, type: StateType.PUZZLE })
       );
 
       act(() => {
@@ -645,7 +753,7 @@ describe('useLocalStorage', () => {
 
     it('should list values with correct structure', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE })
+        useLocalStorage({ prefix, type: StateType.PUZZLE })
       );
 
       act(() => {
@@ -664,7 +772,7 @@ describe('useLocalStorage', () => {
 
     it('should handle empty listValues', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'unique-empty' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'unique-empty' })
       );
 
       // Don't save anything
@@ -676,10 +784,7 @@ describe('useLocalStorage', () => {
   describe('getStateKey', () => {
     it('should generate correct key for PUZZLE type', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const data = { test: 'data' };
@@ -687,15 +792,12 @@ describe('useLocalStorage', () => {
         result.current.saveValue(data);
       });
 
-      expect(localStorage.getItem('sudoku-puzzle-1')).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}puzzle-1`)).toBeTruthy();
     });
 
     it('should generate correct key for TIMER type', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.TIMER,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.TIMER, id: 'puzzle-1' })
       );
 
       const data = { seconds: 100 };
@@ -703,14 +805,12 @@ describe('useLocalStorage', () => {
         result.current.saveValue(data);
       });
 
-      expect(localStorage.getItem('sudoku-puzzle-1-TIMER')).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}puzzle-1-TIMER`)).toBeTruthy();
     });
 
     it('should throw error when id is missing', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE })
       );
 
       expect(() => {
@@ -720,10 +820,7 @@ describe('useLocalStorage', () => {
 
     it('should handle getStateKey with override', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'default-id',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'default-id' })
       );
 
       const data = { test: 'data' };
@@ -732,15 +829,15 @@ describe('useLocalStorage', () => {
         result.current.saveValue(data, { overrideId: 'override-id' });
       });
 
-      expect(localStorage.getItem('sudoku-override-id')).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}override-id`)).toBeTruthy();
     });
 
     it('should provide correct prefix for state types', () => {
       const { result: puzzleResult } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'puzzle1' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle1' })
       );
       const { result: timerResult } = renderHook(() =>
-        useLocalStorage({ type: StateType.TIMER, id: 'timer1' })
+        useLocalStorage({ prefix, type: StateType.TIMER, id: 'timer1' })
       );
 
       // Both hooks can store values independently
@@ -752,10 +849,10 @@ describe('useLocalStorage', () => {
   describe('state types', () => {
     it('should handle different state types separately', () => {
       const { result: puzzleHook } = renderHook(() =>
-        useLocalStorage({ type: StateType.PUZZLE, id: 'test' })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'test' })
       );
       const { result: timerHook } = renderHook(() =>
-        useLocalStorage({ type: StateType.TIMER, id: 'test' })
+        useLocalStorage({ prefix, type: StateType.TIMER, id: 'test' })
       );
 
       act(() => {
@@ -772,7 +869,7 @@ describe('useLocalStorage', () => {
 
     it('should handle timer state type', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({ type: StateType.TIMER, id: 'timer1' })
+        useLocalStorage({ prefix, type: StateType.TIMER, id: 'timer1' })
       );
 
       const timerData = { elapsed: 60, isPaused: false };
@@ -788,10 +885,7 @@ describe('useLocalStorage', () => {
   describe('edge cases', () => {
     it('should handle multiple saves to same id', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const data1 = { version: 1 };
@@ -808,29 +902,23 @@ describe('useLocalStorage', () => {
 
     it('should clear storage correctly', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const data = { test: 'data' };
 
       result.current.saveValue(data);
 
-      expect(localStorage.getItem('sudoku-puzzle-1')).toBeTruthy();
+      expect(localStorage.getItem(`${prefix}puzzle-1`)).toBeTruthy();
 
       localStorage.clear();
 
-      expect(localStorage.getItem('sudoku-puzzle-1')).toBeNull();
+      expect(localStorage.getItem(`${prefix}puzzle-1`)).toBeNull();
     });
 
     it('should handle very large objects', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const largeArray = Array.from({ length: 1000 }, (_, i) => ({
@@ -847,10 +935,7 @@ describe('useLocalStorage', () => {
 
     it('should handle null and undefined values', () => {
       const { result } = renderHook(() =>
-        useLocalStorage({
-          type: StateType.PUZZLE,
-          id: 'puzzle-1',
-        })
+        useLocalStorage({ prefix, type: StateType.PUZZLE, id: 'puzzle-1' })
       );
 
       const data = { nullValue: null, undefinedValue: undefined };

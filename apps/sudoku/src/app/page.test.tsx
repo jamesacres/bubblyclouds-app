@@ -108,6 +108,14 @@ jest.mock('@bubblyclouds-app/template/components/PremiumFeatures', () => ({
   },
 }));
 
+// RateAppButton only renders on Capacitor or mobile web; force mobile-web so
+// the rate-app prompt is exercised.
+jest.mock('@bubblyclouds-app/template/helpers/capacitor', () => ({
+  isCapacitor: () => false,
+  isIOS: () => false,
+  isAndroid: () => false,
+}));
+
 jest.mock('@bubblyclouds-app/ui/components/Footer', () => ({
   __esModule: true,
   default: function MockFooter({ children }: { children: React.ReactNode }) {
@@ -168,6 +176,14 @@ jest.mock('lucide-react', () => ({
   RotateCcw: () => <div data-testid="rotate-ccw-icon">Rotate Icon</div>,
   BookOpen: () => <div data-testid="book-open-icon">BookOpen Icon</div>,
   Flame: () => <div data-testid="flame-icon">Flame Icon</div>,
+  Star: () => <div data-testid="star-icon">Star Icon</div>,
+  ExternalLink: () => (
+    <div data-testid="external-link-icon">ExternalLink Icon</div>
+  ),
+  ArrowRight: () => <div data-testid="arrow-right-icon">ArrowRight Icon</div>,
+  ChevronsRight: () => (
+    <div data-testid="chevrons-right-icon">ChevronsRight Icon</div>
+  ),
 }));
 
 const makeSevenDays = (todayCount = 0) =>
@@ -348,6 +364,27 @@ describe('Home Page', () => {
     it('should render premium features component', () => {
       render(<Home />);
       expect(screen.getByTestId('premium-features')).toBeInTheDocument();
+    });
+  });
+
+  describe('Rate app section', () => {
+    const originalUserAgent = window.navigator.userAgent;
+
+    afterEach(() => {
+      Object.defineProperty(window.navigator, 'userAgent', {
+        value: originalUserAgent,
+        writable: true,
+      });
+    });
+
+    it('should render the rate-app prompt on the START tab', () => {
+      Object.defineProperty(window.navigator, 'userAgent', {
+        value:
+          'Mozilla/5.0 (iPad; CPU OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15',
+        writable: true,
+      });
+      render(<Home />);
+      expect(screen.getByText(/Enjoying Sudoku\?/i)).toBeInTheDocument();
     });
   });
 

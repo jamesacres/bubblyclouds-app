@@ -33,10 +33,16 @@ interface FriendsTabProps<State extends BaseServerState = BaseServerState> {
     isPuzzleCheated: (state: State) => boolean;
     gameName: string;
   }>;
-  getDifficultyDisplay: (difficulty: string) => {
-    name: string;
-    badgeColor: string;
-  };
+  getDifficultyDisplay: (difficulty: string) =>
+    | {
+        name: string;
+        badgeColor: string;
+      }
+    | undefined;
+  getMovesDisplay?: (
+    state: State
+  ) => { movesMade: number; movesRequired: number } | undefined;
+  getStarRating?: (state: State) => number | undefined;
 }
 
 export const FriendsTab = <State extends BaseServerState = BaseServerState>({
@@ -51,6 +57,8 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
   LeaderboardComponent,
   gameName,
   getDifficultyDisplay,
+  getMovesDisplay,
+  getStarRating,
 }: FriendsTabProps<State>) => {
   const { sessions, friendSessions } = useSessions<State>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
@@ -246,6 +254,8 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                                           getDifficultyDisplay={
                                             getDifficultyDisplay
                                           }
+                                          getMovesDisplay={getMovesDisplay}
+                                          getStarRating={getStarRating}
                                         />
                                       ))}
                                   </ul>

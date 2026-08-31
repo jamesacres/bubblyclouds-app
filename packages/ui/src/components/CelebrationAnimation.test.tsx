@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { CelebrationAnimation } from './CelebrationAnimation';
+import { CELEBRATION_MS } from './RaceCelebrationOverlay';
 
 jest.mock('@capacitor-community/in-app-review', () => ({
   InAppReview: {
@@ -166,7 +167,7 @@ describe('CelebrationAnimation', () => {
       const grid = container.querySelector('[data-testid="grid"]');
       expect(grid).toHaveStyle('visibility: hidden');
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       expect(grid).toHaveStyle('visibility: visible');
     });
@@ -217,7 +218,7 @@ describe('CelebrationAnimation', () => {
         </div>
       );
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       await waitFor(() => {
         expect(requestSpy).toHaveBeenCalled();
@@ -243,7 +244,7 @@ describe('CelebrationAnimation', () => {
         </div>
       );
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       expect(requestSpy).not.toHaveBeenCalled();
       requestSpy.mockRestore();
@@ -266,7 +267,7 @@ describe('CelebrationAnimation', () => {
         </div>
       );
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       expect(requestSpy).not.toHaveBeenCalled();
       requestSpy.mockRestore();
@@ -293,7 +294,7 @@ describe('CelebrationAnimation', () => {
         </div>
       );
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       await waitFor(() => {
         expect(consoleErrorSpy).toHaveBeenCalled();
@@ -318,7 +319,7 @@ describe('CelebrationAnimation', () => {
         </div>
       );
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       expect(requestSpy).not.toHaveBeenCalled();
       requestSpy.mockRestore();
@@ -336,7 +337,7 @@ describe('CelebrationAnimation', () => {
 
       expect(container).toBeInTheDocument();
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       // Timer should have executed
       expect(jest.getTimerCount()).toBe(0);
@@ -370,7 +371,7 @@ describe('CelebrationAnimation', () => {
         </div>
       );
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       // Should complete without errors
       expect(jest.getTimerCount()).toBe(0);
@@ -529,7 +530,7 @@ describe('CelebrationAnimation', () => {
       let animationContainer = container.querySelector('.pointer-events-none');
       expect(animationContainer).toBeInTheDocument();
 
-      jest.advanceTimersByTime(9000);
+      jest.advanceTimersByTime(CELEBRATION_MS);
 
       // After animation completes, rerender with isVisible false
       rerender(

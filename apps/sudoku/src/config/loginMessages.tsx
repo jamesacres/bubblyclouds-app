@@ -25,6 +25,10 @@ export const LOGIN_CONTEXT_MESSAGES: Partial<
     textColor: 'text-emerald-200',
     content: <>Sign in to race with others</>,
   },
+  [LoginContext.PUZZLE_ENTRY]: {
+    textColor: 'text-violet-200',
+    content: <>Sign in to play</>,
+  },
 };
 
 export const LOGIN_VALUE_PROPS = [

@@ -28,6 +28,10 @@ export interface ServerStateResult<T> extends Session<T> {
   parties?: Parties<Session<T>>;
 }
 
+export interface ServerStateNotFoundResult<T> {
+  parties?: Parties<Session<T>>;
+}
+
 export enum EntitlementDuration {
   LIFETIME = 'lifetime',
   ONE_MONTH = 'one_month',

@@ -12,6 +12,8 @@ jest.mock('@bubblyclouds-app/types/stateType', () => ({
   StateType: { TIMER: 'timer' },
 }));
 
+const app = 'mockapp';
+
 describe('useTimer', () => {
   let mockUseDocumentVisibility: any;
   let mockUseLocalStorage: any;
@@ -56,7 +58,7 @@ describe('useTimer', () => {
 
   describe('initialization', () => {
     it('should initialize timer state', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       expect(result.current).toBeDefined();
       expect(result.current.timer).toBeNull();
@@ -67,7 +69,9 @@ describe('useTimer', () => {
     });
 
     it('should accept puzzleId prop', () => {
-      const { result } = renderHook(() => useTimer({ id: 'unique-puzzle-id' }));
+      const { result } = renderHook(() =>
+        useTimer({ app, id: 'unique-puzzle-id' })
+      );
 
       expect(result.current).toBeDefined();
     });
@@ -75,7 +79,7 @@ describe('useTimer', () => {
 
   describe('setTimerNewSession', () => {
     it('should initialize timer with countdown', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -89,7 +93,7 @@ describe('useTimer', () => {
     });
 
     it('should restore timer from previous session', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       const previousTimer = {
         seconds: 100,
@@ -109,7 +113,7 @@ describe('useTimer', () => {
     });
 
     it('should set lastInteraction to now', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       const beforeTime = Date.now();
 
@@ -128,7 +132,7 @@ describe('useTimer', () => {
     });
 
     it('should handle null/undefined restore parameter', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession(null);
@@ -139,7 +143,7 @@ describe('useTimer', () => {
     });
 
     it('should preserve stopped flag when restoring', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       const stoppedTimer = {
         seconds: 100,
@@ -161,7 +165,7 @@ describe('useTimer', () => {
 
   describe('stopTimer', () => {
     it('should set stopped flag to true', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -179,7 +183,7 @@ describe('useTimer', () => {
     it('should clear interval when stopped', () => {
       const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
 
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -195,7 +199,7 @@ describe('useTimer', () => {
     });
 
     it('should handle stop when timer is null', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       expect(() => {
         act(() => {
@@ -205,7 +209,7 @@ describe('useTimer', () => {
     });
 
     it('should prevent further timer updates after stop', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -228,7 +232,7 @@ describe('useTimer', () => {
 
   describe('setPauseTimer', () => {
     it('should set paused state', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       expect(result.current.isPaused).toBe(false);
 
@@ -240,7 +244,7 @@ describe('useTimer', () => {
     });
 
     it('should toggle pause state', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setPauseTimer(true);
@@ -256,7 +260,7 @@ describe('useTimer', () => {
     });
 
     it('should not update timer when paused', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -279,7 +283,7 @@ describe('useTimer', () => {
 
   describe('timer updates', () => {
     it('should update timer every second when not paused', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -304,7 +308,7 @@ describe('useTimer', () => {
 
     it('should decrement countdown', () => {
       mockUseDocumentVisibility.mockReturnValue(true);
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       // Wait for auto-initialization from useEffect
       act(() => {
@@ -322,7 +326,7 @@ describe('useTimer', () => {
 
     it('should update lastInteraction after countdown ends', () => {
       mockUseDocumentVisibility.mockReturnValue(true);
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       // Wait for auto-initialization from useEffect
       act(() => {
@@ -344,7 +348,7 @@ describe('useTimer', () => {
 
     it('should not update when paused', () => {
       mockUseDocumentVisibility.mockReturnValue(true);
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       // Wait for auto-initialization from useEffect
       act(() => {
@@ -371,7 +375,7 @@ describe('useTimer', () => {
     });
 
     it('should not update after timer is stopped', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -393,7 +397,7 @@ describe('useTimer', () => {
 
   describe('document visibility', () => {
     it('should trigger new session when document becomes visible', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -411,7 +415,7 @@ describe('useTimer', () => {
 
   describe('localStorage integration', () => {
     it('should save timer state to localStorage', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -422,7 +426,7 @@ describe('useTimer', () => {
     });
 
     it('should restore timer from localStorage on mount', () => {
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       // Timer should be restored via useEffect if available in localStorage
       expect(result.current).toBeDefined();
@@ -433,7 +437,9 @@ describe('useTimer', () => {
     it('should clean up interval on unmount', () => {
       const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
 
-      const { unmount } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { unmount } = renderHook(() =>
+        useTimer({ app, id: 'test-puzzle' })
+      );
 
       unmount();
 
@@ -445,7 +451,7 @@ describe('useTimer', () => {
     it('should clean up when timer is stopped', () => {
       const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
 
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -465,10 +471,10 @@ describe('useTimer', () => {
     it('should handle multiple timer instances independently', () => {
       mockUseDocumentVisibility.mockReturnValue(false);
       const { result: result1 } = renderHook(() =>
-        useTimer({ id: 'puzzle-1' })
+        useTimer({ app, id: 'puzzle-1' })
       );
       const { result: result2 } = renderHook(() =>
-        useTimer({ id: 'puzzle-2' })
+        useTimer({ app, id: 'puzzle-2' })
       );
 
       act(() => {
@@ -490,10 +496,10 @@ describe('useTimer', () => {
     it('should maintain separate pause states', () => {
       mockUseDocumentVisibility.mockReturnValue(false);
       const { result: result1 } = renderHook(() =>
-        useTimer({ id: 'puzzle-1' })
+        useTimer({ app, id: 'puzzle-1' })
       );
       const { result: result2 } = renderHook(() =>
-        useTimer({ id: 'puzzle-2' })
+        useTimer({ app, id: 'puzzle-2' })
       );
 
       act(() => {
@@ -508,7 +514,7 @@ describe('useTimer', () => {
   describe('edge cases', () => {
     it('should handle rapid start/stop cycles', () => {
       mockUseDocumentVisibility.mockReturnValue(false);
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -522,7 +528,7 @@ describe('useTimer', () => {
 
     it('should handle rapid pause/unpause cycles', () => {
       mockUseDocumentVisibility.mockReturnValue(false);
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       act(() => {
         result.current.setTimerNewSession();
@@ -537,7 +543,7 @@ describe('useTimer', () => {
 
     it('should handle undefined timer during updates', () => {
       mockUseDocumentVisibility.mockReturnValue(false);
-      const { result } = renderHook(() => useTimer({ id: 'test-puzzle' }));
+      const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 
       // Advance timers without initializing
       act(() => {

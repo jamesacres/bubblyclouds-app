@@ -3,6 +3,7 @@
 import { useContext } from 'react';
 import Header from '@bubblyclouds-app/ui/components/Header';
 import HeaderUser from '@bubblyclouds-app/auth/components/HeaderUser';
+import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { useOnline } from '../hooks/online';
 import { isCapacitor } from '../helpers/capacitor';
@@ -39,7 +40,11 @@ export default function HeaderWrapper({
     _colorName: string,
     onSuccess: () => void
   ) => {
-    revenueCatContext?.subscribeModal?.showModalIfRequired(onSuccess);
+    revenueCatContext?.subscribeModal?.showModalIfRequired(
+      onSuccess,
+      () => {},
+      SubscriptionContext.THEME_COLOR
+    );
   };
 
   return (

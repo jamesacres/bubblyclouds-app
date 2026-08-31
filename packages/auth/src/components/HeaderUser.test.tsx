@@ -46,6 +46,7 @@ describe('HeaderUser', () => {
         value={
           {
             app: 'testapp',
+            gameName: 'Test App',
             ...contextValue,
           } as UserContextInterface
         }
@@ -131,6 +132,7 @@ describe('HeaderUser', () => {
           value={
             {
               app: 'testapp',
+              gameName: 'Test App',
               user: mockUser,
               logout: mockLogout,
             } as unknown as UserContextInterface

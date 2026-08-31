@@ -18,7 +18,7 @@ interface UserPanelProps extends UserPanelDependencies {
   logout: () => void;
   onClose?: () => void;
   isMobile?: boolean;
-  app: string;
+  gameName: string;
   privacyUrl: string;
   termsUrl: string;
   creditsUrl?: string;
@@ -54,12 +54,12 @@ const PrimaryAction = ({
   isSubscribed,
   subscriptionManagementUrl,
   showSubscribeModal,
-  app,
+  gameName,
 }: {
   isSubscribed: boolean;
   subscriptionManagementUrl?: string;
   showSubscribeModal?: (onSuccess: () => void) => void;
-  app: string;
+  gameName: string;
 }) => (
   <div className="flex justify-center">
     {isSubscribed ? (
@@ -70,7 +70,7 @@ const PrimaryAction = ({
       >
         <span className="inline-flex items-center text-sm font-medium">
           <span className="mr-2">✨</span>
-          {app.charAt(0).toUpperCase() + app.slice(1)} Plus Active
+          {gameName} Plus Active
           <span className="ml-2">✓</span>
         </span>
       </a>
@@ -79,7 +79,7 @@ const PrimaryAction = ({
         onClick={() => showSubscribeModal?.(() => {})}
         className="w-full cursor-pointer rounded-full border border-gray-600 bg-gray-700 px-6 py-3 text-sm font-medium transition-colors hover:bg-gray-600"
       >
-        Join {app.charAt(0).toUpperCase() + app.slice(1)} Plus
+        Join {gameName} Plus
       </button>
     ) : (
       <></>
@@ -200,7 +200,7 @@ export const UserPanel = ({
   deleteAccount,
   isSubscribed = false,
   showSubscribeModal,
-  app,
+  gameName,
   privacyUrl,
   termsUrl,
   creditsUrl,
@@ -250,7 +250,7 @@ export const UserPanel = ({
               isSubscribed={isSubscribed}
               subscriptionManagementUrl={subscriptionManagementUrl}
               showSubscribeModal={showSubscribeModal}
-              app={app}
+              gameName={gameName}
             />
           </div>
 
@@ -307,7 +307,7 @@ export const UserPanel = ({
           <PrimaryAction
             isSubscribed={isSubscribed}
             showSubscribeModal={showSubscribeModal}
-            app={app}
+            gameName={gameName}
           />
         </div>
 

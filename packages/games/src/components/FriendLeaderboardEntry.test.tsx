@@ -32,16 +32,17 @@ describe('FriendLeaderboardEntry', () => {
     breakdown: {
       volumeScore: 100,
       dailyPuzzleScore: 50,
-      bookPuzzleScore: 75,
+      collectionPuzzleScore: 75,
       scannedPuzzleScore: 25,
       difficultyBonus: 30,
       speedBonus: 100,
       racingBonus: 50,
+      comboBonus: 0,
     },
     stats: {
       totalPuzzles: 10,
       dailyPuzzles: 3,
-      bookPuzzles: 4,
+      collectionPuzzles: 4,
       scannedPuzzles: 3,
       averageTime: 120,
       fastestTime: 60,
@@ -364,11 +365,12 @@ describe('FriendLeaderboardEntry', () => {
         breakdown: {
           volumeScore: 200,
           dailyPuzzleScore: 100,
-          bookPuzzleScore: 150,
+          collectionPuzzleScore: 150,
           scannedPuzzleScore: 50,
           difficultyBonus: 75,
           speedBonus: 200,
           racingBonus: 100,
+          comboBonus: 0,
         },
       });
 
@@ -391,7 +393,7 @@ describe('FriendLeaderboardEntry', () => {
         stats: {
           totalPuzzles: 20,
           dailyPuzzles: 5,
-          bookPuzzles: 8,
+          collectionPuzzles: 8,
           scannedPuzzles: 7,
           averageTime: 150,
           fastestTime: 45,

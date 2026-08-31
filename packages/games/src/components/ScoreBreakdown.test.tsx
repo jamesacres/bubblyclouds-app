@@ -15,7 +15,7 @@ jest.mock('lucide-react', () => ({
   Award: () => <svg data-testid="award-icon" />,
   Zap: () => <svg data-testid="zap-icon" />,
   Calendar: () => <svg data-testid="calendar-icon" />,
-  Book: () => <svg data-testid="book-icon" />,
+  Library: () => <svg data-testid="library-icon" />,
   Camera: () => <svg data-testid="camera-icon" />,
 }));
 
@@ -25,11 +25,12 @@ describe('ScoreBreakdown', () => {
   ): FriendsLeaderboardScore['breakdown'] => ({
     volumeScore: 100,
     dailyPuzzleScore: 50,
-    bookPuzzleScore: 75,
+    collectionPuzzleScore: 75,
     scannedPuzzleScore: 25,
     difficultyBonus: 30,
     speedBonus: 100,
     racingBonus: 50,
+    comboBonus: 0,
     ...overrides,
   });
 
@@ -38,7 +39,7 @@ describe('ScoreBreakdown', () => {
   ): FriendsLeaderboardScore['stats'] => ({
     totalPuzzles: 10,
     dailyPuzzles: 3,
-    bookPuzzles: 4,
+    collectionPuzzles: 4,
     scannedPuzzles: 3,
     averageTime: 120,
     fastestTime: 60,
@@ -104,8 +105,8 @@ describe('ScoreBreakdown', () => {
       expect(screen.getByText('+150')).toBeInTheDocument();
     });
 
-    it('should display book puzzle score', () => {
-      const breakdown = createBreakdown({ bookPuzzleScore: 300 });
+    it('should display collection puzzle score', () => {
+      const breakdown = createBreakdown({ collectionPuzzleScore: 300 });
       const stats = createStats();
 
       render(<ScoreBreakdown breakdown={breakdown} stats={stats} />);
@@ -189,13 +190,31 @@ describe('ScoreBreakdown', () => {
       expect(screen.getByText('10 daily challenges')).toBeInTheDocument();
     });
 
-    it('should display book puzzle count', () => {
+    it('should display collection puzzle count', () => {
       const breakdown = createBreakdown();
-      const stats = createStats({ bookPuzzles: 8 });
+      const stats = createStats({ collectionPuzzles: 8 });
 
       render(<ScoreBreakdown breakdown={breakdown} stats={stats} />);
 
       expect(screen.getByText('8 from puzzle books')).toBeInTheDocument();
+    });
+
+    it('should use a custom collection label and detail noun when provided', () => {
+      const breakdown = createBreakdown();
+      const stats = createStats({ collectionPuzzles: 6 });
+
+      render(
+        <ScoreBreakdown
+          breakdown={breakdown}
+          stats={stats}
+          collectionLabel="Collection"
+          collectionDetailNoun="collections"
+        />
+      );
+
+      expect(screen.getByText('Collection Puzzles')).toBeInTheDocument();
+      expect(screen.getByText('6 from collections')).toBeInTheDocument();
+      expect(screen.queryByText('Book Puzzles')).not.toBeInTheDocument();
     });
 
     it('should display scanned puzzle count', () => {
@@ -244,7 +263,7 @@ describe('ScoreBreakdown', () => {
       const breakdown = createBreakdown({
         volumeScore: 0,
         dailyPuzzleScore: 50,
-        bookPuzzleScore: 0,
+        collectionPuzzleScore: 0,
         scannedPuzzleScore: 0,
         difficultyBonus: 0,
         speedBonus: 0,
@@ -263,7 +282,7 @@ describe('ScoreBreakdown', () => {
       const breakdown = createBreakdown({
         volumeScore: 100,
         dailyPuzzleScore: 0,
-        bookPuzzleScore: 0,
+        collectionPuzzleScore: 0,
         scannedPuzzleScore: 50,
         difficultyBonus: 25,
         speedBonus: 0,
@@ -286,7 +305,7 @@ describe('ScoreBreakdown', () => {
       const breakdown = createBreakdown({
         volumeScore: 0,
         dailyPuzzleScore: 0,
-        bookPuzzleScore: 0,
+        collectionPuzzleScore: 0,
         scannedPuzzleScore: 0,
         difficultyBonus: 0,
         speedBonus: 0,
@@ -382,7 +401,7 @@ describe('ScoreBreakdown', () => {
       expect(screen.getByText('Daily Puzzles')).toBeInTheDocument();
     });
 
-    it('should render book icon for book puzzles', () => {
+    it('should render library icon for book puzzles', () => {
       const breakdown = createBreakdown();
       const stats = createStats();
 
@@ -435,7 +454,7 @@ describe('ScoreBreakdown', () => {
       expect(dailyItem).toBeInTheDocument();
     });
 
-    it('should have purple border for book puzzles', () => {
+    it('should have purple border for collection puzzles', () => {
       const breakdown = createBreakdown();
       const stats = createStats();
 
@@ -443,8 +462,8 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      const bookItem = container.querySelector('.border-l-purple-500');
-      expect(bookItem).toBeInTheDocument();
+      const collectionItem = container.querySelector('.border-l-purple-500');
+      expect(collectionItem).toBeInTheDocument();
     });
 
     it('should have orange border for scanned puzzles', () => {

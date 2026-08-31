@@ -9,11 +9,12 @@ import { Timer } from '../types/timer';
 // eslint-disable-next-line no-undef
 let interval: NodeJS.Timeout;
 
-function useTimer({ id }: { id: string }) {
+function useTimer({ id, app }: { id: string; app: string }) {
   const isDocumentVisible = useDocumentVisibility();
   const [isPaused, setPauseTimer] = useState(false);
   const { getValue, saveValue } = useLocalStorage({
     id,
+    prefix: `${app}-`,
     type: StateType.TIMER,
   });
   const [timer, setTimer] = useState<null | Timer>(null);

@@ -18,6 +18,17 @@ jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
 jest.mock('../hooks/useDrag', () => ({
   useDrag: jest.fn(() => ({})),
 }));
+const mockFetchBookData = jest.fn();
+const mockUseBook = jest.fn<
+  { bookData: unknown; fetchBookData: () => void },
+  []
+>(() => ({
+  bookData: null,
+  fetchBookData: mockFetchBookData,
+}));
+jest.mock('../providers/BookProvider', () => ({
+  useBook: () => mockUseBook(),
+}));
 
 jest.mock('lucide-react', () => ({
   Award: () => <svg data-testid="award-icon" />,
@@ -35,8 +46,10 @@ jest.mock('../components/SudokuBox', () => {
   };
 });
 
+const mockSudokuControlsProps = jest.fn();
 jest.mock('../components/SudokuControls', () => {
-  return function DummySudokuControls() {
+  return function DummySudokuControls(props: any) {
+    mockSudokuControlsProps(props);
     return <div data-testid="sudoku-controls">Sudoku Controls</div>;
   };
 });
@@ -113,7 +126,7 @@ jest.mock('../helpers/agentTimeline', () => ({
   createLocalAgents: jest.fn(() => []),
 }));
 
-jest.mock('../helpers/agentProgress', () => ({
+jest.mock('@bubblyclouds-app/games/helpers/agentProgress', () => ({
   getAllAgentProgress: jest.fn(() => []),
 }));
 
@@ -134,6 +147,13 @@ jest.mock('../helpers/puzzleTextToPuzzle', () => ({
 
 jest.mock('../helpers/checkAnswer', () => ({
   isInitialCell: jest.fn(() => false),
+}));
+
+const mockIsBookPuzzleIdLocked = jest.fn((..._args: unknown[]) => false);
+jest.mock('../helpers/bookLocks', () => ({
+  isBookPuzzleIdLocked: (...args: unknown[]) =>
+    mockIsBookPuzzleIdLocked(...args),
+  lockedBookIndexes: () => new Set<number>(),
 }));
 
 jest.mock('@bubblyclouds-app/template/helpers/calculateSeconds', () => ({
@@ -227,11 +247,13 @@ describe('Sudoku', () => {
 
   const mockUserContext = {
     user: { sub: 'user-123' },
+    isInitialised: true,
+    showLoginModal: jest.fn(),
   };
 
   const mockRevenueCatContext = {
     isSubscribed: false,
-    subscribeModal: jest.fn(),
+    subscribeModal: { showModalIfRequired: jest.fn() },
   };
 
   beforeEach(() => {
@@ -240,6 +262,8 @@ describe('Sudoku', () => {
     (useRouter as jest.Mock).mockReturnValue({ push: jest.fn() });
     (useSessions as jest.Mock).mockReturnValue({
       sessions: [],
+      fetchSessions: jest.fn(),
+      refetchSessions: jest.fn(),
     });
   });
 
@@ -658,14 +682,19 @@ describe('Sudoku', () => {
   });
 
   describe('context requirements', () => {
-    it('should render without user context', () => {
+    // Guest play was removed: without a UserContext value at all (so both
+    // `user` and `isInitialised` are undefined), Sudoku now renders the
+    // sign-in gate instead of the board - no server game-state is created
+    // for a signed-out visitor.
+    it('renders the sign-in gate instead of the board without user context', () => {
       render(
         <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
           <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
         </RevenueCatContext.Provider>
       );
 
-      expect(screen.getAllByTestId('sudoku-box').length).toBeGreaterThan(0);
+      expect(screen.getByTestId('auth-gate')).toBeInTheDocument();
+      expect(screen.queryByTestId('sudoku-box')).not.toBeInTheDocument();
     });
 
     it('should render without RevenueCat context', () => {
@@ -676,6 +705,58 @@ describe('Sudoku', () => {
       );
 
       expect(screen.getAllByTestId('sudoku-box').length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('auth gate', () => {
+    it('shows a loading state and no board while auth is still resolving', () => {
+      render(
+        <UserContext.Provider
+          value={{ user: undefined, isInitialised: false } as any}
+        >
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      // lucide-react is mocked module-wide in this file (see the top-level
+      // jest.mock above), so AuthGate's Loader renders as this stub icon
+      // rather than its own auth-gate-loading testid.
+      expect(screen.getByTestId('loader-icon')).toBeInTheDocument();
+      expect(screen.queryByTestId('sudoku-box')).not.toBeInTheDocument();
+    });
+
+    it('shows the sign-in gate once auth resolves without a user', () => {
+      render(
+        <UserContext.Provider
+          value={{ user: undefined, isInitialised: true } as any}
+        >
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      expect(screen.getByTestId('auth-gate')).toBeInTheDocument();
+      expect(screen.queryByTestId('sudoku-box')).not.toBeInTheDocument();
+    });
+
+    it('opens the login modal automatically once auth resolves without a user', () => {
+      const showLoginModal = jest.fn();
+      render(
+        <UserContext.Provider
+          value={
+            { user: undefined, isInitialised: true, showLoginModal } as any
+          }
+        >
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={mockPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      expect(showLoginModal).toHaveBeenCalledWith(undefined, 'puzzleEntry');
     });
   });
 
@@ -782,6 +863,92 @@ describe('Sudoku', () => {
       );
 
       expect(screen.getAllByTestId('sudoku-box').length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('book lock gating', () => {
+    const lockedPuzzle = {
+      ...mockPuzzle,
+      metadata: { sudokuBookPuzzleId: 'book-1-puzzle-5' },
+    };
+
+    it('blocks grid input and disables controls for a locked book puzzle', () => {
+      mockUseBook.mockReturnValue({
+        bookData: { puzzles: [] },
+        fetchBookData: mockFetchBookData,
+      });
+      mockIsBookPuzzleIdLocked.mockReturnValue(true);
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={lockedPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      const grid = screen
+        .getAllByTestId('sudoku-box')[0]
+        .closest('[aria-disabled]');
+      expect(grid).toHaveAttribute('aria-disabled', 'true');
+      expect(grid).toHaveClass('pointer-events-none');
+
+      expect(mockSudokuControlsProps).toHaveBeenLastCalledWith(
+        expect.objectContaining({ disabled: true })
+      );
+    });
+
+    it('leaves the grid interactive once bookData confirms the puzzle is unlocked', () => {
+      mockUseBook.mockReturnValue({
+        bookData: { puzzles: [] },
+        fetchBookData: mockFetchBookData,
+      });
+      mockIsBookPuzzleIdLocked.mockReturnValue(false);
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <RevenueCatContext.Provider value={mockRevenueCatContext as any}>
+            <Sudoku puzzle={lockedPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      const grid = screen
+        .getAllByTestId('sudoku-box')[0]
+        .closest('[aria-disabled]');
+      expect(grid).toHaveAttribute('aria-disabled', 'false');
+      expect(grid).not.toHaveClass('pointer-events-none');
+
+      expect(mockSudokuControlsProps).toHaveBeenLastCalledWith(
+        expect.objectContaining({ disabled: false })
+      );
+    });
+
+    it('does not gate a locked book puzzle for a subscribed user', () => {
+      mockUseBook.mockReturnValue({
+        bookData: { puzzles: [] },
+        fetchBookData: mockFetchBookData,
+      });
+      mockIsBookPuzzleIdLocked.mockReturnValue(true);
+
+      render(
+        <UserContext.Provider value={mockUserContext as any}>
+          <RevenueCatContext.Provider
+            value={{ ...mockRevenueCatContext, isSubscribed: true } as any}
+          >
+            <Sudoku puzzle={lockedPuzzle} {...mockAppProps} />
+          </RevenueCatContext.Provider>
+        </UserContext.Provider>
+      );
+
+      const grid = screen
+        .getAllByTestId('sudoku-box')[0]
+        .closest('[aria-disabled]');
+      expect(grid).toHaveAttribute('aria-disabled', 'false');
+
+      expect(mockSudokuControlsProps).toHaveBeenLastCalledWith(
+        expect.objectContaining({ disabled: false })
+      );
     });
   });
 

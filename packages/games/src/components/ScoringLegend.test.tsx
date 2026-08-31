@@ -1,8 +1,12 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import ScoringLegend from './ScoringLegend';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
-import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
+import {
+  Difficulty,
+  BookPuzzleDifficulty,
+  UnblockRaceDifficulty,
+} from '../types/difficulty';
 
 describe('ScoringLegend', () => {
   const mockOnClose = jest.fn();
@@ -288,6 +292,22 @@ describe('ScoringLegend', () => {
         screen.getByText(`+${SCORING_CONFIG.SCANNED_PUZZLE_BASE}`)
       ).toBeInTheDocument();
     });
+
+    it('should hide the scanned puzzle base points when showScannedPuzzles is false (e.g. Unblock Race, which has no scanning feature)', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          showScannedPuzzles={false}
+        />
+      );
+
+      expect(screen.queryByText('Scanned puzzle')).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(`+${SCORING_CONFIG.SCANNED_PUZZLE_BASE}`)
+      ).not.toBeInTheDocument();
+    });
   });
 
   describe('difficulty multipliers section', () => {
@@ -366,6 +386,83 @@ describe('ScoringLegend', () => {
       const bookDifficulties = Object.values(BookPuzzleDifficulty);
       expect(bookDifficulties.length).toBeGreaterThan(0);
     });
+
+    it('should use custom collection label and tiers when provided (e.g. Unblock Race)', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          collectionLabel="Collection"
+          collectionDifficulties={[
+            {
+              key: UnblockRaceDifficulty.BEGINNER,
+              label: 'Beginner',
+              multiplier: 1.0,
+            },
+            {
+              key: UnblockRaceDifficulty.CHALLENGING,
+              label: 'Challenging',
+              multiplier: 2.0,
+            },
+            { key: UnblockRaceDifficulty.HARD, label: 'Hard', multiplier: 3.0 },
+            {
+              key: UnblockRaceDifficulty.EXPERT,
+              label: 'Expert',
+              multiplier: 4.0,
+            },
+          ]}
+        />
+      );
+
+      expect(screen.getByText('Collection puzzles')).toBeInTheDocument();
+      expect(screen.queryByText('Book puzzles')).not.toBeInTheDocument();
+      expect(screen.getByText('Beginner')).toBeInTheDocument();
+      expect(screen.getByText('Expert')).toBeInTheDocument();
+      expect(screen.queryByText('Very Easy')).not.toBeInTheDocument();
+
+      expect(screen.getAllByText('1×').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('4×').length).toBeGreaterThan(0);
+    });
+
+    it('should merge daily and collection into one section when their tiers match (e.g. Unblock Race)', () => {
+      const unblockTiers = [
+        {
+          key: UnblockRaceDifficulty.BEGINNER,
+          label: 'Beginner',
+          multiplier: 1.0,
+        },
+        {
+          key: UnblockRaceDifficulty.CHALLENGING,
+          label: 'Challenging',
+          multiplier: 2.0,
+        },
+        { key: UnblockRaceDifficulty.HARD, label: 'Hard', multiplier: 3.0 },
+        {
+          key: UnblockRaceDifficulty.EXPERT,
+          label: 'Expert',
+          multiplier: 4.0,
+        },
+      ];
+
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          collectionLabel="Collection"
+          dailyDifficulties={unblockTiers}
+          collectionDifficulties={unblockTiers}
+        />
+      );
+
+      expect(
+        screen.queryByText('Unblock Race of the Day')
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText('Collection puzzles')).not.toBeInTheDocument();
+      expect(screen.getAllByText('Beginner')).toHaveLength(1);
+      expect(screen.getAllByText('Expert')).toHaveLength(1);
+    });
   });
 
   describe('speed bonuses section', () => {
@@ -391,6 +488,28 @@ describe('ScoringLegend', () => {
       );
 
       expect(screen.getByText(/under 3 min/i)).toBeInTheDocument();
+    });
+
+    it('should use custom speed thresholds when provided (e.g. Unblock Race)', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          speedThresholds={{
+            LIGHTNING: 30,
+            FAST: 60,
+            QUICK: 300,
+            STEADY: 600,
+          }}
+        />
+      );
+
+      expect(screen.getByText(/under 30 sec/i)).toBeInTheDocument();
+      expect(screen.getByText(/under 1 min/i)).toBeInTheDocument();
+      expect(screen.getByText(/under 5 min/i)).toBeInTheDocument();
+      expect(screen.getByText(/under 10 min/i)).toBeInTheDocument();
+      expect(screen.queryByText(/under 3 min/i)).not.toBeInTheDocument();
     });
 
     it('should display fast speed bonus', () => {
@@ -466,6 +585,120 @@ describe('ScoringLegend', () => {
       );
 
       expect(screen.getByText('Speed bonuses')).toBeInTheDocument();
+    });
+  });
+
+  describe('daily combo section', () => {
+    it('should not display the daily combo section when dailyCombo is not provided', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Test Game"
+        />
+      );
+
+      expect(screen.queryByText('Daily combo')).not.toBeInTheDocument();
+    });
+
+    it('should display the daily combo section when dailyCombo is provided', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 0.5, max: 3 }}
+        />
+      );
+
+      expect(screen.getByText('Daily combo')).toBeInTheDocument();
+      expect(screen.getByText(/Solve more puzzles/)).toBeInTheDocument();
+    });
+
+    it('should display the max multiplier in the description', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 0.5, max: 3 }}
+        />
+      );
+
+      expect(screen.getByText('3×', { selector: 'span' })).toBeInTheDocument();
+    });
+
+    it('should render one tier per puzzle up to the max multiplier', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 0.5, max: 3 }}
+        />
+      );
+
+      const comboSection = screen
+        .getByText('Puzzle 1 of the day')
+        .closest('div.divide-y') as HTMLElement;
+
+      expect(
+        within(comboSection).getByText('Puzzle 1 of the day')
+      ).toBeInTheDocument();
+      expect(within(comboSection).getByText('1.0×')).toBeInTheDocument();
+      expect(
+        within(comboSection).getByText('Puzzle 2 of the day')
+      ).toBeInTheDocument();
+      expect(within(comboSection).getByText('1.5×')).toBeInTheDocument();
+      expect(
+        within(comboSection).getByText('Puzzle 3 of the day')
+      ).toBeInTheDocument();
+      expect(within(comboSection).getByText('2.0×')).toBeInTheDocument();
+      expect(
+        within(comboSection).getByText('Puzzle 4 of the day')
+      ).toBeInTheDocument();
+      expect(within(comboSection).getByText('2.5×')).toBeInTheDocument();
+      expect(
+        within(comboSection).getByText('Puzzle 5+ of the day')
+      ).toBeInTheDocument();
+
+      // Multiplier caps at max — no tier beyond it should render.
+      expect(
+        within(comboSection).queryByText('Puzzle 6 of the day')
+      ).not.toBeInTheDocument();
+      expect(
+        within(comboSection).queryByText('Puzzle 6+ of the day')
+      ).not.toBeInTheDocument();
+    });
+
+    it('should mark the tier that reaches the max multiplier with a "+" suffix', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 1, max: 2 }}
+        />
+      );
+
+      // increment 1, max 2: puzzle 1 -> 1.0x, puzzle 2 -> 2.0x (hits max, gets "+")
+      expect(screen.getByText('Puzzle 1 of the day')).toBeInTheDocument();
+      expect(screen.getByText('Puzzle 2+ of the day')).toBeInTheDocument();
+      expect(screen.queryByText('Puzzle 3 of the day')).not.toBeInTheDocument();
+    });
+
+    it('should cap the tier list at 6 puzzles even if max is never reached', () => {
+      render(
+        <ScoringLegend
+          isOpen={true}
+          onClose={mockOnClose}
+          gameName="Unblock Race"
+          dailyCombo={{ increment: 0.1, max: 10 }}
+        />
+      );
+
+      expect(screen.getByText('Puzzle 6 of the day')).toBeInTheDocument();
+      expect(screen.queryByText('Puzzle 7 of the day')).not.toBeInTheDocument();
     });
   });
 

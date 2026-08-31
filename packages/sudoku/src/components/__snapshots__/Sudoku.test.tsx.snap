@@ -107,7 +107,8 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
               class="relative overflow-visible lg:overflow-hidden"
             >
               <div
-                class="border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative ml-auto mr-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900  transition-all duration-300"
+                aria-disabled="false"
+                class="border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative ml-auto mr-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900   transition-all duration-300"
                 style="transform: scale(1);"
               >
                 <div

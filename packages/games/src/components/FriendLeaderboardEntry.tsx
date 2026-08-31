@@ -9,12 +9,16 @@ interface FriendLeaderboardEntryProps {
   entry: FriendsLeaderboardScore;
   rank: number;
   isCurrentUser: boolean;
+  collectionLabel?: string;
+  collectionDetailNoun?: string;
 }
 
 const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
   entry,
   rank,
   isCurrentUser,
+  collectionLabel,
+  collectionDetailNoun,
 }) => {
   const [showBreakdown, setShowBreakdown] = useState(false);
 
@@ -77,7 +81,12 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
       </div>
 
       {showBreakdown && (
-        <ScoreBreakdown breakdown={entry.breakdown} stats={entry.stats} />
+        <ScoreBreakdown
+          breakdown={entry.breakdown}
+          stats={entry.stats}
+          collectionLabel={collectionLabel}
+          collectionDetailNoun={collectionDetailNoun}
+        />
       )}
     </div>
   );

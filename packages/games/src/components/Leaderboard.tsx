@@ -6,13 +6,14 @@ import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import {
   FriendsLeaderboardScore,
   AllFriendsSessionsMap,
+  ScoringOptions,
 } from '../types/scoringTypes';
 import {
   calculateUserScore,
   getUsernameFromParties,
 } from '../helpers/scoringUtils';
 import FriendLeaderboardEntry from './FriendLeaderboardEntry';
-import ScoringLegend from './ScoringLegend';
+import ScoringLegend, { CollectionDifficultyTier } from './ScoringLegend';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import {
   BaseState,
@@ -27,6 +28,17 @@ interface LeaderboardProps<TState extends BaseServerState = BaseServerState> {
   selectedParty?: Party;
   isPuzzleCheated: (state: TState) => boolean;
   gameName: string;
+  scoringOptions?: ScoringOptions;
+  // The difficulty tiers for this game's daily puzzles — defaults to
+  // sudoku's Tricky/Challenging/Hard.
+  dailyDifficulties?: CollectionDifficultyTier[];
+  // What this game calls its collection-type puzzles and the difficulty
+  // tiers that apply to them — sudoku's monthly puzzle book (the default,
+  // matching its pre-existing copy) vs Unblock Race's own collections.
+  collectionLabel?: string;
+  collectionDetailNoun?: string;
+  collectionDifficulties?: CollectionDifficultyTier[];
+  showScannedPuzzles?: boolean;
 }
 
 function Leaderboard<TState extends BaseServerState = BaseServerState>({
@@ -37,6 +49,12 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
   selectedParty,
   isPuzzleCheated,
   gameName,
+  scoringOptions,
+  dailyDifficulties,
+  collectionLabel,
+  collectionDetailNoun,
+  collectionDifficulties,
+  showScannedPuzzles,
 }: LeaderboardProps<TState>) {
   const [showScoringLegend, setShowScoringLegend] = useState(false);
 
@@ -74,16 +92,18 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
         sessions,
         allFriendsSessions,
         user.sub,
-        isPuzzleCheated
+        isPuzzleCheated,
+        scoringOptions
       );
       const totalScore =
         userScore.volumeScore +
         userScore.dailyPuzzleScore +
-        userScore.bookPuzzleScore +
+        userScore.collectionPuzzleScore +
         userScore.scannedPuzzleScore +
         userScore.difficultyBonus +
         userScore.speedBonus +
-        userScore.racingBonus;
+        userScore.racingBonus +
+        userScore.comboBonus;
 
       leaderboard.push({
         userId: user.sub,
@@ -92,11 +112,12 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
         breakdown: {
           volumeScore: userScore.volumeScore,
           dailyPuzzleScore: userScore.dailyPuzzleScore,
-          bookPuzzleScore: userScore.bookPuzzleScore,
+          collectionPuzzleScore: userScore.collectionPuzzleScore,
           scannedPuzzleScore: userScore.scannedPuzzleScore,
           difficultyBonus: userScore.difficultyBonus,
           speedBonus: userScore.speedBonus,
           racingBonus: userScore.racingBonus,
+          comboBonus: userScore.comboBonus,
         },
         stats: userScore.stats,
       });
@@ -113,16 +134,18 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
           userSession.sessions as ServerStateResult<TState>[],
           allFriendsSessions,
           userId,
-          isPuzzleCheated
+          isPuzzleCheated,
+          scoringOptions
         );
         const totalScore =
           friendScore.volumeScore +
           friendScore.dailyPuzzleScore +
-          friendScore.bookPuzzleScore +
+          friendScore.collectionPuzzleScore +
           friendScore.scannedPuzzleScore +
           friendScore.difficultyBonus +
           friendScore.speedBonus +
-          friendScore.racingBonus;
+          friendScore.racingBonus +
+          friendScore.comboBonus;
 
         leaderboard.push({
           userId,
@@ -134,11 +157,12 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
           breakdown: {
             volumeScore: friendScore.volumeScore,
             dailyPuzzleScore: friendScore.dailyPuzzleScore,
-            bookPuzzleScore: friendScore.bookPuzzleScore,
+            collectionPuzzleScore: friendScore.collectionPuzzleScore,
             scannedPuzzleScore: friendScore.scannedPuzzleScore,
             difficultyBonus: friendScore.difficultyBonus,
             speedBonus: friendScore.speedBonus,
             racingBonus: friendScore.racingBonus,
+            comboBonus: friendScore.comboBonus,
           },
           stats: friendScore.stats,
         });
@@ -149,7 +173,15 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
     return leaderboard
       .filter((entry) => entry.stats.totalPuzzles > 0)
       .sort((a, b) => b.totalScore - a.totalScore);
-  }, [sessions, friendSessions, parties, user, selectedParty, isPuzzleCheated]);
+  }, [
+    sessions,
+    friendSessions,
+    parties,
+    user,
+    selectedParty,
+    isPuzzleCheated,
+    scoringOptions,
+  ]);
 
   if (leaderboardData.length === 0) {
     return null;
@@ -183,6 +215,8 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
             entry={entry}
             rank={index + 1}
             isCurrentUser={entry.userId === user?.sub}
+            collectionLabel={collectionLabel}
+            collectionDetailNoun={collectionDetailNoun}
           />
         ))}
       </div>
@@ -191,6 +225,12 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
         isOpen={showScoringLegend}
         onClose={() => setShowScoringLegend(false)}
         gameName={gameName}
+        dailyCombo={scoringOptions?.dailyCombo}
+        dailyDifficulties={dailyDifficulties}
+        collectionLabel={collectionLabel}
+        collectionDifficulties={collectionDifficulties}
+        showScannedPuzzles={showScannedPuzzles}
+        speedThresholds={scoringOptions?.speedThresholds}
       />
     </div>
   );

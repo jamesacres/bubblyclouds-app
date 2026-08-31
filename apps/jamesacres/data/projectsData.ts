@@ -20,6 +20,16 @@ const projectsData: Project[] = [
     href: 'https://sudoku.bubblyclouds.com/',
   },
   {
+    title: 'Unblock Race',
+    description: `- 🧩 Slide the blocks and clear the jam to free the glowing piece - race the clock to the exit
+- 🏁 Daily race - five boards of increasing difficulty, fastest escape wins
+- 📅 Monthly collection - 50 fresh puzzles to clear before the month is out
+- 🏎️ Racing teams - challenge friends and family to a private leaderboard
+- 🏆 Track your stats - moves, time and star ratings across every puzzle you solve
+`,
+    href: 'https://unblockrace.bubblyclouds.com/',
+  },
+  {
     title: 'Stephen Esch Music Rating',
     description: `A website hosting music ratings for Stephen Esch. Now running version two which is a statically generated site with React and Next.js. Version one was dynamic using Node.js, Knox+Postgres, S3, AngularJS.`,
     imgSrc: '/content/images/projects/stephen-music.png',

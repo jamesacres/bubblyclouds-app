@@ -62,6 +62,36 @@ describe('useServerStorage', () => {
     expect(value?.state).toEqual({ a: 1 });
   });
 
+  it('getValue should fetch another session when an id override is given', async () => {
+    const mockData = {
+      state: { a: 1 },
+      updatedAt: new Date().toISOString(),
+      parties: {},
+    };
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockData),
+    });
+
+    const { result } = renderHook(
+      () =>
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id: '123',
+        }),
+      { wrapper }
+    );
+
+    await act(async () => {
+      await result.current.getValue({ id: '456' });
+    });
+
+    const request = mockFetch.mock.calls[0][0] as Request;
+    expect(request.url).toContain('/sessions/mockApp-456');
+  });
+
   it('saveValue should send a PATCH request', async () => {
     mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
     const { result } = renderHook(
@@ -464,6 +494,40 @@ describe('useServerStorage', () => {
     });
 
     expect(result.current).toBeDefined();
+  });
+
+  it('re-keys requests when the id prop changes without calling setIdAndType', async () => {
+    // Callers that keep the same hook instance mounted across different
+    // puzzles (e.g. unblockrace's chained-run chrome, SPEC.md §6) rely on
+    // getValue/saveValue tracking the latest id prop automatically — they
+    // never call setIdAndType themselves.
+    mockFetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ state: {} }),
+    });
+
+    const { result, rerender } = renderHook(
+      ({ id }: { id: string }) =>
+        useServerStorage({
+          app: 'mockApp',
+          apiUrl: 'mockApiUrl',
+          type: StateType.PUZZLE,
+          id,
+        }),
+      { wrapper, initialProps: { id: 'puzzle-a' } }
+    );
+
+    await act(async () => {
+      await result.current.getValue();
+    });
+    expect((mockFetch.mock.calls[0][0] as Request).url).toContain('puzzle-a');
+
+    rerender({ id: 'puzzle-b' });
+
+    await act(async () => {
+      await result.current.getValue();
+    });
+    expect((mockFetch.mock.calls[1][0] as Request).url).toContain('puzzle-b');
   });
 
   it('should support party-specific queries', async () => {

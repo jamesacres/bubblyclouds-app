@@ -7,6 +7,7 @@ const APP_CONFIG = {
   app: APP,
   scope: ['openid', 'profile'],
   appName: APP_NAME,
+  gameName: APP_NAME,
   appId: `${REVERSE_DOMAIN}`,
   appUrl: `https://${DOMAIN}`,
   apiUrl: `https://api.${DOMAIN}`,

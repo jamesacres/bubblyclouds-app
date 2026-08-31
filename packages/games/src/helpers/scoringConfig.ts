@@ -20,11 +20,17 @@ const getDifficultyMultipliers = () =>
     [BookPuzzleDifficulty.DEVILISH]: 3.2,
     [BookPuzzleDifficulty.HELL]: 3.6,
     [BookPuzzleDifficulty.BEYOND_HELL]: 4.0,
+    // Unblock Race's own tiers are NOT included here — its 'expert' would
+    // collide with Difficulty.EXPERT's 'expert' in this flat string-keyed
+    // map. Unblock Race supplies its own multipliers via
+    // ScoringOptions.difficultyMultipliers instead (see
+    // apps/unblockrace/src/components/UnblockLeaderboard.tsx), which
+    // calculateSessionScore merges over this default.
   }) as Record<string, number>;
 
 export const SCORING_CONFIG = {
   DAILY_PUZZLE_BASE: 100,
-  BOOK_PUZZLE_BASE: 150,
+  COLLECTION_PUZZLE_BASE: 150,
   SCANNED_PUZZLE_BASE: 75,
   VOLUME_MULTIPLIER: 10,
 
@@ -47,4 +53,6 @@ export const SCORING_CONFIG = {
   },
 
   RACING_BONUS_PER_PERSON: 100,
+
+  DAILY_COMBO: { increment: 0.1, max: 1.5 },
 };

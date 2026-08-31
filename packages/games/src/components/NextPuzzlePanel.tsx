@@ -1,0 +1,63 @@
+'use client';
+
+import { ChevronRight, Sparkles } from 'lucide-react';
+
+interface NextPuzzlePanelProps {
+  isLocked: boolean;
+  progressLabel: string;
+  onContinue: () => void;
+}
+
+// The continue-to-next-puzzle flow: after a puzzle is finished this panel
+// steers the player straight into the next one so the session keeps rolling.
+// A big pulsing CTA reuses the stage-clear button's pill language so the two
+// "keep going" moments feel like the same button. When the next puzzle is a
+// premium puzzle the CTA still navigates — the caller's deep-link gate
+// catches it on arrival — but wears a sparkle and "(Plus)" label so the
+// unlock isn't a surprise, framed as a reward rather than a wall.
+const NextPuzzlePanel = ({
+  isLocked,
+  progressLabel,
+  onContinue,
+}: NextPuzzlePanelProps) => {
+  return (
+    <div
+      data-testid="next-puzzle-panel"
+      className="mb-2 mt-2 flex flex-col items-center gap-3 rounded-2xl border border-stone-200/70 bg-white/60 px-4 py-4 text-center backdrop-blur dark:border-white/10 dark:bg-zinc-900/50"
+    >
+      <style>{`
+        @keyframes next-puzzle-pulse {
+          0%, 100% { box-shadow: 0 0 22px color-mix(in srgb, var(--theme-primary) 50%, transparent), 0 2px 8px rgba(0,0,0,0.25); }
+          50% { box-shadow: 0 0 34px color-mix(in srgb, var(--theme-primary) 75%, transparent), 0 2px 8px rgba(0,0,0,0.25); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [data-testid="next-puzzle-continue"] { animation: none !important; }
+        }
+      `}</style>
+      <span className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-zinc-500">
+        {progressLabel}
+      </span>
+      <button
+        type="button"
+        data-testid="next-puzzle-continue"
+        onClick={onContinue}
+        className="bg-theme-primary hover:bg-theme-primary-dark flex cursor-pointer items-center gap-1.5 rounded-full px-6 py-2.5 text-sm font-black uppercase tracking-widest text-white transition-all duration-200 hover:scale-[1.03] active:scale-95"
+        style={{ animation: 'next-puzzle-pulse 2s ease-in-out infinite' }}
+      >
+        {isLocked ? (
+          <>
+            <Sparkles className="h-4 w-4" aria-hidden="true" />
+            Continue (Plus)
+          </>
+        ) : (
+          <>
+            Continue — next puzzle
+            <ChevronRight className="h-4 w-4" aria-hidden="true" />
+          </>
+        )}
+      </button>
+    </div>
+  );
+};
+
+export default NextPuzzlePanel;

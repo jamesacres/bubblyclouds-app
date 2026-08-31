@@ -7,7 +7,6 @@ import { puzzleToPuzzleText } from '../helpers/puzzleTextToPuzzle';
 import SudokuBox from '../components/SudokuBox';
 import RaceTrack from '@bubblyclouds-app/games/components/RaceTrack';
 import { isPuzzleCheated } from '../helpers/cheatDetection';
-import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
 import { isInitialCell } from '../helpers/checkAnswer';
 import {
   addDailyPuzzleId,
@@ -17,6 +16,8 @@ import { useGameState } from '../hooks/gameState';
 import SudokuControls from '../components/SudokuControls';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
+import AuthGate from '@bubblyclouds-app/template/components/AuthGate';
+import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import SimpleSudoku from '../components/SimpleSudoku';
 import { calculateCompletionPercentageFromState } from '../helpers/calculateCompletionPercentage';
 import { ServerState } from '../types/state';
@@ -33,9 +34,16 @@ import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { DAILY_LIMITS } from '@bubblyclouds-app/template/config/dailyLimits';
+import {
+  canUseHint,
+  incrementHintCount,
+} from '@bubblyclouds-app/template/utils/dailyActionCounter';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
+import RaceCelebrationOverlay, {
+  CELEBRATION_MS,
+} from '@bubblyclouds-app/ui/components/RaceCelebrationOverlay';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import LobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import { useRouter } from 'next/navigation';
@@ -50,13 +58,38 @@ import {
 import { CellHighlight } from '../types/CellHighlight';
 import ChainOverlay from '../components/ChainOverlay';
 import { createLocalAgents } from '../helpers/agentTimeline';
-import { getAllAgentProgress } from '../helpers/agentProgress';
+import { getAllAgentProgress } from '@bubblyclouds-app/games/helpers/agentProgress';
+import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
-import { DreyfusLevel } from '../types/Agent';
+import {
+  selectDefaultAgents,
+  selectAgentConfigsByName,
+} from '@bubblyclouds-app/games/helpers/selectDefaultAgents';
 import { difficultyToMultiplier } from '../helpers/techniqueTiming';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
-import CountdownOverlay from './CountdownOverlay';
+import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
+import { useBook } from '../providers/BookProvider';
+import { isBookPuzzleIdLocked } from '../helpers/bookLocks';
+import { getNextBookPuzzle, NextBookPuzzle } from '../helpers/nextBookPuzzle';
+import { nextPuzzleProgressLabel as buildNextPuzzleProgressLabel } from '@bubblyclouds-app/games/helpers/nextPuzzleProgressLabel';
+import { sudokuDifficultyDisplay } from '../helpers/sudokuDifficultyDisplay';
+import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
+import {
+  calculateSessionScore,
+  formatTime,
+} from '@bubblyclouds-app/games/helpers/scoringUtils';
+import { SCORING_CONFIG } from '@bubblyclouds-app/games/helpers/scoringConfig';
+import CompletionSummary from '@bubblyclouds-app/games/components/CompletionSummary';
+import NextPuzzlePanel from '@bubblyclouds-app/games/components/NextPuzzlePanel';
+import { CountUp } from '@bubblyclouds-app/ui/components/CountUp';
+import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
+
+const buildPristineAgentState = (firstState: ServerState): ServerState => ({
+  initial: firstState.initial,
+  final: firstState.final,
+  answerStack: [],
+});
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
@@ -103,25 +136,40 @@ const Sudoku = ({
 }) => {
   const router = useRouter();
   const context = useContext(UserContext);
-  const { user } = context || {};
+  const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
-  const { sessions } = useSessions<GameState>();
+  const { sessions, fetchSessions, refetchSessions } = useSessions<GameState>();
+  const { bookData, fetchBookData } = useBook();
+
+  // A free user deep-linking into a locked book puzzle (the latter half of a
+  // difficulty band): seal the board behind a gate so no countdown ever
+  // starts and no input is accepted. An already-completed puzzle stays
+  // playable (they earned it) — that half of the check lives here since
+  // `completed` (session-in-progress state) isn't known until useGameState
+  // runs below; useGameState ANDs it back in via isBoardGatedIgnoringCompleted
+  // to block keyboard input on a locked puzzle too.
+  //
+  // Whether a given puzzle is locked can't be known until bookData has
+  // loaded (fetched async below), so isPendingLockCheck holds the puzzle in
+  // the same disabled/timer-paused state as a confirmed lock for that
+  // window.
+  const isBookPuzzle = !!metadata.sudokuBookPuzzleId;
+  const isDailyPuzzle = !!metadata.sudokuId?.includes('oftheday');
+  const isPendingLockCheckIgnoringCompleted =
+    !isSubscribed && !alreadyCompleted && isBookPuzzle && !bookData;
+  const isLockedBookPuzzleIgnoringCompleted =
+    !isSubscribed &&
+    !alreadyCompleted &&
+    !!metadata.sudokuBookPuzzleId &&
+    isBookPuzzleIdLocked(metadata.sudokuBookPuzzleId, bookData?.puzzles || []);
+  const isBoardGatedIgnoringCompleted =
+    isPendingLockCheckIgnoringCompleted || isLockedBookPuzzleIgnoringCompleted;
 
   const difficultyMultiplier = difficultyToMultiplier(metadata.difficulty);
 
-  const [defaultAgentSelection] = useState<string[]>(() => {
-    const pickFromLevel = (level: DreyfusLevel) => {
-      const pool = DEFAULT_AGENT_CONFIGS.filter((c) => c.skillLevel === level);
-      return pool[Math.floor(Math.random() * pool.length)].name;
-    };
-    return [
-      pickFromLevel(DreyfusLevel.Novice),
-      pickFromLevel(DreyfusLevel.AdvancedBeginner),
-      pickFromLevel(DreyfusLevel.Competent),
-      pickFromLevel(DreyfusLevel.Proficient),
-      pickFromLevel(DreyfusLevel.Expert),
-    ];
-  });
+  const [defaultAgentSelection] = useState<string[]>(() =>
+    selectDefaultAgents(DEFAULT_AGENT_CONFIGS)
+  );
 
   const shouldAutoOpen = !alreadyCompleted && showRacingPromptProp;
 
@@ -129,9 +177,9 @@ const Sudoku = ({
   const [agents, setAgents] = useState<ReturnType<typeof createLocalAgents>>(
     () => {
       if (!shouldAutoOpen) return [];
-      const nameSet = new Set(defaultAgentSelection);
-      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((c) =>
-        nameSet.has(c.name)
+      const selectedConfigs = selectAgentConfigsByName(
+        DEFAULT_AGENT_CONFIGS,
+        defaultAgentSelection
       );
       return createLocalAgents(
         initial,
@@ -143,8 +191,17 @@ const Sudoku = ({
     }
   );
   const [localAgentProgress, setLocalAgentProgress] = useState<
-    ReturnType<typeof getAllAgentProgress>
-  >(() => (shouldAutoOpen ? getAllAgentProgress(agents, null) : []));
+    AgentProgress<ServerState>[]
+  >(() =>
+    shouldAutoOpen
+      ? getAllAgentProgress(
+          agents,
+          null,
+          buildPristineAgentState,
+          calculateCompletionPercentageFromState
+        )
+      : []
+  );
 
   const [hasShownAppDownload, setHasShownAppDownload] = useState(false);
   const [hasManuallySelectedMode, setHasManuallySelectedMode] = useState(
@@ -156,7 +213,9 @@ const Sudoku = ({
     (completedAnswerStack: Puzzle[]) => {
       if (alreadyCompleted || isPuzzleCheated(completedAnswerStack)) return;
       setShowAnimation(true);
-      const timerId = setTimeout(() => setShowAnimation(false), 10000);
+      // Matches CelebrationAnimation's own internal timer so the grid,
+      // RaceTrack and overlay all reappear together with no blank gap.
+      const timerId = setTimeout(() => setShowAnimation(false), CELEBRATION_MS);
       return () => clearTimeout(timerId);
     },
     [alreadyCompleted]
@@ -208,6 +267,7 @@ const Sudoku = ({
       : undefined,
     initialShowLobby: shouldAutoOpen,
     onComplete,
+    isBoardGatedIgnoringCompleted,
   });
 
   const onRemoveAgent = useCallback(
@@ -228,7 +288,12 @@ const Sudoku = ({
     if (timer && !timer.countdown && agentStartTimeMsRef.current === null) {
       agentStartTimeMsRef.current = Date.now();
     }
-    const next = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+    const next = getAllAgentProgress(
+      agents,
+      agentStartTimeMsRef.current,
+      buildPristineAgentState,
+      calculateCompletionPercentageFromState
+    );
     setLocalAgentProgress((prev) =>
       prev.length === next.length &&
       prev.every((p, i) => p.percentage === next[i].percentage)
@@ -241,7 +306,12 @@ const Sudoku = ({
     if (!completed || agentStartTimeMsRef.current === null) return;
 
     const interval = setInterval(() => {
-      const next = getAllAgentProgress(agents, agentStartTimeMsRef.current);
+      const next = getAllAgentProgress(
+        agents,
+        agentStartTimeMsRef.current,
+        buildPristineAgentState,
+        calculateCompletionPercentageFromState
+      );
       setLocalAgentProgress((prev) => {
         if (
           prev.length === next.length &&
@@ -266,11 +336,78 @@ const Sudoku = ({
 
   const [raceStarted, setRaceStarted] = useState(false);
 
+  // The book lock gate only concerns book puzzles; nothing else fetches
+  // bookData, so a deep link straight to a puzzle URL would otherwise leave
+  // it null forever. The daily puzzle also needs it for the "continue into
+  // the book" next-puzzle panel.
+  useEffect(() => {
+    if (isBookPuzzle || isDailyPuzzle) {
+      fetchBookData();
+    }
+  }, [isBookPuzzle, isDailyPuzzle, fetchBookData]);
+
+  // The daily-combo score and the "X of Y complete" next-puzzle label both
+  // need sessions, but only the home/book list pages fetch those. Landing
+  // here directly (a deep link, a fresh page load) would otherwise leave
+  // sessions null forever (fetchSessions is a no-op once populated
+  // elsewhere), silently under-counting both.
+  useEffect(() => {
+    if (isBookPuzzle || isDailyPuzzle) {
+      fetchSessions();
+    }
+  }, [isBookPuzzle, isDailyPuzzle, fetchSessions]);
+
+  // fetchSessions only populates the list once (it's a no-op after that), so
+  // the puzzle just finished on this page is missing from `sessions` — the
+  // points, "X of Y complete" label and next-puzzle pick would undercount it
+  // by 1. Force a refetch once it's saved locally so all three reflect it
+  // immediately.
+  useEffect(() => {
+    if (completed && (isBookPuzzle || isDailyPuzzle)) {
+      refetchSessions();
+    }
+  }, [completed, isBookPuzzle, isDailyPuzzle, refetchSessions]);
+
+  // completed (session-in-progress state, only known post-useGameState) also
+  // lifts the gate, same as alreadyCompleted above.
+  const isLockedBookPuzzle = !completed && isLockedBookPuzzleIgnoringCompleted;
+  const isBoardGated = !completed && isBoardGatedIgnoringCompleted;
+
+  const handleBackToBook = useCallback(() => {
+    router.replace('/book');
+  }, [router]);
+
+  // A locked deep-link opens the same Plus modal the book grid uses for a
+  // locked puzzle (SubscriptionContext.COLLECTION_LOCKED already carries
+  // that messaging), so there's one place that explains Plus. Backing out
+  // of the modal returns to the book rather than leaving the player
+  // stranded on a sealed board.
+  //
+  // hasOpenedLockModalRef guards against re-opening: subscribeModal is a new
+  // object every RevenueCatProvider render (including the one its own
+  // showModalIfRequired triggers), so depending on it directly would re-run
+  // this effect and reopen the modal in an infinite loop.
+  const hasOpenedLockModalRef = useRef(false);
+  useEffect(() => {
+    if (isLockedBookPuzzle && !hasOpenedLockModalRef.current) {
+      hasOpenedLockModalRef.current = true;
+      subscribeModal?.showModalIfRequired(
+        () => {},
+        handleBackToBook,
+        SubscriptionContext.COLLECTION_LOCKED
+      );
+    }
+  }, [isLockedBookPuzzle, subscribeModal, handleBackToBook]);
+
   const handleStartRace = useCallback(() => {
+    if (isBoardGated) {
+      setHasManuallySelectedMode(true);
+      return;
+    }
     if (!raceStarted) setTimerNewSession();
     setRaceStarted(true);
     setHasManuallySelectedMode(true);
-  }, [setTimerNewSession, raceStarted]);
+  }, [setTimerNewSession, raceStarted, isBoardGated]);
 
   const handleInviteFriends = useCallback(() => {
     setShowLobby(true);
@@ -333,8 +470,27 @@ const Sudoku = ({
       }
     }
 
+    // Count the hint against the daily allowance only for non-subscribers
+    if (!isSubscribed) {
+      incrementHintCount();
+    }
+
     return hint;
-  }, [answer]);
+  }, [answer, isSubscribed]);
+
+  // 2 free hints/day, then Plus — gated ahead of getHint so a blocked
+  // request never opens the chat UI with a hint that was never computed.
+  const canRequestHint = useCallback(() => {
+    if (isSubscribed || canUseHint()) {
+      return true;
+    }
+    subscribeModal?.showModalIfRequired(
+      () => {},
+      () => {},
+      SubscriptionContext.HINT
+    );
+    return false;
+  }, [isSubscribed, subscribeModal]);
 
   const [cellHighlights, setCellHighlights] = useState<
     Map<string, CellHighlight>
@@ -456,9 +612,9 @@ const Sudoku = ({
 
   const handleAgentMode = useCallback(
     (selectedAgentNames: string[]) => {
-      const nameSet = new Set(selectedAgentNames);
-      const selectedConfigs = DEFAULT_AGENT_CONFIGS.filter((c) =>
-        nameSet.has(c.name)
+      const selectedConfigs = selectAgentConfigsByName(
+        DEFAULT_AGENT_CONFIGS,
+        selectedAgentNames
       );
       const created = createLocalAgents(
         initial,
@@ -468,7 +624,14 @@ const Sudoku = ({
         metadata.difficulty
       );
       setAgents(created);
-      setLocalAgentProgress(getAllAgentProgress(created, null));
+      setLocalAgentProgress(
+        getAllAgentProgress(
+          created,
+          null,
+          buildPristineAgentState,
+          calculateCompletionPercentageFromState
+        )
+      );
       setHasManuallySelectedMode(true);
       setMode('ai');
       setAgentNames(selectedAgentNames.join(','));
@@ -539,7 +702,8 @@ const Sudoku = ({
 
   // Timer and scroll management
   useEffect(() => {
-    const shouldPause = !hasSelectedMode || showLobby || showAppDownload;
+    const shouldPause =
+      !hasSelectedMode || showLobby || showAppDownload || isBoardGated;
 
     setPauseTimer(shouldPause);
 
@@ -552,7 +716,13 @@ const Sudoku = ({
       document.documentElement.style.height = '';
       document.body.style.height = '';
     }
-  }, [hasSelectedMode, showLobby, showAppDownload, setPauseTimer]);
+  }, [
+    hasSelectedMode,
+    showLobby,
+    showAppDownload,
+    isBoardGated,
+    setPauseTimer,
+  ]);
 
   // Cleanup: Always restore scrolling when component unmounts
   useEffect(() => {
@@ -566,6 +736,13 @@ const Sudoku = ({
   const puzzleInitialState = useMemo<ServerState>(
     () => ({ answerStack: [], initial, final }),
     [initial, final]
+  );
+
+  // The current user's live state for the race track, matching the shape of
+  // opponents' synced sessions so one state-based calculation covers both
+  const raceTrackState = useMemo<ServerState>(
+    () => ({ initial, final, answerStack, completed, metadata }),
+    [initial, final, answerStack, completed, metadata]
   );
 
   const puzzleDifficultyDisplay = useMemo(
@@ -583,15 +760,159 @@ const Sudoku = ({
     [metadata]
   );
 
-  const isInputDisabled = !selectedCell || isInitialCell(selectedCell, initial);
+  // How many other puzzles were completed today — feeds the daily combo
+  // multiplier in calculateSessionScore, same as Unblock Race's
+  // dayPuzzleIndex. Excludes this puzzle's own session so a re-render after
+  // solving doesn't count it against itself.
+  const dayPuzzleIndex = useMemo(() => {
+    if (!sessions) {
+      return 0;
+    }
+    const todayKey = new Date().toISOString().slice(0, 10);
+    return sessions.filter((session) => {
+      if (session.sessionId === `sudoku-${puzzleId}`) {
+        return false;
+      }
+      const completedAt = session.state.completed?.at;
+      if (!completedAt) {
+        return false;
+      }
+      if (isPuzzleCheated(session.state.answerStack)) {
+        return false;
+      }
+      return new Date(completedAt).toISOString().slice(0, 10) === todayKey;
+    }).length;
+  }, [sessions, puzzleId]);
+
+  // The just-solved puzzle's leaderboard points, computed the same way the
+  // friends Leaderboard tallies totals (calculateSessionScore) so the
+  // in-game "+N pts" payoff always matches what the player's total goes up
+  // by. Undefined only before the puzzle is completed.
+  const puzzlePoints = useMemo(() => {
+    if (!completed) {
+      return undefined;
+    }
+    const session: ServerStateResult<ServerState> = {
+      sessionId: `sudoku-${puzzleId}`,
+      updatedAt: new Date(),
+      state: { initial, final, answerStack: [], completed, metadata },
+    };
+    return calculateSessionScore(session, {
+      dailyCombo: SCORING_CONFIG.DAILY_COMBO,
+      dayPuzzleIndex,
+    }).total;
+  }, [completed, puzzleId, initial, final, metadata, dayPuzzleIndex]);
+
+  // The continue-to-next-puzzle target: which book puzzle to steer the
+  // player into next once they finish. Shown for a book puzzle (continue
+  // through the book) and after the daily puzzle (keep the streak going in
+  // the book). Skipped otherwise (e.g. scanned puzzles).
+  const nextBookPuzzle = useMemo<NextBookPuzzle | undefined>(() => {
+    if (!bookData) {
+      return undefined;
+    }
+    if (!isBookPuzzle && !isDailyPuzzle) {
+      return undefined;
+    }
+    const completedInitials = new Set(
+      (sessions || [])
+        .filter(
+          (session) =>
+            session.state.completed &&
+            !isPuzzleCheated(session.state.answerStack)
+        )
+        .map((session) => puzzleToPuzzleText(session.state.initial))
+    );
+    return getNextBookPuzzle({
+      book: bookData,
+      completedInitials,
+      currentInitial: isBookPuzzle ? puzzleToPuzzleText(initial) : undefined,
+      isSubscribed: !!isSubscribed,
+    });
+  }, [bookData, isBookPuzzle, isDailyPuzzle, sessions, initial, isSubscribed]);
+
+  const handleContinueToNext = useCallback(() => {
+    const next = nextBookPuzzle;
+    if (!next) {
+      return;
+    }
+    router.push(
+      buildPuzzleUrl(next.puzzle.initial, next.puzzle.final, {
+        difficulty: next.puzzle.difficulty.coach,
+        sudokuBookPuzzleId: next.puzzleId,
+      })
+    );
+  }, [nextBookPuzzle, router]);
+
+  // Describes the band of the puzzle just finished (not the destination
+  // `nextBookPuzzle` points at) — e.g. finishing the last "Very Easy"
+  // puzzle should still report "3 of 3 Very Easy complete" even though the
+  // Continue button is about to take the player into "Easy".
+  const completedPuzzleDifficultyDisplay = useMemo(() => {
+    if (!isBookPuzzle || !metadata.difficulty) {
+      return undefined;
+    }
+    return sudokuDifficultyDisplay(metadata.difficulty);
+  }, [isBookPuzzle, metadata.difficulty]);
+
+  const nextPuzzleProgressLabel = useMemo(() => {
+    if (!nextBookPuzzle) {
+      return '';
+    }
+    return buildNextPuzzleProgressLabel({
+      isDailyPuzzle,
+      isCollectionPuzzle: isBookPuzzle,
+      streakMessage: 'Keep the streak going in the book',
+      completedDifficulty: metadata.difficulty,
+      collectionPuzzles: bookData?.puzzles || [],
+      getDifficulty: (puzzle) => puzzle.difficulty.coach,
+      isPuzzleCompleted: (puzzle) =>
+        (sessions || []).some(
+          (session) =>
+            puzzleToPuzzleText(session.state.initial) === puzzle.initial &&
+            session.state.completed &&
+            !isPuzzleCheated(session.state.answerStack)
+        ),
+      getDifficultyDisplay: sudokuDifficultyDisplay,
+    });
+  }, [
+    nextBookPuzzle,
+    isDailyPuzzle,
+    isBookPuzzle,
+    bookData,
+    sessions,
+    metadata.difficulty,
+  ]);
+
+  const isInputDisabled =
+    isBoardGated || !selectedCell || isInitialCell(selectedCell, initial);
   const isValidateCellDisabled =
-    !selectedCell || isInitialCell(selectedCell, initial) || !selectedAnswer();
+    isBoardGated ||
+    !selectedCell ||
+    isInitialCell(selectedCell, initial) ||
+    !selectedAnswer();
   const isDeleteDisabled =
+    isBoardGated ||
     !selectedCell ||
     isInitialCell(selectedCell, initial) ||
     (!selectedAnswer() && !selectedCellHasNotes());
 
   const currentAgentNames = useMemo(() => agents.map((a) => a.name), [agents]);
+
+  // Login is required before the puzzle mounts at all: while auth is
+  // resolving (isInitialised false) or no user is confirmed, replace the
+  // whole Lobby/board subtree with the gate rather than layering it on top,
+  // so no server game-state is ever created for a signed-out visitor.
+  if (!isInitialised || !user) {
+    return (
+      <AuthGate
+        isInitialised={!!isInitialised}
+        onSignInRequired={() =>
+          showLoginModal?.(undefined, LoginContext.PUZZLE_ENTRY)
+        }
+      />
+    );
+  }
 
   return (
     <div
@@ -644,12 +965,47 @@ const Sudoku = ({
         timer.countdown > 0 && <CountdownOverlay countdown={timer.countdown} />}
 
       {completed && (
-        <CelebrationAnimation
-          isVisible={showAnimation}
-          gridRef={gridRef}
-          completedGamesCount={completedGamesCount}
-          isCapacitor={isCapacitor}
-        />
+        <>
+          <CelebrationAnimation
+            isVisible={showAnimation}
+            gridRef={gridRef}
+            completedGamesCount={completedGamesCount}
+            isCapacitor={isCapacitor}
+          />
+          {/* Layer the shared confetti + banner + flash polish on top of the
+              exploding numbers. CelebrationAnimation's fireworks/numbers sit at
+              z-50/z-[9999]; the overlay's own z-[110] keeps the confetti rain
+              in front of the page but behind the exploding numbers so it frames
+              them rather than obscuring them. Presentation-only, so the review
+              prompt still lives solely in CelebrationAnimation. */}
+          <RaceCelebrationOverlay
+            isVisible={showAnimation}
+            title="Solved!"
+            belowBadge={
+              puzzlePoints !== undefined && (
+                <div
+                  data-testid="sudoku-celebration-points"
+                  className="flex flex-col items-center gap-0.5"
+                  style={{
+                    animation:
+                      'celebration-banner-rise 400ms ease-out 350ms both',
+                  }}
+                >
+                  <CountUp
+                    value={puzzlePoints}
+                    prefix="+"
+                    suffix=" pts"
+                    startDelayMs={500}
+                    className="font-mono text-3xl font-black tabular-nums text-amber-300"
+                  />
+                  <span className="text-[0.65rem] font-black uppercase tracking-widest text-white/60">
+                    Leaderboard points
+                  </span>
+                </div>
+              )
+            }
+          />
+        </>
       )}
 
       <div className="flex flex-col items-center lg:flex-row">
@@ -686,7 +1042,10 @@ const Sudoku = ({
               <div className="relative overflow-visible lg:overflow-hidden">
                 <div
                   ref={gridRef}
+                  aria-disabled={isBoardGated}
                   className={`border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative ml-auto mr-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900 ${
+                    isBoardGated ? 'pointer-events-none' : ''
+                  } ${
                     dragStarted
                       ? 'cursor-grabbing'
                       : isZoomMode && selectedCell
@@ -739,22 +1098,57 @@ const Sudoku = ({
                 </div>
               </div>
 
+              {/* The finished result, kept visible under the board after the
+                  transient celebration fades so a solved puzzle never leaves
+                  the player looking at a blank result. */}
+              {completed && puzzlePoints !== undefined && (
+                <div className="ml-auto mr-auto max-w-xl lg:mr-0">
+                  <CompletionSummary
+                    statCells={
+                      <div className="flex min-w-20 flex-col items-center gap-0.5 rounded-xl bg-stone-100/80 px-4 py-2 dark:bg-zinc-800/70">
+                        <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
+                          Time
+                        </span>
+                        <span className="font-mono text-lg font-bold tabular-nums leading-none text-stone-900 dark:text-white">
+                          {formatTime(completed.seconds)}
+                        </span>
+                      </div>
+                    }
+                    points={puzzlePoints}
+                    label={puzzleMetaLabel || undefined}
+                  />
+                </div>
+              )}
+
+              {/* Continue-to-next-puzzle flow: once this puzzle is finished,
+                  steer the player into the next book puzzle. Shown for a book
+                  puzzle (continue through the book) and after the daily
+                  puzzle (keep the streak going in the book). */}
+              {completed && nextBookPuzzle && (
+                <div className="ml-auto mr-auto max-w-xl lg:mr-0">
+                  <NextPuzzlePanel
+                    isLocked={nextBookPuzzle.isLocked}
+                    progressLabel={nextPuzzleProgressLabel}
+                    onContinue={handleContinueToNext}
+                  />
+                </div>
+              )}
+
               {!showAnimation && (
                 <RaceTrack
                   sessionParties={sessionParties}
-                  initial={initial}
-                  final={final}
-                  answer={answer}
-                  userId={user?.sub || 'guest'}
+                  state={raceTrackState}
+                  userId={user.sub}
                   onClick={raceTrackOnClick}
-                  completed={completed}
                   isPolling={isPolling}
                   refreshSessionParties={refreshSessionParties}
-                  answerStack={answerStack}
-                  calculateCompletionPercentage={calculateCompletionPercentage}
+                  calculateCompletionPercentageFromState={
+                    calculateCompletionPercentageFromState
+                  }
                   isPuzzleCheated={isPuzzleCheated}
                   localAgentProgress={localAgentProgress}
                   onInviteFriends={handleInviteFriends}
+                  rateApp={{ appName, appStoreUrl, googlePlayUrl }}
                 />
               )}
             </div>
@@ -764,6 +1158,7 @@ const Sudoku = ({
           {!completed && (
             <div className="fixed inset-x-0 bottom-0 z-10 lg:relative">
               <SudokuControls
+                disabled={isBoardGated}
                 selectedCell={selectedCell}
                 isInputDisabled={isInputDisabled}
                 isValidateCellDisabled={isValidateCellDisabled}
@@ -785,6 +1180,7 @@ const Sudoku = ({
                 onAdvancedToggle={setShowAdvancedControls}
                 isSubscribed={isSubscribed}
                 getHint={getHint}
+                canRequestHint={canRequestHint}
                 user={user}
                 onShowWhere={onShowWhere}
                 onRevealEliminations={onRevealEliminations}

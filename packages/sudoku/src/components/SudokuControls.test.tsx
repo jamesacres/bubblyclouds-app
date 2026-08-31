@@ -58,16 +58,18 @@ import {
 } from '@testing-library/react';
 import SudokuControls from './SudokuControls';
 
-// Mock the canUseUndo and canUseCheckGrid functions
+// Mock the canUseUndo, canUseCheckGrid and canUseHint functions
 jest.mock('@bubblyclouds-app/template/utils/dailyActionCounter', () => ({
   ...jest.requireActual('@bubblyclouds-app/template/utils/dailyActionCounter'),
   canUseUndo: jest.fn(() => true),
   canUseCheckGrid: jest.fn(() => true),
+  canUseHint: jest.fn(() => true),
 }));
 
 import {
   canUseUndo,
   canUseCheckGrid,
+  canUseHint,
 } from '@bubblyclouds-app/template/utils/dailyActionCounter';
 
 describe('SudokuControls', () => {
@@ -89,6 +91,7 @@ describe('SudokuControls', () => {
   const mockOnRevealEliminations = jest.fn();
   const mockOnHideHint = jest.fn();
   const mockOnClearSelection = jest.fn();
+  const mockCanRequestHint = jest.fn(() => true);
 
   const defaultProps = {
     selectedCell: null,
@@ -112,6 +115,7 @@ describe('SudokuControls', () => {
     onAdvancedToggle: mockOnAdvancedToggle,
     isSubscribed: false,
     getHint: mockGetHint,
+    canRequestHint: mockCanRequestHint,
     onShowWhere: mockOnShowWhere,
     onRevealEliminations: mockOnRevealEliminations,
     onHideHint: mockOnHideHint,
@@ -436,62 +440,71 @@ describe('SudokuControls', () => {
 
   describe('reset and reveal actions', () => {
     it('should show confirmation dialog for reset', () => {
-      window.confirm = jest.fn(() => true);
-
       render(<SudokuControls {...defaultProps} />);
 
       const resetButton = screen.getByText('Reset');
       fireEvent.click(resetButton);
 
-      expect(window.confirm).toHaveBeenCalledWith(
-        expect.stringContaining('reset')
-      );
+      expect(screen.getByTestId('confirm-dialog')).toBeInTheDocument();
+      expect(screen.getByText('Reset the whole grid?')).toBeInTheDocument();
+      expect(
+        screen.getByText('Are you sure you wish to reset the whole grid?')
+      ).toBeInTheDocument();
     });
 
     it('should call reset when confirmed', () => {
-      window.confirm = jest.fn(() => true);
-
       render(<SudokuControls {...defaultProps} />);
 
       const resetButton = screen.getByText('Reset');
       fireEvent.click(resetButton);
+      fireEvent.click(screen.getByTestId('confirm-dialog-confirm'));
 
       expect(mockReset).toHaveBeenCalled();
     });
 
     it('should not call reset when not confirmed', () => {
-      window.confirm = jest.fn(() => false);
-
       render(<SudokuControls {...defaultProps} />);
 
       const resetButton = screen.getByText('Reset');
       fireEvent.click(resetButton);
+      fireEvent.click(screen.getByTestId('confirm-dialog-cancel'));
 
       expect(mockReset).not.toHaveBeenCalled();
+      expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
     });
 
     it('should show confirmation dialog for reveal', () => {
-      window.confirm = jest.fn(() => true);
-
       render(<SudokuControls {...defaultProps} />);
 
       const revealButton = screen.getByText('Reveal');
       fireEvent.click(revealButton);
 
-      expect(window.confirm).toHaveBeenCalledWith(
-        expect.stringContaining('reveal')
-      );
+      expect(screen.getByTestId('confirm-dialog')).toBeInTheDocument();
+      expect(screen.getByText('Reveal the whole grid?')).toBeInTheDocument();
+      expect(
+        screen.getByText('Are you sure you wish to reveal the whole grid?')
+      ).toBeInTheDocument();
     });
 
     it('should call reveal when confirmed', () => {
-      window.confirm = jest.fn(() => true);
-
       render(<SudokuControls {...defaultProps} />);
 
       const revealButton = screen.getByText('Reveal');
       fireEvent.click(revealButton);
+      fireEvent.click(screen.getByTestId('confirm-dialog-confirm'));
 
       expect(mockReveal).toHaveBeenCalled();
+    });
+
+    it('should not call reveal when not confirmed', () => {
+      render(<SudokuControls {...defaultProps} />);
+
+      const revealButton = screen.getByText('Reveal');
+      fireEvent.click(revealButton);
+      fireEvent.click(screen.getByTestId('confirm-dialog-cancel'));
+
+      expect(mockReveal).not.toHaveBeenCalled();
+      expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
     });
 
     it('should show premium indicator on reveal button when not subscribed', () => {
@@ -692,6 +705,35 @@ describe('SudokuControls', () => {
       render(<SudokuControls {...defaultProps} />);
       fireEvent.click(screen.getByText('Ask for help'));
       expect(mockGetHint).toHaveBeenCalled();
+    });
+
+    it('should not call getHint when canRequestHint returns false', () => {
+      const mockBlockedCanRequestHint = jest.fn(() => false);
+      render(
+        <SudokuControls
+          {...defaultProps}
+          canRequestHint={mockBlockedCanRequestHint}
+        />
+      );
+      fireEvent.click(screen.getByText('Ask for help'));
+      expect(mockBlockedCanRequestHint).toHaveBeenCalled();
+      expect(mockGetHint).not.toHaveBeenCalled();
+    });
+
+    it("should show premium indicator on hint when not subscribed and can't use", () => {
+      (canUseHint as jest.Mock).mockReturnValue(false);
+      render(<SudokuControls {...defaultProps} isSubscribed={false} />);
+      const hintButton = screen.getByText('Ask for help').closest('button');
+      const premiumIndicator = hintButton?.querySelector('.bg-gradient-to-r');
+      expect(premiumIndicator).toBeInTheDocument();
+    });
+
+    it('should not show premium indicator on hint when subscribed', () => {
+      (canUseHint as jest.Mock).mockReturnValue(false);
+      render(<SudokuControls {...defaultProps} isSubscribed={true} />);
+      const hintButton = screen.getByText('Ask for help').closest('button');
+      const premiumIndicator = hintButton?.querySelector('.bg-gradient-to-r');
+      expect(premiumIndicator).not.toBeInTheDocument();
     });
 
     it('should show "No hint available" when getHint returns null', () => {

@@ -1,20 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-interface WakeLockSentinel {
-  released: boolean;
-  type: 'screen';
-  release(): Promise<void>;
-  addEventListener(type: 'release', listener: () => void): void;
-  removeEventListener(type: 'release', listener: () => void): void;
-}
-
-interface Navigator {
-  wakeLock?: {
-    request(type: 'screen'): Promise<WakeLockSentinel>;
-  };
-}
-
 export function useWakeLock() {
   const wakeLockRef = useRef<WakeLockSentinel | null>(null);
   const [isActive, setIsActive] = useState(false);
@@ -23,9 +9,13 @@ export function useWakeLock() {
     try {
       // Check if Wake Lock API is supported
       if ('wakeLock' in navigator) {
-        const wakeLock = await (navigator as Navigator).wakeLock!.request(
-          'screen'
-        );
+        // The browser rejects the request while the page isn't visible
+        // (e.g. backgrounded tab, mid-navigation); visibilitychange will retry.
+        if (document.hidden) {
+          return null;
+        }
+
+        const wakeLock = await navigator.wakeLock.request('screen');
         wakeLockRef.current = wakeLock;
         setIsActive(true);
         console.info('Screen wake lock activated');
@@ -42,7 +32,11 @@ export function useWakeLock() {
         console.warn('Wake Lock API not supported in this browser');
       }
     } catch (error) {
-      console.error('Failed to activate screen wake lock:', error);
+      if (error instanceof DOMException && error.name === 'NotAllowedError') {
+        console.info('Screen wake lock request skipped: page not visible');
+      } else {
+        console.error('Failed to activate screen wake lock:', error);
+      }
     }
     return null;
   }, []);

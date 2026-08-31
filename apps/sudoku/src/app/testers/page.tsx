@@ -3,6 +3,7 @@
 import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
+import { APP_CONFIG } from '../../../app.config.js';
 
 function TestersContent() {
   const router = useRouter();
@@ -27,7 +28,7 @@ function TestersContent() {
           <div className="mx-auto max-w-3xl rounded-2xl border border-gray-200 bg-white/80 p-6 shadow-xl backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/80">
             <p className="text-md text-gray-600 dark:text-gray-300">
               Hi, I&apos;m James Acres, trading as{' '}
-              <a href="https://bubblyclouds.com/">Bubbly Clouds</a>.{' '}
+              <a href={APP_CONFIG.companyUrl}>Bubbly Clouds</a>.{' '}
               <strong>I need your help</strong> to test my new Sudoku app and
               provide feedback before launch. Please keep the app installed for
               at least the next month and host races with your friends and
@@ -39,7 +40,7 @@ function TestersContent() {
               include a free year of Sudoku Plus premium features. If you
               don&apos;t have an invite link email{' '}
               <a
-                href="mailto:james@bubblyclouds.com"
+                href={`mailto:${APP_CONFIG.feedbackEmail}`}
                 className="inline-block rounded-lg bg-yellow-400 px-4 py-2 font-bold text-gray-900 shadow-lg transition-all hover:scale-105 hover:bg-yellow-300"
               >
                 james@bubblyclouds.com
@@ -71,7 +72,7 @@ function TestersContent() {
                     <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                       Join our{' '}
                       <a
-                        href="https://groups.google.com/a/bubblyclouds.com/g/testers"
+                        href={APP_CONFIG.testersGroupUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
@@ -92,7 +93,7 @@ function TestersContent() {
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                     Accept your{' '}
                     <a
-                      href="https://play.google.com/apps/testing/com.bubblyclouds.sudoku"
+                      href={APP_CONFIG.googlePlayBetaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
@@ -112,7 +113,7 @@ function TestersContent() {
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                     Download{' '}
                     <a
-                      href="https://play.google.com/store/apps/details?id=com.bubblyclouds.sudoku&hl=en-US&ah=ITbKJ68PGTBctQ5v5pSRAaHUniM&pli=1"
+                      href={APP_CONFIG.googlePlayUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
@@ -129,7 +130,7 @@ function TestersContent() {
                     <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                       Join the{' '}
                       <a
-                        href={`https://sudoku.bubblyclouds.com/invite?inviteId=${inviteId}`}
+                        href={`${APP_CONFIG.appUrl}/invite?inviteId=${inviteId}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
@@ -160,7 +161,7 @@ function TestersContent() {
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                     Open your{' '}
                     <a
-                      href="https://testflight.apple.com/join/QMjDmYHu"
+                      href={APP_CONFIG.testFlightUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
@@ -181,7 +182,7 @@ function TestersContent() {
                     <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                       Join the{' '}
                       <a
-                        href={`https://sudoku.bubblyclouds.com/invite?inviteId=${inviteId}`}
+                        href={`${APP_CONFIG.appUrl}/invite?inviteId=${inviteId}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
@@ -212,7 +213,7 @@ function TestersContent() {
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
                     Join the{' '}
                     <a
-                      href={`https://sudoku.bubblyclouds.com/invite?inviteId=${inviteId}`}
+                      href={`${APP_CONFIG.appUrl}/invite?inviteId=${inviteId}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
@@ -245,7 +246,7 @@ function TestersContent() {
                 </p>
                 <p className="text-xl">Send all feedback directly to:</p>
                 <a
-                  href="mailto:james@bubblyclouds.com"
+                  href={`mailto:${APP_CONFIG.feedbackEmail}`}
                   className="inline-block rounded-lg bg-yellow-400 px-4 py-2 font-bold text-gray-900 shadow-lg transition-all hover:scale-105 hover:bg-yellow-300"
                 >
                   james@bubblyclouds.com

@@ -161,7 +161,7 @@ describe('Home Page', () => {
     it('should have all required links', () => {
       render(<Home />);
       const links = screen.getAllByRole('link');
-      expect(links.length).toBe(3);
+      expect(links.length).toBe(4);
     });
   });
 

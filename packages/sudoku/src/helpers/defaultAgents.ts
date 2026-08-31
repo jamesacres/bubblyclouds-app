@@ -1,4 +1,4 @@
-import { DreyfusLevel, AgentConfig } from '../types/Agent';
+import { DreyfusLevel, AgentConfig } from '@bubblyclouds-app/games/types/Agent';
 
 export const DEFAULT_AGENT_CONFIGS: AgentConfig[] = [
   // === NOVICE ===

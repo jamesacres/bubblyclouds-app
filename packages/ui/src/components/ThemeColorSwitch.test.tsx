@@ -32,6 +32,7 @@ describe('ThemeColorSwitch', () => {
     mockUseThemeColor.mockReturnValue({
       themeColor: 'blue',
       setThemeColor: mockSetThemeColor,
+      mounted: true,
     });
   });
 
@@ -54,6 +55,7 @@ describe('ThemeColorSwitch', () => {
       mockUseThemeColor.mockReturnValue({
         themeColor: 'blue',
         setThemeColor: mockSetThemeColor,
+        mounted: true,
       });
 
       render(<ThemeColorSwitch />);
@@ -68,6 +70,7 @@ describe('ThemeColorSwitch', () => {
       mockUseThemeColor.mockReturnValue({
         themeColor: 'red',
         setThemeColor: mockSetThemeColor,
+        mounted: true,
       });
 
       render(<ThemeColorSwitch />);
@@ -440,6 +443,7 @@ describe('ThemeColorSwitch', () => {
       mockUseThemeColor.mockReturnValue({
         themeColor: 'green',
         setThemeColor: mockSetThemeColor,
+        mounted: true,
       });
 
       render(<ThemeColorSwitch />);
@@ -491,6 +495,7 @@ describe('ThemeColorSwitch', () => {
       mockUseThemeColor.mockReturnValue({
         themeColor: 'purple',
         setThemeColor: mockSetThemeColor,
+        mounted: true,
       });
 
       rerender(<ThemeColorSwitch />);

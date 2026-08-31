@@ -78,9 +78,9 @@ const PlusModal = ({
     } else {
       // Web
       monthlyPriceString = (monthlyPackage as WebPackage | undefined)
-        ?.webBillingProduct?.currentPrice?.formattedPrice;
+        ?.webBillingProduct?.price?.formattedPrice;
       lifetimePriceString = (lifetimePackage as WebPackage | undefined)
-        ?.webBillingProduct?.currentPrice?.formattedPrice;
+        ?.webBillingProduct?.price?.formattedPrice;
     }
 
     if (!modal?.isOpen || isLoading || isSubscribed) return null;

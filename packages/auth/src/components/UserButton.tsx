@@ -21,7 +21,7 @@ interface UserButtonProps {
   subscriptionManagementUrl?: string;
   showSubscribeModal?: (onSuccess: () => void) => void;
   deleteAccount?: () => Promise<boolean>;
-  app: string;
+  gameName: string;
   privacyUrl: string;
   termsUrl: string;
   creditsUrl?: string;
@@ -36,7 +36,7 @@ export const UserButton = ({
   subscriptionManagementUrl,
   showSubscribeModal,
   deleteAccount,
-  app,
+  gameName,
   privacyUrl,
   termsUrl,
   creditsUrl,
@@ -87,7 +87,7 @@ export const UserButton = ({
                     subscriptionManagementUrl={subscriptionManagementUrl}
                     showSubscribeModal={showSubscribeModal}
                     deleteAccount={deleteAccount}
-                    app={app}
+                    gameName={gameName}
                     privacyUrl={privacyUrl}
                     termsUrl={termsUrl}
                     creditsUrl={creditsUrl}
@@ -141,7 +141,7 @@ export const UserButton = ({
                   subscriptionManagementUrl={subscriptionManagementUrl}
                   showSubscribeModal={showSubscribeModal}
                   deleteAccount={deleteAccount}
-                  app={app}
+                  gameName={gameName}
                   privacyUrl={privacyUrl}
                   termsUrl={termsUrl}
                   creditsUrl={creditsUrl}

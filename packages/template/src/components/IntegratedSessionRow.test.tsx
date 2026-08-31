@@ -195,6 +195,54 @@ describe('IntegratedSessionRow', () => {
       // Should render the puzzle link
       expect(screen.getByTestId('puzzle-link')).toBeInTheDocument();
     });
+
+    it('should show moves graded against par when getMovesDisplay is provided', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: { seconds: 300 },
+          metadata: { movesMade: '12', movesRequired: '9' },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow
+            session={session}
+            getMovesDisplay={() => ({ movesMade: 12, movesRequired: 9 })}
+          />
+        </UserContext.Provider>
+      );
+
+      // Over par renders in the amber grading colour with the +N delta
+      expect(screen.getByText('12/9 +3')).toHaveClass('text-amber-600');
+    });
+
+    it('shows moves graded against par for an in-progress (not yet completed) puzzle', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: undefined,
+          metadata: { movesMade: '5', movesRequired: '8' },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow
+            session={session}
+            getMovesDisplay={() => ({ movesMade: 5, movesRequired: 8 })}
+          />
+        </UserContext.Provider>
+      );
+
+      // Under par renders in the emerald grading colour with the -N delta
+      expect(screen.getByText('5/8 -3')).toHaveClass('text-emerald-600');
+    });
   });
 
   describe('puzzle title formatting', () => {
@@ -709,6 +757,426 @@ describe('IntegratedSessionRow', () => {
       );
       // Component renders completed puzzle
       expect(screen.getByText('✅')).toBeInTheDocument();
+    });
+  });
+
+  describe('friend leaderboard', () => {
+    const setFriendSessionsAndParties = (
+      friendSessions: Record<string, unknown>,
+      parties: Array<Record<string, unknown>>
+    ) => {
+      const {
+        useSessions: mockUseSessions,
+      } = require('@bubblyclouds-app/template/providers/SessionsProvider');
+      (mockUseSessions as jest.Mock).mockReturnValue({
+        friendSessions,
+        isFriendSessionsLoading: false,
+      });
+      const {
+        useParties: mockUseParties,
+      } = require('@bubblyclouds-app/template/hooks/useParties');
+      (mockUseParties as jest.Mock).mockReturnValue({ parties });
+    };
+
+    it('shows a friend who played the same puzzle in the leaderboard with their nickname', () => {
+      const session = createMockSession();
+      setFriendSessionsAndParties(
+        {
+          'friend-1': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: session.sessionId,
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: undefined,
+                  metadata: {},
+                },
+              },
+            ],
+          },
+        },
+        [
+          {
+            partyId: 'p1',
+            members: [{ userId: 'friend-1', memberNickname: 'Friendly Fox' }],
+          },
+        ]
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      expect(screen.getByText('Friendly Fox')).toBeInTheDocument();
+      expect(screen.getByText('You')).toBeInTheDocument();
+    });
+
+    it('shows moves graded against par for both a friend and the current user while both are still in progress', () => {
+      const session = createMockSession();
+      setFriendSessionsAndParties(
+        {
+          'friend-1': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: session.sessionId,
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: undefined,
+                  metadata: { movesMade: '4', movesRequired: '10' },
+                },
+              },
+            ],
+          },
+        },
+        [
+          {
+            partyId: 'p1',
+            members: [{ userId: 'friend-1', memberNickname: 'Friendly Fox' }],
+          },
+        ]
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow
+            session={session}
+            getMovesDisplay={(state) =>
+              state.metadata?.movesMade && state.metadata?.movesRequired
+                ? {
+                    movesMade: Number(state.metadata.movesMade),
+                    movesRequired: Number(state.metadata.movesRequired),
+                  }
+                : undefined
+            }
+          />
+        </UserContext.Provider>
+      );
+
+      // Friend, in progress, under par
+      expect(screen.getByText('4/10 -6')).toBeInTheDocument();
+    });
+
+    it("shows the friend's own elapsed time while in progress, not the current user's", () => {
+      // Regression: the in-progress timer branch called getTimerDisplay(),
+      // which always reads the current user's own actualSession.state.timer
+      // regardless of which row (friend or "You") it renders in — so a
+      // friend's in-progress row showed no timer at all (or, if the current
+      // user also had a session, silently showed the wrong person's time).
+      const session = createMockSession();
+      setFriendSessionsAndParties(
+        {
+          'friend-1': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: session.sessionId,
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: undefined,
+                  timer: { startTime: 0, pausedTime: 0 } as any,
+                  metadata: {},
+                },
+              },
+            ],
+          },
+        },
+        [
+          {
+            partyId: 'p1',
+            members: [{ userId: 'friend-1', memberNickname: 'Friendly Fox' }],
+          },
+        ]
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      // calculateSeconds is mocked (beforeEach) to return 120 regardless of
+      // the timer passed in — this confirms it was called at all for the
+      // friend's own session (proving the friend's timer is actually read),
+      // not that it stayed null/absent as before the fix.
+      expect(screen.getByText('2m 0s')).toBeInTheDocument();
+    });
+
+    it('falls back to "Unknown" when the friend is not found in any party', () => {
+      const session = createMockSession();
+      setFriendSessionsAndParties(
+        {
+          'friend-1': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: session.sessionId,
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: undefined,
+                  metadata: {},
+                },
+              },
+            ],
+          },
+        },
+        []
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      expect(screen.getByText('Unknown')).toBeInTheDocument();
+    });
+
+    it('does not include the current user twice when their own userId is a key in friendSessions', () => {
+      const session = createMockSession();
+      setFriendSessionsAndParties(
+        {
+          'user-123': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: session.sessionId,
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: undefined,
+                  metadata: {},
+                },
+              },
+            ],
+          },
+        },
+        []
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      // The current user's own entry under friendSessions is skipped by
+      // getFriendSessions (userId === currentUserId), so there is no
+      // duplicate leaderboard row for "You" beyond the single one always
+      // rendered for the actual user session.
+      expect(screen.getAllByText('You')).toHaveLength(1);
+    });
+
+    it('marks the fastest completed player as the winner and shows an award icon', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: { seconds: 200 },
+          metadata: {},
+        } as any,
+      });
+      setFriendSessionsAndParties(
+        {
+          'friend-1': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: session.sessionId,
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: { seconds: 100 },
+                  metadata: {},
+                },
+              },
+            ],
+          },
+        },
+        [
+          {
+            partyId: 'p1',
+            members: [{ userId: 'friend-1', memberNickname: 'Speedy Sam' }],
+          },
+        ]
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      expect(screen.getByText('Speedy Sam')).toBeInTheDocument();
+      expect(screen.getByTestId('award-icon')).toBeInTheDocument();
+    });
+
+    it('ignores a friend session entry with no matching sessionId for this puzzle', () => {
+      const session = createMockSession();
+      setFriendSessionsAndParties(
+        {
+          'friend-1': {
+            isLoading: false,
+            sessions: [
+              {
+                sessionId: 'a-different-session',
+                updatedAt: new Date(),
+                state: {
+                  initial: Array(81).fill(0),
+                  final: Array(81).fill(0),
+                  answerStack: [Array(81).fill(0)],
+                  completed: undefined,
+                  metadata: {},
+                },
+              },
+            ],
+          },
+        },
+        [
+          {
+            partyId: 'p1',
+            members: [{ userId: 'friend-1', memberNickname: 'Nomatch Nora' }],
+          },
+        ]
+      );
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      expect(screen.queryByText('Nomatch Nora')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('cheated status', () => {
+    it('shows "Cheated" status text for a completed puzzle marked as cheated', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: { seconds: 90 },
+          metadata: {},
+        } as any,
+      });
+      const cheatedInjectedProps = {
+        ...mockInjectedProps,
+        isPuzzleCheated: jest.fn(() => true),
+      };
+      const provider = (
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+      const integratedSessionRow = provider.props.children;
+      render(
+        cloneElement(
+          provider,
+          {},
+          cloneElement(integratedSessionRow, {
+            ...integratedSessionRow.props,
+            ...cheatedInjectedProps,
+          })
+        )
+      );
+      // The cheated indicator is a warning emoji next to "You" in the
+      // completed-puzzle summary row (getGameStatusText's 'Cheated' branch
+      // affects sr-only status text, so we assert the cheated marker instead).
+      expect(screen.getByText('❌')).toBeInTheDocument();
+    });
+  });
+
+  describe('book puzzle title', () => {
+    it('formats the title using the book month name and puzzle number', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: undefined,
+          metadata: {
+            sudokuBookPuzzleId: 'ofthemonth-202403-puzzle-4',
+          },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      // month 03 -> Mar, index 4 -> displayed as 1-based (5)
+      expect(screen.getByText('Book Mar #5')).toBeInTheDocument();
+    });
+  });
+
+  describe('unblock race title', () => {
+    it('formats the title for a daily run using runId', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: undefined,
+          metadata: {
+            runId: 'oftheday-20240115',
+          },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      expect(screen.getByText('Daily Jan 15th')).toBeInTheDocument();
+    });
+
+    it('formats the title for a collection puzzle using unblockCollectionPuzzleId', () => {
+      const session = createMockSession({
+        state: {
+          initial: Array(81).fill(0),
+          final: Array(81).fill(0),
+          answerStack: [Array(81).fill(0)],
+          completed: undefined,
+          metadata: {
+            unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3',
+          },
+        } as any,
+      });
+
+      renderWithProps(
+        <UserContext.Provider value={mockUserContext as any}>
+          <IntegratedSessionRow session={session} />
+        </UserContext.Provider>
+      );
+
+      // month 07 -> Jul, index 3 -> displayed as 1-based (4)
+      expect(screen.getByText('Collection Jul #4')).toBeInTheDocument();
     });
   });
 });

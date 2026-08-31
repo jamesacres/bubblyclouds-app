@@ -36,6 +36,7 @@ export interface UserContextInterface {
   handleAuthUrl: (options: { active: boolean }) => void;
   handleRestoreState: () => void;
   app: string;
+  gameName: string;
 }
 
 export const UserContext = React.createContext<
@@ -118,6 +119,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
     openBrowser,
     getCapacitorState,
     app,
+    gameName,
     authUrl,
     apiUrl,
   } = platformServices;
@@ -314,11 +316,21 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
             restoreState
           );
         }
+        // Hard circuit breaker: caps silent recovery at one attempt per tab,
+        // regardless of what recoverSession ends up holding. It's cleared
+        // before the redirect so a normal failed round trip shouldn't retry
+        // — but if the OIDC bounce-back ever re-arms recoverSession (e.g. a
+        // handleUser(user) call that doesn't leave a working session), this
+        // is what stops it looping. sessionStorage survives the same-tab
+        // redirect but resets on a genuinely new tab, so it never blocks a
+        // later, unrelated recovery attempt.
         if (
           localStorage.getItem('recoverSession') === 'true' &&
-          window.navigator.onLine // only when we're online
+          window.navigator.onLine && // only when we're online
+          !sessionStorage.getItem('recoverSessionAttempted')
         ) {
           localStorage.setItem('recoverSession', 'false');
+          sessionStorage.setItem('recoverSessionAttempted', 'true');
           // Redirect to login (hopefully automatically recover auth session)
           console.warn('no user, redirecting to login');
           await loginRedirect({ userInitiated: false });
@@ -493,6 +505,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({
         handleRestoreState,
         logout: handleLogout,
         app,
+        gameName,
       }}
     >
       {children}

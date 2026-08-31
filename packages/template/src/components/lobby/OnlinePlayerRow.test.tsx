@@ -191,4 +191,205 @@ describe('OnlinePlayerRow', () => {
     render(<OnlinePlayerRow {...defaultProps} parties={[]} />);
     expect(screen.queryByLabelText('Remove Alice')).not.toBeInTheDocument();
   });
+
+  describe('getMovesDisplay / getStarRating', () => {
+    it('shows moves graded against par for an in-progress player', () => {
+      const session = makeSession({
+        timer: {
+          seconds: 30,
+          inProgress: {
+            start: '2026-06-10T10:00:00Z',
+            lastInteraction: '2026-06-10T10:00:30Z',
+          },
+        },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          calculateCompletionPercentageFromState={() => 40}
+          getMovesDisplay={() => ({ movesMade: 12, movesRequired: 8 })}
+        />
+      );
+      expect(screen.getByText('40% · 0:30')).toBeInTheDocument();
+      expect(screen.getByText('12/8 +4')).toBeInTheDocument();
+    });
+
+    it('shows moves and star rating for a finished player', () => {
+      const session = makeSession({
+        completed: { at: '2026-06-10T10:00:30Z', seconds: 30 },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          getMovesDisplay={() => ({ movesMade: 8, movesRequired: 8 })}
+          getStarRating={() => 3}
+        />
+      );
+      expect(screen.getByText('Solved in 0:30')).toBeInTheDocument();
+      expect(screen.getByText('8/8')).toBeInTheDocument();
+      expect(screen.getByLabelText('3 of 3 stars')).toBeInTheDocument();
+    });
+
+    it('does not show a star rating while the player is still in progress', () => {
+      const session = makeSession({
+        timer: {
+          seconds: 30,
+          inProgress: {
+            start: '2026-06-10T10:00:00Z',
+            lastInteraction: '2026-06-10T10:00:30Z',
+          },
+        },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          getStarRating={() => 3}
+        />
+      );
+      expect(screen.queryByLabelText(/stars/)).not.toBeInTheDocument();
+    });
+
+    it('does not render a moves chip when getMovesDisplay returns undefined', () => {
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={makeSession({
+            timer: {
+              seconds: 30,
+              inProgress: {
+                start: '2026-06-10T10:00:00Z',
+                lastInteraction: '2026-06-10T10:00:30Z',
+              },
+            },
+          })}
+          getMovesDisplay={() => undefined}
+        />
+      );
+      expect(screen.queryByText(/\//)).not.toBeInTheDocument();
+    });
+
+    it('omits moves and stars entirely when no callbacks are provided', () => {
+      const session = makeSession({
+        completed: { at: '2026-06-10T10:00:30Z', seconds: 30 },
+      });
+      render(<OnlinePlayerRow {...defaultProps} session={session} />);
+      expect(screen.getByText('Solved in 0:30')).toBeInTheDocument();
+      expect(screen.queryByText(/\//)).not.toBeInTheDocument();
+    });
+  });
+
+  describe('runProgress (multi-stage runs)', () => {
+    it('shows "Stage N of M" instead of the current-stage percentage', () => {
+      const session = makeSession({
+        timer: {
+          seconds: 30,
+          inProgress: {
+            start: '2026-06-10T10:00:00Z',
+            lastInteraction: '2026-06-10T10:00:30Z',
+          },
+        },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          calculateCompletionPercentageFromState={() => 80}
+          runProgress={{
+            completedStageCount: 2,
+            totalStages: 5,
+            totalSeconds: 40,
+          }}
+        />
+      );
+      // Stage 3 = 2 completed stages + the one they're live on now
+      expect(screen.getByText('Stage 3 of 5 · 0:30')).toBeInTheDocument();
+      expect(screen.queryByText(/80%/)).not.toBeInTheDocument();
+    });
+
+    it('does not show FinishedBadge or "Finished" state when the current stage is complete but the run is not', () => {
+      // session.state.completed is set (this stage is done) but only 2 of 5
+      // stages are complete overall — the run isn't finished yet.
+      const session = makeSession({
+        completed: { at: '2026-06-10T10:00:30Z', seconds: 30 },
+        timer: {
+          seconds: 30,
+          inProgress: {
+            start: '2026-06-10T10:00:00Z',
+            lastInteraction: '2026-06-10T10:00:30Z',
+          },
+        },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          runProgress={{
+            completedStageCount: 2,
+            totalStages: 5,
+            totalSeconds: 60,
+          }}
+        />
+      );
+      expect(screen.queryByText('Finished')).not.toBeInTheDocument();
+      expect(screen.getByText('Stage 3 of 5 · 0:30')).toBeInTheDocument();
+    });
+
+    it('shows the run total time once every stage is complete', () => {
+      const session = makeSession({
+        completed: { at: '2026-06-10T10:00:30Z', seconds: 30 },
+      });
+      render(
+        <OnlinePlayerRow
+          {...defaultProps}
+          session={session}
+          runProgress={{
+            completedStageCount: 5,
+            totalStages: 5,
+            totalSeconds: 245,
+          }}
+        />
+      );
+      expect(screen.getByText('Finished')).toBeInTheDocument();
+      expect(screen.getByText('Finished the run in 4:05')).toBeInTheDocument();
+    });
+
+    it('renders the "Stage N of M" label with no session at all — a player racing a stage we have no live session for', () => {
+      // No session means no live in-stage timer either — the elapsed time
+      // shown is 0:00 until they finish that stage and totalSeconds updates.
+      const { session: _session, ...propsWithoutSession } = defaultProps;
+      render(
+        <OnlinePlayerRow
+          {...propsWithoutSession}
+          runProgress={{
+            completedStageCount: 2,
+            totalStages: 5,
+            totalSeconds: 40,
+          }}
+        />
+      );
+      expect(screen.getByText('Stage 3 of 5 · 0:00')).toBeInTheDocument();
+      expect(screen.queryByText('In lobby')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('compact-state')).not.toBeInTheDocument();
+    });
+
+    it('does not crash and shows no board preview when a finished, session-less player has completed every stage', () => {
+      const { session: _session, ...propsWithoutSession } = defaultProps;
+      render(
+        <OnlinePlayerRow
+          {...propsWithoutSession}
+          runProgress={{
+            completedStageCount: 5,
+            totalStages: 5,
+            totalSeconds: 200,
+          }}
+        />
+      );
+      expect(screen.getByText('Finished')).toBeInTheDocument();
+      expect(screen.getByText('Finished the run in 3:20')).toBeInTheDocument();
+      expect(screen.queryByTestId('compact-state')).not.toBeInTheDocument();
+    });
+  });
 });

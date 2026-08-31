@@ -22,6 +22,20 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
   SubscriptionContext,
   ContextMessage
 > = {
+  [SubscriptionContext.HINT]: {
+    bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+    textColor: 'text-orange-800 dark:text-orange-200',
+    content: (
+      <>
+        💡{' '}
+        <strong>
+          You&rsquo;ve used your {DAILY_LIMITS.HINT} free hints today.
+        </strong>{' '}
+        Plus gives you unlimited hints — never get stuck again — and keeps the
+        whole app ad free.
+      </>
+    ),
+  },
   [SubscriptionContext.UNDO]: {
     bgColor: 'bg-orange-50 dark:bg-orange-900/20',
     textColor: 'text-orange-800 dark:text-orange-200',
@@ -59,9 +73,8 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-purple-800 dark:text-purple-200',
     content: (
       <>
-        🎨 <strong>Premium theme colors are subscription-only!</strong>{' '}
-        Subscribe to unlock all beautiful theme colors and personalise your
-        sudoku experience.
+        🎨 <strong>This theme is exclusive to Plus.</strong> Upgrade to unlock
+        all beautiful theme colors and personalise your sudoku experience.
       </>
     ),
   },
@@ -73,6 +86,17 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
         🧩 <strong>You&rsquo;ve reached your daily puzzle limit!</strong> Free
         users can play {DAILY_LIMITS.PUZZLE} puzzle per day. The limit resets
         tomorrow, or subscribe for unlimited puzzles.
+      </>
+    ),
+  },
+  [SubscriptionContext.COLLECTION_LOCKED]: {
+    bgColor: 'bg-indigo-50 dark:bg-indigo-900/20',
+    textColor: 'text-indigo-800 dark:text-indigo-200',
+    content: (
+      <>
+        ✨ <strong>This puzzle is part of the Plus book.</strong> Plus unlocks
+        every puzzle in every month&rsquo;s book, and keeps the whole app ad
+        free.
       </>
     ),
   },

@@ -5,10 +5,12 @@ import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
+import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
+import { CrossPromoCard } from '@bubblyclouds-app/template/components/CrossPromoCard';
 import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { motivationalMessages } from '../config/motivationalMessages';
-import { APP_CONFIG } from '../../app.config.js';
+import { APP_CONFIG, CROSS_PROMO } from '../../app.config.js';
 import { Difficulty } from '@bubblyclouds-app/games/types/difficulty';
 import Footer from '@bubblyclouds-app/ui/components/Footer';
 import MyPuzzlesTab from '@bubblyclouds-app/template/components/MyPuzzlesTab';
@@ -33,6 +35,7 @@ import { Users, Zap, Award, Camera, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
+import { UnblockRaceBoardPreview } from '@bubblyclouds-app/games/components/UnblockRaceBoardPreview';
 import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { GameState } from '@bubblyclouds-app/sudoku/types/state';
@@ -578,6 +581,24 @@ function HomeComponent() {
                   </button>
                 </div>
               </div>
+
+              {/* Cross-promo: Unblock Race, and Rate the app */}
+              <div className="mt-4 space-y-3">
+                <CrossPromoCard
+                  gameName={CROSS_PROMO.gameName}
+                  tagline={CROSS_PROMO.tagline}
+                  preview={<UnblockRaceBoardPreview />}
+                  appUrl={CROSS_PROMO.appUrl}
+                  appStoreUrl={CROSS_PROMO.appStoreUrl}
+                  googlePlayUrl={CROSS_PROMO.googlePlayUrl}
+                />
+                <RateAppButton
+                  variant="card"
+                  appName={APP_CONFIG.gameName}
+                  appStoreUrl={APP_CONFIG.appStoreUrl}
+                  googlePlayUrl={APP_CONFIG.googlePlayUrl}
+                />
+              </div>
             </div>
           </div>
 
@@ -626,7 +647,7 @@ function HomeComponent() {
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 LeaderboardComponent={Leaderboard}
-                gameName="Sudoku"
+                gameName={APP_CONFIG.gameName}
                 getDifficultyDisplay={getDifficultyDisplay}
               />
             )}

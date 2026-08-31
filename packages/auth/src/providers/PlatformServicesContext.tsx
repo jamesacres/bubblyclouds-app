@@ -9,6 +9,7 @@ export interface PlatformServices {
   getCapacitorState: () => Promise<string>;
   saveCapacitorState: (state: unknown) => Promise<void>;
   app: string;
+  gameName: string;
   apiUrl: string;
   authUrl: string;
   scope: string[];

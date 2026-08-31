@@ -5,25 +5,31 @@ import {
   buildCandidates,
   gridToPuzzle,
 } from 'human-sudoku-solver';
+import { Technique } from 'human-sudoku-solver';
 import { Puzzle } from '../types/puzzle';
 import {
   AgentConfig,
-  AgentStep,
-  AgentTimeline,
-  LocalAgent,
+  AgentStep as GamesAgentStep,
+  AgentTimeline as GamesAgentTimeline,
+  LocalAgent as GamesLocalAgent,
   TimingState,
-} from '../types/Agent';
+} from '@bubblyclouds-app/games/types/Agent';
 import { ServerState } from '../types/state';
 import { canAgentUseTechnique } from './techniqueCategories';
 import {
   calculateExecutionTime,
   difficultyToSolveBounds,
-  skillLevelTargetDuration,
 } from './techniqueTiming';
+import { rescaleTimelineToDuration } from '@bubblyclouds-app/games/helpers/agentTiming';
 import {
   Difficulty,
   BookPuzzleDifficulty,
 } from '@bubblyclouds-app/games/types/difficulty';
+
+export type AgentStepExtra = { technique: Technique; wasBlocked: boolean };
+export type AgentStep = GamesAgentStep<AgentStepExtra, ServerState>;
+export type AgentTimeline = GamesAgentTimeline<AgentStepExtra, ServerState>;
+export type LocalAgent = GamesLocalAgent<AgentStepExtra, ServerState>;
 
 export function createAgentTimeline(
   initial: Puzzle<number>,
@@ -86,25 +92,12 @@ export function createAgentTimeline(
       steps.push(step);
     }
 
-    const totalDuration = currentTime;
-
-    // Rescale all timestamps so the agent finishes at a target duration derived
-    // from human stats. Each skill level maps to a fixed point in [min, max]:
-    // Novice → slowest end, Expert → fastest end.
-    const bounds = difficultyToSolveBounds(difficulty);
-    if (bounds && totalDuration > 0) {
-      const targetDuration = skillLevelTargetDuration(
-        config.skillLevel,
-        bounds
-      );
-      const scale = targetDuration / totalDuration;
-      for (const step of steps) {
-        step.timestamp = Math.round(step.timestamp * scale);
-      }
-      return { steps, totalDuration: targetDuration };
-    }
-
-    return { steps, totalDuration };
+    return rescaleTimelineToDuration(
+      steps,
+      currentTime,
+      config.skillLevel,
+      difficultyToSolveBounds(difficulty)
+    );
   } catch (error) {
     console.error(
       'createAgentTimeline failed for agent',

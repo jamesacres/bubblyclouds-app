@@ -36,6 +36,7 @@ export default [
       '**/postcss.config.js',
       '**/public/**/*.js',
       '**/public/**/*.wasm',
+      'packages/unblockrace/src/services/solverWasm.js',
     ],
   },
   ...compat.extends('eslint:recommended'),
@@ -153,7 +154,7 @@ export default [
     },
   },
   {
-    files: ['**/next.config.mjs', '**/next.config.js'],
+    files: ['**/next.config.mjs', '**/next.config.js', '**/scripts/**/*.mjs'],
 
     languageOptions: {
       globals: {

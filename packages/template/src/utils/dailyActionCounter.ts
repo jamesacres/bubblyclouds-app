@@ -5,6 +5,7 @@ interface DailyActionData {
   date: string;
   undoCount: number;
   checkGridCount: number;
+  hintCount: number;
 }
 
 const STORAGE_KEY = 'daily-action-counter';
@@ -19,6 +20,7 @@ export function getDailyActionData(): DailyActionData {
       date: getTodayDateString(),
       undoCount: 0,
       checkGridCount: 0,
+      hintCount: 0,
     };
   }
 
@@ -29,6 +31,7 @@ export function getDailyActionData(): DailyActionData {
         date: getTodayDateString(),
         undoCount: 0,
         checkGridCount: 0,
+        hintCount: 0,
       };
     }
 
@@ -41,16 +44,23 @@ export function getDailyActionData(): DailyActionData {
         date: today,
         undoCount: 0,
         checkGridCount: 0,
+        hintCount: 0,
       };
     }
 
-    return data;
+    return {
+      date: data.date,
+      undoCount: data.undoCount ?? 0,
+      checkGridCount: data.checkGridCount ?? 0,
+      hintCount: data.hintCount ?? 0,
+    };
   } catch (error) {
     console.warn('Error reading daily action data:', error);
     return {
       date: getTodayDateString(),
       undoCount: 0,
       checkGridCount: 0,
+      hintCount: 0,
     };
   }
 }
@@ -79,12 +89,23 @@ export function incrementCheckGridCount(): number {
   return data.checkGridCount;
 }
 
+export function incrementHintCount(): number {
+  const data = getDailyActionData();
+  data.hintCount += 1;
+  saveDailyActionData(data);
+  return data.hintCount;
+}
+
 export function getUndoCount(): number {
   return getDailyActionData().undoCount;
 }
 
 export function getCheckGridCount(): number {
   return getDailyActionData().checkGridCount;
+}
+
+export function getHintCount(): number {
+  return getDailyActionData().hintCount;
 }
 
 export function canUseUndo(): boolean {
@@ -95,10 +116,18 @@ export function canUseCheckGrid(): boolean {
   return getCheckGridCount() < DAILY_LIMITS.CHECK_GRID;
 }
 
+export function canUseHint(): boolean {
+  return getHintCount() < DAILY_LIMITS.HINT;
+}
+
 export function getRemainingUndos(): number {
   return Math.max(0, DAILY_LIMITS.UNDO - getUndoCount());
 }
 
 export function getRemainingCheckGrids(): number {
   return Math.max(0, DAILY_LIMITS.CHECK_GRID - getCheckGridCount());
+}
+
+export function getRemainingHints(): number {
+  return Math.max(0, DAILY_LIMITS.HINT - getHintCount());
 }

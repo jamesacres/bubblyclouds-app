@@ -1,6 +1,36 @@
 # TODO
 
+Waitlist, only allow us two to login for now
+update with stephens improvements
 
+
+- Level system
+
+
+Fixes and improvements (all done on feature/money-bags-init)
+* [x] We added new accounts but it did not allow us to update them on the current month after when we had already set some values. — profile accounts now merge into existing saved snapshots
+* [x] The mark month as complete, is that necessary? — removed; a month is "entered" once a snapshot exists
+* [x] Homepage has multiple buttons which go to the same page? — removed redundant History/Settings nav cards (footer already has them)
+* [x] Remove need to press save — autosave on blur/navigation across entry + settings
+* [x] Add ability to delete an account permenantly if it's only just been added with no data? — delete when no snapshot references it, else archive-only
+* [x] Add ability to edit an investment type after it's been saved? — inline kind/wrapper editing in AccountManager
+* [x] Reorder by dragging? — native HTML5 drag-to-reorder (up/down kept for keyboard)
+* [x] needs to graph the monte carlo simulations — MonteCarloPathsChart spaghetti + percentile bands
+* [x] withdrawal amount adjusted by inflation? — engine is real-terms; added explicit real/nominal view
+* [x] needs to support all the different withdrawal strategies: all 8 Morningstar income strategies — fixed-real, fixed-%, guardrails (Guyton-Klinger), RMD/lifetime-expectancy, forgo-inflation-after-loss, Vanguard dynamic, spending-declines-with-age, endowment 10-yr average, probability guardrails (funded-ratio proxy)
+* [x] personal-vs-household clarity — each partner runs their own personal plan (own pots, withdrawal, strategy, access ages); household headline is the combined rollup (fail if either fails); Retirement / Projection / Dashboard / Settings each label personal vs combined
+https://www.youtube.com/watch?v=Qpjxv74htog
+https://www.morningstar.com/retirement/morningstars-retirement-income-research-finding-your-safe-withdrawal-rate
+
+
+
+
+
+
+Something similar to bulb Rush game
+
+* end game state sudoku, needs to reappear to avoid blank screen, and take learnings from unblock race for leaderboard points and continue buttons
+* app store admin, revenue cat admin, update app ids and api keys
 
 See Sudoku TODOs....
 
@@ -26,6 +56,11 @@ See Sudoku TODOs....
 - tidy up new home assistant post
 
 ## Sudoku
+
+improve cold start click link to sudoku
+lobby should show signing in state, or sign in button?
+need to ensure the state is successfully saved, otherwise others wont see them in the lobby
+we should see others in lobby from cold start
 
 chat gpt app?
 
@@ -63,8 +98,40 @@ Solver PR review
 
 - fix electron auth
 
-## Sliding BLock
+## Unblock Race
+
+The sliding-block puzzle game is implemented per SPEC.md: the
+`@bubblyclouds-app/unblockrace` package (board model, drag interaction,
+useGameState, 5-puzzle chain runs, mock seed data from Fogleman's database)
+and the app pages (puzzle, home daily run, monthly collection) are wired up.
 
 ### Features
 
-- Implement
+### Server project
+
+- revenuecat new project and apps and api keys
+- google play and app store new apps
+- api add support for revenuecat api key and switching based on app before giving entitlement
+- api add support for unblock collections
+- node upgrade
+
+## Money Bags Race
+
+Household net worth / retirement tracker built on the unblockrace/sudoku
+pattern: dashboard, monthly entry (`/state?month=YYYY-MM`), history,
+projection, retirement, and settings screens over the
+`packages/moneybagsrace` domain package (types, Monte Carlo retirement
+engine, data provider/hooks, chart components).
+
+### Features
+
+- Regenerate Android/iOS signing and app-specific assets (assetlinks.json
+  fingerprints, apple-app-site-association appID, app icons/splash, StoreKit
+  product ids) - these were carried over from unblockrace as placeholders
+- Replace placeholder icons/logo assets with Money Bags Race branding
+
+### Server project
+
+- revenuecat new project and apps and api keys
+- google play and app store new apps
+- api add support for revenuecat api key and switching based on app before giving entitlement

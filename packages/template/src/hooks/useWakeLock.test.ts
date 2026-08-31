@@ -57,6 +57,13 @@ describe('useWakeLock', () => {
 
     // Clean up navigator mock
     delete (navigator as any).wakeLock;
+
+    // Reset document.hidden in case a test overrode it
+    Object.defineProperty(document, 'hidden', {
+      value: false,
+      writable: true,
+      configurable: true,
+    });
   });
 
   describe('initialization', () => {
@@ -208,6 +215,43 @@ describe('useWakeLock', () => {
       });
 
       expect(returnedWakeLock).toBeNull();
+    });
+
+    it('should not request wake lock when document is hidden', async () => {
+      Object.defineProperty(document, 'hidden', {
+        value: true,
+        writable: true,
+        configurable: true,
+      });
+
+      const { result } = renderHook(() => useWakeLock());
+
+      let returnedWakeLock;
+      await act(async () => {
+        returnedWakeLock = await result.current.requestWakeLock();
+      });
+
+      expect(mockNavigator.request).not.toHaveBeenCalled();
+      expect(returnedWakeLock).toBeNull();
+    });
+
+    it('should log info instead of error for NotAllowedError', async () => {
+      const error = new DOMException(
+        "Failed to execute 'request' on 'WakeLock': The requesting page is not visible",
+        'NotAllowedError'
+      );
+      mockNavigator.request.mockRejectedValueOnce(error);
+
+      const { result } = renderHook(() => useWakeLock());
+
+      await act(async () => {
+        await result.current.requestWakeLock();
+      });
+
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
+      expect(consoleInfoSpy).toHaveBeenCalledWith(
+        'Screen wake lock request skipped: page not visible'
+      );
     });
 
     it('should handle multiple requests', async () => {

@@ -25,6 +25,7 @@ import { useTimer } from '@bubblyclouds-app/template/hooks/timer';
 import { calculateSeconds } from '@bubblyclouds-app/template/helpers/calculateSeconds';
 import {
   Parties,
+  ServerStateNotFoundResult,
   ServerStateResult,
   Session,
 } from '@bubblyclouds-app/types/serverTypes';
@@ -42,8 +43,13 @@ import { useDocumentVisibility } from '@bubblyclouds-app/template/hooks/document
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import type { SubscriptionContext as SubscriptionContextType } from '@bubblyclouds-app/types/subscriptionContext';
-
-const INACTIVITY_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
+import { useHandleServerResponse } from '@bubblyclouds-app/games/hooks/handleServerResponse';
+import { useInactivityPause } from '@bubblyclouds-app/games/hooks/inactivityPause';
+import {
+  shrinkAnswerStack,
+  shrinkAnswerStackLocal,
+} from '@bubblyclouds-app/games/helpers/shrinkAnswerStack';
+import { useGameSessionState } from '@bubblyclouds-app/games/hooks/useGameSessionState';
 
 function useGameState({
   final,
@@ -56,6 +62,7 @@ function useGameState({
   initialAgentNames,
   initialShowLobby,
   onComplete,
+  isBoardGatedIgnoringCompleted,
 }: {
   final: Puzzle<number>;
   initial: Puzzle<number>;
@@ -67,6 +74,11 @@ function useGameState({
   initialAgentNames?: string;
   initialShowLobby?: boolean;
   onComplete?: (answerStack: Puzzle[]) => void;
+  // Whether this puzzle is sealed behind the book paywall, not accounting
+  // for `completed` (this hook's own state, unknown to the caller at call
+  // time) — combined with it below so keyboard input is blocked on a
+  // locked puzzle the same way pointer input already is.
+  isBoardGatedIgnoringCompleted?: boolean;
 }) {
   const context = useContext(UserContext);
   const { user } = context || {};
@@ -75,6 +87,7 @@ function useGameState({
 
   const { timer, setTimerNewSession, stopTimer, setPauseTimer, isPaused } =
     useTimer({
+      app,
       id: puzzleId,
     });
 
@@ -88,20 +101,13 @@ function useGameState({
   // Track last saved answer to prevent unnecessary saves
   const lastSavedAnswerRef = useRef<Puzzle | null>(null);
 
-  // Track if timer is paused due to inactivity
-  const [isPausedDueToInactivity, setIsPausedDueToInactivity] = useState(false);
-  const isPausedDueToInactivityRef = useRef(isPausedDueToInactivity);
-
   useEffect(() => {
     timerRef.current = timer;
   }, [timer]);
 
-  useEffect(() => {
-    isPausedDueToInactivityRef.current = isPausedDueToInactivity;
-  }, [isPausedDueToInactivity]);
-
   const { getValue: getLocalValue, saveValue: saveLocalValue } =
     useLocalStorage({
+      prefix: `${app}-`,
       id: puzzleId,
       type: StateType.PUZZLE,
     });
@@ -158,49 +164,45 @@ function useGameState({
     ? Object.keys(sessionParties).length
     : 0;
 
+  // Reference to sessionParties to read inside the polling effect without
+  // tearing down and recreating the interval on every successful poll
+  const sessionPartiesRef = useRef(sessionParties);
+  sessionPartiesRef.current = sessionParties;
+
   const [selectedCell, setSelectedCellState] = useState<null | string>(null);
   const lastSelectedCellChangeRef = useRef<number>(Date.now());
+  const { isPausedDueToInactivityRef } = useInactivityPause({
+    lastInteractionRef: lastSelectedCellChangeRef,
+    completed,
+    isPaused,
+    setPauseTimer,
+  });
   const setSelectedCell = useCallback(
     (selectedCell: string | null) => {
       if (!completed) {
         lastSelectedCellChangeRef.current = Date.now();
         // Resume timer if it was paused due to inactivity
         if (isPausedDueToInactivityRef.current) {
-          setIsPausedDueToInactivity(false);
           setPauseTimer(false);
         }
         setSelectedCellState(selectedCell);
       }
     },
-    [completed, setPauseTimer]
+    [completed, setPauseTimer, isPausedDueToInactivityRef]
   );
 
   const getValue = useCallback((): {
     localValue: { lastUpdated: number; state: GameState } | undefined;
-    serverValuePromise: Promise<ServerStateResult<ServerState> | undefined>;
+    serverValuePromise: Promise<
+      | ServerStateResult<ServerState>
+      | ServerStateNotFoundResult<ServerState>
+      | undefined
+    >;
   } => {
     let localValue = getLocalValue<GameState>();
     const serverValuePromise = getServerValue<ServerState>();
     return { localValue, serverValuePromise };
   }, [getLocalValue, getServerValue]);
-
-  const shrinkAnswerStack = useCallback((answerStack: Puzzle[]): Puzzle[] => {
-    // Only store the last 3 guesses on the server
-    return answerStack.slice(-3);
-  }, []);
-
-  const shrinkAnswerStackLocal = useCallback(
-    (answerStack: Puzzle[], completed?: GameState['completed']): Puzzle[] => {
-      // For completed puzzles, only store the last 2 states (needed for cheat detection)
-      if (completed) {
-        return answerStack.slice(-2);
-      }
-      // For in-progress puzzles, store last 10 moves to support undo/redo
-      // while preventing excessive storage usage
-      return answerStack.slice(-10);
-    },
-    []
-  );
 
   const saveValue = useCallback(
     (
@@ -243,29 +245,9 @@ function useGameState({
         : undefined;
       return { localValue, serverValuePromise };
     },
-    [
-      saveLocalValue,
-      saveServerValue,
-      timerRef,
-      shrinkAnswerStack,
-      shrinkAnswerStackLocal,
-    ]
+    [saveLocalValue, saveServerValue, timerRef]
   );
-  const handleServerResponse = useCallback(
-    (
-      active: boolean,
-      serverValue: ServerStateResult<ServerState> | undefined
-    ) => {
-      if (
-        active &&
-        serverValue?.parties &&
-        Object.keys(serverValue.parties).length
-      ) {
-        setSessionParties(serverValue.parties);
-      }
-    },
-    [setSessionParties]
-  );
+  const handleServerResponse = useHandleServerResponse(setSessionParties);
 
   // Answers
   const answer = answerStack[answerStack.length - 1];
@@ -463,165 +445,24 @@ function useGameState({
     setValidation(undefined);
   }, [answer, selectedCell]);
 
-  // Restore and save state
-  useEffect(() => {
-    let active = true;
-
-    const { localValue, serverValuePromise } = getValue() || {};
-    if (localValue) {
-      setAnswerStack({
-        answerStack: localValue.state.answerStack,
-        isRestored: true,
-        isDisabled: true, // disable until heard from server
-        completed: localValue.state.completed,
-      });
-    }
-
-    serverValuePromise.then((serverValue) => {
-      if (active) {
-        if (serverValue?.parties && Object.keys(serverValue?.parties).length) {
-          setSessionParties(serverValue.parties);
-        }
-        if (
-          serverValue &&
-          (!localValue?.lastUpdated ||
-            (localValue?.lastUpdated &&
-              serverValue?.state &&
-              serverValue?.updatedAt &&
-              serverValue.updatedAt.getTime() > localValue?.lastUpdated))
-        ) {
-          // Update local state and timer if server state is newer
-          setAnswerStack({
-            answerStack: serverValue.state.answerStack,
-            isRestored: true,
-            completed: serverValue.state.completed,
-          });
-          if (!serverValue.state.completed) {
-            setTimerNewSession(serverValue.state.timer);
-          }
-        } else {
-          if (
-            localValue?.state &&
-            localValue?.lastUpdated &&
-            (serverValue?.updatedAt?.getTime() || 0) <
-              Math.floor(localValue.lastUpdated / 1000) * 1000
-          ) {
-            // Server value is behind local! Update the server!
-            console.warn(
-              'Server behind local, updating server',
-              serverValue?.updatedAt?.getTime() || 0,
-              Math.floor(localValue.lastUpdated / 1000) * 1000
-            );
-            // Track saveValue call timestamp and increment ignore counter
-            lastSaveTimeRef.current = Date.now();
-            pollingIgnoreCounterRef.current += 1;
-            saveValue(localValue.state).serverValuePromise?.then((result) =>
-              handleServerResponse(active, result)
-            );
-          }
-          // Remove disabled flag, heard from server but ignored it
-          setAnswerStack((current) => {
-            return { ...current, isDisabled: undefined };
-          });
-        }
-      }
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [
+  useGameSessionState({
     user,
     puzzleId,
     getValue,
+    setAnswerStack,
     setTimerNewSession,
     saveValue,
     setSessionParties,
     handleServerResponse,
-  ]);
-
-  useEffect(() => {
-    let active = true;
-    let intervalId: ReturnType<typeof setInterval>;
-
-    const pollGetValue = () => {
-      console.info('pollGetValue');
-
-      if (!hasSessionParties || !user) {
-        return;
-      }
-
-      const now = Date.now();
-      const timeSinceLastSave = now - lastSaveTimeRef.current;
-      const timeSinceLastSelectedCellChange =
-        now - lastSelectedCellChangeRef.current;
-
-      // Only poll if more than 30 seconds has passed since last saveValue call
-      // And less than 30 minutes
-      // And there are sessions still in progress
-      // And selectedCell has changed within the last 5 minutes
-      if (
-        !isPaused &&
-        isDocumentVisible &&
-        active &&
-        timeSinceLastSave >= 30000 &&
-        timeSinceLastSave < 60000 * 30 &&
-        (completed || timeSinceLastSelectedCellChange < INACTIVITY_MS) &&
-        Object.values(sessionParties).find(
-          (party) =>
-            party &&
-            Object.values(party.memberSessions).find(
-              (session) => !session?.state.completed
-            )
-        )
-      ) {
-        console.info('polling stale session parties..');
-        const currentIgnoreCounter = pollingIgnoreCounterRef.current;
-        const { serverValuePromise } = getValue() || {};
-
-        serverValuePromise?.then((serverValue) => {
-          // Ignore response if a saveValue call happened after this polling request
-          if (
-            !isPaused &&
-            active &&
-            pollingIgnoreCounterRef.current === currentIgnoreCounter
-          ) {
-            if (
-              serverValue?.parties &&
-              Object.keys(serverValue.parties).length
-            ) {
-              setSessionParties(serverValue.parties);
-            }
-          }
-        });
-      } else {
-        console.info('skipping poll');
-      }
-    };
-
-    if (active && !isPaused && isDocumentVisible && hasSessionParties && user) {
-      console.info('setting up polling..');
-      intervalId = setInterval(pollGetValue, 30000);
-    } else {
-      console.info('not setting up polling, no need');
-    }
-
-    return () => {
-      active = false;
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [
-    getValue,
-    setSessionParties,
+    lastSaveTimeRef,
+    pollingIgnoreCounterRef,
+    lastInteractionRef: lastSelectedCellChangeRef,
+    sessionPartiesRef,
     isPaused,
     isDocumentVisible,
     hasSessionParties,
-    sessionParties,
-    user,
     completed,
-  ]);
+  });
 
   useEffect(() => {
     let active = true;
@@ -695,7 +536,9 @@ function useGameState({
       const insideForm = /^(?:input|textarea|select|button)$/i.test(
         (<HTMLElement>e.target)?.tagName
       );
-      return completed || showLobby || insideForm;
+      return (
+        completed || showLobby || insideForm || isBoardGatedIgnoringCompleted
+      );
     };
     const keyupHandler = (e: KeyboardEvent) => {
       if (ignoreKeyboard(e)) {
@@ -781,6 +624,7 @@ function useGameState({
     validateCell,
     validateGrid,
     showLobby,
+    isBoardGatedIgnoringCompleted,
   ]);
 
   const [isPolling, setIsPolling] = useState(false);
@@ -796,38 +640,6 @@ function useGameState({
       setIsPolling(false);
     }
   }, [getValue, setSessionParties]);
-
-  // Check for inactivity and pause timer/polling if no selectedCell change in 5 minutes
-  useEffect(() => {
-    let intervalId: ReturnType<typeof setInterval>;
-
-    if (!completed) {
-      intervalId = setInterval(() => {
-        const now = Date.now();
-        const timeSinceLastChange = now - lastSelectedCellChangeRef.current;
-
-        if (timeSinceLastChange >= INACTIVITY_MS) {
-          if (!isPaused && !isPausedDueToInactivity) {
-            console.info('pausing due to inactivity');
-            setIsPausedDueToInactivity(true);
-            setPauseTimer(true);
-          }
-        } else {
-          if (isPausedDueToInactivity) {
-            console.info('resuming after inactivity');
-            setIsPausedDueToInactivity(false);
-            setPauseTimer(false);
-          }
-        }
-      }, 60000); // Check every minute
-    }
-
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [completed, isPaused, isPausedDueToInactivity, setPauseTimer]);
 
   return {
     answer,

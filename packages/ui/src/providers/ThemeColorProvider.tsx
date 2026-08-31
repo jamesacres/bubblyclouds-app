@@ -1,6 +1,13 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useTheme } from 'next-themes';
 
 export type ThemeColor =
@@ -28,6 +35,7 @@ export type ThemeColor =
 interface ThemeColorContextType {
   themeColor: ThemeColor;
   setThemeColor: (color: ThemeColor) => void;
+  mounted: boolean;
 }
 
 const ThemeColorContext = createContext<ThemeColorContextType | undefined>(
@@ -53,7 +61,7 @@ export function ThemeColorProvider({
     }
   }, []);
 
-  const setThemeColor = (color: ThemeColor) => {
+  const setThemeColor = useCallback((color: ThemeColor) => {
     setThemeColorState(color);
     localStorage.setItem('theme-color', color);
 
@@ -84,7 +92,7 @@ export function ThemeColorProvider({
 
     // Add the new theme color class
     root.classList.add(`theme-${color}`);
-  };
+  }, []);
 
   // Add theme color class when component mounts or theme changes
   useEffect(() => {
@@ -123,8 +131,13 @@ export function ThemeColorProvider({
     };
   }, [themeColor, mounted, theme]);
 
+  const value = useMemo(
+    () => ({ themeColor, setThemeColor, mounted }),
+    [themeColor, setThemeColor, mounted]
+  );
+
   return (
-    <ThemeColorContext.Provider value={{ themeColor, setThemeColor }}>
+    <ThemeColorContext.Provider value={value}>
       {children}
     </ThemeColorContext.Provider>
   );
@@ -163,4 +176,10 @@ export function useThemeColor() {
     throw new Error('useThemeColor must be used within a ThemeColorProvider');
   }
   return context;
+}
+
+// Same as useThemeColor, but returns undefined instead of throwing when no
+// ThemeColorProvider is present (tests/thumbnails render boards standalone).
+export function useThemeColorOptional() {
+  return useContext(ThemeColorContext);
 }
