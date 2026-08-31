@@ -73,9 +73,8 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-purple-800 dark:text-purple-200',
     content: (
       <>
-        🎨 <strong>Premium theme colors are subscription-only!</strong>{' '}
-        Subscribe to unlock all beautiful theme colors and personalise your
-        sudoku experience.
+        🎨 <strong>This theme is exclusive to Plus.</strong> Upgrade to unlock
+        all beautiful theme colors and personalise your sudoku experience.
       </>
     ),
   },
