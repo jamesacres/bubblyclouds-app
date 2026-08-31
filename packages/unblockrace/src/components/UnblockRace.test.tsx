@@ -35,12 +35,18 @@ jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({ replace: mockReplace, push: mockPush })),
 }));
 const mockFetchSessions = jest.fn();
+const mockRefetchSessions = jest.fn();
 const mockUseSessions = jest.fn<
-  { sessions: unknown[]; fetchSessions: jest.Mock },
+  {
+    sessions: unknown[];
+    fetchSessions: jest.Mock;
+    refetchSessions: jest.Mock;
+  },
   []
 >(() => ({
   sessions: [],
   fetchSessions: mockFetchSessions,
+  refetchSessions: mockRefetchSessions,
 }));
 jest.mock('@bubblyclouds-app/template/providers/SessionsProvider', () => ({
   useSessions: () => mockUseSessions(),
@@ -249,6 +255,7 @@ describe('UnblockRace', () => {
     mockUseSessions.mockReturnValue({
       sessions: [],
       fetchSessions: mockFetchSessions,
+      refetchSessions: mockRefetchSessions,
     });
     mockUseCollection.mockReturnValue({
       collectionData: null,
@@ -384,6 +391,28 @@ describe('UnblockRace', () => {
       />
     );
     expect(mockFetchSessions).toHaveBeenCalled();
+  });
+
+  it('refetches sessions once a collection puzzle completes, so the "X of Y complete" label counts it immediately', () => {
+    // Regression: fetchSessions only populates the sessions list once (it's
+    // a no-op after that), so the puzzle just finished on this page stayed
+    // missing from `sessions` — the progress label undercounted it by 1
+    // (e.g. showing "0 of 20 hard complete" right after finishing the 1st).
+    mockUseGameState.mockReturnValue({
+      ...baseGameState,
+      answer: STAGE_1_COMPLETED,
+      answerStack: [STAGE_1, STAGE_1_COMPLETED],
+      completed: { at: new Date().toISOString(), seconds: 30 },
+    } as ReturnType<typeof useGameState>);
+
+    render(
+      <UnblockRace
+        {...defaultProps}
+        metadata={{ unblockCollectionPuzzleId: 'ofthemonth-202607-puzzle-3' }}
+      />
+    );
+
+    expect(mockRefetchSessions).toHaveBeenCalled();
   });
 
   it('shows a 1-based collection puzzle number in the results panel, not the raw 0-based index', () => {
@@ -877,6 +906,7 @@ describe('UnblockRace', () => {
           },
         ],
         fetchSessions: mockFetchSessions,
+        refetchSessions: mockRefetchSessions,
       });
       mockUseGameState.mockReturnValue({
         ...baseGameState,
@@ -1560,6 +1590,7 @@ describe('UnblockRace', () => {
           completedSession(P3),
         ],
         fetchSessions: mockFetchSessions,
+        refetchSessions: mockRefetchSessions,
       });
       mockUseGameState.mockReturnValue({
         ...baseGameState,
@@ -1592,6 +1623,7 @@ describe('UnblockRace', () => {
           completedSession(P3),
         ],
         fetchSessions: mockFetchSessions,
+        refetchSessions: mockRefetchSessions,
       });
       mockUseGameState.mockReturnValue({
         ...baseGameState,

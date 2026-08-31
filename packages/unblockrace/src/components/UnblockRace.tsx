@@ -279,7 +279,7 @@ const UnblockRace = ({
   const context = useContext(UserContext);
   const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
-  const { sessions, fetchSessions } = useSessions<GameState>();
+  const { sessions, fetchSessions, refetchSessions } = useSessions<GameState>();
   const { collectionData, fetchCollectionData } = useCollection();
 
   const { stages } = run;
@@ -1119,6 +1119,16 @@ const UnblockRace = ({
       fetchSessions();
     }
   }, [isCollectionPuzzle, isDailyRun, fetchSessions]);
+
+  // fetchSessions only populates the list once (it's a no-op after that), so
+  // the puzzle just finished on this page is missing from `sessions` — the
+  // "X of Y complete" label and next-puzzle pick would undercount it by 1.
+  // Force a refetch once it's saved locally so both reflect it immediately.
+  useEffect(() => {
+    if (completed && (isCollectionPuzzle || isDailyRun)) {
+      refetchSessions();
+    }
+  }, [completed, isCollectionPuzzle, isDailyRun, refetchSessions]);
 
   // The result that stays put once the transient celebration fades — the
   // slam and the RaceCelebration both clear themselves, so without this a
