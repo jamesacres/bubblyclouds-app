@@ -1,24 +1,19 @@
 import {
+  getNextCollectionPuzzle as getNextCollectionPuzzleShared,
+  NextCollectionPuzzle as SharedNextCollectionPuzzle,
+} from '@bubblyclouds-app/games/helpers/nextCollectionPuzzle';
+import {
   UnblockCollectionOfTheMonth,
   UnblockCollectionPuzzle,
 } from '../types/serverTypes';
 import { lockedCollectionIndexes } from './collectionLocks';
 
-export interface NextCollectionPuzzle {
-  puzzle: UnblockCollectionPuzzle;
-  index: number;
-  unblockCollectionPuzzleId: string;
-  isLocked: boolean;
-}
+export type NextCollectionPuzzle =
+  SharedNextCollectionPuzzle<UnblockCollectionPuzzle>;
 
-// Picks the puzzle to steer the player to after finishing one, driving the
-// continue-to-next flow. Order of preference:
-//   1. an incomplete puzzle in the same difficulty band, after the current
-//      index (continue where they are),
-//   2. the next harder band,
-//   3. anything else still incomplete.
-// For free users, unlocked puzzles are preferred within each tier so they
-// aren't immediately walled off.
+// Picks the puzzle to steer the player to after finishing one, via the
+// shared @games getNextCollectionPuzzle helper. See that helper for the
+// selection order.
 export const getNextCollectionPuzzle = (args: {
   collection: UnblockCollectionOfTheMonth;
   completedInitials: Set<string>;
@@ -27,78 +22,15 @@ export const getNextCollectionPuzzle = (args: {
 }): NextCollectionPuzzle | undefined => {
   const { collection, completedInitials, currentInitial, isSubscribed } = args;
   const puzzles = collection.puzzles;
-  const locked = lockedCollectionIndexes(puzzles);
 
-  // Distinct difficulty bands in the order they first appear (ascending).
-  const bandOrder: string[] = [];
-  puzzles.forEach((puzzle) => {
-    if (!bandOrder.includes(puzzle.difficulty)) {
-      bandOrder.push(puzzle.difficulty);
-    }
+  return getNextCollectionPuzzleShared({
+    puzzles,
+    collectionId: collection.unblockCollectionId,
+    completedInitials,
+    currentInitial,
+    isSubscribed,
+    getDifficulty: (puzzle) => puzzle.difficulty,
+    getInitial: (puzzle) => puzzle.initial,
+    lockedIndexes: lockedCollectionIndexes(puzzles),
   });
-
-  const currentIndex = currentInitial
-    ? puzzles.findIndex((puzzle) => puzzle.initial === currentInitial)
-    : -1;
-  const currentBandRank =
-    currentIndex >= 0
-      ? bandOrder.indexOf(puzzles[currentIndex].difficulty)
-      : -1;
-
-  const toEntry = (index: number): NextCollectionPuzzle => ({
-    puzzle: puzzles[index],
-    index,
-    unblockCollectionPuzzleId: `${collection.unblockCollectionId}-puzzle-${index}`,
-    isLocked: locked.has(index),
-  });
-
-  const tierRank = (index: number): number => {
-    const bandRank = bandOrder.indexOf(puzzles[index].difficulty);
-    if (bandRank === currentBandRank && index > currentIndex) {
-      return 0;
-    }
-    if (bandRank > currentBandRank) {
-      return 1;
-    }
-    return 2;
-  };
-
-  const candidates = puzzles
-    .map((puzzle, index) => ({ puzzle, index }))
-    .filter(
-      ({ puzzle, index }) =>
-        index !== currentIndex && !completedInitials.has(puzzle.initial)
-    );
-
-  if (candidates.length === 0) {
-    return undefined;
-  }
-
-  const lockedPenalty = (index: number): number =>
-    !isSubscribed && locked.has(index) ? 1 : 0;
-
-  const bandRankOf = (index: number): number =>
-    bandOrder.indexOf(puzzles[index].difficulty);
-
-  candidates.sort((a, b) => {
-    const tierDiff = tierRank(a.index) - tierRank(b.index);
-    if (tierDiff !== 0) {
-      return tierDiff;
-    }
-    // Within a tier, stay in band order first — "prefer unlocked" is a
-    // same-band tiebreaker (SPEC: unlocked puzzles are preferred within
-    // each tier), not a license to skip a nearer locked puzzle for a
-    // farther unlocked one in a later band.
-    const bandDiff = bandRankOf(a.index) - bandRankOf(b.index);
-    if (bandDiff !== 0) {
-      return bandDiff;
-    }
-    const lockDiff = lockedPenalty(a.index) - lockedPenalty(b.index);
-    if (lockDiff !== 0) {
-      return lockDiff;
-    }
-    return a.index - b.index;
-  });
-
-  return toEntry(candidates[0].index);
 };

@@ -35,6 +35,12 @@ describe('CompletionSummary', () => {
     expect(screen.getByText('10/10')).toBeInTheDocument();
   });
 
+  it('omits star rating when not supplied', () => {
+    render(<CompletionSummary statCells={movesStatCell(10, 10)} />);
+
+    expect(screen.queryByLabelText(/stars/)).not.toBeInTheDocument();
+  });
+
   it('omits the label when not supplied', () => {
     render(<CompletionSummary stars={1} statCells={movesStatCell(5, 5)} />);
 

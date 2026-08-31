@@ -57,6 +57,7 @@ import {
 import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
 import { getDailyLabel } from '../helpers/dailyLabel';
 import { getCollectionPuzzleLabel } from '../helpers/collectionPuzzleLabel';
+import { nextPuzzleProgressLabel as buildNextPuzzleProgressLabel } from '@bubblyclouds-app/games/helpers/nextPuzzleProgressLabel';
 import { formatSecondsShort } from '../helpers/formatSecondsShort';
 import { starRatingForMoves, starRatingFromState } from '../helpers/starRating';
 import { isCollectionPuzzleIdLocked } from '../helpers/collectionLocks';
@@ -1091,7 +1092,10 @@ const UnblockRace = ({
       );
       comboIndex += 1;
     }
-    return points;
+    // Summing several already-rounded stage totals can still drift by a
+    // float epsilon (e.g. 0.1 + 0.2), which would otherwise leak into the
+    // run-total leaderboard points shown in the finish celebration.
+    return Math.round(points * 100) / 100;
   }, [completedStages, dayPuzzleIndex, scoreStage]);
 
   const isCollectionPuzzle = !!metadata.unblockCollectionPuzzleId;
@@ -1235,36 +1239,43 @@ const UnblockRace = ({
     }
     router.push(
       buildPuzzleUrl([next.puzzle.initial], [next.puzzle.movesRequired], {
-        unblockCollectionPuzzleId: next.unblockCollectionPuzzleId,
+        unblockCollectionPuzzleId: next.puzzleId,
       })
     );
   }, [nextCollectionPuzzle, router]);
+
+  // The band of the puzzle just finished, not nextCollectionPuzzle's — see
+  // nextPuzzleProgressLabel helper doc for why those can differ (finishing
+  // the last puzzle in a band advances to the next, harder one).
+  const completedDifficulty = isCollectionPuzzle
+    ? difficultyForMoves(stage.movesRequired)
+    : undefined;
 
   const nextPuzzleProgressLabel = useMemo(() => {
     if (!nextCollectionPuzzle) {
       return '';
     }
-    if (isDailyRun && !isCollectionPuzzle) {
-      return 'Keep the streak going in the collection';
-    }
-    const difficulty = nextCollectionPuzzle.puzzle.difficulty;
-    const bandPuzzles = (collectionData?.puzzles || []).filter(
-      (puzzle) => puzzle.difficulty === difficulty
-    );
-    const completedInBand = bandPuzzles.filter((puzzle) =>
-      (sessions || []).some(
-        (session) =>
-          session.state.initial === puzzle.initial &&
-          session.state.completed &&
-          !isPuzzleCheated(session.state.answerStack)
-      )
-    ).length;
-    const bandLabel = unblockDifficultyDisplay(difficulty).label;
-    return `${completedInBand} of ${bandPuzzles.length} ${bandLabel} complete`;
+    return buildNextPuzzleProgressLabel({
+      isDailyPuzzle: isDailyRun,
+      isCollectionPuzzle,
+      streakMessage: 'Keep the streak going in the collection',
+      completedDifficulty,
+      collectionPuzzles: collectionData?.puzzles || [],
+      getDifficulty: (puzzle) => puzzle.difficulty,
+      isPuzzleCompleted: (puzzle) =>
+        (sessions || []).some(
+          (session) =>
+            session.state.initial === puzzle.initial &&
+            session.state.completed &&
+            !isPuzzleCheated(session.state.answerStack)
+        ),
+      getDifficultyDisplay: unblockDifficultyDisplay,
+    });
   }, [
     nextCollectionPuzzle,
     isDailyRun,
     isCollectionPuzzle,
+    completedDifficulty,
     collectionData,
     sessions,
   ]);
@@ -2050,9 +2061,6 @@ const UnblockRace = ({
                 nextCollectionPuzzle &&
                 (isCollectionPuzzle || (isDailyRun && isFinalStage)) && (
                   <NextPuzzlePanel
-                    difficulty={unblockDifficultyDisplay(
-                      nextCollectionPuzzle.puzzle.difficulty
-                    )}
                     isLocked={nextCollectionPuzzle.isLocked}
                     progressLabel={nextPuzzleProgressLabel}
                     onContinue={handleContinueToNext}

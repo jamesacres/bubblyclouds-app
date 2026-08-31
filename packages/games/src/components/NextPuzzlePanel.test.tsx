@@ -1,17 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import NextPuzzlePanel from './NextPuzzlePanel';
-import { DifficultyDisplay } from '../types/difficultyDisplay';
-
-const difficulty: DifficultyDisplay = {
-  label: 'Hard',
-  chipClass: 'bg-orange-500/15 text-orange-600 dark:text-orange-400',
-};
 
 describe('NextPuzzlePanel', () => {
-  it('renders the continue CTA, difficulty badge and progress label', () => {
+  it('renders the continue CTA and progress label', () => {
     render(
       <NextPuzzlePanel
-        difficulty={difficulty}
         isLocked={false}
         progressLabel="3 of 8 Hard complete"
         onContinue={jest.fn()}
@@ -19,9 +12,9 @@ describe('NextPuzzlePanel', () => {
     );
 
     expect(screen.getByTestId('next-puzzle-panel')).toBeInTheDocument();
-    expect(screen.getByTestId('next-puzzle-difficulty')).toHaveTextContent(
-      'Hard'
-    );
+    expect(
+      screen.queryByTestId('next-puzzle-difficulty')
+    ).not.toBeInTheDocument();
     expect(screen.getByText('3 of 8 Hard complete')).toBeInTheDocument();
     expect(screen.getByTestId('next-puzzle-continue')).toHaveTextContent(
       'Continue — next puzzle'
@@ -32,7 +25,6 @@ describe('NextPuzzlePanel', () => {
     const onContinue = jest.fn();
     render(
       <NextPuzzlePanel
-        difficulty={difficulty}
         isLocked={false}
         progressLabel="progress"
         onContinue={onContinue}
@@ -46,7 +38,6 @@ describe('NextPuzzlePanel', () => {
   it('shows the Plus-locked label when the next puzzle is locked', () => {
     render(
       <NextPuzzlePanel
-        difficulty={difficulty}
         isLocked
         progressLabel="progress"
         onContinue={jest.fn()}
@@ -62,7 +53,6 @@ describe('NextPuzzlePanel', () => {
     const onContinue = jest.fn();
     render(
       <NextPuzzlePanel
-        difficulty={difficulty}
         isLocked
         progressLabel="progress"
         onContinue={onContinue}

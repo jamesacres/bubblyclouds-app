@@ -41,7 +41,9 @@ import {
 import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvider';
 import { AppDownloadModal } from '@bubblyclouds-app/template/components/AppDownloadModal';
 import { CelebrationAnimation } from '@bubblyclouds-app/ui/components/CelebrationAnimation';
-import RaceCelebrationOverlay from '@bubblyclouds-app/ui/components/RaceCelebrationOverlay';
+import RaceCelebrationOverlay, {
+  CELEBRATION_MS,
+} from '@bubblyclouds-app/ui/components/RaceCelebrationOverlay';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import LobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import { useRouter } from 'next/navigation';
@@ -69,6 +71,19 @@ import { derivePuzzleMetaLabel } from '../helpers/puzzleMetaLabel';
 import CountdownOverlay from '@bubblyclouds-app/games/components/CountdownOverlay';
 import { useBook } from '../providers/BookProvider';
 import { isBookPuzzleIdLocked } from '../helpers/bookLocks';
+import { getNextBookPuzzle, NextBookPuzzle } from '../helpers/nextBookPuzzle';
+import { nextPuzzleProgressLabel as buildNextPuzzleProgressLabel } from '@bubblyclouds-app/games/helpers/nextPuzzleProgressLabel';
+import { sudokuDifficultyDisplay } from '../helpers/sudokuDifficultyDisplay';
+import { buildPuzzleUrl } from '../helpers/buildPuzzleUrl';
+import {
+  calculateSessionScore,
+  formatTime,
+} from '@bubblyclouds-app/games/helpers/scoringUtils';
+import { SCORING_CONFIG } from '@bubblyclouds-app/games/helpers/scoringConfig';
+import CompletionSummary from '@bubblyclouds-app/games/components/CompletionSummary';
+import NextPuzzlePanel from '@bubblyclouds-app/games/components/NextPuzzlePanel';
+import { CountUp } from '@bubblyclouds-app/ui/components/CountUp';
+import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 
 const buildPristineAgentState = (firstState: ServerState): ServerState => ({
   initial: firstState.initial,
@@ -123,7 +138,7 @@ const Sudoku = ({
   const context = useContext(UserContext);
   const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
-  const { sessions } = useSessions<GameState>();
+  const { sessions, fetchSessions, refetchSessions } = useSessions<GameState>();
   const { bookData, fetchBookData } = useBook();
 
   // A free user deep-linking into a locked book puzzle (the latter half of a
@@ -139,6 +154,7 @@ const Sudoku = ({
   // the same disabled/timer-paused state as a confirmed lock for that
   // window.
   const isBookPuzzle = !!metadata.sudokuBookPuzzleId;
+  const isDailyPuzzle = !!metadata.sudokuId?.includes('oftheday');
   const isPendingLockCheckIgnoringCompleted =
     !isSubscribed && !alreadyCompleted && isBookPuzzle && !bookData;
   const isLockedBookPuzzleIgnoringCompleted =
@@ -197,7 +213,9 @@ const Sudoku = ({
     (completedAnswerStack: Puzzle[]) => {
       if (alreadyCompleted || isPuzzleCheated(completedAnswerStack)) return;
       setShowAnimation(true);
-      const timerId = setTimeout(() => setShowAnimation(false), 10000);
+      // Matches CelebrationAnimation's own internal timer so the grid,
+      // RaceTrack and overlay all reappear together with no blank gap.
+      const timerId = setTimeout(() => setShowAnimation(false), CELEBRATION_MS);
       return () => clearTimeout(timerId);
     },
     [alreadyCompleted]
@@ -320,12 +338,35 @@ const Sudoku = ({
 
   // The book lock gate only concerns book puzzles; nothing else fetches
   // bookData, so a deep link straight to a puzzle URL would otherwise leave
-  // it null forever.
+  // it null forever. The daily puzzle also needs it for the "continue into
+  // the book" next-puzzle panel.
   useEffect(() => {
-    if (isBookPuzzle) {
+    if (isBookPuzzle || isDailyPuzzle) {
       fetchBookData();
     }
-  }, [isBookPuzzle, fetchBookData]);
+  }, [isBookPuzzle, isDailyPuzzle, fetchBookData]);
+
+  // The daily-combo score and the "X of Y complete" next-puzzle label both
+  // need sessions, but only the home/book list pages fetch those. Landing
+  // here directly (a deep link, a fresh page load) would otherwise leave
+  // sessions null forever (fetchSessions is a no-op once populated
+  // elsewhere), silently under-counting both.
+  useEffect(() => {
+    if (isBookPuzzle || isDailyPuzzle) {
+      fetchSessions();
+    }
+  }, [isBookPuzzle, isDailyPuzzle, fetchSessions]);
+
+  // fetchSessions only populates the list once (it's a no-op after that), so
+  // the puzzle just finished on this page is missing from `sessions` — the
+  // points, "X of Y complete" label and next-puzzle pick would undercount it
+  // by 1. Force a refetch once it's saved locally so all three reflect it
+  // immediately.
+  useEffect(() => {
+    if (completed && (isBookPuzzle || isDailyPuzzle)) {
+      refetchSessions();
+    }
+  }, [completed, isBookPuzzle, isDailyPuzzle, refetchSessions]);
 
   // completed (session-in-progress state, only known post-useGameState) also
   // lifts the gate, same as alreadyCompleted above.
@@ -719,6 +760,130 @@ const Sudoku = ({
     [metadata]
   );
 
+  // How many other puzzles were completed today — feeds the daily combo
+  // multiplier in calculateSessionScore, same as Unblock Race's
+  // dayPuzzleIndex. Excludes this puzzle's own session so a re-render after
+  // solving doesn't count it against itself.
+  const dayPuzzleIndex = useMemo(() => {
+    if (!sessions) {
+      return 0;
+    }
+    const todayKey = new Date().toISOString().slice(0, 10);
+    return sessions.filter((session) => {
+      if (session.sessionId === `sudoku-${puzzleId}`) {
+        return false;
+      }
+      const completedAt = session.state.completed?.at;
+      if (!completedAt) {
+        return false;
+      }
+      if (isPuzzleCheated(session.state.answerStack)) {
+        return false;
+      }
+      return new Date(completedAt).toISOString().slice(0, 10) === todayKey;
+    }).length;
+  }, [sessions, puzzleId]);
+
+  // The just-solved puzzle's leaderboard points, computed the same way the
+  // friends Leaderboard tallies totals (calculateSessionScore) so the
+  // in-game "+N pts" payoff always matches what the player's total goes up
+  // by. Undefined only before the puzzle is completed.
+  const puzzlePoints = useMemo(() => {
+    if (!completed) {
+      return undefined;
+    }
+    const session: ServerStateResult<ServerState> = {
+      sessionId: `sudoku-${puzzleId}`,
+      updatedAt: new Date(),
+      state: { initial, final, answerStack: [], completed, metadata },
+    };
+    return calculateSessionScore(session, {
+      dailyCombo: SCORING_CONFIG.DAILY_COMBO,
+      dayPuzzleIndex,
+    }).total;
+  }, [completed, puzzleId, initial, final, metadata, dayPuzzleIndex]);
+
+  // The continue-to-next-puzzle target: which book puzzle to steer the
+  // player into next once they finish. Shown for a book puzzle (continue
+  // through the book) and after the daily puzzle (keep the streak going in
+  // the book). Skipped otherwise (e.g. scanned puzzles).
+  const nextBookPuzzle = useMemo<NextBookPuzzle | undefined>(() => {
+    if (!bookData) {
+      return undefined;
+    }
+    if (!isBookPuzzle && !isDailyPuzzle) {
+      return undefined;
+    }
+    const completedInitials = new Set(
+      (sessions || [])
+        .filter(
+          (session) =>
+            session.state.completed &&
+            !isPuzzleCheated(session.state.answerStack)
+        )
+        .map((session) => puzzleToPuzzleText(session.state.initial))
+    );
+    return getNextBookPuzzle({
+      book: bookData,
+      completedInitials,
+      currentInitial: isBookPuzzle ? puzzleToPuzzleText(initial) : undefined,
+      isSubscribed: !!isSubscribed,
+    });
+  }, [bookData, isBookPuzzle, isDailyPuzzle, sessions, initial, isSubscribed]);
+
+  const handleContinueToNext = useCallback(() => {
+    const next = nextBookPuzzle;
+    if (!next) {
+      return;
+    }
+    router.push(
+      buildPuzzleUrl(next.puzzle.initial, next.puzzle.final, {
+        difficulty: next.puzzle.difficulty.coach,
+        sudokuBookPuzzleId: next.puzzleId,
+      })
+    );
+  }, [nextBookPuzzle, router]);
+
+  // Describes the band of the puzzle just finished (not the destination
+  // `nextBookPuzzle` points at) — e.g. finishing the last "Very Easy"
+  // puzzle should still report "3 of 3 Very Easy complete" even though the
+  // Continue button is about to take the player into "Easy".
+  const completedPuzzleDifficultyDisplay = useMemo(() => {
+    if (!isBookPuzzle || !metadata.difficulty) {
+      return undefined;
+    }
+    return sudokuDifficultyDisplay(metadata.difficulty);
+  }, [isBookPuzzle, metadata.difficulty]);
+
+  const nextPuzzleProgressLabel = useMemo(() => {
+    if (!nextBookPuzzle) {
+      return '';
+    }
+    return buildNextPuzzleProgressLabel({
+      isDailyPuzzle,
+      isCollectionPuzzle: isBookPuzzle,
+      streakMessage: 'Keep the streak going in the book',
+      completedDifficulty: metadata.difficulty,
+      collectionPuzzles: bookData?.puzzles || [],
+      getDifficulty: (puzzle) => puzzle.difficulty.coach,
+      isPuzzleCompleted: (puzzle) =>
+        (sessions || []).some(
+          (session) =>
+            puzzleToPuzzleText(session.state.initial) === puzzle.initial &&
+            session.state.completed &&
+            !isPuzzleCheated(session.state.answerStack)
+        ),
+      getDifficultyDisplay: sudokuDifficultyDisplay,
+    });
+  }, [
+    nextBookPuzzle,
+    isDailyPuzzle,
+    isBookPuzzle,
+    bookData,
+    sessions,
+    metadata.difficulty,
+  ]);
+
   const isInputDisabled =
     isBoardGated || !selectedCell || isInitialCell(selectedCell, initial);
   const isValidateCellDisabled =
@@ -813,7 +978,33 @@ const Sudoku = ({
               in front of the page but behind the exploding numbers so it frames
               them rather than obscuring them. Presentation-only, so the review
               prompt still lives solely in CelebrationAnimation. */}
-          <RaceCelebrationOverlay isVisible={showAnimation} title="Solved!" />
+          <RaceCelebrationOverlay
+            isVisible={showAnimation}
+            title="Solved!"
+            belowBadge={
+              puzzlePoints !== undefined && (
+                <div
+                  data-testid="sudoku-celebration-points"
+                  className="flex flex-col items-center gap-0.5"
+                  style={{
+                    animation:
+                      'celebration-banner-rise 400ms ease-out 350ms both',
+                  }}
+                >
+                  <CountUp
+                    value={puzzlePoints}
+                    prefix="+"
+                    suffix=" pts"
+                    startDelayMs={500}
+                    className="font-mono text-3xl font-black tabular-nums text-amber-300"
+                  />
+                  <span className="text-[0.65rem] font-black uppercase tracking-widest text-white/60">
+                    Leaderboard points
+                  </span>
+                </div>
+              )
+            }
+          />
         </>
       )}
 
@@ -906,6 +1097,42 @@ const Sudoku = ({
                   <ChainOverlay chainPath={chainPath} gridRef={gridRef} />
                 </div>
               </div>
+
+              {/* The finished result, kept visible under the board after the
+                  transient celebration fades so a solved puzzle never leaves
+                  the player looking at a blank result. */}
+              {completed && puzzlePoints !== undefined && (
+                <div className="ml-auto mr-auto max-w-xl lg:mr-0">
+                  <CompletionSummary
+                    statCells={
+                      <div className="flex min-w-20 flex-col items-center gap-0.5 rounded-xl bg-stone-100/80 px-4 py-2 dark:bg-zinc-800/70">
+                        <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
+                          Time
+                        </span>
+                        <span className="font-mono text-lg font-bold tabular-nums leading-none text-stone-900 dark:text-white">
+                          {formatTime(completed.seconds)}
+                        </span>
+                      </div>
+                    }
+                    points={puzzlePoints}
+                    label={puzzleMetaLabel || undefined}
+                  />
+                </div>
+              )}
+
+              {/* Continue-to-next-puzzle flow: once this puzzle is finished,
+                  steer the player into the next book puzzle. Shown for a book
+                  puzzle (continue through the book) and after the daily
+                  puzzle (keep the streak going in the book). */}
+              {completed && nextBookPuzzle && (
+                <div className="ml-auto mr-auto max-w-xl lg:mr-0">
+                  <NextPuzzlePanel
+                    isLocked={nextBookPuzzle.isLocked}
+                    progressLabel={nextPuzzleProgressLabel}
+                    onContinue={handleContinueToNext}
+                  />
+                </div>
+              )}
 
               {!showAnimation && (
                 <RaceTrack

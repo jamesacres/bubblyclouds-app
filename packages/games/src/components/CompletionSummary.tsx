@@ -6,7 +6,8 @@ import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 
 interface CompletionSummaryProps {
   // Moves-vs-par grade (0–3) for the just-finished puzzle or whole run.
-  stars: number;
+  // Omitted by games with no such grading concept (e.g. sudoku).
+  stars?: number;
   // The caller's own stat cells (e.g. Time, Moves) — scoring is game-
   // specific, so this component only owns the card chrome around them.
   statCells: ReactNode;
@@ -53,7 +54,7 @@ const CompletionSummary = ({
           Retry
         </button>
       )}
-      <StarRating rating={stars} size="lg" />
+      {stars !== undefined && <StarRating rating={stars} size="lg" />}
       <div className="mt-1 flex items-stretch gap-2">{statCells}</div>
       {points !== undefined && (
         <div className="flex flex-col items-center gap-0.5">

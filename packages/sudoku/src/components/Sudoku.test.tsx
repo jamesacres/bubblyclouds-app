@@ -153,6 +153,7 @@ const mockIsBookPuzzleIdLocked = jest.fn((..._args: unknown[]) => false);
 jest.mock('../helpers/bookLocks', () => ({
   isBookPuzzleIdLocked: (...args: unknown[]) =>
     mockIsBookPuzzleIdLocked(...args),
+  lockedBookIndexes: () => new Set<number>(),
 }));
 
 jest.mock('@bubblyclouds-app/template/helpers/calculateSeconds', () => ({
@@ -261,6 +262,8 @@ describe('Sudoku', () => {
     (useRouter as jest.Mock).mockReturnValue({ push: jest.fn() });
     (useSessions as jest.Mock).mockReturnValue({
       sessions: [],
+      fetchSessions: jest.fn(),
+      refetchSessions: jest.fn(),
     });
   });
 

@@ -165,7 +165,10 @@ export const calculateSessionScore = <
     speedBonus,
     comboMultiplier,
     comboBonus,
-    total,
+    // Floating-point multipliers (combo, difficulty) can leave sub-cent
+    // drift (e.g. 506.00000000000006) that has no meaning as leaderboard
+    // points and would otherwise leak into the UI verbatim.
+    total: Math.round(total * 100) / 100,
   };
 };
 

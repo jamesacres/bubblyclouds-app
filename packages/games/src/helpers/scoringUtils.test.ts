@@ -500,6 +500,23 @@ describe('scoringUtils', () => {
       );
     });
 
+    it('rounds away floating-point noise from the combo multiplier', () => {
+      // Daily puzzle (base 100), expert multiplier 4.0, a 50 speed bonus,
+      // combo index 1 (1.1x) — this exact combination sums to
+      // 506.00000000000006 in raw IEEE-754 arithmetic.
+      const session = createSession(
+        { runId: 'oftheday-20260708', difficulty: 'expert' },
+        700
+      );
+      const score = calculateSessionScore(session, {
+        dailyCombo: SCORING_CONFIG.DAILY_COMBO,
+        dayPuzzleIndex: 1,
+        difficultyMultipliers: { expert: 4.0 },
+      });
+
+      expect(score.total).toBe(506);
+    });
+
     it('caps the combo multiplier at max', () => {
       const session = createSession({ runId: 'oftheday-20260708' }, 120);
       const dailyCombo = SCORING_CONFIG.DAILY_COMBO;

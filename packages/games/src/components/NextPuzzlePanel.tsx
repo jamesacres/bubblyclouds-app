@@ -1,10 +1,8 @@
 'use client';
 
 import { ChevronRight, Sparkles } from 'lucide-react';
-import { DifficultyDisplay } from '../types/difficultyDisplay';
 
 interface NextPuzzlePanelProps {
-  difficulty: DifficultyDisplay;
   isLocked: boolean;
   progressLabel: string;
   onContinue: () => void;
@@ -18,7 +16,6 @@ interface NextPuzzlePanelProps {
 // catches it on arrival — but wears a sparkle and "(Plus)" label so the
 // unlock isn't a surprise, framed as a reward rather than a wall.
 const NextPuzzlePanel = ({
-  difficulty,
   isLocked,
   progressLabel,
   onContinue,
@@ -37,17 +34,9 @@ const NextPuzzlePanel = ({
           [data-testid="next-puzzle-continue"] { animation: none !important; }
         }
       `}</style>
-      <div className="flex items-center gap-2">
-        <span
-          data-testid="next-puzzle-difficulty"
-          className={`rounded-full px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-widest ${difficulty.chipClass}`}
-        >
-          {difficulty.label}
-        </span>
-        <span className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-zinc-500">
-          {progressLabel}
-        </span>
-      </div>
+      <span className="text-xs font-semibold uppercase tracking-widest text-stone-400 dark:text-zinc-500">
+        {progressLabel}
+      </span>
       <button
         type="button"
         data-testid="next-puzzle-continue"

@@ -78,6 +78,7 @@ describe('AuthProvider', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     localStorage.clear();
+    sessionStorage.clear();
   });
 
   describe('provider setup', () => {
@@ -1759,6 +1760,70 @@ describe('AuthProvider', () => {
       await waitFor(() => {
         expect(isLoggingInRef.current).toBe(true);
       });
+
+      delete window.electronAPI;
+    });
+
+    it('should not auto-redirect again in the same tab after a prior recovery attempt already failed', async () => {
+      // sessionStorage circuit breaker: recoverSession is re-armed to 'true'
+      // only by a successful login, so on its own it can't stop a retry loop
+      // if the OIDC round trip keeps bouncing back without one. Simulating
+      // that here by setting recoverSession back to 'true' as if a prior
+      // attempt had somehow re-armed it, with the tab-scoped flag already
+      // set from that prior attempt.
+      window.electronAPI = {
+        openBrowser: jest.fn(),
+        encrypt: jest.fn(),
+        decrypt: jest.fn().mockResolvedValue(
+          JSON.stringify({
+            accessToken: null,
+            accessExpiry: null,
+            refreshToken: null,
+            refreshExpiry: null,
+            user: null,
+            userExpiry: null,
+          })
+        ),
+        saveState: jest.fn(),
+      };
+      localStorage.setItem('recoverSession', 'true');
+      sessionStorage.setItem('recoverSessionAttempted', 'true');
+      Object.defineProperty(window.navigator, 'onLine', {
+        configurable: true,
+        value: true,
+      });
+
+      const isLoggingInRef = { current: false };
+      const handleRestoreStateRef = { current: undefined as any };
+      const TestComponent = () => {
+        const context = useContext(UserContext);
+        const ref = useRef({ isLoggingInRef, handleRestoreStateRef });
+        useEffect(() => {
+          ref.current.isLoggingInRef.current = context?.isLoggingIn ?? false;
+          ref.current.handleRestoreStateRef.current =
+            context?.handleRestoreState;
+        }, [context?.isLoggingIn, context?.handleRestoreState]);
+        return <div>Test</div>;
+      };
+
+      render(
+        <Wrapper>
+          <TestComponent />
+        </Wrapper>
+      );
+
+      await waitFor(() => {
+        expect(handleRestoreStateRef.current).toBeDefined();
+      });
+
+      await act(async () => {
+        await handleRestoreStateRef.current!();
+      });
+
+      // recoverSession is left untouched (not attempted, so not cleared)
+      expect(localStorage.getItem('recoverSession')).toBe('true');
+      // isLoggingIn never flips true, since loginRedirect was never called
+      expect(isLoggingInRef.current).toBe(false);
 
       delete window.electronAPI;
     });
