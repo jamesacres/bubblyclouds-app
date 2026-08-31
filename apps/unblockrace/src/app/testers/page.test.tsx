@@ -57,7 +57,7 @@ describe('Testers Page', () => {
         (link) =>
           link
             .getAttribute('href')
-            ?.includes('unblock.bubblyclouds.com/invite') || false
+            ?.includes('unblockrace.bubblyclouds.com/invite') || false
       );
       expect(inviteLinks.length).toBe(0);
     });
@@ -75,7 +75,7 @@ describe('Testers Page', () => {
           link
             .getAttribute('href')
             ?.includes(
-              'unblock.bubblyclouds.com/invite?inviteId=test-invite-123'
+              'unblockrace.bubblyclouds.com/invite?inviteId=test-invite-123'
             ) || false
       );
       expect(externalInviteLinks.length).toBeGreaterThan(0);
