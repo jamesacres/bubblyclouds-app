@@ -46,4 +46,12 @@ const APP_CONFIG = {
   },
 };
 
-module.exports = { APP_CONFIG };
+const CROSS_PROMO = {
+  gameName: 'Sudoku Race',
+  tagline: 'Share a Sudoku with friends and race to solve it fastest.',
+  appUrl: `https://sudoku.${DOMAIN}`,
+  appStoreUrl: 'https://apps.apple.com/app/sudoku-race/id6517357180',
+  googlePlayUrl: `https://play.google.com/store/apps/details?id=${REVERSE_DOMAIN}.sudoku`,
+};
+
+module.exports = { APP_CONFIG, CROSS_PROMO };

@@ -367,6 +367,31 @@ body {
 .race-lane-amber { animation: raceLaneAmber 9s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
 .race-lane-rose  { animation: raceLaneRose 9s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
 
+/* ─── Sudoku Race preview (cross-promo card) ────────────────────
+   Same 9s clock as the jam board: the highlighted row fills in one
+   cell at a time, glows complete for a beat, then fades and resets.
+   Every cell shares one keyframe timeline; SudokuBoardPreview gives
+   each a small *negative* animation-delay so it starts partway through
+   already (staggering the pop-in left-to-right) while staying in sync
+   with the shared fade-out. The blank stretches before the pop-in and
+   after the fade-out are kept to a fraction of a second each. */
+@keyframes sudokuRaceRow {
+  0%, 1%    { opacity: 0; }
+  3%, 80%   { opacity: 1; box-shadow: 0 0 12px 2px rgba(167,139,250,0.35); }
+  84%       { opacity: 1; }
+  86%, 97%  { opacity: 0; }
+  100%      { opacity: 0; }
+}
+@keyframes sudokuRaceCell {
+  0%, 1%    { opacity: 0; transform: scale(0.6); }
+  3%, 80%   { opacity: 1; transform: scale(1); }
+  84%       { opacity: 1; transform: scale(1); }
+  86%, 97%  { opacity: 0; transform: scale(0.6); }
+  100%      { opacity: 0; transform: scale(0.6); }
+}
+.sudoku-race-row  { animation: sudokuRaceRow 9s cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+.sudoku-race-cell { animation: sudokuRaceCell 9s cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .jam-rival-down,
   .jam-rival-up,
@@ -374,7 +399,9 @@ body {
   .jam-exit-pulse,
   .race-lane-hero,
   .race-lane-amber,
-  .race-lane-rose {
+  .race-lane-rose,
+  .sudoku-race-row,
+  .sudoku-race-cell {
     animation: none;
   }
 }

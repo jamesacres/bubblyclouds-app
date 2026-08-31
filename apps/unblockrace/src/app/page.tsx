@@ -5,6 +5,7 @@ import { useSessions } from '@bubblyclouds-app/template/providers/SessionsProvid
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
 import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
+import { CrossPromoCard } from '@bubblyclouds-app/template/components/CrossPromoCard';
 import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
 import { PREMIUM_FEATURES } from '../config/premiumFeatures';
 import { motivationalMessages } from '../config/motivationalMessages';
@@ -23,12 +24,12 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Users, Zap, Award, BookOpen, ChevronsRight } from 'lucide-react';
+import { Users, Zap, Award, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import { getUnblockDifficultyDisplay } from '@bubblyclouds-app/unblockrace/helpers/difficultyDisplay';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
-import { APP_CONFIG } from '../../app.config.js';
+import { APP_CONFIG, CROSS_PROMO } from '../../app.config.js';
 import { GameState } from '@bubblyclouds-app/unblockrace/types/state';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/unblockrace/helpers/cheatDetection';
@@ -39,112 +40,11 @@ import { buildPuzzleUrl } from '@bubblyclouds-app/unblockrace/helpers/buildPuzzl
 import { useUnblockServerStorage } from '@bubblyclouds-app/unblockrace/hooks/useUnblockServerStorage';
 import SimpleBoard from '@bubblyclouds-app/unblockrace/components/SimpleBoard';
 import CollectionCover from '@bubblyclouds-app/unblockrace/components/UnblockCollectionCover';
+import { SudokuBoardPreview } from '@bubblyclouds-app/games/components/SudokuBoardPreview';
+import { UnblockRaceBoardPreview } from '@bubblyclouds-app/games/components/UnblockRaceBoardPreview';
 
 const SimpleStateWrapper = ({ state }: { state: GameState }) => (
   <SimpleBoard state={state} />
-);
-
-const jamCell = (value: number) => `${(value / 6) * 100}%`;
-
-const jamPieceStyle = (
-  col: number,
-  row: number,
-  width: number,
-  height: number
-) => ({
-  left: jamCell(col),
-  top: jamCell(row),
-  width: jamCell(width),
-  height: jamCell(height),
-});
-
-const JAM_STATIC_PIECES = [
-  { col: 0, row: 0, width: 2, height: 1, color: '#06b6d4' },
-  { col: 0, row: 3, width: 1, height: 2, color: '#84cc16' },
-  { col: 0, row: 5, width: 3, height: 1, color: '#f97316' },
-  { col: 4, row: 4, width: 2, height: 1, color: '#14b8a6' },
-];
-
-// Looping preview of the game itself: two rivals slide clear, then the
-// theme-coloured hero block escapes through the exit (keyframes in
-// globals.css, choreographed on a shared 9s clock).
-const JamBoardPreview = () => (
-  <div
-    aria-hidden="true"
-    className="relative aspect-square w-full overflow-hidden rounded-2xl"
-    style={{
-      background: 'rgba(2,8,20,0.85)',
-      border: '1px solid rgba(148,163,184,0.16)',
-      backgroundImage:
-        'linear-gradient(rgba(148,163,184,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.09) 1px, transparent 1px)',
-      backgroundSize: 'calc(100% / 6) calc(100% / 6)',
-    }}
-  >
-    {JAM_STATIC_PIECES.map(({ col, row, width, height, color }) => (
-      <div
-        key={`${col}-${row}`}
-        className="absolute"
-        style={jamPieceStyle(col, row, width, height)}
-      >
-        <div
-          className="absolute"
-          style={{
-            inset: '8%',
-            borderRadius: '22%',
-            background: color,
-            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
-          }}
-        />
-      </div>
-    ))}
-    <div className="jam-rival-down absolute" style={jamPieceStyle(3, 0, 1, 3)}>
-      <div
-        className="absolute"
-        style={{
-          inset: '8%',
-          borderRadius: '22%',
-          background: '#f59e0b',
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
-        }}
-      />
-    </div>
-    <div className="jam-rival-up absolute" style={jamPieceStyle(5, 1, 1, 2)}>
-      <div
-        className="absolute"
-        style={{
-          inset: '8%',
-          borderRadius: '22%',
-          background: '#f43f5e',
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
-        }}
-      />
-    </div>
-    <div className="jam-hero absolute" style={jamPieceStyle(0, 2, 2, 1)}>
-      <div
-        className="absolute"
-        style={{
-          inset: '8%',
-          borderRadius: '22%',
-          background: 'var(--theme-primary)',
-          boxShadow:
-            '0 0 14px var(--theme-primary), inset 0 1px 0 rgba(255,255,255,0.4)',
-        }}
-      />
-    </div>
-    <div
-      className="absolute right-0 flex items-center justify-end pr-0.5"
-      style={{ top: jamCell(2), height: jamCell(1) }}
-    >
-      <div
-        className="absolute right-0 h-full w-[3px]"
-        style={{
-          background:
-            'linear-gradient(180deg, transparent, var(--theme-primary-light), transparent)',
-        }}
-      />
-      <ChevronsRight className="jam-exit-pulse h-4 w-4 text-cyan-300" />
-    </div>
-  </div>
 );
 
 const RACE_LANE_BLOCKS = [
@@ -482,7 +382,7 @@ function HomeComponent() {
                       </span>
                     </div>
                     <div className="w-[42%] max-w-[210px] shrink-0">
-                      <JamBoardPreview />
+                      <UnblockRaceBoardPreview />
                     </div>
                   </div>
                 </button>
@@ -575,17 +475,25 @@ function HomeComponent() {
                   </p>
                 </button>
               </div>
-            </div>
-          </div>
 
-          {/* Rate the app */}
-          <div className="container mx-auto max-w-4xl px-5">
-            <RateAppButton
-              variant="card"
-              appName={APP_CONFIG.gameName}
-              appStoreUrl={APP_CONFIG.appStoreUrl}
-              googlePlayUrl={APP_CONFIG.googlePlayUrl}
-            />
+              {/* Cross-promo: Sudoku Race, and Rate the app */}
+              <div className="mt-4 space-y-3">
+                <CrossPromoCard
+                  gameName={CROSS_PROMO.gameName}
+                  tagline={CROSS_PROMO.tagline}
+                  preview={<SudokuBoardPreview />}
+                  appUrl={CROSS_PROMO.appUrl}
+                  appStoreUrl={CROSS_PROMO.appStoreUrl}
+                  googlePlayUrl={CROSS_PROMO.googlePlayUrl}
+                />
+                <RateAppButton
+                  variant="card"
+                  appName={APP_CONFIG.gameName}
+                  appStoreUrl={APP_CONFIG.appStoreUrl}
+                  googlePlayUrl={APP_CONFIG.googlePlayUrl}
+                />
+              </div>
+            </div>
           </div>
 
           {/* Premium features */}

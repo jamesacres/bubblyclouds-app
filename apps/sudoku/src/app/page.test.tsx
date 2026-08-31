@@ -180,6 +180,10 @@ jest.mock('lucide-react', () => ({
   ExternalLink: () => (
     <div data-testid="external-link-icon">ExternalLink Icon</div>
   ),
+  ArrowRight: () => <div data-testid="arrow-right-icon">ArrowRight Icon</div>,
+  ChevronsRight: () => (
+    <div data-testid="chevrons-right-icon">ChevronsRight Icon</div>
+  ),
 }));
 
 const makeSevenDays = (todayCount = 0) =>

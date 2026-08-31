@@ -166,6 +166,8 @@ jest.mock('lucide-react', () => ({
   ExternalLink: () => (
     <div data-testid="external-link-icon">ExternalLink Icon</div>
   ),
+  ArrowRight: () => <div data-testid="arrow-right-icon">ArrowRight Icon</div>,
+  Flag: () => <div data-testid="flag-icon">Flag Icon</div>,
 }));
 
 describe('Home Page', () => {

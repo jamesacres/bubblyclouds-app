@@ -45,4 +45,12 @@ const APP_CONFIG = {
   },
 };
 
-module.exports = { APP_CONFIG };
+const CROSS_PROMO = {
+  gameName: 'Unblock Race',
+  tagline: 'Slide the blocks and race friends to clear the jam.',
+  appUrl: `https://unblockrace.${DOMAIN}`,
+  appStoreUrl: 'https://apps.apple.com/app/unblock-race/id6799411805',
+  googlePlayUrl: `https://play.google.com/store/apps/details?id=${REVERSE_DOMAIN}.unblockrace`,
+};
+
+module.exports = { APP_CONFIG, CROSS_PROMO };

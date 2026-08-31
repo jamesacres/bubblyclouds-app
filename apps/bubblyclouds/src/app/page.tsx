@@ -64,6 +64,27 @@ export default function Home() {
             <li>🎨 Multiple themes in light and dark mode</li>
           </ul>
         </a>
+        <a
+          href="https://unblockrace.bubblyclouds.com"
+          className="hover:border-theme-primary dark:hover:border-theme-primary group mt-4 flex flex-col rounded-xl border border-stone-200 bg-white px-5 py-5 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
+          rel="noopener noreferrer"
+        >
+          <div className="flex items-start justify-between">
+            <h3 className="font-semibold text-stone-800 dark:text-stone-100">
+              Unblock Race
+            </h3>
+            <span className="group-hover:text-theme-primary ml-4 mt-0.5 shrink-0 text-stone-400 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+              →
+            </span>
+          </div>
+          <ul className="mt-3 space-y-1.5 text-sm text-stone-600 dark:text-stone-400">
+            <li>🧩 Slide the blocks and clear the jam to race to the exit</li>
+            <li>🏁 Daily race — five boards, fastest escape wins</li>
+            <li>📅 Monthly collection of 50 fresh puzzles</li>
+            <li>🏎️ Racing teams — private leaderboard with friends</li>
+            <li>🏆 Track your moves, time and star ratings</li>
+          </ul>
+        </a>
       </section>
     </div>
   );
