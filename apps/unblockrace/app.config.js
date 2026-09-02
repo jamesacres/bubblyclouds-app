@@ -33,7 +33,7 @@ const APP_CONFIG = {
   googlePlayUrl:
     'https://play.google.com/store/apps/details?id=com.bubblyclouds.unblockrace',
   googlePlayBetaUrl: `https://play.google.com/apps/testing/${REVERSE_DOMAIN}.${APP}`,
-  testFlightUrl: 'https://testflight.apple.com/join/TODO',
+  testFlightUrl: 'https://testflight.apple.com/join/KYsG1HRJ',
   testersGroupUrl: `https://groups.google.com/a/${DOMAIN}/g/testers`,
   deepLinkScheme: `${REVERSE_DOMAIN}.${APP}`,
   mobileDescription: `Get the best experience with our ${APP_NAME} app!`,
