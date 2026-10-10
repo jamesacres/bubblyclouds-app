@@ -29,5 +29,6 @@ Rules:
   local packages.
 - do not re-export anything for convenience, all imports should be from the
   source even after refactor
-- no raw user-facing strings; use useTranslation with keys in the package's
-  src/locales/en.json (see Internationalisation in ARCHITECTURE.md)
+- no raw user-facing strings, every user-facing string must be translated; use
+  useTranslation with keys in the package's src/locales/en.json and add the key
+  to every locale (see Internationalisation in ARCHITECTURE.md)

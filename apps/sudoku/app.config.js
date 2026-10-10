@@ -1,5 +1,11 @@
 const { brand } = require('./src/locales/en.json');
 
+for (const key of ['appName', 'gameName', 'companyName']) {
+  if (!brand?.[key]) {
+    throw new Error(`Missing brand.${key} in src/locales/en.json`);
+  }
+}
+
 const APP = 'sudoku';
 const APP_NAME = brand.appName;
 const GAME_NAME = brand.gameName;
