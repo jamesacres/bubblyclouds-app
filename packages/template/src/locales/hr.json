@@ -1,0 +1,243 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Došlo je do neočekivane pogreške. Pokušajte ponovno.",
+    "dismiss": "Odbacite"
+  },
+  "errorBoundary": {
+    "title": "Ups! Nešto je pošlo po zlu",
+    "description": "Naišli smo na neočekivanu pogrešku. Ne brinite, vaš je napredak spremljen!",
+    "reload": "Ponovno učitajte aplikaciju",
+    "clearStorage": "Očistite pohranu i ponovno učitajte",
+    "contactSupport": "Ako se problem nastavi, obratite se podršci."
+  },
+  "time": {
+    "minutesAgo_one": "prije {{count}} min",
+    "minutesAgo_few": "prije {{count}} min",
+    "minutesAgo_other": "prije {{count}} min",
+    "hoursAgo_one": "prije {{count}} h",
+    "hoursAgo_few": "prije {{count}} h",
+    "hoursAgo_other": "prije {{count}} h",
+    "daysAgo_one": "prije {{count}} d",
+    "daysAgo_few": "prije {{count}} d",
+    "daysAgo_other": "prije {{count}} d"
+  },
+  "tier": {
+    "novice": "Novajlija",
+    "advancedBeginner": "Početnik",
+    "competent": "Kompetentan",
+    "proficient": "Vješt",
+    "expert": "Stručnjak"
+  },
+  "moves": {
+    "onPar": "poteza, na paru",
+    "overPar": "poteza, {{delta}} iznad para",
+    "underPar": "poteza, {{delta}} ispod para"
+  },
+  "lobby": {
+    "title": "Predvorje utrke",
+    "close": "Zatvorite predvorje",
+    "onlineOpponents": "Protivnici na mreži",
+    "refresh": "Osvježite protivnike na mreži",
+    "noOpponents": "Nema protivnika na mreži – pozovite prijatelje na utrku!",
+    "away": "Odsutan",
+    "offlineTeams": "Izvan mreže · u vašim timovima",
+    "removeMember": "Uklonite: {{name}}",
+    "aiOpponents": "AI protivnici",
+    "addAgent": "Dodajte",
+    "noAgents": "Još nema AI protivnika – dodajte jednog da uvijek imate s kim se utrkivati.",
+    "ownClock": "Svaki se igrač utrkuje na vlastitom satu",
+    "startSolving": "Počnite rješavati",
+    "finished": "Završeno",
+    "inLobby": "U predvorju",
+    "stageProgress": "Etapa {{current}} od {{total}}",
+    "finishedRunIn": "Cijela utrka riješena za {{time}}",
+    "solvedIn": "Riješeno za {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · zadnja aktivnost {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Solo utrka – samo vi i sat",
+      "friends_one": "{{count}} prijatelj",
+      "friends_few": "{{count}} prijatelja",
+      "friends_other": "{{count}} prijatelja",
+      "aiOpponents_one": "{{count}} AI protivnik",
+      "aiOpponents_few": "{{count}} AI protivnika",
+      "aiOpponents_other": "{{count}} AI protivnika",
+      "racing": "Utrka protiv: {{opponents}}"
+    },
+    "invite": {
+      "button": "Pozovite",
+      "eyebrow": "Sastavite svoju utrku",
+      "title": "Pozovite protivnike",
+      "close": "Zatvorite",
+      "existingTeam": "Pozovite u postojeći tim",
+      "editTeamName": "Uredite naziv tima",
+      "deleteTeam": "Izbrišite tim",
+      "leaveTeam": "Napustite tim",
+      "memberCount_one": "{{count}} član",
+      "memberCount_few": "{{count}} člana",
+      "memberCount_other": "{{count}} članova",
+      "createTeam": "Stvorite novi tim za utrke",
+      "displayNameLabel": "Kako vas članovi tima zovu?",
+      "displayNamePlaceholder": "Prikazano ime",
+      "teamNameLabel": "Kako ćemo nazvati ovaj tim?",
+      "teamNamePlaceholder": "Naziv tima (npr. Obitelj)",
+      "createAndCopy": "Stvorite i kopirajte poveznicu",
+      "defaultTeamName": "Novi tim",
+      "defaultPlayerName": "Igrač"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Zatvorite ploču",
+    "back": "Natrag",
+    "close": "Zatvorite",
+    "title": "Odaberite suparnike",
+    "subtitle": "Odaberite jednog ili više protivnika",
+    "selectAtLeastOne": "Odaberite barem jednog suparnika",
+    "race_one": "Utrka protiv {{count}} suparnika",
+    "race_few": "Utrka protiv {{count}} suparnika",
+    "race_other": "Utrka protiv {{count}} suparnika",
+    "skill": {
+      "novice": "Novajlija",
+      "advancedBeginner": "Početnik",
+      "competent": "Kompetentan",
+      "proficient": "Vješt",
+      "expert": "Stručnjak"
+    }
+  },
+  "agentParty": {
+    "title": "AI suparnici",
+    "rivalCount_one": "{{count}} suparnik",
+    "rivalCount_few": "{{count}} suparnika",
+    "rivalCount_other": "{{count}} suparnika"
+  },
+  "party": {
+    "cancel": "Odustanite",
+    "editName": "Uredite naziv tima",
+    "editMaxMembers": "Uredite najveći broj članova",
+    "memberCount_one": "{{count}} član",
+    "memberCount_few": "{{count}} člana",
+    "memberCount_other": "{{count}} članova",
+    "memberCountPremium_one": "{{count}} član ✨ Premium",
+    "memberCountPremium_few": "{{count}} člana ✨ Premium",
+    "memberCountPremium_other": "{{count}} članova ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} član",
+    "membersOf_few": "{{current}}/{{count}} člana",
+    "membersOf_other": "{{current}}/{{count}} članova",
+    "shareLink": "Podijelite ovu poveznicu s trenutnim članovima tima kako bi se pridružili ovoj zagonetki",
+    "you": "(vi)",
+    "notStarted": "Nije pokrenuto! Zamolite ih da zaigraju"
+  },
+  "partyConfirmation": {
+    "cancel": "Odustanite",
+    "leaveAgentParty": {
+      "title": "Uklanjanje AI suparnika",
+      "action": "Uklonite",
+      "processing": "Uklanjanje...",
+      "message": "Jeste li sigurni da želite ukloniti sve AI suparnike? Više se neće pojavljivati u utrci."
+    },
+    "removeAgent": {
+      "title": "Uklanjanje lokalnog suparnika",
+      "action": "Uklonite",
+      "processing": "Uklanjanje...",
+      "message": "Jeste li sigurni da želite ukloniti „{{memberName}}” iz utrke?"
+    },
+    "deleteParty": {
+      "title": "Brisanje tima",
+      "action": "Izbrišite tim",
+      "processing": "Brisanje...",
+      "message": "Jeste li sigurni da želite izbrisati „{{partyName}}”? Tim će biti trajno uklonjen i svi članovi izgubit će pristup. Ova se radnja ne može poništiti."
+    },
+    "leave": {
+      "title": "Napuštanje tima",
+      "action": "Napustite",
+      "processing": "Napuštanje...",
+      "message": "Jeste li sigurni da želite napustiti „{{partyName}}”? Više nećete vidjeti napredak ostalih članova niti sudjelovati u ovom timu."
+    },
+    "remove": {
+      "title": "Uklanjanje člana",
+      "action": "Uklonite",
+      "processing": "Uklanjanje...",
+      "message": "Jeste li sigurni da želite ukloniti „{{memberName}}” iz tima „{{partyName}}”? Neće više moći sudjelovati u ovom timu."
+    }
+  },
+  "friends": {
+    "allTeams": "Svi timovi",
+    "refresh": "Osvježite",
+    "refreshing": "Osvježavanje…",
+    "title": "Zagonetke prijatelja",
+    "subtitle": "Dodirnite prijatelja da biste vidjeli nedavne zagonetke i izazvali ga na utrku.",
+    "memberCount_one": "{{count}} član",
+    "memberCount_few": "{{count}} člana",
+    "memberCount_other": "{{count}} članova",
+    "noRecentPuzzles": "Nema nedavnih zagonetki – izazovite ih!",
+    "empty": {
+      "title": "Još nema timova za utrke",
+      "description": "Pozovite prijatelje iz predvorja utrke dok rješavate zagonetku"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Vaše zagonetke iz posljednjih 30 dana.",
+    "empty": {
+      "title": "Još nema zagonetki",
+      "description": "Idite na Početak utrke i riješite svoju prvu zagonetku"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} funkcija",
+    "moreFeatures_few": "+{{count}} funkcije",
+    "moreFeatures_other": "+{{count}} funkcija"
+  },
+  "crossPromo": {
+    "whyNotTry": "Zašto ne biste isprobali",
+    "tryItFree": "Isprobajte besplatno"
+  },
+  "rateApp": {
+    "prompt": "Uživate li u aplikaciji {{appName}}?",
+    "rateIt": "Ocijenite",
+    "rateInSeconds": "Ocijenite za nekoliko sekundi"
+  },
+  "plus": {
+    "close": "Zatvorite prozor",
+    "appIconAlt": "Ikona aplikacije",
+    "lifetime": "Doživotno",
+    "monthly": "Mjesečni",
+    "perMonth": "{{price}}/mjesec",
+    "whatsIncluded": "Što je uključeno",
+    "continue": "Nastavite",
+    "restorePurchases": "Vratite kupnje",
+    "cancel": "Odustanite"
+  },
+  "download": {
+    "title": "Nastavite u aplikaciji",
+    "appStoreAlt": "Preuzmite iz trgovine {{appStore}}",
+    "googlePlayAlt": "Preuzmite na {{googlePlay}}",
+    "continueBrowser": "Nastavite u pregledniku",
+    "continueDesktop": "Nastavite na računalu"
+  },
+  "session": {
+    "cheated": "Varanje",
+    "completedIn": "Dovršeno za {{minutes}} min {{seconds}} s",
+    "percentComplete": "{{percentage}}% dovršeno",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{day}}. {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "Zagonetka br. {{number}}",
+    "daily": "Dnevna zagonetka {{date}}",
+    "book": "Knjiga {{month}} br. {{number}}",
+    "collection": "Zbirka {{month}} br. {{number}}",
+    "scanned": "Skenirana zagonetka",
+    "you": "Vi",
+    "unknown": "Nepoznato",
+    "unlockWith": "Otključajte: {{label}}",
+    "lockedPuzzle": "Zaključana zagonetka",
+    "recommendedTechniques": "Preporučene tehnike:",
+    "loadingFriends": "Učitavanje prijatelja..."
+  }
+}

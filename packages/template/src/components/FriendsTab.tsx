@@ -167,7 +167,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
             <h2 className="text-lg font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
               {t('friends.title')}
               {selectedParty && (
-                <span className="ml-2 text-base font-normal text-zinc-400 dark:text-zinc-500">
+                <span className="ms-2 text-base font-normal text-zinc-400 dark:text-zinc-500">
                   &middot; {selectedParty.partyName}
                 </span>
               )}
@@ -183,13 +183,13 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                 <div className="overflow-hidden rounded-3xl border border-zinc-200/80 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] dark:border-zinc-700/60 dark:bg-zinc-800/60">
                   {/* Team header */}
                   <div className="flex items-center gap-3 border-b border-zinc-100 px-5 py-4 dark:border-zinc-700/50">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-700">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-700">
                       <Users className="h-4 w-4 text-zinc-500 dark:text-zinc-400" />
                     </div>
-                    <h3 className="text-sm font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
+                    <h3 className="min-w-0 break-words text-sm font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
                       {partyName}
                     </h3>
-                    <span className="ml-auto rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400">
+                    <span className="ms-auto rounded-full bg-zinc-100 px-2 py-0.5 text-center text-xs font-medium text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400">
                       {t('friends.memberCount', {
                         count: members.filter(
                           ({ userId }) => userId !== user?.sub
@@ -209,7 +209,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                         return (
                           <li key={userId}>
                             <button
-                              className="flex w-full cursor-pointer items-center gap-3 px-5 py-3.5 text-left transition-colors duration-150 hover:bg-zinc-50 active:bg-zinc-100 dark:hover:bg-zinc-700/30 dark:active:bg-zinc-700/50"
+                              className="flex w-full cursor-pointer items-center gap-3 px-5 py-3.5 text-start transition-colors duration-150 hover:bg-zinc-50 active:bg-zinc-100 dark:hover:bg-zinc-700/30 dark:active:bg-zinc-700/50"
                               onClick={() => toggleUserExpansion(userId)}
                             >
                               {/* Avatar initial */}
@@ -218,7 +218,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                                   {memberNickname.charAt(0)}
                                 </span>
                               </div>
-                              <span className="flex-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
+                              <span className="min-w-0 flex-1 break-words text-sm font-medium text-zinc-800 dark:text-zinc-200">
                                 {memberNickname}
                               </span>
                               {friendData?.isLoading ? (
@@ -226,7 +226,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                               ) : isExpanded ? (
                                 <ChevronDown className="h-4 w-4 text-zinc-400" />
                               ) : (
-                                <ChevronRight className="h-4 w-4 text-zinc-400" />
+                                <ChevronRight className="h-4 w-4 text-zinc-400 rtl:-scale-x-100" />
                               )}
                             </button>
 

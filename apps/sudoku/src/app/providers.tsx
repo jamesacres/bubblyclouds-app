@@ -29,7 +29,12 @@ import { useTranslation } from 'react-i18next';
 import { StateType } from '@bubblyclouds-app/types/stateType';
 import { APP_CONFIG } from '../../app.config.js';
 import { useLoginMessages } from '../config/loginMessages';
-import { DEFAULT_LOCALE, resources, supportedLocales } from '../i18n';
+import {
+  DEFAULT_LOCALE,
+  localeLoaders,
+  resources,
+  supportedLocales,
+} from '../i18n';
 
 function ProvidersContent({ children }: PropsWithChildren) {
   const { t } = useTranslation('app');
@@ -93,6 +98,7 @@ export function Providers({ children }: PropsWithChildren) {
       resources={resources}
       defaultLocale={DEFAULT_LOCALE}
       supportedLocales={supportedLocales}
+      localeLoaders={localeLoaders}
     >
       <GlobalErrorHandler />
       <ErrorBoundary>

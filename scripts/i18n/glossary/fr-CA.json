@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Course Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "course",
+      "team": "équipe",
+      "leaderboard": "classement",
+      "hint": "indice",
+      "undo": "annuler",
+      "theme": "thème",
+      "dailyPuzzle": "grille du jour",
+      "monthlyCollection": "cahier de grilles mensuel",
+      "aiOpponent": "adversaire IA",
+      "monthly": "mensuel",
+      "lifetime": "à vie",
+      "plusAccess": "Accès Plus",
+      "plusFeatureLine": "Courses illimitées, équipes, thèmes, annuler"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Course Débloque",
+      "gameName": "Course Débloque",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "course",
+      "team": "équipe",
+      "leaderboard": "classement",
+      "hint": "indice",
+      "undo": "annuler",
+      "theme": "thème",
+      "dailyPuzzle": "grille du jour",
+      "monthlyCollection": "collection mensuelle",
+      "aiOpponent": "adversaire IA",
+      "monthly": "mensuel",
+      "lifetime": "à vie",
+      "plusAccess": "Accès Plus",
+      "plusFeatureLine": "Courses illimitées, équipes, thèmes, annuler"
+    }
+  }
+}

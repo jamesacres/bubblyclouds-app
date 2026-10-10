@@ -1,0 +1,231 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Ett oväntat fel inträffade. Försök igen.",
+    "dismiss": "Stäng"
+  },
+  "errorBoundary": {
+    "title": "Hoppsan! Något gick fel",
+    "description": "Vi stötte på ett oväntat fel. Oroa dig inte, dina framsteg är sparade!",
+    "reload": "Ladda om appen",
+    "clearStorage": "Rensa lagring och ladda om",
+    "contactSupport": "Om problemet kvarstår, kontakta supporten."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} min sedan",
+    "minutesAgo_other": "{{count}} min sedan",
+    "hoursAgo_one": "{{count}} tim sedan",
+    "hoursAgo_other": "{{count}} tim sedan",
+    "daysAgo_one": "{{count}} d sedan",
+    "daysAgo_other": "{{count}} d sedan"
+  },
+  "tier": {
+    "novice": "Novis",
+    "advancedBeginner": "Nybörjare",
+    "competent": "Kompetent",
+    "proficient": "Skicklig",
+    "expert": "Expert"
+  },
+  "moves": {
+    "onPar": "drag, på par",
+    "overPar": "drag, {{delta}} över par",
+    "underPar": "drag, {{delta}} under par"
+  },
+  "lobby": {
+    "title": "Lopplobby",
+    "close": "Stäng lobbyn",
+    "onlineOpponents": "Motståndare online",
+    "refresh": "Uppdatera motståndare online",
+    "noOpponents": "Inga motståndare online – bjud in vänner att tävla!",
+    "away": "Borta",
+    "offlineTeams": "Offline · i dina lag",
+    "removeMember": "Ta bort {{name}}",
+    "aiOpponents": "AI-motståndare",
+    "addAgent": "Lägg till",
+    "noAgents": "Inga AI-motståndare ännu – lägg till en så har du alltid någon att tävla mot.",
+    "ownClock": "Alla tävlar mot sin egen klocka",
+    "startSolving": "Börja lösa",
+    "finished": "Klar",
+    "inLobby": "I lobbyn",
+    "stageProgress": "Etapp {{current}} av {{total}}",
+    "finishedRunIn": "Klarade hela loppet på {{time}}",
+    "solvedIn": "Löst på {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · sågs senast {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Soloplopp – bara du och klockan",
+      "friends_one": "{{count}} vän",
+      "friends_other": "{{count}} vänner",
+      "aiOpponents_one": "{{count}} AI-motståndare",
+      "aiOpponents_other": "{{count}} AI-motståndare",
+      "racing": "Tävlar mot {{opponents}}"
+    },
+    "invite": {
+      "button": "Bjud in",
+      "eyebrow": "Bygg ditt lopp",
+      "title": "Bjud in motståndare",
+      "close": "Stäng",
+      "existingTeam": "Bjud in till befintligt lag",
+      "editTeamName": "Ändra lagnamn",
+      "deleteTeam": "Radera laget",
+      "leaveTeam": "Lämna laget",
+      "memberCount_one": "{{count}} medlem",
+      "memberCount_other": "{{count}} medlemmar",
+      "createTeam": "Skapa nytt tävlingslag",
+      "displayNameLabel": "Vad kallar lagmedlemmarna dig?",
+      "displayNamePlaceholder": "Visningsnamn",
+      "teamNameLabel": "Vad ska vi kalla laget?",
+      "teamNamePlaceholder": "Lagnamn (t.ex. Familjen)",
+      "createAndCopy": "Skapa och kopiera länk",
+      "defaultTeamName": "Nytt lag",
+      "defaultPlayerName": "Spelare"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Stäng panelen",
+    "back": "Tillbaka",
+    "close": "Stäng",
+    "title": "Välj dina rivaler",
+    "subtitle": "Välj en eller flera motståndare",
+    "selectAtLeastOne": "Välj minst en rival",
+    "race_one": "Tävla mot {{count}} rival",
+    "race_other": "Tävla mot {{count}} rivaler",
+    "skill": {
+      "novice": "Novis",
+      "advancedBeginner": "Nybörjare",
+      "competent": "Kompetent",
+      "proficient": "Skicklig",
+      "expert": "Expert"
+    }
+  },
+  "agentParty": {
+    "title": "AI-rivaler",
+    "rivalCount_one": "{{count}} rival",
+    "rivalCount_other": "{{count}} rivaler"
+  },
+  "party": {
+    "cancel": "Avbryt",
+    "editName": "Ändra lagnamn",
+    "editMaxMembers": "Ändra max antal medlemmar",
+    "memberCount_one": "{{count}} medlem",
+    "memberCount_other": "{{count}} medlemmar",
+    "memberCountPremium_one": "{{count}} medlem ✨ Premium",
+    "memberCountPremium_other": "{{count}} medlemmar ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} medlem",
+    "membersOf_other": "{{current}}/{{count}} medlemmar",
+    "shareLink": "Dela den här länken med nuvarande lagmedlemmar så att de kan gå med i det här pusslet",
+    "you": "(du)",
+    "notStarted": "Inte påbörjad! Be dem spela"
+  },
+  "partyConfirmation": {
+    "cancel": "Avbryt",
+    "leaveAgentParty": {
+      "title": "Ta bort AI-rivaler",
+      "action": "Ta bort",
+      "processing": "Tar bort...",
+      "message": "Vill du verkligen ta bort alla AI-rivaler? De visas inte längre i loppet."
+    },
+    "removeAgent": {
+      "title": "Ta bort lokal agent",
+      "action": "Ta bort",
+      "processing": "Tar bort...",
+      "message": "Vill du verkligen ta bort ”{{memberName}}” från loppet?"
+    },
+    "deleteParty": {
+      "title": "Radera laget",
+      "action": "Radera laget",
+      "processing": "Raderar...",
+      "message": "Vill du verkligen radera ”{{partyName}}”? Laget tas bort permanent och alla medlemmar förlorar åtkomsten. Åtgärden kan inte ångras."
+    },
+    "leave": {
+      "title": "Lämna laget",
+      "action": "Lämna",
+      "processing": "Lämnar...",
+      "message": "Vill du verkligen lämna ”{{partyName}}”? Du ser inte längre de andra medlemmarnas framsteg och kan inte delta i laget."
+    },
+    "remove": {
+      "title": "Ta bort medlem",
+      "action": "Ta bort",
+      "processing": "Tar bort...",
+      "message": "Vill du verkligen ta bort ”{{memberName}}” från ”{{partyName}}”? De kan inte längre delta i laget."
+    }
+  },
+  "friends": {
+    "allTeams": "Alla lag",
+    "refresh": "Uppdatera",
+    "refreshing": "Uppdaterar…",
+    "title": "Vännernas pussel",
+    "subtitle": "Tryck på en vän för att se deras senaste pussel och tävla mot dem.",
+    "memberCount_one": "{{count}} medlem",
+    "memberCount_other": "{{count}} medlemmar",
+    "noRecentPuzzles": "Inga senaste pussel – utmana dem!",
+    "empty": {
+      "title": "Inga tävlingslag ännu",
+      "description": "Bjud in vänner från lopplobbyn när du löser ett pussel"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Dina pussel från de senaste 30 dagarna.",
+    "empty": {
+      "title": "Inga pussel ännu",
+      "description": "Gå till Starta lopp för att lösa ditt första pussel"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} funktion till",
+    "moreFeatures_other": "+{{count}} funktioner till"
+  },
+  "crossPromo": {
+    "whyNotTry": "Varför inte prova",
+    "tryItFree": "Prova gratis"
+  },
+  "rateApp": {
+    "prompt": "Gillar du {{appName}}?",
+    "rateIt": "Betygsätt",
+    "rateInSeconds": "Betygsätt på några sekunder"
+  },
+  "plus": {
+    "close": "Stäng fönstret",
+    "appIconAlt": "Appikon",
+    "lifetime": "För livet",
+    "monthly": "Månatlig",
+    "perMonth": "{{price}}/månad",
+    "whatsIncluded": "Det här ingår",
+    "continue": "Fortsätt",
+    "restorePurchases": "Återställ köp",
+    "cancel": "Avbryt"
+  },
+  "download": {
+    "title": "Fortsätt i appen",
+    "appStoreAlt": "Ladda ned från {{appStore}}",
+    "googlePlayAlt": "Hämta på {{googlePlay}}",
+    "continueBrowser": "Fortsätt i webbläsaren",
+    "continueDesktop": "Fortsätt på datorn"
+  },
+  "session": {
+    "cheated": "Fuskat",
+    "completedIn": "Klarade på {{minutes}} min {{seconds}} s",
+    "percentComplete": "{{percentage}} % klart",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}:a",
+    "dayOrdinal_ordinal_other": "{{count}}:e",
+    "puzzleNumber": "Pussel nr {{number}}",
+    "daily": "Dagligt {{date}}",
+    "book": "Bok {{month}} nr {{number}}",
+    "collection": "Samling {{month}} nr {{number}}",
+    "scanned": "Skannat pussel",
+    "you": "Du",
+    "unknown": "Okänd",
+    "unlockWith": "Lås upp med {{label}}",
+    "lockedPuzzle": "Låst pussel",
+    "recommendedTechniques": "Rekommenderade tekniker:",
+    "loadingFriends": "Läser in vänner..."
+  }
+}

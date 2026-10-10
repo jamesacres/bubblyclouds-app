@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Befria Racet",
+    "gameName": "Befria Racet",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Spela och dela för att tävla med vänner om att befria pusslet. Dagliga utmaningar & på alla enheter!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Starta lopp",
+      "myPuzzles": "Mina pussel",
+      "racingTeams": "Tävlingslag"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Rensa trafikstockningen.",
+      "headlineAccent": "Vinn loppet",
+      "subtitle": "Skjut blocken, befria det glödande blocket och tävla mot dina vänner till utgången."
+    },
+    "leaderboard": "Topplista",
+    "dailyRace": {
+      "title": "Dagligt lopp",
+      "refreshesDaily": "uppdateras dagligen",
+      "todaysRace": "Dagens lopp",
+      "difficultyRange": "Nybörjare → Expert",
+      "description": "Fem banor, en klocka – snabbast ut vinner.",
+      "stages": "5 etapper",
+      "start": "Börja tävla",
+      "morePuzzlesPrefix": "Fler pussel i",
+      "puzzleCollection": "pusselsamlingen"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 pussel",
+      "title": "Månadens samling",
+      "description": "50 nya trafikstockningar för {{month}} – rensa dem alla innan månaden är slut.",
+      "browse": "Bläddra bland pussel"
+    },
+    "teams": {
+      "eyebrow": "Flerspelarläge",
+      "title": "Tävlingslag",
+      "raceFriends": "Tävla mot {{names}} med flera",
+      "challengeFriends": "Utmana vänner till ett lopp"
+    },
+    "premium": {
+      "title": "Premiumfunktioner",
+      "subtitle": "Lås upp hela $t(brand.gameName)-upplevelsen"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudokulopp",
+    "tagline": "Dela ett sudoku med vänner och tävla om vem som löser det snabbast."
+  },
+  "puzzle": {
+    "mobileDescription": "Få den bästa upplevelsen med vår {{appName}}-app!",
+    "desktopDescription": "Ladda ned {{appName}}",
+    "openInAppLabel": "Öppna pussel"
+  },
+  "collection": {
+    "loading": {
+      "both": "Läser in pusselsamlingen...",
+      "collection": "Läser in pussel...",
+      "sessions": "Läser in dina framsteg..."
+    },
+    "retry": "Försök igen",
+    "backHome": "Tillbaka till startsidan",
+    "signInPrompt": "Logga in för att komma åt pusselsamlingen.",
+    "signIn": "Logga in",
+    "noData": "Inga data för pusselsamlingen tillgängliga.",
+    "title": "Pusselsamling {{month}}",
+    "completed": "klara",
+    "inProgress": "pågår",
+    "unlockWithPlus": "Lås upp alla pussel med Plus",
+    "jumpToDifficulty": "Hoppa till svårighetsgrad",
+    "scrollToTop": "Rulla till toppen",
+    "subtitle_one": "{{count}} pussel från snabba utvägar till svårt trafikkaos",
+    "subtitle_other": "{{count}} pussel från snabba utvägar till svårt trafikkaos"
+  },
+  "invite": {
+    "loading": "Läser in inbjudan...",
+    "iconAlt": "{{appName}}-ikon",
+    "greeting": "👋 Hej {{name}}!",
+    "invited": "Du är inbjuden!",
+    "joinTeam": "Gå med i tävlingslaget",
+    "tagline": "Tävla om att befria pussel tillsammans och se varandras framsteg i realtid!",
+    "proTipLabel": "Proffstips:",
+    "proTip": "Alla framtida pussel du spelar delas med dina lagmedlemmar för vänskaplig tävling!",
+    "nicknameLabel": "Vad kallar ditt tävlingslag dig?",
+    "nicknamePlaceholder": "Ange ditt smeknamn",
+    "joining": "Går med i laget...",
+    "join": "Häng med! 🎉",
+    "signIn": "Logga in för att fortsätta",
+    "bonus": "🎉 Bonus: Få {{plusName}} i {{duration}}!",
+    "bonusDescription": "Genom att gå med i det här tävlingslaget låser du upp premiumfunktioner helt gratis!",
+    "activation": "💡 Din premiumåtkomst aktiveras automatiskt när du har gått med",
+    "duration": {
+      "oneMonth": "en månad",
+      "oneYear": "ett år",
+      "lifetime": "hela livet",
+      "premium": "premiumtid"
+    },
+    "expired": {
+      "title": "Inbjudan har gått ut",
+      "description": "Den här inbjudningslänken är inte längre giltig. Be din vän om en ny inbjudan eller öka lagets storlek."
+    },
+    "greetingAnonymous": "👋 Hej!"
+  },
+  "credits": {
+    "title": "Medverkande och källor",
+    "intro": "Den här appen bygger på flera utmärkta projekt",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Den här appen är licensierad under MIT-licensen. Se vår <licenseLink>LICENSE</licenseLink> och <creditsLink>CREDITS</creditsLink> för mer information.",
+    "items": {
+      "rush": "Lösare och pusseldatabas för Rush Hour av Michael Fogleman, kompilerad till WebAssembly",
+      "nextjs": "React-ramverk för produktion",
+      "typescript": "Typad överuppsättning av JavaScript",
+      "tailwind": "CSS-ramverk med verktygsklasser",
+      "capacitor": "Körmiljö för inbyggda mobilappar",
+      "electron": "Ramverk för skrivbordsappar",
+      "revenuecat": "Prenumerationshantering",
+      "react": "UI-komponentbibliotek",
+      "turborepo": "Byggsystem för monorepon"
+    }
+  },
+  "notFound": {
+    "title": "Sidan hittades inte"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Logga in för att starta dagens pussel",
+      "collection": "Logga in för att bläddra i samlingen",
+      "joinTeam": "Logga in för att gå med i laget",
+      "raceLobby": "Logga in för att tävla med andra",
+      "puzzleEntry": "Logga in för att spela"
+    },
+    "valueProps": {
+      "saveProgress": "Spara dina framsteg",
+      "raceFriends": "Tävla mot vänner",
+      "trackStats": "Följ din statistik"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Du har använt dina {{limit}} gratis tips i dag.",
+      "body": "Plus ger dig obegränsade tips – fastna aldrig igen – och håller hela appen reklamfri."
+    },
+    "undo": {
+      "title": "Du har nått din dagliga gräns för ångra!",
+      "body": "Du får {{limit}} gratis ångra per dag. Gränsen nollställs i morgon, eller prenumerera för obegränsat ångra."
+    },
+    "collectionLocked": {
+      "title": "Det här pusslet ingår i samlingen för Plus.",
+      "body": "Plus låser upp alla pussel i varje månads paket och håller hela appen reklamfri."
+    },
+    "themeColor": {
+      "title": "Det här temat är exklusivt för Plus.",
+      "body": "Uppgradera för att låsa upp alla vackra temafärger och göra din upplevelse personlig."
+    },
+    "removeMember": {
+      "title": "Att ta bort medlemmar från ditt lag är en premiumfunktion!",
+      "body": "Prenumerera för att låsa upp avancerad lagadministration, inklusive att ta bort medlemmar."
+    },
+    "multipleParties": {
+      "title": "Flera tävlingslag är en premiumfunktion!",
+      "body": "Gratisanvändare kan ha ett lag. Prenumerera för att skapa och gå med i obegränsat antal lag för familj, vänner och mer."
+    },
+    "partyMaxSize": {
+      "title": "Stora grupper är en premiumfunktion!",
+      "body": "Prenumerera för att låsa upp avancerad lagadministration, inklusive stora grupper."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Alltid reklamfritt",
+      "description": "Ingen reklam, någonsin – bara du och pusslen"
+    },
+    "hints": {
+      "title": "Obegränsade tips",
+      "description": "Fastna aldrig – få ett tips när du behöver ett"
+    },
+    "monthlyPack": {
+      "title": "Hela månadens paket upplåst, varje månad",
+      "description": "Spela alla pussel i alla svårighetsgrader, utan lås"
+    },
+    "undos": {
+      "title": "Obegränsat ångra",
+      "description": "Spola tillbaka så många drag du vill"
+    },
+    "teams": {
+      "title": "Flera tävlingslag",
+      "description": "Arrangera privata tävlingar med vänner och familj"
+    },
+    "management": {
+      "title": "Lagadministration",
+      "description": "Skapa stora grupper på upp till 15 personer och ta bort medlemmar från ditt lag."
+    },
+    "themes": {
+      "title": "Alla teman upplåsta",
+      "description": "Gör din tävlingsupplevelse personlig"
+    }
+  },
+  "plusModal": {
+    "description": "Skaffa <badge>{{plusName}}</badge> för <strong>obegränsade tips</strong>, <strong>hela månadens paket upplåst</strong> och <strong>obegränsat ångra</strong>. Utmana vänner, klättra på topplistor och håll det reklamfritt."
+  },
+  "leaderboard": {
+    "collectionLabel": "Samling",
+    "collectionDetailNoun": "samlingar"
+  },
+  "motivational": {
+    "messages": [
+      "Dina vänner väntar på en utmaning",
+      "Vem ska du tävla mot i dag?",
+      "Dags att visa din snabbhet",
+      "Utmaning accepterad?",
+      "Tävla mot mållinjen",
+      "Vem är den snabbaste lösaren?",
+      "Redo att dominera topplistan?",
+      "Dina tävlingsfärdigheter väntar",
+      "Dags att lämna dem i dammet",
+      "Redo att korsa mållinjen först?",
+      "Banan väntar på dig",
+      "Dags att lägga i en högre växel",
+      "Redo att bränna gummi på pusselrutnätet?",
+      "Dina motståndare värmer redan upp",
+      "I dag är dagen att sätta nytt rekord",
+      "Ditt personbästa väntar på att slås",
+      "Varje pussel gör dig snabbare",
+      "Nu börjar du bygga din serie",
+      "Dags att ta ditt spel till nästa nivå",
+      "Ditt nästa genombrott är ett pussel bort",
+      "Redo att överraska dig själv?",
+      "Visa dem vad du går för",
+      "Dags att släppa loss din potential",
+      "Din snabbaste lösning ligger fortfarande framför dig",
+      "Redo att göra dagen räkna?",
+      "Varje sekund räknas i loppet",
+      "Dags att tänja på gränserna",
+      "Din utvecklingsresa fortsätter",
+      "Redo att överträffa förväntningarna?",
+      "Tror du att du klarar pressen?",
+      "Dags att tysta tvivlarna",
+      "Redo att ta segern?",
+      "Dina konkurrenter ser det inte komma",
+      "Dags att sätta ditt avtryck",
+      "Redo att stjäla rampljuset?",
+      "Segern smakar sötare när man har förtjänat den",
+      "Dags att visa vem som bestämmer",
+      "Redo att visa ditt rätta jag?",
+      "Mästarinställningen börjar här",
+      "Dags att dra ifrån klungan",
+      "Redo att skriva din legend?",
+      "Mästare föds i stunder som den här",
+      "Dags att förvandla potential till prestation",
+      "Nya pussel, nya chanser",
+      "Dagens utmaning väntar på din skicklighet",
+      "Redo att göra det här till din bästa dag hittills?",
+      "En ny dag betyder nya rekord att slå",
+      "Dags att lägga till ännu en seger i samlingen",
+      "Redo att starta starkt och avsluta ännu starkare?",
+      "Redo att göra dagen legendarisk?",
+      "Din dagliga dos av triumf väntar",
+      "Strategi möter fart på rutnätet",
+      "Redo att överlista och köra ifrån?",
+      "Din pusselskicklighet kallar",
+      "Dags att blanda logik med blixtsnabb fart",
+      "Redo att lösa med kirurgisk precision?",
+      "Den perfekta kombinationen: skicklighet och fart",
+      "Din analytiska skärpa är din fördel i loppet",
+      "Dags att visa pusselöverlägsenhet",
+      "Redo att lösa som en mästare?",
+      "Precisionsracing börjar med klart tänkande",
+      "Dina vänner väntar på en revansch",
+      "Vem löser i dag?",
+      "Ett nytt dagligt pussel är redo",
+      "Din serie står på spel",
+      "Nya pussel, ny start",
+      "Dagens utmaning är uppe",
+      "Tävla mot en vän i dagens pussel",
+      "Ny dag, nya pussel",
+      "Någon ligger redan på topplistan",
+      "Håll serien vid liv",
+      "De dagliga utmaningarna har just uppdaterats",
+      "Ditt lag väntar",
+      "Ett pussel närmare toppen",
+      "Dagens pussel väntar på dig",
+      "Hoppa in igen och tävla"
+    ]
+  }
+}

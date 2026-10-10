@@ -6,6 +6,7 @@ import { Translate } from '../types/i18n';
 import { Difficulty, BookPuzzleDifficulty } from '../types/difficulty';
 import { DailyComboConfig, SpeedThresholds } from '../types/scoringTypes';
 import { SCORING_CONFIG } from '../helpers/scoringConfig';
+import { formatLatinNumber } from '@bubblyclouds-app/ui/helpers/latinNumber';
 
 // One difficulty tier for the legend's multiplier tables (daily and
 // collection): `key` is the metadata.difficulty string scoring keys off,
@@ -277,7 +278,7 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                         key={key}
                         className="flex items-center gap-3 px-4 py-2.5"
                       >
-                        <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                        <span className="w-36 shrink-0 break-words text-xs text-zinc-500 dark:text-zinc-400">
                           {label}
                         </span>
                         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
@@ -286,8 +287,8 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                             style={{ width: `${barPct}%` }}
                           />
                         </div>
-                        <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
-                          {multiplier.toLocaleString(i18n.language)}×
+                        <span className="min-w-8 shrink-0 text-end text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
+                          {formatLatinNumber(multiplier, i18n.language)}×
                         </span>
                       </div>
                     );
@@ -308,7 +309,7 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                         key={key}
                         className="flex items-center gap-3 px-4 py-2.5"
                       >
-                        <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                        <span className="w-36 shrink-0 break-words text-xs text-zinc-500 dark:text-zinc-400">
                           {label}
                         </span>
                         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
@@ -317,8 +318,8 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                             style={{ width: `${barPct}%` }}
                           />
                         </div>
-                        <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
-                          {multiplier.toLocaleString(i18n.language)}×
+                        <span className="min-w-8 shrink-0 text-end text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
+                          {formatLatinNumber(multiplier, i18n.language)}×
                         </span>
                       </div>
                     );
@@ -344,7 +345,7 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                           key={key}
                           className="flex items-center gap-3 px-4 py-2.5"
                         >
-                          <span className="w-36 shrink-0 text-xs text-zinc-500 dark:text-zinc-400">
+                          <span className="w-36 shrink-0 break-words text-xs text-zinc-500 dark:text-zinc-400">
                             {label}
                           </span>
                           <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800">
@@ -353,8 +354,8 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                               style={{ width: `${barPct}%` }}
                             />
                           </div>
-                          <span className="w-8 shrink-0 text-right text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
-                            {multiplier.toLocaleString(i18n.language)}×
+                          <span className="min-w-8 shrink-0 text-end text-xs font-semibold tabular-nums text-zinc-900 dark:text-white">
+                            {formatLatinNumber(multiplier, i18n.language)}×
                           </span>
                         </div>
                       );
@@ -386,7 +387,7 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                       <span className="text-sm text-zinc-700 dark:text-zinc-300">
                         {label}
                       </span>
-                      <span className="ml-2 text-xs text-zinc-400 dark:text-zinc-500">
+                      <span className="ms-2 text-xs text-zinc-400 dark:text-zinc-500">
                         {t('scoringLegend.speedBonuses.under', { threshold })}
                       </span>
                     </div>
@@ -432,7 +433,7 @@ const ScoringLegend: React.FC<ScoringLegendProps> = ({
                         : t('scoringLegend.dailyCombo.puzzle', { puzzle })}
                     </span>
                     <span className="text-sm font-semibold tabular-nums text-amber-500">
-                      {mult.toLocaleString(i18n.language, {
+                      {formatLatinNumber(mult, i18n.language, {
                         minimumFractionDigits: 1,
                         maximumFractionDigits: 1,
                       })}

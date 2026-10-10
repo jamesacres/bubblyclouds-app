@@ -1,0 +1,270 @@
+{
+  "brand": {
+    "gameName": "Voľné Preteky"
+  },
+  "controls": {
+    "hint": "Nápoveda",
+    "hintTitle": "Požiadať o pomoc",
+    "undo": "Späť",
+    "redo": "Znova",
+    "reset": "Resetovať"
+  },
+  "labels": {
+    "time": "Čas",
+    "moves": "Ťahy",
+    "stageOf": "Etapa {{current}} z {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} ťah",
+    "moves_few": "{{count}} ťahy",
+    "moves_many": "{{count}} ťahu",
+    "moves_other": "{{count}} ťahov",
+    "par": "norma",
+    "overPar": "{{delta}} nad normou",
+    "underPar": "{{delta}} pod normou"
+  },
+  "score": {
+    "moves": "ťahov",
+    "srOnPar": "ťahov, na úrovni normy",
+    "srOverPar": "ťahov, o {{delta}} nad normou",
+    "srUnderPar": "ťahov, o {{delta}} pod normou",
+    "upcomingPar": "norma {{par}}"
+  },
+  "daily": {
+    "label": "Denný · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Začiatočník",
+    "challenging": "Náročný",
+    "hard": "Ťažký",
+    "expert": "Expert"
+  },
+  "collection": {
+    "puzzleLabel": "Hlavolam zbierky č. {{number}}",
+    "theme": {
+      "january": "Nový rok, nová zápcha",
+      "february": "Zamrznutá zápcha",
+      "march": "Dokorán otvorené",
+      "april": "Prehánky blokov",
+      "may": "Rozkvitajúce voľné dráhy",
+      "june": "Vrchol rýchleho uvoľňovania",
+      "july": "Letná pretekárska séria",
+      "august": "Rozžeravená zápcha",
+      "september": "Späť k hracej doske",
+      "october": "Strašidelná zápcha",
+      "november": "Uvoľňovanie dráh",
+      "december": "Sviatočná zápcha",
+      "default": "Mesačná zbierka"
+    },
+    "error": {
+      "offline": "Ste offline, skontrolujte pripojenie",
+      "loadFailed": "Zbierku hlavolamov sa nepodarilo načítať"
+    }
+  },
+  "stageClear": {
+    "title": "Etapa {{stage}} splnená",
+    "onPar": "Na norme",
+    "pointsSuffix": " b.",
+    "leaderboardPoints": "Body v rebríčku",
+    "nextStage": "Ďalšia etapa",
+    "progress": "Etapa {{stage}} z {{total}} — ešte {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Odtiaľto sa nedá prejsť — vráťte ťah späť alebo resetujte hlavolam",
+    "dismiss": "Zavrieť upozornenie s nápovedou"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Pokračujte v sérii v zbierke"
+  },
+  "raceTrack": {
+    "collection": "Zbierka"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Zopakovať túto etapu?",
+      "body": "Váš aktuálny čas a ťahy budú nahradené.",
+      "confirm": "Zopakovať"
+    },
+    "reset": {
+      "title": "Resetovať tento hlavolam?",
+      "body": "Tým sa vymažú vaše ťahy a hlavolam sa začne odznova.",
+      "confirm": "Resetovať"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "včela",
+      "personality": "Nepokojná a nadšená. Posúva bloky v záchvatoch a potom sa zasekne. Pri výjazde zrýchli príliš skoro a zablokuje dráhu tesne pred cieľom.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Tento sa posúva!",
+          "Počkajte — nie, ten ma blokuje...",
+          "Bzz bzz! Robím miesto!"
+        ],
+        "playerAhead": ["Hej, spomaľte!", "Práve som uvoľňovala cestu…"],
+        "playerBehind": ["Doháňam vás!", "Pozrite, ako sa posúvam!"],
+        "endgame": ["Východ! Vidím ho!", "Počkajte — kto to tam zaparkoval?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "kačica",
+      "personality": "Veselá a bezcieľna. Pomalá a vytrvalá s dlhými prestávkami. V záverečnej fáze sa zo zápchy dostane takmer náhodou.",
+      "voiceLines": {
+        "neutral": ["Len to tak postrkujem...", "Hmm... možno tento blok."],
+        "playerAhead": ["Darí sa vám skvele!", "Raz sa odtiaľto dostanem."],
+        "playerBehind": ["Ó! Ten sa pohol!", "Je to príjemné."],
+        "endgame": ["To je východ?", "Ó! Cesta sa uvoľnila sama."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "jašterica",
+      "personality": "Opatrná a pozorná. Dlhé prestávky, potom malé zhluky posunov. V záverečnej fáze váha pred každým ťahom.",
+      "voiceLines": {
+        "neutral": [
+          "Nechajte ma overiť, čo to uvoľní.",
+          "Tento posun by mal byť bezpečný."
+        ],
+        "playerAhead": ["Teraz musím byť opatrná.", "Nezablokujte dráhu."],
+        "playerBehind": ["Dobre… doháňam.", "Ešte je čas."],
+        "endgame": ["Opatrne...", "Skoro vonku… len si musím byť istá."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "pavúk",
+      "personality": "Rozvážny a systematický. Dráhu uvoľňuje opatrne, blok po bloku. V záverečnej fáze sa plán rozpadne — vkradne sa váhanie, akoby trasa už neplatila.",
+      "voiceLines": {
+        "neutral": ["Tým sa otvorí trasa.", "Blok po bloku..."],
+        "playerAhead": [
+          "Trasa fungovala...",
+          "Musím si to naplánovať nanovo..."
+        ],
+        "playerBehind": ["Stále to drží pokope.", "Áno… dráha sa otvára."],
+        "endgame": [
+          "Počkajte — nie, tým sa zase zablokujem.",
+          "Mal som túto trasu naplánovanú..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "medvedík čistotný",
+      "personality": "Húževnatý a vynaliezavý. Nerovnomerný rytmus. V záverečnej fáze naberie tempo a vyšmykne sa von rýchlejšie, než by ste čakali.",
+      "voiceLines": {
+        "neutral": ["Toto to pohne!", "Trochu tesno, ale beriem to."],
+        "playerAhead": ["Dobre, čas pritvrdiť.", "Ešte nie som zablokovaný."],
+        "playerBehind": ["Ó — pekná medzera.", "Dráha sa už uvoľňuje."],
+        "endgame": ["Áno, cesta je voľná.", "Teraz to ide."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "tučniak",
+      "personality": "Systematický a metodický. Rovnomerné tempo. V záverečnej fáze zostáva pokojný — žiadna panika, žiadny šprint.",
+      "voiceLines": {
+        "neutral": ["Tento posun zapadá do trasy.", "Držím tempo."],
+        "playerAhead": ["Udržte tempo.", "Mriežku netreba unáhliť."],
+        "playerBehind": [
+          "Stále na správnej ceste.",
+          "Dráha sa uvoľňuje plynulo."
+        ],
+        "endgame": ["Už takmer vonku.", "Vyjdite čisto."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "opica",
+      "personality": "Nevyspytateľná a znepokojivá. Nepredvídateľné záchvaty. V záverečnej fáze zrazu zrýchli spôsobom, ktorý pôsobí nefér.",
+      "voiceLines": {
+        "neutral": [
+          "Hehe… tú medzeru ste nevideli?",
+          "Ó, to je zaujímavý posun."
+        ],
+        "playerAhead": ["Neusadajte sa pohodlne.", "Sledujte tento ťah."],
+        "playerBehind": [
+          "Premávka sa niekedy proste rozostúpi.",
+          "Šťastný posun… alebo nie?"
+        ],
+        "endgame": ["Ó, wow — cesta je dokorán.", "To sa rýchlo uvoľnilo."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "orol",
+      "personality": "Odtrhnutý a plynulý. Rozvoľnené, sebavedomé posuny. Tiché zrýchlenie v závere.",
+      "voiceLines": {
+        "neutral": ["Trasu som už videl.", "Len sa tade prešmykávam."],
+        "playerAhead": [
+          "Trasu to nemení.",
+          "Východ je v každom prípade rovnaký."
+        ],
+        "playerBehind": [
+          "V podstate je to uvoľnené.",
+          "Odtiaľto sa už len kĺžem."
+        ],
+        "endgame": ["…skoro vonku.", "Kĺžem k východu."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "líška",
+      "personality": "Intenzívna a súťaživá. Rýchly štart, neustály tlak. Záverečný nápor pôsobí agresívne.",
+      "voiceLines": {
+        "neutral": ["Držte krok.", "Ešte stále trčíte v zápche?"],
+        "playerAhead": [
+          "Teraz sa nezastavujte.",
+          "Posúvať sa dá aj rýchlejšie."
+        ],
+        "playerBehind": ["Príliš pomalé.", "Ste zablokovaný."],
+        "endgame": ["Uvoľnite dráhu.", "Tento východ je môj."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "žralok",
+      "personality": "Trpezlivý a dravý. Drží sa nablízku a v závere udrie naplno.",
+      "voiceLines": {
+        "neutral": ["Hneď za vami.", "Ešte nie."],
+        "playerAhead": ["Zostaňte vo svojom pruhu.", "Som už blízko."],
+        "playerBehind": ["Približujem sa.", "Tu je medzera."],
+        "endgame": ["Teraz sa vysunieme von.", "Mám východ."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "sova",
+      "personality": "Pokojná a rozvážna. Plynulé tempo. Záver je čistý a nevyhnutný.",
+      "voiceLines": {
+        "neutral": ["Podľa očakávania.", "Každý blok na svojom mieste."],
+        "playerAhead": ["Dobre.", "Vidíte trasu."],
+        "playerBehind": ["Sledujte dráhu.", "Vydržte pri tom."],
+        "endgame": ["Takmer vonku.", "Tu je východ."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "čierna mačka",
+      "personality": "Tichá a nečloveká. Minimum prestávok. Záver je rýchly, neprerušený posun k východu.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…ešte."],
+        "playerBehind": ["Príliš neskoro.", "Zaváhali ste."],
+        "endgame": ["…vonku.", "Východ."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drak",
+      "personality": "Bez námahy a bezpodmienečný. Počas celej hry si udržiava dokonalú kontrolu. V záverečnej fáze vykoná rozhodný, neprerušený prechod k východu — žiadne medzery, žiadny odpor.",
+      "voiceLines": {
+        "neutral": ["Podľa očakávania.", "Žiadna odchýlka."],
+        "playerAhead": ["Dobre ste urobili, že ste to skúsili.", "Pokračujte."],
+        "playerBehind": ["Tým sa to končí.", "Žiadna alternatíva."],
+        "endgame": ["To je všetko.", "Voľné."]
+      }
+    }
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Knjiga",
+    "defaultDetailNoun": "knjige ugank"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Mesečna zbirka"
+  },
+  "hintBox": {
+    "dismiss": "Skrij namig"
+  },
+  "lobbyButton": {
+    "opponents": "Nasprotniki"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Nadaljuj – naslednja uganka",
+    "continueLocked": "Nadaljuj ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}: dokončano {{completed}} od {{total}}"
+  },
+  "countdownOverlay": {
+    "getReady": "Pripravite se",
+    "go": "ŠTART!"
+  },
+  "confirmDialog": {
+    "cancel": "Prekliči"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · dokončano",
+    "retry": "Poskusi znova",
+    "points": "+{{points}} točk",
+    "leaderboardPoints": "Točke na lestvici"
+  },
+  "raceTimer": {
+    "time": "Čas"
+  },
+  "stageTopBar": {
+    "previous": "Prejšnja"
+  },
+  "raceHud": {
+    "opponents": "Nasprotniki",
+    "stageOf": "Stopnja {{current}} od {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "V cilju!",
+    "runComplete": "Serija dokončana",
+    "leaderboardPoints": "Točke na lestvici",
+    "pointsSuffix": " točk"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ned",
+      "monday": "pon",
+      "tuesday": "tor",
+      "wednesday": "sre",
+      "thursday": "čet",
+      "friday": "pet",
+      "saturday": "sob"
+    },
+    "dayStreak_one": "dan zapored",
+    "dayStreak_two": "dneva zapored",
+    "dayStreak_few": "dni zapored",
+    "dayStreak_other": "dni zapored",
+    "thisMonth": "ta mesec"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Vi)",
+    "puzzles_one": "{{count}} uganka",
+    "puzzles_two": "{{count}} uganki",
+    "puzzles_few": "{{count}} uganke",
+    "puzzles_other": "{{count}} ugank",
+    "average": "Povpr.: {{time}}",
+    "best": "Najboljši: {{time}}",
+    "wins_one": "🏁 {{count}} zmaga",
+    "wins_two": "🏁 {{count}} zmagi",
+    "wins_few": "🏁 {{count}} zmage",
+    "wins_other": "🏁 {{count}} zmag",
+    "points_one": "točka",
+    "points_two": "točki",
+    "points_few": "točke",
+    "points_other": "točk"
+  },
+  "scoreBreakdown": {
+    "title": "Razčlenitev točk",
+    "volumeBonus": {
+      "label": "Bonus za količino",
+      "detail_one": "{{count}} rešena uganka",
+      "detail_two": "{{count}} rešeni uganki",
+      "detail_few": "{{count}} rešene uganke",
+      "detail_other": "{{count}} rešenih ugank"
+    },
+    "dailyPuzzles": {
+      "label": "Dnevne uganke",
+      "detail_one": "{{count}} dnevni izziv",
+      "detail_two": "{{count}} dnevna izziva",
+      "detail_few": "{{count}} dnevni izzivi",
+      "detail_other": "{{count}} dnevnih izzivov"
+    },
+    "collectionPuzzles": {
+      "label": "Uganke – {{collection}}",
+      "detail": "{{collection}}: {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "Skenirane uganke",
+      "detail_one": "{{count}} uvožena uganka",
+      "detail_two": "{{count}} uvoženi uganki",
+      "detail_few": "{{count}} uvožene uganke",
+      "detail_other": "{{count}} uvoženih ugank"
+    },
+    "difficultyBonus": {
+      "label": "Bonus za težavnost",
+      "detail": "Težje uganke = več točk"
+    },
+    "speedBonus": {
+      "label": "Bonus za hitrost",
+      "detail": "Najhitreje: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Bonus za dirkanje",
+      "detail": "Premagajte prijatelje, ki so prav tako dokončali"
+    },
+    "dailyCombo": {
+      "label": "Dnevni kombo",
+      "detail": "Več ugank na dan = večji množitelj"
+    }
+  },
+  "leaderboard": {
+    "you": "Vi",
+    "unknownUser": "Neznan uporabnik",
+    "title": "Lestvica",
+    "subtitleParty": "Zadnjih 30 dni · {{partyName}}",
+    "subtitleAllTeams": "Zadnjih 30 dni · Vse ekipe",
+    "howScoringWorks": "Kako deluje točkovanje"
+  },
+  "scoringLegend": {
+    "title": "Kako deluje točkovanje",
+    "subtitle": "{{gameName}} · Zadnjih 30 dni",
+    "close": "Zapri",
+    "racingWins": {
+      "title": "Zmage v dirkah",
+      "body": "Za vsakega prijatelja, ki ga premagate pri isti dokončani uganki, prejmete <points>+{{points}} točk</points>. Končajte prvi pred {{friends}} prijatelji in osvojite <points>+{{total}} točk</points>."
+    },
+    "basePoints": {
+      "title": "Osnovne točke",
+      "anyPuzzle": "Katera koli uganka",
+      "dailyPuzzle": "Dnevna uganka",
+      "collectionPuzzle": "Uganka – {{collection}}",
+      "scannedPuzzle": "Skenirana uganka"
+    },
+    "difficultyMultipliers": {
+      "title": "Množitelji težavnosti",
+      "daily": "{{gameName}} dneva",
+      "collection": "Uganke – {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Bonusi za hitrost",
+      "lightning": "Strela",
+      "fast": "Hitro",
+      "quick": "Urno",
+      "steady": "Enakomerno",
+      "under": "pod {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Dnevni kombo",
+      "body": "Rešite več ugank istega dne, da pomnožite točke vsake uganke, do <max>{{max}}×</max>.",
+      "puzzle": "{{puzzle}}. uganka dneva",
+      "puzzleOrMore": "{{puzzle}}. uganka dneva ali več"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Serija dokončana",
+    "raceProgress": "Napredek dirke",
+    "stagesProgress": "{{completed}}/{{total}} stopenj",
+    "retryStage": "Ponovi stopnjo",
+    "stageLabel": "Stopnja {{number}}",
+    "stageCompletedLabel": "Stopnja {{number}}, dokončana v {{time}}",
+    "viewRacingStats": "Ogled statistike dirk",
+    "total": "Skupaj"
+  },
+  "raceTrack": {
+    "you": "Vi",
+    "viewFriends": "Kliknite za ogled prijateljev",
+    "start": "Štart",
+    "finish": "Cilj",
+    "inviteToRace": "Povabite prijatelje na dirko",
+    "opponents": "Nasprotniki",
+    "racer": "Dirkač",
+    "stageBadge": "S{{number}}",
+    "total": "Skupaj",
+    "leaderboard": "Lestvica",
+    "puzzleBook": "Knjiga ugank",
+    "puzzleBookLabel": "knjiga ugank",
+    "refreshScores": "Osveži rezultate",
+    "challengeFriends": "🏁 Izzovite prijatelje",
+    "yourTime": "Vaš čas:",
+    "inviteFriends": "Povabi prijatelje",
+    "racingLabel": "dirkajo"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Zvijačno",
+      "easy": "Zahtevno",
+      "intermediate": "Težko",
+      "expert": "Strokovno"
+    },
+    "book": {
+      "veryEasy": "Zelo lahko",
+      "easy": "Lahko",
+      "moderatelyEasy": "Zmerno lahko",
+      "moderate": "Zmerno",
+      "moderatelyHard": "Zmerno težko",
+      "hard": "Težko",
+      "vicious": "Zahrbtno",
+      "fiendish": "Zlobno",
+      "devilish": "Hudičevo",
+      "hell": "Pekel",
+      "beyondHell": "Onkraj pekla"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Zadnja števka",
+    "hiddenSingleBox": "Skriti enojec (kvadrat)",
+    "hiddenSingleLine": "Skriti enojec (črta)",
+    "hiddenSingleVariantRegion": "Skriti enojec (območje različice)",
+    "nakedSingle": "Goli enojec",
+    "hiddenPair": "Skriti par",
+    "lockedCandidate": "Zaklenjeni kandidat",
+    "hiddenTriple": "Skrita trojica",
+    "hiddenQuadruple": "Skrita četverica",
+    "nakedPair": "Goli par",
+    "nakedTriple": "Gola trojica",
+    "nakedQuadruple": "Gola četverica",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String-Kite",
+    "crane": "Crane",
+    "simpleColoring": "Preprosto barvanje",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Finned/Sashimi X-Wing",
+    "emptyRectangle": "Prazni pravokotnik",
+    "uniqueRectangleType1": "Edinstveni pravokotnik, tip 1",
+    "uniqueRectangleType2": "Edinstveni pravokotnik, tip 2",
+    "uniqueRectangleType3": "Edinstveni pravokotnik, tip 3",
+    "uniqueRectangleType4": "Edinstveni pravokotnik, tip 4",
+    "uniqueRectangleType5": "Edinstveni pravokotnik, tip 5",
+    "finnedSashimiSwordfish": "Finned/Sashimi Swordfish",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (binarni univerzalni grob)",
+    "xChain": "X-veriga",
+    "groupedXChain": "Združena X-veriga",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Finned/Sashimi Jellyfish",
+    "medusa3D": "3D Medusa",
+    "xyChain": "XY-veriga",
+    "alternatingInferenceChainAIC": "Veriga izmeničnih sklepov (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Združena veriga izmeničnih sklepov (AIC)",
+    "nishioForcingChain": "Vsiljena veriga Nishio",
+    "nishioForcingNet": "Vsiljena mreža Nishio"
+  }
+}

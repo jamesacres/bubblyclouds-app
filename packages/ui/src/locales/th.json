@@ -1,0 +1,56 @@
+{
+  "language": {
+    "label": "ภาษา",
+    "automatic": "อัตโนมัติ"
+  },
+  "header": {
+    "offline": "ออฟไลน์",
+    "back": "กลับ"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "สลับโหมดมืด"
+  },
+  "starRating": {
+    "label_other": "{{filled}} จาก {{count}} ดาว"
+  },
+  "timer": {
+    "go": "ลุย!"
+  },
+  "themeColor": {
+    "change": "เปลี่ยนสีธีม",
+    "set": "ตั้งสีธีมเป็น{{color}}",
+    "setPremium": "ตั้งสีธีมเป็น{{color}} (พรีเมียม)",
+    "colors": {
+      "blue": "น้ำเงิน",
+      "red": "แดง",
+      "green": "เขียว",
+      "purple": "ม่วง",
+      "amber": "อำพัน",
+      "cyan": "ฟ้าอมเขียว",
+      "pink": "ชมพู",
+      "indigo": "คราม",
+      "orange": "ส้ม",
+      "teal": "เขียวอมน้ำเงิน",
+      "slate": "เทาอมน้ำเงิน",
+      "rose": "กุหลาบ",
+      "emerald": "มรกต",
+      "sky": "ฟ้า",
+      "violet": "ม่วงอ่อน",
+      "lime": "เขียวมะนาว",
+      "fuchsia": "ชมพูบานเย็น",
+      "yellow": "เหลือง",
+      "stone": "เทาหิน",
+      "zinc": "เทาสังกะสี"
+    }
+  },
+  "copyButton": {
+    "copied": "คัดลอกไปยังคลิปบอร์ดแล้ว!",
+    "share": "แชร์ลิงก์เชิญ",
+    "copy": "คัดลอกลิงก์เชิญ"
+  },
+  "share": {
+    "joinTeam": "มาเข้าร่วมทีมแข่งบน {{appName}} กัน!",
+    "joinNamedTeam": "มาเข้าร่วมทีมแข่ง {{partyName}} บน {{appName}} กัน!",
+    "dialogTitle": "แชร์คำเชิญ"
+  }
+}

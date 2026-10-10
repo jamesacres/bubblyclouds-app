@@ -340,7 +340,7 @@ describe('ScoreBreakdown', () => {
       expect(gridContainer).toHaveClass('grid-cols-1');
     });
 
-    it('should have colored left border for each item', () => {
+    it('should have colored start border for each item', () => {
       const breakdown = createBreakdown();
       const stats = createStats();
 
@@ -348,9 +348,9 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      // Check for border-l classes (left border)
+      // Check for border-l classes (start border)
       const itemsWithBorders = container.querySelectorAll(
-        '[class*="border-l"]'
+        '[class*="border-s"]'
       );
       expect(itemsWithBorders.length).toBeGreaterThan(0);
     });
@@ -438,7 +438,7 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      const volumeItem = container.querySelector('.border-l-green-500');
+      const volumeItem = container.querySelector('.border-s-green-500');
       expect(volumeItem).toBeInTheDocument();
     });
 
@@ -450,7 +450,7 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      const dailyItem = container.querySelector('.border-l-blue-500');
+      const dailyItem = container.querySelector('.border-s-blue-500');
       expect(dailyItem).toBeInTheDocument();
     });
 
@@ -462,7 +462,7 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      const collectionItem = container.querySelector('.border-l-purple-500');
+      const collectionItem = container.querySelector('.border-s-purple-500');
       expect(collectionItem).toBeInTheDocument();
     });
 
@@ -474,7 +474,7 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      const scannedItem = container.querySelector('.border-l-orange-500');
+      const scannedItem = container.querySelector('.border-s-orange-500');
       expect(scannedItem).toBeInTheDocument();
     });
 
@@ -486,7 +486,7 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      const difficultyItem = container.querySelector('.border-l-red-500');
+      const difficultyItem = container.querySelector('.border-s-red-500');
       expect(difficultyItem).toBeInTheDocument();
     });
 
@@ -498,7 +498,7 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      const speedItem = container.querySelector('.border-l-yellow-500');
+      const speedItem = container.querySelector('.border-s-yellow-500');
       expect(speedItem).toBeInTheDocument();
     });
 
@@ -510,7 +510,7 @@ describe('ScoreBreakdown', () => {
         <ScoreBreakdown breakdown={breakdown} stats={stats} />
       );
 
-      const racingItem = container.querySelector('.border-l-indigo-500');
+      const racingItem = container.querySelector('.border-s-indigo-500');
       expect(racingItem).toBeInTheDocument();
     });
   });

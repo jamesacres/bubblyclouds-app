@@ -1,0 +1,56 @@
+{
+  "language": {
+    "label": "Ngôn ngữ",
+    "automatic": "Tự động"
+  },
+  "header": {
+    "offline": "Ngoại tuyến",
+    "back": "Quay lại"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Bật/tắt chế độ tối"
+  },
+  "starRating": {
+    "label_other": "{{filled}} trên {{count}} sao"
+  },
+  "timer": {
+    "go": "ĐI!"
+  },
+  "themeColor": {
+    "change": "Đổi màu giao diện",
+    "set": "Đặt màu giao diện thành {{color}}",
+    "setPremium": "Đặt màu giao diện thành {{color}} (Premium)",
+    "colors": {
+      "blue": "xanh dương",
+      "red": "đỏ",
+      "green": "xanh lá",
+      "purple": "tím",
+      "amber": "hổ phách",
+      "cyan": "xanh lơ",
+      "pink": "hồng",
+      "indigo": "chàm",
+      "orange": "cam",
+      "teal": "xanh mòng két",
+      "slate": "xám đá phiến",
+      "rose": "hồng đào",
+      "emerald": "ngọc lục bảo",
+      "sky": "xanh da trời",
+      "violet": "tím violet",
+      "lime": "xanh chanh",
+      "fuchsia": "hồng fuchsia",
+      "yellow": "vàng",
+      "stone": "xám đá",
+      "zinc": "xám kẽm"
+    }
+  },
+  "copyButton": {
+    "copied": "Đã sao chép vào bộ nhớ tạm!",
+    "share": "Chia sẻ liên kết mời",
+    "copy": "Sao chép liên kết mời"
+  },
+  "share": {
+    "joinTeam": "Tham gia đội đua trên {{appName}}!",
+    "joinNamedTeam": "Tham gia đội đua {{partyName}} trên {{appName}}!",
+    "dialogTitle": "Chia sẻ lời mời"
+  }
+}

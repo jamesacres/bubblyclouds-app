@@ -1,0 +1,234 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "कोई अनपेक्षित त्रुटि हुई। कृपया फिर कोशिश करें।",
+    "dismiss": "बंद करें"
+  },
+  "errorBoundary": {
+    "title": "ओह! कुछ गड़बड़ हो गई",
+    "description": "हमें एक अनपेक्षित त्रुटि मिली। चिंता न करें, आपकी प्रगति सहेजी हुई है!",
+    "reload": "ऐप फिर से लोड करें",
+    "clearStorage": "स्टोरेज साफ़ करें और फिर से लोड करें",
+    "contactSupport": "यदि यह समस्या बनी रहती है, तो कृपया सहायता से संपर्क करें।"
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} मिनट पहले",
+    "minutesAgo_other": "{{count}} मिनट पहले",
+    "hoursAgo_one": "{{count}} घंटे पहले",
+    "hoursAgo_other": "{{count}} घंटे पहले",
+    "daysAgo_one": "{{count}} दिन पहले",
+    "daysAgo_other": "{{count}} दिन पहले"
+  },
+  "tier": {
+    "novice": "नौसिखिया",
+    "advancedBeginner": "शुरुआती",
+    "competent": "सक्षम",
+    "proficient": "कुशल",
+    "expert": "विशेषज्ञ"
+  },
+  "moves": {
+    "onPar": "चालें, पार पर",
+    "overPar": "चालें, पार से {{delta}} ज़्यादा",
+    "underPar": "चालें, पार से {{delta}} कम"
+  },
+  "lobby": {
+    "title": "रेस लॉबी",
+    "close": "लॉबी बंद करें",
+    "onlineOpponents": "ऑनलाइन प्रतिद्वंद्वी",
+    "refresh": "ऑनलाइन प्रतिद्वंद्वी रीफ़्रेश करें",
+    "noOpponents": "कोई प्रतिद्वंद्वी ऑनलाइन नहीं — मित्रों को रेस के लिए आमंत्रित करें!",
+    "away": "दूर",
+    "offlineTeams": "ऑफ़लाइन · आपकी टीमों में",
+    "removeMember": "{{name}} को हटाएँ",
+    "aiOpponents": "AI प्रतिद्वंद्वी",
+    "addAgent": "जोड़ें",
+    "noAgents": "अभी कोई AI प्रतिद्वंद्वी नहीं — एक जोड़ें, ताकि रेस के लिए हमेशा कोई मौजूद रहे।",
+    "ownClock": "हर खिलाड़ी अपनी घड़ी पर रेस करता है",
+    "startSolving": "हल करना शुरू करें",
+    "finished": "पूरा हुआ",
+    "inLobby": "लॉबी में",
+    "stageProgress": "चरण {{current}} / {{total}}",
+    "finishedRunIn": "रन {{time}} में पूरा हुआ",
+    "solvedIn": "{{time}} में हल किया",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · आख़िरी बार देखा गया: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "अकेले की रेस — बस आप और घड़ी",
+      "friends_one": "{{count}} मित्र",
+      "friends_other": "{{count}} मित्र",
+      "aiOpponents_one": "{{count}} AI प्रतिद्वंद्वी",
+      "aiOpponents_other": "{{count}} AI प्रतिद्वंद्वी",
+      "racing": "{{opponents}} के साथ रेस"
+    },
+    "invite": {
+      "button": "आमंत्रित करें",
+      "eyebrow": "अपनी रेस बनाएँ",
+      "title": "प्रतिद्वंद्वियों को आमंत्रित करें",
+      "close": "बंद करें",
+      "existingTeam": "मौजूदा टीम में आमंत्रित करें",
+      "editTeamName": "टीम का नाम संपादित करें",
+      "deleteTeam": "टीम हटाएँ",
+      "leaveTeam": "टीम छोड़ें",
+      "memberCount_one": "{{count}} सदस्य",
+      "memberCount_other": "{{count}} सदस्य",
+      "createTeam": "नई रेसिंग टीम बनाएँ",
+      "displayNameLabel": "टीम के सदस्य आपको किस नाम से बुलाते हैं?",
+      "displayNamePlaceholder": "प्रदर्शित नाम",
+      "teamNameLabel": "इस टीम का नाम क्या रखें?",
+      "teamNamePlaceholder": "टीम का नाम (जैसे परिवार)",
+      "createAndCopy": "बनाएँ और लिंक कॉपी करें",
+      "defaultTeamName": "नई टीम",
+      "defaultPlayerName": "खिलाड़ी"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "शीट बंद करें",
+    "back": "वापस",
+    "close": "बंद करें",
+    "title": "अपने प्रतिद्वंद्वी चुनें",
+    "subtitle": "एक या अधिक प्रतिद्वंद्वी चुनें",
+    "selectAtLeastOne": "कम से कम एक प्रतिद्वंद्वी चुनें",
+    "race_one": "{{count}} प्रतिद्वंद्वी से रेस करें",
+    "race_other": "{{count}} प्रतिद्वंद्वियों से रेस करें",
+    "skill": {
+      "novice": "नौसिखिया",
+      "advancedBeginner": "उन्नत शुरुआती",
+      "competent": "सक्षम",
+      "proficient": "कुशल",
+      "expert": "विशेषज्ञ"
+    }
+  },
+  "agentParty": {
+    "title": "AI प्रतिद्वंद्वी",
+    "rivalCount_one": "{{count}} प्रतिद्वंद्वी",
+    "rivalCount_other": "{{count}} प्रतिद्वंद्वी"
+  },
+  "party": {
+    "cancel": "रद्द करें",
+    "editName": "टीम का नाम संपादित करें",
+    "editMaxMembers": "अधिकतम सदस्य संपादित करें",
+    "memberCount_one": "{{count}} सदस्य",
+    "memberCount_other": "{{count}} सदस्य",
+    "memberCountPremium_one": "{{count}} सदस्य ✨ प्रीमियम",
+    "memberCountPremium_other": "{{count}} सदस्य ✨ प्रीमियम",
+    "membersOf_one": "{{current}}/{{count}} सदस्य",
+    "membersOf_other": "{{current}}/{{count}} सदस्य",
+    "shareLink": "टीम के मौजूदा सदस्यों के साथ यह लिंक साझा करें, ताकि वे इस पहेली में शामिल हो सकें",
+    "you": "(आप)",
+    "notStarted": "शुरू नहीं किया! उन्हें खेलने के लिए कहें"
+  },
+  "partyConfirmation": {
+    "cancel": "रद्द करें",
+    "leaveAgentParty": {
+      "title": "AI प्रतिद्वंद्वियों को हटाएँ",
+      "action": "हटाएँ",
+      "processing": "हटाया जा रहा है...",
+      "message": "क्या आप सचमुच सभी AI प्रतिद्वंद्वियों को हटाना चाहते हैं? वे रेस में दिखाई नहीं देंगे।"
+    },
+    "removeAgent": {
+      "title": "लोकल एजेंट हटाएँ",
+      "action": "हटाएँ",
+      "processing": "हटाया जा रहा है...",
+      "message": "क्या आप सचमुच \"{{memberName}}\" को रेस से हटाना चाहते हैं?"
+    },
+    "deleteParty": {
+      "title": "टीम हटाएँ",
+      "action": "टीम हटाएँ",
+      "processing": "हटाया जा रहा है...",
+      "message": "क्या आप सचमुच \"{{partyName}}\" को हटाना चाहते हैं? इससे टीम हमेशा के लिए हट जाएगी और सभी सदस्यों की पहुँच समाप्त हो जाएगी। यह कार्रवाई पूर्ववत नहीं की जा सकती।"
+    },
+    "leave": {
+      "title": "टीम छोड़ें",
+      "action": "छोड़ें",
+      "processing": "छोड़ा जा रहा है...",
+      "message": "क्या आप सचमुच \"{{partyName}}\" को छोड़ना चाहते हैं? इसके बाद आप अन्य सदस्यों की प्रगति नहीं देख पाएँगे और इस टीम में हिस्सा नहीं ले पाएँगे।"
+    },
+    "remove": {
+      "title": "सदस्य हटाएँ",
+      "action": "हटाएँ",
+      "processing": "हटाया जा रहा है...",
+      "message": "क्या आप सचमुच \"{{memberName}}\" को \"{{partyName}}\" से हटाना चाहते हैं? वे इस टीम में हिस्सा नहीं ले पाएँगे।"
+    }
+  },
+  "friends": {
+    "allTeams": "सभी टीमें",
+    "refresh": "रीफ़्रेश करें",
+    "refreshing": "रीफ़्रेश हो रहा है…",
+    "title": "मित्रों की पहेलियाँ",
+    "subtitle": "किसी मित्र की हाल की पहेलियाँ देखने और उनसे रेस करने के लिए उन पर टैप करें।",
+    "memberCount_one": "{{count}} सदस्य",
+    "memberCount_other": "{{count}} सदस्य",
+    "noRecentPuzzles": "हाल की कोई पहेली नहीं — उन्हें चुनौती दें!",
+    "empty": {
+      "title": "अभी कोई रेसिंग टीम नहीं",
+      "description": "पहेली हल करते समय रेस लॉबी से मित्रों को आमंत्रित करें"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "पिछले 30 दिनों की आपकी पहेलियाँ।",
+    "empty": {
+      "title": "अभी कोई पहेली नहीं",
+      "description": "अपनी पहली पहेली हल करने के लिए रेस शुरू करें पर जाएँ"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} और सुविधा",
+    "moreFeatures_other": "+{{count}} और सुविधाएँ"
+  },
+  "crossPromo": {
+    "whyNotTry": "क्यों न आज़माएँ",
+    "tryItFree": "मुफ़्त में आज़माएँ"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} पसंद आ रहा है?",
+    "rateIt": "रेटिंग दें",
+    "rateInSeconds": "कुछ ही सेकंड में रेटिंग दें"
+  },
+  "plus": {
+    "close": "मोडल बंद करें",
+    "appIconAlt": "ऐप आइकन",
+    "lifetime": "आजीवन",
+    "monthly": "मासिक",
+    "perMonth": "{{price}}/माह",
+    "whatsIncluded": "क्या-क्या शामिल है",
+    "continue": "जारी रखें",
+    "restorePurchases": "खरीदारी पुनर्स्थापित करें",
+    "cancel": "रद्द करें"
+  },
+  "download": {
+    "title": "ऐप में जारी रखें",
+    "appStoreAlt": "{{appStore}} पर डाउनलोड करें",
+    "googlePlayAlt": "{{googlePlay}} पर पाएँ",
+    "continueBrowser": "ब्राउज़र में जारी रखें",
+    "continueDesktop": "डेस्कटॉप पर जारी रखें"
+  },
+  "session": {
+    "cheated": "चीट किया",
+    "completedIn": "{{minutes}} मिनट {{seconds}} सेकंड में पूरा हुआ",
+    "percentComplete": "{{percentage}}% पूरा",
+    "duration": "{{minutes}} मिनट {{seconds}} सेकंड",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_two": "{{count}}",
+    "dayOrdinal_ordinal_few": "{{count}}",
+    "dayOrdinal_ordinal_many": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "पहेली #{{number}}",
+    "daily": "दैनिक {{date}}",
+    "book": "पुस्तक {{month}} #{{number}}",
+    "collection": "संग्रह {{month}} #{{number}}",
+    "scanned": "स्कैन की गई पहेली",
+    "you": "आप",
+    "unknown": "अज्ञात",
+    "unlockWith": "{{label}} से अनलॉक करें",
+    "lockedPuzzle": "लॉक की गई पहेली",
+    "recommendedTechniques": "सुझाई गई तकनीकें:",
+    "loadingFriends": "मित्र लोड हो रहे हैं..."
+  }
+}

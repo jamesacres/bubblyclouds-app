@@ -150,7 +150,7 @@ describe('Header', () => {
       const nav = container.querySelector('nav');
       expect(nav).toHaveClass('fixed');
       expect(nav).toHaveClass('top-0');
-      expect(nav).toHaveClass('left-0');
+      expect(nav).toHaveClass('start-0');
     });
 
     it('should have high z-index', () => {
@@ -214,7 +214,7 @@ describe('Header', () => {
 
     it('should have right section with proper height', () => {
       const { container } = render(<Header {...defaultHeaderProps} />);
-      const rightSection = container.querySelector('.h-11');
+      const rightSection = container.querySelector('.min-h-11.gap-0');
       expect(rightSection).toHaveClass('items-center');
     });
   });

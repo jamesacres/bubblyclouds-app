@@ -1,0 +1,357 @@
+{
+  "brand": {
+    "gameName": "Lumba Sudoku"
+  },
+  "board": {
+    "buttonGroup": "Kumpulan butang"
+  },
+  "celebration": {
+    "solved": "Selesai!",
+    "leaderboardPoints": "Mata papan pendahulu",
+    "pointsSuffix": " mata"
+  },
+  "completion": {
+    "time": "Masa"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Teruskan rentetan kemenangan dalam buku"
+  },
+  "puzzleMeta": {
+    "daily": "Harian {{day}} {{month}}",
+    "dayOrdinal": "{{count}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "book": "Buku {{month}} #{{number}}",
+    "scanned": "Teka-teki Diimbas"
+  },
+  "bookCover": {
+    "edition": "Edisi {{month}}",
+    "puzzleCount": "50 Teka-teki • Pelbagai Tahap Kesukaran",
+    "months": {
+      "january": {
+        "tagline": "Teknik Asas hingga Melampaui Kejam",
+        "footer": "❄️ Edisi Cabaran Musim Sejuk ❄️"
+      },
+      "february": {
+        "tagline": "Dari Single Tersembunyi hingga Rantaian AIC",
+        "footer": "💕 Cintai Cabaran 💕"
+      },
+      "march": {
+        "tagline": "Mulakan Musim Bunga dengan Teknik Lanjutan",
+        "footer": "🌸 Cabaran Segar Berkembang 🌸"
+      },
+      "april": {
+        "tagline": "Harungi Sebarang Ribut Penyelesaian",
+        "footer": "🌈 Selepas Hujan Datang Kemenangan 🌈"
+      },
+      "may": {
+        "tagline": "Berkembang dengan Kuasa Otak",
+        "footer": "🌻 Semoga Kemahiran Anda Berkembang 🌻"
+      },
+      "june": {
+        "tagline": "Latihan Otak Musim Panas",
+        "footer": "☀️ Sisi Cerah Penyelesaian ☀️"
+      },
+      "july": {
+        "tagline": "Bacaan di Pantai, Latihan Otak",
+        "footer": "🏖️ Permainan Minda Cuti 🏖️"
+      },
+      "august": {
+        "tagline": "Panaskan Kuasa Otak Anda",
+        "footer": "🔥 Cabaran Panas Membara 🔥"
+      },
+      "september": {
+        "tagline": "Asah Otak Anda",
+        "footer": "📚 Ilmu Melalui Nombor 📚"
+      },
+      "october": {
+        "tagline": "Cabaran Bijak yang Menyeramkan",
+        "footer": "🎃 Menyeronokkan Sehingga Menakutkan 🎃"
+      },
+      "november": {
+        "tagline": "Pembakar Otak Malam Unggun",
+        "footer": "🍂 Ingat, Ingatlah! 🍂"
+      },
+      "december": {
+        "tagline": "Hadiah Otak Musim Cuti",
+        "footer": "🎄 Salam Musim Perayaan, Penyelesai! 🎄"
+      },
+      "default": {
+        "tagline": "Cabar Minda Anda",
+        "footer": "🧩 Kuasa Teka-teki 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Anda luar talian, sila semak sambungan anda",
+      "loadFailed": "Gagal memuatkan buku teka-teki"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Papan kekunci: kekunci anak panah, buat asal, buat semula.",
+      "notes": "Tahan shift atau tekan n untuk menogol mod nota.",
+      "validate": "Tekan c untuk mengesahkan sel, g untuk mengesahkan grid."
+    },
+    "owl": {
+      "invalid": "Nampaknya anda membuat kesilapan. Saya syorkan semak grid.",
+      "notSure": "Maaf, saya tidak pasti.",
+      "eureka": "Tatatanda Eureka {{notation}}",
+      "highlighted": "Saya telah menyerlahkan sel yang berkaitan untuk anda",
+      "foundTechnique": "Saya menjumpai {{technique}}",
+      "noHint": "Tiada petunjuk tersedia"
+    },
+    "legend": {
+      "stem": "Batang",
+      "petalA": "Kelopak A",
+      "petalB": "Kelopak B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Hidup (benar)",
+      "off": "Mati (salah)",
+      "elimination": "Penyingkiran"
+    },
+    "reply": {
+      "thanks": "Terima kasih,",
+      "tellMeMore": "🤔 Beritahu saya lagi",
+      "showMeWhere": "👀 Tunjukkan di mana",
+      "hideHint": "Sembunyi Petunjuk"
+    },
+    "askForHelp": "Minta bantuan",
+    "notes": "Nota",
+    "copied": "Disalin!",
+    "export": "Eksport",
+    "delete": "Padam",
+    "undo": "Buat asal",
+    "redo": "Buat lagi",
+    "cell": "Sel",
+    "grid": "Grid",
+    "zoom": "Zum",
+    "reset": "Set semula",
+    "reveal": "Dedahkan",
+    "confirm": {
+      "reset": {
+        "title": "Set semula keseluruhan grid?",
+        "body": "Adakah anda pasti mahu menetapkan semula keseluruhan grid?",
+        "confirm": "Set semula"
+      },
+      "reveal": {
+        "title": "Dedahkan keseluruhan grid?",
+        "body": "Adakah anda pasti mahu mendedahkan keseluruhan grid?",
+        "confirm": "Dedahkan"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Single Terdedah",
+    "hiddenSingleBox": "Single Tersembunyi (Kotak)",
+    "hiddenSingleRow": "Single Tersembunyi (Baris)",
+    "hiddenSingleCol": "Single Tersembunyi (Lajur)",
+    "nakedPair": "Pasangan Terdedah",
+    "nakedTriple": "Triple Terdedah",
+    "nakedQuad": "Kuad Terdedah",
+    "hiddenPair": "Pasangan Tersembunyi",
+    "hiddenTriple": "Triple Tersembunyi",
+    "hiddenQuad": "Kuad Tersembunyi",
+    "lockedCandidatePointing": "Calon Terkunci (Menunjuk)",
+    "lockedCandidateClaiming": "Calon Terkunci (Menuntut)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Pencakar Langit",
+    "twoStringKite": "Layang-layang Dua Tali",
+    "finnedXWing": "X-Wing Bersirip",
+    "finnedSwordfish": "Swordfish Bersirip",
+    "finnedJellyfish": "Jellyfish Bersirip",
+    "emptyRectangle": "Segi Empat Tepat Kosong",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Segi Empat Tepat Unik (Jenis 1)",
+    "uniqueRectangleType2": "Segi Empat Tepat Unik (Jenis 2)",
+    "uniqueRectangleType3": "Segi Empat Tepat Unik (Jenis 3)",
+    "uniqueRectangleType4": "Segi Empat Tepat Unik (Jenis 4)",
+    "uniqueRectangleType5": "Segi Empat Tepat Unik (Jenis 5)",
+    "bug": "BUG",
+    "xyChain": "Rantaian XY",
+    "aic": "AIC",
+    "aicRing": "Gelung AIC",
+    "groupedAIC": "AIC Berkumpulan",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Death Blossom",
+    "nishio": "Nishio",
+    "nishioNet": "Jaringan Nishio",
+    "cellRegionForcingChain": "Rantaian Paksaan Sel/Wilayah",
+    "cellRegionForcingNet": "Jaringan Paksaan Sel/Wilayah",
+    "forcingChain": "Rantaian Paksaan"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "lebah",
+      "personality": "Resah dan bersemangat. Meluru di sekitar grid secara berselang-seli, kemudian terhenti. Menjelang akhir, memecut terlalu awal dan tersangkut sebelum sempat menamatkan.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Saya nampak satu!",
+          "Tunggu—tidak, mungkin bukan...",
+          "Bzzz bzzz! Maju!"
+        ],
+        "playerAhead": [
+          "Hei, perlahan sikit!",
+          "Tadi saya sedang buat dengan baik…"
+        ],
+        "playerBehind": ["Saya semakin hampir!", "Lihat saya pergi!"],
+        "endgame": ["Hampir sampai! Rasanya!", "Tunggu—ini letak di mana?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "itik",
+      "personality": "Ceria dan tidak bermatlamat. Perlahan dan mantap dengan jeda yang panjang. Di penghujung, hanyut ke penyelesaian hampir secara tidak sengaja.",
+      "voiceLines": {
+        "neutral": ["Ambil masa sahaja...", "Hmm... di sekitar sini."],
+        "playerAhead": ["Anda hebat!", "Nanti saya sampai juga."],
+        "playerBehind": ["Oh! Saya jumpa satu!", "Seronoknya."],
+        "endgame": ["Rasanya saya hampir siap?", "Oh! Jadi juga."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "cicak",
+      "personality": "Berhati-hati dan peka. Jeda yang panjang, kemudian beberapa kelompok kecil. Di penghujung, teragak-agak sebelum setiap peletakan.",
+      "voiceLines": {
+        "neutral": ["Biar saya semak sekali lagi.", "Itu sepatutnya betul."],
+        "playerAhead": [
+          "Saya perlu berhati-hati sekarang.",
+          "Jangan tergesa-gesa."
+        ],
+        "playerBehind": ["Baiklah… mengejar.", "Masih ada masa."],
+        "endgame": ["Hati-hati sekarang...", "Hampir… cuma perlu pastikan."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "labah-labah",
+      "personality": "Teliti dan tersusun. Membina kemajuan dengan cermat, sedikit demi sedikit. Di penghujung, struktur itu runtuh — keraguan menyelinap seolah-olah rancangan tidak lagi kukuh.",
+      "voiceLines": {
+        "neutral": ["Itu sepadan dengan corak.", "Sedikit demi sedikit..."],
+        "playerAhead": ["Tadi ia berjaya...", "Saya perlu betulkan ini..."],
+        "playerBehind": ["Masih bertahan.", "Ya… ini berjaya."],
+        "endgame": [
+          "Tunggu—tidak, itu merosakkannya.",
+          "Saya sudah merancangnya..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "rakun",
+      "personality": "Gigih dan bijak mengambil peluang. Rentak tidak sekata. Di penghujung, mendapat momentum dan menamatkan lebih cepat daripada dijangka.",
+      "voiceLines": {
+        "neutral": ["Itu menjadi!", "Agak berselerak, tapi tak apa."],
+        "playerAhead": ["Baiklah, masa untuk menolak.", "Belum selesai lagi."],
+        "playerBehind": ["Oh—penemuan yang bagus.", "Sudah mula menjadi."],
+        "endgame": ["Ya, saya boleh buat ini.", "Sekarang lancar."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "penguin",
+      "personality": "Tersusun dan bermetod. Kadar yang konsisten. Di penghujung kekal stabil — tiada panik, tiada pecutan.",
+      "voiceLines": {
+        "neutral": ["Itu sesuai.", "Kekal konsisten."],
+        "playerAhead": ["Kekalkan kadar.", "Tak perlu tergesa-gesa."],
+        "playerBehind": ["Masih di landasan.", "Kemajuan stabil."],
+        "endgame": ["Hampir sampai.", "Tamatkan dengan kemas."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "monyet",
+      "personality": "Tidak menentu dan menggelisahkan. Pecutan yang tidak dapat diramal. Di penghujung, tiba-tiba memecut dengan cara yang terasa tidak adil.",
+      "voiceLines": {
+        "neutral": ["Heh… tak sangka?", "Oh, menarik."],
+        "playerAhead": ["Jangan terlalu selesa.", "Tengok ini."],
+        "playerBehind": [
+          "Kadangkala semuanya jadi begitu sahaja.",
+          "Tekaan bertuah… atau bukan?"
+        ],
+        "endgame": ["Wah—mari kita mulakan.", "Pantas betul ia memuncak."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "helang",
+      "personality": "Tenang dan mengalir. Peletakan yang berjarak dan yakin. Pecutan senyap di penghujung.",
+      "voiceLines": {
+        "neutral": ["Sudah nampak ini.", "Hanya mengisinya."],
+        "playerAhead": ["Tak mengubah apa-apa.", "Hasilnya tetap sama."],
+        "playerBehind": [
+          "Sebenarnya sudah selesai.",
+          "Sedang di tempat lain sekarang."
+        ],
+        "endgame": ["…hampir siap.", "Menyudahkan."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "musang",
+      "personality": "Intens dan kompetitif. Permulaan pantas, tekanan berterusan. Lonjakan di penghujung terasa agresif.",
+      "voiceLines": {
+        "neutral": ["Ikut rentak.", "Masih bersama saya?"],
+        "playerAhead": [
+          "Jangan perlahan sekarang.",
+          "Anda boleh buat lebih baik daripada itu."
+        ],
+        "playerBehind": ["Terlalu perlahan.", "Anda ketinggalan."],
+        "endgame": ["Tamatkan.", "Ini milik saya."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "jerung",
+      "personality": "Sabar dan memburu. Kekal dekat, kemudian menerkam kuat di penghujung.",
+      "voiceLines": {
+        "neutral": ["Betul-betul di belakang anda.", "Belum lagi."],
+        "playerAhead": ["Kekal di tempat anda.", "Saya sudah dekat."],
+        "playerBehind": ["Semakin dekat.", "Di sini anda rupanya."],
+        "endgame": ["Sekarang kita tamatkan.", "Dapat anda."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "burung hantu",
+      "personality": "Tenang dan teliti. Rentak yang lancar. Penghujungnya bersih dan tidak dapat dielakkan.",
+      "voiceLines": {
+        "neutral": ["Seperti dijangka.", "Semuanya sejajar."],
+        "playerAhead": ["Bagus.", "Anda nampak."],
+        "playerBehind": ["Teruskan sehingga habis.", "Teruskan."],
+        "endgame": ["Hampir lengkap.", "Itu dia."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "kucing hitam",
+      "personality": "Senyap dan tidak berperikemanusiaan. Jeda yang minimum. Penghujungnya ialah penamat yang pantas dan tanpa gangguan.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…masih."],
+        "playerBehind": ["Sudah terlambat.", "Anda teragak-agak."],
+        "endgame": ["…siap.", "Tamat."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "naga",
+      "personality": "Tanpa usaha dan mutlak. Mengekalkan kawalan sempurna sepanjang masa. Di penghujung, melaksanakan sapuan yang tegas dan tanpa gangguan — tiada ruang, tiada tentangan.",
+      "voiceLines": {
+        "neutral": ["Seperti dijangka.", "Tiada penyimpangan."],
+        "playerAhead": ["Anda bijak kerana mencuba.", "Teruskan."],
+        "playerBehind": ["Ini berakhir.", "Tiada pilihan lain."],
+        "endgame": ["Itu sahaja.", "Lengkap."]
+      }
+    }
+  }
+}

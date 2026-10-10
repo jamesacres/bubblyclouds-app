@@ -163,7 +163,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
               </div>
             ) : (
               <div className="flex items-start space-x-2">
-                <h3 className="text-lg font-semibold leading-tight text-stone-800 dark:text-zinc-100">
+                <h3 className="min-w-0 break-words text-lg font-semibold leading-tight text-stone-800 dark:text-zinc-100">
                   {partyName}
                 </h3>
                 {isOwner && (
@@ -182,7 +182,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
             <div className="mt-3 flex items-center space-x-2">
               <Users className="h-4 w-4 flex-shrink-0 text-gray-500 dark:text-gray-400" />
               {isOwner && isEditingMaxSize ? (
-                <div className="flex flex-wrap items-center space-x-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <select
                     value={editMaxSize}
                     onChange={(e) => {
@@ -229,7 +229,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                   {isOwner && (
                     <button
                       onClick={handleEditMaxSize}
-                      className="ml-2 p-1 text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300"
+                      className="ms-2 p-1 text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300"
                       title={t('party.editMaxMembers')}
                     >
                       <Edit3 className="h-4 w-4" />
@@ -242,13 +242,13 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
 
           <button
             type="button"
-            className="ml-2 inline-flex flex-shrink-0 items-center rounded-md p-2 text-stone-400 transition-colors hover:text-red-500 focus:outline-none dark:text-zinc-500 dark:hover:text-red-400"
+            className="ms-2 inline-flex flex-shrink-0 items-center rounded-md p-2 text-stone-400 transition-colors hover:text-red-500 focus:outline-none dark:text-zinc-500 dark:hover:text-red-400"
             onClick={() => setConfirmDialog({ isOpen: true, type: 'leave' })}
           >
             {isOwner ? (
               <Trash className="h-3 w-3" />
             ) : (
-              <LogOut className="h-3 w-3" />
+              <LogOut className="h-3 w-3 rtl:-scale-x-100" />
             )}
           </button>
         </div>
@@ -309,9 +309,9 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                 header={
                   <div className="flex items-center">
                     <div
-                      className={`mr-2 h-3 w-3 rounded-full ${playerColor}`}
+                      className={`me-2 h-3 w-3 shrink-0 rounded-full ${playerColor}`}
                     ></div>
-                    <span className="font-medium text-gray-800 dark:text-gray-200">
+                    <span className="min-w-0 break-words font-medium text-gray-800 dark:text-gray-200">
                       {memberNickname}
                       {isUser && ` ${t('party.you')}`}
                     </span>
@@ -348,7 +348,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                     >
                       <UserMinus className="h-3 w-3" />
                       {!isSubscribed && (
-                        <span className="absolute -right-0.5 -top-0.5 z-10 inline-flex h-3 w-3 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[6px] font-semibold text-white shadow-lg">
+                        <span className="absolute -end-0.5 -top-0.5 z-10 inline-flex h-3 w-3 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[6px] font-semibold text-white shadow-lg">
                           ✨
                         </span>
                       )}

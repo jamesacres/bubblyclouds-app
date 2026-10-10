@@ -32,7 +32,12 @@ import {
   getLoginContextMessages,
   getLoginValueProps,
 } from '../config/loginMessages';
-import { DEFAULT_LOCALE, resources, supportedLocales } from '../i18n';
+import {
+  DEFAULT_LOCALE,
+  localeLoaders,
+  resources,
+  supportedLocales,
+} from '../i18n';
 
 function AppProviders({ children }: PropsWithChildren) {
   const { t } = useTranslation('app');
@@ -100,6 +105,7 @@ export function Providers({ children }: PropsWithChildren) {
       resources={resources}
       defaultLocale={DEFAULT_LOCALE}
       supportedLocales={supportedLocales}
+      localeLoaders={localeLoaders}
     >
       <GlobalErrorHandler />
       <ErrorBoundary>

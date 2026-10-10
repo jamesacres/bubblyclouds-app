@@ -1,0 +1,272 @@
+{
+  "brand": {
+    "gameName": "Cursă Liberă"
+  },
+  "controls": {
+    "hint": "Indiciu",
+    "hintTitle": "Cereți ajutor",
+    "undo": "Anulare",
+    "redo": "Refacere",
+    "reset": "Resetare"
+  },
+  "labels": {
+    "time": "Timp",
+    "moves": "Mutări",
+    "stageOf": "Etapa {{current}} din {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} mutare",
+    "moves_few": "{{count}} mutări",
+    "moves_other": "{{count}} de mutări",
+    "par": "par",
+    "overPar": "{{delta}} peste par",
+    "underPar": "{{delta}} sub par"
+  },
+  "score": {
+    "moves": "mutări",
+    "srOnPar": "mutări, la par",
+    "srOverPar": "mutări, cu {{delta}} peste par",
+    "srUnderPar": "mutări, cu {{delta}} sub par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Zilnic · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Începător",
+    "challenging": "Provocator",
+    "hard": "Dificil",
+    "expert": "Expert"
+  },
+  "collection": {
+    "puzzleLabel": "Puzzle de colecție {{number}}",
+    "theme": {
+      "january": "An nou, blocaj nou",
+      "february": "Blocaj înghețat",
+      "march": "Drum larg deschis",
+      "april": "Ploaie de blocuri",
+      "may": "Benzi proaspete înfloresc",
+      "june": "Viteză maximă de deblocare",
+      "july": "Seria de curse de vară",
+      "august": "Blocaj încins",
+      "september": "Înapoi la tablă",
+      "october": "Blocaj bântuit",
+      "november": "Eliberăm benzile",
+      "december": "Blocaj de sărbători",
+      "default": "Colecție lunară"
+    },
+    "error": {
+      "offline": "Sunteți offline, verificați conexiunea",
+      "loadFailed": "Colecția de puzzle-uri nu a putut fi încărcată"
+    }
+  },
+  "stageClear": {
+    "title": "Etapa {{stage}} încheiată",
+    "onPar": "La par",
+    "pointsSuffix": " pct",
+    "leaderboardPoints": "Puncte în clasament",
+    "nextStage": "Etapa următoare",
+    "progress": "Etapa {{stage}} din {{total}} — mai sunt {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Nu există ieșire de aici — anulați sau resetați pentru a reveni pe drumul cel bun",
+    "dismiss": "Închideți mesajul cu indiciul"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Mențineți seria în colecție"
+  },
+  "raceTrack": {
+    "collection": "Colecție"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Reluați această etapă?",
+      "body": "Timpul și mutările curente vor fi înlocuite.",
+      "confirm": "Reluare"
+    },
+    "reset": {
+      "title": "Resetați acest puzzle?",
+      "body": "Mutările dumneavoastră vor fi șterse, iar puzzle-ul va începe de la zero.",
+      "confirm": "Resetare"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "albină",
+      "personality": "Neliniștit și entuziast. Glisează blocurile în reprize, apoi se oprește. Aproape de ieșire accelerează prea devreme și blochează banda chiar înainte de a termina.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Ăsta alunecă!",
+          "Stai — nu, ăsta mă blochează...",
+          "Bzz bzz! Fac loc!"
+        ],
+        "playerAhead": ["Hei, mai încet!", "Îmi făceam drum…"],
+        "playerBehind": ["Vă ajung din urmă!", "Uitați-vă cum alunec!"],
+        "endgame": ["Ieșirea! O văd!", "Stai — cine a parcat asta acolo?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "rață",
+      "personality": "Vesel și fără țintă. Lent și constant, cu pauze lungi. În finalul jocului iese din blocaj aproape din întâmplare.",
+      "voiceLines": {
+        "neutral": [
+          "Doar împing lucrurile din loc...",
+          "Hmm... poate blocul ăsta."
+        ],
+        "playerAhead": ["Vă descurcați grozav!", "Până la urmă ies și eu."],
+        "playerBehind": ["Oh! Ăsta s-a mișcat!", "E plăcut."],
+        "endgame": ["Aia e ieșirea?", "Oh! Drumul s-a eliberat singur."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "șopârlă",
+      "personality": "Precaut și atent. Pauze lungi, apoi mici serii de glisări. În finalul jocului ezită înaintea fiecărei mutări.",
+      "voiceLines": {
+        "neutral": [
+          "Să văd ce eliberează asta.",
+          "Glisarea asta ar trebui să fie sigură."
+        ],
+        "playerAhead": ["Acum trebuie să fiu atent.", "Nu blocați banda."],
+        "playerBehind": ["Bine… recuperez.", "Mai e timp."],
+        "endgame": [
+          "Cu atenție acum...",
+          "Aproape ieșit… trebuie doar să fiu sigur."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "păianjen",
+      "personality": "Deliberat și structurat. Eliberează banda atent, bloc cu bloc. În finalul jocului planul se destramă — apare ezitarea, de parcă ruta nu ar mai ține.",
+      "voiceLines": {
+        "neutral": ["Asta deschide ruta.", "Bloc cu bloc..."],
+        "playerAhead": ["Ruta funcționa...", "Trebuie să replanific..."],
+        "playerBehind": ["Încă se ține.", "Da… banda se deschide."],
+        "endgame": [
+          "Stai — nu, asta mă blochează din nou.",
+          "Aveam ruta planificată..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "raton",
+      "personality": "Ambițios și oportunist. Ritm neuniform. În finalul jocului prinde avânt și iese mai repede decât te aștepți.",
+      "voiceLines": {
+        "neutral": ["Ăsta se mută!", "E cam strâmt, dar mă mulțumesc."],
+        "playerAhead": ["Bine, e timpul să împing.", "Încă nu sunt blocat."],
+        "playerBehind": ["Oh — frumos spațiu.", "Banda se deschide acum."],
+        "endgame": ["Da, drum liber înainte.", "Acum rulează."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pinguin",
+      "personality": "Structurat și metodic. Ritm constant. Finalul rămâne calm — fără panică, fără sprint.",
+      "voiceLines": {
+        "neutral": ["Glisarea asta se potrivește rutei.", "Rămân constant."],
+        "playerAhead": ["Păstrez ritmul.", "Nu e nevoie să grăbim grila."],
+        "playerBehind": [
+          "Încă pe drumul cel bun.",
+          "Banda se eliberează constant."
+        ],
+        "endgame": ["Aproape am trecut.", "Ieșim curat."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "maimuță",
+      "personality": "Imprevizibil și neliniștitor. Reprize neașteptate. În finalul jocului accelerează brusc, într-un mod care pare nedrept.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… nu ați văzut spațiul ăla?",
+          "Oh, ce glisare interesantă."
+        ],
+        "playerAhead": [
+          "Nu vă simțiți prea confortabil.",
+          "Priviți mutarea asta."
+        ],
+        "playerBehind": [
+          "Uneori traficul se împarte pur și simplu.",
+          "Glisare norocoasă… sau nu?"
+        ],
+        "endgame": ["Oh, wow — drumul e larg deschis.", "S-a eliberat repede."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "acvilă",
+      "personality": "Detașat și fluid. Glisări rare, dar sigure. Accelerare discretă în final.",
+      "voiceLines": {
+        "neutral": ["Am văzut deja ruta.", "Doar glisez prin ea."],
+        "playerAhead": ["Nu schimbă ruta.", "Aceeași ieșire oricum."],
+        "playerBehind": ["E eliberat, de fapt.", "Plutesc de aici încolo."],
+        "endgame": ["…aproape afară.", "Rulez spre ieșire."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "vulpe",
+      "personality": "Intens și competitiv. Start rapid, presiune constantă. Avântul din final pare agresiv.",
+      "voiceLines": {
+        "neutral": ["Țineți pasul.", "Încă sunteți blocat în trafic?"],
+        "playerAhead": [
+          "Nu vă opriți acum.",
+          "Puteți aluneca mai repede de atât."
+        ],
+        "playerBehind": ["Prea lent.", "Sunteți blocat."],
+        "endgame": ["Eliberează banda.", "Ieșirea asta e a mea."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "rechin",
+      "personality": "Răbdător și prădător. Rămâne aproape, apoi lovește tare în final.",
+      "voiceLines": {
+        "neutral": ["Chiar în spatele dumneavoastră.", "Nu încă."],
+        "playerAhead": [
+          "Rămâneți pe banda dumneavoastră.",
+          "Sunt aproape acum."
+        ],
+        "playerBehind": ["Mă apropii.", "Iată spațiul."],
+        "endgame": ["Acum ieșim.", "Am ieșirea."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "bufniță",
+      "personality": "Calm și chibzuit. Ritm fluid. Finalul este curat și inevitabil.",
+      "voiceLines": {
+        "neutral": ["Cum era de așteptat.", "Fiecare bloc la locul lui."],
+        "playerAhead": ["Bine.", "Vedeți ruta."],
+        "playerBehind": ["Urmați banda.", "Rămâneți concentrați."],
+        "endgame": ["Aproape am trecut.", "Iată ieșirea."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "pisică neagră",
+      "personality": "Tăcut și inuman. Pauze minime. Finalul este o glisare rapidă, neîntreruptă, spre ieșire.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…încă."],
+        "playerBehind": ["Prea târziu.", "Ați ezitat."],
+        "endgame": ["…afară.", "Ieșire."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "dragon",
+      "personality": "Firesc și absolut. Păstrează controlul perfect pe tot parcursul. În final execută o baleiere decisivă, neîntreruptă, spre ieșire — fără breșe, fără rezistență.",
+      "voiceLines": {
+        "neutral": ["Previzibil.", "Fără abateri."],
+        "playerAhead": ["Ați făcut bine că ați încercat.", "Continuați."],
+        "playerBehind": ["Aici se încheie.", "Nu există alternativă."],
+        "endgame": ["Asta e tot.", "Liber."]
+      }
+    }
+  }
+}

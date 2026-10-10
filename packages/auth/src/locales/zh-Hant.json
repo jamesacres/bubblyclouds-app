@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "登入後繼續",
+    "signInWith": "使用 {{provider}} 登入",
+    "emailTitle": "使用電子郵件登入",
+    "emailPlaceholder": "your@email.com",
+    "continue": "繼續",
+    "cancel": "取消",
+    "terms": "服務條款",
+    "privacy": "隱私權政策"
+  },
+  "header": {
+    "signIn": "登入"
+  },
+  "avatar": {
+    "alt": "使用者"
+  },
+  "panel": {
+    "title": "帳號",
+    "greeting": "您好，{{name}}！",
+    "fallbackName": "使用者",
+    "plusActive": "{{gameName}} {{plus}} 已啟用",
+    "joinGamePlus": "加入 {{gameName}} {{plus}}",
+    "joinPlus": "加入 {{plus}}",
+    "signOut": "登出",
+    "privacy": "隱私權政策",
+    "terms": "服務條款",
+    "credits": "致謝",
+    "deleteAccount": "刪除帳號",
+    "poweredBy": "技術支援：{{companyName}}",
+    "deleteUnavailable": "目前無法使用刪除帳號功能。",
+    "deleteFailed": "刪除帳號失敗，請稍後再試。"
+  },
+  "deleteDialog": {
+    "title": "刪除帳號",
+    "warning": "此操作無法復原。您在所有 {{companyName}} 應用程式中的全部資料都將被永久刪除。",
+    "confirmation": "我確認要刪除我的整個帳號，包括我在所有 {{companyName}} 應用程式中的全部資料。",
+    "cancel": "取消",
+    "deleting": "刪除中…",
+    "submit": "刪除帳號"
+  }
+}

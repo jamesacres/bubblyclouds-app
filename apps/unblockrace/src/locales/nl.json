@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Vrij Racen",
+    "gameName": "Vrij Racen",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Speel en deel om met vrienden te racen en de puzzel vrij te spelen. Dagelijkse uitdagingen en op al uw apparaten!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Race starten",
+      "myPuzzles": "Mijn puzzels",
+      "racingTeams": "Raceteams"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Maak de file vrij.",
+      "headlineAccent": "Win de race",
+      "subtitle": "Schuif de blokken, bevrijd het gloeiende blok en race uw vrienden naar de uitgang."
+    },
+    "leaderboard": "Ranglijst",
+    "dailyRace": {
+      "title": "Dagelijkse race",
+      "refreshesDaily": "wordt dagelijks vernieuwd",
+      "todaysRace": "Race van vandaag",
+      "difficultyRange": "Beginner → Expert",
+      "description": "Vijf borden, één klok — de snelste ontsnapping wint.",
+      "stages": "5 fases",
+      "start": "Begin met racen",
+      "morePuzzlesPrefix": "Meer puzzels in de",
+      "puzzleCollection": "puzzelcollectie"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 puzzels",
+      "title": "Maandelijkse puzzelcollectie",
+      "description": "50 verse files voor {{month}} — maak ze allemaal vrij voordat de maand voorbij is.",
+      "browse": "Puzzels bekijken"
+    },
+    "teams": {
+      "eyebrow": "Multiplayer",
+      "title": "Raceteams",
+      "raceFriends": "Race tegen {{names}} en meer",
+      "challengeFriends": "Daag vrienden uit voor een race"
+    },
+    "premium": {
+      "title": "Premiumfuncties",
+      "subtitle": "Ontgrendel de volledige $t(brand.gameName)-ervaring"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudoku Race",
+    "tagline": "Deel een sudoku met vrienden en race om hem het snelst op te lossen."
+  },
+  "puzzle": {
+    "mobileDescription": "Beleef de beste ervaring met onze {{appName}}-app!",
+    "desktopDescription": "Download {{appName}}",
+    "openInAppLabel": "Puzzel openen"
+  },
+  "collection": {
+    "loading": {
+      "both": "Puzzelcollectie laden...",
+      "collection": "Puzzels laden...",
+      "sessions": "Uw voortgang laden..."
+    },
+    "retry": "Opnieuw proberen",
+    "backHome": "Terug naar start",
+    "signInPrompt": "Meld u aan om de puzzelcollectie te openen.",
+    "signIn": "Aanmelden",
+    "noData": "Geen gegevens van de puzzelcollectie beschikbaar.",
+    "title": "Puzzelcollectie {{month}}",
+    "completed": "voltooid",
+    "inProgress": "bezig",
+    "unlockWithPlus": "Ontgrendel elke puzzel met Plus",
+    "jumpToDifficulty": "Ga naar moeilijkheid",
+    "scrollToTop": "Naar boven",
+    "subtitle_one": "{{count}} puzzel, van snelle ontsnappingen tot expertfiles",
+    "subtitle_other": "{{count}} puzzels, van snelle ontsnappingen tot expertfiles"
+  },
+  "invite": {
+    "loading": "Uitnodiging laden...",
+    "iconAlt": "Pictogram van {{appName}}",
+    "greeting": "👋 Hoi {{name}}!",
+    "invited": "Je bent uitgenodigd!",
+    "joinTeam": "Doe mee met het raceteam",
+    "tagline": "Race samen om puzzels vrij te spelen en zie elkaars voortgang in realtime!",
+    "proTipLabel": "Tip:",
+    "proTip": "Alle puzzels die je vanaf nu speelt, worden gedeeld met je teamleden voor een gezellige competitie!",
+    "nicknameLabel": "Hoe noemt je raceteam je?",
+    "nicknamePlaceholder": "Voer je bijnaam in",
+    "joining": "Deelnemen aan team...",
+    "join": "Doe mee! 🎉",
+    "signIn": "Meld je aan om door te gaan",
+    "bonus": "🎉 Bonus: ontvang {{duration}} {{plusName}}!",
+    "bonusDescription": "Door lid te worden van dit raceteam ontgrendel je volledig gratis premiumfuncties!",
+    "activation": "💡 Je premiumtoegang wordt na het deelnemen automatisch geactiveerd",
+    "duration": {
+      "oneMonth": "een maand",
+      "oneYear": "een jaar",
+      "lifetime": "levenslang",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Uitnodiging verlopen",
+      "description": "Deze uitnodigingslink is niet meer geldig. Vraag je vriend om een nieuwe uitnodiging of vergroot het team."
+    },
+    "greetingAnonymous": "👋 Hoi!"
+  },
+  "credits": {
+    "title": "Vermeldingen en erkenning",
+    "intro": "Deze app is gebouwd op een aantal uitstekende projecten",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Deze app is gelicentieerd onder de MIT-licentie. Zie onze <licenseLink>LICENSE</licenseLink> en <creditsLink>CREDITS</creditsLink> voor details.",
+    "items": {
+      "rush": "Rush Hour-puzzelsolver en puzzeldatabase van Michael Fogleman, gecompileerd naar WebAssembly",
+      "nextjs": "React-framework voor productie",
+      "typescript": "Getypeerde superset van JavaScript",
+      "tailwind": "Utility-first CSS-framework",
+      "capacitor": "Native runtime voor mobiele apps",
+      "electron": "Framework voor desktop-apps",
+      "revenuecat": "Abonnementsbeheer",
+      "react": "Bibliotheek met UI-componenten",
+      "turborepo": "Buildsysteem voor monorepo's"
+    }
+  },
+  "notFound": {
+    "title": "Pagina niet gevonden"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Meld u aan om de puzzel van vandaag te starten",
+      "collection": "Meld u aan om de collectie te bekijken",
+      "joinTeam": "Meld u aan om lid van het team te worden",
+      "raceLobby": "Meld u aan om met anderen te racen",
+      "puzzleEntry": "Meld u aan om te spelen"
+    },
+    "valueProps": {
+      "saveProgress": "Sla uw voortgang op",
+      "raceFriends": "Race tegen vrienden",
+      "trackStats": "Volg uw statistieken"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "U hebt vandaag uw {{limit}} gratis hints gebruikt.",
+      "body": "Plus geeft u onbeperkt hints — nooit meer vast — en houdt de hele app reclamevrij."
+    },
+    "undo": {
+      "title": "U hebt uw dagelijkse undo-limiet bereikt!",
+      "body": "U krijgt {{limit}} gratis undo's per dag. De limiet wordt morgen hersteld, of neem een abonnement voor onbeperkt undo."
+    },
+    "collectionLocked": {
+      "title": "Deze puzzel hoort bij de Plus-collectie.",
+      "body": "Plus ontgrendelt elke puzzel in het pakket van elke maand en houdt de hele app reclamevrij."
+    },
+    "themeColor": {
+      "title": "Dit thema is exclusief voor Plus.",
+      "body": "Upgrade om alle mooie themakleuren te ontgrendelen en uw Vrij Racen-ervaring te personaliseren."
+    },
+    "removeMember": {
+      "title": "Leden uit uw team verwijderen is een premiumfunctie!",
+      "body": "Neem een abonnement om geavanceerde teambeheerfuncties te ontgrendelen, waaronder het verwijderen van leden."
+    },
+    "multipleParties": {
+      "title": "Meerdere raceteams is een premiumfunctie!",
+      "body": "Gratis gebruikers kunnen één team hebben. Neem een abonnement om onbeperkt teams te maken en eraan deel te nemen voor familie, vrienden en meer."
+    },
+    "partyMaxSize": {
+      "title": "Grote teams is een premiumfunctie!",
+      "body": "Neem een abonnement om geavanceerde teambeheerfuncties te ontgrendelen, waaronder grote teams."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Altijd reclamevrij",
+      "description": "Nooit reclame — alleen u en de puzzels"
+    },
+    "hints": {
+      "title": "Onbeperkt hints",
+      "description": "Nooit meer vast — krijg een hint wanneer u er een nodig hebt"
+    },
+    "monthlyPack": {
+      "title": "Volledig maandelijks pakket ontgrendeld, elke maand",
+      "description": "Speel elke puzzel op elk niveau, zonder sloten"
+    },
+    "undos": {
+      "title": "Onbeperkt undo",
+      "description": "Draai zoveel zetten terug als u wilt"
+    },
+    "teams": {
+      "title": "Meerdere raceteams",
+      "description": "Organiseer privéwedstrijden met vrienden en familie"
+    },
+    "management": {
+      "title": "Teambeheer",
+      "description": "Maak grote teams tot 15 personen en verwijder leden uit uw team."
+    },
+    "themes": {
+      "title": "Alle thema's ontgrendeld",
+      "description": "Personaliseer uw raceervaring"
+    }
+  },
+  "plusModal": {
+    "description": "Word lid van <badge>{{plusName}}</badge> voor <strong>onbeperkt hints</strong>, het <strong>volledige maandelijkse pakket ontgrendeld</strong> en <strong>onbeperkt undo</strong>. Daag vrienden uit, beklim ranglijsten en houd het reclamevrij."
+  },
+  "leaderboard": {
+    "collectionLabel": "Collectie",
+    "collectionDetailNoun": "collecties"
+  },
+  "motivational": {
+    "messages": [
+      "Uw vrienden wachten op een uitdaging",
+      "Tegen wie gaat u vandaag racen?",
+      "Tijd om uw snelheid te tonen",
+      "Uitdaging aanvaard?",
+      "Race naar de finishlijn",
+      "Wie is de snelste oplosser?",
+      "Klaar om de ranglijst te veroveren?",
+      "Uw racevaardigheden wachten",
+      "Tijd om ze achter u te laten",
+      "Klaar om als eerste over de finish te gaan?",
+      "Het circuit wacht op u",
+      "Tijd om een versnelling hoger te schakelen",
+      "Klaar om te scheuren over het puzzelraster?",
+      "Uw tegenstanders warmen al op",
+      "Vandaag is de dag voor een nieuw record",
+      "Uw persoonlijke besttijd wacht om verbeterd te worden",
+      "Elke puzzel maakt u sneller",
+      "Het opbouwen van uw reeks begint nu",
+      "Tijd om een level hoger te gaan",
+      "Uw volgende doorbraak is één puzzel verwijderd",
+      "Klaar om uzelf te verrassen?",
+      "Laat zien waar u toe in staat bent",
+      "Tijd om uw potentieel te ontgrendelen",
+      "Uw snelste oplossing ligt nog voor u",
+      "Klaar om van vandaag een goede dag te maken?",
+      "Elke seconde telt in de race",
+      "Tijd om uw grenzen te verleggen",
+      "Uw groei gaat door",
+      "Klaar om verwachtingen te overtreffen?",
+      "Denkt u de druk aan te kunnen?",
+      "Tijd om de twijfelaars het zwijgen op te leggen",
+      "Klaar om de overwinning te pakken?",
+      "Uw concurrentie ziet dit niet aankomen",
+      "Tijd om uw stempel te drukken",
+      "Klaar om in de schijnwerpers te staan?",
+      "Een overwinning smaakt zoeter als u ervoor werkt",
+      "Tijd om te bewijzen wie de baas is",
+      "Klaar om uw ware kleuren te tonen?",
+      "De kampioensmentaliteit begint hier",
+      "Tijd om u los te maken van de rest",
+      "Klaar om uw legende te schrijven?",
+      "Kampioenen worden gemaakt in momenten als deze",
+      "Tijd om potentieel om te zetten in prestaties",
+      "Verse puzzels, verse kansen",
+      "De uitdaging van vandaag wacht op uw meesterschap",
+      "Klaar om dit uw beste dag tot nu toe te maken?",
+      "Een nieuwe dag betekent nieuwe records om te breken",
+      "Tijd om nog een overwinning aan uw collectie toe te voegen",
+      "Klaar om sterk te starten en nog sterker te eindigen?",
+      "Klaar om van vandaag een legendarische dag te maken?",
+      "Uw dagelijkse dosis triomf wacht",
+      "Strategie ontmoet snelheid op het raster",
+      "Klaar om te overtreffen in denkkracht en tempo?",
+      "Uw puzzelmeesterschap roept",
+      "Tijd om logica te combineren met bliksemsnelheid",
+      "Klaar om met chirurgische precisie op te lossen?",
+      "De perfecte combinatie: vaardigheid en snelheid",
+      "Uw analytische voorsprong is uw racevoordeel",
+      "Tijd om puzzelsuperioriteit te tonen",
+      "Klaar om als een kampioen op te lossen?",
+      "Precisieracen begint met helder denken",
+      "Uw vrienden wachten op een revanche",
+      "Wie lost er vandaag op?",
+      "Een nieuwe dagelijkse puzzel staat klaar",
+      "Uw reeks staat op het spel",
+      "Verse puzzels, frisse start",
+      "De uitdaging van vandaag staat klaar",
+      "Race tegen een vriend op de dagelijkse puzzel",
+      "Nieuwe dag, nieuwe puzzels",
+      "Er staat al iemand op de ranglijst",
+      "Hou uw reeks levend",
+      "De dagelijkse uitdagingen zijn net vernieuwd",
+      "Uw team wacht op u",
+      "Een puzzel dichter bij de top",
+      "De puzzels van vandaag wachten op u",
+      "Spring er weer in en race"
+    ]
+  }
+}

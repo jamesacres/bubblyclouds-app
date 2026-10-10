@@ -37,7 +37,7 @@ const RaceHud = memo(function RaceHud({
   return (
     <div
       data-testid="race-hud"
-      className="flex w-full items-center gap-3 px-3 pb-1 pt-2"
+      className="flex w-full flex-wrap items-center gap-x-3 gap-y-1 px-3 pb-1 pt-2"
     >
       <button
         type="button"
@@ -55,6 +55,7 @@ const RaceHud = memo(function RaceHud({
             current: currentStageIndex + 1,
             total: stageCount,
           })}
+          dir="ltr"
           className="flex items-center gap-1"
         >
           <span className="flex items-center gap-1" aria-hidden="true">
@@ -86,7 +87,7 @@ const RaceHud = memo(function RaceHud({
       )}
 
       <span
-        className={`ml-auto shrink-0 rounded-full px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+        className={`ms-auto shrink-0 rounded-full px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
       >
         {difficulty.label}
       </span>

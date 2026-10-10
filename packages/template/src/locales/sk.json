@@ -1,0 +1,256 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone a iPad"
+  },
+  "errors": {
+    "generic": "Vyskytla sa neočakávaná chyba. Skúste to prosím znova.",
+    "dismiss": "Zavrieť"
+  },
+  "errorBoundary": {
+    "title": "Ojoj! Niečo sa pokazilo",
+    "description": "Vyskytla sa neočakávaná chyba. Nemajte obavy, váš postup je uložený!",
+    "reload": "Znova načítať aplikáciu",
+    "clearStorage": "Vymazať úložisko a znova načítať",
+    "contactSupport": "Ak problém pretrváva, kontaktujte podporu."
+  },
+  "time": {
+    "minutesAgo_one": "pred {{count}} min",
+    "minutesAgo_few": "pred {{count}} min",
+    "minutesAgo_many": "pred {{count}} min",
+    "minutesAgo_other": "pred {{count}} min",
+    "hoursAgo_one": "pred {{count}} h",
+    "hoursAgo_few": "pred {{count}} h",
+    "hoursAgo_many": "pred {{count}} h",
+    "hoursAgo_other": "pred {{count}} h",
+    "daysAgo_one": "pred {{count}} d",
+    "daysAgo_few": "pred {{count}} d",
+    "daysAgo_many": "pred {{count}} d",
+    "daysAgo_other": "pred {{count}} d"
+  },
+  "tier": {
+    "novice": "Nováčik",
+    "advancedBeginner": "Začiatočník",
+    "competent": "Zdatný",
+    "proficient": "Skúsený",
+    "expert": "Expert"
+  },
+  "moves": {
+    "onPar": "ťahov, na úrovni normy",
+    "overPar": "ťahov, o {{delta}} nad normou",
+    "underPar": "ťahov, o {{delta}} pod normou"
+  },
+  "lobby": {
+    "title": "Lobby pretekov",
+    "close": "Zavrieť lobby",
+    "onlineOpponents": "Súperi online",
+    "refresh": "Obnoviť súperov online",
+    "noOpponents": "Nikto nie je online — pozvite priateľov na preteky!",
+    "away": "Preč",
+    "offlineTeams": "Offline · vo vašich tímoch",
+    "removeMember": "Odstrániť hráča {{name}}",
+    "aiOpponents": "Súperi s UI",
+    "addAgent": "Pridať",
+    "noAgents": "Zatiaľ žiadni súperi s UI — pridajte jedného, aby ste mali vždy s kým pretekať.",
+    "ownClock": "Každý hráč súťaží na vlastný čas",
+    "startSolving": "Začať riešiť",
+    "finished": "Dokončené",
+    "inLobby": "V lobby",
+    "stageProgress": "Etapa {{current}} z {{total}}",
+    "finishedRunIn": "Beh dokončený za {{time}}",
+    "solvedIn": "Vyriešené za {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · posledná aktivita {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Sólo preteky — iba vy a čas",
+      "friends_one": "{{count}} priateľ",
+      "friends_few": "{{count}} priatelia",
+      "friends_many": "{{count}} priateľa",
+      "friends_other": "{{count}} priateľov",
+      "aiOpponents_one": "{{count}} súper s UI",
+      "aiOpponents_few": "{{count}} súperi s UI",
+      "aiOpponents_many": "{{count}} súpera s UI",
+      "aiOpponents_other": "{{count}} súperov s UI",
+      "racing": "Pretekáte proti: {{opponents}}"
+    },
+    "invite": {
+      "button": "Pozvať",
+      "eyebrow": "Zostavte si preteky",
+      "title": "Pozvať súperov",
+      "close": "Zavrieť",
+      "existingTeam": "Pozvať do existujúceho tímu",
+      "editTeamName": "Upraviť názov tímu",
+      "deleteTeam": "Odstrániť tím",
+      "leaveTeam": "Opustiť tím",
+      "memberCount_one": "{{count}} člen",
+      "memberCount_few": "{{count}} členovia",
+      "memberCount_many": "{{count}} člena",
+      "memberCount_other": "{{count}} členov",
+      "createTeam": "Vytvoriť nový pretekársky tím",
+      "displayNameLabel": "Ako vás majú členovia tímu volať?",
+      "displayNamePlaceholder": "Zobrazované meno",
+      "teamNameLabel": "Ako pomenujeme tento tím?",
+      "teamNamePlaceholder": "Názov tímu (napr. Rodina)",
+      "createAndCopy": "Vytvoriť a skopírovať odkaz",
+      "defaultTeamName": "Nový tím",
+      "defaultPlayerName": "Hráč"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Zavrieť panel",
+    "back": "Späť",
+    "close": "Zavrieť",
+    "title": "Vyberte si súperov",
+    "subtitle": "Vyberte jedného alebo viacerých súperov",
+    "selectAtLeastOne": "Vyberte aspoň jedného súpera",
+    "race_one": "Pretekať s {{count}} súperom",
+    "race_few": "Pretekať s {{count}} súpermi",
+    "race_many": "Pretekať s {{count}} súpermi",
+    "race_other": "Pretekať s {{count}} súpermi",
+    "skill": {
+      "novice": "Nováčik",
+      "advancedBeginner": "Začiatočník",
+      "competent": "Zdatný",
+      "proficient": "Skúsený",
+      "expert": "Expert"
+    }
+  },
+  "agentParty": {
+    "title": "Súperi s UI",
+    "rivalCount_one": "{{count}} súper",
+    "rivalCount_few": "{{count}} súperi",
+    "rivalCount_many": "{{count}} súpera",
+    "rivalCount_other": "{{count}} súperov"
+  },
+  "party": {
+    "cancel": "Zrušiť",
+    "editName": "Upraviť názov tímu",
+    "editMaxMembers": "Upraviť max. počet členov",
+    "memberCount_one": "{{count}} člen",
+    "memberCount_few": "{{count}} členovia",
+    "memberCount_many": "{{count}} člena",
+    "memberCount_other": "{{count}} členov",
+    "memberCountPremium_one": "{{count}} člen ✨ Premium",
+    "memberCountPremium_few": "{{count}} členovia ✨ Premium",
+    "memberCountPremium_many": "{{count}} člena ✨ Premium",
+    "memberCountPremium_other": "{{count}} členov ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} člen",
+    "membersOf_few": "{{current}}/{{count}} členov",
+    "membersOf_many": "{{current}}/{{count}} člena",
+    "membersOf_other": "{{current}}/{{count}} členov",
+    "shareLink": "Zdieľajte tento odkaz so súčasnými členmi tímu, aby sa pripojili k tomuto hlavolamu",
+    "you": "(vy)",
+    "notStarted": "Ešte nezačal! Požiadajte ho, aby hral"
+  },
+  "partyConfirmation": {
+    "cancel": "Zrušiť",
+    "leaveAgentParty": {
+      "title": "Odstrániť súperov s UI",
+      "action": "Odstrániť",
+      "processing": "Odstraňuje sa...",
+      "message": "Naozaj chcete odstrániť všetkých súperov s UI? Už sa nebudú zobrazovať v pretekoch."
+    },
+    "removeAgent": {
+      "title": "Odstrániť lokálneho súpera",
+      "action": "Odstrániť",
+      "processing": "Odstraňuje sa...",
+      "message": "Naozaj chcete odstrániť „{{memberName}}“ z pretekov?"
+    },
+    "deleteParty": {
+      "title": "Odstrániť tím",
+      "action": "Odstrániť tím",
+      "processing": "Odstraňuje sa...",
+      "message": "Naozaj chcete odstrániť „{{partyName}}“? Tím sa natrvalo odstráni a všetci členovia stratia prístup. Túto akciu nie je možné vrátiť späť."
+    },
+    "leave": {
+      "title": "Opustiť tím",
+      "action": "Opustiť",
+      "processing": "Opúšťa sa...",
+      "message": "Naozaj chcete opustiť „{{partyName}}“? Už neuvidíte postup ostatných členov ani sa nebudete môcť zapájať do tohto tímu."
+    },
+    "remove": {
+      "title": "Odstrániť člena",
+      "action": "Odstrániť",
+      "processing": "Odstraňuje sa...",
+      "message": "Naozaj chcete odstrániť „{{memberName}}“ z tímu „{{partyName}}“? Už sa nebude môcť zapájať do tohto tímu."
+    }
+  },
+  "friends": {
+    "allTeams": "Všetky tímy",
+    "refresh": "Obnoviť",
+    "refreshing": "Obnovuje sa…",
+    "title": "Hlavolamy priateľov",
+    "subtitle": "Ťuknite na priateľa a uvidíte jeho posledné hlavolamy a môžete s ním pretekať.",
+    "memberCount_one": "{{count}} člen",
+    "memberCount_few": "{{count}} členovia",
+    "memberCount_many": "{{count}} člena",
+    "memberCount_other": "{{count}} členov",
+    "noRecentPuzzles": "Žiadne nedávne hlavolamy — vyzvite ich!",
+    "empty": {
+      "title": "Zatiaľ žiadne pretekárske tímy",
+      "description": "Pozvite priateľov z lobby pretekov počas riešenia hlavolamu"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Vaše hlavolamy za posledných 30 dní.",
+    "empty": {
+      "title": "Zatiaľ žiadne hlavolamy",
+      "description": "Prejdite na Začať preteky a vyriešte svoj prvý hlavolam"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} ďalšia funkcia",
+    "moreFeatures_few": "+{{count}} ďalšie funkcie",
+    "moreFeatures_many": "+{{count}} ďalšej funkcie",
+    "moreFeatures_other": "+{{count}} ďalších funkcií"
+  },
+  "crossPromo": {
+    "whyNotTry": "Vyskúšajte aj",
+    "tryItFree": "Vyskúšať zadarmo"
+  },
+  "rateApp": {
+    "prompt": "Páči sa vám {{appName}}?",
+    "rateIt": "Ohodnotiť",
+    "rateInSeconds": "Ohodnoťte za pár sekúnd"
+  },
+  "plus": {
+    "close": "Zavrieť okno",
+    "appIconAlt": "Ikona aplikácie",
+    "lifetime": "Doživotne",
+    "monthly": "Mesačne",
+    "perMonth": "{{price}}/mesiac",
+    "whatsIncluded": "Čo je zahrnuté",
+    "continue": "Pokračovať",
+    "restorePurchases": "Obnoviť nákupy",
+    "cancel": "Zrušiť"
+  },
+  "download": {
+    "title": "Pokračujte v aplikácii",
+    "appStoreAlt": "Stiahnuť z {{appStore}}",
+    "googlePlayAlt": "Stiahnuť z {{googlePlay}}",
+    "continueBrowser": "Pokračovať v prehliadači",
+    "continueDesktop": "Pokračovať na počítači"
+  },
+  "session": {
+    "cheated": "Podvádzal",
+    "completedIn": "Dokončené za {{minutes}} min {{seconds}} s",
+    "percentComplete": "{{percentage}} % dokončené",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{day}}. {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "Hlavolam č. {{number}}",
+    "daily": "Denný {{date}}",
+    "book": "Kniha {{month}} č. {{number}}",
+    "collection": "Zbierka {{month}} č. {{number}}",
+    "scanned": "Naskenovaný hlavolam",
+    "you": "Vy",
+    "unknown": "Neznámy",
+    "unlockWith": "Odomknúť pomocou {{label}}",
+    "lockedPuzzle": "Zamknutý hlavolam",
+    "recommendedTechniques": "Odporúčané techniky:",
+    "loadingFriends": "Načítavajú sa priatelia..."
+  }
+}

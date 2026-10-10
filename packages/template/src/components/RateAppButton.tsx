@@ -70,9 +70,9 @@ export const RateAppButton = ({
     return (
       <button
         onClick={handleClick}
-        className={`liquid-glass flex w-full items-center justify-between gap-4 rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6 ${className ?? ''}`}
+        className={`liquid-glass flex w-full items-center justify-between gap-4 rounded-3xl p-4 text-start transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6 ${className ?? ''}`}
       >
-        <div>
+        <div className="min-w-0">
           <div className="flex items-center gap-2 text-base font-black leading-tight text-white">
             <Star
               className="h-4 w-4 fill-amber-400 text-amber-400"

@@ -1,0 +1,56 @@
+{
+  "language": {
+    "label": "Bahasa",
+    "automatic": "Automatik"
+  },
+  "header": {
+    "offline": "Luar talian",
+    "back": "Kembali"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Togol Mod Gelap"
+  },
+  "starRating": {
+    "label_other": "{{filled}} daripada {{count}} bintang"
+  },
+  "timer": {
+    "go": "MULA!"
+  },
+  "themeColor": {
+    "change": "Tukar Warna Tema",
+    "set": "Tetapkan warna tema kepada {{color}}",
+    "setPremium": "Tetapkan warna tema kepada {{color}} (Premium)",
+    "colors": {
+      "blue": "biru",
+      "red": "merah",
+      "green": "hijau",
+      "purple": "ungu",
+      "amber": "ambar",
+      "cyan": "sian",
+      "pink": "merah jambu",
+      "indigo": "nila",
+      "orange": "oren",
+      "teal": "teal",
+      "slate": "kelabu batu",
+      "rose": "ros",
+      "emerald": "zamrud",
+      "sky": "biru langit",
+      "violet": "violet",
+      "lime": "limau nipis",
+      "fuchsia": "fuksia",
+      "yellow": "kuning",
+      "stone": "kelabu pasir",
+      "zinc": "zink"
+    }
+  },
+  "copyButton": {
+    "copied": "Disalin ke papan klip!",
+    "share": "Kongsi Pautan Jemputan",
+    "copy": "Salin Pautan Jemputan"
+  },
+  "share": {
+    "joinTeam": "Sertai pasukan perlumbaan di {{appName}}!",
+    "joinNamedTeam": "Sertai pasukan perlumbaan {{partyName}} di {{appName}}!",
+    "dialogTitle": "Kongsi jemputan"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "सुडोकू रेस",
+      "gameName": "सुडोकू",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "सुडोकू Plus"
+    },
+    "terms": {
+      "race": "रेस",
+      "team": "टीम",
+      "leaderboard": "लीडरबोर्ड",
+      "hint": "संकेत",
+      "undo": "अनडू",
+      "theme": "थीम",
+      "dailyPuzzle": "दैनिक कोडे",
+      "monthlyCollection": "मासिक कोडे पुस्तक",
+      "aiOpponent": "AI प्रतिस्पर्धी",
+      "monthly": "मासिक",
+      "lifetime": "आजीवन",
+      "plusAccess": "Plus अॅक्सेस",
+      "plusFeatureLine": "अमर्याद रेस, टीम, थीम आणि अनडू"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "अनब्लॉक रेस",
+      "gameName": "अनब्लॉक रेस",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "रेस",
+      "team": "टीम",
+      "leaderboard": "लीडरबोर्ड",
+      "hint": "संकेत",
+      "undo": "अनडू",
+      "theme": "थीम",
+      "dailyPuzzle": "दैनिक कोडे",
+      "monthlyCollection": "मासिक कोडे संग्रह",
+      "aiOpponent": "AI प्रतिस्पर्धी",
+      "monthly": "मासिक",
+      "lifetime": "आजीवन",
+      "plusAccess": "Plus अॅक्सेस",
+      "plusFeatureLine": "अमर्याद रेस, टीम, थीम आणि अनडू"
+    }
+  }
+}

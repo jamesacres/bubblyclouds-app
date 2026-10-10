@@ -1,0 +1,59 @@
+{
+  "language": {
+    "label": "Язык",
+    "automatic": "Автоматически"
+  },
+  "header": {
+    "offline": "Офлайн",
+    "back": "Назад"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Переключить тёмный режим"
+  },
+  "starRating": {
+    "label_one": "{{filled}} из {{count}} звезды",
+    "label_few": "{{filled}} из {{count}} звёзд",
+    "label_many": "{{filled}} из {{count}} звёзд",
+    "label_other": "{{filled}} из {{count}} звезды"
+  },
+  "timer": {
+    "go": "СТАРТ!"
+  },
+  "themeColor": {
+    "change": "Изменить цвет темы",
+    "set": "Установить цвет темы: {{color}}",
+    "setPremium": "Установить цвет темы: {{color}} (Premium)",
+    "colors": {
+      "blue": "синий",
+      "red": "красный",
+      "green": "зелёный",
+      "purple": "фиолетовый",
+      "amber": "янтарный",
+      "cyan": "голубой",
+      "pink": "розовый",
+      "indigo": "индиго",
+      "orange": "оранжевый",
+      "teal": "бирюзовый",
+      "slate": "сланцевый",
+      "rose": "малиновый",
+      "emerald": "изумрудный",
+      "sky": "небесный",
+      "violet": "лиловый",
+      "lime": "лаймовый",
+      "fuchsia": "фуксия",
+      "yellow": "жёлтый",
+      "stone": "каменный",
+      "zinc": "цинковый"
+    }
+  },
+  "copyButton": {
+    "copied": "Скопировано в буфер обмена!",
+    "share": "Поделиться ссылкой",
+    "copy": "Копировать ссылку"
+  },
+  "share": {
+    "joinTeam": "Присоединяйтесь к гоночной команде в {{appName}}!",
+    "joinNamedTeam": "Присоединяйтесь к гоночной команде «{{partyName}}» в {{appName}}!",
+    "dialogTitle": "Поделиться приглашением"
+  }
+}

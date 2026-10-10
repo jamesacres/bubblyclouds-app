@@ -131,7 +131,7 @@ export const UserButton = ({
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <PopoverPanel className="absolute -right-10 z-50 mt-3 hidden transform sm:block">
+              <PopoverPanel className="absolute -end-10 z-50 mt-3 hidden transform sm:block">
                 <UserPanel
                   user={user}
                   logout={logout}

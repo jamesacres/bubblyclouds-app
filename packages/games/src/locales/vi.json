@@ -1,0 +1,253 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Sách",
+    "defaultDetailNoun": "sách câu đố"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Bộ sưu tập hằng tháng"
+  },
+  "hintBox": {
+    "dismiss": "Đóng gợi ý"
+  },
+  "lobbyButton": {
+    "opponents": "Đối thủ"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Tiếp tục — câu đố kế tiếp",
+    "continueLocked": "Tiếp tục ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "Hoàn thành {{completed}}/{{total}} {{label}}"
+  },
+  "countdownOverlay": {
+    "getReady": "Sẵn sàng",
+    "go": "ĐI!"
+  },
+  "confirmDialog": {
+    "cancel": "Hủy"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · hoàn thành",
+    "retry": "Thử lại",
+    "points": "+{{points}} điểm",
+    "leaderboardPoints": "Điểm bảng xếp hạng"
+  },
+  "raceTimer": {
+    "time": "Thời gian"
+  },
+  "stageTopBar": {
+    "previous": "Trước"
+  },
+  "raceHud": {
+    "opponents": "Đối thủ",
+    "stageOf": "Chặng {{current}}/{{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Về đích!",
+    "runComplete": "Hoàn thành lượt đua",
+    "leaderboardPoints": "Điểm bảng xếp hạng",
+    "pointsSuffix": " điểm"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "CN",
+      "monday": "T2",
+      "tuesday": "T3",
+      "wednesday": "T4",
+      "thursday": "T5",
+      "friday": "T6",
+      "saturday": "T7"
+    },
+    "dayStreak_other": "ngày liên tiếp",
+    "thisMonth": "tháng này"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Bạn)",
+    "puzzles_other": "{{count}} câu đố",
+    "average": "TB: {{time}}",
+    "best": "Tốt nhất: {{time}}",
+    "wins_other": "🏁 {{count}} chiến thắng",
+    "points_other": "điểm"
+  },
+  "scoreBreakdown": {
+    "title": "Chi tiết điểm",
+    "volumeBonus": {
+      "label": "Thưởng số lượng",
+      "detail_other": "Đã hoàn thành {{count}} câu đố"
+    },
+    "dailyPuzzles": {
+      "label": "Câu đố hằng ngày",
+      "detail_other": "{{count}} thử thách hằng ngày"
+    },
+    "collectionPuzzles": {
+      "label": "Câu đố {{collection}}",
+      "detail": "{{count}} từ {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Câu đố đã quét",
+      "detail_other": "{{count}} câu đố đã nhập"
+    },
+    "difficultyBonus": {
+      "label": "Thưởng độ khó",
+      "detail": "Câu đố càng khó = càng nhiều điểm"
+    },
+    "speedBonus": {
+      "label": "Thưởng tốc độ",
+      "detail": "Nhanh nhất: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Thưởng đua",
+      "detail": "Đánh bại bạn bè cũng đã hoàn thành"
+    },
+    "dailyCombo": {
+      "label": "Combo hằng ngày",
+      "detail": "Giải càng nhiều câu đố mỗi ngày = hệ số càng lớn"
+    }
+  },
+  "leaderboard": {
+    "you": "Bạn",
+    "unknownUser": "Người dùng không rõ",
+    "title": "Bảng xếp hạng",
+    "subtitleParty": "30 ngày qua · {{partyName}}",
+    "subtitleAllTeams": "30 ngày qua · Tất cả đội",
+    "howScoringWorks": "Cách tính điểm"
+  },
+  "scoringLegend": {
+    "title": "Cách tính điểm",
+    "subtitle": "{{gameName}} · 30 ngày qua",
+    "close": "Đóng",
+    "racingWins": {
+      "title": "Thắng khi đua",
+      "body": "Nhận <points>+{{points}} điểm</points> cho mỗi người bạn mà bạn đánh bại trên cùng một câu đố đã hoàn thành. Về nhất trước {{friends}} người bạn và nhận <points>+{{total}} điểm</points>."
+    },
+    "basePoints": {
+      "title": "Điểm cơ bản",
+      "anyPuzzle": "Câu đố bất kỳ",
+      "dailyPuzzle": "Câu đố hằng ngày",
+      "collectionPuzzle": "Câu đố {{collection}}",
+      "scannedPuzzle": "Câu đố đã quét"
+    },
+    "difficultyMultipliers": {
+      "title": "Hệ số độ khó",
+      "daily": "{{gameName}} của ngày",
+      "collection": "Câu đố {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Thưởng tốc độ",
+      "lightning": "Chớp nhoáng",
+      "fast": "Nhanh",
+      "quick": "Nhanh nhẹn",
+      "steady": "Đều tay",
+      "under": "dưới {{threshold}}",
+      "seconds": "{{value}} giây",
+      "minutes": "{{value}} phút"
+    },
+    "dailyCombo": {
+      "title": "Combo hằng ngày",
+      "body": "Giải nhiều câu đố hơn trong cùng một ngày để nhân điểm của mỗi câu đố, tối đa <max>{{max}}×</max>.",
+      "puzzle": "Câu đố thứ {{puzzle}} trong ngày",
+      "puzzleOrMore": "Câu đố thứ {{puzzle}}+ trong ngày"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Hoàn thành lượt đua",
+    "raceProgress": "Tiến độ cuộc đua",
+    "stagesProgress": "{{completed}}/{{total}} chặng",
+    "retryStage": "Thử lại chặng",
+    "stageLabel": "Chặng {{number}}",
+    "stageCompletedLabel": "Chặng {{number}}, hoàn thành trong {{time}}",
+    "viewRacingStats": "Xem thống kê đua",
+    "total": "Tổng"
+  },
+  "raceTrack": {
+    "you": "Bạn",
+    "viewFriends": "Nhấn để xem bạn bè",
+    "start": "Xuất phát",
+    "finish": "Về đích",
+    "inviteToRace": "Mời bạn bè đến đua",
+    "opponents": "Đối thủ",
+    "racer": "Tay đua",
+    "stageBadge": "Chặng {{number}}",
+    "total": "Tổng",
+    "leaderboard": "Bảng xếp hạng",
+    "puzzleBook": "Sách câu đố",
+    "puzzleBookLabel": "sách câu đố",
+    "refreshScores": "Làm mới điểm",
+    "challengeFriends": "🏁 Thách đấu bạn bè",
+    "yourTime": "Thời gian của bạn:",
+    "inviteFriends": "Mời bạn bè",
+    "racingLabel": "đang đua"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Hơi hóc búa",
+      "easy": "Thử thách",
+      "intermediate": "Khó",
+      "expert": "Chuyên gia"
+    },
+    "book": {
+      "veryEasy": "Rất dễ",
+      "easy": "Dễ",
+      "moderatelyEasy": "Khá dễ",
+      "moderate": "Trung bình",
+      "moderatelyHard": "Khá khó",
+      "hard": "Khó",
+      "vicious": "Hiểm hóc",
+      "fiendish": "Quỷ quái",
+      "devilish": "Ác quỷ",
+      "hell": "Địa ngục",
+      "beyondHell": "Vượt địa ngục"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Chữ số cuối cùng",
+    "hiddenSingleBox": "Số đơn ẩn (khối)",
+    "hiddenSingleLine": "Số đơn ẩn (hàng/cột)",
+    "hiddenSingleVariantRegion": "Số đơn ẩn (vùng biến thể)",
+    "nakedSingle": "Số đơn trần",
+    "hiddenPair": "Cặp ẩn",
+    "lockedCandidate": "Ứng viên bị khóa",
+    "hiddenTriple": "Bộ ba ẩn",
+    "hiddenQuadruple": "Bộ bốn ẩn",
+    "nakedPair": "Cặp trần",
+    "nakedTriple": "Bộ ba trần",
+    "nakedQuadruple": "Bộ bốn trần",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String-Kite",
+    "crane": "Crane",
+    "simpleColoring": "Tô màu đơn giản",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing Finned/Sashimi",
+    "emptyRectangle": "Hình chữ nhật rỗng",
+    "uniqueRectangleType1": "Hình chữ nhật duy nhất loại 1",
+    "uniqueRectangleType2": "Hình chữ nhật duy nhất loại 2",
+    "uniqueRectangleType3": "Hình chữ nhật duy nhất loại 3",
+    "uniqueRectangleType4": "Hình chữ nhật duy nhất loại 4",
+    "uniqueRectangleType5": "Hình chữ nhật duy nhất loại 5",
+    "finnedSashimiSwordfish": "Swordfish Finned/Sashimi",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "X-Chain",
+    "groupedXChain": "X-Chain nhóm",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Jellyfish Finned/Sashimi",
+    "medusa3D": "3D Medusa",
+    "xyChain": "XY-Chain",
+    "alternatingInferenceChainAIC": "Chuỗi suy luận xen kẽ (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Chuỗi suy luận xen kẽ nhóm (AIC)",
+    "nishioForcingChain": "Chuỗi ép buộc Nishio",
+    "nishioForcingNet": "Mạng ép buộc Nishio"
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Ralat tidak dijangka berlaku. Sila cuba lagi.",
+    "dismiss": "Tutup"
+  },
+  "errorBoundary": {
+    "title": "Alamak! Ada sesuatu yang tidak kena",
+    "description": "Kami menghadapi ralat yang tidak dijangka. Jangan risau, kemajuan anda telah disimpan!",
+    "reload": "Muat Semula Apl",
+    "clearStorage": "Kosongkan Storan & Muat Semula",
+    "contactSupport": "Jika masalah ini berterusan, sila hubungi sokongan."
+  },
+  "time": {
+    "minutesAgo_other": "{{count}}m lalu",
+    "hoursAgo_other": "{{count}}j lalu",
+    "daysAgo_other": "{{count}}h lalu"
+  },
+  "tier": {
+    "novice": "Novis",
+    "advancedBeginner": "Pemula",
+    "competent": "Cekap",
+    "proficient": "Mahir",
+    "expert": "Pakar"
+  },
+  "moves": {
+    "onPar": "langkah, tepat par",
+    "overPar": "langkah, {{delta}} melebihi par",
+    "underPar": "langkah, {{delta}} kurang daripada par"
+  },
+  "lobby": {
+    "title": "Lobi Perlumbaan",
+    "close": "Tutup lobi",
+    "onlineOpponents": "Lawan dalam talian",
+    "refresh": "Muat semula lawan dalam talian",
+    "noOpponents": "Tiada lawan dalam talian — jemput rakan untuk berlumba!",
+    "away": "Tiada",
+    "offlineTeams": "Luar talian · dalam pasukan anda",
+    "removeMember": "Alih keluar {{name}}",
+    "aiOpponents": "Lawan AI",
+    "addAgent": "Tambah",
+    "noAgents": "Belum ada lawan AI — tambah seorang supaya sentiasa ada teman berlumba.",
+    "ownClock": "Setiap pemain berlumba dengan jam masing-masing",
+    "startSolving": "Mula Menyelesaikan",
+    "finished": "Selesai",
+    "inLobby": "Dalam lobi",
+    "stageProgress": "Peringkat {{current}} daripada {{total}}",
+    "finishedRunIn": "Menamatkan larian dalam {{time}}",
+    "solvedIn": "Diselesaikan dalam {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · dilihat {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Perlumbaan solo — hanya anda dan jam",
+      "friends_other": "{{count}} rakan",
+      "aiOpponents_other": "{{count}} lawan AI",
+      "racing": "Berlumba dengan {{opponents}}"
+    },
+    "invite": {
+      "button": "Jemput",
+      "eyebrow": "Bina perlumbaan anda",
+      "title": "Jemput lawan",
+      "close": "Tutup",
+      "existingTeam": "Jemput ke pasukan sedia ada",
+      "editTeamName": "Edit nama pasukan",
+      "deleteTeam": "Padam pasukan",
+      "leaveTeam": "Tinggalkan pasukan",
+      "memberCount_other": "{{count}} ahli",
+      "createTeam": "Cipta pasukan perlumbaan baharu",
+      "displayNameLabel": "Apakah nama panggilan anda dalam pasukan?",
+      "displayNamePlaceholder": "Nama paparan",
+      "teamNameLabel": "Apakah nama untuk pasukan ini?",
+      "teamNamePlaceholder": "Nama pasukan (cth. Keluarga)",
+      "createAndCopy": "Cipta & salin pautan",
+      "defaultTeamName": "Pasukan baharu",
+      "defaultPlayerName": "Pemain"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Tutup helaian",
+    "back": "Kembali",
+    "close": "Tutup",
+    "title": "Pilih Pesaing Anda",
+    "subtitle": "Pilih satu atau lebih lawan",
+    "selectAtLeastOne": "Pilih sekurang-kurangnya seorang pesaing",
+    "race_other": "Lumba dengan {{count}} Pesaing",
+    "skill": {
+      "novice": "Novis",
+      "advancedBeginner": "Pemula Mahir",
+      "competent": "Cekap",
+      "proficient": "Mahir",
+      "expert": "Pakar"
+    }
+  },
+  "agentParty": {
+    "title": "Pesaing AI",
+    "rivalCount_other": "{{count}} pesaing"
+  },
+  "party": {
+    "cancel": "Batal",
+    "editName": "Edit nama pasukan",
+    "editMaxMembers": "Edit bilangan ahli maksimum",
+    "memberCount_other": "{{count}} ahli",
+    "memberCountPremium_other": "{{count}} ahli ✨ Premium",
+    "membersOf_other": "{{current}}/{{count}} ahli",
+    "shareLink": "Kongsi pautan ini dengan ahli pasukan semasa untuk menyertai teka-teki ini",
+    "you": "(anda)",
+    "notStarted": "Belum bermula! Minta mereka bermain"
+  },
+  "partyConfirmation": {
+    "cancel": "Batal",
+    "leaveAgentParty": {
+      "title": "Alih Keluar Pesaing AI",
+      "action": "Alih keluar",
+      "processing": "Mengalih keluar...",
+      "message": "Adakah anda pasti mahu mengalih keluar semua Pesaing AI? Mereka tidak akan muncul lagi dalam perlumbaan."
+    },
+    "removeAgent": {
+      "title": "Alih Keluar Ejen Tempatan",
+      "action": "Alih keluar",
+      "processing": "Mengalih keluar...",
+      "message": "Adakah anda pasti mahu mengalih keluar \"{{memberName}}\" daripada perlumbaan?"
+    },
+    "deleteParty": {
+      "title": "Padam Pasukan",
+      "action": "Padam Pasukan",
+      "processing": "Memadam...",
+      "message": "Adakah anda pasti mahu memadam \"{{partyName}}\"? Ini akan mengalih keluar pasukan secara kekal dan semua ahli akan hilang akses. Tindakan ini tidak boleh dibatalkan."
+    },
+    "leave": {
+      "title": "Tinggalkan Pasukan",
+      "action": "Keluar",
+      "processing": "Keluar...",
+      "message": "Adakah anda pasti mahu meninggalkan \"{{partyName}}\"? Anda tidak akan dapat melihat kemajuan ahli lain atau mengambil bahagian dalam pasukan ini."
+    },
+    "remove": {
+      "title": "Alih Keluar Ahli",
+      "action": "Alih keluar",
+      "processing": "Mengalih keluar...",
+      "message": "Adakah anda pasti mahu mengalih keluar \"{{memberName}}\" daripada \"{{partyName}}\"? Mereka tidak akan dapat mengambil bahagian dalam pasukan ini lagi."
+    }
+  },
+  "friends": {
+    "allTeams": "Semua pasukan",
+    "refresh": "Muat semula",
+    "refreshing": "Memuat semula…",
+    "title": "Teka-teki Rakan",
+    "subtitle": "Ketik seorang rakan untuk melihat teka-teki terbaru mereka dan berlumba dengan mereka.",
+    "memberCount_other": "{{count}} ahli",
+    "noRecentPuzzles": "Tiada teka-teki terbaru — cabar mereka!",
+    "empty": {
+      "title": "Belum ada pasukan perlumbaan",
+      "description": "Jemput rakan dari lobi Perlumbaan semasa menyelesaikan teka-teki"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Teka-teki anda sejak 30 hari lalu.",
+    "empty": {
+      "title": "Belum ada teka-teki",
+      "description": "Pergi ke Mula Lumba untuk menyelesaikan teka-teki pertama anda"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_other": "+{{count}} ciri lagi"
+  },
+  "crossPromo": {
+    "whyNotTry": "Mengapa tidak cuba",
+    "tryItFree": "Cuba percuma"
+  },
+  "rateApp": {
+    "prompt": "Seronok bermain {{appName}}?",
+    "rateIt": "Nilaikannya",
+    "rateInSeconds": "Nilaikan dalam beberapa saat"
+  },
+  "plus": {
+    "close": "Tutup modal",
+    "appIconAlt": "Ikon Apl",
+    "lifetime": "Seumur hidup",
+    "monthly": "Bulanan",
+    "perMonth": "{{price}}/bulan",
+    "whatsIncluded": "Apa yang Disertakan",
+    "continue": "Teruskan",
+    "restorePurchases": "Pulihkan pembelian",
+    "cancel": "Batal"
+  },
+  "download": {
+    "title": "Teruskan dalam apl",
+    "appStoreAlt": "Muat turun di {{appStore}}",
+    "googlePlayAlt": "Dapatkan di {{googlePlay}}",
+    "continueBrowser": "Teruskan dalam pelayar",
+    "continueDesktop": "Teruskan pada desktop"
+  },
+  "session": {
+    "cheated": "Menipu",
+    "completedIn": "Selesai dalam {{minutes}}m {{seconds}}s",
+    "percentComplete": "{{percentage}}% selesai",
+    "duration": "{{minutes}}m {{seconds}}s",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Teka-teki #{{number}}",
+    "daily": "Harian {{date}}",
+    "book": "Buku {{month}} #{{number}}",
+    "collection": "Koleksi {{month}} #{{number}}",
+    "scanned": "Teka-teki Diimbas",
+    "you": "Anda",
+    "unknown": "Tidak diketahui",
+    "unlockWith": "Buka kunci dengan {{label}}",
+    "lockedPuzzle": "Teka-teki berkunci",
+    "recommendedTechniques": "Teknik Disyorkan:",
+    "loadingFriends": "Memuatkan rakan..."
+  }
+}

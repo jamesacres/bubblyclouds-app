@@ -16,6 +16,7 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
 
   return (
     <div
+      dir="ltr"
       className="fixed inset-0 z-[120] flex flex-col items-center justify-center gap-8 bg-white/20 dark:bg-[rgba(4,2,15,0.5)]"
       style={{
         backdropFilter: 'blur(12px)',

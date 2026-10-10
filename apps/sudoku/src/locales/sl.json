@@ -1,0 +1,318 @@
+{
+  "brand": {
+    "appName": "Sudoku dirka",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Igrajte in delite za dirkanje v sudokuju s prijatelji. Dnevni izzivi in več naprav!"
+  },
+  "puzzle": {
+    "mobileDescription": "Z aplikacijo {{appName}} dobite najboljšo dirkaško izkušnjo!",
+    "desktopDescription": "Prenesite {{appName}}",
+    "openInAppLabel": "Odpri uganko"
+  },
+  "crossPromo": {
+    "gameName": "Prosta Dirka",
+    "tagline": "Drsite bloke in dirkajte s prijatelji, da razrešite zastoj."
+  },
+  "notFound": {
+    "message": "Stran ni najdena"
+  },
+  "login": {
+    "dailyPuzzle": "Prijavite se, da začnete današnjo uganko",
+    "puzzleBook": "Prijavite se, da prebrskate knjigo ugank",
+    "joinTeam": "Prijavite se, da se pridružite ekipi",
+    "raceLobby": "Prijavite se, da dirkate z drugimi",
+    "puzzleEntry": "Prijavite se za igranje",
+    "valueProps": {
+      "saveProgress": "Shranite svoj napredek",
+      "raceFriends": "Dirkajte s prijatelji",
+      "trackStats": "Spremljajte svojo statistiko"
+    }
+  },
+  "plusModal": {
+    "description": "<badge>{{plusName}}</badge>: <emphasis>odstranite vse omejitve hitrosti</emphasis>. Izzovite prijatelje, se vzpenjajte po lestvicah in izboljšajte hitrost reševanja. Brez oglasov."
+  },
+  "premiumFeatures": {
+    "title": "Premium funkcije",
+    "subtitle": "Odklenite celotno izkušnjo {{appName}}",
+    "unlimitedPlay": {
+      "title": "Neomejena igra in dirkanje",
+      "description": "Dirkajte s prijatelji v realnem času večkrat na dan"
+    },
+    "unlimitedHints": {
+      "title": "Neomejeni namigi",
+      "description": "Nikoli ne obtičite – namig dobite, kadar ga potrebujete"
+    },
+    "monthlyBook": {
+      "title": "Celotna mesečna knjiga odklenjena, vsak mesec",
+      "description": "Igrajte vsako uganko na vsaki težavnosti, brez ključavnic"
+    },
+    "multipleTeams": {
+      "title": "Več dirkaških ekip",
+      "description": "Prirejajte zasebna tekmovanja s prijatelji in družino"
+    },
+    "teamManagement": {
+      "title": "Upravljanje ekipe",
+      "description": "Ustvarite velike ekipe do 15 oseb in odstranjujte člane iz svoje ekipe."
+    },
+    "themes": {
+      "title": "Vse teme odklenjene",
+      "description": "Prilagodite svojo dirkaško izkušnjo"
+    },
+    "unlimitedActions": {
+      "title": "Neomejeno razveljavljanje, preverjanje in razkrivanje",
+      "description": "Odstranite dnevne omejitve razveljavljanja, preverjanja in razkrivanja"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Danes ste porabili {{count}} brezplačen namig.</bold> $t(brand.plus) vam omogoča neomejene namige – nikoli več ne obtičite – in celotno aplikacijo ohranja brez oglasov.",
+    "hint_two": "💡 <bold>Danes ste porabili {{count}} brezplačna namiga.</bold> $t(brand.plus) vam omogoča neomejene namige – nikoli več ne obtičite – in celotno aplikacijo ohranja brez oglasov.",
+    "hint_few": "💡 <bold>Danes ste porabili {{count}} brezplačne namige.</bold> $t(brand.plus) vam omogoča neomejene namige – nikoli več ne obtičite – in celotno aplikacijo ohranja brez oglasov.",
+    "hint_other": "💡 <bold>Danes ste porabili {{count}} brezplačnih namigov.</bold> $t(brand.plus) vam omogoča neomejene namige – nikoli več ne obtičite – in celotno aplikacijo ohranja brez oglasov.",
+    "undo_one": "📅 <bold>Dosegli ste dnevno omejitev razveljavitev!</bold> Na dan imate {{count}} brezplačno razveljavitev. Omejitev se jutri ponastavi, ali pa se naročite za neomejene razveljavitve.",
+    "undo_two": "📅 <bold>Dosegli ste dnevno omejitev razveljavitev!</bold> Na dan imate {{count}} brezplačni razveljavitvi. Omejitev se jutri ponastavi, ali pa se naročite za neomejene razveljavitve.",
+    "undo_few": "📅 <bold>Dosegli ste dnevno omejitev razveljavitev!</bold> Na dan imate {{count}} brezplačne razveljavitve. Omejitev se jutri ponastavi, ali pa se naročite za neomejene razveljavitve.",
+    "undo_other": "📅 <bold>Dosegli ste dnevno omejitev razveljavitev!</bold> Na dan imate {{count}} brezplačnih razveljavitev. Omejitev se jutri ponastavi, ali pa se naročite za neomejene razveljavitve.",
+    "checkGrid_one": "📅 <bold>Dosegli ste dnevno omejitev preverjanja mreže!</bold> Na dan imate {{count}} brezplačno preverjanje mreže. Omejitev se jutri ponastavi, ali pa se naročite za neomejena preverjanja.",
+    "checkGrid_two": "📅 <bold>Dosegli ste dnevno omejitev preverjanja mreže!</bold> Na dan imate {{count}} brezplačni preverjanji mreže. Omejitev se jutri ponastavi, ali pa se naročite za neomejena preverjanja.",
+    "checkGrid_few": "📅 <bold>Dosegli ste dnevno omejitev preverjanja mreže!</bold> Na dan imate {{count}} brezplačna preverjanja mreže. Omejitev se jutri ponastavi, ali pa se naročite za neomejena preverjanja.",
+    "checkGrid_other": "📅 <bold>Dosegli ste dnevno omejitev preverjanja mreže!</bold> Na dan imate {{count}} brezplačnih preverjanj mreže. Omejitev se jutri ponastavi, ali pa se naročite za neomejena preverjanja.",
+    "reveal": "🔓 <bold>Razkritje mreže je premium funkcija!</bold> Naročite se, da odklenete možnost razkritja celotne rešitve.",
+    "themeColor": "🎨 <bold>Ta tema je ekskluzivna za $t(brand.plus).</bold> Nadgradite, da odklenete vse čudovite barve tem in prilagodite svojo sudoku izkušnjo.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Dosegli ste dnevno omejitev ugank!</bold> Brezplačni uporabniki lahko na dan igrajo {{count}} uganko. Omejitev se jutri ponastavi, ali pa se naročite za neomejene uganke.",
+    "dailyPuzzleLimit_two": "🧩 <bold>Dosegli ste dnevno omejitev ugank!</bold> Brezplačni uporabniki lahko na dan igrajo {{count}} uganki. Omejitev se jutri ponastavi, ali pa se naročite za neomejene uganke.",
+    "dailyPuzzleLimit_few": "🧩 <bold>Dosegli ste dnevno omejitev ugank!</bold> Brezplačni uporabniki lahko na dan igrajo {{count}} uganke. Omejitev se jutri ponastavi, ali pa se naročite za neomejene uganke.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Dosegli ste dnevno omejitev ugank!</bold> Brezplačni uporabniki lahko na dan igrajo {{count}} ugank. Omejitev se jutri ponastavi, ali pa se naročite za neomejene uganke.",
+    "collectionLocked": "✨ <bold>Ta uganka je del knjige $t(brand.plus).</bold> $t(brand.plus) odklene vsako uganko v knjigi vsakega meseca in celotno aplikacijo ohranja brez oglasov.",
+    "removeMember": "👥 <bold>Odstranjevanje članov iz ekipe je premium funkcija!</bold> Naročite se, da odklenete napredne funkcije upravljanja ekipe, vključno z odstranjevanjem članov.",
+    "multipleParties": "🏘️ <bold>Več dirkaških ekip je premium funkcija!</bold> Brezplačni uporabniki imajo lahko eno ekipo. Naročite se, da ustvarite neomejeno ekip in se jim pridružite – za družino, prijatelje in več.",
+    "partyMaxSize": "👥 <bold>Velike ekipe so premium funkcija!</bold> Naročite se, da odklenete napredne funkcije upravljanja ekipe, vključno z velikimi ekipami."
+  },
+  "motivational": {
+    "messages": [
+      "Vaši prijatelji čakajo na izziv",
+      "S kom boste danes dirkali?",
+      "Čas je, da pokažete hitrost",
+      "Izziv sprejet?",
+      "Dirkajte do ciljne črte",
+      "Kdo je najhitrejši reševalec?",
+      "Pripravljeni na vrh lestvice?",
+      "Vaše dirkaške sposobnosti čakajo",
+      "Čas je, da jih pustite v prahu",
+      "Pripravljeni, da prvi prečkate ciljno črto?",
+      "Proga vas čaka",
+      "Čas je za višjo prestavo",
+      "Pripravljeni, da zapeljete po mreži ugank?",
+      "Vaši nasprotniki se že ogrevajo",
+      "Danes je dan za nov rekord",
+      "Vaš osebni rekord čaka, da ga podrete",
+      "Vsaka uganka vas naredi hitrejše",
+      "Gradnja niza se začne zdaj",
+      "Čas je, da dvignete svojo igro na višjo raven",
+      "Vaš naslednji preboj je oddaljen eno uganko",
+      "Pripravljeni, da presenetite sami sebe?",
+      "Pokažite, iz kakšnega testa ste",
+      "Čas je, da odklenete svoj potencial",
+      "Vaše najhitrejše reševanje je še pred vami",
+      "Pripravljeni, da današnji dan šteje?",
+      "Vsaka sekunda šteje v dirki",
+      "Čas je, da premaknete svoje meje",
+      "Vaša pot izboljševanja se nadaljuje",
+      "Pripravljeni preseči pričakovanja?",
+      "Mislite, da zmorete pritisk?",
+      "Čas je, da utišate dvomljivce",
+      "Pripravljeni, da zmagate?",
+      "Vaša konkurenca tega ne pričakuje",
+      "Čas je, da pustite svoj pečat",
+      "Pripravljeni, da ukradete žaromete?",
+      "Zmaga je slajša, ko si jo prislužite",
+      "Čas je, da dokažete, kdo je šef",
+      "Pripravljeni pokazati svoje prave barve?",
+      "Šampionski način razmišljanja se začne tukaj",
+      "Čas je, da se ločite od množice",
+      "Pripravljeni napisati svojo legendo?",
+      "Šampioni nastanejo v trenutkih, kot je ta",
+      "Čas je, da potencial spremenite v zmogljivost",
+      "Sveže uganke, sveže priložnosti",
+      "Današnji izziv čaka na vaše mojstrstvo",
+      "Pripravljeni, da bo to vaš najboljši dan doslej?",
+      "Nov dan pomeni nove rekorde za podiranje",
+      "Čas je, da zbirki dodate novo zmago",
+      "Pripravljeni močno začeti in še močneje končati?",
+      "Pripravljeni, da bo današnji dan legendaren?",
+      "Vaš dnevni odmerek zmagoslavja čaka",
+      "Strategija se na mreži sreča s hitrostjo",
+      "Pripravljeni biti pametnejši in hitrejši?",
+      "Vaše mojstrstvo ugank vas kliče",
+      "Čas je, da združite logiko s hitrostjo strele",
+      "Pripravljeni reševati s kirurško natančnostjo?",
+      "Popolna kombinacija: znanje in hitrost",
+      "Vaša analitična prednost je vaša dirkaška prednost",
+      "Čas je, da pokažete premoč v ugankah",
+      "Pripravljeni reševati kot šampion?",
+      "Natančno dirkanje se začne z jasnim razmišljanjem",
+      "Vaši prijatelji čakajo na ponovni obračun",
+      "Kdo danes rešuje?",
+      "Nova dnevna uganka je pripravljena",
+      "Vaš niz je na kocki",
+      "Sveže uganke, svež začetek",
+      "Današnji izziv je tu",
+      "Dirkajte s prijateljem na dnevni uganki",
+      "Nov dan, nove uganke",
+      "Nekdo je že na lestvici",
+      "Ohranite niz živ",
+      "Dnevni izzivi so se pravkar osvežili",
+      "Vaša ekipa čaka",
+      "Ena uganka bližje vrhu",
+      "Današnje uganke čakajo na vas",
+      "Skočite nazaj in dirkajte"
+    ]
+  },
+  "home": {
+    "live": "V živo",
+    "headline": "Pripravljeni na dirko? 🏁",
+    "subtitle": "Delite izziv – povabite prijatelje in poglejte, kdo najhitreje rešuje sudoku.",
+    "leaderboard": "Lestvica",
+    "daily": {
+      "title": "Dnevni izzivi",
+      "refreshes": "se osvežijo vsak dan",
+      "moreLevels": "Več težavnostnih stopenj v <bookLink>knjigi ugank</bookLink>",
+      "difficulty": {
+        "simple": "Zvijačno",
+        "easy": "Zahtevno",
+        "intermediate": "Težko"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} uganka",
+      "summary_two": "{{month}} · {{count}} uganki",
+      "summary_few": "{{month}} · {{count}} uganke",
+      "summary_other": "{{month}} · {{count}} ugank",
+      "title": "Mesečna knjiga",
+      "browse": "Prebrskaj uganke"
+    },
+    "import": {
+      "title": "Uvozite katero koli uganko",
+      "description": "Skenirajte s kamero ali prilepite niz uganke",
+      "desktopTitle": "Dirkajte katero koli uganko",
+      "desktopDescription": "Skenirajte iz knjige ali časopisa"
+    },
+    "teams": {
+      "title": "Dirkaške ekipe",
+      "withFriends": "Dirkajte: {{friends}} in drugi",
+      "noFriends": "Izzovite prijatelje na dirko"
+    },
+    "tabs": {
+      "startRace": "Začni dirko",
+      "myPuzzles": "Moje uganke",
+      "racingTeams": "Dirkaške ekipe"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Nalaganje knjige ugank ...",
+      "puzzles": "Nalaganje ugank ...",
+      "progress": "Nalaganje vašega napredka ..."
+    },
+    "tryAgain": "Poskusi znova",
+    "backHome": "Nazaj na začetek",
+    "signInPrompt": "Prijavite se za dostop do knjige ugank.",
+    "signIn": "Prijava",
+    "noData": "Podatki o knjigi ugank niso na voljo.",
+    "title": "Knjiga ugank: {{month}}",
+    "puzzleCount_one": "{{count}} uganka, osredotočena na tehniko",
+    "puzzleCount_two": "{{count}} uganki, osredotočeni na tehniko",
+    "puzzleCount_few": "{{count}} uganke, osredotočene na tehniko",
+    "puzzleCount_other": "{{count}} ugank, osredotočenih na tehniko",
+    "completed": "{{count}} dokončanih",
+    "inProgress": "{{count}} v teku",
+    "unlockWithPlus": "Odklenite vsako uganko: $t(brand.plus)",
+    "jumpToDifficulty": "Skoči na težavnost",
+    "scrollToTop": "Pomakni na vrh",
+    "difficulty": {
+      "veryEasy": "Zelo lahko",
+      "easy": "Lahko",
+      "moderatelyEasy": "Zmerno lahko",
+      "moderate": "Zmerno",
+      "moderatelyHard": "Zmerno težko",
+      "hard": "Težko",
+      "vicious": "Zahrbtno",
+      "fiendish": "Zlobno",
+      "devilish": "Hudičevo",
+      "hell": "Pekel",
+      "beyondHell": "Onkraj pekla"
+    }
+  },
+  "invite": {
+    "loading": "Nalaganje povabila ...",
+    "iconAlt": "Ikona: {{gameName}}",
+    "greeting": "👋 Pozdravljeni!",
+    "greetingNamed": "👋 Pozdravljeni, {{name}}!",
+    "invited": "Povabljeni ste!",
+    "joinTeam": "Pridružite se dirkaški ekipi <team/>",
+    "description": "Skupaj rešujte sudoku uganke in v realnem času spremljajte napredek drug drugega!",
+    "proTip": "💡 <bold>Nasvet:</bold> Vse prihodnje uganke, ki jih boste igrali, bodo deljene s člani vaše ekipe za prijateljsko tekmovanje!",
+    "nicknameLabel": "Kako vas kliče vaša dirkaška ekipa?",
+    "nicknamePlaceholder": "Vnesite svoj vzdevek",
+    "joining": "Pridruževanje ekipi ...",
+    "join": "Pridružite se zabavi! 🎉",
+    "signIn": "Prijavite se za nadaljevanje",
+    "bonus": {
+      "title": "🎉 Bonus: {{plusName}} – {{duration}}!",
+      "duration": {
+        "oneMonth": "en mesec",
+        "oneYear": "eno leto",
+        "lifetime": "za vedno",
+        "premium": "premium"
+      },
+      "subtitle": "S pridružitvijo tej dirkaški ekipi boste premium funkcije odklenili povsem brezplačno!",
+      "note": "💡 Vaš premium dostop se bo po pridružitvi samodejno aktiviral"
+    },
+    "expired": {
+      "title": "Povabilo je poteklo",
+      "body": "Ta povezava povabila ni več veljavna. Prosite prijatelja za novo povabilo ali povečajte velikost ekipe."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Vnesite niz uganke",
+      "help": "Prilepite 81-mestni niz ali mrežo HoDoKu – uporabite števke 1–9 ter 0 ali . za prazne celice.",
+      "submit": "Uvozi uganko"
+    },
+    "orScan": "ali skenirajte s kamero",
+    "cameraHelp": "Usmerite kamero na nerešeno sudoku uganko in počakajte, da je zaznana.",
+    "errors": {
+      "parse": "Uganke ni bilo mogoče razčleniti. Prilepite 81-mestni niz ali mrežo HoDoKu.",
+      "solverLoading": "Reševalec se še nalaga – poskusite znova.",
+      "noSolution": "Rešitev ni najdena. Preverite uganko.",
+      "camera": "Kamere ni bilo mogoče zagnati. Preverite dovoljenja in poskusite znova."
+    }
+  },
+  "credits": {
+    "title": "Zasluge in priznanja",
+    "subtitle": "Ta aplikacija temelji na več odličnih projektih",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Ta aplikacija je licencirana pod licenco MIT. Podrobnosti so v <licenseLink>LICENSE</licenseLink> in <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "humanSudokuSolver": "Knjižnica TypeScript, ki rešuje sudoku uganke s človeškimi tehnikami.",
+      "qqwing": "Ustvarjanje ugank za sudoku dneva",
+      "tdoku": "Hiter reševalec sudokuja za skenirane uganke",
+      "arBrowserSudoku": "Tehnologija skenerja z razširjeno resničnostjo",
+      "sudokuCoach": "Navdih za algoritme za izračun težavnosti",
+      "nextjs": "Ogrodje React za produkcijo",
+      "typescript": "Tipizirana nadgradnja JavaScripta",
+      "tailwind": "Ogrodje CSS, ki daje prednost uporabnim razredom",
+      "capacitor": "Izvajalno okolje za izvorne mobilne aplikacije",
+      "electron": "Ogrodje za namizne aplikacije",
+      "tensorflow": "Strojno učenje za funkcije AR",
+      "revenuecat": "Upravljanje naročnin",
+      "react": "Knjižnica komponent uporabniškega vmesnika",
+      "turborepo": "Sistem za gradnjo monorepozitorijev"
+    }
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "brand": {
+    "appName": "Cursă Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Jucați și distribuiți pentru a face curse de sudoku cu prietenii. Provocări zilnice și pe mai multe dispozitive!"
+  },
+  "puzzle": {
+    "mobileDescription": "Bucurați-vă de cea mai bună experiență de curse cu aplicația {{appName}}!",
+    "desktopDescription": "Descărcați {{appName}}",
+    "openInAppLabel": "Deschideți puzzle-ul"
+  },
+  "crossPromo": {
+    "gameName": "Cursă Liberă",
+    "tagline": "Glisați blocurile și faceți cursă cu prietenii pentru a descongestiona traficul."
+  },
+  "notFound": {
+    "message": "Pagină negăsită"
+  },
+  "login": {
+    "dailyPuzzle": "Conectați-vă pentru a începe puzzle-ul de azi",
+    "puzzleBook": "Conectați-vă pentru a răsfoi cartea de puzzle-uri",
+    "joinTeam": "Conectați-vă pentru a vă alătura echipei",
+    "raceLobby": "Conectați-vă pentru a face cursă cu alți jucători",
+    "puzzleEntry": "Conectați-vă pentru a juca",
+    "valueProps": {
+      "saveProgress": "Salvați-vă progresul",
+      "raceFriends": "Faceți cursă cu prietenii",
+      "trackStats": "Urmăriți-vă statisticile"
+    }
+  },
+  "plusModal": {
+    "description": "Treceți la <badge>{{plusName}}</badge> pentru a <emphasis>elimina toate limitele de viteză</emphasis>. Provocați prieteni, urcați în clasamente și îmbunătățiți-vă viteza de rezolvare. Fără reclame."
+  },
+  "premiumFeatures": {
+    "title": "Funcții premium",
+    "subtitle": "Deblocați experiența completă {{appName}}",
+    "unlimitedPlay": {
+      "title": "Joc și curse nelimitate",
+      "description": "Faceți curse cu prietenii în timp real de mai multe ori pe zi"
+    },
+    "unlimitedHints": {
+      "title": "Indicii nelimitate",
+      "description": "Nu mai rămâneți blocat — primiți un indiciu oricând aveți nevoie"
+    },
+    "monthlyBook": {
+      "title": "Întreaga carte lunară deblocată, în fiecare lună",
+      "description": "Jucați fiecare puzzle la fiecare nivel de dificultate, fără blocaje"
+    },
+    "multipleTeams": {
+      "title": "Mai multe echipe de curse",
+      "description": "Organizați competiții private cu prieteni și familie"
+    },
+    "teamManagement": {
+      "title": "Gestionarea echipei",
+      "description": "Creați grupuri mari de până la 15 persoane și eliminați membri din echipă."
+    },
+    "themes": {
+      "title": "Toate temele deblocate",
+      "description": "Personalizați-vă experiența de curse"
+    },
+    "unlimitedActions": {
+      "title": "Anulare, verificare și dezvăluire nelimitate",
+      "description": "Eliminați limitele zilnice de anulare, verificare și dezvăluire"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Ați folosit astăzi {{count}} indiciu gratuit.</bold> $t(brand.plus) vă oferă indicii nelimitate — nu mai rămâneți blocat — și păstrează întreaga aplicație fără reclame.",
+    "hint_few": "💡 <bold>Ați folosit astăzi {{count}} indicii gratuite.</bold> $t(brand.plus) vă oferă indicii nelimitate — nu mai rămâneți blocat — și păstrează întreaga aplicație fără reclame.",
+    "hint_other": "💡 <bold>Ați folosit astăzi {{count}} de indicii gratuite.</bold> $t(brand.plus) vă oferă indicii nelimitate — nu mai rămâneți blocat — și păstrează întreaga aplicație fără reclame.",
+    "undo_one": "📅 <bold>Ați atins limita zilnică de anulări!</bold> Aveți {{count}} anulare gratuită pe zi. Limita se resetează mâine sau vă puteți abona pentru anulări nelimitate.",
+    "undo_few": "📅 <bold>Ați atins limita zilnică de anulări!</bold> Aveți {{count}} anulări gratuite pe zi. Limita se resetează mâine sau vă puteți abona pentru anulări nelimitate.",
+    "undo_other": "📅 <bold>Ați atins limita zilnică de anulări!</bold> Aveți {{count}} de anulări gratuite pe zi. Limita se resetează mâine sau vă puteți abona pentru anulări nelimitate.",
+    "checkGrid_one": "📅 <bold>Ați atins limita zilnică de verificări ale grilei!</bold> Aveți {{count}} verificare gratuită a grilei pe zi. Limita se resetează mâine sau vă puteți abona pentru verificări nelimitate.",
+    "checkGrid_few": "📅 <bold>Ați atins limita zilnică de verificări ale grilei!</bold> Aveți {{count}} verificări gratuite ale grilei pe zi. Limita se resetează mâine sau vă puteți abona pentru verificări nelimitate.",
+    "checkGrid_other": "📅 <bold>Ați atins limita zilnică de verificări ale grilei!</bold> Aveți {{count}} de verificări gratuite ale grilei pe zi. Limita se resetează mâine sau vă puteți abona pentru verificări nelimitate.",
+    "reveal": "🔓 <bold>Dezvăluirea grilei este o funcție premium!</bold> Abonați-vă pentru a debloca posibilitatea de a dezvălui soluția completă.",
+    "themeColor": "🎨 <bold>Această temă este exclusivă pentru $t(brand.plus).</bold> Faceți upgrade pentru a debloca toate culorile frumoase ale temelor și a vă personaliza experiența de sudoku.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Ați atins limita zilnică de puzzle-uri!</bold> Utilizatorii gratuiți pot juca {{count}} puzzle pe zi. Limita se resetează mâine sau vă puteți abona pentru puzzle-uri nelimitate.",
+    "dailyPuzzleLimit_few": "🧩 <bold>Ați atins limita zilnică de puzzle-uri!</bold> Utilizatorii gratuiți pot juca {{count}} puzzle-uri pe zi. Limita se resetează mâine sau vă puteți abona pentru puzzle-uri nelimitate.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Ați atins limita zilnică de puzzle-uri!</bold> Utilizatorii gratuiți pot juca {{count}} de puzzle-uri pe zi. Limita se resetează mâine sau vă puteți abona pentru puzzle-uri nelimitate.",
+    "collectionLocked": "✨ <bold>Acest puzzle face parte din cartea $t(brand.plus).</bold> $t(brand.plus) deblochează fiecare puzzle din cartea fiecărei luni și păstrează întreaga aplicație fără reclame.",
+    "removeMember": "👥 <bold>Eliminarea membrilor din echipă este o funcție premium!</bold> Abonați-vă pentru a debloca funcții avansate de gestionare a echipei, inclusiv eliminarea membrilor.",
+    "multipleParties": "🏘️ <bold>Mai multe echipe de curse este o funcție premium!</bold> Utilizatorii gratuiți pot avea o singură echipă. Abonați-vă pentru a crea și a vă alătura unui număr nelimitat de echipe pentru familie, prieteni și altele.",
+    "partyMaxSize": "👥 <bold>Grupurile mari sunt o funcție premium!</bold> Abonați-vă pentru a debloca funcții avansate de gestionare a echipei, inclusiv grupuri mari."
+  },
+  "motivational": {
+    "messages": [
+      "Prietenii dumneavoastră așteaptă o provocare",
+      "Împotriva cui veți face cursă astăzi?",
+      "Este timpul să vă arătați viteza",
+      "Provocare acceptată?",
+      "Cursă spre linia de sosire",
+      "Cine rezolvă cel mai repede?",
+      "Sunteți gata să dominați clasamentul?",
+      "Abilitățile dumneavoastră de pilot vă așteaptă",
+      "Este timpul să-i lăsați în praf",
+      "Sunteți gata să treceți primul linia de sosire?",
+      "Circuitul vă așteaptă",
+      "Este timpul să schimbați într-o treaptă superioară",
+      "Sunteți gata să ardeți cauciucurile pe grila de puzzle?",
+      "Adversarii dumneavoastră se încălzesc deja",
+      "Astăzi este ziua în care doborâți un record",
+      "Recordul dumneavoastră personal așteaptă să fie doborât",
+      "Fiecare puzzle vă face mai rapid",
+      "Construirea seriei începe acum",
+      "Este timpul să vă ridicați nivelul",
+      "Următoarea dumneavoastră descoperire este la un puzzle distanță",
+      "Sunteți gata să vă surprindeți pe dumneavoastră?",
+      "Arătați-le din ce sunteți făcut",
+      "Este timpul să vă deblocați potențialul",
+      "Cea mai rapidă rezolvare a dumneavoastră este încă în față",
+      "Sunteți gata să faceți ziua de azi să conteze?",
+      "Fiecare secundă contează în cursă",
+      "Este timpul să vă depășiți limitele",
+      "Drumul dumneavoastră spre progres continuă",
+      "Sunteți gata să depășiți așteptările?",
+      "Credeți că puteți face față presiunii?",
+      "Este timpul să-i reduceți la tăcere pe sceptici",
+      "Sunteți gata să revendicați victoria?",
+      "Concurența nu se va aștepta la asta",
+      "Este timpul să vă lăsați amprenta",
+      "Sunteți gata să furați reflectoarele?",
+      "Victoria are un gust mai dulce când este meritată",
+      "Este timpul să dovediți cine conduce",
+      "Sunteți gata să vă arătați adevăratele culori?",
+      "Mentalitatea de campion începe aici",
+      "Este timpul să vă desprindeți de grup",
+      "Sunteți gata să vă scrieți legenda?",
+      "Campionii se formează în momente ca acesta",
+      "Este timpul să transformați potențialul în performanță",
+      "Puzzle-uri noi, oportunități noi",
+      "Provocarea de azi vă așteaptă măiestria",
+      "Sunteți gata să faceți din asta cea mai bună zi a dumneavoastră?",
+      "O zi nouă înseamnă recorduri noi de doborât",
+      "Este timpul să adăugați o victorie în plus la colecție",
+      "Sunteți gata să începeți puternic și să terminați și mai puternic?",
+      "Sunteți gata să faceți ziua de azi legendară?",
+      "Doza dumneavoastră zilnică de triumf vă așteaptă",
+      "Strategia întâlnește viteza pe grilă",
+      "Sunteți gata să gândiți și să acționați mai rapid?",
+      "Măiestria dumneavoastră la puzzle vă cheamă",
+      "Este timpul să îmbinați logica cu viteza fulgerului",
+      "Sunteți gata să rezolvați cu precizie chirurgicală?",
+      "Combinația perfectă: pricepere și viteză",
+      "Mintea dumneavoastră analitică este avantajul în cursă",
+      "Este timpul să demonstrați supremația la puzzle",
+      "Sunteți gata să rezolvați ca un campion?",
+      "Cursa de precizie începe cu gândirea limpede",
+      "Prietenii dumneavoastră așteaptă o revanșă",
+      "Cine rezolvă astăzi?",
+      "Un nou puzzle zilnic este gata",
+      "Seria dumneavoastră este în joc",
+      "Puzzle-uri noi, un nou început",
+      "Provocarea de azi a apărut",
+      "Faceți cursă cu un prieten la puzzle-ul zilnic",
+      "Zi nouă, puzzle-uri noi",
+      "Cineva este deja în clasament",
+      "Mențineți seria vie",
+      "Provocările zilnice tocmai s-au reînnoit",
+      "Echipa dumneavoastră așteaptă",
+      "Cu un puzzle mai aproape de vârf",
+      "Puzzle-urile de azi vă așteaptă",
+      "Reintrați în joc și faceți cursă"
+    ]
+  },
+  "home": {
+    "live": "Live",
+    "headline": "Gata de cursă? 🏁",
+    "subtitle": "Împărtășiți provocarea — invitați prieteni și aflați cine rezolvă cel mai repede sudoku.",
+    "leaderboard": "Clasament",
+    "daily": {
+      "title": "Provocări zilnice",
+      "refreshes": "se reînnoiesc zilnic",
+      "moreLevels": "Mai multe niveluri de dificultate în <bookLink>cartea de puzzle-uri</bookLink>",
+      "difficulty": {
+        "simple": "Complicat",
+        "easy": "Provocator",
+        "intermediate": "Dificil"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} puzzle",
+      "summary_few": "{{month}} · {{count}} puzzle-uri",
+      "summary_other": "{{month}} · {{count}} de puzzle-uri",
+      "title": "Cartea lunară",
+      "browse": "Răsfoiți puzzle-urile"
+    },
+    "import": {
+      "title": "Importați orice puzzle",
+      "description": "Scanați cu camera sau lipiți un șir de puzzle",
+      "desktopTitle": "Faceți cursă cu orice puzzle",
+      "desktopDescription": "Scanați dintr-o carte sau dintr-un ziar"
+    },
+    "teams": {
+      "title": "Echipe de curse",
+      "withFriends": "Cursă cu {{friends}} și alții",
+      "noFriends": "Provocați prietenii la o cursă"
+    },
+    "tabs": {
+      "startRace": "Start cursă",
+      "myPuzzles": "Puzzle-uri",
+      "racingTeams": "Echipe de curse"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Se încarcă cartea de puzzle-uri...",
+      "puzzles": "Se încarcă puzzle-urile...",
+      "progress": "Se încarcă progresul dumneavoastră..."
+    },
+    "tryAgain": "Încercați din nou",
+    "backHome": "Înapoi la pagina principală",
+    "signInPrompt": "Conectați-vă pentru a accesa cartea de puzzle-uri.",
+    "signIn": "Conectare",
+    "noData": "Nu există date despre cartea de puzzle-uri.",
+    "title": "Cartea de puzzle-uri {{month}}",
+    "puzzleCount_one": "{{count}} puzzle axat pe tehnici",
+    "puzzleCount_few": "{{count}} puzzle-uri axate pe tehnici",
+    "puzzleCount_other": "{{count}} de puzzle-uri axate pe tehnici",
+    "completed": "Finalizate: {{count}}",
+    "inProgress": "În curs: {{count}}",
+    "unlockWithPlus": "Deblocați fiecare puzzle cu $t(brand.plus)",
+    "jumpToDifficulty": "Salt la dificultate",
+    "scrollToTop": "Derulați sus",
+    "difficulty": {
+      "veryEasy": "Foarte ușor",
+      "easy": "Ușor",
+      "moderatelyEasy": "Destul de ușor",
+      "moderate": "Mediu",
+      "moderatelyHard": "Destul de dificil",
+      "hard": "Dificil",
+      "vicious": "Feroce",
+      "fiendish": "Diabolic",
+      "devilish": "Demonic",
+      "hell": "Iad",
+      "beyondHell": "Dincolo de iad"
+    }
+  },
+  "invite": {
+    "loading": "Se încarcă invitația...",
+    "iconAlt": "Pictograma {{gameName}}",
+    "greeting": "👋 Salut!",
+    "greetingNamed": "👋 Salut, {{name}}!",
+    "invited": "Sunteți invitat!",
+    "joinTeam": "Alăturați-vă echipei de curse <team/>",
+    "description": "Rezolvați împreună puzzle-uri sudoku și urmăriți progresul celorlalți în timp real!",
+    "proTip": "💡 <bold>Sfat:</bold> Toate puzzle-urile pe care le jucați de acum înainte vor fi partajate cu membrii echipei pentru o competiție prietenoasă!",
+    "nicknameLabel": "Cum vă numește echipa de curse?",
+    "nicknamePlaceholder": "Introduceți porecla",
+    "joining": "Se alătură echipei...",
+    "join": "Alăturați-vă distracției! 🎉",
+    "signIn": "Conectați-vă pentru a continua",
+    "bonus": {
+      "title": "🎉 Bonus: acces la {{plusName}} — {{duration}}!",
+      "duration": {
+        "oneMonth": "o lună",
+        "oneYear": "un an",
+        "lifetime": "pe viață",
+        "premium": "premium"
+      },
+      "subtitle": "Alăturându-vă acestei echipe de curse, veți debloca funcții premium absolut gratuit!",
+      "note": "💡 Accesul premium se va activa automat după alăturare"
+    },
+    "expired": {
+      "title": "Invitație expirată",
+      "body": "Acest link de invitație nu mai este valid. Cereți-i prietenului dumneavoastră o invitație nouă sau măriți dimensiunea echipei."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Introduceți un șir de puzzle",
+      "help": "Lipiți un șir de 81 de caractere sau o grilă HoDoKu — folosiți cifrele 1–9 și 0 sau . pentru celulele goale.",
+      "submit": "Importați puzzle-ul"
+    },
+    "orScan": "sau scanați cu camera",
+    "cameraHelp": "Îndreptați camera spre un puzzle sudoku nerezolvat și așteptați să fie detectat.",
+    "errors": {
+      "parse": "Puzzle-ul nu a putut fi interpretat. Lipiți un șir de 81 de caractere sau o grilă HoDoKu.",
+      "solverLoading": "Solverul se încarcă încă — încercați din nou.",
+      "noSolution": "Nu s-a găsit nicio soluție. Verificați puzzle-ul.",
+      "camera": "Camera nu a putut fi pornită. Verificați permisiunile și încercați din nou."
+    }
+  },
+  "credits": {
+    "title": "Mulțumiri și atribuiri",
+    "subtitle": "Această aplicație se bazează pe mai multe proiecte excelente",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Această aplicație este licențiată sub licența MIT. Consultați <licenseLink>LICENSE</licenseLink> și <creditsLink>CREDITS</creditsLink> pentru detalii.",
+    "items": {
+      "humanSudokuSolver": "Bibliotecă TypeScript care rezolvă puzzle-uri sudoku folosind tehnici umane.",
+      "qqwing": "Generarea puzzle-urilor Sudoku-ul zilei",
+      "tdoku": "Solver sudoku rapid pentru puzzle-uri scanate",
+      "arBrowserSudoku": "Tehnologie de scanare cu realitate augmentată",
+      "sudokuCoach": "Inspirație pentru algoritmii de calcul al dificultății",
+      "nextjs": "Framework React pentru producție",
+      "typescript": "Superset tipizat al JavaScript",
+      "tailwind": "Framework CSS bazat pe clase utilitare",
+      "capacitor": "Mediu de execuție pentru aplicații mobile native",
+      "electron": "Framework pentru aplicații desktop",
+      "tensorflow": "Învățare automată pentru funcțiile AR",
+      "revenuecat": "Gestionarea abonamentelor",
+      "react": "Bibliotecă de componente UI",
+      "turborepo": "Sistem de build pentru monorepo"
+    }
+  }
+}

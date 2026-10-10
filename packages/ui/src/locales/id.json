@@ -1,0 +1,56 @@
+{
+  "language": {
+    "label": "Bahasa",
+    "automatic": "Otomatis"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Kembali"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Ganti Mode Gelap"
+  },
+  "starRating": {
+    "label_other": "{{filled}} dari {{count}} bintang"
+  },
+  "timer": {
+    "go": "MULAI!"
+  },
+  "themeColor": {
+    "change": "Ubah Warna Tema",
+    "set": "Setel warna tema ke {{color}}",
+    "setPremium": "Setel warna tema ke {{color}} (Premium)",
+    "colors": {
+      "blue": "biru",
+      "red": "merah",
+      "green": "hijau",
+      "purple": "ungu",
+      "amber": "ambar",
+      "cyan": "sian",
+      "pink": "merah muda",
+      "indigo": "nila",
+      "orange": "oranye",
+      "teal": "hijau kebiruan",
+      "slate": "abu-abu batu",
+      "rose": "mawar",
+      "emerald": "zamrud",
+      "sky": "biru langit",
+      "violet": "violet",
+      "lime": "hijau limau",
+      "fuchsia": "fuksia",
+      "yellow": "kuning",
+      "stone": "abu-abu pasir",
+      "zinc": "abu-abu seng"
+    }
+  },
+  "copyButton": {
+    "copied": "Disalin ke papan klip!",
+    "share": "Bagikan Tautan Undangan",
+    "copy": "Salin Tautan Undangan"
+  },
+  "share": {
+    "joinTeam": "Gabung tim balap di {{appName}}!",
+    "joinNamedTeam": "Gabung tim balap {{partyName}} di {{appName}}!",
+    "dialogTitle": "Bagikan undangan"
+  }
+}

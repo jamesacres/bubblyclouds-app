@@ -11,12 +11,12 @@ const HintBox = ({ children }: { children: ReactNode }) => {
     <>
       {showHint ? (
         <div className="mb-10 text-center text-sm">
-          <div className="relative inline-block rounded-sm bg-amber-100 p-4 pr-8 text-black">
+          <div className="relative inline-block rounded-sm bg-amber-100 p-4 pe-8 text-black">
             <button
               onClick={() => setShowHint(false)}
               aria-label={t('hintBox.dismiss')}
             >
-              <X className="absolute right-2 top-2" />
+              <X className="absolute end-2 top-2" />
             </button>
             {children}
           </div>

@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Tapahtui odottamaton virhe. Yritä uudelleen.",
+    "dismiss": "Sulje"
+  },
+  "errorBoundary": {
+    "title": "Hups! Jokin meni pieleen",
+    "description": "Kohtasimme odottamattoman virheen. Älä huoli, edistymisesi on tallessa!",
+    "reload": "Lataa sovellus uudelleen",
+    "clearStorage": "Tyhjennä tallennustila ja lataa uudelleen",
+    "contactSupport": "Jos ongelma jatkuu, ota yhteyttä tukeen."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} min",
+    "minutesAgo_other": "{{count}} min",
+    "hoursAgo_one": "{{count}} t",
+    "hoursAgo_other": "{{count}} t",
+    "daysAgo_one": "{{count}} pv",
+    "daysAgo_other": "{{count}} pv"
+  },
+  "tier": {
+    "novice": "Noviisi",
+    "advancedBeginner": "Aloittelija",
+    "competent": "Pätevä",
+    "proficient": "Taitava",
+    "expert": "Asiantuntija"
+  },
+  "moves": {
+    "onPar": "siirtoa, tavoitteessa",
+    "overPar": "siirtoa, {{delta}} yli tavoitteen",
+    "underPar": "siirtoa, {{delta}} alle tavoitteen"
+  },
+  "lobby": {
+    "title": "Kisalobby",
+    "close": "Sulje lobby",
+    "onlineOpponents": "Verkossa olevat vastustajat",
+    "refresh": "Päivitä verkossa olevat vastustajat",
+    "noOpponents": "Ei vastustajia verkossa — kutsu ystäviä kisaamaan!",
+    "away": "Poissa",
+    "offlineTeams": "Ei verkossa · tiimeissäsi",
+    "removeMember": "Poista {{name}}",
+    "aiOpponents": "Tekoälyvastustajat",
+    "addAgent": "Lisää",
+    "noAgents": "Ei vielä tekoälyvastustajia — lisää yksi, niin kisakaveri löytyy aina.",
+    "ownClock": "Jokainen kisaa omalla kellollaan",
+    "startSolving": "Aloita ratkaisu",
+    "finished": "Valmis",
+    "inLobby": "Lobbyssa",
+    "stageProgress": "Vaihe {{current}} / {{total}}",
+    "finishedRunIn": "Kisa suoritettu ajassa {{time}}",
+    "solvedIn": "Ratkaistu ajassa {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · nähty viimeksi: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Yksinkisa — vain sinä ja kello",
+      "friends_one": "{{count}} ystävä",
+      "friends_other": "{{count}} ystävää",
+      "aiOpponents_one": "{{count}} tekoälyvastustaja",
+      "aiOpponents_other": "{{count}} tekoälyvastustajaa",
+      "racing": "Kisaamassa: {{opponents}}"
+    },
+    "invite": {
+      "button": "Kutsu",
+      "eyebrow": "Rakenna kisasi",
+      "title": "Kutsu vastustajia",
+      "close": "Sulje",
+      "existingTeam": "Kutsu olemassa olevaan tiimiin",
+      "editTeamName": "Muokkaa tiimin nimeä",
+      "deleteTeam": "Poista tiimi",
+      "leaveTeam": "Poistu tiimistä",
+      "memberCount_one": "{{count}} jäsen",
+      "memberCount_other": "{{count}} jäsentä",
+      "createTeam": "Luo uusi kisatiimi",
+      "displayNameLabel": "Millä nimellä tiimin jäsenet tuntevat sinut?",
+      "displayNamePlaceholder": "Näyttönimi",
+      "teamNameLabel": "Minkä nimen annamme tiimille?",
+      "teamNamePlaceholder": "Tiimin nimi (esim. Perhe)",
+      "createAndCopy": "Luo ja kopioi linkki",
+      "defaultTeamName": "Uusi tiimi",
+      "defaultPlayerName": "Pelaaja"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Sulje paneeli",
+    "back": "Takaisin",
+    "close": "Sulje",
+    "title": "Valitse vastustajat",
+    "subtitle": "Valitse yksi tai useampi vastustaja",
+    "selectAtLeastOne": "Valitse vähintään yksi vastustaja",
+    "race_one": "Kisaa {{count}} vastustajaa vastaan",
+    "race_other": "Kisaa {{count}} vastustajaa vastaan",
+    "skill": {
+      "novice": "Noviisi",
+      "advancedBeginner": "Aloittelija",
+      "competent": "Pätevä",
+      "proficient": "Taitava",
+      "expert": "Asiantuntija"
+    }
+  },
+  "agentParty": {
+    "title": "Tekoälyvastustajat",
+    "rivalCount_one": "{{count}} vastustaja",
+    "rivalCount_other": "{{count}} vastustajaa"
+  },
+  "party": {
+    "cancel": "Peruuta",
+    "editName": "Muokkaa tiimin nimeä",
+    "editMaxMembers": "Muokkaa jäsenten enimmäismäärää",
+    "memberCount_one": "{{count}} jäsen",
+    "memberCount_other": "{{count}} jäsentä",
+    "memberCountPremium_one": "{{count}} jäsen ✨ Premium",
+    "memberCountPremium_other": "{{count}} jäsentä ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} jäsen",
+    "membersOf_other": "{{current}}/{{count}} jäsentä",
+    "shareLink": "Jaa tämä linkki tiimin nykyisille jäsenille, jotta he voivat liittyä tähän pulmaan",
+    "you": "(sinä)",
+    "notStarted": "Ei vielä aloittanut! Pyydä pelaamaan"
+  },
+  "partyConfirmation": {
+    "cancel": "Peruuta",
+    "leaveAgentParty": {
+      "title": "Poista tekoälyvastustajat",
+      "action": "Poista",
+      "processing": "Poistetaan...",
+      "message": "Haluatko varmasti poistaa kaikki tekoälyvastustajat? Ne eivät enää näy kisassa."
+    },
+    "removeAgent": {
+      "title": "Poista paikallinen vastustaja",
+      "action": "Poista",
+      "processing": "Poistetaan...",
+      "message": "Haluatko varmasti poistaa vastustajan \"{{memberName}}\" kisasta?"
+    },
+    "deleteParty": {
+      "title": "Poista tiimi",
+      "action": "Poista tiimi",
+      "processing": "Poistetaan...",
+      "message": "Haluatko varmasti poistaa tiimin \"{{partyName}}\"? Tiimi poistetaan pysyvästi ja kaikki jäsenet menettävät pääsynsä. Tätä toimintoa ei voi perua."
+    },
+    "leave": {
+      "title": "Poistu tiimistä",
+      "action": "Poistu",
+      "processing": "Poistutaan...",
+      "message": "Haluatko varmasti poistua tiimistä \"{{partyName}}\"? Et enää näe muiden jäsenten edistymistä etkä voi osallistua tämän tiimin toimintaan."
+    },
+    "remove": {
+      "title": "Poista jäsen",
+      "action": "Poista",
+      "processing": "Poistetaan...",
+      "message": "Haluatko varmasti poistaa jäsenen \"{{memberName}}\" tiimistä \"{{partyName}}\"? Hän ei enää voi osallistua tämän tiimin toimintaan."
+    }
+  },
+  "friends": {
+    "allTeams": "Kaikki tiimit",
+    "refresh": "Päivitä",
+    "refreshing": "Päivitetään…",
+    "title": "Ystävien pulmat",
+    "subtitle": "Napauta ystävää nähdäksesi hänen viimeisimmät pulmansa ja haastaaksesi hänet kisaan.",
+    "memberCount_one": "{{count}} jäsen",
+    "memberCount_other": "{{count}} jäsentä",
+    "noRecentPuzzles": "Ei viimeaikaisia pulmia — haasta heidät!",
+    "empty": {
+      "title": "Ei vielä kisatiimejä",
+      "description": "Kutsu ystäviä kisalobbysta pulmaa ratkoessasi"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Pulmasi viimeisen 30 päivän ajalta.",
+    "empty": {
+      "title": "Ei vielä pulmia",
+      "description": "Siirry kohtaan Aloita kisa ratkaistaksesi ensimmäisen pulmasi"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} ominaisuus lisää",
+    "moreFeatures_other": "+{{count}} ominaisuutta lisää"
+  },
+  "crossPromo": {
+    "whyNotTry": "Kokeile vaikka",
+    "tryItFree": "Kokeile ilmaiseksi"
+  },
+  "rateApp": {
+    "prompt": "Tykkäätkö sovelluksesta {{appName}}?",
+    "rateIt": "Arvioi",
+    "rateInSeconds": "Arvioi sekunneissa"
+  },
+  "plus": {
+    "close": "Sulje ikkuna",
+    "appIconAlt": "Sovelluksen kuvake",
+    "lifetime": "Elinikäinen",
+    "monthly": "Kuukausittainen",
+    "perMonth": "{{price}}/kk",
+    "whatsIncluded": "Mitä sisältyy",
+    "continue": "Jatka",
+    "restorePurchases": "Palauta ostokset",
+    "cancel": "Peruuta"
+  },
+  "download": {
+    "title": "Jatka sovelluksessa",
+    "appStoreAlt": "Lataa palvelusta {{appStore}}",
+    "googlePlayAlt": "Hanki palvelusta {{googlePlay}}",
+    "continueBrowser": "Jatka selaimessa",
+    "continueDesktop": "Jatka tietokoneella"
+  },
+  "session": {
+    "cheated": "Huijattu",
+    "completedIn": "Valmis ajassa {{minutes}} min {{seconds}} s",
+    "percentComplete": "{{percentage}} % valmis",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{month}} {{day}}",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "Pulma nro {{number}}",
+    "daily": "Päivittäinen {{date}}",
+    "book": "Kirja {{month}} #{{number}}",
+    "collection": "Kokoelma {{month}} #{{number}}",
+    "scanned": "Skannattu pulma",
+    "you": "Sinä",
+    "unknown": "Tuntematon",
+    "unlockWith": "Avaa: {{label}}",
+    "lockedPuzzle": "Lukittu pulma",
+    "recommendedTechniques": "Suositellut tekniikat:",
+    "loadingFriends": "Ladataan ystäviä..."
+  }
+}

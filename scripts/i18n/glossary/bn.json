@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "সুডোকু রেস",
+      "gameName": "সুডোকু",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "সুডোকু Plus"
+    },
+    "terms": {
+      "race": "রেস",
+      "team": "টিম",
+      "leaderboard": "লিডারবোর্ড",
+      "hint": "ইঙ্গিত",
+      "undo": "আনডু",
+      "theme": "থিম",
+      "dailyPuzzle": "দৈনিক ধাঁধা",
+      "monthlyCollection": "মাসিক ধাঁধার বই",
+      "aiOpponent": "AI প্রতিপক্ষ",
+      "monthly": "মাসিক",
+      "lifetime": "আজীবন",
+      "plusAccess": "Plus অ্যাক্সেস",
+      "plusFeatureLine": "সীমাহীন রেস, টিম, থিম ও আনডু"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "আনব্লক রেস",
+      "gameName": "আনব্লক রেস",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "রেস",
+      "team": "টিম",
+      "leaderboard": "লিডারবোর্ড",
+      "hint": "ইঙ্গিত",
+      "undo": "আনডু",
+      "theme": "থিম",
+      "dailyPuzzle": "দৈনিক ধাঁধা",
+      "monthlyCollection": "মাসিক ধাঁধা সংগ্রহ",
+      "aiOpponent": "AI প্রতিপক্ষ",
+      "monthly": "মাসিক",
+      "lifetime": "আজীবন",
+      "plusAccess": "Plus অ্যাক্সেস",
+      "plusFeatureLine": "সীমাহীন রেস, টিম, থিম ও আনডু"
+    }
+  }
+}

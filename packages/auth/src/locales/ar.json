@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "سجّل الدخول للمتابعة",
+    "signInWith": "تسجيل الدخول عبر {{provider}}",
+    "emailTitle": "تسجيل الدخول بالبريد الإلكتروني",
+    "emailPlaceholder": "your@email.com",
+    "continue": "متابعة",
+    "cancel": "إلغاء",
+    "terms": "شروط الخدمة",
+    "privacy": "سياسة الخصوصية"
+  },
+  "header": {
+    "signIn": "تسجيل الدخول"
+  },
+  "avatar": {
+    "alt": "المستخدم"
+  },
+  "panel": {
+    "title": "الحساب",
+    "greeting": "مرحبًا، {{name}}!",
+    "fallbackName": "مستخدم",
+    "plusActive": "{{gameName}} {{plus}} مفعّل",
+    "joinGamePlus": "انضم إلى {{gameName}} {{plus}}",
+    "joinPlus": "انضم إلى {{plus}}",
+    "signOut": "تسجيل الخروج",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الخدمة",
+    "credits": "شكر وتقدير",
+    "deleteAccount": "حذف الحساب",
+    "poweredBy": "بدعم من {{companyName}}",
+    "deleteUnavailable": "ميزة حذف الحساب غير متاحة.",
+    "deleteFailed": "تعذّر حذف الحساب. يرجى المحاولة لاحقًا."
+  },
+  "deleteDialog": {
+    "title": "حذف الحساب",
+    "warning": "لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع بياناتك في جميع تطبيقات {{companyName}} نهائيًا.",
+    "confirmation": "أؤكد رغبتي في حذف حسابي بالكامل، بما في ذلك جميع البيانات في جميع تطبيقات {{companyName}}.",
+    "cancel": "إلغاء",
+    "deleting": "جارٍ الحذف...",
+    "submit": "حذف الحساب"
+  }
+}

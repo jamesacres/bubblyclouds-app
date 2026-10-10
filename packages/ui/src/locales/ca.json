@@ -1,0 +1,58 @@
+{
+  "language": {
+    "label": "Idioma",
+    "automatic": "Automàtic"
+  },
+  "header": {
+    "offline": "Sense connexió",
+    "back": "Enrere"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Activeu o desactiveu el mode fosc"
+  },
+  "starRating": {
+    "label_one": "{{filled}} de {{count}} estrella",
+    "label_many": "{{filled}} de {{count}} d'estrelles",
+    "label_other": "{{filled}} de {{count}} estrelles"
+  },
+  "timer": {
+    "go": "JA!"
+  },
+  "themeColor": {
+    "change": "Canvieu el color del tema",
+    "set": "Definiu el color del tema a {{color}}",
+    "setPremium": "Definiu el color del tema a {{color}} (Premium)",
+    "colors": {
+      "blue": "blau",
+      "red": "vermell",
+      "green": "verd",
+      "purple": "porpra",
+      "amber": "ambre",
+      "cyan": "cian",
+      "pink": "rosa",
+      "indigo": "índigo",
+      "orange": "taronja",
+      "teal": "verd blavós",
+      "slate": "pissarra",
+      "rose": "rosa vermellós",
+      "emerald": "maragda",
+      "sky": "cel",
+      "violet": "violeta",
+      "lime": "llima",
+      "fuchsia": "fúcsia",
+      "yellow": "groc",
+      "stone": "pedra",
+      "zinc": "zinc"
+    }
+  },
+  "copyButton": {
+    "copied": "Copiat al porta-retalls!",
+    "share": "Compartiu la invitació",
+    "copy": "Copieu l'enllaç d'invitació"
+  },
+  "share": {
+    "joinTeam": "Uniu-vos a l'equip de curses a {{appName}}!",
+    "joinNamedTeam": "Uniu-vos a l'equip de curses {{partyName}} a {{appName}}!",
+    "dialogTitle": "Compartiu la invitació"
+  }
+}

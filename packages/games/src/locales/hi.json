@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "पुस्तक",
+    "defaultDetailNoun": "पहेली पुस्तकें"
+  },
+  "collectionCover": {
+    "monthlyCollection": "मासिक संग्रह"
+  },
+  "hintBox": {
+    "dismiss": "संकेत बंद करें"
+  },
+  "lobbyButton": {
+    "opponents": "प्रतिद्वंद्वी"
+  },
+  "nextPuzzlePanel": {
+    "continue": "जारी रखें — अगली पहेली",
+    "continueLocked": "जारी रखें ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{total}} में से {{completed}} {{label}} पूरे"
+  },
+  "countdownOverlay": {
+    "getReady": "तैयार हो जाएँ",
+    "go": "शुरू!"
+  },
+  "confirmDialog": {
+    "cancel": "रद्द करें"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · पूरा",
+    "retry": "फिर कोशिश करें",
+    "points": "+{{points}} अंक",
+    "leaderboardPoints": "लीडरबोर्ड अंक"
+  },
+  "raceTimer": {
+    "time": "समय"
+  },
+  "stageTopBar": {
+    "previous": "पिछला"
+  },
+  "raceHud": {
+    "opponents": "प्रतिद्वंद्वी",
+    "stageOf": "चरण {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "फ़िनिश!",
+    "runComplete": "रन पूरा हुआ",
+    "leaderboardPoints": "लीडरबोर्ड अंक",
+    "pointsSuffix": " अंक"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "रवि",
+      "monday": "सोम",
+      "tuesday": "मंग",
+      "wednesday": "बुध",
+      "thursday": "गुर",
+      "friday": "शुक",
+      "saturday": "शनि"
+    },
+    "dayStreak_one": "दिन की स्ट्रीक",
+    "dayStreak_other": "दिन की स्ट्रीक",
+    "thisMonth": "इस महीने"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(आप)",
+    "puzzles_one": "{{count}} पहेली",
+    "puzzles_other": "{{count}} पहेलियाँ",
+    "average": "औसत: {{time}}",
+    "best": "सर्वश्रेष्ठ: {{time}}",
+    "wins_one": "🏁 {{count}} जीत",
+    "wins_other": "🏁 {{count}} जीत",
+    "points_one": "अंक",
+    "points_other": "अंक"
+  },
+  "scoreBreakdown": {
+    "title": "अंकों का विवरण",
+    "volumeBonus": {
+      "label": "संख्या बोनस",
+      "detail_one": "{{count}} पहेली पूरी की",
+      "detail_other": "{{count}} पहेलियाँ पूरी कीं"
+    },
+    "dailyPuzzles": {
+      "label": "दैनिक पहेलियाँ",
+      "detail_one": "{{count}} दैनिक चुनौती",
+      "detail_other": "{{count}} दैनिक चुनौतियाँ"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} की पहेलियाँ",
+      "detail": "{{collection}} से {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "स्कैन की गई पहेलियाँ",
+      "detail_one": "{{count}} आयात की गई पहेली",
+      "detail_other": "{{count}} आयात की गई पहेलियाँ"
+    },
+    "difficultyBonus": {
+      "label": "कठिनाई बोनस",
+      "detail": "जितनी कठिन पहेली, उतने ज़्यादा अंक"
+    },
+    "speedBonus": {
+      "label": "गति बोनस",
+      "detail": "सबसे तेज़: {{time}}"
+    },
+    "racingBonus": {
+      "label": "रेसिंग बोनस",
+      "detail": "उन मित्रों को हराएँ जिन्होंने भी पूरा किया"
+    },
+    "dailyCombo": {
+      "label": "दैनिक कॉम्बो",
+      "detail": "रोज़ जितनी ज़्यादा पहेलियाँ, उतना बड़ा गुणक"
+    }
+  },
+  "leaderboard": {
+    "you": "आप",
+    "unknownUser": "अज्ञात उपयोगकर्ता",
+    "title": "लीडरबोर्ड",
+    "subtitleParty": "पिछले 30 दिन · {{partyName}}",
+    "subtitleAllTeams": "पिछले 30 दिन · सभी टीमें",
+    "howScoringWorks": "अंक कैसे मिलते हैं"
+  },
+  "scoringLegend": {
+    "title": "अंक कैसे मिलते हैं",
+    "subtitle": "{{gameName}} · पिछले 30 दिन",
+    "close": "बंद करें",
+    "racingWins": {
+      "title": "रेसिंग जीत",
+      "body": "एक ही पूरी की गई पहेली पर हर उस मित्र को हराने पर <points>+{{points}} अंक</points> पाएँ। {{friends}} मित्रों में सबसे पहले पूरा करें और <points>+{{total}} अंक</points> जीतें।"
+    },
+    "basePoints": {
+      "title": "आधार अंक",
+      "anyPuzzle": "कोई भी पहेली",
+      "dailyPuzzle": "दैनिक पहेली",
+      "collectionPuzzle": "{{collection}} की पहेली",
+      "scannedPuzzle": "स्कैन की गई पहेली"
+    },
+    "difficultyMultipliers": {
+      "title": "कठिनाई गुणक",
+      "daily": "आज का {{gameName}}",
+      "collection": "{{collection}} की पहेलियाँ"
+    },
+    "speedBonuses": {
+      "title": "गति बोनस",
+      "lightning": "बिजली",
+      "fast": "तेज़",
+      "quick": "फुर्तीला",
+      "steady": "स्थिर",
+      "under": "{{threshold}} से कम",
+      "seconds": "{{value}} सेकंड",
+      "minutes": "{{value}} मिनट"
+    },
+    "dailyCombo": {
+      "title": "दैनिक कॉम्बो",
+      "body": "एक ही दिन में ज़्यादा पहेलियाँ हल करें और हर पहेली के अंक <max>{{max}}×</max> तक गुणा करें।",
+      "puzzle": "दिन की पहेली {{puzzle}}",
+      "puzzleOrMore": "दिन की पहेली {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "रन पूरा हुआ",
+    "raceProgress": "रेस की प्रगति",
+    "stagesProgress": "{{completed}}/{{total}} चरण",
+    "retryStage": "चरण फिर खेलें",
+    "stageLabel": "चरण {{number}}",
+    "stageCompletedLabel": "चरण {{number}}, {{time}} में पूरा हुआ",
+    "viewRacingStats": "रेसिंग आँकड़े देखें",
+    "total": "कुल"
+  },
+  "raceTrack": {
+    "you": "आप",
+    "viewFriends": "मित्रों को देखने के लिए क्लिक करें",
+    "start": "शुरू",
+    "finish": "फ़िनिश",
+    "inviteToRace": "मित्रों को रेस के लिए आमंत्रित करें",
+    "opponents": "प्रतिद्वंद्वी",
+    "racer": "रेसर",
+    "stageBadge": "चरण {{number}}",
+    "total": "कुल",
+    "leaderboard": "लीडरबोर्ड",
+    "puzzleBook": "पहेली पुस्तक",
+    "puzzleBookLabel": "पहेली पुस्तक",
+    "refreshScores": "स्कोर रीफ़्रेश करें",
+    "challengeFriends": "🏁 मित्रों को चुनौती दें",
+    "yourTime": "आपका समय:",
+    "inviteFriends": "मित्रों को आमंत्रित करें",
+    "racingLabel": "रेस में"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "पेचीदा",
+      "easy": "चुनौतीपूर्ण",
+      "intermediate": "कठिन",
+      "expert": "विशेषज्ञ"
+    },
+    "book": {
+      "veryEasy": "बहुत आसान",
+      "easy": "आसान",
+      "moderatelyEasy": "थोड़ा आसान",
+      "moderate": "मध्यम",
+      "moderatelyHard": "थोड़ा कठिन",
+      "hard": "कठिन",
+      "vicious": "भीषण",
+      "fiendish": "शैतानी",
+      "devilish": "राक्षसी",
+      "hell": "नरक",
+      "beyondHell": "नरक से परे"
+    }
+  },
+  "techniques": {
+    "lastDigit": "आख़िरी अंक",
+    "hiddenSingleBox": "हिडन सिंगल (बॉक्स)",
+    "hiddenSingleLine": "हिडन सिंगल (लाइन)",
+    "hiddenSingleVariantRegion": "हिडन सिंगल (वेरिएंट क्षेत्र)",
+    "nakedSingle": "नेकेड सिंगल",
+    "hiddenPair": "हिडन पेयर",
+    "lockedCandidate": "लॉक्ड कैंडिडेट",
+    "hiddenTriple": "हिडन ट्रिपल",
+    "hiddenQuadruple": "हिडन क्वाड्रपल",
+    "nakedPair": "नेकेड पेयर",
+    "nakedTriple": "नेकेड ट्रिपल",
+    "nakedQuadruple": "नेकेड क्वाड्रपल",
+    "xWing": "X-विंग",
+    "swordfish": "स्वॉर्डफ़िश",
+    "skyscraper": "स्काईस्क्रेपर",
+    "twoStringKite": "टू-स्ट्रिंग काइट",
+    "crane": "क्रेन",
+    "simpleColoring": "सिंपल कलरिंग",
+    "yWing": "Y-विंग",
+    "xYZWing": "XYZ-विंग",
+    "wWing": "W-विंग",
+    "finnedSashimiXWing": "फ़िन्ड/साशिमी X-विंग",
+    "emptyRectangle": "एम्प्टी रेक्टैंगल",
+    "uniqueRectangleType1": "यूनीक रेक्टैंगल टाइप 1",
+    "uniqueRectangleType2": "यूनीक रेक्टैंगल टाइप 2",
+    "uniqueRectangleType3": "यूनीक रेक्टैंगल टाइप 3",
+    "uniqueRectangleType4": "यूनीक रेक्टैंगल टाइप 4",
+    "uniqueRectangleType5": "यूनीक रेक्टैंगल टाइप 5",
+    "finnedSashimiSwordfish": "फ़िन्ड/साशिमी स्वॉर्डफ़िश",
+    "jellyfish": "जेलीफ़िश",
+    "bugBinaryUniversalGrave": "BUG (बाइनरी यूनिवर्सल ग्रेव)",
+    "xChain": "X-चेन",
+    "groupedXChain": "ग्रुप्ड X-चेन",
+    "YWing4WXYZWing": "4-Y-विंग (WXYZ-विंग)",
+    "yWing5": "5-Y-विंग",
+    "yWing6": "6-Y-विंग",
+    "yWing7": "7-Y-विंग",
+    "yWing8": "8-Y-विंग",
+    "yWing9": "9-Y-विंग",
+    "finnedSashimiJellyfish": "फ़िन्ड/साशिमी जेलीफ़िश",
+    "medusa3D": "3D मेडूसा",
+    "xyChain": "XY-चेन",
+    "alternatingInferenceChainAIC": "अल्टरनेटिंग इन्फ़रेंस चेन (AIC)",
+    "groupedAlternatingInferenceChainAIC": "ग्रुप्ड अल्टरनेटिंग इन्फ़रेंस चेन (AIC)",
+    "nishioForcingChain": "निशियो फ़ोर्सिंग चेन",
+    "nishioForcingNet": "निशियो फ़ोर्सिंग नेट"
+  }
+}

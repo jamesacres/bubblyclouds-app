@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "বই",
+    "defaultDetailNoun": "ধাঁধার বই"
+  },
+  "collectionCover": {
+    "monthlyCollection": "মাসিক সংগ্রহ"
+  },
+  "hintBox": {
+    "dismiss": "ইঙ্গিত বন্ধ করুন"
+  },
+  "lobbyButton": {
+    "opponents": "প্রতিপক্ষ"
+  },
+  "nextPuzzlePanel": {
+    "continue": "চালিয়ে যান — পরবর্তী ধাঁধা",
+    "continueLocked": "চালিয়ে যান ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{total}}টির মধ্যে {{completed}}টি {{label}} সম্পন্ন"
+  },
+  "countdownOverlay": {
+    "getReady": "প্রস্তুত হন",
+    "go": "শুরু!"
+  },
+  "confirmDialog": {
+    "cancel": "বাতিল করুন"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · সম্পন্ন",
+    "retry": "আবার চেষ্টা",
+    "points": "+{{points}} পয়েন্ট",
+    "leaderboardPoints": "লিডারবোর্ড পয়েন্ট"
+  },
+  "raceTimer": {
+    "time": "সময়"
+  },
+  "stageTopBar": {
+    "previous": "আগের"
+  },
+  "raceHud": {
+    "opponents": "প্রতিপক্ষ",
+    "stageOf": "ধাপ {{current}}/{{total}}"
+  },
+  "raceCelebration": {
+    "finish": "ফিনিশ!",
+    "runComplete": "রান সম্পন্ন",
+    "leaderboardPoints": "লিডারবোর্ড পয়েন্ট",
+    "pointsSuffix": " স্কোর"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "রবি",
+      "monday": "সোম",
+      "tuesday": "মঙ",
+      "wednesday": "বুধ",
+      "thursday": "বৃহ",
+      "friday": "শুক",
+      "saturday": "শনি"
+    },
+    "dayStreak_one": "দিনের ধারা",
+    "dayStreak_other": "দিনের ধারা",
+    "thisMonth": "এই মাসে"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(আপনি)",
+    "puzzles_one": "{{count}}টি ধাঁধা",
+    "puzzles_other": "{{count}}টি ধাঁধা",
+    "average": "গড়: {{time}}",
+    "best": "সেরা: {{time}}",
+    "wins_one": "🏁 {{count}}টি জয়",
+    "wins_other": "🏁 {{count}}টি জয়",
+    "points_one": "পয়েন্ট",
+    "points_other": "পয়েন্ট"
+  },
+  "scoreBreakdown": {
+    "title": "স্কোরের বিবরণ",
+    "volumeBonus": {
+      "label": "পরিমাণ বোনাস",
+      "detail_one": "{{count}}টি ধাঁধা সম্পন্ন",
+      "detail_other": "{{count}}টি ধাঁধা সম্পন্ন"
+    },
+    "dailyPuzzles": {
+      "label": "দৈনিক ধাঁধা",
+      "detail_one": "{{count}}টি দৈনিক চ্যালেঞ্জ",
+      "detail_other": "{{count}}টি দৈনিক চ্যালেঞ্জ"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} ধাঁধা",
+      "detail": "{{collection}} থেকে {{count}}টি"
+    },
+    "scannedPuzzles": {
+      "label": "স্ক্যান করা ধাঁধা",
+      "detail_one": "{{count}}টি আমদানি করা ধাঁধা",
+      "detail_other": "{{count}}টি আমদানি করা ধাঁধা"
+    },
+    "difficultyBonus": {
+      "label": "কাঠিন্য বোনাস",
+      "detail": "কঠিন ধাঁধা = বেশি পয়েন্ট"
+    },
+    "speedBonus": {
+      "label": "গতি বোনাস",
+      "detail": "দ্রুততম: {{time}}"
+    },
+    "racingBonus": {
+      "label": "রেসিং বোনাস",
+      "detail": "সম্পন্ন করা বন্ধুদের হারান"
+    },
+    "dailyCombo": {
+      "label": "দৈনিক কম্বো",
+      "detail": "প্রতিদিন যত বেশি ধাঁধা, তত বড় গুণক"
+    }
+  },
+  "leaderboard": {
+    "you": "আপনি",
+    "unknownUser": "অজানা ব্যবহারকারী",
+    "title": "লিডারবোর্ড",
+    "subtitleParty": "গত 30 দিন · {{partyName}}",
+    "subtitleAllTeams": "গত 30 দিন · সব টিম",
+    "howScoringWorks": "স্কোরিং কীভাবে কাজ করে"
+  },
+  "scoringLegend": {
+    "title": "স্কোরিং কীভাবে কাজ করে",
+    "subtitle": "{{gameName}} · গত 30 দিন",
+    "close": "বন্ধ করুন",
+    "racingWins": {
+      "title": "রেসে জয়",
+      "body": "একই সম্পন্ন ধাঁধায় আপনি যে প্রতিটি বন্ধুকে হারাবেন তার জন্য <points>+{{points}} পয়েন্ট</points> পান। {{friends}} জন বন্ধুর মধ্যে প্রথম হলে <points>+{{total}} পয়েন্ট</points> সংগ্রহ করুন।"
+    },
+    "basePoints": {
+      "title": "মূল পয়েন্ট",
+      "anyPuzzle": "যেকোনো ধাঁধা",
+      "dailyPuzzle": "দৈনিক ধাঁধা",
+      "collectionPuzzle": "{{collection}} ধাঁধা",
+      "scannedPuzzle": "স্ক্যান করা ধাঁধা"
+    },
+    "difficultyMultipliers": {
+      "title": "কাঠিন্যের গুণক",
+      "daily": "দিনের {{gameName}}",
+      "collection": "{{collection}} ধাঁধা"
+    },
+    "speedBonuses": {
+      "title": "গতি বোনাস",
+      "lightning": "বিদ্যুৎ",
+      "fast": "দ্রুত",
+      "quick": "চটপট",
+      "steady": "স্থির",
+      "under": "{{threshold}}-এর কম",
+      "seconds": "{{value}} সেকেন্ড",
+      "minutes": "{{value}} মিনিট"
+    },
+    "dailyCombo": {
+      "title": "দৈনিক কম্বো",
+      "body": "একই দিনে আরও ধাঁধা সমাধান করলে প্রতিটি ধাঁধার পয়েন্ট গুণ হয়, সর্বোচ্চ <max>{{max}}×</max> পর্যন্ত।",
+      "puzzle": "দিনের {{puzzle}} নম্বর ধাঁধা",
+      "puzzleOrMore": "দিনের {{puzzle}}+ নম্বর ধাঁধা"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "রান সম্পন্ন",
+    "raceProgress": "রেসের অগ্রগতি",
+    "stagesProgress": "{{completed}}/{{total}} ধাপ",
+    "retryStage": "ধাপ আবার খেলুন",
+    "stageLabel": "ধাপ {{number}}",
+    "stageCompletedLabel": "ধাপ {{number}}, {{time}} সময়ে সম্পন্ন",
+    "viewRacingStats": "রেসিং পরিসংখ্যান দেখুন",
+    "total": "মোট"
+  },
+  "raceTrack": {
+    "you": "আপনি",
+    "viewFriends": "বন্ধুদের দেখতে ক্লিক করুন",
+    "start": "শুরু",
+    "finish": "শেষ",
+    "inviteToRace": "বন্ধুদের রেসে আমন্ত্রণ জানান",
+    "opponents": "প্রতিপক্ষ",
+    "racer": "রেসার",
+    "stageBadge": "ধাপ {{number}}",
+    "total": "মোট",
+    "leaderboard": "লিডারবোর্ড",
+    "puzzleBook": "ধাঁধার বই",
+    "puzzleBookLabel": "ধাঁধার বই",
+    "refreshScores": "স্কোর রিফ্রেশ করুন",
+    "challengeFriends": "🏁 বন্ধুদের চ্যালেঞ্জ করুন",
+    "yourTime": "আপনার সময়:",
+    "inviteFriends": "বন্ধুদের আমন্ত্রণ জানান",
+    "racingLabel": "রেস করছেন"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "জটিল",
+      "easy": "চ্যালেঞ্জিং",
+      "intermediate": "কঠিন",
+      "expert": "বিশেষজ্ঞ"
+    },
+    "book": {
+      "veryEasy": "খুব সহজ",
+      "easy": "সহজ",
+      "moderatelyEasy": "মোটামুটি সহজ",
+      "moderate": "মাঝারি",
+      "moderatelyHard": "মোটামুটি কঠিন",
+      "hard": "কঠিন",
+      "vicious": "নির্মম",
+      "fiendish": "পৈশাচিক",
+      "devilish": "শয়তানি",
+      "hell": "নরক",
+      "beyondHell": "নরকের ওপারে"
+    }
+  },
+  "techniques": {
+    "lastDigit": "লাস্ট ডিজিট",
+    "hiddenSingleBox": "হিডেন সিঙ্গেল (বক্স)",
+    "hiddenSingleLine": "হিডেন সিঙ্গেল (লাইন)",
+    "hiddenSingleVariantRegion": "হিডেন সিঙ্গেল (ভ্যারিয়েন্ট অঞ্চল)",
+    "nakedSingle": "নেকেড সিঙ্গেল",
+    "hiddenPair": "হিডেন পেয়ার",
+    "lockedCandidate": "লকড ক্যান্ডিডেট",
+    "hiddenTriple": "হিডেন ট্রিপল",
+    "hiddenQuadruple": "হিডেন কোয়াড্রুপল",
+    "nakedPair": "নেকেড পেয়ার",
+    "nakedTriple": "নেকেড ট্রিপল",
+    "nakedQuadruple": "নেকেড কোয়াড্রুপল",
+    "xWing": "এক্স-উইং",
+    "swordfish": "সোর্ডফিশ",
+    "skyscraper": "স্কাইস্ক্র্যাপার",
+    "twoStringKite": "টু-স্ট্রিং-কাইট",
+    "crane": "ক্রেন",
+    "simpleColoring": "সিম্পল কালারিং",
+    "yWing": "ওয়াই-উইং",
+    "xYZWing": "এক্সওয়াইজেড-উইং",
+    "wWing": "ডব্লিউ-উইং",
+    "finnedSashimiXWing": "ফিনড/সাশিমি এক্স-উইং",
+    "emptyRectangle": "এম্পটি রেক্টেঙ্গেল",
+    "uniqueRectangleType1": "ইউনিক রেক্টেঙ্গেল টাইপ 1",
+    "uniqueRectangleType2": "ইউনিক রেক্টেঙ্গেল টাইপ 2",
+    "uniqueRectangleType3": "ইউনিক রেক্টেঙ্গেল টাইপ 3",
+    "uniqueRectangleType4": "ইউনিক রেক্টেঙ্গেল টাইপ 4",
+    "uniqueRectangleType5": "ইউনিক রেক্টেঙ্গেল টাইপ 5",
+    "finnedSashimiSwordfish": "ফিনড/সাশিমি সোর্ডফিশ",
+    "jellyfish": "জেলিফিশ",
+    "bugBinaryUniversalGrave": "বাগ (বাইনারি ইউনিভার্সাল গ্রেভ)",
+    "xChain": "এক্স-চেইন",
+    "groupedXChain": "গ্রুপড এক্স-চেইন",
+    "YWing4WXYZWing": "4-ওয়াই-উইং (ডব্লিউএক্সওয়াইজেড-উইং)",
+    "yWing5": "5-ওয়াই-উইং",
+    "yWing6": "6-ওয়াই-উইং",
+    "yWing7": "7-ওয়াই-উইং",
+    "yWing8": "8-ওয়াই-উইং",
+    "yWing9": "9-ওয়াই-উইং",
+    "finnedSashimiJellyfish": "ফিনড/সাশিমি জেলিফিশ",
+    "medusa3D": "3D মেডুসা",
+    "xyChain": "এক্সওয়াই-চেইন",
+    "alternatingInferenceChainAIC": "অল্টারনেটিং ইনফারেন্স চেইন (AIC)",
+    "groupedAlternatingInferenceChainAIC": "গ্রুপড অল্টারনেটিং ইনফারেন্স চেইন (AIC)",
+    "nishioForcingChain": "নিশিও ফোর্সিং চেইন",
+    "nishioForcingNet": "নিশিও ফোর্সিং নেট"
+  }
+}

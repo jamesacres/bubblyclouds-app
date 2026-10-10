@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "പുസ്തകം",
+    "defaultDetailNoun": "പസിൽ പുസ്തകങ്ങൾ"
+  },
+  "collectionCover": {
+    "monthlyCollection": "മാസിക ശേഖരം"
+  },
+  "hintBox": {
+    "dismiss": "സൂചന അടയ്ക്കുക"
+  },
+  "lobbyButton": {
+    "opponents": "എതിരാളികൾ"
+  },
+  "nextPuzzlePanel": {
+    "continue": "തുടരുക — അടുത്ത പസിൽ",
+    "continueLocked": "തുടരുക ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}: {{completed}}/{{total}} പൂർത്തിയായി"
+  },
+  "countdownOverlay": {
+    "getReady": "തയ്യാറാകൂ",
+    "go": "ഗോ!"
+  },
+  "confirmDialog": {
+    "cancel": "റദ്ദാക്കുക"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · പൂർത്തിയായി",
+    "retry": "വീണ്ടും",
+    "points": "+{{points}} പോയിന്റ്",
+    "leaderboardPoints": "ലീഡർബോർഡ് പോയിന്റുകൾ"
+  },
+  "raceTimer": {
+    "time": "സമയം"
+  },
+  "stageTopBar": {
+    "previous": "മുമ്പത്തേത്"
+  },
+  "raceHud": {
+    "opponents": "എതിരാളികൾ",
+    "stageOf": "ഘട്ടം {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "ഫിനിഷ്!",
+    "runComplete": "റൺ പൂർത്തിയായി",
+    "leaderboardPoints": "ലീഡർബോർഡ് പോയിന്റുകൾ",
+    "pointsSuffix": " പോ."
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ഞാ",
+      "monday": "തി",
+      "tuesday": "ചൊ",
+      "wednesday": "ബു",
+      "thursday": "വ്യ",
+      "friday": "വെ",
+      "saturday": "ശ"
+    },
+    "dayStreak_one": "ദിവസത്തെ തുടർച്ച",
+    "dayStreak_other": "ദിവസത്തെ തുടർച്ച",
+    "thisMonth": "ഈ മാസം"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(നിങ്ങൾ)",
+    "puzzles_one": "{{count}} പസിൽ",
+    "puzzles_other": "{{count}} പസിലുകൾ",
+    "average": "ശരാശരി: {{time}}",
+    "best": "മികച്ചത്: {{time}}",
+    "wins_one": "🏁 {{count}} വിജയം",
+    "wins_other": "🏁 {{count}} വിജയങ്ങൾ",
+    "points_one": "പോയിന്റ്",
+    "points_other": "പോയിന്റുകൾ"
+  },
+  "scoreBreakdown": {
+    "title": "സ്കോർ വിശദാംശങ്ങൾ",
+    "volumeBonus": {
+      "label": "എണ്ണ ബോണസ്",
+      "detail_one": "{{count}} പസിൽ പൂർത്തിയാക്കി",
+      "detail_other": "{{count}} പസിലുകൾ പൂർത്തിയാക്കി"
+    },
+    "dailyPuzzles": {
+      "label": "ദിവസേനയുള്ള പസിലുകൾ",
+      "detail_one": "{{count}} ദിവസേനയുള്ള വെല്ലുവിളി",
+      "detail_other": "{{count}} ദിവസേനയുള്ള വെല്ലുവിളികൾ"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} പസിലുകൾ",
+      "detail": "{{collection}}: {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "സ്കാൻ ചെയ്ത പസിലുകൾ",
+      "detail_one": "{{count}} ഇറക്കുമതി ചെയ്ത പസിൽ",
+      "detail_other": "{{count}} ഇറക്കുമതി ചെയ്ത പസിലുകൾ"
+    },
+    "difficultyBonus": {
+      "label": "ബുദ്ധിമുട്ട് ബോണസ്",
+      "detail": "കഠിനമായ പസിലുകൾ = കൂടുതൽ പോയിന്റ്"
+    },
+    "speedBonus": {
+      "label": "വേഗത ബോണസ്",
+      "detail": "ഏറ്റവും വേഗത്തിൽ: {{time}}"
+    },
+    "racingBonus": {
+      "label": "റേസിംഗ് ബോണസ്",
+      "detail": "പൂർത്തിയാക്കിയ സുഹൃത്തുക്കളെ തോൽപ്പിച്ചു"
+    },
+    "dailyCombo": {
+      "label": "ദൈനംദിന കോമ്പോ",
+      "detail": "ദിവസം കൂടുതൽ പസിലുകൾ = വലിയ ഗുണകം"
+    }
+  },
+  "leaderboard": {
+    "you": "നിങ്ങൾ",
+    "unknownUser": "അജ്ഞാത ഉപയോക്താവ്",
+    "title": "ലീഡർബോർഡ്",
+    "subtitleParty": "കഴിഞ്ഞ 30 ദിവസം · {{partyName}}",
+    "subtitleAllTeams": "കഴിഞ്ഞ 30 ദിവസം · എല്ലാ ടീമുകളും",
+    "howScoringWorks": "സ്കോറിംഗ് എങ്ങനെ പ്രവർത്തിക്കുന്നു"
+  },
+  "scoringLegend": {
+    "title": "സ്കോറിംഗ് എങ്ങനെ പ്രവർത്തിക്കുന്നു",
+    "subtitle": "{{gameName}} · കഴിഞ്ഞ 30 ദിവസം",
+    "close": "അടയ്ക്കുക",
+    "racingWins": {
+      "title": "റേസിംഗ് വിജയങ്ങൾ",
+      "body": "പൂർത്തിയാക്കിയ ഒരേ പസിലിൽ നിങ്ങൾ തോൽപ്പിക്കുന്ന ഓരോ സുഹൃത്തിനും <points>+{{points}} പോയിന്റ്</points> നേടൂ. {{friends}} സുഹൃത്തുക്കളിലും ഒന്നാമതെത്തിയാൽ <points>+{{total}} പോയിന്റ്</points> ലഭിക്കും."
+    },
+    "basePoints": {
+      "title": "അടിസ്ഥാന പോയിന്റുകൾ",
+      "anyPuzzle": "ഏത് പസിലും",
+      "dailyPuzzle": "ദിവസേനയുള്ള പസിൽ",
+      "collectionPuzzle": "{{collection}} പസിൽ",
+      "scannedPuzzle": "സ്കാൻ ചെയ്ത പസിൽ"
+    },
+    "difficultyMultipliers": {
+      "title": "ബുദ്ധിമുട്ട് ഗുണകങ്ങൾ",
+      "daily": "ഇന്നത്തെ {{gameName}}",
+      "collection": "{{collection}} പസിലുകൾ"
+    },
+    "speedBonuses": {
+      "title": "വേഗത ബോണസുകൾ",
+      "lightning": "മിന്നൽ",
+      "fast": "വേഗം",
+      "quick": "ദ്രുതം",
+      "steady": "സ്ഥിരം",
+      "under": "{{threshold}} താഴെ",
+      "seconds": "{{value}} സെക്കൻഡ്",
+      "minutes": "{{value}} മിനിറ്റ്"
+    },
+    "dailyCombo": {
+      "title": "ദൈനംദിന കോമ്പോ",
+      "body": "ഒരേ ദിവസം കൂടുതൽ പസിലുകൾ പരിഹരിച്ച് ഓരോ പസിലിന്റെയും പോയിന്റുകൾ <max>{{max}}×</max> വരെ വർധിപ്പിക്കൂ.",
+      "puzzle": "ദിവസത്തെ പസിൽ {{puzzle}}",
+      "puzzleOrMore": "ദിവസത്തെ പസിൽ {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "റൺ പൂർത്തിയായി",
+    "raceProgress": "റേസ് പുരോഗതി",
+    "stagesProgress": "{{completed}}/{{total}} ഘട്ടങ്ങൾ",
+    "retryStage": "ഘട്ടം വീണ്ടും",
+    "stageLabel": "ഘട്ടം {{number}}",
+    "stageCompletedLabel": "ഘട്ടം {{number}}, {{time}} കൊണ്ട് പൂർത്തിയാക്കി",
+    "viewRacingStats": "റേസിംഗ് സ്ഥിതിവിവരം കാണുക",
+    "total": "ആകെ"
+  },
+  "raceTrack": {
+    "you": "നിങ്ങൾ",
+    "viewFriends": "സുഹൃത്തുക്കളെ കാണാൻ ക്ലിക്ക് ചെയ്യുക",
+    "start": "തുടക്കം",
+    "finish": "ഫിനിഷ്",
+    "inviteToRace": "റേസിന് സുഹൃത്തുക്കളെ ക്ഷണിക്കുക",
+    "opponents": "എതിരാളികൾ",
+    "racer": "റേസർ",
+    "stageBadge": "ഘ{{number}}",
+    "total": "ആകെ",
+    "leaderboard": "ലീഡർബോർഡ്",
+    "puzzleBook": "പസിൽ പുസ്തകം",
+    "puzzleBookLabel": "പസിൽ പുസ്തകം",
+    "refreshScores": "സ്കോറുകൾ പുതുക്കുക",
+    "challengeFriends": "🏁 സുഹൃത്തുക്കളെ വെല്ലുവിളിക്കൂ",
+    "yourTime": "നിങ്ങളുടെ സമയം:",
+    "inviteFriends": "സുഹൃത്തുക്കളെ ക്ഷണിക്കുക",
+    "racingLabel": "റേസിംഗ്"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "തന്ത്രപരം",
+      "easy": "വെല്ലുവിളി",
+      "intermediate": "കഠിനം",
+      "expert": "വിദഗ്ധൻ"
+    },
+    "book": {
+      "veryEasy": "വളരെ എളുപ്പം",
+      "easy": "എളുപ്പം",
+      "moderatelyEasy": "ഇടത്തരം എളുപ്പം",
+      "moderate": "ഇടത്തരം",
+      "moderatelyHard": "ഇടത്തരം കഠിനം",
+      "hard": "കഠിനം",
+      "vicious": "ക്രൂരം",
+      "fiendish": "അതികഠിനം",
+      "devilish": "പൈശാചികം",
+      "hell": "നരകം",
+      "beyondHell": "നരകത്തിനപ്പുറം"
+    }
+  },
+  "techniques": {
+    "lastDigit": "അവസാന അക്കം",
+    "hiddenSingleBox": "ഹിഡൻ സിംഗിൾ (ബോക്സ്)",
+    "hiddenSingleLine": "ഹിഡൻ സിംഗിൾ (വരി)",
+    "hiddenSingleVariantRegion": "ഹിഡൻ സിംഗിൾ (വേരിയന്റ് മേഖല)",
+    "nakedSingle": "നേക്കഡ് സിംഗിൾ",
+    "hiddenPair": "ഹിഡൻ പെയർ",
+    "lockedCandidate": "ലോക്ക്ഡ് കാൻഡിഡേറ്റ്",
+    "hiddenTriple": "ഹിഡൻ ട്രിപ്പിൾ",
+    "hiddenQuadruple": "ഹിഡൻ ക്വാഡ്രപ്പിൾ",
+    "nakedPair": "നേക്കഡ് പെയർ",
+    "nakedTriple": "നേക്കഡ് ട്രിപ്പിൾ",
+    "nakedQuadruple": "നേക്കഡ് ക്വാഡ്രപ്പിൾ",
+    "xWing": "എക്സ്-വിംഗ്",
+    "swordfish": "സ്വോർഡ്ഫിഷ്",
+    "skyscraper": "സ്കൈസ്ക്രാപ്പർ",
+    "twoStringKite": "ടു-സ്ട്രിംഗ്-കൈറ്റ്",
+    "crane": "ക്രെയിൻ",
+    "simpleColoring": "സിമ്പിൾ കളറിംഗ്",
+    "yWing": "വൈ-വിംഗ്",
+    "xYZWing": "XYZ-വിംഗ്",
+    "wWing": "ഡബ്ല്യു-വിംഗ്",
+    "finnedSashimiXWing": "ഫിൻഡ്/സാഷിമി എക്സ്-വിംഗ്",
+    "emptyRectangle": "എംപ്റ്റി റെക്ടാങ്കിൾ",
+    "uniqueRectangleType1": "യുണീക് റെക്ടാങ്കിൾ ടൈപ്പ് 1",
+    "uniqueRectangleType2": "യുണീക് റെക്ടാങ്കിൾ ടൈപ്പ് 2",
+    "uniqueRectangleType3": "യുണീക് റെക്ടാങ്കിൾ ടൈപ്പ് 3",
+    "uniqueRectangleType4": "യുണീക് റെക്ടാങ്കിൾ ടൈപ്പ് 4",
+    "uniqueRectangleType5": "യുണീക് റെക്ടാങ്കിൾ ടൈപ്പ് 5",
+    "finnedSashimiSwordfish": "ഫിൻഡ്/സാഷിമി സ്വോർഡ്ഫിഷ്",
+    "jellyfish": "ജെല്ലിഫിഷ്",
+    "bugBinaryUniversalGrave": "BUG (ബൈനറി യൂണിവേഴ്സൽ ഗ്രേവ്)",
+    "xChain": "എക്സ്-ചെയിൻ",
+    "groupedXChain": "ഗ്രൂപ്പ്ഡ് എക്സ്-ചെയിൻ",
+    "YWing4WXYZWing": "4-വൈ-വിംഗ് (WXYZ-വിംഗ്)",
+    "yWing5": "5-വൈ-വിംഗ്",
+    "yWing6": "6-വൈ-വിംഗ്",
+    "yWing7": "7-വൈ-വിംഗ്",
+    "yWing8": "8-വൈ-വിംഗ്",
+    "yWing9": "9-വൈ-വിംഗ്",
+    "finnedSashimiJellyfish": "ഫിൻഡ്/സാഷിമി ജെല്ലിഫിഷ്",
+    "medusa3D": "3D മെഡൂസ",
+    "xyChain": "XY-ചെയിൻ",
+    "alternatingInferenceChainAIC": "ആൾട്ടർനേറ്റിംഗ് ഇൻഫറൻസ് ചെയിൻ (AIC)",
+    "groupedAlternatingInferenceChainAIC": "ഗ്രൂപ്പ്ഡ് ആൾട്ടർനേറ്റിംഗ് ഇൻഫറൻസ് ചെയിൻ (AIC)",
+    "nishioForcingChain": "നിഷിയോ ഫോഴ്സിംഗ് ചെയിൻ",
+    "nishioForcingNet": "നിഷിയോ ഫോഴ്സിംഗ് നെറ്റ്"
+  }
+}

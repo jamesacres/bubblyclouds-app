@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Award, Zap, Calendar, Library, Camera, Flame } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
+import { formatLatinNumber } from '@bubblyclouds-app/ui/helpers/latinNumber';
 
 interface ScoreBreakdownProps {
   breakdown: FriendsLeaderboardScore['breakdown'];
@@ -33,7 +34,7 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
         count: stats.totalPuzzles,
       }),
       icon: <Award size={16} className="text-green-600" />,
-      color: 'border-l-green-500',
+      color: 'border-s-green-500',
     },
     {
       label: t('scoreBreakdown.dailyPuzzles.label'),
@@ -42,7 +43,7 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
         count: stats.dailyPuzzles,
       }),
       icon: <Calendar size={16} className="text-blue-600" />,
-      color: 'border-l-blue-500',
+      color: 'border-s-blue-500',
     },
     {
       label: t('scoreBreakdown.collectionPuzzles.label', {
@@ -54,7 +55,7 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
         collection: detailNoun,
       }),
       icon: <Library size={16} className="text-purple-600" />,
-      color: 'border-l-purple-500',
+      color: 'border-s-purple-500',
     },
     {
       label: t('scoreBreakdown.scannedPuzzles.label'),
@@ -63,14 +64,14 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
         count: stats.scannedPuzzles,
       }),
       icon: <Camera size={16} className="text-orange-600" />,
-      color: 'border-l-orange-500',
+      color: 'border-s-orange-500',
     },
     {
       label: t('scoreBreakdown.difficultyBonus.label'),
       value: breakdown.difficultyBonus,
       detail: t('scoreBreakdown.difficultyBonus.detail'),
       icon: <Award size={16} className="text-red-600" />,
-      color: 'border-l-red-500',
+      color: 'border-s-red-500',
     },
     {
       label: t('scoreBreakdown.speedBonus.label'),
@@ -79,21 +80,21 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
         time: formatTime(stats.fastestTime),
       }),
       icon: <Zap size={16} className="text-yellow-600" />,
-      color: 'border-l-yellow-500',
+      color: 'border-s-yellow-500',
     },
     {
       label: t('scoreBreakdown.racingBonus.label'),
       value: breakdown.racingBonus,
       detail: t('scoreBreakdown.racingBonus.detail'),
       icon: <Award size={16} className="text-indigo-600" />,
-      color: 'border-l-indigo-500',
+      color: 'border-s-indigo-500',
     },
     {
       label: t('scoreBreakdown.dailyCombo.label'),
       value: breakdown.comboBonus,
       detail: t('scoreBreakdown.dailyCombo.detail'),
       icon: <Flame size={16} className="text-pink-600" />,
-      color: 'border-l-pink-500',
+      color: 'border-s-pink-500',
     },
   ];
 
@@ -108,16 +109,18 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
             item.value > 0 && (
               <div
                 key={item.label}
-                className={`rounded-lg border-l-4 bg-white p-3 dark:bg-zinc-800 ${item.color} shadow-sm`}
+                className={`rounded-lg border-s-4 bg-white p-3 dark:bg-zinc-800 ${item.color} shadow-sm`}
               >
                 <div className="mb-2 flex items-center">
                   {item.icon}
-                  <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <span className="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                     {item.label}
                   </span>
                 </div>
                 <div className="mb-1 text-lg font-bold text-green-600 dark:text-green-400">
-                  +{item.value.toLocaleString(i18n.language)}
+                  <span dir="ltr">
+                    +{formatLatinNumber(item.value, i18n.language)}
+                  </span>
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">
                   {item.detail}

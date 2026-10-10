@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "dismiss": "Schließen"
+  },
+  "errorBoundary": {
+    "title": "Hoppla! Etwas ist schiefgelaufen",
+    "description": "Es ist ein unerwarteter Fehler aufgetreten. Keine Sorge, Ihr Fortschritt ist gespeichert!",
+    "reload": "App neu laden",
+    "clearStorage": "Speicher leeren und neu laden",
+    "contactSupport": "Wenn das Problem weiterhin besteht, wenden Sie sich bitte an den Support."
+  },
+  "time": {
+    "minutesAgo_one": "vor {{count}}m",
+    "minutesAgo_other": "vor {{count}} Min.",
+    "hoursAgo_one": "vor {{count}}h",
+    "hoursAgo_other": "vor {{count}} Std.",
+    "daysAgo_one": "vor {{count}}T",
+    "daysAgo_other": "vor {{count}} Tg."
+  },
+  "tier": {
+    "novice": "Neuling",
+    "advancedBeginner": "Anfänger",
+    "competent": "Kompetent",
+    "proficient": "Versiert",
+    "expert": "Experte"
+  },
+  "moves": {
+    "onPar": "Züge, im Par",
+    "overPar": "Züge, {{delta}} über Par",
+    "underPar": "Züge, {{delta}} unter Par"
+  },
+  "lobby": {
+    "title": "Rennlobby",
+    "close": "Lobby schließen",
+    "onlineOpponents": "Gegner online",
+    "refresh": "Online-Gegner aktualisieren",
+    "noOpponents": "Keine Gegner online – laden Sie Freunde zum Rennen ein!",
+    "away": "Abwesend",
+    "offlineTeams": "Offline · in Ihren Teams",
+    "removeMember": "{{name}} entfernen",
+    "aiOpponents": "KI-Gegner",
+    "addAgent": "Hinzufügen",
+    "noAgents": "Noch keine KI-Gegner – fügen Sie einen hinzu, damit immer jemand zum Rennen da ist.",
+    "ownClock": "Jeder Spieler rennt gegen seine eigene Uhr",
+    "startSolving": "Lösen starten",
+    "finished": "Fertig",
+    "inLobby": "In der Lobby",
+    "stageProgress": "Etappe {{current}} von {{total}}",
+    "finishedRunIn": "Lauf in {{time}} beendet",
+    "solvedIn": "In {{time}} gelöst",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · zuletzt gesehen {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Solorennen – nur Sie und die Uhr",
+      "friends_one": "{{count}} Freund",
+      "friends_other": "{{count}} Freunde",
+      "aiOpponents_one": "{{count}} KI-Gegner",
+      "aiOpponents_other": "{{count}} KI-Gegner",
+      "racing": "Rennen gegen {{opponents}}"
+    },
+    "invite": {
+      "button": "Einladen",
+      "eyebrow": "Stellen Sie Ihr Rennen zusammen",
+      "title": "Gegner einladen",
+      "close": "Schließen",
+      "existingTeam": "In bestehendes Team einladen",
+      "editTeamName": "Teamnamen bearbeiten",
+      "deleteTeam": "Team löschen",
+      "leaveTeam": "Team verlassen",
+      "memberCount_one": "{{count}} Mitglied",
+      "memberCount_other": "{{count}} Mitglieder",
+      "createTeam": "Neues Rennteam erstellen",
+      "displayNameLabel": "Wie sollen Teammitglieder Sie nennen?",
+      "displayNamePlaceholder": "Anzeigename",
+      "teamNameLabel": "Wie soll das Team heißen?",
+      "teamNamePlaceholder": "Teamname (z. B. Familie)",
+      "createAndCopy": "Erstellen & Link kopieren",
+      "defaultTeamName": "Neues Team",
+      "defaultPlayerName": "Spieler"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Fenster schließen",
+    "back": "Zurück",
+    "close": "Schließen",
+    "title": "Wählen Sie Ihre Rivalen",
+    "subtitle": "Wählen Sie einen oder mehrere Gegner",
+    "selectAtLeastOne": "Wählen Sie mindestens einen Rivalen",
+    "race_one": "Rennen gegen {{count}} Rivalen",
+    "race_other": "Rennen gegen {{count}} Rivalen",
+    "skill": {
+      "novice": "Neuling",
+      "advancedBeginner": "Anfänger",
+      "competent": "Kompetent",
+      "proficient": "Versiert",
+      "expert": "Experte"
+    }
+  },
+  "agentParty": {
+    "title": "KI-Rivalen",
+    "rivalCount_one": "{{count}} Rivale",
+    "rivalCount_other": "{{count}} Rivalen"
+  },
+  "party": {
+    "cancel": "Abbrechen",
+    "editName": "Teamnamen bearbeiten",
+    "editMaxMembers": "Maximale Mitgliederzahl bearbeiten",
+    "memberCount_one": "{{count}} Mitglied",
+    "memberCount_other": "{{count}} Mitglieder",
+    "memberCountPremium_one": "{{count}} Mitglied ✨ Premium",
+    "memberCountPremium_other": "{{count}} Mitglieder ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} Mitglied",
+    "membersOf_other": "{{current}}/{{count}} Mitglieder",
+    "shareLink": "Teilen Sie diesen Link mit aktuellen Teammitgliedern, damit sie diesem Rätsel beitreten können",
+    "you": "(Sie)",
+    "notStarted": "Noch nicht gestartet! Bitten Sie sie zu spielen"
+  },
+  "partyConfirmation": {
+    "cancel": "Abbrechen",
+    "leaveAgentParty": {
+      "title": "KI-Rivalen entfernen",
+      "action": "Entfernen",
+      "processing": "Wird entfernt...",
+      "message": "Möchten Sie wirklich alle KI-Rivalen entfernen? Sie erscheinen dann nicht mehr im Rennen."
+    },
+    "removeAgent": {
+      "title": "Lokalen Agenten entfernen",
+      "action": "Entfernen",
+      "processing": "Wird entfernt...",
+      "message": "Möchten Sie „{{memberName}}“ wirklich aus dem Rennen entfernen?"
+    },
+    "deleteParty": {
+      "title": "Team löschen",
+      "action": "Team löschen",
+      "processing": "Wird gelöscht...",
+      "message": "Möchten Sie „{{partyName}}“ wirklich löschen? Das Team wird dauerhaft entfernt und alle Mitglieder verlieren den Zugriff. Diese Aktion kann nicht rückgängig gemacht werden."
+    },
+    "leave": {
+      "title": "Team verlassen",
+      "action": "Verlassen",
+      "processing": "Wird verlassen...",
+      "message": "Möchten Sie „{{partyName}}“ wirklich verlassen? Sie sehen dann den Fortschritt anderer Mitglieder nicht mehr und können nicht mehr an diesem Team teilnehmen."
+    },
+    "remove": {
+      "title": "Mitglied entfernen",
+      "action": "Entfernen",
+      "processing": "Wird entfernt...",
+      "message": "Möchten Sie „{{memberName}}“ wirklich aus „{{partyName}}“ entfernen? Die Person kann dann nicht mehr an diesem Team teilnehmen."
+    }
+  },
+  "friends": {
+    "allTeams": "Alle Teams",
+    "refresh": "Aktualisieren",
+    "refreshing": "Wird aktualisiert…",
+    "title": "Rätsel der Freunde",
+    "subtitle": "Tippen Sie auf einen Freund, um dessen letzte Rätsel zu sehen und gegen ihn anzutreten.",
+    "memberCount_one": "{{count}} Mitglied",
+    "memberCount_other": "{{count}} Mitglieder",
+    "noRecentPuzzles": "Keine aktuellen Rätsel – fordern Sie sie heraus!",
+    "empty": {
+      "title": "Noch keine Rennteams",
+      "description": "Laden Sie Freunde aus der Rennlobby ein, während Sie ein Rätsel lösen"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Ihre Rätsel der letzten 30 Tage.",
+    "empty": {
+      "title": "Noch keine Rätsel",
+      "description": "Gehen Sie zu „Rennen starten“, um Ihr erstes Rätsel zu lösen"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} weitere Funktion",
+    "moreFeatures_other": "+{{count}} weitere Funktionen"
+  },
+  "crossPromo": {
+    "whyNotTry": "Probieren Sie doch mal",
+    "tryItFree": "Kostenlos testen"
+  },
+  "rateApp": {
+    "prompt": "Gefällt Ihnen {{appName}}?",
+    "rateIt": "Bewerten",
+    "rateInSeconds": "In Sekunden bewerten"
+  },
+  "plus": {
+    "close": "Fenster schließen",
+    "appIconAlt": "App-Symbol",
+    "lifetime": "Auf Lebenszeit",
+    "monthly": "Monatlich",
+    "perMonth": "{{price}}/Monat",
+    "whatsIncluded": "Das ist enthalten",
+    "continue": "Weiter",
+    "restorePurchases": "Käufe wiederherstellen",
+    "cancel": "Abbrechen"
+  },
+  "download": {
+    "title": "In der App fortfahren",
+    "appStoreAlt": "Laden im {{appStore}}",
+    "googlePlayAlt": "Jetzt bei {{googlePlay}}",
+    "continueBrowser": "Im Browser fortfahren",
+    "continueDesktop": "Auf dem Desktop fortfahren"
+  },
+  "session": {
+    "cheated": "Geschummelt",
+    "completedIn": "Abgeschlossen in {{minutes}} Min. {{seconds}} Sek.",
+    "percentComplete": "{{percentage}} % abgeschlossen",
+    "duration": "{{minutes}} Min. {{seconds}} Sek.",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "Rätsel Nr. {{number}}",
+    "daily": "Tagesrätsel {{date}}",
+    "book": "Rätselbuch {{month}} Nr. {{number}}",
+    "collection": "Sammlung {{month}} Nr. {{number}}",
+    "scanned": "Gescanntes Rätsel",
+    "you": "Sie",
+    "unknown": "Unbekannt",
+    "unlockWith": "Freischalten mit {{label}}",
+    "lockedPuzzle": "Gesperrtes Rätsel",
+    "recommendedTechniques": "Empfohlene Techniken:",
+    "loadingFriends": "Freunde werden geladen..."
+  }
+}

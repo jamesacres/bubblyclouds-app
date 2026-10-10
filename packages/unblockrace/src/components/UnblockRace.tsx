@@ -1623,6 +1623,7 @@ const UnblockRace = ({
           slow-drifting speed lines so the screen reads "race" even at rest */}
       <div
         aria-hidden="true"
+        dir="ltr"
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
         <style>{`
@@ -1634,9 +1635,9 @@ const UnblockRace = ({
             .unblock-speed-line { animation: none !important; opacity: 0 !important; }
           }
         `}</style>
-        <div className="bg-theme-primary absolute -top-24 right-[-10%] h-80 w-80 rounded-full opacity-[0.11] blur-3xl dark:opacity-[0.2]" />
-        <div className="absolute left-[-12%] top-1/3 h-72 w-72 rounded-full bg-fuchsia-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
-        <div className="absolute bottom-0 right-[10%] h-64 w-64 rounded-full bg-cyan-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
+        <div className="bg-theme-primary absolute -top-24 end-[-10%] h-80 w-80 rounded-full opacity-[0.11] blur-3xl dark:opacity-[0.2]" />
+        <div className="absolute start-[-12%] top-1/3 h-72 w-72 rounded-full bg-fuchsia-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
+        <div className="absolute bottom-0 end-[10%] h-64 w-64 rounded-full bg-cyan-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
         {[
           { top: '18%', duration: 7, delay: 0, color: 'var(--theme-primary)' },
           { top: '46%', duration: 10, delay: 2.5, color: '#d946ef' },
@@ -1647,7 +1648,7 @@ const UnblockRace = ({
             className="unblock-speed-line absolute h-px w-1/3 opacity-25 dark:opacity-35"
             style={{
               top: line.top,
-              left: 0,
+              insetInlineStart: 0,
               background: `linear-gradient(90deg, transparent, ${line.color}, transparent)`,
               filter: 'blur(0.5px)',
               animation: `unblock-speed-line ${line.duration}s linear ${line.delay}s infinite`,
@@ -1738,7 +1739,7 @@ const UnblockRace = ({
       )}
 
       {/* Centered, board-width game column. Keeping the whole column at
-          max-w-xl means every inner block's `lg:mr-0` (a Sudoku-Race carry
+          max-w-xl means every inner block's `lg:me-0` (a Sudoku-Race carry
           over that hugs the right edge) has no extra space to hug into, so
           the board, race track, timer and slide all stay centred on desktop
           instead of pinned right. */}
@@ -1970,7 +1971,10 @@ const UnblockRace = ({
                         <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/50">
                           {t('labels.time')}
                         </span>
-                        <span className="font-mono text-xl font-bold tabular-nums leading-none text-white">
+                        <span
+                          dir="ltr"
+                          className="font-mono text-xl font-bold tabular-nums leading-none text-white"
+                        >
                           {formatSecondsShort(stageClear.seconds)}
                         </span>
                       </div>
@@ -1982,7 +1986,8 @@ const UnblockRace = ({
                           {t('labels.moves')}
                         </span>
                         <span
-                          className={`font-mono text-xl font-bold tabular-nums leading-none ${
+                          dir="ltr"
+                          className={`font-mono text-xl ${
                             stageClear.movesMade > stageClear.movesRequired
                               ? 'text-amber-400'
                               : stageClear.movesMade < stageClear.movesRequired
@@ -2064,7 +2069,10 @@ const UnblockRace = ({
                       }}
                     >
                       {t('stageClear.nextStage')}
-                      <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                      <ChevronRight
+                        className="h-4 w-4 rtl:-scale-x-100"
+                        aria-hidden="true"
+                      />
                     </button>
                     {/* Progress line: how far through the run this win takes
                         them, so the CTA reads as momentum, not just "next" */}
@@ -2098,7 +2106,10 @@ const UnblockRace = ({
                         <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
                           {t('labels.time')}
                         </span>
-                        <span className="font-mono text-lg font-bold tabular-nums leading-none text-stone-900 dark:text-white">
+                        <span
+                          dir="ltr"
+                          className="font-mono text-lg font-bold tabular-nums leading-none text-stone-900 dark:text-white"
+                        >
                           {formatSecondsShort(completionSummary.seconds)}
                         </span>
                       </div>
@@ -2107,7 +2118,8 @@ const UnblockRace = ({
                           {t('labels.moves')}
                         </span>
                         <span
-                          className={`font-mono text-lg font-bold tabular-nums leading-none ${
+                          dir="ltr"
+                          className={`font-mono text-lg ${
                             completionSummary.movesMade >
                             completionSummary.movesRequired
                               ? 'text-amber-600 dark:text-amber-400'

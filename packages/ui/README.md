@@ -157,7 +157,9 @@ function MyComponent() {
 #### `I18nProvider` / `useLocale`
 
 Owns the i18n core (`i18next` + `react-i18next`). Apps pass their assembled
-`resources`, `defaultLocale` and `supportedLocales`.
+`resources` (English), `defaultLocale`, `supportedLocales` and optional
+`localeLoaders` (a tag to `createLocaleLoader({...})` map; each locale is loaded
+on demand, then `lang`, `dir` and `document.title` are updated).
 
 ```tsx
 import { I18nProvider } from "@bubblyclouds-app/ui/providers/I18nProvider";
@@ -166,6 +168,7 @@ import { I18nProvider } from "@bubblyclouds-app/ui/providers/I18nProvider";
   resources={resources}
   defaultLocale={DEFAULT_LOCALE}
   supportedLocales={supportedLocales}
+  localeLoaders={localeLoaders}
 >
   <App />
 </I18nProvider>;
@@ -180,6 +183,19 @@ nothing unless more than one locale is supported. Its own strings live in
 `src/locales/en.json` under the `ui` namespace.
 
 ### Helpers
+
+#### Latin numerals for game data
+
+```tsx
+import { formatLatinNumber } from "@bubblyclouds-app/ui/helpers/latinNumber";
+
+formatLatinNumber(1234, "ar"); // digits are 1234, never ١٢٣٤
+```
+
+`formatLatinNumber(value, locale, options?)` formats with the `latn` numbering
+system so Arabic, Urdu, Bengali and Marathi never show native digits for
+timers, scores, counts or ranks. A locale tag that already has a `-u-`
+extension is used as given.
 
 #### Platform Detection
 

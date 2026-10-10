@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Kirjaudu sisään jatkaaksesi",
+    "signInWith": "Kirjaudu sisään palvelulla {{provider}}",
+    "emailTitle": "Kirjaudu sähköpostilla",
+    "emailPlaceholder": "sinun@sahkoposti.fi",
+    "continue": "Jatka",
+    "cancel": "Peruuta",
+    "terms": "Käyttöehdot",
+    "privacy": "Tietosuojakäytäntö"
+  },
+  "header": {
+    "signIn": "Kirjaudu"
+  },
+  "avatar": {
+    "alt": "käyttäjä"
+  },
+  "panel": {
+    "title": "Tili",
+    "greeting": "Hei, {{name}}!",
+    "fallbackName": "Käyttäjä",
+    "plusActive": "{{gameName}} {{plus}} käytössä",
+    "joinGamePlus": "Hanki {{gameName}} {{plus}}",
+    "joinPlus": "Hanki {{plus}}",
+    "signOut": "Kirjaudu ulos",
+    "privacy": "Tietosuojakäytäntö",
+    "terms": "Käyttöehdot",
+    "credits": "Tekijät",
+    "deleteAccount": "Poista tili",
+    "poweredBy": "Tekijä: {{companyName}}",
+    "deleteUnavailable": "Tilin poisto ei ole käytettävissä.",
+    "deleteFailed": "Tilin poisto epäonnistui. Yritä myöhemmin uudelleen."
+  },
+  "deleteDialog": {
+    "title": "Poista tili",
+    "warning": "Tätä toimintoa ei voi perua. Kaikki tietosi kaikissa {{companyName}}-sovelluksissa poistetaan pysyvästi.",
+    "confirmation": "Vahvistan, että haluan poistaa koko tilini kaikkine tietoineni kaikissa {{companyName}}-sovelluksissa.",
+    "cancel": "Peruuta",
+    "deleting": "Poistetaan...",
+    "submit": "Poista tili"
+  }
+}

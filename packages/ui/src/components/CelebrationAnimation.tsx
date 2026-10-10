@@ -169,7 +169,7 @@ const CelebrationAnimation: React.FC<CelebrationAnimationProps> = ({
             key={i}
             className="absolute h-4 w-4 rounded-full"
             style={{
-              left: `${10 + Math.random() * 80}%`,
+              insetInlineStart: `${10 + Math.random() * 80}%`,
               top: `${10 + Math.random() * 80}%`,
               backgroundColor:
                 RAINBOW_COLORS[

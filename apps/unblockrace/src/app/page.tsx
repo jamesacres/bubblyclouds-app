@@ -73,6 +73,7 @@ const RACE_LANE_BLOCKS = [
 const RaceLanesPreview = () => (
   <div
     aria-hidden="true"
+    dir="ltr"
     className="relative w-full overflow-hidden rounded-2xl"
     style={{
       background: 'rgba(2,8,20,0.85)',
@@ -80,7 +81,7 @@ const RaceLanesPreview = () => (
     }}
   >
     <div
-      className="absolute bottom-1 right-1 top-1 w-2 rounded-sm opacity-60"
+      className="absolute bottom-1 end-1 top-1 w-2 rounded-sm opacity-60"
       style={{
         background:
           'repeating-conic-gradient(rgba(255,255,255,0.8) 0% 25%, rgba(2,6,23,0.9) 0% 50%) 0 0 / 4px 4px',
@@ -266,11 +267,11 @@ function HomeComponent() {
                   />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
                     <span className="text-base font-bold tracking-tight text-white/70">
                       {t('brand.gameName')}
                     </span>
-                    <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-cyan-300">
+                    <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-cyan-300">
                       <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
                       {t('home.hero.live')}
                     </span>
@@ -342,7 +343,7 @@ function HomeComponent() {
                 <button
                   onClick={() => openUnblockRaceOfTheDay()}
                   disabled={isLoading}
-                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] disabled:opacity-40"
+                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-start transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] disabled:opacity-40"
                   style={{
                     background:
                       'linear-gradient(155deg, rgba(30,64,175,0.5) 0%, rgba(4,12,30,0.92) 65%)',
@@ -379,7 +380,7 @@ function HomeComponent() {
                             }}
                           />
                         ))}
-                        <span className="ml-1 text-[10px] font-semibold uppercase tracking-wider text-white/35">
+                        <span className="ms-1 text-[10px] font-semibold uppercase tracking-wider text-white/35">
                           {t('home.dailyRace.stages')}
                         </span>
                       </div>
@@ -413,12 +414,12 @@ function HomeComponent() {
               </div>
 
               {/* Monthly collection + Racing teams — compact landscape
-                  cards sharing the daily race card's text-left,
+                  cards sharing the daily race card's text-start,
                   board-right layout */}
               <div className="grid grid-cols-1 gap-3 md:grid-cols-[3fr_2fr]">
                 <button
                   onClick={openCollection}
-                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
+                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-start transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
                   style={{
                     background:
                       'linear-gradient(155deg, rgba(11,58,143,0.45) 0%, rgba(4,12,30,0.92) 60%, rgba(14,116,144,0.3) 100%)',
@@ -461,7 +462,7 @@ function HomeComponent() {
                 </button>
                 <button
                   onClick={() => handleTabChange(Tab.FRIENDS)}
-                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
+                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-start transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
                 >
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-semibold uppercase tracking-wider text-white/35">
@@ -575,7 +576,7 @@ function HomeComponent() {
       <Footer isCapacitor={isCapacitor}>
         <button
           onClick={() => handleTabChange(Tab.START_PUZZLE)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.START_PUZZLE)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.START_PUZZLE)}`}
         >
           <Zap
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -584,13 +585,13 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">
+          <span className="break-words text-center text-xs font-medium leading-tight">
             {t('home.tabs.startRace')}
           </span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.MY_PUZZLES)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.MY_PUZZLES)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.MY_PUZZLES)}`}
         >
           <Award
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -599,13 +600,13 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">
+          <span className="break-words text-center text-xs font-medium leading-tight">
             {t('home.tabs.myPuzzles')}
           </span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.FRIENDS)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.FRIENDS)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.FRIENDS)}`}
         >
           <Users
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -614,7 +615,7 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">
+          <span className="break-words text-center text-xs font-medium leading-tight">
             {t('home.tabs.racingTeams')}
           </span>
         </button>

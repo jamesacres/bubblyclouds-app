@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Zaloguj się, aby kontynuować",
+    "signInWith": "Zaloguj się przez {{provider}}",
+    "emailTitle": "Zaloguj się e-mailem",
+    "emailPlaceholder": "adres@email.pl",
+    "continue": "Kontynuuj",
+    "cancel": "Anuluj",
+    "terms": "Regulamin",
+    "privacy": "Polityka prywatności"
+  },
+  "header": {
+    "signIn": "Zaloguj się"
+  },
+  "avatar": {
+    "alt": "użytkownik"
+  },
+  "panel": {
+    "title": "Konto",
+    "greeting": "Cześć, {{name}}!",
+    "fallbackName": "Użytkownik",
+    "plusActive": "{{gameName}} {{plus}}: aktywny",
+    "joinGamePlus": "Zdobądź {{gameName}} {{plus}}",
+    "joinPlus": "Zdobądź {{plus}}",
+    "signOut": "Wyloguj się",
+    "privacy": "Polityka prywatności",
+    "terms": "Regulamin",
+    "credits": "Podziękowania",
+    "deleteAccount": "Usuń konto",
+    "poweredBy": "Technologia: {{companyName}}",
+    "deleteUnavailable": "Usuwanie konta jest niedostępne.",
+    "deleteFailed": "Nie udało się usunąć konta. Proszę spróbować ponownie później."
+  },
+  "deleteDialog": {
+    "title": "Usuń konto",
+    "warning": "Tej operacji nie można cofnąć. Wszystkie dane ze wszystkich aplikacji {{companyName}} zostaną trwale usunięte.",
+    "confirmation": "Potwierdzam, że chcę usunąć całe konto wraz ze wszystkimi danymi ze wszystkich aplikacji {{companyName}}.",
+    "cancel": "Anuluj",
+    "deleting": "Usuwanie...",
+    "submit": "Usuń konto"
+  }
+}

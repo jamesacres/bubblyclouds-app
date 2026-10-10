@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Szabad Út Futam",
+    "gameName": "Szabad Út Futam",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Játsszon és ossza meg, hogy barátaival versenyezhessen a rejtvény feloldásáért. Napi kihívások, eszközök között szinkronban!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Verseny indítása",
+      "myPuzzles": "Saját rejtvények",
+      "racingTeams": "Versenycsapatok"
+    },
+    "hero": {
+      "live": "Élő",
+      "headlineLine1": "Oldja fel a dugót.",
+      "headlineAccent": "Nyerje meg a versenyt",
+      "subtitle": "Csúsztassa a blokkokat, szabadítsa ki a világító blokkot, és versenyezzen a barátaival a kijáratig."
+    },
+    "leaderboard": "Ranglista",
+    "dailyRace": {
+      "title": "Napi verseny",
+      "refreshesDaily": "naponta frissül",
+      "todaysRace": "A mai verseny",
+      "difficultyRange": "Kezdő → Szakértő",
+      "description": "Öt tábla, egy óra – a leggyorsabb kijutó nyer.",
+      "stages": "5 szakasz",
+      "start": "Verseny indítása",
+      "morePuzzlesPrefix": "További rejtvények a",
+      "puzzleCollection": "rejtvénygyűjteményben"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 rejtvény",
+      "title": "Havi rejtvénygyűjtemény",
+      "description": "50 új dugó erre a hónapra: {{month}} – oldja fel mindet, mielőtt letelik a hónap.",
+      "browse": "Rejtvények böngészése"
+    },
+    "teams": {
+      "eyebrow": "Többjátékos",
+      "title": "Versenycsapatok",
+      "raceFriends": "Verseny: {{names}} és mások",
+      "challengeFriends": "Hívja ki a barátait egy versenyre"
+    },
+    "premium": {
+      "title": "Prémium funkciók",
+      "subtitle": "Oldja fel a teljes élményt: $t(brand.gameName)"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudoku Verseny",
+    "tagline": "Ossza meg a sudokut a barátaival, és versenyezzenek, ki oldja meg a leggyorsabban."
+  },
+  "puzzle": {
+    "mobileDescription": "Szerezze meg a legjobb élményt az alkalmazásunkkal: {{appName}}!",
+    "desktopDescription": "Letöltés: {{appName}}",
+    "openInAppLabel": "Rejtvény megnyitása"
+  },
+  "collection": {
+    "loading": {
+      "both": "Rejtvénygyűjtemény betöltése…",
+      "collection": "Rejtvények betöltése…",
+      "sessions": "Haladás betöltése…"
+    },
+    "retry": "Próbálja újra",
+    "backHome": "Vissza a főoldalra",
+    "signInPrompt": "Jelentkezzen be a rejtvénygyűjtemény eléréséhez.",
+    "signIn": "Bejelentkezés",
+    "noData": "Nincsenek elérhető rejtvénygyűjtemény-adatok.",
+    "title": "{{month}} rejtvénygyűjtemény",
+    "completed": "befejezve",
+    "inProgress": "folyamatban",
+    "unlockWithPlus": "Oldja fel az összes rejtvényt: Plus",
+    "jumpToDifficulty": "Ugrás a nehézségi szintre",
+    "scrollToTop": "Vissza a lap tetejére",
+    "subtitle_one": "{{count}} rejtvény a gyors kijutásoktól a szakértői dugókig",
+    "subtitle_other": "{{count}} rejtvény a gyors kijutásoktól a szakértői dugókig"
+  },
+  "invite": {
+    "loading": "Meghívó betöltése…",
+    "iconAlt": "{{appName}} ikon",
+    "greeting": "👋 Üdv, {{name}}!",
+    "invited": "Meghívást kapott!",
+    "joinTeam": "Csatlakozzon a versenycsapathoz",
+    "tagline": "Oldjanak fel együtt rejtvényeket, és lássák egymás haladását valós időben!",
+    "proTipLabel": "Profi tipp:",
+    "proTip": "Az összes ezután játszott rejtvény megosztásra kerül a csapattagokkal a baráti versengéshez!",
+    "nicknameLabel": "Minek hívja a versenycsapata?",
+    "nicknamePlaceholder": "Adja meg a becenevét",
+    "joining": "Csatlakozás a csapathoz…",
+    "join": "Csatlakozom a játékhoz! 🎉",
+    "signIn": "Bejelentkezés a folytatáshoz",
+    "bonus": "🎉 Bónusz: {{duration}} {{plusName}} hozzáférés!",
+    "bonusDescription": "Ha csatlakozik ehhez a versenycsapathoz, teljesen ingyen feloldja a prémium funkciókat!",
+    "activation": "💡 A prémium hozzáférése a csatlakozás után automatikusan aktiválódik",
+    "duration": {
+      "oneMonth": "egyhavi",
+      "oneYear": "egyéves",
+      "lifetime": "örökös",
+      "premium": "prémium"
+    },
+    "expired": {
+      "title": "A meghívó lejárt",
+      "description": "Ez a meghívó link már nem érvényes. Kérjen új meghívót a barátjától, vagy növelje a csapat létszámát."
+    },
+    "greetingAnonymous": "👋 Üdv!"
+  },
+  "credits": {
+    "title": "Közreműködők és hivatkozások",
+    "intro": "Ez az alkalmazás több kiváló projektre épül",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Ez az alkalmazás az MIT licenc alatt áll. A részletekért lásd a <licenseLink>LICENSE</licenseLink> és a <creditsLink>CREDITS</creditsLink> fájlt.",
+    "items": {
+      "rush": "Rush Hour rejtvénymegoldó és rejtvényadatbázis Michael Fogleman tollából, WebAssemblyre fordítva",
+      "nextjs": "React keretrendszer éles használatra",
+      "typescript": "A JavaScript típusos bővítménye",
+      "tailwind": "Segédosztály-alapú CSS keretrendszer",
+      "capacitor": "Natív mobilalkalmazás-futtatókörnyezet",
+      "electron": "Asztali alkalmazás keretrendszer",
+      "revenuecat": "Előfizetéskezelés",
+      "react": "Felhasználói felület komponenskönyvtára",
+      "turborepo": "Monorepo build rendszer"
+    }
+  },
+  "notFound": {
+    "title": "Az oldal nem található"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Jelentkezzen be a mai rejtvény indításához",
+      "collection": "Jelentkezzen be a gyűjtemény böngészéséhez",
+      "joinTeam": "Jelentkezzen be a csapathoz való csatlakozáshoz",
+      "raceLobby": "Jelentkezzen be, hogy másokkal versenyezhessen",
+      "puzzleEntry": "Jelentkezzen be a játékhoz"
+    },
+    "valueProps": {
+      "saveProgress": "Mentse el a haladását",
+      "raceFriends": "Versenyezzen barátaival",
+      "trackStats": "Kövesse a statisztikáit"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Ma felhasználta {{limit}} ingyenes tippet.",
+      "body": "A Plus korlátlan tippeket ad – soha többé nem akad el –, és az egész alkalmazást hirdetésmentessé teszi."
+    },
+    "undo": {
+      "title": "Elérte a napi visszavonási korlátot!",
+      "body": "Naponta {{limit}} ingyenes visszavonás jár. A korlát holnap visszaáll, vagy fizessen elő a korlátlan visszavonásért."
+    },
+    "collectionLocked": {
+      "title": "Ez a rejtvény a Plus gyűjtemény része.",
+      "body": "A Plus feloldja minden hónap csomagjának összes rejtvényét, és az egész alkalmazást hirdetésmentessé teszi."
+    },
+    "themeColor": {
+      "title": "Ez a téma a Plus előfizetők kiváltsága.",
+      "body": "Frissítsen, hogy feloldja az összes szép témaszínt, és személyre szabja a versenyélményt."
+    },
+    "removeMember": {
+      "title": "A tagok eltávolítása a csapatból prémium funkció!",
+      "body": "Fizessen elő a speciális csapatkezelési funkciókhoz, köztük a tagok eltávolításához."
+    },
+    "multipleParties": {
+      "title": "A több versenycsapat prémium funkció!",
+      "body": "Az ingyenes felhasználók egy csapattal rendelkezhetnek. Fizessen elő, hogy korlátlan csapatot hozhasson létre és csatlakozhasson hozzájuk családdal, barátokkal és másokkal."
+    },
+    "partyMaxSize": {
+      "title": "A nagy csapatok prémium funkció!",
+      "body": "Fizessen elő a speciális csapatkezelési funkciókhoz, köztük a nagy csapatokhoz."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Mindig hirdetésmentes",
+      "description": "Soha semmilyen hirdetés – csak Ön és a rejtvények"
+    },
+    "hints": {
+      "title": "Korlátlan tippek",
+      "description": "Soha többé nem akad el – kérjen tippet, amikor csak szüksége van rá"
+    },
+    "monthlyPack": {
+      "title": "A teljes havi csomag feloldva, minden hónapban",
+      "description": "Játsszon minden rejtvényt minden nehézségi szinten, zárak nélkül"
+    },
+    "undos": {
+      "title": "Korlátlan visszavonás",
+      "description": "Vonjon vissza annyi lépést, amennyit csak szeretne"
+    },
+    "teams": {
+      "title": "Több versenycsapat",
+      "description": "Szervezzen privát versenyeket barátaival és családjával"
+    },
+    "management": {
+      "title": "Csapatkezelés",
+      "description": "Hozzon létre akár 15 fős csoportokat, és távolítson el tagokat a csapatából."
+    },
+    "themes": {
+      "title": "Minden téma feloldva",
+      "description": "Szabja személyre a versenyélményt"
+    }
+  },
+  "plusModal": {
+    "description": "Csatlakozzon: <badge>{{plusName}}</badge>, és élvezze a <strong>korlátlan tippeket</strong>, a <strong>teljes feloldott havi csomagot</strong> és a <strong>korlátlan visszavonást</strong>. Hívja ki a barátait, másszon fel a ranglistákon, és maradjon hirdetésmentes."
+  },
+  "leaderboard": {
+    "collectionLabel": "Gyűjtemény",
+    "collectionDetailNoun": "gyűjtemények"
+  },
+  "motivational": {
+    "messages": [
+      "A barátai kihívásra várnak",
+      "Ki ellen versenyez ma?",
+      "Ideje megmutatni a sebességét",
+      "Elfogadja a kihívást?",
+      "Versenyezzen a célvonalig",
+      "Ki a leggyorsabb megoldó?",
+      "Készen áll a ranglista meghódítására?",
+      "A versenyképességére várnak",
+      "Ideje porban hagyni őket",
+      "Készen áll elsőként átvágni a célvonalat?",
+      "A pálya Önre vár",
+      "Ideje magasabb sebességre kapcsolni",
+      "Készen áll gumit égetni a rejtvényrácson?",
+      "Az ellenfelei már melegítenek",
+      "Ma van a nap, hogy új rekordot állítson fel",
+      "Az egyéni rekordja arra vár, hogy megdöntsék",
+      "Minden rejtvény gyorsabbá tesz",
+      "A sorozatépítés most kezdődik",
+      "Ideje szintet lépni",
+      "A következő áttörés egyetlen rejtvényre van",
+      "Készen áll meglepni saját magát?",
+      "Mutassa meg, miből van gyúrva",
+      "Ideje kibontakoztatni a benne rejlő lehetőséget",
+      "A leggyorsabb megoldása még előtte áll",
+      "Készen áll, hogy értelmet adjon a mai napnak?",
+      "A versenyben minden másodperc számít",
+      "Ideje feszegetni a határokat",
+      "A fejlődés útja folytatódik",
+      "Készen áll felülmúlni a várakozásokat?",
+      "Gondolja, hogy bírja a nyomást?",
+      "Ideje elhallgattatni a kételkedőket",
+      "Készen áll a győzelemre?",
+      "A versenytársai nem számítanak erre",
+      "Ideje letenni a névjegyét",
+      "Készen áll elorozni a rivaldafényt?",
+      "A győzelem édesebb, ha kiérdemeljük",
+      "Ideje bebizonyítani, ki a főnök",
+      "Készen áll megmutatni az igazi arcát?",
+      "A bajnoki gondolkodás itt kezdődik",
+      "Ideje kiválni a mezőnyből",
+      "Készen áll megírni a saját legendáját?",
+      "A bajnokok az ilyen pillanatokban születnek",
+      "Ideje a lehetőséget teljesítménnyé alakítani",
+      "Friss rejtvények, friss lehetőségek",
+      "A mai kihívás a mesteri tudására vár",
+      "Készen áll, hogy ez legyen az eddigi legjobb napja?",
+      "Új nap, új megdöntendő rekordok",
+      "Ideje újabb győzelmet gyűjteni",
+      "Készen áll erősen kezdeni és még erősebben zárni?",
+      "Készen áll legendássá tenni a mai napot?",
+      "A napi adag diadal már várja",
+      "A stratégia találkozik a sebességgel a rácson",
+      "Készen áll túlgondolni és túlszárnyalni?",
+      "A rejtvényfejtői mesterség hív",
+      "Ideje párosítani a logikát a villámgyorsasággal",
+      "Készen áll sebészi pontossággal megoldani?",
+      "A tökéletes kombináció: tudás és sebesség",
+      "Az elemzőképessége a versenyelőnye",
+      "Ideje bizonyítani a rejtvényfejtői fölényt",
+      "Készen áll bajnokként megoldani?",
+      "A precíz versenyzés a tiszta gondolkodással kezdődik",
+      "A barátai visszavágóra várnak",
+      "Ki old ma?",
+      "Új napi rejtvény vár",
+      "A sorozata a tét",
+      "Friss rejtvények, friss kezdet",
+      "A mai kihívás elérhető",
+      "Versenyezzen egy baráttal a napi rejtvényen",
+      "Új nap, új rejtvények",
+      "Valaki már felkerült a ranglistára",
+      "Tartsa életben a sorozatot",
+      "A napi kihívások frissültek",
+      "A csapata vár",
+      "Eggyel közelebb a csúcshoz",
+      "A mai rejtvények Önre várnak",
+      "Ugorjon vissza, és versenyezzen"
+    ]
+  }
+}

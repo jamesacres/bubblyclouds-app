@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Balap Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "balapan",
+      "team": "tim",
+      "leaderboard": "papan peringkat",
+      "hint": "petunjuk",
+      "undo": "urungkan",
+      "theme": "tema",
+      "dailyPuzzle": "teka-teki harian",
+      "monthlyCollection": "buku teka-teki bulanan",
+      "aiOpponent": "lawan AI",
+      "monthly": "bulanan",
+      "lifetime": "seumur hidup",
+      "plusAccess": "Akses Plus",
+      "plusFeatureLine": "Balapan tanpa batas, tim, tema & urungkan"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Balap Bebas",
+      "gameName": "Balap Bebas",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "balapan",
+      "team": "tim",
+      "leaderboard": "papan peringkat",
+      "hint": "petunjuk",
+      "undo": "urungkan",
+      "theme": "tema",
+      "dailyPuzzle": "teka-teki harian",
+      "monthlyCollection": "koleksi puzzle bulanan",
+      "aiOpponent": "lawan AI",
+      "monthly": "bulanan",
+      "lifetime": "seumur hidup",
+      "plusAccess": "Akses Plus",
+      "plusFeatureLine": "Balapan tanpa batas, tim, tema & urungkan"
+    }
+  }
+}

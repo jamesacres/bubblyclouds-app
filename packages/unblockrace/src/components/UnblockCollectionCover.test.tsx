@@ -13,7 +13,7 @@ describe('UnblockCollectionCover', () => {
     const { container } = render(<UnblockCollectionCover month="July 2026" />);
     const cover = container.firstElementChild as HTMLElement;
     expect(cover.style.width).toBe('160px');
-    expect(cover.style.height).toBe('240px');
+    expect(cover.style.minHeight).toBe('240px');
   });
 
   it.each([
@@ -26,7 +26,7 @@ describe('UnblockCollectionCover', () => {
     );
     const cover = container.firstElementChild as HTMLElement;
     expect(cover.style.width).toBe(`${width}px`);
-    expect(cover.style.height).toBe(`${height}px`);
+    expect(cover.style.minHeight).toBe(`${height}px`);
   });
 
   it('renders the tile variant without the portrait-only copy', () => {

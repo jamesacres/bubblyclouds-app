@@ -12,7 +12,8 @@ const HeaderBack = ({ appName }: { appName: string }) => {
   return pathname === '/' ? (
     <div className="flex items-center">
       <button
-        className="cursor-pointer whitespace-nowrap px-3 text-lg font-semibold tracking-tight text-stone-800 transition-opacity hover:opacity-70 active:opacity-50 dark:text-zinc-100"
+        title={appName}
+        className="max-w-[45vw] cursor-pointer truncate px-3 text-lg font-semibold tracking-tight text-stone-800 transition-opacity hover:opacity-70 active:opacity-50 dark:text-zinc-100"
         onClick={() => router.replace('/?tab=START_PUZZLE')}
       >
         {appName}
@@ -20,11 +21,11 @@ const HeaderBack = ({ appName }: { appName: string }) => {
     </div>
   ) : (
     <button
-      className="text-theme-primary dark:text-theme-primary-light flex h-11 cursor-pointer items-center transition-opacity hover:opacity-80 active:opacity-60"
+      className="text-theme-primary dark:text-theme-primary-light flex min-h-11 cursor-pointer items-center transition-opacity hover:opacity-80 active:opacity-60"
       type="button"
       onClick={() => router.replace('/')}
     >
-      <ChevronLeft className="h-5 w-5" />
+      <ChevronLeft className="h-5 w-5 rtl:-scale-x-100" />
       <span className="text-base font-medium">{t('header.back')}</span>
     </button>
   );

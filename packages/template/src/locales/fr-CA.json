@@ -1,0 +1,244 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone et iPad"
+  },
+  "errors": {
+    "generic": "Une erreur inattendue s'est produite. Veuillez réessayer.",
+    "dismiss": "Fermer"
+  },
+  "errorBoundary": {
+    "title": "Oups! Un problème est survenu",
+    "description": "Nous avons rencontré une erreur inattendue. Ne vous inquiétez pas, votre progression est enregistrée!",
+    "reload": "Recharger l'appli",
+    "clearStorage": "Vider le stockage et recharger",
+    "contactSupport": "Si le problème persiste, veuillez contacter l'assistance."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} min",
+    "minutesAgo_many": "{{count}} min",
+    "minutesAgo_other": "{{count}} min",
+    "hoursAgo_one": "{{count}} h",
+    "hoursAgo_many": "{{count}} h",
+    "hoursAgo_other": "{{count}} h",
+    "daysAgo_one": "{{count}} j",
+    "daysAgo_many": "{{count}} j",
+    "daysAgo_other": "{{count}} j"
+  },
+  "tier": {
+    "novice": "Novice",
+    "advancedBeginner": "Débutant",
+    "competent": "Compétent",
+    "proficient": "Confirmé",
+    "expert": "Expert"
+  },
+  "moves": {
+    "onPar": "coups, au par",
+    "overPar": "coups, {{delta}} au-dessus du par",
+    "underPar": "coups, {{delta}} sous le par"
+  },
+  "lobby": {
+    "title": "Salon de course",
+    "close": "Fermer le salon",
+    "onlineOpponents": "Adversaires en ligne",
+    "refresh": "Actualiser les adversaires en ligne",
+    "noOpponents": "Aucun adversaire en ligne — invitez des amis à courir!",
+    "away": "Absent",
+    "offlineTeams": "Hors ligne · dans vos équipes",
+    "removeMember": "Retirer {{name}}",
+    "aiOpponents": "Adversaires IA",
+    "addAgent": "Ajouter",
+    "noAgents": "Pas encore d'adversaire IA — ajoutez-en un pour avoir toujours quelqu'un contre qui courir.",
+    "ownClock": "Chaque joueur court contre sa propre horloge",
+    "startSolving": "Commencer à résoudre",
+    "finished": "Terminé",
+    "inLobby": "Dans le salon",
+    "stageProgress": "Étape {{current}} sur {{total}}",
+    "finishedRunIn": "Parcours terminé en {{time}}",
+    "solvedIn": "Résolu en {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · vu il y a {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Course en solo — vous et le chrono",
+      "friends_one": "{{count}} ami",
+      "friends_many": "{{count}} d'amis",
+      "friends_other": "{{count}} amis",
+      "aiOpponents_one": "{{count}} adversaire IA",
+      "aiOpponents_many": "{{count}} d'adversaires IA",
+      "aiOpponents_other": "{{count}} adversaires IA",
+      "racing": "Course contre {{opponents}}"
+    },
+    "invite": {
+      "button": "Inviter",
+      "eyebrow": "Composez votre course",
+      "title": "Inviter des adversaires",
+      "close": "Fermer",
+      "existingTeam": "Inviter dans une équipe existante",
+      "editTeamName": "Modifier le nom de l'équipe",
+      "deleteTeam": "Supprimer l'équipe",
+      "leaveTeam": "Quitter l'équipe",
+      "memberCount_one": "{{count}} membre",
+      "memberCount_many": "{{count}} de membres",
+      "memberCount_other": "{{count}} membres",
+      "createTeam": "Créer une nouvelle équipe de course",
+      "displayNameLabel": "Comment vos coéquipiers vous appellent-ils?",
+      "displayNamePlaceholder": "Nom affiché",
+      "teamNameLabel": "Comment voulez-vous nommer cette équipe?",
+      "teamNamePlaceholder": "Nom de l'équipe (p. ex. Famille)",
+      "createAndCopy": "Créer et copier le lien",
+      "defaultTeamName": "Nouvelle équipe",
+      "defaultPlayerName": "Joueur"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Fermer la fenêtre",
+    "back": "Retour",
+    "close": "Fermer",
+    "title": "Choisissez vos rivaux",
+    "subtitle": "Sélectionnez un ou plusieurs adversaires",
+    "selectAtLeastOne": "Sélectionnez au moins un rival",
+    "race_one": "Affronter {{count}} rival",
+    "race_many": "Affronter {{count}} de rivaux",
+    "race_other": "Affronter {{count}} rivaux",
+    "skill": {
+      "novice": "Novice",
+      "advancedBeginner": "Débutant avancé",
+      "competent": "Compétent",
+      "proficient": "Confirmé",
+      "expert": "Expert"
+    }
+  },
+  "agentParty": {
+    "title": "Rivaux IA",
+    "rivalCount_one": "{{count}} rival",
+    "rivalCount_many": "{{count}} de rivaux",
+    "rivalCount_other": "{{count}} rivaux"
+  },
+  "party": {
+    "cancel": "Annuler",
+    "editName": "Modifier le nom de l'équipe",
+    "editMaxMembers": "Modifier le nombre maximal de membres",
+    "memberCount_one": "{{count}} membre",
+    "memberCount_many": "{{count}} de membres",
+    "memberCount_other": "{{count}} membres",
+    "memberCountPremium_one": "{{count}} membre ✨ Premium",
+    "memberCountPremium_many": "{{count}} de membres ✨ Premium",
+    "memberCountPremium_other": "{{count}} membres ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} membre",
+    "membersOf_many": "{{current}}/{{count}} de membres",
+    "membersOf_other": "{{current}}/{{count}} membres",
+    "shareLink": "Partagez ce lien avec les membres actuels de l'équipe pour qu'ils rejoignent ce puzzle",
+    "you": "(vous)",
+    "notStarted": "Pas encore commencé! Demandez-lui de jouer"
+  },
+  "partyConfirmation": {
+    "cancel": "Annuler",
+    "leaveAgentParty": {
+      "title": "Retirer les rivaux IA",
+      "action": "Retirer",
+      "processing": "Retrait...",
+      "message": "Voulez-vous vraiment retirer tous les rivaux IA? Ils n'apparaîtront plus dans la course."
+    },
+    "removeAgent": {
+      "title": "Retirer l'agent local",
+      "action": "Retirer",
+      "processing": "Retrait...",
+      "message": "Voulez-vous vraiment retirer « {{memberName}} » de la course?"
+    },
+    "deleteParty": {
+      "title": "Supprimer l'équipe",
+      "action": "Supprimer",
+      "processing": "Suppression...",
+      "message": "Voulez-vous vraiment supprimer « {{partyName}} »? L'équipe sera définitivement supprimée et tous ses membres perdront l'accès. Cette action est irréversible."
+    },
+    "leave": {
+      "title": "Quitter l'équipe",
+      "action": "Quitter",
+      "processing": "Départ...",
+      "message": "Voulez-vous vraiment quitter « {{partyName}} »? Vous ne verrez plus la progression des autres membres et ne pourrez plus participer avec cette équipe."
+    },
+    "remove": {
+      "title": "Retirer le membre",
+      "action": "Retirer",
+      "processing": "Retrait...",
+      "message": "Voulez-vous vraiment retirer « {{memberName}} » de « {{partyName}} »? Cette personne ne pourra plus participer avec cette équipe."
+    }
+  },
+  "friends": {
+    "allTeams": "Toutes les équipes",
+    "refresh": "Actualiser",
+    "refreshing": "Actualisation…",
+    "title": "Puzzles des amis",
+    "subtitle": "Touchez un ami pour voir ses puzzles récents et le défier.",
+    "memberCount_one": "{{count}} membre",
+    "memberCount_many": "{{count}} de membres",
+    "memberCount_other": "{{count}} membres",
+    "noRecentPuzzles": "Aucun puzzle récent — lancez-leur un défi!",
+    "empty": {
+      "title": "Aucune équipe de course pour l'instant",
+      "description": "Invitez des amis depuis le salon des courses en résolvant un puzzle"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Vos puzzles des 30 derniers jours.",
+    "empty": {
+      "title": "Aucun puzzle pour l'instant",
+      "description": "Allez dans « Lancer la course » pour résoudre votre premier puzzle"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} fonctionnalité de plus",
+    "moreFeatures_many": "+{{count}} de fonctionnalités de plus",
+    "moreFeatures_other": "+{{count}} fonctionnalités de plus"
+  },
+  "crossPromo": {
+    "whyNotTry": "Pourquoi ne pas essayer",
+    "tryItFree": "Essayez gratuitement"
+  },
+  "rateApp": {
+    "prompt": "Vous aimez {{appName}}?",
+    "rateIt": "Noter l'appli",
+    "rateInSeconds": "Notez-la en quelques secondes"
+  },
+  "plus": {
+    "close": "Fermer la fenêtre",
+    "appIconAlt": "Icône de l'appli",
+    "lifetime": "À vie",
+    "monthly": "Mensuel",
+    "perMonth": "{{price}}/mois",
+    "whatsIncluded": "Ce qui est inclus",
+    "continue": "Continuer",
+    "restorePurchases": "Restaurer les achats",
+    "cancel": "Annuler"
+  },
+  "download": {
+    "title": "Continuer dans l'appli",
+    "appStoreAlt": "Télécharger dans l'{{appStore}}",
+    "googlePlayAlt": "Disponible sur {{googlePlay}}",
+    "continueBrowser": "Continuer dans le navigateur",
+    "continueDesktop": "Continuer sur l'ordinateur"
+  },
+  "session": {
+    "cheated": "Triche",
+    "completedIn": "Terminé en {{minutes}} min {{seconds}} s",
+    "percentComplete": "{{percentage}} % terminé",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}er",
+    "dayOrdinal_ordinal_other": "{{count}}e",
+    "puzzleNumber": "Puzzle nº {{number}}",
+    "daily": "Quotidien {{date}}",
+    "book": "Livret {{month}} nº {{number}}",
+    "collection": "Collection {{month}} nº {{number}}",
+    "scanned": "Puzzle numérisé",
+    "you": "Vous",
+    "unknown": "Inconnu",
+    "unlockWith": "Débloquer avec {{label}}",
+    "lockedPuzzle": "Puzzle verrouillé",
+    "recommendedTechniques": "Techniques recommandées :",
+    "loadingFriends": "Chargement des amis..."
+  }
+}

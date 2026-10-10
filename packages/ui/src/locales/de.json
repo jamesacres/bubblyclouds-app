@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Sprache",
+    "automatic": "Automatisch"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Zurück"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Dunkelmodus umschalten"
+  },
+  "starRating": {
+    "label_one": "{{filled}} von {{count}} Stern",
+    "label_other": "{{filled}} von {{count}} Sternen"
+  },
+  "timer": {
+    "go": "LOS!"
+  },
+  "themeColor": {
+    "change": "Designfarbe ändern",
+    "set": "Designfarbe auf {{color}} setzen",
+    "setPremium": "Designfarbe auf {{color}} setzen (Premium)",
+    "colors": {
+      "blue": "Blau",
+      "red": "Rot",
+      "green": "Grün",
+      "purple": "Lila",
+      "amber": "Bernstein",
+      "cyan": "Cyan",
+      "pink": "Pink",
+      "indigo": "Indigo",
+      "orange": "Orange",
+      "teal": "Petrol",
+      "slate": "Schiefergrau",
+      "rose": "Rosé",
+      "emerald": "Smaragdgrün",
+      "sky": "Himmelblau",
+      "violet": "Violett",
+      "lime": "Limette",
+      "fuchsia": "Fuchsia",
+      "yellow": "Gelb",
+      "stone": "Steingrau",
+      "zinc": "Zinkgrau"
+    }
+  },
+  "copyButton": {
+    "copied": "In die Zwischenablage kopiert!",
+    "share": "Einladungslink teilen",
+    "copy": "Einladungslink kopieren"
+  },
+  "share": {
+    "joinTeam": "Jetzt dem Rennteam auf {{appName}} beitreten!",
+    "joinNamedTeam": "Jetzt dem Rennteam „{{partyName}}“ auf {{appName}} beitreten!",
+    "dialogTitle": "Einladung teilen"
+  }
+}

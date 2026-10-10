@@ -1,0 +1,56 @@
+{
+  "language": {
+    "label": "语言",
+    "automatic": "自动"
+  },
+  "header": {
+    "offline": "离线",
+    "back": "返回"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "切换深色模式"
+  },
+  "starRating": {
+    "label_other": "{{count}} 颗星中的 {{filled}} 颗"
+  },
+  "timer": {
+    "go": "开始！"
+  },
+  "themeColor": {
+    "change": "更改主题颜色",
+    "set": "将主题颜色设为{{color}}",
+    "setPremium": "将主题颜色设为{{color}}（Plus）",
+    "colors": {
+      "blue": "蓝色",
+      "red": "红色",
+      "green": "绿色",
+      "purple": "紫色",
+      "amber": "琥珀色",
+      "cyan": "青色",
+      "pink": "粉色",
+      "indigo": "靛蓝色",
+      "orange": "橙色",
+      "teal": "蓝绿色",
+      "slate": "石板灰",
+      "rose": "玫瑰色",
+      "emerald": "翡翠绿",
+      "sky": "天蓝色",
+      "violet": "紫罗兰色",
+      "lime": "青柠色",
+      "fuchsia": "紫红色",
+      "yellow": "黄色",
+      "stone": "岩灰色",
+      "zinc": "锌灰色"
+    }
+  },
+  "copyButton": {
+    "copied": "已复制到剪贴板！",
+    "share": "分享邀请链接",
+    "copy": "复制邀请链接"
+  },
+  "share": {
+    "joinTeam": "快来 {{appName}} 加入竞速团队吧！",
+    "joinNamedTeam": "快来 {{appName}} 加入“{{partyName}}”竞速团队吧！",
+    "dialogTitle": "分享邀请"
+  }
+}

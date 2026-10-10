@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "پلس"
+  },
+  "collection": {
+    "defaultLabel": "کتاب",
+    "defaultDetailNoun": "پہیلی کتابیں"
+  },
+  "collectionCover": {
+    "monthlyCollection": "ماہانہ مجموعہ"
+  },
+  "hintBox": {
+    "dismiss": "اشارہ بند کریں"
+  },
+  "lobbyButton": {
+    "opponents": "حریف"
+  },
+  "nextPuzzlePanel": {
+    "continue": "جاری رکھیں — اگلی پہیلی",
+    "continueLocked": "جاری رکھیں ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{total}} میں سے {{completed}} {{label}} مکمل"
+  },
+  "countdownOverlay": {
+    "getReady": "تیار ہو جائیں",
+    "go": "شروع!"
+  },
+  "confirmDialog": {
+    "cancel": "منسوخ کریں"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · مکمل",
+    "retry": "دوبارہ",
+    "points": "+{{points}} نمبر",
+    "leaderboardPoints": "لیڈر بورڈ پوائنٹس"
+  },
+  "raceTimer": {
+    "time": "وقت"
+  },
+  "stageTopBar": {
+    "previous": "پچھلا"
+  },
+  "raceHud": {
+    "opponents": "حریف",
+    "stageOf": "مرحلہ {{current}} از {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "فنش!",
+    "runComplete": "دوڑ مکمل",
+    "leaderboardPoints": "لیڈر بورڈ پوائنٹس",
+    "pointsSuffix": " نمبر"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "اتو",
+      "monday": "پیر",
+      "tuesday": "منگ",
+      "wednesday": "بدھ",
+      "thursday": "جمر",
+      "friday": "جمع",
+      "saturday": "ہفت"
+    },
+    "dayStreak_one": "دن کا تسلسل",
+    "dayStreak_other": "دن کا تسلسل",
+    "thisMonth": "اس ماہ"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(آپ)",
+    "puzzles_one": "{{count}} پہیلی",
+    "puzzles_other": "{{count}} پہیلیاں",
+    "average": "اوسط: {{time}}",
+    "best": "بہترین: {{time}}",
+    "wins_one": "🏁 {{count}} جیت",
+    "wins_other": "🏁 {{count}} جیتیں",
+    "points_one": "پوائنٹ",
+    "points_other": "پوائنٹس"
+  },
+  "scoreBreakdown": {
+    "title": "اسکور کی تفصیل",
+    "volumeBonus": {
+      "label": "تعداد بونس",
+      "detail_one": "{{count}} پہیلی مکمل",
+      "detail_other": "{{count}} پہیلیاں مکمل"
+    },
+    "dailyPuzzles": {
+      "label": "روزانہ پہیلیاں",
+      "detail_one": "{{count}} روزانہ چیلنج",
+      "detail_other": "{{count}} روزانہ چیلنج"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} کی پہیلیاں",
+      "detail": "{{collection}} سے {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "اسکین کی گئی پہیلیاں",
+      "detail_one": "{{count}} درآمد شدہ پہیلی",
+      "detail_other": "{{count}} درآمد شدہ پہیلیاں"
+    },
+    "difficultyBonus": {
+      "label": "مشکل بونس",
+      "detail": "مشکل پہیلیاں = زیادہ پوائنٹس"
+    },
+    "speedBonus": {
+      "label": "رفتار بونس",
+      "detail": "تیز ترین: {{time}}"
+    },
+    "racingBonus": {
+      "label": "ریسنگ بونس",
+      "detail": "مکمل کرنے والے دوستوں کو ہرائیں"
+    },
+    "dailyCombo": {
+      "label": "روزانہ کومبو",
+      "detail": "روزانہ جتنی زیادہ پہیلیاں، اتنا بڑا ضرب"
+    }
+  },
+  "leaderboard": {
+    "you": "آپ",
+    "unknownUser": "نامعلوم صارف",
+    "title": "لیڈر بورڈ",
+    "subtitleParty": "پچھلے 30 دن · {{partyName}}",
+    "subtitleAllTeams": "پچھلے 30 دن · تمام ٹیمیں",
+    "howScoringWorks": "اسکورنگ کیسے کام کرتی ہے"
+  },
+  "scoringLegend": {
+    "title": "اسکورنگ کیسے کام کرتی ہے",
+    "subtitle": "{{gameName}} · پچھلے 30 دن",
+    "close": "بند کریں",
+    "racingWins": {
+      "title": "ریسنگ کی جیتیں",
+      "body": "ایک ہی مکمل پہیلی پر ہر ہرائے گئے دوست کے لیے <points>+{{points}} پوائنٹس</points> حاصل کریں۔ {{friends}} دوستوں میں سب سے پہلے مکمل کریں اور <points>+{{total}} پوائنٹس</points> پائیں۔"
+    },
+    "basePoints": {
+      "title": "بنیادی پوائنٹس",
+      "anyPuzzle": "کوئی بھی پہیلی",
+      "dailyPuzzle": "روزانہ پہیلی",
+      "collectionPuzzle": "{{collection}} کی پہیلی",
+      "scannedPuzzle": "اسکین کی گئی پہیلی"
+    },
+    "difficultyMultipliers": {
+      "title": "مشکل کے ضرب",
+      "daily": "آج کی {{gameName}}",
+      "collection": "{{collection}} کی پہیلیاں"
+    },
+    "speedBonuses": {
+      "title": "رفتار بونس",
+      "lightning": "بجلی",
+      "fast": "تیز",
+      "quick": "جلد",
+      "steady": "مستقل",
+      "under": "{{threshold}} سے کم",
+      "seconds": "{{value}} سیکنڈ",
+      "minutes": "{{value}} منٹ"
+    },
+    "dailyCombo": {
+      "title": "روزانہ کومبو",
+      "body": "ایک ہی دن میں زیادہ پہیلیاں حل کریں تاکہ ہر پہیلی کے پوائنٹس <max>{{max}}×</max> تک بڑھ جائیں۔",
+      "puzzle": "دن کی پہیلی {{puzzle}}",
+      "puzzleOrMore": "دن کی پہیلی {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "دوڑ مکمل",
+    "raceProgress": "ریس کی پیش رفت",
+    "stagesProgress": "{{completed}}/{{total}} مراحل",
+    "retryStage": "مرحلہ دوبارہ",
+    "stageLabel": "مرحلہ {{number}}",
+    "stageCompletedLabel": "مرحلہ {{number}}، {{time}} میں مکمل",
+    "viewRacingStats": "ریسنگ اعداد و شمار دیکھیں",
+    "total": "کل"
+  },
+  "raceTrack": {
+    "you": "آپ",
+    "viewFriends": "دوستوں کو دیکھنے کے لیے کلک کریں",
+    "start": "آغاز",
+    "finish": "اختتام",
+    "inviteToRace": "دوستوں کو ریس کی دعوت دیں",
+    "opponents": "حریف",
+    "racer": "ریسر",
+    "stageBadge": "م{{number}}",
+    "total": "کل",
+    "leaderboard": "لیڈر بورڈ",
+    "puzzleBook": "پہیلی کتاب",
+    "puzzleBookLabel": "پہیلی کتاب",
+    "refreshScores": "اسکور تازہ کریں",
+    "challengeFriends": "🏁 دوستوں کو چیلنج کریں",
+    "yourTime": "آپ کا وقت:",
+    "inviteFriends": "دوستوں کو مدعو کریں",
+    "racingLabel": "ریس"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "پیچیدہ",
+      "easy": "چیلنجنگ",
+      "intermediate": "مشکل",
+      "expert": "ماہر"
+    },
+    "book": {
+      "veryEasy": "بہت آسان",
+      "easy": "آسان",
+      "moderatelyEasy": "قدرے آسان",
+      "moderate": "درمیانہ",
+      "moderatelyHard": "قدرے مشکل",
+      "hard": "مشکل",
+      "vicious": "سخت",
+      "fiendish": "شیطانی",
+      "devilish": "ابلیسی",
+      "hell": "جہنم",
+      "beyondHell": "جہنم سے آگے"
+    }
+  },
+  "techniques": {
+    "lastDigit": "آخری ہندسہ",
+    "hiddenSingleBox": "پوشیدہ سنگل (باکس)",
+    "hiddenSingleLine": "پوشیدہ سنگل (لائن)",
+    "hiddenSingleVariantRegion": "پوشیدہ سنگل (ویریئنٹ ریجن)",
+    "nakedSingle": "نیکڈ سنگل",
+    "hiddenPair": "پوشیدہ جوڑی",
+    "lockedCandidate": "مقفل امیدوار",
+    "hiddenTriple": "پوشیدہ تینی",
+    "hiddenQuadruple": "پوشیدہ چوکڑی",
+    "nakedPair": "نیکڈ جوڑی",
+    "nakedTriple": "نیکڈ تینی",
+    "nakedQuadruple": "نیکڈ چوکڑی",
+    "xWing": "ایکس ونگ",
+    "swordfish": "سورڈ فش",
+    "skyscraper": "اسکائی اسکریپر",
+    "twoStringKite": "ٹو اسٹرنگ کائٹ",
+    "crane": "کرین",
+    "simpleColoring": "سادہ رنگ بندی",
+    "yWing": "وائی ونگ",
+    "xYZWing": "ایکس وائی زیڈ ونگ",
+    "wWing": "ڈبلیو ونگ",
+    "finnedSashimiXWing": "فنڈ/ساشیمی ایکس ونگ",
+    "emptyRectangle": "خالی مستطیل",
+    "uniqueRectangleType1": "منفرد مستطیل قسم 1",
+    "uniqueRectangleType2": "منفرد مستطیل قسم 2",
+    "uniqueRectangleType3": "منفرد مستطیل قسم 3",
+    "uniqueRectangleType4": "منفرد مستطیل قسم 4",
+    "uniqueRectangleType5": "منفرد مستطیل قسم 5",
+    "finnedSashimiSwordfish": "فنڈ/ساشیمی سورڈ فش",
+    "jellyfish": "جیلی فش",
+    "bugBinaryUniversalGrave": "بگ (بائنری یونیورسل گریو)",
+    "xChain": "ایکس چین",
+    "groupedXChain": "گروپڈ ایکس چین",
+    "YWing4WXYZWing": "4-وائی ونگ (ڈبلیو ایکس وائی زیڈ ونگ)",
+    "yWing5": "5-وائی ونگ",
+    "yWing6": "6-وائی ونگ",
+    "yWing7": "7-وائی ونگ",
+    "yWing8": "8-وائی ونگ",
+    "yWing9": "9-وائی ونگ",
+    "finnedSashimiJellyfish": "فنڈ/ساشیمی جیلی فش",
+    "medusa3D": "تھری ڈی میڈوسا",
+    "xyChain": "ایکس وائی چین",
+    "alternatingInferenceChainAIC": "الٹرنیٹنگ انفرنس چین (AIC)",
+    "groupedAlternatingInferenceChainAIC": "گروپڈ الٹرنیٹنگ انفرنس چین (AIC)",
+    "nishioForcingChain": "نشیو فورسنگ چین",
+    "nishioForcingNet": "نشیو فورسنگ نیٹ"
+  }
+}

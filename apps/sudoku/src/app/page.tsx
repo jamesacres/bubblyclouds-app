@@ -92,7 +92,12 @@ function HeroGrid() {
       {/* Top-right quadrant only — gives an asymmetric feel */}
       <div
         className="animate-grid-drift absolute"
-        style={{ top: '-5%', right: '-4%', width: '52%', opacity: 0.15 }}
+        style={{
+          top: '-5%',
+          insetInlineEnd: '-4%',
+          width: '52%',
+          opacity: 0.15,
+        }}
       >
         <div
           style={{
@@ -260,10 +265,10 @@ function HomeComponent() {
               className="pointer-events-none absolute inset-0"
               aria-hidden="true"
             >
-              <div className="absolute -left-20 -top-40 h-[32rem] w-[32rem] rounded-full bg-violet-600/35 blur-[110px]" />
-              <div className="absolute -right-10 top-10 h-72 w-72 rounded-full bg-fuchsia-500/30 blur-[80px]" />
-              <div className="absolute bottom-10 left-1/3 h-56 w-80 rounded-full bg-cyan-400/20 blur-[70px]" />
-              <div className="absolute left-1/2 top-1/3 h-48 w-48 -translate-x-1/2 rounded-full bg-blue-500/20 blur-[60px]" />
+              <div className="absolute -start-20 -top-40 h-[32rem] w-[32rem] rounded-full bg-violet-600/35 blur-[110px]" />
+              <div className="absolute -end-10 top-10 h-72 w-72 rounded-full bg-fuchsia-500/30 blur-[80px]" />
+              <div className="absolute bottom-10 start-1/3 h-56 w-80 rounded-full bg-cyan-400/20 blur-[70px]" />
+              <div className="absolute start-1/2 top-1/3 h-48 w-48 -translate-x-1/2 rounded-full bg-blue-500/20 blur-[60px] rtl:translate-x-1/2" />
             </div>
 
             {/* Scanline overlay */}
@@ -295,11 +300,11 @@ function HomeComponent() {
                   />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
                     <span className="text-base font-bold tracking-tight text-white/70">
                       {t('brand.appName')}
                     </span>
-                    <span className="inline-flex items-center gap-1 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-fuchsia-300">
+                    <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-fuchsia-400/40 bg-fuchsia-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-fuchsia-300">
                       <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
                       {t('home.live')}
                     </span>
@@ -370,7 +375,7 @@ function HomeComponent() {
                         key={difficulty}
                         onClick={() => openSudokuOfTheDay(difficulty)}
                         disabled={isLoading}
-                        className="difficulty-card-shine group relative flex cursor-pointer flex-col justify-end overflow-hidden rounded-[20px] pb-3.5 pl-3.5 pr-3.5 pt-10 text-left transition-all duration-200 hover:scale-[1.03] active:scale-[0.96] disabled:opacity-40"
+                        className="difficulty-card-shine group relative flex cursor-pointer flex-col justify-end overflow-hidden rounded-[20px] pb-3.5 pe-3.5 ps-3.5 pt-10 text-start transition-all duration-200 hover:scale-[1.03] active:scale-[0.96] disabled:opacity-40"
                         style={{
                           background: `linear-gradient(160deg, ${bgFrom} 0%, ${bgTo} 100%)`,
                           boxShadow: glow,
@@ -379,7 +384,7 @@ function HomeComponent() {
                       >
                         {/* Giant ghost digit — positioned top-right */}
                         <span
-                          className="text-white/18 pointer-events-none absolute -right-2 -top-3 select-none font-black leading-none"
+                          className="text-white/18 pointer-events-none absolute -end-2 -top-3 select-none font-black leading-none"
                           aria-hidden="true"
                           style={{ fontSize: '96px' }}
                         >
@@ -405,7 +410,7 @@ function HomeComponent() {
                           ))}
                         </div>
                         {/* Label */}
-                        <p className="relative text-base font-black leading-tight text-white">
+                        <p className="relative break-words text-base font-black leading-tight text-white">
                           {difficultyLabels[difficulty]}
                         </p>
                       </button>
@@ -432,7 +437,7 @@ function HomeComponent() {
               {/* Puzzle book — full width on mobile, left col on desktop */}
               <button
                 onClick={openBook}
-                className="liquid-glass mb-3 flex w-full cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97] md:mb-0 md:hidden"
+                className="liquid-glass mb-3 flex w-full cursor-pointer flex-col rounded-3xl p-4 text-start transition-all duration-200 active:scale-[0.97] md:mb-0 md:hidden"
               >
                 <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
                   {bookSummary}
@@ -495,7 +500,7 @@ function HomeComponent() {
                 </Link>
                 <button
                   onClick={() => handleTabChange(Tab.FRIENDS)}
-                  className="liquid-glass flex cursor-pointer flex-col gap-2 rounded-2xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
+                  className="liquid-glass flex cursor-pointer flex-col gap-2 rounded-2xl p-4 text-start transition-all duration-200 active:scale-[0.97]"
                 >
                   <div
                     className="flex h-8 w-8 items-center justify-center rounded-lg"
@@ -519,7 +524,7 @@ function HomeComponent() {
               <div className="hidden gap-3 md:grid md:grid-cols-[2fr_1fr]">
                 <button
                   onClick={openBook}
-                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
+                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-start transition-all duration-200 active:scale-[0.97]"
                 >
                   <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
                     {bookSummary}
@@ -577,7 +582,7 @@ function HomeComponent() {
                   </Link>
                   <button
                     onClick={() => handleTabChange(Tab.FRIENDS)}
-                    className="liquid-glass flex flex-1 cursor-pointer flex-col gap-2 rounded-2xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
+                    className="liquid-glass flex flex-1 cursor-pointer flex-col gap-2 rounded-2xl p-4 text-start transition-all duration-200 active:scale-[0.97]"
                   >
                     <div
                       className="flex h-8 w-8 items-center justify-center rounded-lg"
@@ -678,7 +683,7 @@ function HomeComponent() {
       <Footer isCapacitor={isCapacitor}>
         <button
           onClick={() => handleTabChange(Tab.START_PUZZLE)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.START_PUZZLE)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.START_PUZZLE)}`}
         >
           <Zap
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -687,13 +692,13 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">
+          <span className="break-words text-center text-xs font-medium leading-tight">
             {t('home.tabs.startRace')}
           </span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.MY_PUZZLES)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.MY_PUZZLES)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.MY_PUZZLES)}`}
         >
           <Award
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -702,13 +707,13 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">
+          <span className="break-words text-center text-xs font-medium leading-tight">
             {t('home.tabs.myPuzzles')}
           </span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.FRIENDS)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.FRIENDS)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.FRIENDS)}`}
         >
           <Users
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -717,7 +722,7 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">
+          <span className="break-words text-center text-xs font-medium leading-tight">
             {t('home.tabs.racingTeams')}
           </span>
         </button>

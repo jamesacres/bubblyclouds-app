@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Sudoku Verseny",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "verseny",
+      "team": "csapat",
+      "leaderboard": "ranglista",
+      "hint": "tipp",
+      "undo": "visszavonás",
+      "theme": "téma",
+      "dailyPuzzle": "napi rejtvény",
+      "monthlyCollection": "havi rejtvénygyűjtemény",
+      "aiOpponent": "mesterséges intelligenciás ellenfél",
+      "monthly": "havi",
+      "lifetime": "örökre",
+      "plusAccess": "Plus hozzáférés",
+      "plusFeatureLine": "Korlátlan futam, csapat, téma, visszavonás"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Szabad Út Futam",
+      "gameName": "Szabad Út Futam",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "verseny",
+      "team": "csapat",
+      "leaderboard": "ranglista",
+      "hint": "tipp",
+      "undo": "visszavonás",
+      "theme": "téma",
+      "dailyPuzzle": "napi rejtvény",
+      "monthlyCollection": "havi rejtvénygyűjtemény",
+      "aiOpponent": "mesterséges intelligenciás ellenfél",
+      "monthly": "havi",
+      "lifetime": "örökre",
+      "plusAccess": "Plus hozzáférés",
+      "plusFeatureLine": "Korlátlan futam, csapat, téma, visszavonás"
+    }
+  }
+}

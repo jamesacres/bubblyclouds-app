@@ -5,6 +5,7 @@ import { ChevronDown, ChevronRight } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
 import ScoreBreakdown from './ScoreBreakdown';
+import { formatLatinNumber } from '@bubblyclouds-app/ui/helpers/latinNumber';
 
 interface FriendLeaderboardEntryProps {
   entry: FriendsLeaderboardScore;
@@ -44,14 +45,16 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
         onClick={() => setShowBreakdown(!showBreakdown)}
       >
         <div className="w-16 text-center">
-          <span className="text-2xl font-bold">{getRankIcon(rank)}</span>
+          <span dir="ltr" className="text-2xl font-bold">
+            {getRankIcon(rank)}
+          </span>
         </div>
 
-        <div className="ml-4 flex-1">
+        <div className="ms-4 flex-1">
           <div className="text-lg font-semibold text-gray-800 dark:text-gray-200">
             {entry.username}
             {isCurrentUser && (
-              <span className="ml-2 text-sm text-blue-600">
+              <span className="ms-2 text-sm text-blue-600">
                 {t('friendLeaderboardEntry.you')}
               </span>
             )}
@@ -85,9 +88,11 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
           </div>
         </div>
 
-        <div className="mr-4 text-right">
+        <div className="me-4 text-end">
           <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-            {entry.totalScore.toLocaleString(i18n.language)}
+            <span dir="ltr">
+              {formatLatinNumber(entry.totalScore, i18n.language)}
+            </span>
           </div>
           <div className="text-sm text-gray-500">
             {t('friendLeaderboardEntry.points', { count: entry.totalScore })}
@@ -98,7 +103,7 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
           {showBreakdown ? (
             <ChevronDown size={20} />
           ) : (
-            <ChevronRight size={20} />
+            <ChevronRight size={20} className="rtl:-scale-x-100" />
           )}
         </div>
       </div>

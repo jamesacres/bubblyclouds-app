@@ -1,0 +1,292 @@
+{
+  "brand": {
+    "appName": "Balap Bebas",
+    "gameName": "Balap Bebas",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Main dan bagikan untuk adu cepat membebaskan puzzle bersama teman. Tantangan harian & lintas perangkat!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Mulai Balapan",
+      "myPuzzles": "Puzzle Saya",
+      "racingTeams": "Tim Balap"
+    },
+    "hero": {
+      "live": "Langsung",
+      "headlineLine1": "Urai kemacetan.",
+      "headlineAccent": "Menangkan balapan",
+      "subtitle": "Geser balok, bebaskan yang bercahaya, dan balapan bersama temanmu menuju pintu keluar."
+    },
+    "leaderboard": "Papan peringkat",
+    "dailyRace": {
+      "title": "Balapan harian",
+      "refreshesDaily": "diperbarui setiap hari",
+      "todaysRace": "Balapan hari ini",
+      "difficultyRange": "Pemula → Ahli",
+      "description": "Lima papan, satu jam — yang lolos tercepat menang.",
+      "stages": "5 tahap",
+      "start": "Mulai balapan",
+      "morePuzzlesPrefix": "Puzzle lainnya ada di",
+      "puzzleCollection": "koleksi puzzle"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 puzzle",
+      "title": "Koleksi bulanan",
+      "description": "50 kemacetan baru untuk {{month}} — bebaskan semuanya sebelum bulan berakhir.",
+      "browse": "Jelajahi puzzle"
+    },
+    "teams": {
+      "eyebrow": "Multipemain",
+      "title": "Tim balap",
+      "raceFriends": "Balapan dengan {{names}} dan lainnya",
+      "challengeFriends": "Tantang teman untuk balapan"
+    },
+    "premium": {
+      "title": "Fitur premium",
+      "subtitle": "Buka pengalaman $t(brand.gameName) sepenuhnya"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Balap Sudoku",
+    "tagline": "Bagikan Sudoku ke teman dan balapan menyelesaikannya paling cepat."
+  },
+  "puzzle": {
+    "mobileDescription": "Nikmati pengalaman terbaik dengan aplikasi {{appName}} kami!",
+    "desktopDescription": "Unduh {{appName}}",
+    "openInAppLabel": "Buka Puzzle"
+  },
+  "collection": {
+    "loading": {
+      "both": "Memuat koleksi puzzle...",
+      "collection": "Memuat puzzle...",
+      "sessions": "Memuat progres Anda..."
+    },
+    "retry": "Coba lagi",
+    "backHome": "Kembali ke beranda",
+    "signInPrompt": "Masuk untuk mengakses koleksi puzzle.",
+    "signIn": "Masuk",
+    "noData": "Data koleksi puzzle tidak tersedia.",
+    "title": "Koleksi puzzle {{month}}",
+    "completed": "selesai",
+    "inProgress": "sedang dikerjakan",
+    "unlockWithPlus": "Buka setiap puzzle dengan Plus",
+    "jumpToDifficulty": "Lompat ke tingkat kesulitan",
+    "scrollToTop": "Gulir ke atas",
+    "subtitle_other": "{{count}} puzzle, dari keluar cepat hingga kemacetan tingkat ahli"
+  },
+  "invite": {
+    "loading": "Memuat undangan...",
+    "iconAlt": "Ikon {{appName}}",
+    "greeting": "👋 Hai {{name}}!",
+    "invited": "Kamu Diundang!",
+    "joinTeam": "Gabung tim balap",
+    "tagline": "Balapan membebaskan puzzle bersama dan lihat progres satu sama lain secara real time!",
+    "proTipLabel": "Tips:",
+    "proTip": "Semua puzzle yang kamu mainkan nanti akan dibagikan ke anggota timmu untuk persaingan yang seru!",
+    "nicknameLabel": "Apa panggilanmu di tim balap?",
+    "nicknamePlaceholder": "Masukkan nama panggilan",
+    "joining": "Bergabung ke Tim...",
+    "join": "Ayo Bergabung! 🎉",
+    "signIn": "Masuk untuk Melanjutkan",
+    "bonus": "🎉 Bonus: Dapatkan {{plusName}} selama {{duration}}!",
+    "bonusDescription": "Dengan bergabung di tim balap ini, kamu membuka fitur premium sepenuhnya gratis!",
+    "activation": "💡 Akses premium kamu akan aktif otomatis setelah bergabung",
+    "duration": {
+      "oneMonth": "satu bulan",
+      "oneYear": "satu tahun",
+      "lifetime": "seumur hidup",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Undangan Kedaluwarsa",
+      "description": "Tautan undangan ini sudah tidak berlaku. Silakan minta undangan baru dari temanmu atau perbesar ukuran tim."
+    },
+    "greetingAnonymous": "👋 Hai!"
+  },
+  "credits": {
+    "title": "Kredit & Atribusi",
+    "intro": "Aplikasi ini dibangun di atas beberapa proyek hebat",
+    "copyright": "Hak cipta (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Aplikasi ini dilisensikan di bawah Lisensi MIT. Lihat <licenseLink>LICENSE</licenseLink> dan <creditsLink>CREDITS</creditsLink> kami untuk detailnya.",
+    "items": {
+      "rush": "Penyelesai puzzle Rush Hour dan basis data puzzle oleh Michael Fogleman, dikompilasi ke WebAssembly",
+      "nextjs": "Framework React untuk produksi",
+      "typescript": "Superset JavaScript bertipe",
+      "tailwind": "Framework CSS berbasis utilitas",
+      "capacitor": "Runtime aplikasi seluler native",
+      "electron": "Framework aplikasi desktop",
+      "revenuecat": "Pengelolaan langganan",
+      "react": "Pustaka komponen UI",
+      "turborepo": "Sistem build monorepo"
+    }
+  },
+  "notFound": {
+    "title": "Halaman Tidak Ditemukan"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Masuk untuk memulai puzzle hari ini",
+      "collection": "Masuk untuk menjelajahi koleksi",
+      "joinTeam": "Masuk untuk bergabung dengan tim",
+      "raceLobby": "Masuk untuk balapan dengan orang lain",
+      "puzzleEntry": "Masuk untuk bermain"
+    },
+    "valueProps": {
+      "saveProgress": "Simpan progres Anda",
+      "raceFriends": "Balapan dengan teman",
+      "trackStats": "Pantau statistik Anda"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Anda sudah memakai {{limit}} petunjuk gratis hari ini.",
+      "body": "Plus memberi Anda petunjuk tanpa batas — tak perlu lagi buntu — dan menjaga seluruh aplikasi bebas iklan."
+    },
+    "undo": {
+      "title": "Anda telah mencapai batas urungkan harian!",
+      "body": "Anda mendapat {{limit}} urungkan gratis per hari. Batas akan disetel ulang besok, atau berlangganan untuk urungkan tanpa batas."
+    },
+    "collectionLocked": {
+      "title": "Puzzle ini bagian dari koleksi Plus.",
+      "body": "Plus membuka setiap puzzle di paket tiap bulan, dan menjaga seluruh aplikasi bebas iklan."
+    },
+    "themeColor": {
+      "title": "Tema ini eksklusif untuk Plus.",
+      "body": "Tingkatkan untuk membuka semua warna tema yang indah dan personalisasi pengalaman balapan bebas Anda."
+    },
+    "removeMember": {
+      "title": "Mengeluarkan anggota dari tim adalah fitur premium!",
+      "body": "Berlangganan untuk membuka fitur pengelolaan tim lanjutan, termasuk mengeluarkan anggota."
+    },
+    "multipleParties": {
+      "title": "Beberapa tim balap adalah fitur premium!",
+      "body": "Pengguna gratis dapat memiliki satu tim. Berlangganan untuk membuat dan bergabung dengan tim tanpa batas untuk keluarga, teman, dan lainnya."
+    },
+    "partyMaxSize": {
+      "title": "Tim besar adalah fitur premium!",
+      "body": "Berlangganan untuk membuka fitur pengelolaan tim lanjutan, termasuk tim besar."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Selalu bebas iklan",
+      "description": "Tanpa iklan, selamanya — hanya Anda dan puzzle"
+    },
+    "hints": {
+      "title": "Petunjuk tanpa batas",
+      "description": "Tak perlu lagi buntu — dapatkan petunjuk kapan pun Anda butuhkan"
+    },
+    "monthlyPack": {
+      "title": "Seluruh paket bulanan terbuka, setiap bulan",
+      "description": "Mainkan setiap puzzle di semua tingkat kesulitan, tanpa kunci"
+    },
+    "undos": {
+      "title": "Urungkan tanpa batas",
+      "description": "Mundurkan langkah sebanyak yang Anda mau"
+    },
+    "teams": {
+      "title": "Beberapa tim balap",
+      "description": "Adakan kompetisi pribadi bersama teman dan keluarga"
+    },
+    "management": {
+      "title": "Pengelolaan tim",
+      "description": "Buat tim besar hingga 15 orang, dan keluarkan anggota dari tim Anda."
+    },
+    "themes": {
+      "title": "Semua tema terbuka",
+      "description": "Personalisasi pengalaman balapan Anda"
+    }
+  },
+  "plusModal": {
+    "description": "Gabung <badge>{{plusName}}</badge> untuk <strong>petunjuk tanpa batas</strong>, <strong>seluruh paket bulanan terbuka</strong>, dan <strong>urungkan tanpa batas</strong>. Tantang teman, panjat papan peringkat, dan tetap bebas iklan."
+  },
+  "leaderboard": {
+    "collectionLabel": "Koleksi",
+    "collectionDetailNoun": "koleksi"
+  },
+  "motivational": {
+    "messages": [
+      "Teman Anda menunggu tantangan",
+      "Melawan siapa Anda hari ini?",
+      "Saatnya menunjukkan kecepatan Anda",
+      "Tantangan diterima?",
+      "Berpacu menuju garis finis",
+      "Siapa penyelesai tercepat?",
+      "Siap menguasai papan peringkat?",
+      "Kemampuan balap Anda menanti",
+      "Saatnya meninggalkan mereka dalam debu",
+      "Siap melewati garis finis lebih dulu?",
+      "Lintasan sedang menunggu Anda",
+      "Saatnya masuk gigi tertinggi",
+      "Siap membakar aspal di grid teka-teki?",
+      "Lawan Anda sudah mulai pemanasan",
+      "Hari ini saatnya mencetak rekor baru",
+      "Rekor pribadi Anda menunggu untuk dipecahkan",
+      "Setiap teka-teki membuat Anda makin cepat",
+      "Membangun rentetan dimulai sekarang",
+      "Saatnya naik level",
+      "Terobosan berikutnya hanya satu teka-teki lagi",
+      "Siap mengejutkan diri sendiri?",
+      "Tunjukkan kemampuan Anda",
+      "Saatnya membuka potensi Anda",
+      "Penyelesaian tercepat Anda masih di depan",
+      "Siap membuat hari ini berarti?",
+      "Setiap detik berarti dalam balapan",
+      "Saatnya mendorong batas Anda",
+      "Perjalanan peningkatan Anda berlanjut",
+      "Siap melampaui harapan?",
+      "Merasa sanggup menghadapi tekanan?",
+      "Saatnya membungkam para peragu",
+      "Siap meraih kemenangan?",
+      "Pesaing Anda tak akan menduganya",
+      "Saatnya meninggalkan jejak",
+      "Siap merebut sorotan?",
+      "Kemenangan terasa lebih manis saat diperjuangkan",
+      "Saatnya membuktikan siapa bosnya",
+      "Siap menunjukkan jati diri Anda?",
+      "Mental juara dimulai di sini",
+      "Saatnya menonjol dari yang lain",
+      "Siap menulis legenda Anda?",
+      "Juara lahir dari momen seperti ini",
+      "Saatnya mengubah potensi menjadi performa",
+      "Teka-teki segar, peluang segar",
+      "Tantangan hari ini menunggu keahlian Anda",
+      "Siap menjadikan ini hari terbaik Anda?",
+      "Hari baru berarti rekor baru untuk dipecahkan",
+      "Saatnya menambah satu kemenangan lagi",
+      "Siap mulai dengan kuat dan selesai lebih kuat?",
+      "Siap membuat hari ini legendaris?",
+      "Dosis kemenangan harian Anda menanti",
+      "Strategi bertemu kecepatan di grid",
+      "Siap berpikir dan bergerak lebih cepat?",
+      "Kemahiran teka-teki Anda memanggil",
+      "Saatnya memadukan logika dengan kecepatan kilat",
+      "Siap menyelesaikan dengan presisi bedah?",
+      "Kombinasi sempurna: keterampilan dan kecepatan",
+      "Ketajaman analisis Anda adalah keunggulan balap Anda",
+      "Saatnya menunjukkan supremasi teka-teki",
+      "Siap menyelesaikan seperti juara?",
+      "Balapan presisi dimulai dari berpikir jernih",
+      "Teman Anda menunggu pertandingan ulang",
+      "Siapa yang bermain hari ini?",
+      "Teka-teki harian baru sudah siap",
+      "Rentetan Anda sedang dipertaruhkan",
+      "Teka-teki segar, awal yang segar",
+      "Tantangan hari ini sudah tersedia",
+      "Balapan dengan teman di teka-teki harian",
+      "Hari baru, teka-teki baru",
+      "Seseorang sudah ada di papan peringkat",
+      "Jaga rentetan tetap menyala",
+      "Tantangan harian baru saja diperbarui",
+      "Tim Anda menunggu",
+      "Satu teka-teki lebih dekat ke puncak",
+      "Teka-teki hari ini menunggu Anda",
+      "Ayo kembali dan balapan"
+    ]
+  }
+}

@@ -97,4 +97,13 @@ describe('CrossPromoCard', () => {
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
+
+  it('keeps the preview left-to-right and mirrors the arrow', () => {
+    const { container } = render(<CrossPromoCard {...mockProps} />);
+    expect(screen.getByTestId('preview').parentElement).toHaveAttribute(
+      'dir',
+      'ltr'
+    );
+    expect(container.querySelector('svg')).toHaveClass('rtl:-scale-x-100');
+  });
 });

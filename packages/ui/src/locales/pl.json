@@ -1,0 +1,59 @@
+{
+  "language": {
+    "label": "Język",
+    "automatic": "Automatycznie"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Wstecz"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Przełącz tryb ciemny"
+  },
+  "starRating": {
+    "label_one": "Gwiazdki: {{filled}} z {{count}}",
+    "label_few": "Gwiazdki: {{filled}} z {{count}}",
+    "label_many": "Gwiazdki: {{filled}} z {{count}}",
+    "label_other": "Gwiazdki: {{filled}} z {{count}}"
+  },
+  "timer": {
+    "go": "START!"
+  },
+  "themeColor": {
+    "change": "Zmień kolor motywu",
+    "set": "Ustaw kolor motywu: {{color}}",
+    "setPremium": "Ustaw kolor motywu: {{color}} (Premium)",
+    "colors": {
+      "blue": "niebieski",
+      "red": "czerwony",
+      "green": "zielony",
+      "purple": "purpurowy",
+      "amber": "bursztynowy",
+      "cyan": "cyjanowy",
+      "pink": "różowy",
+      "indigo": "indygo",
+      "orange": "pomarańczowy",
+      "teal": "morski",
+      "slate": "łupkowy",
+      "rose": "różany",
+      "emerald": "szmaragdowy",
+      "sky": "błękitny",
+      "violet": "fioletowy",
+      "lime": "limonkowy",
+      "fuchsia": "fuksja",
+      "yellow": "żółty",
+      "stone": "kamienny",
+      "zinc": "cynkowy"
+    }
+  },
+  "copyButton": {
+    "copied": "Skopiowano do schowka!",
+    "share": "Udostępnij zaproszenie",
+    "copy": "Kopiuj link zaproszenia"
+  },
+  "share": {
+    "joinTeam": "Dołącz do zespołu wyścigowego w aplikacji {{appName}}!",
+    "joinNamedTeam": "Dołącz do zespołu wyścigowego „{{partyName}}” w aplikacji {{appName}}!",
+    "dialogTitle": "Udostępnij zaproszenie"
+  }
+}

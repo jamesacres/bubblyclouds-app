@@ -1,0 +1,306 @@
+{
+  "brand": {
+    "appName": "Sudoku Verseny",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Játsszon és ossza meg, hogy barátaival sudokuversenyt vívhasson. Napi kihívások, eszközök között szinkronban!"
+  },
+  "puzzle": {
+    "mobileDescription": "Szerezze meg a legjobb versenyélményt az alkalmazásunkkal: {{appName}}!",
+    "desktopDescription": "Letöltés: {{appName}}",
+    "openInAppLabel": "Rejtvény megnyitása"
+  },
+  "crossPromo": {
+    "gameName": "Szabad Út Futam",
+    "tagline": "Csúsztassa a blokkokat, és versenyezzen a barátaival a dugó feloldásáért."
+  },
+  "notFound": {
+    "message": "Az oldal nem található"
+  },
+  "login": {
+    "dailyPuzzle": "Jelentkezzen be a mai rejtvény indításához",
+    "puzzleBook": "Jelentkezzen be a rejtvénykönyv böngészéséhez",
+    "joinTeam": "Jelentkezzen be a csapathoz való csatlakozáshoz",
+    "raceLobby": "Jelentkezzen be, hogy másokkal versenyezhessen",
+    "puzzleEntry": "Jelentkezzen be a játékhoz",
+    "valueProps": {
+      "saveProgress": "Mentse el a haladását",
+      "raceFriends": "Versenyezzen barátaival",
+      "trackStats": "Kövesse a statisztikáit"
+    }
+  },
+  "plusModal": {
+    "description": "Csatlakozzon: <badge>{{plusName}}</badge>, és <emphasis>szüntesse meg a sebességkorlátokat</emphasis>. Hívja ki a barátait, másszon fel a ranglistákon, és fejlessze a megoldási sebességét. Hirdetések nélkül."
+  },
+  "premiumFeatures": {
+    "title": "Prémium funkciók",
+    "subtitle": "Oldja fel a teljes élményt: {{appName}}",
+    "unlimitedPlay": {
+      "title": "Korlátlan játék és verseny",
+      "description": "Versenyezzen barátaival valós időben naponta többször is"
+    },
+    "unlimitedHints": {
+      "title": "Korlátlan tippek",
+      "description": "Soha többé nem akad el – kérjen tippet, amikor csak szüksége van rá"
+    },
+    "monthlyBook": {
+      "title": "A teljes havi könyv feloldva, minden hónapban",
+      "description": "Játsszon minden rejtvényt minden nehézségi szinten, zárak nélkül"
+    },
+    "multipleTeams": {
+      "title": "Több versenycsapat",
+      "description": "Szervezzen privát versenyeket barátaival és családjával"
+    },
+    "teamManagement": {
+      "title": "Csapatkezelés",
+      "description": "Hozzon létre akár 15 fős csoportokat, és távolítson el tagokat a csapatából."
+    },
+    "themes": {
+      "title": "Minden téma feloldva",
+      "description": "Szabja személyre a versenyélményt"
+    },
+    "unlimitedActions": {
+      "title": "Korlátlan visszavonás, ellenőrzés és felfedés",
+      "description": "Megszűnnek a napi visszavonási, ellenőrzési és felfedési korlátok"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Ma felhasznált {{count}} ingyenes tippet.</bold> A $t(brand.plus) korlátlan tippeket ad – soha többé nem akad el –, és az egész alkalmazást hirdetésmentessé teszi.",
+    "hint_other": "💡 <bold>Ma felhasznált {{count}} ingyenes tippet.</bold> A $t(brand.plus) korlátlan tippeket ad – soha többé nem akad el –, és az egész alkalmazást hirdetésmentessé teszi.",
+    "undo_one": "📅 <bold>Elérte a napi visszavonási korlátot!</bold> Naponta {{count}} ingyenes visszavonás jár. A korlát holnap visszaáll, vagy fizessen elő a korlátlan visszavonásért.",
+    "undo_other": "📅 <bold>Elérte a napi visszavonási korlátot!</bold> Naponta {{count}} ingyenes visszavonás jár. A korlát holnap visszaáll, vagy fizessen elő a korlátlan visszavonásért.",
+    "checkGrid_one": "📅 <bold>Elérte a napi rácsellenőrzési korlátot!</bold> Naponta {{count}} ingyenes rácsellenőrzés jár. A korlát holnap visszaáll, vagy fizessen elő a korlátlan ellenőrzésért.",
+    "checkGrid_other": "📅 <bold>Elérte a napi rácsellenőrzési korlátot!</bold> Naponta {{count}} ingyenes rácsellenőrzés jár. A korlát holnap visszaáll, vagy fizessen elő a korlátlan ellenőrzésért.",
+    "reveal": "🔓 <bold>A rács felfedése prémium funkció!</bold> Fizessen elő, hogy felfedhesse a teljes megoldást.",
+    "themeColor": "🎨 <bold>Ez a téma a $t(brand.plus) előfizetők kiváltsága.</bold> Frissítsen, hogy feloldja az összes szép témaszínt, és személyre szabja a sudokuélményt.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Elérte a napi rejtvénykorlátot!</bold> Az ingyenes felhasználók naponta {{count}} rejtvényt játszhatnak. A korlát holnap visszaáll, vagy fizessen elő a korlátlan rejtvényekért.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Elérte a napi rejtvénykorlátot!</bold> Az ingyenes felhasználók naponta {{count}} rejtvényt játszhatnak. A korlát holnap visszaáll, vagy fizessen elő a korlátlan rejtvényekért.",
+    "collectionLocked": "✨ <bold>Ez a rejtvény a $t(brand.plus) könyv része.</bold> A $t(brand.plus) feloldja minden hónap könyvének összes rejtvényét, és az egész alkalmazást hirdetésmentessé teszi.",
+    "removeMember": "👥 <bold>A tagok eltávolítása a csapatból prémium funkció!</bold> Fizessen elő a speciális csapatkezelési funkciókhoz, köztük a tagok eltávolításához.",
+    "multipleParties": "🏘️ <bold>A több versenycsapat prémium funkció!</bold> Az ingyenes felhasználók egy csapattal rendelkezhetnek. Fizessen elő, hogy korlátlan csapatot hozhasson létre és csatlakozhasson hozzájuk családdal, barátokkal és másokkal.",
+    "partyMaxSize": "👥 <bold>A nagy csapatok prémium funkció!</bold> Fizessen elő a speciális csapatkezelési funkciókhoz, köztük a nagy csapatokhoz."
+  },
+  "motivational": {
+    "messages": [
+      "A barátai kihívásra várnak",
+      "Ki ellen versenyez ma?",
+      "Ideje megmutatni a sebességét",
+      "Elfogadja a kihívást?",
+      "Versenyezzen a célvonalig",
+      "Ki a leggyorsabb megoldó?",
+      "Készen áll a ranglista meghódítására?",
+      "A versenyképességére várnak",
+      "Ideje porban hagyni őket",
+      "Készen áll elsőként átvágni a célvonalat?",
+      "A pálya Önre vár",
+      "Ideje magasabb sebességre kapcsolni",
+      "Készen áll gumit égetni a rejtvényrácson?",
+      "Az ellenfelei már melegítenek",
+      "Ma van a nap, hogy új rekordot állítson fel",
+      "Az egyéni rekordja arra vár, hogy megdöntsék",
+      "Minden rejtvény gyorsabbá tesz",
+      "A sorozatépítés most kezdődik",
+      "Ideje szintet lépni",
+      "A következő áttörés egyetlen rejtvényre van",
+      "Készen áll meglepni saját magát?",
+      "Mutassa meg, miből van gyúrva",
+      "Ideje kibontakoztatni a benne rejlő lehetőséget",
+      "A leggyorsabb megoldása még előtte áll",
+      "Készen áll, hogy értelmet adjon a mai napnak?",
+      "A versenyben minden másodperc számít",
+      "Ideje feszegetni a határokat",
+      "A fejlődés útja folytatódik",
+      "Készen áll felülmúlni a várakozásokat?",
+      "Gondolja, hogy bírja a nyomást?",
+      "Ideje elhallgattatni a kételkedőket",
+      "Készen áll a győzelemre?",
+      "A versenytársai nem számítanak erre",
+      "Ideje letenni a névjegyét",
+      "Készen áll elorozni a rivaldafényt?",
+      "A győzelem édesebb, ha kiérdemeljük",
+      "Ideje bebizonyítani, ki a főnök",
+      "Készen áll megmutatni az igazi arcát?",
+      "A bajnoki gondolkodás itt kezdődik",
+      "Ideje kiválni a mezőnyből",
+      "Készen áll megírni a saját legendáját?",
+      "A bajnokok az ilyen pillanatokban születnek",
+      "Ideje a lehetőséget teljesítménnyé alakítani",
+      "Friss rejtvények, friss lehetőségek",
+      "A mai kihívás a mesteri tudására vár",
+      "Készen áll, hogy ez legyen az eddigi legjobb napja?",
+      "Új nap, új megdöntendő rekordok",
+      "Ideje újabb győzelmet gyűjteni",
+      "Készen áll erősen kezdeni és még erősebben zárni?",
+      "Készen áll legendássá tenni a mai napot?",
+      "A napi adag diadal már várja",
+      "A stratégia találkozik a sebességgel a rácson",
+      "Készen áll túlgondolni és túlszárnyalni?",
+      "A rejtvényfejtői mesterség hív",
+      "Ideje párosítani a logikát a villámgyorsasággal",
+      "Készen áll sebészi pontossággal megoldani?",
+      "A tökéletes kombináció: tudás és sebesség",
+      "Az elemzőképessége a versenyelőnye",
+      "Ideje bizonyítani a rejtvényfejtői fölényt",
+      "Készen áll bajnokként megoldani?",
+      "A precíz versenyzés a tiszta gondolkodással kezdődik",
+      "A barátai visszavágóra várnak",
+      "Ki old ma?",
+      "Új napi rejtvény vár",
+      "A sorozata a tét",
+      "Friss rejtvények, friss kezdet",
+      "A mai kihívás elérhető",
+      "Versenyezzen egy baráttal a napi rejtvényen",
+      "Új nap, új rejtvények",
+      "Valaki már felkerült a ranglistára",
+      "Tartsa életben a sorozatot",
+      "A napi kihívások frissültek",
+      "A csapata vár",
+      "Eggyel közelebb a csúcshoz",
+      "A mai rejtvények Önre várnak",
+      "Ugorjon vissza, és versenyezzen"
+    ]
+  },
+  "home": {
+    "live": "Élő",
+    "headline": "Készen áll a versenyre? 🏁",
+    "subtitle": "Ossza meg a kihívást – hívja meg a barátait, és derítse ki, ki a leggyorsabb sudokumegoldó.",
+    "leaderboard": "Ranglista",
+    "daily": {
+      "title": "Napi kihívások",
+      "refreshes": "naponta frissül",
+      "moreLevels": "További nehézségi szintek a <bookLink>rejtvénykönyvben</bookLink>",
+      "difficulty": {
+        "simple": "Trükkös",
+        "easy": "Kihívó",
+        "intermediate": "Nehéz"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} rejtvény",
+      "summary_other": "{{month}} · {{count}} rejtvény",
+      "title": "Havi könyv",
+      "browse": "Rejtvények böngészése"
+    },
+    "import": {
+      "title": "Bármely rejtvény importálása",
+      "description": "Olvassa be kamerával, vagy illesszen be egy rejtvénysort",
+      "desktopTitle": "Versenyezzen bármely rejtvényen",
+      "desktopDescription": "Olvassa be könyvből vagy újságból"
+    },
+    "teams": {
+      "title": "Versenycsapatok",
+      "withFriends": "Verseny: {{friends}} és mások",
+      "noFriends": "Hívja ki a barátait egy versenyre"
+    },
+    "tabs": {
+      "startRace": "Verseny indítása",
+      "myPuzzles": "Saját rejtvények",
+      "racingTeams": "Versenycsapatok"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Rejtvénykönyv betöltése…",
+      "puzzles": "Rejtvények betöltése…",
+      "progress": "Haladás betöltése…"
+    },
+    "tryAgain": "Próbálja újra",
+    "backHome": "Vissza a főoldalra",
+    "signInPrompt": "Jelentkezzen be a rejtvénykönyv eléréséhez.",
+    "signIn": "Bejelentkezés",
+    "noData": "Nincsenek elérhető rejtvénykönyv-adatok.",
+    "title": "{{month}} rejtvénykönyv",
+    "puzzleCount_one": "{{count}} technikaközpontú rejtvény",
+    "puzzleCount_other": "{{count}} technikaközpontú rejtvény",
+    "completed": "{{count}} befejezve",
+    "inProgress": "{{count}} folyamatban",
+    "unlockWithPlus": "Oldja fel az összes rejtvényt: $t(brand.plus)",
+    "jumpToDifficulty": "Ugrás a nehézségi szintre",
+    "scrollToTop": "Vissza a lap tetejére",
+    "difficulty": {
+      "veryEasy": "Nagyon könnyű",
+      "easy": "Könnyű",
+      "moderatelyEasy": "Mérsékelten könnyű",
+      "moderate": "Közepes",
+      "moderatelyHard": "Mérsékelten nehéz",
+      "hard": "Nehéz",
+      "vicious": "Kegyetlen",
+      "fiendish": "Ördögi",
+      "devilish": "Pokoli",
+      "hell": "Pokol",
+      "beyondHell": "A pokolon túl"
+    }
+  },
+  "invite": {
+    "loading": "Meghívó betöltése…",
+    "iconAlt": "{{gameName}} ikon",
+    "greeting": "👋 Üdv!",
+    "greetingNamed": "👋 Üdv, {{name}}!",
+    "invited": "Meghívást kapott!",
+    "joinTeam": "Csatlakozzon a versenycsapathoz: <team/>",
+    "description": "Oldjanak meg együtt sudokurejtvényeket, és lássák egymás haladását valós időben!",
+    "proTip": "💡 <bold>Profi tipp:</bold> Az összes ezután játszott rejtvény megosztásra kerül a csapattagokkal a baráti versengéshez!",
+    "nicknameLabel": "Minek hívja a versenycsapata?",
+    "nicknamePlaceholder": "Adja meg a becenevét",
+    "joining": "Csatlakozás a csapathoz…",
+    "join": "Csatlakozom a játékhoz! 🎉",
+    "signIn": "Bejelentkezés a folytatáshoz",
+    "bonus": {
+      "title": "🎉 Bónusz: {{duration}} {{plusName}} hozzáférés!",
+      "duration": {
+        "oneMonth": "egyhavi",
+        "oneYear": "egyéves",
+        "lifetime": "örökös",
+        "premium": "prémium"
+      },
+      "subtitle": "Ha csatlakozik ehhez a versenycsapathoz, teljesen ingyen feloldja a prémium funkciókat!",
+      "note": "💡 A prémium hozzáférése a csatlakozás után automatikusan aktiválódik"
+    },
+    "expired": {
+      "title": "A meghívó lejárt",
+      "body": "Ez a meghívó link már nem érvényes. Kérjen új meghívót a barátjától, vagy növelje a csapat létszámát."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Adjon meg egy rejtvénysort",
+      "help": "Illesszen be egy 81 karakteres sort vagy egy HoDoKu-rácsot – használjon 1–9 számjegyeket, valamint 0-t vagy pontot az üres cellákhoz.",
+      "submit": "Rejtvény importálása"
+    },
+    "orScan": "vagy olvassa be kamerával",
+    "cameraHelp": "Irányítsa a kamerát egy megoldatlan sudokurejtvényre, és várja meg, amíg felismeri.",
+    "errors": {
+      "parse": "A rejtvényt nem sikerült értelmezni. Illesszen be egy 81 karakteres sort vagy egy HoDoKu-rácsot.",
+      "solverLoading": "A megoldó még töltődik – kérjük, próbálja újra.",
+      "noSolution": "Nem található megoldás. Kérjük, ellenőrizze a rejtvényt.",
+      "camera": "A kamerát nem sikerült elindítani. Kérjük, ellenőrizze az engedélyeket, és próbálja újra."
+    }
+  },
+  "credits": {
+    "title": "Közreműködők és hivatkozások",
+    "subtitle": "Ez az alkalmazás több kiváló projektre épül",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Ez az alkalmazás az MIT licenc alatt áll. A részletekért lásd a <licenseLink>LICENSE</licenseLink> és a <creditsLink>CREDITS</creditsLink> fájlt.",
+    "items": {
+      "humanSudokuSolver": "TypeScript-könyvtár, amely emberi technikákkal oldja meg a sudokurejtvényeket.",
+      "qqwing": "A nap sudokujának rejtvénygenerálása",
+      "tdoku": "Gyors sudokumegoldó beolvasott rejtvényekhez",
+      "arBrowserSudoku": "Kiterjesztettvalóság-alapú beolvasási technológia",
+      "sudokuCoach": "Ihletforrás a nehézségszámító algoritmusokhoz",
+      "nextjs": "React keretrendszer éles használatra",
+      "typescript": "A JavaScript típusos bővítménye",
+      "tailwind": "Segédosztály-alapú CSS keretrendszer",
+      "capacitor": "Natív mobilalkalmazás-futtatókörnyezet",
+      "electron": "Asztali alkalmazás keretrendszer",
+      "tensorflow": "Gépi tanulás az AR funkciókhoz",
+      "revenuecat": "Előfizetéskezelés",
+      "react": "Felhasználói felület komponenskönyvtára",
+      "turborepo": "Monorepo build rendszer"
+    }
+  }
+}

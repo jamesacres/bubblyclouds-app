@@ -28,6 +28,10 @@ const TimerDisplay = ({
       </>
     );
   }
-  return <p className="min-h-8 font-mono">{content}</p>;
+  return (
+    <p dir="ltr" className="min-h-8 font-mono">
+      {content}
+    </p>
+  );
 };
 export { TimerDisplay };

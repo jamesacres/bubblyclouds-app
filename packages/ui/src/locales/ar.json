@@ -1,0 +1,61 @@
+{
+  "language": {
+    "label": "اللغة",
+    "automatic": "تلقائي"
+  },
+  "header": {
+    "offline": "غير متصل",
+    "back": "رجوع"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "تبديل الوضع الداكن"
+  },
+  "starRating": {
+    "label_zero": "{{filled}} من {{count}} نجوم",
+    "label_one": "{{filled}} من {{count}} نجمة",
+    "label_two": "{{filled}} من {{count}} نجمتين",
+    "label_few": "{{filled}} من {{count}} نجوم",
+    "label_many": "{{filled}} من {{count}} نجمة",
+    "label_other": "{{filled}} من {{count}} نجمة"
+  },
+  "timer": {
+    "go": "انطلق!"
+  },
+  "themeColor": {
+    "change": "تغيير لون السمة",
+    "set": "تعيين لون السمة إلى {{color}}",
+    "setPremium": "تعيين لون السمة إلى {{color}} (مميز)",
+    "colors": {
+      "blue": "أزرق",
+      "red": "أحمر",
+      "green": "أخضر",
+      "purple": "أرجواني",
+      "amber": "كهرماني",
+      "cyan": "سماوي",
+      "pink": "وردي",
+      "indigo": "نيلي",
+      "orange": "برتقالي",
+      "teal": "أخضر مزرق",
+      "slate": "رمادي أردوازي",
+      "rose": "لون الورد",
+      "emerald": "زمردي",
+      "sky": "أزرق سماوي",
+      "violet": "بنفسجي",
+      "lime": "ليموني",
+      "fuchsia": "فوشيا",
+      "yellow": "أصفر",
+      "stone": "رمادي حجري",
+      "zinc": "زنكي"
+    }
+  },
+  "copyButton": {
+    "copied": "تم النسخ إلى الحافظة!",
+    "share": "مشاركة رابط الدعوة",
+    "copy": "نسخ رابط الدعوة"
+  },
+  "share": {
+    "joinTeam": "انضم إلى فريق السباق على {{appName}}!",
+    "joinNamedTeam": "انضم إلى فريق السباق {{partyName}} على {{appName}}!",
+    "dialogTitle": "مشاركة الدعوة"
+  }
+}

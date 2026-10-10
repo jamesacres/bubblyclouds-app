@@ -1,0 +1,38 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "ସୁଡୋକୁ ରେସ୍",
+      "gameName": "ସୁଡୋକୁ",
+      "companyName": "Bubbly Clouds"
+    },
+    "terms": {
+      "race": "ରେସ୍",
+      "team": "ଦଳ",
+      "leaderboard": "ଲିଡରବୋର୍ଡ୍",
+      "hint": "ସଙ୍କେତ",
+      "theme": "ଥିମ୍",
+      "dailyPuzzle": "ଦୈନିକ ପଜଲ୍",
+      "monthlyCollection": "ମାସିକ ପଜଲ୍ ବହି",
+      "aiOpponent": "AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+      "monthly": "ମାସିକ"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "ଅନବ୍ଲକ୍ ରେସ୍",
+      "gameName": "ଅନବ୍ଲକ୍ ରେସ୍",
+      "companyName": "Bubbly Clouds"
+    },
+    "terms": {
+      "race": "ରେସ୍",
+      "team": "ଦଳ",
+      "leaderboard": "ଲିଡରବୋର୍ଡ୍",
+      "hint": "ସଙ୍କେତ",
+      "theme": "ଥିମ୍",
+      "dailyPuzzle": "ଦୈନିକ ପଜଲ୍",
+      "monthlyCollection": "ମାସିକ ପଜଲ୍ ସଂଗ୍ରହ",
+      "aiOpponent": "AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+      "monthly": "ମାସିକ"
+    }
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "brand": {
+    "gameName": "Vrij Racen"
+  },
+  "controls": {
+    "hint": "Hint",
+    "hintTitle": "Hulp vragen",
+    "undo": "Undo",
+    "redo": "Redo",
+    "reset": "Reset"
+  },
+  "labels": {
+    "time": "Tijd",
+    "moves": "Zetten",
+    "stageOf": "Fase {{current}} van {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} zet",
+    "moves_other": "{{count}} zetten",
+    "par": "par",
+    "overPar": "{{delta}} boven par",
+    "underPar": "{{delta}} onder par"
+  },
+  "score": {
+    "moves": "zetten",
+    "srOnPar": "zetten, op par",
+    "srOverPar": "zetten, {{delta}} boven par",
+    "srUnderPar": "zetten, {{delta}} onder par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Dagelijks · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Beginner",
+    "challenging": "Uitdagend",
+    "hard": "Moeilijk",
+    "expert": "Expert"
+  },
+  "collection": {
+    "puzzleLabel": "Collectiepuzzel {{number}}",
+    "theme": {
+      "january": "Nieuw jaar, nieuwe file",
+      "february": "Bevroren file",
+      "march": "Wijd opengeblazen",
+      "april": "Blokkenbuien",
+      "may": "Verse banen bloeien op",
+      "june": "Topsnelheid vrij",
+      "july": "Zomerse raceserie",
+      "august": "Gloeiende file",
+      "september": "Terug aan het bord",
+      "october": "Spookachtige file",
+      "november": "De banen vrijmaken",
+      "december": "Feestdagenfile",
+      "default": "Maandelijkse puzzelcollectie"
+    },
+    "error": {
+      "offline": "U bent offline, controleer uw verbinding",
+      "loadFailed": "Puzzelcollectie laden mislukt"
+    }
+  },
+  "stageClear": {
+    "title": "Fase {{stage}} voltooid",
+    "onPar": "Op par",
+    "pointsSuffix": " ptn",
+    "leaderboardPoints": "Ranglijstpunten",
+    "nextStage": "Volgende fase",
+    "progress": "Fase {{stage}} van {{total}} — nog {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Vanaf hier geen weg meer — maak ongedaan of reset om weer op koers te komen",
+    "dismiss": "Hintmelding sluiten"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Hou uw reeks vol in de collectie"
+  },
+  "raceTrack": {
+    "collection": "Collectie"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Deze fase opnieuw proberen?",
+      "body": "Uw huidige tijd en zetten worden vervangen.",
+      "confirm": "Opnieuw"
+    },
+    "reset": {
+      "title": "Deze puzzel resetten?",
+      "body": "Hiermee worden uw zetten gewist en begint de puzzel opnieuw.",
+      "confirm": "Resetten"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bij",
+      "personality": "Onrustig en enthousiast. Schuift blokken in vlagen rond en loopt dan vast. Vlak bij de uitgang versnelt de bij te vroeg en blokkeert de baan net voor de finish.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Deze schuift!",
+          "Wacht — nee, die blokkeert mij...",
+          "Zoem zoem! Ruimte maken!"
+        ],
+        "playerAhead": ["Hé, rustig aan!", "Ik was een pad aan het vrijmaken…"],
+        "playerBehind": ["Ik kom naderbij!", "Kijk mij eens schuiven!"],
+        "endgame": [
+          "De uitgang! Ik zie hem!",
+          "Wacht — wie heeft dat daar geparkeerd?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "eend",
+      "personality": "Vrolijk en doelloos. Langzaam en gestaag, met lange pauzes. In het eindspel drijft de eend bijna per ongeluk uit de file.",
+      "voiceLines": {
+        "neutral": [
+          "Ik duw het gewoon een beetje op...",
+          "Hmm... misschien dit blok."
+        ],
+        "playerAhead": [
+          "Je doet het geweldig!",
+          "Ik kom er uiteindelijk wel uit."
+        ],
+        "playerBehind": ["Oh! Die bewoog!", "Dit is fijn."],
+        "endgame": [
+          "Is dat de uitgang?",
+          "Oh! De weg heeft zichzelf vrijgemaakt."
+        ]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "hagedis",
+      "personality": "Voorzichtig en oplettend. Lange pauzes, dan kleine reeksen schuifzetten. In het eindspel aarzelt hij bij elke zet.",
+      "voiceLines": {
+        "neutral": [
+          "Laat me kijken wat dat vrijmaakt.",
+          "Die zet moet veilig zijn."
+        ],
+        "playerAhead": [
+          "Ik moet nu voorzichtig zijn.",
+          "Blokkeer de baan niet."
+        ],
+        "playerBehind": ["Oké… ik kom dichterbij.", "Nog tijd genoeg."],
+        "endgame": [
+          "Voorzichtig nu...",
+          "Bijna eruit… ik moet het zeker weten."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "spin",
+      "personality": "Weloverwogen en gestructureerd. Maakt de baan zorgvuldig vrij, blok voor blok. In het eindspel brokkelt het plan af — twijfel sluipt erin alsof de route niet meer standhoudt.",
+      "voiceLines": {
+        "neutral": ["Dat opent de route.", "Blok voor blok..."],
+        "playerAhead": ["De route werkte nog...", "Ik moet opnieuw plannen..."],
+        "playerBehind": ["Het houdt nog steeds.", "Ja… de baan komt vrij."],
+        "endgame": [
+          "Wacht — nee, dat sluit me weer in.",
+          "Ik had deze route gepland..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "wasbeer",
+      "personality": "Vasthoudend en opportunistisch. Ongelijk ritme. In het eindspel vindt ze momentum en schuift ze sneller naar buiten dan verwacht.",
+      "voiceLines": {
+        "neutral": [
+          "Dat schuift het op!",
+          "Een beetje krap, maar ik neem het."
+        ],
+        "playerAhead": [
+          "Goed, tijd om door te drukken.",
+          "Nog niet ingesloten."
+        ],
+        "playerBehind": ["Oh — mooie opening.", "De baan komt nu vrij."],
+        "endgame": ["Ja, vrije weg voor me.", "Nu rolt het."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pinguïn",
+      "personality": "Gestructureerd en methodisch. Constant tempo. Het eindspel blijft rustig — geen paniek, geen sprint.",
+      "voiceLines": {
+        "neutral": ["Die zet past op de route.", "Gelijkmatig blijven."],
+        "playerAhead": ["Tempo vasthouden.", "Geen haast met het raster."],
+        "playerBehind": ["Nog op koers.", "De baan komt gestaag vrij."],
+        "endgame": ["Bijna erdoor.", "Netjes naar buiten."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "aap",
+      "personality": "Grillig en verontrustend. Onvoorspelbare uitbarstingen. In het eindspel versnelt hij plotseling op een manier die oneerlijk aanvoelt.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… die opening zag je niet?",
+          "Oh, dat is een interessante zet."
+        ],
+        "playerAhead": ["Word niet te zelfverzekerd.", "Kijk naar deze zet."],
+        "playerBehind": [
+          "Het verkeer gaat soms gewoon open.",
+          "Een gelukkige zet… of toch niet?"
+        ],
+        "endgame": ["Oh wow — de weg ligt wijd open.", "Dat was snel vrij."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "adelaar",
+      "personality": "Afstandelijk en vloeiend. Rustige, zelfverzekerde schuifzetten. Stille versnelling in het eindspel.",
+      "voiceLines": {
+        "neutral": ["De route zag ik al.", "Ik schuif er gewoon doorheen."],
+        "playerAhead": [
+          "Verandert niets aan de route.",
+          "Dezelfde uitgang, hoe dan ook."
+        ],
+        "playerBehind": ["Het is eigenlijk al vrij.", "Vanaf hier uitrollen."],
+        "endgame": ["…bijna eruit.", "Rollend naar de uitgang."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "vos",
+      "personality": "Intens en fel competitief. Snelle start, constante druk. De eindspurt voelt agressief.",
+      "voiceLines": {
+        "neutral": ["Hou het bij.", "Nog steeds vast in de file?"],
+        "playerAhead": [
+          "Sta nu niet stil.",
+          "Je kunt sneller schuiven dan dat."
+        ],
+        "playerBehind": ["Te langzaam.", "Je zit ingesloten."],
+        "endgame": ["Maak de baan vrij.", "Deze uitgang is van mij."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "haai",
+      "personality": "Geduldig en roofzuchtig. Blijft dichtbij en slaat in het eindspel hard toe.",
+      "voiceLines": {
+        "neutral": ["Vlak achter je.", "Nog niet."],
+        "playerAhead": ["Blijf op je eigen baan.", "Ik ben nu dichtbij."],
+        "playerBehind": ["Ik kom dichterbij.", "Daar is de opening."],
+        "endgame": ["Nu schuiven we eruit.", "Uitgang is van mij."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "uil",
+      "personality": "Kalm en weloverwogen. Soepel tempo. Het eindspel is zuiver en onvermijdelijk.",
+      "voiceLines": {
+        "neutral": ["Zoals verwacht.", "Elk blok op zijn plek."],
+        "playerAhead": ["Goed.", "Je ziet de route."],
+        "playerBehind": ["Volg de baan.", "Blijf erbij."],
+        "endgame": ["Bijna erdoor.", "Daar is de uitgang."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "zwarte kat",
+      "personality": "Stil en onmenselijk. Nauwelijks pauzes. Het eindspel is een razendsnelle, ononderbroken glijpartij naar de uitgang.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…nog steeds."],
+        "playerBehind": ["Te laat.", "Je aarzelde."],
+        "endgame": ["…eruit.", "Uitgang."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "draak",
+      "personality": "Moeiteloos en absoluut. Houdt de hele tijd perfecte controle. In het eindspel veegt de draak beslissend en ononderbroken naar de uitgang — geen openingen, geen weerstand.",
+      "voiceLines": {
+        "neutral": ["Verwacht.", "Geen afwijking."],
+        "playerAhead": ["Je deed er goed aan het te proberen.", "Ga door."],
+        "playerBehind": ["Hiermee is het afgelopen.", "Geen alternatief."],
+        "endgame": ["Dat is alles.", "Vrij."]
+      }
+    }
+  }
+}

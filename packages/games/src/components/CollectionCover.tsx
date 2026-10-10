@@ -65,14 +65,14 @@ const CollectionCover = ({
       className="relative flex flex-col overflow-hidden rounded-2xl p-4"
       style={{
         width,
-        height,
+        minHeight: height,
         background,
         boxShadow: shadow,
       }}
     >
       {icon && (
         <div
-          className={`absolute right-3 top-3 text-2xl opacity-80 ${iconAnimationClass || ''}`}
+          className={`absolute end-3 top-3 text-2xl opacity-80 ${iconAnimationClass || ''}`}
           aria-hidden="true"
         >
           {icon}
@@ -82,7 +82,7 @@ const CollectionCover = ({
         {kickerText}
       </p>
       <p
-        className="mb-3 text-xl font-black leading-tight text-white"
+        className="mb-3 break-words text-xl font-black leading-tight text-white"
         style={{ textShadow: `0 0 14px ${titleGlow}` }}
       >
         {title}

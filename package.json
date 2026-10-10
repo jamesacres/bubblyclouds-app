@@ -45,6 +45,10 @@
     "test:ci": "turbo run test -- --coverage --ci --maxWorkers=2",
     "circular": "turbo run circular",
     "i18n:audit": "./scripts/i18nAudit.sh",
+    "i18n:validate": "node scripts/i18n/validate.mjs",
+    "i18n:pseudo": "node scripts/i18n/pseudo.mjs",
+    "i18n:native": "node scripts/i18n/native.mjs --check",
+    "i18n:test": "node --test \"scripts/i18n/**/*.test.mjs\"",
     "manypkg": "manypkg check",
     "prepare": "husky"
   },

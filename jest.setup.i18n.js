@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 
 const uiPackage = path.join(__dirname, 'packages', 'ui');
@@ -6,28 +7,44 @@ const { initReactI18next } = require(
   require.resolve('react-i18next', { paths: [uiPackage] })
 );
 
-const namespaces = [
-  'ui',
-  'auth',
-  'template',
-  'games',
-  'sudoku',
-  'unblockrace',
-];
+const namespaces = ['ui', 'auth', 'template', 'games', 'sudoku', 'unblockrace'];
 
-const bundles = {};
+const SOURCE_LOCALE = 'en';
+
+function localeTags(localesDir) {
+  if (!fs.existsSync(localesDir)) {
+    return [];
+  }
+  return fs
+    .readdirSync(localesDir)
+    .filter((file) => file.endsWith('.json'))
+    .map((file) => file.slice(0, -'.json'.length));
+}
+
+const resources = { [SOURCE_LOCALE]: {} };
+const supportedLngs = new Set([SOURCE_LOCALE]);
+
+function load(namespace, localesDir) {
+  for (const tag of localeTags(localesDir)) {
+    resources[tag] ??= {};
+    resources[tag][namespace] = require(path.join(localesDir, `${tag}.json`));
+    supportedLngs.add(tag);
+  }
+}
+
 for (const namespace of namespaces) {
-  bundles[namespace] = require(
-    path.join(__dirname, 'packages', namespace, 'src', 'locales', 'en.json')
+  load(
+    namespace,
+    path.join(__dirname, 'packages', namespace, 'src', 'locales')
   );
 }
 
 if (!i18next.isInitialized) {
   i18next.use(initReactI18next).init({
-    resources: { en: bundles },
-    lng: 'en',
-    fallbackLng: 'en',
-    supportedLngs: ['en'],
+    resources,
+    lng: SOURCE_LOCALE,
+    fallbackLng: SOURCE_LOCALE,
+    supportedLngs: [...supportedLngs],
     ns: namespaces,
     defaultNS: 'app',
     initAsync: false,
@@ -37,7 +54,23 @@ if (!i18next.isInitialized) {
 }
 
 module.exports = {
-  addAppBundle(appBundle) {
-    i18next.addResourceBundle('en', 'app', appBundle, true, true);
+  addAppBundle(appBundle, appDir) {
+    i18next.addResourceBundle(SOURCE_LOCALE, 'app', appBundle, true, true);
+    if (!appDir) {
+      return;
+    }
+    const localesDir = path.join(appDir, 'src', 'locales');
+    for (const tag of localeTags(localesDir)) {
+      if (tag === SOURCE_LOCALE) {
+        continue;
+      }
+      i18next.addResourceBundle(
+        tag,
+        'app',
+        require(path.join(localesDir, `${tag}.json`)),
+        true,
+        true
+      );
+    }
   },
 };

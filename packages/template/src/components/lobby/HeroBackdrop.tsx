@@ -5,7 +5,7 @@ export function HeroBackdrop() {
         <div
           className="absolute rounded-full"
           style={{
-            left: -90,
+            insetInlineStart: -90,
             top: -110,
             width: 360,
             height: 360,
@@ -16,7 +16,7 @@ export function HeroBackdrop() {
         <div
           className="absolute rounded-full"
           style={{
-            right: -50,
+            insetInlineEnd: -50,
             top: 30,
             width: 230,
             height: 230,
@@ -28,7 +28,7 @@ export function HeroBackdrop() {
           className="absolute rounded-full"
           style={{
             bottom: 40,
-            left: '25%',
+            insetInlineStart: '25%',
             width: 280,
             height: 200,
             background: 'rgba(217,70,239,0.18)',

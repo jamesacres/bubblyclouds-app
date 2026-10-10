@@ -47,6 +47,7 @@ const SUDOKU_RACE_ROW = [
 export const SudokuBoardPreview = () => (
   <div
     aria-hidden="true"
+    dir="ltr"
     className="relative aspect-square w-full overflow-hidden rounded-2xl"
     style={{
       background: 'rgba(8,2,20,0.85)',
@@ -72,7 +73,7 @@ export const SudokuBoardPreview = () => (
     <div
       className="sudoku-race-row absolute rounded-md"
       style={{
-        left: 0,
+        insetInlineStart: 0,
         top: sudokuCell(4),
         width: '100%',
         height: sudokuCell(1),

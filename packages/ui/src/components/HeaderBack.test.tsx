@@ -213,7 +213,7 @@ describe('HeaderBack', () => {
       render(<HeaderBack appName="Sudoku Race" />);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-11');
+      expect(button).toHaveClass('min-h-11');
     });
 
     it('should have correct text styling for back text', () => {
@@ -401,6 +401,19 @@ describe('HeaderBack', () => {
 
       const backSpan = screen.getByText(/Back/);
       expect(backSpan).toBeInTheDocument();
+    });
+  });
+
+  describe('right-to-left', () => {
+    it('should mirror the back chevron', () => {
+      const { usePathname } = require('next/navigation');
+      usePathname.mockReturnValue('/game');
+
+      render(<HeaderBack appName="Sudoku Race" />);
+
+      expect(screen.getByTestId('chevron-left')).toHaveClass(
+        'rtl:-scale-x-100'
+      );
     });
   });
 });

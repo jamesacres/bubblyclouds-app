@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Перегони Судоку",
+      "gameName": "Судоку",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Судоку Plus"
+    },
+    "terms": {
+      "race": "перегони",
+      "team": "команда",
+      "leaderboard": "таблиця лідерів",
+      "hint": "підказка",
+      "undo": "скасування",
+      "theme": "тема",
+      "dailyPuzzle": "щоденна головоломка",
+      "monthlyCollection": "щомісячний збірник головоломок",
+      "aiOpponent": "ШІ-суперник",
+      "monthly": "на місяць",
+      "lifetime": "назавжди",
+      "plusAccess": "Доступ Plus",
+      "plusFeatureLine": "Безліміт перегонів, команди, теми, скасування"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Перегони заторів",
+      "gameName": "Перегони заторів",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "перегони",
+      "team": "команда",
+      "leaderboard": "таблиця лідерів",
+      "hint": "підказка",
+      "undo": "скасування",
+      "theme": "тема",
+      "dailyPuzzle": "щоденна головоломка",
+      "monthlyCollection": "щомісячна колекція головоломок",
+      "aiOpponent": "ШІ-суперник",
+      "monthly": "на місяць",
+      "lifetime": "назавжди",
+      "plusAccess": "Доступ Plus",
+      "plusFeatureLine": "Безліміт перегонів, команди, теми, скасування"
+    }
+  }
+}

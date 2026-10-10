@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "ಪುಸ್ತಕ",
+    "defaultDetailNoun": "ಒಗಟು ಪುಸ್ತಕಗಳು"
+  },
+  "collectionCover": {
+    "monthlyCollection": "ಮಾಸಿಕ ಸಂಗ್ರಹ"
+  },
+  "hintBox": {
+    "dismiss": "ಸುಳಿವು ಮುಚ್ಚಿ"
+  },
+  "lobbyButton": {
+    "opponents": "ಎದುರಾಳಿಗಳು"
+  },
+  "nextPuzzlePanel": {
+    "continue": "ಮುಂದುವರಿಸಿ — ಮುಂದಿನ ಒಗಟು",
+    "continueLocked": "ಮುಂದುವರಿಸಿ ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{total}} {{label}} ಪೈಕಿ {{completed}} ಪೂರ್ಣ"
+  },
+  "countdownOverlay": {
+    "getReady": "ಸಿದ್ಧರಾಗಿ",
+    "go": "ಗೋ!"
+  },
+  "confirmDialog": {
+    "cancel": "ರದ್ದುಮಾಡಿ"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · ಪೂರ್ಣ",
+    "retry": "ಮರುಪ್ರಯತ್ನ",
+    "points": "+{{points}} ಅಂಕ",
+    "leaderboardPoints": "ಲೀಡರ್‌ಬೋರ್ಡ್ ಅಂಕಗಳು"
+  },
+  "raceTimer": {
+    "time": "ಸಮಯ"
+  },
+  "stageTopBar": {
+    "previous": "ಹಿಂದಿನದು"
+  },
+  "raceHud": {
+    "opponents": "ಎದುರಾಳಿಗಳು",
+    "stageOf": "ಹಂತ {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "ಮುಕ್ತಾಯ!",
+    "runComplete": "ರನ್ ಪೂರ್ಣ",
+    "leaderboardPoints": "ಲೀಡರ್‌ಬೋರ್ಡ್ ಅಂಕಗಳು",
+    "pointsSuffix": " ಅಂಕ"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ಭಾ",
+      "monday": "ಸೋ",
+      "tuesday": "ಮಂ",
+      "wednesday": "ಬು",
+      "thursday": "ಗು",
+      "friday": "ಶು",
+      "saturday": "ಶ"
+    },
+    "dayStreak_one": "ದಿನದ ಸತತ ಆಟ",
+    "dayStreak_other": "ದಿನಗಳ ಸತತ ಆಟ",
+    "thisMonth": "ಈ ತಿಂಗಳು"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(ನೀವು)",
+    "puzzles_one": "{{count}} ಒಗಟು",
+    "puzzles_other": "{{count}} ಒಗಟುಗಳು",
+    "average": "ಸರಾಸರಿ: {{time}}",
+    "best": "ಅತ್ಯುತ್ತಮ: {{time}}",
+    "wins_one": "🏁 {{count}} ಗೆಲುವು",
+    "wins_other": "🏁 {{count}} ಗೆಲುವುಗಳು",
+    "points_one": "ಅಂಕ",
+    "points_other": "ಅಂಕಗಳು"
+  },
+  "scoreBreakdown": {
+    "title": "ಅಂಕಗಳ ವಿವರ",
+    "volumeBonus": {
+      "label": "ಪ್ರಮಾಣ ಬೋನಸ್",
+      "detail_one": "{{count}} ಒಗಟು ಪೂರ್ಣಗೊಂಡಿದೆ",
+      "detail_other": "{{count}} ಒಗಟುಗಳು ಪೂರ್ಣಗೊಂಡಿವೆ"
+    },
+    "dailyPuzzles": {
+      "label": "ದೈನಂದಿನ ಒಗಟುಗಳು",
+      "detail_one": "{{count}} ದೈನಂದಿನ ಸವಾಲು",
+      "detail_other": "{{count}} ದೈನಂದಿನ ಸವಾಲುಗಳು"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} ಒಗಟುಗಳು",
+      "detail": "{{collection}} ನಿಂದ {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "ಸ್ಕ್ಯಾನ್ ಮಾಡಿದ ಒಗಟುಗಳು",
+      "detail_one": "{{count}} ಆಮದು ಮಾಡಿದ ಒಗಟು",
+      "detail_other": "{{count}} ಆಮದು ಮಾಡಿದ ಒಗಟುಗಳು"
+    },
+    "difficultyBonus": {
+      "label": "ಕಷ್ಟದ ಬೋನಸ್",
+      "detail": "ಕಠಿಣ ಒಗಟುಗಳು = ಹೆಚ್ಚು ಅಂಕಗಳು"
+    },
+    "speedBonus": {
+      "label": "ವೇಗ ಬೋನಸ್",
+      "detail": "ವೇಗವಾದದ್ದು: {{time}}"
+    },
+    "racingBonus": {
+      "label": "ರೇಸಿಂಗ್ ಬೋನಸ್",
+      "detail": "ಪೂರ್ಣಗೊಳಿಸಿದ ಸ್ನೇಹಿತರನ್ನು ಸೋಲಿಸಿ"
+    },
+    "dailyCombo": {
+      "label": "ದೈನಂದಿನ ಕಾಂಬೊ",
+      "detail": "ದಿನಕ್ಕೆ ಹೆಚ್ಚು ಒಗಟುಗಳು = ದೊಡ್ಡ ಗುಣಕ"
+    }
+  },
+  "leaderboard": {
+    "you": "ನೀವು",
+    "unknownUser": "ಅಜ್ಞಾತ ಬಳಕೆದಾರ",
+    "title": "ಲೀಡರ್‌ಬೋರ್ಡ್",
+    "subtitleParty": "ಕಳೆದ 30 ದಿನಗಳು · {{partyName}}",
+    "subtitleAllTeams": "ಕಳೆದ 30 ದಿನಗಳು · ಎಲ್ಲಾ ತಂಡಗಳು",
+    "howScoringWorks": "ಅಂಕಗಳು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತವೆ"
+  },
+  "scoringLegend": {
+    "title": "ಅಂಕಗಳು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತವೆ",
+    "subtitle": "{{gameName}} · ಕಳೆದ 30 ದಿನಗಳು",
+    "close": "ಮುಚ್ಚಿ",
+    "racingWins": {
+      "title": "ರೇಸಿಂಗ್ ಗೆಲುವುಗಳು",
+      "body": "ಒಂದೇ ಪೂರ್ಣಗೊಂಡ ಒಗಟಿನಲ್ಲಿ ನೀವು ಸೋಲಿಸುವ ಪ್ರತಿ ಸ್ನೇಹಿತನಿಗೆ <points>+{{points}} ಅಂಕ</points> ಗಳಿಸಿ. {{friends}} ಸ್ನೇಹಿತರಲ್ಲಿ ಮೊದಲು ಮುಗಿಸಿ <points>+{{total}} ಅಂಕ</points> ಪಡೆಯಿರಿ."
+    },
+    "basePoints": {
+      "title": "ಮೂಲ ಅಂಕಗಳು",
+      "anyPuzzle": "ಯಾವುದೇ ಒಗಟು",
+      "dailyPuzzle": "ದೈನಂದಿನ ಒಗಟು",
+      "collectionPuzzle": "{{collection}} ಒಗಟು",
+      "scannedPuzzle": "ಸ್ಕ್ಯಾನ್ ಮಾಡಿದ ಒಗಟು"
+    },
+    "difficultyMultipliers": {
+      "title": "ಕಷ್ಟದ ಗುಣಕಗಳು",
+      "daily": "ದಿನದ {{gameName}}",
+      "collection": "{{collection}} ಒಗಟುಗಳು"
+    },
+    "speedBonuses": {
+      "title": "ವೇಗ ಬೋನಸ್‌ಗಳು",
+      "lightning": "ಮಿಂಚು",
+      "fast": "ವೇಗ",
+      "quick": "ಚುರುಕು",
+      "steady": "ಸ್ಥಿರ",
+      "under": "{{threshold}} ಒಳಗೆ",
+      "seconds": "{{value}} ಸೆ",
+      "minutes": "{{value}} ನಿ"
+    },
+    "dailyCombo": {
+      "title": "ದೈನಂದಿನ ಕಾಂಬೊ",
+      "body": "ಅದೇ ದಿನ ಹೆಚ್ಚು ಒಗಟುಗಳನ್ನು ಬಿಡಿಸಿ, ಪ್ರತಿ ಒಗಟಿನ ಅಂಕಗಳನ್ನು <max>{{max}}×</max> ವರೆಗೆ ಗುಣಿಸಿ.",
+      "puzzle": "ದಿನದ ಒಗಟು {{puzzle}}",
+      "puzzleOrMore": "ದಿನದ ಒಗಟು {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "ರನ್ ಪೂರ್ಣ",
+    "raceProgress": "ರೇಸ್ ಪ್ರಗತಿ",
+    "stagesProgress": "{{completed}}/{{total}} ಹಂತಗಳು",
+    "retryStage": "ಹಂತ ಮರುಪ್ರಯತ್ನ",
+    "stageLabel": "ಹಂತ {{number}}",
+    "stageCompletedLabel": "ಹಂತ {{number}}, {{time}} ನಲ್ಲಿ ಪೂರ್ಣಗೊಂಡಿದೆ",
+    "viewRacingStats": "ರೇಸಿಂಗ್ ಅಂಕಿಅಂಶ ನೋಡಿ",
+    "total": "ಒಟ್ಟು"
+  },
+  "raceTrack": {
+    "you": "ನೀವು",
+    "viewFriends": "ಸ್ನೇಹಿತರನ್ನು ನೋಡಲು ಕ್ಲಿಕ್ ಮಾಡಿ",
+    "start": "ಆರಂಭ",
+    "finish": "ಮುಕ್ತಾಯ",
+    "inviteToRace": "ರೇಸ್‌ಗೆ ಸ್ನೇಹಿತರನ್ನು ಆಹ್ವಾನಿಸಿ",
+    "opponents": "ಎದುರಾಳಿಗಳು",
+    "racer": "ರೇಸರ್",
+    "stageBadge": "ಹಂ{{number}}",
+    "total": "ಒಟ್ಟು",
+    "leaderboard": "ಲೀಡರ್‌ಬೋರ್ಡ್",
+    "puzzleBook": "ಒಗಟು ಪುಸ್ತಕ",
+    "puzzleBookLabel": "ಒಗಟು ಪುಸ್ತಕ",
+    "refreshScores": "ಅಂಕಗಳನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಿ",
+    "challengeFriends": "🏁 ಸ್ನೇಹಿತರಿಗೆ ಸವಾಲು ಹಾಕಿ",
+    "yourTime": "ನಿಮ್ಮ ಸಮಯ:",
+    "inviteFriends": "ಸ್ನೇಹಿತರನ್ನು ಆಹ್ವಾನಿಸಿ",
+    "racingLabel": "ರೇಸಿಂಗ್"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "ಚಾತುರ್ಯದ",
+      "easy": "ಸವಾಲಿನ",
+      "intermediate": "ಕಠಿಣ",
+      "expert": "ತಜ್ಞ"
+    },
+    "book": {
+      "veryEasy": "ಬಹಳ ಸುಲಭ",
+      "easy": "ಸುಲಭ",
+      "moderatelyEasy": "ಸ್ವಲ್ಪ ಸುಲಭ",
+      "moderate": "ಮಧ್ಯಮ",
+      "moderatelyHard": "ಸ್ವಲ್ಪ ಕಠಿಣ",
+      "hard": "ಕಠಿಣ",
+      "vicious": "ಉಗ್ರ",
+      "fiendish": "ಅತಿ ಕಠಿಣ",
+      "devilish": "ಪೈಶಾಚಿಕ",
+      "hell": "ನರಕ",
+      "beyondHell": "ನರಕದಾಚೆ"
+    }
+  },
+  "techniques": {
+    "lastDigit": "ಕೊನೆಯ ಅಂಕಿ",
+    "hiddenSingleBox": "ಹಿಡನ್ ಸಿಂಗಲ್ (ಬಾಕ್ಸ್)",
+    "hiddenSingleLine": "ಹಿಡನ್ ಸಿಂಗಲ್ (ಸಾಲು)",
+    "hiddenSingleVariantRegion": "ಹಿಡನ್ ಸಿಂಗಲ್ (ವೇರಿಯಂಟ್ ಪ್ರದೇಶ)",
+    "nakedSingle": "ನೇಕೆಡ್ ಸಿಂಗಲ್",
+    "hiddenPair": "ಹಿಡನ್ ಪೇರ್",
+    "lockedCandidate": "ಲಾಕ್ಡ್ ಕ್ಯಾಂಡಿಡೇಟ್",
+    "hiddenTriple": "ಹಿಡನ್ ಟ್ರಿಪಲ್",
+    "hiddenQuadruple": "ಹಿಡನ್ ಕ್ವಾಡ್ರುಪಲ್",
+    "nakedPair": "ನೇಕೆಡ್ ಪೇರ್",
+    "nakedTriple": "ನೇಕೆಡ್ ಟ್ರಿಪಲ್",
+    "nakedQuadruple": "ನೇಕೆಡ್ ಕ್ವಾಡ್ರುಪಲ್",
+    "xWing": "ಎಕ್ಸ್-ವಿಂಗ್",
+    "swordfish": "ಸ್ವೋರ್ಡ್‌ಫಿಶ್",
+    "skyscraper": "ಸ್ಕೈಸ್ಕ್ರೇಪರ್",
+    "twoStringKite": "ಟೂ-ಸ್ಟ್ರಿಂಗ್ ಕೈಟ್",
+    "crane": "ಕ್ರೇನ್",
+    "simpleColoring": "ಸಿಂಪಲ್ ಕಲರಿಂಗ್",
+    "yWing": "ವೈ-ವಿಂಗ್",
+    "xYZWing": "ಎಕ್ಸ್‌ವೈಝಡ್-ವಿಂಗ್",
+    "wWing": "ಡಬ್ಲ್ಯೂ-ವಿಂಗ್",
+    "finnedSashimiXWing": "ಫಿನ್ಡ್/ಸಾಶಿಮಿ ಎಕ್ಸ್-ವಿಂಗ್",
+    "emptyRectangle": "ಎಂಪ್ಟಿ ರೆಕ್ಟಾಂಗಲ್",
+    "uniqueRectangleType1": "ಯೂನಿಕ್ ರೆಕ್ಟಾಂಗಲ್ ವಿಧ 1",
+    "uniqueRectangleType2": "ಯೂನಿಕ್ ರೆಕ್ಟಾಂಗಲ್ ವಿಧ 2",
+    "uniqueRectangleType3": "ಯೂನಿಕ್ ರೆಕ್ಟಾಂಗಲ್ ವಿಧ 3",
+    "uniqueRectangleType4": "ಯೂನಿಕ್ ರೆಕ್ಟಾಂಗಲ್ ವಿಧ 4",
+    "uniqueRectangleType5": "ಯೂನಿಕ್ ರೆಕ್ಟಾಂಗಲ್ ವಿಧ 5",
+    "finnedSashimiSwordfish": "ಫಿನ್ಡ್/ಸಾಶಿಮಿ ಸ್ವೋರ್ಡ್‌ಫಿಶ್",
+    "jellyfish": "ಜೆಲ್ಲಿಫಿಶ್",
+    "bugBinaryUniversalGrave": "BUG (ಬೈನರಿ ಯೂನಿವರ್ಸಲ್ ಗ್ರೇವ್)",
+    "xChain": "ಎಕ್ಸ್-ಚೈನ್",
+    "groupedXChain": "ಗ್ರೂಪ್ಡ್ ಎಕ್ಸ್-ಚೈನ್",
+    "YWing4WXYZWing": "4-ವೈ-ವಿಂಗ್ (ಡಬ್ಲ್ಯೂಎಕ್ಸ್‌ವೈಝಡ್-ವಿಂಗ್)",
+    "yWing5": "5-ವೈ-ವಿಂಗ್",
+    "yWing6": "6-ವೈ-ವಿಂಗ್",
+    "yWing7": "7-ವೈ-ವಿಂಗ್",
+    "yWing8": "8-ವೈ-ವಿಂಗ್",
+    "yWing9": "9-ವೈ-ವಿಂಗ್",
+    "finnedSashimiJellyfish": "ಫಿನ್ಡ್/ಸಾಶಿಮಿ ಜೆಲ್ಲಿಫಿಶ್",
+    "medusa3D": "3D ಮೆಡೂಸಾ",
+    "xyChain": "ಎಕ್ಸ್‌ವೈ-ಚೈನ್",
+    "alternatingInferenceChainAIC": "ಆಲ್ಟರ್ನೇಟಿಂಗ್ ಇನ್‌ಫರೆನ್ಸ್ ಚೈನ್ (AIC)",
+    "groupedAlternatingInferenceChainAIC": "ಗ್ರೂಪ್ಡ್ ಆಲ್ಟರ್ನೇಟಿಂಗ್ ಇನ್‌ಫರೆನ್ಸ್ ಚೈನ್ (AIC)",
+    "nishioForcingChain": "ನಿಶಿಯೋ ಫೋರ್ಸಿಂಗ್ ಚೈನ್",
+    "nishioForcingNet": "ನಿಶಿಯೋ ಫೋರ್ಸಿಂಗ್ ನೆಟ್"
+  }
+}

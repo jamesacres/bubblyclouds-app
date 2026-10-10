@@ -13,7 +13,7 @@ import { RevenueCatContextInterface } from '../../providers/RevenueCatProvider';
 const DEFAULT_MAX = 5;
 
 const copyButtonClassName =
-  'inline-flex h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] text-xs font-semibold transition-transform active:scale-95';
+  'inline-flex min-h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] py-1 text-center text-xs font-semibold transition-transform active:scale-95';
 const copyButtonStyle = {
   background: 'color-mix(in srgb, var(--theme-primary-light) 14%, transparent)',
   border:
@@ -136,7 +136,7 @@ export function InviteSheet({
   };
 
   const inputClassName =
-    'w-full h-[52px] rounded-[14px] border border-white/[0.12] bg-white/[0.04] px-4 text-[15px] font-medium text-white outline-none';
+    'w-full min-h-[52px] rounded-[14px] border border-white/[0.12] bg-white/[0.04] px-4 text-[15px] font-medium text-white outline-none';
 
   return (
     <div
@@ -155,32 +155,30 @@ export function InviteSheet({
         }}
       />
       <div
-        className={`absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] ${
+        className={`absolute inset-x-0 bottom-0 flex flex-col overflow-hidden rounded-t-[26px] transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:end-auto md:start-1/2 md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] md:rtl:translate-x-1/2 ${
           open
             ? 'translate-y-0 md:scale-100 md:opacity-100'
             : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
         }`}
         style={{
           maxHeight: '88%',
-          borderTopLeftRadius: 26,
-          borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#15102e 0%,#0c0a1c 100%)',
           borderTop: '1px solid rgba(167,139,250,0.22)',
           boxShadow: '0 -20px 60px rgba(0,0,0,0.55)',
         }}
       >
         <div
-          className="flex items-start justify-between px-5 pb-4 pt-5"
+          className="flex items-start justify-between gap-3 px-5 pb-4 pt-5"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
         >
-          <div>
+          <div className="min-w-0">
             <div
               className="mb-1.5 text-[10.5px] font-extrabold uppercase tracking-widest"
               style={{ color: 'var(--theme-primary-light)' }}
             >
               {t('lobby.invite.eyebrow')}
             </div>
-            <h2 className="m-0 text-2xl font-bold tracking-tight text-white">
+            <h2 className="m-0 break-words text-2xl font-bold tracking-tight text-white">
               {t('lobby.invite.title')}
             </h2>
           </div>
@@ -251,7 +249,7 @@ export function InviteSheet({
                             }}
                           />
                         ) : (
-                          <span className="min-w-0 text-sm font-bold text-white">
+                          <span className="min-w-0 break-words text-sm font-bold text-white">
                             {party.partyName}
                           </span>
                         )}
@@ -287,12 +285,12 @@ export function InviteSheet({
                           {party.isOwner ? (
                             <Trash size={13} />
                           ) : (
-                            <LogOut size={13} />
+                            <LogOut size={13} className="rtl:-scale-x-100" />
                           )}
                         </button>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span
                           className="text-xs font-semibold"
                           style={{ color: 'rgba(255,255,255,0.45)' }}
@@ -397,8 +395,8 @@ export function InviteSheet({
           <button
             onClick={handleCreateClick}
             disabled={isSaving || !teamName.trim() || !display.trim()}
-            className="bg-theme-primary hover:bg-theme-primary-dark mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl text-base font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
-            style={{ height: 54 }}
+            className="bg-theme-primary hover:bg-theme-primary-dark mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl px-4 py-2 text-center text-base font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
+            style={{ minHeight: 54 }}
           >
             {isSaving ? (
               <Loader size={18} className="animate-spin" />

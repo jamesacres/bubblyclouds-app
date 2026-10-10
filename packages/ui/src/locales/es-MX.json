@@ -1,0 +1,58 @@
+{
+  "language": {
+    "label": "Idioma",
+    "automatic": "Automático"
+  },
+  "header": {
+    "offline": "Sin conexión",
+    "back": "Atrás"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Alternar modo oscuro"
+  },
+  "starRating": {
+    "label_one": "{{filled}} de {{count}} estrella",
+    "label_many": "{{filled}} de {{count}} de estrellas",
+    "label_other": "{{filled}} de {{count}} estrellas"
+  },
+  "timer": {
+    "go": "¡YA!"
+  },
+  "themeColor": {
+    "change": "Cambiar color del tema",
+    "set": "Establecer el color del tema en {{color}}",
+    "setPremium": "Establecer el color del tema en {{color}} (Premium)",
+    "colors": {
+      "blue": "azul",
+      "red": "rojo",
+      "green": "verde",
+      "purple": "morado",
+      "amber": "ámbar",
+      "cyan": "cian",
+      "pink": "rosa",
+      "indigo": "índigo",
+      "orange": "naranja",
+      "teal": "verde azulado",
+      "slate": "pizarra",
+      "rose": "rosa intenso",
+      "emerald": "esmeralda",
+      "sky": "celeste",
+      "violet": "violeta",
+      "lime": "lima",
+      "fuchsia": "fucsia",
+      "yellow": "amarillo",
+      "stone": "piedra",
+      "zinc": "zinc"
+    }
+  },
+  "copyButton": {
+    "copied": "¡Copiado en el portapapeles!",
+    "share": "Compartir invitación",
+    "copy": "Copiar enlace de invitación"
+  },
+  "share": {
+    "joinTeam": "¡Únete al equipo de carreras en {{appName}}!",
+    "joinNamedTeam": "¡Únete al equipo de carreras {{partyName}} en {{appName}}!",
+    "dialogTitle": "Compartir invitación"
+  }
+}

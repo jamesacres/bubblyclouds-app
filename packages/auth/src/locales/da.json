@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Log ind for at fortsætte",
+    "signInWith": "Log ind med {{provider}}",
+    "emailTitle": "Log ind med e-mail",
+    "emailPlaceholder": "din@email.dk",
+    "continue": "Fortsæt",
+    "cancel": "Annuller",
+    "terms": "Servicevilkår",
+    "privacy": "Privatlivspolitik"
+  },
+  "header": {
+    "signIn": "Log ind"
+  },
+  "avatar": {
+    "alt": "bruger"
+  },
+  "panel": {
+    "title": "Konto",
+    "greeting": "Hej, {{name}}!",
+    "fallbackName": "Bruger",
+    "plusActive": "{{gameName}} {{plus}} aktiv",
+    "joinGamePlus": "Få {{gameName}} {{plus}}",
+    "joinPlus": "Få {{plus}}",
+    "signOut": "Log ud",
+    "privacy": "Privatlivspolitik",
+    "terms": "Servicevilkår",
+    "credits": "Tak til",
+    "deleteAccount": "Slet konto",
+    "poweredBy": "Drevet af {{companyName}}",
+    "deleteUnavailable": "Sletning af konto er ikke tilgængelig.",
+    "deleteFailed": "Kontoen kunne ikke slettes. Prøv igen senere."
+  },
+  "deleteDialog": {
+    "title": "Slet konto",
+    "warning": "Denne handling kan ikke fortrydes. Alle dine data i alle {{companyName}}-apps slettes permanent.",
+    "confirmation": "Jeg bekræfter, at jeg vil slette hele min konto inklusive alle data i alle {{companyName}}-apps.",
+    "cancel": "Annuller",
+    "deleting": "Sletter...",
+    "submit": "Slet konto"
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone 和 iPad"
+  },
+  "errors": {
+    "generic": "发生了意外错误，请重试。",
+    "dismiss": "关闭"
+  },
+  "errorBoundary": {
+    "title": "哎呀！出错了",
+    "description": "我们遇到了意外错误。别担心，您的进度已保存！",
+    "reload": "重新加载应用",
+    "clearStorage": "清除存储并重新加载",
+    "contactSupport": "如果问题仍然存在，请联系客服。"
+  },
+  "time": {
+    "minutesAgo_other": "{{count}}分钟前",
+    "hoursAgo_other": "{{count}}小时前",
+    "daysAgo_other": "{{count}}天前"
+  },
+  "tier": {
+    "novice": "新手",
+    "advancedBeginner": "初学者",
+    "competent": "胜任",
+    "proficient": "熟练",
+    "expert": "专家"
+  },
+  "moves": {
+    "onPar": "步，与基准持平",
+    "overPar": "步，比基准多 {{delta}} 步",
+    "underPar": "步，比基准少 {{delta}} 步"
+  },
+  "lobby": {
+    "title": "竞速大厅",
+    "close": "关闭大厅",
+    "onlineOpponents": "在线对手",
+    "refresh": "刷新在线对手",
+    "noOpponents": "暂无在线对手——邀请朋友来竞速吧！",
+    "away": "离开",
+    "offlineTeams": "离线 · 在您的团队中",
+    "removeMember": "移除 {{name}}",
+    "aiOpponents": "AI 对手",
+    "addAgent": "添加",
+    "noAgents": "还没有 AI 对手——添加一个，随时都有对手可以竞速。",
+    "ownClock": "每位玩家按各自的计时竞速",
+    "startSolving": "开始解题",
+    "finished": "已完成",
+    "inLobby": "在大厅中",
+    "stageProgress": "第 {{current}} 关，共 {{total}} 关",
+    "finishedRunIn": "用时 {{time}} 完成全程",
+    "solvedIn": "用时 {{time}} 解出",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · 最后在线 {{lastSeen}}",
+    "raceSummary": {
+      "solo": "单人竞速——只有您和计时器",
+      "friends_other": "{{count}} 位好友",
+      "aiOpponents_other": "{{count}} 个 AI 对手",
+      "racing": "对战 {{opponents}}"
+    },
+    "invite": {
+      "button": "邀请",
+      "eyebrow": "组建您的竞速",
+      "title": "邀请对手",
+      "close": "关闭",
+      "existingTeam": "邀请加入现有团队",
+      "editTeamName": "编辑团队名称",
+      "deleteTeam": "删除团队",
+      "leaveTeam": "退出团队",
+      "memberCount_other": "{{count}} 位成员",
+      "createTeam": "创建新的竞速团队",
+      "displayNameLabel": "团队成员怎么称呼您？",
+      "displayNamePlaceholder": "显示名称",
+      "teamNameLabel": "给这个团队起个什么名字？",
+      "teamNamePlaceholder": "团队名称（例如：家人）",
+      "createAndCopy": "创建并复制链接",
+      "defaultTeamName": "新团队",
+      "defaultPlayerName": "玩家"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "关闭面板",
+    "back": "返回",
+    "close": "关闭",
+    "title": "选择您的对手",
+    "subtitle": "选择一个或多个对手",
+    "selectAtLeastOne": "请至少选择一个对手",
+    "race_other": "与 {{count}} 个对手竞速",
+    "skill": {
+      "novice": "新手",
+      "advancedBeginner": "进阶新手",
+      "competent": "胜任",
+      "proficient": "熟练",
+      "expert": "专家"
+    }
+  },
+  "agentParty": {
+    "title": "AI 对手",
+    "rivalCount_other": "{{count}} 个对手"
+  },
+  "party": {
+    "cancel": "取消",
+    "editName": "编辑团队名称",
+    "editMaxMembers": "编辑成员上限",
+    "memberCount_other": "{{count}} 位成员",
+    "memberCountPremium_other": "{{count}} 位成员 ✨ Plus",
+    "membersOf_other": "{{current}}/{{count}} 位成员",
+    "shareLink": "将此链接分享给现有团队成员，邀请他们加入这道谜题",
+    "you": "（您）",
+    "notStarted": "还没开始！叫他们来玩吧"
+  },
+  "partyConfirmation": {
+    "cancel": "取消",
+    "leaveAgentParty": {
+      "title": "移除 AI 对手",
+      "action": "移除",
+      "processing": "正在移除…",
+      "message": "确定要移除所有 AI 对手吗？他们将不再出现在比赛中。"
+    },
+    "removeAgent": {
+      "title": "移除本地对手",
+      "action": "移除",
+      "processing": "正在移除…",
+      "message": "确定要将“{{memberName}}”从比赛中移除吗？"
+    },
+    "deleteParty": {
+      "title": "删除团队",
+      "action": "删除团队",
+      "processing": "正在删除…",
+      "message": "确定要删除“{{partyName}}”吗？这将永久移除该团队，所有成员都将失去访问权限。此操作无法撤销。"
+    },
+    "leave": {
+      "title": "退出团队",
+      "action": "退出",
+      "processing": "正在退出…",
+      "message": "确定要退出“{{partyName}}”吗？您将无法再查看其他成员的进度，也无法参与该团队的活动。"
+    },
+    "remove": {
+      "title": "移除成员",
+      "action": "移除",
+      "processing": "正在移除…",
+      "message": "确定要将“{{memberName}}”从“{{partyName}}”中移除吗？他们将无法再参与该团队的活动。"
+    }
+  },
+  "friends": {
+    "allTeams": "所有团队",
+    "refresh": "刷新",
+    "refreshing": "正在刷新…",
+    "title": "好友的谜题",
+    "subtitle": "点按好友，查看他们最近的谜题并与他们竞速。",
+    "memberCount_other": "{{count}} 位成员",
+    "noRecentPuzzles": "最近没有谜题——向他们发起挑战吧！",
+    "empty": {
+      "title": "还没有竞速团队",
+      "description": "解题时可在竞速大厅中邀请好友"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "您过去 30 天内的谜题。",
+    "empty": {
+      "title": "还没有谜题",
+      "description": "前往“开始竞速”，解出您的第一道谜题"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_other": "另有 {{count}} 项功能"
+  },
+  "crossPromo": {
+    "whyNotTry": "不妨试试",
+    "tryItFree": "免费试玩"
+  },
+  "rateApp": {
+    "prompt": "喜欢 {{appName}} 吗？",
+    "rateIt": "去评分",
+    "rateInSeconds": "几秒钟就能评分"
+  },
+  "plus": {
+    "close": "关闭弹窗",
+    "appIconAlt": "应用图标",
+    "lifetime": "终身版",
+    "monthly": "月度",
+    "perMonth": "{{price}}/月",
+    "whatsIncluded": "包含内容",
+    "continue": "继续",
+    "restorePurchases": "恢复购买",
+    "cancel": "取消"
+  },
+  "download": {
+    "title": "在应用中继续",
+    "appStoreAlt": "在 {{appStore}} 下载",
+    "googlePlayAlt": "在 {{googlePlay}} 获取",
+    "continueBrowser": "在浏览器中继续",
+    "continueDesktop": "在桌面端继续"
+  },
+  "session": {
+    "cheated": "作弊",
+    "completedIn": "用时 {{minutes}} 分 {{seconds}} 秒完成",
+    "percentComplete": "已完成 {{percentage}}%",
+    "duration": "{{minutes}} 分 {{seconds}} 秒",
+    "shortDate": "{{month}}{{day}}",
+    "dayOrdinal_ordinal_other": "{{count}}日",
+    "puzzleNumber": "第 {{number}} 题",
+    "daily": "每日 {{date}}",
+    "book": "谜题集 {{month}} #{{number}}",
+    "collection": "合集 {{month}} #{{number}}",
+    "scanned": "扫描的谜题",
+    "you": "您",
+    "unknown": "未知",
+    "unlockWith": "使用 {{label}} 解锁",
+    "lockedPuzzle": "未解锁的谜题",
+    "recommendedTechniques": "推荐技巧：",
+    "loadingFriends": "正在加载好友…"
+  }
+}

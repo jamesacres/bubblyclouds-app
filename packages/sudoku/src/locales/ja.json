@@ -1,0 +1,338 @@
+{
+  "brand": {
+    "gameName": "数独レース"
+  },
+  "board": {
+    "buttonGroup": "ボタングループ"
+  },
+  "celebration": {
+    "solved": "完成！",
+    "leaderboardPoints": "リーダーボードポイント",
+    "pointsSuffix": "pt"
+  },
+  "completion": {
+    "time": "タイム"
+  },
+  "nextPuzzle": {
+    "streakMessage": "ブックで連続記録を伸ばそう"
+  },
+  "puzzleMeta": {
+    "daily": "デイリー {{month}}{{day}}",
+    "dayOrdinal": "{{count}}日",
+    "dayOrdinal_ordinal_other": "{{count}}日",
+    "book": "ブック {{month}} #{{number}}",
+    "scanned": "スキャンしたパズル"
+  },
+  "bookCover": {
+    "edition": "{{month}}版",
+    "puzzleCount": "50パズル • 複数の難易度",
+    "months": {
+      "january": {
+        "tagline": "基本から超難問のテクニックまで",
+        "footer": "❄️ 冬のチャレンジ版 ❄️"
+      },
+      "february": {
+        "tagline": "ヒドゥンシングルからAICチェーンまで",
+        "footer": "💕 挑戦を愛そう 💕"
+      },
+      "march": {
+        "tagline": "春は上級テクニックへ",
+        "footer": "🌸 新たな挑戦が花開く 🌸"
+      },
+      "april": {
+        "tagline": "どんな解法の嵐も乗り越えよう",
+        "footer": "🌈 雨のあとには勝利が待つ 🌈"
+      },
+      "may": {
+        "tagline": "頭脳の力で花開こう",
+        "footer": "🌻 あなたのスキルが花開きますように 🌻"
+      },
+      "june": {
+        "tagline": "夏の脳トレーニング",
+        "footer": "☀️ 解く楽しさの明るい面 ☀️"
+      },
+      "july": {
+        "tagline": "ビーチで読書、脳トレも",
+        "footer": "🏖️ バカンスの頭脳ゲーム 🏖️"
+      },
+      "august": {
+        "tagline": "頭脳をヒートアップ",
+        "footer": "🔥 灼熱のチャレンジ 🔥"
+      },
+      "september": {
+        "tagline": "頭脳を学びの場へ",
+        "footer": "📚 数字で知識を深めよう 📚"
+      },
+      "october": {
+        "tagline": "ちょっと不気味な賢いチャレンジ",
+        "footer": "🎃 ゾクゾクするほど楽しい 🎃"
+      },
+      "november": {
+        "tagline": "焚き火の夜の脳トレ",
+        "footer": "🍂 忘れるな、忘れるな！ 🍂"
+      },
+      "december": {
+        "tagline": "ホリデーの脳トレギフト",
+        "footer": "🎄 ハッピーホリデー、ソルバーさん！ 🎄"
+      },
+      "default": {
+        "tagline": "頭脳に挑戦しよう",
+        "footer": "🧩 パズルパワー 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "オフラインです。接続を確認してください",
+      "loadFailed": "パズルブックを読み込めませんでした"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "キーボード：矢印キー、元に戻す、やり直す。",
+      "notes": "Shiftキーを押したまま、またはnキーでメモモードを切り替えます。",
+      "validate": "cキーでマスを確認、gキーで盤面を確認します。"
+    },
+    "owl": {
+      "invalid": "間違いがあるようです。盤面を確認することをおすすめします。",
+      "notSure": "ごめんなさい、よくわかりません。",
+      "eureka": "ユリイカ表記 {{notation}}",
+      "highlighted": "関連するマスをハイライトしました",
+      "foundTechnique": "{{technique}}を見つけました",
+      "noHint": "利用できるヒントはありません"
+    },
+    "legend": {
+      "stem": "ステム",
+      "petalA": "花びらA",
+      "petalB": "花びらB",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "オン（真）",
+      "off": "オフ（偽）",
+      "elimination": "消去"
+    },
+    "reply": {
+      "thanks": "ありがとう、",
+      "tellMeMore": "🤔 もっと教えて",
+      "showMeWhere": "👀 場所を見せて",
+      "hideHint": "ヒントを隠す"
+    },
+    "askForHelp": "助けを求める",
+    "notes": "メモ",
+    "copied": "コピーしました！",
+    "export": "エクスポート",
+    "delete": "削除",
+    "undo": "元に戻す",
+    "redo": "やり直す",
+    "cell": "マス",
+    "grid": "盤面",
+    "zoom": "ズーム",
+    "reset": "リセット",
+    "reveal": "答えを表示",
+    "confirm": {
+      "reset": {
+        "title": "盤面全体をリセットしますか？",
+        "body": "盤面全体をリセットしてもよろしいですか？",
+        "confirm": "リセット"
+      },
+      "reveal": {
+        "title": "盤面全体の答えを表示しますか？",
+        "body": "盤面全体の答えを表示してもよろしいですか？",
+        "confirm": "答えを表示"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "ネイキッドシングル",
+    "hiddenSingleBox": "ヒドゥンシングル（ボックス）",
+    "hiddenSingleRow": "ヒドゥンシングル（行）",
+    "hiddenSingleCol": "ヒドゥンシングル（列）",
+    "nakedPair": "ネイキッドペア",
+    "nakedTriple": "ネイキッドトリプル",
+    "nakedQuad": "ネイキッドクワッド",
+    "hiddenPair": "ヒドゥンペア",
+    "hiddenTriple": "ヒドゥントリプル",
+    "hiddenQuad": "ヒドゥンクワッド",
+    "lockedCandidatePointing": "ロックドキャンディデート（ポインティング）",
+    "lockedCandidateClaiming": "ロックドキャンディデート（クレイミング）",
+    "xWing": "Xウィング",
+    "swordfish": "ソードフィッシュ",
+    "jellyfish": "ジェリーフィッシュ",
+    "skyscraper": "スカイスクレイパー",
+    "twoStringKite": "2ストリングカイト",
+    "finnedXWing": "フィン付きXウィング",
+    "finnedSwordfish": "フィン付きソードフィッシュ",
+    "finnedJellyfish": "フィン付きジェリーフィッシュ",
+    "emptyRectangle": "エンプティレクタングル",
+    "wWing": "Wウィング",
+    "yWing": "Yウィング",
+    "xyzWing": "XYZウィング",
+    "uniqueRectangleType1": "ユニークレクタングル（タイプ1）",
+    "uniqueRectangleType2": "ユニークレクタングル（タイプ2）",
+    "uniqueRectangleType3": "ユニークレクタングル（タイプ3）",
+    "uniqueRectangleType4": "ユニークレクタングル（タイプ4）",
+    "uniqueRectangleType5": "ユニークレクタングル（タイプ5）",
+    "bug": "BUG",
+    "xyChain": "XYチェーン",
+    "aic": "AIC",
+    "aicRing": "AICリング",
+    "groupedAIC": "グループAIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "スー・ド・コック",
+    "deathBlossom": "デスブロッサム",
+    "nishio": "ニシオ",
+    "nishioNet": "ニシオネット",
+    "cellRegionForcingChain": "セル／領域フォーシングチェーン",
+    "cellRegionForcingNet": "セル／領域フォーシングネット",
+    "forcingChain": "フォーシングチェーン"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "バンブルビー",
+      "emojiName": "ミツバチ",
+      "personality": "落ち着きがなく熱心。盤面を一気に駆け回っては止まる。終盤は早く加速しすぎて、ゴール直前で詰まってしまう。",
+      "voiceLines": {
+        "neutral": [
+          "おっ！見つけた！",
+          "待って…やっぱり違うかな…",
+          "ブンブン！進んでる！"
+        ],
+        "playerAhead": ["ちょっと、ゆっくりして！", "調子よかったのに…"],
+        "playerBehind": ["追いついてるよ！", "見て見て、この勢い！"],
+        "endgame": ["もうすぐ！たぶん！", "待って、これはどこに入るの！？"]
+      }
+    },
+    "puddle": {
+      "name": "パドル",
+      "emojiName": "アヒル",
+      "personality": "陽気でのんびり。ゆっくり着実で、長い休憩が多い。終盤は、ほとんど偶然のように答えにたどり着く。",
+      "voiceLines": {
+        "neutral": ["マイペースにいくよ...", "うーん...このあたりかな。"],
+        "playerAhead": ["いい調子だね！", "そのうち追いつくよ。"],
+        "playerBehind": ["あっ！見つけた！", "いい感じ。"],
+        "endgame": ["もうすぐ終わりかな？", "あっ！うまくいった。"]
+      }
+    },
+    "flint": {
+      "name": "フリント",
+      "emojiName": "トカゲ",
+      "personality": "慎重で観察眼が鋭い。長い間のあと、小さなまとまりで進める。終盤は一手ごとにためらう。",
+      "voiceLines": {
+        "neutral": ["もう一度確認しよう。", "これで合っているはず。"],
+        "playerAhead": ["ここは慎重にいこう。", "焦らないで。"],
+        "playerBehind": ["よし…追いついてきた。", "まだ時間はある。"],
+        "endgame": ["慎重に...", "もう少し…確かめないと。"]
+      }
+    },
+    "tangle": {
+      "name": "タングル",
+      "emojiName": "クモ",
+      "personality": "計画的で几帳面。一つひとつ丁寧に進めていく。終盤は構造が崩れ、計画がもう通用しないかのようにためらいが忍び寄る。",
+      "voiceLines": {
+        "neutral": ["パターンに合っている。", "一つずつ..."],
+        "playerAhead": ["うまくいっていたのに...", "直さなきゃ..."],
+        "playerBehind": ["まだ崩れていない。", "うん…これでいける。"],
+        "endgame": ["待って、これだと崩れる。", "計画していたのに..."]
+      }
+    },
+    "maple": {
+      "name": "メープル",
+      "emojiName": "アライグマ",
+      "personality": "たくましく、チャンスを逃さない。リズムは不規則。終盤は勢いに乗り、予想より速く終わらせる。",
+      "voiceLines": {
+        "neutral": ["うまくいった！", "ちょっと雑だけど、よしとしよう。"],
+        "playerAhead": ["よし、ここから追い上げよう。", "まだ終わってない。"],
+        "playerBehind": ["おっ、いい見つけ方。", "だんだんまとまってきた。"],
+        "endgame": ["うん、いけるよ。", "流れに乗ってきた。"]
+      }
+    },
+    "compass": {
+      "name": "コンパス",
+      "emojiName": "ペンギン",
+      "personality": "整然として手堅い。一定のペース。終盤も落ち着いていて、焦りも猛ダッシュもない。",
+      "voiceLines": {
+        "neutral": ["ぴったり合う。", "安定していこう。"],
+        "playerAhead": ["ペースを保とう。", "急ぐ必要はない。"],
+        "playerBehind": ["順調だ。", "着実に進んでいる。"],
+        "endgame": ["もうすぐだ。", "きれいに終えよう。"]
+      }
+    },
+    "jinx": {
+      "name": "ジンクス",
+      "emojiName": "サル",
+      "personality": "気まぐれで不気味。予測できない勢いで動く。終盤は、不公平に感じるほど突然加速する。",
+      "voiceLines": {
+        "neutral": ["ふふ…意外だった？", "おや、おもしろいね。"],
+        "playerAhead": ["安心するのはまだ早いよ。", "見てて。"],
+        "playerBehind": ["たまにカチッとはまるんだ。", "まぐれ…それとも？"],
+        "endgame": ["おお、いくよ。", "あっという間だね。"]
+      }
+    },
+    "drift": {
+      "name": "ドリフト",
+      "emojiName": "ワシ",
+      "personality": "超然としてしなやか。間を置いて、自信を持って入れていく。終盤は静かに加速する。",
+      "voiceLines": {
+        "neutral": ["もう見えていたよ。", "ただ埋めるだけ。"],
+        "playerAhead": ["何も変わらないよ。", "結果は同じさ。"],
+        "playerBehind": ["もう終わったも同然。", "今は別の場所にいる。"],
+        "endgame": ["…もうすぐ終わり。", "仕上げに入る。"]
+      }
+    },
+    "ember": {
+      "name": "エンバー",
+      "emojiName": "キツネ",
+      "personality": "激しく負けず嫌い。速いスタートで、絶えずプレッシャーをかける。終盤の追い込みは攻撃的。",
+      "voiceLines": {
+        "neutral": ["ついてきて。", "まだついてきてる？"],
+        "playerAhead": ["今は緩めないで。", "もっとできるでしょ。"],
+        "playerBehind": ["遅いね。", "遅れてるよ。"],
+        "endgame": ["終わらせる。", "これは私のもの。"]
+      }
+    },
+    "latch": {
+      "name": "ラッチ",
+      "emojiName": "サメ",
+      "personality": "忍耐強く、獲物を狙う捕食者のよう。ぴたりと背後につき、終盤で一気に詰める。",
+      "voiceLines": {
+        "neutral": ["すぐ後ろにいるよ。", "まだだ。"],
+        "playerAhead": ["そのままでいて。", "もう近いよ。"],
+        "playerBehind": ["迫ってるよ。", "そこにいたんだね。"],
+        "endgame": ["さあ、終わりにしよう。", "捕まえた。"]
+      }
+    },
+    "sage": {
+      "name": "セージ",
+      "emojiName": "フクロウ",
+      "personality": "穏やかで思慮深い。なめらかなペース。終盤はきれいで、必然的。",
+      "voiceLines": {
+        "neutral": ["予想どおり。", "すべてがそろう。"],
+        "playerAhead": ["いいね。", "見えているね。"],
+        "playerBehind": ["最後までやり抜いて。", "続けて。"],
+        "endgame": ["もうすぐ完成。", "そこだ。"]
+      }
+    },
+    "phantom": {
+      "name": "ファントム",
+      "emojiName": "黒猫",
+      "personality": "無口で人間離れしている。休みはほとんどない。終盤は途切れずに一気に終える。",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…まだ。"],
+        "playerBehind": ["遅い。", "ためらったな。"],
+        "endgame": ["…終わり。", "終了。"]
+      }
+    },
+    "zenith": {
+      "name": "ゼニス",
+      "emojiName": "ドラゴン",
+      "personality": "余裕があり絶対的。終始、完璧に状況を掌握する。終盤は、隙も抵抗も許さず、決定的に一気に片づける。",
+      "voiceLines": {
+        "neutral": ["想定どおり。", "ずれはない。"],
+        "playerAhead": ["挑んだ判断は悪くない。", "続けなさい。"],
+        "playerBehind": ["これで終わりだ。", "他に道はない。"],
+        "endgame": ["以上だ。", "完了。"]
+      }
+    }
+  }
+}

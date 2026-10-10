@@ -1,0 +1,308 @@
+{
+  "brand": {
+    "gameName": "Course Débloque"
+  },
+  "controls": {
+    "hint": "Indice",
+    "hintTitle": "Demander de l'aide",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "reset": "Recommencer"
+  },
+  "labels": {
+    "time": "Temps",
+    "moves": "Coups",
+    "stageOf": "Étape {{current}} sur {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} coup",
+    "moves_many": "{{count}} de coups",
+    "moves_other": "{{count}} coups",
+    "par": "par",
+    "overPar": "{{delta}} au-dessus du par",
+    "underPar": "{{delta}} sous le par"
+  },
+  "score": {
+    "moves": "coups",
+    "srOnPar": "coups, au par",
+    "srOverPar": "coups, {{delta}} au-dessus du par",
+    "srUnderPar": "coups, {{delta}} sous le par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Quotidien · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Débutant",
+    "challenging": "Stimulant",
+    "hard": "Difficile",
+    "expert": "Expert"
+  },
+  "collection": {
+    "puzzleLabel": "Puzzle {{number}} de la collection",
+    "theme": {
+      "january": "Nouvelle année, nouvel embouteillage",
+      "february": "Embouteillage glacé",
+      "march": "Grand ouvert",
+      "april": "Averses de blocs",
+      "may": "Les voies refleurissent",
+      "june": "Pic de vitesse",
+      "july": "Série de courses d'été",
+      "august": "Embouteillage brûlant",
+      "september": "Retour sur le plateau",
+      "october": "Embouteillage hanté",
+      "november": "Voies dégagées",
+      "december": "Embouteillage des fêtes",
+      "default": "Collection mensuelle"
+    },
+    "error": {
+      "offline": "Vous êtes hors ligne, veuillez vérifier votre connexion",
+      "loadFailed": "Échec du chargement de la collection de puzzles"
+    }
+  },
+  "stageClear": {
+    "title": "Étape {{stage}} réussie",
+    "onPar": "Au par",
+    "pointsSuffix": " pts",
+    "leaderboardPoints": "Points au classement",
+    "nextStage": "Étape suivante",
+    "progress": "Étape {{stage}} sur {{total}} — encore {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Aucune issue depuis ici — annulez ou recommencez pour revenir sur la bonne voie",
+    "dismiss": "Masquer l'avis d'indice"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Poursuivez votre série dans la collection"
+  },
+  "raceTrack": {
+    "collection": "Collection"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Réessayer cette étape?",
+      "body": "Votre temps et vos coups actuels seront remplacés.",
+      "confirm": "Réessayer"
+    },
+    "reset": {
+      "title": "Recommencer ce puzzle?",
+      "body": "Cela efface vos coups et relance le puzzle depuis le début.",
+      "confirm": "Recommencer"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "abeille",
+      "personality": "Agité et enthousiaste. Fait glisser les blocs par à-coups, puis cale. Près de la sortie, accélère trop tôt et bloque la voie juste avant l'arrivée.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Celui-là glisse!",
+          "Un instant — non, ça me bloque...",
+          "Bzzz bzzz! Je fais de la place!"
+        ],
+        "playerAhead": [
+          "Hé, ralentissez!",
+          "J'étais en train de dégager un passage…"
+        ],
+        "playerBehind": ["Je vous rattrape!", "Regardez-moi glisser!"],
+        "endgame": ["La sortie! Je la vois!", "Un instant — qui a garé ça là?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "canard",
+      "personality": "Joyeux et sans but. Lent et régulier, avec de longues pauses. En fin de partie, sort de l'embouteillage presque par accident.",
+      "voiceLines": {
+        "neutral": [
+          "Je pousse les choses doucement...",
+          "Hmm... peut-être ce bloc."
+        ],
+        "playerAhead": [
+          "Vous vous débrouillez très bien!",
+          "Je finirai par m'en sortir."
+        ],
+        "playerBehind": ["Oh! Celui-là a bougé!", "C'est agréable."],
+        "endgame": [
+          "C'est la sortie, ça?",
+          "Oh! La route s'est dégagée toute seule."
+        ]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "lézard",
+      "personality": "Prudent et observateur. De longues pauses, puis de petites séries de glissements. En fin de partie, hésite avant chaque coup.",
+      "voiceLines": {
+        "neutral": [
+          "Voyons ce que ça libère.",
+          "Ce glissement devrait être sans risque."
+        ],
+        "playerAhead": [
+          "Je dois faire attention maintenant.",
+          "Ne bloquons pas la voie."
+        ],
+        "playerBehind": ["D'accord… je rattrape.", "Il est encore temps."],
+        "endgame": [
+          "Doucement maintenant...",
+          "Presque sorti… je dois juste être sûr."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "araignée",
+      "personality": "Méthodique et structuré. Dégage la voie avec soin, bloc après bloc. En fin de partie, le plan s'effondre — le doute s'installe comme si l'itinéraire ne tenait plus.",
+      "voiceLines": {
+        "neutral": ["Ça ouvre l'itinéraire.", "Bloc après bloc..."],
+        "playerAhead": [
+          "L'itinéraire fonctionnait...",
+          "Je dois replanifier..."
+        ],
+        "playerBehind": ["Ça tient toujours.", "Oui… la voie s'ouvre."],
+        "endgame": [
+          "Un instant — non, ça m'enferme à nouveau.",
+          "J'avais prévu cet itinéraire..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "raton laveur",
+      "personality": "Débrouillard et opportuniste. Rythme irrégulier. En fin de partie, prend de l'élan et file vers la sortie plus vite que prévu.",
+      "voiceLines": {
+        "neutral": ["Ça le décale!", "C'est un peu serré, mais je prends."],
+        "playerAhead": [
+          "Bon, il est temps de pousser.",
+          "Je ne suis pas encore coincé."
+        ],
+        "playerBehind": ["Oh — beau passage.", "La voie s'ouvre maintenant."],
+        "endgame": ["Oui, route dégagée devant.", "Maintenant ça roule."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingouin",
+      "personality": "Structuré et méthodique. Rythme constant. La fin de partie reste stable — pas de panique, pas de sprint.",
+      "voiceLines": {
+        "neutral": [
+          "Ce glissement colle à l'itinéraire.",
+          "Je reste constant."
+        ],
+        "playerAhead": [
+          "Gardons le rythme.",
+          "Inutile de précipiter la grille."
+        ],
+        "playerBehind": [
+          "Toujours sur la bonne voie.",
+          "La voie se dégage régulièrement."
+        ],
+        "endgame": ["Presque sorti.", "Une sortie propre."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "singe",
+      "personality": "Erratique et déstabilisant. Des à-coups imprévisibles. En fin de partie, accélère soudain d'une manière qui semble injuste.",
+      "voiceLines": {
+        "neutral": [
+          "Héhé… vous n'aviez pas vu ce passage?",
+          "Oh, voilà un glissement intéressant."
+        ],
+        "playerAhead": [
+          "Ne vous sentez pas trop à l'aise.",
+          "Regardez ce coup."
+        ],
+        "playerBehind": [
+          "Parfois, la circulation se libère d'un coup.",
+          "Un glissement chanceux… ou pas?"
+        ],
+        "endgame": [
+          "Oh là là — la route est grande ouverte.",
+          "Ça s'est dégagé vite."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "aigle",
+      "personality": "Détaché et fluide. Des glissements espacés et sûrs. Une accélération discrète en fin de partie.",
+      "voiceLines": {
+        "neutral": [
+          "J'avais déjà repéré l'itinéraire.",
+          "Je me contente de glisser à travers."
+        ],
+        "playerAhead": [
+          "Ça ne change pas l'itinéraire.",
+          "La même sortie, de toute façon."
+        ],
+        "playerBehind": [
+          "C'est dégagé, en fait.",
+          "Je me laisse porter à partir d'ici."
+        ],
+        "endgame": ["…presque sorti.", "Je roule vers la sortie."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "renard",
+      "personality": "Intense et compétitif. Départ rapide, pression constante. La poussée de fin de partie semble agressive.",
+      "voiceLines": {
+        "neutral": ["Suivez le rythme.", "Toujours coincé dans les bouchons?"],
+        "playerAhead": [
+          "Ne calez pas maintenant.",
+          "Vous pouvez glisser plus vite que ça."
+        ],
+        "playerBehind": ["Trop lent.", "Vous êtes enfermé."],
+        "endgame": ["Dégage la voie.", "Cette sortie est à moi."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "requin",
+      "personality": "Patient et prédateur. Reste tout près, puis referme l'étau en fin de partie.",
+      "voiceLines": {
+        "neutral": ["Juste derrière vous.", "Pas encore."],
+        "playerAhead": [
+          "Restez sur votre voie.",
+          "Je suis tout près maintenant."
+        ],
+        "playerBehind": ["Je me rapproche.", "Voilà le passage."],
+        "endgame": ["Maintenant, on glisse vers la sortie.", "J'ai la sortie."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "hibou",
+      "personality": "Calme et réfléchi. Rythme fluide. La fin de partie est nette et inévitable.",
+      "voiceLines": {
+        "neutral": ["Comme prévu.", "Chaque bloc à sa place."],
+        "playerAhead": ["Bien.", "Vous voyez l'itinéraire."],
+        "playerBehind": ["Suivez la voie.", "Persévérez."],
+        "endgame": ["Presque sorti.", "Voilà la sortie."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "chat noir",
+      "personality": "Silencieux et inhumain. Pauses minimales. La fin de partie est un glissement rapide et ininterrompu vers la sortie.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…encore."],
+        "playerBehind": ["Trop tard.", "Vous avez hésité."],
+        "endgame": ["…sorti.", "Sortie."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "dragon",
+      "personality": "Sans effort et absolu. Garde un contrôle parfait du début à la fin. En fin de partie, exécute un balayage décisif et ininterrompu jusqu'à la sortie — aucune ouverture, aucune résistance.",
+      "voiceLines": {
+        "neutral": ["Prévisible.", "Aucun écart."],
+        "playerAhead": ["Vous avez bien fait d'essayer.", "Continuez."],
+        "playerBehind": ["Voilà qui conclut.", "Aucune alternative."],
+        "endgame": ["C'est tout.", "Dégagé."]
+      }
+    }
+  }
+}

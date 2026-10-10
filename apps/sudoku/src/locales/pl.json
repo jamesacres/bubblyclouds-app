@@ -1,0 +1,318 @@
+{
+  "brand": {
+    "appName": "Wyścig Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Wyścigi sudoku ze znajomymi: gra i udostępnianie. Codzienne wyzwania i gra na wielu urządzeniach!"
+  },
+  "puzzle": {
+    "mobileDescription": "Najlepsze wrażenia z wyścigów w aplikacji {{appName}}!",
+    "desktopDescription": "Pobierz {{appName}}",
+    "openInAppLabel": "Otwórz łamigłówkę"
+  },
+  "crossPromo": {
+    "gameName": "Wyścig z Korkiem",
+    "tagline": "Przesuwanie bloków i wyścig ze znajomymi o rozładowanie korka."
+  },
+  "notFound": {
+    "message": "Nie znaleziono strony"
+  },
+  "login": {
+    "dailyPuzzle": "Zaloguj się, aby zacząć dzisiejszą łamigłówkę",
+    "puzzleBook": "Zaloguj się, aby przeglądać zbiór łamigłówek",
+    "joinTeam": "Zaloguj się, aby dołączyć do zespołu",
+    "raceLobby": "Zaloguj się, aby ścigać się z innymi",
+    "puzzleEntry": "Zaloguj się, aby zagrać",
+    "valueProps": {
+      "saveProgress": "Zapisywanie postępów",
+      "raceFriends": "Wyścigi ze znajomymi",
+      "trackStats": "Śledzenie statystyk"
+    }
+  },
+  "plusModal": {
+    "description": "<badge>{{plusName}}</badge> to <emphasis>zdjęcie wszystkich limitów prędkości</emphasis>: wyzwania dla znajomych, wspinaczka w rankingach i szybsze rozwiązywanie. Bez reklam."
+  },
+  "premiumFeatures": {
+    "title": "Funkcje premium",
+    "subtitle": "Pełne możliwości aplikacji {{appName}}",
+    "unlimitedPlay": {
+      "title": "Gra i wyścigi bez limitu",
+      "description": "Wyścigi ze znajomymi na żywo częściej niż raz dziennie"
+    },
+    "unlimitedHints": {
+      "title": "Podpowiedzi bez limitu",
+      "description": "Bez utknięć — podpowiedź zawsze, gdy jest potrzebna"
+    },
+    "monthlyBook": {
+      "title": "Cały miesięczny zbiór odblokowany, co miesiąc",
+      "description": "Wszystkie łamigłówki na każdym poziomie trudności, bez blokad"
+    },
+    "multipleTeams": {
+      "title": "Wiele zespołów wyścigowych",
+      "description": "Prywatne rozgrywki ze znajomymi i rodziną"
+    },
+    "teamManagement": {
+      "title": "Zarządzanie zespołem",
+      "description": "Duże zespoły do 15 osób oraz usuwanie członków zespołu."
+    },
+    "themes": {
+      "title": "Wszystkie motywy odblokowane",
+      "description": "Personalizacja wyścigów"
+    },
+    "unlimitedActions": {
+      "title": "Cofanie, sprawdzanie i odkrywanie bez limitu",
+      "description": "Bez dziennych limitów cofania, sprawdzania i odkrywania"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Wykorzystano dziś {{count}} bezpłatną podpowiedź.</bold> $t(brand.plus) zapewnia podpowiedzi bez limitu — bez utknięć — i sprawia, że cała aplikacja jest wolna od reklam.",
+    "hint_few": "💡 <bold>Wykorzystano dziś {{count}} bezpłatne podpowiedzi.</bold> $t(brand.plus) zapewnia podpowiedzi bez limitu — bez utknięć — i sprawia, że cała aplikacja jest wolna od reklam.",
+    "hint_many": "💡 <bold>Wykorzystano dziś {{count}} bezpłatnych podpowiedzi.</bold> $t(brand.plus) zapewnia podpowiedzi bez limitu — bez utknięć — i sprawia, że cała aplikacja jest wolna od reklam.",
+    "hint_other": "💡 <bold>Wykorzystano dziś {{count}} bezpłatnej podpowiedzi.</bold> $t(brand.plus) zapewnia podpowiedzi bez limitu — bez utknięć — i sprawia, że cała aplikacja jest wolna od reklam.",
+    "undo_one": "📅 <bold>Osiągnięto dzienny limit cofania!</bold> Dziennie przysługuje {{count}} bezpłatne cofnięcie. Limit odnawia się jutro, a subskrypcja daje cofanie bez limitu.",
+    "undo_few": "📅 <bold>Osiągnięto dzienny limit cofania!</bold> Dziennie przysługują {{count}} bezpłatne cofnięcia. Limit odnawia się jutro, a subskrypcja daje cofanie bez limitu.",
+    "undo_many": "📅 <bold>Osiągnięto dzienny limit cofania!</bold> Dziennie przysługuje {{count}} bezpłatnych cofnięć. Limit odnawia się jutro, a subskrypcja daje cofanie bez limitu.",
+    "undo_other": "📅 <bold>Osiągnięto dzienny limit cofania!</bold> Dziennie przysługuje {{count}} bezpłatnego cofnięcia. Limit odnawia się jutro, a subskrypcja daje cofanie bez limitu.",
+    "checkGrid_one": "📅 <bold>Osiągnięto dzienny limit sprawdzania siatki!</bold> Dziennie przysługuje {{count}} bezpłatne sprawdzenie. Limit odnawia się jutro, a subskrypcja daje sprawdzanie bez limitu.",
+    "checkGrid_few": "📅 <bold>Osiągnięto dzienny limit sprawdzania siatki!</bold> Dziennie przysługują {{count}} bezpłatne sprawdzenia. Limit odnawia się jutro, a subskrypcja daje sprawdzanie bez limitu.",
+    "checkGrid_many": "📅 <bold>Osiągnięto dzienny limit sprawdzania siatki!</bold> Dziennie przysługuje {{count}} bezpłatnych sprawdzeń. Limit odnawia się jutro, a subskrypcja daje sprawdzanie bez limitu.",
+    "checkGrid_other": "📅 <bold>Osiągnięto dzienny limit sprawdzania siatki!</bold> Dziennie przysługuje {{count}} bezpłatnego sprawdzenia. Limit odnawia się jutro, a subskrypcja daje sprawdzanie bez limitu.",
+    "reveal": "🔓 <bold>Odkrywanie siatki to funkcja premium!</bold> Subskrypcja odblokowuje możliwość odkrycia pełnego rozwiązania.",
+    "themeColor": "🎨 <bold>Ten motyw jest dostępny tylko w $t(brand.plus).</bold> Ulepszenie odblokowuje wszystkie piękne kolory motywów i pozwala spersonalizować sudoku.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Osiągnięto dzienny limit łamigłówek!</bold> Bezpłatnie można zagrać w {{count}} łamigłówkę dziennie. Limit odnawia się jutro, a subskrypcja daje grę bez limitu.",
+    "dailyPuzzleLimit_few": "🧩 <bold>Osiągnięto dzienny limit łamigłówek!</bold> Bezpłatnie można zagrać w {{count}} łamigłówki dziennie. Limit odnawia się jutro, a subskrypcja daje grę bez limitu.",
+    "dailyPuzzleLimit_many": "🧩 <bold>Osiągnięto dzienny limit łamigłówek!</bold> Bezpłatnie można zagrać w {{count}} łamigłówek dziennie. Limit odnawia się jutro, a subskrypcja daje grę bez limitu.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Osiągnięto dzienny limit łamigłówek!</bold> Bezpłatnie można zagrać w {{count}} łamigłówki dziennie. Limit odnawia się jutro, a subskrypcja daje grę bez limitu.",
+    "collectionLocked": "✨ <bold>Ta łamigłówka należy do zbioru $t(brand.plus).</bold> $t(brand.plus) odblokowuje każdą łamigłówkę w zbiorze każdego miesiąca i sprawia, że cała aplikacja jest wolna od reklam.",
+    "removeMember": "👥 <bold>Usuwanie członków zespołu to funkcja premium!</bold> Subskrypcja odblokowuje zaawansowane zarządzanie zespołem, w tym usuwanie członków.",
+    "multipleParties": "🏘️ <bold>Wiele zespołów wyścigowych to funkcja premium!</bold> Bezpłatnie można mieć jeden zespół. Subskrypcja pozwala tworzyć i dołączać do dowolnej liczby zespołów dla rodziny, znajomych i nie tylko.",
+    "partyMaxSize": "👥 <bold>Duże zespoły to funkcja premium!</bold> Subskrypcja odblokowuje zaawansowane zarządzanie zespołem, w tym duże zespoły."
+  },
+  "motivational": {
+    "messages": [
+      "Znajomi czekają na wyzwanie",
+      "Z kim dziś wyścig?",
+      "Czas pokazać swoją szybkość",
+      "Wyzwanie przyjęte?",
+      "Wyścig do mety",
+      "Kto rozwiązuje najszybciej?",
+      "Gotowi zdominować ranking?",
+      "Umiejętności wyścigowe czekają",
+      "Czas zostawić ich w tyle",
+      "Gotowi pierwsi przekroczyć metę?",
+      "Tor już czeka",
+      "Czas wrzucić wyższy bieg",
+      "Gotowi spalić gumę na siatce łamigłówki?",
+      "Przeciwnicy już się rozgrzewają",
+      "Dziś dzień na nowy rekord",
+      "Rekord życiowy czeka na pobicie",
+      "Każda łamigłówka czyni szybszym",
+      "Czas zacząć budować serię",
+      "Czas wskoczyć na wyższy poziom",
+      "Kolejny przełom jest o jedną łamigłówkę stąd",
+      "Gotowi na własne zaskoczenie?",
+      "Czas pokazać, na co nas stać",
+      "Czas uwolnić swój potencjał",
+      "Najszybsze rozwiązanie wciąż przed nami",
+      "Gotowi, by ten dzień się liczył?",
+      "W wyścigu liczy się każda sekunda",
+      "Czas przesunąć granice",
+      "Droga do postępów trwa",
+      "Gotowi przekroczyć oczekiwania?",
+      "Jak z presją?",
+      "Czas uciszyć niedowiarków",
+      "Gotowi sięgnąć po zwycięstwo?",
+      "Konkurencja się tego nie spodziewa",
+      "Czas zostawić swój ślad",
+      "Gotowi ukraść światła reflektorów?",
+      "Zwycięstwo smakuje lepiej, gdy jest wywalczone",
+      "Czas pokazać, kto tu rządzi",
+      "Gotowi pokazać prawdziwe oblicze?",
+      "Tu zaczyna się mentalność mistrza",
+      "Czas oderwać się od stawki",
+      "Gotowi napisać własną legendę?",
+      "Mistrzowie rodzą się w takich chwilach",
+      "Czas zamienić potencjał w wyniki",
+      "Nowe łamigłówki, nowe szanse",
+      "Dzisiejsze wyzwanie czeka na mistrza",
+      "Gotowi, by to był najlepszy dzień?",
+      "Nowy dzień to nowe rekordy do pobicia",
+      "Czas dorzucić kolejne zwycięstwo do kolekcji",
+      "Gotowi mocno zacząć i jeszcze mocniej skończyć?",
+      "Gotowi, by dzień był legendarny?",
+      "Codzienna dawka triumfu czeka",
+      "Strategia spotyka szybkość na siatce",
+      "Gotowi przechytrzyć i wyprzedzić?",
+      "Mistrzostwo w łamigłówkach wzywa",
+      "Czas połączyć logikę z błyskawiczną szybkością",
+      "Gotowi rozwiązywać z chirurgiczną precyzją?",
+      "Idealne połączenie: umiejętności i szybkość",
+      "Analityczny umysł to przewaga w wyścigu",
+      "Czas pokazać supremację w łamigłówkach",
+      "Gotowi rozwiązywać jak mistrz?",
+      "Precyzyjny wyścig zaczyna się od jasnego myślenia",
+      "Znajomi czekają na rewanż",
+      "Kto dziś rozwiązuje?",
+      "Nowa codzienna łamigłówka jest gotowa",
+      "Seria wisi na włosku",
+      "Nowe łamigłówki, nowy początek",
+      "Dzisiejsze wyzwanie już jest",
+      "Wyścig ze znajomym na codziennej łamigłówce",
+      "Nowy dzień, nowe łamigłówki",
+      "Ktoś już jest w rankingu",
+      "Seria trwa dalej",
+      "Codzienne wyzwania właśnie się odświeżyły",
+      "Zespół czeka",
+      "O jedną łamigłówkę bliżej szczytu",
+      "Dzisiejsze łamigłówki czekają",
+      "Czas wrócić do wyścigu"
+    ]
+  },
+  "home": {
+    "live": "Na żywo",
+    "headline": "Czas na wyścig! 🏁",
+    "subtitle": "Wystarczy rzucić wyzwanie — zaprosić znajomych i sprawdzić, kto rozwiązuje sudoku najszybciej.",
+    "leaderboard": "Ranking",
+    "daily": {
+      "title": "Codzienne wyzwania",
+      "refreshes": "odświeżane codziennie",
+      "moreLevels": "Więcej poziomów trudności w <bookLink>zbiorze łamigłówek</bookLink>",
+      "difficulty": {
+        "simple": "Podchwytliwa",
+        "easy": "Wymagająca",
+        "intermediate": "Trudna"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} łamigłówka",
+      "summary_few": "{{month}} · {{count}} łamigłówki",
+      "summary_many": "{{month}} · {{count}} łamigłówek",
+      "summary_other": "{{month}} · {{count}} łamigłówki",
+      "title": "Miesięczny zbiór",
+      "browse": "Przeglądaj łamigłówki"
+    },
+    "import": {
+      "title": "Import dowolnej łamigłówki",
+      "description": "Skanowanie aparatem lub wklejenie ciągu znaków łamigłówki",
+      "desktopTitle": "Wyścig w dowolnej łamigłówce",
+      "desktopDescription": "Skan z książki lub gazety"
+    },
+    "teams": {
+      "title": "Zespoły wyścigowe",
+      "withFriends": "Wyścig z {{friends}} i innymi",
+      "noFriends": "Wyzwanie dla znajomych"
+    },
+    "tabs": {
+      "startRace": "Zacznij wyścig",
+      "myPuzzles": "Moje łamigłówki",
+      "racingTeams": "Zespoły"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Wczytywanie zbioru łamigłówek...",
+      "puzzles": "Wczytywanie łamigłówek...",
+      "progress": "Wczytywanie postępów..."
+    },
+    "tryAgain": "Spróbuj ponownie",
+    "backHome": "Powrót na stronę główną",
+    "signInPrompt": "Zaloguj się, aby uzyskać dostęp do zbioru łamigłówek.",
+    "signIn": "Zaloguj się",
+    "noData": "Brak danych zbioru łamigłówek.",
+    "title": "Zbiór łamigłówek: {{month}}",
+    "puzzleCount_one": "{{count}} łamigłówka do ćwiczenia technik",
+    "puzzleCount_few": "{{count}} łamigłówki do ćwiczenia technik",
+    "puzzleCount_many": "{{count}} łamigłówek do ćwiczenia technik",
+    "puzzleCount_other": "{{count}} łamigłówki do ćwiczenia technik",
+    "completed": "Ukończone: {{count}}",
+    "inProgress": "W trakcie: {{count}}",
+    "unlockWithPlus": "Wszystkie łamigłówki odblokowane z $t(brand.plus)",
+    "jumpToDifficulty": "Przejdź do poziomu trudności",
+    "scrollToTop": "Przewiń na górę",
+    "difficulty": {
+      "veryEasy": "Bardzo łatwa",
+      "easy": "Łatwa",
+      "moderatelyEasy": "Dość łatwa",
+      "moderate": "Umiarkowana",
+      "moderatelyHard": "Dość trudna",
+      "hard": "Trudna",
+      "vicious": "Okrutna",
+      "fiendish": "Diabelska",
+      "devilish": "Czarcia",
+      "hell": "Piekielna",
+      "beyondHell": "Poza piekłem"
+    }
+  },
+  "invite": {
+    "loading": "Wczytywanie zaproszenia...",
+    "iconAlt": "Ikona {{gameName}}",
+    "greeting": "👋 Cześć!",
+    "greetingNamed": "👋 Cześć, {{name}}!",
+    "invited": "Zaproszenie!",
+    "joinTeam": "Dołącz do zespołu wyścigowego <team/>",
+    "description": "Wspólne rozwiązywanie sudoku i podgląd postępów innych w czasie rzeczywistym!",
+    "proTip": "💡 <bold>Wskazówka:</bold> Wszystkie kolejne łamigłówki będą udostępniane członkom zespołu dla przyjacielskiej rywalizacji!",
+    "nicknameLabel": "Pseudonim widoczny w zespole wyścigowym",
+    "nicknamePlaceholder": "Pseudonim",
+    "joining": "Dołączanie do zespołu...",
+    "join": "Dołącz do zabawy! 🎉",
+    "signIn": "Zaloguj się, aby kontynuować",
+    "bonus": {
+      "title": "🎉 Bonus: {{plusName}} – {{duration}}!",
+      "duration": {
+        "oneMonth": "jeden miesiąc",
+        "oneYear": "jeden rok",
+        "lifetime": "na zawsze",
+        "premium": "premium"
+      },
+      "subtitle": "Dołączenie do tego zespołu wyścigowego odblokowuje funkcje premium zupełnie za darmo!",
+      "note": "💡 Dostęp premium aktywuje się automatycznie po dołączeniu"
+    },
+    "expired": {
+      "title": "Zaproszenie wygasło",
+      "body": "Ten link zaproszenia jest już nieważny. Należy poprosić znajomego o nowe zaproszenie lub zwiększyć rozmiar zespołu."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Wpisanie ciągu łamigłówki",
+      "help": "Proszę wkleić 81-znakowy ciąg lub siatkę HoDoKu — cyfry 1–9 oraz 0 lub . dla pustych pól.",
+      "submit": "Importuj łamigłówkę"
+    },
+    "orScan": "lub skanowanie aparatem",
+    "cameraHelp": "Proszę skierować aparat na nierozwiązane sudoku i poczekać na wykrycie.",
+    "errors": {
+      "parse": "Nie udało się odczytać łamigłówki. Proszę wkleić 81-znakowy ciąg lub siatkę HoDoKu.",
+      "solverLoading": "Solver wciąż się ładuje — proszę spróbować ponownie.",
+      "noSolution": "Nie znaleziono rozwiązania. Proszę sprawdzić łamigłówkę.",
+      "camera": "Nie udało się uruchomić aparatu. Proszę sprawdzić uprawnienia i spróbować ponownie."
+    }
+  },
+  "credits": {
+    "title": "Podziękowania i źródła",
+    "subtitle": "Ta aplikacja powstała na bazie kilku znakomitych projektów",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Ta aplikacja jest udostępniana na licencji MIT. Szczegóły: <licenseLink>LICENSE</licenseLink> i <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "humanSudokuSolver": "Biblioteka TypeScript rozwiązująca sudoku ludzkimi technikami.",
+      "qqwing": "Generowanie łamigłówek Sudoku dnia",
+      "tdoku": "Szybki solver sudoku dla zeskanowanych łamigłówek",
+      "arBrowserSudoku": "Technologia skanera w rzeczywistości rozszerzonej",
+      "sudokuCoach": "Inspiracja dla algorytmów obliczania trudności",
+      "nextjs": "Framework React do produkcji",
+      "typescript": "Typowany nadzbiór JavaScriptu",
+      "tailwind": "Framework CSS oparty na klasach użytkowych",
+      "capacitor": "Natywne środowisko aplikacji mobilnych",
+      "electron": "Framework aplikacji desktopowych",
+      "tensorflow": "Uczenie maszynowe dla funkcji AR",
+      "revenuecat": "Zarządzanie subskrypcjami",
+      "react": "Biblioteka komponentów interfejsu",
+      "turborepo": "System budowania monorepozytoriów"
+    }
+  }
+}

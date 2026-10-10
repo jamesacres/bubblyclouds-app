@@ -174,17 +174,17 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
           </div>
         )}
 
-        {/* Horizontal filmstrip: the run reads as a left-to-right route, one
+        {/* Horizontal filmstrip: the run reads as a route in stage order, one
             column per stage — thumbnail on top (the tap target), difficulty
             and result beneath — instead of a row list */}
-        <ul className="relative flex items-start gap-1.5 text-sm">
+        <ul dir="ltr" className="relative flex items-start gap-1.5 text-sm">
           {/* Road linking the stage thumbnails into one route: an asphalt
               strip with a dashed centre line, so the run itself reads as
               the racecourse */}
           {stageCount > 1 && (
             <div
               aria-hidden="true"
-              className="absolute left-6 right-6 top-5 h-2 rounded-full bg-stone-300/80 dark:bg-zinc-800"
+              className="absolute end-6 start-6 top-5 h-2 rounded-full bg-stone-300/80 dark:bg-zinc-800"
             >
               <div
                 className="absolute inset-x-1 top-1/2 h-px -translate-y-1/2 text-white opacity-60 dark:opacity-30"
@@ -253,14 +253,14 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                       // where you are on the route
                       <span
                         aria-hidden="true"
-                        className="bg-theme-primary absolute -left-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-white shadow"
+                        className="bg-theme-primary absolute -start-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-white shadow"
                       >
                         <Car className="h-2.5 w-2.5" />
                       </span>
                     ) : (
                       <span
                         aria-hidden="true"
-                        className="absolute -left-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-stone-200 text-[0.6rem] font-bold text-stone-600 shadow dark:bg-zinc-700 dark:text-zinc-200"
+                        className="absolute -start-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-stone-200 text-[0.6rem] font-bold text-stone-600 shadow dark:bg-zinc-700 dark:text-zinc-200"
                       >
                         {i + 1}
                       </span>
@@ -268,7 +268,7 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                     {result && (
                       <span
                         data-testid={`stage-preview-${i}-complete`}
-                        className="bg-theme-primary absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-white shadow"
+                        className="bg-theme-primary absolute -end-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full text-white shadow"
                       >
                         <Check className="h-2.5 w-2.5" aria-hidden="true" />
                       </span>
@@ -285,8 +285,8 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                 <span
                   data-testid={`stage-difficulty-${i}`}
                   className={`relative flex h-[1.15rem] w-full items-center justify-center whitespace-nowrap px-1.5 text-center text-[0.55rem] font-bold uppercase tracking-wide ${difficulty.chipClass} ${
-                    isMergedAway ? '-ml-1.5 rounded-l-none' : 'rounded-l-full'
-                  } ${startsMergedGroup ? 'rounded-r-none' : 'rounded-r-full'}`}
+                    isMergedAway ? '-ms-1.5 rounded-s-none' : 'rounded-s-full'
+                  } ${startsMergedGroup ? 'rounded-e-none' : 'rounded-e-full'}`}
                   style={
                     isMergedAway
                       ? { width: 'calc(100% + 0.375rem)' }
@@ -298,7 +298,7 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                       overlay sized to the group's total width. */}
                   {!isMergedAway && (
                     <span
-                      className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
+                      className="absolute start-0 top-0 flex h-full w-full items-center justify-center px-1.5"
                       style={
                         mergedGroupSize > 1
                           ? {
@@ -309,14 +309,19 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                           : undefined
                       }
                     >
-                      {difficulty.label}
+                      <span
+                        className="min-w-0 truncate"
+                        title={difficulty.label}
+                      >
+                        {difficulty.label}
+                      </span>
                     </span>
                   )}
                 </span>
                 {result && rendered ? (
                   <span
                     data-testid={`stage-par-${i}`}
-                    className={`whitespace-nowrap rounded-full px-1.5 py-0.5 font-mono text-[0.6rem] font-semibold tabular-nums ${
+                    className={`break-words rounded-full px-1.5 py-0.5 font-mono text-[0.6rem] font-semibold tabular-nums ${
                       rendered.parState === 'over'
                         ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400'
                         : rendered.parState === 'under'
@@ -329,7 +334,7 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                     {formatSeconds(result.seconds)}
                   </span>
                 ) : (
-                  <span className="whitespace-nowrap text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
+                  <span className="break-words text-[0.6rem] font-semibold tabular-nums text-stone-400 dark:text-zinc-500">
                     {renderUpcoming(stage)}
                   </span>
                 )}

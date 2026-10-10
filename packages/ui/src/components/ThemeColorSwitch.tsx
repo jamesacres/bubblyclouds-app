@@ -258,7 +258,7 @@ const ThemeColorSwitch = ({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-52 rounded-xl border border-stone-200/80 bg-white/95 p-2 shadow-lg shadow-stone-900/10 backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/95 dark:shadow-black/30">
+        <div className="absolute end-0 mt-2 w-52 rounded-xl border border-stone-200/80 bg-white/95 p-2 shadow-lg shadow-stone-900/10 backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/95 dark:shadow-black/30">
           <div className="flex flex-wrap gap-1.5 p-0.5">
             {colors.map((color, index) => {
               const isPremium = index >= 2 && !isSubscribed;

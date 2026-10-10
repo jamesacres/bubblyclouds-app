@@ -3,6 +3,14 @@ import { render, screen } from '@testing-library/react';
 import CountdownOverlay from './CountdownOverlay';
 
 describe('CountdownOverlay', () => {
+  it('is a left-to-right island so the lights and digits never mirror', () => {
+    render(<CountdownOverlay countdown={4} />);
+    expect(screen.getByText('Get ready').parentElement).toHaveAttribute(
+      'dir',
+      'ltr'
+    );
+  });
+
   describe('text display', () => {
     it('shows "Get ready" label', () => {
       render(<CountdownOverlay countdown={4} />);

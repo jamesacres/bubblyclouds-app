@@ -428,10 +428,10 @@ export interface Party {
 }
 
 export enum PlatformType {
-  WEB = "web",
-  IOS = "ios",
-  ANDROID = "android",
-  ELECTRON = "electron",
+  WEB = 'web',
+  IOS = 'ios',
+  ANDROID = 'android',
+  ELECTRON = 'electron',
 }
 ```
 
@@ -809,11 +809,11 @@ packages/games/
 
 ```typescript
 // ❌ BAD - Do not create packages/games/src/components/index.ts
-export { Leaderboard } from "./Leaderboard";
-export { ScoreBreakdown } from "./ScoreBreakdown";
+export { Leaderboard } from './Leaderboard';
+export { ScoreBreakdown } from './ScoreBreakdown';
 
 // ✅ GOOD - Import directly from source file
-import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
 ```
 
 Index files defeat the purpose of JIT by creating unnecessary re-exports.
@@ -827,10 +827,7 @@ Different file types require different export patterns:
   "exports": {
     "./components/*": "./src/components/*.tsx",
     "./helpers/*": "./src/helpers/*.ts",
-    "./config/*": [
-      "./src/config/*.ts",
-      "./src/config/*.tsx"
-    ]
+    "./config/*": ["./src/config/*.ts", "./src/config/*.tsx"]
   }
 }
 ```
@@ -845,11 +842,11 @@ Always use **relative imports**:
 
 ```typescript
 // ✅ GOOD - In packages/games/src/components/Leaderboard.tsx
-import { calculateScore } from "../helpers/scoringUtils";
-import type { ScoringResult } from "../types/scoringTypes";
+import { calculateScore } from '../helpers/scoringUtils';
+import type { ScoringResult } from '../types/scoringTypes';
 
 // ❌ BAD - Do not use package name for internal imports
-import { calculateScore } from "@bubblyclouds-app/games/helpers/scoringUtils";
+import { calculateScore } from '@bubblyclouds-app/games/helpers/scoringUtils';
 ```
 
 ### Cross-Package Imports
@@ -858,12 +855,12 @@ Always use **absolute package imports**:
 
 ```typescript
 // ✅ GOOD - In packages/sudoku/src/components/Sudoku.tsx
-import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
-import { useAuth } from "@bubblyclouds-app/auth/hooks/useAuth";
-import type { Party } from "@bubblyclouds-app/types/serverTypes";
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
+import { useAuth } from '@bubblyclouds-app/auth/hooks/useAuth';
+import type { Party } from '@bubblyclouds-app/types/serverTypes';
 
 // ❌ BAD - Do not use relative imports across packages
-import { Leaderboard } from "../../../games/src/components/Leaderboard";
+import { Leaderboard } from '../../../games/src/components/Leaderboard';
 ```
 
 ### Import from Source Files
@@ -872,11 +869,11 @@ Always import **directly from the source file**:
 
 ```typescript
 // ✅ GOOD - Direct file imports
-import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
-import { calculateScore } from "@bubblyclouds-app/games/helpers/scoringUtils";
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
+import { calculateScore } from '@bubblyclouds-app/games/helpers/scoringUtils';
 
 // ❌ BAD - Do not import from package root (unless explicitly exported)
-import { Leaderboard } from "@bubblyclouds-app/games";
+import { Leaderboard } from '@bubblyclouds-app/games';
 ```
 
 ### No Re-exports for Convenience
@@ -885,14 +882,14 @@ Do not create re-export files for convenience:
 
 ```typescript
 // ❌ BAD - Do not create packages/games/src/index.ts with:
-export { Leaderboard } from "./components/Leaderboard";
-export { ScoreBreakdown } from "./components/ScoreBreakdown";
-export { calculateScore } from "./helpers/scoringUtils";
+export { Leaderboard } from './components/Leaderboard';
+export { ScoreBreakdown } from './components/ScoreBreakdown';
+export { calculateScore } from './helpers/scoringUtils';
 
 // ✅ GOOD - Import directly from source
-import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
-import { ScoreBreakdown } from "@bubblyclouds-app/games/components/ScoreBreakdown";
-import { calculateScore } from "@bubblyclouds-app/games/helpers/scoringUtils";
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
+import { ScoreBreakdown } from '@bubblyclouds-app/games/components/ScoreBreakdown';
+import { calculateScore } from '@bubblyclouds-app/games/helpers/scoringUtils';
 ```
 
 ### Type-Only Imports
@@ -901,11 +898,11 @@ Use `type` keyword for type-only imports when possible:
 
 ```typescript
 // ✅ GOOD - Explicit type imports
-import type { Party } from "@bubblyclouds-app/types/serverTypes";
-import type { ScoringResult } from "@bubblyclouds-app/games/types/scoringTypes";
+import type { Party } from '@bubblyclouds-app/types/serverTypes';
+import type { ScoringResult } from '@bubblyclouds-app/games/types/scoringTypes';
 
 // ⚠️ ACCEPTABLE - But less explicit
-import { Party } from "@bubblyclouds-app/types/serverTypes";
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 ```
 
 ## Architectural Principles
@@ -928,7 +925,7 @@ on abstractions (types):
 
 ```typescript
 // ✅ GOOD - Both depend on @types
-import type { Party } from "@bubblyclouds-app/types/serverTypes";
+import type { Party } from '@bubblyclouds-app/types/serverTypes';
 
 function createParty(): Party {
   // Implementation
@@ -942,10 +939,10 @@ of applications:
 
 ```typescript
 // ❌ BAD - In @template package
-import { SudokuGrid } from "@bubblyclouds-app/sudoku/components/SudokuGrid";
+import { SudokuGrid } from '@bubblyclouds-app/sudoku/components/SudokuGrid';
 
 // ✅ GOOD - Generic, reusable
-import { SessionsProvider } from "@bubblyclouds-app/template/providers/SessionsProvider";
+import { SessionsProvider } from '@bubblyclouds-app/template/providers/SessionsProvider';
 ```
 
 ### 4. Explicit Dependencies
@@ -1044,8 +1041,9 @@ await retryWithBackoff(() => api.call());
 
 ## Internationalisation
 
-User-facing text is translated with `i18next` and `react-i18next`. Resources
-are bundled and initialised synchronously, so there is no loading state.
+User-facing text is translated with `i18next` and `react-i18next`. English is
+bundled and initialised synchronously, so there is no loading state for the
+default locale; every other locale is a lazily loaded chunk (see Lazy loading).
 
 - **Core lives in `@ui`** (L1): `config/i18n.ts` (`createI18n`),
   `helpers/resolveLocale.ts`, `providers/I18nProvider.tsx` (`useLocale`) and
@@ -1058,15 +1056,111 @@ are bundled and initialised synchronously, so there is no loading state.
   `useTranslation('<ns>')` for their own package namespace; packages never import
   an app's bundle.
 - **Apps assemble resources** in `apps/<app>/src/i18n.ts`, which exports
-  `DEFAULT_LOCALE`, `supportedLocales` and `resources` and imports no
-  React or browser APIs, so it is safe to use at build time (for example in
-  `generateMetadata`). `providers.tsx` wraps the tree in `I18nProvider`.
+  `DEFAULT_LOCALE`, `resources` (English only), `localeLoaders` and
+  `supportedLocales` (`DEFAULT_LOCALE` plus the keys of `localeLoaders`) and
+  imports no React or browser APIs, so it is safe to use at build time (for
+  example in `generateMetadata`). `providers.tsx` wraps the tree in
+  `I18nProvider` and passes `localeLoaders`.
+- **Locale tags** are listed in `@ui/config/locales` (`LOCALE_TAGS`): base
+  languages plus `es-MX`, `fr-CA`, `pt-PT`, `zh-Hans` and `zh-Hant`. `nb` is
+  the tag for `no`/`nn`/`nb`, `pt` is Brazilian Portuguese, and `resolveLocale`
+  maps `zh`/`zh-CN`/`zh-SG` to `zh-Hans` and `zh-TW`/`zh-HK`/`zh-MO` to
+  `zh-Hant`. Regional tags fall back to their base and then `en`
+  (`createI18n` builds `fallbackLng` as a per-locale map).
+- **Lazy loading**: `localeLoaders` maps a tag to
+  `createLocaleLoader({ ui: () => import('@bubblyclouds-app/ui/locales/<tag>'), ... })`
+  (one entry per bundle: `ui`, `auth`, `template`, `games`, the game package and
+  `app`). `I18nProvider` renders `DEFAULT_LOCALE` first, then loads the chunk of
+  the detected or chosen locale, adds it with `addLocaleBundles` and switches. A
+  failed load keeps the current locale. To ship a locale add its
+  `src/locales/<tag>.json` files, one `localeLoaders` entry per app, and run
+  `pnpm run i18n:validate` and `pnpm run i18n:audit`.
+- **`<html lang>` and `dir`** are set by `I18nProvider` when the locale
+  changes (`dir` from `Intl.Locale#getTextInfo`, falling back to the static list
+  `ar`, `he`, `ur`, `fa`), and `document.title` follows `meta.title` of the
+  `app` namespace. Static metadata and the server-rendered `lang` stay on
+  `DEFAULT_LOCALE`.
+- **Right-to-left layout** uses logical Tailwind utilities only (`ms-*`, `me-*`,
+  `ps-*`, `pe-*`, `start-*`, `end-*`, `text-start`, `rounded-s-*`, `border-e-*`,
+  `space-x-*` which Tailwind v4 emits as logical margins). Directional icons
+  (chevrons, arrows, play, exit) carry `rtl:-scale-x-100`, and slides use an
+  `rtl:` counterpart. Game geometry, timers, scores, codes and email inputs are
+  left-to-right islands with `dir="ltr"`. Game data digits go through
+  `formatLatinNumber` (`@bubblyclouds-app/ui/helpers/latinNumber`), which forces
+  the `latn` numbering system. `packages/ui/src/helpers/physicalDirection.test.ts`
+  scans the sources of `ui`, `auth`, `template`, `games`, `sudoku`,
+  `unblockrace` and both apps (including `.css`) for physical direction
+  utilities and styles; deliberate exceptions are listed with a reason in
+  `physicalDirectionAllowlist.json` next to it.
+- **LTR islands** carry `dir="ltr"` and keep their geometry in every locale:
+  the sudoku grid (`Sudoku`, `SimpleSudoku`, so cells, notes and `BookCover`
+  mini grids), `NumberPad`, the unblock `Board` (an inner `dir="ltr"` layer so
+  the outer margins still mirror), `SimpleBoard`, `SudokuBoardPreview`,
+  `UnblockRaceBoardPreview`, `RaceLanesPreview`, the `RaceTrack` lane and its
+  Start/Finish labels, `StageTransition`'s track, the `StageResultPanel`
+  filmstrip, the `RaceHud` stage pips, `CountdownOverlay`, the victory lap in
+  `RaceCelebration`, timers, move counters and score numbers. Chrome around
+  them (headers, leaderboards, result sheets, controls) mirrors. Inside an
+  island use logical insets (`insetInlineStart`) or plain classes, never
+  `rtl:` variants: Tailwind's `rtl:` also matches through the `[dir=rtl] *`
+  selector, so it would flip content inside an island. An island that also
+  needs mirrored outer margins (the sudoku grid) pairs them with
+  `lg:rtl:ms-0 lg:rtl:me-auto`.
+- **Global CSS** (identical in both apps' `src/app/globals.css`):
+  `html { hyphens: auto; overflow-wrap: break-word }` so German and Finnish
+  words wrap; `letter-spacing: normal !important` and
+  `text-transform: none !important` for `ar`, `he` and `ur` (tracking and
+  uppercase break joining and case); a `--script-font` stack per `:lang()` and
+  rules that put it behind Outfit on `body` and behind Orbitron, Pacifico and
+  Creepster on `.font-orbitron`, `.font-pacifico` and `.font-creepster`; taller
+  line-height for Arabic, Urdu, Indic and Thai text on `leading-none`,
+  `leading-tight` and `leading-snug`.
+- **Fonts**: Outfit, Orbitron and Pacifico stay Latin subsets from
+  `next/font/google`; no webfonts are added. CJK, Arabic, Hebrew, Indic and
+  Thai text falls back to the platform system fonts named in `--script-font`
+  (Hiragino, PingFang, Apple SD Gothic Neo, Geeza Pro, Noto Nastaliq Urdu,
+  Kohinoor, Noto Sans, Thonburi, ...), so display headings in those scripts use
+  the system face. Cyrillic, Greek and Vietnamese have no `:lang()` rule: they
+  fall back from Outfit and Orbitron to `system-ui` per glyph.
+- **Text fit**: text-bearing slots use `min-w-*`/`min-h-*`, `break-words`,
+  `flex-wrap` and `min-w-0` rather than fixed sizes. Slots that deliberately
+  stay on one line (tracked pills, the `StageResultPanel` difficulty pill with
+  ellipsis and `title`, the day columns' 3-character labels) carry a budget in
+  `scripts/i18n/length-budgets.json`.
+- **Numerals**: game data (scores, multipliers, counts, ranks, timers) formats
+  through `formatLatinNumber`, never `toLocaleString`/`Intl.NumberFormat`
+  directly; month names and dates stay locale-native via `Intl`.
+- **Pseudo-locales** `en-XA` (accented, about 40 percent longer, bracketed) and
+  `ar-XB` (right-to-left, Arabic-script lookalikes with bidi marks) are generated
+  from each `en.json` by `pnpm run i18n:pseudo` into `src/locales/` and are
+  committed so the dev-only dynamic imports always resolve. Each app registers
+  them only when `NODE_ENV !== 'production'`; the audit and validator skip them
+  unless asked (`--locale en-XA`). Re-run the generator when `en.json` changes
+  (`node scripts/i18n/pseudo.mjs --check` reports stale files).
+- **Native shells** (`apps/<app>/ios`, `apps/<app>/android`) are generated by
+  `node scripts/i18n/native.mjs --write` from `scripts/i18n/glossary/<tag>.json`
+  (`brand.appName`), the tag -> iOS/Android code table at the top of that
+  script and `scripts/i18n/native-strings.json` (translated
+  `NS*UsageDescription` texts, keyed by plist key and tag; `en` must equal the
+  app's `Info.plist`). It writes `CFBundleLocalizations`, per-locale
+  `<code>.lproj/InfoPlist.strings` (display name plus usage descriptions) and
+  the `InfoPlist.strings` variant group and `knownRegions` in `project.pbxproj`
+  on iOS, and `res/values-<qualifier>/strings.xml` (`app_name`,
+  `title_activity_main`), `res/xml/locales_config.xml`,
+  `android:localeConfig` and `bundle { language { enableSplit = false } }` in
+  `build.gradle` on Android (`he` -> `iw`, `id` -> `in`, `zh-Hans` ->
+  `b+zh+Hans`, `pt` -> `pt-rBR`). `pnpm run i18n:native` is the `--check`
+  mode and fails when committed files differ. The home-screen label is the
+  short brand, never the 30-character store name, which truncates under the
+  icon. Adding a locale is a data change (mapping row, glossary, native string)
+  plus a re-run; a native release and `cap sync` are required for it to ship.
 - **Detection** order is the stored choice (`localStorage` key
   `bubblyclouds.locale`), then `navigator.languages`, then `DEFAULT_LOCALE`.
   The first render always uses `DEFAULT_LOCALE` and the detected locale is
   applied after mount.
-- **Tests** get a shared English instance from the root `jest.setup.i18n.js`,
-  built from every package bundle (apps add their own `app` bundle).
+- **Tests** get a shared instance from the root `jest.setup.i18n.js`, built
+  from every locale file of every package bundle (apps add their own `app`
+  bundles) and defaulting to `en`.
 - **Brand terms** live under `brand.*` in each app's `en.json` (`appName`,
   `gameName`, `companyName`, `plus`, ...). `app.config.js` derives `appName`,
   `gameName` and `companyName` from it with
@@ -1107,8 +1201,34 @@ are bundled and initialised synchronously, so there is no loading state.
   `ns:`-prefixed keys and dynamic keys. Keys built dynamically
   (`agents.<id>.*`, `techniques.*`, `bookCover.months.*`, ...) must be declared
   with a justification in `scripts/i18n_audit.config.json`, which also
-  cross-checks that every generated key exists. It exits non-zero on any
-  problem.
+  cross-checks that every generated key exists. Every non-English
+  `src/locales/<tag>.json` must have the same key set as `en.json`, except that
+  plural suffixes must equal the CLDR categories of `<tag>`
+  (`scripts/i18n/pluralCategories.mjs`, via `Intl.PluralRules`). It exits
+  non-zero on any problem.
+- `pnpm run i18n:validate` (`scripts/i18n/validate.mjs`, flags `--locale <tag>`
+  and `--app <sudoku|unblockrace>`) checks each non-English file against `en`:
+  key set and plural forms, `{{placeholder}}` names, `<tag>` structure, `$t()`
+  references, leading/trailing emoji, empty strings, and `brand.*` against
+  `scripts/i18n/glossary/<tag>.json` (`{ "<app>": { "brand": { ... } } }`) and
+  per-key limits from `scripts/i18n/length-budgets.json`
+  (`{ "<root>": { "<key>": number | { "max": number, "reason": string } } }`,
+  counted in code points) when those files exist. `pnpm run i18n:test` runs the
+  tests for these scripts.
+- **Glossary and budgets**: `scripts/i18n/glossary/<tag>.json` exists for `en`
+  and each of the 46 translated tags. Per app it has `brand` (validated; the
+  keys of that app's `brand.*` block) and `terms` (translator guidance only:
+  race, team, leaderboard, hint, undo, theme, dailyPuzzle, monthlyCollection,
+  aiOpponent, monthly, lifetime, plusAccess, plusFeatureLine). The store
+  localisations are the source of truth: `appName` is the short brand before
+  the colon in the App Store name, `plus` and the `terms` come from the store
+  product wording, and `plusName` / `plusProduct` are `gameName` + `plus`.
+  `or` has no store product strings, so its `plus` fields and `terms` that
+  derive from them are absent until the glossary is completed.
+  `length-budgets.json` lists only genuinely constrained slots (tab bar, pills
+  and badges, grid buttons, table headings, dialog buttons), each with a
+  `reason`; limits come from the slot, and `_other` is the only plural form
+  budgeted.
 
 ## Deployment
 

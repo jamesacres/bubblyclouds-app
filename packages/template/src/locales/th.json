@@ -1,0 +1,217 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "เกิดข้อผิดพลาดที่ไม่คาดคิด โปรดลองอีกครั้ง",
+    "dismiss": "ปิด"
+  },
+  "errorBoundary": {
+    "title": "อุ๊ปส์! เกิดข้อผิดพลาดบางอย่าง",
+    "description": "เราพบข้อผิดพลาดที่ไม่คาดคิด ไม่ต้องกังวล ความคืบหน้าของคุณถูกบันทึกไว้แล้ว!",
+    "reload": "โหลดแอปใหม่",
+    "clearStorage": "ล้างพื้นที่จัดเก็บและโหลดใหม่",
+    "contactSupport": "หากปัญหายังคงอยู่ โปรดติดต่อฝ่ายสนับสนุน"
+  },
+  "time": {
+    "minutesAgo_other": "{{count}} นาทีที่แล้ว",
+    "hoursAgo_other": "{{count}} ชม. ที่แล้ว",
+    "daysAgo_other": "{{count}} วันที่แล้ว"
+  },
+  "tier": {
+    "novice": "มือใหม่",
+    "advancedBeginner": "ผู้เริ่มต้น",
+    "competent": "ปานกลาง",
+    "proficient": "ชำนาญ",
+    "expert": "ผู้เชี่ยวชาญ"
+  },
+  "moves": {
+    "onPar": "ครั้ง เท่ากับเกณฑ์",
+    "overPar": "ครั้ง เกินเกณฑ์ {{delta}}",
+    "underPar": "ครั้ง ต่ำกว่าเกณฑ์ {{delta}}"
+  },
+  "lobby": {
+    "title": "ล็อบบี้การแข่ง",
+    "close": "ปิดล็อบบี้",
+    "onlineOpponents": "คู่แข่งที่ออนไลน์",
+    "refresh": "รีเฟรชคู่แข่งที่ออนไลน์",
+    "noOpponents": "ไม่มีคู่แข่งออนไลน์ — เชิญเพื่อนมาแข่งกัน!",
+    "away": "ไม่อยู่",
+    "offlineTeams": "ออฟไลน์ · ในทีมของคุณ",
+    "removeMember": "นำ {{name}} ออก",
+    "aiOpponents": "คู่แข่ง AI",
+    "addAgent": "เพิ่ม",
+    "noAgents": "ยังไม่มีคู่แข่ง AI — เพิ่มสักตัวเพื่อให้มีคนแข่งด้วยเสมอ",
+    "ownClock": "ผู้เล่นแต่ละคนแข่งด้วยนาฬิกาของตัวเอง",
+    "startSolving": "เริ่มไขปริศนา",
+    "finished": "เสร็จแล้ว",
+    "inLobby": "อยู่ในล็อบบี้",
+    "stageProgress": "ด่านที่ {{current}} จาก {{total}}",
+    "finishedRunIn": "จบการแข่งใน {{time}}",
+    "solvedIn": "ไขเสร็จใน {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · เห็นล่าสุด {{lastSeen}}",
+    "raceSummary": {
+      "solo": "แข่งเดี่ยว — มีแค่คุณกับนาฬิกา",
+      "friends_other": "เพื่อน {{count}} คน",
+      "aiOpponents_other": "คู่แข่ง AI {{count}} ตัว",
+      "racing": "แข่งกับ {{opponents}}"
+    },
+    "invite": {
+      "button": "เชิญ",
+      "eyebrow": "สร้างการแข่งของคุณ",
+      "title": "เชิญคู่แข่ง",
+      "close": "ปิด",
+      "existingTeam": "เชิญเข้าทีมที่มีอยู่",
+      "editTeamName": "แก้ไขชื่อทีม",
+      "deleteTeam": "ลบทีม",
+      "leaveTeam": "ออกจากทีม",
+      "memberCount_other": "สมาชิก {{count}} คน",
+      "createTeam": "สร้างทีมแข่งใหม่",
+      "displayNameLabel": "สมาชิกในทีมเรียกคุณว่าอะไร",
+      "displayNamePlaceholder": "ชื่อที่แสดง",
+      "teamNameLabel": "จะตั้งชื่อทีมนี้ว่าอะไรดี",
+      "teamNamePlaceholder": "ชื่อทีม (เช่น ครอบครัว)",
+      "createAndCopy": "สร้างและคัดลอกลิงก์",
+      "defaultTeamName": "ทีมใหม่",
+      "defaultPlayerName": "ผู้เล่น"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "ปิดแผง",
+    "back": "กลับ",
+    "close": "ปิด",
+    "title": "เลือกคู่แข่งของคุณ",
+    "subtitle": "เลือกคู่แข่งอย่างน้อยหนึ่งราย",
+    "selectAtLeastOne": "เลือกคู่แข่งอย่างน้อยหนึ่งราย",
+    "race_other": "แข่งกับคู่แข่ง {{count}} ราย",
+    "skill": {
+      "novice": "มือใหม่",
+      "advancedBeginner": "เริ่มต้นขั้นสูง",
+      "competent": "ปานกลาง",
+      "proficient": "ชำนาญ",
+      "expert": "ผู้เชี่ยวชาญ"
+    }
+  },
+  "agentParty": {
+    "title": "คู่แข่ง AI",
+    "rivalCount_other": "คู่แข่ง {{count}} ราย"
+  },
+  "party": {
+    "cancel": "ยกเลิก",
+    "editName": "แก้ไขชื่อปาร์ตี้",
+    "editMaxMembers": "แก้ไขจำนวนสมาชิกสูงสุด",
+    "memberCount_other": "สมาชิก {{count}} คน",
+    "memberCountPremium_other": "สมาชิก {{count}} คน ✨ พรีเมียม",
+    "membersOf_other": "สมาชิก {{current}}/{{count}} คน",
+    "shareLink": "แชร์ลิงก์นี้ให้สมาชิกทีมปัจจุบันเพื่อเข้าร่วมปริศนานี้",
+    "you": "(คุณ)",
+    "notStarted": "ยังไม่เริ่ม! ชวนให้เล่นหน่อย"
+  },
+  "partyConfirmation": {
+    "cancel": "ยกเลิก",
+    "leaveAgentParty": {
+      "title": "นำคู่แข่ง AI ออก",
+      "action": "นำออก",
+      "processing": "กำลังนำออก...",
+      "message": "แน่ใจหรือไม่ว่าต้องการนำคู่แข่ง AI ทั้งหมดออก พวกเขาจะไม่ปรากฏในการแข่งอีกต่อไป"
+    },
+    "removeAgent": {
+      "title": "นำตัวแทนในเครื่องออก",
+      "action": "นำออก",
+      "processing": "กำลังนำออก...",
+      "message": "แน่ใจหรือไม่ว่าต้องการนำ \"{{memberName}}\" ออกจากการแข่ง"
+    },
+    "deleteParty": {
+      "title": "ลบปาร์ตี้",
+      "action": "ลบปาร์ตี้",
+      "processing": "กำลังลบ...",
+      "message": "แน่ใจหรือไม่ว่าต้องการลบ \"{{partyName}}\" ปาร์ตี้และสมาชิกทั้งหมดจะถูกนำออกอย่างถาวร และสมาชิกจะไม่สามารถเข้าถึงได้อีก การดำเนินการนี้ไม่สามารถย้อนกลับได้"
+    },
+    "leave": {
+      "title": "ออกจากปาร์ตี้",
+      "action": "ออก",
+      "processing": "กำลังออก...",
+      "message": "แน่ใจหรือไม่ว่าต้องการออกจาก \"{{partyName}}\" คุณจะไม่เห็นความคืบหน้าของสมาชิกคนอื่น และไม่สามารถเข้าร่วมในปาร์ตี้นี้ได้อีก"
+    },
+    "remove": {
+      "title": "นำสมาชิกออก",
+      "action": "นำออก",
+      "processing": "กำลังนำออก...",
+      "message": "แน่ใจหรือไม่ว่าต้องการนำ \"{{memberName}}\" ออกจาก \"{{partyName}}\" พวกเขาจะไม่สามารถเข้าร่วมในปาร์ตี้นี้ได้อีก"
+    }
+  },
+  "friends": {
+    "allTeams": "ทุกทีม",
+    "refresh": "รีเฟรช",
+    "refreshing": "กำลังรีเฟรช…",
+    "title": "ปริศนาของเพื่อน",
+    "subtitle": "แตะเพื่อนเพื่อดูปริศนาล่าสุดของพวกเขาและแข่งกับพวกเขา",
+    "memberCount_other": "สมาชิก {{count}} คน",
+    "noRecentPuzzles": "ยังไม่มีปริศนาล่าสุด — ท้าพวกเขาเลย!",
+    "empty": {
+      "title": "ยังไม่มีทีมแข่ง",
+      "description": "เชิญเพื่อนจากล็อบบี้การแข่งขณะไขปริศนา"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "ปริศนาของคุณในช่วง 30 วันที่ผ่านมา",
+    "empty": {
+      "title": "ยังไม่มีปริศนา",
+      "description": "ไปที่เริ่มการแข่งเพื่อไขปริศนาแรกของคุณ"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_other": "+อีก {{count}} ฟีเจอร์"
+  },
+  "crossPromo": {
+    "whyNotTry": "ลองเล่นดูไหม",
+    "tryItFree": "ลองฟรี"
+  },
+  "rateApp": {
+    "prompt": "ชอบ {{appName}} ไหม",
+    "rateIt": "ให้คะแนน",
+    "rateInSeconds": "ให้คะแนนในไม่กี่วินาที"
+  },
+  "plus": {
+    "close": "ปิดหน้าต่าง",
+    "appIconAlt": "ไอคอนแอป",
+    "lifetime": "ตลอดชีพ",
+    "monthly": "รายเดือน",
+    "perMonth": "{{price}}/เดือน",
+    "whatsIncluded": "สิ่งที่รวมอยู่",
+    "continue": "ดำเนินการต่อ",
+    "restorePurchases": "กู้คืนการซื้อ",
+    "cancel": "ยกเลิก"
+  },
+  "download": {
+    "title": "ใช้งานต่อในแอป",
+    "appStoreAlt": "ดาวน์โหลดบน {{appStore}}",
+    "googlePlayAlt": "รับได้ที่ {{googlePlay}}",
+    "continueBrowser": "ใช้งานต่อในเบราว์เซอร์",
+    "continueDesktop": "ใช้งานต่อบนเดสก์ท็อป"
+  },
+  "session": {
+    "cheated": "โกง",
+    "completedIn": "เสร็จใน {{minutes}} นาที {{seconds}} วินาที",
+    "percentComplete": "เสร็จแล้ว {{percentage}}%",
+    "duration": "{{minutes}} นาที {{seconds}} วินาที",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "ปริศนาที่ {{number}}",
+    "daily": "ประจำวัน {{date}}",
+    "book": "หนังสือ {{month}} ลำดับที่ {{number}}",
+    "collection": "คอลเลกชัน {{month}} ลำดับที่ {{number}}",
+    "scanned": "ปริศนาที่สแกน",
+    "you": "คุณ",
+    "unknown": "ไม่ทราบ",
+    "unlockWith": "ปลดล็อกด้วย {{label}}",
+    "lockedPuzzle": "ปริศนาที่ถูกล็อก",
+    "recommendedTechniques": "เทคนิคที่แนะนำ:",
+    "loadingFriends": "กำลังโหลดเพื่อน..."
+  }
+}

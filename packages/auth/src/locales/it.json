@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Acceda per continuare",
+    "signInWith": "Accedi con {{provider}}",
+    "emailTitle": "Accedi con l’e-mail",
+    "emailPlaceholder": "la.sua@email.com",
+    "continue": "Continua",
+    "cancel": "Annulla",
+    "terms": "Termini di servizio",
+    "privacy": "Informativa sulla privacy"
+  },
+  "header": {
+    "signIn": "Accedi"
+  },
+  "avatar": {
+    "alt": "utente"
+  },
+  "panel": {
+    "title": "Account",
+    "greeting": "Ciao, {{name}}!",
+    "fallbackName": "Utente",
+    "plusActive": "{{gameName}} {{plus}} attivo",
+    "joinGamePlus": "Passa a {{gameName}} {{plus}}",
+    "joinPlus": "Passa a {{plus}}",
+    "signOut": "Esci",
+    "privacy": "Informativa sulla privacy",
+    "terms": "Termini di servizio",
+    "credits": "Crediti",
+    "deleteAccount": "Elimina account",
+    "poweredBy": "Offerto da {{companyName}}",
+    "deleteUnavailable": "Funzione di eliminazione dell’account non disponibile.",
+    "deleteFailed": "Impossibile eliminare l’account. Riprovi più tardi."
+  },
+  "deleteDialog": {
+    "title": "Elimina account",
+    "warning": "Questa azione non può essere annullata. Tutti i suoi dati in tutte le applicazioni {{companyName}} verranno eliminati definitivamente.",
+    "confirmation": "Confermo di voler eliminare l’intero account, compresi tutti i dati in tutte le applicazioni {{companyName}}.",
+    "cancel": "Annulla",
+    "deleting": "Eliminazione...",
+    "submit": "Elimina account"
+  }
+}

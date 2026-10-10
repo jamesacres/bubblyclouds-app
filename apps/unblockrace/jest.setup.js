@@ -4,7 +4,10 @@
 // Import testing-library matchers
 require('@testing-library/jest-dom');
 
-require('../../jest.setup.i18n').addAppBundle(require('./src/locales/en.json'));
+require('../../jest.setup.i18n').addAppBundle(
+  require('./src/locales/en.json'),
+  __dirname
+);
 
 // Mock @headlessui/react components
 jest.mock('@headlessui/react', () => {

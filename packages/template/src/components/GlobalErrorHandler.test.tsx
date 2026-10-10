@@ -79,7 +79,7 @@ describe('GlobalErrorHandler', () => {
       const container = document.getElementById('error-toast-container');
       expect(container).toHaveStyle('position: fixed');
       expect(container).toHaveStyle('top: 20px');
-      expect(container).toHaveStyle('right: 20px');
+      expect(container?.style.cssText).toContain('inset-inline-end: 20px');
       expect(container).toHaveStyle('z-index: 9999');
     });
 
@@ -598,6 +598,24 @@ describe('GlobalErrorHandler', () => {
 
       const icon = document.querySelector('svg');
       expect(icon).toBeInTheDocument();
+    });
+  });
+
+  describe('right-to-left', () => {
+    afterEach(() => {
+      document.documentElement.removeAttribute('dir');
+    });
+
+    it('should slide the toast in from the start edge', () => {
+      document.documentElement.dir = 'rtl';
+      render(<GlobalErrorHandler />);
+
+      window.dispatchEvent(new ErrorEvent('error', { error: new Error('x') }));
+
+      const toast = Array.from(
+        document.querySelectorAll<HTMLElement>('[id^="toast-"]')
+      ).find((el) => el.id !== 'toast-animations');
+      expect(toast?.style.getPropertyValue('--toast-slide')).toBe('-400px');
     });
   });
 });

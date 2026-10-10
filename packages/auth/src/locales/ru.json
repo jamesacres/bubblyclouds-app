@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Войдите, чтобы продолжить",
+    "signInWith": "Войти через {{provider}}",
+    "emailTitle": "Войти по электронной почте",
+    "emailPlaceholder": "your@email.com",
+    "continue": "Продолжить",
+    "cancel": "Отмена",
+    "terms": "Условия использования",
+    "privacy": "Политика конфиденциальности"
+  },
+  "header": {
+    "signIn": "Войти"
+  },
+  "avatar": {
+    "alt": "пользователь"
+  },
+  "panel": {
+    "title": "Аккаунт",
+    "greeting": "Привет, {{name}}!",
+    "fallbackName": "Пользователь",
+    "plusActive": "Активно: {{gameName}} {{plus}}",
+    "joinGamePlus": "Подключить {{gameName}} {{plus}}",
+    "joinPlus": "Подключить {{plus}}",
+    "signOut": "Выйти",
+    "privacy": "Политика конфиденциальности",
+    "terms": "Условия использования",
+    "credits": "Благодарности",
+    "deleteAccount": "Удалить аккаунт",
+    "poweredBy": "На платформе {{companyName}}",
+    "deleteUnavailable": "Удаление аккаунта недоступно.",
+    "deleteFailed": "Не удалось удалить аккаунт. Повторите попытку позже."
+  },
+  "deleteDialog": {
+    "title": "Удаление аккаунта",
+    "warning": "Это действие нельзя отменить. Все ваши данные во всех приложениях {{companyName}} будут удалены без возможности восстановления.",
+    "confirmation": "Я подтверждаю, что хочу удалить весь свой аккаунт вместе со всеми данными во всех приложениях {{companyName}}.",
+    "cancel": "Отмена",
+    "deleting": "Удаление...",
+    "submit": "Удалить аккаунт"
+  }
+}

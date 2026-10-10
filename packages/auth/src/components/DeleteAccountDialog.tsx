@@ -60,9 +60,9 @@ export const DeleteAccountDialog = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-start align-middle shadow-xl transition-all">
                 <div className="flex items-center">
-                  <div className="mr-4 flex-shrink-0">
+                  <div className="me-4 flex-shrink-0">
                     <AlertTriangle className="h-10 w-10 text-red-500" />
                   </div>
                   <Dialog.Title
@@ -85,11 +85,11 @@ export const DeleteAccountDialog = ({
                   <label className="flex items-center">
                     <input
                       type="checkbox"
-                      className="text-theme-primary focus:ring-theme-primary h-4 w-4 rounded border-gray-300"
+                      className="text-theme-primary focus:ring-theme-primary h-4 w-4 shrink-0 rounded border-gray-300"
                       checked={isConfirmed}
                       onChange={(e) => setIsConfirmed(e.target.checked)}
                     />
-                    <span className="ml-2 text-sm text-gray-700">
+                    <span className="ms-2 text-sm text-gray-700">
                       {t('deleteDialog.confirmation', {
                         companyName: t('brand.companyName'),
                       })}
@@ -97,7 +97,7 @@ export const DeleteAccountDialog = ({
                   </label>
                 </div>
 
-                <div className="mt-6 flex justify-end space-x-4">
+                <div className="mt-6 flex flex-wrap justify-end gap-4">
                   <button
                     type="button"
                     className="focus-visible:ring-theme-primary inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"

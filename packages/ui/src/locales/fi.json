@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Kieli",
+    "automatic": "Automaattinen"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Takaisin"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Tumma tila päälle/pois"
+  },
+  "starRating": {
+    "label_one": "{{filled}} / {{count}} tähti",
+    "label_other": "{{filled}} / {{count}} tähteä"
+  },
+  "timer": {
+    "go": "MENE!"
+  },
+  "themeColor": {
+    "change": "Vaihda teemaväriä",
+    "set": "Aseta teemaväri: {{color}}",
+    "setPremium": "Aseta teemaväri: {{color}} (Premium)",
+    "colors": {
+      "blue": "sininen",
+      "red": "punainen",
+      "green": "vihreä",
+      "purple": "purppura",
+      "amber": "meripihka",
+      "cyan": "syaani",
+      "pink": "vaaleanpunainen",
+      "indigo": "indigo",
+      "orange": "oranssi",
+      "teal": "sinivihreä",
+      "slate": "liuskeenharmaa",
+      "rose": "ruusunpunainen",
+      "emerald": "smaragdi",
+      "sky": "taivaansininen",
+      "violet": "violetti",
+      "lime": "lime",
+      "fuchsia": "fuksia",
+      "yellow": "keltainen",
+      "stone": "kivenharmaa",
+      "zinc": "sinkki"
+    }
+  },
+  "copyButton": {
+    "copied": "Kopioitu leikepöydälle!",
+    "share": "Jaa kutsulinkki",
+    "copy": "Kopioi kutsulinkki"
+  },
+  "share": {
+    "joinTeam": "Liity kisatiimiin sovelluksessa {{appName}}!",
+    "joinNamedTeam": "Liity kisatiimiin {{partyName}} sovelluksessa {{appName}}!",
+    "dialogTitle": "Jaa kutsu"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Sudoku Race",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "race",
+      "team": "team",
+      "leaderboard": "ranglijst",
+      "hint": "hint",
+      "undo": "undo",
+      "theme": "thema",
+      "dailyPuzzle": "dagelijkse puzzel",
+      "monthlyCollection": "maandelijks puzzelboek",
+      "aiOpponent": "AI-tegenstander",
+      "monthly": "maandelijkse",
+      "lifetime": "voor het leven",
+      "plusAccess": "Plus-toegang",
+      "plusFeatureLine": "Onbeperkt racen, extra teams, thema's, undo"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Vrij Racen",
+      "gameName": "Vrij Racen",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "race",
+      "team": "team",
+      "leaderboard": "ranglijst",
+      "hint": "hint",
+      "undo": "undo",
+      "theme": "thema",
+      "dailyPuzzle": "dagelijkse puzzel",
+      "monthlyCollection": "maandelijkse puzzelcollectie",
+      "aiOpponent": "AI-tegenstander",
+      "monthly": "maandelijkse",
+      "lifetime": "voor het leven",
+      "plusAccess": "Plus-toegang",
+      "plusFeatureLine": "Onbeperkt racen, extra teams, thema's, undo"
+    }
+  }
+}

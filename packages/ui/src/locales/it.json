@@ -1,0 +1,58 @@
+{
+  "language": {
+    "label": "Lingua",
+    "automatic": "Automatica"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Indietro"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Attiva/disattiva modalità scura"
+  },
+  "starRating": {
+    "label_one": "{{filled}} su {{count}} stella",
+    "label_many": "{{filled}} su {{count}} di stelle",
+    "label_other": "{{filled}} su {{count}} stelle"
+  },
+  "timer": {
+    "go": "VIA!"
+  },
+  "themeColor": {
+    "change": "Cambia colore del tema",
+    "set": "Imposta il colore del tema su {{color}}",
+    "setPremium": "Imposta il colore del tema su {{color}} (Premium)",
+    "colors": {
+      "blue": "blu",
+      "red": "rosso",
+      "green": "verde",
+      "purple": "viola",
+      "amber": "ambra",
+      "cyan": "ciano",
+      "pink": "rosa",
+      "indigo": "indaco",
+      "orange": "arancione",
+      "teal": "verde acqua",
+      "slate": "ardesia",
+      "rose": "rosa intenso",
+      "emerald": "smeraldo",
+      "sky": "azzurro",
+      "violet": "violetto",
+      "lime": "lime",
+      "fuchsia": "fucsia",
+      "yellow": "giallo",
+      "stone": "pietra",
+      "zinc": "zinco"
+    }
+  },
+  "copyButton": {
+    "copied": "Copiato negli appunti!",
+    "share": "Condividi il link d’invito",
+    "copy": "Copia il link d’invito"
+  },
+  "share": {
+    "joinTeam": "Unisciti al team di gara su {{appName}}!",
+    "joinNamedTeam": "Unisciti al team di gara {{partyName}} su {{appName}}!",
+    "dialogTitle": "Condividi l’invito"
+  }
+}

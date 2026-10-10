@@ -1,0 +1,274 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Zbiór",
+    "defaultDetailNoun": "zbiory łamigłówek"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Miesięczny zbiór"
+  },
+  "hintBox": {
+    "dismiss": "Zamknij podpowiedź"
+  },
+  "lobbyButton": {
+    "opponents": "Przeciwnicy"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Dalej — następna łamigłówka",
+    "continueLocked": "Dalej ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}: ukończono {{completed}} z {{total}}"
+  },
+  "countdownOverlay": {
+    "getReady": "Na miejsca",
+    "go": "START!"
+  },
+  "confirmDialog": {
+    "cancel": "Anuluj"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · ukończono",
+    "retry": "Ponów",
+    "points": "+{{points}} pkt",
+    "leaderboardPoints": "Punkty rankingu"
+  },
+  "raceTimer": {
+    "time": "Czas"
+  },
+  "stageTopBar": {
+    "previous": "Poprzedni"
+  },
+  "raceHud": {
+    "opponents": "Przeciwnicy",
+    "stageOf": "Etap {{current}} z {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Meta!",
+    "runComplete": "Seria ukończona",
+    "leaderboardPoints": "Punkty rankingu",
+    "pointsSuffix": " pkt"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Nd",
+      "monday": "Pn",
+      "tuesday": "Wt",
+      "wednesday": "Śr",
+      "thursday": "Cz",
+      "friday": "Pt",
+      "saturday": "Sb"
+    },
+    "dayStreak_one": "dzień z rzędu",
+    "dayStreak_few": "dni z rzędu",
+    "dayStreak_many": "dni z rzędu",
+    "dayStreak_other": "dnia z rzędu",
+    "thisMonth": "w tym miesiącu"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Ja)",
+    "puzzles_one": "{{count}} łamigłówka",
+    "puzzles_few": "{{count}} łamigłówki",
+    "puzzles_many": "{{count}} łamigłówek",
+    "puzzles_other": "{{count}} łamigłówki",
+    "average": "Śr.: {{time}}",
+    "best": "Rekord: {{time}}",
+    "wins_one": "🏁 {{count}} zwycięstwo",
+    "wins_few": "🏁 {{count}} zwycięstwa",
+    "wins_many": "🏁 {{count}} zwycięstw",
+    "wins_other": "🏁 {{count}} zwycięstwa",
+    "points_one": "punkt",
+    "points_few": "punkty",
+    "points_many": "punktów",
+    "points_other": "punktu"
+  },
+  "scoreBreakdown": {
+    "title": "Podział punktów",
+    "volumeBonus": {
+      "label": "Premia za liczbę",
+      "detail_one": "{{count}} ukończona łamigłówka",
+      "detail_few": "{{count}} ukończone łamigłówki",
+      "detail_many": "{{count}} ukończonych łamigłówek",
+      "detail_other": "{{count}} ukończonej łamigłówki"
+    },
+    "dailyPuzzles": {
+      "label": "Codzienne łamigłówki",
+      "detail_one": "{{count}} codzienne wyzwanie",
+      "detail_few": "{{count}} codzienne wyzwania",
+      "detail_many": "{{count}} codziennych wyzwań",
+      "detail_other": "{{count}} codziennego wyzwania"
+    },
+    "collectionPuzzles": {
+      "label": "Łamigłówki: {{collection}}",
+      "detail": "{{count}} · {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Zeskanowane łamigłówki",
+      "detail_one": "{{count}} zaimportowana łamigłówka",
+      "detail_few": "{{count}} zaimportowane łamigłówki",
+      "detail_many": "{{count}} zaimportowanych łamigłówek",
+      "detail_other": "{{count}} zaimportowanej łamigłówki"
+    },
+    "difficultyBonus": {
+      "label": "Premia za trudność",
+      "detail": "Trudniejsze łamigłówki = więcej punktów"
+    },
+    "speedBonus": {
+      "label": "Premia za szybkość",
+      "detail": "Najszybszy: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Premia za wyścig",
+      "detail": "Pokonani znajomi, którzy też ukończyli"
+    },
+    "dailyCombo": {
+      "label": "Combo dnia",
+      "detail": "Więcej łamigłówek dziennie = wyższy mnożnik"
+    }
+  },
+  "leaderboard": {
+    "you": "Ja",
+    "unknownUser": "Nieznany użytkownik",
+    "title": "Ranking",
+    "subtitleParty": "Ostatnie 30 dni · {{partyName}}",
+    "subtitleAllTeams": "Ostatnie 30 dni · Wszystkie zespoły",
+    "howScoringWorks": "Jak działa punktacja"
+  },
+  "scoringLegend": {
+    "title": "Jak działa punktacja",
+    "subtitle": "{{gameName}} · Ostatnie 30 dni",
+    "close": "Zamknij",
+    "racingWins": {
+      "title": "Wygrane w wyścigach",
+      "body": "Za każdego znajomego pokonanego na tej samej ukończonej łamigłówce przysługuje <points>+{{points}} pkt</points>. Ukończenie jej jako pierwszy wśród {{friends}} znajomych daje łącznie <points>+{{total}} pkt</points>."
+    },
+    "basePoints": {
+      "title": "Punkty bazowe",
+      "anyPuzzle": "Dowolna łamigłówka",
+      "dailyPuzzle": "Codzienna łamigłówka",
+      "collectionPuzzle": "Łamigłówka: {{collection}}",
+      "scannedPuzzle": "Zeskanowana łamigłówka"
+    },
+    "difficultyMultipliers": {
+      "title": "Mnożniki trudności",
+      "daily": "{{gameName}} – wyzwanie dnia",
+      "collection": "Łamigłówki: {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Premie za szybkość",
+      "lightning": "Błyskawica",
+      "fast": "Szybko",
+      "quick": "Sprawnie",
+      "steady": "Równo",
+      "under": "poniżej {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Combo dnia",
+      "body": "Rozwiązanie większej liczby łamigłówek tego samego dnia mnoży punkty za każdą z nich, nawet do <max>{{max}}×</max>.",
+      "puzzle": "{{puzzle}}. łamigłówka dnia",
+      "puzzleOrMore": "{{puzzle}}.+ łamigłówka dnia"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Seria ukończona",
+    "raceProgress": "Postęp wyścigu",
+    "stagesProgress": "{{completed}}/{{total}} etapów",
+    "retryStage": "Powtórz etap",
+    "stageLabel": "Etap {{number}}",
+    "stageCompletedLabel": "Etap {{number}}, ukończony w {{time}}",
+    "viewRacingStats": "Zobacz statystyki wyścigów",
+    "total": "Razem"
+  },
+  "raceTrack": {
+    "you": "Ja",
+    "viewFriends": "Kliknij, aby zobaczyć znajomych",
+    "start": "Start",
+    "finish": "Meta",
+    "inviteToRace": "Zaproś znajomych do wyścigu",
+    "opponents": "Przeciwnicy",
+    "racer": "Zawodnik",
+    "stageBadge": "E{{number}}",
+    "total": "Razem",
+    "leaderboard": "Ranking",
+    "puzzleBook": "Zbiór łamigłówek",
+    "puzzleBookLabel": "zbiór łamigłówek",
+    "refreshScores": "Odśwież wyniki",
+    "challengeFriends": "🏁 Rzuć wyzwanie znajomym",
+    "yourTime": "Czas:",
+    "inviteFriends": "Zaproś znajomych",
+    "racingLabel": "w wyścigu"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Podchwytliwa",
+      "easy": "Wymagająca",
+      "intermediate": "Trudna",
+      "expert": "Ekspert"
+    },
+    "book": {
+      "veryEasy": "Bardzo łatwa",
+      "easy": "Łatwa",
+      "moderatelyEasy": "Dość łatwa",
+      "moderate": "Umiarkowana",
+      "moderatelyHard": "Dość trudna",
+      "hard": "Trudna",
+      "vicious": "Okrutna",
+      "fiendish": "Diabelska",
+      "devilish": "Czarcia",
+      "hell": "Piekielna",
+      "beyondHell": "Poza piekłem"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Ostatnia cyfra",
+    "hiddenSingleBox": "Ukryta pojedynka (blok)",
+    "hiddenSingleLine": "Ukryta pojedynka (linia)",
+    "hiddenSingleVariantRegion": "Ukryta pojedynka (region wariantu)",
+    "nakedSingle": "Naga pojedynka",
+    "hiddenPair": "Ukryta para",
+    "lockedCandidate": "Zablokowany kandydat",
+    "hiddenTriple": "Ukryta trójka",
+    "hiddenQuadruple": "Ukryta czwórka",
+    "nakedPair": "Naga para",
+    "nakedTriple": "Naga trójka",
+    "nakedQuadruple": "Naga czwórka",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Drapacz chmur",
+    "twoStringKite": "Latawiec (Two-String Kite)",
+    "crane": "Żuraw",
+    "simpleColoring": "Proste kolorowanie",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing z płetwą/Sashimi",
+    "emptyRectangle": "Pusty prostokąt",
+    "uniqueRectangleType1": "Unikalny prostokąt, typ 1",
+    "uniqueRectangleType2": "Unikalny prostokąt, typ 2",
+    "uniqueRectangleType3": "Unikalny prostokąt, typ 3",
+    "uniqueRectangleType4": "Unikalny prostokąt, typ 4",
+    "uniqueRectangleType5": "Unikalny prostokąt, typ 5",
+    "finnedSashimiSwordfish": "Swordfish z płetwą/Sashimi",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "Łańcuch X",
+    "groupedXChain": "Grupowy łańcuch X",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Jellyfish z płetwą/Sashimi",
+    "medusa3D": "Medusa 3D",
+    "xyChain": "Łańcuch XY",
+    "alternatingInferenceChainAIC": "Łańcuch naprzemiennych implikacji (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Grupowy łańcuch naprzemiennych implikacji (AIC)",
+    "nishioForcingChain": "Łańcuch wymuszający Nishio",
+    "nishioForcingNet": "Sieć wymuszająca Nishio"
+  }
+}

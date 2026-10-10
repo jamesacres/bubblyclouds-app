@@ -33,7 +33,10 @@ const StageTopBar = memo(function StageTopBar({
         disabled={isDisabled}
         className="flex cursor-pointer items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
       >
-        <ChevronLeft className="h-3.5 w-3.5" aria-hidden="true" />
+        <ChevronLeft
+          className="h-3.5 w-3.5 rtl:-scale-x-100"
+          aria-hidden="true"
+        />
         {t('stageTopBar.previous')}
       </button>
     </div>

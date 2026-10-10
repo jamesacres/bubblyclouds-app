@@ -82,7 +82,7 @@ const Board = memo(function Board({
     const spanX = hintPiece?.orientation === 'horizontal' ? size : 1;
     const spanY = hintPiece?.orientation === 'horizontal' ? 1 : size;
     return {
-      left: `${((position % board.width) / board.width) * 100}%`,
+      insetInlineStart: `${((position % board.width) / board.width) * 100}%`,
       top: `${(Math.floor(position / board.width) / board.height) * 100}%`,
       width: `${(spanX / board.width) * 100}%`,
       height: `${(spanY / board.height) * 100}%`,
@@ -93,7 +93,7 @@ const Board = memo(function Board({
     <div
       ref={boardRef}
       data-testid="unblock-board"
-      className="relative ml-auto mr-auto aspect-square w-full max-w-xl overflow-hidden rounded-2xl border border-stone-200/80 bg-gradient-to-br from-white to-stone-200 lg:mr-0 dark:border-white/10 dark:from-zinc-900 dark:to-zinc-950"
+      className="relative me-auto ms-auto aspect-square w-full max-w-xl overflow-hidden rounded-2xl border border-stone-200/80 bg-gradient-to-br from-white to-stone-200 lg:me-0 dark:border-white/10 dark:from-zinc-900 dark:to-zinc-950"
       style={{
         // Theme-colour frame glow instead of a hard border; flares brighter
         // the moment the puzzle is solved
@@ -139,291 +139,293 @@ const Board = memo(function Board({
         }
       `}</style>
 
-      {/* Cell sockets: a soft inset per cell instead of full-bleed hairlines,
+      <div dir="ltr" className="absolute inset-0">
+        {/* Cell sockets: a soft inset per cell instead of full-bleed hairlines,
           so the surface reads as a board with resting places rather than
           graph paper — and still doesn't compete with the piece glow */}
-      {Array.from({ length: board.width * board.height }, (_, cell) => (
+        {Array.from({ length: board.width * board.height }, (_, cell) => (
+          <div
+            key={`cell-${cell}`}
+            aria-hidden="true"
+            className="absolute"
+            style={{
+              insetInlineStart: `${((cell % board.width) / board.width) * 100}%`,
+              top: `${(Math.floor(cell / board.width) / board.height) * 100}%`,
+              width: `${(1 / board.width) * 100}%`,
+              height: `${(1 / board.height) * 100}%`,
+            }}
+          >
+            <div
+              className="absolute rounded-[18%] bg-zinc-900/[0.07] dark:bg-white/[0.11]"
+              style={{
+                inset: '6%',
+                boxShadow:
+                  'inset 0 1px 3px rgba(0,0,0,0.12), inset 0 -1px 1px rgba(255,255,255,0.06)',
+              }}
+            />
+          </div>
+        ))}
+
+        {/* Vignette: focuses the eye on the centre of the play surface */}
         <div
-          key={`cell-${cell}`}
           aria-hidden="true"
-          className="absolute"
+          className="pointer-events-none absolute inset-0 hidden dark:block"
           style={{
-            left: `${((cell % board.width) / board.width) * 100}%`,
-            top: `${(Math.floor(cell / board.width) / board.height) * 100}%`,
-            width: `${(1 / board.width) * 100}%`,
+            background:
+              'radial-gradient(120% 120% at 50% 42%, transparent 55%, rgba(0,0,0,0.38) 100%)',
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 dark:hidden"
+          style={{
+            background:
+              'radial-gradient(120% 120% at 50% 42%, rgba(255,255,255,0.55) 25%, transparent 70%)',
+          }}
+        />
+
+        {/* Exit route: the primary piece's full row rendered as a road lane —
+          a faint theme tint with a dashed centre line running to the gate,
+          so the way out reads as a road, not a gradient smudge */}
+        <div
+          aria-hidden="true"
+          data-testid="exit-route"
+          className={`absolute end-0 start-0 ${solved ? 'duration-500' : ''} transition-opacity`}
+          style={{
+            top: `${(primaryRow / board.height) * 100}%`,
             height: `${(1 / board.height) * 100}%`,
+            background:
+              'linear-gradient(to right, color-mix(in srgb, var(--theme-primary) 4%, transparent), color-mix(in srgb, var(--theme-primary) 22%, transparent))',
+            opacity: solved ? 1 : 0.9,
           }}
         >
           <div
-            className="absolute rounded-[18%] bg-zinc-900/[0.07] dark:bg-white/[0.11]"
+            className="absolute end-[10%] start-[4%] top-1/2 h-px -translate-y-1/2"
             style={{
-              inset: '6%',
-              boxShadow:
-                'inset 0 1px 3px rgba(0,0,0,0.12), inset 0 -1px 1px rgba(255,255,255,0.06)',
+              backgroundImage:
+                'repeating-linear-gradient(to right, color-mix(in srgb, var(--theme-primary) 55%, transparent) 0 10px, transparent 10px 22px)',
             }}
           />
         </div>
-      ))}
 
-      {/* Vignette: focuses the eye on the centre of the play surface */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden dark:block"
-        style={{
-          background:
-            'radial-gradient(120% 120% at 50% 42%, transparent 55%, rgba(0,0,0,0.38) 100%)',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 dark:hidden"
-        style={{
-          background:
-            'radial-gradient(120% 120% at 50% 42%, rgba(255,255,255,0.55) 25%, transparent 70%)',
-        }}
-      />
-
-      {/* Exit route: the primary piece's full row rendered as a road lane —
-          a faint theme tint with a dashed centre line running to the gate,
-          so the way out reads as a road, not a gradient smudge */}
-      <div
-        aria-hidden="true"
-        data-testid="exit-route"
-        className={`absolute left-0 right-0 ${solved ? 'duration-500' : ''} transition-opacity`}
-        style={{
-          top: `${(primaryRow / board.height) * 100}%`,
-          height: `${(1 / board.height) * 100}%`,
-          background:
-            'linear-gradient(to right, color-mix(in srgb, var(--theme-primary) 4%, transparent), color-mix(in srgb, var(--theme-primary) 22%, transparent))',
-          opacity: solved ? 1 : 0.9,
-        }}
-      >
-        <div
-          className="absolute left-[4%] right-[10%] top-1/2 h-px -translate-y-1/2"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(to right, color-mix(in srgb, var(--theme-primary) 55%, transparent) 0 10px, transparent 10px 22px)',
-          }}
-        />
-      </div>
-
-      {/* Exit gate at the primary piece's row: a glowing gantry on the grid
+        {/* Exit gate at the primary piece's row: a glowing gantry on the grid
           edge with chevrons marching out through it. Rendered above the
           pieces (z-20 vs the dragged piece's inline z-10 within its own
           stacking order) so an edge-hugging rival can never hide the way
           out — the car passes underneath it like a finish gantry */}
-      <div
-        aria-hidden="true"
-        data-testid="exit-marker"
-        className="pointer-events-none absolute right-0 z-20 flex items-center justify-end"
-        style={{
-          top: `${(primaryRow / board.height) * 100}%`,
-          height: `${(1 / board.height) * 100}%`,
-        }}
-      >
-        <div className="relative flex h-full w-full items-center justify-end">
-          {/* Dark notch flush to the frame edge, so the gate reads as an
+        <div
+          aria-hidden="true"
+          data-testid="exit-marker"
+          className="pointer-events-none absolute end-0 z-20 flex items-center justify-end"
+          style={{
+            top: `${(primaryRow / board.height) * 100}%`,
+            height: `${(1 / board.height) * 100}%`,
+          }}
+        >
+          <div className="relative flex h-full w-full items-center justify-end">
+            {/* Dark notch flush to the frame edge, so the gate reads as an
               opening cut into the board wall rather than a decal on it */}
-          <div
-            style={{
-              position: 'absolute',
-              right: 0,
-              top: '6%',
-              bottom: '6%',
-              width: 'max(14%, 12px)',
-              borderRadius: '6px 0 0 6px',
-              background:
-                'linear-gradient(to right, transparent, rgba(0,0,0,0.28))',
-            }}
-          />
-          {[0, 1].map((chevron) => (
             <div
-              key={chevron}
-              className="absolute"
               style={{
-                right: `${18 + chevron * 26}%`,
-                width: 0,
-                height: 0,
-                borderTop: '10px solid transparent',
-                borderBottom: '10px solid transparent',
-                borderLeft: '13px solid var(--theme-primary)',
-                filter: 'drop-shadow(0 0 6px var(--theme-primary))',
-                opacity: 0,
-                animation: `unblock-exit-chevron 1.4s ease-in-out ${chevron * 0.7}s infinite`,
+                position: 'absolute',
+                insetInlineEnd: 0,
+                top: '6%',
+                bottom: '6%',
+                width: 'max(14%, 12px)',
+                borderRadius: '6px 0 0 6px',
+                background:
+                  'linear-gradient(to right, transparent, rgba(0,0,0,0.28))',
               }}
             />
-          ))}
-          {/* Checkered finish sliver just inside the gate bar */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: 'absolute',
-              right: 'max(5%, 4px)',
-              width: 'max(4.5%, 5px)',
-              height: '72%',
-              borderRadius: 2,
-              opacity: 0.55,
-              backgroundColor: 'rgba(255,255,255,0.9)',
-              backgroundImage: `
+            {[0, 1].map((chevron) => (
+              <div
+                key={chevron}
+                className="absolute"
+                style={{
+                  insetInlineEnd: `${18 + chevron * 26}%`,
+                  width: 0,
+                  height: 0,
+                  borderTop: '10px solid transparent',
+                  borderBottom: '10px solid transparent',
+                  borderInlineStart: '13px solid var(--theme-primary)',
+                  filter: 'drop-shadow(0 0 6px var(--theme-primary))',
+                  opacity: 0,
+                  animation: `unblock-exit-chevron 1.4s ease-in-out ${chevron * 0.7}s infinite`,
+                }}
+              />
+            ))}
+            {/* Checkered finish sliver just inside the gate bar */}
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                insetInlineEnd: 'max(5%, 4px)',
+                width: 'max(4.5%, 5px)',
+                height: '72%',
+                borderRadius: 2,
+                opacity: 0.55,
+                backgroundColor: 'rgba(255,255,255,0.9)',
+                backgroundImage: `
                 linear-gradient(45deg, black 25%, transparent 25%),
                 linear-gradient(-45deg, black 25%, transparent 25%),
                 linear-gradient(45deg, transparent 75%, black 75%),
                 linear-gradient(-45deg, transparent 75%, black 75%)
               `,
-              backgroundSize: '5px 5px',
-              backgroundPosition: '0 0, 0 2.5px, 2.5px -2.5px, -2.5px 0px',
-            }}
-          />
-          <div
-            style={{
-              width: 'max(4%, 3px)',
-              height: '84%',
-              borderRadius: 2,
-              background: 'var(--theme-primary)',
-              boxShadow: `0 0 ${solved ? 20 : 12}px 2px color-mix(in srgb, var(--theme-primary) ${solved ? 90 : 70}%, transparent)`,
-              transition: 'box-shadow 500ms ease-out',
-            }}
-          />
+                backgroundSize: '5px 5px',
+                backgroundPosition: '0 0, 0 2.5px, 2.5px -2.5px, -2.5px 0px',
+              }}
+            />
+            <div
+              style={{
+                width: 'max(4%, 3px)',
+                height: '84%',
+                borderRadius: 2,
+                background: 'var(--theme-primary)',
+                boxShadow: `0 0 ${solved ? 20 : 12}px 2px color-mix(in srgb, var(--theme-primary) ${solved ? 90 : 70}%, transparent)`,
+                transition: 'box-shadow 500ms ease-out',
+              }}
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Walls: static neutral obstacles, not vehicles — no palette colour.
+        {/* Walls: static neutral obstacles, not vehicles — no palette colour.
           Hatched and sunken so they read as bolted-down, never draggable */}
-      {board.walls.map((wall) => (
-        <div
-          key={`wall-${wall}`}
-          data-testid={`wall-${wall}`}
-          className="absolute"
-          style={{
-            left: `${((wall % board.width) / board.width) * 100}%`,
-            top: `${(Math.floor(wall / board.width) / board.height) * 100}%`,
-            width: `${(1 / board.width) * 100}%`,
-            height: `${(1 / board.height) * 100}%`,
-          }}
-        >
+        {board.walls.map((wall) => (
           <div
-            className="bg-stone-300 [--wall-border:rgba(0,0,0,0.15)] [--wall-stripe:rgba(0,0,0,0.1)] dark:bg-zinc-700 dark:[--wall-border:rgba(255,255,255,0.25)] dark:[--wall-stripe:rgba(255,255,255,0.22)]"
+            key={`wall-${wall}`}
+            data-testid={`wall-${wall}`}
+            className="absolute"
             style={{
-              position: 'absolute',
-              inset: '7%',
-              borderRadius: '18%',
-              backgroundImage:
-                'repeating-linear-gradient(45deg, var(--wall-stripe) 0 4px, transparent 4px 9px)',
-              border: '1px solid var(--wall-border)',
-              boxShadow:
-                'inset 0 2px 6px rgba(0,0,0,0.35), inset 0 -1px 2px rgba(255,255,255,0.08)',
+              insetInlineStart: `${((wall % board.width) / board.width) * 100}%`,
+              top: `${(Math.floor(wall / board.width) / board.height) * 100}%`,
+              width: `${(1 / board.width) * 100}%`,
+              height: `${(1 / board.height) * 100}%`,
             }}
+          >
+            <div
+              className="bg-stone-300 [--wall-border:rgba(0,0,0,0.15)] [--wall-stripe:rgba(0,0,0,0.1)] dark:bg-zinc-700 dark:[--wall-border:rgba(255,255,255,0.25)] dark:[--wall-stripe:rgba(255,255,255,0.22)]"
+              style={{
+                position: 'absolute',
+                inset: '7%',
+                borderRadius: '18%',
+                backgroundImage:
+                  'repeating-linear-gradient(45deg, var(--wall-stripe) 0 4px, transparent 4px 9px)',
+                border: '1px solid var(--wall-border)',
+                boxShadow:
+                  'inset 0 2px 6px rgba(0,0,0,0.35), inset 0 -1px 2px rgba(255,255,255,0.08)',
+              }}
+            />
+          </div>
+        ))}
+
+        {board.pieces.map((piece, index) => (
+          <Piece
+            key={String.fromCharCode(65 + index)}
+            piece={piece}
+            index={index}
+            width={board.width}
+            height={board.height}
+            color={pieceColors[index]}
+            isDragging={draggingPiece === index}
+            // The car's exit still plays on a static (outgoing) board so its
+            // slide off the right edge continues seamlessly into the next
+            // board arriving during a stage transition (SPEC.md §4).
+            isExiting={solved && index === 0}
+            // Staggered pop-in as a stage arrives; the frozen outgoing board
+            // of a transition must not replay it.
+            entranceDelayMs={isStatic ? undefined : 60 + index * 40}
+            onPointerDown={isStatic ? undefined : onPointerDown}
+            onPointerMove={isStatic ? undefined : onPointerMove}
+            onPointerUp={isStatic ? undefined : onPointerUp}
+            onPointerCancel={isStatic ? undefined : onPointerCancel}
           />
-        </div>
-      ))}
+        ))}
 
-      {board.pieces.map((piece, index) => (
-        <Piece
-          key={String.fromCharCode(65 + index)}
-          piece={piece}
-          index={index}
-          width={board.width}
-          height={board.height}
-          color={pieceColors[index]}
-          isDragging={draggingPiece === index}
-          // The car's exit still plays on a static (outgoing) board so its
-          // slide off the right edge continues seamlessly into the next
-          // board arriving during a stage transition (SPEC.md §4).
-          isExiting={solved && index === 0}
-          // Staggered pop-in as a stage arrives; the frozen outgoing board
-          // of a transition must not replay it.
-          entranceDelayMs={isStatic ? undefined : 60 + index * 40}
-          onPointerDown={isStatic ? undefined : onPointerDown}
-          onPointerMove={isStatic ? undefined : onPointerMove}
-          onPointerUp={isStatic ? undefined : onPointerUp}
-          onPointerCancel={isStatic ? undefined : onPointerCancel}
-        />
-      ))}
-
-      {/* Hint overlay: a pulsing theme-colour ring over the piece to move
+        {/* Hint overlay: a pulsing theme-colour ring over the piece to move
           and a dashed ghost at where it should land. Above the pieces so an
           edge-to-edge rival can't hide it; pointer-events pass through so
           the hinted piece stays draggable underneath. Reduced motion is
           covered by the board-wide media rule above. */}
-      {hint != null && hintPiece && (
-        <>
-          <div
-            aria-hidden="true"
-            data-testid="hint-ring"
-            className="pointer-events-none absolute z-10"
-            style={hintRect(hintPiece.position, hintPiece.size)}
-          >
+        {hint != null && hintPiece && (
+          <>
             <div
-              className="absolute"
-              style={{
-                inset: '2%',
-                borderRadius: '26% / 34%',
-                border:
-                  '3px solid color-mix(in srgb, var(--theme-primary) 80%, white)',
-                boxShadow:
-                  '0 0 14px 2px color-mix(in srgb, var(--theme-primary) 60%, transparent), inset 0 0 10px color-mix(in srgb, var(--theme-primary) 35%, transparent)',
-                animation: 'unblock-hint-pulse 1.2s ease-in-out infinite',
-              }}
-            />
-          </div>
-          <div
-            aria-hidden="true"
-            data-testid="hint-ghost"
-            className="pointer-events-none absolute z-10"
-            style={hintRect(
-              hintPiece.position +
-                pieceStride(hintPiece, board.width) * hint.steps,
-              hintPiece.size
-            )}
-          >
+              aria-hidden="true"
+              data-testid="hint-ring"
+              className="pointer-events-none absolute z-10"
+              style={hintRect(hintPiece.position, hintPiece.size)}
+            >
+              <div
+                className="absolute"
+                style={{
+                  inset: '2%',
+                  borderRadius: '26% / 34%',
+                  border:
+                    '3px solid color-mix(in srgb, var(--theme-primary) 80%, white)',
+                  boxShadow:
+                    '0 0 14px 2px color-mix(in srgb, var(--theme-primary) 60%, transparent), inset 0 0 10px color-mix(in srgb, var(--theme-primary) 35%, transparent)',
+                  animation: 'unblock-hint-pulse 1.2s ease-in-out infinite',
+                }}
+              />
+            </div>
             <div
-              className="absolute"
-              style={{
-                inset: '6%',
-                borderRadius: '26% / 34%',
-                border:
-                  '2px dashed color-mix(in srgb, var(--theme-primary) 70%, transparent)',
-                background:
-                  'color-mix(in srgb, var(--theme-primary) 35%, transparent)',
-              }}
-            />
-          </div>
-        </>
-      )}
+              aria-hidden="true"
+              data-testid="hint-ghost"
+              className="pointer-events-none absolute z-10"
+              style={hintRect(
+                hintPiece.position +
+                  pieceStride(hintPiece, board.width) * hint.steps,
+                hintPiece.size
+              )}
+            >
+              <div
+                className="absolute"
+                style={{
+                  inset: '6%',
+                  borderRadius: '26% / 34%',
+                  border:
+                    '2px dashed color-mix(in srgb, var(--theme-primary) 70%, transparent)',
+                  background:
+                    'color-mix(in srgb, var(--theme-primary) 35%, transparent)',
+                }}
+              />
+            </div>
+          </>
+        )}
 
-      {/* Solve flare: a single theme-colour light sweep across the board as
+        {/* Solve flare: a single theme-colour light sweep across the board as
           the car exits, so every stage win lands, not just the final one */}
-      {solved && (
-        <div
-          aria-hidden="true"
-          data-testid="solve-sweep"
-          className="pointer-events-none absolute inset-0 overflow-hidden"
-        >
+        {solved && (
           <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(105deg, transparent 30%, color-mix(in srgb, var(--theme-primary) 22%, transparent) 50%, transparent 70%)',
-              animation: 'unblock-solve-sweep 700ms ease-out forwards',
-            }}
-          />
-          {/* Radial burst out of the exit gate as the car crosses it */}
-          <div
-            data-testid="solve-burst"
-            className="absolute"
-            style={{
-              right: 0,
-              top: `${((primaryRow + 0.5) / board.height) * 100}%`,
-              width: '55%',
-              aspectRatio: '1',
-              borderRadius: '50%',
-              background:
-                'radial-gradient(circle, color-mix(in srgb, var(--theme-primary) 45%, transparent) 0%, transparent 65%)',
-              animation: 'unblock-exit-burst 650ms ease-out forwards',
-            }}
-          />
-        </div>
-      )}
+            aria-hidden="true"
+            data-testid="solve-sweep"
+            className="pointer-events-none absolute inset-0 overflow-hidden"
+          >
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(105deg, transparent 30%, color-mix(in srgb, var(--theme-primary) 22%, transparent) 50%, transparent 70%)',
+                animation: 'unblock-solve-sweep 700ms ease-out forwards',
+              }}
+            />
+            {/* Radial burst out of the exit gate as the car crosses it */}
+            <div
+              data-testid="solve-burst"
+              className="absolute"
+              style={{
+                insetInlineEnd: 0,
+                top: `${((primaryRow + 0.5) / board.height) * 100}%`,
+                width: '55%',
+                aspectRatio: '1',
+                borderRadius: '50%',
+                background:
+                  'radial-gradient(circle, color-mix(in srgb, var(--theme-primary) 45%, transparent) 0%, transparent 65%)',
+                animation: 'unblock-exit-burst 650ms ease-out forwards',
+              }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 });

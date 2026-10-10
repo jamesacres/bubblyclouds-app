@@ -1,0 +1,356 @@
+{
+  "brand": {
+    "gameName": "Wyścig Sudoku"
+  },
+  "board": {
+    "buttonGroup": "Grupa przycisków"
+  },
+  "celebration": {
+    "solved": "Rozwiązano!",
+    "leaderboardPoints": "Punkty rankingu",
+    "pointsSuffix": " pkt"
+  },
+  "completion": {
+    "time": "Czas"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Kontynuacja serii w zbiorze łamigłówek"
+  },
+  "puzzleMeta": {
+    "daily": "Codzienna {{day}} {{month}}",
+    "dayOrdinal": "{{count}}.",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "book": "Zbiór {{month}} nr {{number}}",
+    "scanned": "Zeskanowana łamigłówka"
+  },
+  "bookCover": {
+    "edition": "Edycja: {{month}}",
+    "puzzleCount": "50 łamigłówek • różne poziomy trudności",
+    "months": {
+      "january": {
+        "tagline": "Od podstaw po brutalne techniki",
+        "footer": "❄️ Edycja zimowych wyzwań ❄️"
+      },
+      "february": {
+        "tagline": "Od ukrytych pojedynek po łańcuchy AIC",
+        "footer": "💕 Pokochaj wyzwanie 💕"
+      },
+      "march": {
+        "tagline": "Wiosenny zryw ku zaawansowanym technikom",
+        "footer": "🌸 Rozkwitają nowe wyzwania 🌸"
+      },
+      "april": {
+        "tagline": "Przetrwać każdą burzę rozwiązywania",
+        "footer": "🌈 Po deszczu przychodzi zwycięstwo 🌈"
+      },
+      "may": {
+        "tagline": "Rozkwit mocy umysłu",
+        "footer": "🌻 Niech umiejętności rozkwitają 🌻"
+      },
+      "june": {
+        "tagline": "Letni trening umysłu",
+        "footer": "☀️ Słoneczna strona rozwiązywania ☀️"
+      },
+      "july": {
+        "tagline": "Plażowa lektura, trening umysłu",
+        "footer": "🏖️ Wakacyjne gry umysłu 🏖️"
+      },
+      "august": {
+        "tagline": "Rozgrzewka dla mocy umysłu",
+        "footer": "🔥 Rozpalone do czerwoności wyzwania 🔥"
+      },
+      "september": {
+        "tagline": "Szkoła dla umysłu",
+        "footer": "📚 Wiedza przez liczby 📚"
+      },
+      "october": {
+        "tagline": "Upiornie mądre wyzwania",
+        "footer": "🎃 Przerażająco przyjemnie 🎃"
+      },
+      "november": {
+        "tagline": "Jesienne wieczory dla umysłu",
+        "footer": "🍂 Jesień z łamigłówką 🍂"
+      },
+      "december": {
+        "tagline": "Świąteczne prezenty dla umysłu",
+        "footer": "🎄 Wesołych Świąt dla miłośników łamigłówek! 🎄"
+      },
+      "default": {
+        "tagline": "Wyzwanie dla umysłu",
+        "footer": "🧩 Siła łamigłówek 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Brak połączenia — proszę sprawdzić sieć",
+      "loadFailed": "Nie udało się wczytać zbioru łamigłówek"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Klawiatura: strzałki, cofnij, ponów.",
+      "notes": "Aby przełączyć tryb notatek, należy przytrzymać Shift lub nacisnąć n.",
+      "validate": "Klawisz c sprawdza pole, a klawisz g – całą siatkę."
+    },
+    "owl": {
+      "invalid": "Wygląda na to, że pojawił się błąd. Polecam sprawdzić siatkę.",
+      "notSure": "Przepraszam, nie jestem pewna.",
+      "eureka": "Notacja Eureka {{notation}}",
+      "highlighted": "Zaznaczyłam odpowiednie pola",
+      "foundTechnique": "Znalazłam technikę: {{technique}}",
+      "noHint": "Brak dostępnej podpowiedzi"
+    },
+    "legend": {
+      "stem": "Łodyga",
+      "petalA": "Płatek A",
+      "petalB": "Płatek B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Włączone (prawda)",
+      "off": "Wyłączone (fałsz)",
+      "elimination": "Eliminacja"
+    },
+    "reply": {
+      "thanks": "Dzięki,",
+      "tellMeMore": "🤔 Więcej szczegółów",
+      "showMeWhere": "👀 Gdzie dokładnie?",
+      "hideHint": "Ukryj podpowiedź"
+    },
+    "askForHelp": "Poproś o pomoc",
+    "notes": "Notatki",
+    "copied": "Skopiowano",
+    "export": "Eksport",
+    "delete": "Usuń",
+    "undo": "Cofnij",
+    "redo": "Ponów",
+    "cell": "Pole",
+    "grid": "Siatka",
+    "zoom": "Zoom",
+    "reset": "Resetuj",
+    "reveal": "Odkryj",
+    "confirm": {
+      "reset": {
+        "title": "Zresetować całą siatkę?",
+        "body": "Czy na pewno zresetować całą siatkę?",
+        "confirm": "Resetuj"
+      },
+      "reveal": {
+        "title": "Odkryć całą siatkę?",
+        "body": "Czy na pewno odkryć całą siatkę?",
+        "confirm": "Odkryj"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Naga pojedynka",
+    "hiddenSingleBox": "Ukryta pojedynka (blok)",
+    "hiddenSingleRow": "Ukryta pojedynka (wiersz)",
+    "hiddenSingleCol": "Ukryta pojedynka (kolumna)",
+    "nakedPair": "Naga para",
+    "nakedTriple": "Naga trójka",
+    "nakedQuad": "Naga czwórka",
+    "hiddenPair": "Ukryta para",
+    "hiddenTriple": "Ukryta trójka",
+    "hiddenQuad": "Ukryta czwórka",
+    "lockedCandidatePointing": "Zablokowani kandydaci (wskazywanie)",
+    "lockedCandidateClaiming": "Zablokowani kandydaci (przejmowanie)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Drapacz chmur",
+    "twoStringKite": "Latawiec (Two-String Kite)",
+    "finnedXWing": "X-Wing z płetwą",
+    "finnedSwordfish": "Swordfish z płetwą",
+    "finnedJellyfish": "Jellyfish z płetwą",
+    "emptyRectangle": "Pusty prostokąt",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Unikalny prostokąt (typ 1)",
+    "uniqueRectangleType2": "Unikalny prostokąt (typ 2)",
+    "uniqueRectangleType3": "Unikalny prostokąt (typ 3)",
+    "uniqueRectangleType4": "Unikalny prostokąt (typ 4)",
+    "uniqueRectangleType5": "Unikalny prostokąt (typ 5)",
+    "bug": "BUG",
+    "xyChain": "Łańcuch XY",
+    "aic": "AIC",
+    "aicRing": "Pierścień AIC",
+    "groupedAIC": "Grupowy AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Kwiat śmierci",
+    "nishio": "Nishio",
+    "nishioNet": "Sieć Nishio",
+    "cellRegionForcingChain": "Łańcuch wymuszający pole/region",
+    "cellRegionForcingNet": "Sieć wymuszająca pole/region",
+    "forcingChain": "Łańcuch wymuszający"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "pszczoła",
+      "personality": "Niespokojny i pełen entuzjazmu. Śmiga po siatce zrywami, po czym staje. Pod koniec przyspiesza zbyt wcześnie i utyka tuż przed metą.",
+      "voiceLines": {
+        "neutral": [
+          "Ooo! Widzę jedną!",
+          "Chwila — nie, chyba jednak nie...",
+          "Bzzz bzzz! Postęp!"
+        ],
+        "playerAhead": ["Hej, zwolnij!", "Szło mi tak dobrze…"],
+        "playerBehind": ["Doganiam!", "Ale pędzę!"],
+        "endgame": ["Już prawie! Chyba!", "Chwila — gdzie to pasuje?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "kaczka",
+      "personality": "Pogodna i bezcelowa. Powoli i równo, z długimi przerwami. W końcówce niemal przypadkiem wpada na rozwiązanie.",
+      "voiceLines": {
+        "neutral": ["Nie spieszę się...", "Hmm... gdzieś tutaj."],
+        "playerAhead": ["Świetnie idzie!", "W końcu tam dotrę."],
+        "playerBehind": ["O! Jest jedna!", "Miło tak."],
+        "endgame": ["Chyba już prawie skończone?", "O! Udało się."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "jaszczurka",
+      "personality": "Ostrożna i spostrzegawcza. Długie przerwy, potem małe skupiska ruchów. W końcówce waha się przed każdym wstawieniem cyfry.",
+      "voiceLines": {
+        "neutral": ["Sprawdzę to jeszcze raz.", "Powinno być dobrze."],
+        "playerAhead": ["Teraz trzeba uważać.", "Bez pośpiechu."],
+        "playerBehind": ["No dobrze… nadrabiam.", "Jest jeszcze czas."],
+        "endgame": ["Ostrożnie teraz...", "Prawie… muszę tylko mieć pewność."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "pająk",
+      "personality": "Przemyślany i uporządkowany. Buduje postęp starannie, element po elemencie. W końcówce struktura się rozpada — wkrada się wahanie, jakby plan przestał się trzymać.",
+      "voiceLines": {
+        "neutral": ["Pasuje do wzoru.", "Element po elemencie..."],
+        "playerAhead": ["Przecież działało...", "Muszę to naprawić..."],
+        "playerBehind": ["Wciąż się trzyma.", "Tak… to działa."],
+        "endgame": [
+          "Chwila — nie, to wszystko psuje.",
+          "Miałem to zaplanowane..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "szop",
+      "personality": "Zadziorny i skory do wykorzystywania okazji. Nierówny rytm. W końcówce łapie rozpęd i kończy szybciej, niż można się spodziewać.",
+      "voiceLines": {
+        "neutral": ["To działa!", "Trochę bałagan, ale biorę."],
+        "playerAhead": ["No dobra, czas docisnąć.", "Jeszcze nie koniec."],
+        "playerBehind": [
+          "O — fajne znalezisko.",
+          "Wszystko zaczyna się układać."
+        ],
+        "endgame": ["Tak, mam to.", "Teraz idzie gładko."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingwin",
+      "personality": "Uporządkowany i metodyczny. Równe tempo. Końcówka pozostaje spokojna — bez paniki, bez sprintu.",
+      "voiceLines": {
+        "neutral": ["Pasuje.", "Trzymam równe tempo."],
+        "playerAhead": ["Utrzymać tempo.", "Nie ma potrzeby się spieszyć."],
+        "playerBehind": ["Wciąż na dobrej drodze.", "Postęp jest stały."],
+        "endgame": ["Już prawie.", "Skończyć czysto."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "małpa",
+      "personality": "Nieobliczalna i niepokojąca. Nieprzewidywalne zrywy. W końcówce nagle przyspiesza w sposób, który wydaje się nieuczciwy.",
+      "voiceLines": {
+        "neutral": ["Heh… tego się nie spodziewano?", "Och, to ciekawe."],
+        "playerAhead": ["Nie ma co się rozsiadać.", "Patrz na to."],
+        "playerBehind": [
+          "Czasem wszystko samo się układa.",
+          "Łut szczęścia… a może nie?"
+        ],
+        "endgame": [
+          "Och, no proszę — zaczyna się.",
+          "Szybko się to rozkręciło."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "orzeł",
+      "personality": "Oderwany i płynny. Rozłożone w czasie, pewne ruchy. Ciche przyspieszenie w końcówce.",
+      "voiceLines": {
+        "neutral": ["Już to widziałem.", "Tylko wypełniam."],
+        "playerAhead": [
+          "To niczego nie zmienia.",
+          "Wynik i tak będzie ten sam."
+        ],
+        "playerBehind": [
+          "Jest już po wszystkim, naprawdę.",
+          "Myślami jestem gdzie indziej."
+        ],
+        "endgame": ["…prawie skończone.", "Zamykam sprawę."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "lis",
+      "personality": "Intensywny i ambitny. Szybki start, ciągła presja. Zryw w końcówce wydaje się agresywny.",
+      "voiceLines": {
+        "neutral": ["Nadążaj.", "Wciąż ze mną?"],
+        "playerAhead": ["Nie zwalniaj teraz.", "Stać cię na więcej."],
+        "playerBehind": ["Za wolno.", "Zostajesz w tyle."],
+        "endgame": ["Kończymy to.", "To moje."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "rekin",
+      "personality": "Cierpliwy i drapieżny. Trzyma się blisko, a w końcówce zaciska szczęki.",
+      "voiceLines": {
+        "neutral": ["Tuż za tobą.", "Jeszcze nie."],
+        "playerAhead": ["Zostań, gdzie jesteś.", "Jestem już blisko."],
+        "playerBehind": ["Zbliżam się.", "A, tu jesteś."],
+        "endgame": ["Teraz kończymy.", "Mam cię."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "sowa",
+      "personality": "Spokojna i rozważna. Płynne tempo. Końcówka jest czysta i nieunikniona.",
+      "voiceLines": {
+        "neutral": ["Zgodnie z oczekiwaniami.", "Wszystko się zgadza."],
+        "playerAhead": ["Dobrze.", "Widać to."],
+        "playerBehind": ["Doprowadź to do końca.", "Wytrwaj."],
+        "endgame": ["Prawie gotowe.", "O, jest."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "czarny kot",
+      "personality": "Cichy i nieludzki. Minimum przerw. Końcówka to szybkie, nieprzerwane domknięcie.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…wciąż."],
+        "playerBehind": ["Za późno.", "Zawahanie."],
+        "endgame": ["…gotowe.", "Koniec."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "smok",
+      "personality": "Bez wysiłku i absolutny. Przez cały czas zachowuje pełną kontrolę. W końcówce wykonuje zdecydowane, nieprzerwane przejście — bez luk, bez oporu.",
+      "voiceLines": {
+        "neutral": ["Zgodnie z planem.", "Bez odchyleń."],
+        "playerAhead": ["Słusznie, że próbujesz.", "Kontynuuj."],
+        "playerBehind": ["To koniec.", "Nie ma alternatywy."],
+        "endgame": ["To wszystko.", "Ukończone."]
+      }
+    }
+  }
+}

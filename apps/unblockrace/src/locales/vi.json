@@ -1,0 +1,292 @@
+{
+  "brand": {
+    "appName": "Đua Giải Cứu Xe",
+    "gameName": "Đua Giải Cứu Xe",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Chơi và chia sẻ để đua với bạn bè giải cứu câu đố. Thử thách hằng ngày và đồng bộ nhiều thiết bị!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Bắt đầu đua",
+      "myPuzzles": "Câu đố của tôi",
+      "racingTeams": "Đội đua"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Gỡ kẹt xe.",
+      "headlineAccent": "Thắng cuộc đua",
+      "subtitle": "Trượt các khối, giải thoát khối phát sáng và đua với bạn bè đến lối ra."
+    },
+    "leaderboard": "Bảng xếp hạng",
+    "dailyRace": {
+      "title": "Cuộc đua hằng ngày",
+      "refreshesDaily": "làm mới hằng ngày",
+      "todaysRace": "Cuộc đua hôm nay",
+      "difficultyRange": "Mới bắt đầu → Chuyên gia",
+      "description": "Năm bảng, một đồng hồ — ai thoát nhanh nhất sẽ thắng.",
+      "stages": "5 chặng",
+      "start": "Bắt đầu đua",
+      "morePuzzlesPrefix": "Thêm câu đố trong",
+      "puzzleCollection": "bộ sưu tập câu đố"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 câu đố",
+      "title": "Bộ sưu tập hằng tháng",
+      "description": "50 vụ kẹt xe mới cho {{month}} — hãy gỡ hết trước khi tháng kết thúc.",
+      "browse": "Xem câu đố"
+    },
+    "teams": {
+      "eyebrow": "Nhiều người chơi",
+      "title": "Đội đua",
+      "raceFriends": "Đua với {{names}} và những người khác",
+      "challengeFriends": "Thách bạn bè một cuộc đua"
+    },
+    "premium": {
+      "title": "Tính năng Premium",
+      "subtitle": "Mở khóa trọn vẹn trải nghiệm $t(brand.gameName)"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Đua Sudoku",
+    "tagline": "Chia sẻ một câu Sudoku với bạn bè và đua xem ai giải nhanh nhất."
+  },
+  "puzzle": {
+    "mobileDescription": "Tận hưởng trải nghiệm tuyệt nhất với ứng dụng {{appName}} của chúng tôi!",
+    "desktopDescription": "Tải {{appName}}",
+    "openInAppLabel": "Mở câu đố"
+  },
+  "collection": {
+    "loading": {
+      "both": "Đang tải bộ sưu tập câu đố...",
+      "collection": "Đang tải câu đố...",
+      "sessions": "Đang tải tiến độ của bạn..."
+    },
+    "retry": "Thử lại",
+    "backHome": "Về trang chủ",
+    "signInPrompt": "Đăng nhập để xem bộ sưu tập câu đố.",
+    "signIn": "Đăng nhập",
+    "noData": "Không có dữ liệu bộ sưu tập câu đố.",
+    "title": "Bộ sưu tập câu đố {{month}}",
+    "completed": "đã hoàn thành",
+    "inProgress": "đang làm",
+    "unlockWithPlus": "Mở khóa mọi câu đố với Plus",
+    "jumpToDifficulty": "Chuyển đến độ khó",
+    "scrollToTop": "Cuộn lên đầu",
+    "subtitle_other": "{{count}} câu đố, từ thoát nhanh đến tắc nghẽn cấp chuyên gia"
+  },
+  "invite": {
+    "loading": "Đang tải lời mời...",
+    "iconAlt": "Biểu tượng {{appName}}",
+    "greeting": "👋 Chào {{name}}!",
+    "invited": "Bạn được mời!",
+    "joinTeam": "Tham gia đội đua",
+    "tagline": "Cùng đua giải cứu câu đố và xem tiến độ của nhau theo thời gian thực!",
+    "proTipLabel": "Mẹo hay:",
+    "proTip": "Mọi câu đố bạn chơi từ giờ sẽ được chia sẻ với các thành viên trong đội để thi đấu vui vẻ!",
+    "nicknameLabel": "Đội đua của bạn gọi bạn là gì?",
+    "nicknamePlaceholder": "Nhập biệt danh của bạn",
+    "joining": "Đang tham gia đội...",
+    "join": "Vào cuộc vui! 🎉",
+    "signIn": "Đăng nhập để tiếp tục",
+    "bonus": "🎉 Quà tặng: Nhận {{duration}} {{plusName}}!",
+    "bonusDescription": "Khi tham gia đội đua này, bạn sẽ mở khóa các tính năng premium hoàn toàn miễn phí!",
+    "activation": "💡 Quyền truy cập premium của bạn sẽ tự động kích hoạt sau khi tham gia",
+    "duration": {
+      "oneMonth": "một tháng",
+      "oneYear": "một năm",
+      "lifetime": "trọn đời",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Lời mời đã hết hạn",
+      "description": "Liên kết mời này không còn hiệu lực. Hãy nhờ bạn của bạn gửi lời mời mới hoặc tăng quy mô đội."
+    },
+    "greetingAnonymous": "👋 Chào bạn!"
+  },
+  "credits": {
+    "title": "Ghi công và ghi nhận",
+    "intro": "Ứng dụng này được xây dựng dựa trên nhiều dự án xuất sắc",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Ứng dụng này được cấp phép theo Giấy phép MIT. Xem <licenseLink>LICENSE</licenseLink> và <creditsLink>CREDITS</creditsLink> của chúng tôi để biết chi tiết.",
+    "items": {
+      "rush": "Bộ giải Rush Hour và cơ sở dữ liệu câu đố của Michael Fogleman, biên dịch sang WebAssembly",
+      "nextjs": "Framework React cho môi trường sản xuất",
+      "typescript": "Tập mở rộng có kiểu của JavaScript",
+      "tailwind": "Framework CSS ưu tiên tiện ích",
+      "capacitor": "Môi trường chạy ứng dụng di động gốc",
+      "electron": "Framework ứng dụng máy tính",
+      "revenuecat": "Quản lý gói đăng ký",
+      "react": "Thư viện thành phần giao diện",
+      "turborepo": "Hệ thống xây dựng monorepo"
+    }
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Đăng nhập để bắt đầu câu đố hôm nay",
+      "collection": "Đăng nhập để xem bộ sưu tập",
+      "joinTeam": "Đăng nhập để tham gia đội",
+      "raceLobby": "Đăng nhập để đua với người khác",
+      "puzzleEntry": "Đăng nhập để chơi"
+    },
+    "valueProps": {
+      "saveProgress": "Lưu tiến độ của bạn",
+      "raceFriends": "Đua với bạn bè",
+      "trackStats": "Theo dõi thống kê của bạn"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Hôm nay bạn đã dùng {{limit}} gợi ý miễn phí.",
+      "body": "Plus cho bạn gợi ý không giới hạn — không bao giờ bị kẹt nữa — và giúp toàn bộ ứng dụng không có quảng cáo."
+    },
+    "undo": {
+      "title": "Bạn đã đạt giới hạn hoàn tác hằng ngày!",
+      "body": "Bạn có {{limit}} lượt hoàn tác miễn phí mỗi ngày. Giới hạn sẽ được đặt lại vào ngày mai, hoặc đăng ký để hoàn tác không giới hạn."
+    },
+    "collectionLocked": {
+      "title": "Câu đố này thuộc bộ sưu tập Plus.",
+      "body": "Plus mở khóa mọi câu đố trong gói của mọi tháng và giúp toàn bộ ứng dụng không có quảng cáo."
+    },
+    "themeColor": {
+      "title": "Giao diện này chỉ dành cho Plus.",
+      "body": "Nâng cấp để mở khóa tất cả màu giao diện đẹp mắt và cá nhân hóa trải nghiệm đua giải cứu xe của bạn."
+    },
+    "removeMember": {
+      "title": "Xóa thành viên khỏi nhóm là tính năng premium!",
+      "body": "Hãy đăng ký để mở khóa các tính năng quản lý nhóm nâng cao, bao gồm xóa thành viên."
+    },
+    "multipleParties": {
+      "title": "Nhiều đội đua là tính năng premium!",
+      "body": "Người dùng miễn phí chỉ có một đội. Hãy đăng ký để tạo và tham gia không giới hạn số đội cho gia đình, bạn bè và hơn thế nữa."
+    },
+    "partyMaxSize": {
+      "title": "Nhóm lớn là tính năng premium!",
+      "body": "Hãy đăng ký để mở khóa các tính năng quản lý nhóm nâng cao, bao gồm nhóm lớn."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Luôn không quảng cáo",
+      "description": "Không bao giờ có quảng cáo — chỉ bạn và các câu đố"
+    },
+    "hints": {
+      "title": "Gợi ý không giới hạn",
+      "description": "Không bao giờ bị kẹt — nhận gợi ý bất cứ khi nào bạn cần"
+    },
+    "monthlyPack": {
+      "title": "Mở khóa toàn bộ gói hằng tháng, mỗi tháng",
+      "description": "Chơi mọi câu đố ở mọi độ khó, không bị khóa"
+    },
+    "undos": {
+      "title": "Hoàn tác không giới hạn",
+      "description": "Tua lại bao nhiêu nước đi tùy thích"
+    },
+    "teams": {
+      "title": "Nhiều đội đua",
+      "description": "Tổ chức các cuộc thi riêng với bạn bè và gia đình"
+    },
+    "management": {
+      "title": "Quản lý đội",
+      "description": "Tạo nhóm lớn tới 15 người và xóa thành viên khỏi đội của bạn."
+    },
+    "themes": {
+      "title": "Mở khóa mọi giao diện",
+      "description": "Cá nhân hóa trải nghiệm đua của bạn"
+    }
+  },
+  "plusModal": {
+    "description": "Tham gia <badge>{{plusName}}</badge> để có <strong>gợi ý không giới hạn</strong>, <strong>mở khóa toàn bộ gói hằng tháng</strong> và <strong>hoàn tác không giới hạn</strong>. Thách đấu bạn bè, leo bảng xếp hạng và không có quảng cáo."
+  },
+  "leaderboard": {
+    "collectionLabel": "Bộ sưu tập",
+    "collectionDetailNoun": "bộ sưu tập"
+  },
+  "motivational": {
+    "messages": [
+      "Bạn bè của bạn đang chờ một thử thách",
+      "Hôm nay bạn sẽ đua với ai?",
+      "Đến lúc thể hiện tốc độ của bạn",
+      "Nhận lời thách đấu chứ?",
+      "Đua về đích nào",
+      "Ai là người giải nhanh nhất?",
+      "Sẵn sàng thống trị bảng xếp hạng chưa?",
+      "Kỹ năng đua của bạn đang chờ",
+      "Đến lúc bỏ xa họ rồi",
+      "Sẵn sàng về đích đầu tiên chưa?",
+      "Đường đua đang chờ bạn",
+      "Đến lúc vào số cao nhất",
+      "Sẵn sàng đạp ga trên lưới câu đố chưa?",
+      "Các đối thủ của bạn đã khởi động rồi",
+      "Hôm nay là ngày lập kỷ lục mới",
+      "Kỷ lục cá nhân của bạn đang chờ bị phá",
+      "Mỗi câu đố giúp bạn nhanh hơn",
+      "Chuỗi ngày liên tiếp bắt đầu từ bây giờ",
+      "Đến lúc nâng tầm trò chơi của bạn",
+      "Bước đột phá tiếp theo chỉ cách một câu đố",
+      "Sẵn sàng tự làm mình bất ngờ chưa?",
+      "Cho họ thấy bạn làm bằng gì",
+      "Đến lúc khai phá tiềm năng của bạn",
+      "Lần giải nhanh nhất của bạn vẫn còn ở phía trước",
+      "Sẵn sàng biến hôm nay thành ngày đáng nhớ chưa?",
+      "Mỗi giây đều quan trọng trong cuộc đua",
+      "Đến lúc vượt qua giới hạn",
+      "Hành trình tiến bộ của bạn vẫn tiếp tục",
+      "Sẵn sàng vượt mong đợi chưa?",
+      "Nghĩ bạn chịu được áp lực chứ?",
+      "Đến lúc làm những kẻ hoài nghi phải im lặng",
+      "Sẵn sàng giành chiến thắng chưa?",
+      "Đối thủ sẽ không ngờ tới điều này",
+      "Đến lúc để lại dấu ấn của bạn",
+      "Sẵn sàng tỏa sáng chưa?",
+      "Chiến thắng ngọt ngào hơn khi bạn xứng đáng có được",
+      "Đến lúc chứng minh ai là số một",
+      "Sẵn sàng thể hiện bản lĩnh thật sự chưa?",
+      "Tư duy nhà vô địch bắt đầu từ đây",
+      "Đến lúc vượt lên khỏi đám đông",
+      "Sẵn sàng viết nên huyền thoại của bạn chưa?",
+      "Nhà vô địch được tạo nên từ những khoảnh khắc như thế này",
+      "Đến lúc biến tiềm năng thành thành tích",
+      "Câu đố mới, cơ hội mới",
+      "Thử thách hôm nay đang chờ tài năng của bạn",
+      "Sẵn sàng biến hôm nay thành ngày tuyệt nhất chưa?",
+      "Một ngày mới nghĩa là có thêm kỷ lục để phá",
+      "Đến lúc thêm một chiến thắng vào bộ sưu tập",
+      "Sẵn sàng khởi đầu mạnh mẽ và về đích mạnh mẽ hơn chưa?",
+      "Sẵn sàng biến hôm nay thành huyền thoại chưa?",
+      "Liều thuốc chiến thắng hằng ngày của bạn đang chờ",
+      "Chiến lược gặp tốc độ trên lưới",
+      "Sẵn sàng nghĩ nhanh hơn và đua nhanh hơn chưa?",
+      "Tài giải câu đố của bạn đang gọi",
+      "Đến lúc kết hợp logic với tốc độ tia chớp",
+      "Sẵn sàng giải với độ chính xác tuyệt đối chưa?",
+      "Sự kết hợp hoàn hảo: kỹ năng và tốc độ",
+      "Tư duy phân tích là lợi thế đua của bạn",
+      "Đến lúc chứng tỏ sự vượt trội về câu đố",
+      "Sẵn sàng giải như một nhà vô địch chưa?",
+      "Đua chính xác bắt đầu từ tư duy rõ ràng",
+      "Bạn bè của bạn đang chờ một trận tái đấu",
+      "Hôm nay ai sẽ giải?",
+      "Câu đố hằng ngày mới đã sẵn sàng",
+      "Chuỗi ngày liên tiếp của bạn đang bị đe dọa",
+      "Câu đố mới, khởi đầu mới",
+      "Thử thách hôm nay đã lên sóng",
+      "Đua với một người bạn trên câu đố hằng ngày",
+      "Ngày mới, câu đố mới",
+      "Đã có người lên bảng xếp hạng rồi",
+      "Giữ vững chuỗi ngày liên tiếp",
+      "Thử thách hằng ngày vừa được làm mới",
+      "Đội của bạn đang chờ",
+      "Gần đỉnh hơn một câu đố",
+      "Các câu đố hôm nay đang chờ bạn",
+      "Quay lại và đua thôi"
+    ]
+  }
+}

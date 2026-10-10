@@ -545,18 +545,18 @@ export const IntegratedSessionRow = <
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-amber-950/50 via-amber-900/10 to-transparent"
           />
-          <span className="absolute right-2 top-2 z-20 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wide text-amber-950 shadow-md">
+          <span className="absolute end-2 top-2 z-20 inline-flex max-w-[calc(100%-1rem)] items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wide text-amber-950 shadow-md">
             <Sparkles className="h-3 w-3" aria-hidden="true" />
             {lockedLabel}
           </span>
         </>
       )}
-      <div className={isLocked ? 'opacity-80' : ''}>
+      <div dir="ltr" className={isLocked ? 'opacity-80' : ''}>
         <SimpleState state={session.state} />
       </div>
       <div className="space-y-2 px-4 py-2">
         <div className="text-center text-gray-900 dark:text-white">
-          <h3 className="text-sm font-semibold">{puzzleTitle}</h3>
+          <h3 className="break-words text-sm font-semibold">{puzzleTitle}</h3>
           {isLocked ? (
             <p className="text-xs font-semibold text-amber-600 dark:text-amber-400">
               {t('session.unlockWith', { label: lockedLabel })}
@@ -619,7 +619,7 @@ export const IntegratedSessionRow = <
           type="button"
           onClick={onLockedClick}
           aria-label={t('session.lockedPuzzle')}
-          className="relative block w-full cursor-pointer text-left"
+          className="relative block w-full cursor-pointer text-start"
         >
           {rowInner}
         </button>
@@ -674,9 +674,11 @@ export const IntegratedSessionRow = <
                         {isWinner && (
                           <Award className="h-3 w-3 shrink-0 text-yellow-600 dark:text-yellow-400" />
                         )}
-                        <span className="truncate">{nickname}</span>
+                        <span className="truncate" title={nickname}>
+                          {nickname}
+                        </span>
                       </span>
-                      <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
+                      <div className="flex min-w-0 flex-wrap items-center gap-1">
                         {isCompleted ? (
                           <>
                             <span
@@ -706,7 +708,7 @@ export const IntegratedSessionRow = <
                                 {formatDuration(inProgressSeconds)}
                               </span>
                             )}
-                            <span className="ml-1 shrink-0 opacity-75">
+                            <span className="ms-1 shrink-0 opacity-75">
                               {myPercentage}%
                             </span>
                             {moves && (
@@ -722,7 +724,7 @@ export const IntegratedSessionRow = <
                                 {formatDuration(inProgressSeconds)}
                               </span>
                             )}
-                            <span className="ml-1 shrink-0 opacity-75">
+                            <span className="ms-1 shrink-0 opacity-75">
                               {completionPercentage}%
                             </span>
                             {moves && (
@@ -747,7 +749,7 @@ export const IntegratedSessionRow = <
                   <span className="flex min-w-0 items-center gap-1 truncate font-medium">
                     {t('session.you')}
                   </span>
-                  <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
+                  <div className="flex min-w-0 flex-wrap items-center gap-1">
                     {isCompleted ? (
                       <>
                         <span
@@ -776,7 +778,7 @@ export const IntegratedSessionRow = <
                     ) : (
                       <>
                         {getTimerDisplay()}
-                        <span className="ml-1 shrink-0 opacity-75">
+                        <span className="ms-1 shrink-0 opacity-75">
                           {myPercentage}%
                         </span>
                         {ownMoves && (
@@ -803,7 +805,7 @@ export const IntegratedSessionRow = <
                 isFriendSessionsLoading &&
                 playerSessions.length === 0 && (
                   <div className="flex items-center justify-center p-1 text-xs opacity-50">
-                    <Loader className="mr-1 h-2 w-2 animate-spin text-gray-400" />
+                    <Loader className="me-1 h-2 w-2 animate-spin text-gray-400" />
                     <span className="text-[10px] text-gray-500 dark:text-gray-500">
                       {t('session.loadingFriends')}
                     </span>

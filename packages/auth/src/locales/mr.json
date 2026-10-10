@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "सुरू ठेवण्यासाठी साइन इन करा",
+    "signInWith": "{{provider}} सह साइन इन करा",
+    "emailTitle": "ईमेलने साइन इन करा",
+    "emailPlaceholder": "your@email.com",
+    "continue": "पुढे जा",
+    "cancel": "रद्द करा",
+    "terms": "सेवा अटी",
+    "privacy": "गोपनीयता धोरण"
+  },
+  "header": {
+    "signIn": "साइन इन"
+  },
+  "avatar": {
+    "alt": "वापरकर्ता"
+  },
+  "panel": {
+    "title": "खाते",
+    "greeting": "नमस्कार, {{name}}!",
+    "fallbackName": "वापरकर्ता",
+    "plusActive": "{{gameName}} {{plus}} सक्रिय",
+    "joinGamePlus": "{{gameName}} {{plus}} मध्ये सामील व्हा",
+    "joinPlus": "{{plus}} मध्ये सामील व्हा",
+    "signOut": "साइन आउट",
+    "privacy": "गोपनीयता धोरण",
+    "terms": "सेवा अटी",
+    "credits": "श्रेयनिर्देश",
+    "deleteAccount": "खाते हटवा",
+    "poweredBy": "{{companyName}} द्वारे संचालित",
+    "deleteUnavailable": "खाते हटवण्याची सुविधा उपलब्ध नाही.",
+    "deleteFailed": "खाते हटवता आले नाही. कृपया नंतर पुन्हा प्रयत्न करा."
+  },
+  "deleteDialog": {
+    "title": "खाते हटवा",
+    "warning": "ही कृती पूर्ववत करता येणार नाही. {{companyName}} च्या सर्व अॅप्समधील तुमचा सर्व डेटा कायमचा हटवला जाईल.",
+    "confirmation": "मी पुष्टी करतो/करते की मला माझे संपूर्ण खाते आणि {{companyName}} च्या सर्व अॅप्समधील सर्व डेटा हटवायचा आहे.",
+    "cancel": "रद्द करा",
+    "deleting": "हटवत आहे...",
+    "submit": "खाते हटवा"
+  }
+}

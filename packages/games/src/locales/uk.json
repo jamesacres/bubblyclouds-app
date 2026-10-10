@@ -1,0 +1,274 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Збірник",
+    "defaultDetailNoun": "збірники головоломок"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Щомісячний збірник"
+  },
+  "hintBox": {
+    "dismiss": "Закрити підказку"
+  },
+  "lobbyButton": {
+    "opponents": "Суперники"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Далі — наступна головоломка",
+    "continueLocked": "Далі ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} із {{total}} {{label}} завершено"
+  },
+  "countdownOverlay": {
+    "getReady": "Приготуйтеся",
+    "go": "Руш!"
+  },
+  "confirmDialog": {
+    "cancel": "Скасувати"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · завершено",
+    "retry": "Ще раз",
+    "points": "+{{points}} бал.",
+    "leaderboardPoints": "Бали таблиці лідерів"
+  },
+  "raceTimer": {
+    "time": "Час"
+  },
+  "stageTopBar": {
+    "previous": "Назад"
+  },
+  "raceHud": {
+    "opponents": "Суперники",
+    "stageOf": "Етап {{current}} із {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Фініш!",
+    "runComplete": "Забіг завершено",
+    "leaderboardPoints": "Бали таблиці лідерів",
+    "pointsSuffix": " бал."
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Нд",
+      "monday": "Пн",
+      "tuesday": "Вт",
+      "wednesday": "Ср",
+      "thursday": "Чт",
+      "friday": "Пт",
+      "saturday": "Сб"
+    },
+    "dayStreak_one": "день поспіль",
+    "dayStreak_few": "дні поспіль",
+    "dayStreak_many": "днів поспіль",
+    "dayStreak_other": "дня поспіль",
+    "thisMonth": "цього місяця"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Ви)",
+    "puzzles_one": "{{count}} головоломка",
+    "puzzles_few": "{{count}} головоломки",
+    "puzzles_many": "{{count}} головоломок",
+    "puzzles_other": "{{count}} головоломки",
+    "average": "Серед.: {{time}}",
+    "best": "Найкращий: {{time}}",
+    "wins_one": "🏁 {{count}} перемога",
+    "wins_few": "🏁 {{count}} перемоги",
+    "wins_many": "🏁 {{count}} перемог",
+    "wins_other": "🏁 {{count}} перемоги",
+    "points_one": "бал",
+    "points_few": "бали",
+    "points_many": "балів",
+    "points_other": "бала"
+  },
+  "scoreBreakdown": {
+    "title": "Розподіл балів",
+    "volumeBonus": {
+      "label": "Бонус за обсяг",
+      "detail_one": "{{count}} головоломка завершена",
+      "detail_few": "{{count}} головоломки завершено",
+      "detail_many": "{{count}} головоломок завершено",
+      "detail_other": "{{count}} головоломки завершено"
+    },
+    "dailyPuzzles": {
+      "label": "Щоденні головоломки",
+      "detail_one": "{{count}} щоденний виклик",
+      "detail_few": "{{count}} щоденні виклики",
+      "detail_many": "{{count}} щоденних викликів",
+      "detail_other": "{{count}} щоденного виклику"
+    },
+    "collectionPuzzles": {
+      "label": "Головоломки: {{collection}}",
+      "detail": "{{count}} зі збірника «{{collection}}»"
+    },
+    "scannedPuzzles": {
+      "label": "Скановані головоломки",
+      "detail_one": "{{count}} імпортована головоломка",
+      "detail_few": "{{count}} імпортовані головоломки",
+      "detail_many": "{{count}} імпортованих головоломок",
+      "detail_other": "{{count}} імпортованої головоломки"
+    },
+    "difficultyBonus": {
+      "label": "Бонус за складність",
+      "detail": "Складніша головоломка = більше балів"
+    },
+    "speedBonus": {
+      "label": "Бонус за швидкість",
+      "detail": "Найшвидше: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Бонус за перегони",
+      "detail": "Перемога над друзями, які теж завершили"
+    },
+    "dailyCombo": {
+      "label": "Щоденне комбо",
+      "detail": "Більше головоломок за день = більший множник"
+    }
+  },
+  "leaderboard": {
+    "you": "Ви",
+    "unknownUser": "Невідомий користувач",
+    "title": "Таблиця лідерів",
+    "subtitleParty": "Останні 30 днів · {{partyName}}",
+    "subtitleAllTeams": "Останні 30 днів · Усі команди",
+    "howScoringWorks": "Як нараховуються бали"
+  },
+  "scoringLegend": {
+    "title": "Як нараховуються бали",
+    "subtitle": "{{gameName}} · Останні 30 днів",
+    "close": "Закрити",
+    "racingWins": {
+      "title": "Перемоги в перегонах",
+      "body": "Отримуйте <points>+{{points}} бал.</points> за кожного друга, якого ви обійшли в одній і тій самій завершеній головоломці. Фінішуйте першими серед {{friends}} друзів і отримайте <points>+{{total}} бал.</points>."
+    },
+    "basePoints": {
+      "title": "Базові бали",
+      "anyPuzzle": "Будь-яка головоломка",
+      "dailyPuzzle": "Щоденна головоломка",
+      "collectionPuzzle": "Головоломка: {{collection}}",
+      "scannedPuzzle": "Сканована головоломка"
+    },
+    "difficultyMultipliers": {
+      "title": "Множники складності",
+      "daily": "{{gameName}} дня",
+      "collection": "Головоломки: {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Бонуси за швидкість",
+      "lightning": "Блискавка",
+      "fast": "Швидко",
+      "quick": "Жваво",
+      "steady": "Рівно",
+      "under": "до {{threshold}}",
+      "seconds": "{{value}} с",
+      "minutes": "{{value}} хв"
+    },
+    "dailyCombo": {
+      "title": "Щоденне комбо",
+      "body": "Розв’язуйте більше головоломок за один день, щоб помножити бали за кожну — до <max>{{max}}×</max>.",
+      "puzzle": "Головоломка дня №{{puzzle}}",
+      "puzzleOrMore": "Головоломка дня №{{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Забіг завершено",
+    "raceProgress": "Прогрес перегонів",
+    "stagesProgress": "{{completed}}/{{total}} етапів",
+    "retryStage": "Повторити етап",
+    "stageLabel": "Етап {{number}}",
+    "stageCompletedLabel": "Етап {{number}}, завершено за {{time}}",
+    "viewRacingStats": "Переглянути статистику перегонів",
+    "total": "Разом"
+  },
+  "raceTrack": {
+    "you": "Ви",
+    "viewFriends": "Натисніть, щоб побачити друзів",
+    "start": "Старт",
+    "finish": "Фініш",
+    "inviteToRace": "Запросити друзів на перегони",
+    "opponents": "Суперники",
+    "racer": "Гонщик",
+    "stageBadge": "Е{{number}}",
+    "total": "Разом",
+    "leaderboard": "Таблиця лідерів",
+    "puzzleBook": "Збірник головоломок",
+    "puzzleBookLabel": "збірник головоломок",
+    "refreshScores": "Оновити результати",
+    "challengeFriends": "🏁 Киньте виклик друзям",
+    "yourTime": "Ваш час:",
+    "inviteFriends": "Запросити друзів",
+    "racingLabel": "перегони"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Хитрий",
+      "easy": "Непростий",
+      "intermediate": "Складний",
+      "expert": "Експерт"
+    },
+    "book": {
+      "veryEasy": "Дуже легкий",
+      "easy": "Легкий",
+      "moderatelyEasy": "Доволі легкий",
+      "moderate": "Середній",
+      "moderatelyHard": "Доволі складний",
+      "hard": "Складний",
+      "vicious": "Лютий",
+      "fiendish": "Підступний",
+      "devilish": "Диявольський",
+      "hell": "Пекло",
+      "beyondHell": "За межами пекла"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Остання цифра",
+    "hiddenSingleBox": "Прихований одинак (блок)",
+    "hiddenSingleLine": "Прихований одинак (лінія)",
+    "hiddenSingleVariantRegion": "Прихований одинак (особлива ділянка)",
+    "nakedSingle": "Голий одинак",
+    "hiddenPair": "Прихована пара",
+    "lockedCandidate": "Заблоковані кандидати",
+    "hiddenTriple": "Прихована трійка",
+    "hiddenQuadruple": "Прихована четвірка",
+    "nakedPair": "Гола пара",
+    "nakedTriple": "Гола трійка",
+    "nakedQuadruple": "Гола четвірка",
+    "xWing": "X-Wing",
+    "swordfish": "Риба-меч",
+    "skyscraper": "Хмарочос",
+    "twoStringKite": "Повітряний змій",
+    "crane": "Журавель",
+    "simpleColoring": "Просте розфарбовування",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing із плавцем/сашимі",
+    "emptyRectangle": "Порожній прямокутник",
+    "uniqueRectangleType1": "Унікальний прямокутник, тип 1",
+    "uniqueRectangleType2": "Унікальний прямокутник, тип 2",
+    "uniqueRectangleType3": "Унікальний прямокутник, тип 3",
+    "uniqueRectangleType4": "Унікальний прямокутник, тип 4",
+    "uniqueRectangleType5": "Унікальний прямокутник, тип 5",
+    "finnedSashimiSwordfish": "Риба-меч із плавцем/сашимі",
+    "jellyfish": "Медуза",
+    "bugBinaryUniversalGrave": "BUG (бінарна універсальна могила)",
+    "xChain": "X-ланцюжок",
+    "groupedXChain": "Груповий X-ланцюжок",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Медуза із плавцем/сашимі",
+    "medusa3D": "3D-Медуза",
+    "xyChain": "XY-ланцюжок",
+    "alternatingInferenceChainAIC": "Ланцюжок почергових висновків (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Груповий ланцюжок почергових висновків (AIC)",
+    "nishioForcingChain": "Примусовий ланцюжок Нішіо",
+    "nishioForcingNet": "Примусова мережа Нішіо"
+  }
+}

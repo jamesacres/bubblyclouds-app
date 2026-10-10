@@ -1,0 +1,274 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Sbírka",
+    "defaultDetailNoun": "sbírek hlavolamů"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Měsíční sbírka"
+  },
+  "hintBox": {
+    "dismiss": "Skrýt nápovědu"
+  },
+  "lobbyButton": {
+    "opponents": "Soupeři"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Pokračovat — další hlavolam",
+    "continueLocked": "Pokračovat ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "Dokončeno {{completed}} z {{total}} {{label}}"
+  },
+  "countdownOverlay": {
+    "getReady": "Připravte se",
+    "go": "START!"
+  },
+  "confirmDialog": {
+    "cancel": "Zrušit"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · dokončeno",
+    "retry": "Zkusit znovu",
+    "points": "+{{points}} b.",
+    "leaderboardPoints": "Body do žebříčku"
+  },
+  "raceTimer": {
+    "time": "Čas"
+  },
+  "stageTopBar": {
+    "previous": "Předchozí"
+  },
+  "raceHud": {
+    "opponents": "Soupeři",
+    "stageOf": "Etapa {{current}} z {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Cíl!",
+    "runComplete": "Závod dokončen",
+    "leaderboardPoints": "Body do žebříčku",
+    "pointsSuffix": " b."
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Ne",
+      "monday": "Po",
+      "tuesday": "Út",
+      "wednesday": "St",
+      "thursday": "Čt",
+      "friday": "Pá",
+      "saturday": "So"
+    },
+    "dayStreak_one": "den v řadě",
+    "dayStreak_few": "dny v řadě",
+    "dayStreak_many": "dne v řadě",
+    "dayStreak_other": "dní v řadě",
+    "thisMonth": "tento měsíc"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Vy)",
+    "puzzles_one": "{{count}} hlavolam",
+    "puzzles_few": "{{count}} hlavolamy",
+    "puzzles_many": "{{count}} hlavolamu",
+    "puzzles_other": "{{count}} hlavolamů",
+    "average": "Prům.: {{time}}",
+    "best": "Nejlepší: {{time}}",
+    "wins_one": "🏁 {{count}} výhra",
+    "wins_few": "🏁 {{count}} výhry",
+    "wins_many": "🏁 {{count}} výhry",
+    "wins_other": "🏁 {{count}} výher",
+    "points_one": "bod",
+    "points_few": "body",
+    "points_many": "bodu",
+    "points_other": "bodů"
+  },
+  "scoreBreakdown": {
+    "title": "Rozpis skóre",
+    "volumeBonus": {
+      "label": "Bonus za množství",
+      "detail_one": "{{count}} dokončený hlavolam",
+      "detail_few": "{{count}} dokončené hlavolamy",
+      "detail_many": "{{count}} dokončeného hlavolamu",
+      "detail_other": "{{count}} dokončených hlavolamů"
+    },
+    "dailyPuzzles": {
+      "label": "Denní hlavolamy",
+      "detail_one": "{{count}} denní výzva",
+      "detail_few": "{{count}} denní výzvy",
+      "detail_many": "{{count}} denní výzvy",
+      "detail_other": "{{count}} denních výzev"
+    },
+    "collectionPuzzles": {
+      "label": "Hlavolamy: {{collection}}",
+      "detail": "{{collection}}: {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "Naskenované hlavolamy",
+      "detail_one": "{{count}} importovaný hlavolam",
+      "detail_few": "{{count}} importované hlavolamy",
+      "detail_many": "{{count}} importovaného hlavolamu",
+      "detail_other": "{{count}} importovaných hlavolamů"
+    },
+    "difficultyBonus": {
+      "label": "Bonus za obtížnost",
+      "detail": "Těžší hlavolamy = více bodů"
+    },
+    "speedBonus": {
+      "label": "Bonus za rychlost",
+      "detail": "Nejrychlejší: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Závodní bonus",
+      "detail": "Za porážku přátel, kteří také dokončili"
+    },
+    "dailyCombo": {
+      "label": "Denní kombo",
+      "detail": "Více hlavolamů za den = vyšší násobitel"
+    }
+  },
+  "leaderboard": {
+    "you": "Vy",
+    "unknownUser": "Neznámý uživatel",
+    "title": "Žebříček",
+    "subtitleParty": "Posledních 30 dní · {{partyName}}",
+    "subtitleAllTeams": "Posledních 30 dní · Všechny týmy",
+    "howScoringWorks": "Jak funguje bodování"
+  },
+  "scoringLegend": {
+    "title": "Jak funguje bodování",
+    "subtitle": "{{gameName}} · Posledních 30 dní",
+    "close": "Zavřít",
+    "racingWins": {
+      "title": "Závodní výhry",
+      "body": "Získejte <points>+{{points}} b.</points> za každého přítele, kterého porazíte na stejném dokončeném hlavolamu. Dokončete jako první mezi {{friends}} přáteli a získejte <points>+{{total}} b.</points>."
+    },
+    "basePoints": {
+      "title": "Základní body",
+      "anyPuzzle": "Jakýkoli hlavolam",
+      "dailyPuzzle": "Denní hlavolam",
+      "collectionPuzzle": "Hlavolam: {{collection}}",
+      "scannedPuzzle": "Naskenovaný hlavolam"
+    },
+    "difficultyMultipliers": {
+      "title": "Násobitele obtížnosti",
+      "daily": "{{gameName}} dne",
+      "collection": "Hlavolamy: {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Bonusy za rychlost",
+      "lightning": "Blesk",
+      "fast": "Rychle",
+      "quick": "Svižně",
+      "steady": "Stabilně",
+      "under": "do {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Denní kombo",
+      "body": "Řešte více hlavolamů ve stejný den a vynásobte body každého hlavolamu až <max>{{max}}×</max>.",
+      "puzzle": "{{puzzle}}. hlavolam dne",
+      "puzzleOrMore": "{{puzzle}}. a další hlavolam dne"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Závod dokončen",
+    "raceProgress": "Postup v závodě",
+    "stagesProgress": "{{completed}}/{{total}} etap",
+    "retryStage": "Zopakovat etapu",
+    "stageLabel": "Etapa {{number}}",
+    "stageCompletedLabel": "Etapa {{number}}, dokončena za {{time}}",
+    "viewRacingStats": "Zobrazit závodní statistiky",
+    "total": "Celkem"
+  },
+  "raceTrack": {
+    "you": "Vy",
+    "viewFriends": "Klepnutím zobrazíte přátele",
+    "start": "Start",
+    "finish": "Cíl",
+    "inviteToRace": "Pozvat přátele k závodu",
+    "opponents": "Soupeři",
+    "racer": "Závodník",
+    "stageBadge": "E{{number}}",
+    "total": "Celkem",
+    "leaderboard": "Žebříček",
+    "puzzleBook": "Sbírka hlavolamů",
+    "puzzleBookLabel": "sbírka hlavolamů",
+    "refreshScores": "Obnovit skóre",
+    "challengeFriends": "🏁 Vyzvat přátele",
+    "yourTime": "Váš čas:",
+    "inviteFriends": "Pozvat přátele",
+    "racingLabel": "závodí"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Záludný",
+      "easy": "Náročný",
+      "intermediate": "Těžký",
+      "expert": "Expert"
+    },
+    "book": {
+      "veryEasy": "Velmi snadný",
+      "easy": "Snadný",
+      "moderatelyEasy": "Středně snadný",
+      "moderate": "Střední",
+      "moderatelyHard": "Středně těžký",
+      "hard": "Těžký",
+      "vicious": "Zákeřný",
+      "fiendish": "Proradný",
+      "devilish": "Ďábelský",
+      "hell": "Peklo",
+      "beyondHell": "Za peklem"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Poslední číslice",
+    "hiddenSingleBox": "Skrytý jedináček (blok)",
+    "hiddenSingleLine": "Skrytý jedináček (řádek/sloupec)",
+    "hiddenSingleVariantRegion": "Skrytý jedináček (oblast varianty)",
+    "nakedSingle": "Holý jedináček",
+    "hiddenPair": "Skrytá dvojice",
+    "lockedCandidate": "Uzamčený kandidát",
+    "hiddenTriple": "Skrytá trojice",
+    "hiddenQuadruple": "Skrytá čtveřice",
+    "nakedPair": "Holá dvojice",
+    "nakedTriple": "Holá trojice",
+    "nakedQuadruple": "Holá čtveřice",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Mrakodrap",
+    "twoStringKite": "Dvouřetězcový drak",
+    "crane": "Jeřáb",
+    "simpleColoring": "Jednoduché barvení",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing s ploutví / Sashimi",
+    "emptyRectangle": "Prázdný obdélník",
+    "uniqueRectangleType1": "Unikátní obdélník, typ 1",
+    "uniqueRectangleType2": "Unikátní obdélník, typ 2",
+    "uniqueRectangleType3": "Unikátní obdélník, typ 3",
+    "uniqueRectangleType4": "Unikátní obdélník, typ 4",
+    "uniqueRectangleType5": "Unikátní obdélník, typ 5",
+    "finnedSashimiSwordfish": "Swordfish s ploutví / Sashimi",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "X-řetězec",
+    "groupedXChain": "Seskupený X-řetězec",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Jellyfish s ploutví / Sashimi",
+    "medusa3D": "3D Medusa",
+    "xyChain": "XY-řetězec",
+    "alternatingInferenceChainAIC": "Střídavý inferenční řetězec (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Seskupený střídavý inferenční řetězec (AIC)",
+    "nishioForcingChain": "Nishio – vynucující řetězec",
+    "nishioForcingNet": "Nishio – vynucující síť"
+  }
+}

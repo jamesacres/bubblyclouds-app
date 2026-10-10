@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "מירוץ סודוקו",
+      "gameName": "סודוקו",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "סודוקו Plus"
+    },
+    "terms": {
+      "race": "מירוץ",
+      "team": "צוות",
+      "leaderboard": "טבלת מובילים",
+      "hint": "רמז",
+      "undo": "ביטול",
+      "theme": "ערכת נושא",
+      "dailyPuzzle": "חידה יומית",
+      "monthlyCollection": "ספר חידות חודשי",
+      "aiOpponent": "יריב בינה מלאכותית",
+      "monthly": "חודשית",
+      "lifetime": "לכל החיים",
+      "plusAccess": "גישת Plus",
+      "plusFeatureLine": "מירוצים ללא הגבלה, צוותים, ערכות נושא וביטול"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "מירוץ שחרור",
+      "gameName": "מירוץ שחרור",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "מירוץ",
+      "team": "צוות",
+      "leaderboard": "טבלת מובילים",
+      "hint": "רמז",
+      "undo": "ביטול",
+      "theme": "ערכת נושא",
+      "dailyPuzzle": "חידה יומית",
+      "monthlyCollection": "אוסף חידות חודשי",
+      "aiOpponent": "יריב בינה מלאכותית",
+      "monthly": "חודשית",
+      "lifetime": "לכל החיים",
+      "plusAccess": "גישת Plus",
+      "plusFeatureLine": "מירוצים ללא הגבלה, צוותים, ערכות נושא וביטול"
+    }
+  }
+}

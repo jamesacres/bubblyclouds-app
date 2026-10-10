@@ -66,7 +66,7 @@ describe('Footer', () => {
       const nav = container.querySelector('nav');
       expect(nav).toHaveClass('fixed');
       expect(nav).toHaveClass('bottom-0');
-      expect(nav).toHaveClass('left-0');
+      expect(nav).toHaveClass('start-0');
       expect(nav).toHaveClass('z-50');
     });
 
@@ -118,14 +118,14 @@ describe('Footer', () => {
       expect(nav).toHaveClass('w-screen');
     });
 
-    it('should have height of 20 units (h-20) in inner grid', () => {
+    it('should have minimum height of 20 units (min-h-20) in inner grid', () => {
       const { container } = render(
         <Footer>
           <div>Content</div>
         </Footer>
       );
       const innerDiv = container.querySelector('.grid');
-      expect(innerDiv).toHaveClass('h-20');
+      expect(innerDiv).toHaveClass('min-h-20');
     });
 
     it('should center items with proper padding', () => {

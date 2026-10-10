@@ -37,7 +37,10 @@ const RaceTimer = ({
         {isComplete && <Flag className="h-2.5 w-2.5" aria-hidden="true" />}
         {t('raceTimer.time')}
       </span>
-      <span className="font-mono text-sm font-semibold tabular-nums leading-none">
+      <span
+        dir="ltr"
+        className="font-mono text-sm font-semibold tabular-nums leading-none"
+      >
         {formatSeconds(countdown ? 0 : seconds)}
       </span>
     </span>

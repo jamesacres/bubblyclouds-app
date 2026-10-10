@@ -536,7 +536,7 @@ const RaceTrack = <
   return (
     <div
       id="race-track"
-      className="mx-auto mb-2 mt-2 w-full max-w-xl lg:mr-0 lg:mt-4"
+      className="mx-auto mb-2 mt-2 w-full max-w-xl lg:me-0 lg:mt-4"
     >
       <div
         className="relative cursor-pointer"
@@ -547,7 +547,10 @@ const RaceTrack = <
             whole strip reads as a single tappable race panel */}
         <div className="rounded-xl border border-stone-200/70 bg-white/60 p-2 backdrop-blur transition-transform duration-200 active:scale-[0.99] dark:border-white/10 dark:bg-zinc-900/60">
           {/* Start/Finish labels above the lane, out of the cars' way */}
-          <div className="flex items-center justify-between px-0.5 pb-1">
+          <div
+            dir="ltr"
+            className="flex items-center justify-between gap-2 px-0.5 pb-1"
+          >
             <span className="text-[0.6rem] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
               {t('raceTrack.start')}
             </span>
@@ -574,7 +577,10 @@ const RaceTrack = <
               asphalt in dark mode — with edge lines, start lights and a
               checkered finish column. Line/tick markings flip from
               dark-on-light to light-on-dark so they stay legible in both. */}
-          <div className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900">
+          <div
+            dir="ltr"
+            className="relative h-14 overflow-hidden rounded-lg bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 lg:h-16 dark:from-zinc-900 dark:via-zinc-800/80 dark:to-zinc-900"
+          >
             <style>{`
               @keyframes race-lane-shimmer {
                 from { transform: translateX(-120%); }
@@ -617,7 +623,7 @@ const RaceTrack = <
             {/* Dashed centre line */}
             <div
               aria-hidden="true"
-              className="absolute left-3 right-6 top-1/2 h-px -translate-y-1/2 text-stone-500/50 dark:text-white dark:opacity-30"
+              className="absolute end-6 start-3 top-1/2 h-px -translate-y-1/2 text-stone-500/50 dark:text-white dark:opacity-30"
               style={{
                 backgroundImage:
                   'repeating-linear-gradient(to right, currentColor 0 8px, transparent 8px 16px)',
@@ -630,7 +636,7 @@ const RaceTrack = <
                 key={tick}
                 aria-hidden="true"
                 className="absolute bottom-1.5 top-1.5 w-px bg-stone-400/30 dark:bg-white/10"
-                style={{ left: `${tick}%` }}
+                style={{ insetInlineStart: `${tick}%` }}
               />
             ))}
 
@@ -638,7 +644,7 @@ const RaceTrack = <
             <div
               aria-hidden="true"
               className="absolute bottom-0.5 top-0.5 flex gap-0.5"
-              style={{ left: '3%' }}
+              style={{ insetInlineStart: '3%' }}
             >
               <div className="w-px bg-emerald-400/80 shadow-[0_0_4px_rgba(52,211,153,0.8)]" />
               <div className="w-px bg-emerald-400/80" />
@@ -647,7 +653,7 @@ const RaceTrack = <
             {/* Checkered finish column */}
             <div
               aria-hidden="true"
-              className="absolute bottom-0.5 right-1 top-0.5 w-2.5 rounded-sm opacity-80"
+              className="absolute bottom-0.5 end-1 top-0.5 w-2.5 rounded-sm opacity-80"
               style={{
                 backgroundColor: 'rgba(255,255,255,0.9)',
                 backgroundImage: `
@@ -704,7 +710,7 @@ const RaceTrack = <
                   style={{
                     // Scale 0-100% progress to 6-94% of the lane, clear of
                     // the start line and finish column
-                    left: `${percentage * 0.88 + 6}%`,
+                    insetInlineStart: `${percentage * 0.88 + 6}%`,
                     top: `${verticalOffset}px`,
                     transform: 'translateX(-50%)',
                   }}
@@ -713,7 +719,7 @@ const RaceTrack = <
                   {percentage > 0 && (
                     <div
                       aria-hidden="true"
-                      className={`absolute right-full top-1/2 h-1 w-5 -translate-y-1/2 rounded-full opacity-50 ${colorClass} [mask-image:linear-gradient(to_left,black,transparent)]`}
+                      className={`absolute end-full top-1/2 h-1 w-5 -translate-y-1/2 rounded-full opacity-50 ${colorClass} [mask-image:linear-gradient(to_left,black,transparent)]`}
                     />
                   )}
                   <div
@@ -722,9 +728,9 @@ const RaceTrack = <
                     }`}
                   >
                     {/* Windshield */}
-                    <div className="absolute left-1/2 top-1/2 h-2 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-[2px] bg-white/50" />
+                    <div className="absolute start-1/2 top-1/2 h-2 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-[2px] bg-white/50" />
                     {/* Headlight on the leading edge */}
-                    <div className="absolute -right-px top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-white shadow-[0_0_6px_2px_rgba(255,255,255,0.7)]" />
+                    <div className="absolute -end-px top-1/2 h-1 w-1 -translate-y-1/2 rounded-full bg-white shadow-[0_0_6px_2px_rgba(255,255,255,0.7)]" />
                   </div>
                 </div>
               );
@@ -748,7 +754,7 @@ const RaceTrack = <
                   data-testid={`agent-kart-${agent.agentId}`}
                   className="absolute transition-all duration-700 ease-out"
                   style={{
-                    left: `${percentage * 0.88 + 6}%`,
+                    insetInlineStart: `${percentage * 0.88 + 6}%`,
                     top: `${verticalOffset}px`,
                     transform: 'translateX(-50%)',
                   }}
@@ -845,10 +851,13 @@ const RaceTrack = <
                 </span>
               </span>
             ))}
-            <span className="ml-auto flex items-center gap-1 text-[0.65rem] font-semibold text-stone-400 dark:text-zinc-500">
+            <span className="ms-auto flex items-center gap-1 text-[0.65rem] font-semibold text-stone-400 dark:text-zinc-500">
               <Users className="h-3 w-3" aria-hidden="true" />
               {t('raceTrack.opponents')}
-              <ChevronRight className="h-3 w-3" aria-hidden="true" />
+              <ChevronRight
+                className="h-3 w-3 rtl:-scale-x-100"
+                aria-hidden="true"
+              />
             </span>
           </div>
         </div>
@@ -867,7 +876,7 @@ const RaceTrack = <
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="text-[0.6rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
-                        <th scope="col" className="px-3 py-1.5 text-left">
+                        <th scope="col" className="px-3 py-1.5 text-start">
                           {t('raceTrack.racer')}
                         </th>
                         {runLeaderboardRows[0].stageResults.map(
@@ -875,7 +884,7 @@ const RaceTrack = <
                             <th
                               key={stageIndex}
                               scope="col"
-                              className="px-1.5 py-1.5 text-right"
+                              className="px-1.5 py-1.5 text-end"
                             >
                               {t('raceTrack.stageBadge', {
                                 number: stageIndex + 1,
@@ -883,7 +892,7 @@ const RaceTrack = <
                             </th>
                           )
                         )}
-                        <th scope="col" className="px-3 py-1.5 text-right">
+                        <th scope="col" className="px-3 py-1.5 text-end">
                           {t('raceTrack.total')}
                         </th>
                       </tr>
@@ -940,7 +949,7 @@ const RaceTrack = <
                             {row.stageResults.map((stageResult, stageIndex) => (
                               <td
                                 key={stageIndex}
-                                className="px-1.5 py-2 text-right align-top"
+                                className="px-1.5 py-2 text-end align-top"
                               >
                                 {stageResult ? (
                                   <>
@@ -956,7 +965,7 @@ const RaceTrack = <
                                 )}
                               </td>
                             ))}
-                            <td className="px-3 py-2 text-right align-top">
+                            <td className="px-3 py-2 text-end align-top">
                               <span
                                 className={`block font-mono text-sm tabular-nums ${
                                   runFinished
@@ -991,9 +1000,9 @@ const RaceTrack = <
                         : ''
                     }`}
                   >
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex min-w-0 items-center gap-2.5">
                       <span
-                        className={`w-5 text-center text-sm font-semibold tabular-nums ${
+                        className={`min-w-5 text-center text-sm font-semibold tabular-nums ${
                           isFirst
                             ? 'text-amber-500 dark:text-amber-400'
                             : 'text-stone-400 dark:text-zinc-500'
@@ -1014,7 +1023,7 @@ const RaceTrack = <
                         </span>
                       )}
                       <span
-                        className={`text-sm ${
+                        className={`min-w-0 break-words text-sm ${
                           racer.isCurrentUser
                             ? 'font-semibold text-stone-900 dark:text-white'
                             : 'text-stone-700 dark:text-zinc-300'
@@ -1023,13 +1032,14 @@ const RaceTrack = <
                         {racer.nickname}
                       </span>
                       {racer.statsDisplay && (
-                        <span className="text-xs text-stone-400 dark:text-zinc-500">
+                        <span className="min-w-0 break-words text-xs text-stone-400 dark:text-zinc-500">
                           {racer.statsDisplay}
                         </span>
                       )}
                     </div>
                     <span
-                      className={`font-mono text-sm tabular-nums ${
+                      dir="ltr"
+                      className={`shrink-0 font-mono text-sm tabular-nums ${
                         isFirst
                           ? 'font-semibold text-stone-900 dark:text-white'
                           : 'text-stone-500 dark:text-zinc-400'
@@ -1050,20 +1060,20 @@ const RaceTrack = <
           <div className="flex items-center gap-2">
             <Link
               href={`/?tab=${Tab.FRIENDS}`}
-              className="bg-theme-primary hover:bg-theme-primary-dark inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+              className="bg-theme-primary hover:bg-theme-primary-dark inline-flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-center text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               <Trophy className="h-4 w-4" aria-hidden="true" />
               {t('raceTrack.leaderboard')}
             </Link>
             <Link
               href={secondaryCta?.href ?? '/book'}
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-stone-100 px-4 py-2.5 text-sm font-semibold text-stone-700 transition-all duration-200 hover:scale-[1.02] hover:bg-stone-200 active:scale-[0.98] dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
+              className="inline-flex min-w-0 flex-1 items-center justify-center gap-2 rounded-xl bg-stone-100 px-4 py-2.5 text-center text-sm font-semibold text-stone-700 transition-all duration-200 hover:scale-[1.02] hover:bg-stone-200 active:scale-[0.98] dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
             >
               {SecondaryCtaIcon ? (
                 <SecondaryCtaIcon className="h-4 w-4" aria-hidden="true" />
               ) : (
                 <span
-                  className="mr-1"
+                  className="me-1"
                   role="img"
                   aria-label={t('raceTrack.puzzleBookLabel')}
                 >
@@ -1106,7 +1116,7 @@ const RaceTrack = <
                   className="inline-flex shrink-0 cursor-pointer items-center rounded-xl bg-stone-900 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-stone-700 active:scale-[0.98] dark:bg-white dark:text-stone-900 dark:hover:bg-stone-100"
                 >
                   <span
-                    className="mr-1.5"
+                    className="me-1.5"
                     role="img"
                     aria-label={t('raceTrack.racingLabel')}
                   >

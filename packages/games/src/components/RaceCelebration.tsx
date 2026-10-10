@@ -146,23 +146,24 @@ const RaceCelebration = ({
         {/* Victory lap: the hero car streaks across below the banner with a
             light trail, the same anatomy as its board self at pill scale */}
         <div
+          dir="ltr"
           className="celebration-motion absolute"
           style={{
             top: '68%',
-            left: '-12%',
+            insetInlineStart: '-12%',
             animation: `race-celebration-victory-lap 1500ms cubic-bezier(0.5, 0, 0.7, 1) 700ms both`,
           }}
         >
           <style>{`
             @keyframes race-celebration-victory-lap {
-              from { left: -12%; }
-              to { left: 112%; }
+              from { inset-inline-start: -12%; }
+              to { inset-inline-start: 112%; }
             }
           `}</style>
           <div className="relative h-6 w-12">
             {/* Trail */}
             <div
-              className="absolute right-full top-1/2 h-1.5 w-28 -translate-y-1/2 rounded-full opacity-70"
+              className="absolute end-full top-1/2 h-1.5 w-28 -translate-y-1/2 rounded-full opacity-70"
               style={{
                 background:
                   'linear-gradient(to left, var(--theme-primary), transparent)',
@@ -180,8 +181,8 @@ const RaceCelebration = ({
             >
               {/* Racing stripe, cabin and headlight matching the board hero */}
               <div className="absolute inset-x-1 top-1/2 h-1 -translate-y-1/2 rounded-full bg-white/35" />
-              <div className="absolute bottom-1 left-1/3 top-1 w-1/3 rounded-sm bg-slate-900/45" />
-              <div className="absolute -right-px top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_3px_rgba(255,255,255,0.8)]" />
+              <div className="absolute bottom-1 start-1/3 top-1 w-1/3 rounded-sm bg-slate-900/45" />
+              <div className="absolute -end-px top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_3px_rgba(255,255,255,0.8)]" />
             </div>
           </div>
         </div>

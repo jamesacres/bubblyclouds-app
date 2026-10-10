@@ -15,10 +15,10 @@ export function PillButton({
   return (
     <button
       onClick={onClick}
-      className="inline-flex cursor-pointer items-center gap-1.5 rounded-full text-xs font-semibold transition-transform active:scale-95"
+      className="inline-flex cursor-pointer items-center gap-1.5 rounded-full text-center text-xs font-semibold transition-transform active:scale-95"
       style={{
-        height: 34,
-        padding: '0 14px',
+        minHeight: 34,
+        padding: '6px 14px',
         border: `1px solid ${themed ? 'color-mix(in srgb, var(--theme-primary-light) 40%, transparent)' : 'rgba(167,139,250,0.4)'}`,
         background: themed
           ? 'color-mix(in srgb, var(--theme-primary-light) 14%, transparent)'

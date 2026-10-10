@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "ਜਾਰੀ ਰੱਖਣ ਲਈ ਸਾਈਨ ਇਨ ਕਰੋ",
+    "signInWith": "{{provider}} ਨਾਲ ਸਾਈਨ ਇਨ ਕਰੋ",
+    "emailTitle": "ਈਮੇਲ ਨਾਲ ਸਾਈਨ ਇਨ ਕਰੋ",
+    "emailPlaceholder": "your@email.com",
+    "continue": "ਜਾਰੀ ਰੱਖੋ",
+    "cancel": "ਰੱਦ ਕਰੋ",
+    "terms": "ਸੇਵਾ ਦੀਆਂ ਸ਼ਰਤਾਂ",
+    "privacy": "ਗੋਪਨੀਯਤਾ ਨੀਤੀ"
+  },
+  "header": {
+    "signIn": "ਸਾਈਨ ਇਨ"
+  },
+  "avatar": {
+    "alt": "ਉਪਭੋਗਤਾ"
+  },
+  "panel": {
+    "title": "ਖਾਤਾ",
+    "greeting": "ਹੈਲੋ, {{name}}!",
+    "fallbackName": "ਉਪਭੋਗਤਾ",
+    "plusActive": "{{gameName}} {{plus}} ਚਾਲੂ ਹੈ",
+    "joinGamePlus": "{{gameName}} {{plus}} ਨਾਲ ਜੁੜੋ",
+    "joinPlus": "{{plus}} ਨਾਲ ਜੁੜੋ",
+    "signOut": "ਸਾਈਨ ਆਊਟ",
+    "privacy": "ਗੋਪਨੀਯਤਾ ਨੀਤੀ",
+    "terms": "ਸੇਵਾ ਦੀਆਂ ਸ਼ਰਤਾਂ",
+    "credits": "ਕ੍ਰੈਡਿਟ",
+    "deleteAccount": "ਖਾਤਾ ਮਿਟਾਓ",
+    "poweredBy": "{{companyName}} ਦੁਆਰਾ ਸੰਚਾਲਿਤ",
+    "deleteUnavailable": "ਖਾਤਾ ਮਿਟਾਉਣ ਦੀ ਸੁਵਿਧਾ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
+    "deleteFailed": "ਖਾਤਾ ਮਿਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।"
+  },
+  "deleteDialog": {
+    "title": "ਖਾਤਾ ਮਿਟਾਓ",
+    "warning": "ਇਸ ਕਾਰਵਾਈ ਨੂੰ ਵਾਪਸ ਨਹੀਂ ਲਿਆ ਜਾ ਸਕਦਾ। ਸਾਰੀਆਂ {{companyName}} ਐਪਲੀਕੇਸ਼ਨਾਂ ਵਿੱਚ ਤੁਹਾਡਾ ਸਾਰਾ ਡੇਟਾ ਹਮੇਸ਼ਾ ਲਈ ਮਿਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ।",
+    "confirmation": "ਪੁਸ਼ਟੀ: ਸਾਰੀਆਂ {{companyName}} ਐਪਲੀਕੇਸ਼ਨਾਂ ਦੇ ਸਾਰੇ ਡੇਟਾ ਸਮੇਤ ਮੇਰਾ ਪੂਰਾ ਖਾਤਾ ਮਿਟਾਇਆ ਜਾਵੇ।",
+    "cancel": "ਰੱਦ ਕਰੋ",
+    "deleting": "ਮਿਟਾਇਆ ਜਾ ਰਿਹਾ ਹੈ...",
+    "submit": "ਖਾਤਾ ਮਿਟਾਓ"
+  }
+}

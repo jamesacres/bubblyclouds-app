@@ -268,7 +268,7 @@ export default function BookPage() {
           {isOnline && (
             <button
               onClick={() => fetchBookData()}
-              className="bg-theme-primary hover:bg-theme-primary-dark mr-2 mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
+              className="bg-theme-primary hover:bg-theme-primary-dark me-2 mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
             >
               {t('book.tryAgain')}
             </button>
@@ -330,7 +330,7 @@ export default function BookPage() {
               <div className="shrink-0">
                 <BookCover month={currentMonth} size="medium" />
               </div>
-              <div className="text-center md:text-left">
+              <div className="text-center md:text-start">
                 <h1 className="text-2xl font-bold md:text-3xl">
                   {t('book.title', { month: localizedMonth })}
                 </h1>
@@ -390,7 +390,7 @@ export default function BookPage() {
                     >
                       <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
                       {t('book.unlockWithPlus')}
-                      <span className="opacity-60 transition-transform duration-200 group-hover:translate-x-0.5">
+                      <span className="opacity-60 transition-transform duration-200 group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5">
                         →
                       </span>
                     </button>
@@ -517,7 +517,7 @@ export default function BookPage() {
           onClick={scrollToTop}
           style={{
             position: 'fixed',
-            right: '24px',
+            insetInlineEnd: '24px',
             bottom: 'max(20px, calc(var(--ion-safe-area-bottom, 0px) + 20px))',
           }}
           className="bg-theme-primary hover:bg-theme-primary-dark dark:bg-theme-primary-light dark:hover:bg-theme-primary z-50 flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg transition-all hover:scale-110 active:scale-95"

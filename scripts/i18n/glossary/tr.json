@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Sudoku Yarışı",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "yarış",
+      "team": "takım",
+      "leaderboard": "sıralama listesi",
+      "hint": "ipucu",
+      "undo": "geri al",
+      "theme": "tema",
+      "dailyPuzzle": "günlük bulmaca",
+      "monthlyCollection": "aylık bulmaca kitabı",
+      "aiOpponent": "yapay zekâ rakibi",
+      "monthly": "aylık",
+      "lifetime": "ömür boyu",
+      "plusAccess": "Plus Erişimi",
+      "plusFeatureLine": "Sınırsız yarış, takımlar, temalar ve geri al"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Yolu Aç Yarışı",
+      "gameName": "Yolu Aç Yarışı",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "yarış",
+      "team": "takım",
+      "leaderboard": "sıralama listesi",
+      "hint": "ipucu",
+      "undo": "geri al",
+      "theme": "tema",
+      "dailyPuzzle": "günlük bulmaca",
+      "monthlyCollection": "aylık bulmaca koleksiyonu",
+      "aiOpponent": "yapay zekâ rakibi",
+      "monthly": "aylık",
+      "lifetime": "ömür boyu",
+      "plusAccess": "Plus Erişimi",
+      "plusFeatureLine": "Sınırsız yarış, takımlar, temalar ve geri al"
+    }
+  }
+}

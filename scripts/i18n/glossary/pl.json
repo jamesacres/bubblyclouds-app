@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Wyścig Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "wyścig",
+      "team": "zespół",
+      "leaderboard": "ranking",
+      "hint": "podpowiedź",
+      "undo": "cofnij",
+      "theme": "motyw",
+      "dailyPuzzle": "codzienna łamigłówka",
+      "monthlyCollection": "miesięczny zbiór łamigłówek",
+      "aiOpponent": "przeciwnik AI",
+      "monthly": "miesięczny",
+      "lifetime": "na zawsze",
+      "plusAccess": "Dostęp Plus",
+      "plusFeatureLine": "Bez limitu wyścigów, zespoły, motywy, cofnij"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Wyścig z Korkiem",
+      "gameName": "Wyścig z Korkiem",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "wyścig",
+      "team": "zespół",
+      "leaderboard": "ranking",
+      "hint": "podpowiedź",
+      "undo": "cofnij",
+      "theme": "motyw",
+      "dailyPuzzle": "codzienna łamigłówka",
+      "monthlyCollection": "miesięczny zbiór łamigłówek",
+      "aiOpponent": "przeciwnik AI",
+      "monthly": "miesięczny",
+      "lifetime": "na zawsze",
+      "plusAccess": "Dostęp Plus",
+      "plusFeatureLine": "Bez limitu wyścigów, zespoły, motywy, cofnij"
+    }
+  }
+}

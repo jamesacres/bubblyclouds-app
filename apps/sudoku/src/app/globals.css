@@ -53,6 +53,205 @@ body {
   font-family: 'Creepster', fantasy;
 }
 
+html {
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+:lang(ar),
+:lang(he),
+:lang(ur) {
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+:lang(ja) {
+  --script-font:
+    'Hiragino Sans',
+    'Hiragino Kaku Gothic ProN',
+    'Yu Gothic',
+    'Noto Sans JP',
+    Meiryo,
+    system-ui,
+    sans-serif;
+}
+
+:lang(ko) {
+  --script-font:
+    'Apple SD Gothic Neo',
+    'Malgun Gothic',
+    'Noto Sans KR',
+    system-ui,
+    sans-serif;
+}
+
+:lang(zh-Hans) {
+  --script-font:
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    'Noto Sans SC',
+    system-ui,
+    sans-serif;
+}
+
+:lang(zh-Hant) {
+  --script-font:
+    'PingFang TC',
+    'Microsoft JhengHei',
+    'Noto Sans TC',
+    system-ui,
+    sans-serif;
+}
+
+:lang(ar) {
+  --script-font:
+    'Geeza Pro',
+    'Noto Sans Arabic',
+    'Segoe UI',
+    Tahoma,
+    system-ui,
+    sans-serif;
+}
+
+:lang(he) {
+  --script-font:
+    'Arial Hebrew',
+    'Noto Sans Hebrew',
+    'Segoe UI',
+    Arial,
+    system-ui,
+    sans-serif;
+}
+
+:lang(ur) {
+  --script-font:
+    'Noto Nastaliq Urdu',
+    'Geeza Pro',
+    'Noto Sans Arabic',
+    'Segoe UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(hi), :lang(mr) {
+  --script-font:
+    'Kohinoor Devanagari',
+    'Noto Sans Devanagari',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(bn) {
+  --script-font:
+    'Kohinoor Bangla',
+    'Noto Sans Bengali',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(gu) {
+  --script-font:
+    'Kohinoor Gujarati',
+    'Noto Sans Gujarati',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(kn) {
+  --script-font:
+    'Kannada Sangam MN',
+    'Noto Sans Kannada',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(ml) {
+  --script-font:
+    'Malayalam Sangam MN',
+    'Noto Sans Malayalam',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(or) {
+  --script-font:
+    'Oriya Sangam MN',
+    'Noto Sans Oriya',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(pa) {
+  --script-font:
+    'Gurmukhi MN',
+    'Noto Sans Gurmukhi',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(ta) {
+  --script-font:
+    'Tamil Sangam MN',
+    'Noto Sans Tamil',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(te) {
+  --script-font:
+    'Telugu Sangam MN',
+    'Noto Sans Telugu',
+    'Nirmala UI',
+    system-ui,
+    sans-serif;
+}
+
+:lang(th) {
+  --script-font:
+    'Thonburi',
+    'Noto Sans Thai',
+    'Leelawadee UI',
+    system-ui,
+    sans-serif;
+}
+
+:is(:lang(ja), :lang(ko), :lang(zh-Hans), :lang(zh-Hant), :lang(ar), :lang(he), :lang(ur), :lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(kn), :lang(ml), :lang(or), :lang(pa), :lang(ta), :lang(te), :lang(th)) body {
+  font-family: var(--font-outfit), 'Outfit', var(--script-font);
+}
+
+:is(:lang(ja), :lang(ko), :lang(zh-Hans), :lang(zh-Hant), :lang(ar), :lang(he), :lang(ur), :lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(kn), :lang(ml), :lang(or), :lang(pa), :lang(ta), :lang(te), :lang(th)) .font-orbitron {
+  font-family: 'Orbitron', var(--font-orbitron), var(--script-font);
+}
+
+:is(:lang(ja), :lang(ko), :lang(zh-Hans), :lang(zh-Hant), :lang(ar), :lang(he), :lang(ur), :lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(kn), :lang(ml), :lang(or), :lang(pa), :lang(ta), :lang(te), :lang(th)) .font-pacifico {
+  font-family: 'Pacifico', var(--font-pacifico), var(--script-font);
+}
+
+:is(:lang(ja), :lang(ko), :lang(zh-Hans), :lang(zh-Hant), :lang(ar), :lang(he), :lang(ur), :lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(kn), :lang(ml), :lang(or), :lang(pa), :lang(ta), :lang(te), :lang(th)) .font-creepster {
+  font-family: 'Creepster', var(--script-font);
+}
+
+:is(:lang(ar), :lang(ur), :lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(kn), :lang(ml), :lang(or), :lang(pa), :lang(ta), :lang(te), :lang(th)) body {
+  line-height: 1.6;
+}
+
+:is(:lang(ar), :lang(ur), :lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(kn), :lang(ml), :lang(or), :lang(pa), :lang(ta), :lang(te), :lang(th)) :is(.leading-none, .leading-tight, .leading-snug) {
+  line-height: 1.5;
+}
+
+:lang(ur) :is(.leading-none, .leading-tight, .leading-snug) {
+  line-height: 1.9;
+}
+
 /* ─── Hero grid background ─────────────────────────────────────── */
 @keyframes gridDrift {
   0%   { transform: translate(0, 0) rotate(0deg); }

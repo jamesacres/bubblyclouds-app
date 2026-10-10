@@ -133,11 +133,11 @@ export const LoginModal = ({
                 <button
                   onClick={onGoogle}
                   disabled={isLoggingIn}
-                  className="mb-0 flex h-10 w-full cursor-pointer items-center rounded-[5px] bg-white p-0 transition-shadow duration-150 ease-in-out hover:shadow-[1px_4px_5px_1px_rgba(0,0,0,0.1)] active:bg-[#e5e5e5] active:shadow-none disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mb-0 flex min-h-10 w-full cursor-pointer items-center rounded-[5px] bg-white p-0 transition-shadow duration-150 ease-in-out hover:shadow-[1px_4px_5px_1px_rgba(0,0,0,0.1)] active:bg-[#e5e5e5] active:shadow-none disabled:cursor-not-allowed disabled:opacity-50"
                   style={{ boxShadow: '1px 1px 0px 1px rgba(0,0,0,0.05)' }}
                   type="button"
                 >
-                  <span className="ml-2 inline-block h-6 w-6 shrink-0 align-middle">
+                  <span className="ms-2 inline-block h-6 w-6 shrink-0 align-middle">
                     <svg
                       viewBox="0 0 366 372"
                       xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +168,7 @@ export const LoginModal = ({
                 <button
                   onClick={onApple}
                   disabled={isLoggingIn}
-                  className="mt-2 flex h-10 w-full cursor-pointer items-center overflow-hidden rounded-[5px] border border-black bg-black p-0 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mt-2 flex min-h-10 w-full cursor-pointer items-center overflow-hidden rounded-[5px] border border-black bg-black p-0 disabled:cursor-not-allowed disabled:opacity-50"
                   type="button"
                 >
                   <span className="inline-block h-10 w-[39px] shrink-0 align-middle">
@@ -210,16 +210,17 @@ export const LoginModal = ({
                   <form onSubmit={handleEmailSubmit} className="flex">
                     <input
                       type="email"
+                      dir="ltr"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder={t('login.emailPlaceholder')}
                       disabled={isLoggingIn}
-                      className="focus:border-theme-primary w-full rounded-l-[5px] border border-white/15 bg-white/5 px-2 py-2 text-base text-white outline-none placeholder:text-white/30 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="focus:border-theme-primary w-full min-w-0 rounded-s-[5px] border border-white/15 bg-white/5 px-2 py-2 text-base text-white outline-none placeholder:text-white/30 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                     <button
                       type="submit"
                       disabled={isLoggingIn}
-                      className="bg-theme-primary hover:bg-theme-primary-dark cursor-pointer rounded-r-[5px] px-3 py-2 text-sm font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                      className="bg-theme-primary hover:bg-theme-primary-dark cursor-pointer rounded-e-[5px] px-3 py-2 text-sm font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {t('login.continue')}
                     </button>

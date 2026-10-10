@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "जारी रखने के लिए साइन इन करें",
+    "signInWith": "{{provider}} से साइन इन करें",
+    "emailTitle": "ईमेल से साइन इन करें",
+    "emailPlaceholder": "आपका@ईमेल.com",
+    "continue": "जारी रखें",
+    "cancel": "रद्द करें",
+    "terms": "सेवा की शर्तें",
+    "privacy": "गोपनीयता नीति"
+  },
+  "header": {
+    "signIn": "साइन इन"
+  },
+  "avatar": {
+    "alt": "उपयोगकर्ता"
+  },
+  "panel": {
+    "title": "खाता",
+    "greeting": "नमस्ते, {{name}}!",
+    "fallbackName": "उपयोगकर्ता",
+    "plusActive": "{{gameName}} {{plus}} सक्रिय है",
+    "joinGamePlus": "{{gameName}} {{plus}} से जुड़ें",
+    "joinPlus": "{{plus}} से जुड़ें",
+    "signOut": "साइन आउट",
+    "privacy": "गोपनीयता नीति",
+    "terms": "सेवा की शर्तें",
+    "credits": "श्रेय",
+    "deleteAccount": "खाता हटाएँ",
+    "poweredBy": "{{companyName}} द्वारा संचालित",
+    "deleteUnavailable": "खाता हटाने की सुविधा उपलब्ध नहीं है।",
+    "deleteFailed": "खाता हटाया नहीं जा सका। कृपया बाद में फिर कोशिश करें।"
+  },
+  "deleteDialog": {
+    "title": "खाता हटाएँ",
+    "warning": "यह कार्रवाई पूर्ववत नहीं की जा सकती। {{companyName}} के सभी ऐप्लिकेशन में आपका सारा डेटा हमेशा के लिए हटा दिया जाएगा।",
+    "confirmation": "मैं पुष्टि करता/करती हूँ कि मैं अपना पूरा खाता हटाना चाहता/चाहती हूँ, जिसमें {{companyName}} के सभी ऐप्लिकेशन का सारा डेटा शामिल है।",
+    "cancel": "रद्द करें",
+    "deleting": "हटाया जा रहा है...",
+    "submit": "खाता हटाएँ"
+  }
+}

@@ -13,7 +13,7 @@ const LobbyButton = memo(function LobbyButton({
       onClick={friendsOnClick}
       className="text-theme-primary dark:text-theme-primary-light cursor-pointer rounded-lg"
     >
-      <Users className="float-left mr-2" />
+      <Users className="float-start me-2" />
       {t('lobbyButton.opponents')}
     </button>
   );

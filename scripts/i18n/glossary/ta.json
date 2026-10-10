@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "சுடோகு ரேஸ்",
+      "gameName": "சுடோகு",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "சுடோகு Plus"
+    },
+    "terms": {
+      "race": "ரேஸ்",
+      "team": "குழு",
+      "leaderboard": "லீடர்போர்டு",
+      "hint": "குறிப்பு",
+      "undo": "செயல்தவிர்",
+      "theme": "தீம்",
+      "dailyPuzzle": "தினசரி புதிர்",
+      "monthlyCollection": "மாதாந்திர புதிர் புத்தகம்",
+      "aiOpponent": "AI எதிராளி",
+      "monthly": "மாதாந்திர",
+      "lifetime": "வாழ்நாள்",
+      "plusAccess": "Plus அணுகல்",
+      "plusFeatureLine": "வரம்பற்ற ரேஸ், குழு, தீம், செயல்தவிர்"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "அன்பிளாக் ரேஸ்",
+      "gameName": "அன்பிளாக் ரேஸ்",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "ரேஸ்",
+      "team": "குழு",
+      "leaderboard": "லீடர்போர்டு",
+      "hint": "குறிப்பு",
+      "undo": "செயல்தவிர்",
+      "theme": "தீம்",
+      "dailyPuzzle": "தினசரி புதிர்",
+      "monthlyCollection": "மாதாந்திர புதிர் தொகுப்பு",
+      "aiOpponent": "AI எதிராளி",
+      "monthly": "மாதாந்திர",
+      "lifetime": "வாழ்நாள்",
+      "plusAccess": "Plus அணுகல்",
+      "plusFeatureLine": "வரம்பற்ற ரேஸ், குழு, தீம், செயல்தவிர்"
+    }
+  }
+}

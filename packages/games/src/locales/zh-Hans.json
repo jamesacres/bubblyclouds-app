@@ -1,0 +1,253 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "谜题集",
+    "defaultDetailNoun": "谜题集"
+  },
+  "collectionCover": {
+    "monthlyCollection": "每月谜题集"
+  },
+  "hintBox": {
+    "dismiss": "关闭提示"
+  },
+  "lobbyButton": {
+    "opponents": "对手"
+  },
+  "nextPuzzlePanel": {
+    "continue": "继续——下一道谜题",
+    "continueLocked": "继续（{{plusName}}）"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}：已完成 {{completed}}/{{total}}"
+  },
+  "countdownOverlay": {
+    "getReady": "准备",
+    "go": "开始！"
+  },
+  "confirmDialog": {
+    "cancel": "取消"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · 已完成",
+    "retry": "重试",
+    "points": "+{{points}} 分",
+    "leaderboardPoints": "排行榜积分"
+  },
+  "raceTimer": {
+    "time": "用时"
+  },
+  "stageTopBar": {
+    "previous": "上一个"
+  },
+  "raceHud": {
+    "opponents": "对手",
+    "stageOf": "第 {{current}} 关，共 {{total}} 关"
+  },
+  "raceCelebration": {
+    "finish": "冲线！",
+    "runComplete": "全程完成",
+    "leaderboardPoints": "排行榜积分",
+    "pointsSuffix": " 分"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "日",
+      "monday": "一",
+      "tuesday": "二",
+      "wednesday": "三",
+      "thursday": "四",
+      "friday": "五",
+      "saturday": "六"
+    },
+    "dayStreak_other": "天连续挑战",
+    "thisMonth": "本月"
+  },
+  "friendLeaderboardEntry": {
+    "you": "（您）",
+    "puzzles_other": "{{count}} 道谜题",
+    "average": "平均：{{time}}",
+    "best": "最佳：{{time}}",
+    "wins_other": "🏁 {{count}} 次获胜",
+    "points_other": "分"
+  },
+  "scoreBreakdown": {
+    "title": "得分明细",
+    "volumeBonus": {
+      "label": "数量奖励",
+      "detail_other": "完成 {{count}} 道谜题"
+    },
+    "dailyPuzzles": {
+      "label": "每日谜题",
+      "detail_other": "{{count}} 个每日挑战"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}}谜题",
+      "detail": "来自{{collection}}：{{count}} 道"
+    },
+    "scannedPuzzles": {
+      "label": "扫描的谜题",
+      "detail_other": "导入 {{count}} 道谜题"
+    },
+    "difficultyBonus": {
+      "label": "难度奖励",
+      "detail": "谜题越难，得分越高"
+    },
+    "speedBonus": {
+      "label": "速度奖励",
+      "detail": "最快：{{time}}"
+    },
+    "racingBonus": {
+      "label": "竞速奖励",
+      "detail": "击败同样完成的好友"
+    },
+    "dailyCombo": {
+      "label": "每日连击",
+      "detail": "每天解的谜题越多，倍率越高"
+    }
+  },
+  "leaderboard": {
+    "you": "您",
+    "unknownUser": "未知用户",
+    "title": "排行榜",
+    "subtitleParty": "最近 30 天 · {{partyName}}",
+    "subtitleAllTeams": "最近 30 天 · 所有团队",
+    "howScoringWorks": "计分规则"
+  },
+  "scoringLegend": {
+    "title": "计分规则",
+    "subtitle": "{{gameName}} · 最近 30 天",
+    "close": "关闭",
+    "racingWins": {
+      "title": "竞速获胜",
+      "body": "在同一道已完成的谜题上每击败一位好友，即可获得 <points>+{{points}} 分</points>。在 {{friends}} 位好友中率先完成，可再赢得 <points>+{{total}} 分</points>。"
+    },
+    "basePoints": {
+      "title": "基础分",
+      "anyPuzzle": "任意谜题",
+      "dailyPuzzle": "每日谜题",
+      "collectionPuzzle": "{{collection}}谜题",
+      "scannedPuzzle": "扫描的谜题"
+    },
+    "difficultyMultipliers": {
+      "title": "难度倍率",
+      "daily": "每日{{gameName}}",
+      "collection": "{{collection}}谜题"
+    },
+    "speedBonuses": {
+      "title": "速度奖励",
+      "lightning": "闪电",
+      "fast": "飞快",
+      "quick": "迅捷",
+      "steady": "稳健",
+      "under": "{{threshold}}以内",
+      "seconds": "{{value}} 秒",
+      "minutes": "{{value}} 分钟"
+    },
+    "dailyCombo": {
+      "title": "每日连击",
+      "body": "同一天解出更多谜题，每道谜题的得分都会成倍增加，最高可达 <max>{{max}}×</max>。",
+      "puzzle": "当天第 {{puzzle}} 道谜题",
+      "puzzleOrMore": "当天第 {{puzzle}} 道及之后的谜题"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "全程完成",
+    "raceProgress": "竞速进度",
+    "stagesProgress": "{{completed}}/{{total}} 关",
+    "retryStage": "重试本关",
+    "stageLabel": "第 {{number}} 关",
+    "stageCompletedLabel": "第 {{number}} 关，用时 {{time}} 完成",
+    "viewRacingStats": "查看竞速数据",
+    "total": "总计"
+  },
+  "raceTrack": {
+    "you": "您",
+    "viewFriends": "点击查看好友",
+    "start": "起点",
+    "finish": "终点",
+    "inviteToRace": "邀请好友竞速",
+    "opponents": "对手",
+    "racer": "选手",
+    "stageBadge": "第{{number}}关",
+    "total": "总计",
+    "leaderboard": "排行榜",
+    "puzzleBook": "谜题集",
+    "puzzleBookLabel": "谜题集",
+    "refreshScores": "刷新成绩",
+    "challengeFriends": "🏁 挑战好友",
+    "yourTime": "您的用时：",
+    "inviteFriends": "邀请好友",
+    "racingLabel": "竞速"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "棘手",
+      "easy": "有挑战",
+      "intermediate": "困难",
+      "expert": "专家"
+    },
+    "book": {
+      "veryEasy": "非常简单",
+      "easy": "简单",
+      "moderatelyEasy": "较简单",
+      "moderate": "中等",
+      "moderatelyHard": "较困难",
+      "hard": "困难",
+      "vicious": "凶残",
+      "fiendish": "邪恶",
+      "devilish": "魔鬼",
+      "hell": "地狱",
+      "beyondHell": "超越地狱"
+    }
+  },
+  "techniques": {
+    "lastDigit": "最后数字",
+    "hiddenSingleBox": "隐性唯一数（宫）",
+    "hiddenSingleLine": "隐性唯一数（行列）",
+    "hiddenSingleVariantRegion": "隐性唯一数（变体区域）",
+    "nakedSingle": "显性唯一数",
+    "hiddenPair": "隐性数对",
+    "lockedCandidate": "锁定候选数",
+    "hiddenTriple": "隐性三数组",
+    "hiddenQuadruple": "隐性四数组",
+    "nakedPair": "显性数对",
+    "nakedTriple": "显性三数组",
+    "nakedQuadruple": "显性四数组",
+    "xWing": "X 翼",
+    "swordfish": "剑鱼",
+    "skyscraper": "摩天楼",
+    "twoStringKite": "双线风筝",
+    "crane": "起重机",
+    "simpleColoring": "简单着色",
+    "yWing": "Y 翼",
+    "xYZWing": "XYZ 翼",
+    "wWing": "W 翼",
+    "finnedSashimiXWing": "鳍式/刺身 X 翼",
+    "emptyRectangle": "空矩形",
+    "uniqueRectangleType1": "唯一矩形（类型 1）",
+    "uniqueRectangleType2": "唯一矩形（类型 2）",
+    "uniqueRectangleType3": "唯一矩形（类型 3）",
+    "uniqueRectangleType4": "唯一矩形（类型 4）",
+    "uniqueRectangleType5": "唯一矩形（类型 5）",
+    "finnedSashimiSwordfish": "鳍式/刺身剑鱼",
+    "jellyfish": "水母",
+    "bugBinaryUniversalGrave": "BUG（二值通用坟墓）",
+    "xChain": "X 链",
+    "groupedXChain": "分组 X 链",
+    "YWing4WXYZWing": "4-Y 翼（WXYZ 翼）",
+    "yWing5": "5-Y 翼",
+    "yWing6": "6-Y 翼",
+    "yWing7": "7-Y 翼",
+    "yWing8": "8-Y 翼",
+    "yWing9": "9-Y 翼",
+    "finnedSashimiJellyfish": "鳍式/刺身水母",
+    "medusa3D": "3D 美杜莎",
+    "xyChain": "XY 链",
+    "alternatingInferenceChainAIC": "交替推理链（AIC）",
+    "groupedAlternatingInferenceChainAIC": "分组交替推理链（AIC）",
+    "nishioForcingChain": "Nishio 强制链",
+    "nishioForcingNet": "Nishio 强制网"
+  }
+}

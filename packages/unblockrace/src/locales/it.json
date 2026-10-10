@@ -1,0 +1,278 @@
+{
+  "brand": {
+    "gameName": "Gara Libera"
+  },
+  "controls": {
+    "hint": "Suggerimento",
+    "hintTitle": "Chiedi aiuto",
+    "undo": "Annulla",
+    "redo": "Ripeti",
+    "reset": "Azzera"
+  },
+  "labels": {
+    "time": "Tempo",
+    "moves": "Mosse",
+    "stageOf": "Fase {{current}} di {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} mossa",
+    "moves_many": "{{count}} di mosse",
+    "moves_other": "{{count}} mosse",
+    "par": "par",
+    "overPar": "{{delta}} sopra il par",
+    "underPar": "{{delta}} sotto il par"
+  },
+  "score": {
+    "moves": "mosse",
+    "srOnPar": "mosse, in linea con il par",
+    "srOverPar": "mosse, {{delta}} sopra il par",
+    "srUnderPar": "mosse, {{delta}} sotto il par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Schema del giorno · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Principiante",
+    "challenging": "Impegnativo",
+    "hard": "Difficile",
+    "expert": "Esperto"
+  },
+  "collection": {
+    "puzzleLabel": "Schema {{number}} della raccolta",
+    "theme": {
+      "january": "Anno nuovo, ingorgo nuovo",
+      "february": "Ingorgo ghiacciato",
+      "march": "Tutto spalancato",
+      "april": "Pioggia di blocchi",
+      "may": "Fioriscono nuove corsie",
+      "june": "Massima velocità di sblocco",
+      "july": "Serie di gare estive",
+      "august": "Ingorgo rovente",
+      "september": "Di nuovo in gioco",
+      "october": "Ingorgo stregato",
+      "november": "Corsie da liberare",
+      "december": "Ingorgo di festa",
+      "default": "Raccolta mensile"
+    },
+    "error": {
+      "offline": "È offline, controlli la connessione",
+      "loadFailed": "Impossibile caricare la raccolta di schemi"
+    }
+  },
+  "stageClear": {
+    "title": "Fase {{stage}} completata",
+    "onPar": "In par",
+    "pointsSuffix": " pt",
+    "leaderboardPoints": "Punti classifica",
+    "nextStage": "Fase successiva",
+    "progress": "Fase {{stage}} di {{total}} — ne mancano {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Da qui non si passa: annulli o azzeri per tornare in carreggiata",
+    "dismiss": "Chiudi l’avviso del suggerimento"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Mantenga la serie nella raccolta"
+  },
+  "raceTrack": {
+    "collection": "Raccolta"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Riprovare questa fase?",
+      "body": "Il suo tempo e le sue mosse attuali verranno sostituiti.",
+      "confirm": "Riprova"
+    },
+    "reset": {
+      "title": "Azzerare questo schema?",
+      "body": "Le sue mosse verranno cancellate e lo schema ripartirà da capo.",
+      "confirm": "Azzera"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "ape",
+      "personality": "Irrequieta ed entusiasta. Fa scorrere i blocchi a scatti, poi si ferma. Vicino all’uscita accelera troppo presto e intasa la corsia proprio prima del traguardo.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Questo scorre!",
+          "Aspetta, no, così mi blocco...",
+          "Bzzz bzzz! Faccio spazio!"
+        ],
+        "playerAhead": ["Ehi, rallenta!", "Stavo liberando la strada…"],
+        "playerBehind": ["Ti sto raggiungendo!", "Guardami scivolare!"],
+        "endgame": ["L’uscita! La vedo!", "Aspetta, chi ha parcheggiato lì?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "anatra",
+      "personality": "Allegra e senza meta. Lenta e costante, con lunghe pause. Nel finale esce dall’ingorgo quasi per caso.",
+      "voiceLines": {
+        "neutral": ["Spingo un po’ le cose...", "Mmh... forse questo blocco."],
+        "playerAhead": ["Stai andando benissimo!", "Prima o poi esco."],
+        "playerBehind": ["Oh! Questo si è mosso!", "Che bello."],
+        "endgame": [
+          "Quella è l’uscita?",
+          "Oh! La strada si è liberata da sola."
+        ]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "lucertola",
+      "personality": "Cauta e attenta. Lunghe pause, poi piccoli gruppi di scorrimenti. Nel finale esita prima di ogni mossa.",
+      "voiceLines": {
+        "neutral": [
+          "Vediamo cosa libera.",
+          "Questo scorrimento dovrebbe essere sicuro."
+        ],
+        "playerAhead": ["Ora devo stare attenta.", "Non intasare la corsia."],
+        "playerBehind": ["Ok… ti raggiungo.", "C’è ancora tempo."],
+        "endgame": [
+          "Con cautela, ora...",
+          "Quasi fuori… devo solo esserne sicura."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "ragno",
+      "personality": "Metodico e strutturato. Libera la corsia con cura, blocco dopo blocco. Nel finale il piano cede: l’esitazione si insinua, come se il percorso non reggesse più.",
+      "voiceLines": {
+        "neutral": ["Questo apre la strada.", "Blocco dopo blocco..."],
+        "playerAhead": ["Il percorso funzionava...", "Devo rifare il piano..."],
+        "playerBehind": ["Regge ancora.", "Sì… la corsia si sta aprendo."],
+        "endgame": [
+          "Aspetta, no, così mi richiudo dentro.",
+          "Avevo pianificato questo percorso..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "procione",
+      "personality": "Grintoso e opportunista. Ritmo irregolare. Nel finale trova slancio ed esce più in fretta del previsto.",
+      "voiceLines": {
+        "neutral": ["Questo lo sposta!", "Un po’ stretto, ma va bene."],
+        "playerAhead": [
+          "Bene, è ora di spingere.",
+          "Non sono ancora bloccato."
+        ],
+        "playerBehind": ["Oh, bel varco.", "Ora la corsia si sta aprendo."],
+        "endgame": ["Sì, strada libera davanti.", "Ora si va."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pinguino",
+      "personality": "Strutturato e metodico. Ritmo costante. Il finale resta stabile: niente panico, niente scatto.",
+      "voiceLines": {
+        "neutral": ["Questo scorrimento è sul percorso.", "Resto costante."],
+        "playerAhead": [
+          "Mantengo il passo.",
+          "Nessun bisogno di correre con la griglia."
+        ],
+        "playerBehind": [
+          "Sono ancora in carreggiata.",
+          "La corsia si libera con costanza."
+        ],
+        "endgame": ["Quasi fuori.", "Esco con pulizia."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "scimmia",
+      "personality": "Imprevedibile e inquietante. Scatti irregolari. Nel finale accelera all’improvviso in un modo che sembra ingiusto.",
+      "voiceLines": {
+        "neutral": [
+          "Eh… non hai visto quel varco?",
+          "Oh, che scorrimento interessante."
+        ],
+        "playerAhead": ["Non metterti comodo.", "Guarda questa mossa."],
+        "playerBehind": [
+          "A volte il traffico si apre da solo.",
+          "Scorrimento fortunato… o forse no?"
+        ],
+        "endgame": [
+          "Oh wow, la strada è tutta libera.",
+          "Si è liberato in fretta."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "aquila",
+      "personality": "Distaccata e fluida. Scorrimenti distanziati e sicuri. Accelerazione silenziosa nel finale.",
+      "voiceLines": {
+        "neutral": ["Il percorso l’ho già visto.", "Ci scivolo attraverso."],
+        "playerAhead": [
+          "Il percorso non cambia.",
+          "Stessa uscita in ogni caso."
+        ],
+        "playerBehind": ["È già libero, in fondo.", "Ormai vado per inerzia."],
+        "endgame": ["…quasi fuori.", "Rotolo verso l’uscita."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "volpe",
+      "personality": "Intensa e competitiva. Partenza rapida, pressione costante. L’accelerata finale è aggressiva.",
+      "voiceLines": {
+        "neutral": ["Tieni il passo.", "Sei ancora fermo nel traffico?"],
+        "playerAhead": [
+          "Non fermarti adesso.",
+          "Puoi scorrere più veloce di così."
+        ],
+        "playerBehind": ["Troppo lento.", "Sei bloccato."],
+        "endgame": ["Libera la corsia.", "Questa uscita è mia."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "squalo",
+      "personality": "Paziente e predatore. Resta vicino, poi chiude con forza nel finale.",
+      "voiceLines": {
+        "neutral": ["Proprio dietro di te.", "Non ancora."],
+        "playerAhead": ["Resta nella tua corsia.", "Ora ti sono vicino."],
+        "playerBehind": ["Mi avvicino.", "Ecco il varco."],
+        "endgame": ["Ora usciamo.", "Presa l’uscita."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "gufo",
+      "personality": "Calmo e riflessivo. Ritmo fluido. Il finale è pulito e inevitabile.",
+      "voiceLines": {
+        "neutral": ["Come previsto.", "Ogni blocco al suo posto."],
+        "playerAhead": ["Bene.", "Vedi il percorso."],
+        "playerBehind": ["Segui la corsia.", "Non mollare."],
+        "endgame": ["Quasi fuori.", "Ecco l’uscita."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "gatto nero",
+      "personality": "Silenzioso e disumano. Pause minime. Il finale è uno scorrimento rapido e ininterrotto verso l’uscita.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…ancora."],
+        "playerBehind": ["Troppo tardi.", "Hai esitato."],
+        "endgame": ["…fuori.", "Uscita."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drago",
+      "personality": "Senza sforzo e assoluto. Mantiene un controllo perfetto dall’inizio alla fine. Nel finale esegue un passaggio deciso e ininterrotto verso l’uscita: nessuna apertura, nessuna resistenza.",
+      "voiceLines": {
+        "neutral": ["Previsto.", "Nessuna deviazione."],
+        "playerAhead": ["Hai fatto bene a provarci.", "Continua."],
+        "playerBehind": ["Questo conclude.", "Nessuna alternativa."],
+        "endgame": ["Tutto qui.", "Libero."]
+      }
+    }
+  }
+}

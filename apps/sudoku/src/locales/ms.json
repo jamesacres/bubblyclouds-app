@@ -1,0 +1,300 @@
+{
+  "brand": {
+    "appName": "Lumba Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Main dan kongsi untuk berlumba sudoku dengan rakan. Cabaran harian & merentas peranti!"
+  },
+  "puzzle": {
+    "mobileDescription": "Dapatkan pengalaman berlumba terbaik dengan apl {{appName}} kami!",
+    "desktopDescription": "Muat turun {{appName}}",
+    "openInAppLabel": "Buka Teka-teki"
+  },
+  "crossPromo": {
+    "gameName": "Lumba Bebas",
+    "tagline": "Gelongsorkan blok dan berlumba dengan rakan untuk menyelesaikan kesesakan."
+  },
+  "notFound": {
+    "message": "Halaman Tidak Ditemui"
+  },
+  "login": {
+    "dailyPuzzle": "Log masuk untuk memulakan teka-teki hari ini",
+    "puzzleBook": "Log masuk untuk menyemak imbas buku teka-teki",
+    "joinTeam": "Log masuk untuk menyertai pasukan",
+    "raceLobby": "Log masuk untuk berlumba dengan orang lain",
+    "puzzleEntry": "Log masuk untuk bermain",
+    "valueProps": {
+      "saveProgress": "Simpan kemajuan anda",
+      "raceFriends": "Berlumba dengan rakan",
+      "trackStats": "Jejaki statistik anda"
+    }
+  },
+  "plusModal": {
+    "description": "Sertai <badge>{{plusName}}</badge> untuk <emphasis>menghapuskan semua had kelajuan</emphasis>. Cabar rakan, daki papan pendahulu dan tingkatkan kelajuan penyelesaian anda. Kekalkan bebas iklan."
+  },
+  "premiumFeatures": {
+    "title": "Ciri premium",
+    "subtitle": "Buka kunci pengalaman {{appName}} sepenuhnya",
+    "unlimitedPlay": {
+      "title": "Main dan berlumba tanpa had",
+      "description": "Berlumba dengan rakan secara masa nyata lebih daripada sekali sehari"
+    },
+    "unlimitedHints": {
+      "title": "Petunjuk tanpa had",
+      "description": "Tidak akan tersekat lagi — dapatkan petunjuk bila-bila masa anda perlukan"
+    },
+    "monthlyBook": {
+      "title": "Seluruh buku bulanan dibuka, setiap bulan",
+      "description": "Main setiap teka-teki pada setiap tahap kesukaran, tanpa kunci"
+    },
+    "multipleTeams": {
+      "title": "Berbilang pasukan perlumbaan",
+      "description": "Anjurkan pertandingan persendirian bersama rakan dan keluarga"
+    },
+    "teamManagement": {
+      "title": "Pengurusan pasukan",
+      "description": "Cipta pasukan besar sehingga 15 orang, dan alih keluar ahli daripada pasukan anda."
+    },
+    "themes": {
+      "title": "Semua tema dibuka",
+      "description": "Peribadikan pengalaman berlumba anda"
+    },
+    "unlimitedActions": {
+      "title": "Buat asal, semak dan dedah tanpa had",
+      "description": "Hapuskan had harian buat asal, semak dan dedah"
+    }
+  },
+  "subscription": {
+    "hint_other": "💡 <bold>Anda telah menggunakan {{count}} petunjuk percuma hari ini.</bold> $t(brand.plus) memberi anda petunjuk tanpa had — tidak akan tersekat lagi — dan memastikan seluruh apl bebas iklan.",
+    "undo_other": "📅 <bold>Anda telah mencapai had buat asal harian!</bold> Anda mendapat {{count}} buat asal percuma sehari. Had ditetapkan semula esok, atau langgan untuk buat asal tanpa had.",
+    "checkGrid_other": "📅 <bold>Anda telah mencapai had semakan grid harian!</bold> Anda mendapat {{count}} semakan grid percuma sehari. Had ditetapkan semula esok, atau langgan untuk semakan tanpa had.",
+    "reveal": "🔓 <bold>Dedah grid ialah ciri premium!</bold> Langgan untuk membuka keupayaan mendedahkan penyelesaian lengkap.",
+    "themeColor": "🎨 <bold>Tema ini eksklusif untuk $t(brand.plus).</bold> Naik taraf untuk membuka semua warna tema yang cantik dan memperibadikan pengalaman sudoku anda.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Anda telah mencapai had teka-teki harian!</bold> Pengguna percuma boleh bermain {{count}} teka-teki sehari. Had ditetapkan semula esok, atau langgan untuk teka-teki tanpa had.",
+    "collectionLocked": "✨ <bold>Teka-teki ini sebahagian daripada buku $t(brand.plus).</bold> $t(brand.plus) membuka setiap teka-teki dalam buku setiap bulan, dan memastikan seluruh apl bebas iklan.",
+    "removeMember": "👥 <bold>Mengalih keluar ahli daripada pasukan anda ialah ciri premium!</bold> Langgan untuk membuka ciri pengurusan pasukan lanjutan termasuk pengalihan keluar ahli.",
+    "multipleParties": "🏘️ <bold>Berbilang pasukan perlumbaan ialah ciri premium!</bold> Pengguna percuma boleh mempunyai satu pasukan. Langgan untuk mencipta dan menyertai pasukan tanpa had untuk keluarga, rakan dan banyak lagi.",
+    "partyMaxSize": "👥 <bold>Pasukan besar ialah ciri premium!</bold> Langgan untuk membuka ciri pengurusan pasukan lanjutan termasuk pasukan besar."
+  },
+  "motivational": {
+    "messages": [
+      "Rakan anda menunggu satu cabaran",
+      "Dengan siapa anda akan berlumba hari ini?",
+      "Masa untuk menunjukkan kelajuan anda",
+      "Cabaran diterima?",
+      "Berlumba ke garisan penamat",
+      "Siapa penyelesai terpantas?",
+      "Sedia menguasai papan pendahulu?",
+      "Kemahiran berlumba anda menanti",
+      "Masa untuk meninggalkan mereka jauh di belakang",
+      "Sedia melepasi garisan penamat dahulu?",
+      "Litar sedang menunggu anda",
+      "Masa untuk menukar ke gear tinggi",
+      "Sedia memecut di grid teka-teki?",
+      "Lawan anda sudah memanaskan badan",
+      "Hari ini hari untuk mencipta rekod baharu",
+      "Rekod terbaik peribadi anda menunggu untuk dipecahkan",
+      "Setiap teka-teki menjadikan anda lebih pantas",
+      "Membina rentetan kemenangan bermula sekarang",
+      "Masa untuk menaikkan tahap permainan anda",
+      "Kejayaan seterusnya anda hanya satu teka-teki lagi",
+      "Sedia mengejutkan diri sendiri?",
+      "Tunjukkan kemampuan anda kepada mereka",
+      "Masa untuk membuka potensi anda",
+      "Penyelesaian terpantas anda masih menanti",
+      "Sedia menjadikan hari ini bermakna?",
+      "Setiap saat bermakna dalam perlumbaan",
+      "Masa untuk mencabar had anda",
+      "Perjalanan penambahbaikan anda diteruskan",
+      "Sedia melebihi jangkaan?",
+      "Fikir anda mampu menghadapi tekanan?",
+      "Masa untuk mendiamkan mereka yang meragui",
+      "Sedia meraih kemenangan?",
+      "Pesaing anda tidak akan menjangkanya",
+      "Masa untuk meninggalkan jejak anda",
+      "Sedia menjadi tumpuan?",
+      "Kemenangan lebih manis apabila diusahakan",
+      "Masa untuk membuktikan siapa yang terbaik",
+      "Sedia menunjukkan warna sebenar anda?",
+      "Minda juara bermula di sini",
+      "Masa untuk menonjol daripada yang lain",
+      "Sedia menulis legenda anda?",
+      "Juara dilahirkan pada saat seperti ini",
+      "Masa untuk menukar potensi kepada prestasi",
+      "Teka-teki baharu, peluang baharu",
+      "Cabaran hari ini menanti kehebatan anda",
+      "Sedia menjadikan ini hari terbaik anda?",
+      "Hari baharu bermakna rekod baharu untuk dipecahkan",
+      "Masa untuk menambah satu lagi kemenangan ke dalam koleksi anda",
+      "Sedia bermula dengan mantap dan menamatkan lebih mantap?",
+      "Sedia menjadikan hari ini legenda?",
+      "Dos kemenangan harian anda menanti",
+      "Strategi bertemu kelajuan di grid",
+      "Sedia mengatasi dari segi pemikiran dan kelajuan?",
+      "Kepakaran teka-teki anda memanggil",
+      "Masa untuk menggabungkan logik dengan kelajuan kilat",
+      "Sedia menyelesaikan dengan ketepatan tinggi?",
+      "Gabungan sempurna: kemahiran dan kelajuan",
+      "Kekuatan analisis anda ialah kelebihan berlumba anda",
+      "Masa untuk menunjukkan keunggulan teka-teki",
+      "Sedia menyelesaikan seperti juara?",
+      "Perlumbaan tepat bermula dengan pemikiran yang jelas",
+      "Rakan anda menunggu perlawanan semula",
+      "Siapa yang menyelesaikan hari ini?",
+      "Teka-teki harian baharu sudah sedia",
+      "Rentetan kemenangan anda dipertaruhkan",
+      "Teka-teki baharu, permulaan baharu",
+      "Cabaran hari ini sudah tersedia",
+      "Lumba rakan pada teka-teki harian",
+      "Hari baharu, teka-teki baharu",
+      "Seseorang sudah berada di papan pendahulu",
+      "Kekalkan rentetan kemenangan",
+      "Cabaran harian baru dikemas kini",
+      "Pasukan anda sedang menunggu",
+      "Satu teka-teki lebih hampir ke puncak",
+      "Teka-teki hari ini menunggu anda",
+      "Kembali dan berlumba"
+    ]
+  },
+  "home": {
+    "live": "Langsung",
+    "headline": "Sedia Berlumba? 🏁",
+    "subtitle": "Kongsi cabaran — jemput rakan dan lihat siapa penyelesai Sudoku terpantas.",
+    "leaderboard": "Papan pendahulu",
+    "daily": {
+      "title": "Cabaran harian",
+      "refreshes": "dikemas kini setiap hari",
+      "moreLevels": "Lebih banyak tahap kesukaran dalam <bookLink>buku teka-teki</bookLink>",
+      "difficulty": {
+        "simple": "Rumit",
+        "easy": "Mencabar",
+        "intermediate": "Sukar"
+      }
+    },
+    "book": {
+      "summary_other": "{{month}} · {{count}} teka-teki",
+      "title": "Buku bulanan",
+      "browse": "Semak imbas teka-teki"
+    },
+    "import": {
+      "title": "Import sebarang teka-teki",
+      "description": "Imbas dengan kamera atau tampal rentetan teka-teki",
+      "desktopTitle": "Lumba sebarang teka-teki",
+      "desktopDescription": "Imbas daripada buku atau akhbar"
+    },
+    "teams": {
+      "title": "Pasukan perlumbaan",
+      "withFriends": "Berlumba dengan {{friends}} dan lain-lain",
+      "noFriends": "Cabar rakan berlumba"
+    },
+    "tabs": {
+      "startRace": "Mula Lumba",
+      "myPuzzles": "Teka-teki Saya",
+      "racingTeams": "Pasukan Lumba"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Memuatkan buku teka-teki...",
+      "puzzles": "Memuatkan teka-teki...",
+      "progress": "Memuatkan kemajuan anda..."
+    },
+    "tryAgain": "Cuba lagi",
+    "backHome": "Kembali ke laman utama",
+    "signInPrompt": "Log masuk untuk mengakses buku teka-teki.",
+    "signIn": "Log masuk",
+    "noData": "Tiada data buku teka-teki tersedia.",
+    "title": "Buku teka-teki {{month}}",
+    "puzzleCount_other": "{{count}} teka-teki berfokuskan teknik",
+    "completed": "{{count}} selesai",
+    "inProgress": "{{count}} sedang dimainkan",
+    "unlockWithPlus": "Buka setiap teka-teki dengan $t(brand.plus)",
+    "jumpToDifficulty": "Lompat ke tahap kesukaran",
+    "scrollToTop": "Tatal ke atas",
+    "difficulty": {
+      "veryEasy": "Sangat Mudah",
+      "easy": "Mudah",
+      "moderatelyEasy": "Agak Mudah",
+      "moderate": "Sederhana",
+      "moderatelyHard": "Agak Sukar",
+      "hard": "Sukar",
+      "vicious": "Kejam",
+      "fiendish": "Bengis",
+      "devilish": "Menggila",
+      "hell": "Neraka",
+      "beyondHell": "Melampaui Neraka"
+    }
+  },
+  "invite": {
+    "loading": "Memuatkan jemputan...",
+    "iconAlt": "Ikon {{gameName}}",
+    "greeting": "👋 Hai!",
+    "greetingNamed": "👋 Hai {{name}}!",
+    "invited": "Kamu Dijemput!",
+    "joinTeam": "Sertai pasukan perlumbaan <team/>",
+    "description": "Selesaikan teka-teki Sudoku bersama-sama dan lihat kemajuan masing-masing secara masa nyata!",
+    "proTip": "💡 <bold>Petua:</bold> Semua teka-teki yang kamu main pada masa depan akan dikongsi dengan ahli pasukan kamu untuk persaingan yang menyeronokkan!",
+    "nicknameLabel": "Apakah nama panggilan kamu dalam pasukan lumba?",
+    "nicknamePlaceholder": "Masukkan nama panggilan kamu",
+    "joining": "Menyertai Pasukan...",
+    "join": "Sertai Keseronokan! 🎉",
+    "signIn": "Log masuk untuk Meneruskan",
+    "bonus": {
+      "title": "🎉 Bonus: Dapatkan {{plusName}} selama {{duration}}!",
+      "duration": {
+        "oneMonth": "satu bulan",
+        "oneYear": "satu tahun",
+        "lifetime": "seumur hidup",
+        "premium": "premium"
+      },
+      "subtitle": "Dengan menyertai pasukan lumba ini, kamu akan membuka ciri premium secara percuma sepenuhnya!",
+      "note": "💡 Akses premium kamu akan diaktifkan secara automatik selepas menyertai"
+    },
+    "expired": {
+      "title": "Jemputan Tamat Tempoh",
+      "body": "Pautan jemputan ini tidak lagi sah. Sila minta rakan kamu untuk jemputan baharu atau tambah saiz pasukan."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Masukkan rentetan teka-teki",
+      "help": "Tampal rentetan 81 aksara atau grid HoDoKu — gunakan digit 1–9 dan 0 atau . untuk sel kosong.",
+      "submit": "Import teka-teki"
+    },
+    "orScan": "atau imbas dengan kamera",
+    "cameraHelp": "Halakan kamera anda pada teka-teki sudoku yang belum selesai dan tunggu sehingga ia dikesan.",
+    "errors": {
+      "parse": "Tidak dapat menghuraikan teka-teki. Tampal rentetan 81 aksara atau grid HoDoKu.",
+      "solverLoading": "Penyelesai masih dimuatkan — sila cuba lagi.",
+      "noSolution": "Tiada penyelesaian ditemui. Sila semak teka-teki.",
+      "camera": "Tidak dapat memulakan kamera. Sila semak kebenaran dan cuba lagi."
+    }
+  },
+  "credits": {
+    "title": "Penghargaan & Atribusi",
+    "subtitle": "Apl ini dibina di atas beberapa projek yang hebat",
+    "copyright": "Hak cipta (c) 2026 James Acres ({{companyName}})",
+    "license": "Apl ini dilesenkan di bawah Lesen MIT. Lihat <licenseLink>LICENSE</licenseLink> dan <creditsLink>CREDITS</creditsLink> kami untuk butiran.",
+    "items": {
+      "humanSudokuSolver": "Pustaka TypeScript yang menyelesaikan teka-teki Sudoku menggunakan teknik manusia.",
+      "qqwing": "Penjanaan teka-teki Sudoku Hari Ini",
+      "tdoku": "Penyelesai Sudoku pantas untuk teka-teki yang diimbas",
+      "arBrowserSudoku": "Teknologi pengimbas realiti terimbuh",
+      "sudokuCoach": "Inspirasi untuk algoritma pengiraan kesukaran",
+      "nextjs": "Rangka kerja React untuk pengeluaran",
+      "typescript": "Superset JavaScript bertaip",
+      "tailwind": "Rangka kerja CSS mengutamakan utiliti",
+      "capacitor": "Masa jalan apl mudah alih natif",
+      "electron": "Rangka kerja apl desktop",
+      "tensorflow": "Pembelajaran mesin untuk ciri AR",
+      "revenuecat": "Pengurusan langganan",
+      "react": "Pustaka komponen UI",
+      "turborepo": "Sistem binaan monorepo"
+    }
+  }
+}

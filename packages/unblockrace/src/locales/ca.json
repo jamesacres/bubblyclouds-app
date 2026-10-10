@@ -1,0 +1,281 @@
+{
+  "brand": {
+    "gameName": "Cursa Lliure"
+  },
+  "controls": {
+    "hint": "Pista",
+    "hintTitle": "Demaneu ajuda",
+    "undo": "Desfés",
+    "redo": "Refés",
+    "reset": "Reinicieu"
+  },
+  "labels": {
+    "time": "Temps",
+    "moves": "Moviments",
+    "stageOf": "Etapa {{current}} de {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} moviment",
+    "moves_many": "{{count}} de moviments",
+    "moves_other": "{{count}} moviments",
+    "par": "par",
+    "overPar": "{{delta}} per sobre del par",
+    "underPar": "{{delta}} per sota del par"
+  },
+  "score": {
+    "moves": "moviments",
+    "srOnPar": "moviments, igualant el par",
+    "srOverPar": "moviments, {{delta}} per sobre del par",
+    "srUnderPar": "moviments, {{delta}} per sota del par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Diari · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Principiant",
+    "challenging": "Exigent",
+    "hard": "Difícil",
+    "expert": "Expert"
+  },
+  "collection": {
+    "puzzleLabel": "Puzle {{number}} de la col·lecció",
+    "theme": {
+      "january": "Any nou, embús nou",
+      "february": "Embús gelat",
+      "march": "Ben oberts de bat a bat",
+      "april": "Pluja de blocs",
+      "may": "Floreixen carrils nous",
+      "june": "Velocitat d'alliberament al màxim",
+      "july": "Sèrie de curses d'estiu",
+      "august": "Embús roent",
+      "september": "Tornada al tauler",
+      "october": "Embús encantat",
+      "november": "Aclarint els carrils",
+      "december": "Embús de festes",
+      "default": "Col·lecció mensual"
+    },
+    "error": {
+      "offline": "No teniu connexió, comproveu la vostra connexió",
+      "loadFailed": "No s'ha pogut carregar la col·lecció de puzles"
+    }
+  },
+  "stageClear": {
+    "title": "Etapa {{stage}} superada",
+    "onPar": "Igual al par",
+    "pointsSuffix": " pts",
+    "leaderboardPoints": "Punts de la classificació",
+    "nextStage": "Etapa següent",
+    "progress": "Etapa {{stage}} de {{total}} — {{remaining}} per acabar"
+  },
+  "hint": {
+    "unsolvable": "No hi ha sortida des d'aquí — desfeu o reinicieu per tornar al bon camí",
+    "dismiss": "Tanqueu l'avís de la pista"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Mantingueu la ratxa a la col·lecció"
+  },
+  "raceTrack": {
+    "collection": "Col·lecció"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Voleu reintentar aquesta etapa?",
+      "body": "El vostre temps i els vostres moviments actuals se substituiran.",
+      "confirm": "Reintenteu"
+    },
+    "reset": {
+      "title": "Voleu reiniciar aquest puzle?",
+      "body": "Això esborra els vostres moviments i reinicia el puzle.",
+      "confirm": "Reinicieu"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "abella",
+      "personality": "Inquiet i entusiasta. Llisca els blocs a ràfegues i després s'encalla. Prop de la sortida s'accelera massa aviat i embussa el carril just abans d'acabar.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Aquest llisca!",
+          "Espereu... no, això em bloqueja...",
+          "Bzzz bzzz! Fent espai!"
+        ],
+        "playerAhead": ["Ei, aneu més a poc a poc!", "Estava obrint camí…"],
+        "playerBehind": ["Us atrapo!", "Mireu com llisco!"],
+        "endgame": [
+          "La sortida! La veig!",
+          "Espereu... qui ha aparcat això aquí?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "ànec",
+      "personality": "Alegre i sense rumb. Lent i constant, amb llargues pauses. Al final, surt de l'embús gairebé per accident.",
+      "voiceLines": {
+        "neutral": ["Només ho vaig empenyent...", "Mmm... potser aquest bloc."],
+        "playerAhead": ["Ho esteu fent molt bé!", "Ja sortiré, tard o d'hora."],
+        "playerBehind": ["Oh! Aquest s'ha mogut!", "Això és agradable."],
+        "endgame": ["Això és la sortida?", "Oh! El camí s'ha desbloquejat sol."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "sargantana",
+      "personality": "Prudent i observador. Pauses llargues i després petits grups de lliscaments. Al final, vacil·la abans de cada moviment.",
+      "voiceLines": {
+        "neutral": [
+          "Deixeu-me veure què allibera això.",
+          "Aquest lliscament hauria de ser segur."
+        ],
+        "playerAhead": ["Ara he d'anar amb compte.", "No embusseu el carril."],
+        "playerBehind": ["D'acord… us atrapo.", "Encara hi ha temps."],
+        "endgame": [
+          "Amb compte ara...",
+          "Gairebé fora… només he d'assegurar-me'n."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "aranya",
+      "personality": "Meditat i estructurat. Neteja el carril amb cura, bloc a bloc. Al final el pla es desfà: la vacil·lació s'infiltra com si la ruta ja no se sostingués.",
+      "voiceLines": {
+        "neutral": ["Això obre la ruta.", "Bloc a bloc..."],
+        "playerAhead": ["La ruta funcionava...", "He de replantejar-ho..."],
+        "playerBehind": ["Encara aguanta.", "Sí… el carril s'obre."],
+        "endgame": [
+          "Espereu... no, això em torna a encaixonar.",
+          "Tenia aquesta ruta planificada..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "os rentador",
+      "personality": "Espavilat i oportunista. Ritme irregular. Al final troba impuls i surt més de pressa del que s'esperava.",
+      "voiceLines": {
+        "neutral": ["Això ho mou!", "Una mica estret, però m'ho quedo."],
+        "playerAhead": [
+          "Molt bé, ara a apretar.",
+          "Encara no estic encaixonat."
+        ],
+        "playerBehind": ["Oh... bon buit.", "El carril ja s'està obrint."],
+        "endgame": ["Sí, camí lliure.", "Ara roda."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingüí",
+      "personality": "Estructurat i metòdic. Ritme constant. El final es manté estable: sense pànic ni esprint.",
+      "voiceLines": {
+        "neutral": [
+          "Aquest lliscament encaixa amb la ruta.",
+          "Mantenint la constància."
+        ],
+        "playerAhead": [
+          "Mantingueu el ritme.",
+          "No cal afanyar-se amb la graella."
+        ],
+        "playerBehind": [
+          "Seguim en camí.",
+          "El carril s'aclareix de mica en mica."
+        ],
+        "endgame": ["Gairebé fora.", "Sortiu net."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "mico",
+      "personality": "Erràtic i inquietant. Ràfegues imprevisibles. Al final accelera de sobte d'una manera que sembla injusta.",
+      "voiceLines": {
+        "neutral": [
+          "Ja… no heu vist aquest buit?",
+          "Oh, aquest lliscament és interessant."
+        ],
+        "playerAhead": ["No us acomodeu.", "Mireu aquest moviment."],
+        "playerBehind": [
+          "De vegades el trànsit s'obre sol.",
+          "Lliscament afortunat… o no?"
+        ],
+        "endgame": [
+          "Oh, uau… el camí és ben obert.",
+          "Això s'ha aclarit de pressa."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "àguila",
+      "personality": "Distant i fluid. Lliscaments espaiats i segurs. Acceleració tranquil·la al final.",
+      "voiceLines": {
+        "neutral": ["Ja havia vist la ruta.", "Només hi llisco."],
+        "playerAhead": [
+          "No canvia la ruta.",
+          "La mateixa sortida en qualsevol cas."
+        ],
+        "playerBehind": ["Ja està despejat, de debò.", "Ara ja avanço sol."],
+        "endgame": ["…gairebé fora.", "Rodant cap a la sortida."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "guineu",
+      "personality": "Intens i competitiu. Sortida ràpida, pressió constant. L'arrencada final sembla agressiva.",
+      "voiceLines": {
+        "neutral": ["Seguiu el ritme.", "Encara encallats al trànsit?"],
+        "playerAhead": [
+          "No us atureu ara.",
+          "Podeu lliscar més de pressa que això."
+        ],
+        "playerBehind": ["Massa lent.", "Esteu encaixonats."],
+        "endgame": ["Netegeu el carril.", "Aquesta sortida és meva."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "tauró",
+      "personality": "Pacient i depredador. Es manté a prop i després estreny fort al final.",
+      "voiceLines": {
+        "neutral": ["Just al darrere vostre.", "Encara no."],
+        "playerAhead": ["Quedeu-vos al vostre carril.", "Ja sóc a prop."],
+        "playerBehind": ["M'hi acosto.", "Aquí hi ha el buit."],
+        "endgame": ["Ara sortim lliscant.", "Tinc la sortida."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "mussol",
+      "personality": "Calmat i deliberat. Ritme suau. El final és net i inevitable.",
+      "voiceLines": {
+        "neutral": ["Com s'esperava.", "Cada bloc al seu lloc."],
+        "playerAhead": ["Bé.", "Veieu la ruta."],
+        "playerBehind": ["Seguiu el carril.", "No afluixeu."],
+        "endgame": ["Gairebé fora.", "Aquí hi ha la sortida."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "gat negre",
+      "personality": "Silenciós i inhumà. Pauses mínimes. El final és un lliscament ràpid i ininterromput cap a la sortida.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…encara."],
+        "playerBehind": ["Massa tard.", "Heu vacil·lat."],
+        "endgame": ["…fora.", "Sortida."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drac",
+      "personality": "Sense esforç i absolut. Manté un control perfecte en tot moment. Al final executa una passada decisiva i ininterrompuda cap a la sortida: sense escletxes, sense resistència.",
+      "voiceLines": {
+        "neutral": ["Previst.", "Cap desviació."],
+        "playerAhead": ["Heu fet bé d'intentar-ho.", "Continueu."],
+        "playerBehind": ["Això conclou.", "No hi ha alternativa."],
+        "endgame": ["Això és tot.", "Lliure."]
+      }
+    }
+  }
+}

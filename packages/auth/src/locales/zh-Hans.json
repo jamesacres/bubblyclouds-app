@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "登录后继续",
+    "signInWith": "使用 {{provider}} 登录",
+    "emailTitle": "使用邮箱登录",
+    "emailPlaceholder": "your@email.com",
+    "continue": "继续",
+    "cancel": "取消",
+    "terms": "服务条款",
+    "privacy": "隐私政策"
+  },
+  "header": {
+    "signIn": "登录"
+  },
+  "avatar": {
+    "alt": "用户"
+  },
+  "panel": {
+    "title": "账号",
+    "greeting": "您好，{{name}}！",
+    "fallbackName": "用户",
+    "plusActive": "{{gameName}} {{plus}} 已启用",
+    "joinGamePlus": "加入 {{gameName}} {{plus}}",
+    "joinPlus": "加入 {{plus}}",
+    "signOut": "退出登录",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "credits": "致谢",
+    "deleteAccount": "删除账号",
+    "poweredBy": "由 {{companyName}} 提供技术支持",
+    "deleteUnavailable": "暂不支持删除账号。",
+    "deleteFailed": "删除账号失败，请稍后重试。"
+  },
+  "deleteDialog": {
+    "title": "删除账号",
+    "warning": "此操作无法撤销。您在所有 {{companyName}} 应用中的全部数据都将被永久删除。",
+    "confirmation": "我确认要删除我的整个账号，包括我在所有 {{companyName}} 应用中的全部数据。",
+    "cancel": "取消",
+    "deleting": "正在删除…",
+    "submit": "删除账号"
+  }
+}

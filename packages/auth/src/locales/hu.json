@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Jelentkezzen be a folytatáshoz",
+    "signInWith": "Bejelentkezés: {{provider}}",
+    "emailTitle": "Bejelentkezés e-maillel",
+    "emailPlaceholder": "az@email.cime",
+    "continue": "Folytatás",
+    "cancel": "Mégse",
+    "terms": "Általános szerződési feltételek",
+    "privacy": "Adatvédelmi szabályzat"
+  },
+  "header": {
+    "signIn": "Belépés"
+  },
+  "avatar": {
+    "alt": "felhasználó"
+  },
+  "panel": {
+    "title": "Fiók",
+    "greeting": "Üdv, {{name}}!",
+    "fallbackName": "Felhasználó",
+    "plusActive": "{{gameName}} {{plus}} aktív",
+    "joinGamePlus": "{{gameName}} {{plus}} előfizetés",
+    "joinPlus": "{{plus}} előfizetés",
+    "signOut": "Kijelentkezés",
+    "privacy": "Adatvédelmi szabályzat",
+    "terms": "Általános szerződési feltételek",
+    "credits": "Közreműködők",
+    "deleteAccount": "Fiók törlése",
+    "poweredBy": "Készítette: {{companyName}}",
+    "deleteUnavailable": "A fiók törlése nem érhető el.",
+    "deleteFailed": "A fiók törlése sikertelen. Kérjük, próbálja újra később."
+  },
+  "deleteDialog": {
+    "title": "Fiók törlése",
+    "warning": "Ez a művelet nem vonható vissza. Az Ön összes adata minden {{companyName}} alkalmazásban véglegesen törlődik.",
+    "confirmation": "Megerősítem, hogy törölni szeretném a teljes fiókomat, beleértve az összes {{companyName}} alkalmazásban tárolt adatot.",
+    "cancel": "Mégse",
+    "deleting": "Törlés…",
+    "submit": "Fiók törlése"
+  }
+}

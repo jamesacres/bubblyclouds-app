@@ -66,10 +66,12 @@ export const CrossPromoCard = ({
         </p>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white">
           {t('crossPromo.tryItFree')}
-          <ArrowRight className="h-3.5 w-3.5 shrink-0" />
+          <ArrowRight className="h-3.5 w-3.5 shrink-0 rtl:-scale-x-100" />
         </span>
       </div>
-      <div className="w-[34%] max-w-[150px] shrink-0">{preview}</div>
+      <div dir="ltr" className="w-[34%] max-w-[150px] shrink-0">
+        {preview}
+      </div>
     </a>
   );
 };

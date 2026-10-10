@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Συνδεθείτε για να συνεχίσετε",
+    "signInWith": "Σύνδεση με {{provider}}",
+    "emailTitle": "Σύνδεση με email",
+    "emailPlaceholder": "onoma@example.com",
+    "continue": "Συνέχεια",
+    "cancel": "Ακύρωση",
+    "terms": "Όροι χρήσης",
+    "privacy": "Πολιτική απορρήτου"
+  },
+  "header": {
+    "signIn": "Σύνδεση"
+  },
+  "avatar": {
+    "alt": "χρήστης"
+  },
+  "panel": {
+    "title": "Λογαριασμός",
+    "greeting": "Γεια σας, {{name}}!",
+    "fallbackName": "Χρήστης",
+    "plusActive": "{{gameName}} {{plus}} ενεργό",
+    "joinGamePlus": "Αποκτήστε {{gameName}} {{plus}}",
+    "joinPlus": "Αποκτήστε {{plus}}",
+    "signOut": "Αποσύνδεση",
+    "privacy": "Πολιτική απορρήτου",
+    "terms": "Όροι χρήσης",
+    "credits": "Αναφορές",
+    "deleteAccount": "Διαγραφή λογαριασμού",
+    "poweredBy": "Με την τεχνολογία {{companyName}}",
+    "deleteUnavailable": "Η διαγραφή λογαριασμού δεν είναι διαθέσιμη.",
+    "deleteFailed": "Η διαγραφή του λογαριασμού απέτυχε. Δοκιμάστε ξανά αργότερα."
+  },
+  "deleteDialog": {
+    "title": "Διαγραφή λογαριασμού",
+    "warning": "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Όλα τα δεδομένα σας σε όλες τις εφαρμογές {{companyName}} θα διαγραφούν οριστικά.",
+    "confirmation": "Επιβεβαιώνω ότι θέλω να διαγράψω ολόκληρο τον λογαριασμό μου, μαζί με όλα τα δεδομένα μου σε όλες τις εφαρμογές {{companyName}}.",
+    "cancel": "Ακύρωση",
+    "deleting": "Διαγραφή...",
+    "submit": "Διαγραφή λογαριασμού"
+  }
+}

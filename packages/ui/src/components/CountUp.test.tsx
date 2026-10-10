@@ -163,4 +163,9 @@ describe('CountUp', () => {
     const visible = container.querySelector('[aria-hidden="true"]');
     expect(visible?.textContent).toBe('200');
   });
+
+  it('renders the number as a left-to-right island', () => {
+    const { container } = render(<CountUp value={5} />);
+    expect(container.firstElementChild).toHaveAttribute('dir', 'ltr');
+  });
 });

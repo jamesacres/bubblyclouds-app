@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Boek",
+    "defaultDetailNoun": "puzzelboeken"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Maandelijks puzzelboek"
+  },
+  "hintBox": {
+    "dismiss": "Hint sluiten"
+  },
+  "lobbyButton": {
+    "opponents": "Tegenstanders"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Doorgaan — volgende puzzel",
+    "continueLocked": "Doorgaan ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} van {{total}} {{label}} voltooid"
+  },
+  "countdownOverlay": {
+    "getReady": "Maak u klaar",
+    "go": "GO!"
+  },
+  "confirmDialog": {
+    "cancel": "Annuleren"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · voltooid",
+    "retry": "Opnieuw",
+    "points": "+{{points}} ptn",
+    "leaderboardPoints": "Ranglijstpunten"
+  },
+  "raceTimer": {
+    "time": "Tijd"
+  },
+  "stageTopBar": {
+    "previous": "Vorige"
+  },
+  "raceHud": {
+    "opponents": "Tegenstanders",
+    "stageOf": "Fase {{current}} van {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Finish!",
+    "runComplete": "Run voltooid",
+    "leaderboardPoints": "Ranglijstpunten",
+    "pointsSuffix": " ptn"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Zo",
+      "monday": "Ma",
+      "tuesday": "Di",
+      "wednesday": "Wo",
+      "thursday": "Do",
+      "friday": "Vr",
+      "saturday": "Za"
+    },
+    "dayStreak_one": "dagen op rij",
+    "dayStreak_other": "dagen op rij",
+    "thisMonth": "deze maand"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(U)",
+    "puzzles_one": "{{count}} puzzel",
+    "puzzles_other": "{{count}} puzzels",
+    "average": "Gem.: {{time}}",
+    "best": "Beste: {{time}}",
+    "wins_one": "🏁 {{count}} zege",
+    "wins_other": "🏁 {{count}} zeges",
+    "points_one": "punt",
+    "points_other": "punten"
+  },
+  "scoreBreakdown": {
+    "title": "Scoreoverzicht",
+    "volumeBonus": {
+      "label": "Volumebonus",
+      "detail_one": "{{count}} puzzel voltooid",
+      "detail_other": "{{count}} puzzels voltooid"
+    },
+    "dailyPuzzles": {
+      "label": "Dagelijkse puzzels",
+      "detail_one": "{{count}} dagelijkse uitdaging",
+      "detail_other": "{{count}} dagelijkse uitdagingen"
+    },
+    "collectionPuzzles": {
+      "label": "Puzzels uit {{collection}}",
+      "detail": "{{count}} uit {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Gescande puzzels",
+      "detail_one": "{{count}} geïmporteerde puzzel",
+      "detail_other": "{{count}} geïmporteerde puzzels"
+    },
+    "difficultyBonus": {
+      "label": "Moeilijkheidsbonus",
+      "detail": "Moeilijkere puzzels = meer punten"
+    },
+    "speedBonus": {
+      "label": "Snelheidsbonus",
+      "detail": "Snelste: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Racebonus",
+      "detail": "Versla vrienden die ook klaar zijn"
+    },
+    "dailyCombo": {
+      "label": "Dagcombo",
+      "detail": "Meer puzzels per dag = grotere vermenigvuldiger"
+    }
+  },
+  "leaderboard": {
+    "you": "U",
+    "unknownUser": "Onbekende gebruiker",
+    "title": "Ranglijst",
+    "subtitleParty": "Laatste 30 dagen · {{partyName}}",
+    "subtitleAllTeams": "Laatste 30 dagen · Alle teams",
+    "howScoringWorks": "Hoe de score werkt"
+  },
+  "scoringLegend": {
+    "title": "Hoe de score werkt",
+    "subtitle": "{{gameName}} · Laatste 30 dagen",
+    "close": "Sluiten",
+    "racingWins": {
+      "title": "Raceoverwinningen",
+      "body": "Verdien <points>+{{points}} ptn</points> voor elke vriend die u verslaat op dezelfde voltooide puzzel. Eindig als eerste bij {{friends}} vrienden en verzamel <points>+{{total}} ptn</points>."
+    },
+    "basePoints": {
+      "title": "Basispunten",
+      "anyPuzzle": "Elke puzzel",
+      "dailyPuzzle": "Dagelijkse puzzel",
+      "collectionPuzzle": "Puzzel uit {{collection}}",
+      "scannedPuzzle": "Gescande puzzel"
+    },
+    "difficultyMultipliers": {
+      "title": "Moeilijkheidsmultiplicatoren",
+      "daily": "{{gameName}} van de dag",
+      "collection": "Puzzels uit {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Snelheidsbonussen",
+      "lightning": "Bliksem",
+      "fast": "Snel",
+      "quick": "Vlot",
+      "steady": "Constant",
+      "under": "onder {{threshold}}",
+      "seconds": "{{value}} sec",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Dagcombo",
+      "body": "Los op dezelfde dag meer puzzels op om de punten van elke puzzel te vermenigvuldigen, tot <max>{{max}}×</max>.",
+      "puzzle": "Puzzel {{puzzle}} van de dag",
+      "puzzleOrMore": "Puzzel {{puzzle}}+ van de dag"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Run voltooid",
+    "raceProgress": "Raceverloop",
+    "stagesProgress": "{{completed}}/{{total}} fases",
+    "retryStage": "Fase herhalen",
+    "stageLabel": "Fase {{number}}",
+    "stageCompletedLabel": "Fase {{number}}, voltooid in {{time}}",
+    "viewRacingStats": "Racestatistieken bekijken",
+    "total": "Totaal"
+  },
+  "raceTrack": {
+    "you": "U",
+    "viewFriends": "Klik om vrienden te bekijken",
+    "start": "Start",
+    "finish": "Finish",
+    "inviteToRace": "Nodig vrienden uit om te racen",
+    "opponents": "Tegenstanders",
+    "racer": "Racer",
+    "stageBadge": "F{{number}}",
+    "total": "Totaal",
+    "leaderboard": "Ranglijst",
+    "puzzleBook": "Puzzelboek",
+    "puzzleBookLabel": "puzzelboek",
+    "refreshScores": "Scores vernieuwen",
+    "challengeFriends": "🏁 Daag vrienden uit",
+    "yourTime": "Uw tijd:",
+    "inviteFriends": "Vrienden uitnodigen",
+    "racingLabel": "racen"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Lastig",
+      "easy": "Uitdagend",
+      "intermediate": "Moeilijk",
+      "expert": "Expert"
+    },
+    "book": {
+      "veryEasy": "Zeer makkelijk",
+      "easy": "Makkelijk",
+      "moderatelyEasy": "Vrij makkelijk",
+      "moderate": "Gemiddeld",
+      "moderatelyHard": "Vrij moeilijk",
+      "hard": "Moeilijk",
+      "vicious": "Meedogenloos",
+      "fiendish": "Duivels",
+      "devilish": "Satanisch",
+      "hell": "Hel",
+      "beyondHell": "Voorbij de hel"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Laatste cijfer",
+    "hiddenSingleBox": "Verborgen single (blok)",
+    "hiddenSingleLine": "Verborgen single (lijn)",
+    "hiddenSingleVariantRegion": "Verborgen single (variantgebied)",
+    "nakedSingle": "Naakte single",
+    "hiddenPair": "Verborgen paar",
+    "lockedCandidate": "Vergrendelde kandidaat",
+    "hiddenTriple": "Verborgen drietal",
+    "hiddenQuadruple": "Verborgen viertal",
+    "nakedPair": "Naakt paar",
+    "nakedTriple": "Naakt drietal",
+    "nakedQuadruple": "Naakt viertal",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Wolkenkrabber",
+    "twoStringKite": "Two-String-Kite",
+    "crane": "Kraan",
+    "simpleColoring": "Eenvoudig kleuren",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Finned/Sashimi X-Wing",
+    "emptyRectangle": "Lege rechthoek",
+    "uniqueRectangleType1": "Unieke rechthoek type 1",
+    "uniqueRectangleType2": "Unieke rechthoek type 2",
+    "uniqueRectangleType3": "Unieke rechthoek type 3",
+    "uniqueRectangleType4": "Unieke rechthoek type 4",
+    "uniqueRectangleType5": "Unieke rechthoek type 5",
+    "finnedSashimiSwordfish": "Finned/Sashimi Swordfish",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "X-keten",
+    "groupedXChain": "Gegroepeerde X-keten",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Finned/Sashimi Jellyfish",
+    "medusa3D": "3D-Medusa",
+    "xyChain": "XY-keten",
+    "alternatingInferenceChainAIC": "Alternerende inferentieketen (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Gegroepeerde alternerende inferentieketen (AIC)",
+    "nishioForcingChain": "Nishio-forcingketen",
+    "nishioForcingNet": "Nishio-forcingnet"
+  }
+}

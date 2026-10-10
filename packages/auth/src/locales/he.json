@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "התחברו כדי להמשיך",
+    "signInWith": "התחברות עם {{provider}}",
+    "emailTitle": "התחברות באמצעות אימייל",
+    "emailPlaceholder": "your@email.com",
+    "continue": "המשך",
+    "cancel": "ביטול",
+    "terms": "תנאי השירות",
+    "privacy": "מדיניות פרטיות"
+  },
+  "header": {
+    "signIn": "התחברות"
+  },
+  "avatar": {
+    "alt": "משתמש"
+  },
+  "panel": {
+    "title": "חשבון",
+    "greeting": "שלום, {{name}}!",
+    "fallbackName": "משתמש",
+    "plusActive": "{{gameName}} {{plus}} פעיל",
+    "joinGamePlus": "הצטרפו ל{{gameName}} {{plus}}",
+    "joinPlus": "הצטרפו ל{{plus}}",
+    "signOut": "התנתקות",
+    "privacy": "מדיניות פרטיות",
+    "terms": "תנאי השירות",
+    "credits": "קרדיטים",
+    "deleteAccount": "מחיקת חשבון",
+    "poweredBy": "מופעל על ידי {{companyName}}",
+    "deleteUnavailable": "מחיקת חשבון אינה זמינה.",
+    "deleteFailed": "מחיקת החשבון נכשלה. נסו שוב מאוחר יותר."
+  },
+  "deleteDialog": {
+    "title": "מחיקת חשבון",
+    "warning": "לא ניתן לבטל פעולה זו. כל הנתונים שלכם בכל האפליקציות של {{companyName}} יימחקו לצמיתות.",
+    "confirmation": "אישור: ברצוני למחוק את החשבון כולו, כולל כל הנתונים בכל האפליקציות של {{companyName}}.",
+    "cancel": "ביטול",
+    "deleting": "מתבצעת מחיקה...",
+    "submit": "מחיקת חשבון"
+  }
+}

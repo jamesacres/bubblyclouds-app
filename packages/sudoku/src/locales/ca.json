@@ -1,0 +1,356 @@
+{
+  "brand": {
+    "gameName": "Cursa Sudoku"
+  },
+  "board": {
+    "buttonGroup": "Grup de botons"
+  },
+  "celebration": {
+    "solved": "Resolt!",
+    "leaderboardPoints": "Punts de la classificació",
+    "pointsSuffix": " pts"
+  },
+  "completion": {
+    "time": "Temps"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Mantingueu la ratxa al llibre"
+  },
+  "puzzleMeta": {
+    "daily": "Diari {{day}} {{month}}",
+    "dayOrdinal": "{{count}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_two": "{{count}}",
+    "dayOrdinal_ordinal_few": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "book": "Llibre {{month}} núm. {{number}}",
+    "scanned": "Puzle escanejat"
+  },
+  "bookCover": {
+    "edition": "Edició {{month}}",
+    "puzzleCount": "50 puzles • Diverses dificultats",
+    "months": {
+      "january": {
+        "tagline": "De tècniques bàsiques a brutals",
+        "footer": "❄️ Edició del repte d'hivern ❄️"
+      },
+      "february": {
+        "tagline": "Dels únics ocults a les cadenes AIC",
+        "footer": "💕 Estimeu el repte 💕"
+      },
+      "march": {
+        "tagline": "La primavera porta tècniques avançades",
+        "footer": "🌸 Floreixen reptes nous 🌸"
+      },
+      "april": {
+        "tagline": "Supereu qualsevol tempesta de puzles",
+        "footer": "🌈 Després de la pluja, la victòria 🌈"
+      },
+      "may": {
+        "tagline": "Floriu amb potència mental",
+        "footer": "🌻 Que les vostres habilitats floreixin 🌻"
+      },
+      "june": {
+        "tagline": "Entrenament mental d'estiu",
+        "footer": "☀️ El cantó assolellat de resoldre ☀️"
+      },
+      "july": {
+        "tagline": "Lectura de platja, entrenament mental",
+        "footer": "🏖️ Jocs mentals de vacances 🏖️"
+      },
+      "august": {
+        "tagline": "Escalfeu la vostra potència mental",
+        "footer": "🔥 Reptes ardents 🔥"
+      },
+      "september": {
+        "tagline": "Poseu el cervell a l'escola",
+        "footer": "📚 Coneixement a través dels números 📚"
+      },
+      "october": {
+        "tagline": "Reptes intel·ligents i esgarrifosos",
+        "footer": "🎃 Esgarrifosament divertit 🎃"
+      },
+      "november": {
+        "tagline": "Cervells ardents de foguera",
+        "footer": "🍂 Recordeu, recordeu! 🍂"
+      },
+      "december": {
+        "tagline": "Regals d'enginy per a les festes",
+        "footer": "🎄 Bones festes, resolutor! 🎄"
+      },
+      "default": {
+        "tagline": "Poseu a prova la vostra ment",
+        "footer": "🧩 Poder de puzle 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "No teniu connexió, comproveu la vostra connexió",
+      "loadFailed": "No s'ha pogut carregar el llibre de puzles"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Teclat: tecles de fletxa, desfés, refés.",
+      "notes": "Manteniu premuda la tecla Maj o premeu n per alternar el mode de notes.",
+      "validate": "Premeu c per validar la casella, g per validar la graella."
+    },
+    "owl": {
+      "invalid": "Sembla que heu comès un error. Us recomano revisar la graella.",
+      "notSure": "Ho sento, no n'estic segur.",
+      "eureka": "Notació Eureka {{notation}}",
+      "highlighted": "He ressaltat les caselles rellevants per a vosaltres",
+      "foundTechnique": "He trobat aquesta tècnica: {{technique}}",
+      "noHint": "Cap pista disponible"
+    },
+    "legend": {
+      "stem": "Tija",
+      "petalA": "Pètal A",
+      "petalB": "Pètal B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Activat (cert)",
+      "off": "Desactivat (fals)",
+      "elimination": "Eliminació"
+    },
+    "reply": {
+      "thanks": "Gràcies,",
+      "tellMeMore": "🤔 Digueu-me'n més",
+      "showMeWhere": "👀 Mostreu-me on",
+      "hideHint": "Amagueu la pista"
+    },
+    "askForHelp": "Demaneu ajuda",
+    "notes": "Notes",
+    "copied": "Copiat!",
+    "export": "Exporteu",
+    "delete": "Esborreu",
+    "undo": "Desfés",
+    "redo": "Refés",
+    "cell": "Casella",
+    "grid": "Graella",
+    "zoom": "Zoom",
+    "reset": "Reinicieu",
+    "reveal": "Reveleu",
+    "confirm": {
+      "reset": {
+        "title": "Voleu reiniciar tota la graella?",
+        "body": "Esteu segurs que voleu reiniciar tota la graella?",
+        "confirm": "Reinicieu"
+      },
+      "reveal": {
+        "title": "Voleu revelar tota la graella?",
+        "body": "Esteu segurs que voleu revelar tota la graella?",
+        "confirm": "Reveleu"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Únic nu",
+    "hiddenSingleBox": "Únic ocult (caixa)",
+    "hiddenSingleRow": "Únic ocult (fila)",
+    "hiddenSingleCol": "Únic ocult (columna)",
+    "nakedPair": "Parella nua",
+    "nakedTriple": "Trio nu",
+    "nakedQuad": "Quàdruple nu",
+    "hiddenPair": "Parella oculta",
+    "hiddenTriple": "Trio ocult",
+    "hiddenQuad": "Quàdruple ocult",
+    "lockedCandidatePointing": "Candidats bloquejats (apuntadors)",
+    "lockedCandidateClaiming": "Candidats bloquejats (reclamadors)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String Kite",
+    "finnedXWing": "X-Wing amb aleta",
+    "finnedSwordfish": "Swordfish amb aleta",
+    "finnedJellyfish": "Jellyfish amb aleta",
+    "emptyRectangle": "Rectangle buit",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Rectangle únic (tipus 1)",
+    "uniqueRectangleType2": "Rectangle únic (tipus 2)",
+    "uniqueRectangleType3": "Rectangle únic (tipus 3)",
+    "uniqueRectangleType4": "Rectangle únic (tipus 4)",
+    "uniqueRectangleType5": "Rectangle únic (tipus 5)",
+    "bug": "BUG",
+    "xyChain": "Cadena XY",
+    "aic": "AIC",
+    "aicRing": "Anell AIC",
+    "groupedAIC": "AIC agrupada",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Death Blossom",
+    "nishio": "Nishio",
+    "nishioNet": "Xarxa Nishio",
+    "cellRegionForcingChain": "Cadena forçada de casella/regió",
+    "cellRegionForcingNet": "Xarxa forçada de casella/regió",
+    "forcingChain": "Cadena forçada"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "abella",
+      "personality": "Inquiet i entusiasta. Corre per la graella a ràfegues i després s'encalla. Cap al final s'accelera massa aviat i es queda encallat just abans d'acabar.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! N'he vist un!",
+          "Espereu... no, potser no...",
+          "Bzzz bzzz! Progrés!"
+        ],
+        "playerAhead": ["Ei, aneu més a poc a poc!", "Ho estava fent bé…"],
+        "playerBehind": ["Us atrapo!", "Mireu com vaig!"],
+        "endgame": ["Gairebé hi som! Crec!", "Espereu... on va això?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "ànec",
+      "personality": "Alegre i sense rumb. Lent i constant, amb llargues pauses. Al final, deriva cap a la solució gairebé per accident.",
+      "voiceLines": {
+        "neutral": [
+          "Només em prenc el meu temps...",
+          "Mmm... per aquí al voltant."
+        ],
+        "playerAhead": [
+          "Ho esteu fent molt bé!",
+          "Ja hi arribaré, tard o d'hora."
+        ],
+        "playerBehind": ["Oh! N'he trobat un!", "Això és agradable."],
+        "endgame": ["Crec que ja gairebé he acabat?", "Oh! Ha sortit bé."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "sargantana",
+      "personality": "Prudent i observador. Pauses llargues i després petits grups de col·locacions. Al final, vacil·la abans de cada col·locació.",
+      "voiceLines": {
+        "neutral": [
+          "Deixeu-me que ho comprovi dues vegades.",
+          "Això hauria de ser correcte."
+        ],
+        "playerAhead": ["Ara he d'anar amb compte.", "No us precipiteu."],
+        "playerBehind": ["D'acord… us atrapo.", "Encara hi ha temps."],
+        "endgame": ["Amb compte ara...", "Gairebé… només he d'assegurar-me'n."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "aranya",
+      "personality": "Meditat i estructurat. Avança amb cura, peça a peça. Al final l'estructura es desfà: la vacil·lació s'infiltra com si el pla ja no se sostingués.",
+      "voiceLines": {
+        "neutral": ["Això encaixa amb el patró.", "Peça a peça..."],
+        "playerAhead": ["Anava bé...", "Ho he d'arreglar..."],
+        "playerBehind": ["Encara aguanta.", "Sí… això funciona."],
+        "endgame": ["Espereu... no, això ho trenca.", "Ho tenia planificat..."]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "os rentador",
+      "personality": "Espavilat i oportunista. Ritme irregular. Al final troba impuls i acaba més de pressa del que s'esperava.",
+      "voiceLines": {
+        "neutral": ["Això funciona!", "Una mica desordenat, però m'ho quedo."],
+        "playerAhead": ["Molt bé, ara a apretar.", "Encara no he acabat."],
+        "playerBehind": ["Oh... bona troballa.", "Ara tot comença a encaixar."],
+        "endgame": ["Sí, això està fet.", "Ara flueix."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingüí",
+      "personality": "Estructurat i metòdic. Ritme constant. El final es manté estable: sense pànic ni esprint.",
+      "voiceLines": {
+        "neutral": ["Això encaixa.", "Mantenint la constància."],
+        "playerAhead": ["Mantingueu el ritme.", "No cal córrer."],
+        "playerBehind": ["Seguim en camí.", "El progrés és constant."],
+        "endgame": ["Gairebé hi som.", "Acabeu net."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "mico",
+      "personality": "Erràtic i inquietant. Ràfegues imprevisibles. Al final accelera de sobte d'una manera que sembla injusta.",
+      "voiceLines": {
+        "neutral": ["Ja… no ho esperàveu?", "Oh, això és interessant."],
+        "playerAhead": ["No us acomodeu.", "Mireu això."],
+        "playerBehind": [
+          "De vegades tot encaixa de sobte.",
+          "Una endevinalla afortunada… o no?"
+        ],
+        "endgame": ["Oh, uau… som-hi.", "Ha escalat ràpidament."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "àguila",
+      "personality": "Distant i fluid. Col·locacions espaiades i segures. Acceleració tranquil·la al final.",
+      "voiceLines": {
+        "neutral": ["Això ja ho havia vist.", "Només l'estic omplint."],
+        "playerAhead": [
+          "No canvia res.",
+          "El resultat segueix sent el mateix."
+        ],
+        "playerBehind": ["Ja està fet, de debò.", "Ara sóc en un altre lloc."],
+        "endgame": ["…gairebé acabat.", "Tancant."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "guineu",
+      "personality": "Intens i competitiu. Sortida ràpida, pressió constant. L'arrencada final sembla agressiva.",
+      "voiceLines": {
+        "neutral": ["Seguiu el ritme.", "Encara amb mi?"],
+        "playerAhead": ["No afluixeu ara.", "Ho podeu fer millor."],
+        "playerBehind": ["Massa lent.", "Us esteu quedant enrere."],
+        "endgame": ["Acabeu-ho.", "Això és meu."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "tauró",
+      "personality": "Pacient i depredador. Es manté a prop i després estreny fort al final.",
+      "voiceLines": {
+        "neutral": ["Just al darrere vostre.", "Encara no."],
+        "playerAhead": ["Quedeu-vos on sou.", "Ja sóc a prop."],
+        "playerBehind": ["M'hi acosto.", "Aquí esteu."],
+        "endgame": ["Ara ho acabem.", "Us tinc."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "mussol",
+      "personality": "Calmat i deliberat. Ritme suau. El final és net i inevitable.",
+      "voiceLines": {
+        "neutral": ["Com s'esperava.", "Tot encaixa."],
+        "playerAhead": ["Bé.", "Ho veieu."],
+        "playerBehind": ["Seguiu endavant.", "No afluixeu."],
+        "endgame": ["Gairebé complet.", "Aquí ho teniu."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "gat negre",
+      "personality": "Silenciós i inhumà. Pauses mínimes. El final és un acabament ràpid i ininterromput.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…encara."],
+        "playerBehind": ["Massa tard.", "Heu vacil·lat."],
+        "endgame": ["…fet.", "Acabat."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drac",
+      "personality": "Sense esforç i absolut. Manté un control perfecte en tot moment. Al final executa una passada decisiva i ininterrompuda: sense escletxes, sense resistència.",
+      "voiceLines": {
+        "neutral": ["Previst.", "Cap desviació."],
+        "playerAhead": ["Heu fet bé d'intentar-ho.", "Continueu."],
+        "playerBehind": ["Això conclou.", "No hi ha alternativa."],
+        "endgame": ["Això és tot.", "Complet."]
+      }
+    }
+  }
+}

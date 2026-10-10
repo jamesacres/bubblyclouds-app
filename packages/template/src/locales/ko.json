@@ -1,0 +1,217 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone 및 iPad"
+  },
+  "errors": {
+    "generic": "예기치 않은 오류가 발생했어요. 다시 시도해 주세요.",
+    "dismiss": "닫기"
+  },
+  "errorBoundary": {
+    "title": "앗! 문제가 생겼어요",
+    "description": "예기치 않은 오류가 발생했어요. 걱정 마세요, 진행 상황은 저장되어 있어요!",
+    "reload": "앱 다시 불러오기",
+    "clearStorage": "저장소 비우고 다시 불러오기",
+    "contactSupport": "문제가 계속되면 고객 지원에 문의해 주세요."
+  },
+  "time": {
+    "minutesAgo_other": "{{count}}분 전",
+    "hoursAgo_other": "{{count}}시간 전",
+    "daysAgo_other": "{{count}}일 전"
+  },
+  "tier": {
+    "novice": "초보자",
+    "advancedBeginner": "초급자",
+    "competent": "중급자",
+    "proficient": "숙련자",
+    "expert": "전문가"
+  },
+  "moves": {
+    "onPar": "이동, 기준과 같음",
+    "overPar": "이동, 기준보다 {{delta}} 많음",
+    "underPar": "이동, 기준보다 {{delta}} 적음"
+  },
+  "lobby": {
+    "title": "레이스 로비",
+    "close": "로비 닫기",
+    "onlineOpponents": "온라인 상대",
+    "refresh": "온라인 상대 새로고침",
+    "noOpponents": "온라인 상대가 없어요. 친구를 초대해 레이스해 보세요!",
+    "away": "자리 비움",
+    "offlineTeams": "오프라인 · 내 팀",
+    "removeMember": "{{name}} 내보내기",
+    "aiOpponents": "AI 상대",
+    "addAgent": "추가",
+    "noAgents": "아직 AI 상대가 없어요. 추가하면 언제든 함께 레이스할 수 있어요.",
+    "ownClock": "각자 자신의 시계로 레이스해요",
+    "startSolving": "풀이 시작",
+    "finished": "완료",
+    "inLobby": "로비 대기 중",
+    "stageProgress": "{{total}}단계 중 {{current}}단계",
+    "finishedRunIn": "{{time}} 만에 전 단계를 완료했어요",
+    "solvedIn": "{{time}} 만에 풀었어요",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · 마지막 접속 {{lastSeen}}",
+    "raceSummary": {
+      "solo": "솔로 레이스 — 나와 시계뿐",
+      "friends_other": "친구 {{count}}명",
+      "aiOpponents_other": "AI 상대 {{count}}명",
+      "racing": "레이스 상대: {{opponents}}"
+    },
+    "invite": {
+      "button": "초대",
+      "eyebrow": "레이스 만들기",
+      "title": "상대 초대",
+      "close": "닫기",
+      "existingTeam": "기존 팀에 초대",
+      "editTeamName": "팀 이름 수정",
+      "deleteTeam": "팀 삭제",
+      "leaveTeam": "팀 나가기",
+      "memberCount_other": "멤버 {{count}}명",
+      "createTeam": "새 레이싱 팀 만들기",
+      "displayNameLabel": "팀원들이 나를 뭐라고 부르나요?",
+      "displayNamePlaceholder": "표시 이름",
+      "teamNameLabel": "팀 이름을 뭐라고 할까요?",
+      "teamNamePlaceholder": "팀 이름 (예: 가족)",
+      "createAndCopy": "만들고 링크 복사",
+      "defaultTeamName": "새 팀",
+      "defaultPlayerName": "플레이어"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "시트 닫기",
+    "back": "뒤로",
+    "close": "닫기",
+    "title": "상대 고르기",
+    "subtitle": "상대를 한 명 이상 선택하세요",
+    "selectAtLeastOne": "상대를 하나 이상 선택하세요",
+    "race_other": "상대 {{count}}명과 레이스",
+    "skill": {
+      "novice": "초보자",
+      "advancedBeginner": "초급자",
+      "competent": "중급자",
+      "proficient": "숙련자",
+      "expert": "전문가"
+    }
+  },
+  "agentParty": {
+    "title": "AI 상대",
+    "rivalCount_other": "상대 {{count}}명"
+  },
+  "party": {
+    "cancel": "취소",
+    "editName": "팀 이름 수정",
+    "editMaxMembers": "최대 인원 수정",
+    "memberCount_other": "멤버 {{count}}명",
+    "memberCountPremium_other": "멤버 {{count}}명 ✨ 프리미엄",
+    "membersOf_other": "멤버 {{current}}/{{count}}명",
+    "shareLink": "현재 팀원에게 이 링크를 공유해 이 퍼즐에 참여시키세요",
+    "you": "(나)",
+    "notStarted": "아직 시작하지 않았어요! 플레이를 권해 보세요"
+  },
+  "partyConfirmation": {
+    "cancel": "취소",
+    "leaveAgentParty": {
+      "title": "AI 상대 제거",
+      "action": "제거",
+      "processing": "제거하는 중...",
+      "message": "AI 상대를 모두 제거할까요? 더 이상 레이스에 나타나지 않아요."
+    },
+    "removeAgent": {
+      "title": "로컬 AI 상대 제거",
+      "action": "제거",
+      "processing": "제거하는 중...",
+      "message": "레이스에서 \"{{memberName}}\" 상대를 제거할까요?"
+    },
+    "deleteParty": {
+      "title": "팀 삭제",
+      "action": "팀 삭제",
+      "processing": "삭제하는 중...",
+      "message": "\"{{partyName}}\" 팀을 삭제할까요? 팀이 영구적으로 삭제되고 모든 멤버가 접근할 수 없게 돼요. 이 작업은 되돌릴 수 없어요."
+    },
+    "leave": {
+      "title": "팀 나가기",
+      "action": "나가기",
+      "processing": "나가는 중...",
+      "message": "\"{{partyName}}\" 팀에서 나갈까요? 다른 멤버의 진행 상황을 볼 수 없고 이 팀에 참여할 수 없게 돼요."
+    },
+    "remove": {
+      "title": "멤버 내보내기",
+      "action": "내보내기",
+      "processing": "내보내는 중...",
+      "message": "\"{{partyName}}\" 팀에서 \"{{memberName}}\" 멤버를 내보낼까요? 더 이상 이 팀에 참여할 수 없어요."
+    }
+  },
+  "friends": {
+    "allTeams": "모든 팀",
+    "refresh": "새로고침",
+    "refreshing": "새로고침 중…",
+    "title": "친구들의 퍼즐",
+    "subtitle": "친구를 눌러 최근 퍼즐을 보고 레이스해 보세요.",
+    "memberCount_other": "멤버 {{count}}명",
+    "noRecentPuzzles": "최근 퍼즐이 없어요. 도전장을 내밀어 보세요!",
+    "empty": {
+      "title": "아직 레이싱 팀이 없어요",
+      "description": "퍼즐을 풀 때 레이스 로비에서 친구를 초대하세요"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "지난 30일 동안 푼 내 퍼즐이에요.",
+    "empty": {
+      "title": "아직 퍼즐이 없어요",
+      "description": "레이스 시작에서 첫 퍼즐을 풀어 보세요"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_other": "+{{count}}개 기능 더"
+  },
+  "crossPromo": {
+    "whyNotTry": "이런 게임은 어때요",
+    "tryItFree": "무료로 해 보기"
+  },
+  "rateApp": {
+    "prompt": "{{appName}}, 마음에 드세요?",
+    "rateIt": "평가하기",
+    "rateInSeconds": "몇 초면 평가할 수 있어요"
+  },
+  "plus": {
+    "close": "창 닫기",
+    "appIconAlt": "앱 아이콘",
+    "lifetime": "평생 이용권",
+    "monthly": "월간",
+    "perMonth": "{{price}}/월",
+    "whatsIncluded": "포함된 혜택",
+    "continue": "계속",
+    "restorePurchases": "구매 복원",
+    "cancel": "취소"
+  },
+  "download": {
+    "title": "앱에서 계속하기",
+    "appStoreAlt": "{{appStore}}에서 다운로드",
+    "googlePlayAlt": "{{googlePlay}}에서 받기",
+    "continueBrowser": "브라우저에서 계속",
+    "continueDesktop": "데스크톱에서 계속"
+  },
+  "session": {
+    "cheated": "치팅",
+    "completedIn": "{{minutes}}분 {{seconds}}초 만에 완료",
+    "percentComplete": "{{percentage}}% 완료",
+    "duration": "{{minutes}}분 {{seconds}}초",
+    "shortDate": "{{month}} {{day}}",
+    "dayOrdinal_ordinal_other": "{{count}}일",
+    "puzzleNumber": "퍼즐 #{{number}}",
+    "daily": "데일리 {{date}}",
+    "book": "{{month}} 퍼즐북 #{{number}}",
+    "collection": "{{month}} 컬렉션 #{{number}}",
+    "scanned": "스캔한 퍼즐",
+    "you": "나",
+    "unknown": "알 수 없음",
+    "unlockWith": "잠금 해제: {{label}}",
+    "lockedPuzzle": "잠긴 퍼즐",
+    "recommendedTechniques": "추천 기법:",
+    "loadingFriends": "친구 불러오는 중..."
+  }
+}

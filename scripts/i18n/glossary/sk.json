@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Preteky sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "preteky",
+      "team": "tím",
+      "leaderboard": "rebríček",
+      "hint": "nápoveda",
+      "undo": "späť",
+      "theme": "motív",
+      "dailyPuzzle": "denný hlavolam",
+      "monthlyCollection": "mesačná zbierka hlavolamov",
+      "aiOpponent": "súper s UI",
+      "monthly": "mesačný",
+      "lifetime": "doživotne",
+      "plusAccess": "Prístup Plus",
+      "plusFeatureLine": "Neobmedzené preteky, tímy, motívy a späť"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Voľné Preteky",
+      "gameName": "Voľné Preteky",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "preteky",
+      "team": "tím",
+      "leaderboard": "rebríček",
+      "hint": "nápoveda",
+      "undo": "späť",
+      "theme": "motív",
+      "dailyPuzzle": "denný hlavolam",
+      "monthlyCollection": "mesačná zbierka hlavolamov",
+      "aiOpponent": "súper s UI",
+      "monthly": "mesačný",
+      "lifetime": "doživotne",
+      "plusAccess": "Prístup Plus",
+      "plusFeatureLine": "Neobmedzené preteky, tímy, motívy a späť"
+    }
+  }
+}

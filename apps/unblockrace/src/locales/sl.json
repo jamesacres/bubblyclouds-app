@@ -1,0 +1,295 @@
+{
+  "brand": {
+    "appName": "Prosta Dirka",
+    "gameName": "Prosta Dirka",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Igrajte in delite, da s prijatelji tekmujete v osvobajanju uganke. Dnevni izzivi in več naprav!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Začni dirko",
+      "myPuzzles": "Moje uganke",
+      "racingTeams": "Dirkaške ekipe"
+    },
+    "hero": {
+      "live": "V živo",
+      "headlineLine1": "Razrešite zastoj.",
+      "headlineAccent": "Zmagajte v dirki",
+      "subtitle": "Drsite bloke, osvobodite svetlečega in dirkajte s prijatelji do izhoda."
+    },
+    "leaderboard": "Lestvica",
+    "dailyRace": {
+      "title": "Dnevna dirka",
+      "refreshesDaily": "se osveži vsak dan",
+      "todaysRace": "Današnja dirka",
+      "difficultyRange": "Začetnik → Strokovnjak",
+      "description": "Pet plošč, ena ura – zmaga najhitrejši pobeg.",
+      "stages": "5 stopenj",
+      "start": "Začni dirkati",
+      "morePuzzlesPrefix": "Več ugank v",
+      "puzzleCollection": "zbirki ugank"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 ugank",
+      "title": "Mesečna zbirka",
+      "description": "50 svežih zastojev za {{month}} – razrešite vse, preden se mesec izteče.",
+      "browse": "Prebrskaj uganke"
+    },
+    "teams": {
+      "eyebrow": "Več igralcev",
+      "title": "Dirkaške ekipe",
+      "raceFriends": "Dirkajte: {{names}} in drugi",
+      "challengeFriends": "Izzovite prijatelje na dirko"
+    },
+    "premium": {
+      "title": "Premium funkcije",
+      "subtitle": "Odklenite celotno izkušnjo $t(brand.gameName)"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudoku dirka",
+    "tagline": "Delite sudoku s prijatelji in dirkajte, kdo ga reši najhitreje."
+  },
+  "puzzle": {
+    "mobileDescription": "Z aplikacijo {{appName}} dobite najboljšo izkušnjo!",
+    "desktopDescription": "Prenesite {{appName}}",
+    "openInAppLabel": "Odpri uganko"
+  },
+  "collection": {
+    "loading": {
+      "both": "Nalaganje zbirke ugank ...",
+      "collection": "Nalaganje ugank ...",
+      "sessions": "Nalaganje vašega napredka ..."
+    },
+    "retry": "Poskusi znova",
+    "backHome": "Nazaj na začetek",
+    "signInPrompt": "Prijavite se za dostop do zbirke ugank.",
+    "signIn": "Prijava",
+    "noData": "Podatki o zbirki ugank niso na voljo.",
+    "title": "Zbirka ugank: {{month}}",
+    "completed": "dokončano",
+    "inProgress": "v teku",
+    "unlockWithPlus": "Odklenite vsako uganko: Plus",
+    "jumpToDifficulty": "Skoči na težavnost",
+    "scrollToTop": "Pomakni na vrh",
+    "subtitle_one": "{{count}} uganka – od hitrih pobegov do strokovnih zastojev",
+    "subtitle_two": "{{count}} uganki – od hitrih pobegov do strokovnih zastojev",
+    "subtitle_few": "{{count}} uganke – od hitrih pobegov do strokovnih zastojev",
+    "subtitle_other": "{{count}} ugank – od hitrih pobegov do strokovnih zastojev"
+  },
+  "invite": {
+    "loading": "Nalaganje povabila ...",
+    "iconAlt": "Ikona: {{appName}}",
+    "greeting": "👋 Pozdravljeni, {{name}}!",
+    "invited": "Povabljeni ste!",
+    "joinTeam": "Pridružite se dirkaški ekipi",
+    "tagline": "Skupaj dirkajte do rešitve ugank in v realnem času spremljajte napredek drug drugega!",
+    "proTipLabel": "Nasvet:",
+    "proTip": "Vse prihodnje uganke, ki jih boste igrali, bodo deljene s člani vaše ekipe za prijateljsko tekmovanje!",
+    "nicknameLabel": "Kako vas kliče vaša dirkaška ekipa?",
+    "nicknamePlaceholder": "Vnesite svoj vzdevek",
+    "joining": "Pridruževanje ekipi ...",
+    "join": "Pridružite se zabavi! 🎉",
+    "signIn": "Prijavite se za nadaljevanje",
+    "bonus": "🎉 Bonus: {{plusName}} – {{duration}}!",
+    "bonusDescription": "S pridružitvijo tej dirkaški ekipi boste premium funkcije odklenili povsem brezplačno!",
+    "activation": "💡 Vaš premium dostop se bo po pridružitvi samodejno aktiviral",
+    "duration": {
+      "oneMonth": "en mesec",
+      "oneYear": "eno leto",
+      "lifetime": "za vedno",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Povabilo je poteklo",
+      "description": "Ta povezava povabila ni več veljavna. Prosite prijatelja za novo povabilo ali povečajte velikost ekipe."
+    },
+    "greetingAnonymous": "👋 Pozdravljeni!"
+  },
+  "credits": {
+    "title": "Zasluge in priznanja",
+    "intro": "Ta aplikacija temelji na več odličnih projektih",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Ta aplikacija je licencirana pod licenco MIT. Podrobnosti so v <licenseLink>LICENSE</licenseLink> in <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "rush": "Reševalec ugank Rush Hour in zbirka ugank, avtor Michael Fogleman, prevedena v WebAssembly",
+      "nextjs": "Ogrodje React za produkcijo",
+      "typescript": "Tipizirana nadgradnja JavaScripta",
+      "tailwind": "Ogrodje CSS, ki daje prednost uporabnim razredom",
+      "capacitor": "Izvajalno okolje za izvorne mobilne aplikacije",
+      "electron": "Ogrodje za namizne aplikacije",
+      "revenuecat": "Upravljanje naročnin",
+      "react": "Knjižnica komponent uporabniškega vmesnika",
+      "turborepo": "Sistem za gradnjo monorepozitorijev"
+    }
+  },
+  "notFound": {
+    "title": "Stran ni najdena"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Prijavite se, da začnete današnjo uganko",
+      "collection": "Prijavite se, da prebrskate zbirko",
+      "joinTeam": "Prijavite se, da se pridružite ekipi",
+      "raceLobby": "Prijavite se, da dirkate z drugimi",
+      "puzzleEntry": "Prijavite se za igranje"
+    },
+    "valueProps": {
+      "saveProgress": "Shranite svoj napredek",
+      "raceFriends": "Dirkajte s prijatelji",
+      "trackStats": "Spremljajte svojo statistiko"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Danes ste porabili svoje brezplačne namige ({{limit}}).",
+      "body": "Plus vam omogoča neomejene namige – nikoli več ne obtičite – in celotno aplikacijo ohranja brez oglasov."
+    },
+    "undo": {
+      "title": "Dosegli ste dnevno omejitev razveljavitev!",
+      "body": "Na dan imate brezplačnih razveljavitev: {{limit}}. Omejitev se jutri ponastavi, ali pa se naročite za neomejene razveljavitve."
+    },
+    "collectionLocked": {
+      "title": "Ta uganka je del zbirke Plus.",
+      "body": "Plus odklene vsako uganko v paketu vsakega meseca in celotno aplikacijo ohranja brez oglasov."
+    },
+    "themeColor": {
+      "title": "Ta tema je ekskluzivna za Plus.",
+      "body": "Nadgradite, da odklenete vse čudovite barve tem in prilagodite svojo izkušnjo igre Prosta Dirka."
+    },
+    "removeMember": {
+      "title": "Odstranjevanje članov iz ekipe je premium funkcija!",
+      "body": "Naročite se, da odklenete napredne funkcije upravljanja ekipe, vključno z odstranjevanjem članov."
+    },
+    "multipleParties": {
+      "title": "Več dirkaških ekip je premium funkcija!",
+      "body": "Brezplačni uporabniki imajo lahko eno ekipo. Naročite se, da ustvarite neomejeno ekip in se jim pridružite – za družino, prijatelje in več."
+    },
+    "partyMaxSize": {
+      "title": "Velike ekipe so premium funkcija!",
+      "body": "Naročite se, da odklenete napredne funkcije upravljanja ekipe, vključno z velikimi ekipami."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Vedno brez oglasov",
+      "description": "Nikoli oglasov – samo vi in uganke"
+    },
+    "hints": {
+      "title": "Neomejeni namigi",
+      "description": "Nikoli ne obtičite – namig dobite, kadar ga potrebujete"
+    },
+    "monthlyPack": {
+      "title": "Celoten mesečni paket odklenjen, vsak mesec",
+      "description": "Igrajte vsako uganko na vsaki težavnosti, brez ključavnic"
+    },
+    "undos": {
+      "title": "Neomejene razveljavitve",
+      "description": "Previjajte nazaj, kolikor potez želite"
+    },
+    "teams": {
+      "title": "Več dirkaških ekip",
+      "description": "Prirejajte zasebna tekmovanja s prijatelji in družino"
+    },
+    "management": {
+      "title": "Upravljanje ekipe",
+      "description": "Ustvarite velike ekipe do 15 oseb in odstranjujte člane iz svoje ekipe."
+    },
+    "themes": {
+      "title": "Vse teme odklenjene",
+      "description": "Prilagodite svojo dirkaško izkušnjo"
+    }
+  },
+  "plusModal": {
+    "description": "<badge>{{plusName}}</badge>: <strong>neomejeni namigi</strong>, <strong>celoten mesečni paket odklenjen</strong> in <strong>neomejene razveljavitve</strong>. Izzovite prijatelje, se vzpenjajte po lestvicah in ohranite aplikacijo brez oglasov."
+  },
+  "leaderboard": {
+    "collectionLabel": "Zbirka",
+    "collectionDetailNoun": "zbirke"
+  },
+  "motivational": {
+    "messages": [
+      "Vaši prijatelji čakajo na izziv",
+      "S kom boste danes dirkali?",
+      "Čas je, da pokažete hitrost",
+      "Izziv sprejet?",
+      "Dirkajte do ciljne črte",
+      "Kdo je najhitrejši reševalec?",
+      "Pripravljeni na vrh lestvice?",
+      "Vaše dirkaške sposobnosti čakajo",
+      "Čas je, da jih pustite v prahu",
+      "Pripravljeni, da prvi prečkate ciljno črto?",
+      "Proga vas čaka",
+      "Čas je za višjo prestavo",
+      "Pripravljeni, da zapeljete po mreži ugank?",
+      "Vaši nasprotniki se že ogrevajo",
+      "Danes je dan za nov rekord",
+      "Vaš osebni rekord čaka, da ga podrete",
+      "Vsaka uganka vas naredi hitrejše",
+      "Gradnja niza se začne zdaj",
+      "Čas je, da dvignete svojo igro na višjo raven",
+      "Vaš naslednji preboj je oddaljen eno uganko",
+      "Pripravljeni, da presenetite sami sebe?",
+      "Pokažite, iz kakšnega testa ste",
+      "Čas je, da odklenete svoj potencial",
+      "Vaše najhitrejše reševanje je še pred vami",
+      "Pripravljeni, da današnji dan šteje?",
+      "Vsaka sekunda šteje v dirki",
+      "Čas je, da premaknete svoje meje",
+      "Vaša pot izboljševanja se nadaljuje",
+      "Pripravljeni preseči pričakovanja?",
+      "Mislite, da zmorete pritisk?",
+      "Čas je, da utišate dvomljivce",
+      "Pripravljeni, da zmagate?",
+      "Vaša konkurenca tega ne pričakuje",
+      "Čas je, da pustite svoj pečat",
+      "Pripravljeni, da ukradete žaromete?",
+      "Zmaga je slajša, ko si jo prislužite",
+      "Čas je, da dokažete, kdo je šef",
+      "Pripravljeni pokazati svoje prave barve?",
+      "Šampionski način razmišljanja se začne tukaj",
+      "Čas je, da se ločite od množice",
+      "Pripravljeni napisati svojo legendo?",
+      "Šampioni nastanejo v trenutkih, kot je ta",
+      "Čas je, da potencial spremenite v zmogljivost",
+      "Sveže uganke, sveže priložnosti",
+      "Današnji izziv čaka na vaše mojstrstvo",
+      "Pripravljeni, da bo to vaš najboljši dan doslej?",
+      "Nov dan pomeni nove rekorde za podiranje",
+      "Čas je, da zbirki dodate novo zmago",
+      "Pripravljeni močno začeti in še močneje končati?",
+      "Pripravljeni, da bo današnji dan legendaren?",
+      "Vaš dnevni odmerek zmagoslavja čaka",
+      "Strategija se na mreži sreča s hitrostjo",
+      "Pripravljeni biti pametnejši in hitrejši?",
+      "Vaše mojstrstvo ugank vas kliče",
+      "Čas je, da združite logiko s hitrostjo strele",
+      "Pripravljeni reševati s kirurško natančnostjo?",
+      "Popolna kombinacija: znanje in hitrost",
+      "Vaša analitična prednost je vaša dirkaška prednost",
+      "Čas je, da pokažete premoč v ugankah",
+      "Pripravljeni reševati kot šampion?",
+      "Natančno dirkanje se začne z jasnim razmišljanjem",
+      "Vaši prijatelji čakajo na ponovni obračun",
+      "Kdo danes rešuje?",
+      "Nova dnevna uganka je pripravljena",
+      "Vaš niz je na kocki",
+      "Sveže uganke, svež začetek",
+      "Današnji izziv je tu",
+      "Dirkajte s prijateljem na dnevni uganki",
+      "Nov dan, nove uganke",
+      "Nekdo je že na lestvici",
+      "Ohranite niz živ",
+      "Dnevni izzivi so se pravkar osvežili",
+      "Vaša ekipa čaka",
+      "Ena uganka bližje vrhu",
+      "Današnje uganke čakajo na vas",
+      "Skočite nazaj in dirkajte"
+    ]
+  }
+}

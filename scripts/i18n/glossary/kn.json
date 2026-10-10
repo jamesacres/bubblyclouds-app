@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "ಸುಡೊಕು ರೇಸ್",
+      "gameName": "ಸುಡೊಕು",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "ಸುಡೊಕು Plus"
+    },
+    "terms": {
+      "race": "ರೇಸ್",
+      "team": "ತಂಡ",
+      "leaderboard": "ಲೀಡರ್‌ಬೋರ್ಡ್",
+      "hint": "ಸುಳಿವು",
+      "undo": "ರದ್ದು",
+      "theme": "ಥೀಮ್",
+      "dailyPuzzle": "ದೈನಂದಿನ ಒಗಟು",
+      "monthlyCollection": "ಮಾಸಿಕ ಒಗಟು ಪುಸ್ತಕ",
+      "aiOpponent": "AI ಎದುರಾಳಿ",
+      "monthly": "ಮಾಸಿಕ",
+      "lifetime": "ಜೀವಿತಾವಧಿ",
+      "plusAccess": "Plus ಪ್ರವೇಶ",
+      "plusFeatureLine": "ಅಪರಿಮಿತ ರೇಸ್, ತಂಡ, ಥೀಮ್, ರದ್ದು"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "ಅನ್‌ಬ್ಲಾಕ್ ರೇಸ್",
+      "gameName": "ಅನ್‌ಬ್ಲಾಕ್ ರೇಸ್",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "ರೇಸ್",
+      "team": "ತಂಡ",
+      "leaderboard": "ಲೀಡರ್‌ಬೋರ್ಡ್",
+      "hint": "ಸುಳಿವು",
+      "undo": "ರದ್ದು",
+      "theme": "ಥೀಮ್",
+      "dailyPuzzle": "ದೈನಂದಿನ ಒಗಟು",
+      "monthlyCollection": "ಮಾಸಿಕ ಒಗಟು ಸಂಗ್ರಹ",
+      "aiOpponent": "AI ಎದುರಾಳಿ",
+      "monthly": "ಮಾಸಿಕ",
+      "lifetime": "ಜೀವಿತಾವಧಿ",
+      "plusAccess": "Plus ಪ್ರವೇಶ",
+      "plusFeatureLine": "ಅಪರಿಮಿತ ರೇಸ್, ತಂಡ, ಥೀಮ್, ರದ್ದು"
+    }
+  }
+}

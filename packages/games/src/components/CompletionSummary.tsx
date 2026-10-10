@@ -57,7 +57,9 @@ const CompletionSummary = ({
         </button>
       )}
       {stars !== undefined && <StarRating rating={stars} size="lg" />}
-      <div className="mt-1 flex items-stretch gap-2">{statCells}</div>
+      <div className="mt-1 flex flex-wrap items-stretch justify-center gap-2">
+        {statCells}
+      </div>
       {points !== undefined && (
         <div className="flex flex-col items-center gap-0.5">
           <span className="font-mono text-xl font-black tabular-nums text-amber-600 dark:text-amber-400">

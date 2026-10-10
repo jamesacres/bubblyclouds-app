@@ -58,8 +58,8 @@ describe('LobbyButton', () => {
       const { container } = render(<LobbyButton friendsOnClick={mockClick} />);
 
       const icon = container.querySelector('svg');
-      expect(icon).toHaveClass('float-left');
-      expect(icon).toHaveClass('mr-2');
+      expect(icon).toHaveClass('float-start');
+      expect(icon).toHaveClass('me-2');
     });
   });
 
@@ -163,7 +163,7 @@ describe('LobbyButton', () => {
       const icon = container.querySelector('svg');
       const button = screen.getByRole('button');
 
-      // Icon should be the first child (float-left)
+      // Icon should be the first child (float-start)
       expect(button.contains(icon)).toBe(true);
     });
 

@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "ఊహించని లోపం ఎదురైంది. దయచేసి మళ్లీ ప్రయత్నించండి.",
+    "dismiss": "మూసివేయండి"
+  },
+  "errorBoundary": {
+    "title": "అయ్యో! ఏదో తప్పు జరిగింది",
+    "description": "ఊహించని లోపం ఎదురైంది. చింతించకండి, మీ పురోగతి సేవ్ అయింది!",
+    "reload": "యాప్‌ను రీలోడ్ చేయండి",
+    "clearStorage": "స్టోరేజ్ క్లియర్ చేసి రీలోడ్ చేయండి",
+    "contactSupport": "ఈ సమస్య కొనసాగితే, దయచేసి సపోర్ట్‌ను సంప్రదించండి."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}}నిమి. క్రితం",
+    "minutesAgo_other": "{{count}}నిమి. క్రితం",
+    "hoursAgo_one": "{{count}}గం. క్రితం",
+    "hoursAgo_other": "{{count}}గం. క్రితం",
+    "daysAgo_one": "{{count}}రోజుల క్రితం",
+    "daysAgo_other": "{{count}}రోజుల క్రితం"
+  },
+  "tier": {
+    "novice": "కొత్తవారు",
+    "advancedBeginner": "ప్రారంభకులు",
+    "competent": "సమర్థులు",
+    "proficient": "నైపుణ్యులు",
+    "expert": "నిపుణులు"
+  },
+  "moves": {
+    "onPar": "కదలికలు, పార్‌కు సమానం",
+    "overPar": "కదలికలు, పార్ కంటే {{delta}} ఎక్కువ",
+    "underPar": "కదలికలు, పార్ కంటే {{delta}} తక్కువ"
+  },
+  "lobby": {
+    "title": "రేస్ లాబీ",
+    "close": "లాబీని మూసివేయండి",
+    "onlineOpponents": "ఆన్‌లైన్ ప్రత్యర్థులు",
+    "refresh": "ఆన్‌లైన్ ప్రత్యర్థులను రిఫ్రెష్ చేయండి",
+    "noOpponents": "ఆన్‌లైన్‌లో ప్రత్యర్థులు ఎవరూ లేరు — స్నేహితులను రేస్‌కు ఆహ్వానించండి!",
+    "away": "అందుబాటులో లేరు",
+    "offlineTeams": "ఆఫ్‌లైన్ · మీ టీమ్‌లలో",
+    "removeMember": "తొలగించండి: {{name}}",
+    "aiOpponents": "AI ప్రత్యర్థులు",
+    "addAgent": "జోడించండి",
+    "noAgents": "ఇంకా AI ప్రత్యర్థులు లేరు — ఎప్పుడూ రేస్ చేయడానికి ఒకరిని జోడించండి.",
+    "ownClock": "ప్రతి ఆటగాడూ తమ సొంత సమయంతో రేస్ చేస్తారు",
+    "startSolving": "పరిష్కారం ప్రారంభించండి",
+    "finished": "పూర్తయింది",
+    "inLobby": "లాబీలో ఉన్నారు",
+    "stageProgress": "దశ {{current}} / {{total}}",
+    "finishedRunIn": "రన్ పూర్తి చేసిన సమయం: {{time}}",
+    "solvedIn": "పరిష్కరించిన సమయం: {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · చివరిగా కనిపించింది: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "సోలో రేస్ — మీరు, గడియారం మాత్రమే",
+      "friends_one": "{{count}} స్నేహితుడు",
+      "friends_other": "{{count}} స్నేహితులు",
+      "aiOpponents_one": "{{count}} AI ప్రత్యర్థి",
+      "aiOpponents_other": "{{count}} AI ప్రత్యర్థులు",
+      "racing": "రేస్: {{opponents}}"
+    },
+    "invite": {
+      "button": "ఆహ్వానించండి",
+      "eyebrow": "మీ రేస్‌ను సిద్ధం చేయండి",
+      "title": "ప్రత్యర్థులను ఆహ్వానించండి",
+      "close": "మూసివేయండి",
+      "existingTeam": "ఇప్పటికే ఉన్న టీమ్‌కు ఆహ్వానించండి",
+      "editTeamName": "టీమ్ పేరును సవరించండి",
+      "deleteTeam": "టీమ్‌ను తొలగించండి",
+      "leaveTeam": "టీమ్ నుండి వెళ్లిపోండి",
+      "memberCount_one": "{{count}} సభ్యుడు",
+      "memberCount_other": "{{count}} సభ్యులు",
+      "createTeam": "కొత్త రేసింగ్ టీమ్‌ను సృష్టించండి",
+      "displayNameLabel": "టీమ్ సభ్యులు మిమ్మల్ని ఏమని పిలుస్తారు?",
+      "displayNamePlaceholder": "ప్రదర్శన పేరు",
+      "teamNameLabel": "ఈ టీమ్‌కు ఏ పేరు పెడదాం?",
+      "teamNamePlaceholder": "టీమ్ పేరు (ఉదా. కుటుంబం)",
+      "createAndCopy": "సృష్టించి లింక్ కాపీ చేయండి",
+      "defaultTeamName": "కొత్త టీమ్",
+      "defaultPlayerName": "ఆటగాడు"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "షీట్‌ను మూసివేయండి",
+    "back": "వెనుకకు",
+    "close": "మూసివేయండి",
+    "title": "మీ ప్రత్యర్థులను ఎంచుకోండి",
+    "subtitle": "ఒకరు లేదా అంతకంటే ఎక్కువ ప్రత్యర్థులను ఎంచుకోండి",
+    "selectAtLeastOne": "కనీసం ఒక ప్రత్యర్థిని ఎంచుకోండి",
+    "race_one": "రేస్: {{count}} ప్రత్యర్థి",
+    "race_other": "రేస్: {{count}} ప్రత్యర్థులు",
+    "skill": {
+      "novice": "కొత్తవారు",
+      "advancedBeginner": "ప్రారంభకులు",
+      "competent": "సమర్థులు",
+      "proficient": "నైపుణ్యులు",
+      "expert": "నిపుణులు"
+    }
+  },
+  "agentParty": {
+    "title": "AI ప్రత్యర్థులు",
+    "rivalCount_one": "{{count}} ప్రత్యర్థి",
+    "rivalCount_other": "{{count}} ప్రత్యర్థులు"
+  },
+  "party": {
+    "cancel": "రద్దు చేయండి",
+    "editName": "టీమ్ పేరును సవరించండి",
+    "editMaxMembers": "గరిష్ఠ సభ్యుల సంఖ్యను సవరించండి",
+    "memberCount_one": "{{count}} సభ్యుడు",
+    "memberCount_other": "{{count}} సభ్యులు",
+    "memberCountPremium_one": "{{count}} సభ్యుడు ✨ ప్రీమియం",
+    "memberCountPremium_other": "{{count}} సభ్యులు ✨ ప్రీమియం",
+    "membersOf_one": "{{current}}/{{count}} సభ్యుడు",
+    "membersOf_other": "{{current}}/{{count}} సభ్యులు",
+    "shareLink": "ఈ పజిల్‌లో చేరడానికి ప్రస్తుత టీమ్ సభ్యులతో ఈ లింక్‌ను షేర్ చేయండి",
+    "you": "(మీరు)",
+    "notStarted": "ఇంకా ప్రారంభించలేదు! ఆడమని అడగండి"
+  },
+  "partyConfirmation": {
+    "cancel": "రద్దు చేయండి",
+    "leaveAgentParty": {
+      "title": "AI ప్రత్యర్థులను తొలగించండి",
+      "action": "తొలగించండి",
+      "processing": "తొలగిస్తోంది...",
+      "message": "AI ప్రత్యర్థులందరినీ తొలగించాలనుకుంటున్నారా? వారు ఇకపై రేస్‌లో కనిపించరు."
+    },
+    "removeAgent": {
+      "title": "లోకల్ ఏజెంట్‌ను తొలగించండి",
+      "action": "తొలగించండి",
+      "processing": "తొలగిస్తోంది...",
+      "message": "రేస్ నుండి ఈ ప్రత్యర్థిని తొలగించాలనుకుంటున్నారా: \"{{memberName}}\"?"
+    },
+    "deleteParty": {
+      "title": "టీమ్‌ను తొలగించండి",
+      "action": "తొలగించండి",
+      "processing": "తొలగిస్తోంది...",
+      "message": "ఈ టీమ్‌ను తొలగించాలనుకుంటున్నారా: \"{{partyName}}\"? ఇది టీమ్‌ను శాశ్వతంగా తొలగిస్తుంది, సభ్యులందరూ యాక్సెస్ కోల్పోతారు. ఈ చర్యను రద్దు చేయలేరు."
+    },
+    "leave": {
+      "title": "టీమ్ నుండి వెళ్లిపోండి",
+      "action": "వెళ్లిపోండి",
+      "processing": "వెళ్లిపోతున్నారు...",
+      "message": "ఈ టీమ్ నుండి వెళ్లిపోవాలనుకుంటున్నారా: \"{{partyName}}\"? ఇకపై ఇతర సభ్యుల పురోగతిని చూడలేరు, ఈ టీమ్‌లో పాల్గొనలేరు."
+    },
+    "remove": {
+      "title": "సభ్యుడిని తొలగించండి",
+      "action": "తొలగించండి",
+      "processing": "తొలగిస్తోంది...",
+      "message": "\"{{partyName}}\" టీమ్ నుండి \"{{memberName}}\" సభ్యుడిని తొలగించాలనుకుంటున్నారా? వారు ఇకపై ఈ టీమ్‌లో పాల్గొనలేరు."
+    }
+  },
+  "friends": {
+    "allTeams": "అన్ని టీమ్‌లు",
+    "refresh": "రిఫ్రెష్ చేయండి",
+    "refreshing": "రిఫ్రెష్ అవుతోంది…",
+    "title": "స్నేహితుల పజిల్స్",
+    "subtitle": "స్నేహితుడిని నొక్కి, వారి ఇటీవలి పజిల్స్ చూడండి, వారితో రేస్ చేయండి.",
+    "memberCount_one": "{{count}} సభ్యుడు",
+    "memberCount_other": "{{count}} సభ్యులు",
+    "noRecentPuzzles": "ఇటీవలి పజిల్స్ లేవు — వారిని సవాలు చేయండి!",
+    "empty": {
+      "title": "ఇంకా రేసింగ్ టీమ్‌లు లేవు",
+      "description": "పజిల్ పరిష్కరిస్తున్నప్పుడు రేస్‌ల లాబీ నుండి స్నేహితులను ఆహ్వానించండి"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "గత 30 రోజులలో మీ పజిల్స్.",
+    "empty": {
+      "title": "ఇంకా పజిల్స్ లేవు",
+      "description": "మీ మొదటి పజిల్‌ను పరిష్కరించడానికి రేస్ ప్రారంభం ట్యాబ్‌కు వెళ్లండి"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} మరో ఫీచర్",
+    "moreFeatures_other": "+{{count}} మరిన్ని ఫీచర్లు"
+  },
+  "crossPromo": {
+    "whyNotTry": "ఇది కూడా ప్రయత్నించండి",
+    "tryItFree": "ఉచితంగా ప్రయత్నించండి"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} నచ్చిందా?",
+    "rateIt": "రేట్ చేయండి",
+    "rateInSeconds": "సెకన్లలో రేట్ చేయండి"
+  },
+  "plus": {
+    "close": "మోడల్‌ను మూసివేయండి",
+    "appIconAlt": "యాప్ ఐకాన్",
+    "lifetime": "జీవితకాలం",
+    "monthly": "నెలవారీ",
+    "perMonth": "{{price}}/నెల",
+    "whatsIncluded": "ఇందులో ఏమున్నాయి",
+    "continue": "కొనసాగించండి",
+    "restorePurchases": "కొనుగోళ్లను పునరుద్ధరించండి",
+    "cancel": "రద్దు చేయండి"
+  },
+  "download": {
+    "title": "యాప్‌లో కొనసాగించండి",
+    "appStoreAlt": "{{appStore}} నుండి డౌన్‌లోడ్ చేసుకోండి",
+    "googlePlayAlt": "{{googlePlay}} నుండి పొందండి",
+    "continueBrowser": "బ్రౌజర్‌లో కొనసాగించండి",
+    "continueDesktop": "డెస్క్‌టాప్‌లో కొనసాగించండి"
+  },
+  "session": {
+    "cheated": "మోసం చేశారు",
+    "completedIn": "పూర్తి చేసిన సమయం: {{minutes}} ని. {{seconds}} సె.",
+    "percentComplete": "{{percentage}}% పూర్తయింది",
+    "duration": "{{minutes}} ని. {{seconds}} సె.",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}వ",
+    "puzzleNumber": "పజిల్ #{{number}}",
+    "daily": "రోజువారీ {{date}}",
+    "book": "పుస్తకం {{month}} #{{number}}",
+    "collection": "సేకరణ {{month}} #{{number}}",
+    "scanned": "స్కాన్ చేసిన పజిల్",
+    "you": "మీరు",
+    "unknown": "తెలియదు",
+    "unlockWith": "అన్‌లాక్ చేయండి: {{label}}",
+    "lockedPuzzle": "లాక్ చేసిన పజిల్",
+    "recommendedTechniques": "సిఫార్సు చేసిన టెక్నిక్‌లు:",
+    "loadingFriends": "స్నేహితులను లోడ్ చేస్తోంది..."
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "brand": {
+    "appName": "Gara di Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Giochi e condivida per gareggiare a sudoku con gli amici. Sfide quotidiane e su tutti i dispositivi!"
+  },
+  "puzzle": {
+    "mobileDescription": "Ottenga la migliore esperienza di gara con la nostra app {{appName}}!",
+    "desktopDescription": "Scarica {{appName}}",
+    "openInAppLabel": "Apri lo schema"
+  },
+  "crossPromo": {
+    "gameName": "Gara Libera",
+    "tagline": "Faccia scorrere i blocchi e gareggi con gli amici per sciogliere l’ingorgo."
+  },
+  "notFound": {
+    "message": "Pagina non trovata"
+  },
+  "login": {
+    "dailyPuzzle": "Acceda per iniziare lo schema di oggi",
+    "puzzleBook": "Acceda per sfogliare il libro di schemi",
+    "joinTeam": "Acceda per unirsi al team",
+    "raceLobby": "Acceda per gareggiare con gli altri",
+    "puzzleEntry": "Acceda per giocare",
+    "valueProps": {
+      "saveProgress": "Salvataggio dei progressi",
+      "raceFriends": "Gare con gli amici",
+      "trackStats": "Statistiche personali"
+    }
+  },
+  "plusModal": {
+    "description": "Passi a <badge>{{plusName}}</badge> per <emphasis>eliminare ogni limite di velocità</emphasis>. Sfidi gli amici, scali le classifiche e migliori la sua velocità di risoluzione. Senza pubblicità."
+  },
+  "premiumFeatures": {
+    "title": "Funzioni premium",
+    "subtitle": "Sblocchi l’esperienza completa di {{appName}}",
+    "unlimitedPlay": {
+      "title": "Gioco e gare illimitati",
+      "description": "Gareggi con gli amici in tempo reale più di una volta al giorno"
+    },
+    "unlimitedHints": {
+      "title": "Suggerimenti illimitati",
+      "description": "Mai più bloccati: un suggerimento ogni volta che serve"
+    },
+    "monthlyBook": {
+      "title": "Intero libro mensile sbloccato, ogni mese",
+      "description": "Tutti gli schemi a ogni livello di difficoltà, senza blocchi"
+    },
+    "multipleTeams": {
+      "title": "Più team di gara",
+      "description": "Organizzi competizioni private con amici e familiari"
+    },
+    "teamManagement": {
+      "title": "Gestione del team",
+      "description": "Crei gruppi fino a 15 persone e rimuova membri dal suo team."
+    },
+    "themes": {
+      "title": "Tutti i temi sbloccati",
+      "description": "Personalizzi la sua esperienza di gara"
+    },
+    "unlimitedActions": {
+      "title": "Annulla, verifica e svela senza limiti",
+      "description": "Elimini i limiti giornalieri di annulla, verifica e svela"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Ha usato {{count}} suggerimento gratuito oggi.</bold> $t(brand.plus) offre suggerimenti illimitati — mai più bloccati — e mantiene l’intera app senza pubblicità.",
+    "hint_many": "💡 <bold>Ha usato {{count}} di suggerimenti gratuiti oggi.</bold> $t(brand.plus) offre suggerimenti illimitati — mai più bloccati — e mantiene l’intera app senza pubblicità.",
+    "hint_other": "💡 <bold>Ha usato {{count}} suggerimenti gratuiti oggi.</bold> $t(brand.plus) offre suggerimenti illimitati — mai più bloccati — e mantiene l’intera app senza pubblicità.",
+    "undo_one": "📅 <bold>Ha raggiunto il limite giornaliero di annullamenti!</bold> Ha a disposizione {{count}} annullamento gratuito al giorno. Il limite si azzera domani, oppure si abboni per annullamenti illimitati.",
+    "undo_many": "📅 <bold>Ha raggiunto il limite giornaliero di annullamenti!</bold> Ha a disposizione {{count}} di annullamenti gratuiti al giorno. Il limite si azzera domani, oppure si abboni per annullamenti illimitati.",
+    "undo_other": "📅 <bold>Ha raggiunto il limite giornaliero di annullamenti!</bold> Ha a disposizione {{count}} annullamenti gratuiti al giorno. Il limite si azzera domani, oppure si abboni per annullamenti illimitati.",
+    "checkGrid_one": "📅 <bold>Ha raggiunto il limite giornaliero di verifiche della griglia!</bold> Ha a disposizione {{count}} verifica gratuita della griglia al giorno. Il limite si azzera domani, oppure si abboni per verifiche illimitate.",
+    "checkGrid_many": "📅 <bold>Ha raggiunto il limite giornaliero di verifiche della griglia!</bold> Ha a disposizione {{count}} di verifiche gratuite della griglia al giorno. Il limite si azzera domani, oppure si abboni per verifiche illimitate.",
+    "checkGrid_other": "📅 <bold>Ha raggiunto il limite giornaliero di verifiche della griglia!</bold> Ha a disposizione {{count}} verifiche gratuite della griglia al giorno. Il limite si azzera domani, oppure si abboni per verifiche illimitate.",
+    "reveal": "🔓 <bold>Svelare la griglia è una funzione premium!</bold> Si abboni per sbloccare la possibilità di svelare la soluzione completa.",
+    "themeColor": "🎨 <bold>Questo tema è esclusivo di $t(brand.plus).</bold> Passi al piano superiore per sbloccare tutti i bellissimi colori dei temi e personalizzare la sua esperienza di sudoku.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Ha raggiunto il limite giornaliero di schemi!</bold> Gli utenti gratuiti possono giocare {{count}} schema al giorno. Il limite si azzera domani, oppure si abboni per schemi illimitati.",
+    "dailyPuzzleLimit_many": "🧩 <bold>Ha raggiunto il limite giornaliero di schemi!</bold> Gli utenti gratuiti possono giocare {{count}} di schemi al giorno. Il limite si azzera domani, oppure si abboni per schemi illimitati.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Ha raggiunto il limite giornaliero di schemi!</bold> Gli utenti gratuiti possono giocare {{count}} schemi al giorno. Il limite si azzera domani, oppure si abboni per schemi illimitati.",
+    "collectionLocked": "✨ <bold>Questo schema fa parte del libro $t(brand.plus).</bold> $t(brand.plus) sblocca ogni schema del libro di ogni mese e mantiene l’intera app senza pubblicità.",
+    "removeMember": "👥 <bold>Rimuovere membri dal team è una funzione premium!</bold> Si abboni per sbloccare la gestione avanzata del team, inclusa la rimozione dei membri.",
+    "multipleParties": "🏘️ <bold>Più team di gara sono una funzione premium!</bold> Gli utenti gratuiti possono avere un solo team. Si abboni per creare e unirsi a team illimitati con famiglia, amici e altro ancora.",
+    "partyMaxSize": "👥 <bold>I gruppi numerosi sono una funzione premium!</bold> Si abboni per sbloccare la gestione avanzata del team, inclusi i gruppi numerosi."
+  },
+  "motivational": {
+    "messages": [
+      "I suoi amici aspettano una sfida",
+      "Contro chi gareggerà oggi?",
+      "È ora di mostrare la sua velocità",
+      "Sfida accettata?",
+      "Corsa verso il traguardo",
+      "Chi è il solutore più veloce?",
+      "Pronto a dominare la classifica?",
+      "Le sue abilità di gara la aspettano",
+      "È ora di lasciarli nella polvere",
+      "Pronto a tagliare il traguardo per primo?",
+      "La pista la aspetta",
+      "È ora di ingranare la marcia più alta",
+      "Pronto a far fumare le gomme sulla griglia?",
+      "I suoi avversari si stanno già scaldando",
+      "Oggi è il giorno giusto per battere un nuovo record",
+      "Il suo record personale aspetta di essere battuto",
+      "Ogni schema la rende più veloce",
+      "La serie vincente parte adesso",
+      "È ora di salire di livello",
+      "La sua prossima svolta è a un solo schema di distanza",
+      "Pronto a stupire se stesso?",
+      "Mostri loro di che pasta è fatto",
+      "È ora di sbloccare il suo potenziale",
+      "La sua risoluzione più veloce è ancora davanti a lei",
+      "Pronto a far contare questa giornata?",
+      "Ogni secondo conta nella gara",
+      "È ora di spingersi oltre i propri limiti",
+      "Il suo percorso di miglioramento continua",
+      "Pronto a superare le aspettative?",
+      "Pensa di reggere la pressione?",
+      "È ora di zittire gli scettici",
+      "Pronto a conquistare la vittoria?",
+      "La concorrenza non se lo aspetta",
+      "È ora di lasciare il segno",
+      "Pronto a rubare la scena?",
+      "La vittoria ha un sapore più dolce quando è meritata",
+      "È ora di dimostrare chi comanda",
+      "Pronto a mostrare il suo vero valore?",
+      "La mentalità da campione parte da qui",
+      "È ora di staccare il gruppo",
+      "Pronto a scrivere la sua leggenda?",
+      "I campioni si fanno in momenti come questo",
+      "È ora di trasformare il potenziale in prestazione",
+      "Schemi nuovi, nuove opportunità",
+      "La sfida di oggi aspetta la sua maestria",
+      "Pronto a rendere questo il suo giorno migliore?",
+      "Un nuovo giorno significa nuovi record da battere",
+      "È ora di aggiungere un’altra vittoria alla sua collezione",
+      "Pronto a partire forte e a finire ancora più forte?",
+      "Pronto a rendere leggendaria la giornata di oggi?",
+      "La sua dose quotidiana di trionfo la aspetta",
+      "Strategia e velocità si incontrano sulla griglia",
+      "Pronto a superare tutti in astuzia e in velocità?",
+      "La sua maestria negli schemi la chiama",
+      "È ora di unire la logica a una velocità fulminea",
+      "Pronto a risolvere con precisione chirurgica?",
+      "La combinazione perfetta: abilità e velocità",
+      "Il suo spirito analitico è il suo vantaggio in gara",
+      "È ora di dimostrare la supremazia sugli schemi",
+      "Pronto a risolvere come un campione?",
+      "Una gara di precisione parte da un pensiero lucido",
+      "I suoi amici aspettano la rivincita",
+      "Chi risolve oggi?",
+      "È pronto un nuovo schema del giorno",
+      "La sua serie è in gioco",
+      "Schemi nuovi, nuovo inizio",
+      "La sfida di oggi è online",
+      "Sfidi un amico sullo schema del giorno",
+      "Nuovo giorno, nuovi schemi",
+      "Qualcuno è già in classifica",
+      "Mantenga viva la serie",
+      "Le sfide quotidiane sono appena state aggiornate",
+      "Il suo team la aspetta",
+      "Uno schema più vicino alla vetta",
+      "Gli schemi di oggi la aspettano",
+      "Torni in gioco e gareggi"
+    ]
+  },
+  "home": {
+    "live": "Live",
+    "headline": "Pronti a gareggiare? 🏁",
+    "subtitle": "Condivida la sfida: inviti gli amici e scopra chi risolve il sudoku più in fretta.",
+    "leaderboard": "Classifica",
+    "daily": {
+      "title": "Sfide quotidiane",
+      "refreshes": "si aggiorna ogni giorno",
+      "moreLevels": "Altri livelli di difficoltà nel <bookLink>libro di schemi</bookLink>",
+      "difficulty": {
+        "simple": "Insidioso",
+        "easy": "Impegnativo",
+        "intermediate": "Difficile"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} schema",
+      "summary_many": "{{month}} · {{count}} di schemi",
+      "summary_other": "{{month}} · {{count}} schemi",
+      "title": "Libro mensile",
+      "browse": "Sfoglia gli schemi"
+    },
+    "import": {
+      "title": "Importa qualsiasi schema",
+      "description": "Scansioni con la fotocamera o incolli una stringa dello schema",
+      "desktopTitle": "Gareggi su qualsiasi schema",
+      "desktopDescription": "Scansioni da un libro o da un giornale"
+    },
+    "teams": {
+      "title": "Team di gara",
+      "withFriends": "Gareggi con {{friends}} e altri",
+      "noFriends": "Sfidi gli amici a una gara"
+    },
+    "tabs": {
+      "startRace": "Inizia la gara",
+      "myPuzzles": "I miei schemi",
+      "racingTeams": "Team di gara"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Caricamento del libro di schemi...",
+      "puzzles": "Caricamento degli schemi...",
+      "progress": "Caricamento dei suoi progressi..."
+    },
+    "tryAgain": "Riprova",
+    "backHome": "Torna alla home",
+    "signInPrompt": "Acceda per consultare il libro di schemi.",
+    "signIn": "Accedi",
+    "noData": "Nessun dato del libro di schemi disponibile.",
+    "title": "Libro di schemi di {{month}}",
+    "puzzleCount_one": "{{count}} schema basato su una tecnica",
+    "puzzleCount_many": "{{count}} di schemi basati su tecniche",
+    "puzzleCount_other": "{{count}} schemi basati su tecniche",
+    "completed": "Completati: {{count}}",
+    "inProgress": "In corso: {{count}}",
+    "unlockWithPlus": "Sblocchi ogni schema con $t(brand.plus)",
+    "jumpToDifficulty": "Vai alla difficoltà",
+    "scrollToTop": "Torna in alto",
+    "difficulty": {
+      "veryEasy": "Molto facile",
+      "easy": "Facile",
+      "moderatelyEasy": "Abbastanza facile",
+      "moderate": "Media",
+      "moderatelyHard": "Abbastanza difficile",
+      "hard": "Difficile",
+      "vicious": "Spietato",
+      "fiendish": "Diabolico",
+      "devilish": "Demoniaco",
+      "hell": "Inferno",
+      "beyondHell": "Oltre l’inferno"
+    }
+  },
+  "invite": {
+    "loading": "Caricamento dell’invito...",
+    "iconAlt": "Icona di {{gameName}}",
+    "greeting": "👋 Ciao!",
+    "greetingNamed": "👋 Ciao {{name}}!",
+    "invited": "Invito ricevuto!",
+    "joinTeam": "Entri nel team di gara <team/>",
+    "description": "Risolva gli schemi di sudoku insieme agli altri e veda i progressi di ciascuno in tempo reale!",
+    "proTip": "💡 <bold>Consiglio:</bold> tutti gli schemi che giocherà in futuro saranno condivisi con i membri del team per una sana competizione!",
+    "nicknameLabel": "Come la chiama il suo team di gara?",
+    "nicknamePlaceholder": "Inserisca il suo soprannome",
+    "joining": "Ingresso nel team...",
+    "join": "Si unisca al divertimento! 🎉",
+    "signIn": "Accedi per continuare",
+    "bonus": {
+      "title": "🎉 Bonus: ottenga {{plusName}} ({{duration}})!",
+      "duration": {
+        "oneMonth": "un mese",
+        "oneYear": "un anno",
+        "lifetime": "a vita",
+        "premium": "premium"
+      },
+      "subtitle": "Unendosi a questo team di gara, sbloccherà gratuitamente le funzioni premium!",
+      "note": "💡 Il suo accesso premium si attiverà automaticamente dopo l’ingresso"
+    },
+    "expired": {
+      "title": "Invito scaduto",
+      "body": "Questo link d’invito non è più valido. Chieda al suo amico un nuovo invito oppure aumenti la dimensione del team."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Inserisca una stringa dello schema",
+      "help": "Incolli una stringa di 81 caratteri o una griglia HoDoKu: usi le cifre 1–9 e 0 o . per le caselle vuote.",
+      "submit": "Importa lo schema"
+    },
+    "orScan": "oppure scansioni con la fotocamera",
+    "cameraHelp": "Punti la fotocamera su uno schema di sudoku non risolto e attenda il rilevamento.",
+    "errors": {
+      "parse": "Impossibile interpretare lo schema. Incolli una stringa di 81 caratteri o una griglia HoDoKu.",
+      "solverLoading": "Il risolutore è ancora in caricamento: riprovi.",
+      "noSolution": "Nessuna soluzione trovata. Controlli lo schema.",
+      "camera": "Impossibile avviare la fotocamera. Controlli le autorizzazioni e riprovi."
+    }
+  },
+  "credits": {
+    "title": "Crediti e attribuzioni",
+    "subtitle": "Questa app si basa su diversi ottimi progetti",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Questa app è distribuita con licenza MIT. Per i dettagli consulti la nostra <licenseLink>LICENSE</licenseLink> e i <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "humanSudokuSolver": "Libreria TypeScript che risolve i sudoku con tecniche umane.",
+      "qqwing": "Generazione degli schemi del Sudoku del giorno",
+      "tdoku": "Risolutore di sudoku veloce per gli schemi scansionati",
+      "arBrowserSudoku": "Tecnologia di scansione in realtà aumentata",
+      "sudokuCoach": "Ispirazione per gli algoritmi di calcolo della difficoltà",
+      "nextjs": "Framework React per la produzione",
+      "typescript": "Superset tipizzato di JavaScript",
+      "tailwind": "Framework CSS utility-first",
+      "capacitor": "Runtime per app mobile native",
+      "electron": "Framework per app desktop",
+      "tensorflow": "Machine learning per le funzioni AR",
+      "revenuecat": "Gestione degli abbonamenti",
+      "react": "Libreria di componenti UI",
+      "turborepo": "Sistema di build per monorepo"
+    }
+  }
+}

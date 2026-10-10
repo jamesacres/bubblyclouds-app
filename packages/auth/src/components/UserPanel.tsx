@@ -46,14 +46,16 @@ const UserInfo = ({
     <div className="flex flex-col items-center">
       <UserAvatar user={user} size={size} showRing={true} />
       <h2
-        className={`${size > 70 ? 'mt-4 text-xl' : 'mt-3 text-lg'} font-medium`}
+        className={`${size > 70 ? 'mt-4 text-xl' : 'mt-3 text-lg'} break-words text-center font-medium`}
       >
         {t('panel.greeting', {
           name: user.name?.split(' ')[0] || fallbackName,
         })}
       </h2>
       {showSubtitle && (
-        <p className="text-sm text-gray-400">{user.name || fallbackName}</p>
+        <p dir="auto" className="break-words text-center text-sm text-gray-400">
+          {user.name || fallbackName}
+        </p>
       )}
     </div>
   );
@@ -81,9 +83,9 @@ const PrimaryAction = ({
           className="w-full rounded-full border border-gray-600 bg-gray-700 px-6 py-3 text-center"
         >
           <span className="inline-flex items-center text-sm font-medium">
-            <span className="mr-2">✨</span>
+            <span className="me-2">✨</span>
             {t('panel.plusActive', { gameName, plus: t('brand.plus') })}
-            <span className="ml-2">✓</span>
+            <span className="ms-2">✓</span>
           </span>
         </a>
       ) : showSubscribeModal ? (
@@ -118,17 +120,17 @@ const ActionButtons = ({
       {!isSubscribed && showSubscribeModal && (
         <button
           onClick={() => showSubscribeModal?.(() => {})}
-          className="flex cursor-pointer items-center justify-center rounded-2xl bg-gray-700 px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-600"
+          className="flex cursor-pointer items-center justify-center rounded-2xl bg-gray-700 px-4 py-3 text-center text-sm font-medium transition-colors hover:bg-gray-600"
         >
-          <Plus size={16} className="mr-2" />
+          <Plus size={16} className="me-2 shrink-0" />
           {t('panel.joinPlus', { plus: t('brand.plus') })}
         </button>
       )}
       <button
         onClick={() => logout()}
-        className={`flex cursor-pointer items-center justify-center rounded-2xl bg-gray-700 px-4 py-3 text-sm font-medium transition-colors hover:bg-gray-600 ${isSubscribed ? 'w-full max-w-xs' : ''}`}
+        className={`flex cursor-pointer items-center justify-center rounded-2xl bg-gray-700 px-4 py-3 text-center text-sm font-medium transition-colors hover:bg-gray-600 ${isSubscribed ? 'w-full max-w-xs' : ''}`}
       >
-        <LogOut size={16} className="mr-2" />
+        <LogOut size={16} className="me-2 shrink-0" />
         {t('panel.signOut')}
       </button>
     </div>
@@ -149,7 +151,7 @@ const FooterLinks = ({
 }) => {
   const { t } = useTranslation('auth');
   return (
-    <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
+    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-gray-400">
       {privacyUrl.startsWith('http') ? (
         <a href={privacyUrl} target="_blank" className="hover:text-white">
           {t('panel.privacy')}

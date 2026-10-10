@@ -1,0 +1,243 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone ו-iPad"
+  },
+  "errors": {
+    "generic": "אירעה שגיאה בלתי צפויה. נסו שוב.",
+    "dismiss": "סגירה"
+  },
+  "errorBoundary": {
+    "title": "אופס! משהו השתבש",
+    "description": "נתקלנו בשגיאה בלתי צפויה. אל דאגה, ההתקדמות שלכם נשמרה!",
+    "reload": "טעינת האפליקציה מחדש",
+    "clearStorage": "ניקוי האחסון וטעינה מחדש",
+    "contactSupport": "אם הבעיה נמשכת, פנו לתמיכה."
+  },
+  "time": {
+    "minutesAgo_one": "לפני {{count}} ד׳",
+    "minutesAgo_two": "לפני {{count}} ד׳",
+    "minutesAgo_other": "לפני {{count}} ד׳",
+    "hoursAgo_one": "לפני {{count}} ש׳",
+    "hoursAgo_two": "לפני {{count}} ש׳",
+    "hoursAgo_other": "לפני {{count}} ש׳",
+    "daysAgo_one": "לפני {{count}} י׳",
+    "daysAgo_two": "לפני {{count}} י׳",
+    "daysAgo_other": "לפני {{count}} י׳"
+  },
+  "tier": {
+    "novice": "מתחיל",
+    "advancedBeginner": "מתחיל מתקדם",
+    "competent": "מיומן",
+    "proficient": "בקיא",
+    "expert": "מומחה"
+  },
+  "moves": {
+    "onPar": "מהלכים, בדיוק ביעד",
+    "overPar": "מהלכים, {{delta}} מעל היעד",
+    "underPar": "מהלכים, {{delta}} מתחת ליעד"
+  },
+  "lobby": {
+    "title": "לובי המירוץ",
+    "close": "סגירת הלובי",
+    "onlineOpponents": "יריבים מחוברים",
+    "refresh": "רענון היריבים המחוברים",
+    "noOpponents": "אין יריבים מחוברים — הזמינו חברים למירוץ!",
+    "away": "לא פעיל",
+    "offlineTeams": "לא מחוברים · בצוותים שלכם",
+    "removeMember": "הסרת {{name}}",
+    "aiOpponents": "יריבי בינה מלאכותית",
+    "addAgent": "הוספה",
+    "noAgents": "עדיין אין יריבי בינה מלאכותית — הוסיפו אחד כדי שתמיד יהיה מי שיתחרה בכם.",
+    "ownClock": "כל שחקן מתחרה לפי השעון שלו",
+    "startSolving": "התחילו לפתור",
+    "finished": "הסתיים",
+    "inLobby": "בלובי",
+    "stageProgress": "שלב {{current}} מתוך {{total}}",
+    "finishedRunIn": "הריצה הסתיימה תוך {{time}}",
+    "solvedIn": "נפתר תוך {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · נראה לאחרונה {{lastSeen}}",
+    "raceSummary": {
+      "solo": "מירוץ סולו — רק אתם והשעון",
+      "friends_one": "{{count}} חבר",
+      "friends_two": "{{count}} חברים",
+      "friends_other": "{{count}} חברים",
+      "aiOpponents_one": "{{count}} יריב בינה מלאכותית",
+      "aiOpponents_two": "{{count}} יריבי בינה מלאכותית",
+      "aiOpponents_other": "{{count}} יריבי בינה מלאכותית",
+      "racing": "מתחרים מול {{opponents}}"
+    },
+    "invite": {
+      "button": "הזמנה",
+      "eyebrow": "בנו את המירוץ שלכם",
+      "title": "הזמנת יריבים",
+      "close": "סגירה",
+      "existingTeam": "הזמנה לצוות קיים",
+      "editTeamName": "עריכת שם הצוות",
+      "deleteTeam": "מחיקת הצוות",
+      "leaveTeam": "עזיבת הצוות",
+      "memberCount_one": "{{count}} חבר",
+      "memberCount_two": "{{count}} חברים",
+      "memberCount_other": "{{count}} חברים",
+      "createTeam": "יצירת צוות מירוץ חדש",
+      "displayNameLabel": "איך חברי הצוות קוראים לכם?",
+      "displayNamePlaceholder": "שם תצוגה",
+      "teamNameLabel": "איך נקרא לצוות הזה?",
+      "teamNamePlaceholder": "שם הצוות (למשל: משפחה)",
+      "createAndCopy": "יצירה והעתקת קישור",
+      "defaultTeamName": "צוות חדש",
+      "defaultPlayerName": "שחקן"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "סגירת החלונית",
+    "back": "חזרה",
+    "close": "סגירה",
+    "title": "בחרו את היריבים",
+    "subtitle": "בחרו יריב אחד או יותר",
+    "selectAtLeastOne": "בחרו לפחות יריב אחד",
+    "race_one": "מירוץ מול {{count}} יריב",
+    "race_two": "מירוץ מול {{count}} יריבים",
+    "race_other": "מירוץ מול {{count}} יריבים",
+    "skill": {
+      "novice": "מתחיל",
+      "advancedBeginner": "מתחיל מתקדם",
+      "competent": "מיומן",
+      "proficient": "בקיא",
+      "expert": "מומחה"
+    }
+  },
+  "agentParty": {
+    "title": "יריבי בינה מלאכותית",
+    "rivalCount_one": "{{count}} יריב",
+    "rivalCount_two": "{{count}} יריבים",
+    "rivalCount_other": "{{count}} יריבים"
+  },
+  "party": {
+    "cancel": "ביטול",
+    "editName": "עריכת שם הצוות",
+    "editMaxMembers": "עריכת מספר החברים המרבי",
+    "memberCount_one": "{{count}} חבר",
+    "memberCount_two": "{{count}} חברים",
+    "memberCount_other": "{{count}} חברים",
+    "memberCountPremium_one": "{{count}} חבר ✨ פרימיום",
+    "memberCountPremium_two": "{{count}} חברים ✨ פרימיום",
+    "memberCountPremium_other": "{{count}} חברים ✨ פרימיום",
+    "membersOf_one": "{{current}}/{{count}} חבר",
+    "membersOf_two": "{{current}}/{{count}} חברים",
+    "membersOf_other": "{{current}}/{{count}} חברים",
+    "shareLink": "שתפו את הקישור הזה עם חברי הצוות הנוכחיים כדי להצטרף לחידה הזו",
+    "you": "(אני)",
+    "notStarted": "עדיין לא התחילו! בקשו מהם לשחק"
+  },
+  "partyConfirmation": {
+    "cancel": "ביטול",
+    "leaveAgentParty": {
+      "title": "הסרת יריבי בינה מלאכותית",
+      "action": "הסרה",
+      "processing": "מתבצעת הסרה...",
+      "message": "בטוחים שברצונכם להסיר את כל יריבי הבינה המלאכותית? הם לא יופיעו עוד במירוץ."
+    },
+    "removeAgent": {
+      "title": "הסרת יריב מקומי",
+      "action": "הסרה",
+      "processing": "מתבצעת הסרה...",
+      "message": "בטוחים שברצונכם להסיר את “{{memberName}}” מהמירוץ?"
+    },
+    "deleteParty": {
+      "title": "מחיקת צוות",
+      "action": "מחיקת צוות",
+      "processing": "מתבצעת מחיקה...",
+      "message": "בטוחים שברצונכם למחוק את “{{partyName}}”? הצוות וכל חבריו יוסרו לצמיתות, וכל החברים יאבדו גישה. לא ניתן לבטל פעולה זו."
+    },
+    "leave": {
+      "title": "עזיבת צוות",
+      "action": "עזיבה",
+      "processing": "מתבצעת עזיבה...",
+      "message": "בטוחים שברצונכם לעזוב את “{{partyName}}”? לא תראו עוד את ההתקדמות של חברי הצוות האחרים ולא תוכלו להשתתף בצוות הזה."
+    },
+    "remove": {
+      "title": "הסרת חבר",
+      "action": "הסרה",
+      "processing": "מתבצעת הסרה...",
+      "message": "בטוחים שברצונכם להסיר את “{{memberName}}” מ“{{partyName}}”? לא ניתן יהיה להשתתף עוד בצוות הזה."
+    }
+  },
+  "friends": {
+    "allTeams": "כל הצוותים",
+    "refresh": "רענון",
+    "refreshing": "מתבצע רענון…",
+    "title": "החידות של החברים",
+    "subtitle": "הקישו על חבר כדי לראות את החידות האחרונות שלו ולהתחרות בו.",
+    "memberCount_one": "{{count}} חבר",
+    "memberCount_two": "{{count}} חברים",
+    "memberCount_other": "{{count}} חברים",
+    "noRecentPuzzles": "אין חידות אחרונות — אתגרו אותם!",
+    "empty": {
+      "title": "עדיין אין צוותי מירוץ",
+      "description": "הזמינו חברים מלובי המירוצים בזמן פתרון חידה"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "החידות שלכם מ-30 הימים האחרונים.",
+    "empty": {
+      "title": "עדיין אין חידות",
+      "description": "עברו אל ״התחלת מירוץ״ כדי לפתור את החידה הראשונה שלכם"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} תכונה נוספת",
+    "moreFeatures_two": "+{{count}} תכונות נוספות",
+    "moreFeatures_other": "+{{count}} תכונות נוספות"
+  },
+  "crossPromo": {
+    "whyNotTry": "למה לא לנסות את",
+    "tryItFree": "נסו בחינם"
+  },
+  "rateApp": {
+    "prompt": "אוהבים את {{appName}}?",
+    "rateIt": "דרגו",
+    "rateInSeconds": "דרגו תוך שניות"
+  },
+  "plus": {
+    "close": "סגירת החלון",
+    "appIconAlt": "סמל האפליקציה",
+    "lifetime": "לכל החיים",
+    "monthly": "חודשית",
+    "perMonth": "{{price}} לחודש",
+    "whatsIncluded": "מה כלול",
+    "continue": "המשך",
+    "restorePurchases": "שחזור רכישות",
+    "cancel": "ביטול"
+  },
+  "download": {
+    "title": "המשיכו באפליקציה",
+    "appStoreAlt": "הורידו מ-{{appStore}}",
+    "googlePlayAlt": "הורידו מ-{{googlePlay}}",
+    "continueBrowser": "המשיכו בדפדפן",
+    "continueDesktop": "המשיכו במחשב"
+  },
+  "session": {
+    "cheated": "רמאות",
+    "completedIn": "הושלם תוך {{minutes}} ד׳ {{seconds}} שנ׳",
+    "percentComplete": "{{percentage}}% הושלם",
+    "duration": "{{minutes}} ד׳ {{seconds}} שנ׳",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "חידה מס׳ {{number}}",
+    "daily": "יומית {{date}}",
+    "book": "ספר {{month}} מס׳ {{number}}",
+    "collection": "אוסף {{month}} מס׳ {{number}}",
+    "scanned": "חידה סרוקה",
+    "you": "אני",
+    "unknown": "לא ידוע",
+    "unlockWith": "פתחו עם {{label}}",
+    "lockedPuzzle": "חידה נעולה",
+    "recommendedTechniques": "טכניקות מומלצות:",
+    "loadingFriends": "טוענים חברים..."
+  }
+}

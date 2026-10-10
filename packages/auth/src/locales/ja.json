@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "ログインして続行",
+    "signInWith": "{{provider}}でログイン",
+    "emailTitle": "メールでログイン",
+    "emailPlaceholder": "your@email.com",
+    "continue": "続ける",
+    "cancel": "キャンセル",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー"
+  },
+  "header": {
+    "signIn": "ログイン"
+  },
+  "avatar": {
+    "alt": "ユーザー"
+  },
+  "panel": {
+    "title": "アカウント",
+    "greeting": "こんにちは、{{name}}さん！",
+    "fallbackName": "ユーザー",
+    "plusActive": "{{gameName}} {{plus}} 利用中",
+    "joinGamePlus": "{{gameName}} {{plus}}に参加",
+    "joinPlus": "{{plus}}に参加",
+    "signOut": "ログアウト",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "credits": "クレジット",
+    "deleteAccount": "アカウントを削除",
+    "poweredBy": "提供：{{companyName}}",
+    "deleteUnavailable": "アカウント削除機能は利用できません。",
+    "deleteFailed": "アカウントを削除できませんでした。しばらくしてからもう一度お試しください。"
+  },
+  "deleteDialog": {
+    "title": "アカウントを削除",
+    "warning": "この操作は取り消せません。すべての{{companyName}}アプリのデータが完全に削除されます。",
+    "confirmation": "すべての{{companyName}}アプリのデータを含め、アカウント全体を削除することを確認します。",
+    "cancel": "キャンセル",
+    "deleting": "削除中...",
+    "submit": "アカウントを削除"
+  }
+}

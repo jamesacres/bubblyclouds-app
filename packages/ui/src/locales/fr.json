@@ -1,0 +1,58 @@
+{
+  "language": {
+    "label": "Langue",
+    "automatic": "Automatique"
+  },
+  "header": {
+    "offline": "Hors ligne",
+    "back": "Retour"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Activer ou désactiver le mode sombre"
+  },
+  "starRating": {
+    "label_one": "{{filled}} sur {{count}} étoile",
+    "label_many": "{{filled}} sur {{count}} d'étoiles",
+    "label_other": "{{filled}} sur {{count}} étoiles"
+  },
+  "timer": {
+    "go": "GO !"
+  },
+  "themeColor": {
+    "change": "Changer la couleur du thème",
+    "set": "Définir la couleur du thème sur {{color}}",
+    "setPremium": "Définir la couleur du thème sur {{color}} (Premium)",
+    "colors": {
+      "blue": "bleu",
+      "red": "rouge",
+      "green": "vert",
+      "purple": "pourpre",
+      "amber": "ambre",
+      "cyan": "cyan",
+      "pink": "rose",
+      "indigo": "indigo",
+      "orange": "orange",
+      "teal": "sarcelle",
+      "slate": "ardoise",
+      "rose": "framboise",
+      "emerald": "émeraude",
+      "sky": "ciel",
+      "violet": "violet",
+      "lime": "citron vert",
+      "fuchsia": "fuchsia",
+      "yellow": "jaune",
+      "stone": "pierre",
+      "zinc": "zinc"
+    }
+  },
+  "copyButton": {
+    "copied": "Copié dans le presse-papiers !",
+    "share": "Partager l'invitation",
+    "copy": "Copier le lien d'invitation"
+  },
+  "share": {
+    "joinTeam": "Rejoignez l'équipe de course sur {{appName}} !",
+    "joinNamedTeam": "Rejoignez l'équipe de course {{partyName}} sur {{appName}} !",
+    "dialogTitle": "Partager l'invitation"
+  }
+}

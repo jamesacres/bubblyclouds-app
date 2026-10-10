@@ -34,7 +34,7 @@ const AgentPartyRow = <State extends BaseServerState>({
         <div className="flex items-start justify-between">
           <div className="flex min-w-0 flex-1 flex-col">
             <div className="flex items-start space-x-2">
-              <h3 className="text-lg font-semibold leading-tight text-stone-800 dark:text-zinc-100">
+              <h3 className="min-w-0 break-words text-lg font-semibold leading-tight text-stone-800 dark:text-zinc-100">
                 {t('agentParty.title')}
               </h3>
             </div>
@@ -52,7 +52,7 @@ const AgentPartyRow = <State extends BaseServerState>({
           {onLeaveParty && (
             <button
               type="button"
-              className="ml-2 inline-flex flex-shrink-0 items-center rounded-md p-2 text-stone-400 transition-colors hover:text-red-500 focus:outline-none dark:text-zinc-500 dark:hover:text-red-400"
+              className="ms-2 inline-flex flex-shrink-0 items-center rounded-md p-2 text-stone-400 transition-colors hover:text-red-500 focus:outline-none dark:text-zinc-500 dark:hover:text-red-400"
               onClick={() =>
                 setConfirmDialog({ isOpen: true, type: 'leave-agent-party' })
               }
@@ -101,7 +101,7 @@ const AgentPartyRow = <State extends BaseServerState>({
                         })
                       }
                     >
-                      <LogOut className="h-3 w-3" />
+                      <LogOut className="h-3 w-3 rtl:-scale-x-100" />
                     </button>
                   ) : undefined
                 }

@@ -29,6 +29,7 @@ export function PuzzleHeader<ServerState extends BaseServerState>({
     >
       {initialState && CompactSimpleState && (
         <div
+          dir="ltr"
           className="pointer-events-none flex-shrink-0 overflow-hidden rounded-lg p-1"
           style={{ width: 84, height: 84, background: 'rgba(0,0,0,0.25)' }}
         >
@@ -45,7 +46,7 @@ export function PuzzleHeader<ServerState extends BaseServerState>({
           </div>
         )}
         {title && (
-          <div className="mb-1.5 text-lg font-extrabold tracking-tight text-white">
+          <div className="mb-1.5 break-words text-lg font-extrabold tracking-tight text-white">
             {title}
           </div>
         )}

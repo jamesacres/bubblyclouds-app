@@ -1,0 +1,253 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Buku",
+    "defaultDetailNoun": "buku puzzle"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Koleksi bulanan"
+  },
+  "hintBox": {
+    "dismiss": "Tutup petunjuk"
+  },
+  "lobbyButton": {
+    "opponents": "Lawan"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Lanjut — puzzle berikutnya",
+    "continueLocked": "Lanjut ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} dari {{total}} {{label}} selesai"
+  },
+  "countdownOverlay": {
+    "getReady": "Bersiap",
+    "go": "MULAI!"
+  },
+  "confirmDialog": {
+    "cancel": "Batal"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · selesai",
+    "retry": "Ulangi",
+    "points": "+{{points}} poin",
+    "leaderboardPoints": "Poin papan peringkat"
+  },
+  "raceTimer": {
+    "time": "Waktu"
+  },
+  "stageTopBar": {
+    "previous": "Sebelumnya"
+  },
+  "raceHud": {
+    "opponents": "Lawan",
+    "stageOf": "Tahap {{current}} dari {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Finis!",
+    "runComplete": "Balapan selesai",
+    "leaderboardPoints": "Poin papan peringkat",
+    "pointsSuffix": " poin"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Min",
+      "monday": "Sen",
+      "tuesday": "Sel",
+      "wednesday": "Rab",
+      "thursday": "Kam",
+      "friday": "Jum",
+      "saturday": "Sab"
+    },
+    "dayStreak_other": "hari beruntun",
+    "thisMonth": "bulan ini"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Anda)",
+    "puzzles_other": "{{count}} puzzle",
+    "average": "Rata-rata: {{time}}",
+    "best": "Terbaik: {{time}}",
+    "wins_other": "🏁 {{count}} kemenangan",
+    "points_other": "poin"
+  },
+  "scoreBreakdown": {
+    "title": "Rincian Skor",
+    "volumeBonus": {
+      "label": "Bonus Jumlah",
+      "detail_other": "{{count}} puzzle selesai"
+    },
+    "dailyPuzzles": {
+      "label": "Puzzle Harian",
+      "detail_other": "{{count}} tantangan harian"
+    },
+    "collectionPuzzles": {
+      "label": "Puzzle {{collection}}",
+      "detail": "{{count}} dari {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Puzzle Hasil Pindai",
+      "detail_other": "{{count}} puzzle diimpor"
+    },
+    "difficultyBonus": {
+      "label": "Bonus Kesulitan",
+      "detail": "Puzzle lebih sulit = lebih banyak poin"
+    },
+    "speedBonus": {
+      "label": "Bonus Kecepatan",
+      "detail": "Tercepat: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Bonus Balapan",
+      "detail": "Kalahkan teman yang juga menyelesaikannya"
+    },
+    "dailyCombo": {
+      "label": "Kombo harian",
+      "detail": "Makin banyak puzzle per hari = pengganda makin besar"
+    }
+  },
+  "leaderboard": {
+    "you": "Anda",
+    "unknownUser": "Pengguna Tidak Dikenal",
+    "title": "Papan peringkat",
+    "subtitleParty": "30 hari terakhir · {{partyName}}",
+    "subtitleAllTeams": "30 hari terakhir · Semua tim",
+    "howScoringWorks": "Cara kerja penilaian"
+  },
+  "scoringLegend": {
+    "title": "Cara kerja penilaian",
+    "subtitle": "{{gameName}} · 30 hari terakhir",
+    "close": "Tutup",
+    "racingWins": {
+      "title": "Kemenangan balapan",
+      "body": "Raih <points>+{{points}} poin</points> untuk setiap teman yang Anda kalahkan pada puzzle selesai yang sama. Finis pertama di antara {{friends}} teman dan dapatkan <points>+{{total}} poin</points>."
+    },
+    "basePoints": {
+      "title": "Poin dasar",
+      "anyPuzzle": "Puzzle apa pun",
+      "dailyPuzzle": "Puzzle harian",
+      "collectionPuzzle": "Puzzle {{collection}}",
+      "scannedPuzzle": "Puzzle hasil pindai"
+    },
+    "difficultyMultipliers": {
+      "title": "Pengganda kesulitan",
+      "daily": "{{gameName}} Hari Ini",
+      "collection": "Puzzle {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Bonus kecepatan",
+      "lightning": "Kilat",
+      "fast": "Cepat",
+      "quick": "Gesit",
+      "steady": "Stabil",
+      "under": "di bawah {{threshold}}",
+      "seconds": "{{value}} dtk",
+      "minutes": "{{value}} mnt"
+    },
+    "dailyCombo": {
+      "title": "Kombo harian",
+      "body": "Selesaikan lebih banyak puzzle di hari yang sama untuk melipatgandakan poin tiap puzzle, hingga <max>{{max}}×</max>.",
+      "puzzle": "Puzzle ke-{{puzzle}} hari ini",
+      "puzzleOrMore": "Puzzle ke-{{puzzle}}+ hari ini"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Balapan selesai",
+    "raceProgress": "Progres balapan",
+    "stagesProgress": "{{completed}}/{{total}} tahap",
+    "retryStage": "Ulangi tahap",
+    "stageLabel": "Tahap {{number}}",
+    "stageCompletedLabel": "Tahap {{number}}, selesai dalam {{time}}",
+    "viewRacingStats": "Lihat statistik balapan",
+    "total": "Total"
+  },
+  "raceTrack": {
+    "you": "Anda",
+    "viewFriends": "Klik untuk melihat teman",
+    "start": "Mulai",
+    "finish": "Finis",
+    "inviteToRace": "Undang teman untuk balapan",
+    "opponents": "Lawan",
+    "racer": "Pembalap",
+    "stageBadge": "T{{number}}",
+    "total": "Total",
+    "leaderboard": "Papan peringkat",
+    "puzzleBook": "Buku puzzle",
+    "puzzleBookLabel": "buku puzzle",
+    "refreshScores": "Segarkan skor",
+    "challengeFriends": "🏁 Tantang teman",
+    "yourTime": "Waktu Anda:",
+    "inviteFriends": "Undang teman",
+    "racingLabel": "balapan"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Rumit",
+      "easy": "Menantang",
+      "intermediate": "Sulit",
+      "expert": "Ahli"
+    },
+    "book": {
+      "veryEasy": "Sangat Mudah",
+      "easy": "Mudah",
+      "moderatelyEasy": "Cukup Mudah",
+      "moderate": "Sedang",
+      "moderatelyHard": "Cukup Sulit",
+      "hard": "Sulit",
+      "vicious": "Kejam",
+      "fiendish": "Licik",
+      "devilish": "Diabolis",
+      "hell": "Neraka",
+      "beyondHell": "Di Luar Neraka"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Digit Terakhir",
+    "hiddenSingleBox": "Hidden Single (Kotak)",
+    "hiddenSingleLine": "Hidden Single (Baris)",
+    "hiddenSingleVariantRegion": "Hidden Single (Wilayah Varian)",
+    "nakedSingle": "Naked Single",
+    "hiddenPair": "Hidden Pair",
+    "lockedCandidate": "Locked Candidate",
+    "hiddenTriple": "Hidden Triple",
+    "hiddenQuadruple": "Hidden Quadruple",
+    "nakedPair": "Naked Pair",
+    "nakedTriple": "Naked Triple",
+    "nakedQuadruple": "Naked Quadruple",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String-Kite",
+    "crane": "Crane",
+    "simpleColoring": "Pewarnaan Sederhana",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Finned/Sashimi X-Wing",
+    "emptyRectangle": "Empty Rectangle",
+    "uniqueRectangleType1": "Unique Rectangle Tipe 1",
+    "uniqueRectangleType2": "Unique Rectangle Tipe 2",
+    "uniqueRectangleType3": "Unique Rectangle Tipe 3",
+    "uniqueRectangleType4": "Unique Rectangle Tipe 4",
+    "uniqueRectangleType5": "Unique Rectangle Tipe 5",
+    "finnedSashimiSwordfish": "Finned/Sashimi Swordfish",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "X-Chain",
+    "groupedXChain": "Grouped X-Chain",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Finned/Sashimi Jellyfish",
+    "medusa3D": "3D Medusa",
+    "xyChain": "XY-Chain",
+    "alternatingInferenceChainAIC": "Alternating Inference Chain (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Grouped Alternating Inference Chain (AIC)",
+    "nishioForcingChain": "Nishio Forcing Chain",
+    "nishioForcingNet": "Nishio Forcing Net"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Lumba Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "perlumbaan",
+      "team": "pasukan",
+      "leaderboard": "papan pendahulu",
+      "hint": "petunjuk",
+      "undo": "buat asal",
+      "theme": "tema",
+      "dailyPuzzle": "teka-teki harian",
+      "monthlyCollection": "buku teka-teki bulanan",
+      "aiOpponent": "lawan AI",
+      "monthly": "bulanan",
+      "lifetime": "seumur hidup",
+      "plusAccess": "Akses Plus",
+      "plusFeatureLine": "Lumba tanpa had, pasukan, tema, buat asal"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Lumba Bebas",
+      "gameName": "Lumba Bebas",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "perlumbaan",
+      "team": "pasukan",
+      "leaderboard": "papan pendahulu",
+      "hint": "petunjuk",
+      "undo": "buat asal",
+      "theme": "tema",
+      "dailyPuzzle": "teka-teki harian",
+      "monthlyCollection": "koleksi teka-teki bulanan",
+      "aiOpponent": "lawan AI",
+      "monthly": "bulanan",
+      "lifetime": "seumur hidup",
+      "plusAccess": "Akses Plus",
+      "plusFeatureLine": "Lumba tanpa had, pasukan, tema, buat asal"
+    }
+  }
+}

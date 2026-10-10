@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "సుడోకు రేస్",
+      "gameName": "సుడోకు",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "సుడోకు Plus"
+    },
+    "terms": {
+      "race": "రేస్",
+      "team": "టీమ్",
+      "leaderboard": "లీడర్‌బోర్డ్",
+      "hint": "సూచన",
+      "undo": "అన్‌డు",
+      "theme": "థీమ్",
+      "dailyPuzzle": "రోజువారీ పజిల్",
+      "monthlyCollection": "నెలవారీ పజిల్ పుస్తకం",
+      "aiOpponent": "AI ప్రత్యర్థి",
+      "monthly": "నెలవారీ",
+      "lifetime": "జీవితకాలం",
+      "plusAccess": "Plus యాక్సెస్",
+      "plusFeatureLine": "అపరిమిత రేస్‌లు, టీమ్‌లు, థీమ్‌లు, అన్‌డు"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "అన్‌బ్లాక్ రేస్",
+      "gameName": "అన్‌బ్లాక్ రేస్",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "రేస్",
+      "team": "టీమ్",
+      "leaderboard": "లీడర్‌బోర్డ్",
+      "hint": "సూచన",
+      "undo": "అన్‌డు",
+      "theme": "థీమ్",
+      "dailyPuzzle": "రోజువారీ పజిల్",
+      "monthlyCollection": "నెలవారీ పజిల్ సేకరణ",
+      "aiOpponent": "AI ప్రత్యర్థి",
+      "monthly": "నెలవారీ",
+      "lifetime": "జీవితకాలం",
+      "plusAccess": "Plus యాక్సెస్",
+      "plusFeatureLine": "అపరిమిత రేస్‌లు, టీమ్‌లు, థీమ్‌లు, అన్‌డు"
+    }
+  }
+}

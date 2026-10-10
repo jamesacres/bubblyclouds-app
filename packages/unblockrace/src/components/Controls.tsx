@@ -96,6 +96,7 @@ const Controls = memo(function Controls({
             <span className="flex items-center gap-1.5">
               <span
                 key={movesMade}
+                dir="ltr"
                 className="inline-block origin-left font-mono text-sm font-semibold tabular-nums leading-none"
                 style={{ animation: 'unblock-move-pop 260ms ease-out' }}
               >
@@ -106,6 +107,7 @@ const Controls = memo(function Controls({
                 // ring pulse out of the gauge — the moment costs a move, it
                 // shouldn't pass as a silent recolour
                 key={isOverPar ? 'over-par' : 'under-par'}
+                dir="ltr"
                 className="h-1 w-16 overflow-hidden rounded-full bg-stone-200 sm:w-24 dark:bg-white/10"
                 style={
                   isOverPar
@@ -167,7 +169,7 @@ const Controls = memo(function Controls({
           onClick={undo}
           disabled={isUndoDisabled || isDisabled}
         >
-          <Undo2 className="h-4.5 w-4.5" />
+          <Undo2 className="h-4.5 w-4.5 rtl:-scale-x-100" />
         </button>
         <button
           type="button"
@@ -176,7 +178,7 @@ const Controls = memo(function Controls({
           onClick={redo}
           disabled={isRedoDisabled || isDisabled}
         >
-          <Redo2 className="h-4.5 w-4.5" />
+          <Redo2 className="h-4.5 w-4.5 rtl:-scale-x-100" />
         </button>
         <span
           aria-hidden="true"

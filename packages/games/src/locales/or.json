@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "ବହି",
+    "defaultDetailNoun": "ପଜଲ୍ ବହି"
+  },
+  "collectionCover": {
+    "monthlyCollection": "ମାସିକ ସଂଗ୍ରହ"
+  },
+  "hintBox": {
+    "dismiss": "ସଙ୍କେତ ବନ୍ଦ କରନ୍ତୁ"
+  },
+  "lobbyButton": {
+    "opponents": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ"
+  },
+  "nextPuzzlePanel": {
+    "continue": "ଜାରି ରଖନ୍ତୁ — ପରବର୍ତ୍ତୀ ପଜଲ୍",
+    "continueLocked": "ଜାରି ରଖନ୍ତୁ ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{total}} ମଧ୍ୟରୁ {{completed}} {{label}} ସମ୍ପୂର୍ଣ୍ଣ"
+  },
+  "countdownOverlay": {
+    "getReady": "ପ୍ରସ୍ତୁତ ହୁଅନ୍ତୁ",
+    "go": "ଆରମ୍ଭ!"
+  },
+  "confirmDialog": {
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · ସମ୍ପୂର୍ଣ୍ଣ",
+    "retry": "ପୁଣି ଚେଷ୍ଟା",
+    "points": "+{{points}} ପଏଣ୍ଟ",
+    "leaderboardPoints": "ଲିଡରବୋର୍ଡ୍ ପଏଣ୍ଟ"
+  },
+  "raceTimer": {
+    "time": "ସମୟ"
+  },
+  "stageTopBar": {
+    "previous": "ପୂର୍ବବର୍ତ୍ତୀ"
+  },
+  "raceHud": {
+    "opponents": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+    "stageOf": "ପର୍ଯ୍ୟାୟ {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "ଶେଷ!",
+    "runComplete": "ରନ୍ ସମ୍ପୂର୍ଣ୍ଣ",
+    "leaderboardPoints": "ଲିଡରବୋର୍ଡ୍ ପଏଣ୍ଟ",
+    "pointsSuffix": " ପଏଣ୍ଟ"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ର",
+      "monday": "ସୋ",
+      "tuesday": "ମ",
+      "wednesday": "ବୁ",
+      "thursday": "ଗୁ",
+      "friday": "ଶୁ",
+      "saturday": "ଶ"
+    },
+    "dayStreak_one": "ଦିନର ଧାରା",
+    "dayStreak_other": "ଦିନର ଧାରା",
+    "thisMonth": "ଏହି ମାସ"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(ଆପଣ)",
+    "puzzles_one": "{{count}} ପଜଲ୍",
+    "puzzles_other": "{{count}} ପଜଲ୍",
+    "average": "ହାରାହାରି: {{time}}",
+    "best": "ସର୍ବୋତ୍ତମ: {{time}}",
+    "wins_one": "🏁 {{count}} ବିଜୟ",
+    "wins_other": "🏁 {{count}} ବିଜୟ",
+    "points_one": "ପଏଣ୍ଟ",
+    "points_other": "ପଏଣ୍ଟ"
+  },
+  "scoreBreakdown": {
+    "title": "ସ୍କୋର୍ ବିବରଣୀ",
+    "volumeBonus": {
+      "label": "ପରିମାଣ ବୋନସ୍",
+      "detail_one": "{{count}} ପଜଲ୍ ସମ୍ପୂର୍ଣ୍ଣ",
+      "detail_other": "{{count}} ପଜଲ୍ ସମ୍ପୂର୍ଣ୍ଣ"
+    },
+    "dailyPuzzles": {
+      "label": "ଦୈନିକ ପଜଲ୍",
+      "detail_one": "{{count}} ଦୈନିକ ଚ୍ୟାଲେଞ୍ଜ",
+      "detail_other": "{{count}} ଦୈନିକ ଚ୍ୟାଲେଞ୍ଜ"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} ପଜଲ୍",
+      "detail": "{{collection}}: {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "ସ୍କାନ୍ ହୋଇଥିବା ପଜଲ୍",
+      "detail_one": "{{count}} ଆମଦାନି ହୋଇଥିବା ପଜଲ୍",
+      "detail_other": "{{count}} ଆମଦାନି ହୋଇଥିବା ପଜଲ୍"
+    },
+    "difficultyBonus": {
+      "label": "କଷ୍ଟ ବୋନସ୍",
+      "detail": "କଠିନ ପଜଲ୍ = ଅଧିକ ପଏଣ୍ଟ"
+    },
+    "speedBonus": {
+      "label": "ବେଗ ବୋନସ୍",
+      "detail": "ସବୁଠାରୁ ଦ୍ରୁତ: {{time}}"
+    },
+    "racingBonus": {
+      "label": "ରେସିଂ ବୋନସ୍",
+      "detail": "ସମାପ୍ତ କରିଥିବା ବନ୍ଧୁମାନଙ୍କୁ ପରାସ୍ତ କରନ୍ତୁ"
+    },
+    "dailyCombo": {
+      "label": "ଦୈନିକ କମ୍ବୋ",
+      "detail": "ଦିନକୁ ଅଧିକ ପଜଲ୍ = ବଡ଼ ଗୁଣକ"
+    }
+  },
+  "leaderboard": {
+    "you": "ଆପଣ",
+    "unknownUser": "ଅଜଣା ଉପଭୋକ୍ତା",
+    "title": "ଲିଡରବୋର୍ଡ୍",
+    "subtitleParty": "ଗତ 30 ଦିନ · {{partyName}}",
+    "subtitleAllTeams": "ଗତ 30 ଦିନ · ସମସ୍ତ ଦଳ",
+    "howScoringWorks": "ସ୍କୋରିଂ କିପରି କାମ କରେ"
+  },
+  "scoringLegend": {
+    "title": "ସ୍କୋରିଂ କିପରି କାମ କରେ",
+    "subtitle": "{{gameName}} · ଗତ 30 ଦିନ",
+    "close": "ବନ୍ଦ କରନ୍ତୁ",
+    "racingWins": {
+      "title": "ରେସିଂ ବିଜୟ",
+      "body": "ଏକା ସମ୍ପୂର୍ଣ୍ଣ ପଜଲ୍‌ରେ ଆପଣ ପରାସ୍ତ କରିଥିବା ପ୍ରତ୍ୟେକ ବନ୍ଧୁଙ୍କ ପାଇଁ <points>+{{points}} ପଏଣ୍ଟ</points> ଅର୍ଜନ କରନ୍ତୁ। {{friends}} ଜଣ ବନ୍ଧୁଙ୍କ ମଧ୍ୟରେ ପ୍ରଥମେ ଶେଷ କରି <points>+{{total}} ପଏଣ୍ଟ</points> ସଂଗ୍ରହ କରନ୍ତୁ।"
+    },
+    "basePoints": {
+      "title": "ମୂଳ ପଏଣ୍ଟ",
+      "anyPuzzle": "ଯେକୌଣସି ପଜଲ୍",
+      "dailyPuzzle": "ଦୈନିକ ପଜଲ୍",
+      "collectionPuzzle": "{{collection}} ପଜଲ୍",
+      "scannedPuzzle": "ସ୍କାନ୍ ହୋଇଥିବା ପଜଲ୍"
+    },
+    "difficultyMultipliers": {
+      "title": "କଷ୍ଟ ଗୁଣକ",
+      "daily": "ଦିନର {{gameName}}",
+      "collection": "{{collection}} ପଜଲ୍"
+    },
+    "speedBonuses": {
+      "title": "ବେଗ ବୋନସ୍",
+      "lightning": "ବିଜୁଳି",
+      "fast": "ଦ୍ରୁତ",
+      "quick": "ଚଞ୍ଚଳ",
+      "steady": "ସ୍ଥିର",
+      "under": "{{threshold}}ରୁ କମ୍",
+      "seconds": "{{value}} ସେକେଣ୍ଡ",
+      "minutes": "{{value}} ମିନିଟ୍"
+    },
+    "dailyCombo": {
+      "title": "ଦୈନିକ କମ୍ବୋ",
+      "body": "ସେହି ଦିନ ଅଧିକ ପଜଲ୍ ସମାଧାନ କରି ପ୍ରତ୍ୟେକ ପଜଲ୍‌ର ପଏଣ୍ଟକୁ <max>{{max}}×</max> ପର୍ଯ୍ୟନ୍ତ ଗୁଣିତ କରନ୍ତୁ।",
+      "puzzle": "ଦିନର ପଜଲ୍ {{puzzle}}",
+      "puzzleOrMore": "ଦିନର ପଜଲ୍ {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "ରନ୍ ସମ୍ପୂର୍ଣ୍ଣ",
+    "raceProgress": "ରେସ୍ ପ୍ରଗତି",
+    "stagesProgress": "{{completed}}/{{total}} ପର୍ଯ୍ୟାୟ",
+    "retryStage": "ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ",
+    "stageLabel": "ପର୍ଯ୍ୟାୟ {{number}}",
+    "stageCompletedLabel": "ପର୍ଯ୍ୟାୟ {{number}}, {{time}} ରେ ସମ୍ପୂର୍ଣ୍ଣ",
+    "viewRacingStats": "ରେସିଂ ପରିସଂଖ୍ୟାନ ଦେଖନ୍ତୁ",
+    "total": "ମୋଟ"
+  },
+  "raceTrack": {
+    "you": "ଆପଣ",
+    "viewFriends": "ବନ୍ଧୁମାନଙ୍କୁ ଦେଖିବାକୁ କ୍ଲିକ୍ କରନ୍ତୁ",
+    "start": "ଆରମ୍ଭ",
+    "finish": "ଶେଷ",
+    "inviteToRace": "ରେସ୍ ପାଇଁ ବନ୍ଧୁମାନଙ୍କୁ ନିମନ୍ତ୍ରଣ କରନ୍ତୁ",
+    "opponents": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+    "racer": "ରେସର୍",
+    "stageBadge": "ପ{{number}}",
+    "total": "ମୋଟ",
+    "leaderboard": "ଲିଡରବୋର୍ଡ୍",
+    "puzzleBook": "ପଜଲ୍ ବହି",
+    "puzzleBookLabel": "ପଜଲ୍ ବହି",
+    "refreshScores": "ସ୍କୋର୍ ରିଫ୍ରେସ୍ କରନ୍ତୁ",
+    "challengeFriends": "🏁 ବନ୍ଧୁମାନଙ୍କୁ ଚ୍ୟାଲେଞ୍ଜ କରନ୍ତୁ",
+    "yourTime": "ଆପଣଙ୍କ ସମୟ:",
+    "inviteFriends": "ବନ୍ଧୁଙ୍କୁ ନିମନ୍ତ୍ରଣ",
+    "racingLabel": "ରେସିଂ"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "କୌଶଳପୂର୍ଣ୍ଣ",
+      "easy": "ଚ୍ୟାଲେଞ୍ଜିଂ",
+      "intermediate": "କଠିନ",
+      "expert": "ବିଶେଷଜ୍ଞ"
+    },
+    "book": {
+      "veryEasy": "ବହୁତ ସହଜ",
+      "easy": "ସହଜ",
+      "moderatelyEasy": "ମଧ୍ୟମ ସହଜ",
+      "moderate": "ମଧ୍ୟମ",
+      "moderatelyHard": "ମଧ୍ୟମ କଠିନ",
+      "hard": "କଠିନ",
+      "vicious": "କ୍ରୂର",
+      "fiendish": "ଶୟତାନି",
+      "devilish": "ଦାନବୀୟ",
+      "hell": "ନର୍କ",
+      "beyondHell": "ନର୍କଠାରୁ ବି କଠିନ"
+    }
+  },
+  "techniques": {
+    "lastDigit": "ଶେଷ ଅଙ୍କ",
+    "hiddenSingleBox": "ହିଡନ୍ ସିଙ୍ଗଲ୍ (ବକ୍ସ୍)",
+    "hiddenSingleLine": "ହିଡନ୍ ସିଙ୍ଗଲ୍ (ଲାଇନ୍)",
+    "hiddenSingleVariantRegion": "ହିଡନ୍ ସିଙ୍ଗଲ୍ (ଭେରିଏଣ୍ଟ୍ ଅଞ୍ଚଳ)",
+    "nakedSingle": "ନେକେଡ୍ ସିଙ୍ଗଲ୍",
+    "hiddenPair": "ହିଡନ୍ ପେୟାର୍",
+    "lockedCandidate": "ଲକ୍ଡ୍ କ୍ୟାଣ୍ଡିଡେଟ୍",
+    "hiddenTriple": "ହିଡନ୍ ଟ୍ରିପଲ୍",
+    "hiddenQuadruple": "ହିଡନ୍ କ୍ୱାଡ୍ରପଲ୍",
+    "nakedPair": "ନେକେଡ୍ ପେୟାର୍",
+    "nakedTriple": "ନେକେଡ୍ ଟ୍ରିପଲ୍",
+    "nakedQuadruple": "ନେକେଡ୍ କ୍ୱାଡ୍ରପଲ୍",
+    "xWing": "X-ୱିଙ୍ଗ୍",
+    "swordfish": "ସୋର୍ଡଫିସ୍",
+    "skyscraper": "ସ୍କାଇସ୍କ୍ରେପର୍",
+    "twoStringKite": "ଟୁ-ଷ୍ଟ୍ରିଙ୍ଗ୍ କାଇଟ୍",
+    "crane": "କ୍ରେନ୍",
+    "simpleColoring": "ସିମ୍ପଲ୍ କଲରିଂ",
+    "yWing": "Y-ୱିଙ୍ଗ୍",
+    "xYZWing": "XYZ-ୱିଙ୍ଗ୍",
+    "wWing": "W-ୱିଙ୍ଗ୍",
+    "finnedSashimiXWing": "ଫିନ୍ଡ୍/ସାଶିମି X-ୱିଙ୍ଗ୍",
+    "emptyRectangle": "ଏମ୍ପ୍ଟି ରେକ୍ଟାଙ୍ଗଲ୍",
+    "uniqueRectangleType1": "ୟୁନିକ୍ ରେକ୍ଟାଙ୍ଗଲ୍ ପ୍ରକାର 1",
+    "uniqueRectangleType2": "ୟୁନିକ୍ ରେକ୍ଟାଙ୍ଗଲ୍ ପ୍ରକାର 2",
+    "uniqueRectangleType3": "ୟୁନିକ୍ ରେକ୍ଟାଙ୍ଗଲ୍ ପ୍ରକାର 3",
+    "uniqueRectangleType4": "ୟୁନିକ୍ ରେକ୍ଟାଙ୍ଗଲ୍ ପ୍ରକାର 4",
+    "uniqueRectangleType5": "ୟୁନିକ୍ ରେକ୍ଟାଙ୍ଗଲ୍ ପ୍ରକାର 5",
+    "finnedSashimiSwordfish": "ଫିନ୍ଡ୍/ସାଶିମି ସୋର୍ଡଫିସ୍",
+    "jellyfish": "ଜେଲିଫିସ୍",
+    "bugBinaryUniversalGrave": "BUG (ବାଇନାରି ୟୁନିଭର୍ସାଲ୍ ଗ୍ରେଭ୍)",
+    "xChain": "X-ଚେନ୍",
+    "groupedXChain": "ଗ୍ରୁପ୍ଡ୍ X-ଚେନ୍",
+    "YWing4WXYZWing": "4-Y-ୱିଙ୍ଗ୍ (WXYZ-ୱିଙ୍ଗ୍)",
+    "yWing5": "5-Y-ୱିଙ୍ଗ୍",
+    "yWing6": "6-Y-ୱିଙ୍ଗ୍",
+    "yWing7": "7-Y-ୱିଙ୍ଗ୍",
+    "yWing8": "8-Y-ୱିଙ୍ଗ୍",
+    "yWing9": "9-Y-ୱିଙ୍ଗ୍",
+    "finnedSashimiJellyfish": "ଫିନ୍ଡ୍/ସାଶିମି ଜେଲିଫିସ୍",
+    "medusa3D": "3D ମେଡୁସା",
+    "xyChain": "XY-ଚେନ୍",
+    "alternatingInferenceChainAIC": "ଅଲ୍ଟରନେଟିଂ ଇନଫରେନ୍ସ ଚେନ୍ (AIC)",
+    "groupedAlternatingInferenceChainAIC": "ଗ୍ରୁପ୍ଡ୍ ଅଲ୍ଟରନେଟିଂ ଇନଫରେନ୍ସ ଚେନ୍ (AIC)",
+    "nishioForcingChain": "ନିଶିଓ ଫୋର୍ସିଙ୍ଗ୍ ଚେନ୍",
+    "nishioForcingNet": "ନିଶିଓ ଫୋର୍ସିଙ୍ଗ୍ ନେଟ୍"
+  }
+}

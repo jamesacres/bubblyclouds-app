@@ -118,9 +118,9 @@ export const PartyConfirmationDialog = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-zinc-800">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-start align-middle shadow-xl transition-all dark:bg-zinc-800">
                 <div className="flex items-center">
-                  <div className="mr-4 flex-shrink-0">
+                  <div className="me-4 flex-shrink-0">
                     <Icon className="h-8 w-8" />
                   </div>
                   <Dialog.Title
@@ -137,7 +137,7 @@ export const PartyConfirmationDialog = ({
                   </p>
                 </div>
 
-                <div className="mt-6 flex justify-end space-x-4">
+                <div className="mt-6 flex flex-wrap justify-end gap-4">
                   <button
                     type="button"
                     className="focus-visible:ring-theme-primary inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:bg-zinc-700 dark:text-gray-100 dark:hover:bg-zinc-600"

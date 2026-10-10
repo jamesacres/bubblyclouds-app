@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
+    "dismiss": "Sluiten"
+  },
+  "errorBoundary": {
+    "title": "Oeps! Er ging iets mis",
+    "description": "Er is een onverwachte fout opgetreden. Geen zorgen, uw voortgang is opgeslagen!",
+    "reload": "App opnieuw laden",
+    "clearStorage": "Opslag wissen en opnieuw laden",
+    "contactSupport": "Blijft dit probleem zich voordoen, neem dan contact op met de ondersteuning."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} min geleden",
+    "minutesAgo_other": "{{count}} min geleden",
+    "hoursAgo_one": "{{count}} uur geleden",
+    "hoursAgo_other": "{{count}} uur geleden",
+    "daysAgo_one": "{{count}} dag geleden",
+    "daysAgo_other": "{{count}} dgn geleden"
+  },
+  "tier": {
+    "novice": "Nieuweling",
+    "advancedBeginner": "Beginner",
+    "competent": "Bekwaam",
+    "proficient": "Vaardig",
+    "expert": "Expert"
+  },
+  "moves": {
+    "onPar": "zetten, op par",
+    "overPar": "zetten, {{delta}} boven par",
+    "underPar": "zetten, {{delta}} onder par"
+  },
+  "lobby": {
+    "title": "Racelobby",
+    "close": "Lobby sluiten",
+    "onlineOpponents": "Online tegenstanders",
+    "refresh": "Online tegenstanders vernieuwen",
+    "noOpponents": "Geen tegenstanders online — nodig vrienden uit om te racen!",
+    "away": "Afwezig",
+    "offlineTeams": "Offline · in uw teams",
+    "removeMember": "{{name}} verwijderen",
+    "aiOpponents": "AI-tegenstanders",
+    "addAgent": "Toevoegen",
+    "noAgents": "Nog geen AI-tegenstanders — voeg er een toe om altijd iemand te hebben om tegen te racen.",
+    "ownClock": "Elke speler racet op zijn eigen klok",
+    "startSolving": "Begin met oplossen",
+    "finished": "Voltooid",
+    "inLobby": "In de lobby",
+    "stageProgress": "Fase {{current}} van {{total}}",
+    "finishedRunIn": "Run voltooid in {{time}}",
+    "solvedIn": "Opgelost in {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · laatst gezien {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Solorace — alleen u en de klok",
+      "friends_one": "{{count}} vriend",
+      "friends_other": "{{count}} vrienden",
+      "aiOpponents_one": "{{count}} AI-tegenstander",
+      "aiOpponents_other": "{{count}} AI-tegenstanders",
+      "racing": "Racen tegen {{opponents}}"
+    },
+    "invite": {
+      "button": "Uitnodigen",
+      "eyebrow": "Stel uw race samen",
+      "title": "Tegenstanders uitnodigen",
+      "close": "Sluiten",
+      "existingTeam": "Uitnodigen voor bestaand team",
+      "editTeamName": "Teamnaam wijzigen",
+      "deleteTeam": "Team verwijderen",
+      "leaveTeam": "Team verlaten",
+      "memberCount_one": "{{count}} lid",
+      "memberCount_other": "{{count}} leden",
+      "createTeam": "Nieuw raceteam maken",
+      "displayNameLabel": "Hoe noemen de teamleden u?",
+      "displayNamePlaceholder": "Weergavenaam",
+      "teamNameLabel": "Hoe noemen we dit team?",
+      "teamNamePlaceholder": "Teamnaam (bijv. Familie)",
+      "createAndCopy": "Maken en link kopiëren",
+      "defaultTeamName": "Nieuw team",
+      "defaultPlayerName": "Speler"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Paneel sluiten",
+    "back": "Terug",
+    "close": "Sluiten",
+    "title": "Kies uw rivalen",
+    "subtitle": "Selecteer een of meer tegenstanders",
+    "selectAtLeastOne": "Selecteer minstens één rivaal",
+    "race_one": "Race tegen {{count}} rivaal",
+    "race_other": "Race tegen {{count}} rivalen",
+    "skill": {
+      "novice": "Nieuweling",
+      "advancedBeginner": "Beginner",
+      "competent": "Bekwaam",
+      "proficient": "Vaardig",
+      "expert": "Expert"
+    }
+  },
+  "agentParty": {
+    "title": "AI-rivalen",
+    "rivalCount_one": "{{count}} rivaal",
+    "rivalCount_other": "{{count}} rivalen"
+  },
+  "party": {
+    "cancel": "Annuleren",
+    "editName": "Teamnaam wijzigen",
+    "editMaxMembers": "Maximaal aantal leden wijzigen",
+    "memberCount_one": "{{count}} lid",
+    "memberCount_other": "{{count}} leden",
+    "memberCountPremium_one": "{{count}} lid ✨ Premium",
+    "memberCountPremium_other": "{{count}} leden ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} lid",
+    "membersOf_other": "{{current}}/{{count}} leden",
+    "shareLink": "Deel deze link met huidige teamleden om aan deze puzzel deel te nemen",
+    "you": "(u)",
+    "notStarted": "Niet begonnen! Vraag hen om te spelen"
+  },
+  "partyConfirmation": {
+    "cancel": "Annuleren",
+    "leaveAgentParty": {
+      "title": "AI-rivalen verwijderen",
+      "action": "Verwijderen",
+      "processing": "Verwijderen...",
+      "message": "Weet u zeker dat u alle AI-rivalen wilt verwijderen? Ze verschijnen dan niet meer in de race."
+    },
+    "removeAgent": {
+      "title": "Lokale tegenstander verwijderen",
+      "action": "Verwijderen",
+      "processing": "Verwijderen...",
+      "message": "Weet u zeker dat u \"{{memberName}}\" uit de race wilt verwijderen?"
+    },
+    "deleteParty": {
+      "title": "Team verwijderen",
+      "action": "Team verwijderen",
+      "processing": "Verwijderen...",
+      "message": "Weet u zeker dat u \"{{partyName}}\" wilt verwijderen? Het team wordt definitief verwijderd en alle leden verliezen toegang. Deze actie kan niet ongedaan worden gemaakt."
+    },
+    "leave": {
+      "title": "Team verlaten",
+      "action": "Verlaten",
+      "processing": "Verlaten...",
+      "message": "Weet u zeker dat u \"{{partyName}}\" wilt verlaten? U ziet de voortgang van andere leden niet meer en kunt niet meer deelnemen aan dit team."
+    },
+    "remove": {
+      "title": "Lid verwijderen",
+      "action": "Verwijderen",
+      "processing": "Verwijderen...",
+      "message": "Weet u zeker dat u \"{{memberName}}\" uit \"{{partyName}}\" wilt verwijderen? Dit lid kan dan niet meer deelnemen aan dit team."
+    }
+  },
+  "friends": {
+    "allTeams": "Alle teams",
+    "refresh": "Vernieuwen",
+    "refreshing": "Vernieuwen…",
+    "title": "Puzzels van vrienden",
+    "subtitle": "Tik op een vriend om diens recente puzzels te zien en tegen hem of haar te racen.",
+    "memberCount_one": "{{count}} lid",
+    "memberCount_other": "{{count}} leden",
+    "noRecentPuzzles": "Geen recente puzzels — daag ze uit!",
+    "empty": {
+      "title": "Nog geen raceteams",
+      "description": "Nodig vrienden uit via de racelobby tijdens het oplossen van een puzzel"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Uw puzzels van de afgelopen 30 dagen.",
+    "empty": {
+      "title": "Nog geen puzzels",
+      "description": "Ga naar Race starten om uw eerste puzzel op te lossen"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} extra functie",
+    "moreFeatures_other": "+{{count}} extra functies"
+  },
+  "crossPromo": {
+    "whyNotTry": "Probeer eens",
+    "tryItFree": "Gratis proberen"
+  },
+  "rateApp": {
+    "prompt": "Bevalt {{appName}} u?",
+    "rateIt": "Beoordelen",
+    "rateInSeconds": "Beoordeel in een paar seconden"
+  },
+  "plus": {
+    "close": "Venster sluiten",
+    "appIconAlt": "App-pictogram",
+    "lifetime": "Voor het leven",
+    "monthly": "Maandelijks",
+    "perMonth": "{{price}}/maand",
+    "whatsIncluded": "Wat zit erin",
+    "continue": "Doorgaan",
+    "restorePurchases": "Aankopen herstellen",
+    "cancel": "Annuleren"
+  },
+  "download": {
+    "title": "Ga verder in de app",
+    "appStoreAlt": "Download in de {{appStore}}",
+    "googlePlayAlt": "Download via {{googlePlay}}",
+    "continueBrowser": "Doorgaan in de browser",
+    "continueDesktop": "Doorgaan op de desktop"
+  },
+  "session": {
+    "cheated": "Vals gespeeld",
+    "completedIn": "Voltooid in {{minutes}}m {{seconds}}s",
+    "percentComplete": "{{percentage}}% voltooid",
+    "duration": "{{minutes}}m {{seconds}}s",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Puzzel nr. {{number}}",
+    "daily": "Dagelijks {{date}}",
+    "book": "Boek {{month}} nr. {{number}}",
+    "collection": "Collectie {{month}} nr. {{number}}",
+    "scanned": "Gescande puzzel",
+    "you": "U",
+    "unknown": "Onbekend",
+    "unlockWith": "Ontgrendel met {{label}}",
+    "lockedPuzzle": "Vergrendelde puzzel",
+    "recommendedTechniques": "Aanbevolen technieken:",
+    "loadingFriends": "Vrienden laden..."
+  }
+}

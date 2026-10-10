@@ -1,0 +1,256 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone и iPad"
+  },
+  "errors": {
+    "generic": "Произошла непредвиденная ошибка. Повторите попытку.",
+    "dismiss": "Закрыть"
+  },
+  "errorBoundary": {
+    "title": "Ой! Что-то пошло не так",
+    "description": "Произошла непредвиденная ошибка. Не волнуйтесь, ваш прогресс сохранён!",
+    "reload": "Перезагрузить приложение",
+    "clearStorage": "Очистить данные и перезагрузить",
+    "contactSupport": "Если проблема не исчезнет, обратитесь в поддержку."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} мин назад",
+    "minutesAgo_few": "{{count}} мин назад",
+    "minutesAgo_many": "{{count}} мин назад",
+    "minutesAgo_other": "{{count}} мин назад",
+    "hoursAgo_one": "{{count}} ч назад",
+    "hoursAgo_few": "{{count}} ч назад",
+    "hoursAgo_many": "{{count}} ч назад",
+    "hoursAgo_other": "{{count}} ч назад",
+    "daysAgo_one": "{{count}} дн. назад",
+    "daysAgo_few": "{{count}} дн. назад",
+    "daysAgo_many": "{{count}} дн. назад",
+    "daysAgo_other": "{{count}} дн. назад"
+  },
+  "tier": {
+    "novice": "Новичок",
+    "advancedBeginner": "Начинающий",
+    "competent": "Уверенный",
+    "proficient": "Опытный",
+    "expert": "Эксперт"
+  },
+  "moves": {
+    "onPar": "ходов, по норме",
+    "overPar": "ходов, на {{delta}} больше нормы",
+    "underPar": "ходов, на {{delta}} меньше нормы"
+  },
+  "lobby": {
+    "title": "Лобби гонки",
+    "close": "Закрыть лобби",
+    "onlineOpponents": "Соперники онлайн",
+    "refresh": "Обновить список соперников онлайн",
+    "noOpponents": "Никого нет онлайн — пригласите друзей на гонку!",
+    "away": "Неактивен",
+    "offlineTeams": "Не в сети · из ваших команд",
+    "removeMember": "Удалить: {{name}}",
+    "aiOpponents": "ИИ-соперники",
+    "addAgent": "Добавить",
+    "noAgents": "ИИ-соперников пока нет — добавьте одного, чтобы всегда было с кем соревноваться.",
+    "ownClock": "Каждый игрок гоняется по своему таймеру",
+    "startSolving": "Начать решение",
+    "finished": "Завершено",
+    "inLobby": "В лобби",
+    "stageProgress": "Этап {{current}} из {{total}}",
+    "finishedRunIn": "Заезд завершён за {{time}}",
+    "solvedIn": "Решено за {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · последний раз в сети: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Одиночная гонка — только вы и таймер",
+      "friends_one": "{{count}} друг",
+      "friends_few": "{{count}} друга",
+      "friends_many": "{{count}} друзей",
+      "friends_other": "{{count}} друга",
+      "aiOpponents_one": "{{count}} ИИ-соперник",
+      "aiOpponents_few": "{{count}} ИИ-соперника",
+      "aiOpponents_many": "{{count}} ИИ-соперников",
+      "aiOpponents_other": "{{count}} ИИ-соперника",
+      "racing": "Соревнуетесь с: {{opponents}}"
+    },
+    "invite": {
+      "button": "Пригласить",
+      "eyebrow": "Соберите гонку",
+      "title": "Пригласить соперников",
+      "close": "Закрыть",
+      "existingTeam": "Пригласить в существующую команду",
+      "editTeamName": "Изменить название команды",
+      "deleteTeam": "Удалить команду",
+      "leaveTeam": "Покинуть команду",
+      "memberCount_one": "{{count}} участник",
+      "memberCount_few": "{{count}} участника",
+      "memberCount_many": "{{count}} участников",
+      "memberCount_other": "{{count}} участника",
+      "createTeam": "Создать новую гоночную команду",
+      "displayNameLabel": "Как к вам обращаться в команде?",
+      "displayNamePlaceholder": "Отображаемое имя",
+      "teamNameLabel": "Как назовём эту команду?",
+      "teamNamePlaceholder": "Название команды (напр., Семья)",
+      "createAndCopy": "Создать и скопировать ссылку",
+      "defaultTeamName": "Новая команда",
+      "defaultPlayerName": "Игрок"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Закрыть панель",
+    "back": "Назад",
+    "close": "Закрыть",
+    "title": "Выберите соперников",
+    "subtitle": "Выберите одного или нескольких соперников",
+    "selectAtLeastOne": "Выберите хотя бы одного соперника",
+    "race_one": "Гонка с {{count}} соперником",
+    "race_few": "Гонка с {{count}} соперниками",
+    "race_many": "Гонка с {{count}} соперниками",
+    "race_other": "Гонка с {{count}} соперника",
+    "skill": {
+      "novice": "Новичок",
+      "advancedBeginner": "Начинающий",
+      "competent": "Уверенный",
+      "proficient": "Опытный",
+      "expert": "Эксперт"
+    }
+  },
+  "agentParty": {
+    "title": "ИИ-соперники",
+    "rivalCount_one": "{{count}} соперник",
+    "rivalCount_few": "{{count}} соперника",
+    "rivalCount_many": "{{count}} соперников",
+    "rivalCount_other": "{{count}} соперника"
+  },
+  "party": {
+    "cancel": "Отмена",
+    "editName": "Изменить название команды",
+    "editMaxMembers": "Изменить максимум участников",
+    "memberCount_one": "{{count}} участник",
+    "memberCount_few": "{{count}} участника",
+    "memberCount_many": "{{count}} участников",
+    "memberCount_other": "{{count}} участника",
+    "memberCountPremium_one": "{{count}} участник ✨ Premium",
+    "memberCountPremium_few": "{{count}} участника ✨ Premium",
+    "memberCountPremium_many": "{{count}} участников ✨ Premium",
+    "memberCountPremium_other": "{{count}} участника ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} участник",
+    "membersOf_few": "{{current}}/{{count}} участника",
+    "membersOf_many": "{{current}}/{{count}} участников",
+    "membersOf_other": "{{current}}/{{count}} участника",
+    "shareLink": "Поделитесь этой ссылкой с участниками команды, чтобы они присоединились к этой головоломке",
+    "you": "(вы)",
+    "notStarted": "Ещё не начато! Попросите их сыграть"
+  },
+  "partyConfirmation": {
+    "cancel": "Отмена",
+    "leaveAgentParty": {
+      "title": "Удалить ИИ-соперников",
+      "action": "Удалить",
+      "processing": "Удаление...",
+      "message": "Вы уверены, что хотите удалить всех ИИ-соперников? Они больше не будут участвовать в гонке."
+    },
+    "removeAgent": {
+      "title": "Удалить локального соперника",
+      "action": "Удалить",
+      "processing": "Удаление...",
+      "message": "Вы уверены, что хотите убрать «{{memberName}}» из гонки?"
+    },
+    "deleteParty": {
+      "title": "Удалить команду",
+      "action": "Удалить команду",
+      "processing": "Удаление...",
+      "message": "Вы уверены, что хотите удалить «{{partyName}}»? Команда будет удалена навсегда, а все участники потеряют доступ. Это действие нельзя отменить."
+    },
+    "leave": {
+      "title": "Покинуть команду",
+      "action": "Выйти",
+      "processing": "Выход...",
+      "message": "Вы уверены, что хотите покинуть «{{partyName}}»? Вы больше не будете видеть прогресс других участников и не сможете участвовать в этой команде."
+    },
+    "remove": {
+      "title": "Удалить участника",
+      "action": "Удалить",
+      "processing": "Удаление...",
+      "message": "Вы уверены, что хотите удалить «{{memberName}}» из «{{partyName}}»? Участник больше не сможет участвовать в этой команде."
+    }
+  },
+  "friends": {
+    "allTeams": "Все команды",
+    "refresh": "Обновить",
+    "refreshing": "Обновление…",
+    "title": "Головоломки друзей",
+    "subtitle": "Нажмите на друга, чтобы увидеть его последние головоломки и бросить ему вызов.",
+    "memberCount_one": "{{count}} участник",
+    "memberCount_few": "{{count}} участника",
+    "memberCount_many": "{{count}} участников",
+    "memberCount_other": "{{count}} участника",
+    "noRecentPuzzles": "Недавних головоломок нет — бросьте вызов!",
+    "empty": {
+      "title": "Гоночных команд пока нет",
+      "description": "Приглашайте друзей из лобби гонки во время решения головоломки"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Ваши головоломки за последние 30 дней.",
+    "empty": {
+      "title": "Головоломок пока нет",
+      "description": "Перейдите в «Начать гонку», чтобы решить первую головоломку"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "Ещё {{count}} функция",
+    "moreFeatures_few": "Ещё {{count}} функции",
+    "moreFeatures_many": "Ещё {{count}} функций",
+    "moreFeatures_other": "Ещё {{count}} функции"
+  },
+  "crossPromo": {
+    "whyNotTry": "Почему бы не попробовать",
+    "tryItFree": "Попробовать бесплатно"
+  },
+  "rateApp": {
+    "prompt": "Нравится {{appName}}?",
+    "rateIt": "Оценить",
+    "rateInSeconds": "Оцените за пару секунд"
+  },
+  "plus": {
+    "close": "Закрыть окно",
+    "appIconAlt": "Значок приложения",
+    "lifetime": "Навсегда",
+    "monthly": "На месяц",
+    "perMonth": "{{price}}/мес.",
+    "whatsIncluded": "Что входит",
+    "continue": "Продолжить",
+    "restorePurchases": "Восстановить покупки",
+    "cancel": "Отмена"
+  },
+  "download": {
+    "title": "Продолжить в приложении",
+    "appStoreAlt": "Загрузите в {{appStore}}",
+    "googlePlayAlt": "Доступно в {{googlePlay}}",
+    "continueBrowser": "Продолжить в браузере",
+    "continueDesktop": "Продолжить на компьютере"
+  },
+  "session": {
+    "cheated": "Читерство",
+    "completedIn": "Завершено за {{minutes}} мин {{seconds}} с",
+    "percentComplete": "Выполнено: {{percentage}}%",
+    "duration": "{{minutes}} мин {{seconds}} с",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Головоломка №{{number}}",
+    "daily": "Ежедневная: {{date}}",
+    "book": "Сборник: {{month}} №{{number}}",
+    "collection": "Коллекция: {{month}} №{{number}}",
+    "scanned": "Отсканированная головоломка",
+    "you": "Вы",
+    "unknown": "Неизвестно",
+    "unlockWith": "Открыть: {{label}}",
+    "lockedPuzzle": "Заблокированная головоломка",
+    "recommendedTechniques": "Рекомендуемые приёмы:",
+    "loadingFriends": "Загрузка друзей..."
+  }
+}

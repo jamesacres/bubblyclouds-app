@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Cursa Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "cursa",
+      "team": "equip",
+      "leaderboard": "classificació",
+      "hint": "pista",
+      "undo": "desfés",
+      "theme": "tema",
+      "dailyPuzzle": "puzle diari",
+      "monthlyCollection": "llibre de sudokus mensual",
+      "aiOpponent": "rival d'IA",
+      "monthly": "mensual",
+      "lifetime": "de per vida",
+      "plusAccess": "Accés Plus",
+      "plusFeatureLine": "Curses il·limitades, equips, temes i desfés"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Cursa Lliure",
+      "gameName": "Cursa Lliure",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "cursa",
+      "team": "equip",
+      "leaderboard": "classificació",
+      "hint": "pista",
+      "undo": "desfés",
+      "theme": "tema",
+      "dailyPuzzle": "puzle diari",
+      "monthlyCollection": "col·lecció mensual de puzles",
+      "aiOpponent": "rival d'IA",
+      "monthly": "mensual",
+      "lifetime": "de per vida",
+      "plusAccess": "Accés Plus",
+      "plusFeatureLine": "Curses il·limitades, equips, temes i desfés"
+    }
+  }
+}

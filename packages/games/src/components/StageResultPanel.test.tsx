@@ -292,11 +292,11 @@ describe('StageResultPanel', () => {
       'Challenging'
     );
     expect(screen.getByTestId('stage-difficulty-1')).toHaveClass(
-      'rounded-r-none'
+      'rounded-e-none'
     );
     expect(screen.getByTestId('stage-difficulty-2')).toHaveTextContent('');
     expect(screen.getByTestId('stage-difficulty-2')).toHaveClass(
-      'rounded-l-none'
+      'rounded-s-none'
     );
     expect(screen.getByTestId('stage-difficulty-3')).toHaveTextContent(
       'Expert'
@@ -317,7 +317,7 @@ describe('StageResultPanel', () => {
       'Challenging'
     );
     expect(screen.getByTestId('stage-difficulty-1')).not.toHaveClass(
-      'rounded-l-none'
+      'rounded-s-none'
     );
   });
 
@@ -330,21 +330,21 @@ describe('StageResultPanel', () => {
       ],
     });
     expect(screen.getByTestId('stage-difficulty-0')).toHaveClass(
-      'rounded-r-none'
+      'rounded-e-none'
     );
     expect(screen.getByTestId('stage-difficulty-0')).not.toHaveClass(
-      'rounded-l-none'
+      'rounded-s-none'
     );
     expect(screen.getByTestId('stage-difficulty-1')).toHaveClass(
-      'rounded-l-none',
-      'rounded-r-none'
+      'rounded-s-none',
+      'rounded-e-none'
     );
     expect(screen.getByTestId('stage-difficulty-1')).toHaveTextContent('');
     expect(screen.getByTestId('stage-difficulty-2')).toHaveClass(
-      'rounded-l-none'
+      'rounded-s-none'
     );
     expect(screen.getByTestId('stage-difficulty-2')).not.toHaveClass(
-      'rounded-r-none'
+      'rounded-e-none'
     );
     expect(screen.getByTestId('stage-difficulty-2')).toHaveTextContent('');
   });

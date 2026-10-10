@@ -1,0 +1,234 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "ଏକ ଅପ୍ରତ୍ୟାଶିତ ତ୍ରୁଟି ଘଟିଛି। ଦୟାକରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।",
+    "dismiss": "ବନ୍ଦ କରନ୍ତୁ"
+  },
+  "errorBoundary": {
+    "title": "ଓହୋ! କିଛି ଭୁଲ୍ ହୋଇଗଲା",
+    "description": "ଆମେ ଏକ ଅପ୍ରତ୍ୟାଶିତ ତ୍ରୁଟିର ସମ୍ମୁଖୀନ ହୋଇଛୁ। ଚିନ୍ତା କରନ୍ତୁ ନାହିଁ, ଆପଣଙ୍କ ପ୍ରଗତି ସେଭ୍ ହୋଇଛି!",
+    "reload": "ଆପ୍ ପୁଣି ଲୋଡ୍ କରନ୍ତୁ",
+    "clearStorage": "ଷ୍ଟୋରେଜ୍ ସଫା କରି ପୁଣି ଲୋଡ୍ କରନ୍ତୁ",
+    "contactSupport": "ଏହି ସମସ୍ୟା ଜାରି ରହିଲେ, ଦୟାକରି ସପୋର୍ଟ ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ।"
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} ମି. ପୂର୍ବେ",
+    "minutesAgo_other": "{{count}} ମି. ପୂର୍ବେ",
+    "hoursAgo_one": "{{count}} ଘ. ପୂର୍ବେ",
+    "hoursAgo_other": "{{count}} ଘ. ପୂର୍ବେ",
+    "daysAgo_one": "{{count}} ଦିନ ପୂର୍ବେ",
+    "daysAgo_other": "{{count}} ଦିନ ପୂର୍ବେ"
+  },
+  "tier": {
+    "novice": "ନବାଗତ",
+    "advancedBeginner": "ଆରମ୍ଭକାରୀ",
+    "competent": "ଦକ୍ଷ",
+    "proficient": "ପାରଦର୍ଶୀ",
+    "expert": "ବିଶେଷଜ୍ଞ"
+  },
+  "moves": {
+    "onPar": "ଚାଲ୍, ପାର୍ ସମାନ",
+    "overPar": "ଚାଲ୍, ପାର୍‌ଠାରୁ {{delta}} ଅଧିକ",
+    "underPar": "ଚାଲ୍, ପାର୍‌ଠାରୁ {{delta}} କମ୍"
+  },
+  "lobby": {
+    "title": "ରେସ୍ ଲବି",
+    "close": "ଲବି ବନ୍ଦ କରନ୍ତୁ",
+    "onlineOpponents": "ଅନଲାଇନ୍ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+    "refresh": "ଅନଲାଇନ୍ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ରିଫ୍ରେସ୍ କରନ୍ତୁ",
+    "noOpponents": "କୌଣସି ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ଅନଲାଇନ୍ ନାହାଁନ୍ତି — ରେସ୍ ପାଇଁ ବନ୍ଧୁମାନଙ୍କୁ ନିମନ୍ତ୍ରଣ କରନ୍ତୁ!",
+    "away": "ଅନୁପସ୍ଥିତ",
+    "offlineTeams": "ଅଫଲାଇନ୍ · ଆପଣଙ୍କ ଦଳରେ",
+    "removeMember": "ହଟାନ୍ତୁ: {{name}}",
+    "aiOpponents": "AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+    "addAgent": "ଯୋଗ କରନ୍ତୁ",
+    "noAgents": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ନାହାଁନ୍ତି — ସବୁବେଳେ ରେସ୍ କରିବାକୁ କେହି ଜଣେ ରହିବା ପାଇଁ ଗୋଟିଏ ଯୋଗ କରନ୍ତୁ।",
+    "ownClock": "ପ୍ରତ୍ୟେକ ଖେଳାଳି ନିଜ ନିଜ ଘଣ୍ଟାରେ ରେସ୍ କରନ୍ତି",
+    "startSolving": "ସମାଧାନ ଆରମ୍ଭ କରନ୍ତୁ",
+    "finished": "ସମାପ୍ତ",
+    "inLobby": "ଲବିରେ",
+    "stageProgress": "ପର୍ଯ୍ୟାୟ {{current}} / {{total}}",
+    "finishedRunIn": "{{time}} ରେ ରନ୍ ସମାପ୍ତ ହେଲା",
+    "solvedIn": "{{time}} ରେ ସମାଧାନ ହେଲା",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · ଶେଷ ଥର ଦେଖାଯାଇଥିଲା: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "ଏକାକୀ ରେସ୍ — କେବଳ ଆପଣ ଓ ଘଣ୍ଟା",
+      "friends_one": "{{count}} ଜଣ ବନ୍ଧୁ",
+      "friends_other": "{{count}} ଜଣ ବନ୍ଧୁ",
+      "aiOpponents_one": "{{count}} AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+      "aiOpponents_other": "{{count}} AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+      "racing": "{{opponents}} ସହ ରେସ୍"
+    },
+    "invite": {
+      "button": "ନିମନ୍ତ୍ରଣ",
+      "eyebrow": "ଆପଣଙ୍କ ରେସ୍ ତିଆରି କରନ୍ତୁ",
+      "title": "ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କୁ ନିମନ୍ତ୍ରଣ କରନ୍ତୁ",
+      "close": "ବନ୍ଦ କରନ୍ତୁ",
+      "existingTeam": "ବିଦ୍ୟମାନ ଦଳକୁ ନିମନ୍ତ୍ରଣ କରନ୍ତୁ",
+      "editTeamName": "ଦଳର ନାମ ସମ୍ପାଦନ କରନ୍ତୁ",
+      "deleteTeam": "ଦଳ ଡିଲିଟ୍ କରନ୍ତୁ",
+      "leaveTeam": "ଦଳ ଛାଡ଼ନ୍ତୁ",
+      "memberCount_one": "{{count}} ଜଣ ସଦସ୍ୟ",
+      "memberCount_other": "{{count}} ଜଣ ସଦସ୍ୟ",
+      "createTeam": "ନୂଆ ରେସିଂ ଦଳ ତିଆରି କରନ୍ତୁ",
+      "displayNameLabel": "ଦଳର ସଦସ୍ୟମାନେ ଆପଣଙ୍କୁ କ'ଣ ବୋଲି ଡାକନ୍ତି?",
+      "displayNamePlaceholder": "ପ୍ରଦର୍ଶିତ ନାମ",
+      "teamNameLabel": "ଏହି ଦଳର ନାମ କ'ଣ ରଖିବା?",
+      "teamNamePlaceholder": "ଦଳର ନାମ (ଯଥା: ପରିବାର)",
+      "createAndCopy": "ତିଆରି କରି ଲିଙ୍କ୍ କପି କରନ୍ତୁ",
+      "defaultTeamName": "ନୂଆ ଦଳ",
+      "defaultPlayerName": "ଖେଳାଳି"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "ସିଟ୍ ବନ୍ଦ କରନ୍ତୁ",
+    "back": "ପଛକୁ",
+    "close": "ବନ୍ଦ କରନ୍ତୁ",
+    "title": "ଆପଣଙ୍କ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ବାଛନ୍ତୁ",
+    "subtitle": "ଏକ ବା ଏକାଧିକ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ବାଛନ୍ତୁ",
+    "selectAtLeastOne": "ଅତି କମରେ ଜଣେ ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ବାଛନ୍ତୁ",
+    "race_one": "{{count}} ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ସହ ରେସ୍",
+    "race_other": "{{count}} ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ ସହ ରେସ୍",
+    "skill": {
+      "novice": "ନବାଗତ",
+      "advancedBeginner": "ଉନ୍ନତ ଆରମ୍ଭକାରୀ",
+      "competent": "ଦକ୍ଷ",
+      "proficient": "ପାରଦର୍ଶୀ",
+      "expert": "ବିଶେଷଜ୍ଞ"
+    }
+  },
+  "agentParty": {
+    "title": "AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+    "rivalCount_one": "{{count}} ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ",
+    "rivalCount_other": "{{count}} ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀ"
+  },
+  "party": {
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ",
+    "editName": "ଦଳର ନାମ ସମ୍ପାଦନ କରନ୍ତୁ",
+    "editMaxMembers": "ସର୍ବାଧିକ ସଦସ୍ୟ ସଂଖ୍ୟା ସମ୍ପାଦନ କରନ୍ତୁ",
+    "memberCount_one": "{{count}} ଜଣ ସଦସ୍ୟ",
+    "memberCount_other": "{{count}} ଜଣ ସଦସ୍ୟ",
+    "memberCountPremium_one": "{{count}} ଜଣ ସଦସ୍ୟ ✨ ପ୍ରିମିୟମ୍",
+    "memberCountPremium_other": "{{count}} ଜଣ ସଦସ୍ୟ ✨ ପ୍ରିମିୟମ୍",
+    "membersOf_one": "{{current}}/{{count}} ସଦସ୍ୟ",
+    "membersOf_other": "{{current}}/{{count}} ସଦସ୍ୟ",
+    "shareLink": "ଏହି ପଜଲ୍‌ରେ ଯୋଗ ଦେବାକୁ ବର୍ତ୍ତମାନର ଦଳ ସଦସ୍ୟମାନଙ୍କ ସହ ଏହି ଲିଙ୍କ୍ ଶେୟାର୍ କରନ୍ତୁ",
+    "you": "(ଆପଣ)",
+    "notStarted": "ଆରମ୍ଭ ହୋଇନାହିଁ! ସେମାନଙ୍କୁ ଖେଳିବାକୁ କୁହନ୍ତୁ"
+  },
+  "partyConfirmation": {
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ",
+    "leaveAgentParty": {
+      "title": "AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କୁ ହଟାନ୍ତୁ",
+      "action": "ହଟାନ୍ତୁ",
+      "processing": "ହଟାଯାଉଛି...",
+      "message": "ଆପଣ ସମସ୍ତ AI ପ୍ରତିଦ୍ୱନ୍ଦ୍ୱୀଙ୍କୁ ହଟାଇବାକୁ ଚାହୁଁଛନ୍ତି କି? ସେମାନେ ଆଉ ରେସ୍‌ରେ ଦେଖାଯିବେ ନାହିଁ।"
+    },
+    "removeAgent": {
+      "title": "ସ୍ଥାନୀୟ ଏଜେଣ୍ଟ ହଟାନ୍ତୁ",
+      "action": "ହଟାନ୍ତୁ",
+      "processing": "ହଟାଯାଉଛି...",
+      "message": "ଆପଣ ରେସ୍‌ରୁ ଏହି ସଦସ୍ୟଙ୍କୁ ହଟାଇବାକୁ ଚାହୁଁଛନ୍ତି କି: \"{{memberName}}\"?"
+    },
+    "deleteParty": {
+      "title": "ଦଳ ଡିଲିଟ୍ କରନ୍ତୁ",
+      "action": "ଦଳ ଡିଲିଟ୍ କରନ୍ତୁ",
+      "processing": "ଡିଲିଟ୍ ହେଉଛି...",
+      "message": "ଆପଣ ଏହି ଦଳ ଡିଲିଟ୍ କରିବାକୁ ଚାହୁଁଛନ୍ତି କି: \"{{partyName}}\"? ଦଳ ସ୍ଥାୟୀ ଭାବେ ହଟିଯିବ ଏବଂ ସମସ୍ତ ସଦସ୍ୟ ପ୍ରବେଶ ହରାଇବେ। ଏହି କାର୍ଯ୍ୟକୁ ପୂର୍ବ ଅବସ୍ଥାକୁ ଫେରାଇ ହେବ ନାହିଁ।"
+    },
+    "leave": {
+      "title": "ଦଳ ଛାଡ଼ନ୍ତୁ",
+      "action": "ଛାଡ଼ନ୍ତୁ",
+      "processing": "ଛାଡ଼ାଯାଉଛି...",
+      "message": "ଆପଣ ଏହି ଦଳ ଛାଡ଼ିବାକୁ ଚାହୁଁଛନ୍ତି କି: \"{{partyName}}\"? ଆପଣ ଆଉ ଅନ୍ୟ ସଦସ୍ୟମାନଙ୍କର ପ୍ରଗତି ଦେଖିପାରିବେ ନାହିଁ କିମ୍ବା ଏହି ଦଳରେ ଅଂଶଗ୍ରହଣ କରିପାରିବେ ନାହିଁ।"
+    },
+    "remove": {
+      "title": "ସଦସ୍ୟ ହଟାନ୍ତୁ",
+      "action": "ହଟାନ୍ତୁ",
+      "processing": "ହଟାଯାଉଛି...",
+      "message": "ଆପଣ ହଟାଇବାକୁ ଚାହୁଁଛନ୍ତି କି? ଦଳ: \"{{partyName}}\", ସଦସ୍ୟ: \"{{memberName}}\"। ସେମାନେ ଆଉ ଏହି ଦଳରେ ଅଂଶଗ୍ରହଣ କରିପାରିବେ ନାହିଁ।"
+    }
+  },
+  "friends": {
+    "allTeams": "ସମସ୍ତ ଦଳ",
+    "refresh": "ରିଫ୍ରେସ୍",
+    "refreshing": "ରିଫ୍ରେସ୍ ହେଉଛି…",
+    "title": "ବନ୍ଧୁମାନଙ୍କ ପଜଲ୍",
+    "subtitle": "ଜଣେ ବନ୍ଧୁଙ୍କୁ ଟାପ୍ କରି ସେମାନଙ୍କର ସାମ୍ପ୍ରତିକ ପଜଲ୍ ଦେଖନ୍ତୁ ଓ ସେମାନଙ୍କ ସହ ରେସ୍ କରନ୍ତୁ।",
+    "memberCount_one": "{{count}} ଜଣ ସଦସ୍ୟ",
+    "memberCount_other": "{{count}} ଜଣ ସଦସ୍ୟ",
+    "noRecentPuzzles": "କୌଣସି ସାମ୍ପ୍ରତିକ ପଜଲ୍ ନାହିଁ — ସେମାନଙ୍କୁ ଚ୍ୟାଲେଞ୍ଜ କରନ୍ତୁ!",
+    "empty": {
+      "title": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ରେସିଂ ଦଳ ନାହିଁ",
+      "description": "ପଜଲ୍ ସମାଧାନ ସମୟରେ ରେସ୍ ଲବିରୁ ବନ୍ଧୁମାନଙ୍କୁ ନିମନ୍ତ୍ରଣ କରନ୍ତୁ"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "ଗତ 30 ଦିନର ଆପଣଙ୍କ ପଜଲ୍।",
+    "empty": {
+      "title": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ପଜଲ୍ ନାହିଁ",
+      "description": "ଆପଣଙ୍କ ପ୍ରଥମ ପଜଲ୍ ସମାଧାନ କରିବାକୁ “ରେସ୍ ଆରମ୍ଭ” ଟ୍ୟାବ୍‌କୁ ଯାଆନ୍ତୁ"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} ଅଧିକ ସୁବିଧା",
+    "moreFeatures_other": "+{{count}} ଅଧିକ ସୁବିଧା"
+  },
+  "crossPromo": {
+    "whyNotTry": "ଚେଷ୍ଟା କରି ଦେଖନ୍ତୁ",
+    "tryItFree": "ମାଗଣାରେ ଚେଷ୍ଟା କରନ୍ତୁ"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} ଭଲ ଲାଗୁଛି କି?",
+    "rateIt": "ରେଟ୍ କରନ୍ତୁ",
+    "rateInSeconds": "କିଛି ସେକେଣ୍ଡରେ ରେଟ୍ କରନ୍ତୁ"
+  },
+  "plus": {
+    "close": "ମୋଡାଲ୍ ବନ୍ଦ କରନ୍ତୁ",
+    "appIconAlt": "ଆପ୍ ଆଇକନ୍",
+    "lifetime": "ଆଜୀବନ",
+    "monthly": "ମାସିକ",
+    "perMonth": "{{price}}/ମାସ",
+    "whatsIncluded": "କ'ଣ ଅନ୍ତର୍ଭୁକ୍ତ",
+    "continue": "ଜାରି ରଖନ୍ତୁ",
+    "restorePurchases": "କ୍ରୟ ପୁନରୁଦ୍ଧାର କରନ୍ତୁ",
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ"
+  },
+  "download": {
+    "title": "ଆପ୍‌ରେ ଜାରି ରଖନ୍ତୁ",
+    "appStoreAlt": "ଡାଉନଲୋଡ୍ କରନ୍ତୁ: {{appStore}}",
+    "googlePlayAlt": "ପାଆନ୍ତୁ: {{googlePlay}}",
+    "continueBrowser": "ବ୍ରାଉଜରରେ ଜାରି ରଖନ୍ତୁ",
+    "continueDesktop": "ଡେସ୍କଟପ୍‌ରେ ଜାରି ରଖନ୍ତୁ"
+  },
+  "session": {
+    "cheated": "ଠକାମି",
+    "completedIn": "ସମ୍ପୂର୍ଣ୍ଣ ହେଲା: {{minutes}}ମି {{seconds}}ସେ",
+    "percentComplete": "{{percentage}}% ସମ୍ପୂର୍ଣ୍ଣ",
+    "duration": "{{minutes}}ମି {{seconds}}ସେ",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}ମ",
+    "dayOrdinal_ordinal_two": "{{count}}ୟ",
+    "dayOrdinal_ordinal_few": "{{count}}ର୍ଥ",
+    "dayOrdinal_ordinal_many": "{{count}}ଷ୍ଠ",
+    "dayOrdinal_ordinal_other": "{{count}}ତମ",
+    "puzzleNumber": "ପଜଲ୍ #{{number}}",
+    "daily": "ଦୈନିକ {{date}}",
+    "book": "ବହି {{month}} #{{number}}",
+    "collection": "ସଂଗ୍ରହ {{month}} #{{number}}",
+    "scanned": "ସ୍କାନ୍ ହୋଇଥିବା ପଜଲ୍",
+    "you": "ଆପଣ",
+    "unknown": "ଅଜଣା",
+    "unlockWith": "{{label}} ସହ ଅନଲକ୍ କରନ୍ତୁ",
+    "lockedPuzzle": "ଲକ୍ ହୋଇଥିବା ପଜଲ୍",
+    "recommendedTechniques": "ସୁପାରିଶ କରାଯାଇଥିବା କୌଶଳ:",
+    "loadingFriends": "ବନ୍ଧୁମାନେ ଲୋଡ୍ ହେଉଛନ୍ତି..."
+  }
+}

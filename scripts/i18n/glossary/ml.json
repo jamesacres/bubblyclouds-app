@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "സുഡോകു റേസ്",
+      "gameName": "സുഡോകു",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "സുഡോകു Plus"
+    },
+    "terms": {
+      "race": "റേസ്",
+      "team": "ടീം",
+      "leaderboard": "ലീഡർബോർഡ്",
+      "hint": "സൂചന",
+      "undo": "അൺഡു",
+      "theme": "തീം",
+      "dailyPuzzle": "ദിവസേനയുള്ള പസിൽ",
+      "monthlyCollection": "മാസിക പസിൽ പുസ്തകം",
+      "aiOpponent": "AI എതിരാളി",
+      "monthly": "പ്രതിമാസ",
+      "lifetime": "ആജീവനാന്തം",
+      "plusAccess": "Plus ആക്സസ്",
+      "plusFeatureLine": "പരിധിയില്ലാത്ത റേസ്, ടീം, തീം, അൺഡു"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "അൺബ്ലോക്ക് റേസ്",
+      "gameName": "അൺബ്ലോക്ക് റേസ്",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "റേസ്",
+      "team": "ടീം",
+      "leaderboard": "ലീഡർബോർഡ്",
+      "hint": "സൂചന",
+      "undo": "അൺഡു",
+      "theme": "തീം",
+      "dailyPuzzle": "ദിവസേനയുള്ള പസിൽ",
+      "monthlyCollection": "മാസിക പസിൽ ശേഖരം",
+      "aiOpponent": "AI എതിരാളി",
+      "monthly": "പ്രതിമാസ",
+      "lifetime": "ആജീവനാന്തം",
+      "plusAccess": "Plus ആക്സസ്",
+      "plusFeatureLine": "പരിധിയില്ലാത്ത റേസ്, ടീം, തീം, അൺഡു"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "ಭಾಷೆ",
+    "automatic": "ಸ್ವಯಂಚಾಲಿತ"
+  },
+  "header": {
+    "offline": "ಆಫ್‌ಲೈನ್",
+    "back": "ಹಿಂದೆ"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "ಡಾರ್ಕ್ ಮೋಡ್ ಬದಲಿಸಿ"
+  },
+  "starRating": {
+    "label_one": "{{count}} ರಲ್ಲಿ {{filled}} ನಕ್ಷತ್ರ",
+    "label_other": "{{count}} ರಲ್ಲಿ {{filled}} ನಕ್ಷತ್ರಗಳು"
+  },
+  "timer": {
+    "go": "ಗೋ!"
+  },
+  "themeColor": {
+    "change": "ಥೀಮ್ ಬಣ್ಣ ಬದಲಿಸಿ",
+    "set": "ಥೀಮ್ ಬಣ್ಣವನ್ನು {{color}} ಗೆ ಹೊಂದಿಸಿ",
+    "setPremium": "ಥೀಮ್ ಬಣ್ಣವನ್ನು {{color}} ಗೆ ಹೊಂದಿಸಿ (ಪ್ರೀಮಿಯಂ)",
+    "colors": {
+      "blue": "ನೀಲಿ",
+      "red": "ಕೆಂಪು",
+      "green": "ಹಸಿರು",
+      "purple": "ನೇರಳೆ",
+      "amber": "ಅಂಬರ್",
+      "cyan": "ಸಯಾನ್",
+      "pink": "ಗುಲಾಬಿ",
+      "indigo": "ಇಂಡಿಗೊ",
+      "orange": "ಕಿತ್ತಳೆ",
+      "teal": "ಟೀಲ್",
+      "slate": "ಸ್ಲೇಟ್",
+      "rose": "ರೋಸ್",
+      "emerald": "ಪಚ್ಚೆ",
+      "sky": "ಆಕಾಶ ನೀಲಿ",
+      "violet": "ವೈಲೆಟ್",
+      "lime": "ನಿಂಬೆ ಹಸಿರು",
+      "fuchsia": "ಫ್ಯೂಷಿಯಾ",
+      "yellow": "ಹಳದಿ",
+      "stone": "ಕಲ್ಲು ಬೂದು",
+      "zinc": "ಜಿಂಕ್"
+    }
+  },
+  "copyButton": {
+    "copied": "ಕ್ಲಿಪ್‌ಬೋರ್ಡ್‌ಗೆ ನಕಲಿಸಲಾಗಿದೆ!",
+    "share": "ಆಹ್ವಾನ ಲಿಂಕ್ ಹಂಚಿಕೊಳ್ಳಿ",
+    "copy": "ಆಹ್ವಾನ ಲಿಂಕ್ ನಕಲಿಸಿ"
+  },
+  "share": {
+    "joinTeam": "{{appName}} ನಲ್ಲಿ ರೇಸಿಂಗ್ ತಂಡಕ್ಕೆ ಸೇರಿ!",
+    "joinNamedTeam": "{{appName}} ನಲ್ಲಿ {{partyName}} ರೇಸಿಂಗ್ ತಂಡಕ್ಕೆ ಸೇರಿ!",
+    "dialogTitle": "ಆಹ್ವಾನ ಹಂಚಿಕೊಳ್ಳಿ"
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Παρουσιάστηκε μη αναμενόμενο σφάλμα. Δοκιμάστε ξανά.",
+    "dismiss": "Απόρριψη"
+  },
+  "errorBoundary": {
+    "title": "Ωχ! Κάτι πήγε στραβά",
+    "description": "Παρουσιάστηκε μη αναμενόμενο σφάλμα. Μην ανησυχείτε, η πρόοδός σας έχει αποθηκευτεί!",
+    "reload": "Επανεκκίνηση εφαρμογής",
+    "clearStorage": "Εκκαθάριση αποθήκευσης και επανεκκίνηση",
+    "contactSupport": "Αν το πρόβλημα παραμένει, επικοινωνήστε με την υποστήριξη."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} λ. πριν",
+    "minutesAgo_other": "{{count}} λ. πριν",
+    "hoursAgo_one": "{{count}} ώ. πριν",
+    "hoursAgo_other": "{{count}} ώ. πριν",
+    "daysAgo_one": "{{count}} ημ. πριν",
+    "daysAgo_other": "{{count}} ημ. πριν"
+  },
+  "tier": {
+    "novice": "Πρωτάρης",
+    "advancedBeginner": "Αρχάριος",
+    "competent": "Ικανός",
+    "proficient": "Προχωρημένος",
+    "expert": "Ειδικός"
+  },
+  "moves": {
+    "onPar": "κινήσεις, στο par",
+    "overPar": "κινήσεις, {{delta}} πάνω από το par",
+    "underPar": "κινήσεις, {{delta}} κάτω από το par"
+  },
+  "lobby": {
+    "title": "Λόμπι αγώνα",
+    "close": "Κλείσιμο λόμπι",
+    "onlineOpponents": "Αντίπαλοι online",
+    "refresh": "Ανανέωση αντιπάλων online",
+    "noOpponents": "Κανένας αντίπαλος online — προσκαλέστε φίλους σε αγώνα!",
+    "away": "Απών",
+    "offlineTeams": "Εκτός σύνδεσης · στις ομάδες σας",
+    "removeMember": "Αφαίρεση μέλους: {{name}}",
+    "aiOpponents": "Αντίπαλοι ΤΝ",
+    "addAgent": "Προσθήκη",
+    "noAgents": "Δεν υπάρχουν ακόμη αντίπαλοι ΤΝ — προσθέστε έναν για να έχετε πάντα με ποιον να αγωνιστείτε.",
+    "ownClock": "Κάθε παίκτης αγωνίζεται με το δικό του ρολόι",
+    "startSolving": "Ξεκινήστε τη λύση",
+    "finished": "Τελείωσε",
+    "inLobby": "Στο λόμπι",
+    "stageProgress": "Στάδιο {{current}} από {{total}}",
+    "finishedRunIn": "Ολοκλήρωσε τη διαδρομή σε {{time}}",
+    "solvedIn": "Λύθηκε σε {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · τελευταία φορά: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Μόνος αγώνας — εσείς και το ρολόι",
+      "friends_one": "{{count}} φίλος",
+      "friends_other": "{{count}} φίλοι",
+      "aiOpponents_one": "{{count}} αντίπαλος ΤΝ",
+      "aiOpponents_other": "{{count}} αντίπαλοι ΤΝ",
+      "racing": "Αγώνας με {{opponents}}"
+    },
+    "invite": {
+      "button": "Πρόσκληση",
+      "eyebrow": "Φτιάξτε τον αγώνα σας",
+      "title": "Προσκαλέστε αντιπάλους",
+      "close": "Κλείσιμο",
+      "existingTeam": "Πρόσκληση σε υπάρχουσα ομάδα",
+      "editTeamName": "Επεξεργασία ονόματος ομάδας",
+      "deleteTeam": "Διαγραφή ομάδας",
+      "leaveTeam": "Αποχώρηση από την ομάδα",
+      "memberCount_one": "{{count}} μέλος",
+      "memberCount_other": "{{count}} μέλη",
+      "createTeam": "Δημιουργία νέας ομάδας αγώνων",
+      "displayNameLabel": "Πώς σας λένε τα μέλη της ομάδας;",
+      "displayNamePlaceholder": "Εμφανιζόμενο όνομα",
+      "teamNameLabel": "Πώς θα ονομάσουμε αυτήν την ομάδα;",
+      "teamNamePlaceholder": "Όνομα ομάδας (π.χ. Οικογένεια)",
+      "createAndCopy": "Δημιουργία και αντιγραφή συνδέσμου",
+      "defaultTeamName": "Νέα ομάδα",
+      "defaultPlayerName": "Παίκτης"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Κλείσιμο",
+    "back": "Πίσω",
+    "close": "Κλείσιμο",
+    "title": "Διαλέξτε αντιπάλους",
+    "subtitle": "Επιλέξτε έναν ή περισσότερους αντιπάλους",
+    "selectAtLeastOne": "Επιλέξτε τουλάχιστον έναν αντίπαλο",
+    "race_one": "Αγώνας με {{count}} αντίπαλο",
+    "race_other": "Αγώνας με {{count}} αντιπάλους",
+    "skill": {
+      "novice": "Πρωτάρης",
+      "advancedBeginner": "Αρχάριος",
+      "competent": "Ικανός",
+      "proficient": "Προχωρημένος",
+      "expert": "Ειδικός"
+    }
+  },
+  "agentParty": {
+    "title": "Αντίπαλοι ΤΝ",
+    "rivalCount_one": "{{count}} αντίπαλος",
+    "rivalCount_other": "{{count}} αντίπαλοι"
+  },
+  "party": {
+    "cancel": "Ακύρωση",
+    "editName": "Επεξεργασία ονόματος ομάδας",
+    "editMaxMembers": "Επεξεργασία μέγιστου αριθμού μελών",
+    "memberCount_one": "{{count}} μέλος",
+    "memberCount_other": "{{count}} μέλη",
+    "memberCountPremium_one": "{{count}} μέλος ✨ Premium",
+    "memberCountPremium_other": "{{count}} μέλη ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} μέλος",
+    "membersOf_other": "{{current}}/{{count}} μέλη",
+    "shareLink": "Μοιραστείτε αυτόν τον σύνδεσμο με τα τρέχοντα μέλη της ομάδας για να συμμετάσχουν σε αυτό το παζλ",
+    "you": "(εσείς)",
+    "notStarted": "Δεν έχει ξεκινήσει! Ζητήστε του να παίξει"
+  },
+  "partyConfirmation": {
+    "cancel": "Ακύρωση",
+    "leaveAgentParty": {
+      "title": "Αφαίρεση αντιπάλων ΤΝ",
+      "action": "Αφαίρεση",
+      "processing": "Αφαίρεση...",
+      "message": "Θέλετε σίγουρα να αφαιρέσετε όλους τους αντιπάλους ΤΝ; Δεν θα εμφανίζονται πλέον στον αγώνα."
+    },
+    "removeAgent": {
+      "title": "Αφαίρεση τοπικού αντιπάλου",
+      "action": "Αφαίρεση",
+      "processing": "Αφαίρεση...",
+      "message": "Θέλετε σίγουρα να αφαιρέσετε το μέλος «{{memberName}}» από τον αγώνα;"
+    },
+    "deleteParty": {
+      "title": "Διαγραφή ομάδας",
+      "action": "Διαγραφή ομάδας",
+      "processing": "Διαγραφή...",
+      "message": "Θέλετε σίγουρα να διαγράψετε την ομάδα «{{partyName}}»; Η ομάδα θα αφαιρεθεί οριστικά και όλα τα μέλη θα χάσουν την πρόσβαση. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
+    },
+    "leave": {
+      "title": "Αποχώρηση από την ομάδα",
+      "action": "Αποχώρηση",
+      "processing": "Αποχώρηση...",
+      "message": "Θέλετε σίγουρα να αποχωρήσετε από την ομάδα «{{partyName}}»; Δεν θα βλέπετε πλέον την πρόοδο των άλλων μελών και δεν θα μπορείτε να συμμετέχετε σε αυτήν."
+    },
+    "remove": {
+      "title": "Αφαίρεση μέλους",
+      "action": "Αφαίρεση",
+      "processing": "Αφαίρεση...",
+      "message": "Θέλετε σίγουρα να αφαιρέσετε το μέλος «{{memberName}}» από την ομάδα «{{partyName}}»; Δεν θα μπορεί πλέον να συμμετέχει σε αυτήν."
+    }
+  },
+  "friends": {
+    "allTeams": "Όλες οι ομάδες",
+    "refresh": "Ανανέωση",
+    "refreshing": "Ανανέωση…",
+    "title": "Παζλ φίλων",
+    "subtitle": "Πατήστε έναν φίλο για να δείτε τα πρόσφατα παζλ του και να τον προκαλέσετε.",
+    "memberCount_one": "{{count}} μέλος",
+    "memberCount_other": "{{count}} μέλη",
+    "noRecentPuzzles": "Κανένα πρόσφατο παζλ — προκαλέστε τους!",
+    "empty": {
+      "title": "Δεν υπάρχουν ακόμη ομάδες αγώνων",
+      "description": "Προσκαλέστε φίλους από το λόμπι αγώνων όταν λύνετε ένα παζλ"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Τα παζλ σας των τελευταίων 30 ημερών.",
+    "empty": {
+      "title": "Δεν υπάρχουν ακόμη παζλ",
+      "description": "Πατήστε «Έναρξη αγώνα» για να λύσετε το πρώτο σας παζλ"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} ακόμη λειτουργία",
+    "moreFeatures_other": "+{{count}} ακόμη λειτουργίες"
+  },
+  "crossPromo": {
+    "whyNotTry": "Γιατί δεν δοκιμάζετε",
+    "tryItFree": "Δοκιμάστε δωρεάν"
+  },
+  "rateApp": {
+    "prompt": "Σας αρέσει η εφαρμογή {{appName}};",
+    "rateIt": "Βαθμολογήστε",
+    "rateInSeconds": "Βαθμολογήστε σε δευτερόλεπτα"
+  },
+  "plus": {
+    "close": "Κλείσιμο παραθύρου",
+    "appIconAlt": "Εικονίδιο εφαρμογής",
+    "lifetime": "Εφ' όρου ζωής",
+    "monthly": "Μηνιαία",
+    "perMonth": "{{price}}/μήνα",
+    "whatsIncluded": "Τι περιλαμβάνεται",
+    "continue": "Συνέχεια",
+    "restorePurchases": "Επαναφορά αγορών",
+    "cancel": "Ακύρωση"
+  },
+  "download": {
+    "title": "Συνεχίστε στην εφαρμογή",
+    "appStoreAlt": "Λήψη από το {{appStore}}",
+    "googlePlayAlt": "Διαθέσιμο στο {{googlePlay}}",
+    "continueBrowser": "Συνέχεια στο πρόγραμμα περιήγησης",
+    "continueDesktop": "Συνέχεια στον υπολογιστή"
+  },
+  "session": {
+    "cheated": "Με απάτη",
+    "completedIn": "Ολοκληρώθηκε σε {{minutes}}λ {{seconds}}δ",
+    "percentComplete": "{{percentage}}% ολοκληρωμένο",
+    "duration": "{{minutes}}λ {{seconds}}δ",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Παζλ #{{number}}",
+    "daily": "Καθημερινό {{date}}",
+    "book": "Βιβλίο {{month}} #{{number}}",
+    "collection": "Συλλογή {{month}} #{{number}}",
+    "scanned": "Σαρωμένο παζλ",
+    "you": "Εσείς",
+    "unknown": "Άγνωστο",
+    "unlockWith": "Ξεκλειδώστε με {{label}}",
+    "lockedPuzzle": "Κλειδωμένο παζλ",
+    "recommendedTechniques": "Προτεινόμενες τεχνικές:",
+    "loadingFriends": "Φόρτωση φίλων..."
+  }
+}

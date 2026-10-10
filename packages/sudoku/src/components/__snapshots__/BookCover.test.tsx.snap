@@ -14,7 +14,7 @@ exports[`BookCover snapshot should match snapshot for January 1`] = `
       />
       <div
         class="absolute animate-rotate"
-        style="right: 12px; top: 12px; font-size: 40px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; opacity: 0.8;"
+        style="inset-inline-end: 12px; top: 12px; font-size: 40px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; opacity: 0.8;"
       >
         ❄️
       </div>
@@ -39,6 +39,7 @@ exports[`BookCover snapshot should match snapshot for January 1`] = `
         >
           <div
             class="border-1 grid grid-cols-3 grid-rows-3 border border-zinc-900 text-black dark:border-zinc-50 dark:text-white bg-zinc-50 dark:bg-zinc-900 h-full w-full text-[6px] leading-none"
+            dir="ltr"
           >
             <div
               class="grid aspect-square grid-cols-3 grid-rows-3 border border-zinc-900 dark:border-zinc-50"
@@ -445,7 +446,7 @@ exports[`BookCover snapshot should match snapshot for large size 1`] = `
       />
       <div
         class="absolute animate-rotate"
-        style="right: 15px; top: 15px; font-size: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; opacity: 0.8;"
+        style="inset-inline-end: 15px; top: 15px; font-size: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; opacity: 0.8;"
       >
         ❄️
       </div>
@@ -470,6 +471,7 @@ exports[`BookCover snapshot should match snapshot for large size 1`] = `
         >
           <div
             class="border-1 grid grid-cols-3 grid-rows-3 border border-zinc-900 text-black dark:border-zinc-50 dark:text-white bg-zinc-50 dark:bg-zinc-900 h-full w-full text-[6px] leading-none"
+            dir="ltr"
           >
             <div
               class="grid aspect-square grid-cols-3 grid-rows-3 border border-zinc-900 dark:border-zinc-50"
@@ -876,7 +878,7 @@ exports[`BookCover snapshot should match snapshot for small size 1`] = `
       />
       <div
         class="absolute animate-rotate"
-        style="right: 9px; top: 9px; font-size: 30px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; opacity: 0.8;"
+        style="inset-inline-end: 9px; top: 9px; font-size: 30px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; opacity: 0.8;"
       >
         ❄️
       </div>
@@ -901,6 +903,7 @@ exports[`BookCover snapshot should match snapshot for small size 1`] = `
         >
           <div
             class="border-1 grid grid-cols-3 grid-rows-3 border border-zinc-900 text-black dark:border-zinc-50 dark:text-white bg-zinc-50 dark:bg-zinc-900 h-full w-full text-[6px] leading-none"
+            dir="ltr"
           >
             <div
               class="grid aspect-square grid-cols-3 grid-rows-3 border border-zinc-900 dark:border-zinc-50"

@@ -1,0 +1,268 @@
+{
+  "brand": {
+    "gameName": "Frigør Løbet"
+  },
+  "controls": {
+    "hint": "Hint",
+    "hintTitle": "Bed om hjælp",
+    "undo": "Fortryd",
+    "redo": "Gentag",
+    "reset": "Nulstil"
+  },
+  "labels": {
+    "time": "Tid",
+    "moves": "Træk",
+    "stageOf": "Etape {{current}} af {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} træk",
+    "moves_other": "{{count}} træk",
+    "par": "par",
+    "overPar": "{{delta}} over par",
+    "underPar": "{{delta}} under par"
+  },
+  "score": {
+    "moves": "træk",
+    "srOnPar": "træk, på par",
+    "srOverPar": "træk, {{delta}} over par",
+    "srUnderPar": "træk, {{delta}} under par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Daglig · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Begynder",
+    "challenging": "Udfordrende",
+    "hard": "Svær",
+    "expert": "Ekspert"
+  },
+  "collection": {
+    "puzzleLabel": "Samlingens puslespil {{number}}",
+    "theme": {
+      "january": "Nyt år, ny trafikprop",
+      "february": "Frossen fastlåsning",
+      "march": "Sprængt vidt åben",
+      "april": "Byger af blokke",
+      "may": "Nye baner blomstrer",
+      "june": "Højeste frigørelsesfart",
+      "july": "Sommerens løbsserie",
+      "august": "Glohed fastlåsning",
+      "september": "Tilbage til brættet",
+      "october": "Hjemsøgt fastlåsning",
+      "november": "Baner bliver ryddet",
+      "december": "Fastlåst i julen",
+      "default": "Månedlig samling"
+    },
+    "error": {
+      "offline": "Du er offline. Tjek din forbindelse",
+      "loadFailed": "Puslespilssamlingen kunne ikke indlæses"
+    }
+  },
+  "stageClear": {
+    "title": "Etape {{stage}} klaret",
+    "onPar": "På par",
+    "pointsSuffix": " point",
+    "leaderboardPoints": "Ranglistepoint",
+    "nextStage": "Næste etape",
+    "progress": "Etape {{stage}} af {{total}} — {{remaining}} tilbage"
+  },
+  "hint": {
+    "unsolvable": "Ingen vej igennem herfra — fortryd eller nulstil for at komme på sporet igen",
+    "dismiss": "Luk hintmeddelelse"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Hold stimen kørende i samlingen"
+  },
+  "raceTrack": {
+    "collection": "Samling"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Prøv denne etape igen?",
+      "body": "Din nuværende tid og dine træk bliver erstattet.",
+      "confirm": "Prøv igen"
+    },
+    "reset": {
+      "title": "Nulstil dette puslespil?",
+      "body": "Det rydder dine træk og starter puslespillet forfra.",
+      "confirm": "Nulstil"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bi",
+      "personality": "Rastløs og ivrig. Skubber blokke rundt i udbrud og går så i stå. Nær udgangen speeder den for tidligt op og blokerer banen lige før mål.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Den her kan glide!",
+          "Vent — nej, den blokerer mig...",
+          "Bzzz! Jeg skaber plads!"
+        ],
+        "playerAhead": ["Hey, sæt farten ned!", "Jeg var ved at rydde en vej…"],
+        "playerBehind": ["Jeg indhenter dig!", "Se mig glide!"],
+        "endgame": [
+          "Udgangen! Jeg kan se den!",
+          "Vent — hvem har parkeret der?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "and",
+      "personality": "Glad og planløs. Langsom og stabil med lange pauser. I slutspillet driver den næsten tilfældigt ud af fastlåsningen.",
+      "voiceLines": {
+        "neutral": [
+          "Jeg skubber bare lidt rundt...",
+          "Hmm... måske den her blok."
+        ],
+        "playerAhead": ["Du klarer det fint!", "Jeg kommer nok ud til sidst."],
+        "playerBehind": ["Åh! Den flyttede sig!", "Det her er hyggeligt."],
+        "endgame": ["Er det udgangen?", "Åh! Vejen ryddede sig selv."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "firben",
+      "personality": "Forsigtig og opmærksom. Lange pauser og så små klynger af glid. I slutspillet tøver den før hvert træk.",
+      "voiceLines": {
+        "neutral": [
+          "Lad mig lige se, hvad det frigør.",
+          "Det glid burde være sikkert."
+        ],
+        "playerAhead": ["Nu skal jeg være forsigtig.", "Bloker ikke banen."],
+        "playerBehind": ["Okay… jeg indhenter dig.", "Der er stadig tid."],
+        "endgame": [
+          "Forsigtigt nu...",
+          "Næsten ude… jeg skal bare være sikker."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "edderkop",
+      "personality": "Bevidst og struktureret. Rydder banen omhyggeligt, blok for blok. I slutspillet falder planen sammen — tøvet sniger sig ind, som om ruten ikke længere holder.",
+      "voiceLines": {
+        "neutral": ["Det åbner ruten.", "Blok for blok..."],
+        "playerAhead": ["Ruten virkede jo...", "Jeg må lægge en ny plan..."],
+        "playerBehind": ["Det holder stadig sammen.", "Ja… banen åbner sig."],
+        "endgame": [
+          "Vent — nej, så spærrer jeg mig selv inde igen.",
+          "Jeg havde ruten planlagt..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "vaskebjørn",
+      "personality": "Gå-på-mod og opportunistisk. Ujævnt tempo. I slutspillet finder den momentum og glider ud hurtigere end ventet.",
+      "voiceLines": {
+        "neutral": ["Den flytter sig!", "Lidt trangt, men det tager jeg."],
+        "playerAhead": [
+          "Okay, nu skal der trykkes på.",
+          "Jeg er ikke spærret inde endnu."
+        ],
+        "playerBehind": ["Åh — flot hul.", "Banen åbner sig nu."],
+        "endgame": ["Ja, fri vej forude.", "Nu ruller det."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Struktureret og metodisk. Jævnt tempo. Slutspillet er stabilt — ingen panik, ingen sprint.",
+      "voiceLines": {
+        "neutral": ["Det glid passer til ruten.", "Jeg holder tempoet."],
+        "playerAhead": [
+          "Hold tempoet.",
+          "Ingen grund til at haste med gitteret."
+        ],
+        "playerBehind": ["Stadig på sporet.", "Banen ryddes støt."],
+        "endgame": ["Næsten igennem.", "Kør rent ud."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "abe",
+      "personality": "Uberegnelig og ubehagelig. Uforudsigelige udbrud. I slutspillet speeder den pludselig op på en måde, der føles uretfærdig.",
+      "voiceLines": {
+        "neutral": [
+          "Hehe… så du ikke det hul?",
+          "Åh, det var et interessant glid."
+        ],
+        "playerAhead": ["Bliv ikke for tryg.", "Se bare det her træk."],
+        "playerBehind": [
+          "Nogle gange letter trafikken bare.",
+          "Heldigt glid… eller var det?"
+        ],
+        "endgame": ["Åh wow — vejen er helt åben.", "Det blev ryddet hurtigt."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "ørn",
+      "personality": "Distanceret og flydende. Rolige, selvsikre glid. Stille acceleration i slutspillet.",
+      "voiceLines": {
+        "neutral": ["Jeg har allerede set ruten.", "Jeg glider bare igennem."],
+        "playerAhead": ["Det ændrer ikke ruten.", "Samme udgang alligevel."],
+        "playerBehind": ["Det er egentlig ryddet.", "Jeg triller bare herfra."],
+        "endgame": ["…næsten ude.", "Jeg ruller mod udgangen."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "ræv",
+      "personality": "Intens og konkurrencelysten. Hurtig start, konstant pres. Spurten i slutspillet føles aggressiv.",
+      "voiceLines": {
+        "neutral": ["Hold trit.", "Sidder du stadig fast i trafikken?"],
+        "playerAhead": ["Gå ikke i stå nu.", "Du kan glide hurtigere end det."],
+        "playerBehind": ["For langsomt.", "Du er spærret inde."],
+        "endgame": ["Ryd banen.", "Den her udgang er min."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "haj",
+      "personality": "Tålmodig og rovdyrsagtig. Holder sig tæt på og slår så hårdt til i slutspillet.",
+      "voiceLines": {
+        "neutral": ["Lige bag dig.", "Ikke endnu."],
+        "playerAhead": ["Hold dig i dit spor.", "Nu er jeg tæt på."],
+        "playerBehind": ["Jeg kommer tættere på.", "Dér er hullet."],
+        "endgame": ["Nu glider vi ud.", "Jeg har udgangen."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "ugle",
+      "personality": "Rolig og overvejet. Jævnt tempo. Slutspillet er rent og uundgåeligt.",
+      "voiceLines": {
+        "neutral": ["Som ventet.", "Hver blok på sin plads."],
+        "playerAhead": ["Godt.", "Du kan se ruten."],
+        "playerBehind": ["Følg banen.", "Bliv ved."],
+        "endgame": ["Næsten igennem.", "Dér er udgangen."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "sort kat",
+      "personality": "Tavs og umenneskelig. Minimale pauser. Slutspillet er et hurtigt, uafbrudt glid mod udgangen.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…stadig."],
+        "playerBehind": ["For sent.", "Du tøvede."],
+        "endgame": ["…ude.", "Udgang."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drage",
+      "personality": "Ubesværet og absolut. Bevarer fuld kontrol hele vejen. I slutspillet gennemfører den et afgørende, uafbrudt sving mod udgangen — ingen åbninger, ingen modstand.",
+      "voiceLines": {
+        "neutral": ["Forventet.", "Ingen afvigelse."],
+        "playerAhead": ["Du gjorde klogt i at prøve.", "Fortsæt."],
+        "playerBehind": ["Dette er afgjort.", "Intet alternativ."],
+        "endgame": ["Det var alt.", "Frit."]
+      }
+    }
+  }
+}

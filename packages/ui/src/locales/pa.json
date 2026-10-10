@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "ਭਾਸ਼ਾ",
+    "automatic": "ਆਪਣੇ-ਆਪ"
+  },
+  "header": {
+    "offline": "ਔਫਲਾਈਨ",
+    "back": "ਪਿੱਛੇ"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "ਡਾਰਕ ਮੋਡ ਬਦਲੋ"
+  },
+  "starRating": {
+    "label_one": "{{count}} ਵਿੱਚੋਂ {{filled}} ਤਾਰਾ",
+    "label_other": "{{count}} ਵਿੱਚੋਂ {{filled}} ਤਾਰੇ"
+  },
+  "timer": {
+    "go": "ਸ਼ੁਰੂ!"
+  },
+  "themeColor": {
+    "change": "ਥੀਮ ਦਾ ਰੰਗ ਬਦਲੋ",
+    "set": "ਥੀਮ ਦਾ ਰੰਗ {{color}} ਕਰੋ",
+    "setPremium": "ਥੀਮ ਦਾ ਰੰਗ {{color}} ਕਰੋ (ਪ੍ਰੀਮੀਅਮ)",
+    "colors": {
+      "blue": "ਨੀਲਾ",
+      "red": "ਲਾਲ",
+      "green": "ਹਰਾ",
+      "purple": "ਜਾਮਨੀ",
+      "amber": "ਅੰਬਰ",
+      "cyan": "ਆਸਮਾਨੀ ਹਰਾ",
+      "pink": "ਗੁਲਾਬੀ",
+      "indigo": "ਗੂੜ੍ਹਾ ਨੀਲਾ",
+      "orange": "ਸੰਤਰੀ",
+      "teal": "ਫਿਰੋਜ਼ੀ",
+      "slate": "ਸਲੇਟੀ",
+      "rose": "ਗੁਲਾਬ ਰੰਗਾ",
+      "emerald": "ਪੰਨਾ ਹਰਾ",
+      "sky": "ਅਸਮਾਨੀ",
+      "violet": "ਬੈਂਗਣੀ",
+      "lime": "ਨਿੰਬੂ ਹਰਾ",
+      "fuchsia": "ਫ਼ੁਸ਼ੀਆ",
+      "yellow": "ਪੀਲਾ",
+      "stone": "ਪੱਥਰੀ",
+      "zinc": "ਜਸਤਾ"
+    }
+  },
+  "copyButton": {
+    "copied": "ਕਲਿੱਪਬੋਰਡ 'ਤੇ ਕਾਪੀ ਹੋ ਗਿਆ!",
+    "share": "ਸੱਦਾ ਲਿੰਕ ਸਾਂਝਾ ਕਰੋ",
+    "copy": "ਸੱਦਾ ਲਿੰਕ ਕਾਪੀ ਕਰੋ"
+  },
+  "share": {
+    "joinTeam": "{{appName}} 'ਤੇ ਰੇਸਿੰਗ ਟੀਮ ਨਾਲ ਜੁੜੋ!",
+    "joinNamedTeam": "{{appName}} 'ਤੇ {{partyName}} ਰੇਸਿੰਗ ਟੀਮ ਨਾਲ ਜੁੜੋ!",
+    "dialogTitle": "ਸੱਦਾ ਸਾਂਝਾ ਕਰੋ"
+  }
+}

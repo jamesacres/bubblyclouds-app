@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "চালিয়ে যেতে সাইন ইন করুন",
+    "signInWith": "{{provider}} দিয়ে সাইন ইন করুন",
+    "emailTitle": "ইমেইল দিয়ে সাইন ইন করুন",
+    "emailPlaceholder": "your@email.com",
+    "continue": "চালিয়ে যান",
+    "cancel": "বাতিল করুন",
+    "terms": "পরিষেবার শর্তাবলী",
+    "privacy": "গোপনীয়তা নীতি"
+  },
+  "header": {
+    "signIn": "সাইন ইন"
+  },
+  "avatar": {
+    "alt": "ব্যবহারকারী"
+  },
+  "panel": {
+    "title": "অ্যাকাউন্ট",
+    "greeting": "হাই, {{name}}!",
+    "fallbackName": "ব্যবহারকারী",
+    "plusActive": "{{gameName}} {{plus}} সক্রিয়",
+    "joinGamePlus": "{{gameName}} {{plus}} সদস্য হোন",
+    "joinPlus": "{{plus}} সদস্য হোন",
+    "signOut": "সাইন আউট",
+    "privacy": "গোপনীয়তা নীতি",
+    "terms": "পরিষেবার শর্তাবলী",
+    "credits": "কৃতজ্ঞতা",
+    "deleteAccount": "অ্যাকাউন্ট মুছুন",
+    "poweredBy": "{{companyName}} দ্বারা চালিত",
+    "deleteUnavailable": "অ্যাকাউন্ট মুছে ফেলার সুবিধা উপলব্ধ নয়।",
+    "deleteFailed": "অ্যাকাউন্ট মুছতে ব্যর্থ হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।"
+  },
+  "deleteDialog": {
+    "title": "অ্যাকাউন্ট মুছুন",
+    "warning": "এই পদক্ষেপ পূর্বাবস্থায় ফেরানো যাবে না। সব {{companyName}} অ্যাপ্লিকেশনে আপনার সমস্ত ডেটা স্থায়ীভাবে মুছে যাবে।",
+    "confirmation": "আমি নিশ্চিত করছি যে সব {{companyName}} অ্যাপ্লিকেশনের সমস্ত ডেটাসহ আমার পুরো অ্যাকাউন্ট মুছে ফেলতে চাই।",
+    "cancel": "বাতিল করুন",
+    "deleting": "মোছা হচ্ছে...",
+    "submit": "অ্যাকাউন্ট মুছুন"
+  }
+}

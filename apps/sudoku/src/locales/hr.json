@@ -1,0 +1,312 @@
+{
+  "brand": {
+    "appName": "Sudoku utrka",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Igrajte i dijelite kako biste se utrkivali u sudokuu s prijateljima. Dnevni izazovi i na više uređaja!"
+  },
+  "puzzle": {
+    "mobileDescription": "Uživajte u najboljem iskustvu utrke uz našu aplikaciju {{appName}}!",
+    "desktopDescription": "Preuzmite aplikaciju {{appName}}",
+    "openInAppLabel": "Otvorite zagonetku"
+  },
+  "crossPromo": {
+    "gameName": "Slobodna Utrka",
+    "tagline": "Klizite blokove i utrkujte se s prijateljima kako biste razriješili gužvu."
+  },
+  "notFound": {
+    "message": "Stranica nije pronađena"
+  },
+  "login": {
+    "dailyPuzzle": "Prijavite se za početak današnje zagonetke",
+    "puzzleBook": "Prijavite se za pregled knjige zagonetki",
+    "joinTeam": "Prijavite se za pridruživanje timu",
+    "raceLobby": "Prijavite se za utrku s drugima",
+    "puzzleEntry": "Prijavite se za igru",
+    "valueProps": {
+      "saveProgress": "Spremite svoj napredak",
+      "raceFriends": "Utrkujte se s prijateljima",
+      "trackStats": "Pratite svoju statistiku"
+    }
+  },
+  "plusModal": {
+    "description": "S pretplatom <badge>{{plusName}}</badge> <emphasis>uklonite sva ograničenja brzine</emphasis>. Izazovite prijatelje, penjite se na ljestvicama i poboljšajte brzinu rješavanja. Bez reklama."
+  },
+  "premiumFeatures": {
+    "title": "Premium značajke",
+    "subtitle": "Otključajte cjelovito iskustvo aplikacije {{appName}}",
+    "unlimitedPlay": {
+      "title": "Neograničena igra i utrke",
+      "description": "Utrkujte se s prijateljima u stvarnom vremenu više od jednom dnevno"
+    },
+    "unlimitedHints": {
+      "title": "Neograničeni nagovještaji",
+      "description": "Nikad ne zapnite – nagovještaj uvijek kad vam treba"
+    },
+    "monthlyBook": {
+      "title": "Cijela mjesečna knjiga otključana, svaki mjesec",
+      "description": "Igrajte svaku zagonetku na svakoj razini težine, bez zaključavanja"
+    },
+    "multipleTeams": {
+      "title": "Više timova za utrke",
+      "description": "Priređujte privatna natjecanja s prijateljima i obitelji"
+    },
+    "teamManagement": {
+      "title": "Upravljanje timom",
+      "description": "Stvorite velike timove do 15 osoba i uklanjajte članove iz svog tima."
+    },
+    "themes": {
+      "title": "Sve teme otključane",
+      "description": "Prilagodite svoje iskustvo utrke"
+    },
+    "unlimitedActions": {
+      "title": "Neograničeno poništavanje, provjera i otkrivanje",
+      "description": "Uklonite dnevna ograničenja poništavanja, provjere i otkrivanja"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Iskoristili ste svoj {{count}} besplatni nagovještaj danas.</bold> $t(brand.plus) vam daje neograničene nagovještaje – nikad više ne zapnite – i održava cijelu aplikaciju bez reklama.",
+    "hint_few": "💡 <bold>Iskoristili ste svoja {{count}} besplatna nagovještaja danas.</bold> $t(brand.plus) vam daje neograničene nagovještaje – nikad više ne zapnite – i održava cijelu aplikaciju bez reklama.",
+    "hint_other": "💡 <bold>Iskoristili ste svojih {{count}} besplatnih nagovještaja danas.</bold> $t(brand.plus) vam daje neograničene nagovještaje – nikad više ne zapnite – i održava cijelu aplikaciju bez reklama.",
+    "undo_one": "📅 <bold>Dosegnuli ste dnevno ograničenje poništavanja!</bold> Imate {{count}} besplatno poništavanje dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničeno poništavanje.",
+    "undo_few": "📅 <bold>Dosegnuli ste dnevno ograničenje poništavanja!</bold> Imate {{count}} besplatna poništavanja dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničeno poništavanje.",
+    "undo_other": "📅 <bold>Dosegnuli ste dnevno ograničenje poništavanja!</bold> Imate {{count}} besplatnih poništavanja dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničeno poništavanje.",
+    "checkGrid_one": "📅 <bold>Dosegnuli ste dnevno ograničenje provjere mreže!</bold> Imate {{count}} besplatnu provjeru mreže dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničene provjere.",
+    "checkGrid_few": "📅 <bold>Dosegnuli ste dnevno ograničenje provjere mreže!</bold> Imate {{count}} besplatne provjere mreže dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničene provjere.",
+    "checkGrid_other": "📅 <bold>Dosegnuli ste dnevno ograničenje provjere mreže!</bold> Imate {{count}} besplatnih provjera mreže dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničene provjere.",
+    "reveal": "🔓 <bold>Otkrivanje mreže premium je značajka!</bold> Pretplatite se da biste otključali otkrivanje cjelovitog rješenja.",
+    "themeColor": "🎨 <bold>Ova je tema ekskluzivna za $t(brand.plus).</bold> Nadogradite i otključajte sve prekrasne boje tema te prilagodite svoje iskustvo sudokua.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Dosegnuli ste dnevno ograničenje zagonetki!</bold> Besplatni korisnici mogu igrati {{count}} zagonetku dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničene zagonetke.",
+    "dailyPuzzleLimit_few": "🧩 <bold>Dosegnuli ste dnevno ograničenje zagonetki!</bold> Besplatni korisnici mogu igrati {{count}} zagonetke dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničene zagonetke.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Dosegnuli ste dnevno ograničenje zagonetki!</bold> Besplatni korisnici mogu igrati {{count}} zagonetki dnevno. Ograničenje se resetira sutra, a s pretplatom dobivate neograničene zagonetke.",
+    "collectionLocked": "✨ <bold>Ova zagonetka dio je knjige $t(brand.plus).</bold> $t(brand.plus) otključava svaku zagonetku u knjizi svakog mjeseca i održava cijelu aplikaciju bez reklama.",
+    "removeMember": "👥 <bold>Uklanjanje članova iz tima premium je značajka!</bold> Pretplatite se za napredno upravljanje timom, uključujući uklanjanje članova.",
+    "multipleParties": "🏘️ <bold>Više timova za utrke premium je značajka!</bold> Besplatni korisnici mogu imati jedan tim. Pretplatite se za stvaranje neograničenog broja timova za obitelj, prijatelje i više.",
+    "partyMaxSize": "👥 <bold>Veliki timovi premium su značajka!</bold> Pretplatite se za napredno upravljanje timom, uključujući velike timove."
+  },
+  "motivational": {
+    "messages": [
+      "Vaši prijatelji čekaju izazov",
+      "S kim ćete se danas utrkivati?",
+      "Vrijeme je da pokažete brzinu",
+      "Izazov prihvaćen?",
+      "Utrka do cilja",
+      "Tko je najbrži rješavač?",
+      "Spremni ovladati ljestvicom?",
+      "Vaše utrkaške vještine čekaju",
+      "Vrijeme je da ih ostavite iza sebe",
+      "Spremni prvi prijeći cilj?",
+      "Staza vas čeka",
+      "Vrijeme je za višu brzinu",
+      "Spremni zagrijati gume na mreži zagonetke?",
+      "Vaši se protivnici već zagrijavaju",
+      "Danas je dan za novi rekord",
+      "Vaš osobni rekord čeka da bude oboren",
+      "Svaka zagonetka čini vas bržima",
+      "Gradnja niza počinje sada",
+      "Vrijeme je da podignete igru na višu razinu",
+      "Vaš sljedeći iskorak udaljen je jednu zagonetku",
+      "Spremni iznenaditi sami sebe?",
+      "Pokažite od čega ste napravljeni",
+      "Vrijeme je da otključate svoj potencijal",
+      "Vaše najbrže rješavanje tek dolazi",
+      "Spremni da današnji dan bude uspješan?",
+      "Svaka se sekunda računa u utrci",
+      "Vrijeme je da pomaknete svoje granice",
+      "Vaš put napretka se nastavlja",
+      "Spremni nadmašiti očekivanja?",
+      "Mislite li da možete podnijeti pritisak?",
+      "Vrijeme je da utišate sumnjičave",
+      "Spremni izboriti pobjedu?",
+      "Vaša konkurencija ovo neće vidjeti dolaziti",
+      "Vrijeme je da ostavite svoj trag",
+      "Spremni zasjati u središtu pažnje?",
+      "Pobjeda je slađa kad je zaslužena",
+      "Vrijeme je da dokažete tko je glavni",
+      "Spremni pokazati svoje pravo lice?",
+      "Ovdje počinje pobjednički način razmišljanja",
+      "Vrijeme je da se izdvojite iz mase",
+      "Spremni napisati svoju legendu?",
+      "Pobjednici se stvaraju u ovakvim trenucima",
+      "Vrijeme je da potencijal pretvorite u učinak",
+      "Nove zagonetke, nove prilike",
+      "Današnji izazov čeka vaše majstorstvo",
+      "Spremni da ovo bude vaš najbolji dan dosad?",
+      "Novi dan donosi nove rekorde za obaranje",
+      "Vrijeme je da svojoj zbirci dodate još jednu pobjedu",
+      "Spremni snažno započeti i još snažnije završiti?",
+      "Spremni da današnji dan postane legendaran?",
+      "Vaša dnevna doza trijumfa čeka",
+      "Strategija susreće brzinu na mreži",
+      "Spremni nadmudriti i preteći?",
+      "Vaše majstorstvo u zagonetkama zove",
+      "Vrijeme je da spojite logiku i munjevitu brzinu",
+      "Spremni rješavati kirurškom preciznošću?",
+      "Savršena kombinacija: vještina i brzina",
+      "Vaša analitička prednost je vaša prednost u utrci",
+      "Vrijeme je da pokažete nadmoć u zagonetkama",
+      "Spremni rješavati poput pobjednika?",
+      "Precizna utrka počinje jasnim razmišljanjem",
+      "Vaši prijatelji čekaju revanš",
+      "Tko danas rješava?",
+      "Nova dnevna zagonetka je spremna",
+      "Vaš niz je na kocki",
+      "Nove zagonetke, novi početak",
+      "Današnji izazov je tu",
+      "Utrkujte se s prijateljem na dnevnoj zagonetki",
+      "Novi dan, nove zagonetke",
+      "Netko je već na ljestvici",
+      "Održite niz živim",
+      "Dnevni izazovi upravo su osvježeni",
+      "Vaš tim vas čeka",
+      "Jedna zagonetka bliže vrhu",
+      "Današnje zagonetke čekaju vas",
+      "Vratite se i utrkujte se"
+    ]
+  },
+  "home": {
+    "live": "Uživo",
+    "headline": "Spremni za utrku? 🏁",
+    "subtitle": "Podijelite izazov – pozovite prijatelje i vidite tko je najbrži rješavač sudokua.",
+    "leaderboard": "Ljestvica",
+    "daily": {
+      "title": "Dnevni izazovi",
+      "refreshes": "osvježava se svaki dan",
+      "moreLevels": "Više razina težine u <bookLink>knjizi zagonetki</bookLink>",
+      "difficulty": {
+        "simple": "Lukavo",
+        "easy": "Izazovno",
+        "intermediate": "Teško"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} zagonetka",
+      "summary_few": "{{month}} · {{count}} zagonetke",
+      "summary_other": "{{month}} · {{count}} zagonetki",
+      "title": "Mjesečna knjiga",
+      "browse": "Pregledajte zagonetke"
+    },
+    "import": {
+      "title": "Uvezite bilo koju zagonetku",
+      "description": "Skenirajte kamerom ili zalijepite niz zagonetke",
+      "desktopTitle": "Utrkujte se na bilo kojoj zagonetki",
+      "desktopDescription": "Skenirajte iz knjige ili novina"
+    },
+    "teams": {
+      "title": "Timovi za utrke",
+      "withFriends": "Utrka: {{friends}} i drugi",
+      "noFriends": "Izazovite prijatelje na utrku"
+    },
+    "tabs": {
+      "startRace": "Početak utrke",
+      "myPuzzles": "Moje zagonetke",
+      "racingTeams": "Timovi za utrke"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Učitavanje knjige zagonetki...",
+      "puzzles": "Učitavanje zagonetki...",
+      "progress": "Učitavanje vašeg napretka..."
+    },
+    "tryAgain": "Pokušajte ponovno",
+    "backHome": "Natrag na početnu",
+    "signInPrompt": "Prijavite se za pristup knjizi zagonetki.",
+    "signIn": "Prijava",
+    "noData": "Nema dostupnih podataka o knjizi zagonetki.",
+    "title": "Knjiga zagonetki: {{month}}",
+    "puzzleCount_one": "{{count}} zagonetka usmjerena na tehniku",
+    "puzzleCount_few": "{{count}} zagonetke usmjerene na tehniku",
+    "puzzleCount_other": "{{count}} zagonetki usmjerenih na tehniku",
+    "completed": "{{count}} dovršeno",
+    "inProgress": "{{count}} u tijeku",
+    "unlockWithPlus": "Otključajte sve zagonetke uz $t(brand.plus)",
+    "jumpToDifficulty": "Skok na težinu",
+    "scrollToTop": "Na vrh",
+    "difficulty": {
+      "veryEasy": "Vrlo lako",
+      "easy": "Lako",
+      "moderatelyEasy": "Umjereno lako",
+      "moderate": "Umjereno",
+      "moderatelyHard": "Umjereno teško",
+      "hard": "Teško",
+      "vicious": "Opako",
+      "fiendish": "Podmuklo",
+      "devilish": "Đavolski",
+      "hell": "Pakao",
+      "beyondHell": "Izvan pakla"
+    }
+  },
+  "invite": {
+    "loading": "Učitavanje pozivnice...",
+    "iconAlt": "Ikona: {{gameName}}",
+    "greeting": "👋 Bok!",
+    "greetingNamed": "👋 Bok, {{name}}!",
+    "invited": "Pozvani ste!",
+    "joinTeam": "Pridružite se timu za utrke <team/>",
+    "description": "Rješavajte sudoku zagonetke zajedno i pratite napredak jedni drugih u stvarnom vremenu!",
+    "proTip": "💡 <bold>Savjet:</bold> Sve buduće zagonetke koje igrate dijelit će se s članovima vašeg tima za prijateljsko natjecanje!",
+    "nicknameLabel": "Kako vas zove vaš tim za utrke?",
+    "nicknamePlaceholder": "Unesite svoj nadimak",
+    "joining": "Pridruživanje timu...",
+    "join": "Pridružite se zabavi! 🎉",
+    "signIn": "Prijavite se za nastavak",
+    "bonus": {
+      "title": "🎉 Bonus: {{plusName}} – {{duration}}!",
+      "duration": {
+        "oneMonth": "jedan mjesec",
+        "oneYear": "jedna godina",
+        "lifetime": "doživotno",
+        "premium": "premium"
+      },
+      "subtitle": "Pridruživanjem ovom timu za utrke potpuno besplatno otključavate premium značajke!",
+      "note": "💡 Vaš premium pristup aktivirat će se automatski nakon pridruživanja"
+    },
+    "expired": {
+      "title": "Pozivnica je istekla",
+      "body": "Ova poveznica pozivnice više nije valjana. Zamolite prijatelja za novu pozivnicu ili povećajte veličinu tima."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Unesite niz zagonetke",
+      "help": "Zalijepite niz od 81 znaka ili HoDoKu mrežu – koristite znamenke 1–9 te 0 ili . za prazne ćelije.",
+      "submit": "Uvezite zagonetku"
+    },
+    "orScan": "ili skenirajte kamerom",
+    "cameraHelp": "Usmjerite kameru na neriješeni sudoku i pričekajte da bude prepoznat.",
+    "errors": {
+      "parse": "Zagonetku nije moguće pročitati. Zalijepite niz od 81 znaka ili HoDoKu mrežu.",
+      "solverLoading": "Rješavač se još učitava – pokušajte ponovno.",
+      "noSolution": "Rješenje nije pronađeno. Provjerite zagonetku.",
+      "camera": "Kameru nije moguće pokrenuti. Provjerite dopuštenja i pokušajte ponovno."
+    }
+  },
+  "credits": {
+    "title": "Zasluge i atribucija",
+    "subtitle": "Ova je aplikacija izgrađena na nekoliko izvrsnih projekata",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Ova je aplikacija licencirana pod MIT licencijom. Pojedinosti potražite u datotekama <licenseLink>LICENSE</licenseLink> i <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "humanSudokuSolver": "TypeScript biblioteka koja rješava sudoku zagonetke ljudskim tehnikama.",
+      "qqwing": "Generiranje zagonetki za sudoku dana",
+      "tdoku": "Brzi rješavač sudokua za skenirane zagonetke",
+      "arBrowserSudoku": "Tehnologija skenera proširene stvarnosti",
+      "sudokuCoach": "Inspiracija za algoritme izračuna težine",
+      "nextjs": "React okvir za produkciju",
+      "typescript": "Tipizirani nadskup JavaScripta",
+      "tailwind": "CSS okvir temeljen na uslužnim klasama",
+      "capacitor": "Izvršno okruženje za izvorne mobilne aplikacije",
+      "electron": "Okvir za desktop aplikacije",
+      "tensorflow": "Strojno učenje za AR značajke",
+      "revenuecat": "Upravljanje pretplatama",
+      "react": "Biblioteka UI komponenti",
+      "turborepo": "Sustav za izgradnju monorepozitorija"
+    }
+  }
+}

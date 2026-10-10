@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "스도쿠 레이스",
+      "gameName": "스도쿠",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "스도쿠 Plus"
+    },
+    "terms": {
+      "race": "레이스",
+      "team": "팀",
+      "leaderboard": "리더보드",
+      "hint": "힌트",
+      "undo": "되돌리기",
+      "theme": "테마",
+      "dailyPuzzle": "매일 퍼즐",
+      "monthlyCollection": "월간 퍼즐북",
+      "aiOpponent": "AI 상대",
+      "monthly": "월간",
+      "lifetime": "평생 이용권",
+      "plusAccess": "Plus 이용권",
+      "plusFeatureLine": "무제한 레이스, 팀, 테마, 되돌리기"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "언블록 레이스",
+      "gameName": "언블록 레이스",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "레이스",
+      "team": "팀",
+      "leaderboard": "리더보드",
+      "hint": "힌트",
+      "undo": "되돌리기",
+      "theme": "테마",
+      "dailyPuzzle": "매일 퍼즐",
+      "monthlyCollection": "월간 퍼즐 컬렉션",
+      "aiOpponent": "AI 상대",
+      "monthly": "월간",
+      "lifetime": "평생 이용권",
+      "plusAccess": "Plus 이용권",
+      "plusFeatureLine": "무제한 레이스, 팀, 테마, 되돌리기"
+    }
+  }
+}

@@ -69,7 +69,7 @@ const measureCells = (el: HTMLDivElement): Point[] => {
 };
 
 // Position of a specific digit within a cell's 3×3 notes grid.
-// Digits 1-9 are laid out left-to-right, top-to-bottom.
+// Digits 1-9 are laid out in reading order of the LTR grid, top-to-bottom.
 // Returns centre of that digit's sub-cell.
 const digitCentre = (
   cellCentre: Point,

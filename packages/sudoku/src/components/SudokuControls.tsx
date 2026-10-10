@@ -383,8 +383,8 @@ const SudokuControls = ({
             {/* Owl speech bubble */}
             <div className="flex items-start gap-3">
               <span className="text-3xl leading-none">🦉</span>
-              <div className="relative whitespace-pre-line rounded-2xl rounded-tl-sm bg-amber-100 p-3 text-sm font-medium text-amber-900 dark:bg-amber-900/30 dark:text-amber-100">
-                <div className="absolute -left-2 top-3 h-0 w-0 border-b-8 border-r-8 border-t-8 border-b-transparent border-r-amber-100 border-t-transparent dark:border-r-amber-900/30" />
+              <div className="relative whitespace-pre-line rounded-2xl rounded-ss-sm bg-amber-100 p-3 text-sm font-medium text-amber-900 dark:bg-amber-900/30 dark:text-amber-100">
+                <div className="absolute -start-2 top-3 h-0 w-0 border-b-8 border-e-8 border-t-8 border-b-transparent border-e-amber-100 border-t-transparent dark:border-e-amber-900/30" />
                 {owlTyping ? (
                   <span className="inline-flex translate-y-0.5 items-end gap-1 leading-none">
                     <span className="animate-bounce text-sm [animation-delay:0ms] [animation-duration:300ms]">
@@ -475,8 +475,8 @@ const SudokuControls = ({
             {/* User response bubble */}
             {!owlTyping && (
               <div className="flex items-start justify-end gap-3">
-                <div className="relative rounded-2xl rounded-tr-sm bg-gray-100 p-3 dark:bg-zinc-800">
-                  <div className="absolute -right-2 top-3 h-0 w-0 border-b-8 border-l-8 border-t-8 border-b-transparent border-l-gray-100 border-t-transparent dark:border-l-zinc-800" />
+                <div className="relative rounded-2xl rounded-se-sm bg-gray-100 p-3 dark:bg-zinc-800">
+                  <div className="absolute -end-2 top-3 h-0 w-0 border-b-8 border-s-8 border-t-8 border-b-transparent border-s-gray-100 border-t-transparent dark:border-s-zinc-800" />
                   {userTyping ? (
                     <span className="inline-flex translate-y-0.5 items-end gap-1 leading-none">
                       <span className="animate-bounce text-sm text-gray-900 [animation-delay:0ms] [animation-duration:300ms] dark:text-white">
@@ -542,7 +542,7 @@ const SudokuControls = ({
             )}
           </div>
         ) : (
-          <div className="mb-0 flex items-center justify-between border-b border-gray-200 pb-3 lg:mb-3 dark:border-gray-600">
+          <div className="mb-0 flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 pb-3 lg:mb-3 dark:border-gray-600">
             <div className="flex-1">
               <button
                 onClick={handleHint}
@@ -551,7 +551,7 @@ const SudokuControls = ({
                 <MessageCircle size={10} />
                 {t('controls.askForHelp')}
                 {!isSubscribed && !canUseHint() && (
-                  <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                  <span className="absolute -end-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                     ✨
                   </span>
                 )}
@@ -592,7 +592,7 @@ const SudokuControls = ({
 
             {/* Action buttons - compact layout for mobile */}
             <div className="order-2 w-full flex-1 overflow-visible lg:order-2 lg:w-auto">
-              <div className="grid grid-cols-3 gap-2 overflow-visible">
+              <div className="grid grid-cols-3 gap-2 overflow-visible [&>*]:min-w-0 [&>*]:break-words [&>*]:text-center">
                 {/* Row 1: Delete, Undo, and Redo */}
                 <button
                   disabled={isDeleteDisabled}
@@ -607,10 +607,10 @@ const SudokuControls = ({
                   onClick={() => undo()}
                   className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 dark:disabled:bg-zinc-800"
                 >
-                  <CornerUpLeft size={15} />
+                  <CornerUpLeft size={15} className="rtl:-scale-x-100" />
                   {t('controls.undo')}
                   {!isSubscribed && !canUseUndo() && (
-                    <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                    <span className="absolute -end-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                       ✨
                     </span>
                   )}
@@ -621,7 +621,7 @@ const SudokuControls = ({
                   className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 dark:disabled:bg-zinc-800"
                 >
                   {t('controls.redo')}
-                  <CornerUpRight size={15} />
+                  <CornerUpRight size={15} className="rtl:-scale-x-100" />
                 </button>
               </div>
 
@@ -633,7 +633,7 @@ const SudokuControls = ({
                     : 'max-h-0 opacity-0 lg:max-h-96 lg:opacity-100'
                 }`}
               >
-                <div className="mb-2 grid grid-cols-3 gap-2 overflow-visible">
+                <div className="mb-2 grid grid-cols-3 gap-2 overflow-visible [&>*]:min-w-0 [&>*]:break-words [&>*]:text-center">
                   {/* Check Cell, Check Grid, Zoom Mode */}
                   <button
                     disabled={isValidateCellDisabled}
@@ -651,7 +651,7 @@ const SudokuControls = ({
                     <Grid size={15} />
                     {t('controls.grid')}
                     {!isSubscribed && !canUseCheckGrid() && (
-                      <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                      <span className="absolute -end-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                         ✨
                       </span>
                     )}
@@ -669,7 +669,7 @@ const SudokuControls = ({
                     {t('controls.zoom')}
                   </button>
                 </div>
-                <div className="grid grid-cols-2 gap-2 overflow-visible">
+                <div className="grid grid-cols-2 gap-2 overflow-visible [&>*]:min-w-0 [&>*]:break-words [&>*]:text-center">
                   <button
                     disabled={disabled}
                     onClick={() => setConfirmAction('reset')}
@@ -686,7 +686,7 @@ const SudokuControls = ({
                     <Unlock size={15} />
                     {t('controls.reveal')}
                     {!isSubscribed && (
-                      <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                      <span className="absolute -end-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                         ✨
                       </span>
                     )}

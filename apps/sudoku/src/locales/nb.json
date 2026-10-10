@@ -1,0 +1,306 @@
+{
+  "brand": {
+    "appName": "Sudokuløp",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Spill og del for å løpe mot venner i sudoku. Daglige utfordringer og på tvers av enheter!"
+  },
+  "puzzle": {
+    "mobileDescription": "Få den beste løpsopplevelsen med appen {{appName}}!",
+    "desktopDescription": "Last ned {{appName}}",
+    "openInAppLabel": "Åpne puslespill"
+  },
+  "crossPromo": {
+    "gameName": "Frigjør Løpet",
+    "tagline": "Skyv blokkene og løp mot venner for å løse trafikkorken."
+  },
+  "notFound": {
+    "message": "Siden ble ikke funnet"
+  },
+  "login": {
+    "dailyPuzzle": "Logg inn for å starte dagens puslespill",
+    "puzzleBook": "Logg inn for å bla i puslespillboken",
+    "joinTeam": "Logg inn for å bli med i laget",
+    "raceLobby": "Logg inn for å løpe mot andre",
+    "puzzleEntry": "Logg inn for å spille",
+    "valueProps": {
+      "saveProgress": "Lagre fremgangen din",
+      "raceFriends": "Løp mot venner",
+      "trackStats": "Følg statistikken din"
+    }
+  },
+  "plusModal": {
+    "description": "Bli med i <badge>{{plusName}}</badge> for å <emphasis>fjerne alle fartsgrenser</emphasis>. Utfordre venner, klatre på resultatlistene og bli raskere til å løse. Uten reklame."
+  },
+  "premiumFeatures": {
+    "title": "Premium-funksjoner",
+    "subtitle": "Lås opp hele {{appName}}-opplevelsen",
+    "unlimitedPlay": {
+      "title": "Ubegrenset spill og løp",
+      "description": "Løp mot venner i sanntid mer enn én gang om dagen"
+    },
+    "unlimitedHints": {
+      "title": "Ubegrensede hint",
+      "description": "Aldri stå fast — få et hint når du trenger det"
+    },
+    "monthlyBook": {
+      "title": "Hele månedsboken åpen, hver måned",
+      "description": "Spill alle puslespill i alle vanskelighetsgrader, uten låser"
+    },
+    "multipleTeams": {
+      "title": "Flere løpslag",
+      "description": "Arranger private konkurranser med venner og familie"
+    },
+    "teamManagement": {
+      "title": "Lagadministrasjon",
+      "description": "Opprett store lag med opptil 15 personer, og fjern medlemmer fra laget ditt."
+    },
+    "themes": {
+      "title": "Alle temaer åpne",
+      "description": "Gjør løpsopplevelsen din personlig"
+    },
+    "unlimitedActions": {
+      "title": "Ubegrenset angring, sjekking og avsløring",
+      "description": "Fjern de daglige grensene for angring, sjekking og avsløring"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Du har brukt ditt {{count}} gratis hint i dag.</bold> $t(brand.plus) gir deg ubegrensede hint — aldri stå fast igjen — og holder hele appen reklamefri.",
+    "hint_other": "💡 <bold>Du har brukt dine {{count}} gratis hint i dag.</bold> $t(brand.plus) gir deg ubegrensede hint — aldri stå fast igjen — og holder hele appen reklamefri.",
+    "undo_one": "📅 <bold>Du har nådd den daglige grensen for angring!</bold> Du får {{count}} gratis angring per dag. Grensen nullstilles i morgen, eller abonner for ubegrenset angring.",
+    "undo_other": "📅 <bold>Du har nådd den daglige grensen for angring!</bold> Du får {{count}} gratis angringer per dag. Grensen nullstilles i morgen, eller abonner for ubegrenset angring.",
+    "checkGrid_one": "📅 <bold>Du har nådd den daglige grensen for sjekking av rutenettet!</bold> Du får {{count}} gratis sjekk av rutenettet per dag. Grensen nullstilles i morgen, eller abonner for ubegrenset sjekking.",
+    "checkGrid_other": "📅 <bold>Du har nådd den daglige grensen for sjekking av rutenettet!</bold> Du får {{count}} gratis sjekker av rutenettet per dag. Grensen nullstilles i morgen, eller abonner for ubegrenset sjekking.",
+    "reveal": "🔓 <bold>Å avsløre rutenettet er en premium-funksjon!</bold> Abonner for å låse opp muligheten til å avsløre hele løsningen.",
+    "themeColor": "🎨 <bold>Dette temaet er eksklusivt for $t(brand.plus).</bold> Oppgrader for å låse opp alle de vakre temafargene og gjøre sudokuopplevelsen din personlig.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Du har nådd den daglige puslespillgrensen!</bold> Gratisbrukere kan spille {{count}} puslespill per dag. Grensen nullstilles i morgen, eller abonner for ubegrenset antall puslespill.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Du har nådd den daglige puslespillgrensen!</bold> Gratisbrukere kan spille {{count}} puslespill per dag. Grensen nullstilles i morgen, eller abonner for ubegrenset antall puslespill.",
+    "collectionLocked": "✨ <bold>Dette puslespillet er en del av $t(brand.plus)-boka.</bold> $t(brand.plus) låser opp alle puslespill i hver måneds bok, og holder hele appen reklamefri.",
+    "removeMember": "👥 <bold>Å fjerne medlemmer fra laget er en premium-funksjon!</bold> Abonner for å låse opp avansert lagadministrasjon, inkludert fjerning av medlemmer.",
+    "multipleParties": "🏘️ <bold>Flere løpslag er en premium-funksjon!</bold> Gratisbrukere kan ha ett lag. Abonner for å opprette og bli med i ubegrenset antall lag for familie, venner og mer.",
+    "partyMaxSize": "👥 <bold>Store lag er en premium-funksjon!</bold> Abonner for å låse opp avansert lagadministrasjon, inkludert store lag."
+  },
+  "motivational": {
+    "messages": [
+      "Vennene dine venter på en utfordring",
+      "Hvem skal du løpe mot i dag?",
+      "På tide å vise farten din",
+      "Utfordring akseptert?",
+      "Løp mot målstreken",
+      "Hvem er den raskeste løseren?",
+      "Klar til å dominere resultatlisten?",
+      "Løpsferdighetene dine venter",
+      "På tide å la dem ligge igjen i støvet",
+      "Klar til å krysse målstreken først?",
+      "Banen venter på deg",
+      "På tide å skifte opp",
+      "Klar til å brenne gummi på puslespillrutenettet?",
+      "Motstanderne dine varmer allerede opp",
+      "I dag er dagen for å sette ny rekord",
+      "Din personlige rekord venter på å bli slått",
+      "Hvert puslespill gjør deg raskere",
+      "Nå begynner rekka å bygges",
+      "På tide å ta spillet ditt til neste nivå",
+      "Neste gjennombrudd er ett puslespill unna",
+      "Klar til å overraske deg selv?",
+      "Vis dem hva du er laget av",
+      "På tide å låse opp potensialet ditt",
+      "Din raskeste løsning ligger fortsatt foran deg",
+      "Klar til å få dagen til å telle?",
+      "Hvert sekund teller i løpet",
+      "På tide å flytte grensene dine",
+      "Fremgangen din fortsetter",
+      "Klar til å overgå forventningene?",
+      "Tror du at du takler presset?",
+      "På tide å få tvilerne til å tie",
+      "Klar til å ta seieren?",
+      "Konkurrentene dine ser ikke dette komme",
+      "På tide å sette ditt preg",
+      "Klar til å stjele rampelyset?",
+      "Seieren smaker bedre når den er fortjent",
+      "På tide å vise hvem som er sjefen",
+      "Klar til å vise ditt sanne jeg?",
+      "Mesterskapsinnstillingen starter her",
+      "På tide å skille deg fra mengden",
+      "Klar til å skrive din egen legende?",
+      "Mestere skapes i øyeblikk som dette",
+      "På tide å gjøre potensial om til prestasjon",
+      "Nye puslespill, nye muligheter",
+      "Dagens utfordring venter på mesterskapet ditt",
+      "Klar til å gjøre dette til din beste dag så langt?",
+      "En ny dag betyr nye rekorder å slå",
+      "På tide å legge til en seier til i samlingen",
+      "Klar til å starte sterkt og avslutte enda sterkere?",
+      "Klar til å gjøre dagen legendarisk?",
+      "Dagens dose seier venter",
+      "Strategi møter fart på rutenettet",
+      "Klar til å overliste og utmanøvrere?",
+      "Puslespillferdighetene dine kaller",
+      "På tide å blande logikk med lynrask fart",
+      "Klar til å løse med kirurgisk presisjon?",
+      "Den perfekte kombinasjonen: ferdighet og fart",
+      "Din analytiske styrke er din fordel i løpet",
+      "På tide å vise puslespillherredømme",
+      "Klar til å løse som en mester?",
+      "Presisjonsløp starter med klar tenkning",
+      "Vennene dine venter på omkamp",
+      "Hvem løser i dag?",
+      "Et nytt daglig puslespill er klart",
+      "Rekka di står på spill",
+      "Nye puslespill, ny start",
+      "Dagens utfordring er oppe",
+      "Løp mot en venn på dagens puslespill",
+      "Ny dag, nye puslespill",
+      "Noen ligger allerede på resultatlisten",
+      "Hold rekka i live",
+      "De daglige utfordringene er nettopp oppdatert",
+      "Laget ditt venter",
+      "Ett puslespill nærmere toppen",
+      "Dagens puslespill venter på deg",
+      "Hopp inn igjen og løp"
+    ]
+  },
+  "home": {
+    "live": "Live",
+    "headline": "Klar for løp? 🏁",
+    "subtitle": "Del utfordringen — inviter venner og se hvem som er raskest til å løse sudoku.",
+    "leaderboard": "Resultatliste",
+    "daily": {
+      "title": "Daglige utfordringer",
+      "refreshes": "oppdateres daglig",
+      "moreLevels": "Flere vanskelighetsgrader i <bookLink>puslespillboken</bookLink>",
+      "difficulty": {
+        "simple": "Litt vrien",
+        "easy": "Utfordrende",
+        "intermediate": "Vanskelig"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} puslespill",
+      "summary_other": "{{month}} · {{count}} puslespill",
+      "title": "Månedlig bok",
+      "browse": "Bla i puslespill"
+    },
+    "import": {
+      "title": "Importer et hvilket som helst puslespill",
+      "description": "Skann med kameraet eller lim inn en puslespillstreng",
+      "desktopTitle": "Løp på et hvilket som helst puslespill",
+      "desktopDescription": "Skann fra en bok eller avis"
+    },
+    "teams": {
+      "title": "Løpslag",
+      "withFriends": "Løp mot {{friends}} og flere",
+      "noFriends": "Utfordre venner til et løp"
+    },
+    "tabs": {
+      "startRace": "Start løp",
+      "myPuzzles": "Mine puslespill",
+      "racingTeams": "Løpslag"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Laster puslespillboken...",
+      "puzzles": "Laster puslespill...",
+      "progress": "Laster fremgangen din..."
+    },
+    "tryAgain": "Prøv igjen",
+    "backHome": "Tilbake til start",
+    "signInPrompt": "Logg inn for å få tilgang til puslespillboken.",
+    "signIn": "Logg inn",
+    "noData": "Ingen data for puslespillboken er tilgjengelig.",
+    "title": "Puslespillbok for {{month}}",
+    "puzzleCount_one": "{{count}} teknikkfokusert puslespill",
+    "puzzleCount_other": "{{count}} teknikkfokuserte puslespill",
+    "completed": "{{count}} fullført",
+    "inProgress": "{{count}} pågår",
+    "unlockWithPlus": "Lås opp alle puslespill med $t(brand.plus)",
+    "jumpToDifficulty": "Hopp til vanskelighetsgrad",
+    "scrollToTop": "Rull til toppen",
+    "difficulty": {
+      "veryEasy": "Veldig lett",
+      "easy": "Lett",
+      "moderatelyEasy": "Ganske lett",
+      "moderate": "Middels",
+      "moderatelyHard": "Ganske vanskelig",
+      "hard": "Vanskelig",
+      "vicious": "Ondskapsfull",
+      "fiendish": "Djevelsk",
+      "devilish": "Diabolsk",
+      "hell": "Helvete",
+      "beyondHell": "Hinsides helvete"
+    }
+  },
+  "invite": {
+    "loading": "Laster invitasjonen...",
+    "iconAlt": "{{gameName}}-ikon",
+    "greeting": "👋 Hei!",
+    "greetingNamed": "👋 Hei {{name}}!",
+    "invited": "Du er invitert!",
+    "joinTeam": "Bli med på løpslaget <team/>",
+    "description": "Løs sudoku sammen og se hverandres fremgang i sanntid!",
+    "proTip": "💡 <bold>Proff-tips:</bold> Alle fremtidige puslespill du spiller deles med lagkameratene dine for vennlig konkurranse!",
+    "nicknameLabel": "Hva kaller løpslaget deg?",
+    "nicknamePlaceholder": "Skriv inn kallenavnet ditt",
+    "joining": "Blir med i laget...",
+    "join": "Bli med på moroa! 🎉",
+    "signIn": "Logg inn for å fortsette",
+    "bonus": {
+      "title": "🎉 Bonus: Få {{plusName}} — {{duration}}!",
+      "duration": {
+        "oneMonth": "én måned",
+        "oneYear": "ett år",
+        "lifetime": "for livet",
+        "premium": "premium"
+      },
+      "subtitle": "Ved å bli med på dette løpslaget låser du opp premium-funksjoner helt gratis!",
+      "note": "💡 Premium-tilgangen din aktiveres automatisk når du har blitt med"
+    },
+    "expired": {
+      "title": "Invitasjonen har utløpt",
+      "body": "Denne invitasjonslenken er ikke lenger gyldig. Be vennen din om en ny invitasjon, eller øk lagstørrelsen."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Skriv inn en puslespillstreng",
+      "help": "Lim inn en streng på 81 tegn eller et HoDoKu-rutenett — bruk sifrene 1–9 og 0 eller . for tomme celler.",
+      "submit": "Importer puslespill"
+    },
+    "orScan": "eller skann med kameraet",
+    "cameraHelp": "Rett kameraet mot et uløst sudokupuslespill og vent til det blir gjenkjent.",
+    "errors": {
+      "parse": "Kunne ikke tolke puslespillet. Lim inn en streng på 81 tegn eller et HoDoKu-rutenett.",
+      "solverLoading": "Løseren lastes fortsatt — prøv igjen.",
+      "noSolution": "Fant ingen løsning. Sjekk puslespillet.",
+      "camera": "Kunne ikke starte kameraet. Sjekk tillatelsene og prøv igjen."
+    }
+  },
+  "credits": {
+    "title": "Bidragsytere og kreditering",
+    "subtitle": "Denne appen er bygget på flere utmerkede prosjekter",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Denne appen er lisensiert under MIT-lisensen. Se <licenseLink>LICENSE</licenseLink> og <creditsLink>CREDITS</creditsLink> for detaljer.",
+    "items": {
+      "humanSudokuSolver": "TypeScript-bibliotek som løser sudoku med menneskelige teknikker.",
+      "qqwing": "Generering av dagens sudoku",
+      "tdoku": "Rask sudokuløser for skannede puslespill",
+      "arBrowserSudoku": "Skannerteknologi med utvidet virkelighet",
+      "sudokuCoach": "Inspirasjon til algoritmer for beregning av vanskelighetsgrad",
+      "nextjs": "React-rammeverk for produksjon",
+      "typescript": "Typet supersett av JavaScript",
+      "tailwind": "CSS-rammeverk med verktøyklasser først",
+      "capacitor": "Kjøremiljø for native mobilapper",
+      "electron": "Rammeverk for skrivebordsapper",
+      "tensorflow": "Maskinlæring for AR-funksjoner",
+      "revenuecat": "Abonnementsadministrasjon",
+      "react": "Bibliotek for UI-komponenter",
+      "turborepo": "Byggesystem for monorepo"
+    }
+  }
+}

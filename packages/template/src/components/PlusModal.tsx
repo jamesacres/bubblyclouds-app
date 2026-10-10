@@ -106,7 +106,7 @@ const PlusModal = ({
               modal?.hideModal();
               modal.cancelCallback();
             }}
-            className="absolute right-4 top-4 z-10 cursor-pointer rounded-full p-2 text-gray-400 backdrop-blur-sm transition-all hover:bg-gray-200/80 hover:text-gray-600 dark:hover:bg-gray-700/80 dark:hover:text-gray-300"
+            className="absolute end-4 top-4 z-10 cursor-pointer rounded-full p-2 text-gray-400 backdrop-blur-sm transition-all hover:bg-gray-200/80 hover:text-gray-600 dark:hover:bg-gray-700/80 dark:hover:text-gray-300"
             aria-label={t('plus.close')}
           >
             <X className="h-5 w-5" />
@@ -133,16 +133,16 @@ const PlusModal = ({
             {/* Pricing Options */}
             <div className="mb-6 space-y-3 px-6">
               <div
-                className={`flex cursor-pointer items-center justify-between rounded-xl border-2 p-4 ${
+                className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl border-2 p-4 ${
                   selectedPlan === 'lifetime'
                     ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                     : 'border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700'
                 }`}
                 onClick={() => setSelectedPlan('lifetime')}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex min-w-0 items-center space-x-3">
                   <div
-                    className={`flex h-6 w-6 items-center justify-center rounded-full ${
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
                       selectedPlan === 'lifetime'
                         ? 'bg-blue-500 text-white'
                         : 'border-2 border-gray-300 dark:border-gray-500'
@@ -156,22 +156,22 @@ const PlusModal = ({
                     {t('plus.lifetime')}
                   </span>
                 </div>
-                <span className="font-bold text-gray-900 dark:text-white">
+                <span className="text-end font-bold text-gray-900 dark:text-white">
                   {lifetimePriceString}
                 </span>
               </div>
 
               <div
-                className={`flex cursor-pointer items-center justify-between rounded-xl border-2 p-4 ${
+                className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl border-2 p-4 ${
                   selectedPlan === 'monthly'
                     ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                     : 'border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700'
                 }`}
                 onClick={() => setSelectedPlan('monthly')}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex min-w-0 items-center space-x-3">
                   <div
-                    className={`flex h-6 w-6 items-center justify-center rounded-full ${
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
                       selectedPlan === 'monthly'
                         ? 'bg-blue-500 text-white'
                         : 'border-2 border-gray-300 dark:border-gray-500'
@@ -185,7 +185,7 @@ const PlusModal = ({
                     {t('plus.monthly')}
                   </span>
                 </div>
-                <span className="font-bold text-gray-900 dark:text-white">
+                <span className="text-end font-bold text-gray-900 dark:text-white">
                   {t('plus.perMonth', { price: monthlyPriceString })}
                 </span>
               </div>
@@ -205,8 +205,8 @@ const PlusModal = ({
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white">
                       <feature.icon className="h-6 w-6" />
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <div className="min-w-0">
+                      <h4 className="break-words font-semibold text-gray-900 dark:text-white">
                         {feature.title}
                       </h4>
                       {feature.description && (
@@ -259,7 +259,7 @@ const PlusModal = ({
               </button>
               <div className="flex gap-4">
                 <button
-                  className="flex flex-1 cursor-pointer items-center justify-center py-2 text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
+                  className="flex flex-1 cursor-pointer items-center justify-center py-2 text-center text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
                   disabled={isPurchasing || isRestoring}
                   onClick={async () => {
                     if (restorePurchases) {
@@ -283,7 +283,7 @@ const PlusModal = ({
                   )}
                 </button>
                 <button
-                  className="flex-1 cursor-pointer py-2 text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
+                  className="flex-1 cursor-pointer py-2 text-center text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
                   disabled={isPurchasing || isRestoring}
                   onClick={() => {
                     modal?.hideModal();

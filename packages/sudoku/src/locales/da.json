@@ -1,0 +1,353 @@
+{
+  "brand": {
+    "gameName": "Sudokuløb"
+  },
+  "board": {
+    "buttonGroup": "Knapgruppe"
+  },
+  "celebration": {
+    "solved": "Løst!",
+    "leaderboardPoints": "Ranglistepoint",
+    "pointsSuffix": " point"
+  },
+  "completion": {
+    "time": "Tid"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Hold stimen kørende i bogen"
+  },
+  "puzzleMeta": {
+    "daily": "Dagligt {{day}} {{month}}",
+    "dayOrdinal": "{{count}}.",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "book": "Bog {{month}} nr. {{number}}",
+    "scanned": "Scannet puslespil"
+  },
+  "bookCover": {
+    "edition": "{{month}}-udgave",
+    "puzzleCount": "50 puslespil • Flere sværhedsgrader",
+    "months": {
+      "january": {
+        "tagline": "Fra grundlæggende til brutale teknikker",
+        "footer": "❄️ Vinterudfordring ❄️"
+      },
+      "february": {
+        "tagline": "Fra skjulte enkelte til AIC-kæder",
+        "footer": "💕 Elsk udfordringen 💕"
+      },
+      "march": {
+        "tagline": "Spring ud i avancerede teknikker",
+        "footer": "🌸 Friske udfordringer blomstrer 🌸"
+      },
+      "april": {
+        "tagline": "Trods enhver løsningsstorm",
+        "footer": "🌈 Efter regn kommer sejren 🌈"
+      },
+      "may": {
+        "tagline": "Blomstr med hjernekraft",
+        "footer": "🌻 Må dine evner gro 🌻"
+      },
+      "june": {
+        "tagline": "Sommerens hjernetræning",
+        "footer": "☀️ Løsningens solside ☀️"
+      },
+      "july": {
+        "tagline": "Strandlæsning og hjernetræning",
+        "footer": "🏖️ Tankespil på ferie 🏖️"
+      },
+      "august": {
+        "tagline": "Skru op for hjernekraften",
+        "footer": "🔥 Glohede udfordringer 🔥"
+      },
+      "september": {
+        "tagline": "Send din hjerne i skole",
+        "footer": "📚 Viden gennem tal 📚"
+      },
+      "october": {
+        "tagline": "Uhyggeligt kloge udfordringer",
+        "footer": "🎃 Gyseligt sjovt 🎃"
+      },
+      "november": {
+        "tagline": "Hjernebrydere til efterårsaftener",
+        "footer": "🍂 Hyggelige puslespilsaftener 🍂"
+      },
+      "december": {
+        "tagline": "Hjernegaver til julen",
+        "footer": "🎄 Glædelig jul, puslespilsven! 🎄"
+      },
+      "default": {
+        "tagline": "Udfordr dit sind",
+        "footer": "🧩 Puslespilskraft 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Du er offline. Tjek din forbindelse",
+      "loadFailed": "Puslespilsbogen kunne ikke indlæses"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Tastatur: piletaster, fortryd, gentag.",
+      "notes": "Hold Shift nede, eller tryk på n for at skifte notetilstand.",
+      "validate": "Tryk på c for at kontrollere feltet, g for at kontrollere gitteret."
+    },
+    "owl": {
+      "invalid": "Det ser ud til, at du har lavet en fejl. Jeg anbefaler, at du tjekker gitteret.",
+      "notSure": "Beklager, jeg er ikke sikker.",
+      "eureka": "Eureka-notation {{notation}}",
+      "highlighted": "Jeg har fremhævet de relevante felter for dig",
+      "foundTechnique": "Jeg har fundet en teknik: {{technique}}",
+      "noHint": "Intet hint tilgængeligt"
+    },
+    "legend": {
+      "stem": "Stilk",
+      "petalA": "Kronblad A",
+      "petalB": "Kronblad B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Til (sand)",
+      "off": "Fra (falsk)",
+      "elimination": "Eliminering"
+    },
+    "reply": {
+      "thanks": "Tak,",
+      "tellMeMore": "🤔 Fortæl mig mere",
+      "showMeWhere": "👀 Vis mig hvor",
+      "hideHint": "Skjul hint"
+    },
+    "askForHelp": "Bed om hjælp",
+    "notes": "Noter",
+    "copied": "Kopieret!",
+    "export": "Eksportér",
+    "delete": "Slet",
+    "undo": "Fortryd",
+    "redo": "Gentag",
+    "cell": "Felt",
+    "grid": "Gitter",
+    "zoom": "Zoom",
+    "reset": "Nulstil",
+    "reveal": "Vis løsning",
+    "confirm": {
+      "reset": {
+        "title": "Nulstil hele gitteret?",
+        "body": "Er du sikker på, at du vil nulstille hele gitteret?",
+        "confirm": "Nulstil"
+      },
+      "reveal": {
+        "title": "Vis hele løsningen?",
+        "body": "Er du sikker på, at du vil se hele løsningen?",
+        "confirm": "Vis løsning"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Nøgen enkelt",
+    "hiddenSingleBox": "Skjult enkelt (boks)",
+    "hiddenSingleRow": "Skjult enkelt (række)",
+    "hiddenSingleCol": "Skjult enkelt (kolonne)",
+    "nakedPair": "Nøgent par",
+    "nakedTriple": "Nøgen trio",
+    "nakedQuad": "Nøgen kvartet",
+    "hiddenPair": "Skjult par",
+    "hiddenTriple": "Skjult trio",
+    "hiddenQuad": "Skjult kvartet",
+    "lockedCandidatePointing": "Låste kandidater (pointing)",
+    "lockedCandidateClaiming": "Låste kandidater (claiming)",
+    "xWing": "X-Wing",
+    "swordfish": "Sværdfisk",
+    "jellyfish": "Vandmand",
+    "skyscraper": "Skyskraber",
+    "twoStringKite": "To-strengs drage",
+    "finnedXWing": "Finned X-Wing",
+    "finnedSwordfish": "Finned sværdfisk",
+    "finnedJellyfish": "Finned vandmand",
+    "emptyRectangle": "Tomt rektangel",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Unikt rektangel (type 1)",
+    "uniqueRectangleType2": "Unikt rektangel (type 2)",
+    "uniqueRectangleType3": "Unikt rektangel (type 3)",
+    "uniqueRectangleType4": "Unikt rektangel (type 4)",
+    "uniqueRectangleType5": "Unikt rektangel (type 5)",
+    "bug": "BUG",
+    "xyChain": "XY-kæde",
+    "aic": "AIC",
+    "aicRing": "AIC-ring",
+    "groupedAIC": "Grupperet AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Dødsblomst",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio-net",
+    "cellRegionForcingChain": "Felt-/områdeforcing-kæde",
+    "cellRegionForcingNet": "Felt-/områdeforcing-net",
+    "forcingChain": "Forcing-kæde"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bi",
+      "personality": "Rastløs og ivrig. Fyrer afsted rundt i gitteret i udbrud og går så i stå. Mod slutningen speeder den for tidligt op og sidder fast lige før mål.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Jeg kan se en!",
+          "Vent — nej, måske ikke...",
+          "Bzzz! Fremskridt!"
+        ],
+        "playerAhead": ["Hey, sæt farten ned!", "Jeg var godt i gang…"],
+        "playerBehind": ["Jeg indhenter dig!", "Se mig suse!"],
+        "endgame": ["Næsten i mål! Tror jeg!", "Vent — hvor skal den her hen?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "and",
+      "personality": "Glad og planløs. Langsom og stabil med lange pauser. I slutspillet driver den næsten tilfældigt ind i løsningen.",
+      "voiceLines": {
+        "neutral": ["Jeg tager mig bare god tid...", "Hmm... et sted herovre."],
+        "playerAhead": ["Du klarer det fint!", "Jeg når der nok til sidst."],
+        "playerBehind": ["Åh! Jeg fandt en!", "Det her er hyggeligt."],
+        "endgame": ["Er jeg mon næsten færdig?", "Åh! Det gik lige op."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "firben",
+      "personality": "Forsigtig og opmærksom. Lange pauser og så små klynger af træk. I slutspillet tøver den før hver placering.",
+      "voiceLines": {
+        "neutral": ["Lad mig lige tjekke det en gang til.", "Det burde passe."],
+        "playerAhead": ["Nu skal jeg være forsigtig.", "Skynd dig ikke."],
+        "playerBehind": ["Okay… jeg indhenter dig.", "Der er stadig tid."],
+        "endgame": ["Forsigtigt nu...", "Næsten… jeg skal bare være sikker."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "edderkop",
+      "personality": "Bevidst og struktureret. Bygger fremskridt omhyggeligt, stykke for stykke. I slutspillet falder strukturen sammen — tøvet sniger sig ind, som om planen ikke længere holder.",
+      "voiceLines": {
+        "neutral": ["Det passer til mønstret.", "Stykke for stykke..."],
+        "playerAhead": ["Det virkede jo...", "Jeg må rette det her..."],
+        "playerBehind": ["Det holder stadig sammen.", "Ja… det her virker."],
+        "endgame": [
+          "Vent — nej, det ødelægger det.",
+          "Jeg havde det planlagt..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "vaskebjørn",
+      "personality": "Gå-på-mod og opportunistisk. Ujævnt tempo. I slutspillet finder den momentum og afslutter hurtigere end ventet.",
+      "voiceLines": {
+        "neutral": ["Det virker!", "Lidt rodet, men det tager jeg."],
+        "playerAhead": [
+          "Okay, nu skal der trykkes på.",
+          "Jeg er ikke færdig endnu."
+        ],
+        "playerBehind": ["Åh — flot fund.", "Nu falder det på plads."],
+        "endgame": ["Ja, den her har jeg.", "Nu flyder det."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Struktureret og metodisk. Jævnt tempo. Slutspillet er stabilt — ingen panik, ingen sprint.",
+      "voiceLines": {
+        "neutral": ["Det passer.", "Jeg holder tempoet."],
+        "playerAhead": ["Hold tempoet.", "Ingen grund til at haste."],
+        "playerBehind": ["Stadig på sporet.", "Fremskridtene er stabile."],
+        "endgame": ["Næsten i mål.", "Afslut rent."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "abe",
+      "personality": "Uberegnelig og ubehagelig. Uforudsigelige udbrud. I slutspillet speeder den pludselig op på en måde, der føles uretfærdig.",
+      "voiceLines": {
+        "neutral": [
+          "Hehe… det havde du ikke set komme?",
+          "Åh, det var interessant."
+        ],
+        "playerAhead": ["Bliv ikke for tryg.", "Se bare her."],
+        "playerBehind": [
+          "Nogle gange klikker det bare.",
+          "Heldig gæt… eller var det?"
+        ],
+        "endgame": ["Åh wow — nu går det løs.", "Det eskalerede hurtigt."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "ørn",
+      "personality": "Distanceret og flydende. Rolige, selvsikre placeringer. Stille acceleration i slutspillet.",
+      "voiceLines": {
+        "neutral": ["Den har jeg allerede set.", "Jeg udfylder bare."],
+        "playerAhead": ["Det ændrer ingenting.", "Samme udfald alligevel."],
+        "playerBehind": [
+          "Det er egentlig overstået.",
+          "Jeg er et helt andet sted lige nu."
+        ],
+        "endgame": ["…næsten færdig.", "Jeg runder af."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "ræv",
+      "personality": "Intens og konkurrencelysten. Hurtig start, konstant pres. Spurten i slutspillet føles aggressiv.",
+      "voiceLines": {
+        "neutral": ["Hold trit.", "Er du stadig med?"],
+        "playerAhead": ["Sæt ikke farten ned nu.", "Du kan bedre end det."],
+        "playerBehind": ["For langsomt.", "Du bliver hægtet af."],
+        "endgame": ["Afslut det.", "Den her er min."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "haj",
+      "personality": "Tålmodig og rovdyrsagtig. Holder sig tæt på og slår så hårdt til i slutspillet.",
+      "voiceLines": {
+        "neutral": ["Lige bag dig.", "Ikke endnu."],
+        "playerAhead": ["Bliv, hvor du er.", "Nu er jeg tæt på."],
+        "playerBehind": ["Jeg kommer tættere på.", "Dér er du."],
+        "endgame": ["Nu afslutter vi.", "Jeg har dig."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "ugle",
+      "personality": "Rolig og overvejet. Jævnt tempo. Slutspillet er rent og uundgåeligt.",
+      "voiceLines": {
+        "neutral": ["Som ventet.", "Alt passer sammen."],
+        "playerAhead": ["Godt.", "Du kan se det."],
+        "playerBehind": ["Følg det til ende.", "Bliv ved."],
+        "endgame": ["Næsten færdig.", "Dér er den."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "sort kat",
+      "personality": "Tavs og umenneskelig. Minimale pauser. Slutspillet er en hurtig, uafbrudt afslutning.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…stadig."],
+        "playerBehind": ["For sent.", "Du tøvede."],
+        "endgame": ["…færdig.", "Slut."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drage",
+      "personality": "Ubesværet og absolut. Bevarer fuld kontrol hele vejen. I slutspillet gennemfører den et afgørende, uafbrudt sving — ingen åbninger, ingen modstand.",
+      "voiceLines": {
+        "neutral": ["Forventet.", "Ingen afvigelse."],
+        "playerAhead": ["Du gjorde klogt i at prøve.", "Fortsæt."],
+        "playerBehind": ["Dette er afgjort.", "Intet alternativ."],
+        "endgame": ["Det var alt.", "Fuldendt."]
+      }
+    }
+  }
+}

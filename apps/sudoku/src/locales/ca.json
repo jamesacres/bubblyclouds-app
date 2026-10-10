@@ -1,0 +1,312 @@
+{
+  "brand": {
+    "appName": "Cursa Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Jugueu i compartiu per fer curses de sudoku amb amics. Reptes diaris i multidispositiu!"
+  },
+  "puzzle": {
+    "mobileDescription": "Gaudiu de la millor experiència de cursa amb la nostra aplicació {{appName}}!",
+    "desktopDescription": "Descarregueu {{appName}}",
+    "openInAppLabel": "Obriu el puzle"
+  },
+  "crossPromo": {
+    "gameName": "Cursa Lliure",
+    "tagline": "Llisqueu els blocs i competiu amb amics per desfer l'embús."
+  },
+  "notFound": {
+    "message": "Pàgina no trobada"
+  },
+  "login": {
+    "dailyPuzzle": "Inicieu la sessió per començar el puzle d'avui",
+    "puzzleBook": "Inicieu la sessió per consultar el llibre de puzles",
+    "joinTeam": "Inicieu la sessió per unir-vos a l'equip",
+    "raceLobby": "Inicieu la sessió per competir amb altres",
+    "puzzleEntry": "Inicieu la sessió per jugar",
+    "valueProps": {
+      "saveProgress": "Deseu el vostre progrés",
+      "raceFriends": "Competiu amb amics",
+      "trackStats": "Seguiu les vostres estadístiques"
+    }
+  },
+  "plusModal": {
+    "description": "Passeu a <badge>{{plusName}}</badge> per <emphasis>eliminar tots els límits de velocitat</emphasis>. Repteu amics, pugeu a les classificacions i milloreu la vostra velocitat de resolució. Sense anuncis."
+  },
+  "premiumFeatures": {
+    "title": "Funcions premium",
+    "subtitle": "Desbloquegeu tota l'experiència: {{appName}}",
+    "unlimitedPlay": {
+      "title": "Joc i curses il·limitats",
+      "description": "Competiu amb amics en temps real més d'una vegada al dia"
+    },
+    "unlimitedHints": {
+      "title": "Pistes il·limitades",
+      "description": "No us encalleu mai: obteniu una pista sempre que la necessiteu"
+    },
+    "monthlyBook": {
+      "title": "Tot el llibre mensual desbloquejat, cada mes",
+      "description": "Jugueu tots els puzles de totes les dificultats, sense bloquejos"
+    },
+    "multipleTeams": {
+      "title": "Diversos equips de curses",
+      "description": "Organitzeu competicions privades amb amics i família"
+    },
+    "teamManagement": {
+      "title": "Gestió d'equips",
+      "description": "Creeu grups grans de fins a 15 persones i elimineu membres del vostre equip."
+    },
+    "themes": {
+      "title": "Tots els temes desbloquejats",
+      "description": "Personalitzeu la vostra experiència de cursa"
+    },
+    "unlimitedActions": {
+      "title": "Desfés, comprovació i revelació il·limitats",
+      "description": "Elimineu els límits diaris de desfer, comprovar i revelar"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Avui heu utilitzat {{count}} pista gratuïta.</bold> $t(brand.plus) us dona pistes il·limitades —no us tornareu a encallar— i manté tota l'aplicació sense anuncis.",
+    "hint_many": "💡 <bold>Avui heu utilitzat {{count}} de pistes gratuïtes.</bold> $t(brand.plus) us dona pistes il·limitades —no us tornareu a encallar— i manté tota l'aplicació sense anuncis.",
+    "hint_other": "💡 <bold>Avui heu utilitzat {{count}} pistes gratuïtes.</bold> $t(brand.plus) us dona pistes il·limitades —no us tornareu a encallar— i manté tota l'aplicació sense anuncis.",
+    "undo_one": "📅 <bold>Heu arribat al límit diari de desfer!</bold> Teniu {{count}} acció de desfer gratuïta al dia. El límit es reinicia demà, o subscriviu-vos per tenir desfer il·limitat.",
+    "undo_many": "📅 <bold>Heu arribat al límit diari de desfer!</bold> Teniu {{count}} d'accions de desfer gratuïtes al dia. El límit es reinicia demà, o subscriviu-vos per tenir desfer il·limitat.",
+    "undo_other": "📅 <bold>Heu arribat al límit diari de desfer!</bold> Teniu {{count}} accions de desfer gratuïtes al dia. El límit es reinicia demà, o subscriviu-vos per tenir desfer il·limitat.",
+    "checkGrid_one": "📅 <bold>Heu arribat al límit diari de comprovació de la graella!</bold> Teniu {{count}} comprovació de la graella gratuïta al dia. El límit es reinicia demà, o subscriviu-vos per tenir comprovacions il·limitades.",
+    "checkGrid_many": "📅 <bold>Heu arribat al límit diari de comprovació de la graella!</bold> Teniu {{count}} de comprovacions de la graella gratuïtes al dia. El límit es reinicia demà, o subscriviu-vos per tenir comprovacions il·limitades.",
+    "checkGrid_other": "📅 <bold>Heu arribat al límit diari de comprovació de la graella!</bold> Teniu {{count}} comprovacions de la graella gratuïtes al dia. El límit es reinicia demà, o subscriviu-vos per tenir comprovacions il·limitades.",
+    "reveal": "🔓 <bold>Revelar la graella és una funció premium!</bold> Subscriviu-vos per desbloquejar la possibilitat de revelar la solució completa.",
+    "themeColor": "🎨 <bold>Aquest tema és exclusiu de $t(brand.plus).</bold> Passeu-hi per desbloquejar tots els bonics colors de tema i personalitzar la vostra experiència de sudoku.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Heu arribat al límit diari de puzles!</bold> Els usuaris gratuïts poden jugar {{count}} puzle al dia. El límit es reinicia demà, o subscriviu-vos per tenir puzles il·limitats.",
+    "dailyPuzzleLimit_many": "🧩 <bold>Heu arribat al límit diari de puzles!</bold> Els usuaris gratuïts poden jugar {{count}} de puzles al dia. El límit es reinicia demà, o subscriviu-vos per tenir puzles il·limitats.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Heu arribat al límit diari de puzles!</bold> Els usuaris gratuïts poden jugar {{count}} puzles al dia. El límit es reinicia demà, o subscriviu-vos per tenir puzles il·limitats.",
+    "collectionLocked": "✨ <bold>Aquest puzle forma part del llibre $t(brand.plus).</bold> $t(brand.plus) desbloqueja tots els puzles del llibre de cada mes i manté tota l'aplicació sense anuncis.",
+    "removeMember": "👥 <bold>Eliminar membres de l'equip és una funció premium!</bold> Subscriviu-vos per desbloquejar funcions avançades de gestió d'equip, com ara eliminar membres.",
+    "multipleParties": "🏘️ <bold>Tenir diversos equips de curses és una funció premium!</bold> Els usuaris gratuïts poden tenir un equip. Subscriviu-vos per crear i unir-vos a equips il·limitats per a la família, els amics i més.",
+    "partyMaxSize": "👥 <bold>Els grups grans són una funció premium!</bold> Subscriviu-vos per desbloquejar funcions avançades de gestió d'equip, com ara els grups grans."
+  },
+  "motivational": {
+    "messages": [
+      "Els vostres amics esperen un repte",
+      "Contra qui competireu avui?",
+      "Hora de mostrar la vostra velocitat",
+      "Repte acceptat?",
+      "A la cursa cap a la meta",
+      "Qui és el resolutor més ràpid?",
+      "Preparats per dominar la classificació?",
+      "Les vostres habilitats de cursa us esperen",
+      "Hora de deixar-los enrere",
+      "Preparats per creuar la meta primers?",
+      "El circuit us està esperant",
+      "Hora de canviar a una marxa més alta",
+      "Preparats per cremar goma a la graella?",
+      "Els vostres rivals ja s'estan escalfant",
+      "Avui és el dia d'establir un nou rècord",
+      "El vostre millor temps espera ser superat",
+      "Cada puzle us fa més ràpids",
+      "La ratxa comença ara",
+      "Hora de pujar de nivell",
+      "El vostre proper gran avenç és a un puzle de distància",
+      "Preparats per sorprendre-us a vosaltres mateixos?",
+      "Mostreu-los de què sou capaços",
+      "Hora de desbloquejar el vostre potencial",
+      "La vostra resolució més ràpida encara és per arribar",
+      "Preparats per fer que avui valgui la pena?",
+      "Cada segon compta a la cursa",
+      "Hora de superar els vostres límits",
+      "El vostre camí de millora continua",
+      "Preparats per superar les expectatives?",
+      "Creieu que podeu suportar la pressió?",
+      "Hora de fer callar els escèptics",
+      "Preparats per reclamar la victòria?",
+      "La vostra competència no ho veurà venir",
+      "Hora de deixar la vostra empremta",
+      "Preparats per robar el protagonisme?",
+      "La victòria és més dolça quan es guanya",
+      "Hora de demostrar qui mana",
+      "Preparats per mostrar el vostre vertader color?",
+      "La mentalitat de campió comença aquí",
+      "Hora de diferenciar-vos del grup",
+      "Preparats per escriure la vostra llegenda?",
+      "Els campions es fan en moments com aquest",
+      "Hora de convertir el potencial en rendiment",
+      "Puzles nous, oportunitats noves",
+      "El repte d'avui espera el vostre domini",
+      "Preparats per fer d'avui el vostre millor dia?",
+      "Un dia nou significa rècords nous per batre",
+      "Hora d'afegir una victòria més a la vostra col·lecció",
+      "Preparats per començar amb força i acabar amb més força?",
+      "Preparats per fer d'avui un dia llegendari?",
+      "La vostra dosi diària de triomf us espera",
+      "L'estratègia es troba amb la velocitat a la graella",
+      "Preparats per pensar i córrer més que ningú?",
+      "El vostre domini dels puzles us crida",
+      "Hora de combinar la lògica amb la velocitat del llamp",
+      "Preparats per resoldre amb precisió quirúrgica?",
+      "La combinació perfecta: habilitat i velocitat",
+      "El vostre avantatge analític és el vostre avantatge a la cursa",
+      "Hora de demostrar la supremacia en puzles",
+      "Preparats per resoldre com un campió?",
+      "La cursa de precisió comença amb un pensament clar",
+      "Els vostres amics esperen la revenja",
+      "Qui resol avui?",
+      "Un nou puzle diari ja és aquí",
+      "La vostra ratxa està en joc",
+      "Puzles nous, un nou començament",
+      "El repte d'avui ja és aquí",
+      "Competiu amb un amic al diari",
+      "Dia nou, puzles nous",
+      "Algú ja és a la classificació",
+      "Mantingueu viva la ratxa",
+      "Els reptes diaris s'acaben d'actualitzar",
+      "El vostre equip us espera",
+      "Un puzle més a prop del capdamunt",
+      "Els puzles d'avui us esperen",
+      "Torneu-hi i competiu"
+    ]
+  },
+  "home": {
+    "live": "En viu",
+    "headline": "Preparats per a la cursa? 🏁",
+    "subtitle": "Compartiu el repte: convideu amics i descobriu qui és el resolutor de sudokus més ràpid.",
+    "leaderboard": "Classificació",
+    "daily": {
+      "title": "Reptes diaris",
+      "refreshes": "s'actualitza cada dia",
+      "moreLevels": "Més nivells de dificultat al <bookLink>llibre de puzles</bookLink>",
+      "difficulty": {
+        "simple": "Complicat",
+        "easy": "Exigent",
+        "intermediate": "Difícil"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} puzle",
+      "summary_many": "{{month}} · {{count}} de puzles",
+      "summary_other": "{{month}} · {{count}} puzles",
+      "title": "Llibre mensual",
+      "browse": "Exploreu els puzles"
+    },
+    "import": {
+      "title": "Importeu qualsevol puzle",
+      "description": "Escanegeu amb la càmera o enganxeu una cadena de puzle",
+      "desktopTitle": "Competiu amb qualsevol puzle",
+      "desktopDescription": "Escanegeu d'un llibre o d'un diari"
+    },
+    "teams": {
+      "title": "Equips de curses",
+      "withFriends": "Competiu amb {{friends}} i més",
+      "noFriends": "Repteu amics a una cursa"
+    },
+    "tabs": {
+      "startRace": "Nova cursa",
+      "myPuzzles": "Els meus puzles",
+      "racingTeams": "Equips de curses"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Carregant el llibre de puzles...",
+      "puzzles": "Carregant puzles...",
+      "progress": "Carregant el vostre progrés..."
+    },
+    "tryAgain": "Torneu-ho a provar",
+    "backHome": "Torneu a l'inici",
+    "signInPrompt": "Inicieu la sessió per accedir al llibre de puzles.",
+    "signIn": "Inicieu la sessió",
+    "noData": "No hi ha dades del llibre de puzles disponibles.",
+    "title": "Llibre de puzles · {{month}}",
+    "puzzleCount_one": "{{count}} puzle centrat en tècniques",
+    "puzzleCount_many": "{{count}} de puzles centrats en tècniques",
+    "puzzleCount_other": "{{count}} puzles centrats en tècniques",
+    "completed": "{{count}} completats",
+    "inProgress": "{{count}} en curs",
+    "unlockWithPlus": "Desbloquegeu tots els puzles amb $t(brand.plus)",
+    "jumpToDifficulty": "Aneu a la dificultat",
+    "scrollToTop": "Torneu amunt",
+    "difficulty": {
+      "veryEasy": "Molt fàcil",
+      "easy": "Fàcil",
+      "moderatelyEasy": "Força fàcil",
+      "moderate": "Moderat",
+      "moderatelyHard": "Força difícil",
+      "hard": "Difícil",
+      "vicious": "Cruel",
+      "fiendish": "Diabòlic",
+      "devilish": "Endimoniat",
+      "hell": "Infern",
+      "beyondHell": "Pitjor que l'infern"
+    }
+  },
+  "invite": {
+    "loading": "Carregant la invitació...",
+    "iconAlt": "Icona de {{gameName}}",
+    "greeting": "👋 Hola!",
+    "greetingNamed": "👋 Hola, {{name}}!",
+    "invited": "Esteu convidats!",
+    "joinTeam": "Uniu-vos a l'equip de curses <team/>",
+    "description": "Resoleu sudokus junts i veieu el progrés de cadascú en temps real!",
+    "proTip": "💡 <bold>Consell:</bold> tots els puzles que jugueu a partir d'ara es compartiran amb els membres del vostre equip per a una competició amistosa!",
+    "nicknameLabel": "Com us anomena el vostre equip de curses?",
+    "nicknamePlaceholder": "Introduïu el vostre sobrenom",
+    "joining": "Unint-vos a l'equip...",
+    "join": "Uniu-vos a la diversió! 🎉",
+    "signIn": "Inicieu la sessió per continuar",
+    "bonus": {
+      "title": "🎉 Bonus: {{plusName}} — {{duration}}!",
+      "duration": {
+        "oneMonth": "un mes",
+        "oneYear": "un any",
+        "lifetime": "per a tota la vida",
+        "premium": "premium"
+      },
+      "subtitle": "En unir-vos a aquest equip de curses, desbloquejareu funcions premium totalment gratis!",
+      "note": "💡 El vostre accés premium s'activarà automàticament en unir-vos"
+    },
+    "expired": {
+      "title": "Invitació caducada",
+      "body": "Aquest enllaç d'invitació ja no és vàlid. Demaneu al vostre amic una invitació nova o augmenteu la mida de l'equip."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Introduïu una cadena de puzle",
+      "help": "Enganxeu una cadena de 81 caràcters o una graella HoDoKu: useu els dígits 1–9 i 0 o . per a les caselles buides.",
+      "submit": "Importeu el puzle"
+    },
+    "orScan": "o escanegeu amb la càmera",
+    "cameraHelp": "Apunteu la càmera a un sudoku sense resoldre i espereu que es detecti.",
+    "errors": {
+      "parse": "No s'ha pogut analitzar el puzle. Enganxeu una cadena de 81 caràcters o una graella HoDoKu.",
+      "solverLoading": "El resolutor encara s'està carregant: torneu-ho a provar.",
+      "noSolution": "No s'ha trobat cap solució. Comproveu el puzle.",
+      "camera": "No s'ha pogut iniciar la càmera. Comproveu els permisos i torneu-ho a provar."
+    }
+  },
+  "credits": {
+    "title": "Crèdits i atribucions",
+    "subtitle": "Aquesta aplicació es basa en diversos projectes excel·lents",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Aquesta aplicació té llicència MIT. Consulteu <licenseLink>LICENSE</licenseLink> i <creditsLink>CREDITS</creditsLink> per a més detalls.",
+    "items": {
+      "humanSudokuSolver": "Biblioteca de TypeScript que resol sudokus amb tècniques humanes.",
+      "qqwing": "Generació de puzles del Sudoku del dia",
+      "tdoku": "Resolutor de sudokus ràpid per a puzles escanejats",
+      "arBrowserSudoku": "Tecnologia d'escàner de realitat augmentada",
+      "sudokuCoach": "Inspiració per als algorismes de càlcul de dificultat",
+      "nextjs": "Framework de React per a producció",
+      "typescript": "Superconjunt tipat de JavaScript",
+      "tailwind": "Framework CSS basat en utilitats",
+      "capacitor": "Entorn d'execució d'aplicacions mòbils natives",
+      "electron": "Framework d'aplicacions d'escriptori",
+      "tensorflow": "Aprenentatge automàtic per a funcions de RA",
+      "revenuecat": "Gestió de subscripcions",
+      "react": "Biblioteca de components d'interfície",
+      "turborepo": "Sistema de compilació de monorepositoris"
+    }
+  }
+}

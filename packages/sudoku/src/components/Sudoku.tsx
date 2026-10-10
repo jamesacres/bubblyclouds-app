@@ -1036,15 +1036,15 @@ const Sudoku = ({
         <div className="container mx-auto px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              <div className="ml-auto mr-auto max-w-xl px-4 pb-1 lg:mr-0">
-                <div className="text-right">
+              <div className="me-auto ms-auto max-w-xl px-4 pb-1 lg:me-0">
+                <div className="text-end">
                   <span className="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent">
                     {appName}
                   </span>
                 </div>
               </div>
 
-              <div className="ml-auto mr-auto flex max-w-xl px-4 pb-1 lg:mr-0">
+              <div className="me-auto ms-auto flex max-w-xl px-4 pb-1 lg:me-0">
                 <div
                   className="flex-nowrap items-center"
                   role="group"
@@ -1053,7 +1053,7 @@ const Sudoku = ({
                   <LobbyButton friendsOnClick={friendsOnClick} />
                 </div>
                 <div
-                  className={`grow text-right ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}
+                  className={`grow text-end ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}
                 >
                   <TimerDisplay
                     seconds={calculateSeconds(timer)}
@@ -1066,8 +1066,9 @@ const Sudoku = ({
               <div className="relative overflow-visible lg:overflow-hidden">
                 <div
                   ref={gridRef}
+                  dir="ltr"
                   aria-disabled={isBoardGated}
-                  className={`border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative ml-auto mr-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900 ${
+                  className={`border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative me-auto ms-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:me-0 portrait:max-w-[calc(50dvh)] lg:rtl:me-auto lg:rtl:ms-0 dark:bg-zinc-900 ${
                     isBoardGated ? 'pointer-events-none' : ''
                   } ${
                     dragStarted
@@ -1126,7 +1127,7 @@ const Sudoku = ({
                   transient celebration fades so a solved puzzle never leaves
                   the player looking at a blank result. */}
               {completed && puzzlePoints !== undefined && (
-                <div className="ml-auto mr-auto max-w-xl lg:mr-0">
+                <div className="me-auto ms-auto max-w-xl lg:me-0">
                   <CompletionSummary
                     statCells={
                       <div className="flex min-w-20 flex-col items-center gap-0.5 rounded-xl bg-stone-100/80 px-4 py-2 dark:bg-zinc-800/70">
@@ -1149,7 +1150,7 @@ const Sudoku = ({
                   puzzle (continue through the book) and after the daily
                   puzzle (keep the streak going in the book). */}
               {completed && nextBookPuzzle && (
-                <div className="ml-auto mr-auto max-w-xl lg:mr-0">
+                <div className="me-auto ms-auto max-w-xl lg:me-0">
                   <NextPuzzlePanel
                     isLocked={nextBookPuzzle.isLocked}
                     progressLabel={nextPuzzleProgressLabel}

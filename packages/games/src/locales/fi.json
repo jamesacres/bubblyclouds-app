@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Kirja",
+    "defaultDetailNoun": "pulmakirjat"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Kuukausittainen kokoelma"
+  },
+  "hintBox": {
+    "dismiss": "Sulje vihje"
+  },
+  "lobbyButton": {
+    "opponents": "Vastustajat"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Jatka — seuraava pulma",
+    "continueLocked": "Jatka ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} / {{total}} {{label}} valmiina"
+  },
+  "countdownOverlay": {
+    "getReady": "Valmistaudu",
+    "go": "MENE!"
+  },
+  "confirmDialog": {
+    "cancel": "Peruuta"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · valmis",
+    "retry": "Uudelleen",
+    "points": "+{{points}} p",
+    "leaderboardPoints": "Tulostaulukon pisteet"
+  },
+  "raceTimer": {
+    "time": "Aika"
+  },
+  "stageTopBar": {
+    "previous": "Edellinen"
+  },
+  "raceHud": {
+    "opponents": "Vastustajat",
+    "stageOf": "Vaihe {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Maali!",
+    "runComplete": "Kisa suoritettu",
+    "leaderboardPoints": "Tulostaulukon pisteet",
+    "pointsSuffix": " p"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Su",
+      "monday": "Ma",
+      "tuesday": "Ti",
+      "wednesday": "Ke",
+      "thursday": "To",
+      "friday": "Pe",
+      "saturday": "La"
+    },
+    "dayStreak_one": "päivän putki",
+    "dayStreak_other": "päivän putki",
+    "thisMonth": "tässä kuussa"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Sinä)",
+    "puzzles_one": "{{count}} pulma",
+    "puzzles_other": "{{count}} pulmaa",
+    "average": "Keskim.: {{time}}",
+    "best": "Paras: {{time}}",
+    "wins_one": "🏁 {{count}} voitto",
+    "wins_other": "🏁 {{count}} voittoa",
+    "points_one": "piste",
+    "points_other": "pistettä"
+  },
+  "scoreBreakdown": {
+    "title": "Pisteiden erittely",
+    "volumeBonus": {
+      "label": "Määräbonus",
+      "detail_one": "{{count}} pulma ratkaistu",
+      "detail_other": "{{count}} pulmaa ratkaistu"
+    },
+    "dailyPuzzles": {
+      "label": "Päivittäiset pulmat",
+      "detail_one": "{{count}} päivittäinen haaste",
+      "detail_other": "{{count}} päivittäistä haastetta"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}}: pulmat",
+      "detail": "{{collection}}: {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "Skannatut pulmat",
+      "detail_one": "{{count}} tuotu pulma",
+      "detail_other": "{{count}} tuotua pulmaa"
+    },
+    "difficultyBonus": {
+      "label": "Vaikeusbonus",
+      "detail": "Vaikeammat pulmat = enemmän pisteitä"
+    },
+    "speedBonus": {
+      "label": "Nopeusbonus",
+      "detail": "Nopein: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Kisabonus",
+      "detail": "Voita ystävät, jotka myös ratkaisivat pulman"
+    },
+    "dailyCombo": {
+      "label": "Päiväkombo",
+      "detail": "Enemmän pulmia päivässä = suurempi kerroin"
+    }
+  },
+  "leaderboard": {
+    "you": "Sinä",
+    "unknownUser": "Tuntematon käyttäjä",
+    "title": "Tulostaulukko",
+    "subtitleParty": "Viimeiset 30 päivää · {{partyName}}",
+    "subtitleAllTeams": "Viimeiset 30 päivää · Kaikki tiimit",
+    "howScoringWorks": "Miten pisteytys toimii"
+  },
+  "scoringLegend": {
+    "title": "Miten pisteytys toimii",
+    "subtitle": "{{gameName}} · Viimeiset 30 päivää",
+    "close": "Sulje",
+    "racingWins": {
+      "title": "Kisavoitot",
+      "body": "Ansaitse <points>+{{points}} p</points> jokaisesta ystävästä, jonka voitat samassa ratkaistussa pulmassa. Ole ensimmäinen {{friends}} ystävän joukossa ja saat <points>+{{total}} p</points>."
+    },
+    "basePoints": {
+      "title": "Peruspisteet",
+      "anyPuzzle": "Mikä tahansa pulma",
+      "dailyPuzzle": "Päivittäinen pulma",
+      "collectionPuzzle": "{{collection}}: pulma",
+      "scannedPuzzle": "Skannattu pulma"
+    },
+    "difficultyMultipliers": {
+      "title": "Vaikeuskertoimet",
+      "daily": "Päivän {{gameName}}",
+      "collection": "{{collection}}: pulmat"
+    },
+    "speedBonuses": {
+      "title": "Nopeusbonukset",
+      "lightning": "Salama",
+      "fast": "Nopea",
+      "quick": "Ripeä",
+      "steady": "Tasainen",
+      "under": "alle {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Päiväkombo",
+      "body": "Ratkaise enemmän pulmia samana päivänä kertoaksesi jokaisen pulman pisteet, enintään <max>{{max}}×</max>.",
+      "puzzle": "Päivän {{puzzle}}. pulma",
+      "puzzleOrMore": "Päivän {{puzzle}}. pulma ja sen jälkeen"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Kisa suoritettu",
+    "raceProgress": "Kisan eteneminen",
+    "stagesProgress": "{{completed}}/{{total}} vaihetta",
+    "retryStage": "Uusi yritys",
+    "stageLabel": "Vaihe {{number}}",
+    "stageCompletedLabel": "Vaihe {{number}}, suoritettu ajassa {{time}}",
+    "viewRacingStats": "Näytä kisatilastot",
+    "total": "Yhteensä"
+  },
+  "raceTrack": {
+    "you": "Sinä",
+    "viewFriends": "Napsauta nähdäksesi ystävät",
+    "start": "Lähtö",
+    "finish": "Maali",
+    "inviteToRace": "Kutsu ystäviä kisaan",
+    "opponents": "Vastustajat",
+    "racer": "Kisaaja",
+    "stageBadge": "V{{number}}",
+    "total": "Yhteensä",
+    "leaderboard": "Tulostaulukko",
+    "puzzleBook": "Pulmakirja",
+    "puzzleBookLabel": "pulmakirja",
+    "refreshScores": "Päivitä pisteet",
+    "challengeFriends": "🏁 Haasta ystäviä",
+    "yourTime": "Aikasi:",
+    "inviteFriends": "Kutsu ystäviä",
+    "racingLabel": "kisaa"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Hankala",
+      "easy": "Haastava",
+      "intermediate": "Vaikea",
+      "expert": "Asiantuntija"
+    },
+    "book": {
+      "veryEasy": "Erittäin helppo",
+      "easy": "Helppo",
+      "moderatelyEasy": "Melko helppo",
+      "moderate": "Keskivaikea",
+      "moderatelyHard": "Melko vaikea",
+      "hard": "Vaikea",
+      "vicious": "Ilkeä",
+      "fiendish": "Hirvittävä",
+      "devilish": "Paholaismainen",
+      "hell": "Helvetti",
+      "beyondHell": "Yli helvetin"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Viimeinen numero",
+    "hiddenSingleBox": "Piilotettu yksittäinen (ruutu)",
+    "hiddenSingleLine": "Piilotettu yksittäinen (rivi/sarake)",
+    "hiddenSingleVariantRegion": "Piilotettu yksittäinen (muunnelma-alue)",
+    "nakedSingle": "Paljas yksittäinen",
+    "hiddenPair": "Piilotettu pari",
+    "lockedCandidate": "Lukittu ehdokas",
+    "hiddenTriple": "Piilotettu kolmikko",
+    "hiddenQuadruple": "Piilotettu nelikko",
+    "nakedPair": "Paljas pari",
+    "nakedTriple": "Paljas kolmikko",
+    "nakedQuadruple": "Paljas nelikko",
+    "xWing": "X-Wing",
+    "swordfish": "Miekkakala",
+    "skyscraper": "Pilvenpiirtäjä",
+    "twoStringKite": "Kaksinarainen leija",
+    "crane": "Kurki",
+    "simpleColoring": "Yksinkertainen värjäys",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Evällinen/Sashimi X-Wing",
+    "emptyRectangle": "Tyhjä suorakulmio",
+    "uniqueRectangleType1": "Yksikäsitteinen suorakulmio, tyyppi 1",
+    "uniqueRectangleType2": "Yksikäsitteinen suorakulmio, tyyppi 2",
+    "uniqueRectangleType3": "Yksikäsitteinen suorakulmio, tyyppi 3",
+    "uniqueRectangleType4": "Yksikäsitteinen suorakulmio, tyyppi 4",
+    "uniqueRectangleType5": "Yksikäsitteinen suorakulmio, tyyppi 5",
+    "finnedSashimiSwordfish": "Evällinen/Sashimi-miekkakala",
+    "jellyfish": "Meduusa",
+    "bugBinaryUniversalGrave": "BUG (binäärinen yleishauta)",
+    "xChain": "X-ketju",
+    "groupedXChain": "Ryhmitetty X-ketju",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Evällinen/Sashimi-meduusa",
+    "medusa3D": "3D-Medusa",
+    "xyChain": "XY-ketju",
+    "alternatingInferenceChainAIC": "Vuorotteleva päättelyketju (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Ryhmitetty vuorotteleva päättelyketju (AIC)",
+    "nishioForcingChain": "Nishio-pakotusketju",
+    "nishioForcingNet": "Nishio-pakotusverkko"
+  }
+}

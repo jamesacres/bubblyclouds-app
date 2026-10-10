@@ -1,6 +1,7 @@
 import React from 'react';
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import { useTranslation } from 'react-i18next';
+import type { LocaleLoader } from '../config/i18n';
 import { I18nProvider, LOCALE_STORAGE_KEY, useLocale } from './I18nProvider';
 
 const resources = {
@@ -27,6 +28,7 @@ function Probe() {
       <span data-testid="preference">{preference ?? 'none'}</span>
       <button onClick={() => setLocale('fr')}>fr</button>
       <button onClick={() => setLocale('de')}>de</button>
+      <button onClick={() => setLocale('ar')}>ar</button>
       <button onClick={() => setLocale(null)}>auto</button>
     </div>
   );
@@ -44,10 +46,187 @@ function renderProvider() {
   );
 }
 
+describe('I18nProvider lazy locales', () => {
+  const makeResources = () => ({
+    en: { app: { greeting: 'Hello', meta: { title: 'Game' } } },
+  });
+  const lazySupported = ['en', 'de', 'ar'];
+
+  function makeLoaders() {
+    const de = jest.fn<ReturnType<LocaleLoader>, []>(() =>
+      Promise.resolve({
+        app: { greeting: 'Hallo', meta: { title: 'Spiel' } },
+      })
+    );
+    const ar = jest.fn<ReturnType<LocaleLoader>, []>(() =>
+      Promise.resolve({
+        app: { greeting: 'مرحبا', meta: { title: 'لعبة' } },
+      })
+    );
+    return { de, ar, loaders: { de, ar } };
+  }
+
+  function renderLazy(loaders: Record<string, LocaleLoader | undefined>) {
+    return render(
+      <I18nProvider
+        resources={makeResources()}
+        defaultLocale="en"
+        supportedLocales={lazySupported}
+        localeLoaders={loaders}
+      >
+        <Probe />
+      </I18nProvider>
+    );
+  }
+
+  beforeEach(() => {
+    localStorage.clear();
+    document.documentElement.lang = '';
+    document.documentElement.dir = '';
+    document.title = 'Original';
+    setNavigatorLanguages(['en-US']);
+  });
+
+  it('keeps English on the first render and swaps after the chunk loads', async () => {
+    setNavigatorLanguages(['de-DE']);
+    const { de, loaders } = makeLoaders();
+    renderLazy(loaders);
+
+    expect(screen.getByTestId('greeting')).toHaveTextContent('Hello');
+    await waitFor(() =>
+      expect(screen.getByTestId('locale')).toHaveTextContent('de')
+    );
+    expect(screen.getByTestId('greeting')).toHaveTextContent('Hallo');
+    expect(document.documentElement.lang).toBe('de');
+    expect(document.documentElement.dir).toBe('ltr');
+    expect(de).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not load a locale that is already loaded', async () => {
+    const { de, loaders } = makeLoaders();
+    renderLazy(loaders);
+    expect(screen.getByTestId('locale')).toHaveTextContent('en');
+    expect(de).not.toHaveBeenCalled();
+  });
+
+  it('sets dir to rtl for a right-to-left locale', async () => {
+    setNavigatorLanguages(['ar-EG']);
+    const { loaders } = makeLoaders();
+    renderLazy(loaders);
+
+    await waitFor(() =>
+      expect(screen.getByTestId('locale')).toHaveTextContent('ar')
+    );
+    expect(document.documentElement.dir).toBe('rtl');
+    expect(document.documentElement.lang).toBe('ar');
+    expect(screen.getByTestId('greeting')).toHaveTextContent('مرحبا');
+  });
+
+  it('flips dir back when switching to a left-to-right locale', async () => {
+    localStorage.setItem(LOCALE_STORAGE_KEY, 'ar');
+    const { loaders } = makeLoaders();
+    renderLazy(loaders);
+    await waitFor(() => expect(document.documentElement.dir).toBe('rtl'));
+
+    act(() => {
+      screen.getByText('de').click();
+    });
+    await waitFor(() =>
+      expect(screen.getByTestId('locale')).toHaveTextContent('de')
+    );
+    expect(document.documentElement.dir).toBe('ltr');
+  });
+
+  it('honours a stored choice and loads it lazily', async () => {
+    localStorage.setItem(LOCALE_STORAGE_KEY, 'de');
+    setNavigatorLanguages(['ar']);
+    const { de, ar, loaders } = makeLoaders();
+    renderLazy(loaders);
+
+    await waitFor(() =>
+      expect(screen.getByTestId('greeting')).toHaveTextContent('Hallo')
+    );
+    expect(screen.getByTestId('preference')).toHaveTextContent('de');
+    expect(de).toHaveBeenCalledTimes(1);
+    expect(ar).not.toHaveBeenCalled();
+  });
+
+  it('setLocale(null) re-detects and loads the detected locale', async () => {
+    localStorage.setItem(LOCALE_STORAGE_KEY, 'de');
+    setNavigatorLanguages(['ar']);
+    const { loaders } = makeLoaders();
+    renderLazy(loaders);
+    await waitFor(() =>
+      expect(screen.getByTestId('locale')).toHaveTextContent('de')
+    );
+
+    act(() => {
+      screen.getByText('auto').click();
+    });
+
+    await waitFor(() =>
+      expect(screen.getByTestId('locale')).toHaveTextContent('ar')
+    );
+    expect(localStorage.getItem(LOCALE_STORAGE_KEY)).toBeNull();
+    expect(screen.getByTestId('preference')).toHaveTextContent('none');
+    expect(document.documentElement.dir).toBe('rtl');
+  });
+
+  it('keeps the current locale when a chunk fails to load', async () => {
+    setNavigatorLanguages(['de']);
+    const failing = jest.fn<ReturnType<LocaleLoader>, []>(() =>
+      Promise.reject(new Error('chunk failed'))
+    );
+    renderLazy({ de: failing });
+    await waitFor(() => expect(failing).toHaveBeenCalled());
+    expect(screen.getByTestId('locale')).toHaveTextContent('en');
+    expect(document.documentElement.lang).not.toBe('de');
+  });
+
+  it('updates document.title from meta.title when the locale changes', async () => {
+    const { loaders } = makeLoaders();
+    renderLazy(loaders);
+    expect(document.title).toBe('Original');
+
+    localStorage.setItem(LOCALE_STORAGE_KEY, 'de');
+    act(() => {
+      screen.getByText('de').click();
+    });
+
+    await waitFor(() => expect(document.title).toBe('Spiel'));
+  });
+
+  it('leaves document.title alone when the namespace has no meta.title', async () => {
+    setNavigatorLanguages(['de']);
+    renderProviderWithoutTitle();
+    await waitFor(() =>
+      expect(screen.getByTestId('locale')).toHaveTextContent('de')
+    );
+    expect(document.title).toBe('Original');
+  });
+
+  function renderProviderWithoutTitle() {
+    return render(
+      <I18nProvider
+        resources={{ en: { app: { greeting: 'Hello' } } }}
+        defaultLocale="en"
+        supportedLocales={['en', 'de']}
+        localeLoaders={{
+          de: () => Promise.resolve({ app: { greeting: 'Hallo' } }),
+        }}
+      >
+        <Probe />
+      </I18nProvider>
+    );
+  }
+});
+
 describe('I18nProvider', () => {
   beforeEach(() => {
     localStorage.clear();
     document.documentElement.lang = '';
+    document.documentElement.dir = '';
+    document.title = 'Original';
     setNavigatorLanguages(['en-US']);
   });
 
@@ -56,6 +235,7 @@ describe('I18nProvider', () => {
     expect(screen.getByTestId('locale')).toHaveTextContent('en');
     expect(screen.getByTestId('greeting')).toHaveTextContent('Hello');
     expect(document.documentElement.lang).toBe('en');
+    expect(document.documentElement.dir).toBe('ltr');
   });
 
   it('detects the locale from navigator.languages in preference order', () => {

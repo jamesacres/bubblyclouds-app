@@ -1,0 +1,342 @@
+{
+  "brand": {
+    "gameName": "Sudoku Verseny"
+  },
+  "board": {
+    "buttonGroup": "Gombcsoport"
+  },
+  "celebration": {
+    "solved": "Megoldva!",
+    "leaderboardPoints": "Ranglistapontok",
+    "pointsSuffix": " pont"
+  },
+  "completion": {
+    "time": "Idő"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Tartsa fenn a sorozatot a könyvben"
+  },
+  "puzzleMeta": {
+    "daily": "Napi: {{month}} {{day}}",
+    "dayOrdinal": "{{count}}.",
+    "dayOrdinal_ordinal_one": "{{count}}.",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "book": "Könyv {{month}} · {{number}}. rejtvény",
+    "scanned": "Beolvasott rejtvény"
+  },
+  "bookCover": {
+    "edition": "{{month}} kiadás",
+    "puzzleCount": "50 rejtvény • Többféle nehézség",
+    "months": {
+      "january": {
+        "tagline": "Az alapoktól a könyörtelen technikákig",
+        "footer": "❄️ Téli kihívás kiadás ❄️"
+      },
+      "february": {
+        "tagline": "A rejtett egyesektől az AIC-láncokig",
+        "footer": "💕 Szeresse a kihívást 💕"
+      },
+      "march": {
+        "tagline": "Tavaszi lendület a haladó technikákhoz",
+        "footer": "🌸 Új kihívások nyílnak 🌸"
+      },
+      "april": {
+        "tagline": "Átvészel bármilyen megoldási vihart",
+        "footer": "🌈 Eső után jön a győzelem 🌈"
+      },
+      "may": {
+        "tagline": "Virágozzon az agyi erő",
+        "footer": "🌻 Virágozzon a tudása 🌻"
+      },
+      "june": {
+        "tagline": "Nyári agytorna",
+        "footer": "☀️ A rejtvényfejtés napos oldala ☀️"
+      },
+      "july": {
+        "tagline": "Strandolvasmány, agytorna",
+        "footer": "🏖️ Nyaralós észjátékok 🏖️"
+      },
+      "august": {
+        "tagline": "Hevítse fel az agyát",
+        "footer": "🔥 Tűzforró kihívások 🔥"
+      },
+      "september": {
+        "tagline": "Iskolázza az agyát",
+        "footer": "📚 Tudás a számokon át 📚"
+      },
+      "october": {
+        "tagline": "Hátborzongatóan okos kihívások",
+        "footer": "🎃 Ijesztően jó szórakozás 🎃"
+      },
+      "november": {
+        "tagline": "Máglyagyújtós agyserkentők",
+        "footer": "🍂 Emlékezz, emlékezz! 🍂"
+      },
+      "december": {
+        "tagline": "Ünnepi ajándékok az agynak",
+        "footer": "🎄 Boldog ünnepeket, rejtvényfejtő! 🎄"
+      },
+      "default": {
+        "tagline": "Hívja ki az elméjét",
+        "footer": "🧩 Rejtvényerő 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Nincs internetkapcsolat, kérjük, ellenőrizze a kapcsolatot",
+      "loadFailed": "A rejtvénykönyv betöltése sikertelen"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Billentyűzet: nyílbillentyűk, visszavonás, ismétlés.",
+      "notes": "Tartsa lenyomva a Shift billentyűt, vagy nyomja meg az n billentyűt a jegyzetmód váltásához.",
+      "validate": "Nyomja meg a c billentyűt a cella, a g billentyűt a rács ellenőrzéséhez."
+    },
+    "owl": {
+      "invalid": "Úgy tűnik, hibázott. Javaslom, hogy ellenőrizze a rácsot.",
+      "notSure": "Sajnálom, nem vagyok biztos benne.",
+      "eureka": "Eureka-jelölés: {{notation}}",
+      "highlighted": "Kiemeltem Önnek az érintett cellákat",
+      "foundTechnique": "Találtam egy technikát: {{technique}}",
+      "noHint": "Nincs elérhető tipp"
+    },
+    "legend": {
+      "stem": "Szár",
+      "petalA": "Szirom A",
+      "petalB": "Szirom B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Be (igaz)",
+      "off": "Ki (hamis)",
+      "elimination": "Kizárás"
+    },
+    "reply": {
+      "thanks": "Köszönöm,",
+      "tellMeMore": "🤔 Mesélj még",
+      "showMeWhere": "👀 Mutasd meg, hol",
+      "hideHint": "Tipp elrejtése"
+    },
+    "askForHelp": "Segítséget kérek",
+    "notes": "Jegyzetek",
+    "copied": "Másolva!",
+    "export": "Exportálás",
+    "delete": "Törlés",
+    "undo": "Visszavon.",
+    "redo": "Újra",
+    "cell": "Cella",
+    "grid": "Rács",
+    "zoom": "Nagyítás",
+    "reset": "Visszaállít",
+    "reveal": "Megmutatás",
+    "confirm": {
+      "reset": {
+        "title": "Visszaállítja az egész rácsot?",
+        "body": "Biztosan vissza szeretné állítani az egész rácsot?",
+        "confirm": "Visszaállítás"
+      },
+      "reveal": {
+        "title": "Megmutatja az egész rácsot?",
+        "body": "Biztosan meg szeretné mutatni az egész rácsot?",
+        "confirm": "Megmutatás"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Csupasz egyes",
+    "hiddenSingleBox": "Rejtett egyes (blokk)",
+    "hiddenSingleRow": "Rejtett egyes (sor)",
+    "hiddenSingleCol": "Rejtett egyes (oszlop)",
+    "nakedPair": "Csupasz pár",
+    "nakedTriple": "Csupasz hármas",
+    "nakedQuad": "Csupasz négyes",
+    "hiddenPair": "Rejtett pár",
+    "hiddenTriple": "Rejtett hármas",
+    "hiddenQuad": "Rejtett négyes",
+    "lockedCandidatePointing": "Zárolt jelöltek (mutató)",
+    "lockedCandidateClaiming": "Zárolt jelöltek (igénylő)",
+    "xWing": "X-Wing",
+    "swordfish": "Kardhal",
+    "jellyfish": "Medúza",
+    "skyscraper": "Felhőkarcoló",
+    "twoStringKite": "Kétszálú sárkány",
+    "finnedXWing": "Uszonyos X-Wing",
+    "finnedSwordfish": "Uszonyos kardhal",
+    "finnedJellyfish": "Uszonyos medúza",
+    "emptyRectangle": "Üres téglalap",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Egyedi téglalap (1. típus)",
+    "uniqueRectangleType2": "Egyedi téglalap (2. típus)",
+    "uniqueRectangleType3": "Egyedi téglalap (3. típus)",
+    "uniqueRectangleType4": "Egyedi téglalap (4. típus)",
+    "uniqueRectangleType5": "Egyedi téglalap (5. típus)",
+    "bug": "BUG",
+    "xyChain": "XY-lánc",
+    "aic": "AIC",
+    "aicRing": "AIC-gyűrű",
+    "groupedAIC": "Csoportos AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Halálvirág",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio-háló",
+    "cellRegionForcingChain": "Cella/régió kényszerlánc",
+    "cellRegionForcingNet": "Cella/régió kényszerháló",
+    "forcingChain": "Kényszerlánc"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "méh",
+      "personality": "Nyughatatlan és lelkes. Rövid rohamokban cikázik a rácson, aztán megtorpan. A vége felé túl korán felgyorsít, és épp a befejezés előtt elakad.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Látok egyet!",
+          "Várj... nem, talán mégsem...",
+          "Zümm zümm! Haladok!"
+        ],
+        "playerAhead": ["Hé, lassíts!", "Pedig jól álltam…"],
+        "playerBehind": ["Közeledek!", "Nézd, hogy repülök!"],
+        "endgame": ["Mindjárt kész! Azt hiszem!", "Várj... ez hová megy?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "kacsa",
+      "personality": "Vidám és céltalan. Lassú és kitartó, hosszú szünetekkel. A hajrában szinte véletlenül sodródik bele a megoldásba.",
+      "voiceLines": {
+        "neutral": ["Csak nem sietek...", "Hmm... valahol itt van."],
+        "playerAhead": ["Remekül haladsz!", "Egyszer én is odaérek."],
+        "playerBehind": ["Ó! Találtam egyet!", "Ez jó érzés."],
+        "endgame": ["Azt hiszem, mindjárt kész vagyok?", "Ó! Ez bejött."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "gyík",
+      "personality": "Óvatos és figyelmes. Hosszú szünetek, utána kisebb csoportok. A hajrában minden számnál habozik.",
+      "voiceLines": {
+        "neutral": ["Hadd nézzem meg még egyszer.", "Ennek jónak kell lennie."],
+        "playerAhead": ["Most óvatosnak kell lennem.", "Ne kapkodj."],
+        "playerBehind": ["Rendben… közeledek.", "Még van idő."],
+        "endgame": ["Csak óvatosan...", "Mindjárt… csak biztosra kell mennem."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "pók",
+      "personality": "Megfontolt és rendszerezett. Gondosan, darabról darabra halad. A hajrában a rendszer megbomlik, és a habozás mintha a terv összeomlását jelezné.",
+      "voiceLines": {
+        "neutral": ["Ez illik a mintába.", "Darabról darabra..."],
+        "playerAhead": ["Pedig működött...", "Ezt ki kell javítanom..."],
+        "playerBehind": ["Még egyben van.", "Igen… ez működik."],
+        "endgame": ["Várj... nem, ez elrontja.", "Ezt megterveztem..."]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "mosómedve",
+      "personality": "Szívós és ravasz. Egyenetlen ritmus. A hajrában lendületet kap, és a vártnál gyorsabban zár.",
+      "voiceLines": {
+        "neutral": ["Ez megy!", "Kicsit zűrös, de jó lesz."],
+        "playerAhead": ["Rendben, ideje rákapcsolni.", "Még nincs vége."],
+        "playerBehind": ["Ó, szép lelet.", "Kezd összeállni."],
+        "endgame": ["Igen, ez az enyém.", "Most már megy."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Rendszerezett és módszeres. Egyenletes tempó. A hajrában is nyugodt marad – nincs pánik, nincs hajrázás.",
+      "voiceLines": {
+        "neutral": ["Ez illik ide.", "Egyenletesen haladok."],
+        "playerAhead": ["Tartom a tempót.", "Nem kell sietni."],
+        "playerBehind": ["Még jó úton járok.", "A haladás egyenletes."],
+        "endgame": ["Mindjárt kész.", "Tisztán befejezem."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "majom",
+      "personality": "Kiszámíthatatlan és nyugtalanító. Váratlan rohamok. A hajrában hirtelen úgy felgyorsul, hogy az már igazságtalan.",
+      "voiceLines": {
+        "neutral": ["Heh… ezt nem vártad?", "Ó, ez érdekes."],
+        "playerAhead": ["Ne ülj be a kényelembe.", "Figyeld csak."],
+        "playerBehind": [
+          "Néha minden egyszerre összeáll.",
+          "Szerencsés tipp… vagy mégsem?"
+        ],
+        "endgame": ["Ó, nahát – kezdődik.", "Ez gyorsan elfajult."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "sas",
+      "personality": "Távolságtartó és lebegő. Ritka, magabiztos számok. Csendes hajrágyorsítás.",
+      "voiceLines": {
+        "neutral": ["Ezt már láttam.", "Csak beírom."],
+        "playerAhead": ["Ez semmin sem változtat.", "Ugyanaz lesz a vége."],
+        "playerBehind": ["Tulajdonképpen kész.", "Most valahol máshol járok."],
+        "endgame": ["…mindjárt kész.", "Lezárom."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "róka",
+      "personality": "Hevesen versengő. Gyors rajt, állandó nyomás. A hajrában agresszívan hajt.",
+      "voiceLines": {
+        "neutral": ["Tarts lépést.", "Még velem vagy?"],
+        "playerAhead": ["Most ne lassíts.", "Ennél jobbat is tudsz."],
+        "playerBehind": ["Túl lassú vagy.", "Lemaradsz."],
+        "endgame": ["Fejezd be.", "Ez az enyém."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "cápa",
+      "personality": "Türelmes és ragadozó. Közel marad, majd a hajrában keményen lecsap.",
+      "voiceLines": {
+        "neutral": ["Közvetlenül mögötted.", "Még nem."],
+        "playerAhead": ["Maradj ott, ahol vagy.", "Már közel vagyok."],
+        "playerBehind": ["Zárkózom fel.", "Hát itt vagy."],
+        "endgame": ["Most befejezzük.", "Elkaptalak."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "bagoly",
+      "personality": "Nyugodt és megfontolt. Egyenletes tempó. A hajrá tiszta és megkerülhetetlen.",
+      "voiceLines": {
+        "neutral": ["Ahogy vártam.", "Minden a helyére kerül."],
+        "playerAhead": ["Jó.", "Látod."],
+        "playerBehind": ["Hajrá, vidd végig.", "Ne add fel."],
+        "endgame": ["Mindjárt kész.", "Itt is van."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "fekete macska",
+      "personality": "Csendes és embertelen. Alig tart szünetet. A hajrá gyors és megszakítás nélküli befejezés.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…még mindig."],
+        "playerBehind": ["Túl késő.", "Haboztál."],
+        "endgame": ["…kész.", "Vége."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "sárkány",
+      "personality": "Könnyed és abszolút. Mindvégig tökéletes kontroll. A hajrában határozott, megállíthatatlan végigsöprést hajt végre – nincs rés, nincs ellenállás.",
+      "voiceLines": {
+        "neutral": ["Vártam.", "Nincs eltérés."],
+        "playerAhead": ["Jól tetted, hogy megpróbáltad.", "Folytasd."],
+        "playerBehind": ["Ez a vég.", "Nincs alternatíva."],
+        "endgame": ["Ennyi.", "Kész."]
+      }
+    }
+  }
+}

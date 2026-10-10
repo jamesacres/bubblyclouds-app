@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Gara di Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "gara",
+      "team": "team",
+      "leaderboard": "classifica",
+      "hint": "suggerimento",
+      "undo": "annulla",
+      "theme": "tema",
+      "dailyPuzzle": "schema del giorno",
+      "monthlyCollection": "libro mensile di schemi",
+      "aiOpponent": "avversario IA",
+      "monthly": "mensile",
+      "lifetime": "a vita",
+      "plusAccess": "Accesso Plus",
+      "plusFeatureLine": "Gare illimitate, team extra, temi e annulla"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Gara Libera",
+      "gameName": "Gara Libera",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "gara",
+      "team": "team",
+      "leaderboard": "classifica",
+      "hint": "suggerimento",
+      "undo": "annulla",
+      "theme": "tema",
+      "dailyPuzzle": "schema del giorno",
+      "monthlyCollection": "raccolta mensile",
+      "aiOpponent": "avversario IA",
+      "monthly": "mensile",
+      "lifetime": "a vita",
+      "plusAccess": "Accesso Plus",
+      "plusFeatureLine": "Gare illimitate, team extra, temi e annulla"
+    }
+  }
+}

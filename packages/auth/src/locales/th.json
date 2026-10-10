@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "ลงชื่อเข้าใช้เพื่อดำเนินการต่อ",
+    "signInWith": "ลงชื่อเข้าใช้ด้วย {{provider}}",
+    "emailTitle": "ลงชื่อเข้าใช้ด้วยอีเมล",
+    "emailPlaceholder": "your@email.com",
+    "continue": "ดำเนินการต่อ",
+    "cancel": "ยกเลิก",
+    "terms": "ข้อกำหนดในการให้บริการ",
+    "privacy": "นโยบายความเป็นส่วนตัว"
+  },
+  "header": {
+    "signIn": "ลงชื่อเข้าใช้"
+  },
+  "avatar": {
+    "alt": "ผู้ใช้"
+  },
+  "panel": {
+    "title": "บัญชี",
+    "greeting": "สวัสดี {{name}}!",
+    "fallbackName": "ผู้ใช้",
+    "plusActive": "{{gameName}} {{plus}} ใช้งานอยู่",
+    "joinGamePlus": "สมัคร {{gameName}} {{plus}}",
+    "joinPlus": "สมัคร {{plus}}",
+    "signOut": "ออกจากระบบ",
+    "privacy": "นโยบายความเป็นส่วนตัว",
+    "terms": "ข้อกำหนดในการให้บริการ",
+    "credits": "เครดิต",
+    "deleteAccount": "ลบบัญชี",
+    "poweredBy": "ขับเคลื่อนโดย {{companyName}}",
+    "deleteUnavailable": "ไม่สามารถใช้งานฟังก์ชันลบบัญชีได้",
+    "deleteFailed": "ลบบัญชีไม่สำเร็จ โปรดลองอีกครั้งในภายหลัง"
+  },
+  "deleteDialog": {
+    "title": "ลบบัญชี",
+    "warning": "การดำเนินการนี้ไม่สามารถย้อนกลับได้ ข้อมูลทั้งหมดของคุณในทุกแอปของ {{companyName}} จะถูกลบอย่างถาวร",
+    "confirmation": "ฉันยืนยันว่าต้องการลบบัญชีทั้งหมดของฉัน รวมถึงข้อมูลทั้งหมดในทุกแอปของ {{companyName}}",
+    "cancel": "ยกเลิก",
+    "deleting": "กำลังลบ...",
+    "submit": "ลบบัญชี"
+  }
+}

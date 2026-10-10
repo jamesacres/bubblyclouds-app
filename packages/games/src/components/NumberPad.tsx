@@ -6,6 +6,7 @@ export const NumberPad = ({
   isInputDisabled: boolean;
 }) => (
   <div
+    dir="ltr"
     className={`mb-0 grid h-full w-full grid-cols-9 lg:grid-cols-3 lg:grid-rows-3`}
   >
     {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((value) => {

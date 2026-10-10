@@ -40,9 +40,9 @@ const ActivityWidget = ({
       onClick={onClick}
     >
       {/* 7-day dot row */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         {lastSevenDays.map((day, i) => (
-          <div key={i} className="flex flex-col items-center gap-1">
+          <div key={i} className="flex min-w-8 flex-col items-center gap-1">
             <span
               className={`text-[11px] font-semibold uppercase tracking-wide ${
                 isDark ? 'text-white/40' : 'text-zinc-400 dark:text-zinc-500'
@@ -77,7 +77,7 @@ const ActivityWidget = ({
       </div>
       {/* Stats row */}
       <div
-        className={`mt-3 flex items-center gap-1.5 text-sm ${
+        className={`mt-3 flex flex-wrap items-center gap-1.5 text-sm ${
           isDark ? 'text-white/40' : 'text-zinc-400 dark:text-zinc-500'
         }`}
       >
@@ -98,7 +98,7 @@ const ActivityWidget = ({
           </span>{' '}
           {t('activityWidget.thisMonth')}
         </span>
-        {action && <div className="-my-1.5 ml-auto">{action}</div>}
+        {action && <div className="-my-1.5 ms-auto">{action}</div>}
       </div>
     </div>
   );

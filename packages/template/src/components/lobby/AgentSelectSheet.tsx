@@ -79,7 +79,7 @@ const AgentCard = ({
               background: 'rgba(255,255,255,0.04)',
             }
       }
-      className="group w-full animate-[fadeSlideIn_0.3s_ease_forwards] rounded-xl border p-3 text-left opacity-0 transition-all duration-200 active:scale-[0.98]"
+      className="group w-full animate-[fadeSlideIn_0.3s_ease_forwards] rounded-xl border p-3 text-start opacity-0 transition-all duration-200 active:scale-[0.98]"
       aria-pressed={selected}
     >
       <div className="flex items-center gap-3">
@@ -93,8 +93,8 @@ const AgentCard = ({
           />
         </div>
         <div className="min-w-0 flex-1">
-          <div className="mb-1 flex items-center gap-2">
-            <span className="text-sm font-semibold tracking-tight text-white">
+          <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span className="min-w-0 break-words text-sm font-semibold tracking-tight text-white">
               {display.name}
             </span>
             <span
@@ -186,15 +186,13 @@ export function AgentSelectSheet({
         }}
       />
       <div
-        className={`absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] ${
+        className={`absolute inset-x-0 bottom-0 flex flex-col overflow-hidden rounded-t-[26px] transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:end-auto md:start-1/2 md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] md:rtl:translate-x-1/2 ${
           open
             ? 'translate-y-0 md:scale-100 md:opacity-100'
             : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
         }`}
         style={{
           maxHeight: '88%',
-          borderTopLeftRadius: 26,
-          borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#15102e 0%,#0c0a1c 100%)',
           borderTop: '1px solid rgba(167,139,250,0.22)',
           boxShadow: '0 -20px 60px rgba(0,0,0,0.55)',
@@ -214,9 +212,9 @@ export function AgentSelectSheet({
             }}
             aria-label={t('agentSelect.back')}
           >
-            <ChevronRight className="h-4 w-4 rotate-180" />
+            <ChevronRight className="h-4 w-4 rotate-180 rtl:rotate-0" />
           </button>
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             <h2 className="m-0 text-base font-bold tracking-tight text-white">
               {t('agentSelect.title')}
             </h2>

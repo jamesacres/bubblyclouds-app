@@ -557,14 +557,12 @@ const Lobby = <ServerState extends BaseServerState>({
 
       <aside
         id="default-lobby"
-        className={`fixed inset-x-0 bottom-0 z-50 mx-auto h-[88%] w-full max-w-lg transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:top-1/2 md:h-[85%] md:max-h-[720px] md:-translate-y-1/2 md:rounded-b-[26px] ${
+        className={`fixed inset-x-0 bottom-0 z-50 mx-auto h-[88%] w-full max-w-lg rounded-t-[26px] transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:top-1/2 md:h-[85%] md:max-h-[720px] md:-translate-y-1/2 md:rounded-b-[26px] ${
           showLobby
             ? 'translate-y-0 md:scale-100 md:opacity-100'
             : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
         }`}
         style={{
-          borderTopLeftRadius: 26,
-          borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#1a1340 0%,#0c091e 100%)',
           borderTop: '1px solid rgba(167,139,250,0.22)',
           boxShadow: '0 -20px 60px rgba(0,0,0,0.6)',
@@ -788,7 +786,7 @@ const Lobby = <ServerState extends BaseServerState>({
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-center gap-1.5">
                             <span
-                              className="text-[13px] font-semibold"
+                              className="min-w-0 break-words text-[13px] font-semibold"
                               style={{ color: 'rgba(255,255,255,0.75)' }}
                             >
                               {m.memberNickname}
@@ -839,7 +837,7 @@ const Lobby = <ServerState extends BaseServerState>({
                             appName={appName}
                             isIOS={isIOS}
                             partyName={firstOwnedParty?.partyName}
-                            className="inline-flex h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] text-xs font-semibold transition-transform active:scale-95"
+                            className="inline-flex min-h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] py-1 text-center text-xs font-semibold transition-transform active:scale-95"
                             style={{
                               background:
                                 'color-mix(in srgb, var(--theme-primary-light) 14%, transparent)',
@@ -913,8 +911,8 @@ const Lobby = <ServerState extends BaseServerState>({
                         emoji={agent.emoji}
                       />
                       <div className="min-w-0 flex-1">
-                        <div className="mb-1 flex items-center gap-2">
-                          <span className="text-[15.5px] font-bold text-white">
+                        <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <span className="min-w-0 break-words text-[15.5px] font-bold text-white">
                             {agent.name}
                           </span>
                           {agent.skillLevel && (
@@ -948,6 +946,7 @@ const Lobby = <ServerState extends BaseServerState>({
                       <div className="flex flex-shrink-0 items-center gap-2">
                         {isRacing && agent.state != null && (
                           <div
+                            dir="ltr"
                             className="pointer-events-none overflow-hidden rounded-lg"
                             style={{
                               width: 72,
@@ -996,7 +995,7 @@ const Lobby = <ServerState extends BaseServerState>({
         </div>
 
         <div
-          className="absolute bottom-0 left-0 right-0 z-20 px-4 md:pb-[26px]"
+          className="absolute inset-x-0 bottom-0 z-20 px-4 md:pb-[26px]"
           style={{
             paddingTop: 14,
             paddingBottom: 'max(26px, var(--ion-safe-area-bottom, 0px))',
@@ -1009,7 +1008,7 @@ const Lobby = <ServerState extends BaseServerState>({
         >
           <div className="mb-2.5 flex items-center justify-center">
             <span
-              className="text-xs font-semibold"
+              className="text-center text-xs font-semibold"
               style={{ color: 'rgba(255,255,255,0.5)' }}
             >
               {raceSummary}
@@ -1026,11 +1025,15 @@ const Lobby = <ServerState extends BaseServerState>({
               onStartRace?.();
               setShowLobby(false);
             }}
-            className="bg-theme-primary hover:bg-theme-primary-dark inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-[18px] text-xl font-bold tracking-tight text-white transition-transform active:scale-[0.97]"
-            style={{ height: 60 }}
+            className="bg-theme-primary hover:bg-theme-primary-dark inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-[18px] px-4 py-2 text-center text-xl font-bold tracking-tight text-white transition-transform active:scale-[0.97]"
+            style={{ minHeight: 60 }}
           >
             {t('lobby.startSolving')}
-            <Play size={20} color="white" />
+            <Play
+              size={20}
+              color="white"
+              className="shrink-0 rtl:-scale-x-100"
+            />
           </button>
         </div>
 

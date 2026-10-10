@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "ಮುಂದುವರಿಯಲು ಸೈನ್ ಇನ್ ಮಾಡಿ",
+    "signInWith": "{{provider}} ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡಿ",
+    "emailTitle": "ಇಮೇಲ್‌ನೊಂದಿಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ",
+    "emailPlaceholder": "your@email.com",
+    "continue": "ಮುಂದುವರಿಸಿ",
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "terms": "ಸೇವಾ ನಿಯಮಗಳು",
+    "privacy": "ಗೌಪ್ಯತಾ ನೀತಿ"
+  },
+  "header": {
+    "signIn": "ಸೈನ್ ಇನ್"
+  },
+  "avatar": {
+    "alt": "ಬಳಕೆದಾರ"
+  },
+  "panel": {
+    "title": "ಖಾತೆ",
+    "greeting": "ನಮಸ್ಕಾರ, {{name}}!",
+    "fallbackName": "ಬಳಕೆದಾರ",
+    "plusActive": "{{gameName}} {{plus}} ಸಕ್ರಿಯವಾಗಿದೆ",
+    "joinGamePlus": "{{gameName}} {{plus}} ಗೆ ಸೇರಿ",
+    "joinPlus": "{{plus}} ಗೆ ಸೇರಿ",
+    "signOut": "ಸೈನ್ ಔಟ್",
+    "privacy": "ಗೌಪ್ಯತಾ ನೀತಿ",
+    "terms": "ಸೇವಾ ನಿಯಮಗಳು",
+    "credits": "ಕ್ರೆಡಿಟ್ಸ್",
+    "deleteAccount": "ಖಾತೆ ಅಳಿಸಿ",
+    "poweredBy": "{{companyName}} ಒದಗಿಸಿದ್ದು",
+    "deleteUnavailable": "ಖಾತೆ ಅಳಿಸುವ ಸೌಲಭ್ಯ ಲಭ್ಯವಿಲ್ಲ.",
+    "deleteFailed": "ಖಾತೆ ಅಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+  },
+  "deleteDialog": {
+    "title": "ಖಾತೆ ಅಳಿಸಿ",
+    "warning": "ಈ ಕ್ರಿಯೆಯನ್ನು ಹಿಂತಿರುಗಿಸಲಾಗದು. ಎಲ್ಲಾ {{companyName}} ಅಪ್ಲಿಕೇಶನ್‌ಗಳಲ್ಲಿರುವ ನಿಮ್ಮ ಎಲ್ಲಾ ಡೇಟಾ ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲ್ಪಡುತ್ತದೆ.",
+    "confirmation": "ಎಲ್ಲಾ {{companyName}} ಅಪ್ಲಿಕೇಶನ್‌ಗಳಲ್ಲಿರುವ ಎಲ್ಲಾ ಡೇಟಾ ಸೇರಿದಂತೆ ನನ್ನ ಸಂಪೂರ್ಣ ಖಾತೆಯನ್ನು ಅಳಿಸಲು ನಾನು ಖಚಿತಪಡಿಸುತ್ತೇನೆ.",
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "deleting": "ಅಳಿಸಲಾಗುತ್ತಿದೆ...",
+    "submit": "ಖಾತೆ ಅಳಿಸಿ"
+  }
+}

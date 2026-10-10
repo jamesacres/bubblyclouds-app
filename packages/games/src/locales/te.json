@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "పుస్తకం",
+    "defaultDetailNoun": "పజిల్ పుస్తకాలు"
+  },
+  "collectionCover": {
+    "monthlyCollection": "నెలవారీ సేకరణ"
+  },
+  "hintBox": {
+    "dismiss": "సూచనను మూసివేయండి"
+  },
+  "lobbyButton": {
+    "opponents": "ప్రత్యర్థులు"
+  },
+  "nextPuzzlePanel": {
+    "continue": "కొనసాగండి — తదుపరి పజిల్",
+    "continueLocked": "కొనసాగండి ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}}/{{total}} {{label}} పూర్తయ్యాయి"
+  },
+  "countdownOverlay": {
+    "getReady": "సిద్ధంగా ఉండండి",
+    "go": "గో!"
+  },
+  "confirmDialog": {
+    "cancel": "రద్దు చేయండి"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · పూర్తయింది",
+    "retry": "మళ్లీ ప్రయత్నం",
+    "points": "+{{points}} పాయింట్లు",
+    "leaderboardPoints": "లీడర్‌బోర్డ్ పాయింట్లు"
+  },
+  "raceTimer": {
+    "time": "సమయం"
+  },
+  "stageTopBar": {
+    "previous": "మునుపటిది"
+  },
+  "raceHud": {
+    "opponents": "ప్రత్యర్థులు",
+    "stageOf": "దశ {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "ఫినిష్!",
+    "runComplete": "రన్ పూర్తయింది",
+    "leaderboardPoints": "లీడర్‌బోర్డ్ పాయింట్లు",
+    "pointsSuffix": " పా."
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ఆ",
+      "monday": "సో",
+      "tuesday": "మం",
+      "wednesday": "బు",
+      "thursday": "గు",
+      "friday": "శు",
+      "saturday": "శ"
+    },
+    "dayStreak_one": "రోజుల స్ట్రీక్",
+    "dayStreak_other": "రోజుల స్ట్రీక్",
+    "thisMonth": "ఈ నెల"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(మీరు)",
+    "puzzles_one": "{{count}} పజిల్",
+    "puzzles_other": "{{count}} పజిల్స్",
+    "average": "సగటు: {{time}}",
+    "best": "ఉత్తమం: {{time}}",
+    "wins_one": "🏁 {{count}} విజయం",
+    "wins_other": "🏁 {{count}} విజయాలు",
+    "points_one": "పాయింట్",
+    "points_other": "పాయింట్లు"
+  },
+  "scoreBreakdown": {
+    "title": "స్కోర్ వివరాలు",
+    "volumeBonus": {
+      "label": "వాల్యూమ్ బోనస్",
+      "detail_one": "{{count}} పజిల్ పూర్తయింది",
+      "detail_other": "{{count}} పజిల్స్ పూర్తయ్యాయి"
+    },
+    "dailyPuzzles": {
+      "label": "రోజువారీ పజిల్స్",
+      "detail_one": "{{count}} రోజువారీ సవాలు",
+      "detail_other": "{{count}} రోజువారీ సవాళ్లు"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} పజిల్స్",
+      "detail": "{{collection}} నుండి {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "స్కాన్ చేసిన పజిల్స్",
+      "detail_one": "{{count}} దిగుమతి చేసిన పజిల్",
+      "detail_other": "{{count}} దిగుమతి చేసిన పజిల్స్"
+    },
+    "difficultyBonus": {
+      "label": "కష్టతర బోనస్",
+      "detail": "కష్టమైన పజిల్స్ = ఎక్కువ పాయింట్లు"
+    },
+    "speedBonus": {
+      "label": "వేగ బోనస్",
+      "detail": "అత్యంత వేగం: {{time}}"
+    },
+    "racingBonus": {
+      "label": "రేసింగ్ బోనస్",
+      "detail": "పూర్తి చేసిన స్నేహితులను ఓడించండి"
+    },
+    "dailyCombo": {
+      "label": "రోజువారీ కాంబో",
+      "detail": "రోజుకు ఎక్కువ పజిల్స్ = పెద్ద మల్టిప్లయర్"
+    }
+  },
+  "leaderboard": {
+    "you": "మీరు",
+    "unknownUser": "తెలియని వినియోగదారు",
+    "title": "లీడర్‌బోర్డ్",
+    "subtitleParty": "గత 30 రోజులు · {{partyName}}",
+    "subtitleAllTeams": "గత 30 రోజులు · అన్ని టీమ్‌లు",
+    "howScoringWorks": "స్కోరింగ్ ఎలా పనిచేస్తుంది"
+  },
+  "scoringLegend": {
+    "title": "స్కోరింగ్ ఎలా పనిచేస్తుంది",
+    "subtitle": "{{gameName}} · గత 30 రోజులు",
+    "close": "మూసివేయండి",
+    "racingWins": {
+      "title": "రేసింగ్ విజయాలు",
+      "body": "అదే పూర్తయిన పజిల్‌లో మీరు ఓడించే ప్రతి స్నేహితునికి <points>+{{points}} పాయింట్లు</points> పొందండి. {{friends}} మంది స్నేహితులందరిలో మొదట పూర్తి చేస్తే అదనంగా <points>+{{total}} పాయింట్లు</points> సంపాదించండి."
+    },
+    "basePoints": {
+      "title": "బేస్ పాయింట్లు",
+      "anyPuzzle": "ఏదైనా పజిల్",
+      "dailyPuzzle": "రోజువారీ పజిల్",
+      "collectionPuzzle": "{{collection}} పజిల్",
+      "scannedPuzzle": "స్కాన్ చేసిన పజిల్"
+    },
+    "difficultyMultipliers": {
+      "title": "కష్టతర మల్టిప్లయర్లు",
+      "daily": "నేటి {{gameName}}",
+      "collection": "{{collection}} పజిల్స్"
+    },
+    "speedBonuses": {
+      "title": "వేగ బోనస్‌లు",
+      "lightning": "మెరుపు",
+      "fast": "వేగం",
+      "quick": "చురుకు",
+      "steady": "స్థిరం",
+      "under": "{{threshold}} లోపు",
+      "seconds": "{{value}} సెకన్లు",
+      "minutes": "{{value}} నిమిషాలు"
+    },
+    "dailyCombo": {
+      "title": "రోజువారీ కాంబో",
+      "body": "ఒకే రోజులో ఎక్కువ పజిల్స్ పరిష్కరిస్తే ప్రతి పజిల్ పాయింట్లు <max>{{max}}×</max> వరకు పెరుగుతాయి.",
+      "puzzle": "రోజులో పజిల్ {{puzzle}}",
+      "puzzleOrMore": "రోజులో పజిల్ {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "రన్ పూర్తయింది",
+    "raceProgress": "రేస్ పురోగతి",
+    "stagesProgress": "{{completed}}/{{total}} దశలు",
+    "retryStage": "దశ మళ్లీ ఆడండి",
+    "stageLabel": "దశ {{number}}",
+    "stageCompletedLabel": "దశ {{number}}, పూర్తి చేసిన సమయం: {{time}}",
+    "viewRacingStats": "రేసింగ్ గణాంకాలు చూడండి",
+    "total": "మొత్తం"
+  },
+  "raceTrack": {
+    "you": "మీరు",
+    "viewFriends": "స్నేహితులను చూడటానికి క్లిక్ చేయండి",
+    "start": "ప్రారంభం",
+    "finish": "ముగింపు",
+    "inviteToRace": "రేస్‌కు స్నేహితులను ఆహ్వానించండి",
+    "opponents": "ప్రత్యర్థులు",
+    "racer": "రేసర్",
+    "stageBadge": "ద{{number}}",
+    "total": "మొత్తం",
+    "leaderboard": "లీడర్‌బోర్డ్",
+    "puzzleBook": "పజిల్ పుస్తకం",
+    "puzzleBookLabel": "పజిల్ పుస్తకం",
+    "refreshScores": "స్కోర్‌లను రిఫ్రెష్ చేయండి",
+    "challengeFriends": "🏁 స్నేహితులను సవాలు చేయండి",
+    "yourTime": "మీ సమయం:",
+    "inviteFriends": "స్నేహితులను ఆహ్వానించండి",
+    "racingLabel": "రేసింగ్"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "చిక్కైనది",
+      "easy": "సవాలు",
+      "intermediate": "కఠినం",
+      "expert": "నిపుణ స్థాయి"
+    },
+    "book": {
+      "veryEasy": "చాలా సులభం",
+      "easy": "సులభం",
+      "moderatelyEasy": "కొంచెం సులభం",
+      "moderate": "మధ్యస్థం",
+      "moderatelyHard": "కొంచెం కఠినం",
+      "hard": "కఠినం",
+      "vicious": "క్రూరం",
+      "fiendish": "అతి కఠినం",
+      "devilish": "పైశాచికం",
+      "hell": "నరకం",
+      "beyondHell": "నరకానికి మించి"
+    }
+  },
+  "techniques": {
+    "lastDigit": "లాస్ట్ డిజిట్",
+    "hiddenSingleBox": "హిడెన్ సింగిల్ (బాక్స్)",
+    "hiddenSingleLine": "హిడెన్ సింగిల్ (లైన్)",
+    "hiddenSingleVariantRegion": "హిడెన్ సింగిల్ (వేరియంట్ రీజియన్)",
+    "nakedSingle": "నేక్డ్ సింగిల్",
+    "hiddenPair": "హిడెన్ పెయిర్",
+    "lockedCandidate": "లాక్డ్ కాండిడేట్",
+    "hiddenTriple": "హిడెన్ ట్రిపుల్",
+    "hiddenQuadruple": "హిడెన్ క్వాడ్రపుల్",
+    "nakedPair": "నేక్డ్ పెయిర్",
+    "nakedTriple": "నేక్డ్ ట్రిపుల్",
+    "nakedQuadruple": "నేక్డ్ క్వాడ్రపుల్",
+    "xWing": "X-వింగ్",
+    "swordfish": "స్వార్డ్‌ఫిష్",
+    "skyscraper": "స్కైస్క్రేపర్",
+    "twoStringKite": "టూ-స్ట్రింగ్ కైట్",
+    "crane": "క్రేన్",
+    "simpleColoring": "సింపుల్ కలరింగ్",
+    "yWing": "Y-వింగ్",
+    "xYZWing": "XYZ-వింగ్",
+    "wWing": "W-వింగ్",
+    "finnedSashimiXWing": "ఫిన్డ్/సాషిమి X-వింగ్",
+    "emptyRectangle": "ఎంప్టీ రెక్టాంగిల్",
+    "uniqueRectangleType1": "యూనిక్ రెక్టాంగిల్ టైప్ 1",
+    "uniqueRectangleType2": "యూనిక్ రెక్టాంగిల్ టైప్ 2",
+    "uniqueRectangleType3": "యూనిక్ రెక్టాంగిల్ టైప్ 3",
+    "uniqueRectangleType4": "యూనిక్ రెక్టాంగిల్ టైప్ 4",
+    "uniqueRectangleType5": "యూనిక్ రెక్టాంగిల్ టైప్ 5",
+    "finnedSashimiSwordfish": "ఫిన్డ్/సాషిమి స్వార్డ్‌ఫిష్",
+    "jellyfish": "జెల్లీఫిష్",
+    "bugBinaryUniversalGrave": "BUG (బైనరీ యూనివర్సల్ గ్రేవ్)",
+    "xChain": "X-చైన్",
+    "groupedXChain": "గ్రూప్డ్ X-చైన్",
+    "YWing4WXYZWing": "4-Y-వింగ్ (WXYZ-వింగ్)",
+    "yWing5": "5-Y-వింగ్",
+    "yWing6": "6-Y-వింగ్",
+    "yWing7": "7-Y-వింగ్",
+    "yWing8": "8-Y-వింగ్",
+    "yWing9": "9-Y-వింగ్",
+    "finnedSashimiJellyfish": "ఫిన్డ్/సాషిమి జెల్లీఫిష్",
+    "medusa3D": "3D మెడూసా",
+    "xyChain": "XY-చైన్",
+    "alternatingInferenceChainAIC": "ఆల్టర్నేటింగ్ ఇన్ఫరెన్స్ చైన్ (AIC)",
+    "groupedAlternatingInferenceChainAIC": "గ్రూప్డ్ ఆల్టర్నేటింగ్ ఇన్ఫరెన్స్ చైన్ (AIC)",
+    "nishioForcingChain": "నిషియో ఫోర్సింగ్ చైన్",
+    "nishioForcingNet": "నిషియో ఫోర్సింగ్ నెట్"
+  }
+}

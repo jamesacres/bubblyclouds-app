@@ -1,0 +1,59 @@
+{
+  "language": {
+    "label": "Jazyk",
+    "automatic": "Automaticky"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Späť"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Prepnúť tmavý režim"
+  },
+  "starRating": {
+    "label_one": "{{filled}} z {{count}} hviezdy",
+    "label_few": "{{filled}} z {{count}} hviezd",
+    "label_many": "{{filled}} z {{count}} hviezdy",
+    "label_other": "{{filled}} z {{count}} hviezd"
+  },
+  "timer": {
+    "go": "ŠTART!"
+  },
+  "themeColor": {
+    "change": "Zmeniť farbu motívu",
+    "set": "Nastaviť farbu motívu na {{color}}",
+    "setPremium": "Nastaviť farbu motívu na {{color}} (Premium)",
+    "colors": {
+      "blue": "modrá",
+      "red": "červená",
+      "green": "zelená",
+      "purple": "purpurová",
+      "amber": "jantárová",
+      "cyan": "azúrová",
+      "pink": "ružová",
+      "indigo": "indigová",
+      "orange": "oranžová",
+      "teal": "tyrkysová",
+      "slate": "bridlicová",
+      "rose": "ružovočervená",
+      "emerald": "smaragdová",
+      "sky": "nebesky modrá",
+      "violet": "fialová",
+      "lime": "limetková",
+      "fuchsia": "fuksiová",
+      "yellow": "žltá",
+      "stone": "kamenná",
+      "zinc": "zinková"
+    }
+  },
+  "copyButton": {
+    "copied": "Skopírované do schránky!",
+    "share": "Zdieľať odkaz na pozvanie",
+    "copy": "Kopírovať odkaz na pozvanie"
+  },
+  "share": {
+    "joinTeam": "Pridaj sa k pretekárskemu tímu v aplikácii {{appName}}!",
+    "joinNamedTeam": "Pridaj sa k pretekárskemu tímu {{partyName}} v aplikácii {{appName}}!",
+    "dialogTitle": "Zdieľať pozvánku"
+  }
+}

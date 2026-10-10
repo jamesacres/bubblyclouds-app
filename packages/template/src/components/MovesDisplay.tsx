@@ -12,6 +12,7 @@ export const MovesDisplay = ({
   const movesDelta = moves.movesMade - moves.movesRequired;
   return (
     <span
+      dir="ltr"
       className={`font-mono tabular-nums ${
         movesDelta > 0
           ? 'text-amber-600 dark:text-amber-400'

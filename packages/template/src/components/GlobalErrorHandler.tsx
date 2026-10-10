@@ -17,7 +17,7 @@ export default function GlobalErrorHandler() {
       container.style.cssText = `
         position: fixed;
         top: 20px;
-        right: 20px;
+        inset-inline-end: 20px;
         z-index: 9999;
         display: flex;
         flex-direction: column;
@@ -86,7 +86,7 @@ function showErrorToast(message: string, dismissLabel: string) {
     container.style.cssText = `
       position: fixed;
       top: 20px;
-      right: 20px;
+      inset-inline-end: 20px;
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -123,6 +123,11 @@ function showErrorToast(message: string, dismissLabel: string) {
     -webkit-backdrop-filter: blur(20px);
     border: 0.5px solid rgba(0, 0, 0, 0.04);
   `;
+
+  toast.style.setProperty(
+    '--toast-slide',
+    document.documentElement.dir === 'rtl' ? '-400px' : '400px'
+  );
 
   // Check if dark mode
   const isDarkMode =
@@ -167,6 +172,7 @@ function showErrorToast(message: string, dismissLabel: string) {
     font-size: 15px;
     font-weight: 400;
     letter-spacing: -0.24px;
+    overflow-wrap: anywhere;
   `;
   content.appendChild(messageEl);
 
@@ -220,7 +226,7 @@ function showErrorToast(message: string, dismissLabel: string) {
     style.textContent = `
       @keyframes slideIn {
         from {
-          transform: translateX(400px) scale(0.9);
+          transform: translateX(var(--toast-slide, 400px)) scale(0.9);
           opacity: 0;
         }
         to {
@@ -234,7 +240,7 @@ function showErrorToast(message: string, dismissLabel: string) {
           opacity: 1;
         }
         to {
-          transform: translateX(400px) scale(0.9);
+          transform: translateX(var(--toast-slide, 400px)) scale(0.9);
           opacity: 0;
         }
       }

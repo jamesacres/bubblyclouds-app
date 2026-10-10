@@ -6,12 +6,20 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import type { Resource } from 'i18next';
 import { I18nextProvider } from 'react-i18next';
-import { createI18n, FALLBACK_LOCALE } from '../config/i18n';
+import {
+  addLocaleBundles,
+  createI18n,
+  FALLBACK_LOCALE,
+  type LocaleLoader,
+} from '../config/i18n';
+import { useLocalizedDocumentTitle } from '../hooks/useLocalizedDocumentTitle';
 import { resolveLocale } from '../helpers/resolveLocale';
+import { getTextDirection } from '../helpers/textDirection';
 
 export const LOCALE_STORAGE_KEY = 'bubblyclouds.locale';
 
@@ -35,6 +43,7 @@ interface I18nProviderProps {
   resources: Resource;
   defaultLocale: string;
   supportedLocales: readonly string[];
+  localeLoaders?: Readonly<Record<string, LocaleLoader | undefined>>;
   children: React.ReactNode;
 }
 
@@ -78,6 +87,7 @@ export function I18nProvider({
   resources,
   defaultLocale,
   supportedLocales,
+  localeLoaders,
   children,
 }: I18nProviderProps) {
   const [i18n] = useState(() =>
@@ -86,13 +96,41 @@ export function I18nProvider({
   const [locale, setActiveLocale] = useState(defaultLocale);
   const [preference, setPreference] = useState<string | null>(null);
 
-  const apply = useCallback(
+  const loaded = useRef(new Set(Object.keys(resources)));
+  const request = useRef(0);
+
+  useLocalizedDocumentTitle(i18n, locale);
+
+  const commit = useCallback(
     (nextLocale: string) => {
       setActiveLocale(nextLocale);
       i18n.changeLanguage(nextLocale);
       document.documentElement.lang = nextLocale;
+      document.documentElement.dir = getTextDirection(nextLocale);
     },
     [i18n]
+  );
+
+  const apply = useCallback(
+    (nextLocale: string) => {
+      request.current += 1;
+      const current = request.current;
+      const loader = localeLoaders?.[nextLocale];
+      if (loaded.current.has(nextLocale) || !loader) {
+        commit(nextLocale);
+        return;
+      }
+      loader()
+        .then((bundles) => {
+          addLocaleBundles(i18n, nextLocale, bundles);
+          loaded.current.add(nextLocale);
+          if (request.current === current) {
+            commit(nextLocale);
+          }
+        })
+        .catch(() => undefined);
+    },
+    [i18n, commit, localeLoaders]
   );
 
   useEffect(() => {
@@ -100,6 +138,9 @@ export function I18nProvider({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setPreference(stored);
     apply(stored ?? detectLocale(supportedLocales, defaultLocale));
+    return () => {
+      request.current += 1;
+    };
   }, [apply, supportedLocales, defaultLocale]);
 
   const setLocale = useCallback(

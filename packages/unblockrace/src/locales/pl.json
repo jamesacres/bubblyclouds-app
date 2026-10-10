@@ -1,0 +1,276 @@
+{
+  "brand": {
+    "gameName": "Wyścig z Korkiem"
+  },
+  "controls": {
+    "hint": "Podpowiedź",
+    "hintTitle": "Poproś o pomoc",
+    "undo": "Cofnij",
+    "redo": "Ponów",
+    "reset": "Resetuj"
+  },
+  "labels": {
+    "time": "Czas",
+    "moves": "Ruchy",
+    "stageOf": "Etap {{current}} z {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} ruch",
+    "moves_few": "{{count}} ruchy",
+    "moves_many": "{{count}} ruchów",
+    "moves_other": "{{count}} ruchu",
+    "par": "norma",
+    "overPar": "{{delta}} ponad normę",
+    "underPar": "{{delta}} poniżej normy"
+  },
+  "score": {
+    "moves": "ruchów",
+    "srOnPar": "ruchów, w normie",
+    "srOverPar": "ruchów, {{delta}} ponad normę",
+    "srUnderPar": "ruchów, {{delta}} poniżej normy",
+    "upcomingPar": "norma {{par}}"
+  },
+  "daily": {
+    "label": "Codzienna · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Początkująca",
+    "challenging": "Wymagająca",
+    "hard": "Trudna",
+    "expert": "Ekspert"
+  },
+  "collection": {
+    "puzzleLabel": "Łamigłówka ze zbioru nr {{number}}",
+    "theme": {
+      "january": "Nowy rok, nowy korek",
+      "february": "Zamarznięty zator",
+      "march": "Szeroko otwarta droga",
+      "april": "Deszcz klocków",
+      "may": "Świeże pasy rozkwitają",
+      "june": "Szczyt szybkości",
+      "july": "Letnia seria wyścigów",
+      "august": "Rozpalony zator",
+      "september": "Powrót do planszy",
+      "october": "Nawiedzony zator",
+      "november": "Rozładowywanie pasów",
+      "december": "Świąteczny zator",
+      "default": "Miesięczny zbiór"
+    },
+    "error": {
+      "offline": "Brak połączenia — proszę sprawdzić sieć",
+      "loadFailed": "Nie udało się wczytać zbioru łamigłówek"
+    }
+  },
+  "stageClear": {
+    "title": "Etap {{stage}} ukończony",
+    "onPar": "W normie",
+    "pointsSuffix": " pkt",
+    "leaderboardPoints": "Punkty rankingu",
+    "nextStage": "Następny etap",
+    "progress": "Etap {{stage}} z {{total}} — pozostało: {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Stąd nie ma już przejścia — cofnięcie lub reset przywróci właściwy tor",
+    "dismiss": "Zamknij komunikat z podpowiedzią"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Kontynuacja serii w zbiorze"
+  },
+  "raceTrack": {
+    "collection": "Zbiór"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Powtórzyć ten etap?",
+      "body": "Bieżący czas i ruchy zostaną zastąpione.",
+      "confirm": "Powtórz"
+    },
+    "reset": {
+      "title": "Zresetować tę łamigłówkę?",
+      "body": "Ruchy zostaną wyczyszczone, a łamigłówka rozpocznie się od nowa.",
+      "confirm": "Resetuj"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "pszczoła",
+      "personality": "Niespokojny i pełen entuzjazmu. Przesuwa bloki zrywami, po czym staje. Przy wyjeździe przyspiesza zbyt wcześnie i korkuje pas tuż przed metą.",
+      "voiceLines": {
+        "neutral": [
+          "Ooo! Ten się przesuwa!",
+          "Chwila — nie, ten mnie blokuje...",
+          "Bzzz bzzz! Robię miejsce!"
+        ],
+        "playerAhead": ["Hej, zwolnij!", "Właśnie czyściłem drogę…"],
+        "playerBehind": ["Doganiam!", "Ale się przesuwam!"],
+        "endgame": ["Wyjazd! Widzę go!", "Chwila — kto tu zaparkował?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "kaczka",
+      "personality": "Pogodna i bezcelowa. Powoli i równo, z długimi przerwami. W końcówce niemal przypadkiem wydostaje się z zatoru.",
+      "voiceLines": {
+        "neutral": ["Tylko trochę podsuwam...", "Hmm... może ten blok."],
+        "playerAhead": ["Świetnie idzie!", "W końcu się wydostanę."],
+        "playerBehind": ["O! Ten drgnął!", "Miło tak."],
+        "endgame": ["Czy to wyjazd?", "O! Droga sama się odkorkowała."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "jaszczurka",
+      "personality": "Ostrożna i spostrzegawcza. Długie przerwy, potem małe serie przesunięć. W końcówce waha się przed każdym ruchem.",
+      "voiceLines": {
+        "neutral": [
+          "Sprawdzę, co to uwolni.",
+          "To przesunięcie powinno być bezpieczne."
+        ],
+        "playerAhead": ["Teraz trzeba uważać.", "Nie korkować pasa."],
+        "playerBehind": ["No dobrze… nadrabiam.", "Jest jeszcze czas."],
+        "endgame": [
+          "Ostrożnie teraz...",
+          "Prawie na zewnątrz… muszę tylko mieć pewność."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "pająk",
+      "personality": "Przemyślany i uporządkowany. Starannie czyści pas, blok po bloku. W końcówce plan się rozpada — wkrada się wahanie, jakby trasa przestała się trzymać.",
+      "voiceLines": {
+        "neutral": ["To otwiera trasę.", "Blok po bloku..."],
+        "playerAhead": [
+          "Trasa przecież działała...",
+          "Trzeba zaplanować od nowa..."
+        ],
+        "playerBehind": ["Wciąż się trzyma.", "Tak… pas się otwiera."],
+        "endgame": [
+          "Chwila — nie, to znowu mnie zamyka.",
+          "Miałem tę trasę zaplanowaną..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "szop",
+      "personality": "Zadziorny i skory do wykorzystywania okazji. Nierówny rytm. W końcówce łapie rozpęd i wysuwa się szybciej, niż można się spodziewać.",
+      "voiceLines": {
+        "neutral": ["To przesuwa sprawę!", "Trochę ciasno, ale biorę."],
+        "playerAhead": [
+          "No dobra, czas docisnąć.",
+          "Jeszcze nie jestem zablokowany."
+        ],
+        "playerBehind": ["O — fajna luka.", "Pas właśnie się otwiera."],
+        "endgame": ["Tak, droga wolna.", "Teraz się toczy."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingwin",
+      "personality": "Uporządkowany i metodyczny. Równe tempo. Końcówka pozostaje spokojna — bez paniki, bez sprintu.",
+      "voiceLines": {
+        "neutral": ["To przesunięcie pasuje do trasy.", "Trzymam równe tempo."],
+        "playerAhead": [
+          "Utrzymać tempo.",
+          "Nie ma potrzeby spieszyć się z planszą."
+        ],
+        "playerBehind": [
+          "Wciąż na dobrej drodze.",
+          "Pas rozładowuje się stopniowo."
+        ],
+        "endgame": ["Już prawie na zewnątrz.", "Wyjechać czysto."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "małpa",
+      "personality": "Nieobliczalna i niepokojąca. Nieprzewidywalne zrywy. W końcówce nagle przyspiesza w sposób, który wydaje się nieuczciwy.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… nie zauważono tej luki?",
+          "Och, ciekawe przesunięcie."
+        ],
+        "playerAhead": ["Nie ma co się rozsiadać.", "Patrz na ten ruch."],
+        "playerBehind": [
+          "Korek czasem sam się rozchodzi.",
+          "Szczęśliwe przesunięcie… a może nie?"
+        ],
+        "endgame": [
+          "Och, no proszę — droga szeroko otwarta.",
+          "Szybko się to rozładowało."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "orzeł",
+      "personality": "Oderwany i płynny. Rozłożone w czasie, pewne przesunięcia. Ciche przyspieszenie w końcówce.",
+      "voiceLines": {
+        "neutral": ["Trasę już widziałem.", "Po prostu się przesuwam."],
+        "playerAhead": ["Trasa się nie zmienia.", "Wyjazd i tak ten sam."],
+        "playerBehind": [
+          "Jest już rozładowane, naprawdę.",
+          "Dalej tylko się toczę."
+        ],
+        "endgame": ["…prawie na zewnątrz.", "Toczę się do wyjazdu."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "lis",
+      "personality": "Intensywny i ambitny. Szybki start, ciągła presja. Zryw w końcówce wydaje się agresywny.",
+      "voiceLines": {
+        "neutral": ["Nadążaj.", "Wciąż stoisz w korku?"],
+        "playerAhead": ["Nie zwalniaj teraz.", "Przesuwać można szybciej."],
+        "playerBehind": ["Za wolno.", "Jesteś zablokowany."],
+        "endgame": ["Udrożnić pas.", "Ten wyjazd jest mój."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "rekin",
+      "personality": "Cierpliwy i drapieżny. Trzyma się blisko, a w końcówce zaciska szczęki.",
+      "voiceLines": {
+        "neutral": ["Tuż za tobą.", "Jeszcze nie."],
+        "playerAhead": ["Zostań na swoim pasie.", "Jestem już blisko."],
+        "playerBehind": ["Zbliżam się.", "O, jest luka."],
+        "endgame": ["Teraz wysuwamy się na zewnątrz.", "Mam wyjazd."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "sowa",
+      "personality": "Spokojna i rozważna. Płynne tempo. Końcówka jest czysta i nieunikniona.",
+      "voiceLines": {
+        "neutral": ["Zgodnie z oczekiwaniami.", "Każdy blok na swoim miejscu."],
+        "playerAhead": ["Dobrze.", "Trasa jest widoczna."],
+        "playerBehind": ["Podążaj pasem.", "Wytrwaj."],
+        "endgame": ["Prawie na zewnątrz.", "O, jest wyjazd."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "czarny kot",
+      "personality": "Cichy i nieludzki. Minimum przerw. Końcówka to szybkie, nieprzerwane przesunięcie do wyjazdu.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…wciąż."],
+        "playerBehind": ["Za późno.", "Zawahanie."],
+        "endgame": ["…na zewnątrz.", "Wyjazd."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "smok",
+      "personality": "Bez wysiłku i absolutny. Przez cały czas zachowuje pełną kontrolę. W końcówce wykonuje zdecydowane, nieprzerwane przejście do wyjazdu — bez luk, bez oporu.",
+      "voiceLines": {
+        "neutral": ["Zgodnie z planem.", "Bez odchyleń."],
+        "playerAhead": ["Słusznie, że próbujesz.", "Kontynuuj."],
+        "playerBehind": ["To koniec.", "Nie ma alternatywy."],
+        "endgame": ["To wszystko.", "Wolna droga."]
+      }
+    }
+  }
+}

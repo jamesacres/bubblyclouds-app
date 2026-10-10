@@ -1,0 +1,351 @@
+{
+  "brand": {
+    "gameName": "Sudokulopp"
+  },
+  "board": {
+    "buttonGroup": "Knappgrupp"
+  },
+  "celebration": {
+    "solved": "Löst!",
+    "leaderboardPoints": "Topplistepoäng",
+    "pointsSuffix": " p"
+  },
+  "completion": {
+    "time": "Tid"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Håll serien igång i boken"
+  },
+  "puzzleMeta": {
+    "daily": "Dagligt {{day}} {{month}}",
+    "dayOrdinal": "{{count}}:e",
+    "dayOrdinal_ordinal_one": "{{count}}:a",
+    "dayOrdinal_ordinal_other": "{{count}}:e",
+    "book": "Bok {{month}} nr {{number}}",
+    "scanned": "Skannat pussel"
+  },
+  "bookCover": {
+    "edition": "Utgåva {{month}}",
+    "puzzleCount": "50 pussel • Flera svårighetsgrader",
+    "months": {
+      "january": {
+        "tagline": "Från grunder till brutala tekniker",
+        "footer": "❄️ Vinterutmaningens utgåva ❄️"
+      },
+      "february": {
+        "tagline": "Från dolda singlar till AIC-kedjor",
+        "footer": "💕 Älska utmaningen 💕"
+      },
+      "march": {
+        "tagline": "Vårsprång in i avancerade tekniker",
+        "footer": "🌸 Nya utmaningar slår ut 🌸"
+      },
+      "april": {
+        "tagline": "Trotsa varje lösningsstorm",
+        "footer": "🌈 Efter regn kommer seger 🌈"
+      },
+      "may": {
+        "tagline": "Blomstra med hjärnkraft",
+        "footer": "🌻 Må dina färdigheter blomstra 🌻"
+      },
+      "june": {
+        "tagline": "Sommarens hjärnträning",
+        "footer": "☀️ Lösningens soliga sida ☀️"
+      },
+      "july": {
+        "tagline": "Strandläsning, hjärnträning",
+        "footer": "🏖️ Semesterns hjärngymnastik 🏖️"
+      },
+      "august": {
+        "tagline": "Värm upp hjärnkraften",
+        "footer": "🔥 Glödheta utmaningar 🔥"
+      },
+      "september": {
+        "tagline": "Skolning för hjärnan",
+        "footer": "📚 Kunskap genom siffror 📚"
+      },
+      "october": {
+        "tagline": "Kusligt smarta utmaningar",
+        "footer": "🎃 Skrämmande roligt 🎃"
+      },
+      "november": {
+        "tagline": "Brasans hjärnbrännare",
+        "footer": "🍂 Kom ihåg, kom ihåg! 🍂"
+      },
+      "december": {
+        "tagline": "Hjärngåvor till högtiden",
+        "footer": "🎄 God jul, pusslare! 🎄"
+      },
+      "default": {
+        "tagline": "Utmana ditt sinne",
+        "footer": "🧩 Pusselkraft 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Du är offline, kontrollera din anslutning",
+      "loadFailed": "Det gick inte att läsa in pusselboken"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Tangentbord: piltangenter, ångra, gör om.",
+      "notes": "Håll ned skift eller tryck på n för att växla anteckningsläge.",
+      "validate": "Tryck på c för att kontrollera en ruta, g för att kontrollera hela rutnätet."
+    },
+    "owl": {
+      "invalid": "Det ser ut som att du har gjort ett misstag. Jag rekommenderar att du kontrollerar rutnätet.",
+      "notSure": "Tyvärr, jag är inte säker.",
+      "eureka": "Eureka-notation {{notation}}",
+      "highlighted": "Jag har markerat de relevanta rutorna åt dig",
+      "foundTechnique": "Jag hittade tekniken: {{technique}}",
+      "noHint": "Inget tips tillgängligt"
+    },
+    "legend": {
+      "stem": "Stam",
+      "petalA": "Kronblad A",
+      "petalB": "Kronblad B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "På (sant)",
+      "off": "Av (falskt)",
+      "elimination": "Eliminering"
+    },
+    "reply": {
+      "thanks": "Tack,",
+      "tellMeMore": "🤔 Berätta mer",
+      "showMeWhere": "👀 Visa var",
+      "hideHint": "Dölj tipset"
+    },
+    "askForHelp": "Be om hjälp",
+    "notes": "Anteckningar",
+    "copied": "Kopierat!",
+    "export": "Exportera",
+    "delete": "Radera",
+    "undo": "Ångra",
+    "redo": "Gör om",
+    "cell": "Ruta",
+    "grid": "Rutnät",
+    "zoom": "Zooma",
+    "reset": "Återställ",
+    "reveal": "Avslöja",
+    "confirm": {
+      "reset": {
+        "title": "Återställa hela rutnätet?",
+        "body": "Vill du verkligen återställa hela rutnätet?",
+        "confirm": "Återställ"
+      },
+      "reveal": {
+        "title": "Avslöja hela rutnätet?",
+        "body": "Vill du verkligen avslöja hela rutnätet?",
+        "confirm": "Avslöja"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Naken singel",
+    "hiddenSingleBox": "Dold singel (ruta)",
+    "hiddenSingleRow": "Dold singel (rad)",
+    "hiddenSingleCol": "Dold singel (kolumn)",
+    "nakedPair": "Naket par",
+    "nakedTriple": "Naken trippel",
+    "nakedQuad": "Naken kvadrupel",
+    "hiddenPair": "Dolt par",
+    "hiddenTriple": "Dold trippel",
+    "hiddenQuad": "Dold kvadrupel",
+    "lockedCandidatePointing": "Låsta kandidater (pekande)",
+    "lockedCandidateClaiming": "Låsta kandidater (krävande)",
+    "xWing": "X-Wing",
+    "swordfish": "Svärdfisk",
+    "jellyfish": "Manet",
+    "skyscraper": "Skyskrapa",
+    "twoStringKite": "Tvåsträngsdrake",
+    "finnedXWing": "X-Wing med fena",
+    "finnedSwordfish": "Svärdfisk med fena",
+    "finnedJellyfish": "Manet med fena",
+    "emptyRectangle": "Tom rektangel",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Unik rektangel (typ 1)",
+    "uniqueRectangleType2": "Unik rektangel (typ 2)",
+    "uniqueRectangleType3": "Unik rektangel (typ 3)",
+    "uniqueRectangleType4": "Unik rektangel (typ 4)",
+    "uniqueRectangleType5": "Unik rektangel (typ 5)",
+    "bug": "BUG",
+    "xyChain": "XY-kedja",
+    "aic": "AIC",
+    "aicRing": "AIC-ring",
+    "groupedAIC": "Grupperad AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Dödsblomma",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio-nät",
+    "cellRegionForcingChain": "Tvångskedja (cell/region)",
+    "cellRegionForcingNet": "Tvångsnät (cell/region)",
+    "forcingChain": "Tvångskedja"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bi",
+      "personality": "Rastlös och entusiastisk. Flänger runt i rutnätet i ryck och står sedan still. Nära slutet drar den på för tidigt och kör fast precis innan målet.",
+      "voiceLines": {
+        "neutral": [
+          "Oj! Jag ser en!",
+          "Vänta – nej, kanske inte...",
+          "Surr surr! Framsteg!"
+        ],
+        "playerAhead": ["Hallå, ta det lugnt!", "Jag låg ju bra till…"],
+        "playerBehind": ["Jag kommer ikapp!", "Kolla vad jag flyger!"],
+        "endgame": ["Snart framme! Tror jag!", "Vänta – vart ska den här?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "anka",
+      "personality": "Glad och planlös. Långsam och jämn med långa pauser. På slutet driver den nästan av en slump in i lösningen.",
+      "voiceLines": {
+        "neutral": ["Jag tar den tid jag behöver...", "Hmm... någonstans här."],
+        "playerAhead": ["Du är grym!", "Jag kommer dit till slut."],
+        "playerBehind": ["Oj! Jag hittade en!", "Det här är trevligt."],
+        "endgame": ["Jag tror att jag nästan är klar?", "Oj! Det gick ju bra."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "ödla",
+      "personality": "Försiktig och observant. Långa pauser följda av små klungor av siffror. På slutet tvekar den före varje placering.",
+      "voiceLines": {
+        "neutral": ["Låt mig dubbelkolla.", "Det borde vara rätt."],
+        "playerAhead": ["Nu måste jag vara försiktig.", "Ingen brådska."],
+        "playerBehind": ["Okej… jag kommer ikapp.", "Det finns tid."],
+        "endgame": ["Försiktigt nu...", "Nästan… jag måste bara vara säker."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "spindel",
+      "personality": "Genomtänkt och strukturerad. Bygger upp framstegen noggrant, bit för bit. På slutet rasar strukturen – tvekan smyger sig in som om planen inte längre håller.",
+      "voiceLines": {
+        "neutral": ["Det passar mönstret.", "Bit för bit..."],
+        "playerAhead": [
+          "Det fungerade ju...",
+          "Jag måste rätta till det här..."
+        ],
+        "playerBehind": ["Det håller än.", "Ja… det här funkar."],
+        "endgame": [
+          "Vänta – nej, då går det sönder.",
+          "Jag hade planerat det här..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "tvättbjörn",
+      "personality": "Kaxig och opportunistisk. Ojämn rytm. På slutet får den fart och är klar snabbare än väntat.",
+      "voiceLines": {
+        "neutral": ["Det funkar!", "Lite rörigt, men jag tar det."],
+        "playerAhead": ["Okej, dags att köra på.", "Inte klar än."],
+        "playerBehind": ["Åh – fint hittat.", "Nu börjar det falla på plats."],
+        "endgame": ["Japp, jag fixar det här.", "Nu flyter det."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Strukturerad och metodisk. Jämn takt. Slutet förblir lugnt – ingen panik, ingen spurt.",
+      "voiceLines": {
+        "neutral": ["Det passar.", "Jag håller samma takt."],
+        "playerAhead": ["Håll takten.", "Ingen anledning att stressa."],
+        "playerBehind": ["Fortfarande på rätt spår.", "Framstegen är stadiga."],
+        "endgame": ["Nästan framme.", "Avsluta rent."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "apa",
+      "personality": "Oberäknelig och olustig. Oförutsägbara utbrott. På slutet accelererar den plötsligt på ett sätt som känns orättvist.",
+      "voiceLines": {
+        "neutral": ["He… oväntat, va?", "Åh, vad intressant."],
+        "playerAhead": ["Känn dig inte för säker.", "Titta på det här."],
+        "playerBehind": [
+          "Ibland bara klickar det.",
+          "Tur i gissningen… eller?"
+        ],
+        "endgame": ["Oj – nu kör vi.", "Det gick fort."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "örn",
+      "personality": "Avstängd och flytande. Glesa, självsäkra placeringar. Tyst acceleration på slutet.",
+      "voiceLines": {
+        "neutral": ["Såg den redan.", "Fyller bara i den."],
+        "playerAhead": ["Det ändrar ingenting.", "Samma utgång ändå."],
+        "playerBehind": [
+          "Det är redan klart, egentligen.",
+          "Jag är någon annanstans just nu."
+        ],
+        "endgame": ["…nästan klar.", "Rundar av."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "räv",
+      "personality": "Intensiv och tävlingsinriktad. Snabb start, ständigt tryck. Slutspurten känns aggressiv.",
+      "voiceLines": {
+        "neutral": ["Hänger du med?", "Fortfarande med mig?"],
+        "playerAhead": ["Sakta inte ner nu.", "Du kan bättre än så."],
+        "playerBehind": ["För långsamt.", "Du hamnar efter."],
+        "endgame": ["Avsluta det.", "Det här är mitt."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "haj",
+      "personality": "Tålmodig och rovgirig. Håller sig nära och slår till hårt på slutet.",
+      "voiceLines": {
+        "neutral": ["Precis bakom dig.", "Inte än."],
+        "playerAhead": ["Stanna där du är.", "Nu är jag nära."],
+        "playerBehind": ["Jag närmar mig.", "Där är du."],
+        "endgame": ["Nu avslutar vi.", "Jag fick dig."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "uggla",
+      "personality": "Lugn och besluten. Mjuk takt. Slutet är rent och oundvikligt.",
+      "voiceLines": {
+        "neutral": ["Som väntat.", "Allt faller på plats."],
+        "playerAhead": ["Bra.", "Du ser det."],
+        "playerBehind": ["Följ det till slutet.", "Håll i."],
+        "endgame": ["Nästan komplett.", "Där är det."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "svart katt",
+      "personality": "Tyst och omänsklig. Minimala pauser. Slutet är ett snabbt, oavbrutet avslut.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…ännu."],
+        "playerBehind": ["För sent.", "Du tvekade."],
+        "endgame": ["…klart.", "Slut."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drake",
+      "personality": "Mödlös och absolut. Behåller perfekt kontroll hela vägen. På slutet utför den ett avgörande, oavbrutet svep – inga luckor, inget motstånd.",
+      "voiceLines": {
+        "neutral": ["Väntat.", "Ingen avvikelse."],
+        "playerAhead": ["Du gjorde rätt som försökte.", "Fortsätt."],
+        "playerBehind": ["Detta avslutas.", "Inget alternativ."],
+        "endgame": ["Det var allt.", "Fullbordat."]
+      }
+    }
+  }
+}

@@ -1374,7 +1374,7 @@ export default function BookCover({
         <div
           className={`absolute ${getAnimationClass(monthData.animation)}`}
           style={{
-            right: `${15 * scale}px`,
+            insetInlineEnd: `${15 * scale}px`,
             top: `${15 * scale}px`,
             fontSize: `${50 * scale}px`,
             width: `${60 * scale}px`,

@@ -93,7 +93,7 @@ export const AppDownloadModal = ({
                     <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-sky-500/25 bg-sky-500/15 shadow-[inset_0_1px_0_rgba(125,211,252,0.1)]">
                       <Smartphone className="h-5 w-5 text-sky-500 dark:text-sky-400" />
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <Dialog.Title className="text-base font-bold tracking-tight text-gray-900 dark:text-zinc-100">
                         {t('download.title')}
                       </Dialog.Title>
@@ -108,7 +108,7 @@ export const AppDownloadModal = ({
                     {(isIOSWeb || !isMobileWeb) && (
                       <button
                         onClick={handleAppStoreClick}
-                        className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
+                        className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-start shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
                       >
                         <Image
                           src="/badges/download-on-app-store.svg"
@@ -134,7 +134,7 @@ export const AppDownloadModal = ({
                     {(isAndroidWeb || !isMobileWeb) && (
                       <button
                         onClick={handleGooglePlayClick}
-                        className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
+                        className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-start shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
                       >
                         <Image
                           src="/badges/get-it-on-google-play.svg"

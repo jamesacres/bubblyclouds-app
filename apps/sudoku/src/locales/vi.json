@@ -1,0 +1,300 @@
+{
+  "brand": {
+    "appName": "Đua Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Chơi và chia sẻ để đua sudoku với bạn bè. Thử thách hằng ngày và đồng bộ nhiều thiết bị!"
+  },
+  "puzzle": {
+    "mobileDescription": "Tận hưởng trải nghiệm đua tuyệt nhất với ứng dụng {{appName}} của chúng tôi!",
+    "desktopDescription": "Tải {{appName}}",
+    "openInAppLabel": "Mở câu đố"
+  },
+  "crossPromo": {
+    "gameName": "Đua Giải Cứu Xe",
+    "tagline": "Trượt các khối và đua với bạn bè để gỡ kẹt xe."
+  },
+  "notFound": {
+    "message": "Không tìm thấy trang"
+  },
+  "login": {
+    "dailyPuzzle": "Đăng nhập để bắt đầu câu đố hôm nay",
+    "puzzleBook": "Đăng nhập để xem sách câu đố",
+    "joinTeam": "Đăng nhập để tham gia đội",
+    "raceLobby": "Đăng nhập để đua với người khác",
+    "puzzleEntry": "Đăng nhập để chơi",
+    "valueProps": {
+      "saveProgress": "Lưu tiến độ của bạn",
+      "raceFriends": "Đua với bạn bè",
+      "trackStats": "Theo dõi thống kê của bạn"
+    }
+  },
+  "plusModal": {
+    "description": "Tham gia <badge>{{plusName}}</badge> để <emphasis>xóa mọi giới hạn tốc độ</emphasis>. Thách đấu bạn bè, leo bảng xếp hạng và cải thiện tốc độ giải của bạn. Không có quảng cáo."
+  },
+  "premiumFeatures": {
+    "title": "Tính năng Premium",
+    "subtitle": "Mở khóa trọn vẹn trải nghiệm {{appName}}",
+    "unlimitedPlay": {
+      "title": "Chơi và đua không giới hạn",
+      "description": "Đua với bạn bè theo thời gian thực nhiều hơn một lần mỗi ngày"
+    },
+    "unlimitedHints": {
+      "title": "Gợi ý không giới hạn",
+      "description": "Không bao giờ bị kẹt — nhận gợi ý bất cứ khi nào bạn cần"
+    },
+    "monthlyBook": {
+      "title": "Mở khóa toàn bộ sách hằng tháng, mỗi tháng",
+      "description": "Chơi mọi câu đố ở mọi độ khó, không bị khóa"
+    },
+    "multipleTeams": {
+      "title": "Nhiều đội đua",
+      "description": "Tổ chức các cuộc thi riêng với bạn bè và gia đình"
+    },
+    "teamManagement": {
+      "title": "Quản lý đội",
+      "description": "Tạo nhóm lớn tới 15 người và xóa thành viên khỏi đội của bạn."
+    },
+    "themes": {
+      "title": "Mở khóa mọi giao diện",
+      "description": "Cá nhân hóa trải nghiệm đua của bạn"
+    },
+    "unlimitedActions": {
+      "title": "Hoàn tác, kiểm tra và hiện đáp án không giới hạn",
+      "description": "Bỏ giới hạn hoàn tác, kiểm tra và hiện đáp án hằng ngày"
+    }
+  },
+  "subscription": {
+    "hint_other": "💡 <bold>Hôm nay bạn đã dùng {{count}} gợi ý miễn phí.</bold> $t(brand.plus) cho bạn gợi ý không giới hạn — không bao giờ bị kẹt nữa — và giúp toàn bộ ứng dụng không có quảng cáo.",
+    "undo_other": "📅 <bold>Bạn đã đạt giới hạn hoàn tác hằng ngày!</bold> Bạn có {{count}} lượt hoàn tác miễn phí mỗi ngày. Giới hạn sẽ được đặt lại vào ngày mai, hoặc đăng ký để hoàn tác không giới hạn.",
+    "checkGrid_other": "📅 <bold>Bạn đã đạt giới hạn kiểm tra lưới hằng ngày!</bold> Bạn có {{count}} lượt kiểm tra lưới miễn phí mỗi ngày. Giới hạn sẽ được đặt lại vào ngày mai, hoặc đăng ký để kiểm tra không giới hạn.",
+    "reveal": "🔓 <bold>Hiện đáp án lưới là tính năng premium!</bold> Hãy đăng ký để mở khóa khả năng hiện toàn bộ lời giải.",
+    "themeColor": "🎨 <bold>Giao diện này chỉ dành cho $t(brand.plus).</bold> Nâng cấp để mở khóa tất cả màu giao diện đẹp mắt và cá nhân hóa trải nghiệm sudoku của bạn.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Bạn đã đạt giới hạn câu đố hằng ngày!</bold> Người dùng miễn phí được chơi {{count}} câu đố mỗi ngày. Giới hạn sẽ được đặt lại vào ngày mai, hoặc đăng ký để chơi không giới hạn.",
+    "collectionLocked": "✨ <bold>Câu đố này thuộc sách $t(brand.plus).</bold> $t(brand.plus) mở khóa mọi câu đố trong sách của mọi tháng và giúp toàn bộ ứng dụng không có quảng cáo.",
+    "removeMember": "👥 <bold>Xóa thành viên khỏi nhóm là tính năng premium!</bold> Hãy đăng ký để mở khóa các tính năng quản lý nhóm nâng cao, bao gồm xóa thành viên.",
+    "multipleParties": "🏘️ <bold>Nhiều đội đua là tính năng premium!</bold> Người dùng miễn phí chỉ có một đội. Hãy đăng ký để tạo và tham gia không giới hạn số đội cho gia đình, bạn bè và hơn thế nữa.",
+    "partyMaxSize": "👥 <bold>Nhóm lớn là tính năng premium!</bold> Hãy đăng ký để mở khóa các tính năng quản lý nhóm nâng cao, bao gồm nhóm lớn."
+  },
+  "motivational": {
+    "messages": [
+      "Bạn bè của bạn đang chờ một thử thách",
+      "Hôm nay bạn sẽ đua với ai?",
+      "Đến lúc thể hiện tốc độ của bạn",
+      "Nhận lời thách đấu chứ?",
+      "Đua về đích nào",
+      "Ai là người giải nhanh nhất?",
+      "Sẵn sàng thống trị bảng xếp hạng chưa?",
+      "Kỹ năng đua của bạn đang chờ",
+      "Đến lúc bỏ xa họ rồi",
+      "Sẵn sàng về đích đầu tiên chưa?",
+      "Đường đua đang chờ bạn",
+      "Đến lúc vào số cao nhất",
+      "Sẵn sàng đạp ga trên lưới câu đố chưa?",
+      "Các đối thủ của bạn đã khởi động rồi",
+      "Hôm nay là ngày lập kỷ lục mới",
+      "Kỷ lục cá nhân của bạn đang chờ bị phá",
+      "Mỗi câu đố giúp bạn nhanh hơn",
+      "Chuỗi ngày liên tiếp bắt đầu từ bây giờ",
+      "Đến lúc nâng tầm trò chơi của bạn",
+      "Bước đột phá tiếp theo chỉ cách một câu đố",
+      "Sẵn sàng tự làm mình bất ngờ chưa?",
+      "Cho họ thấy bạn làm bằng gì",
+      "Đến lúc khai phá tiềm năng của bạn",
+      "Lần giải nhanh nhất của bạn vẫn còn ở phía trước",
+      "Sẵn sàng biến hôm nay thành ngày đáng nhớ chưa?",
+      "Mỗi giây đều quan trọng trong cuộc đua",
+      "Đến lúc vượt qua giới hạn",
+      "Hành trình tiến bộ của bạn vẫn tiếp tục",
+      "Sẵn sàng vượt mong đợi chưa?",
+      "Nghĩ bạn chịu được áp lực chứ?",
+      "Đến lúc làm những kẻ hoài nghi phải im lặng",
+      "Sẵn sàng giành chiến thắng chưa?",
+      "Đối thủ sẽ không ngờ tới điều này",
+      "Đến lúc để lại dấu ấn của bạn",
+      "Sẵn sàng tỏa sáng chưa?",
+      "Chiến thắng ngọt ngào hơn khi bạn xứng đáng có được",
+      "Đến lúc chứng minh ai là số một",
+      "Sẵn sàng thể hiện bản lĩnh thật sự chưa?",
+      "Tư duy nhà vô địch bắt đầu từ đây",
+      "Đến lúc vượt lên khỏi đám đông",
+      "Sẵn sàng viết nên huyền thoại của bạn chưa?",
+      "Nhà vô địch được tạo nên từ những khoảnh khắc như thế này",
+      "Đến lúc biến tiềm năng thành thành tích",
+      "Câu đố mới, cơ hội mới",
+      "Thử thách hôm nay đang chờ tài năng của bạn",
+      "Sẵn sàng biến hôm nay thành ngày tuyệt nhất chưa?",
+      "Một ngày mới nghĩa là có thêm kỷ lục để phá",
+      "Đến lúc thêm một chiến thắng vào bộ sưu tập",
+      "Sẵn sàng khởi đầu mạnh mẽ và về đích mạnh mẽ hơn chưa?",
+      "Sẵn sàng biến hôm nay thành huyền thoại chưa?",
+      "Liều thuốc chiến thắng hằng ngày của bạn đang chờ",
+      "Chiến lược gặp tốc độ trên lưới",
+      "Sẵn sàng nghĩ nhanh hơn và đua nhanh hơn chưa?",
+      "Tài giải câu đố của bạn đang gọi",
+      "Đến lúc kết hợp logic với tốc độ tia chớp",
+      "Sẵn sàng giải với độ chính xác tuyệt đối chưa?",
+      "Sự kết hợp hoàn hảo: kỹ năng và tốc độ",
+      "Tư duy phân tích là lợi thế đua của bạn",
+      "Đến lúc chứng tỏ sự vượt trội về câu đố",
+      "Sẵn sàng giải như một nhà vô địch chưa?",
+      "Đua chính xác bắt đầu từ tư duy rõ ràng",
+      "Bạn bè của bạn đang chờ một trận tái đấu",
+      "Hôm nay ai sẽ giải?",
+      "Câu đố hằng ngày mới đã sẵn sàng",
+      "Chuỗi ngày liên tiếp của bạn đang bị đe dọa",
+      "Câu đố mới, khởi đầu mới",
+      "Thử thách hôm nay đã lên sóng",
+      "Đua với một người bạn trên câu đố hằng ngày",
+      "Ngày mới, câu đố mới",
+      "Đã có người lên bảng xếp hạng rồi",
+      "Giữ vững chuỗi ngày liên tiếp",
+      "Thử thách hằng ngày vừa được làm mới",
+      "Đội của bạn đang chờ",
+      "Gần đỉnh hơn một câu đố",
+      "Các câu đố hôm nay đang chờ bạn",
+      "Quay lại và đua thôi"
+    ]
+  },
+  "home": {
+    "live": "Live",
+    "headline": "Sẵn sàng đua chưa? 🏁",
+    "subtitle": "Chia sẻ thử thách — mời bạn bè và xem ai là người giải Sudoku nhanh nhất.",
+    "leaderboard": "Bảng xếp hạng",
+    "daily": {
+      "title": "Thử thách hằng ngày",
+      "refreshes": "làm mới hằng ngày",
+      "moreLevels": "Thêm nhiều mức độ khó trong <bookLink>sách câu đố</bookLink>",
+      "difficulty": {
+        "simple": "Hơi hóc búa",
+        "easy": "Thử thách",
+        "intermediate": "Khó"
+      }
+    },
+    "book": {
+      "summary_other": "{{month}} · {{count}} câu đố",
+      "title": "Sách hằng tháng",
+      "browse": "Xem câu đố"
+    },
+    "import": {
+      "title": "Nhập câu đố bất kỳ",
+      "description": "Quét bằng camera hoặc dán chuỗi câu đố",
+      "desktopTitle": "Đua câu đố bất kỳ",
+      "desktopDescription": "Quét từ sách hoặc báo"
+    },
+    "teams": {
+      "title": "Đội đua",
+      "withFriends": "Đua với {{friends}} và những người khác",
+      "noFriends": "Thách bạn bè một cuộc đua"
+    },
+    "tabs": {
+      "startRace": "Bắt đầu đua",
+      "myPuzzles": "Câu đố của tôi",
+      "racingTeams": "Đội đua"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Đang tải sách câu đố...",
+      "puzzles": "Đang tải câu đố...",
+      "progress": "Đang tải tiến độ của bạn..."
+    },
+    "tryAgain": "Thử lại",
+    "backHome": "Về trang chủ",
+    "signInPrompt": "Đăng nhập để xem sách câu đố.",
+    "signIn": "Đăng nhập",
+    "noData": "Không có dữ liệu sách câu đố.",
+    "title": "Sách câu đố {{month}}",
+    "puzzleCount_other": "{{count}} câu đố theo kỹ thuật",
+    "completed": "{{count}} đã hoàn thành",
+    "inProgress": "{{count}} đang làm",
+    "unlockWithPlus": "Mở khóa mọi câu đố với $t(brand.plus)",
+    "jumpToDifficulty": "Chuyển đến độ khó",
+    "scrollToTop": "Cuộn lên đầu",
+    "difficulty": {
+      "veryEasy": "Rất dễ",
+      "easy": "Dễ",
+      "moderatelyEasy": "Khá dễ",
+      "moderate": "Trung bình",
+      "moderatelyHard": "Khá khó",
+      "hard": "Khó",
+      "vicious": "Hiểm hóc",
+      "fiendish": "Quỷ quái",
+      "devilish": "Ác quỷ",
+      "hell": "Địa ngục",
+      "beyondHell": "Vượt địa ngục"
+    }
+  },
+  "invite": {
+    "loading": "Đang tải lời mời...",
+    "iconAlt": "Biểu tượng {{gameName}}",
+    "greeting": "👋 Xin chào!",
+    "greetingNamed": "👋 Chào {{name}}!",
+    "invited": "Bạn được mời!",
+    "joinTeam": "Tham gia đội đua <team/>",
+    "description": "Cùng giải câu đố Sudoku và xem tiến độ của nhau theo thời gian thực!",
+    "proTip": "💡 <bold>Mẹo hay:</bold> Mọi câu đố bạn chơi từ giờ sẽ được chia sẻ với các thành viên trong đội để thi đấu vui vẻ!",
+    "nicknameLabel": "Đội đua của bạn gọi bạn là gì?",
+    "nicknamePlaceholder": "Nhập biệt danh của bạn",
+    "joining": "Đang tham gia đội...",
+    "join": "Vào cuộc vui! 🎉",
+    "signIn": "Đăng nhập để tiếp tục",
+    "bonus": {
+      "title": "🎉 Quà tặng: Nhận {{duration}} {{plusName}}!",
+      "duration": {
+        "oneMonth": "một tháng",
+        "oneYear": "một năm",
+        "lifetime": "trọn đời",
+        "premium": "premium"
+      },
+      "subtitle": "Khi tham gia đội đua này, bạn sẽ mở khóa các tính năng premium hoàn toàn miễn phí!",
+      "note": "💡 Quyền truy cập premium của bạn sẽ tự động kích hoạt sau khi tham gia"
+    },
+    "expired": {
+      "title": "Lời mời đã hết hạn",
+      "body": "Liên kết mời này không còn hiệu lực. Hãy nhờ bạn của bạn gửi lời mời mới hoặc tăng quy mô đội."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Nhập chuỗi câu đố",
+      "help": "Dán chuỗi 81 ký tự hoặc lưới HoDoKu — dùng chữ số 1–9 và 0 hoặc . cho ô trống.",
+      "submit": "Nhập câu đố"
+    },
+    "orScan": "hoặc quét bằng camera",
+    "cameraHelp": "Hướng camera vào một câu đố sudoku chưa giải và chờ nhận diện.",
+    "errors": {
+      "parse": "Không thể phân tích câu đố. Hãy dán chuỗi 81 ký tự hoặc lưới HoDoKu.",
+      "solverLoading": "Bộ giải vẫn đang tải — vui lòng thử lại.",
+      "noSolution": "Không tìm thấy lời giải. Vui lòng kiểm tra câu đố.",
+      "camera": "Không thể khởi động camera. Vui lòng kiểm tra quyền truy cập và thử lại."
+    }
+  },
+  "credits": {
+    "title": "Ghi công và ghi nhận",
+    "subtitle": "Ứng dụng này được xây dựng dựa trên nhiều dự án xuất sắc",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Ứng dụng này được cấp phép theo Giấy phép MIT. Xem <licenseLink>LICENSE</licenseLink> và <creditsLink>CREDITS</creditsLink> của chúng tôi để biết chi tiết.",
+    "items": {
+      "humanSudokuSolver": "Thư viện TypeScript giải Sudoku bằng các kỹ thuật của con người.",
+      "qqwing": "Tạo câu đố cho Sudoku của ngày",
+      "tdoku": "Bộ giải Sudoku nhanh cho câu đố đã quét",
+      "arBrowserSudoku": "Công nghệ quét thực tế tăng cường",
+      "sudokuCoach": "Nguồn cảm hứng cho thuật toán tính độ khó",
+      "nextjs": "Framework React cho môi trường sản xuất",
+      "typescript": "Tập mở rộng có kiểu của JavaScript",
+      "tailwind": "Framework CSS ưu tiên tiện ích",
+      "capacitor": "Môi trường chạy ứng dụng di động gốc",
+      "electron": "Framework ứng dụng máy tính",
+      "tensorflow": "Học máy cho các tính năng AR",
+      "revenuecat": "Quản lý gói đăng ký",
+      "react": "Thư viện thành phần giao diện",
+      "turborepo": "Hệ thống xây dựng monorepo"
+    }
+  }
+}

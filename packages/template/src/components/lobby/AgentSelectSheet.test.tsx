@@ -221,4 +221,20 @@ describe('AgentSelectSheet', () => {
     expect(screen.getByText('sage-personality')).toBeInTheDocument();
     expect(screen.queryByText('Sage')).not.toBeInTheDocument();
   });
+
+  it('points the back chevron the reading-direction way', () => {
+    render(
+      <AgentSelectSheet
+        open={true}
+        onClose={mockOnClose}
+        agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
+        defaultSelectedAgentNames={[]}
+        onAgentMode={mockOnAgentMode}
+      />
+    );
+    const icon = screen.getByLabelText('Back').querySelector('svg');
+    expect(icon).toHaveClass('rotate-180');
+    expect(icon).toHaveClass('rtl:rotate-0');
+  });
 });

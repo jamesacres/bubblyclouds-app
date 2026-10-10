@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "ซูโดกุ เรซ",
+      "gameName": "ซูโดกุ",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "ซูโดกุ Plus"
+    },
+    "terms": {
+      "race": "เรซ",
+      "team": "ทีม",
+      "leaderboard": "อันดับ",
+      "hint": "คำใบ้",
+      "undo": "เลิกทำ",
+      "theme": "ธีม",
+      "dailyPuzzle": "ปริศนาประจำวัน",
+      "monthlyCollection": "หนังสือปริศนาประจำเดือน",
+      "aiOpponent": "คู่แข่ง AI",
+      "monthly": "รายเดือน",
+      "lifetime": "ตลอดชีพ",
+      "plusAccess": "สิทธิ์ Plus",
+      "plusFeatureLine": "แข่งไม่จำกัด ทีมเพิ่ม ธีม และเลิกทำ"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "แข่งปลดล็อก",
+      "gameName": "แข่งปลดล็อก",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "เรซ",
+      "team": "ทีม",
+      "leaderboard": "อันดับ",
+      "hint": "คำใบ้",
+      "undo": "เลิกทำ",
+      "theme": "ธีม",
+      "dailyPuzzle": "ปริศนาประจำวัน",
+      "monthlyCollection": "คอลเลกชันปริศนาประจำเดือน",
+      "aiOpponent": "คู่แข่ง AI",
+      "monthly": "รายเดือน",
+      "lifetime": "ตลอดชีพ",
+      "plusAccess": "สิทธิ์ Plus",
+      "plusFeatureLine": "แข่งไม่จำกัด ทีมเพิ่ม ธีม และเลิกทำ"
+    }
+  }
+}

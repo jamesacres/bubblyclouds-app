@@ -76,7 +76,7 @@ const CopyButton = ({
     >
       {showCopied ? (
         <>
-          <Check className="mr-2" size={extraSmall ? 14 : 18} />{' '}
+          <Check className="me-2 shrink-0" size={extraSmall ? 14 : 18} />{' '}
           {t('copyButton.copied')}
         </>
       ) : (
@@ -88,12 +88,15 @@ const CopyButton = ({
             />
           ) : canShare ? (
             <>
-              <ShareIcon className="mr-2" size={extraSmall ? 14 : 18} />{' '}
+              <ShareIcon
+                className="me-2 shrink-0"
+                size={extraSmall ? 14 : 18}
+              />{' '}
               {t('copyButton.share')}
             </>
           ) : (
             <>
-              <Copy className="mr-2" size={extraSmall ? 14 : 18} />{' '}
+              <Copy className="me-2 shrink-0" size={extraSmall ? 14 : 18} />{' '}
               {t('copyButton.copy')}
             </>
           )}

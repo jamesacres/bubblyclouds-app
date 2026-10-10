@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Pre pokračovanie sa prihláste",
+    "signInWith": "Prihlásiť sa cez {{provider}}",
+    "emailTitle": "Prihlásiť sa e-mailom",
+    "emailPlaceholder": "vas@email.sk",
+    "continue": "Pokračovať",
+    "cancel": "Zrušiť",
+    "terms": "Podmienky používania",
+    "privacy": "Zásady ochrany osobných údajov"
+  },
+  "header": {
+    "signIn": "Prihlásiť sa"
+  },
+  "avatar": {
+    "alt": "používateľ"
+  },
+  "panel": {
+    "title": "Účet",
+    "greeting": "Vitajte, {{name}}!",
+    "fallbackName": "Používateľ",
+    "plusActive": "{{gameName}} {{plus}} – aktívne",
+    "joinGamePlus": "Získajte {{gameName}} {{plus}}",
+    "joinPlus": "Získajte {{plus}}",
+    "signOut": "Odhlásiť sa",
+    "privacy": "Zásady ochrany osobných údajov",
+    "terms": "Podmienky používania",
+    "credits": "Poďakovanie",
+    "deleteAccount": "Odstrániť účet",
+    "poweredBy": "Poskytuje {{companyName}}",
+    "deleteUnavailable": "Odstránenie účtu nie je k dispozícii.",
+    "deleteFailed": "Účet sa nepodarilo odstrániť. Skúste to prosím neskôr."
+  },
+  "deleteDialog": {
+    "title": "Odstrániť účet",
+    "warning": "Túto akciu nie je možné vrátiť späť. Všetky vaše údaje vo všetkých aplikáciách {{companyName}} budú natrvalo odstránené.",
+    "confirmation": "Potvrdzujem, že chcem odstrániť celý svoj účet vrátane všetkých údajov vo všetkých aplikáciách {{companyName}}.",
+    "cancel": "Zrušiť",
+    "deleting": "Odstraňuje sa...",
+    "submit": "Odstrániť účet"
+  }
+}

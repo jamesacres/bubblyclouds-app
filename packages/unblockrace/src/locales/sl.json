@@ -1,0 +1,264 @@
+{
+  "brand": {
+    "gameName": "Prosta Dirka"
+  },
+  "controls": {
+    "hint": "Namig",
+    "hintTitle": "Prosi za pomoč",
+    "undo": "Razveljavi",
+    "redo": "Uveljavi",
+    "reset": "Ponastavi"
+  },
+  "labels": {
+    "time": "Čas",
+    "moves": "Poteze",
+    "stageOf": "Stopnja {{current}} od {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} poteza",
+    "moves_two": "{{count}} potezi",
+    "moves_few": "{{count}} poteze",
+    "moves_other": "{{count}} potez",
+    "par": "par",
+    "overPar": "{{delta}} nad parom",
+    "underPar": "{{delta}} pod parom"
+  },
+  "score": {
+    "moves": "potez",
+    "srOnPar": "potez, na paru",
+    "srOverPar": "potez, {{delta}} nad parom",
+    "srUnderPar": "potez, {{delta}} pod parom",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Dnevna · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Začetnik",
+    "challenging": "Zahtevno",
+    "hard": "Težko",
+    "expert": "Strokovno"
+  },
+  "collection": {
+    "puzzleLabel": "Uganka iz zbirke {{number}}",
+    "theme": {
+      "january": "Novo leto, nova zmešnjava",
+      "february": "Zamrznjen zastoj",
+      "march": "Na stežaj odprto",
+      "april": "Plohe blokov",
+      "may": "Cvetijo sveži pasovi",
+      "june": "Vrhunec hitrosti",
+      "july": "Poletna dirkaška serija",
+      "august": "Razbeljen zastoj",
+      "september": "Nazaj k plošči",
+      "october": "Obsedeni zastoj",
+      "november": "Čiščenje pasov",
+      "december": "Praznični zastoj",
+      "default": "Mesečna zbirka"
+    },
+    "error": {
+      "offline": "Niste povezani, preverite svojo povezavo",
+      "loadFailed": "Zbirke ugank ni bilo mogoče naložiti"
+    }
+  },
+  "stageClear": {
+    "title": "Stopnja {{stage}} rešena",
+    "onPar": "Na paru",
+    "pointsSuffix": " točk",
+    "leaderboardPoints": "Točke na lestvici",
+    "nextStage": "Naslednja stopnja",
+    "progress": "Stopnja {{stage}} od {{total}} – še {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Od tu ni poti naprej – razveljavite ali ponastavite, da se vrnete na pravo pot",
+    "dismiss": "Skrij obvestilo o namigu"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Nadaljujte niz v zbirki"
+  },
+  "raceTrack": {
+    "collection": "Zbirka"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Poskusim to stopnjo znova?",
+      "body": "Vaš trenutni čas in poteze bodo zamenjani.",
+      "confirm": "Poskusi znova"
+    },
+    "reset": {
+      "title": "Ponastavim to uganko?",
+      "body": "S tem se vaše poteze izbrišejo in uganka se začne znova.",
+      "confirm": "Ponastavi"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "čebela",
+      "personality": "Nemiren in navdušen. Bloke premika v izbruhih, nato obstane. Blizu izhoda pospeši prezgodaj in zamaši pas tik pred ciljem.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Ta se premika!",
+          "Počakaj – ne, ta me blokira ...",
+          "Bzzz bzzz! Delam prostor!"
+        ],
+        "playerAhead": ["Hej, počasneje!", "Čistil sem pot …"],
+        "playerBehind": ["Dohitevam vas!", "Poglejte, kako drsim!"],
+        "endgame": ["Izhod! Vidim ga!", "Počakaj – kdo je to tam parkiral?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "raca",
+      "personality": "Vesela in brez cilja. Počasna in enakomerna z dolgimi premori. V končnici se skoraj po naključju izvije iz zastoja.",
+      "voiceLines": {
+        "neutral": ["Samo malo potiskam ...", "Hmm ... mogoče ta blok."],
+        "playerAhead": ["Odlično vam gre!", "Že še pridem ven."],
+        "playerBehind": ["Oh! Ta se je premaknil!", "Lepo je."],
+        "endgame": ["Je to izhod?", "Oh! Cesta se je sama sprostila."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "kuščar",
+      "personality": "Previden in pozoren. Dolgi premori, nato majhne skupine potez. V končnici okleva pred vsako potezo.",
+      "voiceLines": {
+        "neutral": [
+          "Naj preverim, kaj se s tem sprosti.",
+          "Ta poteza bi morala biti varna."
+        ],
+        "playerAhead": ["Zdaj moram biti previden.", "Ne zamašite pasu."],
+        "playerBehind": ["Dobro … dohitevam.", "Še je čas."],
+        "endgame": [
+          "Previdno zdaj ...",
+          "Skoraj ven … samo prepričati se moram."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "pajek",
+      "personality": "Premišljen in strukturiran. Pas čisti skrbno, blok za blokom. V končnici se načrt podre – vkrade se oklevanje, kot da pot ne drži več.",
+      "voiceLines": {
+        "neutral": ["To odpre pot.", "Blok za blokom ..."],
+        "playerAhead": ["Pot je delovala ...", "Moram na novo načrtovati ..."],
+        "playerBehind": ["Še vedno drži skupaj.", "Ja … pas se odpira."],
+        "endgame": [
+          "Počakaj – ne, to me spet zapre.",
+          "Imel sem to pot načrtovano ..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "rakun",
+      "personality": "Prebrisan in oportunističen. Neenakomeren ritem. V končnici ujame zagon in izdrsi ven hitreje, kot bi pričakovali.",
+      "voiceLines": {
+        "neutral": ["To ga premakne!", "Malo tesno, a vzamem."],
+        "playerAhead": ["Dobro, čas je za pritisk.", "Še nisem ukleščen."],
+        "playerBehind": ["Oh – lepa vrzel.", "Pas se zdaj odpira."],
+        "endgame": ["Ja, cesta je prosta.", "Zdaj teče."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Strukturiran in metodičen. Enakomeren tempo. Končnica ostane stabilna – brez panike, brez sprinta.",
+      "voiceLines": {
+        "neutral": ["Ta poteza ustreza poti.", "Ostajam dosleden."],
+        "playerAhead": ["Ohranjam tempo.", "Ni treba hiteti."],
+        "playerBehind": ["Še vedno na poti.", "Pas se enakomerno sprošča."],
+        "endgame": ["Skoraj skozi.", "Čist izhod."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "opica",
+      "personality": "Nepredvidljiva in vznemirljiva. Nepredvidljivi izbruhi. V končnici nenadoma pospeši na način, ki se zdi nepošten.",
+      "voiceLines": {
+        "neutral": [
+          "He … te vrzeli niste videli?",
+          "Oh, to je zanimiva poteza."
+        ],
+        "playerAhead": ["Ne ugodite si preveč.", "Poglejte to potezo."],
+        "playerBehind": [
+          "Promet se včasih kar razmakne.",
+          "Srečna poteza … ali pa ne?"
+        ],
+        "endgame": [
+          "Oh, vau – cesta je povsem odprta.",
+          "To se je hitro sprostilo."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "orel",
+      "personality": "Zadržan in tekoč. Razmaknjene, samozavestne poteze. Tiho pospeševanje v končnici.",
+      "voiceLines": {
+        "neutral": ["Pot sem že videl.", "Samo drsim skozi."],
+        "playerAhead": ["Pot se ne spremeni.", "Izhod je tako ali tako isti."],
+        "playerBehind": ["Prosto je, resnično.", "Odslej samo drsim."],
+        "endgame": ["… skoraj ven.", "Drsim proti izhodu."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "lisica",
+      "personality": "Intenzivna in tekmovalna. Hiter začetek, stalen pritisk. Sunek v končnici deluje agresivno.",
+      "voiceLines": {
+        "neutral": ["Držite korak.", "Še vedno v zastoju?"],
+        "playerAhead": [
+          "Zdaj ne zastajajte.",
+          "Zmorete drseti hitreje od tega."
+        ],
+        "playerBehind": ["Prepočasi.", "Ukleščeni ste."],
+        "endgame": ["Sprostite pas.", "Ta izhod je moj."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "morski pes",
+      "personality": "Potrpežljiv in plenilski. Ostaja blizu, nato v končnici močno pritisne.",
+      "voiceLines": {
+        "neutral": ["Tik za vami.", "Še ne."],
+        "playerAhead": ["Ostanite na svojem pasu.", "Zdaj sem blizu."],
+        "playerBehind": ["Približujem se.", "Tu je vrzel."],
+        "endgame": ["Zdaj drsimo ven.", "Izhod je moj."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "sova",
+      "personality": "Mirna in preudarna. Gladko tempo. Končnica je čista in neizogibna.",
+      "voiceLines": {
+        "neutral": ["Kot pričakovano.", "Vsak blok na svojem mestu."],
+        "playerAhead": ["Dobro.", "Vidite pot."],
+        "playerBehind": ["Sledite pasu.", "Ostanite pri tem."],
+        "endgame": ["Skoraj skozi.", "Tu je izhod."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "črna mačka",
+      "personality": "Tiha in nečloveška. Minimalni premori. Končnica je hitro, neprekinjeno drsenje do izhoda.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "… še vedno."],
+        "playerBehind": ["Prepozno.", "Oklevali ste."],
+        "endgame": ["… ven.", "Izhod."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "zmaj",
+      "personality": "Brez napora in absolutna. Ves čas ohranja popoln nadzor. V končnici izvede odločen, neprekinjen zamah do izhoda – brez vrzeli, brez odpora.",
+      "voiceLines": {
+        "neutral": ["Pričakovano.", "Brez odstopanj."],
+        "playerAhead": ["Prav ste storili, da ste poskusili.", "Nadaljujte."],
+        "playerBehind": ["To je konec.", "Ni alternative."],
+        "endgame": ["To je vse.", "Prosto."]
+      }
+    }
+  }
+}

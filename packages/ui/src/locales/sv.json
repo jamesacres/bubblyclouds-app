@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Språk",
+    "automatic": "Automatiskt"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Tillbaka"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Växla mörkt läge"
+  },
+  "starRating": {
+    "label_one": "{{filled}} av {{count}} stjärna",
+    "label_other": "{{filled}} av {{count}} stjärnor"
+  },
+  "timer": {
+    "go": "KÖR!"
+  },
+  "themeColor": {
+    "change": "Ändra temafärg",
+    "set": "Sätt temafärgen till {{color}}",
+    "setPremium": "Sätt temafärgen till {{color}} (Premium)",
+    "colors": {
+      "blue": "blå",
+      "red": "röd",
+      "green": "grön",
+      "purple": "lila",
+      "amber": "bärnsten",
+      "cyan": "cyan",
+      "pink": "rosa",
+      "indigo": "indigo",
+      "orange": "orange",
+      "teal": "blågrön",
+      "slate": "skiffer",
+      "rose": "rosenröd",
+      "emerald": "smaragd",
+      "sky": "himmelsblå",
+      "violet": "violett",
+      "lime": "lime",
+      "fuchsia": "fuchsia",
+      "yellow": "gul",
+      "stone": "sten",
+      "zinc": "zink"
+    }
+  },
+  "copyButton": {
+    "copied": "Kopierat till urklipp!",
+    "share": "Dela inbjudningslänk",
+    "copy": "Kopiera inbjudningslänk"
+  },
+  "share": {
+    "joinTeam": "Gå med i tävlingslaget på {{appName}}!",
+    "joinNamedTeam": "Gå med i tävlingslaget {{partyName}} på {{appName}}!",
+    "dialogTitle": "Dela inbjudan"
+  }
+}

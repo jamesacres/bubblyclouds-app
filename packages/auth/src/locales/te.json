@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "కొనసాగడానికి సైన్ ఇన్ చేయండి",
+    "signInWith": "{{provider}} తో సైన్ ఇన్ చేయండి",
+    "emailTitle": "ఇమెయిల్‌తో సైన్ ఇన్ చేయండి",
+    "emailPlaceholder": "your@email.com",
+    "continue": "కొనసాగించండి",
+    "cancel": "రద్దు చేయండి",
+    "terms": "సేవా నిబంధనలు",
+    "privacy": "గోప్యతా విధానం"
+  },
+  "header": {
+    "signIn": "సైన్ ఇన్"
+  },
+  "avatar": {
+    "alt": "వినియోగదారు"
+  },
+  "panel": {
+    "title": "ఖాతా",
+    "greeting": "నమస్కారం, {{name}}!",
+    "fallbackName": "వినియోగదారు",
+    "plusActive": "{{gameName}} {{plus}} యాక్టివ్‌గా ఉంది",
+    "joinGamePlus": "{{gameName}} {{plus}} లో చేరండి",
+    "joinPlus": "{{plus}} లో చేరండి",
+    "signOut": "సైన్ అవుట్",
+    "privacy": "గోప్యతా విధానం",
+    "terms": "సేవా నిబంధనలు",
+    "credits": "క్రెడిట్స్",
+    "deleteAccount": "ఖాతాను తొలగించండి",
+    "poweredBy": "{{companyName}} ద్వారా అందించబడింది",
+    "deleteUnavailable": "ఖాతా తొలగింపు సదుపాయం అందుబాటులో లేదు.",
+    "deleteFailed": "ఖాతాను తొలగించడం విఫలమైంది. దయచేసి కొంత సేపటి తర్వాత మళ్లీ ప్రయత్నించండి."
+  },
+  "deleteDialog": {
+    "title": "ఖాతాను తొలగించండి",
+    "warning": "ఈ చర్యను రద్దు చేయలేరు. అన్ని {{companyName}} అప్లికేషన్‌లలోని మీ డేటా మొత్తం శాశ్వతంగా తొలగించబడుతుంది.",
+    "confirmation": "అన్ని {{companyName}} అప్లికేషన్‌లలోని డేటాతో సహా నా మొత్తం ఖాతాను తొలగించాలని నేను నిర్ధారిస్తున్నాను.",
+    "cancel": "రద్దు చేయండి",
+    "deleting": "తొలగిస్తోంది...",
+    "submit": "ఖాతాను తొలగించండి"
+  }
+}

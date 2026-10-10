@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "எதிர்பாராத பிழை ஏற்பட்டது. மீண்டும் முயலுங்கள்.",
+    "dismiss": "மூடுங்கள்"
+  },
+  "errorBoundary": {
+    "title": "அச்சச்சோ! ஏதோ தவறு நடந்துவிட்டது",
+    "description": "எதிர்பாராத பிழை ஏற்பட்டது. கவலை வேண்டாம், உங்கள் முன்னேற்றம் சேமிக்கப்பட்டுள்ளது!",
+    "reload": "செயலியை மீண்டும் ஏற்றுங்கள்",
+    "clearStorage": "சேமிப்பை அழித்து மீண்டும் ஏற்றுங்கள்",
+    "contactSupport": "இந்தச் சிக்கல் தொடர்ந்தால், ஆதரவுக் குழுவைத் தொடர்புகொள்ளுங்கள்."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} நிமி முன்பு",
+    "minutesAgo_other": "{{count}} நிமி முன்பு",
+    "hoursAgo_one": "{{count}} மணி முன்பு",
+    "hoursAgo_other": "{{count}} மணி முன்பு",
+    "daysAgo_one": "{{count}} நாள் முன்பு",
+    "daysAgo_other": "{{count}} நாள் முன்பு"
+  },
+  "tier": {
+    "novice": "புதியவர்",
+    "advancedBeginner": "தொடக்கநிலை",
+    "competent": "திறமையானவர்",
+    "proficient": "தேர்ந்தவர்",
+    "expert": "நிபுணர்"
+  },
+  "moves": {
+    "onPar": "நகர்வுகள், இலக்கு அளவில்",
+    "overPar": "நகர்வுகள், இலக்கை விட {{delta}} அதிகம்",
+    "underPar": "நகர்வுகள், இலக்கை விட {{delta}} குறைவு"
+  },
+  "lobby": {
+    "title": "ரேஸ் லாபி",
+    "close": "லாபியை மூடுங்கள்",
+    "onlineOpponents": "ஆன்லைன் எதிராளிகள்",
+    "refresh": "ஆன்லைன் எதிராளிகளைப் புதுப்பியுங்கள்",
+    "noOpponents": "ஆன்லைனில் எதிராளிகள் இல்லை — ரேஸ் செய்ய நண்பர்களை அழையுங்கள்!",
+    "away": "வெளியே",
+    "offlineTeams": "ஆஃப்லைன் · உங்கள் குழுக்களில்",
+    "removeMember": "நீக்கு: {{name}}",
+    "aiOpponents": "AI எதிராளிகள்",
+    "addAgent": "சேர்க்கவும்",
+    "noAgents": "AI எதிராளிகள் இன்னும் இல்லை — எப்போதும் ரேஸ் செய்ய ஒருவரைச் சேர்க்கவும்.",
+    "ownClock": "ஒவ்வொரு வீரரும் தங்கள் சொந்தக் கடிகாரத்தில் ரேஸ் செய்கிறார்கள்",
+    "startSolving": "தீர்க்கத் தொடங்குங்கள்",
+    "finished": "முடித்தது",
+    "inLobby": "லாபியில்",
+    "stageProgress": "நிலை {{current}} / {{total}}",
+    "finishedRunIn": "ரன் முடிந்தது: {{time}}",
+    "solvedIn": "தீர்த்த நேரம்: {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · கடைசியாகக் கண்டது: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "தனி ரேஸ் — நீங்களும் கடிகாரமும் மட்டும்",
+      "friends_one": "{{count}} நண்பர்",
+      "friends_other": "{{count}} நண்பர்கள்",
+      "aiOpponents_one": "{{count}} AI எதிராளி",
+      "aiOpponents_other": "{{count}} AI எதிராளிகள்",
+      "racing": "எதிராளிகள்: {{opponents}}"
+    },
+    "invite": {
+      "button": "அழைக்கவும்",
+      "eyebrow": "உங்கள் ரேஸை உருவாக்குங்கள்",
+      "title": "எதிராளிகளை அழையுங்கள்",
+      "close": "மூடுங்கள்",
+      "existingTeam": "ஏற்கனவே உள்ள குழுவுக்கு அழையுங்கள்",
+      "editTeamName": "குழுப் பெயரைத் திருத்துங்கள்",
+      "deleteTeam": "குழுவை நீக்குங்கள்",
+      "leaveTeam": "குழுவிலிருந்து வெளியேறுங்கள்",
+      "memberCount_one": "{{count}} உறுப்பினர்",
+      "memberCount_other": "{{count}} உறுப்பினர்கள்",
+      "createTeam": "புதிய ரேஸ் குழுவை உருவாக்குங்கள்",
+      "displayNameLabel": "குழு உறுப்பினர்கள் உங்களை எப்படி அழைக்கிறார்கள்?",
+      "displayNamePlaceholder": "காட்சிப் பெயர்",
+      "teamNameLabel": "இந்தக் குழுவுக்கு என்ன பெயர் வைக்கலாம்?",
+      "teamNamePlaceholder": "குழுப் பெயர் (எ.கா. குடும்பம்)",
+      "createAndCopy": "உருவாக்கி இணைப்பை நகலெடு",
+      "defaultTeamName": "புதிய குழு",
+      "defaultPlayerName": "வீரர்"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "தாளை மூடுங்கள்",
+    "back": "பின்செல்",
+    "close": "மூடுங்கள்",
+    "title": "உங்கள் போட்டியாளர்களைத் தேர்ந்தெடுங்கள்",
+    "subtitle": "ஒன்று அல்லது அதற்கு மேற்பட்ட எதிராளிகளைத் தேர்ந்தெடுங்கள்",
+    "selectAtLeastOne": "குறைந்தது ஒரு போட்டியாளரைத் தேர்ந்தெடுங்கள்",
+    "race_one": "{{count}} போட்டியாளருடன் ரேஸ்",
+    "race_other": "{{count}} போட்டியாளர்களுடன் ரேஸ்",
+    "skill": {
+      "novice": "புதியவர்",
+      "advancedBeginner": "தொடக்கநிலை",
+      "competent": "திறமையானவர்",
+      "proficient": "தேர்ந்தவர்",
+      "expert": "நிபுணர்"
+    }
+  },
+  "agentParty": {
+    "title": "AI போட்டியாளர்கள்",
+    "rivalCount_one": "{{count}} போட்டியாளர்",
+    "rivalCount_other": "{{count}} போட்டியாளர்கள்"
+  },
+  "party": {
+    "cancel": "ரத்துசெய்யவும்",
+    "editName": "குழுப் பெயரைத் திருத்துங்கள்",
+    "editMaxMembers": "அதிகபட்ச உறுப்பினர்களைத் திருத்துங்கள்",
+    "memberCount_one": "{{count}} உறுப்பினர்",
+    "memberCount_other": "{{count}} உறுப்பினர்கள்",
+    "memberCountPremium_one": "{{count}} உறுப்பினர் ✨ பிரீமியம்",
+    "memberCountPremium_other": "{{count}} உறுப்பினர்கள் ✨ பிரீமியம்",
+    "membersOf_one": "{{current}}/{{count}} உறுப்பினர்",
+    "membersOf_other": "{{current}}/{{count}} உறுப்பினர்கள்",
+    "shareLink": "இந்தப் புதிரில் சேர, தற்போதைய குழு உறுப்பினர்களுடன் இந்த இணைப்பைப் பகிருங்கள்",
+    "you": "(நீங்கள்)",
+    "notStarted": "இன்னும் தொடங்கவில்லை! விளையாடச் சொல்லுங்கள்"
+  },
+  "partyConfirmation": {
+    "cancel": "ரத்துசெய்யவும்",
+    "leaveAgentParty": {
+      "title": "AI போட்டியாளர்களை நீக்குங்கள்",
+      "action": "நீக்கவும்",
+      "processing": "நீக்குகிறது...",
+      "message": "அனைத்து AI போட்டியாளர்களையும் நீக்க விரும்புகிறீர்களா? அவர்கள் இனி ரேஸில் தோன்ற மாட்டார்கள்."
+    },
+    "removeAgent": {
+      "title": "உள்ளூர் ஏஜென்ட்டை நீக்குங்கள்",
+      "action": "நீக்கவும்",
+      "processing": "நீக்குகிறது...",
+      "message": "\"{{memberName}}\" என்பவரை ரேஸிலிருந்து நீக்க விரும்புகிறீர்களா?"
+    },
+    "deleteParty": {
+      "title": "குழுவை நீக்குங்கள்",
+      "action": "குழுவை நீக்கவும்",
+      "processing": "நீக்குகிறது...",
+      "message": "\"{{partyName}}\" குழுவை நீக்க விரும்புகிறீர்களா? இது குழுவை நிரந்தரமாக நீக்கும்; அனைத்து உறுப்பினர்களும் அணுகலை இழப்பார்கள். இந்தச் செயலைத் திரும்பப்பெற முடியாது."
+    },
+    "leave": {
+      "title": "குழுவிலிருந்து வெளியேறுங்கள்",
+      "action": "வெளியேறவும்",
+      "processing": "வெளியேறுகிறது...",
+      "message": "\"{{partyName}}\" குழுவிலிருந்து வெளியேற விரும்புகிறீர்களா? இனி மற்ற உறுப்பினர்களின் முன்னேற்றத்தைப் பார்க்கவோ இந்தக் குழுவில் பங்கேற்கவோ முடியாது."
+    },
+    "remove": {
+      "title": "உறுப்பினரை நீக்குங்கள்",
+      "action": "நீக்கவும்",
+      "processing": "நீக்குகிறது...",
+      "message": "\"{{partyName}}\" குழுவிலிருந்து \"{{memberName}}\" என்பவரை நீக்க விரும்புகிறீர்களா? அவர்கள் இனி இந்தக் குழுவில் பங்கேற்க முடியாது."
+    }
+  },
+  "friends": {
+    "allTeams": "அனைத்துக் குழுக்கள்",
+    "refresh": "புதுப்பி",
+    "refreshing": "புதுப்பிக்கிறது…",
+    "title": "நண்பர்களின் புதிர்கள்",
+    "subtitle": "நண்பரைத் தட்டி அவர்களின் சமீபத்திய புதிர்களைப் பார்த்து, அவர்களுடன் ரேஸ் செய்யுங்கள்.",
+    "memberCount_one": "{{count}} உறுப்பினர்",
+    "memberCount_other": "{{count}} உறுப்பினர்கள்",
+    "noRecentPuzzles": "சமீபத்திய புதிர்கள் இல்லை — அவர்களுக்கு சவால் விடுங்கள்!",
+    "empty": {
+      "title": "ரேஸ் குழுக்கள் இன்னும் இல்லை",
+      "description": "புதிரைத் தீர்க்கும்போது ரேஸ் லாபியிலிருந்து நண்பர்களை அழையுங்கள்"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "கடந்த 30 நாட்களில் நீங்கள் தீர்த்த புதிர்கள்.",
+    "empty": {
+      "title": "புதிர்கள் இன்னும் இல்லை",
+      "description": "உங்கள் முதல் புதிரைத் தீர்க்க \"ரேஸ் தொடங்கு\" பகுதிக்குச் செல்லுங்கள்"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} கூடுதல் வசதி",
+    "moreFeatures_other": "+{{count}} கூடுதல் வசதிகள்"
+  },
+  "crossPromo": {
+    "whyNotTry": "இதை முயற்சிக்கலாமே",
+    "tryItFree": "இலவசமாக முயலுங்கள்"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} பிடித்திருக்கிறதா?",
+    "rateIt": "மதிப்பிடுங்கள்",
+    "rateInSeconds": "சில விநாடிகளில் மதிப்பிடுங்கள்"
+  },
+  "plus": {
+    "close": "சாளரத்தை மூடுங்கள்",
+    "appIconAlt": "செயலி ஐகான்",
+    "lifetime": "வாழ்நாள்",
+    "monthly": "மாதாந்திர",
+    "perMonth": "{{price}}/மாதம்",
+    "whatsIncluded": "என்னென்ன உள்ளடங்கும்",
+    "continue": "தொடரவும்",
+    "restorePurchases": "வாங்கியவற்றை மீட்டெடுக்கவும்",
+    "cancel": "ரத்துசெய்யவும்"
+  },
+  "download": {
+    "title": "செயலியில் தொடருங்கள்",
+    "appStoreAlt": "{{appStore}} இல் பதிவிறக்குங்கள்",
+    "googlePlayAlt": "{{googlePlay}} இல் பெறுங்கள்",
+    "continueBrowser": "உலாவியில் தொடருங்கள்",
+    "continueDesktop": "டெஸ்க்டாப்பில் தொடருங்கள்"
+  },
+  "session": {
+    "cheated": "ஏமாற்றியது",
+    "completedIn": "முடித்த நேரம்: {{minutes}} நிமி {{seconds}} வி",
+    "percentComplete": "{{percentage}}% நிறைவு",
+    "duration": "{{minutes}} நிமி {{seconds}} வி",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "புதிர் #{{number}}",
+    "daily": "தினசரி {{date}}",
+    "book": "புத்தகம் {{month}} #{{number}}",
+    "collection": "தொகுப்பு {{month}} #{{number}}",
+    "scanned": "ஸ்கேன் செய்த புதிர்",
+    "you": "நீங்கள்",
+    "unknown": "தெரியாதது",
+    "unlockWith": "திறக்க: {{label}}",
+    "lockedPuzzle": "பூட்டிய புதிர்",
+    "recommendedTechniques": "பரிந்துரைக்கப்பட்ட நுட்பங்கள்:",
+    "loadingFriends": "நண்பர்களை ஏற்றுகிறது..."
+  }
+}

@@ -271,9 +271,9 @@ function InviteComponent() {
                         : t('invite.greeting')}
                     </h1>
                     <div className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-lg">
-                      <Star className="mr-2 h-4 w-4" />
+                      <Star className="me-2 h-4 w-4" />
                       {t('invite.invited')}
-                      <Star className="ml-2 h-4 w-4" />
+                      <Star className="ms-2 h-4 w-4" />
                     </div>
                   </div>
                   {/* Invitation content */}
@@ -285,7 +285,7 @@ function InviteComponent() {
                         components={{
                           team: (
                             <span className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-100 to-purple-100 px-3 py-1 text-lg font-bold text-blue-800 dark:from-blue-900/50 dark:to-purple-900/50 dark:text-blue-200">
-                              <Users className="mr-2 h-5 w-5" />
+                              <Users className="me-2 h-5 w-5" />
                               {publicInvite.description}
                             </span>
                           ),
@@ -336,17 +336,17 @@ function InviteComponent() {
                       >
                         {isJoining ? (
                           <div className="flex items-center justify-center">
-                            <Loader className="mr-2 h-5 w-5 animate-spin" />
+                            <Loader className="me-2 h-5 w-5 animate-spin" />
                             {t('invite.joining')}
                           </div>
                         ) : (
                           <div className="flex cursor-pointer items-center justify-center">
-                            <Users className="mr-2 h-5 w-5" />
+                            <Users className="me-2 h-5 w-5" />
                             {t('invite.join')}
                           </div>
                         )}
                         {userParties.length > 0 && !isSubscribed && (
-                          <span className="absolute -right-1 -top-1 z-10 inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[8px] font-semibold text-white shadow-lg">
+                          <span className="absolute -end-1 -top-1 z-10 inline-flex h-4 w-4 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-[8px] font-semibold text-white shadow-lg">
                             ✨
                           </span>
                         )}
@@ -361,7 +361,7 @@ function InviteComponent() {
                         className="w-full transform cursor-pointer rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4 font-bold text-white shadow-lg transition-all hover:scale-105 hover:from-blue-600 hover:to-purple-700 hover:shadow-xl active:scale-95"
                       >
                         <div className="flex items-center justify-center">
-                          <Star className="mr-2 h-5 w-5" />
+                          <Star className="me-2 h-5 w-5" />
                           {t('invite.signIn')}
                         </div>
                       </button>
@@ -373,7 +373,7 @@ function InviteComponent() {
                     <div className="mt-6 rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 p-6 dark:from-blue-900/20 dark:to-purple-900/20">
                       <div className="mb-4 text-center">
                         <div className="mb-2 flex items-center justify-center">
-                          <Star className="mr-2 h-5 w-5 text-blue-600" />
+                          <Star className="me-2 h-5 w-5 text-blue-600" />
                           <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                             {t('invite.bonus.title', {
                               duration: getEntitlementText(
@@ -382,7 +382,7 @@ function InviteComponent() {
                               plusName: t('brand.plusName'),
                             })}
                           </h3>
-                          <Star className="ml-2 h-5 w-5 text-blue-600" />
+                          <Star className="ms-2 h-5 w-5 text-blue-600" />
                         </div>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
                           {t('invite.bonus.subtitle')}

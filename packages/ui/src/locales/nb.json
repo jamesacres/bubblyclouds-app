@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Språk",
+    "automatic": "Automatisk"
+  },
+  "header": {
+    "offline": "Frakoblet",
+    "back": "Tilbake"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Bytt mørk modus"
+  },
+  "starRating": {
+    "label_one": "{{filled}} av {{count}} stjerne",
+    "label_other": "{{filled}} av {{count}} stjerner"
+  },
+  "timer": {
+    "go": "KJØR!"
+  },
+  "themeColor": {
+    "change": "Endre temafarge",
+    "set": "Sett temafargen til {{color}}",
+    "setPremium": "Sett temafargen til {{color}} (Premium)",
+    "colors": {
+      "blue": "blå",
+      "red": "rød",
+      "green": "grønn",
+      "purple": "lilla",
+      "amber": "rav",
+      "cyan": "cyan",
+      "pink": "rosa",
+      "indigo": "indigo",
+      "orange": "oransje",
+      "teal": "blågrønn",
+      "slate": "skifergrå",
+      "rose": "rosenrød",
+      "emerald": "smaragd",
+      "sky": "himmelblå",
+      "violet": "fiolett",
+      "lime": "limegrønn",
+      "fuchsia": "fuksia",
+      "yellow": "gul",
+      "stone": "steingrå",
+      "zinc": "sinkgrå"
+    }
+  },
+  "copyButton": {
+    "copied": "Kopiert til utklippstavlen!",
+    "share": "Del invitasjonslenke",
+    "copy": "Kopier invitasjonslenke"
+  },
+  "share": {
+    "joinTeam": "Bli med på løpslaget i {{appName}}!",
+    "joinNamedTeam": "Bli med på løpslaget {{partyName}} i {{appName}}!",
+    "dialogTitle": "Del invitasjon"
+  }
+}

@@ -56,7 +56,7 @@ function TestersContent() {
             {/* Android */}
             <div className="group rounded-3xl border border-gray-200 bg-white p-10 shadow-xl transition-all hover:shadow-2xl dark:border-gray-700 dark:bg-gray-800">
               <div className="mb-8 flex items-center">
-                <div className="mr-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-green-500 to-green-600 text-3xl text-white shadow-lg">
+                <div className="me-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-green-500 to-green-600 text-3xl text-white shadow-lg">
                   🤖
                 </div>
                 <h3 className="text-3xl font-bold text-gray-800 dark:text-white">
@@ -65,7 +65,7 @@ function TestersContent() {
               </div>
               <ol className="space-y-6">
                 <li className="flex items-start">
-                  <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
+                  <span className="me-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
                     1
                   </span>
                   <div>
@@ -87,7 +87,7 @@ function TestersContent() {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
+                  <span className="me-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
                     2
                   </span>
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -107,7 +107,7 @@ function TestersContent() {
                   </p>
                 </li>
                 <li className="flex items-start">
-                  <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
+                  <span className="me-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
                     3
                   </span>
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -124,7 +124,7 @@ function TestersContent() {
                 </li>
                 {inviteId && (
                   <li className="flex items-start">
-                    <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
+                    <span className="me-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-lg font-bold text-white shadow-lg">
                       4
                     </span>
                     <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -146,7 +146,7 @@ function TestersContent() {
             {/* iOS */}
             <div className="group rounded-3xl border border-gray-200 bg-white p-10 shadow-xl transition-all hover:shadow-2xl dark:border-gray-700 dark:bg-gray-800">
               <div className="mb-8 flex items-center">
-                <div className="mr-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500 to-purple-600 text-3xl text-white shadow-lg">
+                <div className="me-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500 to-purple-600 text-3xl text-white shadow-lg">
                   📱
                 </div>
                 <h3 className="text-3xl font-bold text-gray-800 dark:text-white">
@@ -155,7 +155,7 @@ function TestersContent() {
               </div>
               <ol className="space-y-6">
                 <li className="flex items-start">
-                  <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-lg font-bold text-white shadow-lg">
+                  <span className="me-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-lg font-bold text-white shadow-lg">
                     1
                   </span>
                   <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -176,7 +176,7 @@ function TestersContent() {
                 </li>
                 {inviteId && (
                   <li className="flex items-start">
-                    <span className="mr-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-lg font-bold text-white shadow-lg">
+                    <span className="me-6 mt-2 flex aspect-square h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-purple-600 text-lg font-bold text-white shadow-lg">
                       2
                     </span>
                     <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
@@ -198,7 +198,7 @@ function TestersContent() {
             {/* Web */}
             <div className="group rounded-3xl border border-gray-200 bg-white p-10 shadow-xl transition-all hover:shadow-2xl dark:border-gray-700 dark:bg-gray-800">
               <div className="mb-8 flex items-center">
-                <div className="mr-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-orange-500 to-orange-600 text-3xl text-white shadow-lg">
+                <div className="me-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-orange-500 to-orange-600 text-3xl text-white shadow-lg">
                   🌐
                 </div>
                 <h3 className="text-3xl font-bold text-gray-800 dark:text-white">

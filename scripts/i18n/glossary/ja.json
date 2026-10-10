@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "数独レース",
+      "gameName": "数独",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "数独 Plus"
+    },
+    "terms": {
+      "race": "レース",
+      "team": "チーム",
+      "leaderboard": "リーダーボード",
+      "hint": "ヒント",
+      "undo": "元に戻す",
+      "theme": "テーマ",
+      "dailyPuzzle": "毎日のパズル",
+      "monthlyCollection": "毎月のパズルブック",
+      "aiOpponent": "AI対戦相手",
+      "monthly": "月額",
+      "lifetime": "買い切り",
+      "plusAccess": "Plusアクセス",
+      "plusFeatureLine": "無制限のレース、チーム、テーマ、元に戻す"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "ブロック解除レース",
+      "gameName": "ブロック解除レース",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "レース",
+      "team": "チーム",
+      "leaderboard": "リーダーボード",
+      "hint": "ヒント",
+      "undo": "元に戻す",
+      "theme": "テーマ",
+      "dailyPuzzle": "毎日のパズル",
+      "monthlyCollection": "毎月のパズルコレクション",
+      "aiOpponent": "AI対戦相手",
+      "monthly": "月額",
+      "lifetime": "買い切り",
+      "plusAccess": "Plusアクセス",
+      "plusFeatureLine": "無制限のレース、チーム、テーマ、元に戻す"
+    }
+  }
+}

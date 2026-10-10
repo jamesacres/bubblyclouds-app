@@ -52,13 +52,12 @@ export function TierBadge({ skillLevel }: { skillLevel: string }) {
   const label = getTierLabel(skillLevel, t);
   return (
     <span
-      className="inline-flex items-center rounded-full text-[9px] font-extrabold uppercase tracking-wider"
+      className="inline-flex items-center rounded-full text-center text-[9px] font-extrabold uppercase leading-tight tracking-wider"
       style={{
         padding: '4px 8px',
         color: c.fg,
         background: c.bg,
         border: `1px solid ${c.bd}`,
-        whiteSpace: 'nowrap',
       }}
     >
       {label}
