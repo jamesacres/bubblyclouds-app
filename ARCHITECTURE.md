@@ -18,25 +18,25 @@ The monorepo is organized into two main categories: **packages** (reusable
 libraries) and **apps** (executable applications).
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                      Application Layer (L6)                            │
-│                                                                        │
-│ ┌──────────────────┐  ┌──────────────────┐  ┌─────────────┐ ┌────────┐│
-│ │  @app-sudoku     │  │@app-bubblyclouds │  │@app-        │ │@app-   ││
-│ │  (Next.js App)   │  │(Next.js Website) │  │jamesacres   │ │stephen ││
-│ └──────────────────┘  └──────────────────┘  │(Blog)       │ │esch    ││
-│                                              └─────────────┘ │(Blog)  ││
-│                                                              └────────┘│
-└────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                         Application Layer (L6)                               │
+│                                                                              │
+│ ┌─────────────┐ ┌──────────────────┐ ┌─────────────┐ ┌────────┐ ┌─────────┐│
+│ │ @app-sudoku │ │@app-bubblyclouds │ │@app-        │ │@app-   │ │@app-    ││
+│ │ (Next.js)   │ │(Next.js Website) │ │jamesacres   │ │stephen │ │unblock- ││
+│ └─────────────┘ └──────────────────┘ │(Blog)       │ │esch    │ │race     ││
+│                                      └─────────────┘ │(Blog)  │ │(Game)   ││
+│                                                       └────────┘ └─────────┘│
+└──────────────────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                  Game-Specific Layer (L5)                       │
 │                                                                 │
-│  ┌────────────────────────────────────────────┐                │
-│  │              @sudoku                       │                │
-│  │         (Sudoku game logic)                │                │
-│  └────────────────────────────────────────────┘                │
+│  ┌────────────────────────┐  ┌────────────────────────┐        │
+│  │        @sudoku         │  │      @unblockrace      │        │
+│  │   (Sudoku game logic)  │  │  (Unblock Race logic)  │        │
+│  └────────────────────────┘  └────────────────────────┘        │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -89,7 +89,15 @@ libraries) and **apps** (executable applications).
   - Contains app-specific pages and routing
   - Platform builds: Web (static to S3/CloudFront), iOS, Android, Electron
   - `deploy/` directory contains AWS CDK stack for infrastructure
-  - Depends on: All packages
+  - Depends on: `@auth`, `@games`, `@sudoku`, `@template`, `@ui`, `@types`
+
+- **`@bubblyclouds-app/app-unblockrace`** - Production Unblock Race application
+  (Next.js)
+  - Consumes game and infrastructure packages
+  - Contains app-specific pages and routing for the sliding-block game
+  - Platform builds: Web (static to S3/CloudFront), iOS, Android, Electron
+  - `deploy/` directory contains AWS CDK stack for infrastructure
+  - Depends on: `@auth`, `@games`, `@unblockrace`, `@template`, `@ui`, `@types`
 
 - **`@bubblyclouds-app/app-bubblyclouds`** - Bubblyclouds website (Next.js)
   - Company website and landing page
@@ -98,14 +106,16 @@ libraries) and **apps** (executable applications).
   - `deploy/` directory contains AWS CDK stack for infrastructure
   - Depends on: `@auth`, `@ui`, `@types` (and other packages as needed)
 
-- **`@bubblyclouds-app/app-jamesacres`** - Personal blog and portfolio website (Next.js)
+- **`@bubblyclouds-app/app-jamesacres`** - Personal blog and portfolio website
+  (Next.js)
   - Blog content and articles using MDX
   - Personal portfolio and projects showcase
   - Platform builds: Web (static to S3/CloudFront)
   - `deploy/` directory contains AWS CDK stack for infrastructure
   - Depends on: `@blog`, `@ui`, `@types`
 
-- **`@bubblyclouds-app/app-stephenesch`** - Personal blog and portfolio website (Next.js)
+- **`@bubblyclouds-app/app-stephenesch`** - Personal blog and portfolio website
+  (Next.js)
   - Blog content and articles using MDX
   - Personal portfolio and projects showcase
   - Platform builds: Web (static to S3/CloudFront)
@@ -177,17 +187,24 @@ libraries) and **apps** (executable applications).
 
 **Foundation Layer Internal Dependencies:**
 
-The Foundation Layer (L0-L1) permits same-layer dependencies for feature-specific packages:
-- `@blog` depends on `@ui` because it provides blog-specific UI components and layouts
-- This is distinct from higher-layer dependencies, which follow strict top-down rules
-- Foundation packages are decoupled from business logic and remain reusable across applications
-- New content-type packages (e.g., `@docs`, `@wiki`) would follow the same pattern
+The Foundation Layer (L0-L1) permits same-layer dependencies for
+feature-specific packages:
+
+- `@blog` depends on `@ui` because it provides blog-specific UI components and
+  layouts
+- This is distinct from higher-layer dependencies, which follow strict top-down
+  rules
+- Foundation packages are decoupled from business logic and remain reusable
+  across applications
+- New content-type packages (e.g., `@docs`, `@wiki`) would follow the same
+  pattern
 
 ## Dependency Flow
 
 ### Foundation Layer Internal Structure
 
-The Foundation Layer (L0-L1) has a special structure allowing internal dependencies:
+The Foundation Layer (L0-L1) has a special structure allowing internal
+dependencies:
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -211,12 +228,16 @@ The Foundation Layer (L0-L1) has a special structure allowing internal dependenc
 ```
 
 This structure enables:
-- **Feature-specific foundation packages** that extend @ui for specialized use cases
+
+- **Feature-specific foundation packages** that extend @ui for specialized use
+  cases
 - **Reusable content packages** that combine content logic with UI
 - **Future content types** (@docs, @wiki, etc.) following the same pattern
 - **Clean separation** from higher-layer business logic
 
-Higher layers depend only on @ui, not on @blog or other content packages. Content-specific code is imported directly by applications (e.g., @app-jamesacres imports @blog).
+Higher layers depend only on @ui, not on @blog or other content packages.
+Content-specific code is imported directly by applications (e.g.,
+@app-jamesacres imports @blog).
 
 ### Dependency Rules
 
@@ -241,6 +262,34 @@ Higher layers depend only on @ui, not on @blog or other content packages. Conten
 │   ├── @ui
 │   └── @types
 ├── @sudoku
+│   ├── @auth
+│   ├── @games
+│   │   ├── @template
+│   │   ├── @ui
+│   │   └── @types
+│   ├── @template
+│   │   ├── @auth
+│   │   ├── @ui
+│   │   └── @types
+│   ├── @ui
+│   └── @types
+├── @template
+│   ├── @auth
+│   ├── @ui
+│   └── @types
+├── @ui
+└── @types
+
+@app-unblockrace
+├── @auth
+├── @games
+│   ├── @template
+│   │   ├── @auth
+│   │   ├── @ui
+│   │   └── @types
+│   ├── @ui
+│   └── @types
+├── @unblockrace
 │   ├── @auth
 │   ├── @games
 │   │   ├── @template
@@ -323,6 +372,8 @@ Each package declares its dependencies explicitly in its `package.json`:
 ┌──────────┐                  ┌──────────────┐
 │ apps/    │                  │  packages/   │
 │ sudoku/  │                  └──────┬───────┘
+│ unblock- │                         │
+│ race/    │                         │
 │ or       │                         │
 │ bubbly   │                         │
 │ clouds/  │                         │
@@ -331,15 +382,16 @@ Each package declares its dependencies explicitly in its `package.json`:
                            │                   │
                      Game-specific?     Game-agnostic?
                            │                   │
-             ┌─────────────┼────────┐          │
-             │             │        │          │
-         Sudoku-        Shared   Generic       │
-         specific?      game     game          │
-             │          logic?   helpers?      │
-             ▼             ▼        ▼          │
-      ┌──────────┐  ┌──────────┐ ┌─────────┐  │
-      │ @sudoku  │  │  @games  │ │ @games  │  │
-      └──────────┘  └──────────┘ └─────────┘  │
+             ┌─────────────┴──────┐            │
+             │                    │            │
+         Sudoku?          Unblock Race?        │
+             │                    │            │
+             ▼                    ▼            │
+      ┌──────────┐  ┌─────────────────┐        │
+      │ @sudoku  │  │  @unblockrace   │        │
+      └──────────┘  └─────────────────┘        │
+                              ↑                │
+                    Shared game helpers? → @games
                                                │
                       ┌────────────────────────┘
                       │
@@ -350,7 +402,7 @@ Each package declares its dependencies explicitly in its `package.json`:
             ▼                      ▼
       ┌──────────┐      ┌───────────────────┐
       │@template │      │ @ui, @auth,       │
-      └──────────┘      │ @types            │
+      └──────────┘      │ @types, @blog     │
                         └───────────────────┘
 ```
 
@@ -495,6 +547,43 @@ export enum PlatformType {
 - Generic game features (use `@games`)
 - Non-sudoku game logic
 - Generic components (use `@ui`)
+
+#### `@bubblyclouds-app/unblockrace`
+
+**Add here when:**
+
+- Implementing Unblock Race board rules and move validation
+- Creating Unblock Race-specific UI components
+- Building board state management for the sliding-block puzzle
+- Adding race-chain or multi-puzzle run state specific to this game
+
+**Examples:**
+
+- `UnblockBoard` - Board rendering component
+- `useBoardState` - Board state hook
+- Board string parsing and serialization utilities
+- Fixture puzzle data
+
+**Do NOT add:**
+
+- Generic game features (use `@games`)
+- Non-Unblock Race game logic
+- Generic components (use `@ui`)
+
+#### `apps/unblockrace`
+
+**Add here when:**
+
+- Creating Next.js pages and routes for the Unblock Race app
+- Implementing app-specific page layouts
+- Configuring app settings (Next.js config, Capacitor, etc.)
+- Creating one-off features specific to this app
+- Modifying the CDK deployment stack in `deploy/`
+
+**Do NOT add:**
+
+- Reusable components (extract to packages)
+- Business logic (belongs in packages)
 
 #### `apps/sudoku`
 
@@ -878,9 +967,9 @@ All dependencies must be explicitly declared in `package.json`:
 Packages form a directed acyclic graph (DAG):
 
 ```
-Layer 6:  @app-sudoku, @app-bubblyclouds
+Layer 6:  @app-sudoku, @app-unblockrace, @app-bubblyclouds, @app-jamesacres, @app-stephenesch
               ↓
-Layer 5:  @sudoku
+Layer 5:  @sudoku, @unblockrace
               ↓
 Layer 4:  @games
               ↓
@@ -888,7 +977,7 @@ Layer 3:  @template
               ↓
 Layer 2:  @auth
               ↓
-Layer 0-1: @ui, @types
+Layer 0-1: @ui, @types, @blog
 ```
 
 The full dependency tree:
@@ -907,15 +996,19 @@ The full dependency tree:
 @games (depends on @template, @ui, @types)
   ↑
 @sudoku (depends on @games, @template, @auth, @ui, @types)
+@unblockrace (depends on @games, @template, @auth, @ui, @types)
   ↑
-@app-sudoku (depends on all packages)
+@app-sudoku (depends on @sudoku, @games, @template, @auth, @ui, @types)
+@app-unblockrace (depends on @unblockrace, @games, @template, @auth, @ui, @types)
 @app-bubblyclouds (depends on @auth, @ui, @types)
 @app-jamesacres (depends on @blog, @ui, @types)
+@app-stephenesch (depends on @blog, @ui, @types)
 ```
 
 Circular dependencies are prevented by:
 
-- Clear layering (L0-L1 Foundation → L2 Infrastructure → L3 Collaboration → L4 Game Features → L5 Game-Specific → L6 Applications)
+- Clear layering (L0-L1 Foundation → L2 Infrastructure → L3 Collaboration → L4
+  Game Features → L5 Game-Specific → L6 Applications)
 - Each package only depends on packages in lower layers
 - Dependency checking (`pnpm run circular`)
 - Code review
@@ -966,8 +1059,9 @@ All web apps are deployed as fully static sites. Next.js is configured with
 
 Each app has a `deploy/` directory containing:
 
-- **`lib/app-stack.ts`** - CDK stack defining S3 bucket, CloudFront distribution,
-  and a CloudFront Function for URL rewrites (e.g. `/about` -> `/about.html`)
+- **`lib/app-stack.ts`** - CDK stack defining S3 bucket, CloudFront
+  distribution, and a CloudFront Function for URL rewrites (e.g. `/about` ->
+  `/about.html`)
 - **`bin/deploy.ts`** - CDK app entry point, reads configuration from `.env`
 - **`scripts/sync-s3.sh`** - Uploads static output to S3 and invalidates
   CloudFront cache
@@ -975,7 +1069,8 @@ Each app has a `deploy/` directory containing:
 
 ### Deploy Workflow
 
-1. **Infrastructure (one-time):** `npm run cdk:deploy` from `apps/<name>/deploy/`
+1. **Infrastructure (one-time):** `npm run cdk:deploy` from
+   `apps/<name>/deploy/`
 2. **Update `.env`** with the S3 bucket name and CloudFront distribution ID
 3. **Build:** `pnpm run build:<name>` from repo root
 4. **Deploy updates:** `npm run sync-s3` from `apps/<name>/deploy/`
@@ -983,8 +1078,8 @@ Each app has a `deploy/` directory containing:
 ### Platform-Specific Builds
 
 - **Web:** Static export to S3/CloudFront (all apps)
-- **iOS/Android:** Capacitor build (Sudoku app only)
-- **Desktop:** Electron build (Sudoku app only)
+- **iOS/Android:** Capacitor build (Sudoku and Unblock Race apps)
+- **Desktop:** Electron build (Sudoku and Unblock Race apps)
 
 ## Verification Commands
 
@@ -1006,23 +1101,26 @@ pnpm test
 
 ## Summary
 
-- **8 packages** organized in **7 layers** (L0-L6):
+- **9 packages** organized in **7 layers** (L0-L6):
   - L0-L1: Foundation (`@types`, `@ui`, `@blog`)
     - `@types`: Zero dependencies, foundational types
     - `@ui`: Generic UI components, depends on `@types`
     - `@blog`: Content utilities, depends on `@ui` and `@types`
-    - **Note:** Foundation Layer permits same-layer dependencies for feature packages
+    - **Note:** Foundation Layer permits same-layer dependencies for feature
+      packages
   - L2: Infrastructure (`@auth`)
   - L3: Collaboration (`@template`)
   - L4: Game Features (`@games`)
-  - L5: Game-Specific (`@sudoku`)
-  - L6: Applications (`@app-sudoku`, `@app-bubblyclouds`, `@app-jamesacres`, `@app-stephenesch`)
-- **4 apps** consuming packages as needed
+  - L5: Game-Specific (`@sudoku`, `@unblockrace`)
+  - L6: Applications (`@app-sudoku`, `@app-unblockrace`, `@app-bubblyclouds`,
+    `@app-jamesacres`, `@app-stephenesch`)
+- **5 apps** consuming packages as needed
 - **Just-in-Time pattern** for fast development without build steps
 - **Clear dependency flow** enforced by package.json and tooling
 - **Explicit guidelines** for where to add each type of code
 - **Direct source imports** from packages, no re-exports
-- **Content-specific packages** (like @blog) are extensible pattern for future use
+- **Content-specific packages** (like @blog) are extensible pattern for future
+  use
 
 This architecture enables:
 

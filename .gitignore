@@ -60,3 +60,5 @@ packages/sudoku/src/utils/diag-seed-scan.json
 scripts/*.csv
 
 designs
+.kiro
+aikit*

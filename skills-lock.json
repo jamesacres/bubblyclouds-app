@@ -263,6 +263,12 @@
       "sourceType": "github",
       "computedHash": "5aae14bd9f5a5e16cfed5d692ed9b6ddd3848a0569d29ae86a623d09af997bfe"
     },
+    "gplay-metadata-sync": {
+      "source": "tamtom/gplay-cli-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gplay-metadata-sync/SKILL.md",
+      "computedHash": "e116b0694eb4a7fdd6539963b19305b0f1bf7b980524ed0c3540ec07c812877d"
+    },
     "gpt-taste": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
