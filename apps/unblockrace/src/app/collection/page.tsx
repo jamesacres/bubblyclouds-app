@@ -1,5 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import CollectionCover from '@bubblyclouds-app/unblockrace/components/UnblockCollectionCover';
 import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
@@ -14,7 +15,10 @@ import {
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { useCollection } from '@bubblyclouds-app/unblockrace/providers/CollectionProvider';
 import IntegratedSessionRow from '@bubblyclouds-app/template/components/IntegratedSessionRow';
-import { getUnblockDifficultyDisplay } from '@bubblyclouds-app/unblockrace/helpers/difficultyDisplay';
+import {
+  getUnblockDifficultyDisplay,
+  unblockDifficultyDisplay,
+} from '@bubblyclouds-app/unblockrace/helpers/difficultyDisplay';
 import SimpleBoard from '@bubblyclouds-app/unblockrace/components/SimpleBoard';
 import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/unblockrace/helpers/calculateCompletionPercentage';
 import { isPuzzleCheated } from '@bubblyclouds-app/unblockrace/helpers/cheatDetection';
@@ -32,6 +36,8 @@ const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
 );
 
 export default function CollectionPage() {
+  const { t, i18n } = useTranslation('app');
+  const { t: tUnblock } = useTranslation('unblockrace');
   const router = useRouter();
   const context = useContext(UserContext);
   const { user, showLoginModal } = context || {};
@@ -72,6 +78,15 @@ export default function CollectionPage() {
       month: 'long',
       timeZone: 'UTC',
     }
+  );
+  const displayMonth = new Date().toLocaleString(i18n.language, {
+    month: 'long',
+    timeZone: 'UTC',
+  });
+
+  const getDifficultyDisplay = useCallback(
+    (difficulty: string) => getUnblockDifficultyDisplay(difficulty, tUnblock),
+    [tUnblock]
   );
 
   useEffect(() => {
@@ -176,10 +191,10 @@ export default function CollectionPage() {
           <div className="border-t-theme-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-stone-200 dark:border-zinc-700"></div>
           <p className="text-stone-500 dark:text-zinc-400">
             {collectionLoading && sessionsLoading
-              ? 'Loading puzzle collection...'
+              ? t('collection.loading.both')
               : collectionLoading
-                ? 'Loading puzzles...'
-                : 'Loading your progress...'}
+                ? t('collection.loading.collection')
+                : t('collection.loading.sessions')}
           </p>
         </div>
       </div>
@@ -195,13 +210,13 @@ export default function CollectionPage() {
             onClick={() => fetchCollectionData()}
             className="bg-theme-primary hover:bg-theme-primary-dark mr-2 mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
           >
-            Try again
+            {t('collection.retry')}
           </button>
           <button
             onClick={() => router.push('/')}
             className="mt-4 cursor-pointer rounded-lg border border-stone-200 bg-white px-4 py-2 text-sm font-semibold text-stone-700 transition-colors duration-200 hover:bg-stone-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
           >
-            Back to home
+            {t('collection.backHome')}
           </button>
         </div>
       </div>
@@ -215,7 +230,7 @@ export default function CollectionPage() {
           {!user ? (
             <>
               <p className="text-stone-500 dark:text-zinc-400">
-                Sign in to access the puzzle collection.
+                {t('collection.signInPrompt')}
               </p>
               <button
                 onClick={() =>
@@ -223,19 +238,19 @@ export default function CollectionPage() {
                 }
                 className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
               >
-                Sign in
+                {t('collection.signIn')}
               </button>
             </>
           ) : (
             <>
               <p className="text-stone-500 dark:text-zinc-400">
-                No puzzle collection data available.
+                {t('collection.noData')}
               </p>
               <button
                 onClick={() => router.push('/')}
                 className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
               >
-                Back to home
+                {t('collection.backHome')}
               </button>
             </>
           )}
@@ -261,16 +276,17 @@ export default function CollectionPage() {
               </div>
               <div className="text-center md:text-left">
                 <h1 className="text-2xl font-bold md:text-3xl">
-                  {currentMonth} puzzle collection
+                  {t('collection.title', { month: displayMonth })}
                 </h1>
                 <p className="mt-1 text-white/70 md:text-base">
-                  {collectionData.puzzles.length} puzzles from quick escapes to
-                  expert gridlock
+                  {t('collection.subtitle', {
+                    count: collectionData.puzzles.length,
+                  })}
                 </p>
                 <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
                   <div className="rounded-lg border border-white/20 bg-white/15 px-3 py-1.5 text-sm font-medium backdrop-blur-sm">
                     {collectionSessions.filter((s) => s.state.completed).length}{' '}
-                    completed
+                    {t('collection.completed')}
                   </div>
                   <div className="rounded-lg border border-white/20 bg-white/15 px-3 py-1.5 text-sm font-medium backdrop-blur-sm">
                     {
@@ -279,7 +295,7 @@ export default function CollectionPage() {
                           !s.state.completed && s.state.answerStack.length > 1
                       ).length
                     }{' '}
-                    in progress
+                    {t('collection.inProgress')}
                   </div>
                   {!isSubscribed && (
                     <button
@@ -294,7 +310,7 @@ export default function CollectionPage() {
                       className="group inline-flex cursor-pointer items-center gap-2 rounded-lg border border-amber-300/50 bg-gradient-to-r from-amber-400/20 to-amber-500/10 px-3 py-1.5 text-sm font-semibold text-amber-100 backdrop-blur-sm transition-all duration-200 hover:from-amber-400/30 hover:to-amber-500/20 active:scale-[0.98]"
                     >
                       <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                      Unlock every puzzle with Plus
+                      {t('collection.unlockWithPlus')}
                       <span className="opacity-60 transition-transform duration-200 group-hover:translate-x-0.5">
                         →
                       </span>
@@ -311,28 +327,24 @@ export default function CollectionPage() {
           {/* Difficulty Jump Buttons */}
           <div className="mb-6">
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-stone-400 dark:text-zinc-500">
-              Jump to difficulty
+              {t('collection.jumpToDifficulty')}
             </h3>
             <div className="flex flex-wrap gap-2">
               {[
                 {
                   difficulty: 'beginner',
-                  label: 'Beginner',
                   color: 'bg-green-500 text-white',
                 },
                 {
                   difficulty: 'challenging',
-                  label: 'Challenging',
                   color: 'bg-yellow-500 text-white',
                 },
                 {
                   difficulty: 'hard',
-                  label: 'Hard',
                   color: 'bg-orange-500 text-white',
                 },
                 {
                   difficulty: 'expert',
-                  label: 'Expert',
                   color: 'bg-red-500 text-white',
                 },
               ].map((item) => {
@@ -370,7 +382,7 @@ export default function CollectionPage() {
                     onClick={jumpToDifficulty}
                     className={`${item.color} cursor-pointer rounded-lg px-3 py-1.5 text-xs font-semibold opacity-90 transition-all duration-200 hover:opacity-100 active:scale-95`}
                   >
-                    {item.label}
+                    {unblockDifficultyDisplay(item.difficulty, tUnblock).label}
                   </button>
                 );
               })}
@@ -409,7 +421,7 @@ export default function CollectionPage() {
                       sudokuBookId:
                         collectionData?.unblockCollectionId || 'unknown',
                     }}
-                    getDifficultyDisplay={getUnblockDifficultyDisplay}
+                    getDifficultyDisplay={getDifficultyDisplay}
                     SimpleState={SimpleStateWrapper}
                     calculateCompletionPercentageFromState={
                       calculateCompletionPercentageFromState
@@ -419,6 +431,7 @@ export default function CollectionPage() {
                     getMovesDisplay={movesDisplayFromState}
                     getStarRating={starRatingFromState}
                     isLocked={isLocked}
+                    lockedLabel={t('brand.plus')}
                     onLockedClick={() =>
                       subscribeModal?.showModalIfRequired(
                         navigateToPuzzle,
@@ -446,7 +459,7 @@ export default function CollectionPage() {
             bottom: 'max(20px, calc(var(--ion-safe-area-bottom, 0px) + 20px))',
           }}
           className="bg-theme-primary hover:bg-theme-primary-dark dark:bg-theme-primary-light dark:hover:bg-theme-primary z-50 flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg transition-all hover:scale-110 active:scale-95"
-          aria-label="Scroll to top"
+          aria-label={t('collection.scrollToTop')}
         >
           <ArrowUp className="h-5 w-5" />
         </button>

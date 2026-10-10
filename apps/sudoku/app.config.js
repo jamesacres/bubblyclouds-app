@@ -1,9 +1,11 @@
+const { brand } = require('./src/locales/en.json');
+
 const APP = 'sudoku';
-const APP_NAME = 'Sudoku Race';
-const GAME_NAME = 'Sudoku';
+const APP_NAME = brand.appName;
+const GAME_NAME = brand.gameName;
 const DOMAIN = 'bubblyclouds.com';
 const REVERSE_DOMAIN = 'com.bubblyclouds';
-const COMPANY_NAME = 'Bubbly Clouds';
+const COMPANY_NAME = brand.companyName;
 const APP_CONFIG = {
   app: APP,
   scope: [
@@ -16,7 +18,6 @@ const APP_CONFIG = {
     'sessions.write',
   ],
   appName: APP_NAME,
-  appDescription: 'Play and share to race sudoku with friends. Daily challenges & cross-device!',
   gameName: GAME_NAME,
   appId: `${REVERSE_DOMAIN}.${APP}`,
   appUrl: `https://${APP}.${DOMAIN}`,
@@ -35,9 +36,6 @@ const APP_CONFIG = {
   testFlightUrl: 'https://testflight.apple.com/join/QMjDmYHu',
   testersGroupUrl: `https://groups.google.com/a/${DOMAIN}/g/testers`,
   deepLinkScheme: `${REVERSE_DOMAIN}.${APP}`,
-  mobileDescription: `Get the best racing experience with our ${APP_NAME} app!`,
-  desktopDescription: `Download ${APP_NAME}`,
-  openInAppLabel: 'Open Puzzle',
   revenueCatApiKeys: {
     ios: 'appl_cSnwNkaTjlVONbHuKzVNTRjQsbT',
     android: 'goog_NrLMlLbrRvQVKxXifUHmJBkSOXr',
@@ -46,8 +44,6 @@ const APP_CONFIG = {
 };
 
 const CROSS_PROMO = {
-  gameName: 'Unblock Race',
-  tagline: 'Slide the blocks and race friends to clear the jam.',
   appUrl: `https://unblockrace.${DOMAIN}`,
   appStoreUrl: 'https://apps.apple.com/app/unblock-race/id6799411805',
   googlePlayUrl: `https://play.google.com/store/apps/details?id=${REVERSE_DOMAIN}.unblockrace`,

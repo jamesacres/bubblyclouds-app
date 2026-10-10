@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useMemo } from 'react';
 import { InAppReview } from '@capacitor-community/in-app-review';
 import { Trophy } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { CountUp } from '@bubblyclouds-app/ui/components/CountUp';
 import RaceCelebrationOverlay, {
@@ -47,6 +48,7 @@ const RaceCelebration = ({
   completedGamesCount = 0,
   isCapacitor,
 }: RaceCelebrationProps) => {
+  const { t } = useTranslation('games');
   // The same rating-prompt milestones the shared celebration used, kept so
   // swapping the visuals doesn't drop the review ask.
   useEffect(() => {
@@ -108,18 +110,18 @@ const RaceCelebration = ({
             <CountUp
               value={points}
               prefix="+"
-              suffix=" pts"
+              suffix={t('raceCelebration.pointsSuffix')}
               startDelayMs={900}
               className="font-mono text-3xl font-black tabular-nums text-amber-300"
             />
             <span className="text-[0.65rem] font-black uppercase tracking-widest text-white/60">
-              Leaderboard points
+              {t('raceCelebration.leaderboardPoints')}
             </span>
           </div>
         )}
       </>
     ),
-    [stars, points, statsLine]
+    [stars, points, statsLine, t]
   );
 
   if (!isVisible) {
@@ -130,13 +132,13 @@ const RaceCelebration = ({
     <div data-testid="race-celebration">
       <RaceCelebrationOverlay
         isVisible={isVisible}
-        title="Finish!"
+        title={t('raceCelebration.finish')}
         confettiColors={confettiColors}
         checkered
         badge={
           <div className="flex items-center gap-2 rounded-full bg-zinc-900/85 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-lg ring-1 ring-white/15">
             <Trophy className="h-4 w-4 text-amber-400" aria-hidden="true" />
-            Run complete
+            {t('raceCelebration.runComplete')}
           </div>
         }
         belowBadge={belowBadge}

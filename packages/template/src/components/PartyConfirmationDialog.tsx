@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { LogOut, Trash, UserMinus } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface PartyConfirmationDialogProps {
   isOpen: boolean;
@@ -23,6 +24,7 @@ export const PartyConfirmationDialog = ({
   isOwner = false,
   dialogClassName = 'relative z-50',
 }: PartyConfirmationDialogProps) => {
+  const { t } = useTranslation('template');
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleConfirm = async () => {
@@ -52,32 +54,43 @@ export const PartyConfirmationDialog = ({
         : isRemoveAgent
           ? LogOut
           : UserMinus;
-  const title = isLeaveAgentParty
-    ? 'Remove AI Rivals'
+  const copy = isLeaveAgentParty
+    ? {
+        title: t('partyConfirmation.leaveAgentParty.title'),
+        action: t('partyConfirmation.leaveAgentParty.action'),
+        processing: t('partyConfirmation.leaveAgentParty.processing'),
+        message: t('partyConfirmation.leaveAgentParty.message'),
+      }
     : isRemoveAgent
-      ? 'Remove Local Agent'
+      ? {
+          title: t('partyConfirmation.removeAgent.title'),
+          action: t('partyConfirmation.removeAgent.action'),
+          processing: t('partyConfirmation.removeAgent.processing'),
+          message: t('partyConfirmation.removeAgent.message', { memberName }),
+        }
       : isOwnerLeaving
-        ? 'Delete Party'
+        ? {
+            title: t('partyConfirmation.deleteParty.title'),
+            action: t('partyConfirmation.deleteParty.action'),
+            processing: t('partyConfirmation.deleteParty.processing'),
+            message: t('partyConfirmation.deleteParty.message', { partyName }),
+          }
         : isLeave
-          ? 'Leave Party'
-          : 'Remove Member';
-  const actionText = isLeaveAgentParty
-    ? 'Remove'
-    : isRemoveAgent
-      ? 'Remove'
-      : isOwnerLeaving
-        ? 'Delete Party'
-        : isLeave
-          ? 'Leave'
-          : 'Remove';
-  const processingText =
-    isLeaveAgentParty || isRemoveAgent
-      ? 'Removing...'
-      : isOwnerLeaving
-        ? 'Deleting...'
-        : isLeave
-          ? 'Leaving...'
-          : 'Removing...';
+          ? {
+              title: t('partyConfirmation.leave.title'),
+              action: t('partyConfirmation.leave.action'),
+              processing: t('partyConfirmation.leave.processing'),
+              message: t('partyConfirmation.leave.message', { partyName }),
+            }
+          : {
+              title: t('partyConfirmation.remove.title'),
+              action: t('partyConfirmation.remove.action'),
+              processing: t('partyConfirmation.remove.processing'),
+              message: t('partyConfirmation.remove.message', {
+                memberName,
+                partyName,
+              }),
+            };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -114,21 +127,13 @@ export const PartyConfirmationDialog = ({
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100"
                   >
-                    {title}
+                    {copy.title}
                   </Dialog.Title>
                 </div>
 
                 <div className="mt-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {isLeaveAgentParty
-                      ? `Are you sure you want to remove all AI Rivals? They will no longer appear in the race.`
-                      : isRemoveAgent
-                        ? `Are you sure you want to remove "${memberName}" from the race?`
-                        : isOwnerLeaving
-                          ? `Are you sure you want to delete "${partyName}"? This will permanently remove the party and all members will lose access. This action cannot be undone.`
-                          : isLeave
-                            ? `Are you sure you want to leave "${partyName}"? You will no longer see other members' progress or be able to participate in this party.`
-                            : `Are you sure you want to remove "${memberName}" from "${partyName}"? They will no longer be able to participate in this party.`}
+                    {copy.message}
                   </p>
                 </div>
 
@@ -139,7 +144,7 @@ export const PartyConfirmationDialog = ({
                     onClick={onClose}
                     disabled={isProcessing}
                   >
-                    Cancel
+                    {t('partyConfirmation.cancel')}
                   </button>
                   <button
                     type="button"
@@ -147,7 +152,7 @@ export const PartyConfirmationDialog = ({
                     onClick={handleConfirm}
                     disabled={isProcessing}
                   >
-                    {isProcessing ? processingText : actionText}
+                    {isProcessing ? copy.processing : copy.action}
                   </button>
                 </div>
               </Dialog.Panel>

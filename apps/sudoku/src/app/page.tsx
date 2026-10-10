@@ -8,8 +8,9 @@ import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFe
 import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
 import { CrossPromoCard } from '@bubblyclouds-app/template/components/CrossPromoCard';
 import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
-import { PREMIUM_FEATURES } from '../config/premiumFeatures';
-import { motivationalMessages } from '../config/motivationalMessages';
+import { usePremiumFeatures } from '../config/premiumFeatures';
+import { useMotivationalMessages } from '../config/motivationalMessages';
+import { useCurrentMonth } from '../hooks/useCurrentMonth';
 import { APP_CONFIG, CROSS_PROMO } from '../../app.config.js';
 import { Difficulty } from '@bubblyclouds-app/games/types/difficulty';
 import Footer from '@bubblyclouds-app/ui/components/Footer';
@@ -23,6 +24,7 @@ import { calculateCompletionPercentageFromState } from '@bubblyclouds-app/sudoku
 import { buildPuzzleUrlFromState } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
 import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Trans, useTranslation } from 'react-i18next';
 import {
   Suspense,
   useCallback,
@@ -49,7 +51,6 @@ const SimpleStateWrapper = ({ state }: { state: GameState }) => (
 const DIFFICULTY_OPTIONS = [
   {
     difficulty: Difficulty.SIMPLE,
-    label: 'Tricky',
     stars: 1,
     bgFrom: '#10b981',
     bgTo: '#059669',
@@ -58,7 +59,6 @@ const DIFFICULTY_OPTIONS = [
   },
   {
     difficulty: Difficulty.EASY,
-    label: 'Challenging',
     stars: 2,
     bgFrom: '#f59e0b',
     bgTo: '#d97706',
@@ -67,7 +67,6 @@ const DIFFICULTY_OPTIONS = [
   },
   {
     difficulty: Difficulty.INTERMEDIATE,
-    label: 'Hard',
     stars: 3,
     bgFrom: '#f43f5e',
     bgTo: '#e11d48',
@@ -121,6 +120,11 @@ function HeroGrid() {
 }
 
 function HomeComponent() {
+  const { t } = useTranslation('app');
+  const { t: tGames } = useTranslation('games');
+  const premiumFeatures = usePremiumFeatures();
+  const motivationalMessages = useMotivationalMessages();
+  const { englishMonth: currentMonth, localizedMonth } = useCurrentMonth();
   const searchParams = useSearchParams();
   const [tab, setTab] = useState(searchParams.get('tab') || Tab.START_PUZZLE);
 
@@ -218,10 +222,30 @@ function HomeComponent() {
     }
   }, [refreshParties, fetchFriendSessions, parties]);
 
-  const currentMonth = new Date(new Date().toISOString()).toLocaleString(
-    'en-US',
-    { month: 'long', timeZone: 'UTC' }
+  const difficultyDisplay = useCallback(
+    (difficulty: string) => getDifficultyDisplay(difficulty, tGames),
+    [tGames]
   );
+
+  const difficultyLabels: Record<
+    (typeof DIFFICULTY_OPTIONS)[number]['difficulty'],
+    string
+  > = {
+    [Difficulty.SIMPLE]: t('home.daily.difficulty.simple'),
+    [Difficulty.EASY]: t('home.daily.difficulty.easy'),
+    [Difficulty.INTERMEDIATE]: t('home.daily.difficulty.intermediate'),
+  };
+
+  const racingTeamsSubtitle = friendsList?.length
+    ? t('home.teams.withFriends', {
+        friends: friendsList.slice(0, 2).join(', '),
+      })
+    : t('home.teams.noFriends');
+
+  const bookSummary = t('home.book.summary', {
+    month: localizedMonth,
+    count: 50,
+  });
 
   return (
     <>
@@ -264,7 +288,7 @@ function HomeComponent() {
                 >
                   <Image
                     src="/icons/icon-animated.webp"
-                    alt="Sudoku Race"
+                    alt={t('brand.appName')}
                     width={44}
                     height={44}
                     className="h-[44px] w-[44px]"
@@ -273,11 +297,11 @@ function HomeComponent() {
                 <div>
                   <div className="flex items-center gap-2.5">
                     <span className="text-base font-bold tracking-tight text-white/70">
-                      Sudoku Race
+                      {t('brand.appName')}
                     </span>
                     <span className="inline-flex items-center gap-1 rounded-full border border-fuchsia-400/40 bg-fuchsia-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-fuchsia-300">
                       <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-fuchsia-400" />
-                      Live
+                      {t('home.live')}
                     </span>
                   </div>
                 </div>
@@ -292,11 +316,10 @@ function HomeComponent() {
                       '0 0 12px rgba(167,139,250,0.9), 0 0 30px rgba(139,92,246,0.6), 0 0 60px rgba(139,92,246,0.3)',
                   }}
                 >
-                  Ready to Race? 🏁
+                  {t('home.headline')}
                 </h1>
                 <p className="mb-3 text-base font-medium leading-snug text-white/60 md:text-lg">
-                  Share the challenge — invite friends and see who&apos;s the
-                  fastest Sudoku solver.
+                  {t('home.subtitle')}
                 </p>
                 <SocialProof motivationalMessages={motivationalMessages} />
               </div>
@@ -322,7 +345,7 @@ function HomeComponent() {
                     >
                       <Award className="h-3.5 w-3.5 text-violet-300" />
                       <span className="text-[10px] font-bold uppercase tracking-wider text-violet-300">
-                        Leaderboard
+                        {t('home.leaderboard')}
                       </span>
                     </button>
                   }
@@ -333,24 +356,16 @@ function HomeComponent() {
               <div className="mb-4">
                 <div className="mb-3 flex items-center justify-between">
                   <h2 className="text-base font-black tracking-tight text-white">
-                    Daily challenges
+                    {t('home.daily.title')}
                   </h2>
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
-                    refreshes daily
+                    {t('home.daily.refreshes')}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-3 gap-2.5">
                   {DIFFICULTY_OPTIONS.map(
-                    ({
-                      difficulty,
-                      label,
-                      stars,
-                      bgFrom,
-                      bgTo,
-                      glow,
-                      number,
-                    }) => (
+                    ({ difficulty, stars, bgFrom, bgTo, glow, number }) => (
                       <button
                         key={difficulty}
                         onClick={() => openSudokuOfTheDay(difficulty)}
@@ -391,7 +406,7 @@ function HomeComponent() {
                         </div>
                         {/* Label */}
                         <p className="relative text-base font-black leading-tight text-white">
-                          {label}
+                          {difficultyLabels[difficulty]}
                         </p>
                       </button>
                     )
@@ -399,13 +414,18 @@ function HomeComponent() {
                 </div>
 
                 <p className="mt-2 text-xs text-white/30">
-                  More difficulty levels in the{' '}
-                  <button
-                    onClick={openBook}
-                    className="text-white/55 underline underline-offset-2 hover:text-white/75"
-                  >
-                    puzzle book
-                  </button>
+                  <Trans
+                    t={t}
+                    i18nKey="home.daily.moreLevels"
+                    components={{
+                      bookLink: (
+                        <button
+                          onClick={openBook}
+                          className="text-white/55 underline underline-offset-2 hover:text-white/75"
+                        />
+                      ),
+                    }}
+                  />
                 </p>
               </div>
 
@@ -415,10 +435,10 @@ function HomeComponent() {
                 className="liquid-glass mb-3 flex w-full cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97] md:mb-0 md:hidden"
               >
                 <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
-                  {currentMonth} · 50 puzzles
+                  {bookSummary}
                 </p>
                 <p className="mb-3 text-base font-black text-white">
-                  Monthly book
+                  {t('home.book.title')}
                 </p>
                 <div
                   className="animate-float-card w-full overflow-hidden rounded-2xl"
@@ -447,7 +467,7 @@ function HomeComponent() {
                 </div>
                 <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/55">
                   <BookOpen className="h-2.5 w-2.5" />
-                  Browse puzzles
+                  {t('home.book.browse')}
                 </span>
               </button>
 
@@ -467,10 +487,10 @@ function HomeComponent() {
                     <Camera className="h-3 w-3 text-white/70" />
                   </div>
                   <p className="text-base font-black leading-tight text-white">
-                    Import any puzzle
+                    {t('home.import.title')}
                   </p>
                   <p className="text-xs leading-snug text-white/45">
-                    Scan with camera or paste a puzzle string
+                    {t('home.import.description')}
                   </p>
                 </Link>
                 <button
@@ -487,12 +507,10 @@ function HomeComponent() {
                     <Users className="h-3.5 w-3.5 text-white/70" />
                   </div>
                   <p className="text-base font-black leading-tight text-white">
-                    Racing teams
+                    {t('home.teams.title')}
                   </p>
                   <p className="text-xs leading-snug text-white/45">
-                    {friendsList?.length
-                      ? `Race ${friendsList.slice(0, 2).join(', ')} and more`
-                      : 'Challenge friends to a race'}
+                    {racingTeamsSubtitle}
                   </p>
                 </button>
               </div>
@@ -504,10 +522,10 @@ function HomeComponent() {
                   className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 active:scale-[0.97]"
                 >
                   <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-white/35">
-                    {currentMonth} · 50 puzzles
+                    {bookSummary}
                   </p>
                   <p className="mb-3 text-base font-black text-white">
-                    Monthly book
+                    {t('home.book.title')}
                   </p>
                   <div
                     className="animate-float-card mx-auto w-full max-w-[300px] overflow-hidden rounded-2xl"
@@ -533,7 +551,7 @@ function HomeComponent() {
                   </div>
                   <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-white/55">
                     <BookOpen className="h-2.5 w-2.5" />
-                    Browse puzzles
+                    {t('home.book.browse')}
                   </span>
                 </button>
                 <div className="flex flex-col gap-3">
@@ -551,10 +569,10 @@ function HomeComponent() {
                       <Camera className="h-3.5 w-3.5 text-white/70" />
                     </div>
                     <p className="text-base font-black leading-tight text-white">
-                      Race any puzzle
+                      {t('home.import.desktopTitle')}
                     </p>
                     <p className="text-xs leading-snug text-white/45">
-                      Scan from a book or newspaper
+                      {t('home.import.desktopDescription')}
                     </p>
                   </Link>
                   <button
@@ -571,12 +589,10 @@ function HomeComponent() {
                       <Users className="h-3.5 w-3.5 text-white/70" />
                     </div>
                     <p className="text-base font-black leading-tight text-white">
-                      Racing teams
+                      {t('home.teams.title')}
                     </p>
                     <p className="text-xs leading-snug text-white/45">
-                      {friendsList?.length
-                        ? `Race ${friendsList.slice(0, 2).join(', ')} and more`
-                        : 'Challenge friends to a race'}
+                      {racingTeamsSubtitle}
                     </p>
                   </button>
                 </div>
@@ -585,8 +601,8 @@ function HomeComponent() {
               {/* Cross-promo: Unblock Race, and Rate the app */}
               <div className="mt-4 space-y-3">
                 <CrossPromoCard
-                  gameName={CROSS_PROMO.gameName}
-                  tagline={CROSS_PROMO.tagline}
+                  gameName={t('crossPromo.gameName')}
+                  tagline={t('crossPromo.tagline')}
                   preview={<UnblockRaceBoardPreview />}
                   appUrl={CROSS_PROMO.appUrl}
                   appStoreUrl={CROSS_PROMO.appStoreUrl}
@@ -594,7 +610,7 @@ function HomeComponent() {
                 />
                 <RateAppButton
                   variant="card"
-                  appName={APP_CONFIG.gameName}
+                  appName={t('brand.gameName')}
                   appStoreUrl={APP_CONFIG.appStoreUrl}
                   googlePlayUrl={APP_CONFIG.googlePlayUrl}
                 />
@@ -604,9 +620,11 @@ function HomeComponent() {
 
           {/* Premium features */}
           <PremiumFeatures
-            features={PREMIUM_FEATURES}
-            title="Premium features"
-            subtitle="Unlock the full Sudoku Race experience"
+            features={premiumFeatures}
+            title={t('premiumFeatures.title')}
+            subtitle={t('premiumFeatures.subtitle', {
+              appName: t('brand.appName'),
+            })}
           />
 
           <div className="h-32" />
@@ -616,7 +634,9 @@ function HomeComponent() {
           <div className="container mx-auto max-w-4xl px-5">
             <div className="flex flex-col gap-3 pb-4 pt-5">
               <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
-                {tab === Tab.MY_PUZZLES ? 'My Puzzles' : 'Racing Teams'}
+                {tab === Tab.MY_PUZZLES
+                  ? t('home.tabs.myPuzzles')
+                  : t('home.tabs.racingTeams')}
               </h1>
               {tab === Tab.MY_PUZZLES && (
                 <ActivityWidget sessions={sessions || []} />
@@ -631,7 +651,7 @@ function HomeComponent() {
                 }
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
-                getDifficultyDisplay={getDifficultyDisplay}
+                getDifficultyDisplay={difficultyDisplay}
               />
             )}
             {tab === Tab.FRIENDS && (
@@ -647,8 +667,8 @@ function HomeComponent() {
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 LeaderboardComponent={Leaderboard}
-                gameName={APP_CONFIG.gameName}
-                getDifficultyDisplay={getDifficultyDisplay}
+                gameName={t('brand.gameName')}
+                getDifficultyDisplay={difficultyDisplay}
               />
             )}
           </div>
@@ -667,7 +687,9 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">Start Race</span>
+          <span className="text-center text-xs font-medium">
+            {t('home.tabs.startRace')}
+          </span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.MY_PUZZLES)}
@@ -680,7 +702,9 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">My Puzzles</span>
+          <span className="text-center text-xs font-medium">
+            {t('home.tabs.myPuzzles')}
+          </span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.FRIENDS)}
@@ -693,7 +717,9 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">Racing Teams</span>
+          <span className="text-center text-xs font-medium">
+            {t('home.tabs.racingTeams')}
+          </span>
         </button>
       </Footer>
     </>

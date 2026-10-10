@@ -1,5 +1,6 @@
 export interface AgentProgress<State = unknown> {
   agentId: string;
+  configId: string;
   name: string;
   emoji: string;
   percentage: number;

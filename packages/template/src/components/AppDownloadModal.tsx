@@ -5,6 +5,7 @@ import { Fragment } from 'react';
 import { Smartphone, ExternalLink } from 'lucide-react';
 import { isCapacitor } from '../helpers/capacitor';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 interface AppDownloadModalProps {
   isOpen: boolean;
@@ -31,6 +32,7 @@ export const AppDownloadModal = ({
   desktopDescription,
   openInAppLabel,
 }: AppDownloadModalProps) => {
+  const { t } = useTranslation('template');
   if (isCapacitor()) {
     return null;
   }
@@ -93,7 +95,7 @@ export const AppDownloadModal = ({
                     </div>
                     <div>
                       <Dialog.Title className="text-base font-bold tracking-tight text-gray-900 dark:text-zinc-100">
-                        Continue in the app
+                        {t('download.title')}
                       </Dialog.Title>
                       <p className="mt-1 text-sm leading-snug text-gray-500 dark:text-zinc-400">
                         {isMobileWeb ? mobileDescription : desktopDescription}
@@ -110,17 +112,19 @@ export const AppDownloadModal = ({
                       >
                         <Image
                           src="/badges/download-on-app-store.svg"
-                          alt="Download on the App Store"
+                          alt={t('download.appStoreAlt', {
+                            appStore: t('brand.appStore'),
+                          })}
                           className="h-9 w-auto flex-shrink-0"
                           width={120}
                           height={36}
                         />
                         <div className="min-w-0 flex-1">
                           <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
-                            App Store
+                            {t('brand.appStore')}
                           </div>
                           <div className="text-xs text-gray-500 dark:text-zinc-400">
-                            iPhone &amp; iPad
+                            {t('brand.iphoneAndIpad')}
                           </div>
                         </div>
                         <ExternalLink className="h-4 w-4 flex-shrink-0 text-gray-400 dark:text-zinc-500" />
@@ -134,17 +138,19 @@ export const AppDownloadModal = ({
                       >
                         <Image
                           src="/badges/get-it-on-google-play.svg"
-                          alt="Get it on Google Play"
+                          alt={t('download.googlePlayAlt', {
+                            googlePlay: t('brand.googlePlay'),
+                          })}
                           className="h-9 w-auto flex-shrink-0"
                           width={120}
                           height={36}
                         />
                         <div className="min-w-0 flex-1">
                           <div className="text-sm font-semibold text-gray-900 dark:text-zinc-100">
-                            Google Play
+                            {t('brand.googlePlay')}
                           </div>
                           <div className="text-xs text-gray-500 dark:text-zinc-400">
-                            Android
+                            {t('brand.android')}
                           </div>
                         </div>
                         <ExternalLink className="h-4 w-4 flex-shrink-0 text-gray-400 dark:text-zinc-500" />
@@ -169,8 +175,8 @@ export const AppDownloadModal = ({
                       className="w-full rounded-xl px-4 py-2.5 text-sm text-gray-400 transition-all duration-200 hover:bg-gray-100 hover:text-gray-600 active:scale-[0.98] dark:text-zinc-500 dark:hover:bg-zinc-800/60 dark:hover:text-zinc-300"
                     >
                       {isMobileWeb
-                        ? 'Continue in browser'
-                        : 'Continue on desktop'}
+                        ? t('download.continueBrowser')
+                        : t('download.continueDesktop')}
                     </button>
                   </div>
                 </div>

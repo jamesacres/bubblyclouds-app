@@ -1,4 +1,5 @@
 import { DifficultyDisplay } from '../types/difficultyDisplay';
+import { Translate } from '../types/i18n';
 
 // Describes the band of the puzzle just finished — e.g. "3 of 3 Beginner
 // complete" — not the destination the Continue button is about to take the
@@ -15,6 +16,7 @@ export const nextPuzzleProgressLabel = <Puzzle>(args: {
   getDifficulty: (puzzle: Puzzle) => string;
   isPuzzleCompleted: (puzzle: Puzzle) => boolean;
   getDifficultyDisplay: (difficulty: string) => DifficultyDisplay;
+  t: Translate;
 }): string => {
   const {
     isDailyPuzzle,
@@ -25,6 +27,7 @@ export const nextPuzzleProgressLabel = <Puzzle>(args: {
     getDifficulty,
     isPuzzleCompleted,
     getDifficultyDisplay,
+    t,
   } = args;
 
   if (isDailyPuzzle && !isCollectionPuzzle) {
@@ -39,5 +42,9 @@ export const nextPuzzleProgressLabel = <Puzzle>(args: {
   );
   const completedInBand = bandPuzzles.filter(isPuzzleCompleted).length;
   const bandLabel = getDifficultyDisplay(completedDifficulty).label;
-  return `${completedInBand} of ${bandPuzzles.length} ${bandLabel} complete`;
+  return t('nextPuzzleProgress.bandComplete', {
+    completed: completedInBand,
+    total: bandPuzzles.length,
+    label: bandLabel,
+  });
 };

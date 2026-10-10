@@ -4,7 +4,7 @@ import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFeatures';
-import { PREMIUM_FEATURES } from '../../config/premiumFeatures';
+import { getPremiumFeatures } from '../../config/premiumFeatures';
 import { APP_CONFIG } from '../../../app.config.js';
 import {
   PublicInvite,
@@ -13,11 +13,21 @@ import {
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useCallback, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { Loader, Users, Star } from 'lucide-react';
 import Image from 'next/image';
 
 function InviteComponent() {
+  const { t } = useTranslation('app');
+  const premiumFeatures = useMemo(() => getPremiumFeatures(t), [t]);
   const searchParams = useSearchParams();
   const inviteId = searchParams.get('inviteId');
 
@@ -48,16 +58,16 @@ function InviteComponent() {
     (entitlementDuration: EntitlementDuration) => {
       switch (entitlementDuration) {
         case EntitlementDuration.ONE_MONTH:
-          return 'one month';
+          return t('invite.duration.oneMonth');
         case EntitlementDuration.ONE_YEAR:
-          return 'one year';
+          return t('invite.duration.oneYear');
         case EntitlementDuration.LIFETIME:
-          return 'lifetime';
+          return t('invite.duration.lifetime');
         default:
-          return 'premium';
+          return t('invite.duration.premium');
       }
     },
-    []
+    [t]
   );
 
   // Check if user will get entitlement and should show premium benefits
@@ -244,7 +254,7 @@ function InviteComponent() {
                 <Loader className="h-8 w-8 animate-spin text-blue-600" />
               </div>
               <p className="text-lg font-medium text-gray-600 dark:text-gray-300">
-                Loading invitation...
+                {t('invite.loading')}
               </p>
             </div>
           ) : (
@@ -256,39 +266,41 @@ function InviteComponent() {
                     <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg">
                       <Image
                         src="/icons/icon-512.webp"
-                        alt="Unblock Race Icon"
+                        alt={t('invite.iconAlt', {
+                          appName: t('brand.appName'),
+                        })}
                         width={48}
                         height={48}
                         className="rounded-xl"
                       />
                     </div>
                     <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
-                      👋 Hi{name ? ` ${name}` : ''}!
+                      {name
+                        ? t('invite.greeting', { name })
+                        : t('invite.greetingAnonymous')}
                     </h1>
                     <div className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-lg">
                       <Star className="mr-2 h-4 w-4" />
-                      You&apos;re Invited!
+                      {t('invite.invited')}
                       <Star className="ml-2 h-4 w-4" />
                     </div>
                   </div>
                   {/* Invitation content */}
                   <div className="mb-8 text-center">
                     <p className="mb-4 text-lg text-gray-700 dark:text-gray-300">
-                      Join the racing team{' '}
+                      {t('invite.joinTeam')}{' '}
                       <span className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-100 to-purple-100 px-3 py-1 text-lg font-bold text-blue-800 dark:from-blue-900/50 dark:to-purple-900/50 dark:text-blue-200">
                         <Users className="mr-2 h-5 w-5" />
                         {publicInvite.description}
                       </span>
                     </p>
                     <p className="mb-4 text-gray-600 dark:text-gray-400">
-                      Race to unblock puzzles together and see each other&apos;s
-                      progress in real-time!
+                      {t('invite.tagline')}
                     </p>
                     <div className="rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 p-4 dark:from-blue-900/20 dark:to-purple-900/20">
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        💡 <strong>Pro tip:</strong> All future puzzles you play
-                        will be shared with your team members for friendly
-                        competition!
+                        💡 <strong>{t('invite.proTipLabel')}</strong>{' '}
+                        {t('invite.proTip')}
                       </p>
                     </div>
                   </div>
@@ -300,7 +312,7 @@ function InviteComponent() {
                           className="mb-3 block text-sm font-semibold text-gray-700 dark:text-gray-300"
                           htmlFor="memberNickname"
                         >
-                          What does your racing team call you?
+                          {t('invite.nicknameLabel')}
                         </label>
                         <input
                           className={`${
@@ -309,7 +321,7 @@ function InviteComponent() {
                           disabled={isJoining}
                           id="memberNickname"
                           type="text"
-                          placeholder="Enter your nickname"
+                          placeholder={t('invite.nicknamePlaceholder')}
                           value={memberNickname}
                           onChange={(e) => setMemberNickname(e.target.value)}
                         />
@@ -324,12 +336,12 @@ function InviteComponent() {
                         {isJoining ? (
                           <div className="flex items-center justify-center">
                             <Loader className="mr-2 h-5 w-5 animate-spin" />
-                            Joining Team...
+                            {t('invite.joining')}
                           </div>
                         ) : (
                           <div className="flex cursor-pointer items-center justify-center">
                             <Users className="mr-2 h-5 w-5" />
-                            Join the Fun! 🎉
+                            {t('invite.join')}
                           </div>
                         )}
                         {userParties.length > 0 && !isSubscribed && (
@@ -349,7 +361,7 @@ function InviteComponent() {
                       >
                         <div className="flex items-center justify-center">
                           <Star className="mr-2 h-5 w-5" />
-                          Sign in to Continue
+                          {t('invite.signIn')}
                         </div>
                       </button>
                     </div>
@@ -362,20 +374,22 @@ function InviteComponent() {
                         <div className="mb-2 flex items-center justify-center">
                           <Star className="mr-2 h-5 w-5 text-blue-600" />
                           <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                            🎉 Bonus: Get{' '}
-                            {getEntitlementText(getEntitlementDuration()!)} of
-                            Unblock Race Plus!
+                            {t('invite.bonus', {
+                              duration: getEntitlementText(
+                                getEntitlementDuration()!
+                              ),
+                              plusName: t('brand.plusProduct'),
+                            })}
                           </h3>
                           <Star className="ml-2 h-5 w-5 text-blue-600" />
                         </div>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                          By joining this racing team, you&apos;ll unlock
-                          premium features absolutely free!
+                          {t('invite.bonusDescription')}
                         </p>
                       </div>
 
                       <PremiumFeatures
-                        features={PREMIUM_FEATURES}
+                        features={premiumFeatures}
                         title=""
                         subtitle=""
                         compact={true}
@@ -384,8 +398,7 @@ function InviteComponent() {
 
                       <div className="text-center">
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          💡 Your premium access will activate automatically
-                          after joining
+                          {t('invite.activation')}
                         </p>
                       </div>
                     </div>
@@ -397,11 +410,10 @@ function InviteComponent() {
                     <span className="text-3xl">⏰</span>
                   </div>
                   <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
-                    Invitation Expired
+                    {t('invite.expired.title')}
                   </h2>
                   <p className="text-gray-600 dark:text-gray-400">
-                    This invitation link is no longer valid. Please ask your
-                    friend for a new invite or increase the team size.
+                    {t('invite.expired.description')}
                   </p>
                 </div>
               )}

@@ -13,6 +13,7 @@ import { getPlayerColor, getAllUserIds } from '../utils/playerColors';
 import { PartyInviteButton } from './PartyInviteButton';
 import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
 import { ComponentType, useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { PartyConfirmationDialog } from './PartyConfirmationDialog';
 import { LogOut, Trash, UserMinus, Edit3, Users } from 'lucide-react';
 import { isIOS } from '../helpers/capacitor';
@@ -20,6 +21,7 @@ import { BaseServerState } from '../types/state';
 import { PartyMemberRow } from './PartyMemberRow';
 
 const DEFAULT_MAX_SIZE = 5;
+const MAX_SIZE_OPTIONS = Array.from({ length: 14 }, (_, i) => i + 2);
 
 interface PartyRowProps<State extends BaseServerState = BaseServerState> {
   party: Party;
@@ -46,6 +48,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
   apiUrl,
   appUrl,
 }: PartyRowProps<State>) => {
+  const { t } = useTranslation('template');
   const { parties, leaveParty, removeMember, deleteParty, updateParty } =
     useParties();
   const context = useContext(UserContext);
@@ -153,9 +156,9 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                 <button
                   onClick={handleCancelEditPartyName}
                   className="px-2 py-1 text-xs text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300"
-                  title="Cancel"
+                  title={t('party.cancel')}
                 >
-                  Cancel
+                  {t('party.cancel')}
                 </button>
               </div>
             ) : (
@@ -167,7 +170,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                   <button
                     onClick={handleEditPartyName}
                     className="mt-0.5 flex-shrink-0 p-1 text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300"
-                    title="Edit party name"
+                    title={t('party.editName')}
                   >
                     <Edit3 className="h-4 w-4" />
                   </button>
@@ -191,53 +194,29 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                     autoFocus
                     className="min-w-0 rounded border border-gray-300 bg-white px-2 py-1 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-zinc-700 dark:text-gray-200"
                   >
-                    <option value={2}>2 members</option>
-                    <option value={3}>3 members</option>
-                    <option value={4}>4 members</option>
-                    <option value={5}>5 members</option>
-                    <option value={6}>
-                      6 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={7}>
-                      7 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={8}>
-                      8 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={9}>
-                      9 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={10}>
-                      10 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={11}>
-                      11 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={12}>
-                      12 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={13}>
-                      13 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={14}>
-                      14 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
-                    <option value={15}>
-                      15 members {!isSubscribed ? '✨ Premium' : ''}
-                    </option>
+                    {MAX_SIZE_OPTIONS.map((size) => (
+                      <option key={size} value={size}>
+                        {size > DEFAULT_MAX_SIZE && !isSubscribed
+                          ? t('party.memberCountPremium', { count: size })
+                          : t('party.memberCount', { count: size })}
+                      </option>
+                    ))}
                   </select>
                   <button
                     onClick={handleCancelEditMaxSize}
                     className="px-2 py-1 text-xs text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300"
-                    title="Cancel"
+                    title={t('party.cancel')}
                   >
-                    Cancel
+                    {t('party.cancel')}
                   </button>
                 </div>
               ) : (
                 <div className="flex items-center space-x-1">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    {members.length}/{maxSize || DEFAULT_MAX_SIZE} members
+                    {t('party.membersOf', {
+                      current: members.length,
+                      count: maxSize || DEFAULT_MAX_SIZE,
+                    })}
                   </span>
                   {isOwner &&
                     maxSize &&
@@ -251,7 +230,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                     <button
                       onClick={handleEditMaxSize}
                       className="ml-2 p-1 text-stone-400 transition-colors hover:text-stone-600 dark:text-zinc-500 dark:hover:text-zinc-300"
-                      title="Edit max members"
+                      title={t('party.editMaxMembers')}
                     >
                       <Edit3 className="h-4 w-4" />
                     </button>
@@ -292,7 +271,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
         {!isOwner && (
           <div className="mt-2 rounded-lg border border-stone-200 bg-stone-50 p-3 dark:border-zinc-700 dark:bg-zinc-800/50">
             <p className="mb-2 text-xs text-gray-600 dark:text-gray-400">
-              Share this link with current team members to join this puzzle
+              {t('party.shareLink')}
             </p>
             <CopyButton
               getText={() =>
@@ -334,7 +313,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                     ></div>
                     <span className="font-medium text-gray-800 dark:text-gray-200">
                       {memberNickname}
-                      {isUser && ' (you)'}
+                      {isUser && ` ${t('party.you')}`}
                     </span>
                   </div>
                 }
@@ -381,7 +360,7 @@ const PartyRow = <State extends BaseServerState = BaseServerState>({
                     {!isUser && !memberSession && (
                       <div className="mt-2">
                         <p className="text-sm italic text-gray-500 dark:text-gray-400">
-                          Not started! Ask them to play
+                          {t('party.notStarted')}
                         </p>
                         {isOwner ? (
                           <PartyInviteButton

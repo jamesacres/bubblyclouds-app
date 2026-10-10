@@ -1,0 +1,494 @@
+{
+  "brand": {
+    "gameName": "Sudoku Race"
+  },
+  "board": {
+    "buttonGroup": "Button group"
+  },
+  "celebration": {
+    "solved": "Solved!",
+    "leaderboardPoints": "Leaderboard points",
+    "pointsSuffix": " pts"
+  },
+  "completion": {
+    "time": "Time"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Keep the streak going in the book"
+  },
+  "puzzleMeta": {
+    "daily": "Daily {{month}} {{day}}",
+    "dayOrdinal": "{{count}}th",
+    "dayOrdinal_ordinal_one": "{{count}}st",
+    "dayOrdinal_ordinal_two": "{{count}}nd",
+    "dayOrdinal_ordinal_few": "{{count}}rd",
+    "dayOrdinal_ordinal_other": "{{count}}th",
+    "book": "Book {{month}} #{{number}}",
+    "scanned": "Scanned Puzzle"
+  },
+  "bookCover": {
+    "edition": "{{month}} Edition",
+    "puzzleCount": "50 Puzzles • Multiple Difficulties",
+    "months": {
+      "january": {
+        "tagline": "Basic to Beyond Brutal Techniques",
+        "footer": "❄️ Winter Challenge Edition ❄️"
+      },
+      "february": {
+        "tagline": "From Hidden Singles to AIC Chains",
+        "footer": "💕 Love the Challenge 💕"
+      },
+      "march": {
+        "tagline": "Spring into Advanced Techniques",
+        "footer": "🌸 Fresh Challenges Bloom 🌸"
+      },
+      "april": {
+        "tagline": "Weather Any Solving Storm",
+        "footer": "🌈 After Rain Comes Victory 🌈"
+      },
+      "may": {
+        "tagline": "Bloom with Brain Power",
+        "footer": "🌻 May Your Skills Flourish 🌻"
+      },
+      "june": {
+        "tagline": "Summer Brain Training",
+        "footer": "☀️ Sunny Side of Solving ☀️"
+      },
+      "july": {
+        "tagline": "Beach Reading, Brain Training",
+        "footer": "🏖️ Vacation Mind Games 🏖️"
+      },
+      "august": {
+        "tagline": "Heat Up Your Brain Power",
+        "footer": "🔥 Scorching Hot Challenges 🔥"
+      },
+      "september": {
+        "tagline": "School Your Brain",
+        "footer": "📚 Knowledge Through Numbers 📚"
+      },
+      "october": {
+        "tagline": "Spooky Smart Challenges",
+        "footer": "🎃 Frighteningly Fun 🎃"
+      },
+      "november": {
+        "tagline": "Bonfire Night Brain Burners",
+        "footer": "🍂 Remember, Remember! 🍂"
+      },
+      "december": {
+        "tagline": "Holiday Brain Gifts",
+        "footer": "🎄 Season's Greetings Solver! 🎄"
+      },
+      "default": {
+        "tagline": "Challenge Your Mind",
+        "footer": "🧩 Puzzle Power 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "You are offline, please check your connection",
+      "loadFailed": "Failed to load puzzle book"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Keyboard: arrow keys, undo, redo.",
+      "notes": "Hold shift or press n to toggle notes mode.",
+      "validate": "Press c to validate cell, g to validate grid."
+    },
+    "owl": {
+      "invalid": "Looks like you have made a mistake. I recommend checking the grid.",
+      "notSure": "Sorry, I am not sure.",
+      "eureka": "Eureka notation {{notation}}",
+      "highlighted": "I've highlighted the relevant cells for you",
+      "foundTechnique": "I've found a {{technique}}",
+      "noHint": "No hint available"
+    },
+    "legend": {
+      "stem": "Stem",
+      "petalA": "Petal A",
+      "petalB": "Petal B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "On (true)",
+      "off": "Off (false)",
+      "elimination": "Elimination"
+    },
+    "reply": {
+      "thanks": "Thanks,",
+      "tellMeMore": "🤔 Tell me more",
+      "showMeWhere": "👀 Show me where",
+      "hideHint": "Hide Hint"
+    },
+    "askForHelp": "Ask for help",
+    "notes": "Notes",
+    "copied": "Copied!",
+    "export": "Export",
+    "delete": "Delete",
+    "undo": "Undo",
+    "redo": "Redo",
+    "cell": "Cell",
+    "grid": "Grid",
+    "zoom": "Zoom",
+    "reset": "Reset",
+    "reveal": "Reveal",
+    "confirm": {
+      "reset": {
+        "title": "Reset the whole grid?",
+        "body": "Are you sure you wish to reset the whole grid?",
+        "confirm": "Reset"
+      },
+      "reveal": {
+        "title": "Reveal the whole grid?",
+        "body": "Are you sure you wish to reveal the whole grid?",
+        "confirm": "Reveal"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Naked Single",
+    "hiddenSingleBox": "Hidden Single (Box)",
+    "hiddenSingleRow": "Hidden Single (Row)",
+    "hiddenSingleCol": "Hidden Single (Column)",
+    "nakedPair": "Naked Pair",
+    "nakedTriple": "Naked Triple",
+    "nakedQuad": "Naked Quad",
+    "hiddenPair": "Hidden Pair",
+    "hiddenTriple": "Hidden Triple",
+    "hiddenQuad": "Hidden Quad",
+    "lockedCandidatePointing": "Locked Candidates (Pointing)",
+    "lockedCandidateClaiming": "Locked Candidates (Claiming)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String Kite",
+    "finnedXWing": "Finned X-Wing",
+    "finnedSwordfish": "Finned Swordfish",
+    "finnedJellyfish": "Finned Jellyfish",
+    "emptyRectangle": "Empty Rectangle",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Unique Rectangle (Type 1)",
+    "uniqueRectangleType2": "Unique Rectangle (Type 2)",
+    "uniqueRectangleType3": "Unique Rectangle (Type 3)",
+    "uniqueRectangleType4": "Unique Rectangle (Type 4)",
+    "uniqueRectangleType5": "Unique Rectangle (Type 5)",
+    "bug": "BUG",
+    "xyChain": "XY-Chain",
+    "aic": "AIC",
+    "aicRing": "AIC Ring",
+    "groupedAIC": "Grouped AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Death Blossom",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio Net",
+    "cellRegionForcingChain": "Cell/Region Forcing Chain",
+    "cellRegionForcingNet": "Cell/Region Forcing Net",
+    "forcingChain": "Forcing Chain"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bee",
+      "personality": "Restless and enthusiastic. Darts around the grid in bursts, then stalls. Near the end, speeds up too early and gets stuck just before finishing.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! I see one!",
+          "Wait—no, maybe not...",
+          "Buzz buzz! Progress!"
+        ],
+        "playerAhead": [
+          "Hey, slow down!",
+          "I was doing well…"
+        ],
+        "playerBehind": [
+          "I’m catching up!",
+          "Look at me go!"
+        ],
+        "endgame": [
+          "Almost there! I think!",
+          "Wait—where does this go?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "duck",
+      "personality": "Cheerful and aimless. Slow and steady with long pauses. In the endgame, drifts into the solution almost by accident.",
+      "voiceLines": {
+        "neutral": [
+          "Just taking my time...",
+          "Hmm... somewhere around here."
+        ],
+        "playerAhead": [
+          "You’re doing great!",
+          "I’ll get there eventually."
+        ],
+        "playerBehind": [
+          "Oh! I found one!",
+          "This is nice."
+        ],
+        "endgame": [
+          "I think I’m nearly done?",
+          "Oh! That worked out."
+        ]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "lizard",
+      "personality": "Cautious and observant. Long pauses, then small clusters. In the endgame, hesitates before each placement.",
+      "voiceLines": {
+        "neutral": [
+          "Let me double-check that.",
+          "That should be right."
+        ],
+        "playerAhead": [
+          "I need to be careful now.",
+          "Don’t rush this."
+        ],
+        "playerBehind": [
+          "Okay… catching up.",
+          "Still time."
+        ],
+        "endgame": [
+          "Careful now...",
+          "Almost… just need to be sure."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "spider",
+      "personality": "Deliberate and structured. Builds progress carefully, piece by piece. In the endgame, the structure breaks down — hesitation creeps in as if the plan no longer holds.",
+      "voiceLines": {
+        "neutral": [
+          "That fits the pattern.",
+          "Piece by piece..."
+        ],
+        "playerAhead": [
+          "It was working...",
+          "I need to fix this..."
+        ],
+        "playerBehind": [
+          "Still holding together.",
+          "Yes… this works."
+        ],
+        "endgame": [
+          "Wait—no, that breaks it.",
+          "I had this planned..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "raccoon",
+      "personality": "Scrappy and opportunistic. Uneven rhythm. In the endgame, finds momentum and closes faster than expected.",
+      "voiceLines": {
+        "neutral": [
+          "That works!",
+          "Bit messy, but I’ll take it."
+        ],
+        "playerAhead": [
+          "Alright, time to push.",
+          "Not done yet."
+        ],
+        "playerBehind": [
+          "Oh—nice find.",
+          "It’s coming together now."
+        ],
+        "endgame": [
+          "Yep, I’ve got this.",
+          "Now it’s flowing."
+        ]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "penguin",
+      "personality": "Structured and methodical. Consistent pace. Endgame stays steady — no panic, no sprint.",
+      "voiceLines": {
+        "neutral": [
+          "That fits.",
+          "Staying consistent."
+        ],
+        "playerAhead": [
+          "Maintain pace.",
+          "No need to rush."
+        ],
+        "playerBehind": [
+          "Still on track.",
+          "Progress is steady."
+        ],
+        "endgame": [
+          "Nearly there.",
+          "Finish cleanly."
+        ]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "monkey",
+      "personality": "Erratic and unsettling. Unpredictable bursts. In the endgame, suddenly accelerates in a way that feels unfair.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… didn’t expect that?",
+          "Oh that’s interesting."
+        ],
+        "playerAhead": [
+          "Don’t get comfortable.",
+          "Watch this."
+        ],
+        "playerBehind": [
+          "Things just click sometimes.",
+          "Lucky guess… or was it?"
+        ],
+        "endgame": [
+          "Oh wow—here we go.",
+          "That escalated quickly."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "eagle",
+      "personality": "Detached and fluid. Spaced-out, confident placements. Quiet endgame acceleration.",
+      "voiceLines": {
+        "neutral": [
+          "Already saw this.",
+          "Just filling it in."
+        ],
+        "playerAhead": [
+          "Doesn’t change anything.",
+          "Still the same outcome."
+        ],
+        "playerBehind": [
+          "It’s done, really.",
+          "Somewhere else right now."
+        ],
+        "endgame": [
+          "…almost finished.",
+          "Wrapping up."
+        ]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "fox",
+      "personality": "Intense and competitive. Fast start, constant pressure. Endgame surge feels aggressive.",
+      "voiceLines": {
+        "neutral": [
+          "Keep up.",
+          "Still with me?"
+        ],
+        "playerAhead": [
+          "Don’t slow down now.",
+          "You can do better than that."
+        ],
+        "playerBehind": [
+          "Too slow.",
+          "You’re falling behind."
+        ],
+        "endgame": [
+          "Finish it.",
+          "This is mine."
+        ]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "shark",
+      "personality": "Patient and predatory. Stays close, then closes hard in the endgame.",
+      "voiceLines": {
+        "neutral": [
+          "Right behind you.",
+          "Not yet."
+        ],
+        "playerAhead": [
+          "Stay where you are.",
+          "I’m close now."
+        ],
+        "playerBehind": [
+          "Closing in.",
+          "There you are."
+        ],
+        "endgame": [
+          "Now we finish.",
+          "Got you."
+        ]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "owl",
+      "personality": "Calm and deliberate. Smooth pacing. Endgame is clean and inevitable.",
+      "voiceLines": {
+        "neutral": [
+          "As expected.",
+          "Everything aligns."
+        ],
+        "playerAhead": [
+          "Good.",
+          "You see it."
+        ],
+        "playerBehind": [
+          "Follow through.",
+          "Stay with it."
+        ],
+        "endgame": [
+          "Nearly complete.",
+          "There it is."
+        ]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "black_cat",
+      "personality": "Silent and inhuman. Minimal pauses. Endgame is a rapid, uninterrupted finish.",
+      "voiceLines": {
+        "neutral": [
+          "...",
+          "..."
+        ],
+        "playerAhead": [
+          "...",
+          "…still."
+        ],
+        "playerBehind": [
+          "Too late.",
+          "You hesitated."
+        ],
+        "endgame": [
+          "…done.",
+          "Finish."
+        ]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "dragon",
+      "personality": "Effortless and absolute. Maintains perfect control throughout. In the endgame, executes a decisive, uninterrupted sweep — no openings, no resistance.",
+      "voiceLines": {
+        "neutral": [
+          "Expected.",
+          "No deviation."
+        ],
+        "playerAhead": [
+          "You chose well to try.",
+          "Continue."
+        ],
+        "playerBehind": [
+          "This concludes.",
+          "No alternative."
+        ],
+        "endgame": [
+          "That’s all.",
+          "Complete."
+        ]
+      }
+    }
+  }
+}

@@ -40,22 +40,14 @@ const expertTimingCurve = {
   endgameHesitationSpike: -0.1,
 };
 
-const voiceLines = {
-  neutral: ['hi'],
-  playerAhead: ['ahead'],
-  playerBehind: ['behind'],
-  endgame: ['end'],
-};
-
 const makeConfig = (overrides: Partial<AgentConfig> = {}): AgentConfig => ({
+  id: 'testagent',
   name: 'TestAgent',
   emoji: '🧪',
   emojiName: 'test',
   emotionalRole: 'tester',
   skillLevel: DreyfusLevel.Expert,
-  personality: 'thorough',
   timingCurve: expertTimingCurve,
-  voiceLines,
   ...overrides,
 });
 
@@ -190,8 +182,13 @@ describe('createAgentTimeline', () => {
 describe('createLocalAgents', () => {
   it('creates one LocalAgent per config, each with an id, and a timeline', () => {
     const configs = [
-      makeConfig({ name: 'Alpha', skillLevel: DreyfusLevel.Expert }),
       makeConfig({
+        id: 'alpha',
+        name: 'Alpha',
+        skillLevel: DreyfusLevel.Expert,
+      }),
+      makeConfig({
+        id: 'beta',
         name: 'Beta',
         skillLevel: DreyfusLevel.Novice,
         timingCurve: noviceTimingCurve,
@@ -203,11 +200,13 @@ describe('createLocalAgents', () => {
     expect(agents).toHaveLength(2);
     expect(agents[0]).toMatchObject({
       id: 'agent-0',
+      configId: 'alpha',
       name: 'Alpha',
       skillLevel: DreyfusLevel.Expert,
     });
     expect(agents[1]).toMatchObject({
       id: 'agent-1',
+      configId: 'beta',
       name: 'Beta',
       skillLevel: DreyfusLevel.Novice,
     });

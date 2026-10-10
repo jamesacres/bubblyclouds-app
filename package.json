@@ -44,6 +44,7 @@
     "test:coverage": "turbo run test -- --coverage",
     "test:ci": "turbo run test -- --coverage --ci --maxWorkers=2",
     "circular": "turbo run circular",
+    "i18n:audit": "./scripts/i18nAudit.sh",
     "manypkg": "manypkg check",
     "prepare": "husky"
   },

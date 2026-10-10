@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { SudokuBookOfTheMonth } from '../types/serverTypes';
 import { useSudokuServerStorage } from '../hooks/useSudokuServerStorage';
+import { useTranslation } from 'react-i18next';
 import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 
 interface BookContextType {
@@ -27,15 +28,25 @@ interface BookProviderProps {
   apiUrl: string;
 }
 
-// Helper to get current month key for caching
+const MONTH_KEYS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+// Cache keys stay language-independent so switching language never orphans
+// the cached book.
 const getCurrentMonthKey = (): string => {
-  const currentMonth = new Date(new Date().toISOString()).toLocaleString(
-    'en-US',
-    {
-      month: 'long',
-      timeZone: 'UTC',
-    }
-  );
+  const currentMonth = MONTH_KEYS[new Date().getUTCMonth()];
   const currentYear = new Date().getFullYear();
   return `sudoku_book_${currentYear}_${currentMonth}`;
 };
@@ -69,22 +80,7 @@ const saveCachedBookData = (data: SudokuBookOfTheMonth): void => {
 
     // Clean up old cached data (keep only current month)
     const currentYear = new Date().getFullYear();
-    const allMonths = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-
-    allMonths.forEach((month) => {
+    MONTH_KEYS.forEach((month) => {
       const oldKey = `sudoku_book_${currentYear}_${month}`;
       if (oldKey !== monthKey && localStorage.getItem(oldKey)) {
         localStorage.removeItem(oldKey);
@@ -92,7 +88,7 @@ const saveCachedBookData = (data: SudokuBookOfTheMonth): void => {
     });
 
     // Also clean up previous year's data
-    allMonths.forEach((month) => {
+    MONTH_KEYS.forEach((month) => {
       const oldYearKey = `sudoku_book_${currentYear - 1}_${month}`;
       if (localStorage.getItem(oldYearKey)) {
         localStorage.removeItem(oldYearKey);
@@ -106,7 +102,11 @@ const saveCachedBookData = (data: SudokuBookOfTheMonth): void => {
 export const BookProvider = ({ children, app, apiUrl }: BookProviderProps) => {
   const [bookData, setBookData] = useState<SudokuBookOfTheMonth | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<'offline' | 'loadFailed' | null>(
+    null
+  );
+  const { t } = useTranslation('sudoku');
+  const error = errorCode ? t(`bookProvider.errors.${errorCode}`) : null;
   const { getSudokuBookOfTheMonth } = useSudokuServerStorage({ app, apiUrl });
   const { isOnline } = useOnline();
 
@@ -124,7 +124,7 @@ export const BookProvider = ({ children, app, apiUrl }: BookProviderProps) => {
     }
 
     setIsLoading(true);
-    setError(null);
+    setErrorCode(null);
 
     try {
       const result = await getSudokuBookOfTheMonth();
@@ -134,14 +134,14 @@ export const BookProvider = ({ children, app, apiUrl }: BookProviderProps) => {
         saveCachedBookData(result);
       } else {
         if (!isOnline) {
-          setError('You are offline, please check your connection');
+          setErrorCode('offline');
         } else {
-          setError('Failed to load puzzle book');
+          setErrorCode('loadFailed');
         }
       }
     } catch (err) {
       console.error(err);
-      setError('Failed to load puzzle book');
+      setErrorCode('loadFailed');
     } finally {
       setIsLoading(false);
     }
@@ -149,7 +149,7 @@ export const BookProvider = ({ children, app, apiUrl }: BookProviderProps) => {
 
   const clearBookData = useCallback(() => {
     setBookData(null);
-    setError(null);
+    setErrorCode(null);
     // Also clear the cache
     try {
       const monthKey = getCurrentMonthKey();

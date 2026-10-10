@@ -21,6 +21,7 @@ const SimpleState = ({ state }: { state: TestState }) => (
 describe('AgentPartyRow', () => {
   const baseAgent: AgentProgress = {
     agentId: 'agent1',
+    configId: 'robo',
     name: 'Robo',
     emoji: '🤖',
     percentage: 42,
@@ -188,5 +189,19 @@ describe('AgentPartyRow', () => {
     );
     const img = screen.getByAltText('Robo') as HTMLImageElement;
     expect(img.src).toContain('/opponents/robo.webp');
+  });
+
+  it('builds the avatar path from configId rather than the display name', () => {
+    render(
+      <ul>
+        <AgentPartyRow
+          localAgentProgress={[{ ...baseAgent, name: 'Robot Localised' }]}
+          SimpleState={SimpleState}
+        />
+      </ul>
+    );
+    expect(
+      screen.getByAltText('Robot Localised').getAttribute('src')
+    ).toContain('/opponents/robo.webp');
   });
 });

@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Edit3, Loader, LogOut, Sparkles, Trash, X } from 'lucide-react';
 import { useServerStorage } from '../../hooks/serverStorage';
 import { buildPartyInviteUrl } from '../../helpers/inviteUrl';
 import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
-import { shareOrCopyUrl } from '@bubblyclouds-app/ui/helpers/share';
+import { useShareOrCopyUrl } from '@bubblyclouds-app/ui/hooks/useShareOrCopyUrl';
 import { isIOS } from '../../helpers/capacitor';
 import { PartyConfirmationDialog } from '../PartyConfirmationDialog';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
@@ -69,6 +70,8 @@ export function InviteSheet({
   isSubscribed?: boolean;
   subscribeModal?: RevenueCatContextInterface['subscribeModal'];
 }) {
+  const { t } = useTranslation('template');
+  const shareOrCopyUrl = useShareOrCopyUrl();
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
   useEffect(() => {
     setDisplay((prev) => (prev === '' ? (defaultDisplayName ?? '') : prev));
@@ -104,8 +107,8 @@ export function InviteSheet({
     });
 
   const create = async () => {
-    const nm = teamName.trim() || 'New team';
-    const dn = display.trim() || 'Player';
+    const nm = teamName.trim() || t('lobby.invite.defaultTeamName');
+    const dn = display.trim() || t('lobby.invite.defaultPlayerName');
     setIsSaving(true);
     try {
       const party = await saveParty({ memberNickname: dn, partyName: nm });
@@ -175,15 +178,15 @@ export function InviteSheet({
               className="mb-1.5 text-[10.5px] font-extrabold uppercase tracking-widest"
               style={{ color: 'var(--theme-primary-light)' }}
             >
-              Build your race
+              {t('lobby.invite.eyebrow')}
             </div>
             <h2 className="m-0 text-2xl font-bold tracking-tight text-white">
-              Invite opponents
+              {t('lobby.invite.title')}
             </h2>
           </div>
           <button
             onClick={handleClose}
-            aria-label="Close"
+            aria-label={t('lobby.invite.close')}
             className="flex h-9 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full"
             style={{
               border: '1px solid rgba(255,255,255,0.12)',
@@ -206,7 +209,7 @@ export function InviteSheet({
                 className="mb-2.5 text-[11px] font-extrabold uppercase tracking-wider"
                 style={{ color: 'var(--theme-primary-light)' }}
               >
-                Invite to existing team
+                {t('lobby.invite.existingTeam')}
               </div>
               <div className="mb-5 flex flex-col gap-2.5">
                 {parties.map((party) => {
@@ -260,7 +263,7 @@ export function InviteSheet({
                             }}
                             className="flex-shrink-0 cursor-pointer p-1"
                             style={{ color: 'rgba(255,255,255,0.35)' }}
-                            aria-label="Edit team name"
+                            aria-label={t('lobby.invite.editTeamName')}
                           >
                             <Edit3 size={13} />
                           </button>
@@ -276,7 +279,9 @@ export function InviteSheet({
                           className="flex-shrink-0 cursor-pointer p-1 transition-colors hover:text-red-400"
                           style={{ color: 'rgba(255,255,255,0.3)' }}
                           aria-label={
-                            party.isOwner ? 'Delete team' : 'Leave team'
+                            party.isOwner
+                              ? t('lobby.invite.deleteTeam')
+                              : t('lobby.invite.leaveTeam')
                           }
                         >
                           {party.isOwner ? (
@@ -311,7 +316,7 @@ export function InviteSheet({
                           >
                             {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                               <option key={n} value={n}>
-                                {n} members
+                                {t('lobby.invite.memberCount', { count: n })}
                               </option>
                             ))}
                           </select>
@@ -320,7 +325,9 @@ export function InviteSheet({
                             className="text-xs font-semibold"
                             style={{ color: 'rgba(255,255,255,0.45)' }}
                           >
-                            {party.maxSize ?? DEFAULT_MAX} members
+                            {t('lobby.invite.memberCount', {
+                              count: party.maxSize ?? DEFAULT_MAX,
+                            })}
                           </span>
                         )}
                         <div className="flex-1" />
@@ -354,7 +361,7 @@ export function InviteSheet({
             className="mb-3.5 text-[11px] font-extrabold uppercase tracking-wider"
             style={{ color: '#fcd34d' }}
           >
-            Create new racing team
+            {t('lobby.invite.createTeam')}
           </div>
 
           <label
@@ -362,13 +369,13 @@ export function InviteSheet({
             className="mb-2 block text-xs font-semibold"
             style={{ color: 'rgba(255,255,255,0.6)' }}
           >
-            What do team members call you?
+            {t('lobby.invite.displayNameLabel')}
           </label>
           <input
             id="invite-display-name"
             value={display}
             onChange={(e) => setDisplay(e.target.value)}
-            placeholder="Display name"
+            placeholder={t('lobby.invite.displayNamePlaceholder')}
             className={inputClassName}
           />
 
@@ -377,13 +384,13 @@ export function InviteSheet({
             className="mb-2 mt-4 block text-xs font-semibold"
             style={{ color: 'rgba(255,255,255,0.6)' }}
           >
-            What shall we name this team?
+            {t('lobby.invite.teamNameLabel')}
           </label>
           <input
             id="invite-team-name"
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
-            placeholder="Team name (e.g. Family)"
+            placeholder={t('lobby.invite.teamNamePlaceholder')}
             className={inputClassName}
           />
 
@@ -397,7 +404,8 @@ export function InviteSheet({
               <Loader size={18} className="animate-spin" />
             ) : (
               <>
-                <Sparkles size={18} color="white" /> Create &amp; copy link
+                <Sparkles size={18} color="white" />{' '}
+                {t('lobby.invite.createAndCopy')}
               </>
             )}
           </button>

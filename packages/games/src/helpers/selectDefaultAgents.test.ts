@@ -5,12 +5,12 @@ import {
 import { AgentConfig, DreyfusLevel } from '../types/Agent';
 
 const makeConfig = (name: string, skillLevel: DreyfusLevel): AgentConfig => ({
+  id: name.toLowerCase(),
   name,
   emoji: '🤖',
   emojiName: 'robot',
   emotionalRole: 'neutral',
   skillLevel,
-  personality: '',
   timingCurve: {
     baseDelayMs: 0,
     jitterMs: 0,
@@ -22,7 +22,6 @@ const makeConfig = (name: string, skillLevel: DreyfusLevel): AgentConfig => ({
     endgameSpeedMultiplier: 0,
     endgameHesitationSpike: 0,
   },
-  voiceLines: { neutral: [], playerAhead: [], playerBehind: [], endgame: [] },
 });
 
 const AGENT_CONFIGS: AgentConfig[] = [
@@ -84,6 +83,11 @@ describe('selectAgentConfigsByName', () => {
       'Unknown',
     ]);
     expect(result.map((c) => c.name)).toEqual(['Novice1']);
+  });
+
+  it('resolves persisted names to configs with stable ids', () => {
+    const result = selectAgentConfigsByName(AGENT_CONFIGS, ['Expert1']);
+    expect(result.map((c) => c.id)).toEqual(['expert1']);
   });
 
   it('returns an empty array when given no names', () => {

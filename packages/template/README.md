@@ -697,3 +697,9 @@ function FeatureButton() {
 ## Version
 
 Current version: 0.1.0
+
+## Localisation
+
+User-facing strings live in `src/locales/en.json` (namespace `template`, exported as
+`@bubblyclouds-app/template/locales/en`) and are read with
+`useTranslation('template')`. See Internationalisation in `ARCHITECTURE.md`.

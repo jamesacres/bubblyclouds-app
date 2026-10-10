@@ -1,4 +1,11 @@
-import { getTechniquesDisplay } from './getTechniquesDisplay';
+import { getI18n } from 'react-i18next';
+import { getTechniquesDisplay as getTechniquesDisplayWithT } from './getTechniquesDisplay';
+
+const t = getI18n().getFixedT('en', 'games');
+
+const getTechniquesDisplay = (
+  techniques: Parameters<typeof getTechniquesDisplayWithT>[0]
+) => getTechniquesDisplayWithT(techniques, t);
 
 describe('getTechniquesDisplay', () => {
   describe('Input Validation', () => {

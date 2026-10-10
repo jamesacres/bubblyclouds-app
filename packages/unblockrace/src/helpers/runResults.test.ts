@@ -85,6 +85,8 @@ const ownResults = (
 // wiring in isPuzzleCheated and unblockrace's moves-based score extraction.
 // The generic ranking/folding/presence mechanics themselves are covered by
 // packages/games/src/helpers/runResults.test.ts.
+const resolveAgentName = (agent: { id: string; name: string }) => agent.name;
+
 describe('calculateRunResults', () => {
   it('builds a per-stage line with moves and running totals for each player', () => {
     const results = calculateRunResults({
@@ -98,6 +100,7 @@ describe('calculateRunResults', () => {
         [0, 10],
         [1, 15],
       ]),
+      resolveAgentName,
     });
 
     expect(results).toEqual([
@@ -131,6 +134,7 @@ describe('calculateRunResults', () => {
       runStageParties: { [STAGE_1]: partiesWith({ friend: session(20) }) },
       userId: undefined,
       ownResults: new Map(),
+      resolveAgentName,
     });
 
     expect(results[0].stageResults[0]).toEqual({
@@ -150,6 +154,7 @@ describe('calculateRunResults', () => {
       },
       userId: undefined,
       ownResults: new Map(),
+      resolveAgentName,
     });
 
     expect(results.map((result) => result.userId)).toEqual(['friend']);

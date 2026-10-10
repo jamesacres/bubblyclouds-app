@@ -551,7 +551,7 @@ describe('ScoreBreakdown', () => {
 
       render(<ScoreBreakdown breakdown={breakdown} stats={stats} />);
 
-      expect(screen.getByText('1 puzzles completed')).toBeInTheDocument();
+      expect(screen.getByText('1 puzzle completed')).toBeInTheDocument();
     });
   });
 

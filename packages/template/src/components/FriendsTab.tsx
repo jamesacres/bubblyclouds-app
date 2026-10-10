@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { useSessions } from '../providers/SessionsProvider';
@@ -60,6 +61,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
   getMovesDisplay,
   getStarRating,
 }: FriendsTabProps<State>) => {
+  const { t } = useTranslation('template');
   const { sessions, friendSessions } = useSessions<State>();
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
   const [selectedPartyId, setSelectedPartyId] = useState<string | 'all'>('all');
@@ -110,7 +112,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                     : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700'
                 }`}
               >
-                All teams
+                {t('friends.allTeams')}
               </button>
               {parties.map((party) => (
                 <button
@@ -137,7 +139,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
               <RotateCcw
                 className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`}
               />
-              {isRefreshing ? 'Refreshing…' : 'Refresh'}
+              {isRefreshing ? t('friends.refreshing') : t('friends.refresh')}
             </button>
           )}
         </div>
@@ -163,7 +165,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
         <div>
           <div className="mb-4 border-t border-zinc-200 pt-6 dark:border-zinc-800">
             <h2 className="text-lg font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
-              Friends&apos; Puzzles
+              {t('friends.title')}
               {selectedParty && (
                 <span className="ml-2 text-base font-normal text-zinc-400 dark:text-zinc-500">
                   &middot; {selectedParty.partyName}
@@ -171,7 +173,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
               )}
             </h2>
             <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-              Tap a friend to see their recent puzzles and race them.
+              {t('friends.subtitle')}
             </p>
           </div>
 
@@ -188,11 +190,11 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                       {partyName}
                     </h3>
                     <span className="ml-auto rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-700 dark:text-zinc-400">
-                      {
-                        members.filter(({ userId }) => userId !== user?.sub)
-                          .length
-                      }{' '}
-                      members
+                      {t('friends.memberCount', {
+                        count: members.filter(
+                          ({ userId }) => userId !== user?.sub
+                        ).length,
+                      })}
                     </span>
                   </div>
 
@@ -261,7 +263,7 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
                                   </ul>
                                 ) : (
                                   <p className="py-2 text-center text-sm text-zinc-400 dark:text-zinc-500">
-                                    No recent puzzles — challenge them!
+                                    {t('friends.noRecentPuzzles')}
                                   </p>
                                 )}
                               </div>
@@ -282,10 +284,10 @@ export const FriendsTab = <State extends BaseServerState = BaseServerState>({
             <Users className="h-7 w-7 text-zinc-400 dark:text-zinc-500" />
           </div>
           <p className="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
-            No racing teams yet
+            {t('friends.empty.title')}
           </p>
           <p className="mt-1 max-w-[240px] text-xs text-zinc-400 dark:text-zinc-500">
-            Invite friends from the Races lobby when solving a puzzle
+            {t('friends.empty.description')}
           </p>
         </div>
       )}

@@ -1,3 +1,9 @@
+'use client';
+
+import { useTranslation } from 'react-i18next';
+
 export default function NotFound() {
-  return <div className="text-center">Page Not Found</div>;
+  const { t } = useTranslation('app');
+
+  return <div className="text-center">{t('notFound.message')}</div>;
 }

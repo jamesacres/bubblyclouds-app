@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   BarChart3,
   Car,
@@ -84,6 +85,7 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
   renderUpcoming,
   renderTotal,
 }: StageResultPanelProps<Stage, Score>) {
+  const { t } = useTranslation('games');
   const stageCount = stages.length;
   const canRetryCurrentStage = results.has(currentStageIndex);
 
@@ -131,13 +133,18 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                 aria-hidden="true"
               />
             )}
-            {runComplete ? 'Run complete' : 'Race progress'}
+            {runComplete
+              ? t('stageResultPanel.runComplete')
+              : t('stageResultPanel.raceProgress')}
             {dailyLabel && ` · ${dailyLabel}`}
             {collectionPuzzleLabel && ` · ${collectionPuzzleLabel}`}
           </h2>
           {stageCount > 1 && (
             <span className="shrink-0 text-xs font-semibold text-stone-400 dark:text-zinc-500">
-              {results.size}/{stageCount} stages
+              {t('stageResultPanel.stagesProgress', {
+                completed: results.size,
+                total: stageCount,
+              })}
             </span>
           )}
         </div>
@@ -152,7 +159,7 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
               className="flex cursor-pointer items-center gap-1 rounded-lg px-1.5 py-0.5 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
             >
               <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
-              Retry stage
+              {t('stageResultPanel.retryStage')}
             </button>
           </div>
         )}
@@ -221,11 +228,14 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                   }
                   disabled={isTransitioning}
                   aria-current={isCurrent}
-                  aria-label={`Stage ${i + 1}${
+                  aria-label={
                     result
-                      ? `, completed in ${formatSeconds(result.seconds)}`
-                      : ''
-                  }`}
+                      ? t('stageResultPanel.stageCompletedLabel', {
+                          number: i + 1,
+                          time: formatSeconds(result.seconds),
+                        })
+                      : t('stageResultPanel.stageLabel', { number: i + 1 })
+                  }
                   className="shrink-0"
                 >
                   <span
@@ -340,7 +350,7 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
             }}
           >
             <BarChart3 className="h-4 w-4" aria-hidden="true" />
-            View racing stats
+            {t('stageResultPanel.viewRacingStats')}
             <ChevronDown className="h-4 w-4" aria-hidden="true" />
           </button>
         )}
@@ -361,7 +371,7 @@ function StageResultPanelInner<Stage extends RunStage, Score>({
                 className="h-4 w-4 text-amber-500 dark:text-amber-400"
                 aria-hidden="true"
               />
-              Total
+              {t('stageResultPanel.total')}
             </span>
             <span className="tabular-nums">
               <span className="font-mono">{formatSeconds(totalSeconds)}</span>

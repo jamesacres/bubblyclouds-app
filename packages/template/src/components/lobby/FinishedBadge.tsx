@@ -1,6 +1,8 @@
 import { Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function FinishedBadge() {
+  const { t } = useTranslation('template');
   return (
     <span
       className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11.5px] font-bold"
@@ -11,7 +13,7 @@ export function FinishedBadge() {
       }}
     >
       <Check size={12} color="#6ee7b7" />
-      Finished
+      {t('lobby.finished')}
     </span>
   );
 }

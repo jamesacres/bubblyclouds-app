@@ -4,6 +4,8 @@
 // Import testing-library matchers
 require('@testing-library/jest-dom');
 
+require('./jest.setup.i18n');
+
 // Mock github-slugger for ESM compatibility
 jest.mock('github-slugger', () => {
   return {
@@ -235,6 +237,7 @@ if (typeof global.Request === 'undefined') {
 // Mock PointerEvent for Node environment
 if (
   typeof window !== 'undefined' &&
+  typeof MouseEvent !== 'undefined' &&
   typeof window.PointerEvent === 'undefined'
 ) {
   window.PointerEvent = class PointerEvent extends MouseEvent {

@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Book",
+    "defaultDetailNoun": "puzzle books"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Monthly collection"
+  },
+  "hintBox": {
+    "dismiss": "Dismiss hint"
+  },
+  "lobbyButton": {
+    "opponents": "Opponents"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Continue — next puzzle",
+    "continueLocked": "Continue ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} of {{total}} {{label}} complete"
+  },
+  "countdownOverlay": {
+    "getReady": "Get ready",
+    "go": "GO!"
+  },
+  "confirmDialog": {
+    "cancel": "Cancel"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · complete",
+    "retry": "Retry",
+    "points": "+{{points}} pts",
+    "leaderboardPoints": "Leaderboard points"
+  },
+  "raceTimer": {
+    "time": "Time"
+  },
+  "stageTopBar": {
+    "previous": "Previous"
+  },
+  "raceHud": {
+    "opponents": "Opponents",
+    "stageOf": "Stage {{current}} of {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Finish!",
+    "runComplete": "Run complete",
+    "leaderboardPoints": "Leaderboard points",
+    "pointsSuffix": " pts"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Su",
+      "monday": "M",
+      "tuesday": "Tu",
+      "wednesday": "W",
+      "thursday": "Th",
+      "friday": "F",
+      "saturday": "Sa"
+    },
+    "dayStreak_one": "day streak",
+    "dayStreak_other": "day streak",
+    "thisMonth": "this month"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(You)",
+    "puzzles_one": "{{count}} puzzle",
+    "puzzles_other": "{{count}} puzzles",
+    "average": "Avg: {{time}}",
+    "best": "Best: {{time}}",
+    "wins_one": "🏁 {{count}} win",
+    "wins_other": "🏁 {{count}} wins",
+    "points_one": "point",
+    "points_other": "points"
+  },
+  "scoreBreakdown": {
+    "title": "Score Breakdown",
+    "volumeBonus": {
+      "label": "Volume Bonus",
+      "detail_one": "{{count}} puzzle completed",
+      "detail_other": "{{count}} puzzles completed"
+    },
+    "dailyPuzzles": {
+      "label": "Daily Puzzles",
+      "detail_one": "{{count}} daily challenge",
+      "detail_other": "{{count}} daily challenges"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} Puzzles",
+      "detail": "{{count}} from {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Scanned Puzzles",
+      "detail_one": "{{count}} imported puzzle",
+      "detail_other": "{{count}} imported puzzles"
+    },
+    "difficultyBonus": {
+      "label": "Difficulty Bonus",
+      "detail": "Harder puzzles = more points"
+    },
+    "speedBonus": {
+      "label": "Speed Bonus",
+      "detail": "Fastest: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Racing Bonus",
+      "detail": "Beat friends who also completed"
+    },
+    "dailyCombo": {
+      "label": "Daily combo",
+      "detail": "More puzzles per day = bigger multiplier"
+    }
+  },
+  "leaderboard": {
+    "you": "You",
+    "unknownUser": "Unknown User",
+    "title": "Leaderboard",
+    "subtitleParty": "Last 30 days · {{partyName}}",
+    "subtitleAllTeams": "Last 30 days · All teams",
+    "howScoringWorks": "How scoring works"
+  },
+  "scoringLegend": {
+    "title": "How scoring works",
+    "subtitle": "{{gameName}} · Last 30 days",
+    "close": "Close",
+    "racingWins": {
+      "title": "Racing wins",
+      "body": "Earn <points>+{{points}} pts</points> for each friend you beat on the same completed puzzle. Finish first across {{friends}} friends and collect <points>+{{total}} pts</points>."
+    },
+    "basePoints": {
+      "title": "Base points",
+      "anyPuzzle": "Any puzzle",
+      "dailyPuzzle": "Daily puzzle",
+      "collectionPuzzle": "{{collection}} puzzle",
+      "scannedPuzzle": "Scanned puzzle"
+    },
+    "difficultyMultipliers": {
+      "title": "Difficulty multipliers",
+      "daily": "{{gameName}} of the Day",
+      "collection": "{{collection}} puzzles"
+    },
+    "speedBonuses": {
+      "title": "Speed bonuses",
+      "lightning": "Lightning",
+      "fast": "Fast",
+      "quick": "Quick",
+      "steady": "Steady",
+      "under": "under {{threshold}}",
+      "seconds": "{{value}} sec",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Daily combo",
+      "body": "Solve more puzzles on the same day to multiply each puzzle's points, up to <max>{{max}}×</max>.",
+      "puzzle": "Puzzle {{puzzle}} of the day",
+      "puzzleOrMore": "Puzzle {{puzzle}}+ of the day"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Run complete",
+    "raceProgress": "Race progress",
+    "stagesProgress": "{{completed}}/{{total}} stages",
+    "retryStage": "Retry stage",
+    "stageLabel": "Stage {{number}}",
+    "stageCompletedLabel": "Stage {{number}}, completed in {{time}}",
+    "viewRacingStats": "View racing stats",
+    "total": "Total"
+  },
+  "raceTrack": {
+    "you": "You",
+    "viewFriends": "Click to view friends",
+    "start": "Start",
+    "finish": "Finish",
+    "inviteToRace": "Invite friends to race",
+    "opponents": "Opponents",
+    "racer": "Racer",
+    "stageBadge": "S{{number}}",
+    "total": "Total",
+    "leaderboard": "Leaderboard",
+    "puzzleBook": "Puzzle book",
+    "puzzleBookLabel": "puzzle book",
+    "refreshScores": "Refresh scores",
+    "challengeFriends": "🏁 Challenge friends",
+    "yourTime": "Your time:",
+    "inviteFriends": "Invite friends",
+    "racingLabel": "racing"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Tricky",
+      "easy": "Challenging",
+      "intermediate": "Hard",
+      "expert": "Expert"
+    },
+    "book": {
+      "veryEasy": "Very Easy",
+      "easy": "Easy",
+      "moderatelyEasy": "Moderately Easy",
+      "moderate": "Moderate",
+      "moderatelyHard": "Moderately Hard",
+      "hard": "Hard",
+      "vicious": "Vicious",
+      "fiendish": "Fiendish",
+      "devilish": "Devilish",
+      "hell": "Hell",
+      "beyondHell": "Beyond Hell"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Last Digit",
+    "hiddenSingleBox": "Hidden Single (Box)",
+    "hiddenSingleLine": "Hidden Single (Line)",
+    "hiddenSingleVariantRegion": "Hidden Single (Variant Region)",
+    "nakedSingle": "Naked Single",
+    "hiddenPair": "Hidden Pair",
+    "lockedCandidate": "Locked Candidate",
+    "hiddenTriple": "Hidden Triple",
+    "hiddenQuadruple": "Hidden Quadruple",
+    "nakedPair": "Naked Pair",
+    "nakedTriple": "Naked Triple",
+    "nakedQuadruple": "Naked Quadruple",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String-Kite",
+    "crane": "Crane",
+    "simpleColoring": "Simple Coloring",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Finned/Sashimi X-Wing",
+    "emptyRectangle": "Empty Rectangle",
+    "uniqueRectangleType1": "Unique Rectangle Type 1",
+    "uniqueRectangleType2": "Unique Rectangle Type 2",
+    "uniqueRectangleType3": "Unique Rectangle Type 3",
+    "uniqueRectangleType4": "Unique Rectangle Type 4",
+    "uniqueRectangleType5": "Unique Rectangle Type 5",
+    "finnedSashimiSwordfish": "Finned/Sashimi Swordfish",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "X-Chain",
+    "groupedXChain": "Grouped X-Chain",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Finned/Sashimi Jellyfish",
+    "medusa3D": "3D Medusa",
+    "xyChain": "XY-Chain",
+    "alternatingInferenceChainAIC": "Alternating Inference Chain (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Grouped Alternating Inference Chain (AIC)",
+    "nishioForcingChain": "Nishio Forcing Chain",
+    "nishioForcingNet": "Nishio Forcing Net"
+  }
+}

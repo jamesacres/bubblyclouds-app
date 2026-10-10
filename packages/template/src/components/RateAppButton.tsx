@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { isAndroid, isCapacitor, isIOS } from '../helpers/capacitor';
 
 interface RateAppButtonProps {
@@ -19,6 +20,7 @@ export const RateAppButton = ({
   variant = 'card',
   className,
 }: RateAppButtonProps) => {
+  const { t } = useTranslation('template');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export const RateAppButton = ({
   const isAndroidWeb = /Android/.test(userAgent) && !isCapacitor();
   const isMobileWeb = isIOSWeb || isAndroidWeb;
 
-  const prompt = `Enjoying ${appName}?`;
+  const prompt = t('rateApp.prompt', { appName });
 
   const reviewUrl = `${appStoreUrl}?action=write-review`;
 
@@ -60,7 +62,7 @@ export const RateAppButton = ({
             className="h-4 w-4 fill-amber-500 text-amber-500"
             aria-hidden="true"
           />
-          {prompt} Rate it
+          {prompt} {t('rateApp.rateIt')}
         </button>
       );
     }
@@ -78,10 +80,12 @@ export const RateAppButton = ({
             />
             {prompt}
           </div>
-          <p className="mt-1 text-sm text-white/50">Rate it in seconds</p>
+          <p className="mt-1 text-sm text-white/50">
+            {t('rateApp.rateInSeconds')}
+          </p>
         </div>
         <span className="shrink-0 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white">
-          Rate it
+          {t('rateApp.rateIt')}
         </span>
       </button>
     );

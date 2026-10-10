@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Sign in to continue",
+    "signInWith": "Sign in with {{provider}}",
+    "emailTitle": "Sign in with email",
+    "emailPlaceholder": "your@email.com",
+    "continue": "Continue",
+    "cancel": "Cancel",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy"
+  },
+  "header": {
+    "signIn": "Sign in"
+  },
+  "avatar": {
+    "alt": "user"
+  },
+  "panel": {
+    "title": "Account",
+    "greeting": "Hi, {{name}}!",
+    "fallbackName": "User",
+    "plusActive": "{{gameName}} {{plus}} Active",
+    "joinGamePlus": "Join {{gameName}} {{plus}}",
+    "joinPlus": "Join {{plus}}",
+    "signOut": "Sign out",
+    "privacy": "Privacy policy",
+    "terms": "Terms of Service",
+    "credits": "Credits",
+    "deleteAccount": "Delete account",
+    "poweredBy": "Powered by {{companyName}}",
+    "deleteUnavailable": "Delete account functionality not available.",
+    "deleteFailed": "Failed to delete account. Please try again later."
+  },
+  "deleteDialog": {
+    "title": "Delete Account",
+    "warning": "This action cannot be undone. All of your data across all {{companyName}} applications will be permanently deleted.",
+    "confirmation": "I confirm that I want to delete my entire account including all data across all {{companyName}} applications.",
+    "cancel": "Cancel",
+    "deleting": "Deleting...",
+    "submit": "Delete Account"
+  }
+}

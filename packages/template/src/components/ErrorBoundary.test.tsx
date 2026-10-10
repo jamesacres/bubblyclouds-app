@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ErrorBoundary from './ErrorBoundary';
 
 describe('ErrorBoundary', () => {
@@ -92,24 +92,26 @@ describe('ErrorBoundary', () => {
       ).toBeInTheDocument();
     });
 
-    it('should display error details when expanded', () => {
+    it('should not render the raw error message or stack to the UI', () => {
       const ErrorComponent = () => {
-        throw new Error('Test error message');
+        throw new Error('Sensitive internal failure');
       };
 
-      render(
+      const { container } = render(
         <ErrorBoundary>
           <ErrorComponent />
         </ErrorBoundary>
       );
 
-      const detailsSummary = screen.getByText('Error Details');
-      expect(detailsSummary).toBeInTheDocument();
+      expect(container.textContent).not.toContain('Sensitive internal failure');
+      expect(container.querySelector('details')).not.toBeInTheDocument();
+      expect(container.querySelector('pre')).not.toBeInTheDocument();
     });
 
-    it('should show error details after clicking summary', () => {
+    it('should log the raw error to the console', () => {
+      const failure = new Error('Logged failure');
       const ErrorComponent = () => {
-        throw new Error('Test error message');
+        throw failure;
       };
 
       render(
@@ -118,11 +120,11 @@ describe('ErrorBoundary', () => {
         </ErrorBoundary>
       );
 
-      const summary = screen.getByText('Error Details');
-      fireEvent.click(summary);
-
-      // Details should be visible after click
-      expect(summary).toBeInTheDocument();
+      expect(console.error).toHaveBeenCalledWith(
+        'ErrorBoundary caught an error:',
+        failure,
+        expect.anything()
+      );
     });
   });
 
@@ -334,49 +336,6 @@ describe('ErrorBoundary', () => {
         screen.getByText('Oops! Something went wrong')
       ).toBeInTheDocument();
       expect(screen.getByText('This renders fine')).toBeInTheDocument();
-    });
-  });
-
-  describe('error details display', () => {
-    it('should show error message in details', () => {
-      const errorMessage = 'Custom error message for testing';
-      const ErrorComponent = () => {
-        throw new Error(errorMessage);
-      };
-
-      render(
-        <ErrorBoundary>
-          <ErrorComponent />
-        </ErrorBoundary>
-      );
-
-      const summary = screen.getByText('Error Details');
-      fireEvent.click(summary);
-
-      // Error message should be in the DOM somewhere
-      expect(screen.getByText('Error Details')).toBeInTheDocument();
-    });
-
-    it('should have expandable error details section', () => {
-      const ErrorComponent = () => {
-        throw new Error('Test error');
-      };
-
-      const { container } = render(
-        <ErrorBoundary>
-          <ErrorComponent />
-        </ErrorBoundary>
-      );
-
-      const details = container.querySelector('details');
-      expect(details).toBeInTheDocument();
-      expect(details).toHaveClass('mb-6');
-      expect(details).toHaveClass('rounded');
-      expect(details).toHaveClass('bg-zinc-100');
-      expect(details).toHaveClass('p-4');
-      expect(details).toHaveClass('text-left');
-      expect(details).toHaveClass('text-sm');
-      expect(details).toHaveClass('dark:bg-zinc-800');
     });
   });
 

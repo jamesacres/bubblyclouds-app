@@ -1,6 +1,7 @@
 'use client';
 
 import { Flag } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface RaceTimerProps {
   seconds: number;
@@ -19,25 +20,28 @@ const RaceTimer = ({
   countdown,
   isComplete,
   formatSeconds,
-}: RaceTimerProps) => (
-  <span
-    data-testid="race-timer"
-    className={`flex flex-col gap-1 ${
-      isComplete
-        ? 'text-theme-primary dark:text-theme-primary-light'
-        : countdown
-          ? 'text-stone-400 dark:text-zinc-500'
-          : 'text-stone-700 dark:text-zinc-200'
-    }`}
-  >
-    <span className="flex items-center gap-1 text-[0.6rem] font-black uppercase tracking-widest opacity-60">
-      {isComplete && <Flag className="h-2.5 w-2.5" aria-hidden="true" />}
-      Time
+}: RaceTimerProps) => {
+  const { t } = useTranslation('games');
+  return (
+    <span
+      data-testid="race-timer"
+      className={`flex flex-col gap-1 ${
+        isComplete
+          ? 'text-theme-primary dark:text-theme-primary-light'
+          : countdown
+            ? 'text-stone-400 dark:text-zinc-500'
+            : 'text-stone-700 dark:text-zinc-200'
+      }`}
+    >
+      <span className="flex items-center gap-1 text-[0.6rem] font-black uppercase tracking-widest opacity-60">
+        {isComplete && <Flag className="h-2.5 w-2.5" aria-hidden="true" />}
+        {t('raceTimer.time')}
+      </span>
+      <span className="font-mono text-sm font-semibold tabular-nums leading-none">
+        {formatSeconds(countdown ? 0 : seconds)}
+      </span>
     </span>
-    <span className="font-mono text-sm font-semibold tabular-nums leading-none">
-      {formatSeconds(countdown ? 0 : seconds)}
-    </span>
-  </span>
-);
+  );
+};
 
 export default RaceTimer;

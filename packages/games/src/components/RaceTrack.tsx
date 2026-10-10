@@ -8,6 +8,7 @@ import { useThemeColorName } from '@bubblyclouds-app/ui/hooks/useThemeColorName'
 import { formatSeconds } from '@bubblyclouds-app/ui/helpers/formatSeconds';
 import { Tab } from '@bubblyclouds-app/types/tabs';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import {
   ChevronRight,
   LayoutGrid,
@@ -203,6 +204,7 @@ const RaceTrack = <
   // Games that pass a formatter want finish times in the compact race chrome
   // (legend chips); games that omit it keep the percentage in the legend and
   // use the shared zero-padded hh:mm:ss on the leaderboard.
+  const { t } = useTranslation('games');
   const formatTime = formatFinishTime ?? formatSeconds;
   const showFinishTimeInLegend = formatFinishTime !== undefined;
   const { getNicknameByUserId, parties, refreshParties } = useParties();
@@ -287,7 +289,7 @@ const RaceTrack = <
 
       progressMap[userId] = {
         userId,
-        nickname: 'You',
+        nickname: t('raceTrack.you'),
         percentage: currentUserPercentage,
         isCurrentUser: true,
         finishTime,
@@ -427,6 +429,7 @@ const RaceTrack = <
     runResultsByUserId,
     totalStages,
     presenceStageByUserId,
+    t,
   ]);
 
   const finishedPlayers = useMemo(() => {
@@ -501,7 +504,7 @@ const RaceTrack = <
       nickname:
         result.nickname ??
         (result.isCurrentUser
-          ? 'You'
+          ? t('raceTrack.you')
           : getNicknameByUserId(result.userId) || ''),
     }));
     const knownUserIds = new Set(rows.map((row) => row.userId));
@@ -521,7 +524,7 @@ const RaceTrack = <
       });
     }
     return rows.filter((row) => row.nickname);
-  }, [runResults, getNicknameByUserId, presenceStageByUserId, totalStages]);
+  }, [runResults, getNicknameByUserId, presenceStageByUserId, totalStages, t]);
 
   const isCompleted =
     currentUserProgress?.percentage === 100 &&
@@ -538,7 +541,7 @@ const RaceTrack = <
       <div
         className="relative cursor-pointer"
         onClick={() => onClick && onClick()}
-        title="Click to view friends"
+        title={t('raceTrack.viewFriends')}
       >
         {/* One card holds the labels, the driving lane and the legend so the
             whole strip reads as a single tappable race panel */}
@@ -546,10 +549,10 @@ const RaceTrack = <
           {/* Start/Finish labels above the lane, out of the cars' way */}
           <div className="flex items-center justify-between px-0.5 pb-1">
             <span className="text-[0.6rem] font-black uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
-              Start
+              {t('raceTrack.start')}
             </span>
             <span className="flex items-center gap-1 text-[0.6rem] font-black uppercase tracking-widest text-rose-600 dark:text-rose-400">
-              Finish
+              {t('raceTrack.finish')}
               <span
                 aria-hidden="true"
                 className="h-3 w-3.5 rounded-[2px] border border-stone-400/60 bg-white dark:border-white/30"
@@ -668,7 +671,7 @@ const RaceTrack = <
                   {/* Solid plaque so the lane's dashed centre line can't
                     strike through the words */}
                   <span className="flex items-center gap-1 rounded-full bg-white/85 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-stone-500/80 shadow-sm ring-1 ring-stone-400/20 dark:bg-zinc-900/85 dark:text-white/70 dark:ring-white/10">
-                    Invite friends to race
+                    {t('raceTrack.inviteToRace')}
                     <ChevronRight className="h-3 w-3" aria-hidden="true" />
                   </span>
                 </div>
@@ -796,7 +799,9 @@ const RaceTrack = <
                       data-testid={`stage-badge-${player.userId}`}
                       className="rounded-full bg-stone-200/80 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-stone-500 dark:bg-white/10 dark:text-zinc-400"
                     >
-                      S{player.currentStageNumber}
+                      {t('raceTrack.stageBadge', {
+                        number: player.currentStageNumber,
+                      })}
                     </span>
                   )}
                   {/* Live progress label if the game provides one, otherwise
@@ -828,7 +833,9 @@ const RaceTrack = <
                     data-testid={`stage-badge-${agent.agentId}`}
                     className="rounded-full bg-stone-200/80 px-1.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-stone-500 dark:bg-white/10 dark:text-zinc-400"
                   >
-                    S{agent.currentStageNumber}
+                    {t('raceTrack.stageBadge', {
+                      number: agent.currentStageNumber,
+                    })}
                   </span>
                 )}
                 <span className="tabular-nums text-stone-400 dark:text-zinc-500">
@@ -840,7 +847,7 @@ const RaceTrack = <
             ))}
             <span className="ml-auto flex items-center gap-1 text-[0.65rem] font-semibold text-stone-400 dark:text-zinc-500">
               <Users className="h-3 w-3" aria-hidden="true" />
-              Opponents
+              {t('raceTrack.opponents')}
               <ChevronRight className="h-3 w-3" aria-hidden="true" />
             </span>
           </div>
@@ -861,7 +868,7 @@ const RaceTrack = <
                     <thead>
                       <tr className="text-[0.6rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
                         <th scope="col" className="px-3 py-1.5 text-left">
-                          Racer
+                          {t('raceTrack.racer')}
                         </th>
                         {runLeaderboardRows[0].stageResults.map(
                           (_, stageIndex) => (
@@ -870,12 +877,14 @@ const RaceTrack = <
                               scope="col"
                               className="px-1.5 py-1.5 text-right"
                             >
-                              S{stageIndex + 1}
+                              {t('raceTrack.stageBadge', {
+                                number: stageIndex + 1,
+                              })}
                             </th>
                           )
                         )}
                         <th scope="col" className="px-3 py-1.5 text-right">
-                          Total
+                          {t('raceTrack.total')}
                         </th>
                       </tr>
                     </thead>
@@ -1044,7 +1053,7 @@ const RaceTrack = <
               className="bg-theme-primary hover:bg-theme-primary-dark inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               <Trophy className="h-4 w-4" aria-hidden="true" />
-              Leaderboard
+              {t('raceTrack.leaderboard')}
             </Link>
             <Link
               href={secondaryCta?.href ?? '/book'}
@@ -1053,17 +1062,21 @@ const RaceTrack = <
               {SecondaryCtaIcon ? (
                 <SecondaryCtaIcon className="h-4 w-4" aria-hidden="true" />
               ) : (
-                <span className="mr-1" role="img" aria-label="puzzle book">
+                <span
+                  className="mr-1"
+                  role="img"
+                  aria-label={t('raceTrack.puzzleBookLabel')}
+                >
                   📖
                 </span>
               )}
-              {secondaryCta?.label ?? 'Puzzle book'}
+              {secondaryCta?.label ?? t('raceTrack.puzzleBook')}
             </Link>
             {finishedPlayers.length !== allPlayerProgress.length && (
               <button
                 onClick={refreshSessionParties}
                 disabled={isPolling}
-                title="Refresh scores"
+                title={t('raceTrack.refreshScores')}
                 className="inline-flex cursor-pointer items-center rounded-xl bg-stone-100 p-2.5 text-stone-600 transition-all duration-200 hover:bg-stone-200 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
               >
                 <RefreshCw
@@ -1079,10 +1092,10 @@ const RaceTrack = <
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <div className="text-sm font-semibold text-stone-900 dark:text-white">
-                    🏁 Challenge friends
+                    {t('raceTrack.challengeFriends')}
                   </div>
                   <div className="mt-0.5 text-xs text-stone-500 dark:text-zinc-400">
-                    Your time:{' '}
+                    {t('raceTrack.yourTime')}{' '}
                     <span className="font-mono tabular-nums">
                       {formatTime(currentUserProgress.finishTime)}
                     </span>
@@ -1092,10 +1105,14 @@ const RaceTrack = <
                   onClick={onInviteFriends || onClick}
                   className="inline-flex shrink-0 cursor-pointer items-center rounded-xl bg-stone-900 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-stone-700 active:scale-[0.98] dark:bg-white dark:text-stone-900 dark:hover:bg-stone-100"
                 >
-                  <span className="mr-1.5" role="img" aria-label="racing">
+                  <span
+                    className="mr-1.5"
+                    role="img"
+                    aria-label={t('raceTrack.racingLabel')}
+                  >
                     🚀
                   </span>
-                  Invite friends
+                  {t('raceTrack.inviteFriends')}
                 </button>
               </div>
             </div>

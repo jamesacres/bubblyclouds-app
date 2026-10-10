@@ -306,11 +306,12 @@ export const formatTime = (seconds: number): string => {
 
 export const getUsernameFromParties = (
   userId: string,
-  parties: Party[]
+  parties: Party[],
+  unknownUserLabel: string
 ): string => {
   for (const party of parties) {
     const member = party.members.find((m) => m.userId === userId);
     if (member) return member.memberNickname;
   }
-  return 'Unknown User';
+  return unknownUserLabel;
 };

@@ -3,11 +3,10 @@ import { Outfit, Orbitron, Pacifico } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { Providers } from './providers';
-import ErrorBoundary from '@bubblyclouds-app/template/components/ErrorBoundary';
-import GlobalErrorHandler from '@bubblyclouds-app/template/components/GlobalErrorHandler';
-import HeaderWrapper from '@bubblyclouds-app/template/components/HeaderWrapper';
 import UnblockRacePlusModal from '../components/UnblockRacePlusModal';
-import { APP_CONFIG } from '../../app.config.js';
+import AppHeader from '../components/AppHeader';
+import { createI18n } from '@bubblyclouds-app/ui/config/i18n';
+import { DEFAULT_LOCALE, resources, supportedLocales } from '../i18n';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -25,47 +24,53 @@ const pacifico = Pacifico({
   variable: '--font-pacifico',
 });
 
-export const metadata: Metadata = {
-  title: APP_CONFIG.appName,
-  description: APP_CONFIG.appDescription,
-  icons: [
-    {
-      url: '/icons/icon-48.webp',
-      type: 'image/png',
-      sizes: '48x48',
-    },
-    {
-      url: '/icons/icon-72.webp',
-      type: 'image/png',
-      sizes: '72x72',
-    },
-    {
-      url: '/icons/icon-96.webp',
-      type: 'image/png',
-      sizes: '96x96',
-    },
-    {
-      url: '/icons/icon-128.webp',
-      type: 'image/png',
-      sizes: '128x128',
-    },
-    {
-      url: '/icons/icon-192.webp',
-      type: 'image/png',
-      sizes: '192x192',
-    },
-    {
-      url: '/icons/icon-256.webp',
-      type: 'image/png',
-      sizes: '256x256',
-    },
-    {
-      url: '/icons/icon-512.webp',
-      type: 'image/png',
-      sizes: '512x512',
-    },
-  ],
-};
+export function generateMetadata(): Metadata {
+  const { t } = createI18n(resources, {
+    defaultLocale: DEFAULT_LOCALE,
+    supportedLocales,
+  });
+  return {
+    title: t('meta.title', { ns: 'app' }),
+    description: t('meta.description', { ns: 'app' }),
+    icons: [
+      {
+        url: '/icons/icon-48.webp',
+        type: 'image/png',
+        sizes: '48x48',
+      },
+      {
+        url: '/icons/icon-72.webp',
+        type: 'image/png',
+        sizes: '72x72',
+      },
+      {
+        url: '/icons/icon-96.webp',
+        type: 'image/png',
+        sizes: '96x96',
+      },
+      {
+        url: '/icons/icon-128.webp',
+        type: 'image/png',
+        sizes: '128x128',
+      },
+      {
+        url: '/icons/icon-192.webp',
+        type: 'image/png',
+        sizes: '192x192',
+      },
+      {
+        url: '/icons/icon-256.webp',
+        type: 'image/png',
+        sizes: '256x256',
+      },
+      {
+        url: '/icons/icon-512.webp',
+        type: 'image/png',
+        sizes: '512x512',
+      },
+    ],
+  };
+}
 
 export const viewport: Viewport = {
   viewportFit: 'cover',
@@ -82,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={DEFAULT_LOCALE} suppressHydrationWarning>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Pacifico&family=Orbitron:wght@400;700&family=Creepster&display=swap"
@@ -92,23 +97,11 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} ${outfit.className} ${orbitron.variable} ${pacifico.variable}`}
       >
-        <GlobalErrorHandler />
-        <ErrorBoundary>
-          <Providers>
-            <HeaderWrapper
-              app={APP_CONFIG.app}
-              appName={APP_CONFIG.appName}
-              apiUrl={APP_CONFIG.apiUrl}
-              privacyUrl={APP_CONFIG.privacyUrl}
-              termsUrl={APP_CONFIG.termsUrl}
-              creditsUrl={APP_CONFIG.creditsUrl}
-              companyUrl={APP_CONFIG.companyUrl}
-              companyName={APP_CONFIG.companyName}
-            />
-            <div className="mb-24">{children}</div>
-            <UnblockRacePlusModal />
-          </Providers>
-        </ErrorBoundary>
+        <Providers>
+          <AppHeader />
+          <div className="mb-24">{children}</div>
+          <UnblockRacePlusModal />
+        </Providers>
       </body>
     </html>
   );

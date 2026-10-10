@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useMemo } from 'react';
 import { Award } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import {
@@ -56,6 +57,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
   collectionDifficulties,
   showScannedPuzzles,
 }: LeaderboardProps<TState>) {
+  const { t } = useTranslation('games');
   const [showScoringLegend, setShowScoringLegend] = useState(false);
 
   // Calculate leaderboard data
@@ -107,7 +109,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
 
       leaderboard.push({
         userId: user.sub,
-        username: user.name || 'You',
+        username: user.name || t('leaderboard.you'),
         totalScore,
         breakdown: {
           volumeScore: userScore.volumeScore,
@@ -151,7 +153,8 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
           userId,
           username: getUsernameFromParties(
             userId,
-            selectedParty ? [selectedParty] : parties
+            selectedParty ? [selectedParty] : parties,
+            t('leaderboard.unknownUser')
           ),
           totalScore,
           breakdown: {
@@ -181,6 +184,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
     selectedParty,
     isPuzzleCheated,
     scoringOptions,
+    t,
   ]);
 
   if (leaderboardData.length === 0) {
@@ -192,11 +196,14 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold tracking-tight text-zinc-800 dark:text-zinc-200">
-            Leaderboard
+            {t('leaderboard.title')}
           </h2>
           <p className="text-xs text-zinc-400 dark:text-zinc-500">
-            Last 30 days
-            {selectedParty ? ` · ${selectedParty.partyName}` : ' · All teams'}
+            {selectedParty
+              ? t('leaderboard.subtitleParty', {
+                  partyName: selectedParty.partyName,
+                })
+              : t('leaderboard.subtitleAllTeams')}
           </p>
         </div>
         <button
@@ -204,7 +211,7 @@ function Leaderboard<TState extends BaseServerState = BaseServerState>({
           className="flex cursor-pointer items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-600 transition-all duration-200 hover:bg-zinc-100 active:scale-95 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
         >
           <Award className="h-3.5 w-3.5 text-amber-500" />
-          How scoring works
+          {t('leaderboard.howScoringWorks')}
         </button>
       </div>
 

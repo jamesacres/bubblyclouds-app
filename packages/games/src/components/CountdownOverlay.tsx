@@ -1,6 +1,9 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
+
 function CountdownOverlay({ countdown }: { countdown: number }) {
+  const { t } = useTranslation('games');
   // countdown value from server: 4→3→2→1. Display: 3→2→1→GO!
   const isGo = countdown === 1;
   const displayed = countdown - 1; // matches TimerDisplay logic
@@ -73,7 +76,7 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
         </div>
       )}
       <div className="text-xs font-extrabold uppercase tracking-[0.2em] text-zinc-600 dark:text-white/50">
-        Get ready
+        {t('countdownOverlay.getReady')}
       </div>
       <div className="flex gap-4">
         {lights.map((l, i) => (
@@ -101,7 +104,7 @@ function CountdownOverlay({ countdown }: { countdown: number }) {
             animation: 'race-countdown-pop 300ms ease-out',
           }}
         >
-          GO!
+          {t('countdownOverlay.go')}
         </div>
       ) : (
         <div

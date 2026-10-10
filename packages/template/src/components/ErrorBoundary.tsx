@@ -1,5 +1,6 @@
 'use client';
 import React, { Component, ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   children: ReactNode;
@@ -7,7 +8,6 @@ interface Props {
 
 interface State {
   hasError: boolean;
-  error?: Error;
 }
 
 class ErrorBoundary extends Component<Props, State> {
@@ -16,9 +16,8 @@ class ErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): State {
-    // Update state so the next render will show the fallback UI
-    return { hasError: true, error };
+  static getDerivedStateFromError(): State {
+    return { hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
@@ -31,7 +30,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   handleReload = () => {
     // Clear error state and reload
-    this.setState({ hasError: false, error: undefined });
+    this.setState({ hasError: false });
     window.location.reload();
   };
 
@@ -49,54 +48,57 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-white p-8 dark:bg-zinc-900">
-          <div className="max-w-md text-center">
-            <h1 className="mb-4 text-4xl font-bold text-red-600">
-              Oops! Something went wrong
-            </h1>
-            <p className="mb-6 text-lg text-zinc-700 dark:text-zinc-300">
-              We encountered an unexpected error. Don&apos;t worry, your
-              progress is saved!
-            </p>
-
-            {this.state.error && (
-              <details className="mb-6 rounded bg-zinc-100 p-4 text-left text-sm dark:bg-zinc-800">
-                <summary className="cursor-pointer font-semibold text-zinc-800 dark:text-zinc-200">
-                  Error Details
-                </summary>
-                <pre className="mt-2 overflow-auto text-xs text-red-600">
-                  {this.state.error.message}
-                  {'\n\n'}
-                  {this.state.error.stack}
-                </pre>
-              </details>
-            )}
-
-            <div className="flex flex-col gap-3">
-              <button
-                onClick={this.handleReload}
-                className="bg-theme-primary hover:bg-theme-primary-dark rounded px-6 py-3 font-semibold text-white transition-colors"
-              >
-                Reload App
-              </button>
-              <button
-                onClick={this.handleClearStorage}
-                className="rounded border border-zinc-300 bg-white px-6 py-3 font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
-              >
-                Clear Storage & Reload
-              </button>
-            </div>
-
-            <p className="mt-6 text-sm text-zinc-500">
-              If this problem persists, please contact support.
-            </p>
-          </div>
-        </div>
+        <ErrorFallback
+          onReload={this.handleReload}
+          onClearStorage={this.handleClearStorage}
+        />
       );
     }
 
     return this.props.children;
   }
 }
+
+const ErrorFallback = ({
+  onReload,
+  onClearStorage,
+}: {
+  onReload: () => void;
+  onClearStorage: () => void;
+}) => {
+  const { t } = useTranslation('template');
+
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-white p-8 dark:bg-zinc-900">
+      <div className="max-w-md text-center">
+        <h1 className="mb-4 text-4xl font-bold text-red-600">
+          {t('errorBoundary.title')}
+        </h1>
+        <p className="mb-6 text-lg text-zinc-700 dark:text-zinc-300">
+          {t('errorBoundary.description')}
+        </p>
+
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={onReload}
+            className="bg-theme-primary hover:bg-theme-primary-dark rounded px-6 py-3 font-semibold text-white transition-colors"
+          >
+            {t('errorBoundary.reload')}
+          </button>
+          <button
+            onClick={onClearStorage}
+            className="rounded border border-zinc-300 bg-white px-6 py-3 font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+          >
+            {t('errorBoundary.clearStorage')}
+          </button>
+        </div>
+
+        <p className="mt-6 text-sm text-zinc-500">
+          {t('errorBoundary.contactSupport')}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export default ErrorBoundary;

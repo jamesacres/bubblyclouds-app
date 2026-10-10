@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface StarRatingProps {
   rating: number;
@@ -25,13 +26,14 @@ const StarRating: React.FC<StarRatingProps> = ({
   staggerMs = 220,
   className,
 }) => {
+  const { t } = useTranslation('ui');
   const sizeClass = SIZE_CLASSES[size];
   const filledCount = Math.max(0, Math.min(max, Math.round(rating)));
 
   return (
     <span
       role="img"
-      aria-label={`${filledCount} of ${max} stars`}
+      aria-label={t('starRating.label', { filled: filledCount, count: max })}
       className={`inline-flex items-center gap-1 ${className ?? ''}`}
     >
       {Array.from({ length: max }).map((_, i) => {

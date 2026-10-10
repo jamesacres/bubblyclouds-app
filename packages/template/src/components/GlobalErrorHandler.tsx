@@ -1,11 +1,14 @@
 'use client';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Global error handler component that catches unhandled errors and promise rejections
  * This prevents white screen crashes in Capacitor apps
  */
 export default function GlobalErrorHandler() {
+  const { t } = useTranslation('template');
+
   useEffect(() => {
     // Create toast container if it doesn't exist
     if (!document.getElementById('error-toast-container')) {
@@ -32,7 +35,7 @@ export default function GlobalErrorHandler() {
       event.preventDefault();
 
       // Show user-friendly toast
-      showErrorToast('An unexpected error occurred. Please try again.');
+      showErrorToast(t('errors.generic'), t('errors.dismiss'));
 
       // You can log to error reporting service here
       // Example: Sentry.captureException(event.error);
@@ -48,7 +51,7 @@ export default function GlobalErrorHandler() {
       event.preventDefault();
 
       // Show user-friendly toast
-      showErrorToast('An unexpected error occurred. Please try again.');
+      showErrorToast(t('errors.generic'), t('errors.dismiss'));
 
       // You can log to error reporting service here
       // Example: Sentry.captureException(event.reason);
@@ -63,7 +66,7 @@ export default function GlobalErrorHandler() {
       window.removeEventListener('error', handleError);
       window.removeEventListener('unhandledrejection', handleRejection);
     };
-  }, []);
+  }, [t]);
 
   return null; // This component doesn't render anything
 }
@@ -71,7 +74,7 @@ export default function GlobalErrorHandler() {
 /**
  * Show a user-friendly error toast on screen
  */
-function showErrorToast(message: string) {
+function showErrorToast(message: string, dismissLabel: string) {
   console.warn('Error Toast:', message);
 
   // Ensure container exists (in case it was removed or never created)
@@ -176,6 +179,7 @@ function showErrorToast(message: string) {
       <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
     </svg>
   `;
+  closeBtn.setAttribute('aria-label', dismissLabel);
   closeBtn.style.cssText = `
     background: none;
     border: none;

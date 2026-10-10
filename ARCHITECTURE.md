@@ -11,6 +11,7 @@ patterns used in the Bubbly Clouds App monorepo.
 - [Just-in-Time Package Pattern](#just-in-time-package-pattern)
 - [Import Guidelines](#import-guidelines)
 - [Architectural Principles](#architectural-principles)
+- [Internationalisation](#internationalisation)
 
 ## Package Hierarchy
 
@@ -1040,6 +1041,74 @@ const userId = user.id;
 // Use exponential backoff to avoid rate limiting
 await retryWithBackoff(() => api.call());
 ```
+
+## Internationalisation
+
+User-facing text is translated with `i18next` and `react-i18next`. Resources
+are bundled and initialised synchronously, so there is no loading state.
+
+- **Core lives in `@ui`** (L1): `config/i18n.ts` (`createI18n`),
+  `helpers/resolveLocale.ts`, `providers/I18nProvider.tsx` (`useLocale`) and
+  `components/LanguageSelect.tsx`. `@ui` owns the `i18next` dependency.
+- **Locale files** are JSON at `src/locales/<locale>.json` in every package and
+  app, exported as `"./locales/*": "./src/locales/*.json"`. Keys are nested by
+  area then element with camelCase leaves.
+- **Namespaces** match the owner: `ui`, `auth`, `template`, `games`,
+  `sudoku`, `unblockrace` and `app` (per app). Components call
+  `useTranslation('<ns>')` for their own package namespace; packages never import
+  an app's bundle.
+- **Apps assemble resources** in `apps/<app>/src/i18n.ts`, which exports
+  `DEFAULT_LOCALE`, `supportedLocales` and `resources` and imports no
+  React or browser APIs, so it is safe to use at build time (for example in
+  `generateMetadata`). `providers.tsx` wraps the tree in `I18nProvider`.
+- **Detection** order is the stored choice (`localStorage` key
+  `bubblyclouds.locale`), then `navigator.languages`, then `DEFAULT_LOCALE`.
+  The first render always uses `DEFAULT_LOCALE` and the detected locale is
+  applied after mount.
+- **Tests** get a shared English instance from the root `jest.setup.i18n.js`,
+  built from every package bundle (apps add their own `app` bundle).
+- **Brand terms** live under `brand.*` in each app's `en.json` (`appName`,
+  `gameName`, `companyName`, `plus`, ...). `app.config.js` derives `appName`,
+  `gameName` and `companyName` from it with
+  `require('./src/locales/en.json').brand`, so native and build tooling
+  (`capacitor.config.ts`, `electron-builder.js`, `electron/main.mjs`) and React
+  share one source of truth. These identifiers are not runtime-translated, and
+  anything that loads `app.config.js` must be able to resolve
+  `src/locales/en.json` next to it (including the Electron packaging step).
+  `appDescription`, `mobileDescription` and `desktopDescription` no longer
+  exist in `app.config.js`; they are `meta.description`,
+  `puzzle.mobileDescription` and `puzzle.desktopDescription` in `en.json`.
+- **Metadata** is built at build time: `layout.tsx` exports
+  `generateMetadata()`, which creates a throwaway instance with `createI18n`
+  and reads `meta.title` / `meta.description`. `<html lang>` uses
+  `DEFAULT_LOCALE` (the apps are `output: 'export'`, so metadata cannot follow
+  a client-side language choice).
+- **Non-React helpers** never import an i18n singleton: they take a
+  `Translate` (`@bubblyclouds-app/games/types/i18n`,
+  `@bubblyclouds-app/template/types/i18n`) or return keys and params.
+- **Agents**: `AgentConfig` carries a stable `id`; `name` is the legacy
+  identity token (persisted `agentNames`, `agent-<name>` run ids) and is never
+  rendered. `AgentConfig` no longer has `personality` or `voiceLines`; those
+  are `agents.<id>.*` keys in the owning package namespace. Display names
+  resolve through `useAgentDisplayResolver(namespace)` and
+  `useAgentDisplay(namespace)` (`@games/hooks`), and agent progress/runs carry
+  `configId` to look the display up.
+- **Errors**: the UI never renders `error.message`; errors map to localised
+  keys (`errors.generic` fallback) and the raw error goes to `console.error`.
+  `GlobalErrorHandler` and `ErrorBoundary` render inside `I18nProvider` (the
+  apps' `Providers` wraps them).
+- **Apps without their own locale** (`bubblyclouds`, the blog apps via
+  `@blog` `Providers`) still wrap shared components in `I18nProvider` with the
+  `ui` (and `auth`/`template`) bundles; components using `useTranslation`
+  outside a provider would render raw keys.
+- `pnpm run i18n:audit` (`scripts/i18nAudit.sh` ->
+  `scripts/i18n_audit.py`) checks every package/app: missing keys, unused keys
+  (plural `_one`/`_other`/`_ordinal_*` and `<Trans i18nKey>` are understood),
+  `ns:`-prefixed keys and dynamic keys. Keys built dynamically
+  (`agents.<id>.*`, `techniques.*`, `bookCover.months.*`, ...) must be declared
+  with a justification in `scripts/i18n_audit.config.json`, which also
+  cross-checks that every generated key exists. It exits non-zero on any
+  problem.
 
 ## Deployment
 

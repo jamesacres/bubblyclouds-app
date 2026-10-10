@@ -1,13 +1,15 @@
+import { Translate } from '../types/i18n';
+
 export function fmtClock(s: number): string {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 }
 
-export function fmtElapsed(ms: number): string {
+export function fmtElapsed(ms: number, t: Translate): string {
   const mins = Math.round(ms / 60000);
-  if (mins < 60) return `${mins}m ago`;
+  if (mins < 60) return t('time.minutesAgo', { count: mins });
   const hours = Math.round(ms / 3600000);
-  if (hours < 48) return `${hours}h ago`;
-  return `${Math.round(ms / 86400000)}d ago`;
+  if (hours < 48) return t('time.hoursAgo', { count: hours });
+  return t('time.daysAgo', { count: Math.round(ms / 86400000) });
 }
 
 const AVATAR_GRADIENTS = [

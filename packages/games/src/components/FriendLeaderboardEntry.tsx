@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
@@ -20,6 +21,7 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
   collectionLabel,
   collectionDetailNoun,
 }) => {
+  const { t, i18n } = useTranslation('games');
   const [showBreakdown, setShowBreakdown] = useState(false);
 
   const getRankIcon = (rank: number) => {
@@ -49,26 +51,47 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
           <div className="text-lg font-semibold text-gray-800 dark:text-gray-200">
             {entry.username}
             {isCurrentUser && (
-              <span className="ml-2 text-sm text-blue-600">(You)</span>
+              <span className="ml-2 text-sm text-blue-600">
+                {t('friendLeaderboardEntry.you')}
+              </span>
             )}
           </div>
           <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {entry.stats.totalPuzzles} puzzles • Avg:{' '}
-            {formatTime(entry.stats.averageTime)}
+            {t('friendLeaderboardEntry.puzzles', {
+              count: entry.stats.totalPuzzles,
+            })}{' '}
+            •{' '}
+            {t('friendLeaderboardEntry.average', {
+              time: formatTime(entry.stats.averageTime),
+            })}
             {entry.stats.fastestTime > 0 && (
-              <> • Best: {formatTime(entry.stats.fastestTime)}</>
+              <>
+                {' '}
+                •{' '}
+                {t('friendLeaderboardEntry.best', {
+                  time: formatTime(entry.stats.fastestTime),
+                })}
+              </>
             )}
             {entry.stats.racingWins > 0 && (
-              <> • 🏁 {entry.stats.racingWins} wins</>
+              <>
+                {' '}
+                •{' '}
+                {t('friendLeaderboardEntry.wins', {
+                  count: entry.stats.racingWins,
+                })}
+              </>
             )}
           </div>
         </div>
 
         <div className="mr-4 text-right">
           <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-            {entry.totalScore.toLocaleString()}
+            {entry.totalScore.toLocaleString(i18n.language)}
           </div>
-          <div className="text-sm text-gray-500">points</div>
+          <div className="text-sm text-gray-500">
+            {t('friendLeaderboardEntry.points', { count: entry.totalScore })}
+          </div>
         </div>
 
         <div className="text-gray-400">

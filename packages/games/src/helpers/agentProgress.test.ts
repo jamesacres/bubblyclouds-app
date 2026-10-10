@@ -3,7 +3,9 @@ import {
   calculateAgentProgress,
   getAllAgentProgress,
 } from './agentProgress';
-import { DreyfusLevel, LocalAgent } from '../types/Agent';
+import { AgentDisplayResolver, DreyfusLevel, LocalAgent } from '../types/Agent';
+
+const identityName: AgentDisplayResolver = (agent) => agent.name;
 
 interface MockState {
   initial: string;
@@ -24,6 +26,7 @@ const calculatePercentage = (state: MockState): number =>
 
 const makeAgent = (overrides: Partial<MockAgent> = {}): MockAgent => ({
   id: 'agent-0',
+  configId: 'sage',
   name: 'Sage',
   emoji: '🦉',
   skillLevel: DreyfusLevel.Expert,
@@ -47,6 +50,7 @@ const makeAgent = (overrides: Partial<MockAgent> = {}): MockAgent => ({
 
 const emptyAgent = (): MockAgent => ({
   id: 'agent-1',
+  configId: 'puddle',
   name: 'Puddle',
   emoji: '🦆',
   skillLevel: DreyfusLevel.Novice,
@@ -148,7 +152,8 @@ describe('getAllAgentProgress', () => {
       [makeAgent(), emptyAgent()],
       null,
       buildPristineState,
-      calculatePercentage
+      calculatePercentage,
+      identityName
     );
 
     expect(progress).toHaveLength(2);
@@ -171,7 +176,8 @@ describe('getAllAgentProgress', () => {
       [makeAgent()],
       10_000,
       buildPristineState,
-      calculatePercentage
+      calculatePercentage,
+      identityName
     );
 
     expect(progress[0].percentage).toBeGreaterThan(0);
@@ -185,7 +191,8 @@ describe('getAllAgentProgress', () => {
       [makeAgent()],
       10_000,
       buildPristineState,
-      calculatePercentage
+      calculatePercentage,
+      identityName
     );
 
     expect(progress[0].percentage).toBe(100);
@@ -198,7 +205,8 @@ describe('getAllAgentProgress', () => {
       agents,
       null,
       buildPristineState,
-      calculatePercentage
+      calculatePercentage,
+      identityName
     );
 
     expect(progress.map((p) => p.agentId)).toEqual(['agent-0', 'agent-1']);
@@ -208,5 +216,19 @@ describe('getAllAgentProgress', () => {
       DreyfusLevel.Expert,
       DreyfusLevel.Novice,
     ]);
+  });
+
+  it('resolves the display name from the config id while keeping the agent id', () => {
+    const progress = getAllAgentProgress(
+      [makeAgent()],
+      null,
+      buildPristineState,
+      calculatePercentage,
+      (agent) => `${agent.id}/${agent.name}`
+    );
+
+    expect(progress[0].agentId).toBe('agent-0');
+    expect(progress[0].configId).toBe('sage');
+    expect(progress[0].name).toBe('sage/Sage');
   });
 });

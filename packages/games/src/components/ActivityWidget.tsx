@@ -1,5 +1,6 @@
 'use client';
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 import { calculateActivityStats } from '../helpers/calculateActivityStats';
@@ -17,10 +18,21 @@ const ActivityWidget = ({
   onClick,
   action,
 }: ActivityWidgetProps) => {
+  const { t } = useTranslation('games');
   const { puzzlesPlayedInThirtyDays, currentStreak, lastSevenDays } =
     calculateActivityStats(sessions);
 
   const isDark = variant === 'dark';
+
+  const dayLabels = [
+    t('activityWidget.days.sunday'),
+    t('activityWidget.days.monday'),
+    t('activityWidget.days.tuesday'),
+    t('activityWidget.days.wednesday'),
+    t('activityWidget.days.thursday'),
+    t('activityWidget.days.friday'),
+    t('activityWidget.days.saturday'),
+  ];
 
   return (
     <div
@@ -36,7 +48,7 @@ const ActivityWidget = ({
                 isDark ? 'text-white/40' : 'text-zinc-400 dark:text-zinc-500'
               }`}
             >
-              {day.label}
+              {dayLabels[day.dayIndex]}
             </span>
             <div
               className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-all duration-200 ${
@@ -75,7 +87,7 @@ const ActivityWidget = ({
           >
             {currentStreak}
           </span>{' '}
-          day streak
+          {t('activityWidget.dayStreak', { count: currentStreak })}
         </span>
         <span>·</span>
         <span data-testid="puzzles-count">
@@ -84,7 +96,7 @@ const ActivityWidget = ({
           >
             {puzzlesPlayedInThirtyDays}
           </span>{' '}
-          this month
+          {t('activityWidget.thisMonth')}
         </span>
         {action && <div className="-my-1.5 ml-auto">{action}</div>}
       </div>

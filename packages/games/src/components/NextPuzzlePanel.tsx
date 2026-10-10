@@ -1,10 +1,12 @@
 'use client';
 
 import { ChevronRight, Sparkles } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface NextPuzzlePanelProps {
   isLocked: boolean;
   progressLabel: string;
+  plusName?: string;
   onContinue: () => void;
 }
 
@@ -18,8 +20,10 @@ interface NextPuzzlePanelProps {
 const NextPuzzlePanel = ({
   isLocked,
   progressLabel,
+  plusName,
   onContinue,
 }: NextPuzzlePanelProps) => {
+  const { t } = useTranslation('games');
   return (
     <div
       data-testid="next-puzzle-panel"
@@ -47,11 +51,13 @@ const NextPuzzlePanel = ({
         {isLocked ? (
           <>
             <Sparkles className="h-4 w-4" aria-hidden="true" />
-            Continue (Plus)
+            {t('nextPuzzlePanel.continueLocked', {
+              plusName: plusName ?? t('brand.plus'),
+            })}
           </>
         ) : (
           <>
-            Continue — next puzzle
+            {t('nextPuzzlePanel.continue')}
             <ChevronRight className="h-4 w-4" aria-hidden="true" />
           </>
         )}

@@ -7,6 +7,7 @@ import { PurchasesPackage as CapacitorPackage } from '@revenuecat/purchases-capa
 import { Package as WebPackage } from '@revenuecat/purchases-js';
 import { ComponentType, ReactNode, useContext, useState } from 'react';
 import { X, Check, Loader } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface PremiumFeature {
   icon: ComponentType<{ className?: string }>;
@@ -31,6 +32,7 @@ const PlusModal = ({
   description,
   contextMessages,
 }: PlusModalProps) => {
+  const { t } = useTranslation('template');
   const {
     isLoading,
     isSubscribed,
@@ -105,7 +107,7 @@ const PlusModal = ({
               modal.cancelCallback();
             }}
             className="absolute right-4 top-4 z-10 cursor-pointer rounded-full p-2 text-gray-400 backdrop-blur-sm transition-all hover:bg-gray-200/80 hover:text-gray-600 dark:hover:bg-gray-700/80 dark:hover:text-gray-300"
-            aria-label="Close modal"
+            aria-label={t('plus.close')}
           >
             <X className="h-5 w-5" />
           </button>
@@ -117,7 +119,7 @@ const PlusModal = ({
               <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full">
                 <img
                   src="/icons/icon-512.webp"
-                  alt="App Icon"
+                  alt={t('plus.appIconAlt')}
                   width={512}
                   height={512}
                 />
@@ -151,7 +153,7 @@ const PlusModal = ({
                     )}
                   </div>
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    Lifetime
+                    {t('plus.lifetime')}
                   </span>
                 </div>
                 <span className="font-bold text-gray-900 dark:text-white">
@@ -180,11 +182,11 @@ const PlusModal = ({
                     )}
                   </div>
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    Monthly
+                    {t('plus.monthly')}
                   </span>
                 </div>
                 <span className="font-bold text-gray-900 dark:text-white">
-                  {monthlyPriceString}/month
+                  {t('plus.perMonth', { price: monthlyPriceString })}
                 </span>
               </div>
             </div>
@@ -192,7 +194,7 @@ const PlusModal = ({
             {/* Features Section */}
             <div className="mb-6 px-6">
               <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                What&apos;s Included
+                {t('plus.whatsIncluded')}
               </h3>
               <div className="space-y-4 pb-4">
                 {features.map((feature, index) => (
@@ -252,7 +254,7 @@ const PlusModal = ({
                 {isPurchasing ? (
                   <Loader className="h-5 w-5 animate-spin" />
                 ) : (
-                  'Continue'
+                  t('plus.continue')
                 )}
               </button>
               <div className="flex gap-4">
@@ -277,7 +279,7 @@ const PlusModal = ({
                   {isRestoring ? (
                     <Loader className="h-4 w-4 animate-spin" />
                   ) : (
-                    'Restore purchases'
+                    t('plus.restorePurchases')
                   )}
                 </button>
                 <button
@@ -288,7 +290,7 @@ const PlusModal = ({
                     modal.cancelCallback();
                   }}
                 >
-                  Cancel
+                  {t('plus.cancel')}
                 </button>
               </div>
             </div>

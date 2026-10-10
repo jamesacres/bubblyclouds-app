@@ -1,0 +1,233 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "An unexpected error occurred. Please try again.",
+    "dismiss": "Dismiss"
+  },
+  "errorBoundary": {
+    "title": "Oops! Something went wrong",
+    "description": "We encountered an unexpected error. Don't worry, your progress is saved!",
+    "reload": "Reload App",
+    "clearStorage": "Clear Storage & Reload",
+    "contactSupport": "If this problem persists, please contact support."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}}m ago",
+    "minutesAgo_other": "{{count}}m ago",
+    "hoursAgo_one": "{{count}}h ago",
+    "hoursAgo_other": "{{count}}h ago",
+    "daysAgo_one": "{{count}}d ago",
+    "daysAgo_other": "{{count}}d ago"
+  },
+  "tier": {
+    "novice": "Novice",
+    "advancedBeginner": "Beginner",
+    "competent": "Competent",
+    "proficient": "Proficient",
+    "expert": "Expert"
+  },
+  "moves": {
+    "onPar": "moves, on par",
+    "overPar": "moves, {{delta}} over par",
+    "underPar": "moves, {{delta}} under par"
+  },
+  "lobby": {
+    "title": "Race Lobby",
+    "close": "Close lobby",
+    "onlineOpponents": "Online opponents",
+    "refresh": "Refresh online opponents",
+    "noOpponents": "No opponents online — invite friends to race!",
+    "away": "Away",
+    "offlineTeams": "Offline · in your teams",
+    "removeMember": "Remove {{name}}",
+    "aiOpponents": "AI opponents",
+    "addAgent": "Add",
+    "noAgents": "No AI opponents yet — add one to always have someone to race.",
+    "ownClock": "Each player races on their own clock",
+    "startSolving": "Start Solving",
+    "finished": "Finished",
+    "inLobby": "In lobby",
+    "stageProgress": "Stage {{current}} of {{total}}",
+    "finishedRunIn": "Finished the run in {{time}}",
+    "solvedIn": "Solved in {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · last seen {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Solo race — just you and the clock",
+      "friends_one": "{{count}} friend",
+      "friends_other": "{{count}} friends",
+      "aiOpponents_one": "{{count}} AI opponent",
+      "aiOpponents_other": "{{count}} AI opponents",
+      "racing": "Racing {{opponents}}"
+    },
+    "invite": {
+      "button": "Invite",
+      "eyebrow": "Build your race",
+      "title": "Invite opponents",
+      "close": "Close",
+      "existingTeam": "Invite to existing team",
+      "editTeamName": "Edit team name",
+      "deleteTeam": "Delete team",
+      "leaveTeam": "Leave team",
+      "memberCount_one": "{{count}} member",
+      "memberCount_other": "{{count}} members",
+      "createTeam": "Create new racing team",
+      "displayNameLabel": "What do team members call you?",
+      "displayNamePlaceholder": "Display name",
+      "teamNameLabel": "What shall we name this team?",
+      "teamNamePlaceholder": "Team name (e.g. Family)",
+      "createAndCopy": "Create & copy link",
+      "defaultTeamName": "New team",
+      "defaultPlayerName": "Player"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Close sheet",
+    "back": "Back",
+    "close": "Close",
+    "title": "Pick Your Rivals",
+    "subtitle": "Select one or more opponents",
+    "selectAtLeastOne": "Select at least one rival",
+    "race_one": "Race {{count}} Rival",
+    "race_other": "Race {{count}} Rivals",
+    "skill": {
+      "novice": "Novice",
+      "advancedBeginner": "Adv. Beginner",
+      "competent": "Competent",
+      "proficient": "Proficient",
+      "expert": "Expert"
+    }
+  },
+  "agentParty": {
+    "title": "AI Rivals",
+    "rivalCount_one": "{{count}} rival",
+    "rivalCount_other": "{{count}} rivals"
+  },
+  "party": {
+    "cancel": "Cancel",
+    "editName": "Edit party name",
+    "editMaxMembers": "Edit max members",
+    "memberCount_one": "{{count}} member",
+    "memberCount_other": "{{count}} members",
+    "memberCountPremium_one": "{{count}} member ✨ Premium",
+    "memberCountPremium_other": "{{count}} members ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} member",
+    "membersOf_other": "{{current}}/{{count}} members",
+    "shareLink": "Share this link with current team members to join this puzzle",
+    "you": "(you)",
+    "notStarted": "Not started! Ask them to play"
+  },
+  "partyConfirmation": {
+    "cancel": "Cancel",
+    "leaveAgentParty": {
+      "title": "Remove AI Rivals",
+      "action": "Remove",
+      "processing": "Removing...",
+      "message": "Are you sure you want to remove all AI Rivals? They will no longer appear in the race."
+    },
+    "removeAgent": {
+      "title": "Remove Local Agent",
+      "action": "Remove",
+      "processing": "Removing...",
+      "message": "Are you sure you want to remove \"{{memberName}}\" from the race?"
+    },
+    "deleteParty": {
+      "title": "Delete Party",
+      "action": "Delete Party",
+      "processing": "Deleting...",
+      "message": "Are you sure you want to delete \"{{partyName}}\"? This will permanently remove the party and all members will lose access. This action cannot be undone."
+    },
+    "leave": {
+      "title": "Leave Party",
+      "action": "Leave",
+      "processing": "Leaving...",
+      "message": "Are you sure you want to leave \"{{partyName}}\"? You will no longer see other members' progress or be able to participate in this party."
+    },
+    "remove": {
+      "title": "Remove Member",
+      "action": "Remove",
+      "processing": "Removing...",
+      "message": "Are you sure you want to remove \"{{memberName}}\" from \"{{partyName}}\"? They will no longer be able to participate in this party."
+    }
+  },
+  "friends": {
+    "allTeams": "All teams",
+    "refresh": "Refresh",
+    "refreshing": "Refreshing…",
+    "title": "Friends' Puzzles",
+    "subtitle": "Tap a friend to see their recent puzzles and race them.",
+    "memberCount_one": "{{count}} member",
+    "memberCount_other": "{{count}} members",
+    "noRecentPuzzles": "No recent puzzles — challenge them!",
+    "empty": {
+      "title": "No racing teams yet",
+      "description": "Invite friends from the Races lobby when solving a puzzle"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Your puzzles from the past 30 days.",
+    "empty": {
+      "title": "No puzzles yet",
+      "description": "Head to Start Race to solve your first puzzle"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} more feature",
+    "moreFeatures_other": "+{{count}} more features"
+  },
+  "crossPromo": {
+    "whyNotTry": "Why not try",
+    "tryItFree": "Try it free"
+  },
+  "rateApp": {
+    "prompt": "Enjoying {{appName}}?",
+    "rateIt": "Rate it",
+    "rateInSeconds": "Rate it in seconds"
+  },
+  "plus": {
+    "close": "Close modal",
+    "appIconAlt": "App Icon",
+    "lifetime": "Lifetime",
+    "monthly": "Monthly",
+    "perMonth": "{{price}}/month",
+    "whatsIncluded": "What's Included",
+    "continue": "Continue",
+    "restorePurchases": "Restore purchases",
+    "cancel": "Cancel"
+  },
+  "download": {
+    "title": "Continue in the app",
+    "appStoreAlt": "Download on the {{appStore}}",
+    "googlePlayAlt": "Get it on {{googlePlay}}",
+    "continueBrowser": "Continue in browser",
+    "continueDesktop": "Continue on desktop"
+  },
+  "session": {
+    "cheated": "Cheated",
+    "completedIn": "Completed in {{minutes}}m {{seconds}}s",
+    "percentComplete": "{{percentage}}% complete",
+    "duration": "{{minutes}}m {{seconds}}s",
+    "shortDate": "{{month}} {{day}}",
+    "dayOrdinal_ordinal_one": "{{count}}st",
+    "dayOrdinal_ordinal_two": "{{count}}nd",
+    "dayOrdinal_ordinal_few": "{{count}}rd",
+    "dayOrdinal_ordinal_other": "{{count}}th",
+    "puzzleNumber": "Puzzle #{{number}}",
+    "daily": "Daily {{date}}",
+    "book": "Book {{month}} #{{number}}",
+    "collection": "Collection {{month}} #{{number}}",
+    "scanned": "Scanned Puzzle",
+    "you": "You",
+    "unknown": "Unknown",
+    "unlockWith": "Unlock with {{label}}",
+    "lockedPuzzle": "Locked puzzle",
+    "recommendedTechniques": "Recommended Techniques:",
+    "loadingFriends": "Loading friends..."
+  }
+}

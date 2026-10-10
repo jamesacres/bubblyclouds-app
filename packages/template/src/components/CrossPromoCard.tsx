@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { isAndroid, isCapacitor, isIOS } from '../helpers/capacitor';
 
 interface CrossPromoCardProps {
@@ -23,6 +24,7 @@ export const CrossPromoCard = ({
   googlePlayUrl,
   className,
 }: CrossPromoCardProps) => {
+  const { t } = useTranslation('template');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -54,7 +56,7 @@ export const CrossPromoCard = ({
     >
       <div className="min-w-0 flex-1">
         <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-white/35">
-          Why not try
+          {t('crossPromo.whyNotTry')}
         </p>
         <p className="mb-1 text-xl font-black leading-tight text-white md:text-2xl">
           {gameName}
@@ -63,7 +65,7 @@ export const CrossPromoCard = ({
           {tagline}
         </p>
         <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white">
-          Try it free
+          {t('crossPromo.tryItFree')}
           <ArrowRight className="h-3.5 w-3.5 shrink-0" />
         </span>
       </div>

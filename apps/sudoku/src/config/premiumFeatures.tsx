@@ -8,6 +8,7 @@ import {
   Watch,
 } from 'lucide-react';
 import { ComponentType } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface PremiumFeature {
   icon: ComponentType<{ className?: string }>;
@@ -15,41 +16,44 @@ export interface PremiumFeature {
   description?: string;
 }
 
-export const PREMIUM_FEATURES: PremiumFeature[] = [
-  {
-    icon: Calendar,
-    title: 'Unlimited play and race',
-    description: 'Race friends in real-time more than once a day',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Unlimited hints',
-    description: 'Never get stuck — get a hint whenever you need one',
-  },
-  {
-    icon: LockOpen,
-    title: 'Entire monthly book unlocked, every month',
-    description: 'Play every puzzle in every difficulty, no locks',
-  },
-  {
-    icon: Watch,
-    title: 'Multiple racing teams',
-    description: 'Host private competitions with friends and family',
-  },
-  {
-    icon: Users,
-    title: 'Team management',
-    description:
-      'Create large parties up to 15 people, and remove members from your team.',
-  },
-  {
-    icon: Droplet,
-    title: 'All themes unlocked',
-    description: 'Personalise your racing experience',
-  },
-  {
-    icon: RotateCcw,
-    title: 'Unlimited undo, check and reveal',
-    description: 'Remove daily undo, check and reveal limits',
-  },
-];
+export function usePremiumFeatures(): PremiumFeature[] {
+  const { t } = useTranslation('app');
+
+  return [
+    {
+      icon: Calendar,
+      title: t('premiumFeatures.unlimitedPlay.title'),
+      description: t('premiumFeatures.unlimitedPlay.description'),
+    },
+    {
+      icon: Lightbulb,
+      title: t('premiumFeatures.unlimitedHints.title'),
+      description: t('premiumFeatures.unlimitedHints.description'),
+    },
+    {
+      icon: LockOpen,
+      title: t('premiumFeatures.monthlyBook.title'),
+      description: t('premiumFeatures.monthlyBook.description'),
+    },
+    {
+      icon: Watch,
+      title: t('premiumFeatures.multipleTeams.title'),
+      description: t('premiumFeatures.multipleTeams.description'),
+    },
+    {
+      icon: Users,
+      title: t('premiumFeatures.teamManagement.title'),
+      description: t('premiumFeatures.teamManagement.description'),
+    },
+    {
+      icon: Droplet,
+      title: t('premiumFeatures.themes.title'),
+      description: t('premiumFeatures.themes.description'),
+    },
+    {
+      icon: RotateCcw,
+      title: t('premiumFeatures.unlimitedActions.title'),
+      description: t('premiumFeatures.unlimitedActions.description'),
+    },
+  ];
+}

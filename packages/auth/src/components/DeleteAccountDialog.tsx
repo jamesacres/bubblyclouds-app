@@ -3,6 +3,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { AlertTriangle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface DeleteAccountDialogProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ export const DeleteAccountDialog = ({
   onClose,
   onConfirm,
 }: DeleteAccountDialogProps) => {
+  const { t } = useTranslation('auth');
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -67,14 +69,15 @@ export const DeleteAccountDialog = ({
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Delete Account
+                    {t('deleteDialog.title')}
                   </Dialog.Title>
                 </div>
 
                 <div className="mt-4">
                   <p className="text-sm text-gray-500">
-                    This action cannot be undone. All of your data across all
-                    Bubbly Clouds applications will be permanently deleted.
+                    {t('deleteDialog.warning', {
+                      companyName: t('brand.companyName'),
+                    })}
                   </p>
                 </div>
 
@@ -87,8 +90,9 @@ export const DeleteAccountDialog = ({
                       onChange={(e) => setIsConfirmed(e.target.checked)}
                     />
                     <span className="ml-2 text-sm text-gray-700">
-                      I confirm that I want to delete my entire account
-                      including all data across all Bubbly Clouds applications.
+                      {t('deleteDialog.confirmation', {
+                        companyName: t('brand.companyName'),
+                      })}
                     </span>
                   </label>
                 </div>
@@ -100,7 +104,7 @@ export const DeleteAccountDialog = ({
                     onClick={onClose}
                     disabled={isProcessing}
                   >
-                    Cancel
+                    {t('deleteDialog.cancel')}
                   </button>
                   <button
                     type="button"
@@ -112,7 +116,9 @@ export const DeleteAccountDialog = ({
                     onClick={handleConfirm}
                     disabled={!isConfirmed || isProcessing}
                   >
-                    {isProcessing ? 'Deleting...' : 'Delete Account'}
+                    {isProcessing
+                      ? t('deleteDialog.deleting')
+                      : t('deleteDialog.submit')}
                   </button>
                 </div>
               </Dialog.Panel>

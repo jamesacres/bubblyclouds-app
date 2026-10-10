@@ -49,6 +49,20 @@ describe('BookCover', () => {
     });
   });
 
+  describe('localisation', () => {
+    it('uses the gameName prop for the title', () => {
+      render(<BookCover month="January" gameName="Sudoku Dash" />);
+      expect(screen.getByText('SUDOKU DASH')).toBeInTheDocument();
+    });
+
+    it('renders the month tagline from the sudoku namespace', () => {
+      render(<BookCover month="January" />);
+      expect(
+        screen.getByText('Basic to Beyond Brutal Techniques')
+      ).toBeInTheDocument();
+    });
+  });
+
   describe('sizing', () => {
     it('should use medium size by default', () => {
       const { container } = render(<BookCover month="January" />);

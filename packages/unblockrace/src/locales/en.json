@@ -1,0 +1,394 @@
+{
+  "brand": {
+    "gameName": "Unblock Race"
+  },
+  "controls": {
+    "hint": "Hint",
+    "hintTitle": "Ask for help",
+    "undo": "Undo",
+    "redo": "Redo",
+    "reset": "Reset"
+  },
+  "labels": {
+    "time": "Time",
+    "moves": "Moves",
+    "stageOf": "Stage {{current}} of {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} move",
+    "moves_other": "{{count}} moves",
+    "par": "par",
+    "overPar": "{{delta}} over par",
+    "underPar": "{{delta}} under par"
+  },
+  "score": {
+    "moves": "moves",
+    "srOnPar": "moves, on par",
+    "srOverPar": "moves, {{delta}} over par",
+    "srUnderPar": "moves, {{delta}} under par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Daily · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Beginner",
+    "challenging": "Challenging",
+    "hard": "Hard",
+    "expert": "Expert"
+  },
+  "collection": {
+    "puzzleLabel": "Collection puzzle {{number}}",
+    "theme": {
+      "january": "New year, new jam",
+      "february": "Frozen gridlock",
+      "march": "Blown wide open",
+      "april": "Showers of blocks",
+      "may": "Fresh lanes bloom",
+      "june": "Peak clear-speed",
+      "july": "Summer racing series",
+      "august": "Red-hot gridlock",
+      "september": "Back to the board",
+      "october": "Haunted gridlock",
+      "november": "Clearing the lanes",
+      "december": "Holiday gridlock",
+      "default": "Monthly collection"
+    },
+    "error": {
+      "offline": "You are offline, please check your connection",
+      "loadFailed": "Failed to load puzzle collection"
+    }
+  },
+  "stageClear": {
+    "title": "Stage {{stage}} clear",
+    "onPar": "On par",
+    "pointsSuffix": " pts",
+    "leaderboardPoints": "Leaderboard points",
+    "nextStage": "Next stage",
+    "progress": "Stage {{stage}} of {{total}} — {{remaining}} to go"
+  },
+  "hint": {
+    "unsolvable": "No way through from here — undo or reset to get back on track",
+    "dismiss": "Dismiss hint notice"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Keep the streak going in the collection"
+  },
+  "raceTrack": {
+    "collection": "Collection"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Retry this stage?",
+      "body": "Your current time and moves will be replaced.",
+      "confirm": "Retry"
+    },
+    "reset": {
+      "title": "Reset this puzzle?",
+      "body": "This clears your moves and starts the puzzle over.",
+      "confirm": "Reset"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bee",
+      "personality": "Restless and enthusiastic. Slides blocks around in bursts, then stalls. Near the exit, speeds up too early and jams the lane just before finishing.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! This one slides!",
+          "Wait—no, that blocks me...",
+          "Buzz buzz! Making room!"
+        ],
+        "playerAhead": [
+          "Hey, slow down!",
+          "I was clearing a path…"
+        ],
+        "playerBehind": [
+          "I’m catching up!",
+          "Look at me slide!"
+        ],
+        "endgame": [
+          "The exit! I see it!",
+          "Wait—who parked that there?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "duck",
+      "personality": "Cheerful and aimless. Slow and steady with long pauses. In the endgame, drifts out of the gridlock almost by accident.",
+      "voiceLines": {
+        "neutral": [
+          "Just nudging things along...",
+          "Hmm... maybe this block."
+        ],
+        "playerAhead": [
+          "You’re doing great!",
+          "I’ll get out eventually."
+        ],
+        "playerBehind": [
+          "Oh! That one moved!",
+          "This is nice."
+        ],
+        "endgame": [
+          "Is that the exit?",
+          "Oh! The road cleared itself."
+        ]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "lizard",
+      "personality": "Cautious and observant. Long pauses, then small clusters of slides. In the endgame, hesitates before each move.",
+      "voiceLines": {
+        "neutral": [
+          "Let me check what that frees up.",
+          "That slide should be safe."
+        ],
+        "playerAhead": [
+          "I need to be careful now.",
+          "Don’t jam the lane."
+        ],
+        "playerBehind": [
+          "Okay… catching up.",
+          "Still time."
+        ],
+        "endgame": [
+          "Careful now...",
+          "Almost out… just need to be sure."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "spider",
+      "personality": "Deliberate and structured. Clears the lane carefully, block by block. In the endgame, the plan breaks down — hesitation creeps in as if the route no longer holds.",
+      "voiceLines": {
+        "neutral": [
+          "That opens the route.",
+          "Block by block..."
+        ],
+        "playerAhead": [
+          "The route was working...",
+          "I need to re-plan..."
+        ],
+        "playerBehind": [
+          "Still holding together.",
+          "Yes… the lane is opening."
+        ],
+        "endgame": [
+          "Wait—no, that blocks me back in.",
+          "I had this route planned..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "raccoon",
+      "personality": "Scrappy and opportunistic. Uneven rhythm. In the endgame, finds momentum and slides out faster than expected.",
+      "voiceLines": {
+        "neutral": [
+          "That shifts it!",
+          "Bit of a squeeze, but I’ll take it."
+        ],
+        "playerAhead": [
+          "Alright, time to push.",
+          "Not boxed in yet."
+        ],
+        "playerBehind": [
+          "Oh—nice gap.",
+          "The lane’s opening up now."
+        ],
+        "endgame": [
+          "Yep, clear road ahead.",
+          "Now it’s rolling."
+        ]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "penguin",
+      "personality": "Structured and methodical. Consistent pace. Endgame stays steady — no panic, no sprint.",
+      "voiceLines": {
+        "neutral": [
+          "That slide fits the route.",
+          "Staying consistent."
+        ],
+        "playerAhead": [
+          "Maintain pace.",
+          "No need to rush the grid."
+        ],
+        "playerBehind": [
+          "Still on track.",
+          "The lane clears steadily."
+        ],
+        "endgame": [
+          "Nearly through.",
+          "Exit cleanly."
+        ]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "monkey",
+      "personality": "Erratic and unsettling. Unpredictable bursts. In the endgame, suddenly accelerates in a way that feels unfair.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… didn’t see that gap?",
+          "Oh that’s an interesting slide."
+        ],
+        "playerAhead": [
+          "Don’t get comfortable.",
+          "Watch this move."
+        ],
+        "playerBehind": [
+          "Traffic just parts sometimes.",
+          "Lucky slide… or was it?"
+        ],
+        "endgame": [
+          "Oh wow—the road’s wide open.",
+          "That cleared quickly."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "eagle",
+      "personality": "Detached and fluid. Spaced-out, confident slides. Quiet endgame acceleration.",
+      "voiceLines": {
+        "neutral": [
+          "Already saw the route.",
+          "Just sliding through it."
+        ],
+        "playerAhead": [
+          "Doesn’t change the route.",
+          "Same exit either way."
+        ],
+        "playerBehind": [
+          "It’s cleared, really.",
+          "Coasting from here."
+        ],
+        "endgame": [
+          "…almost out.",
+          "Rolling to the exit."
+        ]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "fox",
+      "personality": "Intense and competitive. Fast start, constant pressure. Endgame surge feels aggressive.",
+      "voiceLines": {
+        "neutral": [
+          "Keep up.",
+          "Still stuck in traffic?"
+        ],
+        "playerAhead": [
+          "Don’t stall now.",
+          "You can slide faster than that."
+        ],
+        "playerBehind": [
+          "Too slow.",
+          "You’re boxed in."
+        ],
+        "endgame": [
+          "Clear the lane.",
+          "This exit is mine."
+        ]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "shark",
+      "personality": "Patient and predatory. Stays close, then closes hard in the endgame.",
+      "voiceLines": {
+        "neutral": [
+          "Right behind you.",
+          "Not yet."
+        ],
+        "playerAhead": [
+          "Stay in your lane.",
+          "I’m close now."
+        ],
+        "playerBehind": [
+          "Closing in.",
+          "There’s the gap."
+        ],
+        "endgame": [
+          "Now we slide out.",
+          "Got the exit."
+        ]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "owl",
+      "personality": "Calm and deliberate. Smooth pacing. Endgame is clean and inevitable.",
+      "voiceLines": {
+        "neutral": [
+          "As expected.",
+          "Every block in its place."
+        ],
+        "playerAhead": [
+          "Good.",
+          "You see the route."
+        ],
+        "playerBehind": [
+          "Follow the lane.",
+          "Stay with it."
+        ],
+        "endgame": [
+          "Nearly through.",
+          "There’s the exit."
+        ]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "black_cat",
+      "personality": "Silent and inhuman. Minimal pauses. Endgame is a rapid, uninterrupted slide to the exit.",
+      "voiceLines": {
+        "neutral": [
+          "...",
+          "..."
+        ],
+        "playerAhead": [
+          "...",
+          "…still."
+        ],
+        "playerBehind": [
+          "Too late.",
+          "You hesitated."
+        ],
+        "endgame": [
+          "…out.",
+          "Exit."
+        ]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "dragon",
+      "personality": "Effortless and absolute. Maintains perfect control throughout. In the endgame, executes a decisive, uninterrupted sweep to the exit — no openings, no resistance.",
+      "voiceLines": {
+        "neutral": [
+          "Expected.",
+          "No deviation."
+        ],
+        "playerAhead": [
+          "You chose well to try.",
+          "Continue."
+        ],
+        "playerBehind": [
+          "This concludes.",
+          "No alternative."
+        ],
+        "endgame": [
+          "That’s all.",
+          "Clear."
+        ]
+      }
+    }
+  }
+}

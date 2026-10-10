@@ -33,23 +33,25 @@ export interface TimingState {
 }
 
 export interface AgentConfig {
+  id: string;
   name: string;
   emoji: string;
   emojiName: string;
   emotionalRole: string;
   skillLevel: DreyfusLevel;
-  personality: string;
   timingCurve: TimingCurve;
-  voiceLines: {
-    neutral: string[];
-    playerAhead: string[];
-    playerBehind: string[];
-    endgame: string[];
-  };
 }
+
+export interface AgentIdentity {
+  id: string;
+  name: string;
+}
+
+export type AgentDisplayResolver = (agent: AgentIdentity) => string;
 
 export interface LocalAgent<Extra, State> {
   id: string;
+  configId: string;
   name: string;
   emoji: string;
   skillLevel: DreyfusLevel;

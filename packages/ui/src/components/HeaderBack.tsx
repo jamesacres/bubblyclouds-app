@@ -3,8 +3,10 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 
 import { ChevronLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const HeaderBack = ({ appName }: { appName: string }) => {
+  const { t } = useTranslation('ui');
   const router = useRouter();
   const pathname = usePathname();
   return pathname === '/' ? (
@@ -23,7 +25,7 @@ const HeaderBack = ({ appName }: { appName: string }) => {
       onClick={() => router.replace('/')}
     >
       <ChevronLeft className="h-5 w-5" />
-      <span className="text-base font-medium">Back</span>
+      <span className="text-base font-medium">{t('header.back')}</span>
     </button>
   );
 };

@@ -729,7 +729,9 @@ describe('scoringUtils', () => {
         },
       ] as any;
 
-      expect(getUsernameFromParties('user-2', parties)).toBe('Bob');
+      expect(getUsernameFromParties('user-2', parties, 'Unknown User')).toBe(
+        'Bob'
+      );
     });
 
     it('should return "Unknown User" when not found', () => {
@@ -741,7 +743,9 @@ describe('scoringUtils', () => {
         },
       ] as any;
 
-      expect(getUsernameFromParties('user-999', parties)).toBe('Unknown User');
+      expect(getUsernameFromParties('user-999', parties, 'Unknown User')).toBe(
+        'Unknown User'
+      );
     });
 
     it('should return first match in multiple parties', () => {
@@ -758,11 +762,15 @@ describe('scoringUtils', () => {
         },
       ] as any;
 
-      expect(getUsernameFromParties('user-2', parties)).toBe('Bob');
+      expect(getUsernameFromParties('user-2', parties, 'Unknown User')).toBe(
+        'Bob'
+      );
     });
 
     it('should handle empty parties array', () => {
-      expect(getUsernameFromParties('user-1', [])).toBe('Unknown User');
+      expect(getUsernameFromParties('user-1', [], 'Unknown User')).toBe(
+        'Unknown User'
+      );
     });
   });
 });

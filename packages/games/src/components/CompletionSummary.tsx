@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import { RotateCcw } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 
 interface CompletionSummaryProps {
@@ -33,6 +34,7 @@ const CompletionSummary = ({
   label,
   onRetry,
 }: CompletionSummaryProps) => {
+  const { t } = useTranslation('games');
   return (
     <div
       data-testid="completion-summary"
@@ -40,7 +42,7 @@ const CompletionSummary = ({
     >
       {label && (
         <span className="text-[0.65rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
-          {label} · complete
+          {t('completionSummary.complete', { label })}
         </span>
       )}
       {onRetry && (
@@ -51,7 +53,7 @@ const CompletionSummary = ({
           className="flex cursor-pointer items-center gap-1 rounded-lg px-1.5 py-0.5 text-xs font-semibold text-stone-500 transition-all duration-200 hover:bg-stone-500/10 hover:text-stone-800 active:scale-95 dark:text-zinc-400 dark:hover:bg-white/5 dark:hover:text-zinc-100"
         >
           <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" />
-          Retry
+          {t('completionSummary.retry')}
         </button>
       )}
       {stars !== undefined && <StarRating rating={stars} size="lg" />}
@@ -59,10 +61,10 @@ const CompletionSummary = ({
       {points !== undefined && (
         <div className="flex flex-col items-center gap-0.5">
           <span className="font-mono text-xl font-black tabular-nums text-amber-600 dark:text-amber-400">
-            +{points} pts
+            {t('completionSummary.points', { points })}
           </span>
           <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
-            Leaderboard points
+            {t('completionSummary.leaderboardPoints')}
           </span>
         </div>
       )}

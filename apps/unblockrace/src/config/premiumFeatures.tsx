@@ -8,6 +8,7 @@ import {
   Watch,
 } from 'lucide-react';
 import { ComponentType } from 'react';
+import { Translate } from '@bubblyclouds-app/template/types/i18n';
 
 export interface PremiumFeature {
   icon: ComponentType<{ className?: string }>;
@@ -15,41 +16,40 @@ export interface PremiumFeature {
   description?: string;
 }
 
-export const PREMIUM_FEATURES: PremiumFeature[] = [
+export const getPremiumFeatures = (t: Translate): PremiumFeature[] => [
   {
     icon: Sparkles,
-    title: 'Always ad free',
-    description: 'No ads, ever — just you and the puzzles',
+    title: t('premiumFeatures.adFree.title'),
+    description: t('premiumFeatures.adFree.description'),
   },
   {
     icon: Lightbulb,
-    title: 'Unlimited hints',
-    description: 'Never get stuck — get a hint whenever you need one',
+    title: t('premiumFeatures.hints.title'),
+    description: t('premiumFeatures.hints.description'),
   },
   {
     icon: LockOpen,
-    title: 'Entire monthly pack unlocked, every month',
-    description: 'Play every puzzle in every difficulty, no locks',
+    title: t('premiumFeatures.monthlyPack.title'),
+    description: t('premiumFeatures.monthlyPack.description'),
   },
   {
     icon: Undo2,
-    title: 'Unlimited undos',
-    description: 'Rewind as many moves as you like',
+    title: t('premiumFeatures.undos.title'),
+    description: t('premiumFeatures.undos.description'),
   },
   {
     icon: Watch,
-    title: 'Multiple racing teams',
-    description: 'Host private competitions with friends and family',
+    title: t('premiumFeatures.teams.title'),
+    description: t('premiumFeatures.teams.description'),
   },
   {
     icon: Users,
-    title: 'Team management',
-    description:
-      'Create large parties up to 15 people, and remove members from your team.',
+    title: t('premiumFeatures.management.title'),
+    description: t('premiumFeatures.management.description'),
   },
   {
     icon: Droplet,
-    title: 'All themes unlocked',
-    description: 'Personalise your racing experience',
+    title: t('premiumFeatures.themes.title'),
+    description: t('premiumFeatures.themes.description'),
   },
 ];

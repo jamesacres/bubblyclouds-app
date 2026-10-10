@@ -1,6 +1,7 @@
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { PlayerRunResult, PlayerStageResult } from '../types/scoringTypes';
 import { RunStage } from '../types/runTypes';
+import { AgentDisplayResolver } from '../types/Agent';
 
 // The minimal shape any game's session state must have for run results to
 // read a stage's completion time — the rest of the state (score-specific
@@ -17,6 +18,7 @@ const getCompletedSeconds = <State extends CompletedRunState>(
 // results, recorded as the run reaches the end of each stage.
 export interface AgentRunInput<Score> {
   agentId: string;
+  configId: string;
   name: string;
   emoji?: string;
   stageResults: Map<number, PlayerStageResult<Score>>;
@@ -136,6 +138,7 @@ export const calculateRunResults = <
   agentResults,
   isCheated,
   extractScore,
+  resolveAgentName,
 }: {
   stages: Stage[];
   runStageParties: { [stageId: string]: Parties<Session<State>> };
@@ -144,6 +147,7 @@ export const calculateRunResults = <
   agentResults?: AgentRunInput<Score>[];
   isCheated: (session: Session<State>) => boolean;
   extractScore: (session: Session<State>, stage: Stage) => Score | undefined;
+  resolveAgentName: AgentDisplayResolver;
 }): PlayerRunResult<Score>[] => {
   const linesByUser = new Map<
     string,
@@ -208,7 +212,7 @@ export const calculateRunResults = <
         isCurrentUser: false,
         stageResults,
         ...runTotals(stageResults),
-        nickname: agent.name,
+        nickname: resolveAgentName({ id: agent.configId, name: agent.name }),
         isAgent: true,
         emoji: agent.emoji,
       };

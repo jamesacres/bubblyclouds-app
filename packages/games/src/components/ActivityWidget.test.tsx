@@ -15,7 +15,7 @@ const { calculateActivityStats } = jest.requireMock(
 
 const makeSevenDays = (overrides: Partial<DayActivity>[] = []): DayActivity[] =>
   Array.from({ length: 7 }, (_, i) => ({
-    label: ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'][i],
+    dayIndex: i,
     puzzleCount: 0,
     isToday: i === 6,
     ...overrides[i],

@@ -1,6 +1,7 @@
 'use client';
 import { ComponentType } from 'react';
 import { Award } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 import IntegratedSessionRow from './IntegratedSessionRow';
 import { BaseServerState } from '../types/state';
@@ -33,6 +34,7 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
   getMovesDisplay,
   getStarRating,
 }: MyPuzzlesTabProps<State>) => {
+  const { t } = useTranslation('template');
   const allSessions = sessions?.sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
   );
@@ -42,7 +44,7 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
       {allSessions?.length ? (
         <div className="mb-4">
           <p className="mb-3 text-sm text-zinc-500 dark:text-zinc-400">
-            Your puzzles from the past 30 days.
+            {t('myPuzzles.pastThirtyDays')}
           </p>
           <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
             {allSessions.map((session) => (
@@ -69,10 +71,10 @@ export const MyPuzzlesTab = <State extends BaseServerState = BaseServerState>({
             <Award className="h-7 w-7 text-zinc-400 dark:text-zinc-500" />
           </div>
           <p className="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
-            No puzzles yet
+            {t('myPuzzles.empty.title')}
           </p>
           <p className="mt-1 max-w-[220px] text-xs text-zinc-400 dark:text-zinc-500">
-            Head to Start Race to solve your first puzzle
+            {t('myPuzzles.empty.description')}
           </p>
         </div>
       )}

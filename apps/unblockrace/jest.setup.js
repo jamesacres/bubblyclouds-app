@@ -4,6 +4,8 @@
 // Import testing-library matchers
 require('@testing-library/jest-dom');
 
+require('../../jest.setup.i18n').addAppBundle(require('./src/locales/en.json'));
+
 // Mock @headlessui/react components
 jest.mock('@headlessui/react', () => {
   const React = require('react');
@@ -504,6 +506,7 @@ if (typeof global.Request === 'undefined') {
 // Mock PointerEvent for Node environment
 if (
   typeof window !== 'undefined' &&
+  typeof MouseEvent !== 'undefined' &&
   typeof window.PointerEvent === 'undefined'
 ) {
   window.PointerEvent = class PointerEvent extends MouseEvent {

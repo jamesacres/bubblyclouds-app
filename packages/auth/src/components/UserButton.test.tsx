@@ -2,29 +2,36 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { UserButton } from './UserButton';
 import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
+import { I18nProvider } from '@bubblyclouds-app/ui/providers/I18nProvider';
+import ui from '@bubblyclouds-app/ui/locales/en';
+import auth from '../locales/en.json';
+
+let mockUseActualPanel = false;
 
 jest.mock('./UserPanel', () => ({
   __esModule: true,
-  UserPanel: ({
-    user,
-    logout: _logout,
-    isMobile,
-    onClose,
-  }: {
+  UserPanel: (props: {
     user: UserProfile;
     logout: () => void;
     isMobile: boolean;
     onClose?: () => void;
-  }) => (
-    <div data-testid={isMobile ? 'mobile-user-panel' : 'user-panel'}>
-      User Panel - {user.name}
-      {isMobile && onClose && (
-        <button data-testid="mobile-close" onClick={onClose}>
-          Close
-        </button>
-      )}
-    </div>
-  ),
+  }) => {
+    if (mockUseActualPanel) {
+      const Actual = jest.requireActual('./UserPanel').UserPanel;
+      return <Actual {...props} />;
+    }
+    const { user, isMobile, onClose } = props;
+    return (
+      <div data-testid={isMobile ? 'mobile-user-panel' : 'user-panel'}>
+        User Panel - {user.name}
+        {isMobile && onClose && (
+          <button data-testid="mobile-close" onClick={onClose}>
+            Close
+          </button>
+        )}
+      </div>
+    );
+  },
 }));
 
 jest.mock('./UserAvatar', () => ({
@@ -214,6 +221,49 @@ describe('UserButton', () => {
         configurable: true,
         value: 1024,
       });
+    });
+  });
+
+  describe('language selector', () => {
+    const resources = {
+      en: { app: {}, ui, auth },
+      fr: { app: {}, ui, auth },
+    };
+
+    const renderOpenButton = (supportedLocales: string[]) => {
+      render(
+        <I18nProvider
+          resources={resources}
+          defaultLocale="en"
+          supportedLocales={supportedLocales}
+        >
+          <UserButton
+            user={mockUser}
+            logout={mockLogout}
+            {...mockUserButtonProps}
+          />
+        </I18nProvider>
+      );
+      fireEvent.click(screen.getByTestId('user-avatar'));
+    };
+
+    beforeEach(() => {
+      mockUseActualPanel = true;
+    });
+
+    afterEach(() => {
+      mockUseActualPanel = false;
+    });
+
+    it('is hidden with a single supported locale', async () => {
+      renderOpenButton(['en']);
+      await screen.findByText('Sign out');
+      expect(screen.queryByLabelText('Language')).not.toBeInTheDocument();
+    });
+
+    it('is visible with two supported locales', async () => {
+      renderOpenButton(['en', 'fr']);
+      expect(await screen.findByLabelText('Language')).toBeInTheDocument();
     });
   });
 });

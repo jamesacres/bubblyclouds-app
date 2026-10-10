@@ -154,6 +154,31 @@ function MyComponent() {
 - `themeColor: string` - Current theme color (hex)
 - `setThemeColor: (color: string) => void` - Update theme color
 
+#### `I18nProvider` / `useLocale`
+
+Owns the i18n core (`i18next` + `react-i18next`). Apps pass their assembled
+`resources`, `defaultLocale` and `supportedLocales`.
+
+```tsx
+import { I18nProvider } from "@bubblyclouds-app/ui/providers/I18nProvider";
+
+<I18nProvider
+  resources={resources}
+  defaultLocale={DEFAULT_LOCALE}
+  supportedLocales={supportedLocales}
+>
+  <App />
+</I18nProvider>;
+```
+
+`useLocale()` returns `{ locale, supportedLocales, preference, setLocale }`.
+`setLocale(null)` clears the stored choice and re-detects.
+`createI18n` (`config/i18n`) builds a synchronous instance without React or the
+DOM, `resolveLocale` (`helpers/resolveLocale`) matches candidate tags to
+supported locales, and `LanguageSelect` (`components/LanguageSelect`) renders
+nothing unless more than one locale is supported. Its own strings live in
+`src/locales/en.json` under the `ui` namespace.
+
 ### Helpers
 
 #### Platform Detection

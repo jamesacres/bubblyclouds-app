@@ -1,9 +1,15 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { SUBSCRIPTION_CONTEXT_MESSAGES } from './subscriptionMessages';
+import { render, renderHook } from '@testing-library/react';
+import { useTranslation } from 'react-i18next';
+import { getSubscriptionContextMessages } from './subscriptionMessages';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 
-describe('SUBSCRIPTION_CONTEXT_MESSAGES', () => {
+const { result } = renderHook(() => useTranslation('app'));
+const SUBSCRIPTION_CONTEXT_MESSAGES = getSubscriptionContextMessages(
+  result.current.t
+);
+
+describe('getSubscriptionContextMessages', () => {
   const expectedContexts: (keyof typeof SUBSCRIPTION_CONTEXT_MESSAGES)[] = [
     SubscriptionContext.HINT,
     SubscriptionContext.UNDO,
@@ -18,6 +24,17 @@ describe('SUBSCRIPTION_CONTEXT_MESSAGES', () => {
     expectedContexts.forEach((context) => {
       expect(SUBSCRIPTION_CONTEXT_MESSAGES[context]).toBeDefined();
     });
+  });
+
+  it('interpolates the daily limits and never renders raw keys', () => {
+    const { container } = render(
+      <>
+        {SUBSCRIPTION_CONTEXT_MESSAGES[SubscriptionContext.HINT].content}
+        {SUBSCRIPTION_CONTEXT_MESSAGES[SubscriptionContext.UNDO].content}
+      </>
+    );
+    expect(container.textContent).not.toContain('subscription.');
+    expect(container.textContent).not.toContain('{{');
   });
 
   it.each(expectedContexts)(

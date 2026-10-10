@@ -1,3 +1,5 @@
+import { Translate } from '../types/i18n';
+
 export type Techniques = Partial<{
   basic: Partial<{ [key: string]: number }>;
   simple: Partial<{ [key: string]: number }>;
@@ -7,63 +9,61 @@ export type Techniques = Partial<{
   beyondBrutal: Partial<{ [key: string]: number }>;
 }>;
 
-export const getTechniquesDisplay = (techniques?: Techniques) => {
+export const getTechniquesDisplay = (
+  techniques: Techniques | undefined,
+  t: Translate
+) => {
   if (!techniques) return [];
 
   const techniqueNames: { [key: string]: string } = {
-    // Basic
-    lastDigit: 'Last Digit',
-    hiddenSingleBox: 'Hidden Single (Box)',
-    hiddenSingleLine: 'Hidden Single (Line)',
-    hiddenSingleVariantRegion: 'Hidden Single (Variant Region)',
-    nakedSingle: 'Naked Single',
-    // Simple
-    hiddenPair: 'Hidden Pair',
-    lockedCandidate: 'Locked Candidate',
-    hiddenTriple: 'Hidden Triple',
-    hiddenQuadruple: 'Hidden Quadruple',
-    nakedPair: 'Naked Pair',
-    nakedTriple: 'Naked Triple',
-    nakedQuadruple: 'Naked Quadruple',
-    // Advanced
-    xWing: 'X-Wing',
-    swordfish: 'Swordfish',
-    skyscraper: 'Skyscraper',
-    twoStringKite: 'Two-String-Kite',
-    crane: 'Crane',
-    simpleColoring: 'Simple Coloring',
-    yWing: 'Y-Wing',
-    xYZWing: 'XYZ-Wing',
-    wWing: 'W-Wing',
-    finnedSashimiXWing: 'Finned/Sashimi X-Wing',
-    emptyRectangle: 'Empty Rectangle',
-    uniqueRectangleType1: 'Unique Rectangle Type 1',
-    uniqueRectangleType2: 'Unique Rectangle Type 2',
-    uniqueRectangleType3: 'Unique Rectangle Type 3',
-    uniqueRectangleType4: 'Unique Rectangle Type 4',
-    uniqueRectangleType5: 'Unique Rectangle Type 5',
-    // Hard
-    finnedSashimiSwordfish: 'Finned/Sashimi Swordfish',
-    jellyfish: 'Jellyfish',
-    bugBinaryUniversalGrave: 'BUG (Binary Universal Grave)',
-    xChain: 'X-Chain',
-    groupedXChain: 'Grouped X-Chain',
-    YWing4WXYZWing: '4-Y-Wing (WXYZ-Wing)',
-    yWing5: '5-Y-Wing',
-    yWing6: '6-Y-Wing',
-    yWing7: '7-Y-Wing',
-    yWing8: '8-Y-Wing',
-    yWing9: '9-Y-Wing',
-    finnedSashimiJellyfish: 'Finned/Sashimi Jellyfish',
-    // Brutal
-    medusa3D: '3D Medusa',
-    xyChain: 'XY-Chain',
-    alternatingInferenceChainAIC: 'Alternating Inference Chain (AIC)',
-    groupedAlternatingInferenceChainAIC:
-      'Grouped Alternating Inference Chain (AIC)',
-    // Beyond Brutal
-    nishioForcingChain: 'Nishio Forcing Chain',
-    nishioForcingNet: 'Nishio Forcing Net',
+    lastDigit: t('techniques.lastDigit'),
+    hiddenSingleBox: t('techniques.hiddenSingleBox'),
+    hiddenSingleLine: t('techniques.hiddenSingleLine'),
+    hiddenSingleVariantRegion: t('techniques.hiddenSingleVariantRegion'),
+    nakedSingle: t('techniques.nakedSingle'),
+    hiddenPair: t('techniques.hiddenPair'),
+    lockedCandidate: t('techniques.lockedCandidate'),
+    hiddenTriple: t('techniques.hiddenTriple'),
+    hiddenQuadruple: t('techniques.hiddenQuadruple'),
+    nakedPair: t('techniques.nakedPair'),
+    nakedTriple: t('techniques.nakedTriple'),
+    nakedQuadruple: t('techniques.nakedQuadruple'),
+    xWing: t('techniques.xWing'),
+    swordfish: t('techniques.swordfish'),
+    skyscraper: t('techniques.skyscraper'),
+    twoStringKite: t('techniques.twoStringKite'),
+    crane: t('techniques.crane'),
+    simpleColoring: t('techniques.simpleColoring'),
+    yWing: t('techniques.yWing'),
+    xYZWing: t('techniques.xYZWing'),
+    wWing: t('techniques.wWing'),
+    finnedSashimiXWing: t('techniques.finnedSashimiXWing'),
+    emptyRectangle: t('techniques.emptyRectangle'),
+    uniqueRectangleType1: t('techniques.uniqueRectangleType1'),
+    uniqueRectangleType2: t('techniques.uniqueRectangleType2'),
+    uniqueRectangleType3: t('techniques.uniqueRectangleType3'),
+    uniqueRectangleType4: t('techniques.uniqueRectangleType4'),
+    uniqueRectangleType5: t('techniques.uniqueRectangleType5'),
+    finnedSashimiSwordfish: t('techniques.finnedSashimiSwordfish'),
+    jellyfish: t('techniques.jellyfish'),
+    bugBinaryUniversalGrave: t('techniques.bugBinaryUniversalGrave'),
+    xChain: t('techniques.xChain'),
+    groupedXChain: t('techniques.groupedXChain'),
+    YWing4WXYZWing: t('techniques.YWing4WXYZWing'),
+    yWing5: t('techniques.yWing5'),
+    yWing6: t('techniques.yWing6'),
+    yWing7: t('techniques.yWing7'),
+    yWing8: t('techniques.yWing8'),
+    yWing9: t('techniques.yWing9'),
+    finnedSashimiJellyfish: t('techniques.finnedSashimiJellyfish'),
+    medusa3D: t('techniques.medusa3D'),
+    xyChain: t('techniques.xyChain'),
+    alternatingInferenceChainAIC: t('techniques.alternatingInferenceChainAIC'),
+    groupedAlternatingInferenceChainAIC: t(
+      'techniques.groupedAlternatingInferenceChainAIC'
+    ),
+    nishioForcingChain: t('techniques.nishioForcingChain'),
+    nishioForcingNet: t('techniques.nishioForcingNet'),
   };
 
   const categoryColors: { [key: string]: string } = {

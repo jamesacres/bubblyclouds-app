@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface CollectionCoverProps {
   title: string;
@@ -31,7 +32,7 @@ const SIZES = {
 const CollectionCover = ({
   title,
   gameLabel,
-  kicker = 'Monthly collection',
+  kicker,
   size = 'medium',
   variant = 'portrait',
   background,
@@ -41,6 +42,8 @@ const CollectionCover = ({
   iconAnimationClass,
   children,
 }: CollectionCoverProps) => {
+  const { t } = useTranslation('games');
+  const kickerText = kicker ?? t('collectionCover.monthlyCollection');
   if (variant === 'tile') {
     return (
       <div
@@ -76,7 +79,7 @@ const CollectionCover = ({
         </div>
       )}
       <p className="text-[10px] font-bold uppercase tracking-widest text-white/50">
-        {kicker}
+        {kickerText}
       </p>
       <p
         className="mb-3 text-xl font-black leading-tight text-white"

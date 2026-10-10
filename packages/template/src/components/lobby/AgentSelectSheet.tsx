@@ -1,12 +1,20 @@
 import { useState } from 'react';
 import { Check, ChevronRight, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { Translate } from '../../types/i18n';
 
 export interface AgentOption {
+  id: string;
   name: string;
   emoji: string;
   emojiName: string;
   skillLevel: string;
+}
+
+export interface AgentDisplay {
+  name: string;
   personality: string;
+  emojiName: string;
 }
 
 const SKILL_STYLES: Record<string, string> = {
@@ -21,27 +29,39 @@ const SKILL_STYLES: Record<string, string> = {
   expert: 'bg-red-500/20 text-red-700 border-red-500/30 dark:text-red-300',
 };
 
-const SKILL_LABELS: Record<string, string> = {
-  novice: 'Novice',
-  advancedBeginner: 'Adv. Beginner',
-  competent: 'Competent',
-  proficient: 'Proficient',
-  expert: 'Expert',
+const getSkillLabel = (skillLevel: string, t: Translate): string => {
+  switch (skillLevel) {
+    case 'novice':
+      return t('agentSelect.skill.novice');
+    case 'advancedBeginner':
+      return t('agentSelect.skill.advancedBeginner');
+    case 'competent':
+      return t('agentSelect.skill.competent');
+    case 'proficient':
+      return t('agentSelect.skill.proficient');
+    case 'expert':
+      return t('agentSelect.skill.expert');
+    default:
+      return skillLevel;
+  }
 };
 
 const AgentCard = ({
   agent,
+  display,
   selected,
   onToggle,
 }: {
   agent: AgentOption;
+  display: AgentDisplay;
   selected: boolean;
   onToggle: () => void;
 }) => {
+  const { t } = useTranslation('template');
   const skillStyle =
     SKILL_STYLES[agent.skillLevel] ??
     'bg-zinc-500/20 text-zinc-600 border-zinc-500/30 dark:text-zinc-300';
-  const skillLabel = SKILL_LABELS[agent.skillLevel] ?? agent.skillLevel;
+  const skillLabel = getSkillLabel(agent.skillLevel, t);
 
   return (
     <button
@@ -65,17 +85,17 @@ const AgentCard = ({
       <div className="flex items-center gap-3">
         <div
           className="flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-full"
-          aria-label={agent.emojiName}
+          aria-label={display.emojiName}
         >
           <img
             className="rounded-full border border-zinc-500/30"
-            src={`/opponents/${agent.name.toLowerCase()}.webp`}
+            src={`/opponents/${agent.id}.webp`}
           />
         </div>
         <div className="min-w-0 flex-1">
           <div className="mb-1 flex items-center gap-2">
             <span className="text-sm font-semibold tracking-tight text-white">
-              {agent.name}
+              {display.name}
             </span>
             <span
               className={`rounded-full border px-1.5 py-0.5 text-[10px] font-medium ${skillStyle}`}
@@ -87,7 +107,7 @@ const AgentCard = ({
             className="text-xs leading-snug"
             style={{ color: 'rgba(255,255,255,0.5)' }}
           >
-            {agent.personality}
+            {display.personality}
           </p>
         </div>
         <div
@@ -107,15 +127,18 @@ export function AgentSelectSheet({
   open,
   onClose,
   agentOptions,
+  getAgentDisplay,
   defaultSelectedAgentNames,
   onAgentMode,
 }: {
   open: boolean;
   onClose: () => void;
   agentOptions: AgentOption[];
+  getAgentDisplay: (agent: AgentOption) => AgentDisplay;
   defaultSelectedAgentNames: string[];
   onAgentMode: (selectedAgentNames: string[]) => void;
 }) {
+  const { t } = useTranslation('template');
   const [selectedNames, setSelectedNames] = useState<Set<string>>(
     () => new Set(defaultSelectedAgentNames)
   );
@@ -152,7 +175,7 @@ export function AgentSelectSheet({
     >
       <div
         onClick={onClose}
-        aria-label="Close sheet"
+        aria-label={t('agentSelect.closeSheet')}
         className="absolute inset-0"
         style={{
           background: 'rgba(2,1,8,0.66)',
@@ -189,16 +212,16 @@ export function AgentSelectSheet({
               background: 'rgba(255,255,255,0.05)',
               color: 'rgba(255,255,255,0.7)',
             }}
-            aria-label="Back"
+            aria-label={t('agentSelect.back')}
           >
             <ChevronRight className="h-4 w-4 rotate-180" />
           </button>
           <div className="flex-1">
             <h2 className="m-0 text-base font-bold tracking-tight text-white">
-              Pick Your Rivals
+              {t('agentSelect.title')}
             </h2>
             <p className="text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>
-              Select one or more opponents
+              {t('agentSelect.subtitle')}
             </p>
           </div>
           <button
@@ -209,7 +232,7 @@ export function AgentSelectSheet({
               background: 'rgba(255,255,255,0.05)',
               color: 'rgba(255,255,255,0.7)',
             }}
-            aria-label="Close"
+            aria-label={t('agentSelect.close')}
           >
             <X className="h-4 w-4" />
           </button>
@@ -220,6 +243,7 @@ export function AgentSelectSheet({
             <AgentCard
               key={agent.name}
               agent={agent}
+              display={getAgentDisplay(agent)}
               selected={selectedNames.has(agent.name)}
               onToggle={() => toggleAgent(agent.name)}
             />
@@ -239,8 +263,8 @@ export function AgentSelectSheet({
             className="bg-theme-primary hover:bg-theme-primary-dark w-full rounded-xl py-3.5 text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)] transition-all duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
           >
             {selectedCount === 0
-              ? 'Select at least one rival'
-              : `Race ${selectedCount} ${selectedCount === 1 ? 'Rival' : 'Rivals'}`}
+              ? t('agentSelect.selectAtLeastOne')
+              : t('agentSelect.race', { count: selectedCount })}
           </button>
         </div>
       </div>

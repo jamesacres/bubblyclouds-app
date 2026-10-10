@@ -1,0 +1,82 @@
+{
+  "dynamicPrefixes": {
+    "packages/games": [
+      {
+        "prefix": "agents.",
+        "external": true,
+        "reason": "useAgentDisplay/useAgentDisplayResolver build agents.<id>.* against the consuming package namespace (sudoku/unblockrace), so the keys live in those locale files, not in games"
+      }
+    ],
+    "packages/sudoku": [
+      {
+        "prefix": "agents.",
+        "reason": "useAgentDisplay resolves agents.<id>.{name,personality,emojiName}; voiceLines.<mood> arrays are kept in the locale but not rendered",
+        "expect": {
+          "source": "packages/sudoku/src/helpers/defaultAgents.ts",
+          "regex": "^\\s+id: '(\\w+)'",
+          "templates": [
+            "agents.{}.name",
+            "agents.{}.personality",
+            "agents.{}.emojiName",
+            "agents.{}.voiceLines.neutral",
+            "agents.{}.voiceLines.playerAhead",
+            "agents.{}.voiceLines.playerBehind",
+            "agents.{}.voiceLines.endgame"
+          ]
+        }
+      },
+      {
+        "prefix": "techniques.",
+        "reason": "SudokuControls looks up techniques.<hint.technique>; ids are the keys of TECHNIQUE_LEVELS (Record<Technique, ...>)",
+        "expect": {
+          "source": "packages/sudoku/src/helpers/techniqueCategories.ts",
+          "regex": "^\\s+(\\w+): DreyfusLevel\\.",
+          "templates": ["techniques.{}"]
+        }
+      },
+      {
+        "prefix": "bookCover.months.",
+        "reason": "BookCover looks up bookCover.months.<lowercased MONTH_NAMES entry or default>.{tagline,footer}",
+        "expect": {
+          "source": "packages/sudoku/src/components/BookCover.tsx",
+          "block": "const MONTH_NAMES = \\[(.*?)\\]",
+          "regex": "'(\\w+)'",
+          "lower": true,
+          "extra": ["default"],
+          "templates": [
+            "bookCover.months.{}.tagline",
+            "bookCover.months.{}.footer"
+          ]
+        }
+      },
+      {
+        "prefix": "bookProvider.errors.",
+        "reason": "BookProvider looks up bookProvider.errors.<errorCode>; codes are the setErrorCode literals",
+        "expect": {
+          "source": "packages/sudoku/src/providers/BookProvider.tsx",
+          "regex": "setErrorCode\\('(\\w+)'\\)",
+          "templates": ["bookProvider.errors.{}"]
+        }
+      }
+    ],
+    "packages/unblockrace": [
+      {
+        "prefix": "agents.",
+        "reason": "useAgentDisplay resolves agents.<id>.{name,personality,emojiName}; voiceLines.<mood> arrays are kept in the locale but not rendered",
+        "expect": {
+          "source": "packages/unblockrace/src/helpers/defaultAgents.ts",
+          "regex": "^\\s+id: '(\\w+)'",
+          "templates": [
+            "agents.{}.name",
+            "agents.{}.personality",
+            "agents.{}.emojiName",
+            "agents.{}.voiceLines.neutral",
+            "agents.{}.voiceLines.playerAhead",
+            "agents.{}.voiceLines.playerBehind",
+            "agents.{}.voiceLines.endgame"
+          ]
+        }
+      }
+    ]
+  }
+}

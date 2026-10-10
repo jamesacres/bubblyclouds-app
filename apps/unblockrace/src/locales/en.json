@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Unblock Race",
+    "gameName": "Unblock Race",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Play and share to race friends to unblock the puzzle. Daily challenges & cross-device!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Start Race",
+      "myPuzzles": "My Puzzles",
+      "racingTeams": "Racing Teams"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Clear the jam.",
+      "headlineAccent": "Win the race",
+      "subtitle": "Slide the blocks, break the glowing one free, and race your friends to the exit."
+    },
+    "leaderboard": "Leaderboard",
+    "dailyRace": {
+      "title": "Daily race",
+      "refreshesDaily": "refreshes daily",
+      "todaysRace": "Today's race",
+      "difficultyRange": "Beginner → Expert",
+      "description": "Five boards, one clock — fastest escape wins.",
+      "stages": "5 stages",
+      "start": "Start racing",
+      "morePuzzlesPrefix": "More puzzles in the",
+      "puzzleCollection": "puzzle collection"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 puzzles",
+      "title": "Monthly collection",
+      "description": "50 fresh jams for {{month}} — clear them all before the month is out.",
+      "browse": "Browse puzzles"
+    },
+    "teams": {
+      "eyebrow": "Multiplayer",
+      "title": "Racing teams",
+      "raceFriends": "Race {{names}} and more",
+      "challengeFriends": "Challenge friends to a race"
+    },
+    "premium": {
+      "title": "Premium features",
+      "subtitle": "Unlock the full $t(brand.gameName) experience"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudoku Race",
+    "tagline": "Share a Sudoku with friends and race to solve it fastest."
+  },
+  "puzzle": {
+    "mobileDescription": "Get the best experience with our {{appName}} app!",
+    "desktopDescription": "Download {{appName}}",
+    "openInAppLabel": "Open Puzzle"
+  },
+  "collection": {
+    "loading": {
+      "both": "Loading puzzle collection...",
+      "collection": "Loading puzzles...",
+      "sessions": "Loading your progress..."
+    },
+    "retry": "Try again",
+    "backHome": "Back to home",
+    "signInPrompt": "Sign in to access the puzzle collection.",
+    "signIn": "Sign in",
+    "noData": "No puzzle collection data available.",
+    "title": "{{month}} puzzle collection",
+    "completed": "completed",
+    "inProgress": "in progress",
+    "unlockWithPlus": "Unlock every puzzle with Plus",
+    "jumpToDifficulty": "Jump to difficulty",
+    "scrollToTop": "Scroll to top",
+    "subtitle_one": "{{count}} puzzle from quick escapes to expert gridlock",
+    "subtitle_other": "{{count}} puzzles from quick escapes to expert gridlock"
+  },
+  "invite": {
+    "loading": "Loading invitation...",
+    "iconAlt": "{{appName}} Icon",
+    "greeting": "👋 Hi {{name}}!",
+    "invited": "You're Invited!",
+    "joinTeam": "Join the racing team",
+    "tagline": "Race to unblock puzzles together and see each other's progress in real-time!",
+    "proTipLabel": "Pro tip:",
+    "proTip": "All future puzzles you play will be shared with your team members for friendly competition!",
+    "nicknameLabel": "What does your racing team call you?",
+    "nicknamePlaceholder": "Enter your nickname",
+    "joining": "Joining Team...",
+    "join": "Join the Fun! 🎉",
+    "signIn": "Sign in to Continue",
+    "bonus": "🎉 Bonus: Get {{duration}} of {{plusName}}!",
+    "bonusDescription": "By joining this racing team, you'll unlock premium features absolutely free!",
+    "activation": "💡 Your premium access will activate automatically after joining",
+    "duration": {
+      "oneMonth": "one month",
+      "oneYear": "one year",
+      "lifetime": "lifetime",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Invitation Expired",
+      "description": "This invitation link is no longer valid. Please ask your friend for a new invite or increase the team size."
+    },
+    "greetingAnonymous": "👋 Hi!"
+  },
+  "credits": {
+    "title": "Credits & Attribution",
+    "intro": "This app is built upon several excellent projects",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "This app is licensed under the MIT License. See our <licenseLink>LICENSE</licenseLink> and <creditsLink>CREDITS</creditsLink> for details.",
+    "items": {
+      "rush": "Rush Hour puzzle solver and puzzle database by Michael Fogleman, compiled to WebAssembly",
+      "nextjs": "React framework for production",
+      "typescript": "Typed superset of JavaScript",
+      "tailwind": "Utility-first CSS framework",
+      "capacitor": "Native mobile app runtime",
+      "electron": "Desktop app framework",
+      "revenuecat": "Subscription management",
+      "react": "UI component library",
+      "turborepo": "Monorepo build system"
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Sign in to start today’s puzzle",
+      "collection": "Sign in to browse the collection",
+      "joinTeam": "Sign in to join the team",
+      "raceLobby": "Sign in to race with others",
+      "puzzleEntry": "Sign in to play"
+    },
+    "valueProps": {
+      "saveProgress": "Save your progress",
+      "raceFriends": "Race friends",
+      "trackStats": "Track your stats"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "You’ve used your {{limit}} free hints today.",
+      "body": "Plus gives you unlimited hints — never get stuck again — and keeps the whole app ad free."
+    },
+    "undo": {
+      "title": "You’ve reached your daily undo limit!",
+      "body": "You get {{limit}} free undos per day. The limit resets tomorrow, or subscribe for unlimited undos."
+    },
+    "collectionLocked": {
+      "title": "This puzzle is part of the Plus collection.",
+      "body": "Plus unlocks every puzzle in every month’s pack, and keeps the whole app ad free."
+    },
+    "themeColor": {
+      "title": "This theme is exclusive to Plus.",
+      "body": "Upgrade to unlock all beautiful theme colors and personalise your unblock race experience."
+    },
+    "removeMember": {
+      "title": "Removing members from your party is a premium feature!",
+      "body": "Subscribe to unlock advanced party management features including member removal."
+    },
+    "multipleParties": {
+      "title": "Multiple racing teams is a premium feature!",
+      "body": "Free users can have one team. Subscribe to create and join unlimited teams for family, friends, and more."
+    },
+    "partyMaxSize": {
+      "title": "Large parties is a premium feature!",
+      "body": "Subscribe to unlock advanced party management features including large parties."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Always ad free",
+      "description": "No ads, ever — just you and the puzzles"
+    },
+    "hints": {
+      "title": "Unlimited hints",
+      "description": "Never get stuck — get a hint whenever you need one"
+    },
+    "monthlyPack": {
+      "title": "Entire monthly pack unlocked, every month",
+      "description": "Play every puzzle in every difficulty, no locks"
+    },
+    "undos": {
+      "title": "Unlimited undos",
+      "description": "Rewind as many moves as you like"
+    },
+    "teams": {
+      "title": "Multiple racing teams",
+      "description": "Host private competitions with friends and family"
+    },
+    "management": {
+      "title": "Team management",
+      "description": "Create large parties up to 15 people, and remove members from your team."
+    },
+    "themes": {
+      "title": "All themes unlocked",
+      "description": "Personalise your racing experience"
+    }
+  },
+  "plusModal": {
+    "description": "Join <badge>{{plusName}}</badge> for <strong>unlimited hints</strong>, the <strong>entire monthly pack unlocked</strong>, and <strong>unlimited undos</strong>. Challenge friends, climb leaderboards, and keep it ad free."
+  },
+  "leaderboard": {
+    "collectionLabel": "Collection",
+    "collectionDetailNoun": "collections"
+  },
+  "motivational": {
+    "messages": [
+      "Your friends are waiting for a challenge",
+      "Who will you race against today?",
+      "Time to show your speed",
+      "Challenge accepted?",
+      "Race to the finish line",
+      "Who's the fastest solver?",
+      "Ready to dominate the leaderboard?",
+      "Your racing skills await",
+      "Time to leave them in the dust",
+      "Ready to cross the finish line first?",
+      "The track is waiting for you",
+      "Time to shift into high gear",
+      "Ready to burn rubber on the puzzle grid?",
+      "Your opponents are already warming up",
+      "Today's the day to set a new record",
+      "Your personal best is waiting to be beaten",
+      "Every puzzle makes you faster",
+      "Streak building starts now",
+      "Time to level up your game",
+      "Your next breakthrough is one puzzle away",
+      "Ready to surprise yourself?",
+      "Show them what you're made of",
+      "Time to unlock your potential",
+      "Your fastest solve is still ahead of you",
+      "Ready to make today count?",
+      "Every second counts in the race",
+      "Time to push your limits",
+      "Your improvement journey continues",
+      "Ready to exceed expectations?",
+      "Think you can handle the pressure?",
+      "Time to silence the doubters",
+      "Ready to claim victory?",
+      "Your competition won't see this coming",
+      "Time to make your mark",
+      "Ready to steal the spotlight?",
+      "Victory tastes sweeter when earned",
+      "Time to prove who's boss",
+      "Ready to show your true colors?",
+      "The championship mindset starts here",
+      "Time to separate yourself from the pack",
+      "Ready to write your legend?",
+      "Champions are made in moments like this",
+      "Time to turn potential into performance",
+      "Fresh puzzles, fresh opportunities",
+      "Today's challenge awaits your mastery",
+      "Ready to make this your best day yet?",
+      "A new day means new records to break",
+      "Time to add another win to your collection",
+      "Ready to start strong and finish stronger?",
+      "Ready to make today legendary?",
+      "Your daily dose of triumph awaits",
+      "Strategy meets speed on the grid",
+      "Ready to outthink and outpace?",
+      "Your puzzle mastery is calling",
+      "Time to blend logic with lightning speed",
+      "Ready to solve with surgical precision?",
+      "The perfect combination: skill and speed",
+      "Your analytical edge is your racing advantage",
+      "Time to demonstrate puzzle supremacy",
+      "Ready to solve like a champion?",
+      "Precision racing starts with clear thinking",
+      "Your friends are waiting for a rematch",
+      "Who's solving today?",
+      "A new daily puzzle is ready",
+      "Your streak is on the line",
+      "Fresh puzzles, fresh start",
+      "Today's challenge is up",
+      "Race a friend on the daily",
+      "New day, new puzzles",
+      "Someone's already on the leaderboard",
+      "Keep the streak alive",
+      "Daily challenges just refreshed",
+      "Your team is waiting",
+      "One puzzle closer to the top",
+      "Today's puzzles are waiting for you",
+      "Jump back in and race"
+    ]
+  }
+}

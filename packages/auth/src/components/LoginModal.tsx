@@ -8,6 +8,7 @@ import {
 } from '@headlessui/react';
 import type { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { type FormEvent, Fragment, type ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface LoginContextMessage {
   textColor: string;
@@ -45,6 +46,7 @@ export const LoginModal = ({
   contextMessages,
   valueProps = [],
 }: LoginModalProps) => {
+  const { t } = useTranslation('auth');
   const [email, setEmail] = useState('');
   const [wasOpen, setWasOpen] = useState(isOpen);
 
@@ -118,7 +120,7 @@ export const LoginModal = ({
                   </p>
                 ) : (
                   <p className="mb-2 text-center text-base font-semibold text-white/80">
-                    Sign in to continue
+                    {t('login.title')}
                   </p>
                 )}
 
@@ -159,7 +161,7 @@ export const LoginModal = ({
                     </svg>
                   </span>
                   <span className="flex-1 text-center font-['Roboto',arial,sans-serif] text-base font-bold text-[#737373]">
-                    Sign in with Google
+                    {t('login.signInWith', { provider: t('brand.google') })}
                   </span>
                 </button>
 
@@ -197,20 +199,20 @@ export const LoginModal = ({
                     </svg>
                   </span>
                   <span className="flex-1 text-center font-[system-ui] text-base font-bold text-white">
-                    Sign in with Apple
+                    {t('login.signInWith', { provider: t('brand.apple') })}
                   </span>
                 </button>
 
                 <div className="mt-3 border-t border-white/10 pt-3">
                   <p className="mb-2 text-center text-sm font-bold text-white/80">
-                    Sign in with email
+                    {t('login.emailTitle')}
                   </p>
                   <form onSubmit={handleEmailSubmit} className="flex">
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your@email.com"
+                      placeholder={t('login.emailPlaceholder')}
                       disabled={isLoggingIn}
                       className="focus:border-theme-primary w-full rounded-l-[5px] border border-white/15 bg-white/5 px-2 py-2 text-base text-white outline-none placeholder:text-white/30 disabled:cursor-not-allowed disabled:opacity-50"
                     />
@@ -219,7 +221,7 @@ export const LoginModal = ({
                       disabled={isLoggingIn}
                       className="bg-theme-primary hover:bg-theme-primary-dark cursor-pointer rounded-r-[5px] px-3 py-2 text-sm font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      Continue
+                      {t('login.continue')}
                     </button>
                   </form>
                 </div>
@@ -230,7 +232,7 @@ export const LoginModal = ({
                     className="cursor-pointer font-normal text-white/50 no-underline hover:text-white/70"
                     type="button"
                   >
-                    Cancel
+                    {t('login.cancel')}
                   </button>
                   {' | '}
                   <a
@@ -239,7 +241,7 @@ export const LoginModal = ({
                     rel="noreferrer"
                     className="font-normal text-white/50 no-underline hover:text-white/70"
                   >
-                    Terms of Service
+                    {t('login.terms')}
                   </a>
                   {' | '}
                   <a
@@ -248,7 +250,7 @@ export const LoginModal = ({
                     rel="noreferrer"
                     className="font-normal text-white/50 no-underline hover:text-white/70"
                   >
-                    Privacy Policy
+                    {t('login.privacy')}
                   </a>
                 </div>
               </DialogPanel>

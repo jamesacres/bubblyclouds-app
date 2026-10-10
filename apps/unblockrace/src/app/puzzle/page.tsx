@@ -6,9 +6,11 @@ import { GameStateMetadata } from '@bubblyclouds-app/unblockrace/types/state';
 import { useWakeLock } from '@bubblyclouds-app/template/hooks/useWakeLock';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { APP_CONFIG } from '../../../app.config.js';
 
 function PuzzlePageComponent() {
+  const { t } = useTranslation('app');
   const searchParams = useSearchParams();
   const board = searchParams.get('board');
   const moves = searchParams.get('moves');
@@ -72,15 +74,20 @@ function PuzzlePageComponent() {
           alreadyCompleted={alreadyCompleted}
           showRacingPrompt={showRacingPrompt}
           app={APP_CONFIG.app}
-          appName={APP_CONFIG.appName}
+          appName={t('brand.appName')}
           apiUrl={APP_CONFIG.apiUrl}
           appUrl={APP_CONFIG.appUrl}
           appStoreUrl={APP_CONFIG.appStoreUrl}
           googlePlayUrl={APP_CONFIG.googlePlayUrl}
           deepLinkScheme={APP_CONFIG.deepLinkScheme}
-          mobileDescription={APP_CONFIG.mobileDescription}
-          desktopDescription={APP_CONFIG.desktopDescription}
-          openInAppLabel={APP_CONFIG.openInAppLabel}
+          mobileDescription={t('puzzle.mobileDescription', {
+            appName: t('brand.appName'),
+          })}
+          desktopDescription={t('puzzle.desktopDescription', {
+            appName: t('brand.appName'),
+          })}
+          plusName={t('brand.plus')}
+          openInAppLabel={t('puzzle.openInAppLabel')}
         />
       )}
     </div>

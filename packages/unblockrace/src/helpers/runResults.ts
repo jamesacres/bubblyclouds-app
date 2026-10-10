@@ -7,6 +7,7 @@ import {
   AgentRunInput as GenericAgentRunInput,
   calculateRunResults as genericCalculateRunResults,
 } from '@bubblyclouds-app/games/helpers/runResults';
+import { AgentDisplayResolver } from '@bubblyclouds-app/games/types/Agent';
 import { ServerState } from '../types/state';
 import { RunStage, StageScore } from './stageResults';
 import { isPuzzleCheated } from './cheatDetection';
@@ -37,12 +38,14 @@ export const calculateRunResults = ({
   userId,
   ownResults,
   agentResults,
+  resolveAgentName,
 }: {
   stages: RunStage[];
   runStageParties: { [stageId: string]: Parties<Session<ServerState>> };
   userId?: string;
   ownResults: Map<number, PlayerStageResult<StageScore>>;
   agentResults?: AgentRunInput[];
+  resolveAgentName: AgentDisplayResolver;
 }): PlayerRunResult<StageScore>[] =>
   genericCalculateRunResults<RunStage, ServerState, StageScore>({
     stages,
@@ -52,4 +55,5 @@ export const calculateRunResults = ({
     agentResults,
     isCheated: (session) => isPuzzleCheated(session.state.answerStack),
     extractScore,
+    resolveAgentName,
   });

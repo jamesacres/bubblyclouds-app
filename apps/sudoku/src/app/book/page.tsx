@@ -1,5 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import BookCover from '@bubblyclouds-app/sudoku/components/BookCover';
 import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
@@ -30,12 +31,16 @@ import { buildPuzzleUrlFromState } from '@bubblyclouds-app/sudoku/helpers/buildP
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { RevenueCatContext } from '@bubblyclouds-app/template/providers/RevenueCatProvider';
+import { useCurrentMonth } from '../../hooks/useCurrentMonth';
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleSudoku state={state} />
 );
 
 export default function BookPage() {
+  const { t } = useTranslation('app');
+  const { t: tGames } = useTranslation('games');
+  const { englishMonth: currentMonth, localizedMonth } = useCurrentMonth();
   const router = useRouter();
   const context = useContext(UserContext);
   const { user, showLoginModal } = context || {};
@@ -76,13 +81,73 @@ export default function BookPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const currentMonth = new Date(new Date().toISOString()).toLocaleString(
-    'en-US',
-    {
-      month: 'long',
-      timeZone: 'UTC',
-    }
+  const difficultyDisplay = useCallback(
+    (difficulty: string) => getDifficultyDisplay(difficulty, tGames),
+    [tGames]
   );
+
+  const techniquesDisplay = useCallback(
+    (techniques?: Techniques) => getTechniquesDisplay(techniques, tGames),
+    [tGames]
+  );
+
+  const jumpToDifficultyItems = [
+    {
+      difficulty: '1-very-easy',
+      label: t('book.difficulty.veryEasy'),
+      color: 'bg-green-400 text-white',
+    },
+    {
+      difficulty: '2-easy',
+      label: t('book.difficulty.easy'),
+      color: 'bg-green-500 text-white',
+    },
+    {
+      difficulty: '3-moderately-easy',
+      label: t('book.difficulty.moderatelyEasy'),
+      color: 'bg-lime-600 text-white',
+    },
+    {
+      difficulty: '4-moderate',
+      label: t('book.difficulty.moderate'),
+      color: 'bg-yellow-600 text-white',
+    },
+    {
+      difficulty: '5-moderately-hard',
+      label: t('book.difficulty.moderatelyHard'),
+      color: 'bg-orange-500 text-white',
+    },
+    {
+      difficulty: '6-hard',
+      label: t('book.difficulty.hard'),
+      color: 'bg-red-500 text-white',
+    },
+    {
+      difficulty: '7-vicious',
+      label: t('book.difficulty.vicious'),
+      color: 'bg-red-600 text-white',
+    },
+    {
+      difficulty: '8-fiendish',
+      label: t('book.difficulty.fiendish'),
+      color: 'bg-red-700 text-white',
+    },
+    {
+      difficulty: '9-devilish',
+      label: t('book.difficulty.devilish'),
+      color: 'bg-red-800 text-white',
+    },
+    {
+      difficulty: '10-hell',
+      label: t('book.difficulty.hell'),
+      color: 'bg-red-900 text-white',
+    },
+    {
+      difficulty: '11-beyond-hell',
+      label: t('book.difficulty.beyondHell'),
+      color: 'bg-black text-white',
+    },
+  ];
 
   useEffect(() => {
     const loadData = async () => {
@@ -185,10 +250,10 @@ export default function BookPage() {
           <div className="border-t-theme-primary mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-stone-200 dark:border-zinc-700"></div>
           <p className="text-stone-500 dark:text-zinc-400">
             {bookLoading && sessionsLoading
-              ? 'Loading puzzle book...'
+              ? t('book.loading.book')
               : bookLoading
-                ? 'Loading puzzles...'
-                : 'Loading your progress...'}
+                ? t('book.loading.puzzles')
+                : t('book.loading.progress')}
           </p>
         </div>
       </div>
@@ -205,14 +270,14 @@ export default function BookPage() {
               onClick={() => fetchBookData()}
               className="bg-theme-primary hover:bg-theme-primary-dark mr-2 mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
             >
-              Try again
+              {t('book.tryAgain')}
             </button>
           )}
           <button
             onClick={() => router.push('/')}
             className="mt-4 cursor-pointer rounded-lg border border-stone-200 bg-white px-4 py-2 text-sm font-semibold text-stone-700 transition-colors duration-200 hover:bg-stone-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
           >
-            Back to home
+            {t('book.backHome')}
           </button>
         </div>
       </div>
@@ -226,7 +291,7 @@ export default function BookPage() {
           {!user ? (
             <>
               <p className="text-stone-500 dark:text-zinc-400">
-                Sign in to access the puzzle book.
+                {t('book.signInPrompt')}
               </p>
               <button
                 onClick={() =>
@@ -234,19 +299,19 @@ export default function BookPage() {
                 }
                 className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
               >
-                Sign in
+                {t('book.signIn')}
               </button>
             </>
           ) : (
             <>
               <p className="text-stone-500 dark:text-zinc-400">
-                No puzzle book data available.
+                {t('book.noData')}
               </p>
               <button
                 onClick={() => router.push('/')}
                 className="bg-theme-primary hover:bg-theme-primary-dark mt-4 cursor-pointer rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors duration-200"
               >
-                Back to home
+                {t('book.backHome')}
               </button>
             </>
           )}
@@ -267,15 +332,15 @@ export default function BookPage() {
               </div>
               <div className="text-center md:text-left">
                 <h1 className="text-2xl font-bold md:text-3xl">
-                  {currentMonth} puzzle book
+                  {t('book.title', { month: localizedMonth })}
                 </h1>
                 <p className="mt-1 text-white/70 md:text-base">
-                  {bookData.puzzles.length} technique-focused puzzles
+                  {t('book.puzzleCount', { count: bookData.puzzles.length })}
                 </p>
                 <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
                   <div className="rounded-lg border border-white/20 bg-white/15 px-3 py-1.5 text-sm font-medium backdrop-blur-sm">
-                    {
-                      (
+                    {t('book.completed', {
+                      count: (
                         sessions
                           ?.filter((s) =>
                             bookData.puzzles.some(
@@ -287,13 +352,12 @@ export default function BookPage() {
                             )
                           )
                           .filter((s) => s.state.completed) || []
-                      ).length
-                    }{' '}
-                    completed
+                      ).length,
+                    })}
                   </div>
                   <div className="rounded-lg border border-white/20 bg-white/15 px-3 py-1.5 text-sm font-medium backdrop-blur-sm">
-                    {
-                      (
+                    {t('book.inProgress', {
+                      count: (
                         sessions
                           ?.filter((s) =>
                             bookData.puzzles.some(
@@ -309,9 +373,8 @@ export default function BookPage() {
                               !s.state.completed &&
                               s.state.answerStack.length > 1
                           ) || []
-                      ).length
-                    }{' '}
-                    in progress
+                      ).length,
+                    })}
                   </div>
                   {!isSubscribed && (
                     <button
@@ -326,7 +389,7 @@ export default function BookPage() {
                       className="group inline-flex cursor-pointer items-center gap-2 rounded-lg border border-amber-300/50 bg-gradient-to-r from-amber-400/20 to-amber-500/10 px-3 py-1.5 text-sm font-semibold text-amber-100 backdrop-blur-sm transition-all duration-200 hover:from-amber-400/30 hover:to-amber-500/20 active:scale-[0.98]"
                     >
                       <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                      Unlock every puzzle with Plus
+                      {t('book.unlockWithPlus')}
                       <span className="opacity-60 transition-transform duration-200 group-hover:translate-x-0.5">
                         →
                       </span>
@@ -343,66 +406,10 @@ export default function BookPage() {
           {/* Difficulty Jump Buttons */}
           <div className="mb-6">
             <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-stone-400 dark:text-zinc-500">
-              Jump to difficulty
+              {t('book.jumpToDifficulty')}
             </h3>
             <div className="flex flex-wrap gap-2">
-              {[
-                {
-                  difficulty: '1-very-easy',
-                  label: 'Very Easy',
-                  color: 'bg-green-400 text-white',
-                },
-                {
-                  difficulty: '2-easy',
-                  label: 'Easy',
-                  color: 'bg-green-500 text-white',
-                },
-                {
-                  difficulty: '3-moderately-easy',
-                  label: 'Moderately Easy',
-                  color: 'bg-lime-600 text-white',
-                },
-                {
-                  difficulty: '4-moderate',
-                  label: 'Moderate',
-                  color: 'bg-yellow-600 text-white',
-                },
-                {
-                  difficulty: '5-moderately-hard',
-                  label: 'Moderately Hard',
-                  color: 'bg-orange-500 text-white',
-                },
-                {
-                  difficulty: '6-hard',
-                  label: 'Hard',
-                  color: 'bg-red-500 text-white',
-                },
-                {
-                  difficulty: '7-vicious',
-                  label: 'Vicious',
-                  color: 'bg-red-600 text-white',
-                },
-                {
-                  difficulty: '8-fiendish',
-                  label: 'Fiendish',
-                  color: 'bg-red-700 text-white',
-                },
-                {
-                  difficulty: '9-devilish',
-                  label: 'Devilish',
-                  color: 'bg-red-800 text-white',
-                },
-                {
-                  difficulty: '10-hell',
-                  label: 'Hell',
-                  color: 'bg-red-900 text-white',
-                },
-                {
-                  difficulty: '11-beyond-hell',
-                  label: 'Beyond Hell',
-                  color: 'bg-black text-white',
-                },
-              ].map((item) => {
+              {jumpToDifficultyItems.map((item) => {
                 const jumpToDifficulty = () => {
                   const firstMatchingPuzzleIndex = bookData?.puzzles.findIndex(
                     (puzzle) => puzzle.difficulty.coach === item.difficulty
@@ -478,8 +485,8 @@ export default function BookPage() {
                       index,
                       sudokuBookId: bookData?.sudokuBookId || 'unknown',
                     }}
-                    getDifficultyDisplay={getDifficultyDisplay}
-                    getTechniquesDisplay={getTechniquesDisplay}
+                    getDifficultyDisplay={difficultyDisplay}
+                    getTechniquesDisplay={techniquesDisplay}
                     SimpleState={SimpleStateWrapper}
                     calculateCompletionPercentageFromState={
                       calculateCompletionPercentageFromState
@@ -514,7 +521,7 @@ export default function BookPage() {
             bottom: 'max(20px, calc(var(--ion-safe-area-bottom, 0px) + 20px))',
           }}
           className="bg-theme-primary hover:bg-theme-primary-dark dark:bg-theme-primary-light dark:hover:bg-theme-primary z-50 flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg transition-all hover:scale-110 active:scale-95"
-          aria-label="Scroll to top"
+          aria-label={t('book.scrollToTop')}
         >
           <ArrowUp className="h-5 w-5" />
         </button>

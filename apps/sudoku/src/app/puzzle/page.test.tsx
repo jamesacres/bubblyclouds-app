@@ -22,10 +22,20 @@ jest.mock('@bubblyclouds-app/sudoku/components/Sudoku', () => {
     puzzle,
     alreadyCompleted,
     showRacingPrompt,
+    appName,
+    plusName,
+    mobileDescription,
+    desktopDescription,
+    openInAppLabel,
   }: {
     puzzle: { puzzleId: string };
     alreadyCompleted: boolean;
     showRacingPrompt: boolean;
+    appName: string;
+    plusName: string;
+    mobileDescription: string;
+    desktopDescription: string;
+    openInAppLabel: string;
   }) {
     // Mirrors Sudoku's own useState(() => ...) initializers (e.g.
     // agents/localAgentProgress): only fires once per mount, so a stale
@@ -34,6 +44,11 @@ jest.mock('@bubblyclouds-app/sudoku/components/Sudoku', () => {
     React.useState(() => mockSudokuMount());
     return (
       <div data-testid="sudoku-component">
+        <div data-testid="app-name">{appName}</div>
+        <div data-testid="plus-name">{plusName}</div>
+        <div data-testid="mobile-description">{mobileDescription}</div>
+        <div data-testid="desktop-description">{desktopDescription}</div>
+        <div data-testid="open-in-app-label">{openInAppLabel}</div>
         <div data-testid="puzzle-status">
           {puzzle.puzzleId}
           {alreadyCompleted && <span>Already Completed</span>}
@@ -113,6 +128,31 @@ describe('Puzzle Page', () => {
       await waitFor(() => {
         expect(screen.getByTestId('sudoku-component')).toBeInTheDocument();
       });
+    });
+  });
+
+  describe('Translated labels', () => {
+    it('should pass brand and description text from the translation file', async () => {
+      const params = new URLSearchParams();
+      params.set('initial', '1');
+      params.set('final', '2');
+      mockUseSearchParams.mockReturnValue(params);
+
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByTestId('app-name')).toHaveTextContent('Sudoku Race');
+      });
+      expect(screen.getByTestId('plus-name')).toHaveTextContent('Plus');
+      expect(screen.getByTestId('mobile-description')).toHaveTextContent(
+        'Get the best racing experience with our Sudoku Race app!'
+      );
+      expect(screen.getByTestId('desktop-description')).toHaveTextContent(
+        'Download Sudoku Race'
+      );
+      expect(screen.getByTestId('open-in-app-label')).toHaveTextContent(
+        'Open Puzzle'
+      );
     });
   });
 

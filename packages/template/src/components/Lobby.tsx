@@ -21,6 +21,7 @@ import {
   Users,
   X,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Parties, Session } from '@bubblyclouds-app/types/serverTypes';
 import { useParties } from '../hooks/useParties';
 import { UserContext } from '@bubblyclouds-app/auth/providers/AuthProvider';
@@ -43,7 +44,7 @@ import { PuzzleHeader } from './lobby/PuzzleHeader';
 import { TierBadge } from './lobby/TierBadge';
 import { InviteSheet } from './lobby/InviteSheet';
 import { AgentSelectSheet } from './lobby/AgentSelectSheet';
-import type { AgentOption } from './lobby/AgentSelectSheet';
+import type { AgentDisplay, AgentOption } from './lobby/AgentSelectSheet';
 import { PartyTag } from './lobby/PartyTag';
 import { FinishedBadge } from './lobby/FinishedBadge';
 import { OnlinePlayerRow } from './lobby/OnlinePlayerRow';
@@ -82,6 +83,7 @@ interface Arguments<ServerState extends BaseServerState> {
   agentOptions?: AgentOption[];
   defaultSelectedAgentNames?: string[];
   onAgentMode?: (selectedAgentNames: string[]) => void;
+  getAgentDisplay?: (agent: AgentOption) => AgentDisplay;
   puzzleDifficulty?: string;
   puzzleDifficultyBadgeColor?: string;
   puzzleMetaLabel?: string;
@@ -115,7 +117,21 @@ interface Arguments<ServerState extends BaseServerState> {
   hasSessionPartiesFromServer?: boolean;
 }
 
-const AgentAvatar = ({ name, emoji }: { name: string; emoji?: string }) => {
+const defaultAgentDisplay = (agent: AgentOption): AgentDisplay => ({
+  name: agent.name,
+  personality: '',
+  emojiName: agent.emojiName,
+});
+
+const AgentAvatar = ({
+  configId,
+  name,
+  emoji,
+}: {
+  configId: string;
+  name: string;
+  emoji?: string;
+}) => {
   const [imgFailed, setImgFailed] = useState(false);
   return (
     <div
@@ -128,7 +144,7 @@ const AgentAvatar = ({ name, emoji }: { name: string; emoji?: string }) => {
       {!imgFailed && (
         <img
           className="h-full w-full object-cover"
-          src={`/opponents/${name.toLowerCase()}.webp`}
+          src={`/opponents/${configId}.webp`}
           alt={name}
           onError={() => setImgFailed(true)}
         />
@@ -166,6 +182,7 @@ const Lobby = <ServerState extends BaseServerState>({
   agentOptions = [],
   defaultSelectedAgentNames = [],
   onAgentMode,
+  getAgentDisplay = defaultAgentDisplay,
   puzzleDifficulty,
   puzzleDifficultyBadgeColor,
   puzzleMetaLabel,
@@ -176,6 +193,7 @@ const Lobby = <ServerState extends BaseServerState>({
   mostRecentUpdatedAtByUserId,
   hasSessionPartiesFromServer,
 }: Arguments<ServerState>) => {
+  const { t, i18n } = useTranslation('template');
   const context = useContext(UserContext);
   const { user, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
@@ -501,16 +519,23 @@ const Lobby = <ServerState extends BaseServerState>({
   const humanRivals = totalKnownOpponentCount;
   const totalRivals = humanRivals + aiCount;
 
+  const listFormat = new Intl.ListFormat(i18n.language, {
+    style: 'long',
+    type: 'conjunction',
+  });
+
   let raceSummary: string;
   if (!totalRivals) {
-    raceSummary = 'Solo race — just you and the clock';
+    raceSummary = t('lobby.raceSummary.solo');
   } else {
     const parts: string[] = [];
     if (humanRivals)
-      parts.push(`${humanRivals} friend${humanRivals === 1 ? '' : 's'}`);
+      parts.push(t('lobby.raceSummary.friends', { count: humanRivals }));
     if (aiCount)
-      parts.push(`${aiCount} AI opponent${aiCount === 1 ? '' : 's'}`);
-    raceSummary = `Racing ${parts.join(' and ')}`;
+      parts.push(t('lobby.raceSummary.aiOpponents', { count: aiCount }));
+    raceSummary = t('lobby.raceSummary.racing', {
+      opponents: listFormat.format(parts),
+    });
   }
 
   return (
@@ -545,7 +570,7 @@ const Lobby = <ServerState extends BaseServerState>({
           boxShadow: '0 -20px 60px rgba(0,0,0,0.6)',
           overflow: 'hidden',
         }}
-        aria-label="Race Lobby"
+        aria-label={t('lobby.title')}
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <HeroBackdrop />
@@ -563,7 +588,7 @@ const Lobby = <ServerState extends BaseServerState>({
               className="text-[11px] font-extrabold uppercase tracking-widest"
               style={{ color: 'rgba(255,255,255,0.5)' }}
             >
-              Race Lobby
+              {t('lobby.title')}
             </span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -573,7 +598,7 @@ const Lobby = <ServerState extends BaseServerState>({
                 setShowLobby(false);
               }}
               className="cursor-pointer"
-              aria-label="Close lobby"
+              aria-label={t('lobby.close')}
             >
               <X size={20} color="rgba(255,255,255,0.5)" />
             </button>
@@ -600,14 +625,14 @@ const Lobby = <ServerState extends BaseServerState>({
 
             <SectionHead
               icon={Users}
-              title="Online opponents"
+              title={t('lobby.onlineOpponents')}
               count={onlineOpponentCount}
               action={
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => refreshParties()}
                     disabled={isLoading}
-                    aria-label="Refresh online opponents"
+                    aria-label={t('lobby.refresh')}
                     className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full"
                     style={{
                       border: '1px solid rgba(255,255,255,0.12)',
@@ -630,7 +655,7 @@ const Lobby = <ServerState extends BaseServerState>({
                       setShowInviteSheet(true);
                     }}
                   >
-                    Invite
+                    {t('lobby.invite.button')}
                   </PillButton>
                 </div>
               }
@@ -684,7 +709,7 @@ const Lobby = <ServerState extends BaseServerState>({
                   className="text-sm italic"
                   style={{ color: 'rgba(255,255,255,0.4)' }}
                 >
-                  No opponents online — invite friends to race!
+                  {t('lobby.noOpponents')}
                 </p>
               ) : null}
             </div>
@@ -693,7 +718,7 @@ const Lobby = <ServerState extends BaseServerState>({
               <div className="mb-5">
                 <SectionHead
                   icon={Moon}
-                  title="Away"
+                  title={t('lobby.away')}
                   count={awayPlayers.length + runOnlyAwayMembers.length}
                 />
                 <div className="flex flex-col gap-2.5">
@@ -743,7 +768,7 @@ const Lobby = <ServerState extends BaseServerState>({
               <div className="mb-6">
                 <SectionHead
                   icon={Moon}
-                  title="Offline · in your teams"
+                  title={t('lobby.offlineTeams')}
                   count={offlineMembers.length}
                 />
                 <div className="flex flex-col gap-2">
@@ -788,7 +813,9 @@ const Lobby = <ServerState extends BaseServerState>({
                                   background: 'transparent',
                                   border: 'none',
                                 }}
-                                aria-label={`Remove ${m.memberNickname}`}
+                                aria-label={t('lobby.removeMember', {
+                                  name: m.memberNickname,
+                                })}
                               >
                                 <Trash
                                   size={14}
@@ -831,7 +858,7 @@ const Lobby = <ServerState extends BaseServerState>({
 
             <SectionHead
               icon={Bot}
-              title="AI opponents"
+              title={t('lobby.aiOpponents')}
               count={aiCount}
               action={
                 onAgentMode && (
@@ -840,7 +867,7 @@ const Lobby = <ServerState extends BaseServerState>({
                     tone="violet"
                     onClick={() => setShowAgentSheet(true)}
                   >
-                    Add
+                    {t('lobby.addAgent')}
                   </PillButton>
                 )
               }
@@ -863,7 +890,13 @@ const Lobby = <ServerState extends BaseServerState>({
                       ? runProgress.totalSeconds
                       : agent.finishTime;
                   const progressLabel = runProgress
-                    ? `Stage ${Math.min(runProgress.completedStageCount + 1, runProgress.totalStages)} of ${runProgress.totalStages}`
+                    ? t('lobby.stageProgress', {
+                        current: Math.min(
+                          runProgress.completedStageCount + 1,
+                          runProgress.totalStages
+                        ),
+                        total: runProgress.totalStages,
+                      })
                     : `${Math.round(agent.percentage)}%`;
                   return (
                     <div
@@ -874,7 +907,11 @@ const Lobby = <ServerState extends BaseServerState>({
                         border: '1px solid rgba(255,255,255,0.07)',
                       }}
                     >
-                      <AgentAvatar name={agent.name} emoji={agent.emoji} />
+                      <AgentAvatar
+                        configId={agent.configId}
+                        name={agent.name}
+                        emoji={agent.emoji}
+                      />
                       <div className="min-w-0 flex-1">
                         <div className="mb-1 flex items-center gap-2">
                           <span className="text-[15.5px] font-bold text-white">
@@ -897,8 +934,12 @@ const Lobby = <ServerState extends BaseServerState>({
                               <Clock size={12} color="rgba(255,255,255,0.45)" />
                               {isFinished && elapsedSeconds != null
                                 ? runProgress
-                                  ? `Finished the run in ${fmtClock(elapsedSeconds)}`
-                                  : `Solved in ${fmtClock(elapsedSeconds)}`
+                                  ? t('lobby.finishedRunIn', {
+                                      time: fmtClock(elapsedSeconds),
+                                    })
+                                  : t('lobby.solvedIn', {
+                                      time: fmtClock(elapsedSeconds),
+                                    })
                                 : progressLabel}
                             </span>
                           </div>
@@ -926,7 +967,9 @@ const Lobby = <ServerState extends BaseServerState>({
                               background: 'transparent',
                               border: 'none',
                             }}
-                            aria-label={`Remove ${agent.name}`}
+                            aria-label={t('lobby.removeMember', {
+                              name: agent.name,
+                            })}
                           >
                             <Trash size={14} color="rgba(255,255,255,0.35)" />
                           </button>
@@ -946,7 +989,7 @@ const Lobby = <ServerState extends BaseServerState>({
                   color: 'rgba(255,255,255,0.5)',
                 }}
               >
-                No AI opponents yet — add one to always have someone to race.
+                {t('lobby.noAgents')}
               </button>
             )}
           </div>
@@ -976,7 +1019,7 @@ const Lobby = <ServerState extends BaseServerState>({
             className="mb-3 text-center text-xs"
             style={{ color: 'rgba(255,255,255,0.35)' }}
           >
-            Each player races on their own clock
+            {t('lobby.ownClock')}
           </p>
           <button
             onClick={() => {
@@ -986,7 +1029,7 @@ const Lobby = <ServerState extends BaseServerState>({
             className="bg-theme-primary hover:bg-theme-primary-dark inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-[18px] text-xl font-bold tracking-tight text-white transition-transform active:scale-[0.97]"
             style={{ height: 60 }}
           >
-            Start Solving
+            {t('lobby.startSolving')}
             <Play size={20} color="white" />
           </button>
         </div>
@@ -996,9 +1039,9 @@ const Lobby = <ServerState extends BaseServerState>({
             isOpen={true}
             onClose={() => setConfirmRemove(null)}
             type="remove"
-            partyName={confirmRemove.ownedParties
-              .map((p) => p.partyName)
-              .join(' and ')}
+            partyName={listFormat.format(
+              confirmRemove.ownedParties.map((p) => p.partyName)
+            )}
             memberName={confirmRemove.memberNickname}
             onConfirm={async () => {
               await Promise.all(
@@ -1017,6 +1060,7 @@ const Lobby = <ServerState extends BaseServerState>({
             open={showAgentSheet}
             onClose={() => setShowAgentSheet(false)}
             agentOptions={agentOptions}
+            getAgentDisplay={getAgentDisplay}
             defaultSelectedAgentNames={defaultSelectedAgentNames}
             onAgentMode={(selected) => {
               onAgentMode(selected);

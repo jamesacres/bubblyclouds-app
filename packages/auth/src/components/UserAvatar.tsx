@@ -2,6 +2,7 @@
 import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import Image from 'next/image';
 import { User } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export const UserAvatar = ({
   user,
@@ -14,6 +15,7 @@ export const UserAvatar = ({
   showRing?: boolean;
   enableAvatarPicture?: boolean;
 }) => {
+  const { t } = useTranslation('auth');
   // Calculate the inner size when using the ring
   const innerSize = showRing ? size - 4 : size;
 
@@ -21,7 +23,7 @@ export const UserAvatar = ({
     enableAvatarPicture && user.picture ? (
       <Image
         src={user.picture}
-        alt={user.name || 'user'}
+        alt={user.name || t('avatar.alt')}
         width={innerSize}
         height={innerSize}
         className="overflow-hidden rounded-full"

@@ -1,13 +1,35 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import SimpleSudoku from './SimpleSudoku';
 import { puzzleTextToPuzzle } from '../helpers/puzzleTextToPuzzle';
 
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 interface BookCoverProps {
   month: string;
+  gameName?: string;
   size?: 'small' | 'medium' | 'large';
 }
 
-export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
+export default function BookCover({
+  month,
+  gameName,
+  size = 'medium',
+}: BookCoverProps) {
+  const { t, i18n } = useTranslation('sudoku');
   // Scale factors for different sizes
   const scales = {
     small: 0.6,
@@ -38,11 +60,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
         titleTransform?: React.CSSProperties['textTransform'] | undefined;
         fontStyle?: string;
         sudokuData: string[];
-        stats: {
-          line1: string;
-          line2: string;
-          line3: string;
-        };
       }
     > = {
       January: {
@@ -160,11 +177,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '',
           '7',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Basic to Beyond Brutal Techniques',
-          line3: '❄️ Winter Challenge Edition ❄️',
-        },
       },
 
       February: {
@@ -267,11 +279,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '',
           '4',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'From Hidden Singles to AIC Chains',
-          line3: '💕 Love the Challenge 💕',
-        },
       },
 
       March: {
@@ -375,11 +382,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '5',
           '4',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Spring into Advanced Techniques',
-          line3: '🌸 Fresh Challenges Bloom 🌸',
-        },
       },
 
       April: {
@@ -482,11 +484,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '8',
           '1',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Weather Any Solving Storm',
-          line3: '🌈 After Rain Comes Victory 🌈',
-        },
       },
 
       May: {
@@ -588,11 +585,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '4',
           '',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Bloom with Brain Power',
-          line3: '🌻 May Your Skills Flourish 🌻',
-        },
       },
 
       June: {
@@ -693,11 +685,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '',
           '5',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Summer Brain Training',
-          line3: '☀️ Sunny Side of Solving ☀️',
-        },
       },
 
       July: {
@@ -799,11 +786,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '',
           '8',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Beach Reading, Brain Training',
-          line3: '🏖️ Vacation Mind Games 🏖️',
-        },
       },
 
       August: {
@@ -907,11 +889,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '4',
           '',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Heat Up Your Brain Power',
-          line3: '🔥 Scorching Hot Challenges 🔥',
-        },
       },
 
       September: {
@@ -1012,11 +989,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '',
           '1',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'School Your Brain',
-          line3: '📚 Knowledge Through Numbers 📚',
-        },
       },
 
       October: {
@@ -1113,11 +1085,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '',
           '3',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Spooky Smart Challenges',
-          line3: '🎃 Frighteningly Fun 🎃',
-        },
       },
 
       November: {
@@ -1216,11 +1183,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '',
           '4',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Bonfire Night Brain Burners',
-          line3: '🍂 Remember, Remember! 🍂',
-        },
       },
 
       December: {
@@ -1322,11 +1284,6 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
           '',
           '5',
         ],
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Holiday Brain Gifts',
-          line3: "🎄 Season's Greetings Solver! 🎄",
-        },
       },
     };
 
@@ -1341,16 +1298,24 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
         titleSize: 32,
         titleWeight: 'bold',
         sudokuData: Array(81).fill(''),
-        stats: {
-          line1: '50 Puzzles • Multiple Difficulties',
-          line2: 'Challenge Your Mind',
-          line3: '🧩 Puzzle Power 🧩',
-        },
       }
     );
   };
 
   const monthData = getMonthData(month);
+  const monthIndex = MONTH_NAMES.indexOf(month);
+  const monthKey =
+    monthIndex >= 0 ? MONTH_NAMES[monthIndex].toLowerCase() : 'default';
+  const monthLabel =
+    monthIndex >= 0
+      ? new Date(Date.UTC(2000, monthIndex, 1)).toLocaleString(i18n.language, {
+          month: 'long',
+          timeZone: 'UTC',
+        })
+      : month;
+  const title = (gameName ?? t('brand.gameName')).toLocaleUpperCase(
+    i18n.language
+  );
 
   const getAnimationClass = (animation: string) => {
     const animationMap: Record<string, string> = {
@@ -1446,7 +1411,7 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
               fontFamily: monthData.titleFontFamily,
             }}
           >
-            SUDOKU RACE
+            {title}
           </h1>
 
           {/* Subtitle */}
@@ -1458,7 +1423,7 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.7)',
             }}
           >
-            {month} Edition
+            {t('bookCover.edition', { month: monthLabel })}
           </div>
 
           {/* Sudoku Grid */}
@@ -1499,7 +1464,7 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
                 fontSize: `${12 * scale}px`,
               }}
             >
-              <strong>{monthData.stats.line1}</strong>
+              <strong>{t('bookCover.puzzleCount')}</strong>
             </div>
             <div
               style={{
@@ -1507,7 +1472,7 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
                 fontSize: `${12 * scale}px`,
               }}
             >
-              {monthData.stats.line2}
+              {t(`bookCover.months.${monthKey}.tagline`)}
             </div>
             <div
               style={{
@@ -1515,7 +1480,7 @@ export default function BookCover({ month, size = 'medium' }: BookCoverProps) {
                 fontSize: `${12 * scale}px`,
               }}
             >
-              {monthData.stats.line3}
+              {t(`bookCover.months.${monthKey}.footer`)}
             </div>
           </div>
         </div>
