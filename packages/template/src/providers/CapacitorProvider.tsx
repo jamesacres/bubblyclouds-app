@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Browser } from '@capacitor/browser';
 import { StatusBar } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
+import { useScreenshotLocale } from '../hooks/screenshotLocale';
 
 interface CapacitorContextInterface {}
 
@@ -17,6 +18,7 @@ const CapacitorProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  useScreenshotLocale();
 
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {

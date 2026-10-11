@@ -92,6 +92,23 @@ describe('useTimer', () => {
       expect(result.current.timer?.inProgress.lastInteraction).toBeDefined();
     });
 
+    it('should skip the countdown in a screenshot build', () => {
+      process.env.NEXT_PUBLIC_SCREENSHOT_SERVER = 'http://localhost:8787';
+      try {
+        const { result } = renderHook(() =>
+          useTimer({ app, id: 'test-puzzle' })
+        );
+
+        act(() => {
+          result.current.setTimerNewSession();
+        });
+
+        expect(result.current.timer?.countdown).toBe(0);
+      } finally {
+        delete process.env.NEXT_PUBLIC_SCREENSHOT_SERVER;
+      }
+    });
+
     it('should restore timer from previous session', () => {
       const { result } = renderHook(() => useTimer({ app, id: 'test-puzzle' }));
 

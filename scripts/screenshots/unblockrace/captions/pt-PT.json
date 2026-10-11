@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Acompanha cada corrida",
+    "subtitle": "Vê o teu histórico, taxas de conclusão e como os teus amigos se saíram"
+  },
+  "01": {
+    "title": "Corrida diária de 5 etapas",
+    "subtitle": "Procura o menor número de movimentos e o melhor tempo."
+  },
+  "02": {
+    "title": "Coleção de puzzles",
+    "subtitle": "Todos os meses chega uma coleção selecionada de puzzles com novos desafios"
+  },
+  "03": {
+    "title": "Corre e aprende em simultâneo",
+    "subtitle": "Pistas visuais para quando ficares preso."
+  },
+  "04": {
+    "title": "Corrida Livre",
+    "subtitle": "Desbloqueia o trânsito. Vence a corrida 🏁\nCorre com os teus amigos até à saída."
+  },
+  "05": {
+    "title": "Corre com outros, IA ou sozinho",
+    "subtitle": "Partilha uma ligação com amigos e família,\nadiciona adversários de IA ou joga contra o relógio"
+  },
+  "06": {
+    "title": "Sobe na classificação",
+    "subtitle": "Cada corrida dá pontos — vê quem domina nos últimos 30 dias"
+  },
+  "07": {
+    "title": "Conhece os teus rivais",
+    "subtitle": "Escolhe entre adversários de IA únicos — cada um com a sua personalidade e estilo de jogo"
+  },
+  "08": {
+    "title": "As tuas equipas privadas",
+    "subtitle": "Convida família e amigos, corram juntos e criem a vossa própria classificação"
+  },
+  "09": {
+    "title": "Uma ligação. Todos a bordo.",
+    "subtitle": "Partilha uma ligação de convite e os teus amigos entram na corrida em segundos"
+  }
+}

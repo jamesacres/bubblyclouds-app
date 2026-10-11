@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Segueix cada cursa",
+    "subtitle": "Consulta el teu historial, els percentatges de completat i com et comparen els amics"
+  },
+  "01": {
+    "title": "Cursa diària de 5 etapes",
+    "subtitle": "Busca els mínims moviments i el temps més ràpid."
+  },
+  "02": {
+    "title": "Col·lecció de puzles",
+    "subtitle": "Cada mes arriba una col·lecció de puzles amb nous reptes"
+  },
+  "03": {
+    "title": "Competeix i aprèn alhora",
+    "subtitle": "Pistes visuals per quan t'encalles."
+  },
+  "04": {
+    "title": "Cursa Lliure",
+    "subtitle": "Desfés l'embús. Guanya la cursa 🏁\nCompeteix amb els teus amics fins a la sortida."
+  },
+  "05": {
+    "title": "Competeix amb altres, IA o sol",
+    "subtitle": "Comparteix un enllaç amb amics i família,\nafegeix rivals d'IA o juga contra el rellotge"
+  },
+  "06": {
+    "title": "Puja a la classificació",
+    "subtitle": "Cada cursa dona punts — mira qui domina els últims 30 dies"
+  },
+  "07": {
+    "title": "Coneix els teus rivals",
+    "subtitle": "Tria entre rivals d'IA únics, cadascun amb la seva personalitat i estil de joc"
+  },
+  "08": {
+    "title": "Els teus equips privats",
+    "subtitle": "Convida família i amics, competiu junts i creeu la vostra classificació"
+  },
+  "09": {
+    "title": "Un enllaç. Tothom dins.",
+    "subtitle": "Comparteix un enllaç d'invitació i els teus amics s'hi apunten en segons"
+  }
+}

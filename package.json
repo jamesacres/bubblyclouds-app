@@ -49,6 +49,10 @@
     "i18n:pseudo": "node scripts/i18n/pseudo.mjs",
     "i18n:native": "node scripts/i18n/native.mjs --check",
     "i18n:test": "node --test \"scripts/i18n/**/*.test.mjs\"",
+    "screenshots:capture": "node scripts/screenshots/capture.mjs",
+    "screenshots:compose": "node scripts/screenshots/compose.mjs",
+    "screenshots:upload": "node scripts/screenshots/upload.mjs",
+    "screenshots:upload-play": "node scripts/screenshots/upload-play.mjs",
     "manypkg": "manypkg check",
     "prepare": "husky"
   },

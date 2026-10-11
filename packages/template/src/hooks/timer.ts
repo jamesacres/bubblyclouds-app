@@ -5,6 +5,7 @@ import { useLocalStorage } from '../hooks/localStorage';
 import { StateType } from '@bubblyclouds-app/types/stateType';
 import { calculateSeconds } from '../helpers/calculateSeconds';
 import { Timer } from '../types/timer';
+import { getScreenshotServer } from '../helpers/screenshotServer';
 
 // eslint-disable-next-line no-undef
 let interval: NodeJS.Timeout;
@@ -22,7 +23,7 @@ function useTimer({ id, app }: { id: string; app: string }) {
   // Timer - calculates time spent on page
 
   const setTimerNewSession = useCallback((restoreTimer?: Timer | null) => {
-    const COUNTDOWN = 4;
+    const COUNTDOWN = getScreenshotServer() ? 0 : 4;
     const nowDate = new Date();
     nowDate.setSeconds(nowDate.getSeconds() + COUNTDOWN);
     const now = nowDate.toISOString();
