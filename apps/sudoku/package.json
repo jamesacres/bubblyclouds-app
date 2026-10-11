@@ -31,7 +31,7 @@
     "@capacitor/keyboard": "^8.0.3",
     "@capacitor/share": "^8.0.1",
     "@capacitor/status-bar": "^8.0.2",
-    "@revenuecat/purchases-capacitor": "^12.3.1",
+    "@revenuecat/purchases-capacitor": "catalog:",
     "@tensorflow/tfjs": "^4.22.0",
     "@tensorflow/tfjs-backend-wasm": "^4.22.0",
     "capacitor-secure-storage-plugin": "^0.13.0",

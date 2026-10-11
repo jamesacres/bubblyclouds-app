@@ -17,7 +17,7 @@ def capacitor_pods
   pod 'CapacitorKeyboard', :path => '../../../../node_modules/.pnpm/@capacitor+keyboard@8.0.3_@capacitor+core@8.3.1/node_modules/@capacitor/keyboard'
   pod 'CapacitorShare', :path => '../../../../node_modules/.pnpm/@capacitor+share@8.0.1_@capacitor+core@8.3.1/node_modules/@capacitor/share'
   pod 'CapacitorStatusBar', :path => '../../../../node_modules/.pnpm/@capacitor+status-bar@8.0.2_@capacitor+core@8.3.1/node_modules/@capacitor/status-bar'
-  pod 'RevenuecatPurchasesCapacitor', :path => '../../../../node_modules/.pnpm/@revenuecat+purchases-capacitor@12.3.1_@capacitor+core@8.3.1/node_modules/@revenuecat/purchases-capacitor'
+  pod 'RevenuecatPurchasesCapacitor', :path => '../../../../node_modules/.pnpm/@revenuecat+purchases-capacitor@13.7.3_@capacitor+core@8.3.1/node_modules/@revenuecat/purchases-capacitor'
   pod 'CapacitorSecureStoragePlugin', :path => '../../../../node_modules/.pnpm/capacitor-secure-storage-plugin@0.13.0_@capacitor+core@8.3.1/node_modules/capacitor-secure-storage-plugin'
 end
 
