@@ -35,7 +35,10 @@ if (!values.app) {
 const appDir = join(here, values.app);
 const config = JSON.parse(readFileSync(join(appDir, 'config.json'), 'utf8'));
 const english = JSON.parse(
-  readFileSync(join(appDir, 'captions', 'en.json'), 'utf8')
+  readFileSync(
+    join(appDir, config.captionsDir ?? 'captions', 'en.json'),
+    'utf8'
+  )
 );
 const allLocales = Object.keys(
   JSON.parse(readFileSync(join(here, 'locales.json'), 'utf8'))
@@ -93,7 +96,8 @@ const target = values.udid
 const udid = target.udid;
 console.log(`Using simulator: ${target.name} (${udid})`);
 
-const appPath = join(root, 'apps', values.app);
+const webApp = config.app ?? values.app;
+const appPath = join(root, 'apps', webApp);
 const screenshotBuildOutputs = [
   join(appPath, 'out'),
   join(appPath, 'dist'),
@@ -108,7 +112,7 @@ const removeScreenshotBuild = () => {
     rmSync(dir, { recursive: true, force: true });
   }
   console.log(
-    `\nRemoved the screenshot build output so it cannot be published. Run pnpm build:${values.app}:capacitor before the next release.`
+    `\nRemoved the screenshot build output so it cannot be published. Run pnpm build:${webApp}:capacitor before the next release.`
   );
 };
 
@@ -134,13 +138,13 @@ if (!values['no-build']) {
     NEXT_PUBLIC_SCREENSHOT_SERVER: serverUrl,
   };
   console.log(
-    `\nBuilding ${values.app} with the screenshot server (${serverUrl})...`
+    `\nBuilding ${webApp} with the screenshot server (${serverUrl})...`
   );
   rmSync(join(appPath, 'out'), { recursive: true, force: true });
   rmSync(join(appPath, 'dist'), { recursive: true, force: true });
   screenshotBuild = true;
   try {
-    execFileSync('pnpm', ['run', `build:${values.app}`, '--force'], {
+    execFileSync('pnpm', ['run', `build:${webApp}`, '--force'], {
       cwd: root,
       env,
       stdio: 'inherit',

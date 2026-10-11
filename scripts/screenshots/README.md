@@ -96,6 +96,27 @@ out/<App Store locale>/NN.jpeg   (1290x2796, no alpha)
    `gplay images sync`, which requests a `promoGraphic` image type that the Play
    API rejects (400) for every locale.
 
+## Tablet (iPad / Android tablets)
+
+The iPad 13" set is a second "app" that reuses the phone captions:
+`unblockrace-ipad` (frames from the Picasso iPad group, 2064x2752). Every
+command takes it as `--app`, with its own captures and output under
+`.data/unblockrace-ipad/`:
+
+```bash
+# boot an iPad Pro 13-inch simulator first, then:
+pnpm screenshots:capture --app unblockrace-ipad
+pnpm screenshots:compose --app unblockrace-ipad
+pnpm screenshots:upload --app unblockrace-ipad --version 1.2.3        # IPAD_PRO_3GEN_129
+pnpm screenshots:upload-play --app unblockrace-ipad                   # tenInchScreenshots
+```
+
+Its `config.json` sets `app` (the monorepo app to build), `ascDeviceType`,
+`captionsDir` (shared with the phone set) and `play.imageTypes`. Add
+`"sevenInchScreenshots"` to `play.imageTypes` to fill the 7-inch tablet slot
+too; it doubles the upload time. The screen rectangle is scale 0.8545 at
+(150, 620) in the 2064x2752 canvas, measured the same way as the phone's.
+
 Raw captures and output live in `.data/` (gitignored). Back up `.data/<app>/shots`
 if the manual navigation matters; compose is cheap to re-run.
 

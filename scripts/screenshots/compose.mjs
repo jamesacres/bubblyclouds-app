@@ -30,7 +30,8 @@ if (!values.app) {
 
 const appDir = join(here, values.app);
 const config = join(appDir, 'config.json');
-const captionsDir = join(appDir, 'captions');
+const appConfig = JSON.parse(readFileSync(config, 'utf8'));
+const captionsDir = join(appDir, appConfig.captionsDir ?? 'captions');
 const ascLocales = JSON.parse(readFileSync(join(here, 'locales.json'), 'utf8'));
 const source = join(here, 'compose.swift');
 const binary = join(here, '.build', 'compose');

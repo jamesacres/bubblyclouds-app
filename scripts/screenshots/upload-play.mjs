@@ -41,13 +41,14 @@ const playLocales = JSON.parse(
 );
 const packageName = values.package ?? config.playPackage;
 const screens = config.play?.screens ?? config.screens.map((s) => s.id);
+const imageTypes = config.play?.imageTypes ?? ['phoneScreenshots'];
 if (!packageName) {
   console.error('no package name: pass --package or set playPackage');
   process.exit(1);
 }
 if (screens.length < 2 || screens.length > 8) {
   console.error(
-    `Google Play takes 2 to 8 phone screenshots, config lists ${screens.length}`
+    `Google Play takes 2 to 8 screenshots per type, config lists ${screens.length}`
   );
   process.exit(1);
 }
@@ -183,7 +184,7 @@ if (targets.length === 0) {
 }
 
 console.log(
-  `\n${targets.length} Play locales x ${screens.length} phone screenshots (${screens[0]}-${screens.at(-1)}).`
+  `\n${targets.length} Play locales x ${screens.length} screenshots each for ${imageTypes.join(', ')} (${screens[0]}-${screens.at(-1)}).`
 );
 if (!values.yes) {
   const readline = createInterface({
@@ -191,7 +192,7 @@ if (!values.yes) {
     output: process.stdout,
   });
   const answer = await readline.question(
-    `This replaces the existing phone screenshots for those locales and commits the edit.\nType "${packageName}" to continue: `
+    `This replaces the existing ${imageTypes.join(', ')} for those locales and commits the edit.\nType "${packageName}" to continue: `
   );
   readline.close();
   if (answer.trim() !== packageName) {
@@ -208,36 +209,42 @@ const isTransient = (result) =>
 const run = (args) => gplay(args, { quiet: true });
 
 const tryLocale = async ({ tag, code }) => {
-  const base = [
-    '--package',
-    packageName,
-    '--edit',
-    editId,
-    '--locale',
-    code,
-    '--type',
-    'phoneScreenshots',
-  ];
-  const deleted = run(['images', 'delete-all', ...base, '--confirm']);
-  if (deleted.status !== 0) {
-    const remaining = run(['images', 'list', ...base]);
-    const alreadyEmpty =
-      remaining.status === 0 && !/"id"\s*:/.test(remaining.stdout);
-    if (!alreadyEmpty) {
-      return { ok: false, step: 'delete-all', result: deleted };
+  for (const type of imageTypes) {
+    const base = [
+      '--package',
+      packageName,
+      '--edit',
+      editId,
+      '--locale',
+      code,
+      '--type',
+      type,
+    ];
+    const deleted = run(['images', 'delete-all', ...base, '--confirm']);
+    if (deleted.status !== 0) {
+      const remaining = run(['images', 'list', ...base]);
+      const alreadyEmpty =
+        remaining.status === 0 && !/"id"\s*:/.test(remaining.stdout);
+      if (!alreadyEmpty) {
+        return { ok: false, step: `delete-all ${type}`, result: deleted };
+      }
     }
-  }
-  for (const id of screens) {
-    await sleep(delayMs);
-    const uploaded = run([
-      'images',
-      'upload',
-      ...base,
-      '--file',
-      join(sourceDir(tag), `${id}.jpeg`),
-    ]);
-    if (uploaded.status !== 0) {
-      return { ok: false, step: `upload of ${id}.jpeg`, result: uploaded };
+    for (const id of screens) {
+      await sleep(delayMs);
+      const uploaded = run([
+        'images',
+        'upload',
+        ...base,
+        '--file',
+        join(sourceDir(tag), `${id}.jpeg`),
+      ]);
+      if (uploaded.status !== 0) {
+        return {
+          ok: false,
+          step: `upload of ${id}.jpeg (${type})`,
+          result: uploaded,
+        };
+      }
     }
   }
   return { ok: true };

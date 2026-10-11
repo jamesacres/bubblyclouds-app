@@ -1,0 +1,53 @@
+{
+  "app": "unblockrace",
+  "bundleId": "com.bubblyclouds.unblockrace",
+  "ascAppId": "6799411805",
+  "ascDeviceType": "IPAD_PRO_3GEN_129",
+  "playPackage": "com.bubblyclouds.unblockrace",
+  "captionsDir": "../unblockrace/captions",
+  "fontFile": "../fonts/Outfit-VariableFont_wght.ttf",
+  "fontWeight": 400,
+  "textBandBottom": 520,
+  "minFontScale": 0.3,
+  "quality": 0.95,
+  "title": {
+    "fontSize": 150,
+    "y": 100,
+    "maxWidth": 1000,
+    "maxLines": 1,
+    "warnBelowScale": 0.4
+  },
+  "subtitle": {
+    "fontSize": 60,
+    "y": 294,
+    "maxWidth": 1032,
+    "maxLines": 2,
+    "warnBelowScale": 0.75
+  },
+  "screen": {
+    "x": 150,
+    "y": 620,
+    "width": 1763.7,
+    "height": 2351.6,
+    "cornerRadius": 60,
+    "captureWidth": 2064,
+    "captureHeight": 2752
+  },
+  "restoreFromFrame": [],
+  "play": {
+    "screens": ["01", "02", "03", "04", "05", "06", "07", "08"],
+    "imageTypes": ["tenInchScreenshots"]
+  },
+  "screens": [
+    { "id": "01", "frame": "frames/01.jpeg", "capture": "01.png" },
+    { "id": "02", "frame": "frames/02.jpeg", "capture": "02.png" },
+    { "id": "03", "frame": "frames/03.jpeg", "capture": "03.png" },
+    { "id": "04", "frame": "frames/04.jpeg", "capture": "04.png" },
+    { "id": "05", "frame": "frames/05.jpeg", "capture": "05.png" },
+    { "id": "06", "frame": "frames/06.jpeg", "capture": "06.png" },
+    { "id": "07", "frame": "frames/07.jpeg", "capture": "07.png" },
+    { "id": "08", "frame": "frames/08.jpeg", "capture": "08.png" },
+    { "id": "09", "frame": "frames/09.jpeg", "capture": "09.png" },
+    { "id": "10", "frame": "frames/10.jpeg", "capture": "10.png" }
+  ]
+}

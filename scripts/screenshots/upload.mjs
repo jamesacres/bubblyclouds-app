@@ -11,7 +11,7 @@ const { values } = parseArgs({
     app: { type: 'string' },
     version: { type: 'string' },
     'asc-app': { type: 'string' },
-    'device-type': { type: 'string', default: 'IPHONE_69' },
+    'device-type': { type: 'string' },
     locale: { type: 'string' },
     data: { type: 'string', default: join(here, '.data') },
     yes: { type: 'boolean', default: false },
@@ -30,6 +30,7 @@ const config = JSON.parse(
 );
 const ascLocales = JSON.parse(readFileSync(join(here, 'locales.json'), 'utf8'));
 const ascApp = values['asc-app'] ?? config.ascAppId;
+const deviceType = values['device-type'] ?? config.ascDeviceType ?? 'IPHONE_69';
 if (!ascApp) {
   console.error('no App Store Connect app ID: pass --asc-app or set ascAppId');
   process.exit(1);
@@ -135,7 +136,7 @@ const uploadArgs = (extra) => {
     '--version',
     values.version,
     '--device-type',
-    values['device-type'],
+    deviceType,
     '--replace',
     ...extra,
   ];
@@ -165,7 +166,7 @@ if (!values.yes) {
     output: process.stdout,
   });
   const answer = await readline.question(
-    `\nThis deletes the existing ${values['device-type']} screenshots for ${uploadLocales.length} locales of version ${values.version} and uploads the new ones.\nType "${values.version}" to continue: `
+    `\nThis deletes the existing ${deviceType} screenshots for ${uploadLocales.length} locales of version ${values.version} and uploads the new ones.\nType "${values.version}" to continue: `
   );
   readline.close();
   if (answer.trim() !== values.version) {

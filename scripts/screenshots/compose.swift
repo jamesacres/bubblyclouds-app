@@ -81,6 +81,7 @@ struct Layout {
     let size: CGSize
     let fontSize: Double
     let lines: Int
+    let orphan: String?
 }
 
 func layout(
@@ -108,9 +109,22 @@ func layout(
             setter, CFRange(location: 0, length: 0), nil, constraint, nil)
         let path = CGPath(rect: CGRect(origin: .zero, size: CGSize(width: style.maxWidth, height: suggested.height + 10)), transform: nil)
         let frame = CTFramesetterCreateFrame(setter, CFRange(location: 0, length: 0), path, nil)
-        let lines = (CTFrameGetLines(frame) as? [CTLine])?.count ?? 1
+        let ctLines = (CTFrameGetLines(frame) as? [CTLine]) ?? []
+        let lines = max(ctLines.count, 1)
         if lines <= style.maxLines || size <= floor {
-            return Layout(setter: setter, size: suggested, fontSize: size, lines: lines)
+            let nsText = text as NSString
+            var orphan: String?
+            for (index, line) in ctLines.enumerated() where index > 0 {
+                let range = CTLineGetStringRange(line)
+                let piece = nsText.substring(with: NSRange(location: range.location, length: range.length))
+                let trimmed = piece.trimmingCharacters(in: .whitespacesAndNewlines)
+                let previous = ctLines[index - 1]
+                let previousRange = CTLineGetStringRange(previous)
+                let previousPiece = nsText.substring(with: NSRange(location: previousRange.location, length: previousRange.length))
+                let wrapped = !previousPiece.hasSuffix("\n")
+                if wrapped && trimmed.count > 0 && trimmed.count <= 2 { orphan = trimmed }
+            }
+            return Layout(setter: setter, size: suggested, fontSize: size, lines: lines, orphan: orphan)
         }
         size -= 1
     }
@@ -141,6 +155,9 @@ func report(_ id: String, _ label: String, _ result: Layout, _ style: TextStyle,
         print("  \(id) \(label): OVERFLOW \(result.lines) lines at \(Int(scale * 100))% (max \(style.maxLines)); shorten the caption")
     } else if scale < style.warnBelowScale {
         print("  \(id) \(label): small, shrunk to \(Int(scale * 100))% of \(Int(style.fontSize))pt; consider a shorter caption")
+    }
+    if let orphan = result.orphan {
+        print("  \(id) \(label): orphan, last line is just \"\(orphan)\"; reword the caption")
     }
     return !overflow
 }
