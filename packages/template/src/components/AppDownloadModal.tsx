@@ -4,6 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { Smartphone, ExternalLink } from 'lucide-react';
 import { isCapacitor } from '../helpers/capacitor';
+import { getStoreBadgeSrc } from '../helpers/storeBadge';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 
@@ -32,7 +33,7 @@ export const AppDownloadModal = ({
   desktopDescription,
   openInAppLabel,
 }: AppDownloadModalProps) => {
-  const { t } = useTranslation('template');
+  const { t, i18n } = useTranslation('template');
   if (isCapacitor()) {
     return null;
   }
@@ -111,7 +112,7 @@ export const AppDownloadModal = ({
                         className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-start shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
                       >
                         <Image
-                          src="/badges/download-on-app-store.svg"
+                          src={getStoreBadgeSrc('app-store', i18n.language)}
                           alt={t('download.appStoreAlt', {
                             appStore: t('brand.appStore'),
                           })}
@@ -137,7 +138,7 @@ export const AppDownloadModal = ({
                         className="border-black/8 flex w-full items-center gap-4 rounded-2xl border bg-gray-50 p-4 text-start shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-200 hover:border-black/15 hover:bg-gray-100 active:scale-[0.98] dark:border-white/10 dark:bg-zinc-800/80 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:hover:border-white/20 dark:hover:bg-zinc-700/70"
                       >
                         <Image
-                          src="/badges/get-it-on-google-play.svg"
+                          src={getStoreBadgeSrc('google-play', i18n.language)}
                           alt={t('download.googlePlayAlt', {
                             googlePlay: t('brand.googlePlay'),
                           })}

@@ -220,7 +220,7 @@ export const LoginModal = ({
                     <button
                       type="submit"
                       disabled={isLoggingIn}
-                      className="bg-theme-primary hover:bg-theme-primary-dark cursor-pointer rounded-e-[5px] px-3 py-2 text-sm font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                      className="bg-theme-primary hover:bg-theme-primary-dark shrink-0 cursor-pointer whitespace-nowrap rounded-e-[5px] px-3 py-2 text-sm font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {t('login.continue')}
                     </button>
