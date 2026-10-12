@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Suivez chaque course",
+    "subtitle": "Consultez votre historique, vos taux de réussite et la comparaison avec vos amis"
+  },
+  "01": {
+    "title": "Course et apprentissage en un",
+    "subtitle": "Du coaching quand vous êtes coincé,\nexplication complète de la technique"
+  },
+  "02": {
+    "title": "Cahier de grilles",
+    "subtitle": "Chaque mois, un cahier soigné de défis axés sur les techniques"
+  },
+  "03": {
+    "title": "Importez et partagez vos grilles",
+    "subtitle": "Numérisez un sudoku d'un livre et défiez vos amis"
+  },
+  "04": {
+    "title": "Le sudoku devient compétitif",
+    "subtitle": "Défiez vos amis et votre famille en course en direct — voyez qui résout le plus vite"
+  },
+  "05": {
+    "title": "Contre les autres, l'IA ou seul",
+    "subtitle": "Partagez un lien avec vos amis et votre famille,\najoutez des adversaires IA ou jouez contre la montre"
+  },
+  "06": {
+    "title": "Grimpez au classement",
+    "subtitle": "Chaque course rapporte des points — voyez qui domine depuis 30 jours"
+  },
+  "07": {
+    "title": "Découvrez vos rivaux",
+    "subtitle": "Choisissez parmi des adversaires IA uniques, chacun avec sa personnalité et son style"
+  },
+  "08": {
+    "title": "Vos équipes privées",
+    "subtitle": "Invitez famille et amis, faites la course ensemble et créez votre classement"
+  },
+  "09": {
+    "title": "Un lien. Tout le monde y est.",
+    "subtitle": "Partagez un lien d'invitation et vos amis se joignent à la course en quelques secondes"
+  }
+}

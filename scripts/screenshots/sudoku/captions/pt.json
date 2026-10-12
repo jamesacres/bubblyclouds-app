@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Acompanhe cada corrida",
+    "subtitle": "Veja seu histórico, taxas de conclusão e como seus amigos se saíram"
+  },
+  "01": {
+    "title": "Corra e aprenda junto",
+    "subtitle": "Orientação quando você travar,\nexplicação completa da técnica"
+  },
+  "02": {
+    "title": "Livro de jogos",
+    "subtitle": "Todo mês chega um livro selecionado de desafios focados em técnicas"
+  },
+  "03": {
+    "title": "Importe e compartilhe sudokus",
+    "subtitle": "Escaneie um sudoku de um livro e desafie seus amigos"
+  },
+  "04": {
+    "title": "O sudoku ficou competitivo",
+    "subtitle": "Desafie amigos e família em uma corrida ao vivo — veja quem resolve mais rápido"
+  },
+  "05": {
+    "title": "Corra com outros, IA ou sozinho",
+    "subtitle": "Compartilhe um link com amigos e família,\nadicione oponentes de IA ou jogue contra o relógio"
+  },
+  "06": {
+    "title": "Suba no ranking",
+    "subtitle": "Cada corrida dá pontos — veja quem domina nos últimos 30 dias"
+  },
+  "07": {
+    "title": "Conheça seus rivais",
+    "subtitle": "Escolha entre oponentes de IA únicos — cada um com sua personalidade e estilo de jogo"
+  },
+  "08": {
+    "title": "Suas equipes privadas",
+    "subtitle": "Convide família e amigos, corram juntos e montem seu próprio ranking"
+  },
+  "09": {
+    "title": "Um link. Todo mundo entra.",
+    "subtitle": "Compartilhe um link de convite e seus amigos entram na corrida em segundos"
+  }
+}

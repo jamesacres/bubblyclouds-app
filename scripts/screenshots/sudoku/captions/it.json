@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Segui ogni gara",
+    "subtitle": "Guarda la cronologia, i tassi di completamento e il confronto con i tuoi amici"
+  },
+  "01": {
+    "title": "Gareggia e impara insieme",
+    "subtitle": "Un coach quando ti blocchi,\nspiegazione completa della tecnica"
+  },
+  "02": {
+    "title": "Libro di schemi",
+    "subtitle": "Ogni mese arriva un libro curato di sfide basate sulle tecniche"
+  },
+  "03": {
+    "title": "Importa qualsiasi schema e condividi",
+    "subtitle": "Scansiona un sudoku da un libro e sfida i tuoi amici"
+  },
+  "04": {
+    "title": "Il sudoku diventa competitivo",
+    "subtitle": "Sfida amici e familiari in una gara dal vivo: scopri chi lo risolve più in fretta"
+  },
+  "05": {
+    "title": "Sfida altri, l'IA o da solo",
+    "subtitle": "Condividi un link con amici e familiari,\naggiungi avversari IA o sfida il tempo"
+  },
+  "06": {
+    "title": "Scala la classifica",
+    "subtitle": "Ogni gara dà punti — scopri chi domina negli ultimi 30 giorni"
+  },
+  "07": {
+    "title": "Conosci i tuoi rivali",
+    "subtitle": "Scegli tra avversari IA unici, ognuno con la sua personalità e il suo stile di gioco"
+  },
+  "08": {
+    "title": "I tuoi team privati",
+    "subtitle": "Invita familiari e amici, gareggiate insieme e create la vostra classifica"
+  },
+  "09": {
+    "title": "Un link. Ci sono tutti.",
+    "subtitle": "Condividi un link d'invito e i tuoi amici entrano in gara in pochi secondi"
+  }
+}

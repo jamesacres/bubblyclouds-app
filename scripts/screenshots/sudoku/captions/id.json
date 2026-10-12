@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Pantau setiap balapan",
+    "subtitle": "Lihat riwayat, tingkat penyelesaian, dan perbandingan dengan teman-temanmu"
+  },
+  "01": {
+    "title": "Balapan sambil belajar",
+    "subtitle": "Pendampingan saat kamu buntu,\npenjelasan teknik lengkap"
+  },
+  "02": {
+    "title": "Buku Teka-teki",
+    "subtitle": "Buku teka-teki pilihan berisi tantangan berfokus teknik terbit setiap bulan"
+  },
+  "03": {
+    "title": "Impor puzzle apa pun dan bagikan",
+    "subtitle": "Pindai sudoku dari buku, tantang temanmu"
+  },
+  "04": {
+    "title": "Sudoku kini kompetitif",
+    "subtitle": "Tantang teman dan keluarga balapan langsung — lihat siapa tercepat menyelesaikannya"
+  },
+  "05": {
+    "title": "Balap lawan orang, AI, atau solo",
+    "subtitle": "Bagikan tautan ke teman dan keluarga,\ntambah lawan AI, atau lawan waktu"
+  },
+  "06": {
+    "title": "Naik ke puncak peringkat",
+    "subtitle": "Setiap balapan memberi poin — lihat siapa yang berkuasa dalam 30 hari terakhir"
+  },
+  "07": {
+    "title": "Kenali para rivalmu",
+    "subtitle": "Pilih dari lawan AI unik — masing-masing punya kepribadian dan gaya main sendiri"
+  },
+  "08": {
+    "title": "Tim balap privatmu",
+    "subtitle": "Undang keluarga dan teman, balapan bersama, dan bangun papan peringkat sendiri"
+  },
+  "09": {
+    "title": "Satu tautan. Semua ikut.",
+    "subtitle": "Bagikan tautan undangan dan temanmu bergabung dalam hitungan detik"
+  }
+}
