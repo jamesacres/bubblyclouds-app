@@ -35,15 +35,10 @@
   },
   "restoreFromFrame": [],
   "play": {
-    "screens": ["10", "01", "02", "03", "04", "05", "06", "07"],
+    "screens": ["01", "02", "03", "04", "05", "06", "07", "08"],
     "imageTypes": ["tenInchScreenshots"]
   },
   "screens": [
-    {
-      "id": "10",
-      "frame": "frames/10.jpeg",
-      "capture": "10.png"
-    },
     {
       "id": "01",
       "frame": "frames/01.jpeg",
@@ -88,6 +83,11 @@
       "id": "09",
       "frame": "frames/09.jpeg",
       "capture": "09.png"
+    },
+    {
+      "id": "10",
+      "frame": "frames/10.jpeg",
+      "capture": "10.png"
     }
   ]
 }
