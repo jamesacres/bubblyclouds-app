@@ -1,21 +1,21 @@
 PODS:
-  - Capacitor (8.3.1):
+  - Capacitor (8.5.3):
     - CapacitorCordova
-  - CapacitorApp (8.1.0):
+  - CapacitorApp (8.1.2):
     - Capacitor
-  - CapacitorBrowser (8.0.3):
+  - CapacitorBrowser (8.0.5):
     - Capacitor
   - CapacitorCommunityInAppReview (8.0.0):
     - Capacitor
-  - CapacitorCordova (8.3.1)
-  - CapacitorKeyboard (8.0.3):
+  - CapacitorCordova (8.5.3)
+  - CapacitorKeyboard (8.0.6):
     - Capacitor
   - CapacitorSecureStoragePlugin (0.13.0):
     - Capacitor
     - SwiftKeychainWrapper
-  - CapacitorShare (8.0.1):
+  - CapacitorShare (8.0.3):
     - Capacitor
-  - CapacitorStatusBar (8.0.2):
+  - CapacitorStatusBar (8.0.4):
     - Capacitor
   - PurchasesHybridCommon (19.10.0):
     - RevenueCat (= 5.94.0)
@@ -26,16 +26,16 @@ PODS:
   - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
-  - "Capacitor (from `../../../../node_modules/.pnpm/@capacitor+ios@8.3.1_@capacitor+core@8.3.1/node_modules/@capacitor/ios`)"
-  - "CapacitorApp (from `../../../../node_modules/.pnpm/@capacitor+app@8.1.0_@capacitor+core@8.3.1/node_modules/@capacitor/app`)"
-  - "CapacitorBrowser (from `../../../../node_modules/.pnpm/@capacitor+browser@8.0.3_@capacitor+core@8.3.1/node_modules/@capacitor/browser`)"
-  - "CapacitorCommunityInAppReview (from `../../../../node_modules/.pnpm/@capacitor-community+in-app-review@8.0.0_@capacitor+core@8.3.1/node_modules/@capacitor-community/in-app-review`)"
-  - "CapacitorCordova (from `../../../../node_modules/.pnpm/@capacitor+ios@8.3.1_@capacitor+core@8.3.1/node_modules/@capacitor/ios`)"
-  - "CapacitorKeyboard (from `../../../../node_modules/.pnpm/@capacitor+keyboard@8.0.3_@capacitor+core@8.3.1/node_modules/@capacitor/keyboard`)"
-  - "CapacitorSecureStoragePlugin (from `../../../../node_modules/.pnpm/capacitor-secure-storage-plugin@0.13.0_@capacitor+core@8.3.1/node_modules/capacitor-secure-storage-plugin`)"
-  - "CapacitorShare (from `../../../../node_modules/.pnpm/@capacitor+share@8.0.1_@capacitor+core@8.3.1/node_modules/@capacitor/share`)"
-  - "CapacitorStatusBar (from `../../../../node_modules/.pnpm/@capacitor+status-bar@8.0.2_@capacitor+core@8.3.1/node_modules/@capacitor/status-bar`)"
-  - "RevenuecatPurchasesCapacitor (from `../../../../node_modules/.pnpm/@revenuecat+purchases-capacitor@13.7.3_@capacitor+core@8.3.1/node_modules/@revenuecat/purchases-capacitor`)"
+  - "Capacitor (from `../../../../node_modules/.pnpm/@capacitor+ios@8.5.3_@capacitor+core@8.5.3/node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../../../node_modules/.pnpm/@capacitor+app@8.1.2_@capacitor+core@8.5.3/node_modules/@capacitor/app`)"
+  - "CapacitorBrowser (from `../../../../node_modules/.pnpm/@capacitor+browser@8.0.5_@capacitor+core@8.5.3/node_modules/@capacitor/browser`)"
+  - "CapacitorCommunityInAppReview (from `../../../../node_modules/.pnpm/@capacitor-community+in-app-review@8.0.0_@capacitor+core@8.5.3/node_modules/@capacitor-community/in-app-review`)"
+  - "CapacitorCordova (from `../../../../node_modules/.pnpm/@capacitor+ios@8.5.3_@capacitor+core@8.5.3/node_modules/@capacitor/ios`)"
+  - "CapacitorKeyboard (from `../../../../node_modules/.pnpm/@capacitor+keyboard@8.0.6_@capacitor+core@8.5.3/node_modules/@capacitor/keyboard`)"
+  - "CapacitorSecureStoragePlugin (from `../../../../node_modules/.pnpm/capacitor-secure-storage-plugin@0.13.0_@capacitor+core@8.5.3/node_modules/capacitor-secure-storage-plugin`)"
+  - "CapacitorShare (from `../../../../node_modules/.pnpm/@capacitor+share@8.0.3_@capacitor+core@8.5.3/node_modules/@capacitor/share`)"
+  - "CapacitorStatusBar (from `../../../../node_modules/.pnpm/@capacitor+status-bar@8.0.4_@capacitor+core@8.5.3/node_modules/@capacitor/status-bar`)"
+  - "RevenuecatPurchasesCapacitor (from `../../../../node_modules/.pnpm/@revenuecat+purchases-capacitor@13.7.3_@capacitor+core@8.5.3/node_modules/@revenuecat/purchases-capacitor`)"
 
 SPEC REPOS:
   trunk:
@@ -45,41 +45,41 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Capacitor:
-    :path: "../../../../node_modules/.pnpm/@capacitor+ios@8.3.1_@capacitor+core@8.3.1/node_modules/@capacitor/ios"
+    :path: "../../../../node_modules/.pnpm/@capacitor+ios@8.5.3_@capacitor+core@8.5.3/node_modules/@capacitor/ios"
   CapacitorApp:
-    :path: "../../../../node_modules/.pnpm/@capacitor+app@8.1.0_@capacitor+core@8.3.1/node_modules/@capacitor/app"
+    :path: "../../../../node_modules/.pnpm/@capacitor+app@8.1.2_@capacitor+core@8.5.3/node_modules/@capacitor/app"
   CapacitorBrowser:
-    :path: "../../../../node_modules/.pnpm/@capacitor+browser@8.0.3_@capacitor+core@8.3.1/node_modules/@capacitor/browser"
+    :path: "../../../../node_modules/.pnpm/@capacitor+browser@8.0.5_@capacitor+core@8.5.3/node_modules/@capacitor/browser"
   CapacitorCommunityInAppReview:
-    :path: "../../../../node_modules/.pnpm/@capacitor-community+in-app-review@8.0.0_@capacitor+core@8.3.1/node_modules/@capacitor-community/in-app-review"
+    :path: "../../../../node_modules/.pnpm/@capacitor-community+in-app-review@8.0.0_@capacitor+core@8.5.3/node_modules/@capacitor-community/in-app-review"
   CapacitorCordova:
-    :path: "../../../../node_modules/.pnpm/@capacitor+ios@8.3.1_@capacitor+core@8.3.1/node_modules/@capacitor/ios"
+    :path: "../../../../node_modules/.pnpm/@capacitor+ios@8.5.3_@capacitor+core@8.5.3/node_modules/@capacitor/ios"
   CapacitorKeyboard:
-    :path: "../../../../node_modules/.pnpm/@capacitor+keyboard@8.0.3_@capacitor+core@8.3.1/node_modules/@capacitor/keyboard"
+    :path: "../../../../node_modules/.pnpm/@capacitor+keyboard@8.0.6_@capacitor+core@8.5.3/node_modules/@capacitor/keyboard"
   CapacitorSecureStoragePlugin:
-    :path: "../../../../node_modules/.pnpm/capacitor-secure-storage-plugin@0.13.0_@capacitor+core@8.3.1/node_modules/capacitor-secure-storage-plugin"
+    :path: "../../../../node_modules/.pnpm/capacitor-secure-storage-plugin@0.13.0_@capacitor+core@8.5.3/node_modules/capacitor-secure-storage-plugin"
   CapacitorShare:
-    :path: "../../../../node_modules/.pnpm/@capacitor+share@8.0.1_@capacitor+core@8.3.1/node_modules/@capacitor/share"
+    :path: "../../../../node_modules/.pnpm/@capacitor+share@8.0.3_@capacitor+core@8.5.3/node_modules/@capacitor/share"
   CapacitorStatusBar:
-    :path: "../../../../node_modules/.pnpm/@capacitor+status-bar@8.0.2_@capacitor+core@8.3.1/node_modules/@capacitor/status-bar"
+    :path: "../../../../node_modules/.pnpm/@capacitor+status-bar@8.0.4_@capacitor+core@8.5.3/node_modules/@capacitor/status-bar"
   RevenuecatPurchasesCapacitor:
-    :path: "../../../../node_modules/.pnpm/@revenuecat+purchases-capacitor@13.7.3_@capacitor+core@8.3.1/node_modules/@revenuecat/purchases-capacitor"
+    :path: "../../../../node_modules/.pnpm/@revenuecat+purchases-capacitor@13.7.3_@capacitor+core@8.5.3/node_modules/@revenuecat/purchases-capacitor"
 
 SPEC CHECKSUMS:
-  Capacitor: 46dbaa89c1d1cd121b9fc2dc839c1f39cc49e326
-  CapacitorApp: 449ffe26375e96f8aaaee625ac6e01e5c57c8650
-  CapacitorBrowser: c987c73d09d8bd3b5ec13f06338b1e14d5d2be69
+  Capacitor: 2f67eaeb8ed79909cd35b5e7439a5c2a9ca58e0f
+  CapacitorApp: 7b7e43debe505bc61beedb83796aa1368c86078b
+  CapacitorBrowser: f94f92654e92a97981bf346b3681af76527dace0
   CapacitorCommunityInAppReview: 4492bdd34aad4d27ed87949376022cc93b294ea1
-  CapacitorCordova: 9010447fe25e869705fcf525e5f490facde87608
-  CapacitorKeyboard: 31c8285d92c9d1410071d52449f16d2c6673b6f4
+  CapacitorCordova: 0b7326439c7a09fc5d20eced5e0dab986327a493
+  CapacitorKeyboard: f9e85e685082e9f63404de15db4a4291448b0912
   CapacitorSecureStoragePlugin: d083ff28d9ba5bc74924b9bcf9754ea605016b63
-  CapacitorShare: 0c58305114538568059bfc07111f22dcb9cb2a82
-  CapacitorStatusBar: 01d5763b4ed720de5ce2edbc938de6a98f4c8f32
+  CapacitorShare: 5b5e53347556bee89ae6163ed20b5b3c25fe75f1
+  CapacitorStatusBar: ff844df1f126da6c4fbc4028272425fa3a91e7e3
   PurchasesHybridCommon: 4ea84285a799df27db9e4a0cc180d9129e6e9cf2
   RevenueCat: f381deba42a93e5194104b17a1f653a389d2e215
   RevenuecatPurchasesCapacitor: 5e577252fdf065264e66b71ad479606a504090c8
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 4464f147fb942e1e9058d369a8573cc4af075006
+PODFILE CHECKSUM: 15fc3481b25169f30449d144260969414c98d827
 
 COCOAPODS: 1.16.2

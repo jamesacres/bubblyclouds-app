@@ -117,6 +117,23 @@ Its `config.json` sets `app` (the monorepo app to build), `ascDeviceType`,
 too; it doubles the upload time. The screen rectangle is scale 0.8545 at
 (150, 620) in the 2064x2752 canvas, measured the same way as the phone's.
 
+## Sudoku Race
+
+Same flow with `--app sudoku` (phone) and `--app sudoku-ipad` (tablet); the
+tablet shares `sudoku/captions`. Its frames come from the Picasso exports, in
+the order shown in App Store Connect (Race and learn, Puzzle Book, Import, hero,
+Race others, Rankings, Rivals, Teams, One link, Track).
+
+Sudoku Race follows the same conventions as Unblock Race: headline 150pt at
+y=100 (one line, shrink to fit), subtitle 60pt at y=294 (two lines, shrink to
+fit), and the device in the same place on every screen, with no per-screen
+overrides. Picasso had a few screens laid out differently (a raised device on
+the race lobby, a larger hero headline, a higher "Meet your rivals"); those
+are deliberately flattened. The lobby screen borrows the bezel from another
+frame, which is safe because all frames share one background. Text in the
+Picasso exports sits 10px lower than its project file, so we match Unblock
+Race's positions instead of either.
+
 Raw captures and output live in `.data/` (gitignored). Back up `.data/<app>/shots`
 if the manual navigation matters; compose is cheap to re-run.
 

@@ -28,10 +28,53 @@ struct ScreenRect: Decodable {
     let captureHeight: Int
 }
 
+struct TextOverride: Decodable {
+    let fontSize: Double?
+    let y: Double?
+    let maxWidth: Double?
+    let maxLines: Int?
+    let warnBelowScale: Double?
+}
+
+struct ScreenOverride: Decodable {
+    let x: Double?
+    let y: Double?
+    let width: Double?
+    let height: Double?
+    let cornerRadius: Double?
+}
+
 struct Screen: Decodable {
     let id: String
     let frame: String
     let capture: String
+    let textBandBottom: Double?
+    let title: TextOverride?
+    let subtitle: TextOverride?
+    let screen: ScreenOverride?
+    let restoreFromFrame: [Rect]?
+}
+
+func merged(_ base: TextStyle, _ override: TextOverride?) -> TextStyle {
+    guard let override else { return base }
+    return TextStyle(
+        fontSize: override.fontSize ?? base.fontSize,
+        y: override.y ?? base.y,
+        maxWidth: override.maxWidth ?? base.maxWidth,
+        maxLines: override.maxLines ?? base.maxLines,
+        warnBelowScale: override.warnBelowScale ?? base.warnBelowScale)
+}
+
+func merged(_ base: ScreenRect, _ override: ScreenOverride?) -> ScreenRect {
+    guard let override else { return base }
+    return ScreenRect(
+        x: override.x ?? base.x,
+        y: override.y ?? base.y,
+        width: override.width ?? base.width,
+        height: override.height ?? base.height,
+        cornerRadius: override.cornerRadius ?? base.cornerRadius,
+        captureWidth: base.captureWidth,
+        captureHeight: base.captureHeight)
 }
 
 struct Config: Decodable {
@@ -257,7 +300,10 @@ for screen in config.screens {
 
     guard let data = context.data else { fail("no bitmap data") }
     let pixels = data.assumingMemoryBound(to: UInt8.self)
-    let bandBottom = Int(config.textBandBottom)
+    let titleStyle = merged(config.title, screen.title)
+    let subtitleStyle = merged(config.subtitle, screen.subtitle)
+    let rect = merged(config.screen, screen.screen)
+    let bandBottom = Int(screen.textBandBottom ?? config.textBandBottom)
     let plane = fitPlane(pixels: pixels, width: width, height: height, bandBottom: bandBottom, margin: 90)
     for y in 0..<bandBottom {
         for x in 0..<width {
@@ -270,18 +316,18 @@ for screen in config.screens {
     }
 
     let screenRect = CGRect(
-        x: config.screen.x, y: Double(height) - config.screen.y - config.screen.height,
-        width: config.screen.width, height: config.screen.height)
+        x: rect.x, y: Double(height) - rect.y - rect.height,
+        width: rect.width, height: rect.height)
     context.saveGState()
     context.addPath(CGPath(
-        roundedRect: screenRect, cornerWidth: config.screen.cornerRadius,
-        cornerHeight: config.screen.cornerRadius, transform: nil))
+        roundedRect: screenRect, cornerWidth: rect.cornerRadius,
+        cornerHeight: rect.cornerRadius, transform: nil))
     context.clip()
     context.interpolationQuality = .high
     context.draw(capture, in: screenRect)
     context.restoreGState()
 
-    for region in config.restoreFromFrame {
+    for region in screen.restoreFromFrame ?? config.restoreFromFrame {
         let rect = CGRect(
             x: region.x, y: Double(height) - region.y - region.height, width: region.width, height: region.height)
         context.saveGState()
@@ -293,13 +339,13 @@ for screen in config.screens {
     }
 
     let titleLayout = drawText(
-        caption.title, style: config.title, descriptor: descriptor, config: config, in: context,
+        caption.title, style: titleStyle, descriptor: descriptor, config: config, in: context,
         canvasWidth: Double(width), canvasHeight: Double(height))
     let subtitleLayout = drawText(
-        caption.subtitle, style: config.subtitle, descriptor: descriptor, config: config, in: context,
+        caption.subtitle, style: subtitleStyle, descriptor: descriptor, config: config, in: context,
         canvasWidth: Double(width), canvasHeight: Double(height))
-    let titleFits = report(screen.id, "title", titleLayout, config.title, config)
-    let subtitleFits = report(screen.id, "subtitle", subtitleLayout, config.subtitle, config)
+    let titleFits = report(screen.id, "title", titleLayout, titleStyle, config)
+    let subtitleFits = report(screen.id, "subtitle", subtitleLayout, subtitleStyle, config)
     if !(titleFits && subtitleFits) { overflowed += 1 }
 
     guard let image = context.makeImage() else { fail("cannot render \(screen.id)") }

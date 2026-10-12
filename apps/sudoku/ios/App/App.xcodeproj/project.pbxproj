@@ -17,6 +17,7 @@
 		5471C8362E1EF046004AD87B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5471C8352E1EF046004AD87B /* StoreKit.framework */; };
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
 		920F0D4A76FE5EDDB3446DE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 823BA041D5566A84A4CD37F0 /* InfoPlist.strings */; };
+		DE85482643B745D895EAEAFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26364E6450274A2DB27AD9DD /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		2BA48E75FB96C2816D25FCEF /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EE7DA66AE3A3FBE408B87472 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		652406799BF3CE732C9D968B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		26364E6450274A2DB27AD9DD /* SceneDelegate.swift */ = {isa = PBXFileReference; name = "SceneDelegate.swift"; path = "SceneDelegate.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				823BA041D5566A84A4CD37F0 /* InfoPlist.strings */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
+				26364E6450274A2DB27AD9DD /* SceneDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
+				DE85482643B745D895EAEAFF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
