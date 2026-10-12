@@ -58,7 +58,14 @@
     {
       "id": "03",
       "frame": "frames/03.jpeg",
-      "capture": "03.png"
+      "capture": "03.png",
+      "cameraPatch": {
+        "x": 130,
+        "y": 1865,
+        "width": 1024,
+        "height": 931,
+        "cornerRadius": 26
+      }
     },
     {
       "id": "04",

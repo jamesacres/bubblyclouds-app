@@ -53,6 +53,7 @@ struct Screen: Decodable {
     let subtitle: TextOverride?
     let screen: ScreenOverride?
     let restoreFromFrame: [Rect]?
+    let cameraPatch: Rect?
 }
 
 func merged(_ base: TextStyle, _ override: TextOverride?) -> TextStyle {
@@ -111,6 +112,77 @@ func loadImage(_ path: String) -> CGImage {
           let image = CGImageSourceCreateImageAtIndex(source, 0, nil)
     else { fail("cannot read image \(path)") }
     return image
+}
+
+struct GreyBox {
+    let x0: Int
+    let y0: Int
+    let x1: Int
+    let y1: Int
+}
+
+/// Finds the simulator's flat grey camera placeholder: the tallest run of rows
+/// that are mostly mid-grey, then the columns that are grey within those rows.
+func detectGreyBox(_ image: CGImage) -> GreyBox? {
+    let width = image.width
+    let height = image.height
+    guard let context = CGContext(
+        data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: width * 4,
+        space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)
+    else { return nil }
+    context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
+    guard let data = context.data else { return nil }
+    let pixels = data.assumingMemoryBound(to: UInt8.self)
+
+    var grey = [Bool](repeating: false, count: width * height)
+    var rowCount = [Int](repeating: 0, count: height)
+    for y in 0..<height {
+        for x in 0..<width {
+            let offset = (y * width + x) * 4
+            let r = Int(pixels[offset]), g = Int(pixels[offset + 1]), b = Int(pixels[offset + 2])
+            let luminance = (299 * r + 587 * g + 114 * b) / 1000
+            let chroma = max(r, g, b) - min(r, g, b)
+            if luminance > 100 && luminance < 185 && chroma < 14 {
+                grey[y * width + x] = true
+                rowCount[y] += 1
+            }
+        }
+    }
+
+    let denseRows = Double(width) * 0.35
+    var best: (start: Int, end: Int)? = nil
+    var start = -1
+    var last = -1
+    func close() {
+        if start >= 0, best == nil || last - start > best!.end - best!.start {
+            best = (start, last)
+        }
+        start = -1
+    }
+    for y in 0..<height {
+        if Double(rowCount[y]) >= denseRows {
+            if start < 0 { start = y }
+            last = y
+        } else if start >= 0 && y - last > 8 {
+            close()
+        }
+    }
+    close()
+    guard let run = best, run.end - run.start > 200 else { return nil }
+
+    let runHeight = run.end - run.start + 1
+    var x0 = width
+    var x1 = -1
+    for x in 0..<width {
+        var count = 0
+        for y in run.start...run.end where grey[y * width + x] { count += 1 }
+        if Double(count) >= Double(runHeight) * 0.4 {
+            x0 = min(x0, x)
+            x1 = max(x1, x)
+        }
+    }
+    guard x1 > x0 else { return nil }
+    return GreyBox(x0: x0, y0: run.start, x1: x1, y1: run.end)
 }
 
 func makeFont(descriptor: CTFontDescriptor, size: Double, weight: Double) -> CTFont {
@@ -326,6 +398,38 @@ for screen in config.screens {
     context.interpolationQuality = .high
     context.draw(capture, in: screenRect)
     context.restoreGState()
+
+    if let patch = screen.cameraPatch {
+        if let box = detectGreyBox(capture) {
+            let scaleX = rect.width / Double(capture.width)
+            let scaleY = rect.height / Double(capture.height)
+            let left = rect.x + Double(box.x0) * scaleX
+            let top = rect.y + Double(box.y0) * scaleY
+            let boxWidth = Double(box.x1 - box.x0 + 1) * scaleX
+            let visibleHeight = min(Double(box.y1 - box.y0 + 1) * scaleY, Double(height) - top)
+            let sourceRect = CGRect(x: patch.x, y: patch.y, width: patch.width, height: patch.height)
+            if let source = frame.cropping(to: sourceRect) {
+                let factor = max(boxWidth / patch.width, visibleHeight / patch.height)
+                let drawWidth = patch.width * factor
+                let drawHeight = patch.height * factor
+                let destination = CGRect(
+                    x: left, y: Double(height) - top - drawHeight, width: drawWidth, height: drawHeight)
+                let boxRect = CGRect(
+                    x: left, y: Double(height) - top - visibleHeight, width: boxWidth, height: visibleHeight)
+                context.saveGState()
+                context.addPath(CGPath(
+                    roundedRect: boxRect, cornerWidth: patch.cornerRadius,
+                    cornerHeight: patch.cornerRadius, transform: nil))
+                context.clip()
+                context.interpolationQuality = .high
+                context.draw(source, in: destination)
+                context.restoreGState()
+            }
+        } else {
+            FileHandle.standardError.write(
+                Data("warn \(screen.id): camera placeholder not found in \(capturePath)\n".utf8))
+        }
+    }
 
     for region in screen.restoreFromFrame ?? config.restoreFromFrame {
         let rect = CGRect(

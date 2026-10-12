@@ -134,6 +134,17 @@ frame, which is safe because all frames share one background. Text in the
 Picasso exports sits 10px lower than its project file, so we match Unblock
 Race's positions instead of either.
 
+### Camera placeholder (Sudoku, screen 03)
+
+The simulator has no camera, so the import screen shows a flat grey square. Compose
+finds that square in every capture (the largest dense run of mid-grey rows, then
+its columns) and draws the reference photo from the frame over it. This is
+needed per capture because the square moves vertically with the wrapped
+description above it: its top lands at one of three heights across the
+languages. Configure it per screen with `cameraPatch`, the photo's rectangle in
+the frame (`x`, `y`, `width`, `height`, `cornerRadius`). If no placeholder is
+found, compose prints a `warn` line and leaves the capture as is.
+
 Raw captures and output live in `.data/` (gitignored). Back up `.data/<app>/shots`
 if the manual navigation matters; compose is cheap to re-run.
 
