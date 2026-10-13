@@ -180,6 +180,22 @@ function pbxId(name) {
     .toUpperCase();
 }
 
+function sortPbxSection(text, section) {
+  const begin = `/* Begin ${section} section */\n`;
+  const end = `/* End ${section} section */`;
+  const start = text.indexOf(begin);
+  const stop = text.indexOf(end);
+  if (start === -1 || stop === -1) {
+    throw new Error(`project.pbxproj has no ${section} section`);
+  }
+  const body = text.slice(start + begin.length, stop);
+  const entries = body.split(/(?=^\t\t\w{24} \/\*)/m);
+  const sortedBody = entries
+    .sort((a, b) => (a.slice(2, 26) < b.slice(2, 26) ? -1 : 1))
+    .join('');
+  return `${text.slice(0, start + begin.length)}${sortedBody}${text.slice(stop)}`;
+}
+
 export function patchPbxproj(text, iosCodes) {
   const groupId = pbxId('group');
   const buildId = pbxId('build');
@@ -235,6 +251,14 @@ export function patchPbxproj(text, iosCodes) {
         ''
       )}\t\t\t);\n\t\t\tname = InfoPlist.strings;\n\t\t\tsourceTree = "<group>";\n\t\t};\n`
   );
+
+  for (const section of [
+    'PBXBuildFile',
+    'PBXFileReference',
+    'PBXVariantGroup',
+  ]) {
+    out = sortPbxSection(out, section);
+  }
 
   const plistChild = /^(\t+)(\w{24}) \/\* Info\.plist \*\/,\n/m;
   if (!plistChild.test(out)) {
