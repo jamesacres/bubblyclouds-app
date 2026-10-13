@@ -1,5 +1,6 @@
 import { formatSeconds } from '../helpers/formatSeconds';
 import { Watch } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const TimerDisplay = ({
   seconds,
@@ -10,11 +11,12 @@ const TimerDisplay = ({
   countdown?: number;
   isComplete?: boolean;
 }) => {
+  const { t } = useTranslation('ui');
   let content;
   if (isComplete) {
     content = <span>👏 {formatSeconds(seconds)} 👏</span>;
   } else if (countdown) {
-    content = <span>{countdown === 1 ? 'GO!' : countdown - 1}</span>;
+    content = <span>{countdown === 1 ? t('timer.go') : countdown - 1}</span>;
   } else {
     content = (
       <>
@@ -26,6 +28,10 @@ const TimerDisplay = ({
       </>
     );
   }
-  return <p className="min-h-8 font-mono">{content}</p>;
+  return (
+    <p dir="ltr" className="min-h-8 font-mono">
+      {content}
+    </p>
+  );
 };
 export { TimerDisplay };

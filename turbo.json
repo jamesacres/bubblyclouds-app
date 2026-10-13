@@ -19,7 +19,8 @@
       "outputs": [],
       "env": [
         "IS_CAPACITOR",
-        "IS_ELECTRON"
+        "IS_ELECTRON",
+        "NEXT_PUBLIC_SCREENSHOT_SERVER"
       ]
     },
     "dev": {

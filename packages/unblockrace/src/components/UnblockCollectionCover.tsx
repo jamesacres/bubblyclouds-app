@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import CollectionCover from '@bubblyclouds-app/games/components/CollectionCover';
 import SimpleBoard from './SimpleBoard';
 import { getMonthlyCollectionTheme } from '../helpers/monthlyCollectionTheme';
+import { localizedMonthName } from '../helpers/localizedMonthName';
 
 interface UnblockCollectionCoverProps {
   month: string;
@@ -21,12 +23,13 @@ const UnblockCollectionCover = ({
   size,
   variant,
 }: UnblockCollectionCoverProps) => {
-  const theme = getMonthlyCollectionTheme(month);
+  const { t, i18n } = useTranslation('unblockrace');
+  const theme = getMonthlyCollectionTheme(month, t);
 
   return (
     <CollectionCover
-      title={month}
-      gameLabel="Unblock Race"
+      title={localizedMonthName(month, i18n.language)}
+      gameLabel={t('brand.gameName')}
       kicker={theme.kicker}
       size={size}
       variant={variant}

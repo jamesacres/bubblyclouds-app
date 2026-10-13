@@ -1,0 +1,47 @@
+[
+  {
+    "file": "packages/ui/src/components/CelebrationAnimation.tsx",
+    "match": "left: `${piece.x}px`",
+    "reason": "Fixed-position overlay glyph placed at a viewport pixel measured with getBoundingClientRect; the coordinate is absolute screen geometry, not layout direction"
+  },
+  {
+    "file": "packages/games/src/components/CountdownOverlay.tsx",
+    "match": "translateX(",
+    "reason": "Speed lines radiate from the centre of the dir=ltr countdown overlay inside a rotated frame, so their travel is not layout direction"
+  },
+  {
+    "file": "packages/games/src/components/RaceTrack.tsx",
+    "match": "translateX(",
+    "reason": "Lane shimmer sweep and car centring run inside the dir=ltr driving lane, where start is always the left edge"
+  },
+  {
+    "file": "packages/games/src/components/RaceTrack.tsx",
+    "match": "-translate-x-1/2",
+    "reason": "Windshield centred on a car inside the dir=ltr lane; an rtl: pair would also match there through the [dir=rtl] ancestor selector and flip it wrongly"
+  },
+  {
+    "file": "packages/unblockrace/src/components/Board.tsx",
+    "match": "translateX(",
+    "reason": "Exit chevron and solve sweep keyframes inside the dir=ltr board island, which exits through the physical right edge"
+  },
+  {
+    "file": "packages/unblockrace/src/components/Piece.tsx",
+    "match": "translateX(",
+    "reason": "Light centring on a car along the board's physical x axis inside the dir=ltr board island"
+  },
+  {
+    "file": "packages/unblockrace/src/components/UnblockRace.tsx",
+    "match": "translateX(",
+    "reason": "Decorative speed lines drift across a dir=ltr backdrop; the sweep direction is not layout direction"
+  },
+  {
+    "file": "apps/sudoku/src/app/globals.css",
+    "match": "translateX(",
+    "reason": "Keyframes for the dir=ltr board and race previews (tiles and cars travel left to right) and symmetric cover jitter"
+  },
+  {
+    "file": "apps/unblockrace/src/app/globals.css",
+    "match": "translateX(",
+    "reason": "Keyframes for the dir=ltr board and race previews (cars travel left to right) and symmetric cover jitter"
+  }
+]

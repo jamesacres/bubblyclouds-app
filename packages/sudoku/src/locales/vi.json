@@ -1,0 +1,348 @@
+{
+  "brand": {
+    "gameName": "Đua Sudoku"
+  },
+  "board": {
+    "buttonGroup": "Nhóm nút"
+  },
+  "celebration": {
+    "solved": "Đã giải xong!",
+    "leaderboardPoints": "Điểm bảng xếp hạng",
+    "pointsSuffix": " điểm"
+  },
+  "completion": {
+    "time": "Thời gian"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Giữ vững chuỗi ngày liên tiếp trong sách"
+  },
+  "puzzleMeta": {
+    "daily": "Hằng ngày {{day}} {{month}}",
+    "dayOrdinal": "{{count}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "book": "Sách {{month}} #{{number}}",
+    "scanned": "Câu đố đã quét"
+  },
+  "bookCover": {
+    "edition": "Ấn bản {{month}}",
+    "puzzleCount": "50 câu đố • Nhiều mức độ khó",
+    "months": {
+      "january": {
+        "tagline": "Từ kỹ thuật cơ bản đến cực kỳ hóc búa",
+        "footer": "❄️ Ấn bản thử thách mùa đông ❄️"
+      },
+      "february": {
+        "tagline": "Từ Số đơn ẩn đến chuỗi AIC",
+        "footer": "💕 Yêu thử thách 💕"
+      },
+      "march": {
+        "tagline": "Đón xuân với kỹ thuật nâng cao",
+        "footer": "🌸 Thử thách mới nở rộ 🌸"
+      },
+      "april": {
+        "tagline": "Vượt qua mọi cơn bão giải đố",
+        "footer": "🌈 Sau mưa là chiến thắng 🌈"
+      },
+      "may": {
+        "tagline": "Nở rộ cùng sức mạnh trí tuệ",
+        "footer": "🌻 Chúc kỹ năng của bạn nở rộ 🌻"
+      },
+      "june": {
+        "tagline": "Rèn luyện trí não mùa hè",
+        "footer": "☀️ Mặt nắng của việc giải đố ☀️"
+      },
+      "july": {
+        "tagline": "Đọc sách bên bãi biển, rèn luyện trí não",
+        "footer": "🏖️ Trò chơi trí tuệ kỳ nghỉ 🏖️"
+      },
+      "august": {
+        "tagline": "Làm nóng sức mạnh trí não",
+        "footer": "🔥 Thử thách nóng bỏng 🔥"
+      },
+      "september": {
+        "tagline": "Đến trường cùng trí não của bạn",
+        "footer": "📚 Tri thức qua những con số 📚"
+      },
+      "october": {
+        "tagline": "Thử thách thông minh rợn người",
+        "footer": "🎃 Vui đến rùng mình 🎃"
+      },
+      "november": {
+        "tagline": "Những câu đố đốt cháy trí não",
+        "footer": "🍂 Mùa thu của những chiến thắng 🍂"
+      },
+      "december": {
+        "tagline": "Quà tặng trí tuệ mùa lễ hội",
+        "footer": "🎄 Chúc mừng người giải đố mùa lễ hội! 🎄"
+      },
+      "default": {
+        "tagline": "Thử thách trí óc của bạn",
+        "footer": "🧩 Sức mạnh câu đố 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Bạn đang ngoại tuyến, vui lòng kiểm tra kết nối",
+      "loadFailed": "Không tải được sách câu đố"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Bàn phím: phím mũi tên, hoàn tác, làm lại.",
+      "notes": "Giữ shift hoặc nhấn n để bật/tắt chế độ ghi chú.",
+      "validate": "Nhấn c để kiểm tra ô, g để kiểm tra lưới."
+    },
+    "owl": {
+      "invalid": "Có vẻ bạn đã mắc lỗi. Mình khuyên bạn nên kiểm tra lại lưới.",
+      "notSure": "Xin lỗi, mình không chắc.",
+      "eureka": "Ký hiệu Eureka {{notation}}",
+      "highlighted": "Mình đã đánh dấu các ô liên quan cho bạn",
+      "foundTechnique": "Mình đã tìm thấy kỹ thuật {{technique}}",
+      "noHint": "Không có gợi ý"
+    },
+    "legend": {
+      "stem": "Thân",
+      "petalA": "Cánh A",
+      "petalB": "Cánh B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Bật (đúng)",
+      "off": "Tắt (sai)",
+      "elimination": "Loại trừ"
+    },
+    "reply": {
+      "thanks": "Cảm ơn,",
+      "tellMeMore": "🤔 Nói thêm đi",
+      "showMeWhere": "👀 Chỉ cho mình chỗ nào",
+      "hideHint": "Ẩn gợi ý"
+    },
+    "askForHelp": "Nhờ giúp đỡ",
+    "notes": "Ghi chú",
+    "copied": "Đã chép!",
+    "export": "Xuất",
+    "delete": "Xóa",
+    "undo": "Hoàn tác",
+    "redo": "Làm lại",
+    "cell": "Ô",
+    "grid": "Lưới",
+    "zoom": "Thu phóng",
+    "reset": "Đặt lại",
+    "reveal": "Hiện đáp án",
+    "confirm": {
+      "reset": {
+        "title": "Đặt lại toàn bộ lưới?",
+        "body": "Bạn có chắc muốn đặt lại toàn bộ lưới không?",
+        "confirm": "Đặt lại"
+      },
+      "reveal": {
+        "title": "Hiện đáp án toàn bộ lưới?",
+        "body": "Bạn có chắc muốn hiện đáp án toàn bộ lưới không?",
+        "confirm": "Hiện đáp án"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Số đơn trần",
+    "hiddenSingleBox": "Số đơn ẩn (khối)",
+    "hiddenSingleRow": "Số đơn ẩn (hàng)",
+    "hiddenSingleCol": "Số đơn ẩn (cột)",
+    "nakedPair": "Cặp trần",
+    "nakedTriple": "Bộ ba trần",
+    "nakedQuad": "Bộ bốn trần",
+    "hiddenPair": "Cặp ẩn",
+    "hiddenTriple": "Bộ ba ẩn",
+    "hiddenQuad": "Bộ bốn ẩn",
+    "lockedCandidatePointing": "Ứng viên bị khóa (chỉ hướng)",
+    "lockedCandidateClaiming": "Ứng viên bị khóa (chiếm giữ)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String Kite",
+    "finnedXWing": "X-Wing Finned",
+    "finnedSwordfish": "Swordfish Finned",
+    "finnedJellyfish": "Jellyfish Finned",
+    "emptyRectangle": "Hình chữ nhật rỗng",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Hình chữ nhật duy nhất (loại 1)",
+    "uniqueRectangleType2": "Hình chữ nhật duy nhất (loại 2)",
+    "uniqueRectangleType3": "Hình chữ nhật duy nhất (loại 3)",
+    "uniqueRectangleType4": "Hình chữ nhật duy nhất (loại 4)",
+    "uniqueRectangleType5": "Hình chữ nhật duy nhất (loại 5)",
+    "bug": "BUG",
+    "xyChain": "XY-Chain",
+    "aic": "AIC",
+    "aicRing": "Vòng AIC",
+    "groupedAIC": "AIC nhóm",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Death Blossom",
+    "nishio": "Nishio",
+    "nishioNet": "Mạng Nishio",
+    "cellRegionForcingChain": "Chuỗi ép buộc ô/vùng",
+    "cellRegionForcingNet": "Mạng ép buộc ô/vùng",
+    "forcingChain": "Chuỗi ép buộc"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "ong",
+      "personality": "Bồn chồn và nhiệt tình. Lao quanh lưới theo từng đợt rồi khựng lại. Gần cuối, tăng tốc quá sớm và bị kẹt ngay trước khi hoàn thành.",
+      "voiceLines": {
+        "neutral": [
+          "Ồ! Mình thấy một ô rồi!",
+          "Khoan — không, chắc không phải...",
+          "Vù vù! Có tiến triển rồi!"
+        ],
+        "playerAhead": ["Này, chậm lại đi!", "Mình đang làm tốt mà…"],
+        "playerBehind": ["Mình đang bắt kịp rồi!", "Nhìn mình bay này!"],
+        "endgame": [
+          "Sắp xong rồi! Mình nghĩ vậy!",
+          "Khoan — số này đặt ở đâu?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "vịt",
+      "personality": "Vui vẻ và vô định. Chậm mà chắc, hay dừng lâu. Ở đoạn cuối, trôi đến lời giải gần như tình cờ.",
+      "voiceLines": {
+        "neutral": ["Cứ thong thả thôi...", "Ừm... đâu đó quanh đây."],
+        "playerAhead": ["Bạn làm tốt lắm!", "Rồi mình cũng sẽ tới thôi."],
+        "playerBehind": ["Ồ! Mình tìm thấy một ô!", "Thích thật."],
+        "endgame": ["Mình nghĩ sắp xong rồi?", "Ồ! Hóa ra ổn rồi."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "thằn lằn",
+      "personality": "Thận trọng và tinh ý. Dừng lâu rồi điền từng cụm nhỏ. Ở đoạn cuối, do dự trước mỗi lần đặt số.",
+      "voiceLines": {
+        "neutral": ["Để mình kiểm tra lại.", "Chắc là đúng rồi."],
+        "playerAhead": ["Giờ phải cẩn thận.", "Đừng vội."],
+        "playerBehind": ["Được rồi… đang bắt kịp.", "Vẫn còn thời gian."],
+        "endgame": ["Cẩn thận nào...", "Sắp rồi… chỉ cần chắc chắn."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "nhện",
+      "personality": "Có chủ ý và bài bản. Xây dựng tiến độ cẩn thận, từng mảnh một. Ở đoạn cuối, cấu trúc đổ vỡ — sự do dự len vào như thể kế hoạch không còn đứng vững.",
+      "voiceLines": {
+        "neutral": ["Khớp với mẫu rồi.", "Từng mảnh một..."],
+        "playerAhead": ["Đang ổn mà...", "Mình phải sửa lại..."],
+        "playerBehind": ["Vẫn đứng vững.", "Đúng rồi… cách này được."],
+        "endgame": [
+          "Khoan — không, thế này hỏng mất.",
+          "Mình đã lên kế hoạch rồi mà..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "gấu mèo",
+      "personality": "Lanh lợi và biết nắm bắt cơ hội. Nhịp độ thất thường. Ở đoạn cuối, lấy được đà và về đích nhanh hơn dự kiến.",
+      "voiceLines": {
+        "neutral": ["Được rồi!", "Hơi bừa một chút, nhưng chấp nhận."],
+        "playerAhead": ["Được thôi, đến lúc dốc sức.", "Chưa xong đâu."],
+        "playerBehind": ["Ồ — tìm hay đấy.", "Giờ thì mọi thứ khớp lại rồi."],
+        "endgame": ["Ừ, mình làm được.", "Giờ thì trôi chảy rồi."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "chim cánh cụt",
+      "personality": "Có tổ chức và bài bản. Nhịp độ đều đặn. Đoạn cuối vẫn vững vàng — không hoảng loạn, không nước rút.",
+      "voiceLines": {
+        "neutral": ["Khớp rồi.", "Giữ vững nhịp độ."],
+        "playerAhead": ["Giữ nhịp độ.", "Không cần vội."],
+        "playerBehind": ["Vẫn đúng hướng.", "Tiến độ đều đặn."],
+        "endgame": ["Sắp tới nơi.", "Hoàn thành gọn gàng."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "khỉ",
+      "personality": "Thất thường và đáng ngại. Những đợt bùng nổ khó đoán. Ở đoạn cuối, đột ngột tăng tốc theo kiểu khiến người ta thấy không công bằng.",
+      "voiceLines": {
+        "neutral": ["Hê… không ngờ tới à?", "Ồ, thú vị đấy."],
+        "playerAhead": ["Đừng vội thoải mái.", "Xem đây."],
+        "playerBehind": [
+          "Đôi khi mọi thứ cứ thế khớp lại.",
+          "Đoán may… hay không nhỉ?"
+        ],
+        "endgame": ["Ồ chà — bắt đầu rồi đây.", "Nhanh thật đấy."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "đại bàng",
+      "personality": "Thờ ơ và uyển chuyển. Đặt số thong thả, tự tin. Lặng lẽ tăng tốc ở đoạn cuối.",
+      "voiceLines": {
+        "neutral": ["Đã thấy cái này rồi.", "Chỉ điền vào thôi."],
+        "playerAhead": ["Chẳng thay đổi được gì.", "Kết quả vẫn thế."],
+        "playerBehind": ["Xong rồi, thật đấy.", "Đang ở một nơi khác rồi."],
+        "endgame": ["…sắp xong.", "Hoàn tất thôi."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "cáo",
+      "personality": "Mãnh liệt và hiếu thắng. Xuất phát nhanh, áp lực liên tục. Cú nước rút cuối nghe thật hung hãn.",
+      "voiceLines": {
+        "neutral": ["Theo kịp đi.", "Vẫn đi cùng mình chứ?"],
+        "playerAhead": ["Đừng chậm lại lúc này.", "Bạn làm được tốt hơn thế."],
+        "playerBehind": ["Chậm quá.", "Bạn đang tụt lại."],
+        "endgame": ["Hoàn thành đi.", "Cái này là của mình."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "cá mập",
+      "personality": "Kiên nhẫn và săn mồi. Bám sát, rồi siết chặt ở đoạn cuối.",
+      "voiceLines": {
+        "neutral": ["Ngay sau lưng bạn.", "Chưa đâu."],
+        "playerAhead": ["Cứ ở yên đó.", "Mình đang tới gần rồi."],
+        "playerBehind": ["Đang áp sát.", "Bạn đây rồi."],
+        "endgame": ["Giờ thì kết thúc.", "Bắt được bạn rồi."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "cú",
+      "personality": "Điềm tĩnh và cân nhắc. Nhịp độ mượt mà. Đoạn cuối gọn gàng và không thể tránh khỏi.",
+      "voiceLines": {
+        "neutral": ["Như dự đoán.", "Mọi thứ đều thẳng hàng."],
+        "playerAhead": ["Tốt.", "Bạn thấy rồi đấy."],
+        "playerBehind": ["Làm cho trọn.", "Cứ kiên trì."],
+        "endgame": ["Gần xong rồi.", "Đây rồi."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "mèo đen",
+      "personality": "Lặng lẽ và phi nhân. Hầu như không dừng. Đoạn cuối là một pha về đích nhanh, không gián đoạn.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…vẫn vậy."],
+        "playerBehind": ["Quá muộn.", "Bạn đã do dự."],
+        "endgame": ["…xong.", "Hoàn tất."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "rồng",
+      "personality": "Nhẹ nhàng và tuyệt đối. Giữ quyền kiểm soát hoàn hảo suốt cuộc đua. Ở đoạn cuối, càn quét dứt khoát, không gián đoạn — không kẽ hở, không kháng cự.",
+      "voiceLines": {
+        "neutral": ["Như dự tính.", "Không chệch hướng."],
+        "playerAhead": ["Bạn chọn thử là khôn ngoan.", "Tiếp tục đi."],
+        "playerBehind": ["Đến đây là hết.", "Không còn lựa chọn nào khác."],
+        "endgame": ["Vậy thôi.", "Hoàn tất."]
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Language",
+    "automatic": "Automatic"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Back"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Toggle Dark Mode"
+  },
+  "starRating": {
+    "label_one": "{{filled}} of {{count}} star",
+    "label_other": "{{filled}} of {{count}} stars"
+  },
+  "timer": {
+    "go": "GO!"
+  },
+  "themeColor": {
+    "change": "Change Theme Color",
+    "set": "Set theme color to {{color}}",
+    "setPremium": "Set theme color to {{color}} (Premium)",
+    "colors": {
+      "blue": "blue",
+      "red": "red",
+      "green": "green",
+      "purple": "purple",
+      "amber": "amber",
+      "cyan": "cyan",
+      "pink": "pink",
+      "indigo": "indigo",
+      "orange": "orange",
+      "teal": "teal",
+      "slate": "slate",
+      "rose": "rose",
+      "emerald": "emerald",
+      "sky": "sky",
+      "violet": "violet",
+      "lime": "lime",
+      "fuchsia": "fuchsia",
+      "yellow": "yellow",
+      "stone": "stone",
+      "zinc": "zinc"
+    }
+  },
+  "copyButton": {
+    "copied": "Copied to clipboard!",
+    "share": "Share Invite Link",
+    "copy": "Copy Invite Link"
+  },
+  "share": {
+    "joinTeam": "Join the racing team on {{appName}}!",
+    "joinNamedTeam": "Join the {{partyName}} racing team on {{appName}}!",
+    "dialogTitle": "Share invite"
+  }
+}

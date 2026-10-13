@@ -1,0 +1,56 @@
+{
+  "language": {
+    "label": "語言",
+    "automatic": "自動"
+  },
+  "header": {
+    "offline": "離線",
+    "back": "返回"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "切換深色模式"
+  },
+  "starRating": {
+    "label_other": "{{count}} 顆星中的 {{filled}} 顆"
+  },
+  "timer": {
+    "go": "開始！"
+  },
+  "themeColor": {
+    "change": "變更主題顏色",
+    "set": "將主題顏色設為{{color}}",
+    "setPremium": "將主題顏色設為{{color}}（Plus）",
+    "colors": {
+      "blue": "藍色",
+      "red": "紅色",
+      "green": "綠色",
+      "purple": "紫色",
+      "amber": "琥珀色",
+      "cyan": "青色",
+      "pink": "粉紅色",
+      "indigo": "靛藍色",
+      "orange": "橘色",
+      "teal": "藍綠色",
+      "slate": "石板灰",
+      "rose": "玫瑰色",
+      "emerald": "翡翠綠",
+      "sky": "天藍色",
+      "violet": "紫羅蘭色",
+      "lime": "萊姆綠",
+      "fuchsia": "紫紅色",
+      "yellow": "黃色",
+      "stone": "岩灰色",
+      "zinc": "鋅灰色"
+    }
+  },
+  "copyButton": {
+    "copied": "已複製到剪貼簿！",
+    "share": "分享邀請連結",
+    "copy": "複製邀請連結"
+  },
+  "share": {
+    "joinTeam": "快來 {{appName}} 加入競速團隊吧！",
+    "joinNamedTeam": "快來 {{appName}} 加入「{{partyName}}」競速團隊吧！",
+    "dialogTitle": "分享邀請"
+  }
+}

@@ -5,7 +5,10 @@ const HeaderTitle = ({ appName }: { appName: string }) => {
   const pathname = usePathname();
   if (pathname === '/') return null;
   return (
-    <span className="truncate text-base font-semibold tracking-tight text-stone-800 dark:text-zinc-100">
+    <span
+      title={appName}
+      className="truncate text-base font-semibold tracking-tight text-stone-800 dark:text-zinc-100"
+    >
       {appName}
     </span>
   );

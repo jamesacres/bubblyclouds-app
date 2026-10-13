@@ -7,6 +7,7 @@ import {
 } from './runResults';
 import { RunStage } from '../types/runTypes';
 import { PlayerStageResult } from '../types/scoringTypes';
+import { AgentDisplayResolver } from '../types/Agent';
 
 interface TestStage extends RunStage {
   par: number;
@@ -20,6 +21,8 @@ interface TestState {
 interface TestScore {
   value: number;
 }
+
+const identityName: AgentDisplayResolver = (agent) => agent.name;
 
 const STAGE_1 = 'stage-1';
 const STAGE_2 = 'stage-2';
@@ -86,6 +89,7 @@ describe('calculateRunResults', () => {
       ]),
       isCheated,
       extractScore,
+      resolveAgentName: identityName,
     });
 
     expect(results).toEqual([
@@ -122,6 +126,7 @@ describe('calculateRunResults', () => {
       ownResults: new Map(),
       isCheated,
       extractScore,
+      resolveAgentName: identityName,
     });
 
     expect(results).toEqual([]);
@@ -138,6 +143,7 @@ describe('calculateRunResults', () => {
       ownResults: new Map(),
       isCheated,
       extractScore,
+      resolveAgentName: identityName,
     });
 
     expect(results.map((result) => result.userId)).toEqual([
@@ -157,6 +163,7 @@ describe('calculateRunResults', () => {
       ownResults: ownResults([[0, 12]]),
       isCheated,
       extractScore,
+      resolveAgentName: identityName,
     });
 
     expect(results).toEqual([
@@ -174,12 +181,14 @@ describe('calculateRunResults', () => {
     const agentResults: AgentRunInput<TestScore>[] = [
       {
         agentId: 'agent-Bumblebee',
+        configId: 'bumblebee',
         name: 'Bumblebee',
         emoji: '🐝',
         stageResults: new Map([[0, { seconds: 30, score: { value: 8 } }]]),
       },
       {
         agentId: 'agent-Sage',
+        configId: 'sage',
         name: 'Sage',
         emoji: '🦉',
         stageResults: new Map([
@@ -200,6 +209,7 @@ describe('calculateRunResults', () => {
       agentResults,
       isCheated,
       extractScore,
+      resolveAgentName: identityName,
     });
 
     expect(results.map((result) => result.userId)).toEqual([
@@ -231,6 +241,31 @@ describe('calculateRunResults', () => {
     );
   });
 
+  it('shows agent nicknames through the display resolver, keeping the identity name', () => {
+    const results = calculateRunResults<TestStage, TestState, TestScore>({
+      stages: STAGES,
+      runStageParties: {},
+      userId: 'me',
+      ownResults: ownResults([[0, 10]]),
+      agentResults: [
+        {
+          agentId: 'agent-Sage',
+          configId: 'sage',
+          name: 'Sage',
+          emoji: '🦉',
+          stageResults: new Map([[0, { seconds: 8, score: { value: 3 } }]]),
+        },
+      ],
+      isCheated,
+      extractScore,
+      resolveAgentName: (agent) => `${agent.id}:${agent.name}`,
+    });
+
+    const agentLine = results.find((result) => result.isAgent);
+    expect(agentLine?.userId).toBe('agent-Sage');
+    expect(agentLine?.nickname).toBe('sage:Sage');
+  });
+
   it('omits agents with no completed stage yet', () => {
     const results = calculateRunResults<TestStage, TestState, TestScore>({
       stages: STAGES,
@@ -240,6 +275,7 @@ describe('calculateRunResults', () => {
       agentResults: [
         {
           agentId: 'agent-Puddle',
+          configId: 'puddle',
           name: 'Puddle',
           emoji: '💧',
           stageResults: new Map(),
@@ -247,6 +283,7 @@ describe('calculateRunResults', () => {
       ],
       isCheated,
       extractScore,
+      resolveAgentName: identityName,
     });
 
     expect(results.map((result) => result.userId)).toEqual(['me']);
@@ -266,6 +303,7 @@ describe('calculateRunResults', () => {
       ownResults: new Map(),
       isCheated,
       extractScore,
+      resolveAgentName: identityName,
     });
 
     expect(results).toEqual([

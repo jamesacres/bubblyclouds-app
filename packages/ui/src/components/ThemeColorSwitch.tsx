@@ -3,6 +3,7 @@
 import { useThemeColor, ThemeColor } from '../providers/ThemeColorProvider';
 import { useState, useEffect, useRef } from 'react';
 import { Palette } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const colors = [
   {
@@ -138,7 +139,30 @@ const ThemeColorSwitch = ({
   onPremiumColorClick,
   showRainbowAnimation = true,
 }: ThemeColorSwitchProps) => {
+  const { t } = useTranslation('ui');
   const { themeColor, setThemeColor } = useThemeColor();
+  const colorLabels: Record<string, string> = {
+    blue: t('themeColor.colors.blue'),
+    red: t('themeColor.colors.red'),
+    green: t('themeColor.colors.green'),
+    purple: t('themeColor.colors.purple'),
+    amber: t('themeColor.colors.amber'),
+    cyan: t('themeColor.colors.cyan'),
+    pink: t('themeColor.colors.pink'),
+    indigo: t('themeColor.colors.indigo'),
+    orange: t('themeColor.colors.orange'),
+    teal: t('themeColor.colors.teal'),
+    slate: t('themeColor.colors.slate'),
+    rose: t('themeColor.colors.rose'),
+    emerald: t('themeColor.colors.emerald'),
+    sky: t('themeColor.colors.sky'),
+    violet: t('themeColor.colors.violet'),
+    lime: t('themeColor.colors.lime'),
+    fuchsia: t('themeColor.colors.fuchsia'),
+    yellow: t('themeColor.colors.yellow'),
+    stone: t('themeColor.colors.stone'),
+    zinc: t('themeColor.colors.zinc'),
+  };
   const [isOpen, setIsOpen] = useState(false);
   const [showRainbow, setShowRainbow] = useState(false);
   const [rainbowIndex, setRainbowIndex] = useState(0);
@@ -223,7 +247,7 @@ const ThemeColorSwitch = ({
   return (
     <div className="relative" ref={containerRef}>
       <button
-        aria-label="Change Theme Color"
+        aria-label={t('themeColor.change')}
         onClick={() => setIsOpen(!isOpen)}
         className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-md transition-all active:scale-95"
         style={{
@@ -234,7 +258,7 @@ const ThemeColorSwitch = ({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-52 rounded-xl border border-stone-200/80 bg-white/95 p-2 shadow-lg shadow-stone-900/10 backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/95 dark:shadow-black/30">
+        <div className="absolute end-0 mt-2 w-52 rounded-xl border border-stone-200/80 bg-white/95 p-2 shadow-lg shadow-stone-900/10 backdrop-blur-sm dark:border-zinc-700/60 dark:bg-zinc-900/95 dark:shadow-black/30">
           <div className="flex flex-wrap gap-1.5 p-0.5">
             {colors.map((color, index) => {
               const isPremium = index >= 2 && !isSubscribed;
@@ -247,7 +271,13 @@ const ThemeColorSwitch = ({
                       ? 'ring-2 ring-offset-2 ring-offset-white dark:ring-offset-zinc-900'
                       : ''
                   }`}
-                  aria-label={`Set theme color to ${color.name}${isPremium ? ' (Premium)' : ''}`}
+                  aria-label={
+                    isPremium
+                      ? t('themeColor.setPremium', {
+                          color: colorLabels[color.name],
+                        })
+                      : t('themeColor.set', { color: colorLabels[color.name] })
+                  }
                 ></button>
               );
             })}

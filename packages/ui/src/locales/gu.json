@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "ભાષા",
+    "automatic": "આપમેળે"
+  },
+  "header": {
+    "offline": "ઑફલાઇન",
+    "back": "પાછળ"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "ડાર્ક મોડ બદલો"
+  },
+  "starRating": {
+    "label_one": "{{count}} માંથી {{filled}} સ્ટાર",
+    "label_other": "{{count}} માંથી {{filled}} સ્ટાર"
+  },
+  "timer": {
+    "go": "ચાલો!"
+  },
+  "themeColor": {
+    "change": "થીમનો રંગ બદલો",
+    "set": "થીમનો રંગ {{color}} પર સેટ કરો",
+    "setPremium": "થીમનો રંગ {{color}} પર સેટ કરો (પ્રીમિયમ)",
+    "colors": {
+      "blue": "વાદળી",
+      "red": "લાલ",
+      "green": "લીલો",
+      "purple": "જાંબલી",
+      "amber": "એમ્બર",
+      "cyan": "સાયન",
+      "pink": "ગુલાબી",
+      "indigo": "ઇન્ડિગો",
+      "orange": "નારંગી",
+      "teal": "ટીલ",
+      "slate": "સ્લેટ",
+      "rose": "રોઝ",
+      "emerald": "એમરલ્ડ",
+      "sky": "આકાશી",
+      "violet": "વાયોલેટ",
+      "lime": "લાઇમ",
+      "fuchsia": "ફ્યુશિયા",
+      "yellow": "પીળો",
+      "stone": "પથ્થરી",
+      "zinc": "ઝિંક"
+    }
+  },
+  "copyButton": {
+    "copied": "ક્લિપબોર્ડ પર કૉપિ થયું!",
+    "share": "આમંત્રણ લિંક શેર કરો",
+    "copy": "આમંત્રણ લિંક કૉપિ કરો"
+  },
+  "share": {
+    "joinTeam": "{{appName}} પર રેસિંગ ટીમમાં જોડાઓ!",
+    "joinNamedTeam": "{{appName}} પર {{partyName}} રેસિંગ ટીમમાં જોડાઓ!",
+    "dialogTitle": "આમંત્રણ શેર કરો"
+  }
+}

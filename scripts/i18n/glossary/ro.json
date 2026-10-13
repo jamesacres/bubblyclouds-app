@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Cursă Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "cursă",
+      "team": "echipă",
+      "leaderboard": "clasament",
+      "hint": "indiciu",
+      "undo": "anulare",
+      "theme": "temă",
+      "dailyPuzzle": "puzzle zilnic",
+      "monthlyCollection": "cartea lunară de puzzle-uri",
+      "aiOpponent": "adversar IA",
+      "monthly": "lunar",
+      "lifetime": "pe viață",
+      "plusAccess": "Acces Plus",
+      "plusFeatureLine": "Curse nelimitate, echipe, teme și anulare"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Cursă Liberă",
+      "gameName": "Cursă Liberă",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "cursă",
+      "team": "echipă",
+      "leaderboard": "clasament",
+      "hint": "indiciu",
+      "undo": "anulare",
+      "theme": "temă",
+      "dailyPuzzle": "puzzle zilnic",
+      "monthlyCollection": "colecția lunară de puzzle-uri",
+      "aiOpponent": "adversar IA",
+      "monthly": "lunar",
+      "lifetime": "pe viață",
+      "plusAccess": "Acces Plus",
+      "plusFeatureLine": "Curse nelimitate, echipe, teme și anulare"
+    }
+  }
+}

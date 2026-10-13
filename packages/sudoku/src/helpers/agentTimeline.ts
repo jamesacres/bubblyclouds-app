@@ -123,6 +123,7 @@ export function createLocalAgents(
     try {
       acc.push({
         id: `agent-${index}`,
+        configId: config.id,
         name: config.name,
         emoji: config.emoji,
         skillLevel: config.skillLevel,

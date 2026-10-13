@@ -331,4 +331,12 @@ describe('TimerDisplay', () => {
       expect(text).toContain('👏');
     });
   });
+
+  describe('right-to-left', () => {
+    it('should render digits as a left-to-right island', () => {
+      const { container } = render(<TimerDisplay seconds={90} />);
+
+      expect(container.querySelector('p')).toHaveAttribute('dir', 'ltr');
+    });
+  });
 });

@@ -1,0 +1,59 @@
+{
+  "language": {
+    "label": "Jezik",
+    "automatic": "Samodejno"
+  },
+  "header": {
+    "offline": "Brez povezave",
+    "back": "Nazaj"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Preklopi temni način"
+  },
+  "starRating": {
+    "label_one": "{{filled}} od {{count}} zvezdice",
+    "label_two": "{{filled}} od {{count}} zvezdic",
+    "label_few": "{{filled}} od {{count}} zvezdic",
+    "label_other": "{{filled}} od {{count}} zvezdic"
+  },
+  "timer": {
+    "go": "ŠTART!"
+  },
+  "themeColor": {
+    "change": "Spremeni barvo teme",
+    "set": "Nastavi barvo teme na {{color}}",
+    "setPremium": "Nastavi barvo teme na {{color}} (premium)",
+    "colors": {
+      "blue": "modra",
+      "red": "rdeča",
+      "green": "zelena",
+      "purple": "škrlatna",
+      "amber": "jantarna",
+      "cyan": "cian",
+      "pink": "roza",
+      "indigo": "indigo",
+      "orange": "oranžna",
+      "teal": "turkizna",
+      "slate": "skrilasta",
+      "rose": "rožnata",
+      "emerald": "smaragdna",
+      "sky": "nebesna",
+      "violet": "vijolična",
+      "lime": "limetna",
+      "fuchsia": "fuksija",
+      "yellow": "rumena",
+      "stone": "kamnita",
+      "zinc": "cinkova"
+    }
+  },
+  "copyButton": {
+    "copied": "Kopirano v odložišče!",
+    "share": "Deli povezavo povabila",
+    "copy": "Kopiraj povezavo povabila"
+  },
+  "share": {
+    "joinTeam": "Pridruži se dirkaški ekipi v {{appName}}!",
+    "joinNamedTeam": "Pridruži se dirkaški ekipi {{partyName}} v {{appName}}!",
+    "dialogTitle": "Deli povabilo"
+  }
+}

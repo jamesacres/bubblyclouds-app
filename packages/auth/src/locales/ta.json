@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "தொடர உள்நுழையுங்கள்",
+    "signInWith": "{{provider}} மூலம் உள்நுழையுங்கள்",
+    "emailTitle": "மின்னஞ்சல் மூலம் உள்நுழையுங்கள்",
+    "emailPlaceholder": "your@email.com",
+    "continue": "தொடரவும்",
+    "cancel": "ரத்துசெய்யவும்",
+    "terms": "சேவை விதிமுறைகள்",
+    "privacy": "தனியுரிமைக் கொள்கை"
+  },
+  "header": {
+    "signIn": "உள்நுழைக"
+  },
+  "avatar": {
+    "alt": "பயனர்"
+  },
+  "panel": {
+    "title": "கணக்கு",
+    "greeting": "வணக்கம், {{name}}!",
+    "fallbackName": "பயனர்",
+    "plusActive": "{{gameName}} {{plus}} செயலில் உள்ளது",
+    "joinGamePlus": "{{gameName}} {{plus}} பெறுங்கள்",
+    "joinPlus": "{{plus}} பெறுங்கள்",
+    "signOut": "வெளியேறுங்கள்",
+    "privacy": "தனியுரிமைக் கொள்கை",
+    "terms": "சேவை விதிமுறைகள்",
+    "credits": "நன்றியுரைகள்",
+    "deleteAccount": "கணக்கை நீக்குங்கள்",
+    "poweredBy": "இயக்குபவர்: {{companyName}}",
+    "deleteUnavailable": "கணக்கை நீக்கும் வசதி தற்போது கிடைக்கவில்லை.",
+    "deleteFailed": "கணக்கை நீக்க முடியவில்லை. பிறகு மீண்டும் முயலுங்கள்."
+  },
+  "deleteDialog": {
+    "title": "கணக்கை நீக்குங்கள்",
+    "warning": "இந்தச் செயலைத் திரும்பப்பெற முடியாது. அனைத்து {{companyName}} பயன்பாடுகளிலும் உள்ள உங்கள் எல்லாத் தரவும் நிரந்தரமாக நீக்கப்படும்.",
+    "confirmation": "அனைத்து {{companyName}} பயன்பாடுகளிலும் உள்ள தரவு உட்பட, எனது முழுக் கணக்கையும் நீக்க விரும்புகிறேன் என்பதை உறுதிப்படுத்துகிறேன்.",
+    "cancel": "ரத்துசெய்யவும்",
+    "deleting": "நீக்குகிறது...",
+    "submit": "கணக்கை நீக்குங்கள்"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "language": {
+    "label": "Мова",
+    "automatic": "Автоматично"
+  },
+  "header": {
+    "offline": "Офлайн",
+    "back": "Назад"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Перемкнути темний режим"
+  },
+  "starRating": {
+    "label_one": "{{filled}} із {{count}} зірки",
+    "label_few": "{{filled}} із {{count}} зірок",
+    "label_many": "{{filled}} із {{count}} зірок",
+    "label_other": "{{filled}} із {{count}} зірки"
+  },
+  "timer": {
+    "go": "Руш!"
+  },
+  "themeColor": {
+    "change": "Змінити колір теми",
+    "set": "Встановити колір теми: {{color}}",
+    "setPremium": "Встановити колір теми: {{color}} (преміум)",
+    "colors": {
+      "blue": "синій",
+      "red": "червоний",
+      "green": "зелений",
+      "purple": "пурпуровий",
+      "amber": "бурштиновий",
+      "cyan": "блакитний",
+      "pink": "рожевий",
+      "indigo": "індиго",
+      "orange": "помаранчевий",
+      "teal": "морська хвиля",
+      "slate": "сланцевий",
+      "rose": "трояндовий",
+      "emerald": "смарагдовий",
+      "sky": "небесний",
+      "violet": "фіолетовий",
+      "lime": "лаймовий",
+      "fuchsia": "фуксія",
+      "yellow": "жовтий",
+      "stone": "кам’яний",
+      "zinc": "цинковий"
+    }
+  },
+  "copyButton": {
+    "copied": "Скопійовано в буфер обміну!",
+    "share": "Поділитися запрошенням",
+    "copy": "Копіювати запрошення"
+  },
+  "share": {
+    "joinTeam": "Приєднуйтеся до команди перегонів у {{appName}}!",
+    "joinNamedTeam": "Приєднуйтеся до команди «{{partyName}}» у {{appName}}!",
+    "dialogTitle": "Поділитися запрошенням"
+  }
+}

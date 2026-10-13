@@ -1,0 +1,261 @@
+{
+  "brand": {
+    "gameName": "Đua Giải Cứu Xe"
+  },
+  "controls": {
+    "hint": "Gợi ý",
+    "hintTitle": "Nhờ giúp đỡ",
+    "undo": "Hoàn tác",
+    "redo": "Làm lại",
+    "reset": "Đặt lại"
+  },
+  "labels": {
+    "time": "Thời gian",
+    "moves": "Nước đi",
+    "stageOf": "Chặng {{current}}/{{total}}"
+  },
+  "stats": {
+    "moves_other": "{{count}} nước đi",
+    "par": "chuẩn",
+    "overPar": "hơn chuẩn {{delta}}",
+    "underPar": "ít hơn chuẩn {{delta}}"
+  },
+  "score": {
+    "moves": "nước đi",
+    "srOnPar": "nước đi, đúng chuẩn",
+    "srOverPar": "nước đi, hơn chuẩn {{delta}}",
+    "srUnderPar": "nước đi, ít hơn chuẩn {{delta}}",
+    "upcomingPar": "chuẩn {{par}}"
+  },
+  "daily": {
+    "label": "Hằng ngày · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Mới bắt đầu",
+    "challenging": "Thử thách",
+    "hard": "Khó",
+    "expert": "Chuyên gia"
+  },
+  "collection": {
+    "puzzleLabel": "Câu đố bộ sưu tập {{number}}",
+    "theme": {
+      "january": "Năm mới, kẹt xe mới",
+      "february": "Tắc nghẽn đóng băng",
+      "march": "Mở toang lối đi",
+      "april": "Mưa khối rơi",
+      "may": "Làn đường mới nở rộ",
+      "june": "Tốc độ thông đường đỉnh cao",
+      "july": "Giải đua mùa hè",
+      "august": "Tắc nghẽn nóng rực",
+      "september": "Trở lại bàn cờ",
+      "october": "Tắc nghẽn ma ám",
+      "november": "Thông thoáng các làn đường",
+      "december": "Tắc nghẽn mùa lễ hội",
+      "default": "Bộ sưu tập hằng tháng"
+    },
+    "error": {
+      "offline": "Bạn đang ngoại tuyến, vui lòng kiểm tra kết nối",
+      "loadFailed": "Không tải được bộ sưu tập câu đố"
+    }
+  },
+  "stageClear": {
+    "title": "Qua chặng {{stage}}",
+    "onPar": "Đúng chuẩn",
+    "pointsSuffix": " điểm",
+    "leaderboardPoints": "Điểm bảng xếp hạng",
+    "nextStage": "Chặng tiếp theo",
+    "progress": "Chặng {{stage}}/{{total}} — còn {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Từ đây không còn lối đi — hãy hoàn tác hoặc đặt lại để quay về đúng hướng",
+    "dismiss": "Đóng thông báo gợi ý"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Giữ vững chuỗi ngày liên tiếp trong bộ sưu tập"
+  },
+  "raceTrack": {
+    "collection": "Bộ sưu tập"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Thử lại chặng này?",
+      "body": "Thời gian và số nước đi hiện tại của bạn sẽ bị thay thế.",
+      "confirm": "Thử lại"
+    },
+    "reset": {
+      "title": "Đặt lại câu đố này?",
+      "body": "Thao tác này xóa các nước đi của bạn và bắt đầu lại câu đố.",
+      "confirm": "Đặt lại"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "ong",
+      "personality": "Bồn chồn và nhiệt tình. Trượt các khối quanh bảng theo từng đợt rồi khựng lại. Gần lối ra, tăng tốc quá sớm và làm kẹt làn đường ngay trước khi hoàn thành.",
+      "voiceLines": {
+        "neutral": [
+          "Ồ! Khối này trượt được!",
+          "Khoan — không, cái đó chặn mình mất...",
+          "Vù vù! Đang dọn chỗ!"
+        ],
+        "playerAhead": ["Này, chậm lại đi!", "Mình đang dọn đường mà…"],
+        "playerBehind": ["Mình đang bắt kịp rồi!", "Nhìn mình trượt này!"],
+        "endgame": ["Lối ra! Mình thấy rồi!", "Khoan — ai đỗ xe ở đó vậy?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "vịt",
+      "personality": "Vui vẻ và vô định. Chậm mà chắc, hay dừng lâu. Ở đoạn cuối, trôi ra khỏi cảnh tắc nghẽn gần như tình cờ.",
+      "voiceLines": {
+        "neutral": ["Cứ nhích từng chút một...", "Ừm... có lẽ là khối này."],
+        "playerAhead": ["Bạn làm tốt lắm!", "Rồi mình cũng sẽ thoát ra thôi."],
+        "playerBehind": ["Ồ! Khối đó nhúc nhích rồi!", "Thích thật."],
+        "endgame": ["Đó là lối ra à?", "Ồ! Đường tự thông luôn rồi."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "thằn lằn",
+      "personality": "Thận trọng và tinh ý. Dừng lâu rồi trượt từng cụm nhỏ. Ở đoạn cuối, do dự trước mỗi nước đi.",
+      "voiceLines": {
+        "neutral": [
+          "Để mình xem cái đó giải phóng được gì.",
+          "Cú trượt này chắc là an toàn."
+        ],
+        "playerAhead": ["Giờ phải cẩn thận.", "Đừng làm kẹt làn đường."],
+        "playerBehind": ["Được rồi… đang bắt kịp.", "Vẫn còn thời gian."],
+        "endgame": ["Cẩn thận nào...", "Sắp ra rồi… chỉ cần chắc chắn."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "nhện",
+      "personality": "Có chủ ý và bài bản. Dọn làn đường cẩn thận, từng khối một. Ở đoạn cuối, kế hoạch đổ vỡ — sự do dự len vào như thể lộ trình không còn đứng vững.",
+      "voiceLines": {
+        "neutral": ["Thế là mở được lộ trình.", "Từng khối một..."],
+        "playerAhead": [
+          "Lộ trình đang ổn mà...",
+          "Mình phải lên kế hoạch lại..."
+        ],
+        "playerBehind": ["Vẫn đứng vững.", "Đúng rồi… làn đường đang mở ra."],
+        "endgame": [
+          "Khoan — không, thế này lại bị chặn mất.",
+          "Mình đã lên kế hoạch lộ trình này rồi mà..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "gấu mèo",
+      "personality": "Lanh lợi và biết nắm bắt cơ hội. Nhịp độ thất thường. Ở đoạn cuối, lấy được đà và trượt ra nhanh hơn dự kiến.",
+      "voiceLines": {
+        "neutral": ["Dịch được rồi!", "Hơi chật một chút, nhưng chấp nhận."],
+        "playerAhead": ["Được thôi, đến lúc dốc sức.", "Chưa bị chặn đâu."],
+        "playerBehind": ["Ồ — khe hở đẹp đấy.", "Làn đường đang mở ra rồi."],
+        "endgame": ["Ừ, đường phía trước thông rồi.", "Giờ thì lăn bánh rồi."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "chim cánh cụt",
+      "personality": "Có tổ chức và bài bản. Nhịp độ đều đặn. Đoạn cuối vẫn vững vàng — không hoảng loạn, không nước rút.",
+      "voiceLines": {
+        "neutral": ["Cú trượt này khớp với lộ trình.", "Giữ vững nhịp độ."],
+        "playerAhead": ["Giữ nhịp độ.", "Không cần vội với bảng này."],
+        "playerBehind": ["Vẫn đúng hướng.", "Làn đường thông dần đều đặn."],
+        "endgame": ["Sắp qua rồi.", "Thoát ra gọn gàng."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "khỉ",
+      "personality": "Thất thường và đáng ngại. Những đợt bùng nổ khó đoán. Ở đoạn cuối, đột ngột tăng tốc theo kiểu khiến người ta thấy không công bằng.",
+      "voiceLines": {
+        "neutral": ["Hê… không thấy khe hở đó à?", "Ồ, cú trượt thú vị đấy."],
+        "playerAhead": ["Đừng vội thoải mái.", "Xem nước đi này."],
+        "playerBehind": [
+          "Đôi khi xe cộ cứ thế tách ra.",
+          "Trượt may… hay không nhỉ?"
+        ],
+        "endgame": ["Ồ chà — đường thênh thang luôn.", "Thông nhanh thật."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "đại bàng",
+      "personality": "Thờ ơ và uyển chuyển. Những cú trượt thong thả, tự tin. Lặng lẽ tăng tốc ở đoạn cuối.",
+      "voiceLines": {
+        "neutral": ["Đã thấy lộ trình rồi.", "Cứ thế trượt qua thôi."],
+        "playerAhead": [
+          "Lộ trình vẫn không đổi.",
+          "Dù sao cũng cùng một lối ra."
+        ],
+        "playerBehind": ["Thông rồi, thật đấy.", "Cứ thế lướt đi từ đây."],
+        "endgame": ["…sắp ra rồi.", "Lăn bánh tới lối ra."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "cáo",
+      "personality": "Mãnh liệt và hiếu thắng. Xuất phát nhanh, áp lực liên tục. Cú nước rút cuối nghe thật hung hãn.",
+      "voiceLines": {
+        "neutral": ["Theo kịp đi.", "Vẫn còn kẹt xe à?"],
+        "playerAhead": [
+          "Đừng đứng khựng lúc này.",
+          "Bạn trượt nhanh hơn thế được."
+        ],
+        "playerBehind": ["Chậm quá.", "Bạn bị chặn rồi."],
+        "endgame": ["Dọn làn đường đi.", "Lối ra này là của mình."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "cá mập",
+      "personality": "Kiên nhẫn và săn mồi. Bám sát, rồi siết chặt ở đoạn cuối.",
+      "voiceLines": {
+        "neutral": ["Ngay sau lưng bạn.", "Chưa đâu."],
+        "playerAhead": [
+          "Cứ ở yên trong làn của bạn.",
+          "Mình đang tới gần rồi."
+        ],
+        "playerBehind": ["Đang áp sát.", "Khe hở kia rồi."],
+        "endgame": ["Giờ thì trượt ra thôi.", "Chiếm được lối ra."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "cú",
+      "personality": "Điềm tĩnh và cân nhắc. Nhịp độ mượt mà. Đoạn cuối gọn gàng và không thể tránh khỏi.",
+      "voiceLines": {
+        "neutral": ["Như dự đoán.", "Mỗi khối đều đúng chỗ."],
+        "playerAhead": ["Tốt.", "Bạn thấy lộ trình rồi đấy."],
+        "playerBehind": ["Theo làn đường.", "Cứ kiên trì."],
+        "endgame": ["Gần qua rồi.", "Lối ra đây rồi."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "mèo đen",
+      "personality": "Lặng lẽ và phi nhân. Hầu như không dừng. Đoạn cuối là một pha trượt nhanh, không gián đoạn ra lối thoát.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…vẫn vậy."],
+        "playerBehind": ["Quá muộn.", "Bạn đã do dự."],
+        "endgame": ["…ra.", "Lối ra."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "rồng",
+      "personality": "Nhẹ nhàng và tuyệt đối. Giữ quyền kiểm soát hoàn hảo suốt cuộc đua. Ở đoạn cuối, càn quét dứt khoát, không gián đoạn ra lối ra — không kẽ hở, không kháng cự.",
+      "voiceLines": {
+        "neutral": ["Như dự tính.", "Không chệch hướng."],
+        "playerAhead": ["Bạn chọn thử là khôn ngoan.", "Tiếp tục đi."],
+        "playerBehind": ["Đến đây là hết.", "Không còn lựa chọn nào khác."],
+        "endgame": ["Vậy thôi.", "Thông."]
+      }
+    }
+  }
+}

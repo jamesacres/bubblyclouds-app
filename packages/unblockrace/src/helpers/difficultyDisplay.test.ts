@@ -1,4 +1,9 @@
-import { UNBLOCK_DIFFICULTY_MULTIPLIERS } from './difficultyDisplay';
+import { getI18n } from 'react-i18next';
+import {
+  UNBLOCK_DIFFICULTY_MULTIPLIERS,
+  getUnblockDifficultyDisplay,
+  unblockDifficultyDisplay,
+} from './difficultyDisplay';
 import { SCORING_CONFIG } from '@bubblyclouds-app/games/helpers/scoringConfig';
 import { BookPuzzleDifficulty } from '@bubblyclouds-app/games/types/difficulty';
 
@@ -18,5 +23,22 @@ describe('UNBLOCK_DIFFICULTY_MULTIPLIERS', () => {
     );
 
     expect(UNBLOCK_DIFFICULTY_MULTIPLIERS.expert).toBe(sudokuMax);
+  });
+});
+
+describe('difficulty labels', () => {
+  const t = getI18n().getFixedT('en', 'unblockrace');
+
+  it('localises the label for each known difficulty id', () => {
+    expect(unblockDifficultyDisplay('beginner', t).label).toBe('Beginner');
+    expect(unblockDifficultyDisplay('expert', t).label).toBe('Expert');
+    expect(getUnblockDifficultyDisplay('challenging', t)?.name).toBe(
+      'Challenging'
+    );
+  });
+
+  it('falls back to the raw id and no badge for unknown ids', () => {
+    expect(unblockDifficultyDisplay('simple', t).label).toBe('simple');
+    expect(getUnblockDifficultyDisplay('simple', t)).toBeUndefined();
   });
 });

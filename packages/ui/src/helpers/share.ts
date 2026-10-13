@@ -10,12 +10,12 @@ const canShareUrl = (): Promise<boolean> =>
 
 const shareOrCopyUrl = async ({
   url,
-  appName,
-  partyName,
+  title,
+  dialogTitle,
 }: {
   url: string;
-  appName: string;
-  partyName?: string;
+  title?: string;
+  dialogTitle: string;
 }): Promise<void> => {
   await navigator.clipboard
     .writeText(url)
@@ -25,11 +25,9 @@ const shareOrCopyUrl = async ({
     // Omit `text` here: the browser's native share sheet concatenates
     // title/text/url with no separator when the user chooses "Copy".
     await Share.share({
-      title: appName
-        ? `Join the${partyName ? ` ${partyName}` : ''} racing team on ${appName}!`
-        : undefined,
+      title,
       url,
-      dialogTitle: 'Share invite',
+      dialogTitle,
     }).catch((e) => console.warn(e));
   }
 };

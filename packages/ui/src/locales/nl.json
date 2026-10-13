@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Taal",
+    "automatic": "Automatisch"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Terug"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Donkere modus aan- of uitzetten"
+  },
+  "starRating": {
+    "label_one": "{{filled}} van {{count}} ster",
+    "label_other": "{{filled}} van {{count}} sterren"
+  },
+  "timer": {
+    "go": "GO!"
+  },
+  "themeColor": {
+    "change": "Themakleur wijzigen",
+    "set": "Themakleur instellen op {{color}}",
+    "setPremium": "Themakleur instellen op {{color}} (Premium)",
+    "colors": {
+      "blue": "blauw",
+      "red": "rood",
+      "green": "groen",
+      "purple": "paars",
+      "amber": "amber",
+      "cyan": "cyaan",
+      "pink": "roze",
+      "indigo": "indigo",
+      "orange": "oranje",
+      "teal": "blauwgroen",
+      "slate": "leigrijs",
+      "rose": "roze-rood",
+      "emerald": "smaragdgroen",
+      "sky": "hemelsblauw",
+      "violet": "violet",
+      "lime": "limoengroen",
+      "fuchsia": "fuchsia",
+      "yellow": "geel",
+      "stone": "steengrijs",
+      "zinc": "zinkgrijs"
+    }
+  },
+  "copyButton": {
+    "copied": "Gekopieerd naar klembord!",
+    "share": "Uitnodigingslink delen",
+    "copy": "Uitnodigingslink kopiëren"
+  },
+  "share": {
+    "joinTeam": "Doe mee met het raceteam op {{appName}}!",
+    "joinNamedTeam": "Doe mee met het raceteam {{partyName}} op {{appName}}!",
+    "dialogTitle": "Uitnodiging delen"
+  }
+}

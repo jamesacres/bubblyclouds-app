@@ -1,0 +1,350 @@
+{
+  "brand": {
+    "gameName": "Sudoku Race"
+  },
+  "board": {
+    "buttonGroup": "Knoppengroep"
+  },
+  "celebration": {
+    "solved": "Opgelost!",
+    "leaderboardPoints": "Ranglijstpunten",
+    "pointsSuffix": " ptn"
+  },
+  "completion": {
+    "time": "Tijd"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Hou uw reeks vol in het boek"
+  },
+  "puzzleMeta": {
+    "daily": "Dagelijks {{day}} {{month}}",
+    "dayOrdinal": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "book": "Boek {{month}} nr. {{number}}",
+    "scanned": "Gescande puzzel"
+  },
+  "bookCover": {
+    "edition": "{{month}}-editie",
+    "puzzleCount": "50 puzzels • Meerdere niveaus",
+    "months": {
+      "january": {
+        "tagline": "Van basis- tot bovenmenselijke technieken",
+        "footer": "❄️ Winterse uitdagingseditie ❄️"
+      },
+      "february": {
+        "tagline": "Van verborgen singles tot AIC-ketens",
+        "footer": "💕 Hou van de uitdaging 💕"
+      },
+      "march": {
+        "tagline": "Lente in geavanceerde technieken",
+        "footer": "🌸 Frisse uitdagingen bloeien op 🌸"
+      },
+      "april": {
+        "tagline": "Trotseer elke oplosstorm",
+        "footer": "🌈 Na regen komt de overwinning 🌈"
+      },
+      "may": {
+        "tagline": "Bloei met breinkracht",
+        "footer": "🌻 Mogen uw vaardigheden bloeien 🌻"
+      },
+      "june": {
+        "tagline": "Zomerse breintraining",
+        "footer": "☀️ De zonnige kant van puzzelen ☀️"
+      },
+      "july": {
+        "tagline": "Strandlectuur, breintraining",
+        "footer": "🏖️ Vakantie-breinspellen 🏖️"
+      },
+      "august": {
+        "tagline": "Verhit uw breinkracht",
+        "footer": "🔥 Gloeiend hete uitdagingen 🔥"
+      },
+      "september": {
+        "tagline": "Leer uw brein nieuwe trucs",
+        "footer": "📚 Kennis door cijfers 📚"
+      },
+      "october": {
+        "tagline": "Spookachtig slimme uitdagingen",
+        "footer": "🎃 Griezelig leuk 🎃"
+      },
+      "november": {
+        "tagline": "Vuurwerk voor het brein",
+        "footer": "🍂 Vergeet niet, vergeet niet! 🍂"
+      },
+      "december": {
+        "tagline": "Breincadeaus voor de feestdagen",
+        "footer": "🎄 Fijne feestdagen, puzzelaar! 🎄"
+      },
+      "default": {
+        "tagline": "Daag uw geest uit",
+        "footer": "🧩 Puzzelkracht 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "U bent offline, controleer uw verbinding",
+      "loadFailed": "Puzzelboek laden mislukt"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Toetsenbord: pijltjestoetsen, undo, redo.",
+      "notes": "Houd shift ingedrukt of druk op n om de notitiemodus te wisselen.",
+      "validate": "Druk op c om de cel te controleren, op g om het raster te controleren."
+    },
+    "owl": {
+      "invalid": "Het lijkt erop dat u een fout hebt gemaakt. Ik raad aan het raster te controleren.",
+      "notSure": "Sorry, ik weet het niet zeker.",
+      "eureka": "Eureka-notatie {{notation}}",
+      "highlighted": "Ik heb de relevante cellen voor u gemarkeerd",
+      "foundTechnique": "Ik heb een {{technique}} gevonden",
+      "noHint": "Geen hint beschikbaar"
+    },
+    "legend": {
+      "stem": "Steel",
+      "petalA": "Bloemblad A",
+      "petalB": "Bloemblad B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Aan (waar)",
+      "off": "Uit (onwaar)",
+      "elimination": "Eliminatie"
+    },
+    "reply": {
+      "thanks": "Bedankt,",
+      "tellMeMore": "🤔 Vertel me meer",
+      "showMeWhere": "👀 Toon me waar",
+      "hideHint": "Hint verbergen"
+    },
+    "askForHelp": "Hulp vragen",
+    "notes": "Notities",
+    "copied": "Gekopieerd",
+    "export": "Exporteren",
+    "delete": "Wissen",
+    "undo": "Undo",
+    "redo": "Redo",
+    "cell": "Cel",
+    "grid": "Raster",
+    "zoom": "Zoom",
+    "reset": "Reset",
+    "reveal": "Onthullen",
+    "confirm": {
+      "reset": {
+        "title": "Het hele raster resetten?",
+        "body": "Weet u zeker dat u het hele raster wilt resetten?",
+        "confirm": "Resetten"
+      },
+      "reveal": {
+        "title": "Het hele raster onthullen?",
+        "body": "Weet u zeker dat u het hele raster wilt onthullen?",
+        "confirm": "Onthullen"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Naakte single",
+    "hiddenSingleBox": "Verborgen single (blok)",
+    "hiddenSingleRow": "Verborgen single (rij)",
+    "hiddenSingleCol": "Verborgen single (kolom)",
+    "nakedPair": "Naakt paar",
+    "nakedTriple": "Naakt drietal",
+    "nakedQuad": "Naakt viertal",
+    "hiddenPair": "Verborgen paar",
+    "hiddenTriple": "Verborgen drietal",
+    "hiddenQuad": "Verborgen viertal",
+    "lockedCandidatePointing": "Vergrendelde kandidaten (wijzend)",
+    "lockedCandidateClaiming": "Vergrendelde kandidaten (claimend)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Wolkenkrabber",
+    "twoStringKite": "Two-String-Kite",
+    "finnedXWing": "Finned X-Wing",
+    "finnedSwordfish": "Finned Swordfish",
+    "finnedJellyfish": "Finned Jellyfish",
+    "emptyRectangle": "Lege rechthoek",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Unieke rechthoek (type 1)",
+    "uniqueRectangleType2": "Unieke rechthoek (type 2)",
+    "uniqueRectangleType3": "Unieke rechthoek (type 3)",
+    "uniqueRectangleType4": "Unieke rechthoek (type 4)",
+    "uniqueRectangleType5": "Unieke rechthoek (type 5)",
+    "bug": "BUG",
+    "xyChain": "XY-keten",
+    "aic": "AIC",
+    "aicRing": "AIC-ring",
+    "groupedAIC": "Gegroepeerde AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Death Blossom",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio-net",
+    "cellRegionForcingChain": "Cel/gebied-forcingketen",
+    "cellRegionForcingNet": "Cel/gebied-forcingnet",
+    "forcingChain": "Forcing chain"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bij",
+      "personality": "Onrustig en enthousiast. Schiet in vlagen over het raster en loopt dan vast. Tegen het einde versnelt de bij te vroeg en blijft vlak voor de finish steken.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Ik zie er een!",
+          "Wacht — nee, misschien toch niet...",
+          "Zoem zoem! Vooruitgang!"
+        ],
+        "playerAhead": ["Hé, rustig aan!", "Ik deed het goed…"],
+        "playerBehind": ["Ik kom naderbij!", "Kijk mij eens gaan!"],
+        "endgame": ["Bijna daar! Denk ik!", "Wacht — waar hoort deze?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "eend",
+      "personality": "Vrolijk en doelloos. Langzaam en gestaag, met lange pauzes. In het eindspel drijft de eend bijna per ongeluk naar de oplossing.",
+      "voiceLines": {
+        "neutral": ["Ik neem gewoon de tijd...", "Hmm... ergens hier."],
+        "playerAhead": ["Je doet het geweldig!", "Ik kom er uiteindelijk wel."],
+        "playerBehind": ["Oh! Ik heb er een gevonden!", "Dit is fijn."],
+        "endgame": ["Ik ben bijna klaar, denk ik?", "Oh! Dat is goed gekomen."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "hagedis",
+      "personality": "Voorzichtig en oplettend. Lange pauzes, dan kleine groepjes zetten. In het eindspel aarzelt hij bij elke invulling.",
+      "voiceLines": {
+        "neutral": ["Laat me dat dubbel checken.", "Dat moet kloppen."],
+        "playerAhead": ["Ik moet nu voorzichtig zijn.", "Niet haasten."],
+        "playerBehind": ["Oké… ik kom dichterbij.", "Nog tijd genoeg."],
+        "endgame": ["Voorzichtig nu...", "Bijna… ik moet het zeker weten."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "spin",
+      "personality": "Weloverwogen en gestructureerd. Bouwt zorgvuldig stuk voor stuk voortgang op. In het eindspel brokkelt de structuur af — twijfel sluipt erin alsof het plan niet meer standhoudt.",
+      "voiceLines": {
+        "neutral": ["Dat past in het patroon.", "Stuk voor stuk..."],
+        "playerAhead": ["Het werkte nog...", "Ik moet dit herstellen..."],
+        "playerBehind": ["Het houdt nog steeds.", "Ja… dit werkt."],
+        "endgame": ["Wacht — nee, dat breekt het.", "Ik had dit gepland..."]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "wasbeer",
+      "personality": "Vasthoudend en opportunistisch. Ongelijk ritme. In het eindspel vindt ze momentum en rondt ze sneller af dan verwacht.",
+      "voiceLines": {
+        "neutral": ["Dat werkt!", "Een beetje rommelig, maar ik neem het."],
+        "playerAhead": ["Goed, tijd om door te drukken.", "Nog niet klaar."],
+        "playerBehind": ["Oh — mooie vondst.", "Het komt nu samen."],
+        "endgame": ["Ja, ik heb het.", "Nu stroomt het."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pinguïn",
+      "personality": "Gestructureerd en methodisch. Constant tempo. Het eindspel blijft rustig — geen paniek, geen sprint.",
+      "voiceLines": {
+        "neutral": ["Dat past.", "Gelijkmatig blijven."],
+        "playerAhead": ["Tempo vasthouden.", "Geen haast nodig."],
+        "playerBehind": ["Nog op koers.", "De vooruitgang is gestaag."],
+        "endgame": ["Bijna er.", "Netjes afronden."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "aap",
+      "personality": "Grillig en verontrustend. Onvoorspelbare uitbarstingen. In het eindspel versnelt hij plotseling op een manier die oneerlijk aanvoelt.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… had je dat niet verwacht?",
+          "Oh, dat is interessant."
+        ],
+        "playerAhead": ["Word niet te zelfverzekerd.", "Kijk maar."],
+        "playerBehind": [
+          "Soms klikt het gewoon.",
+          "Een gelukkige gok… of toch niet?"
+        ],
+        "endgame": ["Oh wow — daar gaan we.", "Dat ging snel."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "adelaar",
+      "personality": "Afstandelijk en vloeiend. Rustige, zelfverzekerde invullingen. Stille versnelling in het eindspel.",
+      "voiceLines": {
+        "neutral": ["Dit zag ik al.", "Gewoon invullen."],
+        "playerAhead": [
+          "Dat verandert niets.",
+          "Nog altijd dezelfde uitkomst."
+        ],
+        "playerBehind": [
+          "Het is eigenlijk al klaar.",
+          "Nu even ergens anders."
+        ],
+        "endgame": ["…bijna klaar.", "Afronden."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "vos",
+      "personality": "Intens en fel competitief. Snelle start, constante druk. De eindspurt voelt agressief.",
+      "voiceLines": {
+        "neutral": ["Hou het bij.", "Nog bij me?"],
+        "playerAhead": ["Vertraag nu niet.", "Je kunt beter dan dat."],
+        "playerBehind": ["Te langzaam.", "Je raakt achter."],
+        "endgame": ["Maak het af.", "Dit is van mij."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "haai",
+      "personality": "Geduldig en roofzuchtig. Blijft dichtbij en slaat in het eindspel hard toe.",
+      "voiceLines": {
+        "neutral": ["Vlak achter je.", "Nog niet."],
+        "playerAhead": ["Blijf waar je bent.", "Ik ben nu dichtbij."],
+        "playerBehind": ["Ik kom dichterbij.", "Daar ben je."],
+        "endgame": ["Nu maken we het af.", "Hebbes."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "uil",
+      "personality": "Kalm en weloverwogen. Soepel tempo. Het eindspel is zuiver en onvermijdelijk.",
+      "voiceLines": {
+        "neutral": ["Zoals verwacht.", "Alles valt op zijn plek."],
+        "playerAhead": ["Goed.", "Je ziet het."],
+        "playerBehind": ["Zet door.", "Blijf erbij."],
+        "endgame": ["Bijna voltooid.", "Daar is het."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "zwarte kat",
+      "personality": "Stil en onmenselijk. Nauwelijks pauzes. Het eindspel is een razendsnelle, ononderbroken afronding.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…nog steeds."],
+        "playerBehind": ["Te laat.", "Je aarzelde."],
+        "endgame": ["…klaar.", "Af."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "draak",
+      "personality": "Moeiteloos en absoluut. Houdt de hele tijd perfecte controle. In het eindspel veegt de draak de rest beslissend en ononderbroken weg — geen openingen, geen weerstand.",
+      "voiceLines": {
+        "neutral": ["Verwacht.", "Geen afwijking."],
+        "playerAhead": ["Je deed er goed aan het te proberen.", "Ga door."],
+        "playerBehind": ["Hiermee is het afgelopen.", "Geen alternatief."],
+        "endgame": ["Dat is alles.", "Voltooid."]
+      }
+    }
+  }
+}

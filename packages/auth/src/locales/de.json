@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Zum Fortfahren anmelden",
+    "signInWith": "Mit {{provider}} anmelden",
+    "emailTitle": "Mit E-Mail anmelden",
+    "emailPlaceholder": "ihre@email.de",
+    "continue": "Weiter",
+    "cancel": "Abbrechen",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutzerklärung"
+  },
+  "header": {
+    "signIn": "Anmelden"
+  },
+  "avatar": {
+    "alt": "Benutzer"
+  },
+  "panel": {
+    "title": "Konto",
+    "greeting": "Hallo, {{name}}!",
+    "fallbackName": "Benutzer",
+    "plusActive": "{{gameName}} {{plus}} aktiv",
+    "joinGamePlus": "{{gameName}} {{plus}} holen",
+    "joinPlus": "{{plus}} holen",
+    "signOut": "Abmelden",
+    "privacy": "Datenschutzerklärung",
+    "terms": "Nutzungsbedingungen",
+    "credits": "Credits",
+    "deleteAccount": "Konto löschen",
+    "poweredBy": "Bereitgestellt von {{companyName}}",
+    "deleteUnavailable": "Die Funktion zum Löschen des Kontos ist nicht verfügbar.",
+    "deleteFailed": "Das Konto konnte nicht gelöscht werden. Bitte versuchen Sie es später erneut."
+  },
+  "deleteDialog": {
+    "title": "Konto löschen",
+    "warning": "Diese Aktion kann nicht rückgängig gemacht werden. Alle Ihre Daten in allen {{companyName}}-Anwendungen werden dauerhaft gelöscht.",
+    "confirmation": "Ich bestätige, dass ich mein gesamtes Konto einschließlich aller Daten in allen {{companyName}}-Anwendungen löschen möchte.",
+    "cancel": "Abbrechen",
+    "deleting": "Wird gelöscht...",
+    "submit": "Konto löschen"
+  }
+}

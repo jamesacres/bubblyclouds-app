@@ -16,12 +16,15 @@ jest.mock('@bubblyclouds-app/template/hooks/useWakeLock', () => ({
 }));
 
 const mockUnblockRaceMount = jest.fn();
+const mockUnblockRaceProps = jest.fn();
 jest.mock('@bubblyclouds-app/unblockrace/components/UnblockRace', () => {
   const DummyUnblockRace = function DummyUnblockRace({
     run,
+    ...props
   }: {
     run: { stages: { stageId: string; movesRequired: number }[] };
   }) {
+    mockUnblockRaceProps(props);
     // Mirrors UnblockRace's own useState(() => ...) initializers: only fires
     // once per mount, so a stale instance reused across a stage-count change
     // would not re-run this and the test would catch it via mount count.
@@ -90,6 +93,26 @@ describe('Puzzle Page', () => {
       `${BOARD_1}:3`
     );
     expect(mockRequestWakeLock).toHaveBeenCalled();
+  });
+
+  it('should pass translated brand copy to the game', async () => {
+    const params = new URLSearchParams();
+    params.set('board', BOARD_1);
+    params.set('moves', '3');
+    mockUseSearchParams.mockReturnValue(params);
+
+    renderComponent();
+    await screen.findByTestId('unblock-race');
+
+    expect(mockUnblockRaceProps).toHaveBeenCalledWith(
+      expect.objectContaining({
+        appName: 'Unblock Race',
+        mobileDescription: 'Get the best experience with our Unblock Race app!',
+        desktopDescription: 'Download Unblock Race',
+        openInAppLabel: 'Open Puzzle',
+        plusName: 'Plus',
+      })
+    );
   });
 
   it('should parse comma-separated chained runs positionally', async () => {

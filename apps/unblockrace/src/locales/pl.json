@@ -1,0 +1,295 @@
+{
+  "brand": {
+    "appName": "Wyścig z Korkiem",
+    "gameName": "Wyścig z Korkiem",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Wyścig ze znajomymi o rozkorkowanie łamigłówki: gra i udostępnianie. Codzienne wyzwania i gra na wielu urządzeniach!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Zacznij wyścig",
+      "myPuzzles": "Moje łamigłówki",
+      "racingTeams": "Zespoły"
+    },
+    "hero": {
+      "live": "Na żywo",
+      "headlineLine1": "Rozładować korek.",
+      "headlineAccent": "Wygrać wyścig",
+      "subtitle": "Przesuwanie bloków, uwolnienie tego świecącego i wyścig ze znajomymi do wyjazdu."
+    },
+    "leaderboard": "Ranking",
+    "dailyRace": {
+      "title": "Wyścig dnia",
+      "refreshesDaily": "odświeżany codziennie",
+      "todaysRace": "Dzisiejszy wyścig",
+      "difficultyRange": "Początkujący → Ekspert",
+      "description": "Pięć plansz, jeden zegar — wygrywa najszybsza ucieczka.",
+      "stages": "5 etapów",
+      "start": "Zacznij wyścig",
+      "morePuzzlesPrefix": "Więcej łamigłówek w",
+      "puzzleCollection": "zbiorze łamigłówek"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 łamigłówek",
+      "title": "Miesięczny zbiór",
+      "description": "50 nowych korków na {{month}} — wszystkie do rozładowania, zanim miesiąc dobiegnie końca.",
+      "browse": "Przeglądaj łamigłówki"
+    },
+    "teams": {
+      "eyebrow": "Tryb wieloosobowy",
+      "title": "Zespoły wyścigowe",
+      "raceFriends": "Wyścig z {{names}} i innymi",
+      "challengeFriends": "Wyzwanie dla znajomych"
+    },
+    "premium": {
+      "title": "Funkcje premium",
+      "subtitle": "Pełne możliwości aplikacji $t(brand.gameName)"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Wyścig Sudoku",
+    "tagline": "Udostępnianie sudoku znajomym i wyścig o jak najszybsze rozwiązanie."
+  },
+  "puzzle": {
+    "mobileDescription": "Najlepsze wrażenia z gry w aplikacji {{appName}}!",
+    "desktopDescription": "Pobierz {{appName}}",
+    "openInAppLabel": "Otwórz łamigłówkę"
+  },
+  "collection": {
+    "loading": {
+      "both": "Wczytywanie zbioru łamigłówek...",
+      "collection": "Wczytywanie łamigłówek...",
+      "sessions": "Wczytywanie postępów..."
+    },
+    "retry": "Spróbuj ponownie",
+    "backHome": "Powrót na stronę główną",
+    "signInPrompt": "Zaloguj się, aby uzyskać dostęp do zbioru łamigłówek.",
+    "signIn": "Zaloguj się",
+    "noData": "Brak danych zbioru łamigłówek.",
+    "title": "Zbiór łamigłówek: {{month}}",
+    "completed": "ukończone",
+    "inProgress": "w trakcie",
+    "unlockWithPlus": "Wszystkie łamigłówki odblokowane z Plus",
+    "jumpToDifficulty": "Przejdź do poziomu trudności",
+    "scrollToTop": "Przewiń na górę",
+    "subtitle_one": "{{count}} łamigłówka — od szybkich ucieczek po ekspercki zator",
+    "subtitle_few": "{{count}} łamigłówki — od szybkich ucieczek po ekspercki zator",
+    "subtitle_many": "{{count}} łamigłówek — od szybkich ucieczek po ekspercki zator",
+    "subtitle_other": "{{count}} łamigłówki — od szybkich ucieczek po ekspercki zator"
+  },
+  "invite": {
+    "loading": "Wczytywanie zaproszenia...",
+    "iconAlt": "Ikona {{appName}}",
+    "greeting": "👋 Cześć, {{name}}!",
+    "invited": "Zaproszenie!",
+    "joinTeam": "Dołącz do zespołu wyścigowego",
+    "tagline": "Wspólne rozkorkowywanie łamigłówek i podgląd postępów innych w czasie rzeczywistym!",
+    "proTipLabel": "Wskazówka:",
+    "proTip": "Wszystkie kolejne łamigłówki będą udostępniane członkom zespołu dla przyjacielskiej rywalizacji!",
+    "nicknameLabel": "Pseudonim widoczny w zespole wyścigowym",
+    "nicknamePlaceholder": "Pseudonim",
+    "joining": "Dołączanie do zespołu...",
+    "join": "Dołącz do zabawy! 🎉",
+    "signIn": "Zaloguj się, aby kontynuować",
+    "bonus": "🎉 Bonus: {{plusName}} – {{duration}}!",
+    "bonusDescription": "Dołączenie do tego zespołu wyścigowego odblokowuje funkcje premium zupełnie za darmo!",
+    "activation": "💡 Dostęp premium aktywuje się automatycznie po dołączeniu",
+    "duration": {
+      "oneMonth": "jeden miesiąc",
+      "oneYear": "jeden rok",
+      "lifetime": "na zawsze",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Zaproszenie wygasło",
+      "description": "Ten link zaproszenia jest już nieważny. Należy poprosić znajomego o nowe zaproszenie lub zwiększyć rozmiar zespołu."
+    },
+    "greetingAnonymous": "👋 Cześć!"
+  },
+  "credits": {
+    "title": "Podziękowania i źródła",
+    "intro": "Ta aplikacja powstała na bazie kilku znakomitych projektów",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Ta aplikacja jest udostępniana na licencji MIT. Szczegóły: <licenseLink>LICENSE</licenseLink> i <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "rush": "Solver i baza łamigłówek Rush Hour autorstwa Michaela Foglemana, skompilowane do WebAssembly",
+      "nextjs": "Framework React do produkcji",
+      "typescript": "Typowany nadzbiór JavaScriptu",
+      "tailwind": "Framework CSS oparty na klasach użytkowych",
+      "capacitor": "Natywne środowisko aplikacji mobilnych",
+      "electron": "Framework aplikacji desktopowych",
+      "revenuecat": "Zarządzanie subskrypcjami",
+      "react": "Biblioteka komponentów interfejsu",
+      "turborepo": "System budowania monorepozytoriów"
+    }
+  },
+  "notFound": {
+    "title": "Nie znaleziono strony"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Zaloguj się, aby zacząć dzisiejszą łamigłówkę",
+      "collection": "Zaloguj się, aby przeglądać zbiór",
+      "joinTeam": "Zaloguj się, aby dołączyć do zespołu",
+      "raceLobby": "Zaloguj się, aby ścigać się z innymi",
+      "puzzleEntry": "Zaloguj się, aby zagrać"
+    },
+    "valueProps": {
+      "saveProgress": "Zapisywanie postępów",
+      "raceFriends": "Wyścigi ze znajomymi",
+      "trackStats": "Śledzenie statystyk"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Wykorzystano dzisiejszy limit: {{limit}} bezpłatnych podpowiedzi.",
+      "body": "Plus zapewnia podpowiedzi bez limitu — bez utknięć — i sprawia, że cała aplikacja jest wolna od reklam."
+    },
+    "undo": {
+      "title": "Osiągnięto dzienny limit cofania!",
+      "body": "Dzienny limit bezpłatnych cofnięć: {{limit}}. Limit odnawia się jutro, a subskrypcja daje cofanie bez limitu."
+    },
+    "collectionLocked": {
+      "title": "Ta łamigłówka należy do zbioru Plus.",
+      "body": "Plus odblokowuje każdą łamigłówkę w zbiorze każdego miesiąca i sprawia, że cała aplikacja jest wolna od reklam."
+    },
+    "themeColor": {
+      "title": "Ten motyw jest dostępny tylko w Plus.",
+      "body": "Ulepszenie odblokowuje wszystkie piękne kolory motywów i pozwala spersonalizować wyścigi."
+    },
+    "removeMember": {
+      "title": "Usuwanie członków zespołu to funkcja premium!",
+      "body": "Subskrypcja odblokowuje zaawansowane zarządzanie zespołem, w tym usuwanie członków."
+    },
+    "multipleParties": {
+      "title": "Wiele zespołów wyścigowych to funkcja premium!",
+      "body": "Bezpłatnie można mieć jeden zespół. Subskrypcja pozwala tworzyć i dołączać do dowolnej liczby zespołów dla rodziny, znajomych i nie tylko."
+    },
+    "partyMaxSize": {
+      "title": "Duże zespoły to funkcja premium!",
+      "body": "Subskrypcja odblokowuje zaawansowane zarządzanie zespołem, w tym duże zespoły."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Zawsze bez reklam",
+      "description": "Żadnych reklam, nigdy — tylko łamigłówki"
+    },
+    "hints": {
+      "title": "Podpowiedzi bez limitu",
+      "description": "Bez utknięć — podpowiedź zawsze, gdy jest potrzebna"
+    },
+    "monthlyPack": {
+      "title": "Cały miesięczny zbiór odblokowany, co miesiąc",
+      "description": "Wszystkie łamigłówki na każdym poziomie trudności, bez blokad"
+    },
+    "undos": {
+      "title": "Cofanie bez limitu",
+      "description": "Cofanie dowolnej liczby ruchów"
+    },
+    "teams": {
+      "title": "Wiele zespołów wyścigowych",
+      "description": "Prywatne rozgrywki ze znajomymi i rodziną"
+    },
+    "management": {
+      "title": "Zarządzanie zespołem",
+      "description": "Duże zespoły do 15 osób oraz usuwanie członków zespołu."
+    },
+    "themes": {
+      "title": "Wszystkie motywy odblokowane",
+      "description": "Personalizacja wyścigów"
+    }
+  },
+  "plusModal": {
+    "description": "<badge>{{plusName}}</badge> to <strong>podpowiedzi bez limitu</strong>, <strong>cały miesięczny zbiór odblokowany</strong> i <strong>cofanie bez limitu</strong>. Wyzwania dla znajomych, wspinaczka w rankingach i brak reklam."
+  },
+  "leaderboard": {
+    "collectionLabel": "Zbiór",
+    "collectionDetailNoun": "zbiory"
+  },
+  "motivational": {
+    "messages": [
+      "Znajomi czekają na wyzwanie",
+      "Z kim dziś wyścig?",
+      "Czas pokazać swoją szybkość",
+      "Wyzwanie przyjęte?",
+      "Wyścig do mety",
+      "Kto rozwiązuje najszybciej?",
+      "Gotowi zdominować ranking?",
+      "Umiejętności wyścigowe czekają",
+      "Czas zostawić ich w tyle",
+      "Gotowi pierwsi przekroczyć metę?",
+      "Tor już czeka",
+      "Czas wrzucić wyższy bieg",
+      "Gotowi spalić gumę na siatce łamigłówki?",
+      "Przeciwnicy już się rozgrzewają",
+      "Dziś dzień na nowy rekord",
+      "Rekord życiowy czeka na pobicie",
+      "Każda łamigłówka czyni szybszym",
+      "Czas zacząć budować serię",
+      "Czas wskoczyć na wyższy poziom",
+      "Kolejny przełom jest o jedną łamigłówkę stąd",
+      "Gotowi na własne zaskoczenie?",
+      "Czas pokazać, na co nas stać",
+      "Czas uwolnić swój potencjał",
+      "Najszybsze rozwiązanie wciąż przed nami",
+      "Gotowi, by ten dzień się liczył?",
+      "W wyścigu liczy się każda sekunda",
+      "Czas przesunąć granice",
+      "Droga do postępów trwa",
+      "Gotowi przekroczyć oczekiwania?",
+      "Jak z presją?",
+      "Czas uciszyć niedowiarków",
+      "Gotowi sięgnąć po zwycięstwo?",
+      "Konkurencja się tego nie spodziewa",
+      "Czas zostawić swój ślad",
+      "Gotowi ukraść światła reflektorów?",
+      "Zwycięstwo smakuje lepiej, gdy jest wywalczone",
+      "Czas pokazać, kto tu rządzi",
+      "Gotowi pokazać prawdziwe oblicze?",
+      "Tu zaczyna się mentalność mistrza",
+      "Czas oderwać się od stawki",
+      "Gotowi napisać własną legendę?",
+      "Mistrzowie rodzą się w takich chwilach",
+      "Czas zamienić potencjał w wyniki",
+      "Nowe łamigłówki, nowe szanse",
+      "Dzisiejsze wyzwanie czeka na mistrza",
+      "Gotowi, by to był najlepszy dzień?",
+      "Nowy dzień to nowe rekordy do pobicia",
+      "Czas dorzucić kolejne zwycięstwo do kolekcji",
+      "Gotowi mocno zacząć i jeszcze mocniej skończyć?",
+      "Gotowi, by dzień był legendarny?",
+      "Codzienna dawka triumfu czeka",
+      "Strategia spotyka szybkość na siatce",
+      "Gotowi przechytrzyć i wyprzedzić?",
+      "Mistrzostwo w łamigłówkach wzywa",
+      "Czas połączyć logikę z błyskawiczną szybkością",
+      "Gotowi rozwiązywać z chirurgiczną precyzją?",
+      "Idealne połączenie: umiejętności i szybkość",
+      "Analityczny umysł to przewaga w wyścigu",
+      "Czas pokazać supremację w łamigłówkach",
+      "Gotowi rozwiązywać jak mistrz?",
+      "Precyzyjny wyścig zaczyna się od jasnego myślenia",
+      "Znajomi czekają na rewanż",
+      "Kto dziś rozwiązuje?",
+      "Nowa codzienna łamigłówka jest gotowa",
+      "Seria wisi na włosku",
+      "Nowe łamigłówki, nowy początek",
+      "Dzisiejsze wyzwanie już jest",
+      "Wyścig ze znajomym na codziennej łamigłówce",
+      "Nowy dzień, nowe łamigłówki",
+      "Ktoś już jest w rankingu",
+      "Seria trwa dalej",
+      "Codzienne wyzwania właśnie się odświeżyły",
+      "Zespół czeka",
+      "O jedną łamigłówkę bliżej szczytu",
+      "Dzisiejsze łamigłówki czekają",
+      "Czas wrócić do wyścigu"
+    ]
+  }
+}

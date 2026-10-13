@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Conectați-vă pentru a continua",
+    "signInWith": "Conectați-vă cu {{provider}}",
+    "emailTitle": "Conectați-vă cu e-mail",
+    "emailPlaceholder": "adresa-dvs@email.com",
+    "continue": "Continuați",
+    "cancel": "Anulare",
+    "terms": "Termeni de utilizare",
+    "privacy": "Politica de confidențialitate"
+  },
+  "header": {
+    "signIn": "Conectare"
+  },
+  "avatar": {
+    "alt": "utilizator"
+  },
+  "panel": {
+    "title": "Cont",
+    "greeting": "Bună, {{name}}!",
+    "fallbackName": "Utilizator",
+    "plusActive": "{{gameName}} {{plus}} activ",
+    "joinGamePlus": "Obțineți {{gameName}} {{plus}}",
+    "joinPlus": "Obțineți {{plus}}",
+    "signOut": "Deconectare",
+    "privacy": "Politica de confidențialitate",
+    "terms": "Termeni de utilizare",
+    "credits": "Mulțumiri",
+    "deleteAccount": "Ștergeți contul",
+    "poweredBy": "Realizat de {{companyName}}",
+    "deleteUnavailable": "Funcția de ștergere a contului nu este disponibilă.",
+    "deleteFailed": "Contul nu a putut fi șters. Încercați din nou mai târziu."
+  },
+  "deleteDialog": {
+    "title": "Ștergerea contului",
+    "warning": "Această acțiune nu poate fi anulată. Toate datele dumneavoastră din toate aplicațiile {{companyName}} vor fi șterse definitiv.",
+    "confirmation": "Confirm că doresc să îmi șterg întregul cont, inclusiv toate datele din toate aplicațiile {{companyName}}.",
+    "cancel": "Anulare",
+    "deleting": "Se șterge...",
+    "submit": "Ștergeți contul"
+  }
+}

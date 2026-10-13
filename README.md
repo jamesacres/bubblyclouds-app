@@ -338,6 +338,16 @@ npx cap open android    # Open in Android Studio
 pnpm run build:sudoku:electron      # Build Sudoku desktop app
 ```
 
+`app.config.js` reads the brand names from `src/locales/en.json`, so the file
+must be resolvable wherever `app.config.js` is loaded (including the Electron
+packaging step).
+
+## Internationalisation
+
+All user-facing text goes through `react-i18next` with English keys in each
+package's and app's `src/locales/en.json` (see Internationalisation in
+`ARCHITECTURE.md`). `pnpm run i18n:audit` checks for missing and unused keys.
+
 ## Technology Stack
 
 - **Framework**: Next.js 16 (static export)

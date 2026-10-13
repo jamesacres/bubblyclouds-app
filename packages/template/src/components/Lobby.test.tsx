@@ -283,7 +283,13 @@ describe('Lobby', () => {
   it('shows race summary combining human and AI rivals', () => {
     renderComponent({
       localAgentProgress: [
-        { agentId: 'a1', name: 'Bolt', emoji: '⚡', percentage: 10 },
+        {
+          agentId: 'a1',
+          configId: 'bolt',
+          name: 'Bolt',
+          emoji: '⚡',
+          percentage: 10,
+        },
       ],
       sessionParties: {
         '1': {
@@ -338,7 +344,13 @@ describe('Lobby', () => {
     });
     renderComponent({
       localAgentProgress: [
-        { agentId: 'a1', name: 'Bolt', emoji: '⚡', percentage: 10 },
+        {
+          agentId: 'a1',
+          configId: 'bolt',
+          name: 'Bolt',
+          emoji: '⚡',
+          percentage: 10,
+        },
       ],
       sessionParties: {
         '1': {
@@ -375,7 +387,13 @@ describe('Lobby', () => {
   it('renders AI opponent progress with percentage while racing', () => {
     renderComponent({
       localAgentProgress: [
-        { agentId: 'a1', name: 'Bolt', emoji: '⚡', percentage: 42 },
+        {
+          agentId: 'a1',
+          configId: 'bolt',
+          name: 'Bolt',
+          emoji: '⚡',
+          percentage: 42,
+        },
       ],
     });
     expect(screen.getByText('Bolt')).toBeInTheDocument();
@@ -387,6 +405,7 @@ describe('Lobby', () => {
       localAgentProgress: [
         {
           agentId: 'a1',
+          configId: 'bolt',
           name: 'Bolt',
           emoji: '⚡',
           percentage: 100,
@@ -403,6 +422,7 @@ describe('Lobby', () => {
       localAgentProgress: [
         {
           agentId: 'a1',
+          configId: 'bolt',
           name: 'Bolt',
           emoji: '⚡',
           percentage: 100,
@@ -418,7 +438,13 @@ describe('Lobby', () => {
     const onRemoveAgent = jest.fn();
     renderComponent({
       localAgentProgress: [
-        { agentId: 'a1', name: 'Bolt', emoji: '⚡', percentage: 42 },
+        {
+          agentId: 'a1',
+          configId: 'bolt',
+          name: 'Bolt',
+          emoji: '⚡',
+          percentage: 42,
+        },
       ],
       onRemoveAgent,
     });
@@ -434,6 +460,7 @@ describe('Lobby', () => {
       localAgentProgress: [
         {
           agentId: 'a1',
+          configId: 'bolt',
           name: 'Bolt',
           emoji: '⚡',
           percentage: 42,
@@ -1075,7 +1102,13 @@ describe('Lobby', () => {
   it('falls back to an emoji avatar for an AI opponent when its image fails to load', () => {
     renderComponent({
       localAgentProgress: [
-        { agentId: 'a1', name: 'Bolt', emoji: '⚡', percentage: 42 },
+        {
+          agentId: 'a1',
+          configId: 'bolt',
+          name: 'Bolt',
+          emoji: '⚡',
+          percentage: 42,
+        },
       ],
     });
     const img = screen.getByAltText('Bolt');
@@ -1242,7 +1275,13 @@ describe('Lobby', () => {
     it('shows "Stage N of M" for an AI opponent instead of its raw per-stage percentage', () => {
       renderComponent({
         localAgentProgress: [
-          { agentId: 'agent-0', name: 'Bolt', emoji: '⚡', percentage: 40 },
+          {
+            agentId: 'agent-0',
+            configId: 'bolt',
+            name: 'Bolt',
+            emoji: '⚡',
+            percentage: 40,
+          },
         ],
         runProgressByUserId: {
           'agent-0': { completedStageCount: 1, totalSeconds: 30 },
@@ -1258,6 +1297,7 @@ describe('Lobby', () => {
         localAgentProgress: [
           {
             agentId: 'agent-0',
+            configId: 'bolt',
             name: 'Bolt',
             emoji: '⚡',
             percentage: 100,

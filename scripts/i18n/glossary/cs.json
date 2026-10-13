@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Závod v sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "závod",
+      "team": "tým",
+      "leaderboard": "žebříček",
+      "hint": "nápověda",
+      "undo": "zpět",
+      "theme": "motiv",
+      "dailyPuzzle": "denní hlavolam",
+      "monthlyCollection": "měsíční sbírka hlavolamů",
+      "aiOpponent": "soupeř s UI",
+      "monthly": "měsíční",
+      "lifetime": "doživotně",
+      "plusAccess": "Přístup Plus",
+      "plusFeatureLine": "Neomezené závody, týmy, motivy a zpět"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Závod bez zácpy",
+      "gameName": "Závod bez zácpy",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "závod",
+      "team": "tým",
+      "leaderboard": "žebříček",
+      "hint": "nápověda",
+      "undo": "zpět",
+      "theme": "motiv",
+      "dailyPuzzle": "denní hlavolam",
+      "monthlyCollection": "měsíční sbírka hlavolamů",
+      "aiOpponent": "soupeř s UI",
+      "monthly": "měsíční",
+      "lifetime": "doživotně",
+      "plusAccess": "Přístup Plus",
+      "plusFeatureLine": "Neomezené závody, týmy, motivy a zpět"
+    }
+  }
+}

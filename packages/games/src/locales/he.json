@@ -1,0 +1,267 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "ספר",
+    "defaultDetailNoun": "ספרי חידות"
+  },
+  "collectionCover": {
+    "monthlyCollection": "אוסף חודשי"
+  },
+  "hintBox": {
+    "dismiss": "הסתרת הרמז"
+  },
+  "lobbyButton": {
+    "opponents": "יריבים"
+  },
+  "nextPuzzlePanel": {
+    "continue": "המשך — החידה הבאה",
+    "continueLocked": "המשך ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} מתוך {{total}} {{label}} הושלמו"
+  },
+  "countdownOverlay": {
+    "getReady": "היכונו",
+    "go": "קדימה!"
+  },
+  "confirmDialog": {
+    "cancel": "ביטול"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · הושלם",
+    "retry": "נסו שוב",
+    "points": "+{{points}} נק׳",
+    "leaderboardPoints": "נקודות בטבלת המובילים"
+  },
+  "raceTimer": {
+    "time": "זמן"
+  },
+  "stageTopBar": {
+    "previous": "הקודם"
+  },
+  "raceHud": {
+    "opponents": "יריבים",
+    "stageOf": "שלב {{current}} מתוך {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "סיום!",
+    "runComplete": "הריצה הושלמה",
+    "leaderboardPoints": "נקודות בטבלת המובילים",
+    "pointsSuffix": " נק׳"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "א׳",
+      "monday": "ב׳",
+      "tuesday": "ג׳",
+      "wednesday": "ד׳",
+      "thursday": "ה׳",
+      "friday": "ו׳",
+      "saturday": "ש׳"
+    },
+    "dayStreak_one": "יום ברצף",
+    "dayStreak_two": "ימים ברצף",
+    "dayStreak_other": "ימים ברצף",
+    "thisMonth": "החודש"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(אני)",
+    "puzzles_one": "{{count}} חידה",
+    "puzzles_two": "{{count}} חידות",
+    "puzzles_other": "{{count}} חידות",
+    "average": "ממוצע: {{time}}",
+    "best": "הטוב ביותר: {{time}}",
+    "wins_one": "🏁 {{count}} ניצחון",
+    "wins_two": "🏁 {{count}} ניצחונות",
+    "wins_other": "🏁 {{count}} ניצחונות",
+    "points_one": "נקודה",
+    "points_two": "נקודות",
+    "points_other": "נקודות"
+  },
+  "scoreBreakdown": {
+    "title": "פירוט הניקוד",
+    "volumeBonus": {
+      "label": "בונוס כמות",
+      "detail_one": "{{count}} חידה הושלמה",
+      "detail_two": "{{count}} חידות הושלמו",
+      "detail_other": "{{count}} חידות הושלמו"
+    },
+    "dailyPuzzles": {
+      "label": "חידות יומיות",
+      "detail_one": "{{count}} אתגר יומי",
+      "detail_two": "{{count}} אתגרים יומיים",
+      "detail_other": "{{count}} אתגרים יומיים"
+    },
+    "collectionPuzzles": {
+      "label": "חידות {{collection}}",
+      "detail": "{{count}} מתוך {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "חידות סרוקות",
+      "detail_one": "{{count}} חידה מיובאת",
+      "detail_two": "{{count}} חידות מיובאות",
+      "detail_other": "{{count}} חידות מיובאות"
+    },
+    "difficultyBonus": {
+      "label": "בונוס קושי",
+      "detail": "חידות קשות יותר = יותר נקודות"
+    },
+    "speedBonus": {
+      "label": "בונוס מהירות",
+      "detail": "המהיר ביותר: {{time}}"
+    },
+    "racingBonus": {
+      "label": "בונוס מירוץ",
+      "detail": "ניצחון על חברים שגם סיימו"
+    },
+    "dailyCombo": {
+      "label": "קומבו יומי",
+      "detail": "יותר חידות ביום = מכפיל גדול יותר"
+    }
+  },
+  "leaderboard": {
+    "you": "אני",
+    "unknownUser": "משתמש לא ידוע",
+    "title": "טבלת מובילים",
+    "subtitleParty": "30 הימים האחרונים · {{partyName}}",
+    "subtitleAllTeams": "30 הימים האחרונים · כל הצוותים",
+    "howScoringWorks": "איך הניקוד עובד"
+  },
+  "scoringLegend": {
+    "title": "איך הניקוד עובד",
+    "subtitle": "{{gameName}} · 30 הימים האחרונים",
+    "close": "סגירה",
+    "racingWins": {
+      "title": "ניצחונות במירוץ",
+      "body": "קבלו <points>+{{points}} נק׳</points> על כל חבר שניצחתם באותה חידה שהושלמה. סיימו ראשונים מול {{friends}} חברים וקבלו <points>+{{total}} נק׳</points>."
+    },
+    "basePoints": {
+      "title": "נקודות בסיס",
+      "anyPuzzle": "כל חידה",
+      "dailyPuzzle": "חידה יומית",
+      "collectionPuzzle": "חידת {{collection}}",
+      "scannedPuzzle": "חידה סרוקה"
+    },
+    "difficultyMultipliers": {
+      "title": "מכפילי קושי",
+      "daily": "{{gameName}} היומי",
+      "collection": "חידות {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "בונוסי מהירות",
+      "lightning": "ברק",
+      "fast": "מהיר",
+      "quick": "זריז",
+      "steady": "יציב",
+      "under": "מתחת ל-{{threshold}}",
+      "seconds": "{{value}} שנ׳",
+      "minutes": "{{value}} דק׳"
+    },
+    "dailyCombo": {
+      "title": "קומבו יומי",
+      "body": "פתרו עוד חידות באותו יום כדי להכפיל את הנקודות של כל חידה, עד <max>{{max}}×</max>.",
+      "puzzle": "חידה {{puzzle}} של היום",
+      "puzzleOrMore": "חידה {{puzzle}}+ של היום"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "הריצה הושלמה",
+    "raceProgress": "התקדמות במירוץ",
+    "stagesProgress": "{{completed}}/{{total}} שלבים",
+    "retryStage": "ניסיון חוזר בשלב",
+    "stageLabel": "שלב {{number}}",
+    "stageCompletedLabel": "שלב {{number}}, הושלם תוך {{time}}",
+    "viewRacingStats": "צפייה בסטטיסטיקות המירוץ",
+    "total": "סה״כ"
+  },
+  "raceTrack": {
+    "you": "אני",
+    "viewFriends": "לחצו כדי לראות חברים",
+    "start": "התחלה",
+    "finish": "סיום",
+    "inviteToRace": "הזמינו חברים למירוץ",
+    "opponents": "יריבים",
+    "racer": "מתחרה",
+    "stageBadge": "ש{{number}}",
+    "total": "סה״כ",
+    "leaderboard": "טבלת מובילים",
+    "puzzleBook": "ספר חידות",
+    "puzzleBookLabel": "ספר חידות",
+    "refreshScores": "רענון הניקוד",
+    "challengeFriends": "🏁 אתגרו חברים",
+    "yourTime": "הזמן שלכם:",
+    "inviteFriends": "הזמנת חברים",
+    "racingLabel": "מתחרים"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "מתעתע",
+      "easy": "מאתגר",
+      "intermediate": "קשה",
+      "expert": "מומחה"
+    },
+    "book": {
+      "veryEasy": "קל מאוד",
+      "easy": "קל",
+      "moderatelyEasy": "קל־בינוני",
+      "moderate": "בינוני",
+      "moderatelyHard": "בינוני־קשה",
+      "hard": "קשה",
+      "vicious": "אכזרי",
+      "fiendish": "שטני",
+      "devilish": "מרושע",
+      "hell": "גיהינום",
+      "beyondHell": "מעבר לגיהינום"
+    }
+  },
+  "techniques": {
+    "lastDigit": "הספרה האחרונה",
+    "hiddenSingleBox": "יחיד נסתר (תיבה)",
+    "hiddenSingleLine": "יחיד נסתר (קו)",
+    "hiddenSingleVariantRegion": "יחיד נסתר (אזור משתנה)",
+    "nakedSingle": "יחיד חשוף",
+    "hiddenPair": "זוג נסתר",
+    "lockedCandidate": "מועמד נעול",
+    "hiddenTriple": "שלישייה נסתרת",
+    "hiddenQuadruple": "רביעייה נסתרת",
+    "nakedPair": "זוג חשוף",
+    "nakedTriple": "שלישייה חשופה",
+    "nakedQuadruple": "רביעייה חשופה",
+    "xWing": "כנף X",
+    "swordfish": "דג חרב",
+    "skyscraper": "גורד שחקים",
+    "twoStringKite": "עפיפון דו־חוטי",
+    "crane": "מנוף",
+    "simpleColoring": "צביעה פשוטה",
+    "yWing": "כנף Y",
+    "xYZWing": "כנף XYZ",
+    "wWing": "כנף W",
+    "finnedSashimiXWing": "כנף X עם סנפיר/סשימי",
+    "emptyRectangle": "מלבן ריק",
+    "uniqueRectangleType1": "מלבן ייחודי סוג 1",
+    "uniqueRectangleType2": "מלבן ייחודי סוג 2",
+    "uniqueRectangleType3": "מלבן ייחודי סוג 3",
+    "uniqueRectangleType4": "מלבן ייחודי סוג 4",
+    "uniqueRectangleType5": "מלבן ייחודי סוג 5",
+    "finnedSashimiSwordfish": "דג חרב עם סנפיר/סשימי",
+    "jellyfish": "מדוזה",
+    "bugBinaryUniversalGrave": "BUG (קבר אוניברסלי בינארי)",
+    "xChain": "שרשרת X",
+    "groupedXChain": "שרשרת X מקובצת",
+    "YWing4WXYZWing": "כנף 4-Y (כנף WXYZ)",
+    "yWing5": "כנף 5-Y",
+    "yWing6": "כנף 6-Y",
+    "yWing7": "כנף 7-Y",
+    "yWing8": "כנף 8-Y",
+    "yWing9": "כנף 9-Y",
+    "finnedSashimiJellyfish": "מדוזה עם סנפיר/סשימי",
+    "medusa3D": "מדוסה תלת־ממדית",
+    "xyChain": "שרשרת XY",
+    "alternatingInferenceChainAIC": "שרשרת היקש מתחלפת (AIC)",
+    "groupedAlternatingInferenceChainAIC": "שרשרת היקש מתחלפת מקובצת (AIC)",
+    "nishioForcingChain": "שרשרת כפייה נישיו",
+    "nishioForcingNet": "רשת כפייה נישיו"
+  }
+}

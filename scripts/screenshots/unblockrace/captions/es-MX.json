@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Sigue cada carrera",
+    "subtitle": "Revisa tu historial, tus tasas de finalización y cómo te comparas con tus amigos"
+  },
+  "01": {
+    "title": "Carrera diaria de 5 etapas",
+    "subtitle": "Busca la menor cantidad de movimientos y el mejor tiempo."
+  },
+  "02": {
+    "title": "Colección de puzzles",
+    "subtitle": "Cada mes llega una colección seleccionada de puzzles con nuevos retos"
+  },
+  "03": {
+    "title": "Compite y aprende a la vez",
+    "subtitle": "Pistas visuales para cuando te atores."
+  },
+  "04": {
+    "title": "Carrera Libre",
+    "subtitle": "Libera el tráfico. Gana la carrera 🏁\nCompite con tus amigos hacia la salida."
+  },
+  "05": {
+    "title": "Compite con otros, IA o solo",
+    "subtitle": "Comparte un enlace con amigos y familia,\nagrega rivales de IA o juega contra el reloj"
+  },
+  "06": {
+    "title": "Sube en la tabla de posiciones",
+    "subtitle": "Cada carrera da puntos — mira quién domina los últimos 30 días"
+  },
+  "07": {
+    "title": "Conoce a tus rivales",
+    "subtitle": "Elige entre rivales de IA únicos, cada uno con su personalidad y estilo de juego"
+  },
+  "08": {
+    "title": "Tus equipos privados",
+    "subtitle": "Invita a familiares y amigos, compitan juntos y armen su propia tabla de posiciones"
+  },
+  "09": {
+    "title": "Un enlace. Todos adentro.",
+    "subtitle": "Comparte un enlace de invitación y tus amigos se unen a la carrera en segundos"
+  }
+}

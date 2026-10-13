@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Suivez chaque course",
+    "subtitle": "Consultez votre historique, vos taux de réussite et la comparaison avec vos amis"
+  },
+  "01": {
+    "title": "Course quotidienne en 5 étapes",
+    "subtitle": "Visez le moins de mouvements et le meilleur temps."
+  },
+  "02": {
+    "title": "Collection de puzzles",
+    "subtitle": "Chaque mois, une collection de casse-têtes soignée avec de nouveaux défis"
+  },
+  "03": {
+    "title": "Course et apprentissage en un",
+    "subtitle": "Des indices visuels quand vous êtes coincé."
+  },
+  "04": {
+    "title": "Course Débloque",
+    "subtitle": "Débloquez la circulation. Gagnez la course 🏁\nAffrontez vos amis jusqu'à la sortie."
+  },
+  "05": {
+    "title": "Contre les autres, l'IA ou seul",
+    "subtitle": "Partagez un lien avec vos amis et votre famille,\najoutez des adversaires IA ou jouez contre la montre"
+  },
+  "06": {
+    "title": "Grimpez au classement",
+    "subtitle": "Chaque course rapporte des points — voyez qui domine depuis 30 jours"
+  },
+  "07": {
+    "title": "Découvrez vos rivaux",
+    "subtitle": "Choisissez parmi des adversaires IA uniques, chacun avec sa personnalité et son style"
+  },
+  "08": {
+    "title": "Vos équipes privées",
+    "subtitle": "Invitez famille et amis, faites la course ensemble et créez votre classement"
+  },
+  "09": {
+    "title": "Un lien. Tout le monde y est.",
+    "subtitle": "Partagez un lien d'invitation et vos amis se joignent à la course en quelques secondes"
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { DAILY_LIMITS } from '@bubblyclouds-app/template/config/dailyLimits';
+import { Translate } from '@bubblyclouds-app/template/types/i18n';
 
 /**
  * Interface for subscription context message configuration
@@ -18,7 +19,9 @@ interface ContextMessage {
  * Map of subscription contexts to their respective messages
  * Each context provides specific messaging about why the subscription modal is being shown
  */
-export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
+export const getSubscriptionContextMessages = (
+  t: Translate
+): Record<
   Exclude<
     SubscriptionContext,
     | SubscriptionContext.CHECK_GRID
@@ -26,7 +29,7 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     | SubscriptionContext.DAILY_PUZZLE_LIMIT
   >,
   ContextMessage
-> = {
+> => ({
   [SubscriptionContext.HINT]: {
     bgColor: 'bg-orange-50 dark:bg-orange-900/20',
     textColor: 'text-orange-800 dark:text-orange-200',
@@ -34,10 +37,9 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
       <>
         💡{' '}
         <strong>
-          You&rsquo;ve used your {DAILY_LIMITS.HINT} free hints today.
+          {t('subscription.hint.title', { limit: DAILY_LIMITS.HINT })}
         </strong>{' '}
-        Plus gives you unlimited hints — never get stuck again — and keeps the
-        whole app ad free.
+        {t('subscription.hint.body', { limit: DAILY_LIMITS.HINT })}
       </>
     ),
   },
@@ -46,9 +48,11 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-orange-800 dark:text-orange-200',
     content: (
       <>
-        📅 <strong>You&rsquo;ve reached your daily undo limit!</strong> You get{' '}
-        {DAILY_LIMITS.UNDO} free undos per day. The limit resets tomorrow, or
-        subscribe for unlimited undos.
+        📅{' '}
+        <strong>
+          {t('subscription.undo.title', { limit: DAILY_LIMITS.UNDO })}
+        </strong>{' '}
+        {t('subscription.undo.body', { limit: DAILY_LIMITS.UNDO })}
       </>
     ),
   },
@@ -57,9 +61,8 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-indigo-800 dark:text-indigo-200',
     content: (
       <>
-        ✨ <strong>This puzzle is part of the Plus collection.</strong> Plus
-        unlocks every puzzle in every month&rsquo;s pack, and keeps the whole
-        app ad free.
+        ✨ <strong>{t('subscription.collectionLocked.title')}</strong>{' '}
+        {t('subscription.collectionLocked.body')}
       </>
     ),
   },
@@ -68,8 +71,8 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-purple-800 dark:text-purple-200',
     content: (
       <>
-        🎨 <strong>This theme is exclusive to Plus.</strong> Upgrade to unlock
-        all beautiful theme colors and personalise your unblock race experience.
+        🎨 <strong>{t('subscription.themeColor.title')}</strong>{' '}
+        {t('subscription.themeColor.body')}
       </>
     ),
   },
@@ -78,10 +81,8 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-purple-800 dark:text-purple-200',
     content: (
       <>
-        👥{' '}
-        <strong>Removing members from your party is a premium feature!</strong>{' '}
-        Subscribe to unlock advanced party management features including member
-        removal.
+        👥 <strong>{t('subscription.removeMember.title')}</strong>{' '}
+        {t('subscription.removeMember.body')}
       </>
     ),
   },
@@ -90,9 +91,8 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-blue-800 dark:text-blue-200',
     content: (
       <>
-        🏘️ <strong>Multiple racing teams is a premium feature!</strong> Free
-        users can have one team. Subscribe to create and join unlimited teams
-        for family, friends, and more.
+        🏘️ <strong>{t('subscription.multipleParties.title')}</strong>{' '}
+        {t('subscription.multipleParties.body')}
       </>
     ),
   },
@@ -101,9 +101,9 @@ export const SUBSCRIPTION_CONTEXT_MESSAGES: Record<
     textColor: 'text-purple-800 dark:text-purple-200',
     content: (
       <>
-        👥 <strong>Large parties is a premium feature!</strong> Subscribe to
-        unlock advanced party management features including large parties.
+        👥 <strong>{t('subscription.partyMaxSize.title')}</strong>{' '}
+        {t('subscription.partyMaxSize.body')}
       </>
     ),
   },
-};
+});

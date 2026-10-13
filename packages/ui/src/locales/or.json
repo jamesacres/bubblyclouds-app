@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "ଭାଷା",
+    "automatic": "ସ୍ୱୟଂଚାଳିତ"
+  },
+  "header": {
+    "offline": "ଅଫଲାଇନ୍",
+    "back": "ପଛକୁ"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "ଡାର୍କ ମୋଡ୍ ବଦଳାନ୍ତୁ"
+  },
+  "starRating": {
+    "label_one": "{{count}}ଟି ତାରାରୁ {{filled}}ଟି",
+    "label_other": "{{count}}ଟି ତାରାରୁ {{filled}}ଟି"
+  },
+  "timer": {
+    "go": "ଆରମ୍ଭ!"
+  },
+  "themeColor": {
+    "change": "ଥିମ୍ ରଙ୍ଗ ବଦଳାନ୍ତୁ",
+    "set": "ଥିମ୍ ରଙ୍ଗ {{color}} କରନ୍ତୁ",
+    "setPremium": "ଥିମ୍ ରଙ୍ଗ {{color}} କରନ୍ତୁ (ପ୍ରିମିୟମ୍)",
+    "colors": {
+      "blue": "ନୀଳ",
+      "red": "ନାଲି",
+      "green": "ସବୁଜ",
+      "purple": "ବାଇଗଣୀ",
+      "amber": "ଅମ୍ବର",
+      "cyan": "ସାଇଆନ୍",
+      "pink": "ଗୋଲାପୀ",
+      "indigo": "ଇଣ୍ଡିଗୋ",
+      "orange": "କମଳା",
+      "teal": "ଟିଲ୍",
+      "slate": "ସ୍ଲେଟ୍",
+      "rose": "ରୋଜ୍",
+      "emerald": "ଏମେରାଲ୍ଡ",
+      "sky": "ଆକାଶୀ",
+      "violet": "ଭାୟୋଲେଟ୍",
+      "lime": "ଲାଇମ୍",
+      "fuchsia": "ଫୁସିଆ",
+      "yellow": "ହଳଦିଆ",
+      "stone": "ଷ୍ଟୋନ୍",
+      "zinc": "ଜିଙ୍କ୍"
+    }
+  },
+  "copyButton": {
+    "copied": "କ୍ଲିପବୋର୍ଡକୁ କପି ହେଲା!",
+    "share": "ନିମନ୍ତ୍ରଣ ଲିଙ୍କ୍ ପଠାନ୍ତୁ",
+    "copy": "ନିମନ୍ତ୍ରଣ ଲିଙ୍କ୍ କପି କରନ୍ତୁ"
+  },
+  "share": {
+    "joinTeam": "ରେସିଂ ଦଳରେ ଯୋଗ ଦିଅନ୍ତୁ — {{appName}}!",
+    "joinNamedTeam": "{{partyName}} ରେସିଂ ଦଳରେ ଯୋଗ ଦିଅନ୍ତୁ — {{appName}}!",
+    "dialogTitle": "ନିମନ୍ତ୍ରଣ ଶେୟାର୍ କରନ୍ତୁ"
+  }
+}

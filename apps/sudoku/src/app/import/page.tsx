@@ -8,6 +8,7 @@ import type {
 } from '../../augmentedReality/Processor';
 import type Processor from '../../augmentedReality/Processor';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import SimpleSudoku from '@bubblyclouds-app/sudoku/components/SimpleSudoku';
 import { emptyPuzzle } from '@bubblyclouds-app/sudoku/types/puzzle';
 import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl';
@@ -16,6 +17,7 @@ let processor: Processor | undefined;
 let solver: Solver | undefined;
 
 export default function Home() {
+  const { t } = useTranslation('app');
   const router = useRouter();
   const [_isLoading, setIsLoading] = useState(true);
   const [puzzleStrings, setPuzzleStrings] = useState<
@@ -27,6 +29,7 @@ export default function Home() {
   const initialized = useRef(false);
   const [puzzleInput, setPuzzleInput] = useState('');
   const [puzzleInputError, setPuzzleInputError] = useState('');
+  const [cameraFailed, setCameraFailed] = useState(false);
   const solverReady = useRef(false);
 
   function videoReadyListener({ width, height }: VideoReadyPayload) {
@@ -73,7 +76,10 @@ export default function Home() {
               setIsLoading(false);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             },
-            (error) => alert(error.message)
+            (error) => {
+              console.error(error);
+              setCameraFailed(true);
+            }
           );
         }
       })();
@@ -87,6 +93,12 @@ export default function Home() {
       }
     };
   }, [videoRef]);
+
+  useEffect(() => {
+    if (cameraFailed) {
+      alert(t('import.errors.camera'));
+    }
+  }, [cameraFailed, t]);
 
   const solveString = useCallback((puzzleString: string) => {
     const thisSolution = (window as any).Module.ccall(
@@ -158,33 +170,30 @@ export default function Home() {
   const handlePuzzleInputSubmit = useCallback(() => {
     const normalised = parsePuzzleInput(puzzleInput);
     if (normalised === null) {
-      setPuzzleInputError(
-        'Could not parse puzzle. Paste an 81-character string or a HoDoKu grid.'
-      );
+      setPuzzleInputError(t('import.errors.parse'));
       return;
     }
     if (!solverReady.current) {
-      setPuzzleInputError('Solver is still loading — please try again.');
+      setPuzzleInputError(t('import.errors.solverLoading'));
       return;
     }
     const solution = solveString(normalised);
     if (!solution) {
-      setPuzzleInputError('No solution found. Please check the puzzle.');
+      setPuzzleInputError(t('import.errors.noSolution'));
       return;
     }
     setPuzzleInputError('');
-  }, [parsePuzzleInput, puzzleInput, solveString]);
+  }, [parsePuzzleInput, puzzleInput, solveString, t]);
 
   return (
     <main className="max-w-(--breakpoint-sm) container mx-auto px-4 pb-8">
       {/* ── Text input ─────────────────────────────────────────── */}
       <section className="mt-6">
         <h2 className="mb-1 text-lg font-semibold tracking-tight text-stone-800 dark:text-zinc-100">
-          Enter a puzzle string
+          {t('import.puzzleString.title')}
         </h2>
         <p className="mb-3 text-sm text-stone-500 dark:text-zinc-400">
-          Paste an 81-character string or a HoDoKu grid — use digits 1–9 and 0
-          or . for empty cells.
+          {t('import.puzzleString.help')}
         </p>
         <textarea
           className="w-full rounded-xl border border-stone-200 bg-white px-3 py-2 font-mono text-sm leading-relaxed text-stone-800 placeholder:text-stone-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:focus:ring-blue-400"
@@ -206,7 +215,7 @@ export default function Home() {
           disabled={!puzzleInput.trim()}
           onClick={handlePuzzleInputSubmit}
         >
-          Import puzzle
+          {t('import.puzzleString.submit')}
         </button>
       </section>
 
@@ -214,7 +223,7 @@ export default function Home() {
       <div className="my-6 flex items-center gap-3">
         <div className="h-px flex-1 bg-stone-200 dark:bg-zinc-700" />
         <span className="text-xs font-medium tracking-wide text-stone-400 dark:text-zinc-500">
-          or scan with camera
+          {t('import.orScan')}
         </span>
         <div className="h-px flex-1 bg-stone-200 dark:bg-zinc-700" />
       </div>
@@ -222,8 +231,7 @@ export default function Home() {
       {/* ── Camera ─────────────────────────────────────────────── */}
       <section>
         <p className="mb-3 text-sm text-stone-500 dark:text-zinc-400">
-          Point your camera at an unsolved sudoku puzzle and wait for it to be
-          detected.
+          {t('import.cameraHelp')}
         </p>
         <div
           className="relative w-full overflow-hidden rounded-2xl"

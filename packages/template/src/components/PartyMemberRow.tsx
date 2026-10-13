@@ -24,7 +24,7 @@ const PartyMemberRow = <State extends BaseServerState>({
 }: PartyMemberRowProps<State>) => {
   return (
     <li className="rounded-xl bg-stone-50 p-3 dark:bg-zinc-700/40">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         {header}
         {actions}
       </div>
@@ -39,25 +39,37 @@ const PartyMemberRow = <State extends BaseServerState>({
               style={{ width: `${completionPercentage}%` }}
             ></div>
           </div>
-          <span className="ml-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+          <span
+            dir="ltr"
+            className="ms-2 text-sm font-medium text-gray-600 dark:text-gray-300"
+          >
             {completionPercentage}%
           </span>
         </div>
       )}
 
       {!isUser && state && !avatar && (
-        <div className="mt-3 rounded-lg bg-stone-50 p-2 shadow-sm dark:bg-zinc-800">
+        <div
+          dir="ltr"
+          className="mt-3 rounded-lg bg-stone-50 p-2 shadow-sm dark:bg-zinc-800"
+        >
           <SimpleState state={state} />
         </div>
       )}
 
       {!isUser && avatar && (
         <div className="mt-3 flex gap-2">
-          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg">
+          <div
+            dir="ltr"
+            className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg"
+          >
             {avatar}
           </div>
           {state && (
-            <div className="h-24 w-24 overflow-hidden rounded-lg bg-stone-50 shadow-sm dark:bg-zinc-800">
+            <div
+              dir="ltr"
+              className="h-24 w-24 overflow-hidden rounded-lg bg-stone-50 shadow-sm dark:bg-zinc-800"
+            >
               <SimpleState state={state} />
             </div>
           )}

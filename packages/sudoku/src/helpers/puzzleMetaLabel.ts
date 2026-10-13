@@ -1,22 +1,16 @@
+import { Translate } from '@bubblyclouds-app/games/types/i18n';
 import { GameStateMetadata } from '../types/state';
 
-const MONTHS = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+const formatShortMonth = (monthIndex: number, language: string): string =>
+  new Date(Date.UTC(2000, monthIndex, 1)).toLocaleString(language, {
+    month: 'short',
+    timeZone: 'UTC',
+  });
 
 export function derivePuzzleMetaLabel(
-  metadata: Partial<GameStateMetadata>
+  metadata: Partial<GameStateMetadata>,
+  t: Translate,
+  language: string
 ): string {
   if (metadata.sudokuId?.startsWith('oftheday-')) {
     const parts = metadata.sudokuId.split('-');
@@ -27,11 +21,10 @@ export function derivePuzzleMetaLabel(
           `${ds.slice(0, 4)}-${ds.slice(4, 6)}-${ds.slice(6, 8)}`
         );
         const d = date.getUTCDate();
-        const suffix =
-          d >= 11 && d <= 13
-            ? 'th'
-            : (['st', 'nd', 'rd'][(d % 10) - 1] ?? 'th');
-        return `Daily ${MONTHS[date.getUTCMonth()]} ${d}${suffix}`;
+        return t('puzzleMeta.daily', {
+          month: formatShortMonth(date.getUTCMonth(), language),
+          day: t('puzzleMeta.dayOrdinal', { count: d, ordinal: true }),
+        });
       }
     }
   }
@@ -40,14 +33,18 @@ export function derivePuzzleMetaLabel(
     if (parts.length >= 4) {
       const ym = parts[1];
       const monthIndex = parseInt(ym.slice(4, 6), 10) - 1;
-      const monthName = MONTHS[monthIndex];
       const puzzleIndex = parseInt(parts[3], 10);
-      if (!monthName || isNaN(puzzleIndex)) return '';
-      return `Book ${monthName} #${puzzleIndex + 1}`;
+      if (!(monthIndex >= 0 && monthIndex <= 11) || isNaN(puzzleIndex)) {
+        return '';
+      }
+      return t('puzzleMeta.book', {
+        month: formatShortMonth(monthIndex, language),
+        number: puzzleIndex + 1,
+      });
     }
   }
   if (metadata.scannedAt && metadata.scannedAt !== 'undefined') {
-    return 'Scanned Puzzle';
+    return t('puzzleMeta.scanned');
   }
   return '';
 }

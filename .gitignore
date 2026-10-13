@@ -60,3 +60,9 @@ packages/sudoku/src/utils/diag-seed-scan.json
 scripts/*.csv
 
 designs
+.kiro
+aikit*
+
+# app store screenshots
+scripts/screenshots/.build/
+scripts/screenshots/.data/

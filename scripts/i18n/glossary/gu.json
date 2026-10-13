@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "સુડોકુ રેસ",
+      "gameName": "સુડોકુ",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "સુડોકુ Plus"
+    },
+    "terms": {
+      "race": "રેસ",
+      "team": "ટીમ",
+      "leaderboard": "લીડરબોર્ડ",
+      "hint": "સંકેત",
+      "undo": "અનડુ",
+      "theme": "થીમ",
+      "dailyPuzzle": "દૈનિક કોયડો",
+      "monthlyCollection": "માસિક કોયડા પુસ્તક",
+      "aiOpponent": "AI પ્રતિસ્પર્ધી",
+      "monthly": "માસિક",
+      "lifetime": "આજીવન",
+      "plusAccess": "Plus એક્સેસ",
+      "plusFeatureLine": "અમર્યાદિત રેસ, ટીમ, થીમ અને અનડુ"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "અનબ્લોક રેસ",
+      "gameName": "અનબ્લોક રેસ",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "રેસ",
+      "team": "ટીમ",
+      "leaderboard": "લીડરબોર્ડ",
+      "hint": "સંકેત",
+      "undo": "અનડુ",
+      "theme": "થીમ",
+      "dailyPuzzle": "દૈનિક કોયડો",
+      "monthlyCollection": "માસિક કોયડા સંગ્રહ",
+      "aiOpponent": "AI પ્રતિસ્પર્ધી",
+      "monthly": "માસિક",
+      "lifetime": "આજીવન",
+      "plusAccess": "Plus એક્સેસ",
+      "plusFeatureLine": "અમર્યાદિત રેસ, ટીમ, થીમ અને અનડુ"
+    }
+  }
+}

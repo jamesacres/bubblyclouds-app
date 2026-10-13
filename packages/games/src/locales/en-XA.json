@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "[Ƥļũş ƒïł]"
+  },
+  "collection": {
+    "defaultLabel": "[Ƀōōķ ƒïł]",
+    "defaultDetailNoun": "[ƥũżżļē ƀōōķş ƒïłłéŕ]"
+  },
+  "collectionCover": {
+    "monthlyCollection": "[Ɱōñťĥļŷ ċōļļēċťïōñ ƒïłłéŕ ŧé]"
+  },
+  "hintBox": {
+    "dismiss": "[Ďïşɱïşş ĥïñť ƒïłłéŕ]"
+  },
+  "lobbyButton": {
+    "opponents": "[Óƥƥōñēñťş ƒïłłé]"
+  },
+  "nextPuzzlePanel": {
+    "continue": "[Ćōñťïñũē — ñēẋť ƥũżżļē ƒïłłéŕ ŧéẋ]",
+    "continueLocked": "[Ćōñťïñũē ({{plusName}}) ƒïłłéŕ]"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "[{{completed}} ōƒ {{total}} {{label}} ċōɱƥļēťē ƒïłłéŕ]"
+  },
+  "countdownOverlay": {
+    "getReady": "[Ġēť ŕēåďŷ ƒïłłé]",
+    "go": "[ĠÓ! ƒïł]"
+  },
+  "confirmDialog": {
+    "cancel": "[Ćåñċēļ ƒïłł]"
+  },
+  "completionSummary": {
+    "complete": "[{{label}} · ċōɱƥļēťē ƒïłłéŕ]",
+    "retry": "[Ŗēťŕŷ ƒïł]",
+    "points": "[+{{points}} ƥťş ƒïł]",
+    "leaderboardPoints": "[Łēåďēŕƀōåŕď ƥōïñťş ƒïłłéŕ ŧé]"
+  },
+  "raceTimer": {
+    "time": "[Ŧïɱē ƒïł]"
+  },
+  "stageTopBar": {
+    "previous": "[Ƥŕēʋïōũş ƒïłłé]"
+  },
+  "raceHud": {
+    "opponents": "[Óƥƥōñēñťş ƒïłłé]",
+    "stageOf": "[Şťåġē {{current}} ōƒ {{total}} ƒïłłé]"
+  },
+  "raceCelebration": {
+    "finish": "[Ƒïñïşĥ! ƒïłł]",
+    "runComplete": "[Ŗũñ ċōɱƥļēťē ƒïłłéŕ]",
+    "leaderboardPoints": "[Łēåďēŕƀōåŕď ƥōïñťş ƒïłłéŕ ŧé]",
+    "pointsSuffix": " [ƥťş ƒïł]"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "[Şũ ƒï]",
+      "monday": "[Ɱ ƒï]",
+      "tuesday": "[Ŧũ ƒï]",
+      "wednesday": "[Ŵ ƒï]",
+      "thursday": "[Ŧĥ ƒï]",
+      "friday": "[Ƒ ƒï]",
+      "saturday": "[Şå ƒï]"
+    },
+    "dayStreak_one": "[ďåŷ şťŕēåķ ƒïłłé]",
+    "dayStreak_other": "[ďåŷ şťŕēåķ ƒïłłé]",
+    "thisMonth": "[ťĥïş ɱōñťĥ ƒïłłé]"
+  },
+  "friendLeaderboardEntry": {
+    "you": "[(Ýōũ) ƒïł]",
+    "puzzles_one": "[{{count}} ƥũżżļē ƒïłł]",
+    "puzzles_other": "[{{count}} ƥũżżļēş ƒïłłé]",
+    "average": "[Àʋġ: {{time}} ƒïł]",
+    "best": "[Ƀēşť: {{time}} ƒïłł]",
+    "wins_one": "🏁 [{{count}} ŵïñ ƒïł]",
+    "wins_other": "🏁 [{{count}} ŵïñş ƒïł]",
+    "points_one": "[ƥōïñť ƒïł]",
+    "points_other": "[ƥōïñťş ƒïłł]"
+  },
+  "scoreBreakdown": {
+    "title": "[Şċōŕē Ƀŕēåķďōŵñ ƒïłłéŕ]",
+    "volumeBonus": {
+      "label": "[Ʋōļũɱē Ƀōñũş ƒïłłéŕ]",
+      "detail_one": "[{{count}} ƥũżżļē ċōɱƥļēťēď ƒïłłéŕ ŧ]",
+      "detail_other": "[{{count}} ƥũżżļēş ċōɱƥļēťēď ƒïłłéŕ ŧé]"
+    },
+    "dailyPuzzles": {
+      "label": "[Ďåïļŷ Ƥũżżļēş ƒïłłéŕ]",
+      "detail_one": "[{{count}} ďåïļŷ ċĥåļļēñġē ƒïłłéŕ ŧ]",
+      "detail_other": "[{{count}} ďåïļŷ ċĥåļļēñġēş ƒïłłéŕ ŧ]"
+    },
+    "collectionPuzzles": {
+      "label": "[{{collection}} Ƥũżżļēş ƒïłłé]",
+      "detail": "[{{count}} ƒŕōɱ {{collection}} ƒïłł]"
+    },
+    "scannedPuzzles": {
+      "label": "[Şċåññēď Ƥũżżļēş ƒïłłéŕ]",
+      "detail_one": "[{{count}} ïɱƥōŕťēď ƥũżżļē ƒïłłéŕ ŧ]",
+      "detail_other": "[{{count}} ïɱƥōŕťēď ƥũżżļēş ƒïłłéŕ ŧ]"
+    },
+    "difficultyBonus": {
+      "label": "[Ďïƒƒïċũļťŷ Ƀōñũş ƒïłłéŕ ŧ]",
+      "detail": "[Ĥåŕďēŕ ƥũżżļēş = ɱōŕē ƥōïñťş ƒïłłéŕ ŧéẋŧ ẃ]"
+    },
+    "speedBonus": {
+      "label": "[Şƥēēď Ƀōñũş ƒïłłéŕ]",
+      "detail": "[Ƒåşťēşť: {{time}} ƒïłłé]"
+    },
+    "racingBonus": {
+      "label": "[Ŗåċïñġ Ƀōñũş ƒïłłéŕ]",
+      "detail": "[Ƀēåť ƒŕïēñďş ŵĥō åļşō ċōɱƥļēťēď ƒïłłéŕ ŧéẋŧ ẃö]"
+    },
+    "dailyCombo": {
+      "label": "[Ďåïļŷ ċōɱƀō ƒïłłéŕ]",
+      "detail": "[Ɱōŕē ƥũżżļēş ƥēŕ ďåŷ = ƀïġġēŕ ɱũļťïƥļïēŕ ƒïłłéŕ ŧéẋŧ ẃöŕđš]"
+    }
+  },
+  "leaderboard": {
+    "you": "[Ýōũ ƒïł]",
+    "unknownUser": "[Ûñķñōŵñ Ûşēŕ ƒïłłéŕ]",
+    "title": "[Łēåďēŕƀōåŕď ƒïłłéŕ]",
+    "subtitleParty": "[Łåşť 30 ďåŷş · {{partyName}} ƒïłłéŕ]",
+    "subtitleAllTeams": "[Łåşť 30 ďåŷş · Àļļ ťēåɱş ƒïłłéŕ ŧéẋŧ]",
+    "howScoringWorks": "[Ĥōŵ şċōŕïñġ ŵōŕķş ƒïłłéŕ ŧ]"
+  },
+  "scoringLegend": {
+    "title": "[Ĥōŵ şċōŕïñġ ŵōŕķş ƒïłłéŕ ŧ]",
+    "subtitle": "[{{gameName}} · Łåşť 30 ďåŷş ƒïłłéŕ]",
+    "close": "[Ćļōşē ƒïł]",
+    "racingWins": {
+      "title": "[Ŗåċïñġ ŵïñş ƒïłłéŕ]",
+      "body": "[Ěåŕñ <points>+{{points}} ƥťş</points> ƒōŕ ēåċĥ ƒŕïēñď ŷōũ ƀēåť ōñ ťĥē şåɱē ċōɱƥļēťēď ƥũżżļē. Ƒïñïşĥ ƒïŕşť åċŕōşş {{friends}} ƒŕïēñďş åñď ċōļļēċť <points>+{{total}} ƥťş</points>. ƒïłłéŕ ŧéẋŧ ẃöŕđš ƒïłłéŕ ŧéẋŧ ẃöŕđš ƒïłłéŕ ŧéẋŧ]"
+    },
+    "basePoints": {
+      "title": "[Ƀåşē ƥōïñťş ƒïłłéŕ]",
+      "anyPuzzle": "[Àñŷ ƥũżżļē ƒïłłé]",
+      "dailyPuzzle": "[Ďåïļŷ ƥũżżļē ƒïłłéŕ]",
+      "collectionPuzzle": "[{{collection}} ƥũżżļē ƒïłł]",
+      "scannedPuzzle": "[Şċåññēď ƥũżżļē ƒïłłéŕ]"
+    },
+    "difficultyMultipliers": {
+      "title": "[Ďïƒƒïċũļťŷ ɱũļťïƥļïēŕş ƒïłłéŕ ŧéẋ]",
+      "daily": "[{{gameName}} ōƒ ťĥē Ďåŷ ƒïłłéŕ]",
+      "collection": "[{{collection}} ƥũżżļēş ƒïłłé]"
+    },
+    "speedBonuses": {
+      "title": "[Şƥēēď ƀōñũşēş ƒïłłéŕ]",
+      "lightning": "[Łïġĥťñïñġ ƒïłłé]",
+      "fast": "[Ƒåşť ƒïł]",
+      "quick": "[Ɋũïċķ ƒïł]",
+      "steady": "[Şťēåďŷ ƒïłł]",
+      "under": "[ũñďēŕ {{threshold}} ƒïłł]",
+      "seconds": "[{{value}} şēċ ƒïł]",
+      "minutes": "[{{value}} ɱïñ ƒïł]"
+    },
+    "dailyCombo": {
+      "title": "[Ďåïļŷ ċōɱƀō ƒïłłéŕ]",
+      "body": "[Şōļʋē ɱōŕē ƥũżżļēş ōñ ťĥē şåɱē ďåŷ ťō ɱũļťïƥļŷ ēåċĥ ƥũżżļē'ş ƥōïñťş, ũƥ ťō <max>{{max}}×</max>. ƒïłłéŕ ŧéẋŧ ẃöŕđš ƒïłłéŕ ŧéẋŧ ẃö]",
+      "puzzle": "[Ƥũżżļē {{puzzle}} ōƒ ťĥē ďåŷ ƒïłłéŕ ŧé]",
+      "puzzleOrMore": "[Ƥũżżļē {{puzzle}}+ ōƒ ťĥē ďåŷ ƒïłłéŕ ŧé]"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "[Ŗũñ ċōɱƥļēťē ƒïłłéŕ]",
+    "raceProgress": "[Ŗåċē ƥŕōġŕēşş ƒïłłéŕ]",
+    "stagesProgress": "[{{completed}}/{{total}} şťåġēş ƒïłłé]",
+    "retryStage": "[Ŗēťŕŷ şťåġē ƒïłłéŕ]",
+    "stageLabel": "[Şťåġē {{number}} ƒïłł]",
+    "stageCompletedLabel": "[Şťåġē {{number}}, ċōɱƥļēťēď ïñ {{time}} ƒïłłéŕ ŧéẋ]",
+    "viewRacingStats": "[Ʋïēŵ ŕåċïñġ şťåťş ƒïłłéŕ ŧ]",
+    "total": "[Ŧōťåļ ƒïł]"
+  },
+  "raceTrack": {
+    "you": "[Ýōũ ƒïł]",
+    "viewFriends": "[Ćļïċķ ťō ʋïēŵ ƒŕïēñďş ƒïłłéŕ ŧéẋ]",
+    "start": "[Şťåŕť ƒïł]",
+    "finish": "[Ƒïñïşĥ ƒïłł]",
+    "inviteToRace": "[Įñʋïťē ƒŕïēñďş ťō ŕåċē ƒïłłéŕ ŧéẋ]",
+    "opponents": "[Óƥƥōñēñťş ƒïłłé]",
+    "racer": "[Ŗåċēŕ ƒïł]",
+    "stageBadge": "[Ş{{number}} ƒï]",
+    "total": "[Ŧōťåļ ƒïł]",
+    "leaderboard": "[Łēåďēŕƀōåŕď ƒïłłéŕ]",
+    "puzzleBook": "[Ƥũżżļē ƀōōķ ƒïłłéŕ]",
+    "puzzleBookLabel": "[ƥũżżļē ƀōōķ ƒïłłéŕ]",
+    "refreshScores": "[Ŗēƒŕēşĥ şċōŕēş ƒïłłéŕ]",
+    "challengeFriends": "🏁 [Ćĥåļļēñġē ƒŕïēñďş ƒïłłéŕ ŧ]",
+    "yourTime": "[Ýōũŕ ťïɱē: ƒïłłé]",
+    "inviteFriends": "[Įñʋïťē ƒŕïēñďş ƒïłłéŕ]",
+    "racingLabel": "[ŕåċïñġ ƒïłł]"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "[Ŧŕïċķŷ ƒïłł]",
+      "easy": "[Ćĥåļļēñġïñġ ƒïłłéŕ]",
+      "intermediate": "[Ĥåŕď ƒïł]",
+      "expert": "[Ěẋƥēŕť ƒïłł]"
+    },
+    "book": {
+      "veryEasy": "[Ʋēŕŷ Ěåşŷ ƒïłłé]",
+      "easy": "[Ěåşŷ ƒïł]",
+      "moderatelyEasy": "[Ɱōďēŕåťēļŷ Ěåşŷ ƒïłłéŕ]",
+      "moderate": "[Ɱōďēŕåťē ƒïłłé]",
+      "moderatelyHard": "[Ɱōďēŕåťēļŷ Ĥåŕď ƒïłłéŕ]",
+      "hard": "[Ĥåŕď ƒïł]",
+      "vicious": "[Ʋïċïōũş ƒïłł]",
+      "fiendish": "[Ƒïēñďïşĥ ƒïłłé]",
+      "devilish": "[Ďēʋïļïşĥ ƒïłłé]",
+      "hell": "[Ĥēļļ ƒïł]",
+      "beyondHell": "[Ƀēŷōñď Ĥēļļ ƒïłłéŕ]"
+    }
+  },
+  "techniques": {
+    "lastDigit": "[Łåşť Ďïġïť ƒïłłé]",
+    "hiddenSingleBox": "[Ĥïďďēñ Şïñġļē (Ƀōẋ) ƒïłłéŕ ŧé]",
+    "hiddenSingleLine": "[Ĥïďďēñ Şïñġļē (Łïñē) ƒïłłéŕ ŧé]",
+    "hiddenSingleVariantRegion": "[Ĥïďďēñ Şïñġļē (Ʋåŕïåñť Ŗēġïōñ) ƒïłłéŕ ŧéẋŧ ẃ]",
+    "nakedSingle": "[Ňåķēď Şïñġļē ƒïłłéŕ]",
+    "hiddenPair": "[Ĥïďďēñ Ƥåïŕ ƒïłłéŕ]",
+    "lockedCandidate": "[Łōċķēď Ćåñďïďåťē ƒïłłéŕ ŧ]",
+    "hiddenTriple": "[Ĥïďďēñ Ŧŕïƥļē ƒïłłéŕ]",
+    "hiddenQuadruple": "[Ĥïďďēñ Ɋũåďŕũƥļē ƒïłłéŕ ŧ]",
+    "nakedPair": "[Ňåķēď Ƥåïŕ ƒïłłé]",
+    "nakedTriple": "[Ňåķēď Ŧŕïƥļē ƒïłłéŕ]",
+    "nakedQuadruple": "[Ňåķēď Ɋũåďŕũƥļē ƒïłłéŕ]",
+    "xWing": "[Ẋ-Ŵïñġ ƒïłł]",
+    "swordfish": "[Şŵōŕďƒïşĥ ƒïłłé]",
+    "skyscraper": "[Şķŷşċŕåƥēŕ ƒïłłé]",
+    "twoStringKite": "[Ŧŵō-Şťŕïñġ-Ķïťē ƒïłłéŕ]",
+    "crane": "[Ćŕåñē ƒïł]",
+    "simpleColoring": "[Şïɱƥļē Ćōļōŕïñġ ƒïłłéŕ]",
+    "yWing": "[Ý-Ŵïñġ ƒïłł]",
+    "xYZWing": "[ẊÝŽ-Ŵïñġ ƒïłłé]",
+    "wWing": "[Ŵ-Ŵïñġ ƒïłł]",
+    "finnedSashimiXWing": "[Ƒïññēď/Şåşĥïɱï Ẋ-Ŵïñġ ƒïłłéŕ ŧéẋ]",
+    "emptyRectangle": "[Ěɱƥťŷ Ŗēċťåñġļē ƒïłłéŕ]",
+    "uniqueRectangleType1": "[Ûñïɋũē Ŗēċťåñġļē Ŧŷƥē 1 ƒïłłéŕ ŧéẋŧ]",
+    "uniqueRectangleType2": "[Ûñïɋũē Ŗēċťåñġļē Ŧŷƥē 2 ƒïłłéŕ ŧéẋŧ]",
+    "uniqueRectangleType3": "[Ûñïɋũē Ŗēċťåñġļē Ŧŷƥē 3 ƒïłłéŕ ŧéẋŧ]",
+    "uniqueRectangleType4": "[Ûñïɋũē Ŗēċťåñġļē Ŧŷƥē 4 ƒïłłéŕ ŧéẋŧ]",
+    "uniqueRectangleType5": "[Ûñïɋũē Ŗēċťåñġļē Ŧŷƥē 5 ƒïłłéŕ ŧéẋŧ]",
+    "finnedSashimiSwordfish": "[Ƒïññēď/Şåşĥïɱï Şŵōŕďƒïşĥ ƒïłłéŕ ŧéẋŧ]",
+    "jellyfish": "[Ĵēļļŷƒïşĥ ƒïłłé]",
+    "bugBinaryUniversalGrave": "[ɃÛĠ (Ƀïñåŕŷ Ûñïʋēŕşåļ Ġŕåʋē) ƒïłłéŕ ŧéẋŧ ẃ]",
+    "xChain": "[Ẋ-Ćĥåïñ ƒïłł]",
+    "groupedXChain": "[Ġŕōũƥēď Ẋ-Ćĥåïñ ƒïłłéŕ]",
+    "YWing4WXYZWing": "[4-Ý-Ŵïñġ (ŴẊÝŽ-Ŵïñġ) ƒïłłéŕ ŧé]",
+    "yWing5": "[5-Ý-Ŵïñġ ƒïłłé]",
+    "yWing6": "[6-Ý-Ŵïñġ ƒïłłé]",
+    "yWing7": "[7-Ý-Ŵïñġ ƒïłłé]",
+    "yWing8": "[8-Ý-Ŵïñġ ƒïłłé]",
+    "yWing9": "[9-Ý-Ŵïñġ ƒïłłé]",
+    "finnedSashimiJellyfish": "[Ƒïññēď/Şåşĥïɱï Ĵēļļŷƒïşĥ ƒïłłéŕ ŧéẋŧ]",
+    "medusa3D": "[3Ď Ɱēďũşå ƒïłłé]",
+    "xyChain": "[ẊÝ-Ćĥåïñ ƒïłłé]",
+    "alternatingInferenceChainAIC": "[Àļťēŕñåťïñġ Įñƒēŕēñċē Ćĥåïñ (ÀĮĆ) ƒïłłéŕ ŧéẋŧ ẃöŕ]",
+    "groupedAlternatingInferenceChainAIC": "[Ġŕōũƥēď Àļťēŕñåťïñġ Įñƒēŕēñċē Ćĥåïñ (ÀĮĆ) ƒïłłéŕ ŧéẋŧ ẃöŕđš]",
+    "nishioForcingChain": "[Ňïşĥïō Ƒōŕċïñġ Ćĥåïñ ƒïłłéŕ ŧé]",
+    "nishioForcingNet": "[Ňïşĥïō Ƒōŕċïñġ Ňēť ƒïłłéŕ ŧé]"
+  }
+}

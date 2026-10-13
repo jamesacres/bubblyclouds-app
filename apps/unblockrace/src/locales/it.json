@@ -1,0 +1,294 @@
+{
+  "brand": {
+    "appName": "Gara Libera",
+    "gameName": "Gara Libera",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Giochi e condivida per sfidare gli amici a liberare lo schema. Sfide quotidiane e su tutti i dispositivi!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Inizia la gara",
+      "myPuzzles": "I miei schemi",
+      "racingTeams": "Team di gara"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Sciogliere l’ingorgo.",
+      "headlineAccent": "Vincere la gara",
+      "subtitle": "Faccia scorrere i blocchi, liberi quello luminoso e gareggi con gli amici verso l’uscita."
+    },
+    "leaderboard": "Classifica",
+    "dailyRace": {
+      "title": "Gara del giorno",
+      "refreshesDaily": "si aggiorna ogni giorno",
+      "todaysRace": "La gara di oggi",
+      "difficultyRange": "Principiante → Esperto",
+      "description": "Cinque schemi, un solo cronometro: vince la fuga più veloce.",
+      "stages": "5 fasi",
+      "start": "Inizia a gareggiare",
+      "morePuzzlesPrefix": "Altri schemi nella",
+      "puzzleCollection": "raccolta"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 schemi",
+      "title": "Raccolta mensile",
+      "description": "50 ingorghi inediti per {{month}}: li liberi tutti prima che il mese finisca.",
+      "browse": "Sfoglia gli schemi"
+    },
+    "teams": {
+      "eyebrow": "Multigiocatore",
+      "title": "Team di gara",
+      "raceFriends": "Gareggi con {{names}} e altri",
+      "challengeFriends": "Sfidi gli amici a una gara"
+    },
+    "premium": {
+      "title": "Funzioni premium",
+      "subtitle": "Sblocchi l’esperienza completa di $t(brand.gameName)"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Gara di Sudoku",
+    "tagline": "Condivida un sudoku con gli amici e gareggi per risolverlo per primo."
+  },
+  "puzzle": {
+    "mobileDescription": "Ottenga la migliore esperienza con la nostra app {{appName}}!",
+    "desktopDescription": "Scarica {{appName}}",
+    "openInAppLabel": "Apri lo schema"
+  },
+  "collection": {
+    "loading": {
+      "both": "Caricamento della raccolta di schemi...",
+      "collection": "Caricamento degli schemi...",
+      "sessions": "Caricamento dei suoi progressi..."
+    },
+    "retry": "Riprova",
+    "backHome": "Torna alla home",
+    "signInPrompt": "Acceda per consultare la raccolta di schemi.",
+    "signIn": "Accedi",
+    "noData": "Nessun dato della raccolta di schemi disponibile.",
+    "title": "Raccolta di schemi di {{month}}",
+    "completed": "completati",
+    "inProgress": "in corso",
+    "unlockWithPlus": "Sblocchi ogni schema con Plus",
+    "jumpToDifficulty": "Vai alla difficoltà",
+    "scrollToTop": "Torna in alto",
+    "subtitle_one": "{{count}} schema, dalle fughe rapide agli ingorghi da esperti",
+    "subtitle_many": "{{count}} di schemi, dalle fughe rapide agli ingorghi da esperti",
+    "subtitle_other": "{{count}} schemi, dalle fughe rapide agli ingorghi da esperti"
+  },
+  "invite": {
+    "loading": "Caricamento dell’invito...",
+    "iconAlt": "Icona di {{appName}}",
+    "greeting": "👋 Ciao {{name}}!",
+    "invited": "Invito ricevuto!",
+    "joinTeam": "Entri nel team di gara",
+    "tagline": "Gareggi con gli altri per liberare gli schemi e veda i progressi di ciascuno in tempo reale!",
+    "proTipLabel": "Consiglio:",
+    "proTip": "Tutti gli schemi che giocherà in futuro saranno condivisi con i membri del team per una sana competizione!",
+    "nicknameLabel": "Come la chiama il suo team di gara?",
+    "nicknamePlaceholder": "Inserisca il suo soprannome",
+    "joining": "Ingresso nel team...",
+    "join": "Si unisca al divertimento! 🎉",
+    "signIn": "Accedi per continuare",
+    "bonus": "🎉 Bonus: ottenga {{plusName}} ({{duration}})!",
+    "bonusDescription": "Unendosi a questo team di gara, sbloccherà gratuitamente le funzioni premium!",
+    "activation": "💡 Il suo accesso premium si attiverà automaticamente dopo l’ingresso",
+    "duration": {
+      "oneMonth": "un mese",
+      "oneYear": "un anno",
+      "lifetime": "a vita",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Invito scaduto",
+      "description": "Questo link d’invito non è più valido. Chieda al suo amico un nuovo invito oppure aumenti la dimensione del team."
+    },
+    "greetingAnonymous": "👋 Ciao!"
+  },
+  "credits": {
+    "title": "Crediti e attribuzioni",
+    "intro": "Questa app si basa su diversi ottimi progetti",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Questa app è distribuita con licenza MIT. Per i dettagli consulti la nostra <licenseLink>LICENSE</licenseLink> e i <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "rush": "Risolutore e database di puzzle Rush Hour di Michael Fogleman, compilato in WebAssembly",
+      "nextjs": "Framework React per la produzione",
+      "typescript": "Superset tipizzato di JavaScript",
+      "tailwind": "Framework CSS utility-first",
+      "capacitor": "Runtime per app mobile native",
+      "electron": "Framework per app desktop",
+      "revenuecat": "Gestione degli abbonamenti",
+      "react": "Libreria di componenti UI",
+      "turborepo": "Sistema di build per monorepo"
+    }
+  },
+  "notFound": {
+    "title": "Pagina non trovata"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Acceda per iniziare lo schema di oggi",
+      "collection": "Acceda per sfogliare la raccolta",
+      "joinTeam": "Acceda per unirsi al team",
+      "raceLobby": "Acceda per gareggiare con gli altri",
+      "puzzleEntry": "Acceda per giocare"
+    },
+    "valueProps": {
+      "saveProgress": "Salvataggio dei progressi",
+      "raceFriends": "Gare con gli amici",
+      "trackStats": "Statistiche personali"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Ha usato i suoi {{limit}} suggerimenti gratuiti di oggi.",
+      "body": "Plus offre suggerimenti illimitati — mai più bloccati — e mantiene l’intera app senza pubblicità."
+    },
+    "undo": {
+      "title": "Ha raggiunto il limite giornaliero di annullamenti!",
+      "body": "Ha a disposizione {{limit}} annullamenti gratuiti al giorno. Il limite si azzera domani, oppure si abboni per annullamenti illimitati."
+    },
+    "collectionLocked": {
+      "title": "Questo schema fa parte della raccolta Plus.",
+      "body": "Plus sblocca ogni schema della raccolta di ogni mese e mantiene l’intera app senza pubblicità."
+    },
+    "themeColor": {
+      "title": "Questo tema è esclusivo di Plus.",
+      "body": "Passi al piano superiore per sbloccare tutti i bellissimi colori dei temi e personalizzare la sua esperienza di gioco."
+    },
+    "removeMember": {
+      "title": "Rimuovere membri dal team è una funzione premium!",
+      "body": "Si abboni per sbloccare la gestione avanzata del team, inclusa la rimozione dei membri."
+    },
+    "multipleParties": {
+      "title": "Più team di gara sono una funzione premium!",
+      "body": "Gli utenti gratuiti possono avere un solo team. Si abboni per creare e unirsi a team illimitati con famiglia, amici e altro ancora."
+    },
+    "partyMaxSize": {
+      "title": "I gruppi numerosi sono una funzione premium!",
+      "body": "Si abboni per sbloccare la gestione avanzata del team, inclusi i gruppi numerosi."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Sempre senza pubblicità",
+      "description": "Niente pubblicità, mai: solo lei e gli schemi"
+    },
+    "hints": {
+      "title": "Suggerimenti illimitati",
+      "description": "Mai più bloccati: un suggerimento ogni volta che serve"
+    },
+    "monthlyPack": {
+      "title": "Intera raccolta mensile sbloccata, ogni mese",
+      "description": "Tutti gli schemi a ogni livello di difficoltà, senza blocchi"
+    },
+    "undos": {
+      "title": "Annullamenti illimitati",
+      "description": "Torni indietro di tutte le mosse che vuole"
+    },
+    "teams": {
+      "title": "Più team di gara",
+      "description": "Organizzi competizioni private con amici e familiari"
+    },
+    "management": {
+      "title": "Gestione del team",
+      "description": "Crei gruppi fino a 15 persone e rimuova membri dal suo team."
+    },
+    "themes": {
+      "title": "Tutti i temi sbloccati",
+      "description": "Personalizzi la sua esperienza di gara"
+    }
+  },
+  "plusModal": {
+    "description": "Passi a <badge>{{plusName}}</badge> per avere <strong>suggerimenti illimitati</strong>, <strong>l’intera raccolta mensile sbloccata</strong> e <strong>annullamenti illimitati</strong>. Sfidi gli amici, scali le classifiche e resti senza pubblicità."
+  },
+  "leaderboard": {
+    "collectionLabel": "Raccolta",
+    "collectionDetailNoun": "raccolte"
+  },
+  "motivational": {
+    "messages": [
+      "I suoi amici aspettano una sfida",
+      "Contro chi gareggerà oggi?",
+      "È ora di mostrare la sua velocità",
+      "Sfida accettata?",
+      "Corsa verso il traguardo",
+      "Chi è il solutore più veloce?",
+      "Pronto a dominare la classifica?",
+      "Le sue abilità di gara la aspettano",
+      "È ora di lasciarli nella polvere",
+      "Pronto a tagliare il traguardo per primo?",
+      "La pista la aspetta",
+      "È ora di ingranare la marcia più alta",
+      "Pronto a far fumare le gomme sulla griglia?",
+      "I suoi avversari si stanno già scaldando",
+      "Oggi è il giorno giusto per battere un nuovo record",
+      "Il suo record personale aspetta di essere battuto",
+      "Ogni schema la rende più veloce",
+      "La serie vincente parte adesso",
+      "È ora di salire di livello",
+      "La sua prossima svolta è a un solo schema di distanza",
+      "Pronto a stupire se stesso?",
+      "Mostri loro di che pasta è fatto",
+      "È ora di sbloccare il suo potenziale",
+      "La sua risoluzione più veloce è ancora davanti a lei",
+      "Pronto a far contare questa giornata?",
+      "Ogni secondo conta nella gara",
+      "È ora di spingersi oltre i propri limiti",
+      "Il suo percorso di miglioramento continua",
+      "Pronto a superare le aspettative?",
+      "Pensa di reggere la pressione?",
+      "È ora di zittire gli scettici",
+      "Pronto a conquistare la vittoria?",
+      "La concorrenza non se lo aspetta",
+      "È ora di lasciare il segno",
+      "Pronto a rubare la scena?",
+      "La vittoria ha un sapore più dolce quando è meritata",
+      "È ora di dimostrare chi comanda",
+      "Pronto a mostrare il suo vero valore?",
+      "La mentalità da campione parte da qui",
+      "È ora di staccare il gruppo",
+      "Pronto a scrivere la sua leggenda?",
+      "I campioni si fanno in momenti come questo",
+      "È ora di trasformare il potenziale in prestazione",
+      "Schemi nuovi, nuove opportunità",
+      "La sfida di oggi aspetta la sua maestria",
+      "Pronto a rendere questo il suo giorno migliore?",
+      "Un nuovo giorno significa nuovi record da battere",
+      "È ora di aggiungere un’altra vittoria alla sua collezione",
+      "Pronto a partire forte e a finire ancora più forte?",
+      "Pronto a rendere leggendaria la giornata di oggi?",
+      "La sua dose quotidiana di trionfo la aspetta",
+      "Strategia e velocità si incontrano sulla griglia",
+      "Pronto a superare tutti in astuzia e in velocità?",
+      "La sua maestria negli schemi la chiama",
+      "È ora di unire la logica a una velocità fulminea",
+      "Pronto a risolvere con precisione chirurgica?",
+      "La combinazione perfetta: abilità e velocità",
+      "Il suo spirito analitico è il suo vantaggio in gara",
+      "È ora di dimostrare la supremazia sugli schemi",
+      "Pronto a risolvere come un campione?",
+      "Una gara di precisione parte da un pensiero lucido",
+      "I suoi amici aspettano la rivincita",
+      "Chi risolve oggi?",
+      "È pronto un nuovo schema del giorno",
+      "La sua serie è in gioco",
+      "Schemi nuovi, nuovo inizio",
+      "La sfida di oggi è online",
+      "Sfidi un amico sullo schema del giorno",
+      "Nuovo giorno, nuovi schemi",
+      "Qualcuno è già in classifica",
+      "Mantenga viva la serie",
+      "Le sfide quotidiane sono appena state aggiornate",
+      "Il suo team la aspetta",
+      "Uno schema più vicino alla vetta",
+      "Gli schemi di oggi la aspettano",
+      "Torni in gioco e gareggi"
+    ]
+  }
+}

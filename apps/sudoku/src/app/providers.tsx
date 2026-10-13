@@ -5,6 +5,9 @@ import CapacitorProvider from '@bubblyclouds-app/template/providers/CapacitorPro
 import UserProvider from '@bubblyclouds-app/auth/providers/UserProvider';
 import { PlatformServices } from '@bubblyclouds-app/auth/providers/PlatformServicesContext';
 import GlobalStateProvider from '@bubblyclouds-app/template/providers/GlobalStateProvider';
+import ErrorBoundary from '@bubblyclouds-app/template/components/ErrorBoundary';
+import GlobalErrorHandler from '@bubblyclouds-app/template/components/GlobalErrorHandler';
+import { I18nProvider } from '@bubblyclouds-app/ui/providers/I18nProvider';
 import { ThemeColorProvider } from '@bubblyclouds-app/ui/providers/ThemeColorProvider';
 import RevenueCatProvider from '@bubblyclouds-app/template/providers/RevenueCatProvider';
 import { SessionsProvider } from '@bubblyclouds-app/template/providers/SessionsProvider';
@@ -21,29 +24,39 @@ import {
   saveElectronState,
 } from '@bubblyclouds-app/template/helpers/electron';
 import { ThemeProvider } from 'next-themes';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StateType } from '@bubblyclouds-app/types/stateType';
 import { APP_CONFIG } from '../../app.config.js';
+import { useLoginMessages } from '../config/loginMessages';
 import {
-  LOGIN_CONTEXT_MESSAGES,
-  LOGIN_VALUE_PROPS,
-} from '../config/loginMessages';
+  DEFAULT_LOCALE,
+  localeLoaders,
+  resources,
+  supportedLocales,
+} from '../i18n';
 
-const platformServices: PlatformServices = {
-  isCapacitor,
-  isElectron,
-  openBrowser,
-  saveCapacitorState,
-  getCapacitorState,
-  saveElectronState,
-  app: APP_CONFIG.app,
-  gameName: APP_CONFIG.gameName,
-  apiUrl: APP_CONFIG.apiUrl,
-  authUrl: APP_CONFIG.authUrl,
-  scope: APP_CONFIG.scope,
-};
+function ProvidersContent({ children }: PropsWithChildren) {
+  const { t } = useTranslation('app');
+  const { contextMessages, valueProps } = useLoginMessages();
+  const gameName = t('brand.gameName');
+  const platformServices: PlatformServices = useMemo(
+    () => ({
+      isCapacitor,
+      isElectron,
+      openBrowser,
+      saveCapacitorState,
+      getCapacitorState,
+      saveElectronState,
+      app: APP_CONFIG.app,
+      gameName,
+      apiUrl: APP_CONFIG.apiUrl,
+      authUrl: APP_CONFIG.authUrl,
+      scope: APP_CONFIG.scope,
+    }),
+    [gameName]
+  );
 
-export function Providers({ children }: PropsWithChildren) {
   return (
     <GlobalStateProvider>
       <FetchProvider>
@@ -51,11 +64,11 @@ export function Providers({ children }: PropsWithChildren) {
           <UserProvider
             platformServices={platformServices}
             logoSrc="/bubbly-clouds.png"
-            appName={APP_CONFIG.appName}
+            appName={t('brand.appName')}
             termsUrl={APP_CONFIG.termsUrl}
             privacyUrl={APP_CONFIG.privacyUrl}
-            loginContextMessages={LOGIN_CONTEXT_MESSAGES}
-            loginValueProps={LOGIN_VALUE_PROPS}
+            loginContextMessages={contextMessages}
+            loginValueProps={valueProps}
           >
             <RevenueCatProvider apiKeys={APP_CONFIG.revenueCatApiKeys}>
               <PartiesProvider app={APP_CONFIG.app} apiUrl={APP_CONFIG.apiUrl}>
@@ -76,5 +89,21 @@ export function Providers({ children }: PropsWithChildren) {
         </CapacitorProvider>
       </FetchProvider>
     </GlobalStateProvider>
+  );
+}
+
+export function Providers({ children }: PropsWithChildren) {
+  return (
+    <I18nProvider
+      resources={resources}
+      defaultLocale={DEFAULT_LOCALE}
+      supportedLocales={supportedLocales}
+      localeLoaders={localeLoaders}
+    >
+      <GlobalErrorHandler />
+      <ErrorBoundary>
+        <ProvidersContent>{children}</ProvidersContent>
+      </ErrorBoundary>
+    </I18nProvider>
   );
 }

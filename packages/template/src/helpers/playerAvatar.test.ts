@@ -1,5 +1,8 @@
 import { describe, it, expect } from '@jest/globals';
+import { getI18n } from 'react-i18next';
 import { fmtClock, fmtElapsed, avatarGradient } from './playerAvatar';
+
+const t = getI18n().getFixedT('en', 'template');
 
 describe('fmtClock', () => {
   it('formats zero seconds', () => {
@@ -28,20 +31,20 @@ describe('fmtClock', () => {
 
 describe('fmtElapsed', () => {
   it('formats elapsed time under an hour in minutes', () => {
-    expect(fmtElapsed(60000)).toBe('1m ago');
-    expect(fmtElapsed(30 * 60000)).toBe('30m ago');
-    expect(fmtElapsed(59 * 60000)).toBe('59m ago');
+    expect(fmtElapsed(60000, t)).toBe('1m ago');
+    expect(fmtElapsed(30 * 60000, t)).toBe('30m ago');
+    expect(fmtElapsed(59 * 60000, t)).toBe('59m ago');
   });
 
   it('formats elapsed time under 48 hours in hours', () => {
-    expect(fmtElapsed(60 * 60000)).toBe('1h ago');
-    expect(fmtElapsed(24 * 3600000)).toBe('24h ago');
-    expect(fmtElapsed(47 * 3600000)).toBe('47h ago');
+    expect(fmtElapsed(60 * 60000, t)).toBe('1h ago');
+    expect(fmtElapsed(24 * 3600000, t)).toBe('24h ago');
+    expect(fmtElapsed(47 * 3600000, t)).toBe('47h ago');
   });
 
   it('formats elapsed time 48 hours or more in days', () => {
-    expect(fmtElapsed(48 * 3600000)).toBe('2d ago');
-    expect(fmtElapsed(7 * 24 * 3600000)).toBe('7d ago');
+    expect(fmtElapsed(48 * 3600000, t)).toBe('2d ago');
+    expect(fmtElapsed(7 * 24 * 3600000, t)).toBe('7d ago');
   });
 });
 

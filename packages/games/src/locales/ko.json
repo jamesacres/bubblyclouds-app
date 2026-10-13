@@ -1,0 +1,253 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "퍼즐북",
+    "defaultDetailNoun": "퍼즐북"
+  },
+  "collectionCover": {
+    "monthlyCollection": "월간 컬렉션"
+  },
+  "hintBox": {
+    "dismiss": "힌트 닫기"
+  },
+  "lobbyButton": {
+    "opponents": "상대"
+  },
+  "nextPuzzlePanel": {
+    "continue": "계속 — 다음 퍼즐",
+    "continueLocked": "계속 ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}} {{total}}개 중 {{completed}}개 완료"
+  },
+  "countdownOverlay": {
+    "getReady": "준비하세요",
+    "go": "GO!"
+  },
+  "confirmDialog": {
+    "cancel": "취소"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · 완료",
+    "retry": "다시 도전",
+    "points": "+{{points}}점",
+    "leaderboardPoints": "리더보드 점수"
+  },
+  "raceTimer": {
+    "time": "시간"
+  },
+  "stageTopBar": {
+    "previous": "이전"
+  },
+  "raceHud": {
+    "opponents": "상대",
+    "stageOf": "{{total}}단계 중 {{current}}단계"
+  },
+  "raceCelebration": {
+    "finish": "결승!",
+    "runComplete": "전 단계 완료",
+    "leaderboardPoints": "리더보드 점수",
+    "pointsSuffix": "점"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "일",
+      "monday": "월",
+      "tuesday": "화",
+      "wednesday": "수",
+      "thursday": "목",
+      "friday": "금",
+      "saturday": "토"
+    },
+    "dayStreak_other": "일 연속",
+    "thisMonth": "이번 달"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(나)",
+    "puzzles_other": "퍼즐 {{count}}개",
+    "average": "평균: {{time}}",
+    "best": "최고: {{time}}",
+    "wins_other": "🏁 {{count}}승",
+    "points_other": "점"
+  },
+  "scoreBreakdown": {
+    "title": "점수 내역",
+    "volumeBonus": {
+      "label": "퍼즐 수 보너스",
+      "detail_other": "퍼즐 {{count}}개 완료"
+    },
+    "dailyPuzzles": {
+      "label": "데일리 퍼즐",
+      "detail_other": "데일리 챌린지 {{count}}개"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} 퍼즐",
+      "detail": "{{collection}}: {{count}}개"
+    },
+    "scannedPuzzles": {
+      "label": "스캔한 퍼즐",
+      "detail_other": "가져온 퍼즐 {{count}}개"
+    },
+    "difficultyBonus": {
+      "label": "난이도 보너스",
+      "detail": "어려운 퍼즐 = 더 많은 점수"
+    },
+    "speedBonus": {
+      "label": "속도 보너스",
+      "detail": "최단: {{time}}"
+    },
+    "racingBonus": {
+      "label": "레이싱 보너스",
+      "detail": "같은 퍼즐을 완료한 친구를 이기면 받아요"
+    },
+    "dailyCombo": {
+      "label": "데일리 콤보",
+      "detail": "하루에 더 많이 풀수록 배수가 커져요"
+    }
+  },
+  "leaderboard": {
+    "you": "나",
+    "unknownUser": "알 수 없는 사용자",
+    "title": "리더보드",
+    "subtitleParty": "최근 30일 · {{partyName}}",
+    "subtitleAllTeams": "최근 30일 · 모든 팀",
+    "howScoringWorks": "점수 계산 방식"
+  },
+  "scoringLegend": {
+    "title": "점수 계산 방식",
+    "subtitle": "{{gameName}} · 최근 30일",
+    "close": "닫기",
+    "racingWins": {
+      "title": "레이싱 승리",
+      "body": "같은 퍼즐을 완료한 친구를 이길 때마다 <points>+{{points}}점</points>을 받아요. 친구 {{friends}}명 모두보다 먼저 끝내면 <points>+{{total}}점</points>을 모아요."
+    },
+    "basePoints": {
+      "title": "기본 점수",
+      "anyPuzzle": "모든 퍼즐",
+      "dailyPuzzle": "데일리 퍼즐",
+      "collectionPuzzle": "{{collection}} 퍼즐",
+      "scannedPuzzle": "스캔한 퍼즐"
+    },
+    "difficultyMultipliers": {
+      "title": "난이도 배수",
+      "daily": "오늘의 {{gameName}}",
+      "collection": "{{collection}} 퍼즐"
+    },
+    "speedBonuses": {
+      "title": "속도 보너스",
+      "lightning": "번개",
+      "fast": "빠름",
+      "quick": "신속",
+      "steady": "꾸준함",
+      "under": "{{threshold}} 미만",
+      "seconds": "{{value}}초",
+      "minutes": "{{value}}분"
+    },
+    "dailyCombo": {
+      "title": "데일리 콤보",
+      "body": "같은 날 더 많은 퍼즐을 풀면 각 퍼즐의 점수에 배수가 곱해져요. 최대 <max>{{max}}×</max>까지예요.",
+      "puzzle": "오늘의 {{puzzle}}번째 퍼즐",
+      "puzzleOrMore": "오늘 {{puzzle}}번째 이후 퍼즐"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "전 단계 완료",
+    "raceProgress": "레이스 진행 상황",
+    "stagesProgress": "{{completed}}/{{total}}단계",
+    "retryStage": "단계 다시 도전",
+    "stageLabel": "{{number}}단계",
+    "stageCompletedLabel": "{{number}}단계, {{time}} 만에 완료",
+    "viewRacingStats": "레이싱 통계 보기",
+    "total": "합계"
+  },
+  "raceTrack": {
+    "you": "나",
+    "viewFriends": "눌러서 친구 보기",
+    "start": "출발",
+    "finish": "결승",
+    "inviteToRace": "친구를 레이스에 초대",
+    "opponents": "상대",
+    "racer": "레이서",
+    "stageBadge": "{{number}}단계",
+    "total": "합계",
+    "leaderboard": "리더보드",
+    "puzzleBook": "퍼즐북",
+    "puzzleBookLabel": "퍼즐북",
+    "refreshScores": "점수 새로고침",
+    "challengeFriends": "🏁 친구에게 도전",
+    "yourTime": "내 기록:",
+    "inviteFriends": "친구 초대",
+    "racingLabel": "레이스 중"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "까다로움",
+      "easy": "도전적",
+      "intermediate": "어려움",
+      "expert": "전문가"
+    },
+    "book": {
+      "veryEasy": "매우 쉬움",
+      "easy": "쉬움",
+      "moderatelyEasy": "약간 쉬움",
+      "moderate": "보통",
+      "moderatelyHard": "약간 어려움",
+      "hard": "어려움",
+      "vicious": "악랄함",
+      "fiendish": "지독함",
+      "devilish": "악마급",
+      "hell": "지옥",
+      "beyondHell": "지옥 너머"
+    }
+  },
+  "techniques": {
+    "lastDigit": "마지막 숫자",
+    "hiddenSingleBox": "히든 싱글 (박스)",
+    "hiddenSingleLine": "히든 싱글 (줄)",
+    "hiddenSingleVariantRegion": "히든 싱글 (변형 영역)",
+    "nakedSingle": "네이키드 싱글",
+    "hiddenPair": "히든 페어",
+    "lockedCandidate": "락드 캔디데이트",
+    "hiddenTriple": "히든 트리플",
+    "hiddenQuadruple": "히든 쿼드러플",
+    "nakedPair": "네이키드 페어",
+    "nakedTriple": "네이키드 트리플",
+    "nakedQuadruple": "네이키드 쿼드러플",
+    "xWing": "X-윙",
+    "swordfish": "스워드피시",
+    "skyscraper": "스카이스크래퍼",
+    "twoStringKite": "투스트링 카이트",
+    "crane": "크레인",
+    "simpleColoring": "심플 컬러링",
+    "yWing": "Y-윙",
+    "xYZWing": "XYZ-윙",
+    "wWing": "W-윙",
+    "finnedSashimiXWing": "핀드/사시미 X-윙",
+    "emptyRectangle": "엠프티 렉탱글",
+    "uniqueRectangleType1": "유니크 렉탱글 타입 1",
+    "uniqueRectangleType2": "유니크 렉탱글 타입 2",
+    "uniqueRectangleType3": "유니크 렉탱글 타입 3",
+    "uniqueRectangleType4": "유니크 렉탱글 타입 4",
+    "uniqueRectangleType5": "유니크 렉탱글 타입 5",
+    "finnedSashimiSwordfish": "핀드/사시미 스워드피시",
+    "jellyfish": "젤리피시",
+    "bugBinaryUniversalGrave": "BUG (바이너리 유니버설 그레이브)",
+    "xChain": "X-체인",
+    "groupedXChain": "그룹 X-체인",
+    "YWing4WXYZWing": "4-Y-윙 (WXYZ-윙)",
+    "yWing5": "5-Y-윙",
+    "yWing6": "6-Y-윙",
+    "yWing7": "7-Y-윙",
+    "yWing8": "8-Y-윙",
+    "yWing9": "9-Y-윙",
+    "finnedSashimiJellyfish": "핀드/사시미 젤리피시",
+    "medusa3D": "3D 메두사",
+    "xyChain": "XY-체인",
+    "alternatingInferenceChainAIC": "교대 추론 체인 (AIC)",
+    "groupedAlternatingInferenceChainAIC": "그룹 교대 추론 체인 (AIC)",
+    "nishioForcingChain": "니시오 포싱 체인",
+    "nishioForcingNet": "니시오 포싱 넷"
+  }
+}

@@ -2,7 +2,7 @@ import { BaseServerState } from '@bubblyclouds-app/template/types/state';
 import { ServerStateResult } from '@bubblyclouds-app/types/serverTypes';
 
 export interface DayActivity {
-  label: string; // e.g. "M", "Tu"
+  dayIndex: number;
   puzzleCount: number;
   isToday: boolean;
 }
@@ -13,8 +13,6 @@ export interface ActivityStats {
   currentStreak: number;
   lastSevenDays: DayActivity[];
 }
-
-const DAY_LABELS = ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'];
 
 const toLocalDateString = (date: Date): string => {
   const year = date.getFullYear();
@@ -32,7 +30,7 @@ export const calculateActivityStats = (
   const lastSevenDays: DayActivity[] = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(now.getTime() - (6 - i) * 24 * 60 * 60 * 1000);
     return {
-      label: DAY_LABELS[date.getDay()],
+      dayIndex: date.getDay(),
       puzzleCount: 0,
       isToday: toLocalDateString(date) === todayString,
     };

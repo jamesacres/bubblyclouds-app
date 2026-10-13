@@ -1,0 +1,344 @@
+{
+  "brand": {
+    "gameName": "Sudoku Yarışı"
+  },
+  "board": {
+    "buttonGroup": "Düğme grubu"
+  },
+  "celebration": {
+    "solved": "Çözüldü!",
+    "leaderboardPoints": "Sıralama puanı",
+    "pointsSuffix": " puan"
+  },
+  "completion": {
+    "time": "Süre"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Kitapta serinizi sürdürün"
+  },
+  "puzzleMeta": {
+    "daily": "Günlük {{day}} {{month}}",
+    "dayOrdinal": "{{count}}.",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "book": "Kitap {{month}} #{{number}}",
+    "scanned": "Taranan bulmaca"
+  },
+  "bookCover": {
+    "edition": "{{month}} sayısı",
+    "puzzleCount": "50 bulmaca • Birden fazla zorluk",
+    "months": {
+      "january": {
+        "tagline": "Temelden acımasız tekniklere",
+        "footer": "❄️ Kış meydan okuma sayısı ❄️"
+      },
+      "february": {
+        "tagline": "Gizli tekliden AIC zincirlerine",
+        "footer": "💕 Meydan okumayı sev 💕"
+      },
+      "march": {
+        "tagline": "İleri tekniklere bahar atılımı",
+        "footer": "🌸 Taze meydan okumalar çiçek açıyor 🌸"
+      },
+      "april": {
+        "tagline": "Her çözüm fırtınasına göğüs ger",
+        "footer": "🌈 Yağmurdan sonra zafer gelir 🌈"
+      },
+      "may": {
+        "tagline": "Zihin gücüyle çiçek aç",
+        "footer": "🌻 Becerileriniz gelişsin 🌻"
+      },
+      "june": {
+        "tagline": "Yaz zihin antrenmanı",
+        "footer": "☀️ Çözmenin güneşli yüzü ☀️"
+      },
+      "july": {
+        "tagline": "Plaj okuması, zihin antrenmanı",
+        "footer": "🏖️ Tatil zihin oyunları 🏖️"
+      },
+      "august": {
+        "tagline": "Zihin gücünüzü ısıtın",
+        "footer": "🔥 Kavurucu meydan okumalar 🔥"
+      },
+      "september": {
+        "tagline": "Zihninizi okula gönderin",
+        "footer": "📚 Rakamlarla bilgi 📚"
+      },
+      "october": {
+        "tagline": "Ürkütücü derecede akıllı meydan okumalar",
+        "footer": "🎃 Korkutucu derecede eğlenceli 🎃"
+      },
+      "november": {
+        "tagline": "Zihni ateşleyen kamp ateşi gecesi",
+        "footer": "🍂 Sonbaharın tadını çıkarın! 🍂"
+      },
+      "december": {
+        "tagline": "Yılbaşı zihin hediyeleri",
+        "footer": "🎄 Mutlu yıllar, çözücü! 🎄"
+      },
+      "default": {
+        "tagline": "Zihninize meydan okuyun",
+        "footer": "🧩 Bulmaca gücü 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Çevrimdışısınız, lütfen bağlantınızı kontrol edin",
+      "loadFailed": "Bulmaca kitabı yüklenemedi"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Klavye: ok tuşları, geri al, yinele.",
+      "notes": "Not modunu açıp kapatmak için Shift tuşunu basılı tutun veya n tuşuna basın.",
+      "validate": "Hücreyi doğrulamak için c, ızgarayı doğrulamak için g tuşuna basın."
+    },
+    "owl": {
+      "invalid": "Bir hata yapmış gibisiniz. Izgarayı kontrol etmenizi öneririm.",
+      "notSure": "Üzgünüm, emin değilim.",
+      "eureka": "Eureka gösterimi {{notation}}",
+      "highlighted": "Sizin için ilgili hücreleri vurguladım",
+      "foundTechnique": "Bir teknik buldum: {{technique}}",
+      "noHint": "İpucu yok"
+    },
+    "legend": {
+      "stem": "Sap",
+      "petalA": "Taç yaprağı A",
+      "petalB": "Taç yaprağı B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Açık (doğru)",
+      "off": "Kapalı (yanlış)",
+      "elimination": "Eleme"
+    },
+    "reply": {
+      "thanks": "Teşekkürler,",
+      "tellMeMore": "🤔 Daha fazla anlat",
+      "showMeWhere": "👀 Nerede olduğunu göster",
+      "hideHint": "İpucunu gizle"
+    },
+    "askForHelp": "Yardım iste",
+    "notes": "Notlar",
+    "copied": "Kopyalandı",
+    "export": "Dışa aktar",
+    "delete": "Sil",
+    "undo": "Geri al",
+    "redo": "Yinele",
+    "cell": "Hücre",
+    "grid": "Izgara",
+    "zoom": "Zoom",
+    "reset": "Sıfırla",
+    "reveal": "Göster",
+    "confirm": {
+      "reset": {
+        "title": "Tüm ızgara sıfırlansın mı?",
+        "body": "Tüm ızgarayı sıfırlamak istediğinizden emin misiniz?",
+        "confirm": "Sıfırla"
+      },
+      "reveal": {
+        "title": "Tüm ızgara gösterilsin mi?",
+        "body": "Tüm ızgarayı göstermek istediğinizden emin misiniz?",
+        "confirm": "Göster"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Çıplak tekli",
+    "hiddenSingleBox": "Gizli tekli (kutu)",
+    "hiddenSingleRow": "Gizli tekli (satır)",
+    "hiddenSingleCol": "Gizli tekli (sütun)",
+    "nakedPair": "Çıplak çift",
+    "nakedTriple": "Çıplak üçlü",
+    "nakedQuad": "Çıplak dörtlü",
+    "hiddenPair": "Gizli çift",
+    "hiddenTriple": "Gizli üçlü",
+    "hiddenQuad": "Gizli dörtlü",
+    "lockedCandidatePointing": "Kilitli adaylar (işaret eden)",
+    "lockedCandidateClaiming": "Kilitli adaylar (hak eden)",
+    "xWing": "X-Kanat",
+    "swordfish": "Kılıçbalığı",
+    "jellyfish": "Denizanası",
+    "skyscraper": "Gökdelen",
+    "twoStringKite": "İki ipli uçurtma",
+    "finnedXWing": "Yüzgeçli X-Kanat",
+    "finnedSwordfish": "Yüzgeçli kılıçbalığı",
+    "finnedJellyfish": "Yüzgeçli denizanası",
+    "emptyRectangle": "Boş dikdörtgen",
+    "wWing": "W-Kanat",
+    "yWing": "Y-Kanat",
+    "xyzWing": "XYZ-Kanat",
+    "uniqueRectangleType1": "Benzersiz dikdörtgen (tür 1)",
+    "uniqueRectangleType2": "Benzersiz dikdörtgen (tür 2)",
+    "uniqueRectangleType3": "Benzersiz dikdörtgen (tür 3)",
+    "uniqueRectangleType4": "Benzersiz dikdörtgen (tür 4)",
+    "uniqueRectangleType5": "Benzersiz dikdörtgen (tür 5)",
+    "bug": "BUG",
+    "xyChain": "XY-Zinciri",
+    "aic": "AIC",
+    "aicRing": "AIC halkası",
+    "groupedAIC": "Gruplu AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Ölüm çiçeği",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio ağı",
+    "cellRegionForcingChain": "Hücre/bölge zorlama zinciri",
+    "cellRegionForcingNet": "Hücre/bölge zorlama ağı",
+    "forcingChain": "Zorlama zinciri"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "arı",
+      "personality": "Huzursuz ve hevesli. Izgarada atılımlarla ilerler, sonra takılır. Sona doğru fazla erken hızlanır ve bitirmeden hemen önce tıkanır.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Bir tane gördüm!",
+          "Dur — yok, belki de değil...",
+          "Vızz vızz! İlerleme!"
+        ],
+        "playerAhead": ["Hey, yavaşlayın biraz!", "İyi gidiyordum…"],
+        "playerBehind": ["Yetişiyorum!", "Bakın nasıl gidiyorum!"],
+        "endgame": ["Neredeyse bitti! Sanırım!", "Dur — bu nereye gidiyordu?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "ördek",
+      "personality": "Neşeli ve amaçsız. Yavaş ve istikrarlı, uzun duraklamalarla. Final bölümünde çözüme neredeyse tesadüfen sürüklenir.",
+      "voiceLines": {
+        "neutral": ["Acelem yok...", "Hmm... şuralarda bir yerde."],
+        "playerAhead": ["Harika gidiyorsunuz!", "Ben de sonunda bitiririm."],
+        "playerBehind": ["Oh! Bir tane buldum!", "Bu çok güzel."],
+        "endgame": ["Sanırım neredeyse bitirdim?", "Oh! Bu da oldu."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "kertenkele",
+      "personality": "Temkinli ve dikkatli. Uzun duraklamalar, ardından küçük kümeler. Final bölümünde her yerleştirmeden önce tereddüt eder.",
+      "voiceLines": {
+        "neutral": ["Bir de şuna tekrar bakayım.", "Bu doğru olmalı."],
+        "playerAhead": ["Şimdi dikkatli olmalıyım.", "Acele etmeyin."],
+        "playerBehind": ["Tamam… yetişiyorum.", "Hâlâ zaman var."],
+        "endgame": ["Dikkat şimdi...", "Neredeyse… sadece emin olmalıyım."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "örümcek",
+      "personality": "Planlı ve düzenli. İlerlemeyi parça parça, özenle kurar. Final bölümünde düzen bozulur — plan artık tutmuyormuş gibi tereddüt sızar.",
+      "voiceLines": {
+        "neutral": ["Bu desene uyuyor.", "Parça parça..."],
+        "playerAhead": ["İşe yarıyordu...", "Bunu düzeltmeliyim..."],
+        "playerBehind": ["Hâlâ ayakta.", "Evet… bu işliyor."],
+        "endgame": ["Dur — yok, bu her şeyi bozar.", "Bunu planlamıştım..."]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "rakun",
+      "personality": "Hırslı ve fırsatçı. Düzensiz bir ritim. Final bölümünde ivme yakalar ve beklenenden hızlı bitirir.",
+      "voiceLines": {
+        "neutral": ["Bu oldu!", "Biraz dağınık ama kabulüm."],
+        "playerAhead": ["Pekâlâ, vites büyütme zamanı.", "Daha bitmedi."],
+        "playerBehind": ["Oh — güzel buldunuz.", "Her şey yerine oturuyor."],
+        "endgame": ["Evet, bu bende.", "Şimdi akıyor."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "penguen",
+      "personality": "Düzenli ve yöntemli. Sabit tempo. Final bölümü de sakin kalır — panik yok, sprint yok.",
+      "voiceLines": {
+        "neutral": ["Bu uyuyor.", "Tutarlı kalıyorum."],
+        "playerAhead": ["Tempoyu koru.", "Acele etmeye gerek yok."],
+        "playerBehind": ["Hâlâ yolundayım.", "İlerleme istikrarlı."],
+        "endgame": ["Neredeyse tamam.", "Temiz bitir."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "maymun",
+      "personality": "Düzensiz ve tedirgin edici. Tahmin edilemez atılımlar. Final bölümünde haksızlık gibi hissettiren şekilde aniden hızlanır.",
+      "voiceLines": {
+        "neutral": ["Heh… bunu beklemiyordunuz, değil mi?", "Oh, ilginç."],
+        "playerAhead": ["Fazla rahat etmeyin.", "Şuna bakın."],
+        "playerBehind": [
+          "Bazen işler birdenbire yerine oturur.",
+          "Şanslı tahmin… yoksa değil miydi?"
+        ],
+        "endgame": ["Oh vay — başlıyoruz.", "Bu çabuk tırmandı."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "kartal",
+      "personality": "Kayıtsız ve akıcı. Aralıklı, kendinden emin yerleştirmeler. Final bölümünde sessiz bir hızlanma.",
+      "voiceLines": {
+        "neutral": ["Bunu zaten görmüştüm.", "Sadece dolduruyorum."],
+        "playerAhead": ["Hiçbir şeyi değiştirmez.", "Sonuç yine aynı."],
+        "playerBehind": ["Aslında bitti.", "Şu an başka bir yerdeyim."],
+        "endgame": ["…neredeyse bitti.", "Toparlıyorum."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "tilki",
+      "personality": "Yoğun ve rekabetçi. Hızlı başlangıç, sürekli baskı. Final bölümündeki atılım saldırgan hissettirir.",
+      "voiceLines": {
+        "neutral": ["Ayak uydurun.", "Hâlâ benimle misiniz?"],
+        "playerAhead": [
+          "Şimdi yavaşlamayın.",
+          "Bundan daha iyisini yapabilirsiniz."
+        ],
+        "playerBehind": ["Çok yavaşsınız.", "Geride kalıyorsunuz."],
+        "endgame": ["Bitir şunu.", "Bu benim."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "köpekbalığı",
+      "personality": "Sabırlı ve avcı ruhlu. Yakın durur, sonra final bölümünde sert kapanır.",
+      "voiceLines": {
+        "neutral": ["Hemen arkanızdayım.", "Henüz değil."],
+        "playerAhead": ["Olduğunuz yerde kalın.", "Şimdi yakınım."],
+        "playerBehind": ["Yaklaşıyorum.", "İşte buradasınız."],
+        "endgame": ["Şimdi bitiriyoruz.", "Yakaladım sizi."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "baykuş",
+      "personality": "Sakin ve ölçülü. Akıcı tempo. Final bölümü temiz ve kaçınılmazdır.",
+      "voiceLines": {
+        "neutral": ["Beklendiği gibi.", "Her şey yerli yerinde."],
+        "playerAhead": ["İyi.", "Görüyorsunuz."],
+        "playerBehind": ["Sürdürün.", "Pes etmeyin."],
+        "endgame": ["Neredeyse tamam.", "İşte bu."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "kara kedi",
+      "personality": "Sessiz ve insanlık dışı. En az duraklama. Final bölümü hızlı ve kesintisiz bir bitiştir.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…hâlâ."],
+        "playerBehind": ["Çok geç.", "Tereddüt ettiniz."],
+        "endgame": ["…bitti.", "Son."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "ejderha",
+      "personality": "Zahmetsiz ve mutlak. Baştan sona kusursuz kontrolü korur. Final bölümünde kararlı ve kesintisiz bir süpürüş yapar — açık yok, direnç yok.",
+      "voiceLines": {
+        "neutral": ["Beklenen.", "Sapma yok."],
+        "playerAhead": ["Denemeyi seçmeniz iyi oldu.", "Devam edin."],
+        "playerBehind": ["Bu sona erdi.", "Başka seçenek yok."],
+        "endgame": ["Hepsi bu.", "Tamam."]
+      }
+    }
+  }
+}

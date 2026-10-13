@@ -1,0 +1,259 @@
+{
+  "brand": {
+    "gameName": "Yolu Aç Yarışı"
+  },
+  "controls": {
+    "hint": "İpucu",
+    "hintTitle": "Yardım iste",
+    "undo": "Geri al",
+    "redo": "Yinele",
+    "reset": "Sıfırla"
+  },
+  "labels": {
+    "time": "Süre",
+    "moves": "Hamle",
+    "stageOf": "Aşama {{current}}/{{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} hamle",
+    "moves_other": "{{count}} hamle",
+    "par": "par",
+    "overPar": "par değerinin {{delta}} üzerinde",
+    "underPar": "par değerinin {{delta}} altında"
+  },
+  "score": {
+    "moves": "hamle",
+    "srOnPar": "hamle, par değerinde",
+    "srOverPar": "hamle, par değerinin {{delta}} üzerinde",
+    "srUnderPar": "hamle, par değerinin {{delta}} altında",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Günlük · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Başlangıç",
+    "challenging": "Zorlayıcı",
+    "hard": "Zor",
+    "expert": "Uzman"
+  },
+  "collection": {
+    "puzzleLabel": "Koleksiyon bulmacası {{number}}",
+    "theme": {
+      "january": "Yeni yıl, yeni trafik düğümü",
+      "february": "Donmuş tıkanıklık",
+      "march": "Ardına kadar açıldı",
+      "april": "Yağmur gibi bloklar",
+      "may": "Taze şeritler çiçek açıyor",
+      "june": "Zirve çözüm hızı",
+      "july": "Yaz yarış serisi",
+      "august": "Kızgın tıkanıklık",
+      "september": "Tahtaya geri dönüş",
+      "october": "Perili tıkanıklık",
+      "november": "Şeritler açılıyor",
+      "december": "Tatil tıkanıklığı",
+      "default": "Aylık koleksiyon"
+    },
+    "error": {
+      "offline": "Çevrimdışısınız, lütfen bağlantınızı kontrol edin",
+      "loadFailed": "Bulmaca koleksiyonu yüklenemedi"
+    }
+  },
+  "stageClear": {
+    "title": "Aşama {{stage}} tamam",
+    "onPar": "Par ile eşit",
+    "pointsSuffix": " puan",
+    "leaderboardPoints": "Sıralama puanı",
+    "nextStage": "Sonraki aşama",
+    "progress": "Aşama {{stage}}/{{total}} — {{remaining}} kaldı"
+  },
+  "hint": {
+    "unsolvable": "Buradan çıkış yok — yola dönmek için geri alın veya sıfırlayın",
+    "dismiss": "İpucu bildirimini kapat"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Koleksiyonda serinizi sürdürün"
+  },
+  "raceTrack": {
+    "collection": "Koleksiyon"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Bu aşama tekrarlansın mı?",
+      "body": "Mevcut süreniz ve hamleleriniz değiştirilecek.",
+      "confirm": "Tekrar dene"
+    },
+    "reset": {
+      "title": "Bu bulmaca sıfırlansın mı?",
+      "body": "Hamleleriniz silinir ve bulmaca baştan başlar.",
+      "confirm": "Sıfırla"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "arı",
+      "personality": "Huzursuz ve hevesli. Blokları atılımlarla kaydırır, sonra takılır. Çıkışa yaklaşırken fazla erken hızlanır ve bitirmeden hemen önce şeridi tıkar.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Bu kayıyor!",
+          "Dur — yok, bu beni engelliyor...",
+          "Vızz vızz! Yer açıyorum!"
+        ],
+        "playerAhead": ["Hey, yavaşlayın biraz!", "Ben yol açıyordum…"],
+        "playerBehind": ["Yetişiyorum!", "Bakın nasıl kayıyorum!"],
+        "endgame": ["Çıkış! Görüyorum!", "Dur — şunu oraya kim park etti?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "ördek",
+      "personality": "Neşeli ve amaçsız. Yavaş ve istikrarlı, uzun duraklamalarla. Final bölümünde trafik düğümünden neredeyse tesadüfen sıyrılır.",
+      "voiceLines": {
+        "neutral": ["Sadece biraz itiyorum...", "Hmm... belki bu blok."],
+        "playerAhead": ["Harika gidiyorsunuz!", "Ben de sonunda çıkarım."],
+        "playerBehind": ["Oh! Şu kıpırdadı!", "Bu çok güzel."],
+        "endgame": ["Çıkış bu mu?", "Oh! Yol kendiliğinden açıldı."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "kertenkele",
+      "personality": "Temkinli ve dikkatli. Uzun duraklamalar, ardından küçük kaydırma kümeleri. Final bölümünde her hamleden önce tereddüt eder.",
+      "voiceLines": {
+        "neutral": [
+          "Bunun neyi açtığına bir bakayım.",
+          "Bu kaydırma güvenli olmalı."
+        ],
+        "playerAhead": ["Şimdi dikkatli olmalıyım.", "Şeridi tıkamayın."],
+        "playerBehind": ["Tamam… yetişiyorum.", "Hâlâ zaman var."],
+        "endgame": [
+          "Dikkat şimdi...",
+          "Neredeyse çıktım… sadece emin olmalıyım."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "örümcek",
+      "personality": "Planlı ve düzenli. Şeridi blok blok, özenle açar. Final bölümünde plan bozulur — rota artık tutmuyormuş gibi tereddüt sızar.",
+      "voiceLines": {
+        "neutral": ["Bu rotayı açıyor.", "Blok blok..."],
+        "playerAhead": ["Rota işe yarıyordu...", "Yeniden plan yapmalıyım..."],
+        "playerBehind": ["Hâlâ ayakta.", "Evet… şerit açılıyor."],
+        "endgame": [
+          "Dur — yok, bu beni yine sıkıştırır.",
+          "Bu rotayı planlamıştım..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "rakun",
+      "personality": "Hırslı ve fırsatçı. Düzensiz bir ritim. Final bölümünde ivme yakalar ve beklenenden hızlı kayarak çıkar.",
+      "voiceLines": {
+        "neutral": ["Bu kaydırdı!", "Biraz sıkışık ama kabulüm."],
+        "playerAhead": ["Pekâlâ, vites büyütme zamanı.", "Henüz sıkışmadım."],
+        "playerBehind": ["Oh — güzel boşluk.", "Şerit şimdi açılıyor."],
+        "endgame": ["Evet, yol açık.", "Şimdi akıyor."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "penguen",
+      "personality": "Düzenli ve yöntemli. Sabit tempo. Final bölümü de sakin kalır — panik yok, sprint yok.",
+      "voiceLines": {
+        "neutral": ["Bu kaydırma rotaya uyuyor.", "Tutarlı kalıyorum."],
+        "playerAhead": ["Tempoyu koru.", "Izgara için acele etmeye gerek yok."],
+        "playerBehind": ["Hâlâ yolundayım.", "Şerit istikrarla açılıyor."],
+        "endgame": ["Neredeyse geçtim.", "Temiz çık."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "maymun",
+      "personality": "Düzensiz ve tedirgin edici. Tahmin edilemez atılımlar. Final bölümünde haksızlık gibi hissettiren şekilde aniden hızlanır.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… o boşluğu görmediniz mi?",
+          "Oh, ilginç bir kaydırma."
+        ],
+        "playerAhead": ["Fazla rahat etmeyin.", "Şu hamleye bakın."],
+        "playerBehind": [
+          "Trafik bazen kendiliğinden açılır.",
+          "Şanslı kaydırma… yoksa değil miydi?"
+        ],
+        "endgame": ["Oh vay — yol bomboş.", "Çabucak açıldı."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "kartal",
+      "personality": "Kayıtsız ve akıcı. Aralıklı, kendinden emin kaydırmalar. Final bölümünde sessiz bir hızlanma.",
+      "voiceLines": {
+        "neutral": ["Rotayı zaten görmüştüm.", "Sadece içinden kayıyorum."],
+        "playerAhead": ["Rotayı değiştirmez.", "Çıkış her hâlükârda aynı."],
+        "playerBehind": ["Aslında açıldı.", "Buradan sonrası rahat."],
+        "endgame": ["…neredeyse çıktım.", "Çıkışa doğru süzülüyorum."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "tilki",
+      "personality": "Yoğun ve rekabetçi. Hızlı başlangıç, sürekli baskı. Final bölümündeki atılım saldırgan hissettirir.",
+      "voiceLines": {
+        "neutral": ["Ayak uydurun.", "Hâlâ trafikte mi sıkıştınız?"],
+        "playerAhead": [
+          "Şimdi durmayın.",
+          "Bundan daha hızlı kaydırabilirsiniz."
+        ],
+        "playerBehind": ["Çok yavaşsınız.", "Sıkışıp kaldınız."],
+        "endgame": ["Şeridi aç.", "Bu çıkış benim."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "köpekbalığı",
+      "personality": "Sabırlı ve avcı ruhlu. Yakın durur, sonra final bölümünde sert kapanır.",
+      "voiceLines": {
+        "neutral": ["Hemen arkanızdayım.", "Henüz değil."],
+        "playerAhead": ["Şeridinizde kalın.", "Şimdi yakınım."],
+        "playerBehind": ["Yaklaşıyorum.", "İşte boşluk."],
+        "endgame": ["Şimdi kayarak çıkıyoruz.", "Çıkışı yakaladım."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "baykuş",
+      "personality": "Sakin ve ölçülü. Akıcı tempo. Final bölümü temiz ve kaçınılmazdır.",
+      "voiceLines": {
+        "neutral": ["Beklendiği gibi.", "Her blok yerinde."],
+        "playerAhead": ["İyi.", "Rotayı görüyorsunuz."],
+        "playerBehind": ["Şeridi izleyin.", "Pes etmeyin."],
+        "endgame": ["Neredeyse geçtik.", "İşte çıkış."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "kara kedi",
+      "personality": "Sessiz ve insanlık dışı. En az duraklama. Final bölümü çıkışa doğru hızlı ve kesintisiz bir kaymadır.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…hâlâ."],
+        "playerBehind": ["Çok geç.", "Tereddüt ettiniz."],
+        "endgame": ["…çıktım.", "Çıkış."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "ejderha",
+      "personality": "Zahmetsiz ve mutlak. Baştan sona kusursuz kontrolü korur. Final bölümünde çıkışa kararlı ve kesintisiz bir süpürüş yapar — açık yok, direnç yok.",
+      "voiceLines": {
+        "neutral": ["Beklenen.", "Sapma yok."],
+        "playerAhead": ["Denemeyi seçmeniz iyi oldu.", "Devam edin."],
+        "playerBehind": ["Bu sona erdi.", "Başka seçenek yok."],
+        "endgame": ["Hepsi bu.", "Açık."]
+      }
+    }
+  }
+}

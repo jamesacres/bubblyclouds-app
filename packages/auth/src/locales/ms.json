@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Log masuk untuk meneruskan",
+    "signInWith": "Log masuk dengan {{provider}}",
+    "emailTitle": "Log masuk dengan e-mel",
+    "emailPlaceholder": "anda@email.com",
+    "continue": "Teruskan",
+    "cancel": "Batal",
+    "terms": "Terma Perkhidmatan",
+    "privacy": "Dasar Privasi"
+  },
+  "header": {
+    "signIn": "Log masuk"
+  },
+  "avatar": {
+    "alt": "pengguna"
+  },
+  "panel": {
+    "title": "Akaun",
+    "greeting": "Hai, {{name}}!",
+    "fallbackName": "Pengguna",
+    "plusActive": "{{gameName}} {{plus}} Aktif",
+    "joinGamePlus": "Sertai {{gameName}} {{plus}}",
+    "joinPlus": "Sertai {{plus}}",
+    "signOut": "Log keluar",
+    "privacy": "Dasar privasi",
+    "terms": "Terma Perkhidmatan",
+    "credits": "Penghargaan",
+    "deleteAccount": "Padam akaun",
+    "poweredBy": "Dikuasakan oleh {{companyName}}",
+    "deleteUnavailable": "Fungsi padam akaun tidak tersedia.",
+    "deleteFailed": "Gagal memadam akaun. Sila cuba lagi kemudian."
+  },
+  "deleteDialog": {
+    "title": "Padam Akaun",
+    "warning": "Tindakan ini tidak boleh dibatalkan. Semua data anda merentasi semua aplikasi {{companyName}} akan dipadam secara kekal.",
+    "confirmation": "Saya mengesahkan bahawa saya mahu memadam keseluruhan akaun saya termasuk semua data merentasi semua aplikasi {{companyName}}.",
+    "cancel": "Batal",
+    "deleting": "Memadam...",
+    "submit": "Padam Akaun"
+  }
+}

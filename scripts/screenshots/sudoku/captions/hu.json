@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Kövess minden versenyt",
+    "subtitle": "Nézd meg az előzményeidet, a teljesítési arányt és hogy teljesítettek a barátaid"
+  },
+  "01": {
+    "title": "Versenyezz és tanulj egyszerre",
+    "subtitle": "Segítség, ha elakadsz,\na technika teljes magyarázata"
+  },
+  "02": {
+    "title": "Rejtvénykönyv",
+    "subtitle": "Minden hónapban új, technikákra épülő kihívásokat tartalmazó rejtvénykönyv jelenik meg"
+  },
+  "03": {
+    "title": "Importálj bármilyen rejtvényt",
+    "subtitle": "Szkenneld be a sudokut egy könyvből, és hívd ki a barátaidat"
+  },
+  "04": {
+    "title": "A sudoku versengővé vált",
+    "subtitle": "Hívd ki barátaidat és családodat élő versenyre — nézd meg, ki oldja meg leggyorsabban"
+  },
+  "05": {
+    "title": "Versenyezz másokkal vagy egyedül",
+    "subtitle": "Ossz meg egy linket barátokkal és családdal,\nadj hozzá MI-ellenfeleket, vagy versenyezz az idővel"
+  },
+  "06": {
+    "title": "Kapaszkodj a ranglistán",
+    "subtitle": "Minden verseny pontot ér — kövesd, ki vezet az elmúlt 30 napban"
+  },
+  "07": {
+    "title": "Ismerd meg a riválisaidat",
+    "subtitle": "Válassz egyedi MI-ellenfelek közül — mindegyiknek saját személyisége és játékstílusa van"
+  },
+  "08": {
+    "title": "Privát versenycsapataid",
+    "subtitle": "Hívd meg a családot és a barátokat, versenyezzetek együtt, és építsétek fel a saját ranglistátokat"
+  },
+  "09": {
+    "title": "Egy link. Mindenki benne van.",
+    "subtitle": "Ossz meg egy meghívó linket, és a barátaid másodpercek alatt csatlakoznak"
+  }
+}

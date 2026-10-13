@@ -1,0 +1,58 @@
+{
+  "language": {
+    "label": "Limbă",
+    "automatic": "Automat"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Înapoi"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Comutați modul întunecat"
+  },
+  "starRating": {
+    "label_one": "{{filled}} din {{count}} stea",
+    "label_few": "{{filled}} din {{count}} stele",
+    "label_other": "{{filled}} din {{count}} de stele"
+  },
+  "timer": {
+    "go": "START!"
+  },
+  "themeColor": {
+    "change": "Schimbați culoarea temei",
+    "set": "Setați culoarea temei la {{color}}",
+    "setPremium": "Setați culoarea temei la {{color}} (Premium)",
+    "colors": {
+      "blue": "albastru",
+      "red": "roșu",
+      "green": "verde",
+      "purple": "mov",
+      "amber": "chihlimbariu",
+      "cyan": "cian",
+      "pink": "roz",
+      "indigo": "indigo",
+      "orange": "portocaliu",
+      "teal": "verde-albăstrui",
+      "slate": "gri ardezie",
+      "rose": "trandafiriu",
+      "emerald": "smarald",
+      "sky": "azuriu",
+      "violet": "violet",
+      "lime": "verde-lămâie",
+      "fuchsia": "fucsia",
+      "yellow": "galben",
+      "stone": "gri piatră",
+      "zinc": "zinc"
+    }
+  },
+  "copyButton": {
+    "copied": "Copiat în clipboard!",
+    "share": "Trimiteți invitația",
+    "copy": "Copiați linkul invitației"
+  },
+  "share": {
+    "joinTeam": "Alătură-te echipei de curse pe {{appName}}!",
+    "joinNamedTeam": "Alătură-te echipei de curse {{partyName}} pe {{appName}}!",
+    "dialogTitle": "Trimiteți invitația"
+  }
+}

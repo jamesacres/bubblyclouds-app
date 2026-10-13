@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Βιβλίο",
+    "defaultDetailNoun": "βιβλία παζλ"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Μηνιαία συλλογή"
+  },
+  "hintBox": {
+    "dismiss": "Απόκρυψη υπόδειξης"
+  },
+  "lobbyButton": {
+    "opponents": "Αντίπαλοι"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Συνέχεια — επόμενο παζλ",
+    "continueLocked": "Συνέχεια ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} από {{total}} {{label}} ολοκληρώθηκαν"
+  },
+  "countdownOverlay": {
+    "getReady": "Ετοιμαστείτε",
+    "go": "Πάμε!"
+  },
+  "confirmDialog": {
+    "cancel": "Ακύρωση"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · ολοκληρώθηκε",
+    "retry": "Επανάληψη",
+    "points": "+{{points}} πόντοι",
+    "leaderboardPoints": "Πόντοι κατάταξης"
+  },
+  "raceTimer": {
+    "time": "Χρόνος"
+  },
+  "stageTopBar": {
+    "previous": "Προηγούμενο"
+  },
+  "raceHud": {
+    "opponents": "Αντίπαλοι",
+    "stageOf": "Στάδιο {{current}} από {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Τερματισμός!",
+    "runComplete": "Ολοκληρώθηκε η διαδρομή",
+    "leaderboardPoints": "Πόντοι κατάταξης",
+    "pointsSuffix": " πόντ."
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Κυ",
+      "monday": "Δε",
+      "tuesday": "Τρ",
+      "wednesday": "Τε",
+      "thursday": "Πε",
+      "friday": "Πα",
+      "saturday": "Σα"
+    },
+    "dayStreak_one": "ημέρα στη σειρά",
+    "dayStreak_other": "ημέρες στη σειρά",
+    "thisMonth": "αυτόν τον μήνα"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Εσείς)",
+    "puzzles_one": "{{count}} παζλ",
+    "puzzles_other": "{{count}} παζλ",
+    "average": "Μέσος: {{time}}",
+    "best": "Καλύτερος: {{time}}",
+    "wins_one": "🏁 {{count}} νίκη",
+    "wins_other": "🏁 {{count}} νίκες",
+    "points_one": "πόντος",
+    "points_other": "πόντοι"
+  },
+  "scoreBreakdown": {
+    "title": "Ανάλυση βαθμολογίας",
+    "volumeBonus": {
+      "label": "Μπόνους όγκου",
+      "detail_one": "{{count}} παζλ ολοκληρώθηκε",
+      "detail_other": "{{count}} παζλ ολοκληρώθηκαν"
+    },
+    "dailyPuzzles": {
+      "label": "Καθημερινά παζλ",
+      "detail_one": "{{count}} καθημερινή πρόκληση",
+      "detail_other": "{{count}} καθημερινές προκλήσεις"
+    },
+    "collectionPuzzles": {
+      "label": "Παζλ: {{collection}}",
+      "detail": "{{count}} από: {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Σαρωμένα παζλ",
+      "detail_one": "{{count}} εισαγόμενο παζλ",
+      "detail_other": "{{count}} εισαγόμενα παζλ"
+    },
+    "difficultyBonus": {
+      "label": "Μπόνους δυσκολίας",
+      "detail": "Πιο δύσκολα παζλ = περισσότεροι πόντοι"
+    },
+    "speedBonus": {
+      "label": "Μπόνους ταχύτητας",
+      "detail": "Ταχύτερος: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Μπόνους αγώνα",
+      "detail": "Νικήστε φίλους που ολοκλήρωσαν επίσης το παζλ"
+    },
+    "dailyCombo": {
+      "label": "Ημερήσιο combo",
+      "detail": "Περισσότερα παζλ τη μέρα = μεγαλύτερος πολλαπλασιαστής"
+    }
+  },
+  "leaderboard": {
+    "you": "Εσείς",
+    "unknownUser": "Άγνωστος χρήστης",
+    "title": "Πίνακας κατάταξης",
+    "subtitleParty": "Τελευταίες 30 ημέρες · {{partyName}}",
+    "subtitleAllTeams": "Τελευταίες 30 ημέρες · Όλες οι ομάδες",
+    "howScoringWorks": "Πώς λειτουργεί η βαθμολογία"
+  },
+  "scoringLegend": {
+    "title": "Πώς λειτουργεί η βαθμολογία",
+    "subtitle": "{{gameName}} · Τελευταίες 30 ημέρες",
+    "close": "Κλείσιμο",
+    "racingWins": {
+      "title": "Νίκες σε αγώνες",
+      "body": "Κερδίστε <points>+{{points}} πόντους</points> για κάθε φίλο που νικάτε στο ίδιο ολοκληρωμένο παζλ. Τερματίστε πρώτοι ανάμεσα σε {{friends}} φίλους και μαζέψτε <points>+{{total}} πόντους</points>."
+    },
+    "basePoints": {
+      "title": "Βασικοί πόντοι",
+      "anyPuzzle": "Οποιοδήποτε παζλ",
+      "dailyPuzzle": "Καθημερινό παζλ",
+      "collectionPuzzle": "Παζλ: {{collection}}",
+      "scannedPuzzle": "Σαρωμένο παζλ"
+    },
+    "difficultyMultipliers": {
+      "title": "Πολλαπλασιαστές δυσκολίας",
+      "daily": "{{gameName}} της ημέρας",
+      "collection": "Παζλ: {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Μπόνους ταχύτητας",
+      "lightning": "Αστραπιαίος",
+      "fast": "Γρήγορος",
+      "quick": "Σβέλτος",
+      "steady": "Σταθερός",
+      "under": "κάτω από {{threshold}}",
+      "seconds": "{{value}} δευτ.",
+      "minutes": "{{value}} λεπτ."
+    },
+    "dailyCombo": {
+      "title": "Ημερήσιο combo",
+      "body": "Λύστε περισσότερα παζλ την ίδια μέρα για να πολλαπλασιάσετε τους πόντους κάθε παζλ, έως <max>{{max}}×</max>.",
+      "puzzle": "Παζλ {{puzzle}} της ημέρας",
+      "puzzleOrMore": "Παζλ {{puzzle}}+ της ημέρας"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Ολοκληρώθηκε η διαδρομή",
+    "raceProgress": "Πρόοδος αγώνα",
+    "stagesProgress": "{{completed}}/{{total}} στάδια",
+    "retryStage": "Επανάληψη σταδίου",
+    "stageLabel": "Στάδιο {{number}}",
+    "stageCompletedLabel": "Στάδιο {{number}}, ολοκληρώθηκε σε {{time}}",
+    "viewRacingStats": "Δείτε τα στατιστικά αγώνα",
+    "total": "Σύνολο"
+  },
+  "raceTrack": {
+    "you": "Εσείς",
+    "viewFriends": "Πατήστε για να δείτε τους φίλους",
+    "start": "Εκκίνηση",
+    "finish": "Τέρμα",
+    "inviteToRace": "Προσκαλέστε φίλους σε αγώνα",
+    "opponents": "Αντίπαλοι",
+    "racer": "Αγωνιστής",
+    "stageBadge": "Σ{{number}}",
+    "total": "Σύνολο",
+    "leaderboard": "Πίνακας κατάταξης",
+    "puzzleBook": "Βιβλίο παζλ",
+    "puzzleBookLabel": "βιβλίο παζλ",
+    "refreshScores": "Ανανέωση βαθμολογιών",
+    "challengeFriends": "🏁 Προκαλέστε φίλους",
+    "yourTime": "Ο χρόνος σας:",
+    "inviteFriends": "Προσκαλέστε φίλους",
+    "racingLabel": "σε αγώνα"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Πονηρό",
+      "easy": "Απαιτητικό",
+      "intermediate": "Δύσκολο",
+      "expert": "Ειδικό"
+    },
+    "book": {
+      "veryEasy": "Πολύ εύκολο",
+      "easy": "Εύκολο",
+      "moderatelyEasy": "Μέτρια εύκολο",
+      "moderate": "Μέτριο",
+      "moderatelyHard": "Μέτρια δύσκολο",
+      "hard": "Δύσκολο",
+      "vicious": "Μοχθηρό",
+      "fiendish": "Διαβολικό",
+      "devilish": "Δαιμονικό",
+      "hell": "Κόλαση",
+      "beyondHell": "Πέρα από την κόλαση"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Τελευταίο ψηφίο",
+    "hiddenSingleBox": "Κρυφό μονό (κουτί)",
+    "hiddenSingleLine": "Κρυφό μονό (γραμμή)",
+    "hiddenSingleVariantRegion": "Κρυφό μονό (περιοχή παραλλαγής)",
+    "nakedSingle": "Γυμνό μονό",
+    "hiddenPair": "Κρυφό ζεύγος",
+    "lockedCandidate": "Κλειδωμένος υποψήφιος",
+    "hiddenTriple": "Κρυφή τριάδα",
+    "hiddenQuadruple": "Κρυφή τετράδα",
+    "nakedPair": "Γυμνό ζεύγος",
+    "nakedTriple": "Γυμνή τριάδα",
+    "nakedQuadruple": "Γυμνή τετράδα",
+    "xWing": "X-Wing",
+    "swordfish": "Ξιφίας",
+    "skyscraper": "Ουρανοξύστης",
+    "twoStringKite": "Χαρταετός δύο χορδών",
+    "crane": "Γερανός",
+    "simpleColoring": "Απλός χρωματισμός",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing με πτερύγιο/Sashimi",
+    "emptyRectangle": "Κενό ορθογώνιο",
+    "uniqueRectangleType1": "Μοναδικό ορθογώνιο τύπου 1",
+    "uniqueRectangleType2": "Μοναδικό ορθογώνιο τύπου 2",
+    "uniqueRectangleType3": "Μοναδικό ορθογώνιο τύπου 3",
+    "uniqueRectangleType4": "Μοναδικό ορθογώνιο τύπου 4",
+    "uniqueRectangleType5": "Μοναδικό ορθογώνιο τύπου 5",
+    "finnedSashimiSwordfish": "Ξιφίας με πτερύγιο/Sashimi",
+    "jellyfish": "Μέδουσα",
+    "bugBinaryUniversalGrave": "BUG (δυαδικός καθολικός τάφος)",
+    "xChain": "Αλυσίδα X",
+    "groupedXChain": "Ομαδοποιημένη αλυσίδα X",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Μέδουσα με πτερύγιο/Sashimi",
+    "medusa3D": "3D Μέδουσα",
+    "xyChain": "Αλυσίδα XY",
+    "alternatingInferenceChainAIC": "Αλυσίδα εναλλασσόμενων συμπερασμάτων (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Ομαδοποιημένη αλυσίδα εναλλασσόμενων συμπερασμάτων (AIC)",
+    "nishioForcingChain": "Αλυσίδα εξαναγκασμού Nishio",
+    "nishioForcingNet": "Δίκτυο εξαναγκασμού Nishio"
+  }
+}

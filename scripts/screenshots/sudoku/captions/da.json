@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Følg hvert løb",
+    "subtitle": "Se din historik, gennemførselsrater og hvordan dine venner klarede sig"
+  },
+  "01": {
+    "title": "Løb og lær på samme tid",
+    "subtitle": "Hjælp når du sidder fast,\nfuld forklaring af teknikken"
+  },
+  "02": {
+    "title": "Puslespilsbog",
+    "subtitle": "Hver måned udkommer en udvalgt puslespilsbog med teknikfokuserede udfordringer"
+  },
+  "03": {
+    "title": "Importér ethvert puslespil og del",
+    "subtitle": "Scan en sudoku fra en bog og udfordr dine venner"
+  },
+  "04": {
+    "title": "Sudoku er blevet konkurrencepræget",
+    "subtitle": "Udfordr venner og familie til et live-løb — se hvem der løser den hurtigst"
+  },
+  "05": {
+    "title": "Løb mod andre, AI eller alene",
+    "subtitle": "Del et link med venner og familie,\ntilføj AI-modstandere eller løb mod uret"
+  },
+  "06": {
+    "title": "Klatr op ad ranglisten",
+    "subtitle": "Hvert løb giver point — følg, hvem der regerer de seneste 30 dage"
+  },
+  "07": {
+    "title": "Mød dine rivaler",
+    "subtitle": "Vælg mellem unikke AI-modstandere — hver med egen personlighed og spillestil"
+  },
+  "08": {
+    "title": "Dine private løbshold",
+    "subtitle": "Inviter familie og venner, løb sammen og byg jeres egen rangliste"
+  },
+  "09": {
+    "title": "Ét link. Alle er med.",
+    "subtitle": "Del et invitationslink, og dine venner er med i løbet på få sekunder"
+  }
+}

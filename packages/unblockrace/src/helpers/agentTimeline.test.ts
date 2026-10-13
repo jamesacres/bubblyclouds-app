@@ -39,12 +39,12 @@ const LONG_MOVES: Move[] = [
 ];
 
 const makeConfig = (name: string, skillLevel: DreyfusLevel): AgentConfig => ({
+  id: name.toLowerCase(),
   name,
   emoji: '🤖',
   emojiName: 'robot',
   emotionalRole: 'test',
   skillLevel,
-  personality: 'test',
   timingCurve: {
     baseDelayMs: 1000,
     jitterMs: 0,
@@ -56,7 +56,6 @@ const makeConfig = (name: string, skillLevel: DreyfusLevel): AgentConfig => ({
     endgameSpeedMultiplier: 0.5,
     endgameHesitationSpike: 0,
   },
-  voiceLines: { neutral: [], playerAhead: [], playerBehind: [], endgame: [] },
 });
 
 const mockSolver = (result: SolverResult): jest.Mock<SolverResult> => {
@@ -294,6 +293,7 @@ describe('createLocalAgents', () => {
     expect(agents).toHaveLength(2);
     expect(agents[0]).toMatchObject({
       id: 'agent-Sage',
+      configId: 'sage',
       name: 'Sage',
       emoji: '🤖',
       skillLevel: DreyfusLevel.Expert,

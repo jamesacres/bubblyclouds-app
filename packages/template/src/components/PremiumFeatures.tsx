@@ -3,6 +3,7 @@ import { ComponentType, useContext } from 'react';
 import { RevenueCatContext } from '../providers/RevenueCatProvider';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
 import { CheckCircle, Lock } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface PremiumFeature {
   icon: ComponentType<{ className?: string }>;
@@ -25,6 +26,7 @@ export function PremiumFeatures({
   className = '',
   compact = false,
 }: PremiumFeaturesProps) {
+  const { t } = useTranslation('template');
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
 
   const premiumFeatures = features.map((feature) => ({
@@ -96,7 +98,9 @@ export function PremiumFeatures({
           ))}
           {premiumFeatures.length > 3 && (
             <p className="text-xs text-gray-400 dark:text-gray-500">
-              +{premiumFeatures.length - 3} more features
+              {t('premiumFeatures.moreFeatures', {
+                count: premiumFeatures.length - 3,
+              })}
             </p>
           )}
         </div>

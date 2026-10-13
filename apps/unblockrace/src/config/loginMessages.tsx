@@ -1,38 +1,34 @@
-import React from 'react';
 import { LoginContext } from '@bubblyclouds-app/types/loginContext';
 import type { LoginContextMessage } from '@bubblyclouds-app/auth/components/LoginModal';
+import { Translate } from '@bubblyclouds-app/template/types/i18n';
 
-/**
- * Map of login contexts to their respective messages
- * Each context provides specific messaging about why sign-in is being requested
- */
-export const LOGIN_CONTEXT_MESSAGES: Partial<
-  Record<LoginContext, LoginContextMessage>
-> = {
+export const getLoginContextMessages = (
+  t: Translate
+): Partial<Record<LoginContext, LoginContextMessage>> => ({
   [LoginContext.DAILY_PUZZLE]: {
     textColor: 'text-violet-200',
-    content: <>Sign in to start today&rsquo;s puzzle</>,
+    content: <>{t('login.context.dailyPuzzle')}</>,
   },
   [LoginContext.COLLECTION]: {
     textColor: 'text-fuchsia-200',
-    content: <>Sign in to browse the collection</>,
+    content: <>{t('login.context.collection')}</>,
   },
   [LoginContext.JOIN_TEAM]: {
     textColor: 'text-blue-200',
-    content: <>Sign in to join the team</>,
+    content: <>{t('login.context.joinTeam')}</>,
   },
   [LoginContext.RACE_LOBBY]: {
     textColor: 'text-emerald-200',
-    content: <>Sign in to race with others</>,
+    content: <>{t('login.context.raceLobby')}</>,
   },
   [LoginContext.PUZZLE_ENTRY]: {
     textColor: 'text-violet-200',
-    content: <>Sign in to play</>,
+    content: <>{t('login.context.puzzleEntry')}</>,
   },
-};
+});
 
-export const LOGIN_VALUE_PROPS = [
-  'Save your progress',
-  'Race friends',
-  'Track your stats',
+export const getLoginValueProps = (t: Translate): string[] => [
+  t('login.valueProps.saveProgress'),
+  t('login.valueProps.raceFriends'),
+  t('login.valueProps.trackStats'),
 ];

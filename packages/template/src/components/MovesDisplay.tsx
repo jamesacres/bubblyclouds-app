@@ -1,14 +1,18 @@
 // Move count graded against par, in the same colours as the game's
 // leaderboards — amber over par, emerald under, neutral on par — with the
 // golf-style delta saying exactly how far over or under
+import { useTranslation } from 'react-i18next';
+
 export const MovesDisplay = ({
   moves,
 }: {
   moves: { movesMade: number; movesRequired: number };
 }) => {
+  const { t } = useTranslation('template');
   const movesDelta = moves.movesMade - moves.movesRequired;
   return (
     <span
+      dir="ltr"
       className={`font-mono tabular-nums ${
         movesDelta > 0
           ? 'text-amber-600 dark:text-amber-400'
@@ -20,10 +24,12 @@ export const MovesDisplay = ({
       {moves.movesMade}/{moves.movesRequired}
       {movesDelta !== 0 && ` ${movesDelta > 0 ? '+' : ''}${movesDelta}`}
       <span className="sr-only">
-        {` moves, ${
+        {` ${
           movesDelta === 0
-            ? 'on par'
-            : `${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
+            ? t('moves.onPar')
+            : movesDelta > 0
+              ? t('moves.overPar', { delta: Math.abs(movesDelta) })
+              : t('moves.underPar', { delta: Math.abs(movesDelta) })
         }`}
       </span>
     </span>

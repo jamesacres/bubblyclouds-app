@@ -1,0 +1,253 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "ブック",
+    "defaultDetailNoun": "パズルブック"
+  },
+  "collectionCover": {
+    "monthlyCollection": "毎月のコレクション"
+  },
+  "hintBox": {
+    "dismiss": "ヒントを閉じる"
+  },
+  "lobbyButton": {
+    "opponents": "対戦相手"
+  },
+  "nextPuzzlePanel": {
+    "continue": "続ける — 次のパズル",
+    "continueLocked": "続ける（{{plusName}}）"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}} {{completed}}/{{total}} 完了"
+  },
+  "countdownOverlay": {
+    "getReady": "準備はいいですか",
+    "go": "GO!"
+  },
+  "confirmDialog": {
+    "cancel": "キャンセル"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · 完了",
+    "retry": "リトライ",
+    "points": "+{{points}}pt",
+    "leaderboardPoints": "リーダーボードポイント"
+  },
+  "raceTimer": {
+    "time": "タイム"
+  },
+  "stageTopBar": {
+    "previous": "前へ"
+  },
+  "raceHud": {
+    "opponents": "対戦相手",
+    "stageOf": "ステージ {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "ゴール！",
+    "runComplete": "全ステージ完了",
+    "leaderboardPoints": "リーダーボードポイント",
+    "pointsSuffix": "pt"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "日",
+      "monday": "月",
+      "tuesday": "火",
+      "wednesday": "水",
+      "thursday": "木",
+      "friday": "金",
+      "saturday": "土"
+    },
+    "dayStreak_other": "日連続",
+    "thisMonth": "今月"
+  },
+  "friendLeaderboardEntry": {
+    "you": "（あなた）",
+    "puzzles_other": "{{count}}パズル",
+    "average": "平均：{{time}}",
+    "best": "ベスト：{{time}}",
+    "wins_other": "🏁 {{count}}勝",
+    "points_other": "ポイント"
+  },
+  "scoreBreakdown": {
+    "title": "スコアの内訳",
+    "volumeBonus": {
+      "label": "ボリュームボーナス",
+      "detail_other": "{{count}}パズル完了"
+    },
+    "dailyPuzzles": {
+      "label": "毎日のパズル",
+      "detail_other": "デイリーチャレンジ{{count}}件"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}}のパズル",
+      "detail": "{{collection}}から{{count}}件"
+    },
+    "scannedPuzzles": {
+      "label": "スキャンしたパズル",
+      "detail_other": "インポートしたパズル{{count}}件"
+    },
+    "difficultyBonus": {
+      "label": "難易度ボーナス",
+      "detail": "難しいパズルほどポイントアップ"
+    },
+    "speedBonus": {
+      "label": "スピードボーナス",
+      "detail": "最速：{{time}}"
+    },
+    "racingBonus": {
+      "label": "レースボーナス",
+      "detail": "同じパズルを完了した友達に勝利"
+    },
+    "dailyCombo": {
+      "label": "デイリーコンボ",
+      "detail": "1日に解くパズルが多いほど倍率アップ"
+    }
+  },
+  "leaderboard": {
+    "you": "あなた",
+    "unknownUser": "不明なユーザー",
+    "title": "リーダーボード",
+    "subtitleParty": "過去30日間 · {{partyName}}",
+    "subtitleAllTeams": "過去30日間 · すべてのチーム",
+    "howScoringWorks": "スコアの仕組み"
+  },
+  "scoringLegend": {
+    "title": "スコアの仕組み",
+    "subtitle": "{{gameName}} · 過去30日間",
+    "close": "閉じる",
+    "racingWins": {
+      "title": "レースの勝利",
+      "body": "同じパズルを完了した友達に勝つたびに<points>+{{points}}pt</points>を獲得。{{friends}}人の友達全員より先に完了すると、<points>+{{total}}pt</points>が手に入ります。"
+    },
+    "basePoints": {
+      "title": "基本ポイント",
+      "anyPuzzle": "すべてのパズル",
+      "dailyPuzzle": "毎日のパズル",
+      "collectionPuzzle": "{{collection}}のパズル",
+      "scannedPuzzle": "スキャンしたパズル"
+    },
+    "difficultyMultipliers": {
+      "title": "難易度倍率",
+      "daily": "今日の{{gameName}}",
+      "collection": "{{collection}}のパズル"
+    },
+    "speedBonuses": {
+      "title": "スピードボーナス",
+      "lightning": "電光石火",
+      "fast": "高速",
+      "quick": "スピーディ",
+      "steady": "安定",
+      "under": "{{threshold}}未満",
+      "seconds": "{{value}}秒",
+      "minutes": "{{value}}分"
+    },
+    "dailyCombo": {
+      "title": "デイリーコンボ",
+      "body": "同じ日にたくさんのパズルを解くと、各パズルのポイントが最大<max>{{max}}×</max>まで増えます。",
+      "puzzle": "その日の{{puzzle}}問目",
+      "puzzleOrMore": "その日の{{puzzle}}問目以降"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "全ステージ完了",
+    "raceProgress": "レースの進行状況",
+    "stagesProgress": "{{completed}}/{{total}}ステージ",
+    "retryStage": "ステージをリトライ",
+    "stageLabel": "ステージ {{number}}",
+    "stageCompletedLabel": "ステージ {{number}}、{{time}}で完了",
+    "viewRacingStats": "レース成績を見る",
+    "total": "合計"
+  },
+  "raceTrack": {
+    "you": "あなた",
+    "viewFriends": "クリックして友達を表示",
+    "start": "スタート",
+    "finish": "ゴール",
+    "inviteToRace": "友達をレースに招待",
+    "opponents": "対戦相手",
+    "racer": "レーサー",
+    "stageBadge": "S{{number}}",
+    "total": "合計",
+    "leaderboard": "リーダーボード",
+    "puzzleBook": "パズルブック",
+    "puzzleBookLabel": "パズルブック",
+    "refreshScores": "スコアを更新",
+    "challengeFriends": "🏁 友達に挑戦",
+    "yourTime": "あなたのタイム：",
+    "inviteFriends": "友達を招待",
+    "racingLabel": "レース中"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "やや難しい",
+      "easy": "チャレンジング",
+      "intermediate": "難しい",
+      "expert": "エキスパート"
+    },
+    "book": {
+      "veryEasy": "とても簡単",
+      "easy": "簡単",
+      "moderatelyEasy": "やや簡単",
+      "moderate": "普通",
+      "moderatelyHard": "やや難しい",
+      "hard": "難しい",
+      "vicious": "凶悪",
+      "fiendish": "極悪",
+      "devilish": "悪魔級",
+      "hell": "地獄",
+      "beyondHell": "地獄の先"
+    }
+  },
+  "techniques": {
+    "lastDigit": "ラストディジット",
+    "hiddenSingleBox": "ヒドゥンシングル（ボックス）",
+    "hiddenSingleLine": "ヒドゥンシングル（ライン）",
+    "hiddenSingleVariantRegion": "ヒドゥンシングル（バリアント領域）",
+    "nakedSingle": "ネイキッドシングル",
+    "hiddenPair": "ヒドゥンペア",
+    "lockedCandidate": "ロックドキャンディデート",
+    "hiddenTriple": "ヒドゥントリプル",
+    "hiddenQuadruple": "ヒドゥンクアドラプル",
+    "nakedPair": "ネイキッドペア",
+    "nakedTriple": "ネイキッドトリプル",
+    "nakedQuadruple": "ネイキッドクアドラプル",
+    "xWing": "Xウィング",
+    "swordfish": "ソードフィッシュ",
+    "skyscraper": "スカイスクレイパー",
+    "twoStringKite": "2ストリングカイト",
+    "crane": "クレーン",
+    "simpleColoring": "シンプルカラーリング",
+    "yWing": "Yウィング",
+    "xYZWing": "XYZウィング",
+    "wWing": "Wウィング",
+    "finnedSashimiXWing": "フィン／サシミ Xウィング",
+    "emptyRectangle": "エンプティレクタングル",
+    "uniqueRectangleType1": "ユニークレクタングル タイプ1",
+    "uniqueRectangleType2": "ユニークレクタングル タイプ2",
+    "uniqueRectangleType3": "ユニークレクタングル タイプ3",
+    "uniqueRectangleType4": "ユニークレクタングル タイプ4",
+    "uniqueRectangleType5": "ユニークレクタングル タイプ5",
+    "finnedSashimiSwordfish": "フィン／サシミ ソードフィッシュ",
+    "jellyfish": "ジェリーフィッシュ",
+    "bugBinaryUniversalGrave": "BUG（バイナリユニバーサルグレイブ）",
+    "xChain": "Xチェーン",
+    "groupedXChain": "グループXチェーン",
+    "YWing4WXYZWing": "4-Yウィング（WXYZウィング）",
+    "yWing5": "5-Yウィング",
+    "yWing6": "6-Yウィング",
+    "yWing7": "7-Yウィング",
+    "yWing8": "8-Yウィング",
+    "yWing9": "9-Yウィング",
+    "finnedSashimiJellyfish": "フィン／サシミ ジェリーフィッシュ",
+    "medusa3D": "3Dメデューサ",
+    "xyChain": "XYチェーン",
+    "alternatingInferenceChainAIC": "交互推論チェーン（AIC）",
+    "groupedAlternatingInferenceChainAIC": "グループ交互推論チェーン（AIC）",
+    "nishioForcingChain": "ニシオ・フォーシングチェーン",
+    "nishioForcingNet": "ニシオ・フォーシングネット"
+  }
+}

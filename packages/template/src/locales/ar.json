@@ -1,0 +1,282 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+    "dismiss": "تجاهل"
+  },
+  "errorBoundary": {
+    "title": "عذرًا! حدث خطأ ما",
+    "description": "واجهنا خطأً غير متوقع. لا تقلق، تقدّمك محفوظ!",
+    "reload": "إعادة تحميل التطبيق",
+    "clearStorage": "مسح التخزين وإعادة التحميل",
+    "contactSupport": "إذا استمرت هذه المشكلة، يرجى التواصل مع الدعم."
+  },
+  "time": {
+    "minutesAgo_zero": "منذ {{count}}د",
+    "minutesAgo_one": "منذ {{count}}د",
+    "minutesAgo_two": "منذ {{count}}د",
+    "minutesAgo_few": "منذ {{count}}د",
+    "minutesAgo_many": "منذ {{count}}د",
+    "minutesAgo_other": "منذ {{count}} د",
+    "hoursAgo_zero": "منذ {{count}}س",
+    "hoursAgo_one": "منذ {{count}}س",
+    "hoursAgo_two": "منذ {{count}}س",
+    "hoursAgo_few": "منذ {{count}}س",
+    "hoursAgo_many": "منذ {{count}}س",
+    "hoursAgo_other": "منذ {{count}} س",
+    "daysAgo_zero": "منذ {{count}}ي",
+    "daysAgo_one": "منذ {{count}}ي",
+    "daysAgo_two": "منذ {{count}}ي",
+    "daysAgo_few": "منذ {{count}}ي",
+    "daysAgo_many": "منذ {{count}}ي",
+    "daysAgo_other": "منذ {{count}} يوم"
+  },
+  "tier": {
+    "novice": "ناشئ",
+    "advancedBeginner": "مبتدئ",
+    "competent": "متمكّن",
+    "proficient": "ماهر",
+    "expert": "خبير"
+  },
+  "moves": {
+    "onPar": "حركات، مطابقة للمعيار",
+    "overPar": "حركات، أكثر من المعيار بـ {{delta}}",
+    "underPar": "حركات، أقل من المعيار بـ {{delta}}"
+  },
+  "lobby": {
+    "title": "ردهة السباق",
+    "close": "إغلاق الردهة",
+    "onlineOpponents": "الخصوم المتصلون",
+    "refresh": "تحديث الخصوم المتصلين",
+    "noOpponents": "لا يوجد خصوم متصلون — ادعُ أصدقاءك للتسابق!",
+    "away": "غائب",
+    "offlineTeams": "غير متصلين · في فرقك",
+    "removeMember": "إزالة {{name}}",
+    "aiOpponents": "خصوم الذكاء الاصطناعي",
+    "addAgent": "إضافة",
+    "noAgents": "لا يوجد خصوم بالذكاء الاصطناعي بعد — أضف واحدًا لتجد دائمًا من تتسابق معه.",
+    "ownClock": "يتسابق كل لاعب على مؤقته الخاص",
+    "startSolving": "ابدأ الحل",
+    "finished": "انتهى",
+    "inLobby": "في الردهة",
+    "stageProgress": "المرحلة {{current}} من {{total}}",
+    "finishedRunIn": "أنهى الجولة في {{time}}",
+    "solvedIn": "حُلّ في {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · آخر ظهور {{lastSeen}}",
+    "raceSummary": {
+      "solo": "سباق فردي — أنت والمؤقت فقط",
+      "friends_zero": "{{count}} أصدقاء",
+      "friends_one": "صديق واحد",
+      "friends_two": "صديقان",
+      "friends_few": "{{count}} أصدقاء",
+      "friends_many": "{{count}} صديقًا",
+      "friends_other": "{{count}} صديق",
+      "aiOpponents_zero": "{{count}} خصوم بالذكاء الاصطناعي",
+      "aiOpponents_one": "خصم واحد بالذكاء الاصطناعي",
+      "aiOpponents_two": "خصمان بالذكاء الاصطناعي",
+      "aiOpponents_few": "{{count}} خصوم بالذكاء الاصطناعي",
+      "aiOpponents_many": "{{count}} خصمًا بالذكاء الاصطناعي",
+      "aiOpponents_other": "{{count}} خصم بالذكاء الاصطناعي",
+      "racing": "السباق مع {{opponents}}"
+    },
+    "invite": {
+      "button": "دعوة",
+      "eyebrow": "كوّن سباقك",
+      "title": "دعوة الخصوم",
+      "close": "إغلاق",
+      "existingTeam": "دعوة إلى فريق حالي",
+      "editTeamName": "تعديل اسم الفريق",
+      "deleteTeam": "حذف الفريق",
+      "leaveTeam": "مغادرة الفريق",
+      "memberCount_zero": "{{count}} أعضاء",
+      "memberCount_one": "عضو واحد",
+      "memberCount_two": "عضوان",
+      "memberCount_few": "{{count}} أعضاء",
+      "memberCount_many": "{{count}} عضوًا",
+      "memberCount_other": "{{count}} عضو",
+      "createTeam": "إنشاء فريق سباق جديد",
+      "displayNameLabel": "بماذا يناديك أعضاء الفريق؟",
+      "displayNamePlaceholder": "الاسم المعروض",
+      "teamNameLabel": "ما الاسم الذي نطلقه على هذا الفريق؟",
+      "teamNamePlaceholder": "اسم الفريق (مثال: العائلة)",
+      "createAndCopy": "إنشاء ونسخ الرابط",
+      "defaultTeamName": "فريق جديد",
+      "defaultPlayerName": "لاعب"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "إغلاق اللوحة",
+    "back": "رجوع",
+    "close": "إغلاق",
+    "title": "اختر منافسيك",
+    "subtitle": "اختر خصمًا واحدًا أو أكثر",
+    "selectAtLeastOne": "اختر منافسًا واحدًا على الأقل",
+    "race_zero": "تسابق مع {{count}} منافسين",
+    "race_one": "تسابق مع منافس واحد",
+    "race_two": "تسابق مع منافسَين",
+    "race_few": "تسابق مع {{count}} منافسين",
+    "race_many": "تسابق مع {{count}} منافسًا",
+    "race_other": "تسابق مع {{count}} منافس",
+    "skill": {
+      "novice": "ناشئ",
+      "advancedBeginner": "مبتدئ متقدم",
+      "competent": "متمكّن",
+      "proficient": "ماهر",
+      "expert": "خبير"
+    }
+  },
+  "agentParty": {
+    "title": "منافسو الذكاء الاصطناعي",
+    "rivalCount_zero": "{{count}} منافسين",
+    "rivalCount_one": "منافس واحد",
+    "rivalCount_two": "منافسان",
+    "rivalCount_few": "{{count}} منافسين",
+    "rivalCount_many": "{{count}} منافسًا",
+    "rivalCount_other": "{{count}} منافس"
+  },
+  "party": {
+    "cancel": "إلغاء",
+    "editName": "تعديل اسم الفريق",
+    "editMaxMembers": "تعديل الحد الأقصى للأعضاء",
+    "memberCount_zero": "{{count}} أعضاء",
+    "memberCount_one": "عضو واحد",
+    "memberCount_two": "عضوان",
+    "memberCount_few": "{{count}} أعضاء",
+    "memberCount_many": "{{count}} عضوًا",
+    "memberCount_other": "{{count}} عضو",
+    "memberCountPremium_zero": "{{count}} أعضاء ✨ مميز",
+    "memberCountPremium_one": "عضو واحد ✨ مميز",
+    "memberCountPremium_two": "عضوان ✨ مميز",
+    "memberCountPremium_few": "{{count}} أعضاء ✨ مميز",
+    "memberCountPremium_many": "{{count}} عضوًا ✨ مميز",
+    "memberCountPremium_other": "{{count}} عضو ✨ مميز",
+    "membersOf_zero": "{{current}}/{{count}} أعضاء",
+    "membersOf_one": "{{current}}/{{count}} عضو",
+    "membersOf_two": "{{current}}/{{count}} أعضاء",
+    "membersOf_few": "{{current}}/{{count}} أعضاء",
+    "membersOf_many": "{{current}}/{{count}} عضوًا",
+    "membersOf_other": "{{current}}/{{count}} عضو",
+    "shareLink": "شارك هذا الرابط مع أعضاء الفريق الحاليين للانضمام إلى هذا اللغز",
+    "you": "(أنت)",
+    "notStarted": "لم يبدأ بعد! اطلب منهم اللعب"
+  },
+  "partyConfirmation": {
+    "cancel": "إلغاء",
+    "leaveAgentParty": {
+      "title": "إزالة منافسي الذكاء الاصطناعي",
+      "action": "إزالة",
+      "processing": "جارٍ الإزالة...",
+      "message": "هل أنت متأكد من رغبتك في إزالة جميع منافسي الذكاء الاصطناعي؟ لن يظهروا بعد الآن في السباق."
+    },
+    "removeAgent": {
+      "title": "إزالة منافس محلي",
+      "action": "إزالة",
+      "processing": "جارٍ الإزالة...",
+      "message": "هل أنت متأكد من رغبتك في إزالة \"{{memberName}}\" من السباق؟"
+    },
+    "deleteParty": {
+      "title": "حذف الفريق",
+      "action": "حذف الفريق",
+      "processing": "جارٍ الحذف...",
+      "message": "هل أنت متأكد من رغبتك في حذف \"{{partyName}}\"؟ سيؤدي ذلك إلى إزالة الفريق نهائيًا وسيفقد جميع الأعضاء إمكانية الوصول إليه. لا يمكن التراجع عن هذا الإجراء."
+    },
+    "leave": {
+      "title": "مغادرة الفريق",
+      "action": "مغادرة",
+      "processing": "جارٍ المغادرة...",
+      "message": "هل أنت متأكد من رغبتك في مغادرة \"{{partyName}}\"؟ لن ترى تقدّم الأعضاء الآخرين بعد الآن ولن تتمكن من المشاركة في هذا الفريق."
+    },
+    "remove": {
+      "title": "إزالة عضو",
+      "action": "إزالة",
+      "processing": "جارٍ الإزالة...",
+      "message": "هل أنت متأكد من رغبتك في إزالة \"{{memberName}}\" من \"{{partyName}}\"؟ لن يتمكن من المشاركة في هذا الفريق بعد الآن."
+    }
+  },
+  "friends": {
+    "allTeams": "كل الفرق",
+    "refresh": "تحديث",
+    "refreshing": "جارٍ التحديث…",
+    "title": "ألغاز الأصدقاء",
+    "subtitle": "اضغط على صديق لعرض ألغازه الأخيرة وتحدّيه في سباق.",
+    "memberCount_zero": "{{count}} أعضاء",
+    "memberCount_one": "عضو واحد",
+    "memberCount_two": "عضوان",
+    "memberCount_few": "{{count}} أعضاء",
+    "memberCount_many": "{{count}} عضوًا",
+    "memberCount_other": "{{count}} عضو",
+    "noRecentPuzzles": "لا توجد ألغاز حديثة — تحدَّهم!",
+    "empty": {
+      "title": "لا توجد فرق سباق بعد",
+      "description": "ادعُ أصدقاءك من ردهة السباقات أثناء حل أحد الألغاز"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "ألغازك خلال آخر 30 يومًا.",
+    "empty": {
+      "title": "لا توجد ألغاز بعد",
+      "description": "توجّه إلى ابدأ السباق لحل أول لغز لك"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_zero": "+{{count}} ميزات إضافية",
+    "moreFeatures_one": "+{{count}} ميزة إضافية",
+    "moreFeatures_two": "+{{count}} ميزتان إضافيتان",
+    "moreFeatures_few": "+{{count}} ميزات إضافية",
+    "moreFeatures_many": "+{{count}} ميزة إضافية",
+    "moreFeatures_other": "+{{count}} ميزة إضافية"
+  },
+  "crossPromo": {
+    "whyNotTry": "لماذا لا تجرّب",
+    "tryItFree": "جرّبها مجانًا"
+  },
+  "rateApp": {
+    "prompt": "هل تستمتع بلعبة {{appName}}؟",
+    "rateIt": "قيّمها",
+    "rateInSeconds": "قيّمها في ثوانٍ"
+  },
+  "plus": {
+    "close": "إغلاق النافذة",
+    "appIconAlt": "أيقونة التطبيق",
+    "lifetime": "مدى الحياة",
+    "monthly": "شهري",
+    "perMonth": "{{price}}/شهر",
+    "whatsIncluded": "ما الذي يتضمّنه",
+    "continue": "متابعة",
+    "restorePurchases": "استعادة المشتريات",
+    "cancel": "إلغاء"
+  },
+  "download": {
+    "title": "تابع في التطبيق",
+    "appStoreAlt": "نزّله من {{appStore}}",
+    "googlePlayAlt": "احصل عليه من {{googlePlay}}",
+    "continueBrowser": "المتابعة في المتصفح",
+    "continueDesktop": "المتابعة على سطح المكتب"
+  },
+  "session": {
+    "cheated": "غش",
+    "completedIn": "اكتمل في {{minutes}}د {{seconds}}ث",
+    "percentComplete": "اكتمل {{percentage}}%",
+    "duration": "{{minutes}}د {{seconds}}ث",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "لغز رقم {{number}}",
+    "daily": "لغز يومي {{date}}",
+    "book": "كتاب {{month}} رقم {{number}}",
+    "collection": "مجموعة {{month}} رقم {{number}}",
+    "scanned": "لغز ممسوح",
+    "you": "أنت",
+    "unknown": "غير معروف",
+    "unlockWith": "افتح باستخدام {{label}}",
+    "lockedPuzzle": "لغز مقفل",
+    "recommendedTechniques": "التقنيات الموصى بها:",
+    "loadingFriends": "جارٍ تحميل الأصدقاء..."
+  }
+}

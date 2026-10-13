@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "数独竞速",
+      "gameName": "数独",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "数独 Plus"
+    },
+    "terms": {
+      "race": "竞速",
+      "team": "团队",
+      "leaderboard": "排行榜",
+      "hint": "提示",
+      "undo": "撤销",
+      "theme": "主题",
+      "dailyPuzzle": "每日谜题",
+      "monthlyCollection": "每月谜题集",
+      "aiOpponent": "AI 对手",
+      "monthly": "月度",
+      "lifetime": "终身版",
+      "plusAccess": "Plus 权益",
+      "plusFeatureLine": "无限竞速、更多团队、主题与撤销"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "解锁竞速",
+      "gameName": "解锁竞速",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "竞速",
+      "team": "团队",
+      "leaderboard": "排行榜",
+      "hint": "提示",
+      "undo": "撤销",
+      "theme": "主题",
+      "dailyPuzzle": "每日谜题",
+      "monthlyCollection": "每月谜题合集",
+      "aiOpponent": "AI 对手",
+      "monthly": "月度",
+      "lifetime": "终身版",
+      "plusAccess": "Plus 权益",
+      "plusFeatureLine": "无限竞速、更多团队、主题与撤销"
+    }
+  }
+}

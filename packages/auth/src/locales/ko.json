@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "로그인하고 계속하기",
+    "signInWith": "{{provider}} 계정으로 로그인",
+    "emailTitle": "이메일로 로그인",
+    "emailPlaceholder": "your@email.com",
+    "continue": "계속",
+    "cancel": "취소",
+    "terms": "이용약관",
+    "privacy": "개인정보 처리방침"
+  },
+  "header": {
+    "signIn": "로그인"
+  },
+  "avatar": {
+    "alt": "사용자"
+  },
+  "panel": {
+    "title": "계정",
+    "greeting": "{{name}}님, 안녕하세요!",
+    "fallbackName": "사용자",
+    "plusActive": "{{gameName}} {{plus}} 이용 중",
+    "joinGamePlus": "{{gameName}} {{plus}} 가입",
+    "joinPlus": "{{plus}} 가입",
+    "signOut": "로그아웃",
+    "privacy": "개인정보 처리방침",
+    "terms": "이용약관",
+    "credits": "크레딧",
+    "deleteAccount": "계정 삭제",
+    "poweredBy": "{{companyName}} 제공",
+    "deleteUnavailable": "계정 삭제 기능을 사용할 수 없어요.",
+    "deleteFailed": "계정을 삭제하지 못했어요. 나중에 다시 시도해 주세요."
+  },
+  "deleteDialog": {
+    "title": "계정 삭제",
+    "warning": "이 작업은 되돌릴 수 없어요. 모든 {{companyName}} 앱에 있는 내 모든 데이터가 영구적으로 삭제돼요.",
+    "confirmation": "모든 {{companyName}} 앱의 데이터를 포함해 내 계정 전체를 삭제하는 것에 동의해요.",
+    "cancel": "취소",
+    "deleting": "삭제하는 중...",
+    "submit": "계정 삭제"
+  }
+}

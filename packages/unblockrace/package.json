@@ -17,7 +17,8 @@
     "./types/*": "./src/types/*.ts",
     "./services/*": "./src/services/*.ts",
     "./utils/*": "./src/utils/*.ts",
-    "./fixtures/*": "./src/fixtures/*"
+    "./fixtures/*": "./src/fixtures/*",
+    "./locales/*": "./src/locales/*.json"
   },
   "scripts": {
     "type-check": "tsc --noEmit",
@@ -32,11 +33,12 @@
     "@bubblyclouds-app/template": "workspace:*",
     "@bubblyclouds-app/types": "workspace:*",
     "@bubblyclouds-app/ui": "workspace:*",
-    "@capacitor-community/in-app-review": "^8.0.0",
+    "@capacitor-community/in-app-review": "catalog:",
     "lucide-react": "^0.563.0",
     "next": "^16.2.2",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "react-i18next": "^17.0.16"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

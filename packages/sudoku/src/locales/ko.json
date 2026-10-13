@@ -1,0 +1,334 @@
+{
+  "brand": {
+    "gameName": "스도쿠 레이스"
+  },
+  "board": {
+    "buttonGroup": "버튼 그룹"
+  },
+  "celebration": {
+    "solved": "완성!",
+    "leaderboardPoints": "리더보드 점수",
+    "pointsSuffix": "점"
+  },
+  "completion": {
+    "time": "시간"
+  },
+  "nextPuzzle": {
+    "streakMessage": "퍼즐북에서 연속 기록을 이어 가세요"
+  },
+  "puzzleMeta": {
+    "daily": "데일리 {{month}} {{day}}",
+    "dayOrdinal": "{{count}}일",
+    "dayOrdinal_ordinal_other": "{{count}}일",
+    "book": "{{month}} 퍼즐북 #{{number}}",
+    "scanned": "스캔한 퍼즐"
+  },
+  "bookCover": {
+    "edition": "{{month}} 에디션",
+    "puzzleCount": "퍼즐 50개 • 다양한 난이도",
+    "months": {
+      "january": {
+        "tagline": "기본부터 극한의 기법까지",
+        "footer": "❄️ 윈터 챌린지 에디션 ❄️"
+      },
+      "february": {
+        "tagline": "히든 싱글에서 AIC 체인까지",
+        "footer": "💕 도전을 사랑해요 💕"
+      },
+      "march": {
+        "tagline": "고급 기법으로 도약하는 봄",
+        "footer": "🌸 새로운 도전이 피어나요 🌸"
+      },
+      "april": {
+        "tagline": "어떤 풀이 폭풍도 거뜬히",
+        "footer": "🌈 비 온 뒤에 찾아오는 승리 🌈"
+      },
+      "may": {
+        "tagline": "두뇌의 힘으로 활짝 피어나요",
+        "footer": "🌻 실력이 무럭무럭 자라길 🌻"
+      },
+      "june": {
+        "tagline": "여름 두뇌 트레이닝",
+        "footer": "☀️ 풀이의 화창한 면 ☀️"
+      },
+      "july": {
+        "tagline": "해변의 독서, 두뇌 트레이닝",
+        "footer": "🏖️ 휴가지의 두뇌 게임 🏖️"
+      },
+      "august": {
+        "tagline": "두뇌를 뜨겁게 달궈 보세요",
+        "footer": "🔥 불타오르는 도전 🔥"
+      },
+      "september": {
+        "tagline": "두뇌에 새 학기를",
+        "footer": "📚 숫자로 배우는 지식 📚"
+      },
+      "october": {
+        "tagline": "오싹하게 똑똑한 도전",
+        "footer": "🎃 오싹하게 재미있어요 🎃"
+      },
+      "november": {
+        "tagline": "가을밤의 두뇌 불꽃놀이",
+        "footer": "🍂 깊어 가는 가을, 깊어 가는 풀이 🍂"
+      },
+      "december": {
+        "tagline": "연말 두뇌 선물",
+        "footer": "🎄 즐거운 연말 보내세요, 풀이꾼님! 🎄"
+      },
+      "default": {
+        "tagline": "두뇌에 도전해 보세요",
+        "footer": "🧩 퍼즐의 힘 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "오프라인 상태예요. 연결을 확인해 주세요",
+      "loadFailed": "퍼즐북을 불러오지 못했어요"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "키보드: 방향키, 되돌리기, 다시 실행.",
+      "notes": "Shift를 누른 채로 있거나 n을 눌러 메모 모드를 전환하세요.",
+      "validate": "c를 눌러 칸 확인, g를 눌러 격자 확인."
+    },
+    "owl": {
+      "invalid": "실수를 한 것 같아요. 격자를 확인해 보시길 권해요.",
+      "notSure": "죄송해요, 잘 모르겠어요.",
+      "eureka": "유레카 표기 {{notation}}",
+      "highlighted": "관련된 칸을 표시해 뒀어요",
+      "foundTechnique": "{{technique}} 기법을 찾았어요",
+      "noHint": "사용할 수 있는 힌트가 없어요"
+    },
+    "legend": {
+      "stem": "줄기",
+      "petalA": "꽃잎 A",
+      "petalB": "꽃잎 B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "켜짐 (참)",
+      "off": "꺼짐 (거짓)",
+      "elimination": "제거"
+    },
+    "reply": {
+      "thanks": "고마워요,",
+      "tellMeMore": "🤔 더 알려 주세요",
+      "showMeWhere": "👀 어디인지 보여 주세요",
+      "hideHint": "힌트 숨기기"
+    },
+    "askForHelp": "도움 요청",
+    "notes": "메모",
+    "copied": "복사됨!",
+    "export": "내보내기",
+    "delete": "삭제",
+    "undo": "되돌리기",
+    "redo": "다시 실행",
+    "cell": "칸",
+    "grid": "격자",
+    "zoom": "확대",
+    "reset": "초기화",
+    "reveal": "정답 보기",
+    "confirm": {
+      "reset": {
+        "title": "전체 격자를 초기화할까요?",
+        "body": "정말 전체 격자를 초기화할까요?",
+        "confirm": "초기화"
+      },
+      "reveal": {
+        "title": "전체 격자를 공개할까요?",
+        "body": "정말 전체 격자의 정답을 공개할까요?",
+        "confirm": "공개"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "네이키드 싱글",
+    "hiddenSingleBox": "히든 싱글 (박스)",
+    "hiddenSingleRow": "히든 싱글 (행)",
+    "hiddenSingleCol": "히든 싱글 (열)",
+    "nakedPair": "네이키드 페어",
+    "nakedTriple": "네이키드 트리플",
+    "nakedQuad": "네이키드 쿼드",
+    "hiddenPair": "히든 페어",
+    "hiddenTriple": "히든 트리플",
+    "hiddenQuad": "히든 쿼드",
+    "lockedCandidatePointing": "락드 캔디데이트 (포인팅)",
+    "lockedCandidateClaiming": "락드 캔디데이트 (클레이밍)",
+    "xWing": "X-윙",
+    "swordfish": "스워드피시",
+    "jellyfish": "젤리피시",
+    "skyscraper": "스카이스크래퍼",
+    "twoStringKite": "투스트링 카이트",
+    "finnedXWing": "핀드 X-윙",
+    "finnedSwordfish": "핀드 스워드피시",
+    "finnedJellyfish": "핀드 젤리피시",
+    "emptyRectangle": "엠프티 렉탱글",
+    "wWing": "W-윙",
+    "yWing": "Y-윙",
+    "xyzWing": "XYZ-윙",
+    "uniqueRectangleType1": "유니크 렉탱글 (타입 1)",
+    "uniqueRectangleType2": "유니크 렉탱글 (타입 2)",
+    "uniqueRectangleType3": "유니크 렉탱글 (타입 3)",
+    "uniqueRectangleType4": "유니크 렉탱글 (타입 4)",
+    "uniqueRectangleType5": "유니크 렉탱글 (타입 5)",
+    "bug": "BUG",
+    "xyChain": "XY-체인",
+    "aic": "AIC",
+    "aicRing": "AIC 링",
+    "groupedAIC": "그룹 AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "수 드 코크",
+    "deathBlossom": "데스 블로섬",
+    "nishio": "니시오",
+    "nishioNet": "니시오 넷",
+    "cellRegionForcingChain": "셀/영역 포싱 체인",
+    "cellRegionForcingNet": "셀/영역 포싱 넷",
+    "forcingChain": "포싱 체인"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "범블비",
+      "emojiName": "벌",
+      "personality": "차분하지 못하고 열정적이에요. 격자를 휙휙 누비다가 멈춰 서곤 해요. 막판에는 너무 일찍 속도를 올리다가 마무리 직전에 막혀요.",
+      "voiceLines": {
+        "neutral": ["오! 하나 보여요!", "잠깐, 아닌가...", "윙윙! 진전이에요!"],
+        "playerAhead": ["이봐요, 좀 천천히요!", "잘하고 있었는데…"],
+        "playerBehind": ["따라잡는 중이에요!", "나 좀 봐요, 쌩쌩!"],
+        "endgame": ["거의 다 왔어요! 아마도요!", "잠깐, 이건 어디에 들어가죠?!"]
+      }
+    },
+    "puddle": {
+      "name": "퍼들",
+      "emojiName": "오리",
+      "personality": "느긋하고 목적 없이 즐겨요. 천천히 꾸준히 가고, 오래 멈춰 있기도 해요. 막판에는 거의 우연처럼 정답에 흘러들어요.",
+      "voiceLines": {
+        "neutral": ["천천히 하는 중이에요...", "음... 이 근처 어딘가."],
+        "playerAhead": ["정말 잘하고 계세요!", "저도 언젠가는 도착하겠죠."],
+        "playerBehind": ["어! 하나 찾았어요!", "기분 좋네요."],
+        "endgame": ["거의 끝난 것 같은데요?", "어! 됐다."]
+      }
+    },
+    "flint": {
+      "name": "플린트",
+      "emojiName": "도마뱀",
+      "personality": "신중하고 관찰력이 좋아요. 오래 멈췄다가 작은 묶음으로 채워요. 막판에는 칸을 채울 때마다 망설여요.",
+      "voiceLines": {
+        "neutral": ["한 번 더 확인해 볼게요.", "이게 맞을 거예요."],
+        "playerAhead": ["이제 조심해야 해요.", "서두르면 안 돼요."],
+        "playerBehind": ["좋아요… 따라잡는 중.", "아직 시간 있어요."],
+        "endgame": ["조심, 조심...", "거의… 확실히만 하면 돼요."]
+      }
+    },
+    "tangle": {
+      "name": "탱글",
+      "emojiName": "거미",
+      "personality": "신중하고 체계적이에요. 한 조각씩 차근차근 쌓아 가요. 막판에는 구조가 무너져요. 계획이 더는 통하지 않는 듯 망설임이 스며들어요.",
+      "voiceLines": {
+        "neutral": ["패턴에 딱 맞아요.", "한 조각씩..."],
+        "playerAhead": ["잘 풀리고 있었는데...", "고쳐야 해요..."],
+        "playerBehind": ["아직 버티고 있어요.", "네… 이거 되네요."],
+        "endgame": ["잠깐, 아니, 이러면 다 무너져요.", "계획해 뒀었는데..."]
+      }
+    },
+    "maple": {
+      "name": "메이플",
+      "emojiName": "너구리",
+      "personality": "악착같고 기회를 잘 잡아요. 리듬이 들쭉날쭉해요. 막판에는 기세를 타서 예상보다 빨리 마무리해요.",
+      "voiceLines": {
+        "neutral": ["됐다!", "좀 지저분하지만 괜찮아요."],
+        "playerAhead": ["좋아요, 밀어붙일 때예요.", "아직 안 끝났어요."],
+        "playerBehind": ["오, 좋은 걸 찾았네요.", "이제 맞춰지고 있어요."],
+        "endgame": ["네, 이건 할 수 있어요.", "이제 술술 풀려요."]
+      }
+    },
+    "compass": {
+      "name": "컴퍼스",
+      "emojiName": "펭귄",
+      "personality": "체계적이고 꼼꼼해요. 일정한 속도를 지켜요. 막판에도 흔들림 없이, 당황도 질주도 없어요.",
+      "voiceLines": {
+        "neutral": ["딱 맞네요.", "꾸준히 가요."],
+        "playerAhead": ["속도를 유지해요.", "서두를 필요 없어요."],
+        "playerBehind": ["계속 순조로워요.", "진행이 꾸준해요."],
+        "endgame": ["거의 다 왔어요.", "깔끔하게 마무리해요."]
+      }
+    },
+    "jinx": {
+      "name": "징크스",
+      "emojiName": "원숭이",
+      "personality": "변덕스럽고 불안하게 만들어요. 예측할 수 없이 몰아쳐요. 막판에는 반칙처럼 느껴질 만큼 갑자기 가속해요.",
+      "voiceLines": {
+        "neutral": ["헤헤… 예상 못 했지?", "오, 흥미롭네."],
+        "playerAhead": ["방심하지 마.", "잘 봐."],
+        "playerBehind": ["가끔은 그냥 딱 맞아떨어지지.", "운 좋은 추측… 일까?"],
+        "endgame": ["오, 와— 간다.", "순식간에 불붙었네."]
+      }
+    },
+    "drift": {
+      "name": "드리프트",
+      "emojiName": "독수리",
+      "personality": "초연하고 유연해요. 여유 있고 자신 있게 채워 넣어요. 막판에 조용히 가속해요.",
+      "voiceLines": {
+        "neutral": ["이미 봤어.", "그냥 채우는 중."],
+        "playerAhead": ["달라지는 건 없어.", "결과는 똑같아."],
+        "playerBehind": ["사실 이미 끝났어.", "지금은 딴 데 있어."],
+        "endgame": ["…거의 끝났어.", "마무리 중."]
+      }
+    },
+    "ember": {
+      "name": "엠버",
+      "emojiName": "여우",
+      "personality": "격렬하고 승부욕이 강해요. 빠르게 시작해 끊임없이 압박해요. 막판의 질주는 공격적으로 느껴져요.",
+      "voiceLines": {
+        "neutral": ["따라와.", "아직 같이 있어?"],
+        "playerAhead": ["지금 속도 늦추지 마.", "그것보다 잘할 수 있잖아."],
+        "playerBehind": ["너무 느려.", "뒤처지고 있어."],
+        "endgame": ["끝내자.", "이건 내 거야."]
+      }
+    },
+    "latch": {
+      "name": "래치",
+      "emojiName": "상어",
+      "personality": "참을성 있고 포식자 같아요. 바짝 붙어 있다가 막판에 거세게 조여 와요.",
+      "voiceLines": {
+        "neutral": ["바로 뒤에 있어.", "아직이야."],
+        "playerAhead": ["그대로 있어.", "이제 가까워졌어."],
+        "playerBehind": ["거리를 좁히는 중.", "거기 있었군."],
+        "endgame": ["이제 끝내자.", "잡았다."]
+      }
+    },
+    "sage": {
+      "name": "세이지",
+      "emojiName": "올빼미",
+      "personality": "침착하고 신중해요. 매끄러운 페이스를 유지해요. 막판은 깔끔하고 필연적이에요.",
+      "voiceLines": {
+        "neutral": ["예상대로네요.", "모든 게 맞아떨어져요."],
+        "playerAhead": ["좋아요.", "알아보셨군요."],
+        "playerBehind": ["끝까지 해 봐요.", "계속 집중해요."],
+        "endgame": ["거의 완성이에요.", "여기 있군요."]
+      }
+    },
+    "phantom": {
+      "name": "팬텀",
+      "emojiName": "검은 고양이",
+      "personality": "말이 없고 사람 같지 않아요. 멈춤이 거의 없어요. 막판은 끊김 없는 빠른 마무리예요.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…여전히."],
+        "playerBehind": ["너무 늦었어.", "망설였군."],
+        "endgame": ["…끝.", "마침."]
+      }
+    },
+    "zenith": {
+      "name": "제니스",
+      "emojiName": "용",
+      "personality": "힘들이지 않고 절대적이에요. 처음부터 끝까지 완벽하게 통제해요. 막판에는 틈도 저항도 없이 결정적이고 거침없이 휩쓸어요.",
+      "voiceLines": {
+        "neutral": ["예상대로.", "일탈은 없다."],
+        "playerAhead": ["시도한 건 현명했어.", "계속해."],
+        "playerBehind": ["이것으로 끝이다.", "다른 길은 없다."],
+        "endgame": ["이상이다.", "완료."]
+      }
+    }
+  }
+}

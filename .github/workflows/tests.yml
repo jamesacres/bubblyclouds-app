@@ -52,6 +52,15 @@ jobs:
       - name: Run linter
         run: pnpm run lint
 
+      - name: Audit for raw user-facing strings
+        run: pnpm run i18n:audit
+
+      - name: Validate locale key and placeholder parity
+        run: pnpm run i18n:validate
+
+      - name: Check native locale resources
+        run: pnpm run i18n:native
+
       - name: Run tests with coverage
         run: pnpm run test:ci
 

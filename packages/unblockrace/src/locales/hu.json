@@ -1,0 +1,271 @@
+{
+  "brand": {
+    "gameName": "Szabad Út Futam"
+  },
+  "controls": {
+    "hint": "Tipp",
+    "hintTitle": "Segítség kérése",
+    "undo": "Visszavonás",
+    "redo": "Újra",
+    "reset": "Visszaállítás"
+  },
+  "labels": {
+    "time": "Idő",
+    "moves": "Lépés",
+    "stageOf": "{{current}}. szakasz / {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} lépés",
+    "moves_other": "{{count}} lépés",
+    "par": "célérték",
+    "overPar": "{{delta}} a célérték felett",
+    "underPar": "{{delta}} a célérték alatt"
+  },
+  "score": {
+    "moves": "lépés",
+    "srOnPar": "lépés, a célértéken",
+    "srOverPar": "lépés, {{delta}} a célérték felett",
+    "srUnderPar": "lépés, {{delta}} a célérték alatt",
+    "upcomingPar": "célérték: {{par}}"
+  },
+  "daily": {
+    "label": "Napi · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Kezdő",
+    "challenging": "Kihívó",
+    "hard": "Nehéz",
+    "expert": "Szakértő"
+  },
+  "collection": {
+    "puzzleLabel": "Gyűjtemény {{number}}. rejtvénye",
+    "theme": {
+      "january": "Új év, új dugó",
+      "february": "Jégbe fagyott dugó",
+      "march": "Szélesre tárva",
+      "april": "Blokkok zápora",
+      "may": "Kinyílnak a sávok",
+      "june": "Csúcssebesség a kijutásban",
+      "july": "Nyári versenysorozat",
+      "august": "Tűzforró dugó",
+      "september": "Vissza a táblához",
+      "october": "Kísértetjárta dugó",
+      "november": "Szabad sávok",
+      "december": "Ünnepi dugó",
+      "default": "Havi rejtvénygyűjtemény"
+    },
+    "error": {
+      "offline": "Nincs internetkapcsolat, kérjük, ellenőrizze a kapcsolatot",
+      "loadFailed": "A rejtvénygyűjtemény betöltése sikertelen"
+    }
+  },
+  "stageClear": {
+    "title": "{{stage}}. szakasz teljesítve",
+    "onPar": "Célértéken",
+    "pointsSuffix": " pont",
+    "leaderboardPoints": "Ranglistapontok",
+    "nextStage": "Következő szakasz",
+    "progress": "{{stage}}. szakasz / {{total}} – még {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Innen nincs kiút – vonja vissza a lépéseket, vagy állítsa vissza a rejtvényt",
+    "dismiss": "Tippértesítés bezárása"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Tartsa fenn a sorozatot a gyűjteményben"
+  },
+  "raceTrack": {
+    "collection": "Gyűjtemény"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Újrapróbálja ezt a szakaszt?",
+      "body": "A jelenlegi ideje és lépései felülíródnak.",
+      "confirm": "Újra"
+    },
+    "reset": {
+      "title": "Visszaállítja ezt a rejtvényt?",
+      "body": "Ez törli a lépéseit, és újrakezdi a rejtvényt.",
+      "confirm": "Visszaállítás"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "méh",
+      "personality": "Nyughatatlan és lelkes. Rövid rohamokban tologatja a blokkokat, aztán megtorpan. A kijárat közelében túl korán felgyorsít, és épp a cél előtt eldugítja a sávot.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Ez elcsúszik!",
+          "Várj... nem, ez elzár...",
+          "Zümm zümm! Helyet csinálok!"
+        ],
+        "playerAhead": ["Hé, lassíts!", "Pont utat törtem…"],
+        "playerBehind": ["Közeledek!", "Nézd, hogy csúszom!"],
+        "endgame": ["A kijárat! Látom!", "Várj... ki parkolt oda?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "kacsa",
+      "personality": "Vidám és céltalan. Lassú és kitartó, hosszú szünetekkel. A hajrában szinte véletlenül sodródik ki a dugóból.",
+      "voiceLines": {
+        "neutral": ["Csak picit odébb tolom...", "Hmm... talán ezt a blokkot."],
+        "playerAhead": ["Remekül haladsz!", "Egyszer én is kijutok."],
+        "playerBehind": ["Ó! Ez megmozdult!", "Ez jó érzés."],
+        "endgame": ["Az ott a kijárat?", "Ó! Az út magától megtisztult."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "gyík",
+      "personality": "Óvatos és figyelmes. Hosszú szünetek, utána kisebb csúsztatássorozatok. A hajrában minden lépés előtt habozik.",
+      "voiceLines": {
+        "neutral": [
+          "Hadd nézzem, mit szabadít fel.",
+          "Ez a csúsztatás biztonságos."
+        ],
+        "playerAhead": [
+          "Most óvatosnak kell lennem.",
+          "Ne dugítsd el a sávot."
+        ],
+        "playerBehind": ["Rendben… közeledek.", "Még van idő."],
+        "endgame": [
+          "Csak óvatosan...",
+          "Mindjárt kint… csak biztosra kell mennem."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "pók",
+      "personality": "Megfontolt és rendszerezett. Gondosan szabadítja fel a sávot, blokkról blokkra. A hajrában a terv széthullik – a habozás mintha azt jelezné, hogy az útvonal már nem tartható.",
+      "voiceLines": {
+        "neutral": ["Ez megnyitja az utat.", "Blokkról blokkra..."],
+        "playerAhead": ["Az útvonal működött...", "Újra kell terveznem..."],
+        "playerBehind": ["Még egyben van.", "Igen… a sáv megnyílik."],
+        "endgame": [
+          "Várj... nem, ez visszazár.",
+          "Ezt az útvonalat megterveztem..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "mosómedve",
+      "personality": "Szívós és ravasz. Egyenetlen ritmus. A hajrában lendületet kap, és a vártnál gyorsabban csúszik ki.",
+      "voiceLines": {
+        "neutral": ["Ez elmozdítja!", "Kicsit szűk, de jó lesz."],
+        "playerAhead": [
+          "Rendben, ideje rákapcsolni.",
+          "Még nem vagyok bezárva."
+        ],
+        "playerBehind": ["Ó, szép rés.", "Most nyílik meg a sáv."],
+        "endgame": ["Igen, szabad az út.", "Most már gurul."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Rendszerezett és módszeres. Egyenletes tempó. A hajrában is nyugodt marad – nincs pánik, nincs hajrázás.",
+      "voiceLines": {
+        "neutral": [
+          "Ez a csúsztatás illik az útvonalhoz.",
+          "Egyenletesen haladok."
+        ],
+        "playerAhead": ["Tartom a tempót.", "Nem kell kapkodni a táblán."],
+        "playerBehind": [
+          "Még jó úton járok.",
+          "A sáv egyenletesen szabadul fel."
+        ],
+        "endgame": ["Mindjárt átjutok.", "Tisztán kijutok."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "majom",
+      "personality": "Kiszámíthatatlan és nyugtalanító. Váratlan rohamok. A hajrában hirtelen úgy felgyorsul, hogy az már igazságtalan.",
+      "voiceLines": {
+        "neutral": ["Heh… nem láttad azt a rést?", "Ó, ez érdekes csúsztatás."],
+        "playerAhead": ["Ne ülj be a kényelembe.", "Figyeld ezt a lépést."],
+        "playerBehind": [
+          "A forgalom néha szétnyílik.",
+          "Szerencsés csúsztatás… vagy mégsem?"
+        ],
+        "endgame": ["Ó, nahát – tárva-nyitva az út.", "Ez gyorsan megtisztult."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "sas",
+      "personality": "Távolságtartó és lebegő. Ritka, magabiztos csúsztatások. Csendes hajrágyorsítás.",
+      "voiceLines": {
+        "neutral": ["Az útvonalat már láttam.", "Csak átcsúszom rajta."],
+        "playerAhead": [
+          "Ez nem változtat az útvonalon.",
+          "Így is, úgy is ugyanaz a kijárat."
+        ],
+        "playerBehind": ["Tulajdonképpen szabad.", "Innen csak gurulok."],
+        "endgame": ["…mindjárt kint.", "Gurulok a kijárat felé."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "róka",
+      "personality": "Hevesen versengő. Gyors rajt, állandó nyomás. A hajrában agresszívan hajt.",
+      "voiceLines": {
+        "neutral": ["Tarts lépést.", "Még mindig a dugóban vagy?"],
+        "playerAhead": [
+          "Most ne állj le.",
+          "Ennél gyorsabban is tudsz csúsztatni."
+        ],
+        "playerBehind": ["Túl lassú vagy.", "Be vagy zárva."],
+        "endgame": ["Szabadítsd fel a sávot.", "Ez a kijárat az enyém."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "cápa",
+      "personality": "Türelmes és ragadozó. Közel marad, majd a hajrában keményen lecsap.",
+      "voiceLines": {
+        "neutral": ["Közvetlenül mögötted.", "Még nem."],
+        "playerAhead": ["Maradj a sávodban.", "Már közel vagyok."],
+        "playerBehind": ["Zárkózom fel.", "Ott a rés."],
+        "endgame": ["Most kicsúszunk.", "Enyém a kijárat."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "bagoly",
+      "personality": "Nyugodt és megfontolt. Egyenletes tempó. A hajrá tiszta és megkerülhetetlen.",
+      "voiceLines": {
+        "neutral": ["Ahogy vártam.", "Minden blokk a helyén."],
+        "playerAhead": ["Jó.", "Látod az útvonalat."],
+        "playerBehind": ["Kövesd a sávot.", "Ne add fel."],
+        "endgame": ["Mindjárt átjutok.", "Ott a kijárat."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "fekete macska",
+      "personality": "Csendes és embertelen. Alig tart szünetet. A hajrá gyors, megszakítás nélküli csúszás a kijárathoz.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…még mindig."],
+        "playerBehind": ["Túl késő.", "Haboztál."],
+        "endgame": ["…kint.", "Kijárat."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "sárkány",
+      "personality": "Könnyed és abszolút. Mindvégig tökéletes kontroll. A hajrában határozott, megállíthatatlan végigsöprést hajt végre a kijárat felé – nincs rés, nincs ellenállás.",
+      "voiceLines": {
+        "neutral": ["Vártam.", "Nincs eltérés."],
+        "playerAhead": ["Jól tetted, hogy megpróbáltad.", "Folytasd."],
+        "playerBehind": ["Ez a vég.", "Nincs alternatíva."],
+        "endgame": ["Ennyi.", "Szabad."]
+      }
+    }
+  }
+}

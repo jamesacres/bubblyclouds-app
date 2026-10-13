@@ -1,0 +1,271 @@
+{
+  "brand": {
+    "gameName": "Vapauta Kisa"
+  },
+  "controls": {
+    "hint": "Vihje",
+    "hintTitle": "Pyydä apua",
+    "undo": "Kumoa",
+    "redo": "Tee uudelleen",
+    "reset": "Nollaa"
+  },
+  "labels": {
+    "time": "Aika",
+    "moves": "Siirrot",
+    "stageOf": "Vaihe {{current}} / {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} siirto",
+    "moves_other": "{{count}} siirtoa",
+    "par": "tavoite",
+    "overPar": "{{delta}} yli tavoitteen",
+    "underPar": "{{delta}} alle tavoitteen"
+  },
+  "score": {
+    "moves": "siirtoa",
+    "srOnPar": "siirtoa, tavoitteessa",
+    "srOverPar": "siirtoa, {{delta}} yli tavoitteen",
+    "srUnderPar": "siirtoa, {{delta}} alle tavoitteen",
+    "upcomingPar": "tavoite {{par}}"
+  },
+  "daily": {
+    "label": "Päivittäinen · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Aloittelija",
+    "challenging": "Haastava",
+    "hard": "Vaikea",
+    "expert": "Asiantuntija"
+  },
+  "collection": {
+    "puzzleLabel": "Kokoelman pulma {{number}}",
+    "theme": {
+      "january": "Uusi vuosi, uusi ruuhka",
+      "february": "Jäätynyt umpisolmu",
+      "march": "Auki selälleen",
+      "april": "Palikkasadekuuroja",
+      "may": "Uudet kaistat kukoistavat",
+      "june": "Huippunopea vapautus",
+      "july": "Kesän kisasarja",
+      "august": "Tulikuuma umpisolmu",
+      "september": "Takaisin laudalle",
+      "october": "Kummitteleva umpisolmu",
+      "november": "Kaistat vapaiksi",
+      "december": "Joulun umpisolmu",
+      "default": "Kuukausittainen kokoelma"
+    },
+    "error": {
+      "offline": "Et ole verkossa, tarkista yhteytesi",
+      "loadFailed": "Pulmakokoelman lataus epäonnistui"
+    }
+  },
+  "stageClear": {
+    "title": "Vaihe {{stage}} läpäisty",
+    "onPar": "Tavoitteessa",
+    "pointsSuffix": " p",
+    "leaderboardPoints": "Tulostaulukon pisteet",
+    "nextStage": "Seuraava vaihe",
+    "progress": "Vaihe {{stage}} / {{total}} — {{remaining}} jäljellä"
+  },
+  "hint": {
+    "unsolvable": "Täältä ei pääse eteenpäin — kumoa tai nollaa palataksesi oikealle tielle",
+    "dismiss": "Sulje vihjeilmoitus"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Pidä putki yllä kokoelmassa"
+  },
+  "raceTrack": {
+    "collection": "Kokoelma"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Yritetäänkö tätä vaihetta uudelleen?",
+      "body": "Nykyinen aikasi ja siirtosi korvataan.",
+      "confirm": "Uusi yritys"
+    },
+    "reset": {
+      "title": "Nollataanko tämä pulma?",
+      "body": "Tämä tyhjentää siirtosi ja aloittaa pulman alusta.",
+      "confirm": "Nollaa"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "mehiläinen",
+      "personality": "Levoton ja innostunut. Liu'uttaa palikoita purskeina ja jää sitten junnaamaan. Uloskäynnin lähellä kiihdyttää liian aikaisin ja tukkii kaistan juuri ennen maalia.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Tämä liukuu!",
+          "Hetkinen — ei, tuo tukkii minut...",
+          "Pörinää pörinää! Tehdään tilaa!"
+        ],
+        "playerAhead": ["Hei, hidasta vähän!", "Minä raivasin juuri tietä…"],
+        "playerBehind": ["Kurson kiinni!", "Katso, miten liu'un!"],
+        "endgame": [
+          "Uloskäynti! Näen sen!",
+          "Hetkinen — kuka tuon tuohon pysäköi?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "ankka",
+      "personality": "Iloinen ja päämäärätön. Hidas ja tasainen pitkin tauoin. Loppupelissä ajautuu ulos umpisolmusta melkein vahingossa.",
+      "voiceLines": {
+        "neutral": ["Tökkäisen tässä vähän...", "Hmm... ehkä tämä palikka."],
+        "playerAhead": [
+          "Sinulla menee loistavasti!",
+          "Kyllä minä vielä ulos pääsen."
+        ],
+        "playerBehind": ["Oi! Tuo liikahti!", "Tämä on mukavaa."],
+        "endgame": ["Onko tuo uloskäynti?", "Oi! Tie aukesi itsestään."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "lisko",
+      "personality": "Varovainen ja tarkkaavainen. Pitkiä taukoja, sitten pieniä liukujen rykelmiä. Loppupelissä epäröi ennen jokaista siirtoa.",
+      "voiceLines": {
+        "neutral": [
+          "Katsotaan, mitä tämä vapauttaa.",
+          "Tämän liu'un pitäisi olla turvallinen."
+        ],
+        "playerAhead": ["Nyt täytyy olla varovainen.", "Älä tuki kaistaa."],
+        "playerBehind": ["Okei… kurson kiinni.", "Aikaa on vielä."],
+        "endgame": [
+          "Varovasti nyt...",
+          "Melkein ulkona… täytyy vain olla varma."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "hämähäkki",
+      "personality": "Harkitseva ja järjestelmällinen. Raivaa kaistan huolellisesti palikka palikalta. Loppupelissä suunnitelma murtuu — epäröinti hiipii mukaan, ikään kuin reitti ei enää pitäisi.",
+      "voiceLines": {
+        "neutral": ["Tämä avaa reitin.", "Palikka palikalta..."],
+        "playerAhead": [
+          "Reitti toimi...",
+          "Minun täytyy suunnitella uusiksi..."
+        ],
+        "playerBehind": ["Pysyy vielä kasassa.", "Kyllä… kaista aukeaa."],
+        "endgame": [
+          "Hetkinen — ei, tuo sulkee minut taas sisään.",
+          "Minulla oli tämä reitti suunniteltu..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "pesukarhu",
+      "personality": "Sisukas ja tilaisuuksia vaaniva. Epätasainen rytmi. Loppupelissä saa vauhdin päälle ja liukuu ulos odotettua nopeammin.",
+      "voiceLines": {
+        "neutral": ["Tämä siirtää sen!", "Vähän ahdasta, mutta kelpaa."],
+        "playerAhead": [
+          "Hyvä on, aika painaa päälle.",
+          "Ei olla vielä loukussa."
+        ],
+        "playerBehind": ["Oi — hyvä aukko.", "Kaista alkaa nyt aueta."],
+        "endgame": ["Joo, tie on selvä.", "Nyt se rullaa."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingviini",
+      "personality": "Järjestelmällinen ja metodinen. Tasainen tahti. Loppupeli pysyy rauhallisena — ei paniikkia, ei loppukiriä.",
+      "voiceLines": {
+        "neutral": ["Tämä liuku sopii reittiin.", "Pysyn tasaisena."],
+        "playerAhead": ["Pidä tahti.", "Ruudukkoa ei tarvitse kiirehtiä."],
+        "playerBehind": [
+          "Edelleen oikealla tiellä.",
+          "Kaista selkenee tasaisesti."
+        ],
+        "endgame": ["Melkein läpi.", "Ulos puhtaasti."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "apina",
+      "personality": "Arvaamaton ja häiritsevä. Ennalta-arvaamattomia purskeita. Loppupelissä kiihdyttää yhtäkkiä tavalla, joka tuntuu epäreilulta.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… etkö nähnyt tuota aukkoa?",
+          "Oho, kiinnostava liuku."
+        ],
+        "playerAhead": ["Älä totu liian mukavaan.", "Katsopa tätä siirtoa."],
+        "playerBehind": [
+          "Joskus liikenne vain aukeaa.",
+          "Tuuri liuku… vai oliko?"
+        ],
+        "endgame": ["Oho — tie on aivan auki.", "Tuo aukesi nopeasti."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "kotka",
+      "personality": "Etäinen ja sulava. Hajanaisia, varmoja liukuja. Hiljainen loppukiihdytys.",
+      "voiceLines": {
+        "neutral": ["Reitti oli jo nähty.", "Liu'un vain läpi."],
+        "playerAhead": ["Ei muuta reittiä.", "Sama uloskäynti kummin vain."],
+        "playerBehind": ["Se on oikeastaan jo auki.", "Lipuu eteenpäin."],
+        "endgame": ["…melkein ulkona.", "Rullaan uloskäynnille."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "kettu",
+      "personality": "Tulinen ja kilpailuhenkinen. Nopea alku, jatkuva paine. Loppukiri tuntuu aggressiiviselta.",
+      "voiceLines": {
+        "neutral": ["Pysy mukana.", "Vieläkö jumissa ruuhkassa?"],
+        "playerAhead": ["Älä pysähdy nyt.", "Osaat liu'uttaa nopeammin."],
+        "playerBehind": ["Liian hidasta.", "Olet loukussa."],
+        "endgame": ["Raivaa kaista.", "Tämä uloskäynti on minun."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "hai",
+      "personality": "Kärsivällinen ja saalistava. Pysyy lähellä ja iskee kovaa loppupelissä.",
+      "voiceLines": {
+        "neutral": ["Aivan perässäsi.", "Ei vielä."],
+        "playerAhead": ["Pysy kaistallasi.", "Olen jo lähellä."],
+        "playerBehind": ["Lähestyn.", "Tuossa on aukko."],
+        "endgame": ["Nyt liu'utaan ulos.", "Sain uloskäynnin."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "pöllö",
+      "personality": "Rauhallinen ja harkitseva. Sujuva tahti. Loppupeli on puhdas ja väistämätön.",
+      "voiceLines": {
+        "neutral": ["Kuten odotettua.", "Jokainen palikka paikallaan."],
+        "playerAhead": ["Hyvä.", "Näet reitin."],
+        "playerBehind": ["Seuraa kaistaa.", "Pysy mukana."],
+        "endgame": ["Melkein läpi.", "Tuolla on uloskäynti."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "musta kissa",
+      "personality": "Hiljainen ja epäinhimillinen. Minimaalisia taukoja. Loppupeli on nopea, keskeytymätön liuku uloskäynnille.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…yhä."],
+        "playerBehind": ["Liian myöhään.", "Epäröit."],
+        "endgame": ["…ulos.", "Ulos."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "lohikäärme",
+      "personality": "Vaivaton ja ehdoton. Pitää täydellisen otteen koko ajan. Loppupelissä tekee ratkaisevan, keskeytymättömän pyyhkäisyn uloskäynnille — ei aukkoja, ei vastarintaa.",
+      "voiceLines": {
+        "neutral": ["Odotettua.", "Ei poikkeamia."],
+        "playerAhead": ["Yrittäminen oli viisasta.", "Jatka."],
+        "playerBehind": ["Tämä päättyy tähän.", "Ei vaihtoehtoa."],
+        "endgame": ["Siinä kaikki.", "Selvä."]
+      }
+    }
+  }
+}

@@ -67,12 +67,14 @@ jest.mock('@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl', () => ({
   }),
 }));
 
+const mockStartVideo = jest.fn(() => Promise.resolve());
+
 // Mock for Processor (using dynamic import)
 jest.mock('@/augmentedReality/Processor', () => {
   return function MockProcessor() {
     return {
       on: jest.fn(),
-      startVideo: jest.fn(() => Promise.resolve()),
+      startVideo: mockStartVideo,
       stopVideo: jest.fn(),
       setSolver: jest.fn(),
       off: jest.fn(),
@@ -442,13 +444,23 @@ describe('Import Page', () => {
   });
 
   describe('Error handling', () => {
-    it('should handle alert on error gracefully', () => {
-      window.alert = jest.fn();
+    it('should log the raw camera error and alert a localised message', async () => {
+      const rawError = new Error('NotAllowedError: raw device message');
+      mockStartVideo.mockImplementationOnce(() => Promise.reject(rawError));
+      const consoleError = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
 
       render(<ImportPage />);
 
-      // Should not throw on potential errors
-      expect(true).toBe(true);
+      await waitFor(() => {
+        expect(window.alert).toHaveBeenCalledWith(
+          'Could not start the camera. Please check permissions and try again.'
+        );
+      });
+      expect(window.alert).not.toHaveBeenCalledWith(rawError.message);
+      expect(consoleError).toHaveBeenCalledWith(rawError);
+      consoleError.mockRestore();
     });
   });
 

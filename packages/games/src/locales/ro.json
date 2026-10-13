@@ -1,0 +1,267 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Carte",
+    "defaultDetailNoun": "cărți de puzzle-uri"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Colecție lunară"
+  },
+  "hintBox": {
+    "dismiss": "Închideți indiciul"
+  },
+  "lobbyButton": {
+    "opponents": "Adversari"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Continuați — puzzle următor",
+    "continueLocked": "Continuați ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} din {{total}} {{label}} finalizate"
+  },
+  "countdownOverlay": {
+    "getReady": "Pregătiți-vă",
+    "go": "START!"
+  },
+  "confirmDialog": {
+    "cancel": "Anulare"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · finalizat",
+    "retry": "Reîncercați",
+    "points": "+{{points}} pct",
+    "leaderboardPoints": "Puncte în clasament"
+  },
+  "raceTimer": {
+    "time": "Timp"
+  },
+  "stageTopBar": {
+    "previous": "Anterior"
+  },
+  "raceHud": {
+    "opponents": "Adversari",
+    "stageOf": "Etapa {{current}} din {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Sosire!",
+    "runComplete": "Cursă încheiată",
+    "leaderboardPoints": "Puncte în clasament",
+    "pointsSuffix": " pct"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Du",
+      "monday": "Lu",
+      "tuesday": "Ma",
+      "wednesday": "Mi",
+      "thursday": "Jo",
+      "friday": "Vi",
+      "saturday": "Sâ"
+    },
+    "dayStreak_one": "zi consecutivă",
+    "dayStreak_few": "zile consecutive",
+    "dayStreak_other": "zile consecutive",
+    "thisMonth": "luna aceasta"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Dvs.)",
+    "puzzles_one": "{{count}} puzzle",
+    "puzzles_few": "{{count}} puzzle-uri",
+    "puzzles_other": "{{count}} de puzzle-uri",
+    "average": "Medie: {{time}}",
+    "best": "Cel mai bun: {{time}}",
+    "wins_one": "🏁 {{count}} victorie",
+    "wins_few": "🏁 {{count}} victorii",
+    "wins_other": "🏁 {{count}} de victorii",
+    "points_one": "punct",
+    "points_few": "puncte",
+    "points_other": "de puncte"
+  },
+  "scoreBreakdown": {
+    "title": "Detaliile punctajului",
+    "volumeBonus": {
+      "label": "Bonus de volum",
+      "detail_one": "{{count}} puzzle finalizat",
+      "detail_few": "{{count}} puzzle-uri finalizate",
+      "detail_other": "{{count}} de puzzle-uri finalizate"
+    },
+    "dailyPuzzles": {
+      "label": "Puzzle-uri zilnice",
+      "detail_one": "{{count}} provocare zilnică",
+      "detail_few": "{{count}} provocări zilnice",
+      "detail_other": "{{count}} de provocări zilnice"
+    },
+    "collectionPuzzles": {
+      "label": "Puzzle-uri {{collection}}",
+      "detail": "{{count}} din {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Puzzle-uri scanate",
+      "detail_one": "{{count}} puzzle importat",
+      "detail_few": "{{count}} puzzle-uri importate",
+      "detail_other": "{{count}} de puzzle-uri importate"
+    },
+    "difficultyBonus": {
+      "label": "Bonus de dificultate",
+      "detail": "Puzzle-uri mai grele = mai multe puncte"
+    },
+    "speedBonus": {
+      "label": "Bonus de viteză",
+      "detail": "Cel mai rapid: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Bonus de cursă",
+      "detail": "Învingeți prietenii care au finalizat și ei"
+    },
+    "dailyCombo": {
+      "label": "Combo zilnic",
+      "detail": "Mai multe puzzle-uri pe zi = multiplicator mai mare"
+    }
+  },
+  "leaderboard": {
+    "you": "Dvs.",
+    "unknownUser": "Utilizator necunoscut",
+    "title": "Clasament",
+    "subtitleParty": "Ultimele 30 de zile · {{partyName}}",
+    "subtitleAllTeams": "Ultimele 30 de zile · Toate echipele",
+    "howScoringWorks": "Cum funcționează punctajul"
+  },
+  "scoringLegend": {
+    "title": "Cum funcționează punctajul",
+    "subtitle": "{{gameName}} · Ultimele 30 de zile",
+    "close": "Închideți",
+    "racingWins": {
+      "title": "Victorii în cursă",
+      "body": "Câștigați <points>+{{points}} pct</points> pentru fiecare prieten pe care îl învingeți la același puzzle finalizat. Terminați primul în fața a {{friends}} prieteni și primiți <points>+{{total}} pct</points>."
+    },
+    "basePoints": {
+      "title": "Puncte de bază",
+      "anyPuzzle": "Orice puzzle",
+      "dailyPuzzle": "Puzzle zilnic",
+      "collectionPuzzle": "Puzzle {{collection}}",
+      "scannedPuzzle": "Puzzle scanat"
+    },
+    "difficultyMultipliers": {
+      "title": "Multiplicatori de dificultate",
+      "daily": "{{gameName}}: provocarea zilei",
+      "collection": "Puzzle-uri {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Bonusuri de viteză",
+      "lightning": "Fulger",
+      "fast": "Rapid",
+      "quick": "Prompt",
+      "steady": "Constant",
+      "under": "sub {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Combo zilnic",
+      "body": "Rezolvați mai multe puzzle-uri în aceeași zi pentru a multiplica punctele fiecărui puzzle, până la <max>{{max}}×</max>.",
+      "puzzle": "Puzzle-ul {{puzzle}} al zilei",
+      "puzzleOrMore": "Puzzle-ul {{puzzle}}+ al zilei"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Cursă încheiată",
+    "raceProgress": "Progresul cursei",
+    "stagesProgress": "{{completed}}/{{total}} etape",
+    "retryStage": "Reluați etapa",
+    "stageLabel": "Etapa {{number}}",
+    "stageCompletedLabel": "Etapa {{number}}, finalizată în {{time}}",
+    "viewRacingStats": "Vedeți statisticile cursei",
+    "total": "Total"
+  },
+  "raceTrack": {
+    "you": "Dvs.",
+    "viewFriends": "Faceți clic pentru a vedea prietenii",
+    "start": "Start",
+    "finish": "Sosire",
+    "inviteToRace": "Invitați prieteni la cursă",
+    "opponents": "Adversari",
+    "racer": "Concurent",
+    "stageBadge": "E{{number}}",
+    "total": "Total",
+    "leaderboard": "Clasament",
+    "puzzleBook": "Carte de puzzle-uri",
+    "puzzleBookLabel": "carte de puzzle-uri",
+    "refreshScores": "Reîmprospătați scorurile",
+    "challengeFriends": "🏁 Provocați prietenii",
+    "yourTime": "Timpul dvs.:",
+    "inviteFriends": "Invitați prieteni",
+    "racingLabel": "în cursă"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Complicat",
+      "easy": "Provocator",
+      "intermediate": "Dificil",
+      "expert": "Expert"
+    },
+    "book": {
+      "veryEasy": "Foarte ușor",
+      "easy": "Ușor",
+      "moderatelyEasy": "Destul de ușor",
+      "moderate": "Mediu",
+      "moderatelyHard": "Destul de dificil",
+      "hard": "Dificil",
+      "vicious": "Feroce",
+      "fiendish": "Diabolic",
+      "devilish": "Demonic",
+      "hell": "Iad",
+      "beyondHell": "Dincolo de iad"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Ultima cifră",
+    "hiddenSingleBox": "Single ascuns (Careu)",
+    "hiddenSingleLine": "Single ascuns (Linie)",
+    "hiddenSingleVariantRegion": "Single ascuns (Regiune variantă)",
+    "nakedSingle": "Single evident",
+    "hiddenPair": "Pereche ascunsă",
+    "lockedCandidate": "Candidat blocat",
+    "hiddenTriple": "Triplet ascuns",
+    "hiddenQuadruple": "Cvadruplet ascuns",
+    "nakedPair": "Pereche evidentă",
+    "nakedTriple": "Triplet evident",
+    "nakedQuadruple": "Cvadruplet evident",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String-Kite",
+    "crane": "Crane",
+    "simpleColoring": "Colorare simplă",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing Finned/Sashimi",
+    "emptyRectangle": "Dreptunghi gol",
+    "uniqueRectangleType1": "Dreptunghi unic tip 1",
+    "uniqueRectangleType2": "Dreptunghi unic tip 2",
+    "uniqueRectangleType3": "Dreptunghi unic tip 3",
+    "uniqueRectangleType4": "Dreptunghi unic tip 4",
+    "uniqueRectangleType5": "Dreptunghi unic tip 5",
+    "finnedSashimiSwordfish": "Swordfish Finned/Sashimi",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "X-Chain",
+    "groupedXChain": "X-Chain grupat",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Jellyfish Finned/Sashimi",
+    "medusa3D": "Medusa 3D",
+    "xyChain": "XY-Chain",
+    "alternatingInferenceChainAIC": "Lanț de inferență alternantă (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Lanț de inferență alternantă grupat (AIC)",
+    "nishioForcingChain": "Lanț forțat Nishio",
+    "nishioForcingNet": "Rețea forțată Nishio"
+  }
+}

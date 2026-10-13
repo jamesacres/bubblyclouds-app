@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useMemo } from 'react';
 import { InAppReview } from '@capacitor-community/in-app-review';
 import { Trophy } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { CountUp } from '@bubblyclouds-app/ui/components/CountUp';
 import RaceCelebrationOverlay, {
@@ -47,6 +48,7 @@ const RaceCelebration = ({
   completedGamesCount = 0,
   isCapacitor,
 }: RaceCelebrationProps) => {
+  const { t } = useTranslation('games');
   // The same rating-prompt milestones the shared celebration used, kept so
   // swapping the visuals doesn't drop the review ask.
   useEffect(() => {
@@ -108,18 +110,18 @@ const RaceCelebration = ({
             <CountUp
               value={points}
               prefix="+"
-              suffix=" pts"
+              suffix={t('raceCelebration.pointsSuffix')}
               startDelayMs={900}
               className="font-mono text-3xl font-black tabular-nums text-amber-300"
             />
             <span className="text-[0.65rem] font-black uppercase tracking-widest text-white/60">
-              Leaderboard points
+              {t('raceCelebration.leaderboardPoints')}
             </span>
           </div>
         )}
       </>
     ),
-    [stars, points, statsLine]
+    [stars, points, statsLine, t]
   );
 
   if (!isVisible) {
@@ -130,13 +132,13 @@ const RaceCelebration = ({
     <div data-testid="race-celebration">
       <RaceCelebrationOverlay
         isVisible={isVisible}
-        title="Finish!"
+        title={t('raceCelebration.finish')}
         confettiColors={confettiColors}
         checkered
         badge={
           <div className="flex items-center gap-2 rounded-full bg-zinc-900/85 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-white shadow-lg ring-1 ring-white/15">
             <Trophy className="h-4 w-4 text-amber-400" aria-hidden="true" />
-            Run complete
+            {t('raceCelebration.runComplete')}
           </div>
         }
         belowBadge={belowBadge}
@@ -144,23 +146,24 @@ const RaceCelebration = ({
         {/* Victory lap: the hero car streaks across below the banner with a
             light trail, the same anatomy as its board self at pill scale */}
         <div
+          dir="ltr"
           className="celebration-motion absolute"
           style={{
             top: '68%',
-            left: '-12%',
+            insetInlineStart: '-12%',
             animation: `race-celebration-victory-lap 1500ms cubic-bezier(0.5, 0, 0.7, 1) 700ms both`,
           }}
         >
           <style>{`
             @keyframes race-celebration-victory-lap {
-              from { left: -12%; }
-              to { left: 112%; }
+              from { inset-inline-start: -12%; }
+              to { inset-inline-start: 112%; }
             }
           `}</style>
           <div className="relative h-6 w-12">
             {/* Trail */}
             <div
-              className="absolute right-full top-1/2 h-1.5 w-28 -translate-y-1/2 rounded-full opacity-70"
+              className="absolute end-full top-1/2 h-1.5 w-28 -translate-y-1/2 rounded-full opacity-70"
               style={{
                 background:
                   'linear-gradient(to left, var(--theme-primary), transparent)',
@@ -178,8 +181,8 @@ const RaceCelebration = ({
             >
               {/* Racing stripe, cabin and headlight matching the board hero */}
               <div className="absolute inset-x-1 top-1/2 h-1 -translate-y-1/2 rounded-full bg-white/35" />
-              <div className="absolute bottom-1 left-1/3 top-1 w-1/3 rounded-sm bg-slate-900/45" />
-              <div className="absolute -right-px top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_3px_rgba(255,255,255,0.8)]" />
+              <div className="absolute bottom-1 start-1/3 top-1 w-1/3 rounded-sm bg-slate-900/45" />
+              <div className="absolute -end-px top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-white shadow-[0_0_8px_3px_rgba(255,255,255,0.8)]" />
             </div>
           </div>
         </div>

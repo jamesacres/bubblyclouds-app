@@ -7,8 +7,8 @@ import { PremiumFeatures } from '@bubblyclouds-app/template/components/PremiumFe
 import { RateAppButton } from '@bubblyclouds-app/template/components/RateAppButton';
 import { CrossPromoCard } from '@bubblyclouds-app/template/components/CrossPromoCard';
 import SocialProof from '@bubblyclouds-app/template/components/SocialProof';
-import { PREMIUM_FEATURES } from '../config/premiumFeatures';
-import { motivationalMessages } from '../config/motivationalMessages';
+import { getPremiumFeatures } from '../config/premiumFeatures';
+import { useMotivationalMessages } from '../config/motivationalMessages';
 import Footer from '@bubblyclouds-app/ui/components/Footer';
 import MyPuzzlesTab from '@bubblyclouds-app/template/components/MyPuzzlesTab';
 import FriendsTab from '@bubblyclouds-app/template/components/FriendsTab';
@@ -16,11 +16,13 @@ import ActivityWidget from '@bubblyclouds-app/games/components/ActivityWidget';
 import UnblockLeaderboard from '../components/UnblockLeaderboard';
 import { useParties } from '@bubblyclouds-app/template/hooks/useParties';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import {
   Suspense,
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -71,6 +73,7 @@ const RACE_LANE_BLOCKS = [
 const RaceLanesPreview = () => (
   <div
     aria-hidden="true"
+    dir="ltr"
     className="relative w-full overflow-hidden rounded-2xl"
     style={{
       background: 'rgba(2,8,20,0.85)',
@@ -78,7 +81,7 @@ const RaceLanesPreview = () => (
     }}
   >
     <div
-      className="absolute bottom-1 right-1 top-1 w-2 rounded-sm opacity-60"
+      className="absolute bottom-1 end-1 top-1 w-2 rounded-sm opacity-60"
       style={{
         background:
           'repeating-conic-gradient(rgba(255,255,255,0.8) 0% 25%, rgba(2,6,23,0.9) 0% 50%) 0 0 / 4px 4px',
@@ -102,6 +105,9 @@ const RaceLanesPreview = () => (
 );
 
 function HomeComponent() {
+  const { t, i18n } = useTranslation('app');
+  const { t: tUnblock } = useTranslation('unblockrace');
+  const motivationalMessages = useMotivationalMessages();
   const searchParams = useSearchParams();
   const [tab, setTab] = useState(searchParams.get('tab') || Tab.START_PUZZLE);
 
@@ -204,6 +210,16 @@ function HomeComponent() {
     'en-US',
     { month: 'long', timeZone: 'UTC' }
   );
+  const displayMonth = new Date().toLocaleString(i18n.language, {
+    month: 'long',
+    timeZone: 'UTC',
+  });
+
+  const premiumFeatures = useMemo(() => getPremiumFeatures(t), [t]);
+  const getDifficultyDisplay = useCallback(
+    (difficulty: string) => getUnblockDifficultyDisplay(difficulty, tUnblock),
+    [tUnblock]
+  );
 
   return (
     <>
@@ -244,20 +260,20 @@ function HomeComponent() {
                 >
                   <Image
                     src="/icons/icon-128.webp"
-                    alt="Unblock Race"
+                    alt={t('brand.gameName')}
                     width={64}
                     height={64}
                     className="h-[64px] w-[64px]"
                   />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
                     <span className="text-base font-bold tracking-tight text-white/70">
-                      Unblock Race
+                      {t('brand.gameName')}
                     </span>
-                    <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-cyan-300">
+                    <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-cyan-300">
                       <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
-                      Live
+                      {t('home.hero.live')}
                     </span>
                   </div>
                 </div>
@@ -272,16 +288,15 @@ function HomeComponent() {
                       '0 0 12px rgba(56,189,248,0.75), 0 0 30px rgba(59,130,246,0.55), 0 0 60px rgba(59,130,246,0.3)',
                   }}
                 >
-                  Clear the jam.
+                  {t('home.hero.headlineLine1')}
                   <br />
                   <span className="bg-gradient-to-r from-sky-300 via-cyan-200 to-blue-400 bg-clip-text text-transparent">
-                    Win the race
+                    {t('home.hero.headlineAccent')}
                   </span>{' '}
                   🏁
                 </h1>
                 <p className="mb-3 text-base font-medium leading-snug text-white/60 md:text-lg">
-                  Slide the blocks, break the glowing one free, and race your
-                  friends to the exit.
+                  {t('home.hero.subtitle')}
                 </p>
                 <SocialProof motivationalMessages={motivationalMessages} />
               </div>
@@ -307,7 +322,7 @@ function HomeComponent() {
                     >
                       <Award className="h-3.5 w-3.5 text-cyan-300" />
                       <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-300">
-                        Leaderboard
+                        {t('home.leaderboard')}
                       </span>
                     </button>
                   }
@@ -318,17 +333,17 @@ function HomeComponent() {
               <div className="mb-4">
                 <div className="mb-3 flex items-center justify-between">
                   <h2 className="text-base font-black tracking-tight text-white">
-                    Daily race
+                    {t('home.dailyRace.title')}
                   </h2>
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
-                    refreshes daily
+                    {t('home.dailyRace.refreshesDaily')}
                   </span>
                 </div>
 
                 <button
                   onClick={() => openUnblockRaceOfTheDay()}
                   disabled={isLoading}
-                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] disabled:opacity-40"
+                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-start transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] disabled:opacity-40"
                   style={{
                     background:
                       'linear-gradient(155deg, rgba(30,64,175,0.5) 0%, rgba(4,12,30,0.92) 65%)',
@@ -340,13 +355,13 @@ function HomeComponent() {
                   <div className="flex items-center gap-4">
                     <div className="min-w-0 flex-1">
                       <p className="font-orbitron mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300">
-                        Today&apos;s race
+                        {t('home.dailyRace.todaysRace')}
                       </p>
                       <p className="mb-1 text-xl font-black leading-tight text-white">
-                        Beginner → Expert
+                        {t('home.dailyRace.difficultyRange')}
                       </p>
                       <p className="mb-3 text-xs leading-snug text-white/50">
-                        Five boards, one clock — fastest escape wins.
+                        {t('home.dailyRace.description')}
                       </p>
                       <div className="mb-3 flex items-center gap-1.5">
                         {[
@@ -365,8 +380,8 @@ function HomeComponent() {
                             }}
                           />
                         ))}
-                        <span className="ml-1 text-[10px] font-semibold uppercase tracking-wider text-white/35">
-                          5 stages
+                        <span className="ms-1 text-[10px] font-semibold uppercase tracking-wider text-white/35">
+                          {t('home.dailyRace.stages')}
                         </span>
                       </div>
                       <span
@@ -378,7 +393,7 @@ function HomeComponent() {
                         }}
                       >
                         <Zap className="h-3.5 w-3.5" />
-                        Start racing
+                        {t('home.dailyRace.start')}
                       </span>
                     </div>
                     <div className="w-[42%] max-w-[210px] shrink-0">
@@ -388,23 +403,23 @@ function HomeComponent() {
                 </button>
 
                 <p className="mt-2 text-xs text-white/30">
-                  More puzzles in the{' '}
+                  {t('home.dailyRace.morePuzzlesPrefix')}{' '}
                   <button
                     onClick={openCollection}
                     className="text-white/55 underline underline-offset-2 hover:text-white/75"
                   >
-                    puzzle collection
+                    {t('home.dailyRace.puzzleCollection')}
                   </button>
                 </p>
               </div>
 
               {/* Monthly collection + Racing teams — compact landscape
-                  cards sharing the daily race card's text-left,
+                  cards sharing the daily race card's text-start,
                   board-right layout */}
               <div className="grid grid-cols-1 gap-3 md:grid-cols-[3fr_2fr]">
                 <button
                   onClick={openCollection}
-                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
+                  className="group relative w-full cursor-pointer overflow-hidden rounded-3xl p-4 text-start transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
                   style={{
                     background:
                       'linear-gradient(155deg, rgba(11,58,143,0.45) 0%, rgba(4,12,30,0.92) 60%, rgba(14,116,144,0.3) 100%)',
@@ -416,14 +431,15 @@ function HomeComponent() {
                   <div className="flex items-center gap-4 md:gap-6">
                     <div className="min-w-0 flex-1">
                       <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-white/35">
-                        {currentMonth} · 50 puzzles
+                        {t('home.collection.eyebrow', { month: displayMonth })}
                       </p>
                       <p className="mb-1 text-xl font-black leading-tight text-white md:text-2xl">
-                        Monthly collection
+                        {t('home.collection.title')}
                       </p>
                       <p className="mb-3 text-xs leading-snug text-white/50 md:text-sm">
-                        50 fresh jams for {currentMonth} — clear them all before
-                        the month is out.
+                        {t('home.collection.description', {
+                          month: displayMonth,
+                        })}
                       </p>
                       <span
                         className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold text-white"
@@ -434,7 +450,7 @@ function HomeComponent() {
                         }}
                       >
                         <BookOpen className="h-3.5 w-3.5" />
-                        Browse puzzles
+                        {t('home.collection.browse')}
                       </span>
                     </div>
                     <div className="w-[34%] max-w-[150px] shrink-0">
@@ -446,11 +462,11 @@ function HomeComponent() {
                 </button>
                 <button
                   onClick={() => handleTabChange(Tab.FRIENDS)}
-                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-left transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
+                  className="liquid-glass flex cursor-pointer flex-col rounded-3xl p-4 text-start transition-all duration-200 hover:scale-[1.01] active:scale-[0.97] md:p-6"
                 >
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-semibold uppercase tracking-wider text-white/35">
-                      Multiplayer
+                      {t('home.teams.eyebrow')}
                     </p>
                     <div
                       className="flex h-8 w-8 items-center justify-center rounded-lg"
@@ -463,15 +479,17 @@ function HomeComponent() {
                     </div>
                   </div>
                   <p className="mb-2 text-xl font-black leading-tight text-white md:text-2xl">
-                    Racing teams
+                    {t('home.teams.title')}
                   </p>
                   <div className="my-auto py-2">
                     <RaceLanesPreview />
                   </div>
                   <p className="mt-2 text-xs leading-snug text-white/45">
                     {friendsList?.length
-                      ? `Race ${friendsList.slice(0, 2).join(', ')} and more`
-                      : 'Challenge friends to a race'}
+                      ? t('home.teams.raceFriends', {
+                          names: friendsList.slice(0, 2).join(', '),
+                        })
+                      : t('home.teams.challengeFriends')}
                   </p>
                 </button>
               </div>
@@ -479,8 +497,8 @@ function HomeComponent() {
               {/* Cross-promo: Sudoku Race, and Rate the app */}
               <div className="mt-4 space-y-3">
                 <CrossPromoCard
-                  gameName={CROSS_PROMO.gameName}
-                  tagline={CROSS_PROMO.tagline}
+                  gameName={t('crossPromo.gameName')}
+                  tagline={t('crossPromo.tagline')}
                   preview={<SudokuBoardPreview />}
                   appUrl={CROSS_PROMO.appUrl}
                   appStoreUrl={CROSS_PROMO.appStoreUrl}
@@ -488,7 +506,7 @@ function HomeComponent() {
                 />
                 <RateAppButton
                   variant="card"
-                  appName={APP_CONFIG.gameName}
+                  appName={t('brand.gameName')}
                   appStoreUrl={APP_CONFIG.appStoreUrl}
                   googlePlayUrl={APP_CONFIG.googlePlayUrl}
                 />
@@ -498,9 +516,9 @@ function HomeComponent() {
 
           {/* Premium features */}
           <PremiumFeatures
-            features={PREMIUM_FEATURES}
-            title="Premium features"
-            subtitle="Unlock the full Unblock Race experience"
+            features={premiumFeatures}
+            title={t('home.premium.title')}
+            subtitle={t('home.premium.subtitle')}
           />
 
           <div className="h-32" />
@@ -510,7 +528,9 @@ function HomeComponent() {
           <div className="container mx-auto max-w-4xl px-5">
             <div className="flex flex-col gap-3 pb-4 pt-5">
               <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
-                {tab === Tab.MY_PUZZLES ? 'My Puzzles' : 'Racing Teams'}
+                {tab === Tab.MY_PUZZLES
+                  ? t('home.tabs.myPuzzles')
+                  : t('home.tabs.racingTeams')}
               </h1>
               {tab === Tab.MY_PUZZLES && (
                 <ActivityWidget sessions={sessions || []} />
@@ -525,7 +545,7 @@ function HomeComponent() {
                 }
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
-                getDifficultyDisplay={getUnblockDifficultyDisplay}
+                getDifficultyDisplay={getDifficultyDisplay}
                 getMovesDisplay={movesDisplayFromState}
                 getStarRating={starRatingFromState}
               />
@@ -543,8 +563,8 @@ function HomeComponent() {
                 isPuzzleCheated={isPuzzleCheated}
                 buildPuzzleUrlFromState={buildPuzzleUrlFromState}
                 LeaderboardComponent={UnblockLeaderboard}
-                gameName={APP_CONFIG.gameName}
-                getDifficultyDisplay={getUnblockDifficultyDisplay}
+                gameName={t('brand.gameName')}
+                getDifficultyDisplay={getDifficultyDisplay}
                 getMovesDisplay={movesDisplayFromState}
                 getStarRating={starRatingFromState}
               />
@@ -556,7 +576,7 @@ function HomeComponent() {
       <Footer isCapacitor={isCapacitor}>
         <button
           onClick={() => handleTabChange(Tab.START_PUZZLE)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.START_PUZZLE)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.START_PUZZLE)}`}
         >
           <Zap
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -565,11 +585,13 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">Start Race</span>
+          <span className="break-words text-center text-xs font-medium leading-tight">
+            {t('home.tabs.startRace')}
+          </span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.MY_PUZZLES)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.MY_PUZZLES)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.MY_PUZZLES)}`}
         >
           <Award
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -578,11 +600,13 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">My Puzzles</span>
+          <span className="break-words text-center text-xs font-medium leading-tight">
+            {t('home.tabs.myPuzzles')}
+          </span>
         </button>
         <button
           onClick={() => handleTabChange(Tab.FRIENDS)}
-          className={`group inline-flex cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.FRIENDS)}`}
+          className={`group inline-flex min-w-0 cursor-pointer flex-col items-center justify-center px-0 transition-all duration-200 active:opacity-70 ${tabBackground(Tab.FRIENDS)}`}
         >
           <Users
             className={`mb-1 h-6 w-6 transition-all duration-200 ${
@@ -591,7 +615,9 @@ function HomeComponent() {
                 : 'text-gray-400 dark:text-gray-500'
             }`}
           />
-          <span className="text-center text-xs font-medium">Racing Teams</span>
+          <span className="break-words text-center text-xs font-medium leading-tight">
+            {t('home.tabs.racingTeams')}
+          </span>
         </button>
       </Footer>
     </>

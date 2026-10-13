@@ -1,0 +1,518 @@
+{
+  "packages/ui": {
+    "header.back": {
+      "max": 14,
+      "reason": "Header back link: chevron plus one text-base line beside the title"
+    },
+    "timer.go": {
+      "max": 6,
+      "reason": "Timer cell shares the width of the mm:ss readout"
+    },
+    "copyButton.copy": {
+      "max": 28,
+      "reason": "Invite button: icon plus one-line label, also used in a compact variant"
+    },
+    "copyButton.share": {
+      "max": 28,
+      "reason": "Invite button: icon plus one-line label, also used in a compact variant"
+    },
+    "share.dialogTitle": {
+      "max": 30,
+      "reason": "Native share-sheet title"
+    }
+  },
+  "packages/auth": {
+    "header.signIn": {
+      "max": 14,
+      "reason": "Header pill (px-4, text-sm) sharing the bar with the logo and avatar"
+    },
+    "login.continue": {
+      "max": 16,
+      "reason": "Dialog buttons laid out side by side"
+    },
+    "login.cancel": {
+      "max": 16,
+      "reason": "Dialog buttons laid out side by side"
+    },
+    "deleteDialog.cancel": {
+      "max": 16,
+      "reason": "Dialog buttons laid out side by side"
+    },
+    "deleteDialog.submit": {
+      "max": 24,
+      "reason": "Dialog button laid out side by side with Cancel"
+    },
+    "deleteDialog.deleting": {
+      "max": 20,
+      "reason": "In-progress label replaces the submit button text"
+    },
+    "panel.signOut": {
+      "max": 20,
+      "reason": "Account panel action row"
+    }
+  },
+  "packages/template": {
+    "tier.novice": {
+      "max": 14,
+      "reason": "TierBadge: 9px uppercase pill, whiteSpace nowrap"
+    },
+    "tier.advancedBeginner": {
+      "max": 14,
+      "reason": "TierBadge: 9px uppercase pill, whiteSpace nowrap"
+    },
+    "tier.competent": {
+      "max": 14,
+      "reason": "TierBadge: 9px uppercase pill, whiteSpace nowrap"
+    },
+    "tier.proficient": {
+      "max": 14,
+      "reason": "TierBadge: 9px uppercase pill, whiteSpace nowrap"
+    },
+    "tier.expert": {
+      "max": 14,
+      "reason": "TierBadge: 9px uppercase pill, whiteSpace nowrap"
+    },
+    "agentSelect.skill.novice": {
+      "max": 16,
+      "reason": "Skill chip on an AI rival card, one line"
+    },
+    "agentSelect.skill.advancedBeginner": {
+      "max": 16,
+      "reason": "Skill chip on an AI rival card, one line"
+    },
+    "agentSelect.skill.competent": {
+      "max": 16,
+      "reason": "Skill chip on an AI rival card, one line"
+    },
+    "agentSelect.skill.proficient": {
+      "max": 16,
+      "reason": "Skill chip on an AI rival card, one line"
+    },
+    "agentSelect.skill.expert": {
+      "max": 16,
+      "reason": "Skill chip on an AI rival card, one line"
+    },
+    "plus.lifetime": {
+      "max": 22,
+      "reason": "Plan row label sharing the line with the price in the Plus modal"
+    },
+    "plus.monthly": {
+      "max": 22,
+      "reason": "Plan row label sharing the line with the price in the Plus modal"
+    },
+    "plus.continue": {
+      "max": 24,
+      "reason": "Plus modal action buttons"
+    },
+    "plus.restorePurchases": {
+      "max": 32,
+      "reason": "Plus modal text button, one line"
+    },
+    "lobby.addAgent": {
+      "max": 12,
+      "reason": "PillButton in the AI opponents section head beside title and count"
+    },
+    "lobby.invite.button": {
+      "max": 14,
+      "reason": "PillButton in the opponents section head"
+    },
+    "lobby.finished": {
+      "max": 14,
+      "reason": "FinishedBadge pill in a player row"
+    },
+    "lobby.inLobby": {
+      "max": 16,
+      "reason": "12px status label in a player row"
+    },
+    "lobby.startSolving": {
+      "max": 26,
+      "reason": "Full-width text-xl button that stays on one line at 320px"
+    },
+    "party.you": {
+      "max": 12,
+      "reason": "Inline marker after the member name"
+    },
+    "partyConfirmation.leaveAgentParty.action": {
+      "max": 16,
+      "reason": "Confirmation dialog button next to Cancel"
+    },
+    "partyConfirmation.removeAgent.action": {
+      "max": 16,
+      "reason": "Confirmation dialog button next to Cancel"
+    },
+    "partyConfirmation.deleteParty.action": {
+      "max": 16,
+      "reason": "Confirmation dialog button next to Cancel"
+    },
+    "partyConfirmation.leave.action": {
+      "max": 16,
+      "reason": "Confirmation dialog button next to Cancel"
+    },
+    "partyConfirmation.remove.action": {
+      "max": 16,
+      "reason": "Confirmation dialog button next to Cancel"
+    },
+    "partyConfirmation.leaveAgentParty.processing": {
+      "max": 20,
+      "reason": "In-progress label replaces the confirmation button text"
+    },
+    "partyConfirmation.removeAgent.processing": {
+      "max": 20,
+      "reason": "In-progress label replaces the confirmation button text"
+    },
+    "partyConfirmation.deleteParty.processing": {
+      "max": 20,
+      "reason": "In-progress label replaces the confirmation button text"
+    },
+    "partyConfirmation.leave.processing": {
+      "max": 20,
+      "reason": "In-progress label replaces the confirmation button text"
+    },
+    "partyConfirmation.remove.processing": {
+      "max": 20,
+      "reason": "In-progress label replaces the confirmation button text"
+    },
+    "time.minutesAgo_other": {
+      "max": 14,
+      "reason": "Compact relative time beside an avatar; measured with the placeholder rendered as two digits"
+    },
+    "time.hoursAgo_other": {
+      "max": 14,
+      "reason": "Compact relative time beside an avatar; measured with the placeholder rendered as two digits"
+    },
+    "time.daysAgo_other": {
+      "max": 14,
+      "reason": "Compact relative time beside an avatar; measured with the placeholder rendered as two digits"
+    }
+  },
+  "packages/games": {
+    "activityWidget.days.sunday": {
+      "max": 3,
+      "reason": "11px uppercase column label above a 32px day dot, seven columns; a wider label grows its column (min-w-8) and the row wraps"
+    },
+    "activityWidget.days.monday": {
+      "max": 3,
+      "reason": "11px uppercase column label above a 32px day dot, seven columns; a wider label grows its column (min-w-8) and the row wraps"
+    },
+    "activityWidget.days.tuesday": {
+      "max": 3,
+      "reason": "11px uppercase column label above a 32px day dot, seven columns; a wider label grows its column (min-w-8) and the row wraps"
+    },
+    "activityWidget.days.wednesday": {
+      "max": 3,
+      "reason": "11px uppercase column label above a 32px day dot, seven columns; a wider label grows its column (min-w-8) and the row wraps"
+    },
+    "activityWidget.days.thursday": {
+      "max": 3,
+      "reason": "11px uppercase column label above a 32px day dot, seven columns; a wider label grows its column (min-w-8) and the row wraps"
+    },
+    "activityWidget.days.friday": {
+      "max": 3,
+      "reason": "11px uppercase column label above a 32px day dot, seven columns; a wider label grows its column (min-w-8) and the row wraps"
+    },
+    "activityWidget.days.saturday": {
+      "max": 3,
+      "reason": "11px uppercase column label above a 32px day dot, seven columns; a wider label grows its column (min-w-8) and the row wraps"
+    },
+    "raceTrack.start": {
+      "max": 10,
+      "reason": "0.6rem uppercase tracked label at either end of the lane"
+    },
+    "raceTrack.finish": {
+      "max": 10,
+      "reason": "0.6rem uppercase tracked label at either end of the lane"
+    },
+    "raceTrack.racer": {
+      "max": 14,
+      "reason": "0.6rem uppercase run-leaderboard column heading"
+    },
+    "raceTrack.total": {
+      "max": 14,
+      "reason": "0.6rem uppercase run-leaderboard column heading"
+    },
+    "raceTrack.stageBadge": {
+      "max": 8,
+      "reason": "Run-leaderboard stage column heading; measured with the placeholder rendered as two digits"
+    },
+    "raceTrack.you": {
+      "max": 10,
+      "reason": "Label on the player car and leaderboard cell"
+    },
+    "raceTrack.leaderboard": {
+      "max": 20,
+      "reason": "RaceTrack call-to-action row"
+    },
+    "raceTrack.opponents": {
+      "max": 20,
+      "reason": "RaceTrack call-to-action row"
+    },
+    "raceTrack.puzzleBook": {
+      "max": 22,
+      "reason": "RaceTrack secondary call-to-action beside the leaderboard button"
+    },
+    "raceTrack.inviteFriends": {
+      "max": 24,
+      "reason": "RaceTrack button with icon"
+    },
+    "lobbyButton.opponents": {
+      "max": 16,
+      "reason": "Header button beside an icon"
+    },
+    "countdownOverlay.go": {
+      "max": 6,
+      "reason": "Full-screen countdown glyph"
+    },
+    "completionSummary.retry": {
+      "max": 14,
+      "reason": "text-xs inline button with icon"
+    },
+    "stageResultPanel.retryStage": {
+      "max": 18,
+      "reason": "text-xs inline button with icon"
+    },
+    "nextPuzzlePanel.continue": {
+      "max": 28,
+      "reason": "Uppercase tracked pill button (px-6, text-sm) on one line"
+    },
+    "raceCelebration.pointsSuffix": {
+      "max": 6,
+      "reason": "Suffix glued to the score"
+    },
+    "friendLeaderboardEntry.you": {
+      "max": 8,
+      "reason": "Inline marker after the name"
+    },
+    "difficulty.daily.simple": {
+      "max": 14,
+      "reason": "Difficulty chip"
+    },
+    "difficulty.daily.easy": {
+      "max": 14,
+      "reason": "Difficulty chip"
+    },
+    "difficulty.daily.intermediate": {
+      "max": 14,
+      "reason": "Difficulty chip"
+    },
+    "difficulty.daily.expert": {
+      "max": 14,
+      "reason": "Difficulty chip"
+    },
+    "scoringLegend.speedBonuses.lightning": {
+      "max": 12,
+      "reason": "Speed-bonus name in a legend row beside its threshold"
+    },
+    "scoringLegend.speedBonuses.fast": {
+      "max": 12,
+      "reason": "Speed-bonus name in a legend row beside its threshold"
+    },
+    "scoringLegend.speedBonuses.quick": {
+      "max": 12,
+      "reason": "Speed-bonus name in a legend row beside its threshold"
+    },
+    "scoringLegend.speedBonuses.steady": {
+      "max": 12,
+      "reason": "Speed-bonus name in a legend row beside its threshold"
+    }
+  },
+  "packages/sudoku": {
+    "controls.delete": {
+      "max": 10,
+      "reason": "One of three equal buttons per row (grid-cols-3, px-2, text-sm) with a 15px icon at 320px width; the button wraps its label (min-w-0, break-words) instead of overflowing"
+    },
+    "controls.undo": {
+      "max": 10,
+      "reason": "One of three equal buttons per row (grid-cols-3, px-2, text-sm) with a 15px icon at 320px width; the button wraps its label (min-w-0, break-words) instead of overflowing"
+    },
+    "controls.redo": {
+      "max": 10,
+      "reason": "One of three equal buttons per row (grid-cols-3, px-2, text-sm) with a 15px icon at 320px width; the button wraps its label (min-w-0, break-words) instead of overflowing"
+    },
+    "controls.cell": {
+      "max": 10,
+      "reason": "One of three equal buttons per row (grid-cols-3, px-2, text-sm) with a 15px icon at 320px width; the button wraps its label (min-w-0, break-words) instead of overflowing"
+    },
+    "controls.grid": {
+      "max": 10,
+      "reason": "One of three equal buttons per row (grid-cols-3, px-2, text-sm) with a 15px icon at 320px width; the button wraps its label (min-w-0, break-words) instead of overflowing"
+    },
+    "controls.zoom": {
+      "max": 10,
+      "reason": "One of three equal buttons per row (grid-cols-3, px-2, text-sm) with a 15px icon at 320px width; the button wraps its label (min-w-0, break-words) instead of overflowing"
+    },
+    "controls.reset": {
+      "max": 12,
+      "reason": "One of two equal buttons per row with a 15px icon; the button wraps its label (min-w-0, break-words) instead of overflowing"
+    },
+    "controls.reveal": {
+      "max": 12,
+      "reason": "One of two equal buttons per row with a 15px icon; the button wraps its label (min-w-0, break-words) instead of overflowing"
+    },
+    "controls.notes": {
+      "max": 12,
+      "reason": "text-xs label between the help and export buttons, next to the toggle"
+    },
+    "controls.askForHelp": {
+      "max": 20,
+      "reason": "text-xs button sharing the row with the notes toggle and export"
+    },
+    "controls.export": {
+      "max": 10,
+      "reason": "text-xs button sharing the row with the notes toggle"
+    },
+    "controls.copied": {
+      "max": 10,
+      "reason": "text-xs button sharing the row with the notes toggle"
+    },
+    "controls.confirm.reset.confirm": {
+      "max": 14,
+      "reason": "Confirm dialog button next to Cancel"
+    },
+    "controls.confirm.reveal.confirm": {
+      "max": 14,
+      "reason": "Confirm dialog button next to Cancel"
+    }
+  },
+  "packages/unblockrace": {
+    "labels.time": {
+      "max": 10,
+      "reason": "Uppercase HUD label above a value"
+    },
+    "labels.moves": {
+      "max": 10,
+      "reason": "Uppercase HUD label above a value"
+    },
+    "stats.par": {
+      "max": 8,
+      "reason": "Inline unit beside the par number"
+    },
+    "stageClear.nextStage": {
+      "max": 20,
+      "reason": "Primary button on the stage-clear card"
+    },
+    "stageClear.onPar": {
+      "max": 12,
+      "reason": "Badge on the stage-clear card"
+    },
+    "confirm.retry.confirm": {
+      "max": 14,
+      "reason": "Confirm dialog button next to Cancel"
+    },
+    "confirm.reset.confirm": {
+      "max": 14,
+      "reason": "Confirm dialog button next to Cancel"
+    },
+    "difficulty.beginner": {
+      "max": 14,
+      "reason": "Difficulty chip"
+    },
+    "difficulty.challenging": {
+      "max": 14,
+      "reason": "Difficulty chip"
+    },
+    "difficulty.hard": {
+      "max": 14,
+      "reason": "Difficulty chip"
+    },
+    "difficulty.expert": {
+      "max": 14,
+      "reason": "Difficulty chip"
+    },
+    "raceTrack.collection": {
+      "max": 16,
+      "reason": "RaceTrack secondary call-to-action"
+    }
+  },
+  "apps/sudoku": {
+    "home.tabs.startRace": {
+      "max": 16,
+      "reason": "Bottom tab bar: three equal tabs, text-xs, 105px each at 320px; a second line is the fallback inside the min-h-20 footer"
+    },
+    "home.tabs.myPuzzles": {
+      "max": 16,
+      "reason": "Bottom tab bar: three equal tabs, text-xs, 105px each at 320px; a second line is the fallback inside the min-h-20 footer"
+    },
+    "home.tabs.racingTeams": {
+      "max": 16,
+      "reason": "Bottom tab bar: three equal tabs, text-xs, 105px each at 320px; a second line is the fallback inside the min-h-20 footer"
+    },
+    "home.live": {
+      "max": 8,
+      "reason": "9px uppercase pill with a pulsing dot"
+    },
+    "home.daily.difficulty.simple": {
+      "max": 14,
+      "reason": "Difficulty chip on the daily card"
+    },
+    "home.daily.difficulty.easy": {
+      "max": 14,
+      "reason": "Difficulty chip on the daily card"
+    },
+    "home.daily.difficulty.intermediate": {
+      "max": 14,
+      "reason": "Difficulty chip on the daily card"
+    },
+    "book.difficulty.veryEasy": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.easy": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.moderatelyEasy": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.moderate": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.moderatelyHard": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.hard": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.vicious": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.fiendish": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.devilish": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.hell": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    },
+    "book.difficulty.beyondHell": {
+      "max": 20,
+      "reason": "Jump-to-difficulty chip in a wrapping row"
+    }
+  },
+  "apps/unblockrace": {
+    "home.tabs.startRace": {
+      "max": 16,
+      "reason": "Bottom tab bar: three equal tabs, text-xs, 105px each at 320px; a second line is the fallback inside the min-h-20 footer"
+    },
+    "home.tabs.myPuzzles": {
+      "max": 16,
+      "reason": "Bottom tab bar: three equal tabs, text-xs, 105px each at 320px; a second line is the fallback inside the min-h-20 footer"
+    },
+    "home.tabs.racingTeams": {
+      "max": 16,
+      "reason": "Bottom tab bar: three equal tabs, text-xs, 105px each at 320px; a second line is the fallback inside the min-h-20 footer"
+    },
+    "home.hero.live": {
+      "max": 8,
+      "reason": "9px uppercase pill with a pulsing dot"
+    }
+  }
+}

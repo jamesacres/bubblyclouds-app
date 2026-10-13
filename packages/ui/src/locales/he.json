@@ -1,0 +1,58 @@
+{
+  "language": {
+    "label": "שפה",
+    "automatic": "אוטומטי"
+  },
+  "header": {
+    "offline": "לא מקוון",
+    "back": "חזרה"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "החלפת מצב כהה"
+  },
+  "starRating": {
+    "label_one": "{{filled}} מתוך {{count}} כוכב",
+    "label_two": "{{filled}} מתוך {{count}} כוכבים",
+    "label_other": "{{filled}} מתוך {{count}} כוכבים"
+  },
+  "timer": {
+    "go": "קדימה!"
+  },
+  "themeColor": {
+    "change": "שינוי צבע ערכת הנושא",
+    "set": "הגדרת צבע ערכת הנושא ל{{color}}",
+    "setPremium": "הגדרת צבע ערכת הנושא ל{{color}} (פרימיום)",
+    "colors": {
+      "blue": "כחול",
+      "red": "אדום",
+      "green": "ירוק",
+      "purple": "סגול",
+      "amber": "ענבר",
+      "cyan": "ציאן",
+      "pink": "ורוד",
+      "indigo": "אינדיגו",
+      "orange": "כתום",
+      "teal": "טורקיז",
+      "slate": "אפור פצלי",
+      "rose": "ורד",
+      "emerald": "אזמרגד",
+      "sky": "תכלת",
+      "violet": "סיגלית",
+      "lime": "ליים",
+      "fuchsia": "פוקסיה",
+      "yellow": "צהוב",
+      "stone": "אבן",
+      "zinc": "אבץ"
+    }
+  },
+  "copyButton": {
+    "copied": "הועתק ללוח!",
+    "share": "שיתוף קישור הזמנה",
+    "copy": "העתקת קישור הזמנה"
+  },
+  "share": {
+    "joinTeam": "הצטרפו לצוות המירוץ שלנו ב{{appName}}!",
+    "joinNamedTeam": "הצטרפו לצוות המירוץ {{partyName}} ב{{appName}}!",
+    "dialogTitle": "שיתוף הזמנה"
+  }
+}

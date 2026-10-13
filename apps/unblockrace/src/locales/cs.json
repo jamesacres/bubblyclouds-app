@@ -1,0 +1,295 @@
+{
+  "brand": {
+    "appName": "Závod bez zácpy",
+    "gameName": "Závod bez zácpy",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Hrajte a sdílejte, závoďte s přáteli o uvolnění hlavolamu. Denní výzvy a podpora více zařízení!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Začít závod",
+      "myPuzzles": "Moje hlavolamy",
+      "racingTeams": "Závodní týmy"
+    },
+    "hero": {
+      "live": "Živě",
+      "headlineLine1": "Uvolněte zácpu.",
+      "headlineAccent": "Vyhrajte závod",
+      "subtitle": "Posouvejte bloky, osvoboďte zářící blok a závoďte s přáteli k východu."
+    },
+    "leaderboard": "Žebříček",
+    "dailyRace": {
+      "title": "Denní závod",
+      "refreshesDaily": "obnovuje se denně",
+      "todaysRace": "Dnešní závod",
+      "difficultyRange": "Začátečník → Expert",
+      "description": "Pět hlavolamů, jedny stopky — vyhrává nejrychlejší únik.",
+      "stages": "5 etap",
+      "start": "Začít závodit",
+      "morePuzzlesPrefix": "Další hlavolamy ve",
+      "puzzleCollection": "sbírce hlavolamů"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 hlavolamů",
+      "title": "Měsíční sbírka",
+      "description": "50 nových zácp pro {{month}} — vyřešte je všechny, než měsíc skončí.",
+      "browse": "Procházet hlavolamy"
+    },
+    "teams": {
+      "eyebrow": "Multiplayer",
+      "title": "Závodní týmy",
+      "raceFriends": "Závoďte s {{names}} a dalšími",
+      "challengeFriends": "Vyzvěte přátele k závodu"
+    },
+    "premium": {
+      "title": "Prémiové funkce",
+      "subtitle": "Odemkněte vše, co $t(brand.gameName) nabízí"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Závod v sudoku",
+    "tagline": "Sdílejte sudoku s přáteli a závoďte, kdo ho vyřeší nejrychleji."
+  },
+  "puzzle": {
+    "mobileDescription": "Získejte nejlepší zážitek s naší aplikací {{appName}}!",
+    "desktopDescription": "Stáhnout {{appName}}",
+    "openInAppLabel": "Otevřít hlavolam"
+  },
+  "collection": {
+    "loading": {
+      "both": "Načítání sbírky hlavolamů...",
+      "collection": "Načítání hlavolamů...",
+      "sessions": "Načítání vašeho postupu..."
+    },
+    "retry": "Zkusit znovu",
+    "backHome": "Zpět na úvod",
+    "signInPrompt": "Přihlaste se pro přístup ke sbírce hlavolamů.",
+    "signIn": "Přihlásit se",
+    "noData": "Data sbírky hlavolamů nejsou k dispozici.",
+    "title": "Sbírka hlavolamů: {{month}}",
+    "completed": "dokončeno",
+    "inProgress": "rozehráno",
+    "unlockWithPlus": "Odemkněte všechny hlavolamy s Plus",
+    "jumpToDifficulty": "Přejít na obtížnost",
+    "scrollToTop": "Posunout nahoru",
+    "subtitle_one": "{{count}} hlavolam od rychlých úniků po expertní zácpy",
+    "subtitle_few": "{{count}} hlavolamy od rychlých úniků po expertní zácpy",
+    "subtitle_many": "{{count}} hlavolamu od rychlých úniků po expertní zácpy",
+    "subtitle_other": "{{count}} hlavolamů od rychlých úniků po expertní zácpy"
+  },
+  "invite": {
+    "loading": "Načítání pozvánky...",
+    "iconAlt": "Ikona: {{appName}}",
+    "greeting": "👋 Ahoj, {{name}}!",
+    "invited": "Jste pozváni!",
+    "joinTeam": "Připojte se k závodnímu týmu",
+    "tagline": "Závoďte společně o uvolnění hlavolamů a sledujte postup ostatních v reálném čase!",
+    "proTipLabel": "Tip:",
+    "proTip": "Všechny hlavolamy, které budete hrát, se budou sdílet s členy vašeho týmu pro přátelskou soutěž!",
+    "nicknameLabel": "Jak vám říká váš závodní tým?",
+    "nicknamePlaceholder": "Zadejte svou přezdívku",
+    "joining": "Připojování k týmu...",
+    "join": "Připojit se k zábavě! 🎉",
+    "signIn": "Přihlásit se a pokračovat",
+    "bonus": "🎉 Bonus: Získejte {{plusName}} – {{duration}}!",
+    "bonusDescription": "Připojením k tomuto závodnímu týmu odemknete prémiové funkce úplně zdarma!",
+    "activation": "💡 Váš prémiový přístup se po připojení aktivuje automaticky",
+    "duration": {
+      "oneMonth": "na jeden měsíc",
+      "oneYear": "na jeden rok",
+      "lifetime": "doživotně",
+      "premium": "prémiový přístup"
+    },
+    "expired": {
+      "title": "Platnost pozvánky vypršela",
+      "description": "Tento odkaz na pozvánku už není platný. Požádejte přítele o novou pozvánku nebo zvyšte velikost týmu."
+    },
+    "greetingAnonymous": "👋 Ahoj!"
+  },
+  "credits": {
+    "title": "Poděkování a zdroje",
+    "intro": "Tato aplikace stojí na několika vynikajících projektech",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Tato aplikace je licencována pod licencí MIT. Podrobnosti najdete v souborech <licenseLink>LICENSE</licenseLink> a <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "rush": "Řešič hlavolamu Rush Hour a databáze hlavolamů od Michaela Foglemana, zkompilované do WebAssembly",
+      "nextjs": "Framework Reactu pro produkci",
+      "typescript": "Typovaná nadmnožina JavaScriptu",
+      "tailwind": "CSS framework založený na utilitách",
+      "capacitor": "Běhové prostředí nativních mobilních aplikací",
+      "electron": "Framework pro desktopové aplikace",
+      "revenuecat": "Správa předplatného",
+      "react": "Knihovna komponent uživatelského rozhraní",
+      "turborepo": "Systém sestavení monorepozitáře"
+    }
+  },
+  "notFound": {
+    "title": "Stránka nenalezena"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Přihlaste se a spusťte dnešní hlavolam",
+      "collection": "Přihlaste se a procházejte sbírku",
+      "joinTeam": "Přihlaste se a připojte se k týmu",
+      "raceLobby": "Přihlaste se a závoďte s ostatními",
+      "puzzleEntry": "Přihlaste se a hrajte"
+    },
+    "valueProps": {
+      "saveProgress": "Ukládejte svůj postup",
+      "raceFriends": "Závoďte s přáteli",
+      "trackStats": "Sledujte své statistiky"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Dnešní limit bezplatných nápověd ({{limit}}) je vyčerpán.",
+      "body": "Plus vám dá neomezené nápovědy — už se nikdy nezaseknete — a celá aplikace zůstane bez reklam."
+    },
+    "undo": {
+      "title": "Dosáhli jste denního limitu kroků zpět!",
+      "body": "Denní limit bezplatných kroků zpět: {{limit}}. Limit se zítra obnoví, nebo si předplaťte neomezený počet."
+    },
+    "collectionLocked": {
+      "title": "Tento hlavolam patří do sbírky Plus.",
+      "body": "Plus odemkne každý hlavolam v měsíční sbírce každého měsíce a udrží celou aplikaci bez reklam."
+    },
+    "themeColor": {
+      "title": "Tento motiv je exkluzivní pro Plus.",
+      "body": "Přejděte na vyšší verzi, odemkněte všechny krásné barvy motivů a přizpůsobte si svůj zážitek ze hry."
+    },
+    "removeMember": {
+      "title": "Odebírání členů z týmu je prémiová funkce!",
+      "body": "Předplaťte si ji a odemkněte pokročilou správu týmu včetně odebírání členů."
+    },
+    "multipleParties": {
+      "title": "Více závodních týmů je prémiová funkce!",
+      "body": "Bezplatní uživatelé mohou mít jeden tým. Předplaťte si ji a vytvářejte neomezený počet týmů pro rodinu, přátele a další."
+    },
+    "partyMaxSize": {
+      "title": "Velké týmy jsou prémiová funkce!",
+      "body": "Předplaťte si ji a odemkněte pokročilou správu týmu včetně velkých týmů."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Vždy bez reklam",
+      "description": "Žádné reklamy, nikdy — jen vy a hlavolamy"
+    },
+    "hints": {
+      "title": "Neomezené nápovědy",
+      "description": "Už se nikdy nezaseknete — nápovědu dostanete, kdykoli ji potřebujete"
+    },
+    "monthlyPack": {
+      "title": "Celá měsíční sbírka odemčená, každý měsíc",
+      "description": "Hrajte každý hlavolam v každé obtížnosti, bez zámků"
+    },
+    "undos": {
+      "title": "Neomezené kroky zpět",
+      "description": "Vracejte tolik tahů, kolik chcete"
+    },
+    "teams": {
+      "title": "Více závodních týmů",
+      "description": "Pořádejte soukromé soutěže s přáteli a rodinou"
+    },
+    "management": {
+      "title": "Správa týmu",
+      "description": "Vytvářejte velké týmy až pro 15 lidí a odebírejte členy ze svého týmu."
+    },
+    "themes": {
+      "title": "Všechny motivy odemčené",
+      "description": "Přizpůsobte si svůj závodní zážitek"
+    }
+  },
+  "plusModal": {
+    "description": "Získejte <badge>{{plusName}}</badge> – <strong>neomezené nápovědy</strong>, <strong>odemčenou celou měsíční sbírku</strong> a <strong>neomezené kroky zpět</strong>. Vyzývejte přátele, šplhejte žebříčky vzhůru a mějte aplikaci bez reklam."
+  },
+  "leaderboard": {
+    "collectionLabel": "Sbírka",
+    "collectionDetailNoun": "sbírek"
+  },
+  "motivational": {
+    "messages": [
+      "Vaši přátelé čekají na výzvu",
+      "S kým dnes budete závodit?",
+      "Čas ukázat své tempo",
+      "Výzva přijata?",
+      "Závod do cíle",
+      "Kdo je nejrychlejší řešitel?",
+      "Připraveni ovládnout žebříček?",
+      "Vaše závodní dovednosti čekají",
+      "Čas nechat je za sebou v prachu",
+      "Připraveni protnout cílovou čáru jako první?",
+      "Dráha na vás čeká",
+      "Čas zařadit vyšší rychlost",
+      "Připraveni vypálit gumy na mřížce hlavolamu?",
+      "Vaši soupeři se už rozcvičují",
+      "Dnes je den pro nový rekord",
+      "Váš osobní rekord čeká, až ho překonáte",
+      "Každý hlavolam vás zrychluje",
+      "Budování série začíná teď",
+      "Čas posunout vaši hru na vyšší level",
+      "Váš další průlom je jen o hlavolam daleko",
+      "Připraveni sami sebe překvapit?",
+      "Ukažte jim, z čeho jste ušiti",
+      "Čas odemknout svůj potenciál",
+      "Váš nejrychlejší čas je teprve před vámi",
+      "Připraveni, aby dnešek stál za to?",
+      "V závodě záleží na každé vteřině",
+      "Čas posunout své hranice",
+      "Vaše cesta ke zlepšování pokračuje",
+      "Připraveni překonat očekávání?",
+      "Myslíte, že zvládnete tlak?",
+      "Čas umlčet pochybovače",
+      "Připraveni získat vítězství?",
+      "Vaše konkurence nebude vědět, co ji potkalo",
+      "Čas zanechat svou stopu",
+      "Připraveni získat pozornost reflektorů?",
+      "Vítězství chutná sladce, když si ho zasloužíte",
+      "Čas dokázat, kdo je tady šéf",
+      "Připraveni ukázat svou pravou tvář?",
+      "Šampionské myšlení začíná tady",
+      "Čas odlišit se od davu",
+      "Připraveni napsat svou legendu?",
+      "Šampioni vznikají v okamžicích, jako je tento",
+      "Čas proměnit potenciál ve výkon",
+      "Nové hlavolamy, nové příležitosti",
+      "Dnešní výzva čeká na vaše mistrovství",
+      "Připraveni, aby dnešek byl váš nejlepší den?",
+      "Nový den znamená nové rekordy k překonání",
+      "Čas přidat další výhru do sbírky",
+      "Připraveni silně začít a ještě silněji skončit?",
+      "Připraveni, aby dnešek byl legendární?",
+      "Vaše denní dávka triumfu čeká",
+      "Strategie se na mřížce potkává s rychlostí",
+      "Připraveni přemýšlet i závodit rychleji než ostatní?",
+      "Vaše mistrovství v hlavolamech volá",
+      "Čas spojit logiku s bleskovou rychlostí",
+      "Připraveni řešit s chirurgickou přesností?",
+      "Dokonalá kombinace: dovednost a rychlost",
+      "Vaše analytické myšlení je vaše závodní výhoda",
+      "Čas předvést nadvládu nad hlavolamy",
+      "Připraveni řešit jako šampion?",
+      "Přesné závodění začíná jasným myšlením",
+      "Vaši přátelé čekají na odvetu",
+      "Kdo dnes řeší?",
+      "Nový denní hlavolam je připraven",
+      "Vaše série je v sázce",
+      "Nové hlavolamy, nový začátek",
+      "Dnešní výzva je tady",
+      "Vyzvěte přítele v denním hlavolamu",
+      "Nový den, nové hlavolamy",
+      "Někdo už je v žebříčku",
+      "Udržte sérii při životě",
+      "Denní výzvy se právě obnovily",
+      "Váš tým čeká",
+      "O hlavolam blíž k vrcholu",
+      "Dnešní hlavolamy na vás čekají",
+      "Naskočte zpět a závoďte"
+    ]
+  }
+}

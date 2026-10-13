@@ -1,0 +1,217 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Terjadi kesalahan tak terduga. Silakan coba lagi.",
+    "dismiss": "Tutup"
+  },
+  "errorBoundary": {
+    "title": "Ups! Terjadi kesalahan",
+    "description": "Kami mengalami kesalahan tak terduga. Tenang, progres Anda tersimpan!",
+    "reload": "Muat Ulang Aplikasi",
+    "clearStorage": "Hapus Penyimpanan & Muat Ulang",
+    "contactSupport": "Jika masalah ini terus berlanjut, silakan hubungi dukungan."
+  },
+  "time": {
+    "minutesAgo_other": "{{count}} mnt lalu",
+    "hoursAgo_other": "{{count}} jam lalu",
+    "daysAgo_other": "{{count}} hr lalu"
+  },
+  "tier": {
+    "novice": "Pemula",
+    "advancedBeginner": "Dasar",
+    "competent": "Cakap",
+    "proficient": "Mahir",
+    "expert": "Ahli"
+  },
+  "moves": {
+    "onPar": "langkah, sesuai par",
+    "overPar": "langkah, {{delta}} di atas par",
+    "underPar": "langkah, {{delta}} di bawah par"
+  },
+  "lobby": {
+    "title": "Lobi Balapan",
+    "close": "Tutup lobi",
+    "onlineOpponents": "Lawan online",
+    "refresh": "Segarkan lawan online",
+    "noOpponents": "Tidak ada lawan online — undang teman untuk balapan!",
+    "away": "Menjauh",
+    "offlineTeams": "Offline · di tim Anda",
+    "removeMember": "Keluarkan {{name}}",
+    "aiOpponents": "Lawan AI",
+    "addAgent": "Tambah",
+    "noAgents": "Belum ada lawan AI — tambahkan satu agar selalu ada teman balapan.",
+    "ownClock": "Setiap pemain berbalap dengan waktunya sendiri",
+    "startSolving": "Mulai Menyelesaikan",
+    "finished": "Selesai",
+    "inLobby": "Di lobi",
+    "stageProgress": "Tahap {{current}} dari {{total}}",
+    "finishedRunIn": "Menyelesaikan balapan dalam {{time}}",
+    "solvedIn": "Selesai dalam {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · terakhir terlihat {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Balapan solo — hanya Anda dan waktu",
+      "friends_other": "{{count}} teman",
+      "aiOpponents_other": "{{count}} lawan AI",
+      "racing": "Berbalap melawan {{opponents}}"
+    },
+    "invite": {
+      "button": "Undang",
+      "eyebrow": "Bangun balapan Anda",
+      "title": "Undang lawan",
+      "close": "Tutup",
+      "existingTeam": "Undang ke tim yang ada",
+      "editTeamName": "Ubah nama tim",
+      "deleteTeam": "Hapus tim",
+      "leaveTeam": "Keluar dari tim",
+      "memberCount_other": "{{count}} anggota",
+      "createTeam": "Buat tim balap baru",
+      "displayNameLabel": "Siapa nama panggilan Anda di tim?",
+      "displayNamePlaceholder": "Nama tampilan",
+      "teamNameLabel": "Apa nama untuk tim ini?",
+      "teamNamePlaceholder": "Nama tim (mis. Keluarga)",
+      "createAndCopy": "Buat & salin tautan",
+      "defaultTeamName": "Tim baru",
+      "defaultPlayerName": "Pemain"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Tutup lembar",
+    "back": "Kembali",
+    "close": "Tutup",
+    "title": "Pilih Rival Anda",
+    "subtitle": "Pilih satu atau lebih lawan",
+    "selectAtLeastOne": "Pilih minimal satu rival",
+    "race_other": "Balapan Melawan {{count}} Rival",
+    "skill": {
+      "novice": "Pemula",
+      "advancedBeginner": "Dasar",
+      "competent": "Cakap",
+      "proficient": "Mahir",
+      "expert": "Ahli"
+    }
+  },
+  "agentParty": {
+    "title": "Rival AI",
+    "rivalCount_other": "{{count}} rival"
+  },
+  "party": {
+    "cancel": "Batal",
+    "editName": "Ubah nama tim",
+    "editMaxMembers": "Ubah jumlah anggota maksimal",
+    "memberCount_other": "{{count}} anggota",
+    "memberCountPremium_other": "{{count}} anggota ✨ Premium",
+    "membersOf_other": "{{current}}/{{count}} anggota",
+    "shareLink": "Bagikan tautan ini kepada anggota tim saat ini untuk bergabung di puzzle ini",
+    "you": "(Anda)",
+    "notStarted": "Belum mulai! Ajak mereka bermain"
+  },
+  "partyConfirmation": {
+    "cancel": "Batal",
+    "leaveAgentParty": {
+      "title": "Hapus Rival AI",
+      "action": "Hapus",
+      "processing": "Menghapus...",
+      "message": "Yakin ingin menghapus semua Rival AI? Mereka tidak akan muncul lagi dalam balapan."
+    },
+    "removeAgent": {
+      "title": "Hapus Agen Lokal",
+      "action": "Hapus",
+      "processing": "Menghapus...",
+      "message": "Yakin ingin menghapus \"{{memberName}}\" dari balapan?"
+    },
+    "deleteParty": {
+      "title": "Hapus Tim",
+      "action": "Hapus Tim",
+      "processing": "Menghapus...",
+      "message": "Yakin ingin menghapus \"{{partyName}}\"? Tim dan semua keanggotaannya akan dihapus secara permanen dan seluruh anggota akan kehilangan akses. Tindakan ini tidak dapat dibatalkan."
+    },
+    "leave": {
+      "title": "Keluar dari Tim",
+      "action": "Keluar",
+      "processing": "Keluar...",
+      "message": "Yakin ingin keluar dari \"{{partyName}}\"? Anda tidak akan lagi melihat progres anggota lain atau berpartisipasi di tim ini."
+    },
+    "remove": {
+      "title": "Keluarkan Anggota",
+      "action": "Keluarkan",
+      "processing": "Mengeluarkan...",
+      "message": "Yakin ingin mengeluarkan \"{{memberName}}\" dari \"{{partyName}}\"? Mereka tidak akan lagi dapat berpartisipasi di tim ini."
+    }
+  },
+  "friends": {
+    "allTeams": "Semua tim",
+    "refresh": "Segarkan",
+    "refreshing": "Menyegarkan…",
+    "title": "Puzzle Teman",
+    "subtitle": "Ketuk teman untuk melihat puzzle terbaru mereka dan menantangnya.",
+    "memberCount_other": "{{count}} anggota",
+    "noRecentPuzzles": "Belum ada puzzle terbaru — tantang mereka!",
+    "empty": {
+      "title": "Belum ada tim balap",
+      "description": "Undang teman dari lobi Balapan saat menyelesaikan puzzle"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Puzzle Anda dalam 30 hari terakhir.",
+    "empty": {
+      "title": "Belum ada puzzle",
+      "description": "Buka Mulai Balapan untuk menyelesaikan puzzle pertama Anda"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_other": "+{{count}} fitur lagi"
+  },
+  "crossPromo": {
+    "whyNotTry": "Coba juga",
+    "tryItFree": "Coba gratis"
+  },
+  "rateApp": {
+    "prompt": "Suka {{appName}}?",
+    "rateIt": "Beri nilai",
+    "rateInSeconds": "Beri nilai dalam hitungan detik"
+  },
+  "plus": {
+    "close": "Tutup jendela",
+    "appIconAlt": "Ikon Aplikasi",
+    "lifetime": "Seumur hidup",
+    "monthly": "Bulanan",
+    "perMonth": "{{price}}/bulan",
+    "whatsIncluded": "Yang Termasuk",
+    "continue": "Lanjutkan",
+    "restorePurchases": "Pulihkan pembelian",
+    "cancel": "Batal"
+  },
+  "download": {
+    "title": "Lanjutkan di aplikasi",
+    "appStoreAlt": "Unduh di {{appStore}}",
+    "googlePlayAlt": "Dapatkan di {{googlePlay}}",
+    "continueBrowser": "Lanjutkan di browser",
+    "continueDesktop": "Lanjutkan di desktop"
+  },
+  "session": {
+    "cheated": "Curang",
+    "completedIn": "Selesai dalam {{minutes}}m {{seconds}}d",
+    "percentComplete": "{{percentage}}% selesai",
+    "duration": "{{minutes}}m {{seconds}}d",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Puzzle #{{number}}",
+    "daily": "Harian {{date}}",
+    "book": "Buku {{month}} #{{number}}",
+    "collection": "Koleksi {{month}} #{{number}}",
+    "scanned": "Puzzle Hasil Pindai",
+    "you": "Anda",
+    "unknown": "Tidak diketahui",
+    "unlockWith": "Buka dengan {{label}}",
+    "lockedPuzzle": "Puzzle terkunci",
+    "recommendedTechniques": "Teknik yang Disarankan:",
+    "loadingFriends": "Memuat teman..."
+  }
+}

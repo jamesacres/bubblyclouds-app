@@ -1,0 +1,294 @@
+{
+  "brand": {
+    "gameName": "Lumba Bebas"
+  },
+  "controls": {
+    "hint": "Petunjuk",
+    "hintTitle": "Minta bantuan",
+    "undo": "Buat asal",
+    "redo": "Buat lagi",
+    "reset": "Set semula"
+  },
+  "labels": {
+    "time": "Masa",
+    "moves": "Langkah",
+    "stageOf": "Peringkat {{current}} daripada {{total}}"
+  },
+  "stats": {
+    "moves_other": "{{count}} langkah",
+    "par": "par",
+    "overPar": "{{delta}} melebihi par",
+    "underPar": "{{delta}} kurang daripada par"
+  },
+  "score": {
+    "moves": "langkah",
+    "srOnPar": "langkah, tepat par",
+    "srOverPar": "langkah, {{delta}} melebihi par",
+    "srUnderPar": "langkah, {{delta}} kurang daripada par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Harian · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Pemula",
+    "challenging": "Mencabar",
+    "hard": "Sukar",
+    "expert": "Pakar"
+  },
+  "collection": {
+    "puzzleLabel": "Teka-teki koleksi {{number}}",
+    "theme": {
+      "january": "Tahun baharu, kesesakan baharu",
+      "february": "Kesesakan beku",
+      "march": "Terbuka luas",
+      "april": "Hujan blok",
+      "may": "Lorong segar berkembang",
+      "june": "Kelajuan pelepasan memuncak",
+      "july": "Siri perlumbaan musim panas",
+      "august": "Kesesakan panas membara",
+      "september": "Kembali ke papan",
+      "october": "Kesesakan berhantu",
+      "november": "Membersihkan lorong",
+      "december": "Kesesakan musim cuti",
+      "default": "Koleksi bulanan"
+    },
+    "error": {
+      "offline": "Anda luar talian, sila semak sambungan anda",
+      "loadFailed": "Gagal memuatkan koleksi teka-teki"
+    }
+  },
+  "stageClear": {
+    "title": "Peringkat {{stage}} selesai",
+    "onPar": "Tepat par",
+    "pointsSuffix": " mata",
+    "leaderboardPoints": "Mata papan pendahulu",
+    "nextStage": "Peringkat seterusnya",
+    "progress": "Peringkat {{stage}} daripada {{total}} — {{remaining}} lagi"
+  },
+  "hint": {
+    "unsolvable": "Tiada jalan keluar dari sini — buat asal atau set semula untuk kembali ke landasan",
+    "dismiss": "Tutup notis petunjuk"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Teruskan rentetan kemenangan dalam koleksi"
+  },
+  "raceTrack": {
+    "collection": "Koleksi"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Cuba semula peringkat ini?",
+      "body": "Masa dan langkah semasa anda akan diganti.",
+      "confirm": "Cuba lagi"
+    },
+    "reset": {
+      "title": "Set semula teka-teki ini?",
+      "body": "Ini memadam langkah anda dan memulakan teka-teki dari awal.",
+      "confirm": "Set semula"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "lebah",
+      "personality": "Resah dan bersemangat. Menggelongsor blok secara berselang-seli, kemudian terhenti. Menghampiri pintu keluar, memecut terlalu awal dan menyesakkan lorong sebelum sempat menamatkan.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Yang ini boleh digelongsor!",
+          "Tunggu—tidak, itu menghalang saya...",
+          "Bzzz bzzz! Membuka ruang!"
+        ],
+        "playerAhead": [
+          "Hei, perlahan sikit!",
+          "Tadi saya sedang membuka laluan…"
+        ],
+        "playerBehind": ["Saya semakin hampir!", "Lihat saya menggelongsor!"],
+        "endgame": [
+          "Pintu keluar! Saya nampak!",
+          "Tunggu—siapa letak itu di situ?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "itik",
+      "personality": "Ceria dan tidak bermatlamat. Perlahan dan mantap dengan jeda yang panjang. Di penghujung, hanyut keluar daripada kesesakan hampir secara tidak sengaja.",
+      "voiceLines": {
+        "neutral": [
+          "Hanya menolak perlahan-lahan...",
+          "Hmm... mungkin blok ini."
+        ],
+        "playerAhead": ["Anda hebat!", "Nanti saya keluar juga."],
+        "playerBehind": ["Oh! Yang itu bergerak!", "Seronoknya."],
+        "endgame": [
+          "Itukah pintu keluar?",
+          "Oh! Jalan itu bersih dengan sendirinya."
+        ]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "cicak",
+      "personality": "Berhati-hati dan peka. Jeda yang panjang, kemudian beberapa gelongsoran kecil. Di penghujung, teragak-agak sebelum setiap langkah.",
+      "voiceLines": {
+        "neutral": [
+          "Biar saya semak apa yang dibebaskan itu.",
+          "Gelongsoran itu sepatutnya selamat."
+        ],
+        "playerAhead": [
+          "Saya perlu berhati-hati sekarang.",
+          "Jangan sesakkan lorong."
+        ],
+        "playerBehind": ["Baiklah… mengejar.", "Masih ada masa."],
+        "endgame": [
+          "Hati-hati sekarang...",
+          "Hampir keluar… cuma perlu pastikan."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "labah-labah",
+      "personality": "Teliti dan tersusun. Membersihkan lorong dengan cermat, blok demi blok. Di penghujung, rancangan itu runtuh — keraguan menyelinap seolah-olah laluan tidak lagi kukuh.",
+      "voiceLines": {
+        "neutral": ["Itu membuka laluan.", "Blok demi blok..."],
+        "playerAhead": [
+          "Tadi laluan itu berjaya...",
+          "Saya perlu merancang semula..."
+        ],
+        "playerBehind": ["Masih bertahan.", "Ya… lorong sedang terbuka."],
+        "endgame": [
+          "Tunggu—tidak, itu mengurung saya semula.",
+          "Saya sudah merancang laluan ini..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "rakun",
+      "personality": "Gigih dan bijak mengambil peluang. Rentak tidak sekata. Di penghujung, mendapat momentum dan menggelongsor keluar lebih cepat daripada dijangka.",
+      "voiceLines": {
+        "neutral": ["Itu menggerakkannya!", "Agak sempit, tapi tak apa."],
+        "playerAhead": [
+          "Baiklah, masa untuk menolak.",
+          "Belum terkurung lagi."
+        ],
+        "playerBehind": ["Oh—ruang yang bagus.", "Lorong sudah mula terbuka."],
+        "endgame": [
+          "Ya, jalan di hadapan lapang.",
+          "Sekarang sudah bergerak lancar."
+        ]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "penguin",
+      "personality": "Tersusun dan bermetod. Kadar yang konsisten. Di penghujung kekal stabil — tiada panik, tiada pecutan.",
+      "voiceLines": {
+        "neutral": [
+          "Gelongsoran itu sesuai dengan laluan.",
+          "Kekal konsisten."
+        ],
+        "playerAhead": [
+          "Kekalkan kadar.",
+          "Tak perlu tergesa-gesa di grid ini."
+        ],
+        "playerBehind": ["Masih di landasan.", "Lorong itu semakin lapang."],
+        "endgame": ["Hampir keluar.", "Keluar dengan kemas."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "monyet",
+      "personality": "Tidak menentu dan menggelisahkan. Pecutan yang tidak dapat diramal. Di penghujung, tiba-tiba memecut dengan cara yang terasa tidak adil.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… tak nampak ruang itu?",
+          "Oh, itu gelongsoran yang menarik."
+        ],
+        "playerAhead": ["Jangan terlalu selesa.", "Tengok langkah ini."],
+        "playerBehind": [
+          "Kadangkala lalu lintas terbuka begitu sahaja.",
+          "Gelongsoran bertuah… atau bukan?"
+        ],
+        "endgame": ["Wah—jalan terbuka luas.", "Itu cepat betul bersih."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "helang",
+      "personality": "Tenang dan mengalir. Gelongsoran yang berjarak dan yakin. Pecutan senyap di penghujung.",
+      "voiceLines": {
+        "neutral": [
+          "Sudah nampak laluan itu.",
+          "Hanya menggelongsor melaluinya."
+        ],
+        "playerAhead": ["Tak mengubah laluan.", "Pintu keluar yang sama pun."],
+        "playerBehind": ["Sebenarnya sudah bersih.", "Meluncur dari sini."],
+        "endgame": ["…hampir keluar.", "Bergerak ke pintu keluar."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "musang",
+      "personality": "Intens dan kompetitif. Permulaan pantas, tekanan berterusan. Lonjakan di penghujung terasa agresif.",
+      "voiceLines": {
+        "neutral": ["Ikut rentak.", "Masih tersekat dalam kesesakan?"],
+        "playerAhead": [
+          "Jangan berhenti sekarang.",
+          "Anda boleh menggelongsor lebih pantas daripada itu."
+        ],
+        "playerBehind": ["Terlalu perlahan.", "Anda terkurung."],
+        "endgame": ["Bersihkan lorong.", "Pintu keluar ini milik saya."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "jerung",
+      "personality": "Sabar dan memburu. Kekal dekat, kemudian menerkam kuat di penghujung.",
+      "voiceLines": {
+        "neutral": ["Betul-betul di belakang anda.", "Belum lagi."],
+        "playerAhead": ["Kekal di lorong anda.", "Saya sudah dekat."],
+        "playerBehind": ["Semakin dekat.", "Itu ruangnya."],
+        "endgame": [
+          "Sekarang kita menggelongsor keluar.",
+          "Dapat pintu keluar."
+        ]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "burung hantu",
+      "personality": "Tenang dan teliti. Rentak yang lancar. Penghujungnya bersih dan tidak dapat dielakkan.",
+      "voiceLines": {
+        "neutral": ["Seperti dijangka.", "Setiap blok di tempatnya."],
+        "playerAhead": ["Bagus.", "Anda nampak laluannya."],
+        "playerBehind": ["Ikut lorong itu.", "Teruskan."],
+        "endgame": ["Hampir keluar.", "Itu pintu keluarnya."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "kucing hitam",
+      "personality": "Senyap dan tidak berperikemanusiaan. Jeda yang minimum. Penghujungnya ialah gelongsoran pantas tanpa gangguan ke pintu keluar.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…masih."],
+        "playerBehind": ["Sudah terlambat.", "Anda teragak-agak."],
+        "endgame": ["…keluar.", "Keluar."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "naga",
+      "personality": "Tanpa usaha dan mutlak. Mengekalkan kawalan sempurna sepanjang masa. Di penghujung, melaksanakan sapuan yang tegas dan tanpa gangguan ke pintu keluar — tiada ruang, tiada tentangan.",
+      "voiceLines": {
+        "neutral": ["Seperti dijangka.", "Tiada penyimpangan."],
+        "playerAhead": ["Anda bijak kerana mencuba.", "Teruskan."],
+        "playerBehind": ["Ini berakhir.", "Tiada pilihan lain."],
+        "endgame": ["Itu sahaja.", "Bersih."]
+      }
+    }
+  }
+}

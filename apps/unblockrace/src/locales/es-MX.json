@@ -1,0 +1,294 @@
+{
+  "brand": {
+    "appName": "Carrera Libre",
+    "gameName": "Carrera Libre",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Juega y comparte para competir con amigos y desbloquear el puzzle. ¡Retos diarios y multidispositivo!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Iniciar carrera",
+      "myPuzzles": "Mis puzzles",
+      "racingTeams": "Equipos"
+    },
+    "hero": {
+      "live": "En vivo",
+      "headlineLine1": "Despeja el atasco.",
+      "headlineAccent": "Gana la carrera",
+      "subtitle": "Desliza los bloques, libera el brillante y compite con tus amigos hasta la salida."
+    },
+    "leaderboard": "Tabla de posiciones",
+    "dailyRace": {
+      "title": "Carrera diaria",
+      "refreshesDaily": "se renueva a diario",
+      "todaysRace": "La carrera de hoy",
+      "difficultyRange": "Principiante → Experto",
+      "description": "Cinco tableros, un reloj: gana quien escape primero.",
+      "stages": "5 etapas",
+      "start": "Empezar a competir",
+      "morePuzzlesPrefix": "Más puzzles en la",
+      "puzzleCollection": "colección de puzzles"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 puzzles",
+      "title": "Colección mensual",
+      "description": "50 atascos nuevos para {{month}}: despéjalos todos antes de que acabe el mes.",
+      "browse": "Explorar puzzles"
+    },
+    "teams": {
+      "eyebrow": "Multijugador",
+      "title": "Equipos de carreras",
+      "raceFriends": "Compite con {{names}} y más",
+      "challengeFriends": "Reta a tus amigos a una carrera"
+    },
+    "premium": {
+      "title": "Funciones premium",
+      "subtitle": "Desbloquea la experiencia completa de $t(brand.gameName)"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Carrera Sudoku",
+    "tagline": "Comparte un sudoku con amigos y compitan por resolverlo más rápido."
+  },
+  "puzzle": {
+    "mobileDescription": "¡Disfruta de la mejor experiencia con nuestra app {{appName}}!",
+    "desktopDescription": "Descargar {{appName}}",
+    "openInAppLabel": "Abrir puzzle"
+  },
+  "collection": {
+    "loading": {
+      "both": "Cargando colección de puzzles...",
+      "collection": "Cargando puzzles...",
+      "sessions": "Cargando tu progreso..."
+    },
+    "retry": "Reintentar",
+    "backHome": "Volver al inicio",
+    "signInPrompt": "Inicia sesión para acceder a la colección de puzzles.",
+    "signIn": "Iniciar sesión",
+    "noData": "No hay datos de la colección de puzzles disponibles.",
+    "title": "Colección de puzzles de {{month}}",
+    "completed": "completados",
+    "inProgress": "en curso",
+    "unlockWithPlus": "Desbloquea todos los puzzles con Plus",
+    "jumpToDifficulty": "Ir a la dificultad",
+    "scrollToTop": "Volver arriba",
+    "subtitle_one": "{{count}} puzzle, desde escapes rápidos hasta atascos expertos",
+    "subtitle_many": "{{count}} de puzzles, desde escapes rápidos hasta atascos expertos",
+    "subtitle_other": "{{count}} puzzles, desde escapes rápidos hasta atascos expertos"
+  },
+  "invite": {
+    "loading": "Cargando invitación...",
+    "iconAlt": "Icono de {{appName}}",
+    "greeting": "👋 ¡Hola, {{name}}!",
+    "invited": "¡Tienes una invitación!",
+    "joinTeam": "Únete al equipo de carreras",
+    "tagline": "¡Compitan juntos para desbloquear puzzles y vean el progreso de los demás en tiempo real!",
+    "proTipLabel": "Consejo:",
+    "proTip": "¡Todos los puzzles que juegues a partir de ahora se compartirán con los miembros de tu equipo para una competencia amistosa!",
+    "nicknameLabel": "¿Cómo te llama tu equipo de carreras?",
+    "nicknamePlaceholder": "Escribe tu apodo",
+    "joining": "Uniéndote al equipo...",
+    "join": "¡Únete a la diversión! 🎉",
+    "signIn": "Inicia sesión para continuar",
+    "bonus": "🎉 Regalo: ¡obtén {{duration}} a {{plusName}}!",
+    "bonusDescription": "Al unirte a este equipo de carreras, desbloquearás funciones premium totalmente gratis.",
+    "activation": "💡 Tu acceso premium se activará automáticamente al unirte",
+    "duration": {
+      "oneMonth": "un mes de acceso",
+      "oneYear": "un año de acceso",
+      "lifetime": "acceso de por vida",
+      "premium": "acceso premium"
+    },
+    "expired": {
+      "title": "Invitación caducada",
+      "description": "Este enlace de invitación ya no es válido. Pide a tu amigo una invitación nueva o aumenta el tamaño del equipo."
+    },
+    "greetingAnonymous": "👋 ¡Hola!"
+  },
+  "credits": {
+    "title": "Créditos y atribuciones",
+    "intro": "Esta app está construida sobre varios proyectos excelentes",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Esta app tiene licencia MIT. Consulta nuestro <licenseLink>LICENSE</licenseLink> y <creditsLink>CREDITS</creditsLink> para más información.",
+    "items": {
+      "rush": "Resolutor y base de datos de puzzles de Rush Hour de Michael Fogleman, compilado a WebAssembly",
+      "nextjs": "Framework de React para producción",
+      "typescript": "Superconjunto tipado de JavaScript",
+      "tailwind": "Framework de CSS basado en utilidades",
+      "capacitor": "Entorno de ejecución de apps móviles nativas",
+      "electron": "Framework de apps de escritorio",
+      "revenuecat": "Administración de suscripciones",
+      "react": "Biblioteca de componentes de interfaz",
+      "turborepo": "Sistema de compilación para monorepos"
+    }
+  },
+  "notFound": {
+    "title": "Página no encontrada"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Inicia sesión para empezar el puzzle de hoy",
+      "collection": "Inicia sesión para explorar la colección",
+      "joinTeam": "Inicia sesión para unirte al equipo",
+      "raceLobby": "Inicia sesión para competir con otros",
+      "puzzleEntry": "Inicia sesión para jugar"
+    },
+    "valueProps": {
+      "saveProgress": "Guarda tu progreso",
+      "raceFriends": "Compite con amigos",
+      "trackStats": "Sigue tus estadísticas"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Usaste tus {{limit}} pistas gratuitas de hoy.",
+      "body": "Plus te ofrece pistas ilimitadas, para que no vuelvas a atascarte, y mantiene toda la app sin anuncios."
+    },
+    "undo": {
+      "title": "¡Alcanzaste tu límite diario de deshacer!",
+      "body": "Cuentas con {{limit}} acciones de deshacer gratuitas al día. El límite se restablece mañana, o suscríbete para deshacer sin límite."
+    },
+    "collectionLocked": {
+      "title": "Este puzzle forma parte de la colección Plus.",
+      "body": "Plus desbloquea todos los puzzles del paquete de cada mes y mantiene toda la app sin anuncios."
+    },
+    "themeColor": {
+      "title": "Este tema es exclusivo de Plus.",
+      "body": "Mejora tu plan para desbloquear todos los colores de tema y personalizar tu experiencia en Carrera Libre."
+    },
+    "removeMember": {
+      "title": "¡Quitar miembros de tu equipo es una función premium!",
+      "body": "Suscríbete para desbloquear funciones avanzadas de administración de equipos, como quitar miembros."
+    },
+    "multipleParties": {
+      "title": "¡Tener varios equipos de carreras es una función premium!",
+      "body": "Los usuarios gratuitos pueden tener un equipo. Suscríbete para crear y unirte a equipos ilimitados con familia, amigos y más."
+    },
+    "partyMaxSize": {
+      "title": "¡Los equipos grandes son una función premium!",
+      "body": "Suscríbete para desbloquear funciones avanzadas de administración de equipos, incluidos los equipos grandes."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Siempre sin anuncios",
+      "description": "Sin anuncios, nunca: solo tú y los puzzles"
+    },
+    "hints": {
+      "title": "Pistas ilimitadas",
+      "description": "Nunca te atasques: pide una pista siempre que la necesites"
+    },
+    "monthlyPack": {
+      "title": "Paquete mensual completo desbloqueado, cada mes",
+      "description": "Juega todos los puzzles en todas las dificultades, sin bloqueos"
+    },
+    "undos": {
+      "title": "Deshacer ilimitado",
+      "description": "Retrocede tantas jugadas como quieras"
+    },
+    "teams": {
+      "title": "Varios equipos de carreras",
+      "description": "Organiza competencias privadas con amigos y familia"
+    },
+    "management": {
+      "title": "Administración de equipos",
+      "description": "Crea grupos grandes de hasta 15 personas y quita miembros de tu equipo."
+    },
+    "themes": {
+      "title": "Todos los temas desbloqueados",
+      "description": "Personaliza tu experiencia de carreras"
+    }
+  },
+  "plusModal": {
+    "description": "Únete a <badge>{{plusName}}</badge> para tener <strong>pistas ilimitadas</strong>, el <strong>paquete mensual completo desbloqueado</strong> y <strong>deshacer sin límite</strong>. Reta a tus amigos, sube en las tablas de posiciones y disfruta sin anuncios."
+  },
+  "leaderboard": {
+    "collectionLabel": "Colección",
+    "collectionDetailNoun": "colecciones"
+  },
+  "motivational": {
+    "messages": [
+      "Tus amigos esperan un desafío",
+      "¿Contra quién competirás hoy?",
+      "Es hora de mostrar tu velocidad",
+      "¿Reto aceptado?",
+      "Carrera hacia la línea de meta",
+      "¿Quién es el solucionador más rápido?",
+      "¿Listo para dominar la tabla de posiciones?",
+      "Tus habilidades de carrera te esperan",
+      "Es hora de dejarlos atrás",
+      "¿Listo para cruzar la meta el primero?",
+      "La pista te está esperando",
+      "Es hora de meter la marcha más alta",
+      "¿Listo para quemar neumáticos en la cuadrícula?",
+      "Tus rivales ya están calentando",
+      "Hoy es el día de batir un nuevo récord",
+      "Tu mejor marca personal espera a ser superada",
+      "Cada puzzle te hace más rápido",
+      "La racha empieza ahora",
+      "Es hora de subir de nivel",
+      "Tu próximo gran avance está a un puzzle de distancia",
+      "¿Listo para sorprenderte a ti mismo?",
+      "Muéstrales de qué estás hecho",
+      "Es hora de liberar tu potencial",
+      "Tu resolución más rápida aún está por llegar",
+      "¿Listo para que hoy cuente?",
+      "Cada segundo cuenta en la carrera",
+      "Es hora de superar tus límites",
+      "Tu camino de mejora continúa",
+      "¿Listo para superar las expectativas?",
+      "¿Crees que puedes con la presión?",
+      "Es hora de callar a los escépticos",
+      "¿Listo para reclamar la victoria?",
+      "Tu competencia no lo verá venir",
+      "Es hora de dejar tu huella",
+      "¿Listo para robar el protagonismo?",
+      "La victoria sabe mejor cuando se gana",
+      "Es hora de demostrar quién manda",
+      "¿Listo para mostrar tu verdadero carácter?",
+      "La mentalidad de campeón empieza aquí",
+      "Es hora de destacar del resto",
+      "¿Listo para escribir tu leyenda?",
+      "Los campeones se forjan en momentos como este",
+      "Es hora de convertir el potencial en rendimiento",
+      "Puzzles nuevos, oportunidades nuevas",
+      "El reto de hoy espera tu maestría",
+      "¿Listo para que este sea tu mejor día?",
+      "Un nuevo día trae nuevos récords por batir",
+      "Es hora de sumar otra victoria a tu colección",
+      "¿Listo para empezar fuerte y terminar aún mejor?",
+      "¿Listo para hacer de hoy un día legendario?",
+      "Tu dosis diaria de triunfo te espera",
+      "En la cuadrícula, la estrategia se une a la velocidad",
+      "¿Listo para pensar y correr más que los demás?",
+      "Tu dominio de los puzzles te llama",
+      "Es hora de combinar lógica con velocidad relámpago",
+      "¿Listo para resolver con precisión quirúrgica?",
+      "La combinación perfecta: habilidad y velocidad",
+      "Tu ventaja analítica es tu ventaja en la carrera",
+      "Es hora de demostrar tu supremacía en los puzzles",
+      "¿Listo para resolver como un campeón?",
+      "Las carreras de precisión empiezan con ideas claras",
+      "Tus amigos esperan la revancha",
+      "¿Quién resuelve hoy?",
+      "Hay un nuevo puzzle diario listo",
+      "Tu racha está en juego",
+      "Puzzles nuevos, nuevo comienzo",
+      "El reto de hoy ya está disponible",
+      "Compite con un amigo en el puzzle diario",
+      "Nuevo día, puzzles nuevos",
+      "Alguien ya está en la tabla de posiciones",
+      "Mantén viva la racha",
+      "Los retos diarios acaban de renovarse",
+      "Tu equipo te está esperando",
+      "Un puzzle más cerca de la cima",
+      "Los puzzles de hoy te están esperando",
+      "Vuelve a entrar y compite"
+    ]
+  }
+}

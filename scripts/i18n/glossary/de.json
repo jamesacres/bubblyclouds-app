@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Sudoku-Rennen",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "Rennen",
+      "team": "Team",
+      "leaderboard": "Rangliste",
+      "hint": "Hinweis",
+      "undo": "Undo",
+      "theme": "Design",
+      "dailyPuzzle": "Tagesrätsel",
+      "monthlyCollection": "monatliches Rätselbuch",
+      "aiOpponent": "KI-Gegner",
+      "monthly": "monatlich",
+      "lifetime": "auf Lebenszeit",
+      "plusAccess": "Plus-Zugang",
+      "plusFeatureLine": "Unbegrenzte Rennen, Teams, Designs & Undo"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Freifahrt-Rennen",
+      "gameName": "Freifahrt-Rennen",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "Rennen",
+      "team": "Team",
+      "leaderboard": "Rangliste",
+      "hint": "Hinweis",
+      "undo": "Undo",
+      "theme": "Design",
+      "dailyPuzzle": "Tagesrätsel",
+      "monthlyCollection": "monatliche Rätselsammlung",
+      "aiOpponent": "KI-Gegner",
+      "monthly": "monatlich",
+      "lifetime": "auf Lebenszeit",
+      "plusAccess": "Plus-Zugang",
+      "plusFeatureLine": "Unbegrenzte Rennen, Teams, Designs & Undo"
+    }
+  }
+}

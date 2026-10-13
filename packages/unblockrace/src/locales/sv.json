@@ -1,0 +1,259 @@
+{
+  "brand": {
+    "gameName": "Befria Racet"
+  },
+  "controls": {
+    "hint": "Tips",
+    "hintTitle": "Be om hjälp",
+    "undo": "Ångra",
+    "redo": "Gör om",
+    "reset": "Återställ"
+  },
+  "labels": {
+    "time": "Tid",
+    "moves": "Drag",
+    "stageOf": "Etapp {{current}} av {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} drag",
+    "moves_other": "{{count}} drag",
+    "par": "par",
+    "overPar": "{{delta}} över par",
+    "underPar": "{{delta}} under par"
+  },
+  "score": {
+    "moves": "drag",
+    "srOnPar": "drag, på par",
+    "srOverPar": "drag, {{delta}} över par",
+    "srUnderPar": "drag, {{delta}} under par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Dagligt · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Nybörjare",
+    "challenging": "Utmanande",
+    "hard": "Svår",
+    "expert": "Expert"
+  },
+  "collection": {
+    "puzzleLabel": "Samlingspussel {{number}}",
+    "theme": {
+      "january": "Nytt år, ny trafikstockning",
+      "february": "Frusen trafikstockning",
+      "march": "Vidöppet",
+      "april": "Blockregn",
+      "may": "Nya filer blommar",
+      "june": "Toppfart i röjandet",
+      "july": "Sommarens racingserie",
+      "august": "Glödhet trafikstockning",
+      "september": "Tillbaka till brädet",
+      "october": "Hemsökt trafikstockning",
+      "november": "Röj filerna",
+      "december": "Högtidens trafikstockning",
+      "default": "Månadens samling"
+    },
+    "error": {
+      "offline": "Du är offline, kontrollera din anslutning",
+      "loadFailed": "Det gick inte att läsa in pusselsamlingen"
+    }
+  },
+  "stageClear": {
+    "title": "Etapp {{stage}} klar",
+    "onPar": "På par",
+    "pointsSuffix": " p",
+    "leaderboardPoints": "Topplistepoäng",
+    "nextStage": "Nästa etapp",
+    "progress": "Etapp {{stage}} av {{total}} – {{remaining}} kvar"
+  },
+  "hint": {
+    "unsolvable": "Ingen väg ut härifrån – ångra eller återställ för att komma på rätt spår",
+    "dismiss": "Stäng tipsmeddelandet"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Håll serien igång i samlingen"
+  },
+  "raceTrack": {
+    "collection": "Samling"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Försöka igen med den här etappen?",
+      "body": "Din nuvarande tid och dina drag ersätts.",
+      "confirm": "Försök igen"
+    },
+    "reset": {
+      "title": "Återställa det här pusslet?",
+      "body": "Då rensas dina drag och pusslet startar om.",
+      "confirm": "Återställ"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bi",
+      "personality": "Rastlös och entusiastisk. Skjuter runt block i ryck och står sedan still. Nära utgången drar den på för tidigt och kör fast filen precis innan målet.",
+      "voiceLines": {
+        "neutral": [
+          "Oj! Den här glider!",
+          "Vänta – nej, den blockerar mig...",
+          "Surr surr! Gör plats!"
+        ],
+        "playerAhead": [
+          "Hallå, ta det lugnt!",
+          "Jag höll just på att röja väg…"
+        ],
+        "playerBehind": ["Jag kommer ikapp!", "Kolla vad jag glider!"],
+        "endgame": ["Utgången! Jag ser den!", "Vänta – vem har parkerat där?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "anka",
+      "personality": "Glad och planlös. Långsam och jämn med långa pauser. På slutet glider den nästan av en slump ut ur trafikstockningen.",
+      "voiceLines": {
+        "neutral": ["Puttar bara på lite...", "Hmm... kanske det här blocket."],
+        "playerAhead": ["Du är grym!", "Jag tar mig ut till slut."],
+        "playerBehind": ["Oj! Den rörde sig!", "Det här är trevligt."],
+        "endgame": ["Är det där utgången?", "Oj! Vägen röjde sig själv."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "ödla",
+      "personality": "Försiktig och observant. Långa pauser följda av små skjutsvep. På slutet tvekar den före varje drag.",
+      "voiceLines": {
+        "neutral": [
+          "Låt mig se vad det här frigör.",
+          "Det draget borde vara säkert."
+        ],
+        "playerAhead": ["Nu måste jag vara försiktig.", "Blockera inte filen."],
+        "playerBehind": ["Okej… jag kommer ikapp.", "Det finns tid."],
+        "endgame": [
+          "Försiktigt nu...",
+          "Nästan ute… jag måste bara vara säker."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "spindel",
+      "personality": "Genomtänkt och strukturerad. Röjer filen noggrant, block för block. På slutet rasar planen – tvekan smyger sig in som om vägen inte längre håller.",
+      "voiceLines": {
+        "neutral": ["Det öppnar vägen.", "Block för block..."],
+        "playerAhead": ["Vägen fungerade ju...", "Jag måste planera om..."],
+        "playerBehind": ["Det håller än.", "Ja… filen öppnar sig."],
+        "endgame": [
+          "Vänta – nej, då blir jag instängd igen.",
+          "Jag hade planerat den här vägen..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "tvättbjörn",
+      "personality": "Kaxig och opportunistisk. Ojämn rytm. På slutet får den fart och glider ut snabbare än väntat.",
+      "voiceLines": {
+        "neutral": ["Där flyttade det sig!", "Lite trångt, men jag tar det."],
+        "playerAhead": ["Okej, dags att köra på.", "Inte instängd än."],
+        "playerBehind": ["Åh – fin lucka.", "Nu öppnar sig filen."],
+        "endgame": ["Japp, fri väg framåt.", "Nu rullar det."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Strukturerad och metodisk. Jämn takt. Slutet förblir lugnt – ingen panik, ingen spurt.",
+      "voiceLines": {
+        "neutral": ["Det draget passar vägen.", "Jag håller samma takt."],
+        "playerAhead": ["Håll takten.", "Ingen anledning att stressa brädet."],
+        "playerBehind": ["Fortfarande på rätt spår.", "Filen röjs stadigt."],
+        "endgame": ["Nästan igenom.", "Ut rent."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "apa",
+      "personality": "Oberäknelig och olustig. Oförutsägbara utbrott. På slutet accelererar den plötsligt på ett sätt som känns orättvist.",
+      "voiceLines": {
+        "neutral": [
+          "He… såg du inte den luckan?",
+          "Åh, vilket intressant drag."
+        ],
+        "playerAhead": ["Känn dig inte för säker.", "Titta på det här draget."],
+        "playerBehind": [
+          "Ibland delar sig trafiken bara.",
+          "Tur med draget… eller?"
+        ],
+        "endgame": ["Oj – vägen är helt fri.", "Det röjde sig snabbt."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "örn",
+      "personality": "Avstängd och flytande. Glesa, självsäkra drag. Tyst acceleration på slutet.",
+      "voiceLines": {
+        "neutral": ["Såg vägen redan.", "Glider bara igenom."],
+        "playerAhead": ["Det ändrar inte vägen.", "Samma utgång ändå."],
+        "playerBehind": ["Det är röjt, egentligen.", "Rullar på härifrån."],
+        "endgame": ["…nästan ute.", "Rullar mot utgången."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "räv",
+      "personality": "Intensiv och tävlingsinriktad. Snabb start, ständigt tryck. Slutspurten känns aggressiv.",
+      "voiceLines": {
+        "neutral": ["Hänger du med?", "Fortfarande fast i trafiken?"],
+        "playerAhead": ["Stanna inte nu.", "Du kan glida snabbare än så."],
+        "playerBehind": ["För långsamt.", "Du är instängd."],
+        "endgame": ["Röj filen.", "Den här utgången är min."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "haj",
+      "personality": "Tålmodig och rovgirig. Håller sig nära och slår till hårt på slutet.",
+      "voiceLines": {
+        "neutral": ["Precis bakom dig.", "Inte än."],
+        "playerAhead": ["Håll dig i din fil.", "Nu är jag nära."],
+        "playerBehind": ["Jag närmar mig.", "Där är luckan."],
+        "endgame": ["Nu glider vi ut.", "Jag tog utgången."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "uggla",
+      "personality": "Lugn och besluten. Mjuk takt. Slutet är rent och oundvikligt.",
+      "voiceLines": {
+        "neutral": ["Som väntat.", "Varje block på sin plats."],
+        "playerAhead": ["Bra.", "Du ser vägen."],
+        "playerBehind": ["Följ filen.", "Håll i."],
+        "endgame": ["Nästan igenom.", "Där är utgången."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "svart katt",
+      "personality": "Tyst och omänsklig. Minimala pauser. Slutet är ett snabbt, oavbrutet glid mot utgången.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…ännu."],
+        "playerBehind": ["För sent.", "Du tvekade."],
+        "endgame": ["…ute.", "Utgång."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drake",
+      "personality": "Mödlös och absolut. Behåller perfekt kontroll hela vägen. På slutet utför den ett avgörande, oavbrutet svep mot utgången – inga luckor, inget motstånd.",
+      "voiceLines": {
+        "neutral": ["Väntat.", "Ingen avvikelse."],
+        "playerAhead": ["Du gjorde rätt som försökte.", "Fortsätt."],
+        "playerBehind": ["Detta avslutas.", "Inget alternativ."],
+        "endgame": ["Det var allt.", "Fri väg."]
+      }
+    }
+  }
+}

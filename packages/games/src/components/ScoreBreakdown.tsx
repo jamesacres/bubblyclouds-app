@@ -1,8 +1,10 @@
 'use client';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Award, Zap, Calendar, Library, Camera, Flame } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
+import { formatLatinNumber } from '@bubblyclouds-app/ui/helpers/latinNumber';
 
 interface ScoreBreakdownProps {
   breakdown: FriendsLeaderboardScore['breakdown'];
@@ -18,72 +20,88 @@ interface ScoreBreakdownProps {
 const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
   breakdown,
   stats,
-  collectionLabel = 'Book',
-  collectionDetailNoun = 'puzzle books',
+  collectionLabel,
+  collectionDetailNoun,
 }) => {
+  const { t, i18n } = useTranslation('games');
+  const label = collectionLabel ?? t('collection.defaultLabel');
+  const detailNoun = collectionDetailNoun ?? t('collection.defaultDetailNoun');
   const breakdownItems = [
     {
-      label: 'Volume Bonus',
+      label: t('scoreBreakdown.volumeBonus.label'),
       value: breakdown.volumeScore,
-      detail: `${stats.totalPuzzles} puzzles completed`,
+      detail: t('scoreBreakdown.volumeBonus.detail', {
+        count: stats.totalPuzzles,
+      }),
       icon: <Award size={16} className="text-green-600" />,
-      color: 'border-l-green-500',
+      color: 'border-s-green-500',
     },
     {
-      label: 'Daily Puzzles',
+      label: t('scoreBreakdown.dailyPuzzles.label'),
       value: breakdown.dailyPuzzleScore,
-      detail: `${stats.dailyPuzzles} daily challenges`,
+      detail: t('scoreBreakdown.dailyPuzzles.detail', {
+        count: stats.dailyPuzzles,
+      }),
       icon: <Calendar size={16} className="text-blue-600" />,
-      color: 'border-l-blue-500',
+      color: 'border-s-blue-500',
     },
     {
-      label: `${collectionLabel} Puzzles`,
+      label: t('scoreBreakdown.collectionPuzzles.label', {
+        collection: label,
+      }),
       value: breakdown.collectionPuzzleScore,
-      detail: `${stats.collectionPuzzles} from ${collectionDetailNoun}`,
+      detail: t('scoreBreakdown.collectionPuzzles.detail', {
+        count: stats.collectionPuzzles,
+        collection: detailNoun,
+      }),
       icon: <Library size={16} className="text-purple-600" />,
-      color: 'border-l-purple-500',
+      color: 'border-s-purple-500',
     },
     {
-      label: 'Scanned Puzzles',
+      label: t('scoreBreakdown.scannedPuzzles.label'),
       value: breakdown.scannedPuzzleScore,
-      detail: `${stats.scannedPuzzles} imported puzzles`,
+      detail: t('scoreBreakdown.scannedPuzzles.detail', {
+        count: stats.scannedPuzzles,
+      }),
       icon: <Camera size={16} className="text-orange-600" />,
-      color: 'border-l-orange-500',
+      color: 'border-s-orange-500',
     },
     {
-      label: 'Difficulty Bonus',
+      label: t('scoreBreakdown.difficultyBonus.label'),
       value: breakdown.difficultyBonus,
-      detail: 'Harder puzzles = more points',
+      detail: t('scoreBreakdown.difficultyBonus.detail'),
       icon: <Award size={16} className="text-red-600" />,
-      color: 'border-l-red-500',
+      color: 'border-s-red-500',
     },
     {
-      label: 'Speed Bonus',
+      label: t('scoreBreakdown.speedBonus.label'),
       value: breakdown.speedBonus,
-      detail: `Fastest: ${formatTime(stats.fastestTime)}`,
+      detail: t('scoreBreakdown.speedBonus.detail', {
+        time: formatTime(stats.fastestTime),
+      }),
       icon: <Zap size={16} className="text-yellow-600" />,
-      color: 'border-l-yellow-500',
+      color: 'border-s-yellow-500',
     },
     {
-      label: 'Racing Bonus',
+      label: t('scoreBreakdown.racingBonus.label'),
       value: breakdown.racingBonus,
-      detail: 'Beat friends who also completed',
+      detail: t('scoreBreakdown.racingBonus.detail'),
       icon: <Award size={16} className="text-indigo-600" />,
-      color: 'border-l-indigo-500',
+      color: 'border-s-indigo-500',
     },
     {
-      label: 'Daily combo',
+      label: t('scoreBreakdown.dailyCombo.label'),
       value: breakdown.comboBonus,
-      detail: 'More puzzles per day = bigger multiplier',
+      detail: t('scoreBreakdown.dailyCombo.detail'),
       icon: <Flame size={16} className="text-pink-600" />,
-      color: 'border-l-pink-500',
+      color: 'border-s-pink-500',
     },
   ];
 
   return (
     <div className="border-t border-gray-200 bg-gray-50/50 px-4 pb-4 dark:border-gray-600 dark:bg-zinc-700/30">
       <div className="mb-3 pt-4 font-semibold text-gray-700 dark:text-gray-300">
-        Score Breakdown
+        {t('scoreBreakdown.title')}
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {breakdownItems.map(
@@ -91,16 +109,18 @@ const ScoreBreakdown: React.FC<ScoreBreakdownProps> = ({
             item.value > 0 && (
               <div
                 key={item.label}
-                className={`rounded-lg border-l-4 bg-white p-3 dark:bg-zinc-800 ${item.color} shadow-sm`}
+                className={`rounded-lg border-s-4 bg-white p-3 dark:bg-zinc-800 ${item.color} shadow-sm`}
               >
                 <div className="mb-2 flex items-center">
                   {item.icon}
-                  <span className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <span className="ms-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                     {item.label}
                   </span>
                 </div>
                 <div className="mb-1 text-lg font-bold text-green-600 dark:text-green-400">
-                  +{item.value.toLocaleString()}
+                  <span dir="ltr">
+                    +{formatLatinNumber(item.value, i18n.language)}
+                  </span>
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-400">
                   {item.detail}

@@ -1,0 +1,58 @@
+{
+  "language": {
+    "label": "Idioma",
+    "automatic": "Automático"
+  },
+  "header": {
+    "offline": "Off-line",
+    "back": "Voltar"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Alternar modo escuro"
+  },
+  "starRating": {
+    "label_one": "{{filled}} de {{count}} estrela",
+    "label_many": "{{filled}} de {{count}} estrelas",
+    "label_other": "{{filled}} de {{count}} estrelas"
+  },
+  "timer": {
+    "go": "JÁ!"
+  },
+  "themeColor": {
+    "change": "Mudar cor do tema",
+    "set": "Definir cor do tema como {{color}}",
+    "setPremium": "Definir cor do tema como {{color}} (Premium)",
+    "colors": {
+      "blue": "azul",
+      "red": "vermelho",
+      "green": "verde",
+      "purple": "roxo",
+      "amber": "âmbar",
+      "cyan": "ciano",
+      "pink": "rosa",
+      "indigo": "índigo",
+      "orange": "laranja",
+      "teal": "verde-azulado",
+      "slate": "ardósia",
+      "rose": "rosé",
+      "emerald": "esmeralda",
+      "sky": "céu",
+      "violet": "violeta",
+      "lime": "lima",
+      "fuchsia": "fúcsia",
+      "yellow": "amarelo",
+      "stone": "pedra",
+      "zinc": "zinco"
+    }
+  },
+  "copyButton": {
+    "copied": "Copiado para a área de transferência!",
+    "share": "Compartilhar convite",
+    "copy": "Copiar link do convite"
+  },
+  "share": {
+    "joinTeam": "Entre na equipe de corrida no app {{appName}}!",
+    "joinNamedTeam": "Entre na equipe de corrida {{partyName}} no app {{appName}}!",
+    "dialogTitle": "Compartilhar convite"
+  }
+}

@@ -1,5 +1,6 @@
 import { DreyfusLevel } from '@bubblyclouds-app/games/types/Agent';
 import { DEFAULT_AGENT_CONFIGS } from './defaultAgents';
+import en from '../locales/en.json';
 
 describe('DEFAULT_AGENT_CONFIGS', () => {
   it('mirrors the sudoku roster of 13 personas', () => {
@@ -14,6 +15,14 @@ describe('DEFAULT_AGENT_CONFIGS', () => {
     expect(new Set(emojiNames).size).toBe(emojiNames.length);
   });
 
+  it('has unique lowercase ids derived from the legacy names', () => {
+    const ids = DEFAULT_AGENT_CONFIGS.map((config) => config.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const config of DEFAULT_AGENT_CONFIGS) {
+      expect(config.id).toBe(config.name.toLowerCase());
+    }
+  });
+
   it('covers every Dreyfus skill level', () => {
     const levels = new Set(
       DEFAULT_AGENT_CONFIGS.map((config) => config.skillLevel)
@@ -24,7 +33,7 @@ describe('DEFAULT_AGENT_CONFIGS', () => {
   });
 
   it('has sane timing curves', () => {
-    for (const { timingCurve, voiceLines } of DEFAULT_AGENT_CONFIGS) {
+    for (const { timingCurve } of DEFAULT_AGENT_CONFIGS) {
       expect(timingCurve.baseDelayMs).toBeGreaterThan(0);
       expect(timingCurve.jitterMs).toBeGreaterThanOrEqual(0);
       expect(timingCurve.burstChance).toBeGreaterThanOrEqual(0);
@@ -37,10 +46,15 @@ describe('DEFAULT_AGENT_CONFIGS', () => {
       );
       expect(timingCurve.endgameStart).toBeGreaterThan(0);
       expect(timingCurve.endgameStart).toBeLessThanOrEqual(1);
-      expect(voiceLines.neutral.length).toBeGreaterThan(0);
-      expect(voiceLines.playerAhead.length).toBeGreaterThan(0);
-      expect(voiceLines.playerBehind.length).toBeGreaterThan(0);
-      expect(voiceLines.endgame.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('has a name, emoji name and personality locale entry for every agent', () => {
+    for (const config of DEFAULT_AGENT_CONFIGS) {
+      const entry = en.agents[config.id as keyof typeof en.agents];
+      expect(entry.name).toBe(config.name);
+      expect(entry.emojiName).toBe(config.emojiName);
+      expect(entry.personality.length).toBeGreaterThan(0);
     }
   });
 });

@@ -1,0 +1,56 @@
+{
+  "language": {
+    "label": "언어",
+    "automatic": "자동"
+  },
+  "header": {
+    "offline": "오프라인",
+    "back": "뒤로"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "다크 모드 전환"
+  },
+  "starRating": {
+    "label_other": "별 {{count}}개 중 {{filled}}개"
+  },
+  "timer": {
+    "go": "GO!"
+  },
+  "themeColor": {
+    "change": "테마 색상 변경",
+    "set": "테마 색상 설정: {{color}}",
+    "setPremium": "테마 색상 설정: {{color}} (프리미엄)",
+    "colors": {
+      "blue": "파랑",
+      "red": "빨강",
+      "green": "초록",
+      "purple": "보라",
+      "amber": "호박색",
+      "cyan": "시안",
+      "pink": "분홍",
+      "indigo": "남색",
+      "orange": "주황",
+      "teal": "청록",
+      "slate": "슬레이트",
+      "rose": "로즈",
+      "emerald": "에메랄드",
+      "sky": "하늘색",
+      "violet": "바이올렛",
+      "lime": "라임",
+      "fuchsia": "푸크시아",
+      "yellow": "노랑",
+      "stone": "스톤",
+      "zinc": "징크"
+    }
+  },
+  "copyButton": {
+    "copied": "클립보드에 복사했어요!",
+    "share": "초대 링크 공유",
+    "copy": "초대 링크 복사"
+  },
+  "share": {
+    "joinTeam": "{{appName}}에서 레이싱 팀에 함께해요!",
+    "joinNamedTeam": "{{appName}}에서 {{partyName}} 레이싱 팀에 함께해요!",
+    "dialogTitle": "초대 공유"
+  }
+}

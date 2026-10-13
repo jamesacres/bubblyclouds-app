@@ -7,10 +7,12 @@ import { buildPuzzleUrl } from '@bubblyclouds-app/sudoku/helpers/buildPuzzleUrl'
 import { sha256 } from '@bubblyclouds-app/template/helpers/sha256';
 import { useWakeLock } from '@bubblyclouds-app/template/hooks/useWakeLock';
 import { useSearchParams } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { Suspense, useEffect, useState } from 'react';
 import { APP_CONFIG } from '../../../app.config.js';
 
 function PuzzlePageComponent() {
+  const { t } = useTranslation('app');
   const searchParams = useSearchParams();
   const initial = searchParams.get('initial');
   const final = searchParams.get('final');
@@ -71,15 +73,20 @@ function PuzzlePageComponent() {
           alreadyCompleted={alreadyCompleted}
           showRacingPrompt={showRacingPrompt}
           app={APP_CONFIG.app}
-          appName={APP_CONFIG.appName}
+          appName={t('brand.appName')}
+          plusName={t('brand.plus')}
           apiUrl={APP_CONFIG.apiUrl}
           appUrl={APP_CONFIG.appUrl}
           appStoreUrl={APP_CONFIG.appStoreUrl}
           googlePlayUrl={APP_CONFIG.googlePlayUrl}
           deepLinkScheme={APP_CONFIG.deepLinkScheme}
-          mobileDescription={APP_CONFIG.mobileDescription}
-          desktopDescription={APP_CONFIG.desktopDescription}
-          openInAppLabel={APP_CONFIG.openInAppLabel}
+          mobileDescription={t('puzzle.mobileDescription', {
+            appName: t('brand.appName'),
+          })}
+          desktopDescription={t('puzzle.desktopDescription', {
+            appName: t('brand.appName'),
+          })}
+          openInAppLabel={t('puzzle.openInAppLabel')}
         />
       )}
     </div>

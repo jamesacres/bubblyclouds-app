@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Đua Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "đua",
+      "team": "đội",
+      "leaderboard": "bảng xếp hạng",
+      "hint": "gợi ý",
+      "undo": "hoàn tác",
+      "theme": "giao diện",
+      "dailyPuzzle": "câu đố hằng ngày",
+      "monthlyCollection": "sách câu đố hàng tháng",
+      "aiOpponent": "đối thủ AI",
+      "monthly": "hằng tháng",
+      "lifetime": "trọn đời",
+      "plusAccess": "Quyền truy cập Plus",
+      "plusFeatureLine": "Đua không giới hạn, đội, giao diện, hoàn tác"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Đua Giải Cứu Xe",
+      "gameName": "Đua Giải Cứu Xe",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "đua",
+      "team": "đội",
+      "leaderboard": "bảng xếp hạng",
+      "hint": "gợi ý",
+      "undo": "hoàn tác",
+      "theme": "giao diện",
+      "dailyPuzzle": "câu đố hằng ngày",
+      "monthlyCollection": "bộ sưu tập câu đố hàng tháng",
+      "aiOpponent": "đối thủ AI",
+      "monthly": "hằng tháng",
+      "lifetime": "trọn đời",
+      "plusAccess": "Quyền truy cập Plus",
+      "plusFeatureLine": "Đua không giới hạn, đội, giao diện, hoàn tác"
+    }
+  }
+}

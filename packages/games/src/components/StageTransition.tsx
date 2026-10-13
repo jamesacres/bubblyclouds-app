@@ -62,12 +62,13 @@ const StageTransition = ({
   }, []);
 
   return (
-    // Clip to the board's own footprint (max-w-xl, right-aligned on desktop),
+    // Clip to the board's own footprint (max-w-xl, end-aligned on desktop),
     // matching the standalone board wrapper — otherwise the track is as wide
     // as the whole column and the incoming board slides in from far outside
     // the board area instead of from just off its edge.
-    <div className="ml-auto mr-auto w-full max-w-xl overflow-hidden lg:mr-0">
+    <div className="me-auto ms-auto w-full max-w-xl overflow-hidden lg:me-0">
       <div
+        dir="ltr"
         data-testid="stage-transition-track"
         className="flex w-[200%]"
         style={{

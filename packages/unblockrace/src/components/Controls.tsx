@@ -1,6 +1,7 @@
 'use client';
 
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Lightbulb, Redo2, RotateCcw, Undo2 } from 'lucide-react';
 
 interface ControlsProps {
@@ -53,6 +54,7 @@ const Controls = memo(function Controls({
   movesMade,
   movesRequired,
 }: ControlsProps) {
+  const { t } = useTranslation('unblockrace');
   const showMoves = movesMade !== undefined && movesRequired !== undefined;
   const isOverPar = showMoves && movesMade > movesRequired;
   const parFraction = showMoves
@@ -89,11 +91,12 @@ const Controls = memo(function Controls({
             }`}
           >
             <span className="text-[0.6rem] font-black uppercase tracking-widest opacity-60">
-              Moves
+              {t('labels.moves')}
             </span>
             <span className="flex items-center gap-1.5">
               <span
                 key={movesMade}
+                dir="ltr"
                 className="inline-block origin-left font-mono text-sm font-semibold tabular-nums leading-none"
                 style={{ animation: 'unblock-move-pop 260ms ease-out' }}
               >
@@ -104,6 +107,7 @@ const Controls = memo(function Controls({
                 // ring pulse out of the gauge — the moment costs a move, it
                 // shouldn't pass as a silent recolour
                 key={isOverPar ? 'over-par' : 'under-par'}
+                dir="ltr"
                 className="h-1 w-16 overflow-hidden rounded-full bg-stone-200 sm:w-24 dark:bg-white/10"
                 style={
                   isOverPar
@@ -147,8 +151,8 @@ const Controls = memo(function Controls({
               />
               <button
                 type="button"
-                aria-label="Hint"
-                title="Ask for help"
+                aria-label={t('controls.hint')}
+                title={t('controls.hintTitle')}
                 className={`${controlButtonClass} relative h-full w-full`}
                 onClick={onHint}
                 disabled={isHintDisabled || isDisabled}
@@ -160,21 +164,21 @@ const Controls = memo(function Controls({
         ) : null}
         <button
           type="button"
-          aria-label="Undo"
+          aria-label={t('controls.undo')}
           className={controlButtonClass}
           onClick={undo}
           disabled={isUndoDisabled || isDisabled}
         >
-          <Undo2 className="h-4.5 w-4.5" />
+          <Undo2 className="h-4.5 w-4.5 rtl:-scale-x-100" />
         </button>
         <button
           type="button"
-          aria-label="Redo"
+          aria-label={t('controls.redo')}
           className={controlButtonClass}
           onClick={redo}
           disabled={isRedoDisabled || isDisabled}
         >
-          <Redo2 className="h-4.5 w-4.5" />
+          <Redo2 className="h-4.5 w-4.5 rtl:-scale-x-100" />
         </button>
         <span
           aria-hidden="true"
@@ -182,7 +186,7 @@ const Controls = memo(function Controls({
         />
         <button
           type="button"
-          aria-label="Reset"
+          aria-label={t('controls.reset')}
           className={resetButtonClass}
           onClick={reset}
           disabled={isDisabled}

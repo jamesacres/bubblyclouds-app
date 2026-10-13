@@ -2,6 +2,9 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { UserPanel } from './UserPanel';
 import type { UserProfile } from '@bubblyclouds-app/types/userProfile';
+import { I18nProvider } from '@bubblyclouds-app/ui/providers/I18nProvider';
+import ui from '@bubblyclouds-app/ui/locales/en';
+import auth from '../locales/en.json';
 
 jest.mock('./UserAvatar', () => ({
   __esModule: true,
@@ -517,5 +520,47 @@ describe('UserPanel', () => {
       expect(privacyLink).toHaveAttribute('target', '_blank');
       expect(screen.queryByText('Credits')).not.toBeInTheDocument();
     });
+  });
+
+  describe('language selector', () => {
+    const resources = {
+      en: { app: {}, ui, auth },
+      fr: { app: {}, ui, auth },
+    };
+
+    const renderPanel = (
+      supportedLocales: string[],
+      isMobile: boolean | undefined
+    ) =>
+      render(
+        <I18nProvider
+          resources={resources}
+          defaultLocale="en"
+          supportedLocales={supportedLocales}
+        >
+          <UserPanel
+            {...mockUserPanelProps}
+            user={mockUser}
+            logout={mockLogout}
+            isMobile={isMobile}
+          />
+        </I18nProvider>
+      );
+
+    it.each([true, false])(
+      'is hidden with a single supported locale (mobile: %s)',
+      (isMobile) => {
+        renderPanel(['en'], isMobile);
+        expect(screen.queryByLabelText('Language')).not.toBeInTheDocument();
+      }
+    );
+
+    it.each([true, false])(
+      'is visible with two supported locales (mobile: %s)',
+      (isMobile) => {
+        renderPanel(['en', 'fr'], isMobile);
+        expect(screen.getByLabelText('Language')).toBeInTheDocument();
+      }
+    );
   });
 });

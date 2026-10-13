@@ -1,0 +1,58 @@
+{
+  "language": {
+    "label": "Jezik",
+    "automatic": "Automatski"
+  },
+  "header": {
+    "offline": "Izvan mreže",
+    "back": "Natrag"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Uključi ili isključi tamni način"
+  },
+  "starRating": {
+    "label_one": "{{filled}} od {{count}} zvijezde",
+    "label_few": "{{filled}} od {{count}} zvijezde",
+    "label_other": "{{filled}} od {{count}} zvijezda"
+  },
+  "timer": {
+    "go": "KRENI!"
+  },
+  "themeColor": {
+    "change": "Promijenite boju teme",
+    "set": "Postavite boju teme: {{color}}",
+    "setPremium": "Postavite boju teme: {{color}} (Premium)",
+    "colors": {
+      "blue": "plava",
+      "red": "crvena",
+      "green": "zelena",
+      "purple": "purpurna",
+      "amber": "jantarna",
+      "cyan": "cijan",
+      "pink": "ružičasta",
+      "indigo": "indigo",
+      "orange": "narančasta",
+      "teal": "modrozelena",
+      "slate": "škriljasta",
+      "rose": "roza",
+      "emerald": "smaragdna",
+      "sky": "nebeska",
+      "violet": "ljubičasta",
+      "lime": "limeta",
+      "fuchsia": "fuksija",
+      "yellow": "žuta",
+      "stone": "kamena",
+      "zinc": "cinkova"
+    }
+  },
+  "copyButton": {
+    "copied": "Kopirano u međuspremnik!",
+    "share": "Podijelite poveznicu poziva",
+    "copy": "Kopirajte poveznicu poziva"
+  },
+  "share": {
+    "joinTeam": "Pridruži se timu za utrke u aplikaciji {{appName}}!",
+    "joinNamedTeam": "Pridruži se timu za utrke „{{partyName}}” u aplikaciji {{appName}}!",
+    "dialogTitle": "Podijelite poziv"
+  }
+}

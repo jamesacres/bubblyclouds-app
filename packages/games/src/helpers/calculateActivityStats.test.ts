@@ -140,11 +140,11 @@ describe('calculateActivityStats', () => {
       expect(yesterday.puzzleCount).toBe(1);
     });
 
-    it('has correct day labels in order', () => {
+    it('reports consecutive weekday indexes ending today', () => {
       const { lastSevenDays } = calculateActivityStats([]);
-      const validLabels = ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'];
-      lastSevenDays.forEach((day) => {
-        expect(validLabels).toContain(day.label);
+      const today = new Date().getDay();
+      lastSevenDays.forEach((day, i) => {
+        expect(day.dayIndex).toBe((today - (6 - i) + 7) % 7);
       });
     });
   });

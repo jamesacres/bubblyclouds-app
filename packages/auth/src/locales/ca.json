@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Inicieu la sessió per continuar",
+    "signInWith": "Inicieu la sessió amb {{provider}}",
+    "emailTitle": "Inicieu la sessió amb el correu electrònic",
+    "emailPlaceholder": "elvostre@correu.com",
+    "continue": "Continueu",
+    "cancel": "Cancel·leu",
+    "terms": "Condicions del servei",
+    "privacy": "Política de privadesa"
+  },
+  "header": {
+    "signIn": "Inicieu sessió"
+  },
+  "avatar": {
+    "alt": "usuari"
+  },
+  "panel": {
+    "title": "Compte",
+    "greeting": "Hola, {{name}}!",
+    "fallbackName": "Usuari",
+    "plusActive": "{{gameName}} {{plus}} actiu",
+    "joinGamePlus": "Passeu a {{gameName}} {{plus}}",
+    "joinPlus": "Passeu a {{plus}}",
+    "signOut": "Tanqueu la sessió",
+    "privacy": "Política de privadesa",
+    "terms": "Condicions del servei",
+    "credits": "Crèdits",
+    "deleteAccount": "Suprimiu el compte",
+    "poweredBy": "Amb la tecnologia de {{companyName}}",
+    "deleteUnavailable": "La supressió del compte no està disponible.",
+    "deleteFailed": "No s'ha pogut suprimir el compte. Torneu-ho a provar més tard."
+  },
+  "deleteDialog": {
+    "title": "Suprimiu el compte",
+    "warning": "Aquesta acció no es pot desfer. Totes les vostres dades de totes les aplicacions de {{companyName}} se suprimiran de manera permanent.",
+    "confirmation": "Confirmo que vull suprimir tot el meu compte, incloses totes les dades de totes les aplicacions de {{companyName}}.",
+    "cancel": "Cancel·leu",
+    "deleting": "Suprimint...",
+    "submit": "Suprimiu el compte"
+  }
+}

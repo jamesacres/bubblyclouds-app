@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "புத்தகம்",
+    "defaultDetailNoun": "புதிர் புத்தகங்கள்"
+  },
+  "collectionCover": {
+    "monthlyCollection": "மாதாந்திர தொகுப்பு"
+  },
+  "hintBox": {
+    "dismiss": "குறிப்பை மூடுங்கள்"
+  },
+  "lobbyButton": {
+    "opponents": "எதிராளிகள்"
+  },
+  "nextPuzzlePanel": {
+    "continue": "தொடருங்கள் — அடுத்த புதிர்",
+    "continueLocked": "தொடரவும் ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}: {{completed}} / {{total}} நிறைவு"
+  },
+  "countdownOverlay": {
+    "getReady": "தயாராகுங்கள்",
+    "go": "போ!"
+  },
+  "confirmDialog": {
+    "cancel": "ரத்துசெய்யவும்"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · நிறைவு",
+    "retry": "மீண்டும்",
+    "points": "+{{points}} புள்ளி",
+    "leaderboardPoints": "லீடர்போர்டு புள்ளிகள்"
+  },
+  "raceTimer": {
+    "time": "நேரம்"
+  },
+  "stageTopBar": {
+    "previous": "முந்தையது"
+  },
+  "raceHud": {
+    "opponents": "எதிராளிகள்",
+    "stageOf": "நிலை {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "முடிந்தது!",
+    "runComplete": "ரன் முடிந்தது",
+    "leaderboardPoints": "லீடர்போர்டு புள்ளிகள்",
+    "pointsSuffix": " புள்."
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ஞா",
+      "monday": "தி",
+      "tuesday": "செ",
+      "wednesday": "பு",
+      "thursday": "வி",
+      "friday": "வெ",
+      "saturday": "ச"
+    },
+    "dayStreak_one": "நாள் தொடர்ச்சி",
+    "dayStreak_other": "நாள் தொடர்ச்சி",
+    "thisMonth": "இந்த மாதம்"
+  },
+  "friendLeaderboardEntry": {
+    "you": "நீங்கள்",
+    "puzzles_one": "{{count}} புதிர்",
+    "puzzles_other": "{{count}} புதிர்கள்",
+    "average": "சராசரி: {{time}}",
+    "best": "சிறந்தது: {{time}}",
+    "wins_one": "🏁 {{count}} வெற்றி",
+    "wins_other": "🏁 {{count}} வெற்றிகள்",
+    "points_one": "புள்ளி",
+    "points_other": "புள்ளிகள்"
+  },
+  "scoreBreakdown": {
+    "title": "மதிப்பெண் விவரம்",
+    "volumeBonus": {
+      "label": "எண்ணிக்கை போனஸ்",
+      "detail_one": "{{count}} புதிர் முடிந்தது",
+      "detail_other": "{{count}} புதிர்கள் முடிந்தன"
+    },
+    "dailyPuzzles": {
+      "label": "தினசரி புதிர்கள்",
+      "detail_one": "{{count}} தினசரி சவால்",
+      "detail_other": "{{count}} தினசரி சவால்கள்"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} புதிர்கள்",
+      "detail": "{{collection}}: {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "ஸ்கேன் செய்த புதிர்கள்",
+      "detail_one": "{{count}} இறக்குமதி செய்த புதிர்",
+      "detail_other": "{{count}} இறக்குமதி செய்த புதிர்கள்"
+    },
+    "difficultyBonus": {
+      "label": "கடினநிலை போனஸ்",
+      "detail": "கடினமான புதிர்கள் = அதிகப் புள்ளிகள்"
+    },
+    "speedBonus": {
+      "label": "வேக போனஸ்",
+      "detail": "வேகமானது: {{time}}"
+    },
+    "racingBonus": {
+      "label": "ரேஸ் போனஸ்",
+      "detail": "முடித்த நண்பர்களை வென்றதற்காக"
+    },
+    "dailyCombo": {
+      "label": "தினசரி காம்போ",
+      "detail": "ஒரு நாளில் அதிகப் புதிர்கள் = பெரிய பெருக்கி"
+    }
+  },
+  "leaderboard": {
+    "you": "நீங்கள்",
+    "unknownUser": "தெரியாத பயனர்",
+    "title": "லீடர்போர்டு",
+    "subtitleParty": "கடந்த 30 நாட்கள் · {{partyName}}",
+    "subtitleAllTeams": "கடந்த 30 நாட்கள் · அனைத்துக் குழுக்கள்",
+    "howScoringWorks": "மதிப்பெண் முறை எப்படி"
+  },
+  "scoringLegend": {
+    "title": "மதிப்பெண் முறை எப்படி",
+    "subtitle": "{{gameName}} · கடந்த 30 நாட்கள்",
+    "close": "மூடுங்கள்",
+    "racingWins": {
+      "title": "ரேஸ் வெற்றிகள்",
+      "body": "ஒரே முடிந்த புதிரில் நீங்கள் வெல்லும் ஒவ்வொரு நண்பருக்கும் <points>+{{points}} புள்ளி</points> பெறுங்கள். {{friends}} நண்பர்களில் முதலில் முடித்தால் <points>+{{total}} புள்ளி</points> சேரும்."
+    },
+    "basePoints": {
+      "title": "அடிப்படைப் புள்ளிகள்",
+      "anyPuzzle": "எந்தப் புதிரும்",
+      "dailyPuzzle": "தினசரி புதிர்",
+      "collectionPuzzle": "{{collection}} புதிர்",
+      "scannedPuzzle": "ஸ்கேன் செய்த புதிர்"
+    },
+    "difficultyMultipliers": {
+      "title": "கடினநிலைப் பெருக்கிகள்",
+      "daily": "இன்றைய {{gameName}}",
+      "collection": "{{collection}} புதிர்கள்"
+    },
+    "speedBonuses": {
+      "title": "வேக போனஸ்கள்",
+      "lightning": "மின்னல்",
+      "fast": "வேகம்",
+      "quick": "விரைவு",
+      "steady": "நிலையானது",
+      "under": "குறைவு: {{threshold}}",
+      "seconds": "{{value}} வி",
+      "minutes": "{{value}} நிமி"
+    },
+    "dailyCombo": {
+      "title": "தினசரி காம்போ",
+      "body": "ஒரே நாளில் அதிகப் புதிர்களைத் தீர்த்தால் ஒவ்வொரு புதிரின் புள்ளிகளும் பெருகும், அதிகபட்சம் <max>{{max}}×</max> வரை.",
+      "puzzle": "நாளின் புதிர் {{puzzle}}",
+      "puzzleOrMore": "நாளின் புதிர் {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "ரன் முடிந்தது",
+    "raceProgress": "ரேஸ் முன்னேற்றம்",
+    "stagesProgress": "{{completed}}/{{total}} நிலைகள்",
+    "retryStage": "நிலையை மீண்டும்",
+    "stageLabel": "நிலை {{number}}",
+    "stageCompletedLabel": "நிலை {{number}}, முடித்த நேரம்: {{time}}",
+    "viewRacingStats": "ரேஸ் புள்ளிவிவரங்களைப் பாருங்கள்",
+    "total": "மொத்தம்"
+  },
+  "raceTrack": {
+    "you": "நீங்கள்",
+    "viewFriends": "நண்பர்களைப் பார்க்க கிளிக் செய்யுங்கள்",
+    "start": "தொடக்கம்",
+    "finish": "முடிவு",
+    "inviteToRace": "ரேஸுக்கு நண்பர்களை அழையுங்கள்",
+    "opponents": "எதிராளிகள்",
+    "racer": "ரேசர்",
+    "stageBadge": "நி{{number}}",
+    "total": "மொத்தம்",
+    "leaderboard": "லீடர்போர்டு",
+    "puzzleBook": "புதிர் புத்தகம்",
+    "puzzleBookLabel": "புதிர் புத்தகம்",
+    "refreshScores": "மதிப்பெண்களைப் புதுப்பியுங்கள்",
+    "challengeFriends": "🏁 நண்பர்களுக்கு சவால் விடுங்கள்",
+    "yourTime": "உங்கள் நேரம்:",
+    "inviteFriends": "நண்பர்களை அழையுங்கள்",
+    "racingLabel": "ரேஸில்"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "தந்திரமானது",
+      "easy": "சவாலானது",
+      "intermediate": "கடினம்",
+      "expert": "நிபுணர்"
+    },
+    "book": {
+      "veryEasy": "மிக எளிது",
+      "easy": "எளிது",
+      "moderatelyEasy": "ஓரளவு எளிது",
+      "moderate": "மிதமானது",
+      "moderatelyHard": "ஓரளவு கடினம்",
+      "hard": "கடினம்",
+      "vicious": "கொடூரம்",
+      "fiendish": "அரக்கத்தனம்",
+      "devilish": "பேய்த்தனம்",
+      "hell": "நரகம்",
+      "beyondHell": "நரகத்துக்கு அப்பால்"
+    }
+  },
+  "techniques": {
+    "lastDigit": "கடைசி இலக்கம்",
+    "hiddenSingleBox": "மறைந்த ஒற்றை (பெட்டி)",
+    "hiddenSingleLine": "மறைந்த ஒற்றை (வரி)",
+    "hiddenSingleVariantRegion": "மறைந்த ஒற்றை (மாறுபாட்டுப் பகுதி)",
+    "nakedSingle": "வெளிப்படை ஒற்றை",
+    "hiddenPair": "மறைந்த இரட்டை",
+    "lockedCandidate": "பூட்டிய வேட்பாளர்",
+    "hiddenTriple": "மறைந்த மூன்று",
+    "hiddenQuadruple": "மறைந்த நான்கு",
+    "nakedPair": "வெளிப்படை இரட்டை",
+    "nakedTriple": "வெளிப்படை மூன்று",
+    "nakedQuadruple": "வெளிப்படை நான்கு",
+    "xWing": "X-விங்",
+    "swordfish": "வாள்மீன்",
+    "skyscraper": "வானளாவி",
+    "twoStringKite": "இரு-இழைப் பட்டம்",
+    "crane": "கொக்கு",
+    "simpleColoring": "எளிய வண்ணமிடல்",
+    "yWing": "Y-விங்",
+    "xYZWing": "XYZ-விங்",
+    "wWing": "W-விங்",
+    "finnedSashimiXWing": "ஃபின்/சாஷிமி X-விங்",
+    "emptyRectangle": "வெற்றுச் செவ்வகம்",
+    "uniqueRectangleType1": "தனித்துவச் செவ்வகம் வகை 1",
+    "uniqueRectangleType2": "தனித்துவச் செவ்வகம் வகை 2",
+    "uniqueRectangleType3": "தனித்துவச் செவ்வகம் வகை 3",
+    "uniqueRectangleType4": "தனித்துவச் செவ்வகம் வகை 4",
+    "uniqueRectangleType5": "தனித்துவச் செவ்வகம் வகை 5",
+    "finnedSashimiSwordfish": "ஃபின்/சாஷிமி வாள்மீன்",
+    "jellyfish": "ஜெல்லிமீன்",
+    "bugBinaryUniversalGrave": "BUG (இருமை உலகளாவிய புதைகுழி)",
+    "xChain": "X-சங்கிலி",
+    "groupedXChain": "குழு X-சங்கிலி",
+    "YWing4WXYZWing": "4-Y-விங் (WXYZ-விங்)",
+    "yWing5": "5-Y-விங்",
+    "yWing6": "6-Y-விங்",
+    "yWing7": "7-Y-விங்",
+    "yWing8": "8-Y-விங்",
+    "yWing9": "9-Y-விங்",
+    "finnedSashimiJellyfish": "ஃபின்/சாஷிமி ஜெல்லிமீன்",
+    "medusa3D": "3D மெடூசா",
+    "xyChain": "XY-சங்கிலி",
+    "alternatingInferenceChainAIC": "மாறிவரும் அனுமானச் சங்கிலி (AIC)",
+    "groupedAlternatingInferenceChainAIC": "குழு மாறிவரும் அனுமானச் சங்கிலி (AIC)",
+    "nishioForcingChain": "நிஷியோ கட்டாயச் சங்கிலி",
+    "nishioForcingNet": "நிஷியோ கட்டாய வலை"
+  }
+}

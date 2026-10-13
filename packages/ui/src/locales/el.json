@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Γλώσσα",
+    "automatic": "Αυτόματα"
+  },
+  "header": {
+    "offline": "Εκτός σύνδεσης",
+    "back": "Πίσω"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Εναλλαγή σκοτεινής λειτουργίας"
+  },
+  "starRating": {
+    "label_one": "{{filled}} από {{count}} αστέρι",
+    "label_other": "{{filled}} από {{count}} αστέρια"
+  },
+  "timer": {
+    "go": "Πάμε!"
+  },
+  "themeColor": {
+    "change": "Αλλαγή χρώματος θέματος",
+    "set": "Ορισμός χρώματος θέματος σε {{color}}",
+    "setPremium": "Ορισμός χρώματος θέματος σε {{color}} (Premium)",
+    "colors": {
+      "blue": "μπλε",
+      "red": "κόκκινο",
+      "green": "πράσινο",
+      "purple": "μωβ",
+      "amber": "κεχριμπαρί",
+      "cyan": "κυανό",
+      "pink": "ροζ",
+      "indigo": "λουλακί",
+      "orange": "πορτοκαλί",
+      "teal": "τιρκουάζ",
+      "slate": "σχιστόλιθος",
+      "rose": "τριανταφυλλί",
+      "emerald": "σμαραγδί",
+      "sky": "ουρανί",
+      "violet": "βιολετί",
+      "lime": "λαχανί",
+      "fuchsia": "φούξια",
+      "yellow": "κίτρινο",
+      "stone": "πέτρα",
+      "zinc": "ψευδάργυρος"
+    }
+  },
+  "copyButton": {
+    "copied": "Αντιγράφηκε στο πρόχειρο!",
+    "share": "Κοινοποίηση συνδέσμου",
+    "copy": "Αντιγραφή συνδέσμου"
+  },
+  "share": {
+    "joinTeam": "Μπείτε στην ομάδα αγώνων στην εφαρμογή {{appName}}!",
+    "joinNamedTeam": "Μπείτε στην ομάδα αγώνων {{partyName}} στην εφαρμογή {{appName}}!",
+    "dialogTitle": "Κοινοποίηση πρόσκλησης"
+  }
+}

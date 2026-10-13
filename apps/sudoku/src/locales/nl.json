@@ -1,0 +1,306 @@
+{
+  "brand": {
+    "appName": "Sudoku Race",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Speel en deel om te racen met vrienden op sudoku. Dagelijkse uitdagingen en op al uw apparaten!"
+  },
+  "puzzle": {
+    "mobileDescription": "Beleef de beste raceervaring met onze {{appName}}-app!",
+    "desktopDescription": "Download {{appName}}",
+    "openInAppLabel": "Puzzel openen"
+  },
+  "crossPromo": {
+    "gameName": "Vrij Racen",
+    "tagline": "Schuif de blokken en race tegen vrienden om de file op te lossen."
+  },
+  "notFound": {
+    "message": "Pagina niet gevonden"
+  },
+  "login": {
+    "dailyPuzzle": "Meld u aan om de puzzel van vandaag te starten",
+    "puzzleBook": "Meld u aan om het puzzelboek te bekijken",
+    "joinTeam": "Meld u aan om lid van het team te worden",
+    "raceLobby": "Meld u aan om met anderen te racen",
+    "puzzleEntry": "Meld u aan om te spelen",
+    "valueProps": {
+      "saveProgress": "Sla uw voortgang op",
+      "raceFriends": "Race tegen vrienden",
+      "trackStats": "Volg uw statistieken"
+    }
+  },
+  "plusModal": {
+    "description": "Word lid van <badge>{{plusName}}</badge> om <emphasis>alle snelheidslimieten te verwijderen</emphasis>. Daag vrienden uit, beklim ranglijsten en verbeter uw oplossnelheid. Houd het reclamevrij."
+  },
+  "premiumFeatures": {
+    "title": "Premiumfuncties",
+    "subtitle": "Ontgrendel de volledige {{appName}}-ervaring",
+    "unlimitedPlay": {
+      "title": "Onbeperkt spelen en racen",
+      "description": "Race meer dan eens per dag in realtime tegen vrienden"
+    },
+    "unlimitedHints": {
+      "title": "Onbeperkt hints",
+      "description": "Nooit meer vast — krijg een hint wanneer u er een nodig hebt"
+    },
+    "monthlyBook": {
+      "title": "Volledig maandelijks boek ontgrendeld, elke maand",
+      "description": "Speel elke puzzel op elk niveau, zonder sloten"
+    },
+    "multipleTeams": {
+      "title": "Meerdere raceteams",
+      "description": "Organiseer privéwedstrijden met vrienden en familie"
+    },
+    "teamManagement": {
+      "title": "Teambeheer",
+      "description": "Maak grote teams tot 15 personen en verwijder leden uit uw team."
+    },
+    "themes": {
+      "title": "Alle thema's ontgrendeld",
+      "description": "Personaliseer uw raceervaring"
+    },
+    "unlimitedActions": {
+      "title": "Onbeperkt undo, controleren en onthullen",
+      "description": "Geen dagelijkse limieten meer voor undo, controleren en onthullen"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>U hebt vandaag uw {{count}} gratis hint gebruikt.</bold> $t(brand.plus) geeft u onbeperkt hints — nooit meer vast — en houdt de hele app reclamevrij.",
+    "hint_other": "💡 <bold>U hebt vandaag uw {{count}} gratis hints gebruikt.</bold> $t(brand.plus) geeft u onbeperkt hints — nooit meer vast — en houdt de hele app reclamevrij.",
+    "undo_one": "📅 <bold>U hebt uw dagelijkse undo-limiet bereikt!</bold> U krijgt {{count}} gratis undo per dag. De limiet wordt morgen hersteld, of neem een abonnement voor onbeperkt undo.",
+    "undo_other": "📅 <bold>U hebt uw dagelijkse undo-limiet bereikt!</bold> U krijgt {{count}} gratis undo's per dag. De limiet wordt morgen hersteld, of neem een abonnement voor onbeperkt undo.",
+    "checkGrid_one": "📅 <bold>U hebt uw dagelijkse limiet voor rastercontroles bereikt!</bold> U krijgt {{count}} gratis rastercontrole per dag. De limiet wordt morgen hersteld, of neem een abonnement voor onbeperkt controleren.",
+    "checkGrid_other": "📅 <bold>U hebt uw dagelijkse limiet voor rastercontroles bereikt!</bold> U krijgt {{count}} gratis rastercontroles per dag. De limiet wordt morgen hersteld, of neem een abonnement voor onbeperkt controleren.",
+    "reveal": "🔓 <bold>Het raster onthullen is een premiumfunctie!</bold> Neem een abonnement om de volledige oplossing te kunnen onthullen.",
+    "themeColor": "🎨 <bold>Dit thema is exclusief voor $t(brand.plus).</bold> Upgrade om alle mooie themakleuren te ontgrendelen en uw sudokuervaring te personaliseren.",
+    "dailyPuzzleLimit_one": "🧩 <bold>U hebt uw dagelijkse puzzellimiet bereikt!</bold> Gratis gebruikers kunnen {{count}} puzzel per dag spelen. De limiet wordt morgen hersteld, of neem een abonnement voor onbeperkt puzzelen.",
+    "dailyPuzzleLimit_other": "🧩 <bold>U hebt uw dagelijkse puzzellimiet bereikt!</bold> Gratis gebruikers kunnen {{count}} puzzels per dag spelen. De limiet wordt morgen hersteld, of neem een abonnement voor onbeperkt puzzelen.",
+    "collectionLocked": "✨ <bold>Deze puzzel hoort bij het $t(brand.plus)-boek.</bold> $t(brand.plus) ontgrendelt elke puzzel in het boek van elke maand en houdt de hele app reclamevrij.",
+    "removeMember": "👥 <bold>Leden uit uw team verwijderen is een premiumfunctie!</bold> Neem een abonnement om geavanceerde teambeheerfuncties te ontgrendelen, waaronder het verwijderen van leden.",
+    "multipleParties": "🏘️ <bold>Meerdere raceteams is een premiumfunctie!</bold> Gratis gebruikers kunnen één team hebben. Neem een abonnement om onbeperkt teams te maken en eraan deel te nemen voor familie, vrienden en meer.",
+    "partyMaxSize": "👥 <bold>Grote teams is een premiumfunctie!</bold> Neem een abonnement om geavanceerde teambeheerfuncties te ontgrendelen, waaronder grote teams."
+  },
+  "motivational": {
+    "messages": [
+      "Uw vrienden wachten op een uitdaging",
+      "Tegen wie gaat u vandaag racen?",
+      "Tijd om uw snelheid te tonen",
+      "Uitdaging aanvaard?",
+      "Race naar de finishlijn",
+      "Wie is de snelste oplosser?",
+      "Klaar om de ranglijst te veroveren?",
+      "Uw racevaardigheden wachten",
+      "Tijd om ze achter u te laten",
+      "Klaar om als eerste over de finish te gaan?",
+      "Het circuit wacht op u",
+      "Tijd om een versnelling hoger te schakelen",
+      "Klaar om te scheuren over het puzzelraster?",
+      "Uw tegenstanders warmen al op",
+      "Vandaag is de dag voor een nieuw record",
+      "Uw persoonlijke besttijd wacht om verbeterd te worden",
+      "Elke puzzel maakt u sneller",
+      "Het opbouwen van uw reeks begint nu",
+      "Tijd om een level hoger te gaan",
+      "Uw volgende doorbraak is één puzzel verwijderd",
+      "Klaar om uzelf te verrassen?",
+      "Laat zien waar u toe in staat bent",
+      "Tijd om uw potentieel te ontgrendelen",
+      "Uw snelste oplossing ligt nog voor u",
+      "Klaar om van vandaag een goede dag te maken?",
+      "Elke seconde telt in de race",
+      "Tijd om uw grenzen te verleggen",
+      "Uw groei gaat door",
+      "Klaar om verwachtingen te overtreffen?",
+      "Denkt u de druk aan te kunnen?",
+      "Tijd om de twijfelaars het zwijgen op te leggen",
+      "Klaar om de overwinning te pakken?",
+      "Uw concurrentie ziet dit niet aankomen",
+      "Tijd om uw stempel te drukken",
+      "Klaar om in de schijnwerpers te staan?",
+      "Een overwinning smaakt zoeter als u ervoor werkt",
+      "Tijd om te bewijzen wie de baas is",
+      "Klaar om uw ware kleuren te tonen?",
+      "De kampioensmentaliteit begint hier",
+      "Tijd om u los te maken van de rest",
+      "Klaar om uw legende te schrijven?",
+      "Kampioenen worden gemaakt in momenten als deze",
+      "Tijd om potentieel om te zetten in prestaties",
+      "Verse puzzels, verse kansen",
+      "De uitdaging van vandaag wacht op uw meesterschap",
+      "Klaar om dit uw beste dag tot nu toe te maken?",
+      "Een nieuwe dag betekent nieuwe records om te breken",
+      "Tijd om nog een overwinning aan uw collectie toe te voegen",
+      "Klaar om sterk te starten en nog sterker te eindigen?",
+      "Klaar om van vandaag een legendarische dag te maken?",
+      "Uw dagelijkse dosis triomf wacht",
+      "Strategie ontmoet snelheid op het raster",
+      "Klaar om te overtreffen in denkkracht en tempo?",
+      "Uw puzzelmeesterschap roept",
+      "Tijd om logica te combineren met bliksemsnelheid",
+      "Klaar om met chirurgische precisie op te lossen?",
+      "De perfecte combinatie: vaardigheid en snelheid",
+      "Uw analytische voorsprong is uw racevoordeel",
+      "Tijd om puzzelsuperioriteit te tonen",
+      "Klaar om als een kampioen op te lossen?",
+      "Precisieracen begint met helder denken",
+      "Uw vrienden wachten op een revanche",
+      "Wie lost er vandaag op?",
+      "Een nieuwe dagelijkse puzzel staat klaar",
+      "Uw reeks staat op het spel",
+      "Verse puzzels, frisse start",
+      "De uitdaging van vandaag staat klaar",
+      "Race tegen een vriend op de dagelijkse puzzel",
+      "Nieuwe dag, nieuwe puzzels",
+      "Er staat al iemand op de ranglijst",
+      "Hou uw reeks levend",
+      "De dagelijkse uitdagingen zijn net vernieuwd",
+      "Uw team wacht op u",
+      "Een puzzel dichter bij de top",
+      "De puzzels van vandaag wachten op u",
+      "Spring er weer in en race"
+    ]
+  },
+  "home": {
+    "live": "Live",
+    "headline": "Klaar om te racen? 🏁",
+    "subtitle": "Deel de uitdaging — nodig vrienden uit en ontdek wie de snelste sudokuoplosser is.",
+    "leaderboard": "Ranglijst",
+    "daily": {
+      "title": "Dagelijkse uitdagingen",
+      "refreshes": "wordt dagelijks vernieuwd",
+      "moreLevels": "Meer moeilijkheidsniveaus in het <bookLink>puzzelboek</bookLink>",
+      "difficulty": {
+        "simple": "Lastig",
+        "easy": "Uitdagend",
+        "intermediate": "Moeilijk"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} puzzel",
+      "summary_other": "{{month}} · {{count}} puzzels",
+      "title": "Maandelijks puzzelboek",
+      "browse": "Puzzels bekijken"
+    },
+    "import": {
+      "title": "Importeer elke puzzel",
+      "description": "Scan met de camera of plak een puzzeltekenreeks",
+      "desktopTitle": "Race op elke puzzel",
+      "desktopDescription": "Scan uit een boek of krant"
+    },
+    "teams": {
+      "title": "Raceteams",
+      "withFriends": "Race tegen {{friends}} en meer",
+      "noFriends": "Daag vrienden uit voor een race"
+    },
+    "tabs": {
+      "startRace": "Race starten",
+      "myPuzzles": "Mijn puzzels",
+      "racingTeams": "Raceteams"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Puzzelboek laden...",
+      "puzzles": "Puzzels laden...",
+      "progress": "Uw voortgang laden..."
+    },
+    "tryAgain": "Opnieuw proberen",
+    "backHome": "Terug naar start",
+    "signInPrompt": "Meld u aan om het puzzelboek te openen.",
+    "signIn": "Aanmelden",
+    "noData": "Geen puzzelboekgegevens beschikbaar.",
+    "title": "Puzzelboek {{month}}",
+    "puzzleCount_one": "{{count}} techniekgerichte puzzel",
+    "puzzleCount_other": "{{count}} techniekgerichte puzzels",
+    "completed": "{{count}} voltooid",
+    "inProgress": "{{count}} bezig",
+    "unlockWithPlus": "Ontgrendel elke puzzel met $t(brand.plus)",
+    "jumpToDifficulty": "Ga naar moeilijkheid",
+    "scrollToTop": "Naar boven",
+    "difficulty": {
+      "veryEasy": "Zeer makkelijk",
+      "easy": "Makkelijk",
+      "moderatelyEasy": "Vrij makkelijk",
+      "moderate": "Gemiddeld",
+      "moderatelyHard": "Vrij moeilijk",
+      "hard": "Moeilijk",
+      "vicious": "Meedogenloos",
+      "fiendish": "Duivels",
+      "devilish": "Satanisch",
+      "hell": "Hel",
+      "beyondHell": "Voorbij de hel"
+    }
+  },
+  "invite": {
+    "loading": "Uitnodiging laden...",
+    "iconAlt": "Pictogram van {{gameName}}",
+    "greeting": "👋 Hoi!",
+    "greetingNamed": "👋 Hoi {{name}}!",
+    "invited": "Je bent uitgenodigd!",
+    "joinTeam": "Doe mee met het raceteam <team/>",
+    "description": "Los samen sudoku's op en zie elkaars voortgang in realtime!",
+    "proTip": "💡 <bold>Tip:</bold> Alle puzzels die je vanaf nu speelt, worden gedeeld met je teamleden voor een gezellige competitie!",
+    "nicknameLabel": "Hoe noemt je raceteam je?",
+    "nicknamePlaceholder": "Voer je bijnaam in",
+    "joining": "Deelnemen aan team...",
+    "join": "Doe mee! 🎉",
+    "signIn": "Meld je aan om door te gaan",
+    "bonus": {
+      "title": "🎉 Bonus: ontvang {{duration}} {{plusName}}!",
+      "duration": {
+        "oneMonth": "een maand",
+        "oneYear": "een jaar",
+        "lifetime": "levenslang",
+        "premium": "premium"
+      },
+      "subtitle": "Door lid te worden van dit raceteam ontgrendel je volledig gratis premiumfuncties!",
+      "note": "💡 Je premiumtoegang wordt na het deelnemen automatisch geactiveerd"
+    },
+    "expired": {
+      "title": "Uitnodiging verlopen",
+      "body": "Deze uitnodigingslink is niet meer geldig. Vraag je vriend om een nieuwe uitnodiging of vergroot het team."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Voer een puzzeltekenreeks in",
+      "help": "Plak een tekenreeks van 81 tekens of een HoDoKu-raster — gebruik de cijfers 1–9 en 0 of . voor lege cellen.",
+      "submit": "Puzzel importeren"
+    },
+    "orScan": "of scan met de camera",
+    "cameraHelp": "Richt uw camera op een onopgeloste sudokupuzzel en wacht tot deze wordt herkend.",
+    "errors": {
+      "parse": "Kan de puzzel niet lezen. Plak een tekenreeks van 81 tekens of een HoDoKu-raster.",
+      "solverLoading": "De solver wordt nog geladen — probeer het opnieuw.",
+      "noSolution": "Geen oplossing gevonden. Controleer de puzzel.",
+      "camera": "Kan de camera niet starten. Controleer de rechten en probeer het opnieuw."
+    }
+  },
+  "credits": {
+    "title": "Vermeldingen en erkenning",
+    "subtitle": "Deze app is gebouwd op een aantal uitstekende projecten",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Deze app is gelicentieerd onder de MIT-licentie. Zie onze <licenseLink>LICENSE</licenseLink> en <creditsLink>CREDITS</creditsLink> voor details.",
+    "items": {
+      "humanSudokuSolver": "TypeScript-bibliotheek die sudoku's oplost met menselijke technieken.",
+      "qqwing": "Puzzelgeneratie voor de Sudoku van de dag",
+      "tdoku": "Snelle sudokusolver voor gescande puzzels",
+      "arBrowserSudoku": "Augmented-realityscannertechnologie",
+      "sudokuCoach": "Inspiratie voor algoritmen voor moeilijkheidsberekening",
+      "nextjs": "React-framework voor productie",
+      "typescript": "Getypeerde superset van JavaScript",
+      "tailwind": "Utility-first CSS-framework",
+      "capacitor": "Native runtime voor mobiele apps",
+      "electron": "Framework voor desktop-apps",
+      "tensorflow": "Machine learning voor AR-functies",
+      "revenuecat": "Abonnementsbeheer",
+      "react": "Bibliotheek met UI-componenten",
+      "turborepo": "Buildsysteem voor monorepo's"
+    }
+  }
+}

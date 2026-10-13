@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Segui ogni gara",
+    "subtitle": "Guarda la cronologia, i tassi di completamento e il confronto con i tuoi amici"
+  },
+  "01": {
+    "title": "Gara quotidiana in 5 tappe",
+    "subtitle": "Punta al minor numero di mosse e al tempo più veloce."
+  },
+  "02": {
+    "title": "Raccolta di puzzle",
+    "subtitle": "Ogni mese arriva una raccolta curata di puzzle con nuove sfide"
+  },
+  "03": {
+    "title": "Gareggia e impara insieme",
+    "subtitle": "Suggerimenti visivi quando ti blocchi."
+  },
+  "04": {
+    "title": "Gara Libera",
+    "subtitle": "Sblocca l'ingorgo. Vinci la gara 🏁\nSfida i tuoi amici fino all'uscita."
+  },
+  "05": {
+    "title": "Sfida altri, l'IA o da solo",
+    "subtitle": "Condividi un link con amici e familiari,\naggiungi avversari IA o sfida il tempo"
+  },
+  "06": {
+    "title": "Scala la classifica",
+    "subtitle": "Ogni gara dà punti — scopri chi domina negli ultimi 30 giorni"
+  },
+  "07": {
+    "title": "Conosci i tuoi rivali",
+    "subtitle": "Scegli tra avversari IA unici, ognuno con la sua personalità e il suo stile di gioco"
+  },
+  "08": {
+    "title": "I tuoi team privati",
+    "subtitle": "Invita familiari e amici, gareggiate insieme e create la vostra classifica"
+  },
+  "09": {
+    "title": "Un link. Ci sono tutti.",
+    "subtitle": "Condividi un link d'invito e i tuoi amici entrano in gara in pochi secondi"
+  }
+}

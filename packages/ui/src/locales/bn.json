@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "ভাষা",
+    "automatic": "স্বয়ংক্রিয়"
+  },
+  "header": {
+    "offline": "অফলাইন",
+    "back": "পিছনে"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "ডার্ক মোড চালু/বন্ধ করুন"
+  },
+  "starRating": {
+    "label_one": "{{count}}টি তারার মধ্যে {{filled}}টি",
+    "label_other": "{{count}}টি তারার মধ্যে {{filled}}টি"
+  },
+  "timer": {
+    "go": "শুরু!"
+  },
+  "themeColor": {
+    "change": "থিমের রং পরিবর্তন করুন",
+    "set": "থিমের রং {{color}} করুন",
+    "setPremium": "থিমের রং {{color}} করুন (প্রিমিয়াম)",
+    "colors": {
+      "blue": "নীল",
+      "red": "লাল",
+      "green": "সবুজ",
+      "purple": "বেগুনি",
+      "amber": "অ্যাম্বার",
+      "cyan": "সায়ান",
+      "pink": "গোলাপি",
+      "indigo": "ইন্ডিগো",
+      "orange": "কমলা",
+      "teal": "টিল",
+      "slate": "স্লেট",
+      "rose": "রোজ",
+      "emerald": "পান্না",
+      "sky": "আকাশি",
+      "violet": "ভায়োলেট",
+      "lime": "লাইম",
+      "fuchsia": "ফুশিয়া",
+      "yellow": "হলুদ",
+      "stone": "স্টোন",
+      "zinc": "জিঙ্ক"
+    }
+  },
+  "copyButton": {
+    "copied": "ক্লিপবোর্ডে কপি হয়েছে!",
+    "share": "আমন্ত্রণ লিংক শেয়ার করুন",
+    "copy": "আমন্ত্রণ লিংক কপি করুন"
+  },
+  "share": {
+    "joinTeam": "{{appName}}: রেসিং টিমে যোগ দিন!",
+    "joinNamedTeam": "{{appName}}: {{partyName}} রেসিং টিমে যোগ দিন!",
+    "dialogTitle": "আমন্ত্রণ শেয়ার করুন"
+  }
+}

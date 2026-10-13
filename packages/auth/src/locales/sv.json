@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Logga in för att fortsätta",
+    "signInWith": "Logga in med {{provider}}",
+    "emailTitle": "Logga in med e-post",
+    "emailPlaceholder": "din@epost.se",
+    "continue": "Fortsätt",
+    "cancel": "Avbryt",
+    "terms": "Användarvillkor",
+    "privacy": "Integritetspolicy"
+  },
+  "header": {
+    "signIn": "Logga in"
+  },
+  "avatar": {
+    "alt": "användare"
+  },
+  "panel": {
+    "title": "Konto",
+    "greeting": "Hej, {{name}}!",
+    "fallbackName": "Användare",
+    "plusActive": "{{gameName}} {{plus}} är aktivt",
+    "joinGamePlus": "Skaffa {{gameName}} {{plus}}",
+    "joinPlus": "Skaffa {{plus}}",
+    "signOut": "Logga ut",
+    "privacy": "Integritetspolicy",
+    "terms": "Användarvillkor",
+    "credits": "Medverkande",
+    "deleteAccount": "Radera konto",
+    "poweredBy": "Drivs av {{companyName}}",
+    "deleteUnavailable": "Det går inte att radera kontot just nu.",
+    "deleteFailed": "Det gick inte att radera kontot. Försök igen senare."
+  },
+  "deleteDialog": {
+    "title": "Radera konto",
+    "warning": "Den här åtgärden kan inte ångras. All din data i alla appar från {{companyName}} raderas permanent.",
+    "confirmation": "Jag bekräftar att jag vill radera hela mitt konto, inklusive all data i alla appar från {{companyName}}.",
+    "cancel": "Avbryt",
+    "deleting": "Raderar...",
+    "submit": "Radera konto"
+  }
+}

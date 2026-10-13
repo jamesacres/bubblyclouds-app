@@ -1,0 +1,246 @@
+{
+  "brand": {
+    "gameName": "解鎖競速"
+  },
+  "controls": {
+    "hint": "提示",
+    "hintTitle": "尋求協助",
+    "undo": "復原",
+    "redo": "重做",
+    "reset": "重設"
+  },
+  "labels": {
+    "time": "用時",
+    "moves": "步數",
+    "stageOf": "第 {{current}} 關，共 {{total}} 關"
+  },
+  "stats": {
+    "moves_other": "{{count}} 步",
+    "par": "基準",
+    "overPar": "比基準多 {{delta}} 步",
+    "underPar": "比基準少 {{delta}} 步"
+  },
+  "score": {
+    "moves": "步",
+    "srOnPar": "步，與基準持平",
+    "srOverPar": "步，比基準多 {{delta}} 步",
+    "srUnderPar": "步，比基準少 {{delta}} 步",
+    "upcomingPar": "基準 {{par}}"
+  },
+  "daily": {
+    "label": "每日 · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "入門",
+    "challenging": "具挑戰性",
+    "hard": "困難",
+    "expert": "專家"
+  },
+  "collection": {
+    "puzzleLabel": "合集謎題 {{number}}",
+    "theme": {
+      "january": "新年新塞車",
+      "february": "冰封塞車",
+      "march": "豁然開朗",
+      "april": "積木如雨",
+      "may": "新車道綻放",
+      "june": "極速通關",
+      "july": "夏季競速系列",
+      "august": "滾燙塞車",
+      "september": "重返棋盤",
+      "october": "鬧鬼塞車",
+      "november": "清空車道",
+      "december": "假期塞車",
+      "default": "每月合集"
+    },
+    "error": {
+      "offline": "您目前處於離線狀態，請檢查網路連線",
+      "loadFailed": "載入謎題合集失敗"
+    }
+  },
+  "stageClear": {
+    "title": "第 {{stage}} 關通關",
+    "onPar": "達到基準",
+    "pointsSuffix": " 分",
+    "leaderboardPoints": "排行榜積分",
+    "nextStage": "下一關",
+    "progress": "第 {{stage}} 關，共 {{total}} 關——還剩 {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "從這裡已無路可走——請復原或重設，回到正軌",
+    "dismiss": "關閉提示通知"
+  },
+  "nextPuzzle": {
+    "streakMessage": "在合集中持續維持連續紀錄"
+  },
+  "raceTrack": {
+    "collection": "合集"
+  },
+  "confirm": {
+    "retry": {
+      "title": "要重試本關嗎？",
+      "body": "您目前的用時和步數將被取代。",
+      "confirm": "重試"
+    },
+    "reset": {
+      "title": "要重設這道謎題嗎？",
+      "body": "這會清除您的移動步驟，並讓謎題重新開始。",
+      "confirm": "重設"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "邦布比",
+      "emojiName": "蜜蜂",
+      "personality": "坐不住，熱情洋溢。一陣猛滑積木，然後又停滯不前。接近出口時太早加速，在最後關頭堵住車道。",
+      "voiceLines": {
+        "neutral": [
+          "哦！這塊能滑動！",
+          "等等——不對，這樣擋住我了……",
+          "嗡嗡！騰出空間囉！"
+        ],
+        "playerAhead": ["喂，慢一點！", "我正在清理通道呢…"],
+        "playerBehind": ["我在追上來了！", "看我滑！"],
+        "endgame": ["出口！我看到了！", "等等——誰把車停在那裡的？！"]
+      }
+    },
+    "puddle": {
+      "name": "帕德爾",
+      "emojiName": "鴨子",
+      "personality": "開朗，漫無目的。慢而穩，常常長時間停頓。到了終盤，幾乎是不經意間從塞車中漂了出來。",
+      "voiceLines": {
+        "neutral": ["就這麼輕輕推著……", "嗯……也許是這塊。"],
+        "playerAhead": ["您做得真棒！", "我遲早會出去的。"],
+        "playerBehind": ["哦！那塊動了！", "真不錯。"],
+        "endgame": ["那是出口嗎？", "哦！路自己通了。"]
+      }
+    },
+    "flint": {
+      "name": "弗林特",
+      "emojiName": "蜥蜴",
+      "personality": "謹慎，善於觀察。長時間停頓，然後滑動幾塊。到了終盤，每次移動前都會猶豫。",
+      "voiceLines": {
+        "neutral": ["讓我看看這樣能騰出什麼。", "這樣滑應該安全。"],
+        "playerAhead": ["現在得小心點了。", "別堵住車道。"],
+        "playerBehind": ["好吧……在追了。", "還有時間。"],
+        "endgame": ["小心點……", "快出去了……只要再確認一下。"]
+      }
+    },
+    "tangle": {
+      "name": "坦格爾",
+      "emojiName": "蜘蛛",
+      "personality": "審慎，有條理。一塊一塊小心清理車道。到了終盤，計畫瓦解——猶豫悄悄蔓延，彷彿路線已不再成立。",
+      "voiceLines": {
+        "neutral": ["這樣路線就通了。", "一塊一塊來……"],
+        "playerAhead": ["這條路線本來行得通……", "我得重新規劃……"],
+        "playerBehind": ["還撐得住。", "對……車道在打開了。"],
+        "endgame": [
+          "等等——不對，這樣又把我堵回去了。",
+          "我明明規劃好這條路線了……"
+        ]
+      }
+    },
+    "maple": {
+      "name": "梅普爾",
+      "emojiName": "浣熊",
+      "personality": "機靈，善於抓機會。節奏忽快忽慢。到了終盤，找到狀態，滑出去的速度比預期的更快。",
+      "voiceLines": {
+        "neutral": ["這下挪動了！", "有點擠，不過我認了。"],
+        "playerAhead": ["好吧，該使勁了。", "還沒被堵死呢。"],
+        "playerBehind": ["哦——好空隙。", "車道現在開始通了。"],
+        "endgame": ["嗯，前方一路暢通。", "現在順暢了。"]
+      }
+    },
+    "compass": {
+      "name": "康帕斯",
+      "emojiName": "企鵝",
+      "personality": "有條理，講方法。節奏穩定。終盤依然平穩——不慌張，不衝刺。",
+      "voiceLines": {
+        "neutral": ["這樣滑符合路線。", "保持穩定。"],
+        "playerAhead": ["保持節奏。", "不必急著趕網格。"],
+        "playerBehind": ["仍在正軌。", "車道穩步暢通。"],
+        "endgame": ["快通過了。", "乾淨俐落地駛出。"]
+      }
+    },
+    "jinx": {
+      "name": "金克斯",
+      "emojiName": "猴子",
+      "personality": "反覆無常，令人不安。爆發毫無規律。到了終盤，突然加速，快得讓人覺得不公平。",
+      "voiceLines": {
+        "neutral": ["嘿嘿……沒看到那個空隙吧？", "哦，這一滑很有意思。"],
+        "playerAhead": ["別太得意。", "看好這一步。"],
+        "playerBehind": [
+          "車流有時候就是會自己散開。",
+          "滑得走運……還是說不是？"
+        ],
+        "endgame": ["哇——前面一路暢通。", "一下子就清空了。"]
+      }
+    },
+    "drift": {
+      "name": "德里夫特",
+      "emojiName": "老鷹",
+      "personality": "超然，行雲流水。滑動間隔疏遠而自信。終盤悄然加速。",
+      "voiceLines": {
+        "neutral": ["早就看出路線了。", "隨手滑過去而已。"],
+        "playerAhead": ["改變不了路線。", "反正出口是同一個。"],
+        "playerBehind": ["其實已經通了。", "從這裡起順勢滑行。"],
+        "endgame": ["……快出去了。", "滑向出口。"]
+      }
+    },
+    "ember": {
+      "name": "恩伯",
+      "emojiName": "狐狸",
+      "personality": "熱烈，好勝。起步飛快，壓力不斷。終盤的衝刺很有攻擊性。",
+      "voiceLines": {
+        "neutral": ["跟上。", "還卡在車流裡？"],
+        "playerAhead": ["現在別熄火。", "您能滑得比這更快。"],
+        "playerBehind": ["太慢了。", "您被困住了。"],
+        "endgame": ["清空車道。", "這個出口是我的。"]
+      }
+    },
+    "latch": {
+      "name": "拉奇",
+      "emojiName": "鯊魚",
+      "personality": "耐心，像獵食者。緊緊跟隨，到了終盤猛然逼近。",
+      "voiceLines": {
+        "neutral": ["就在您身後。", "還沒到時候。"],
+        "playerAhead": ["守好您的車道。", "我已經很近了。"],
+        "playerBehind": ["逼近中。", "空隙在這裡。"],
+        "endgame": ["現在，滑出去。", "拿下出口。"]
+      }
+    },
+    "sage": {
+      "name": "塞奇",
+      "emojiName": "貓頭鷹",
+      "personality": "冷靜，從容。節奏流暢。終盤乾淨俐落，水到渠成。",
+      "voiceLines": {
+        "neutral": ["不出所料。", "每塊各就其位。"],
+        "playerAhead": ["很好。", "您看出了路線。"],
+        "playerBehind": ["沿著車道前進。", "繼續保持。"],
+        "endgame": ["就快通過。", "出口在那裡。"]
+      }
+    },
+    "phantom": {
+      "name": "范托姆",
+      "emojiName": "黑貓",
+      "personality": "沉默，不似人類。幾乎沒有停頓。終盤一氣呵成，快速滑向出口。",
+      "voiceLines": {
+        "neutral": ["……", "……"],
+        "playerAhead": ["……", "……依舊。"],
+        "playerBehind": ["太遲了。", "您猶豫了。"],
+        "endgame": ["……出。", "出口。"]
+      }
+    },
+    "zenith": {
+      "name": "澤尼思",
+      "emojiName": "龍",
+      "personality": "舉重若輕，絕對掌控。全程保持完美的節奏。終盤果斷地一路掃向出口，不留破綻，毫無阻礙。",
+      "voiceLines": {
+        "neutral": ["意料之中。", "毫無偏差。"],
+        "playerAhead": ["您肯嘗試，是明智的。", "繼續。"],
+        "playerBehind": ["到此為止。", "別無他途。"],
+        "endgame": ["僅此而已。", "暢通。"]
+      }
+    }
+  }
+}

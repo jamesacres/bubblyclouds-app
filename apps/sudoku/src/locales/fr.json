@@ -1,0 +1,312 @@
+{
+  "brand": {
+    "appName": "Course Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Jouez et partagez pour faire la course au sudoku avec vos amis. Défis quotidiens et multi-appareils !"
+  },
+  "puzzle": {
+    "mobileDescription": "Profitez de la meilleure expérience de course avec notre app {{appName}} !",
+    "desktopDescription": "Télécharger {{appName}}",
+    "openInAppLabel": "Ouvrir la grille"
+  },
+  "crossPromo": {
+    "gameName": "Course Débloque",
+    "tagline": "Faites glisser les blocs et défiez vos amis pour dissiper l'embouteillage."
+  },
+  "notFound": {
+    "message": "Page introuvable"
+  },
+  "login": {
+    "dailyPuzzle": "Connectez-vous pour commencer la grille du jour",
+    "puzzleBook": "Connectez-vous pour parcourir le livret de grilles",
+    "joinTeam": "Connectez-vous pour rejoindre l'équipe",
+    "raceLobby": "Connectez-vous pour courir avec d'autres joueurs",
+    "puzzleEntry": "Connectez-vous pour jouer",
+    "valueProps": {
+      "saveProgress": "Sauvegardez votre progression",
+      "raceFriends": "Défiez vos amis",
+      "trackStats": "Suivez vos stats"
+    }
+  },
+  "plusModal": {
+    "description": "Rejoignez <badge>{{plusName}}</badge> pour <emphasis>supprimer toutes les limites de vitesse</emphasis>. Défiez vos amis, grimpez dans les classements et améliorez votre vitesse de résolution. Sans publicité."
+  },
+  "premiumFeatures": {
+    "title": "Fonctionnalités premium",
+    "subtitle": "Débloquez l'expérience {{appName}} complète",
+    "unlimitedPlay": {
+      "title": "Jeu et courses illimités",
+      "description": "Défiez vos amis en temps réel plus d'une fois par jour"
+    },
+    "unlimitedHints": {
+      "title": "Indices illimités",
+      "description": "Ne restez jamais bloqué — obtenez un indice dès que vous en avez besoin"
+    },
+    "monthlyBook": {
+      "title": "Tout le livret mensuel débloqué, chaque mois",
+      "description": "Jouez chaque grille dans chaque niveau de difficulté, sans verrou"
+    },
+    "multipleTeams": {
+      "title": "Plusieurs équipes de course",
+      "description": "Organisez des compétitions privées avec vos amis et votre famille"
+    },
+    "teamManagement": {
+      "title": "Gestion d'équipe",
+      "description": "Créez de grandes équipes jusqu'à 15 personnes et retirez des membres de votre équipe."
+    },
+    "themes": {
+      "title": "Tous les thèmes débloqués",
+      "description": "Personnalisez votre expérience de course"
+    },
+    "unlimitedActions": {
+      "title": "Annuler, vérifier et révéler en illimité",
+      "description": "Supprimez les limites quotidiennes d'annulation, de vérification et de révélation"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Vous avez utilisé {{count}} indice gratuit aujourd'hui.</bold> $t(brand.plus) vous offre des indices illimités — plus jamais bloqué — et garde toute l'app sans publicité.",
+    "hint_many": "💡 <bold>Vous avez utilisé {{count}} d'indices gratuits aujourd'hui.</bold> $t(brand.plus) vous offre des indices illimités — plus jamais bloqué — et garde toute l'app sans publicité.",
+    "hint_other": "💡 <bold>Vous avez utilisé {{count}} indices gratuits aujourd'hui.</bold> $t(brand.plus) vous offre des indices illimités — plus jamais bloqué — et garde toute l'app sans publicité.",
+    "undo_one": "📅 <bold>Vous avez atteint votre limite quotidienne d'annulations !</bold> Vous disposez de {{count}} annulation gratuite par jour. La limite est réinitialisée demain, ou abonnez-vous pour des annulations illimitées.",
+    "undo_many": "📅 <bold>Vous avez atteint votre limite quotidienne d'annulations !</bold> Vous disposez de {{count}} d'annulations gratuites par jour. La limite est réinitialisée demain, ou abonnez-vous pour des annulations illimitées.",
+    "undo_other": "📅 <bold>Vous avez atteint votre limite quotidienne d'annulations !</bold> Vous disposez de {{count}} annulations gratuites par jour. La limite est réinitialisée demain, ou abonnez-vous pour des annulations illimitées.",
+    "checkGrid_one": "📅 <bold>Vous avez atteint votre limite quotidienne de vérifications de grille !</bold> Vous disposez de {{count}} vérification de grille gratuite par jour. La limite est réinitialisée demain, ou abonnez-vous pour des vérifications illimitées.",
+    "checkGrid_many": "📅 <bold>Vous avez atteint votre limite quotidienne de vérifications de grille !</bold> Vous disposez de {{count}} de vérifications de grille gratuites par jour. La limite est réinitialisée demain, ou abonnez-vous pour des vérifications illimitées.",
+    "checkGrid_other": "📅 <bold>Vous avez atteint votre limite quotidienne de vérifications de grille !</bold> Vous disposez de {{count}} vérifications de grille gratuites par jour. La limite est réinitialisée demain, ou abonnez-vous pour des vérifications illimitées.",
+    "reveal": "🔓 <bold>Révéler la grille est une fonctionnalité premium !</bold> Abonnez-vous pour pouvoir révéler la solution complète.",
+    "themeColor": "🎨 <bold>Ce thème est réservé à $t(brand.plus).</bold> Passez à l'offre supérieure pour débloquer toutes les belles couleurs de thème et personnaliser votre expérience sudoku.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Vous avez atteint votre limite quotidienne de grilles !</bold> Les utilisateurs gratuits peuvent jouer {{count}} grille par jour. La limite est réinitialisée demain, ou abonnez-vous pour des grilles illimitées.",
+    "dailyPuzzleLimit_many": "🧩 <bold>Vous avez atteint votre limite quotidienne de grilles !</bold> Les utilisateurs gratuits peuvent jouer {{count}} de grilles par jour. La limite est réinitialisée demain, ou abonnez-vous pour des grilles illimitées.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Vous avez atteint votre limite quotidienne de grilles !</bold> Les utilisateurs gratuits peuvent jouer {{count}} grilles par jour. La limite est réinitialisée demain, ou abonnez-vous pour des grilles illimitées.",
+    "collectionLocked": "✨ <bold>Cette grille fait partie du livret $t(brand.plus).</bold> $t(brand.plus) débloque toutes les grilles du livret de chaque mois et garde toute l'app sans publicité.",
+    "removeMember": "👥 <bold>Retirer des membres de votre équipe est une fonctionnalité premium !</bold> Abonnez-vous pour débloquer la gestion avancée d'équipe, y compris le retrait de membres.",
+    "multipleParties": "🏘️ <bold>Plusieurs équipes de course sont une fonctionnalité premium !</bold> Les utilisateurs gratuits peuvent avoir une équipe. Abonnez-vous pour créer et rejoindre un nombre illimité d'équipes pour la famille, les amis, et plus encore.",
+    "partyMaxSize": "👥 <bold>Les grandes équipes sont une fonctionnalité premium !</bold> Abonnez-vous pour débloquer la gestion avancée d'équipe, y compris les grandes équipes."
+  },
+  "motivational": {
+    "messages": [
+      "Vos amis attendent un défi",
+      "Contre qui allez-vous courir aujourd'hui ?",
+      "Il est temps de montrer votre vitesse",
+      "Défi accepté ?",
+      "Course vers la ligne d'arrivée",
+      "Qui est le résolveur le plus rapide ?",
+      "Prêt à dominer le classement ?",
+      "Vos talents de coureur vous attendent",
+      "Il est temps de les laisser dans la poussière",
+      "Prêt à franchir la ligne d'arrivée en premier ?",
+      "La piste vous attend",
+      "Il est temps de passer la vitesse supérieure",
+      "Prêt à faire fumer les pneus sur la grille ?",
+      "Vos adversaires s'échauffent déjà",
+      "Aujourd'hui est le jour idéal pour établir un nouveau record",
+      "Votre record personnel n'attend que d'être battu",
+      "Chaque puzzle vous rend plus rapide",
+      "C'est le moment de lancer votre série",
+      "Il est temps de passer au niveau supérieur",
+      "Votre prochaine percée est à un puzzle d'ici",
+      "Prêt à vous surprendre vous-même ?",
+      "Montrez-leur de quoi vous êtes fait",
+      "Il est temps de libérer votre potentiel",
+      "Votre meilleur temps est encore devant vous",
+      "Prêt à faire compter cette journée ?",
+      "Chaque seconde compte dans la course",
+      "Il est temps de repousser vos limites",
+      "Votre progression continue",
+      "Prêt à dépasser les attentes ?",
+      "Pensez-vous pouvoir gérer la pression ?",
+      "Il est temps de faire taire les sceptiques",
+      "Prêt à décrocher la victoire ?",
+      "Vos concurrents ne le verront pas venir",
+      "Il est temps de laisser votre empreinte",
+      "Prêt à voler la vedette ?",
+      "La victoire est plus douce quand on la mérite",
+      "Il est temps de prouver qui est le patron",
+      "Prêt à montrer votre vraie nature ?",
+      "L'état d'esprit de champion commence ici",
+      "Il est temps de vous démarquer du peloton",
+      "Prêt à écrire votre légende ?",
+      "Les champions se forgent dans des moments comme celui-ci",
+      "Il est temps de transformer le potentiel en performance",
+      "De nouveaux puzzles, de nouvelles occasions",
+      "Le défi du jour attend votre maîtrise",
+      "Prêt à faire de cette journée la meilleure de toutes ?",
+      "Un nouveau jour, de nouveaux records à battre",
+      "Il est temps d'ajouter une victoire à votre collection",
+      "Prêt à bien commencer et à finir encore mieux ?",
+      "Prêt à rendre cette journée légendaire ?",
+      "Votre dose quotidienne de triomphe vous attend",
+      "La stratégie rencontre la vitesse",
+      "Prêt à déjouer et à devancer vos adversaires ?",
+      "Votre maîtrise des puzzles vous appelle",
+      "Il est temps de mêler logique et vitesse éclair",
+      "Prêt à résoudre avec une précision chirurgicale ?",
+      "La combinaison parfaite : talent et vitesse",
+      "Votre esprit d'analyse est votre atout en course",
+      "Il est temps de démontrer votre suprématie",
+      "Prêt à résoudre comme un champion ?",
+      "La course de précision commence par une pensée claire",
+      "Vos amis attendent la revanche",
+      "Qui résout aujourd'hui ?",
+      "Un nouveau puzzle du jour est prêt",
+      "Votre série est en jeu",
+      "De nouveaux puzzles, un nouveau départ",
+      "Le défi du jour est en ligne",
+      "Défiez un ami sur le puzzle du jour",
+      "Nouveau jour, nouveaux puzzles",
+      "Quelqu'un est déjà au classement",
+      "Gardez votre série en vie",
+      "Les défis quotidiens viennent d'être actualisés",
+      "Votre équipe vous attend",
+      "Un puzzle de plus vers le sommet",
+      "Les puzzles du jour vous attendent",
+      "Revenez et courez"
+    ]
+  },
+  "home": {
+    "live": "Direct",
+    "headline": "Prêt à courir ? 🏁",
+    "subtitle": "Partagez le défi — invitez vos amis et voyez qui résout le sudoku le plus vite.",
+    "leaderboard": "Classement",
+    "daily": {
+      "title": "Défis quotidiens",
+      "refreshes": "renouvelé chaque jour",
+      "moreLevels": "Plus de niveaux de difficulté dans le <bookLink>livret de grilles</bookLink>",
+      "difficulty": {
+        "simple": "Délicat",
+        "easy": "Stimulant",
+        "intermediate": "Difficile"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} grille",
+      "summary_many": "{{month}} · {{count}} de grilles",
+      "summary_other": "{{month}} · {{count}} grilles",
+      "title": "Livret mensuel",
+      "browse": "Parcourir les grilles"
+    },
+    "import": {
+      "title": "Importez n'importe quelle grille",
+      "description": "Scannez avec l'appareil photo ou collez une chaîne de grille",
+      "desktopTitle": "Courez sur n'importe quelle grille",
+      "desktopDescription": "Scannez depuis un livre ou un journal"
+    },
+    "teams": {
+      "title": "Équipes de course",
+      "withFriends": "Courez avec {{friends}} et d'autres",
+      "noFriends": "Défiez vos amis dans une course"
+    },
+    "tabs": {
+      "startRace": "Lancer la course",
+      "myPuzzles": "Mes grilles",
+      "racingTeams": "Équipes"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Chargement du livret de grilles...",
+      "puzzles": "Chargement des grilles...",
+      "progress": "Chargement de votre progression..."
+    },
+    "tryAgain": "Réessayer",
+    "backHome": "Retour à l'accueil",
+    "signInPrompt": "Connectez-vous pour accéder au livret de grilles.",
+    "signIn": "Se connecter",
+    "noData": "Aucune donnée de livret de grilles disponible.",
+    "title": "Livret de grilles de {{month}}",
+    "puzzleCount_one": "{{count}} grille axée sur une technique",
+    "puzzleCount_many": "{{count}} de grilles axées sur une technique",
+    "puzzleCount_other": "{{count}} grilles axées sur une technique",
+    "completed": "{{count}} terminées",
+    "inProgress": "{{count}} en cours",
+    "unlockWithPlus": "Débloquez toutes les grilles avec $t(brand.plus)",
+    "jumpToDifficulty": "Aller à la difficulté",
+    "scrollToTop": "Remonter en haut",
+    "difficulty": {
+      "veryEasy": "Très facile",
+      "easy": "Facile",
+      "moderatelyEasy": "Assez facile",
+      "moderate": "Modéré",
+      "moderatelyHard": "Assez difficile",
+      "hard": "Difficile",
+      "vicious": "Vicieux",
+      "fiendish": "Diabolique",
+      "devilish": "Démoniaque",
+      "hell": "Enfer",
+      "beyondHell": "Au-delà de l'enfer"
+    }
+  },
+  "invite": {
+    "loading": "Chargement de l'invitation...",
+    "iconAlt": "Icône {{gameName}}",
+    "greeting": "👋 Bonjour !",
+    "greetingNamed": "👋 Bonjour {{name}} !",
+    "invited": "Vous êtes invité !",
+    "joinTeam": "Rejoignez l'équipe de course <team/>",
+    "description": "Résolvez des grilles de sudoku ensemble et suivez la progression des uns et des autres en temps réel !",
+    "proTip": "💡 <bold>Astuce :</bold> toutes les prochaines grilles que vous jouerez seront partagées avec les membres de votre équipe pour une compétition amicale !",
+    "nicknameLabel": "Comment votre équipe de course vous appelle-t-elle ?",
+    "nicknamePlaceholder": "Saisissez votre pseudo",
+    "joining": "Arrivée dans l'équipe...",
+    "join": "Rejoignez la fête ! 🎉",
+    "signIn": "Connectez-vous pour continuer",
+    "bonus": {
+      "title": "🎉 Bonus : obtenez {{duration}} de {{plusName}} !",
+      "duration": {
+        "oneMonth": "un mois",
+        "oneYear": "un an",
+        "lifetime": "un accès à vie",
+        "premium": "un accès premium"
+      },
+      "subtitle": "En rejoignant cette équipe de course, vous débloquerez les fonctionnalités premium gratuitement !",
+      "note": "💡 Votre accès premium s'activera automatiquement après avoir rejoint l'équipe"
+    },
+    "expired": {
+      "title": "Invitation expirée",
+      "body": "Ce lien d'invitation n'est plus valide. Demandez une nouvelle invitation à votre ami ou augmentez la taille de l'équipe."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Saisissez une chaîne de grille",
+      "help": "Collez une chaîne de 81 caractères ou une grille HoDoKu — utilisez les chiffres 1–9 et 0 ou . pour les cases vides.",
+      "submit": "Importer la grille"
+    },
+    "orScan": "ou scannez avec l'appareil photo",
+    "cameraHelp": "Pointez votre appareil photo vers une grille de sudoku non résolue et attendez qu'elle soit détectée.",
+    "errors": {
+      "parse": "Impossible d'analyser la grille. Collez une chaîne de 81 caractères ou une grille HoDoKu.",
+      "solverLoading": "Le solveur est encore en cours de chargement — veuillez réessayer.",
+      "noSolution": "Aucune solution trouvée. Veuillez vérifier la grille.",
+      "camera": "Impossible de démarrer l'appareil photo. Veuillez vérifier les autorisations et réessayer."
+    }
+  },
+  "credits": {
+    "title": "Crédits et attributions",
+    "subtitle": "Cette app repose sur plusieurs excellents projets",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Cette app est distribuée sous licence MIT. Consultez notre <licenseLink>LICENSE</licenseLink> et nos <creditsLink>CREDITS</creditsLink> pour plus de détails.",
+    "items": {
+      "humanSudokuSolver": "Bibliothèque TypeScript qui résout les sudokus avec des techniques humaines.",
+      "qqwing": "Génération des grilles du sudoku du jour",
+      "tdoku": "Solveur de sudoku rapide pour les grilles scannées",
+      "arBrowserSudoku": "Technologie de scanner en réalité augmentée",
+      "sudokuCoach": "Source d'inspiration pour les algorithmes de calcul de difficulté",
+      "nextjs": "Framework React pour la production",
+      "typescript": "Sur-ensemble typé de JavaScript",
+      "tailwind": "Framework CSS utilitaire",
+      "capacitor": "Environnement d'exécution d'apps mobiles natives",
+      "electron": "Framework d'apps de bureau",
+      "tensorflow": "Apprentissage automatique pour les fonctions de RA",
+      "revenuecat": "Gestion des abonnements",
+      "react": "Bibliothèque de composants d'interface",
+      "turborepo": "Système de build de monorepo"
+    }
+  }
+}

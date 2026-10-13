@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Yolu Aç Yarışı",
+    "gameName": "Yolu Aç Yarışı",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Bulmacayı çözmek için arkadaşlarınızla yarışmak üzere oynayın ve paylaşın. Günlük meydan okumalar ve cihazlar arası destek!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Yarışa başla",
+      "myPuzzles": "Bulmacalarım",
+      "racingTeams": "Yarış takımları"
+    },
+    "hero": {
+      "live": "Canlı",
+      "headlineLine1": "Trafik düğümünü çöz.",
+      "headlineAccent": "Yarışı kazan",
+      "subtitle": "Blokları kaydırın, parlayan bloğu serbest bırakın ve çıkışa arkadaşlarınızla yarışın."
+    },
+    "leaderboard": "Sıralama listesi",
+    "dailyRace": {
+      "title": "Günlük yarış",
+      "refreshesDaily": "her gün yenilenir",
+      "todaysRace": "Bugünün yarışı",
+      "difficultyRange": "Başlangıç → Uzman",
+      "description": "Beş tahta, tek saat — en hızlı kaçan kazanır.",
+      "stages": "5 aşama",
+      "start": "Yarışa başla",
+      "morePuzzlesPrefix": "Daha fazla bulmaca için:",
+      "puzzleCollection": "bulmaca koleksiyonu"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 bulmaca",
+      "title": "Aylık koleksiyon",
+      "description": "{{month}} için 50 yeni trafik düğümü — ay bitmeden hepsini çözün.",
+      "browse": "Bulmacalara göz at"
+    },
+    "teams": {
+      "eyebrow": "Çok oyunculu",
+      "title": "Yarış takımları",
+      "raceFriends": "{{names}} ve diğerleriyle yarışın",
+      "challengeFriends": "Arkadaşlarınıza yarış için meydan okuyun"
+    },
+    "premium": {
+      "title": "Premium özellikler",
+      "subtitle": "Tüm $t(brand.gameName) deneyiminin kilidini açın"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudoku Yarışı",
+    "tagline": "Arkadaşlarınızla bir sudoku paylaşın ve en hızlı çözmek için yarışın."
+  },
+  "puzzle": {
+    "mobileDescription": "Uygulamamızla en iyi deneyimi yaşayın: {{appName}}!",
+    "desktopDescription": "İndir: {{appName}}",
+    "openInAppLabel": "Bulmacayı aç"
+  },
+  "collection": {
+    "loading": {
+      "both": "Bulmaca koleksiyonu yükleniyor...",
+      "collection": "Bulmacalar yükleniyor...",
+      "sessions": "İlerlemeniz yükleniyor..."
+    },
+    "retry": "Tekrar dene",
+    "backHome": "Ana sayfaya dön",
+    "signInPrompt": "Bulmaca koleksiyonuna erişmek için giriş yapın.",
+    "signIn": "Giriş yap",
+    "noData": "Bulmaca koleksiyonu verisi yok.",
+    "title": "{{month}} bulmaca koleksiyonu",
+    "completed": "tamamlandı",
+    "inProgress": "devam ediyor",
+    "unlockWithPlus": "Her bulmacanın kilidini Plus ile açın",
+    "jumpToDifficulty": "Zorluğa git",
+    "scrollToTop": "Başa kaydır",
+    "subtitle_one": "{{count}} bulmaca, hızlı kaçışlardan uzman tıkanıklıklarına",
+    "subtitle_other": "{{count}} bulmaca, hızlı kaçışlardan uzman tıkanıklıklarına"
+  },
+  "invite": {
+    "loading": "Davet yükleniyor...",
+    "iconAlt": "{{appName}} simgesi",
+    "greeting": "👋 Merhaba {{name}}!",
+    "invited": "Davetlisiniz!",
+    "joinTeam": "Yarış takımına katılın",
+    "tagline": "Bulmacaları birlikte çözmek için yarışın ve birbirinizin ilerleyişini gerçek zamanlı görün!",
+    "proTipLabel": "Püf noktası:",
+    "proTip": "Bundan sonra oynayacağınız tüm bulmacalar dostça rekabet için takım üyelerinizle paylaşılacak!",
+    "nicknameLabel": "Yarış takımınız size ne diyor?",
+    "nicknamePlaceholder": "Takma adınızı girin",
+    "joining": "Takıma katılıyorsunuz...",
+    "join": "Eğlenceye katılın! 🎉",
+    "signIn": "Devam etmek için giriş yapın",
+    "bonus": "🎉 Bonus: {{duration}} {{plusName}} kazanın!",
+    "bonusDescription": "Bu yarış takımına katılarak premium özelliklerin kilidini tamamen ücretsiz açarsınız!",
+    "activation": "💡 Premium erişiminiz katıldıktan sonra otomatik olarak etkinleşir",
+    "duration": {
+      "oneMonth": "bir aylık",
+      "oneYear": "bir yıllık",
+      "lifetime": "ömür boyu",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Davetin süresi doldu",
+      "description": "Bu davet bağlantısı artık geçerli değil. Lütfen arkadaşınızdan yeni bir davet isteyin veya takım boyutunu artırın."
+    },
+    "greetingAnonymous": "👋 Merhaba!"
+  },
+  "credits": {
+    "title": "Emeği geçenler ve atıflar",
+    "intro": "Bu uygulama birkaç mükemmel proje üzerine inşa edilmiştir",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Bu uygulama MIT Lisansı ile lisanslanmıştır. Ayrıntılar için <licenseLink>LICENSE</licenseLink> ve <creditsLink>CREDITS</creditsLink> dosyalarına bakın.",
+    "items": {
+      "rush": "Michael Fogleman tarafından hazırlanan, WebAssembly'ye derlenmiş Rush Hour bulmaca çözücüsü ve bulmaca veritabanı",
+      "nextjs": "Üretim için React çerçevesi",
+      "typescript": "JavaScript'in tür tanımlı üst kümesi",
+      "tailwind": "Önce yardımcı sınıflar yaklaşımlı CSS çerçevesi",
+      "capacitor": "Yerel mobil uygulama çalışma zamanı",
+      "electron": "Masaüstü uygulama çerçevesi",
+      "revenuecat": "Abonelik yönetimi",
+      "react": "Arayüz bileşen kütüphanesi",
+      "turborepo": "Monorepo derleme sistemi"
+    }
+  },
+  "notFound": {
+    "title": "Sayfa bulunamadı"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Bugünün bulmacasına başlamak için giriş yapın",
+      "collection": "Koleksiyona göz atmak için giriş yapın",
+      "joinTeam": "Takıma katılmak için giriş yapın",
+      "raceLobby": "Başkalarıyla yarışmak için giriş yapın",
+      "puzzleEntry": "Oynamak için giriş yapın"
+    },
+    "valueProps": {
+      "saveProgress": "İlerlemenizi kaydedin",
+      "raceFriends": "Arkadaşlarla yarışın",
+      "trackStats": "İstatistiklerinizi izleyin"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Bugünkü {{limit}} ücretsiz ipucunuzu kullandınız.",
+      "body": "Plus size sınırsız ipucu verir — bir daha asla takılmayın — ve tüm uygulamayı reklamsız tutar."
+    },
+    "undo": {
+      "title": "Günlük geri al sınırınıza ulaştınız!",
+      "body": "Günde {{limit}} ücretsiz geri alma hakkınız var. Sınır yarın sıfırlanır veya sınırsız geri alma için abone olun."
+    },
+    "collectionLocked": {
+      "title": "Bu bulmaca Plus koleksiyonunun bir parçasıdır.",
+      "body": "Plus, her ayın paketindeki her bulmacanın kilidini açar ve tüm uygulamayı reklamsız tutar."
+    },
+    "themeColor": {
+      "title": "Bu tema yalnızca Plus abonelerine özeldir.",
+      "body": "Tüm güzel tema renklerinin kilidini açmak ve yolu açma yarışı deneyiminizi kişiselleştirmek için yükseltin."
+    },
+    "removeMember": {
+      "title": "Takımdan üye çıkarma bir premium özelliktir!",
+      "body": "Üye çıkarma dahil gelişmiş takım yönetimi özelliklerinin kilidini açmak için abone olun."
+    },
+    "multipleParties": {
+      "title": "Birden fazla yarış takımı bir premium özelliktir!",
+      "body": "Ücretsiz kullanıcılar bir takıma sahip olabilir. Aile, arkadaşlar ve daha fazlası için sınırsız takım oluşturmak ve katılmak için abone olun."
+    },
+    "partyMaxSize": {
+      "title": "Büyük gruplar bir premium özelliktir!",
+      "body": "Büyük gruplar dahil gelişmiş takım yönetimi özelliklerinin kilidini açmak için abone olun."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Her zaman reklamsız",
+      "description": "Asla reklam yok — yalnızca siz ve bulmacalar"
+    },
+    "hints": {
+      "title": "Sınırsız ipucu",
+      "description": "Asla takılıp kalmayın — ihtiyacınız olduğunda ipucu alın"
+    },
+    "monthlyPack": {
+      "title": "Aylık paketin tamamı her ay açık",
+      "description": "Her zorluk seviyesindeki her bulmacayı oynayın, kilit yok"
+    },
+    "undos": {
+      "title": "Sınırsız geri alma",
+      "description": "İstediğiniz kadar hamleyi geri sarın"
+    },
+    "teams": {
+      "title": "Birden fazla yarış takımı",
+      "description": "Arkadaşlarınız ve ailenizle özel yarışmalar düzenleyin"
+    },
+    "management": {
+      "title": "Takım yönetimi",
+      "description": "15 kişiye kadar büyük gruplar oluşturun ve üyeleri takımınızdan çıkarın."
+    },
+    "themes": {
+      "title": "Tüm temaların kilidi açık",
+      "description": "Yarış deneyiminizi kişiselleştirin"
+    }
+  },
+  "plusModal": {
+    "description": "<badge>{{plusName}}</badge> aboneliğine katılın: <strong>sınırsız ipucu</strong>, <strong>aylık paketin tamamı açık</strong> ve <strong>sınırsız geri alma</strong>. Arkadaşlarınıza meydan okuyun, sıralamada yükselin ve reklamsız kalın."
+  },
+  "leaderboard": {
+    "collectionLabel": "Koleksiyon",
+    "collectionDetailNoun": "koleksiyonlar"
+  },
+  "motivational": {
+    "messages": [
+      "Arkadaşlarınız bir meydan okuma bekliyor",
+      "Bugün kime karşı yarışacaksınız?",
+      "Hızınızı gösterme zamanı",
+      "Meydan okuma kabul mü?",
+      "Bitiş çizgisine doğru yarışın",
+      "En hızlı çözücü kim?",
+      "Sıralamaya hükmetmeye hazır mısınız?",
+      "Yarış becerileriniz sizi bekliyor",
+      "Onları tozun içinde bırakma zamanı",
+      "Bitiş çizgisini ilk geçmeye hazır mısınız?",
+      "Pist sizi bekliyor",
+      "Vites yükseltme zamanı",
+      "Bulmaca ızgarasında lastik yakmaya hazır mısınız?",
+      "Rakipleriniz şimdiden ısınıyor",
+      "Bugün yeni bir rekor kırma günü",
+      "Kişisel rekorunuz kırılmayı bekliyor",
+      "Her bulmaca sizi biraz daha hızlandırır",
+      "Seri oluşturma şimdi başlıyor",
+      "Seviye atlama zamanı",
+      "Bir sonraki atılımınız bir bulmaca uzağınızda",
+      "Kendinizi şaşırtmaya hazır mısınız?",
+      "Onlara neyden yapıldığınızı gösterin",
+      "Potansiyelinizi ortaya çıkarma zamanı",
+      "En hızlı çözümünüz hâlâ önünüzde",
+      "Bugünü değerli kılmaya hazır mısınız?",
+      "Yarışta her saniye önemli",
+      "Sınırlarınızı zorlama zamanı",
+      "Gelişim yolculuğunuz sürüyor",
+      "Beklentileri aşmaya hazır mısınız?",
+      "Baskıyla başa çıkabileceğinizi mi düşünüyorsunuz?",
+      "Şüphecileri susturma zamanı",
+      "Zaferi kazanmaya hazır mısınız?",
+      "Rakipleriniz bunu hiç beklemiyor",
+      "İzinizi bırakma zamanı",
+      "Dikkatleri üzerinize çekmeye hazır mısınız?",
+      "Zafer, hak edildiğinde daha tatlıdır",
+      "Patronun kim olduğunu kanıtlama zamanı",
+      "Gerçek yüzünüzü göstermeye hazır mısınız?",
+      "Şampiyon zihniyeti burada başlıyor",
+      "Sürüden ayrılma zamanı",
+      "Efsanenizi yazmaya hazır mısınız?",
+      "Şampiyonlar tam da böyle anlarda yetişir",
+      "Potansiyeli performansa dönüştürme zamanı",
+      "Taze bulmacalar, taze fırsatlar",
+      "Bugünkü meydan okuma ustalığınızı bekliyor",
+      "Bunu şimdiye kadarki en iyi gününüz yapmaya hazır mısınız?",
+      "Yeni bir gün, kırılacak yeni rekorlar demek",
+      "Koleksiyonunuza bir galibiyet daha ekleme zamanı",
+      "Güçlü başlayıp daha güçlü bitirmeye hazır mısınız?",
+      "Bugünü efsanevi kılmaya hazır mısınız?",
+      "Günlük zafer dozunuz sizi bekliyor",
+      "Izgarada strateji hızla buluşuyor",
+      "Daha akıllıca düşünüp daha hızlı davranmaya hazır mısınız?",
+      "Bulmaca ustalığınız sizi çağırıyor",
+      "Mantığı şimşek hızıyla birleştirme zamanı",
+      "Cerrahi hassasiyetle çözmeye hazır mısınız?",
+      "Mükemmel birleşim: beceri ve hız",
+      "Analitik gücünüz yarıştaki avantajınız",
+      "Bulmaca üstünlüğünü gösterme zamanı",
+      "Bir şampiyon gibi çözmeye hazır mısınız?",
+      "Hassas yarış, net düşünceyle başlar",
+      "Arkadaşlarınız rövanş bekliyor",
+      "Bugün kim çözüyor?",
+      "Yeni bir günlük bulmaca hazır",
+      "Seriniz tehlikede",
+      "Taze bulmacalar, taze başlangıç",
+      "Bugünün meydan okuması yayında",
+      "Günlük bulmacada bir arkadaşınızla yarışın",
+      "Yeni gün, yeni bulmacalar",
+      "Biri şimdiden sıralamada",
+      "Serinizi sürdürün",
+      "Günlük meydan okumalar yenilendi",
+      "Takımınız sizi bekliyor",
+      "Zirveye bir bulmaca daha yakın",
+      "Bugünün bulmacaları sizi bekliyor",
+      "Hemen dönün ve yarışın"
+    ]
+  }
+}

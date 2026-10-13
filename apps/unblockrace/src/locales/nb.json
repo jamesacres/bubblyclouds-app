@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Frigjør Løpet",
+    "gameName": "Frigjør Løpet",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Spill og del for å løpe mot venner om å løse puslespillet. Daglige utfordringer og på tvers av enheter!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Start løp",
+      "myPuzzles": "Mine puslespill",
+      "racingTeams": "Løpslag"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Løs trafikkorken.",
+      "headlineAccent": "Vinn løpet",
+      "subtitle": "Skyv blokkene, frigjør den glødende, og løp mot vennene dine til utgangen."
+    },
+    "leaderboard": "Resultatliste",
+    "dailyRace": {
+      "title": "Daglig løp",
+      "refreshesDaily": "oppdateres daglig",
+      "todaysRace": "Dagens løp",
+      "difficultyRange": "Nybegynner → Ekspert",
+      "description": "Fem brett, én klokke — raskeste flukt vinner.",
+      "stages": "5 etapper",
+      "start": "Start løpet",
+      "morePuzzlesPrefix": "Flere puslespill i",
+      "puzzleCollection": "puslespillsamlingen"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 puslespill",
+      "title": "Månedlig samling",
+      "description": "50 nye trafikkorker for {{month}} — løs dem alle før måneden er over.",
+      "browse": "Bla i puslespill"
+    },
+    "teams": {
+      "eyebrow": "Flerspiller",
+      "title": "Løpslag",
+      "raceFriends": "Løp mot {{names}} og flere",
+      "challengeFriends": "Utfordre venner til et løp"
+    },
+    "premium": {
+      "title": "Premium-funksjoner",
+      "subtitle": "Lås opp hele $t(brand.gameName)-opplevelsen"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudokuløp",
+    "tagline": "Del en sudoku med venner og løp om å løse den raskest."
+  },
+  "puzzle": {
+    "mobileDescription": "Få den beste opplevelsen med appen {{appName}}!",
+    "desktopDescription": "Last ned {{appName}}",
+    "openInAppLabel": "Åpne puslespill"
+  },
+  "collection": {
+    "loading": {
+      "both": "Laster puslespillsamlingen...",
+      "collection": "Laster puslespill...",
+      "sessions": "Laster fremgangen din..."
+    },
+    "retry": "Prøv igjen",
+    "backHome": "Tilbake til start",
+    "signInPrompt": "Logg inn for å få tilgang til puslespillsamlingen.",
+    "signIn": "Logg inn",
+    "noData": "Ingen data for puslespillsamlingen er tilgjengelig.",
+    "title": "Puslespillsamling for {{month}}",
+    "completed": "fullført",
+    "inProgress": "pågår",
+    "unlockWithPlus": "Lås opp alle puslespill med Plus",
+    "jumpToDifficulty": "Hopp til vanskelighetsgrad",
+    "scrollToTop": "Rull til toppen",
+    "subtitle_one": "{{count}} puslespill, fra raske flukter til trafikkorker for eksperter",
+    "subtitle_other": "{{count}} puslespill, fra raske flukter til trafikkorker for eksperter"
+  },
+  "invite": {
+    "loading": "Laster invitasjonen...",
+    "iconAlt": "{{appName}}-ikon",
+    "greeting": "👋 Hei {{name}}!",
+    "invited": "Du er invitert!",
+    "joinTeam": "Bli med på løpslaget",
+    "tagline": "Løp om å løse puslespill sammen og se hverandres fremgang i sanntid!",
+    "proTipLabel": "Proff-tips:",
+    "proTip": "Alle fremtidige puslespill du spiller deles med lagkameratene dine for vennlig konkurranse!",
+    "nicknameLabel": "Hva kaller løpslaget deg?",
+    "nicknamePlaceholder": "Skriv inn kallenavnet ditt",
+    "joining": "Blir med i laget...",
+    "join": "Bli med på moroa! 🎉",
+    "signIn": "Logg inn for å fortsette",
+    "bonus": "🎉 Bonus: Få {{plusName}} — {{duration}}!",
+    "bonusDescription": "Ved å bli med på dette løpslaget låser du opp premium-funksjoner helt gratis!",
+    "activation": "💡 Premium-tilgangen din aktiveres automatisk når du har blitt med",
+    "duration": {
+      "oneMonth": "én måned",
+      "oneYear": "ett år",
+      "lifetime": "for livet",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Invitasjonen har utløpt",
+      "description": "Denne invitasjonslenken er ikke lenger gyldig. Be vennen din om en ny invitasjon, eller øk lagstørrelsen."
+    },
+    "greetingAnonymous": "👋 Hei!"
+  },
+  "credits": {
+    "title": "Bidragsytere og kreditering",
+    "intro": "Denne appen er bygget på flere utmerkede prosjekter",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Denne appen er lisensiert under MIT-lisensen. Se <licenseLink>LICENSE</licenseLink> og <creditsLink>CREDITS</creditsLink> for detaljer.",
+    "items": {
+      "rush": "Rush Hour-løser og puslespilldatabase av Michael Fogleman, kompilert til WebAssembly",
+      "nextjs": "React-rammeverk for produksjon",
+      "typescript": "Typet supersett av JavaScript",
+      "tailwind": "CSS-rammeverk med verktøyklasser først",
+      "capacitor": "Kjøremiljø for native mobilapper",
+      "electron": "Rammeverk for skrivebordsapper",
+      "revenuecat": "Abonnementsadministrasjon",
+      "react": "Bibliotek for UI-komponenter",
+      "turborepo": "Byggesystem for monorepo"
+    }
+  },
+  "notFound": {
+    "title": "Siden ble ikke funnet"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Logg inn for å starte dagens puslespill",
+      "collection": "Logg inn for å bla i samlingen",
+      "joinTeam": "Logg inn for å bli med i laget",
+      "raceLobby": "Logg inn for å løpe mot andre",
+      "puzzleEntry": "Logg inn for å spille"
+    },
+    "valueProps": {
+      "saveProgress": "Lagre fremgangen din",
+      "raceFriends": "Løp mot venner",
+      "trackStats": "Følg statistikken din"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Du har brukt dine {{limit}} gratis hint i dag.",
+      "body": "Plus gir deg ubegrensede hint — aldri stå fast igjen — og holder hele appen reklamefri."
+    },
+    "undo": {
+      "title": "Du har nådd den daglige grensen for angring!",
+      "body": "Du får {{limit}} gratis angringer per dag. Grensen nullstilles i morgen, eller abonner for ubegrenset angring."
+    },
+    "collectionLocked": {
+      "title": "Dette puslespillet er en del av Plus-samlingen.",
+      "body": "Plus låser opp alle puslespill i hver måneds pakke, og holder hele appen reklamefri."
+    },
+    "themeColor": {
+      "title": "Dette temaet er eksklusivt for Plus.",
+      "body": "Oppgrader for å låse opp alle de vakre temafargene og gjøre opplevelsen din personlig."
+    },
+    "removeMember": {
+      "title": "Å fjerne medlemmer fra laget er en premium-funksjon!",
+      "body": "Abonner for å låse opp avansert lagadministrasjon, inkludert fjerning av medlemmer."
+    },
+    "multipleParties": {
+      "title": "Flere løpslag er en premium-funksjon!",
+      "body": "Gratisbrukere kan ha ett lag. Abonner for å opprette og bli med i ubegrenset antall lag for familie, venner og mer."
+    },
+    "partyMaxSize": {
+      "title": "Store lag er en premium-funksjon!",
+      "body": "Abonner for å låse opp avansert lagadministrasjon, inkludert store lag."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Alltid reklamefri",
+      "description": "Aldri reklame — bare deg og puslespillene"
+    },
+    "hints": {
+      "title": "Ubegrensede hint",
+      "description": "Aldri stå fast — få et hint når du trenger det"
+    },
+    "monthlyPack": {
+      "title": "Hele månedspakken åpen, hver måned",
+      "description": "Spill alle puslespill i alle vanskelighetsgrader, uten låser"
+    },
+    "undos": {
+      "title": "Ubegrenset angring",
+      "description": "Spol tilbake så mange trekk du vil"
+    },
+    "teams": {
+      "title": "Flere løpslag",
+      "description": "Arranger private konkurranser med venner og familie"
+    },
+    "management": {
+      "title": "Lagadministrasjon",
+      "description": "Opprett store lag med opptil 15 personer, og fjern medlemmer fra laget ditt."
+    },
+    "themes": {
+      "title": "Alle temaer åpne",
+      "description": "Gjør løpsopplevelsen din personlig"
+    }
+  },
+  "plusModal": {
+    "description": "Bli med i <badge>{{plusName}}</badge> for <strong>ubegrensede hint</strong>, <strong>hele månedspakken åpen</strong> og <strong>ubegrenset angring</strong>. Utfordre venner, klatre på resultatlistene og slipp reklame."
+  },
+  "leaderboard": {
+    "collectionLabel": "Samling",
+    "collectionDetailNoun": "samlinger"
+  },
+  "motivational": {
+    "messages": [
+      "Vennene dine venter på en utfordring",
+      "Hvem skal du løpe mot i dag?",
+      "På tide å vise farten din",
+      "Utfordring akseptert?",
+      "Løp mot målstreken",
+      "Hvem er den raskeste løseren?",
+      "Klar til å dominere resultatlisten?",
+      "Løpsferdighetene dine venter",
+      "På tide å la dem ligge igjen i støvet",
+      "Klar til å krysse målstreken først?",
+      "Banen venter på deg",
+      "På tide å skifte opp",
+      "Klar til å brenne gummi på puslespillrutenettet?",
+      "Motstanderne dine varmer allerede opp",
+      "I dag er dagen for å sette ny rekord",
+      "Din personlige rekord venter på å bli slått",
+      "Hvert puslespill gjør deg raskere",
+      "Nå begynner rekka å bygges",
+      "På tide å ta spillet ditt til neste nivå",
+      "Neste gjennombrudd er ett puslespill unna",
+      "Klar til å overraske deg selv?",
+      "Vis dem hva du er laget av",
+      "På tide å låse opp potensialet ditt",
+      "Din raskeste løsning ligger fortsatt foran deg",
+      "Klar til å få dagen til å telle?",
+      "Hvert sekund teller i løpet",
+      "På tide å flytte grensene dine",
+      "Fremgangen din fortsetter",
+      "Klar til å overgå forventningene?",
+      "Tror du at du takler presset?",
+      "På tide å få tvilerne til å tie",
+      "Klar til å ta seieren?",
+      "Konkurrentene dine ser ikke dette komme",
+      "På tide å sette ditt preg",
+      "Klar til å stjele rampelyset?",
+      "Seieren smaker bedre når den er fortjent",
+      "På tide å vise hvem som er sjefen",
+      "Klar til å vise ditt sanne jeg?",
+      "Mesterskapsinnstillingen starter her",
+      "På tide å skille deg fra mengden",
+      "Klar til å skrive din egen legende?",
+      "Mestere skapes i øyeblikk som dette",
+      "På tide å gjøre potensial om til prestasjon",
+      "Nye puslespill, nye muligheter",
+      "Dagens utfordring venter på mesterskapet ditt",
+      "Klar til å gjøre dette til din beste dag så langt?",
+      "En ny dag betyr nye rekorder å slå",
+      "På tide å legge til en seier til i samlingen",
+      "Klar til å starte sterkt og avslutte enda sterkere?",
+      "Klar til å gjøre dagen legendarisk?",
+      "Dagens dose seier venter",
+      "Strategi møter fart på rutenettet",
+      "Klar til å overliste og utmanøvrere?",
+      "Puslespillferdighetene dine kaller",
+      "På tide å blande logikk med lynrask fart",
+      "Klar til å løse med kirurgisk presisjon?",
+      "Den perfekte kombinasjonen: ferdighet og fart",
+      "Din analytiske styrke er din fordel i løpet",
+      "På tide å vise puslespillherredømme",
+      "Klar til å løse som en mester?",
+      "Presisjonsløp starter med klar tenkning",
+      "Vennene dine venter på omkamp",
+      "Hvem løser i dag?",
+      "Et nytt daglig puslespill er klart",
+      "Rekka di står på spill",
+      "Nye puslespill, ny start",
+      "Dagens utfordring er oppe",
+      "Løp mot en venn på dagens puslespill",
+      "Ny dag, nye puslespill",
+      "Noen ligger allerede på resultatlisten",
+      "Hold rekka i live",
+      "De daglige utfordringene er nettopp oppdatert",
+      "Laget ditt venter",
+      "Ett puslespill nærmere toppen",
+      "Dagens puslespill venter på deg",
+      "Hopp inn igjen og løp"
+    ]
+  }
+}

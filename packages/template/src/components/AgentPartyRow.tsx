@@ -1,5 +1,6 @@
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
 import { ComponentType, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LogOut, Trash, Users } from 'lucide-react';
 import { TimerDisplay } from '@bubblyclouds-app/ui/components/TimerDisplay';
 import { BaseServerState } from '../types/state';
@@ -19,6 +20,7 @@ const AgentPartyRow = <State extends BaseServerState>({
   onRemoveAgent,
   onLeaveParty,
 }: AgentPartyRowProps<State>) => {
+  const { t } = useTranslation('template');
   const [confirmDialog, setConfirmDialog] = useState<{
     isOpen: boolean;
     type: 'leave-agent-party' | 'remove-agent';
@@ -32,16 +34,17 @@ const AgentPartyRow = <State extends BaseServerState>({
         <div className="flex items-start justify-between">
           <div className="flex min-w-0 flex-1 flex-col">
             <div className="flex items-start space-x-2">
-              <h3 className="text-lg font-semibold leading-tight text-stone-800 dark:text-zinc-100">
-                AI Rivals
+              <h3 className="min-w-0 break-words text-lg font-semibold leading-tight text-stone-800 dark:text-zinc-100">
+                {t('agentParty.title')}
               </h3>
             </div>
 
             <div className="mt-3 flex items-center space-x-2">
               <Users className="h-4 w-4 flex-shrink-0 text-gray-500 dark:text-gray-400" />
               <span className="text-sm text-gray-600 dark:text-gray-400">
-                {localAgentProgress.length}{' '}
-                {localAgentProgress.length === 1 ? 'rival' : 'rivals'}
+                {t('agentParty.rivalCount', {
+                  count: localAgentProgress.length,
+                })}
               </span>
             </div>
           </div>
@@ -49,7 +52,7 @@ const AgentPartyRow = <State extends BaseServerState>({
           {onLeaveParty && (
             <button
               type="button"
-              className="ml-2 inline-flex flex-shrink-0 items-center rounded-md p-2 text-stone-400 transition-colors hover:text-red-500 focus:outline-none dark:text-zinc-500 dark:hover:text-red-400"
+              className="ms-2 inline-flex flex-shrink-0 items-center rounded-md p-2 text-stone-400 transition-colors hover:text-red-500 focus:outline-none dark:text-zinc-500 dark:hover:text-red-400"
               onClick={() =>
                 setConfirmDialog({ isOpen: true, type: 'leave-agent-party' })
               }
@@ -75,7 +78,7 @@ const AgentPartyRow = <State extends BaseServerState>({
                 avatar={
                   <img
                     className="h-full w-full object-cover"
-                    src={`/opponents/${agent.name.toLowerCase()}.webp`}
+                    src={`/opponents/${agent.configId}.webp`}
                     alt={agent.name}
                   />
                 }
@@ -98,7 +101,7 @@ const AgentPartyRow = <State extends BaseServerState>({
                         })
                       }
                     >
-                      <LogOut className="h-3 w-3" />
+                      <LogOut className="h-3 w-3 rtl:-scale-x-100" />
                     </button>
                   ) : undefined
                 }
@@ -131,7 +134,7 @@ const AgentPartyRow = <State extends BaseServerState>({
           }
         }}
         type={confirmDialog.type}
-        partyName="AI Rivals"
+        partyName={t('agentParty.title')}
         memberName={confirmDialog.agentName}
       />
     </li>

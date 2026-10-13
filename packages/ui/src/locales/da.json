@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Sprog",
+    "automatic": "Automatisk"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Tilbage"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Skift mørk tilstand"
+  },
+  "starRating": {
+    "label_one": "{{filled}} af {{count}} stjerne",
+    "label_other": "{{filled}} af {{count}} stjerner"
+  },
+  "timer": {
+    "go": "KØR!"
+  },
+  "themeColor": {
+    "change": "Skift temafarve",
+    "set": "Sæt temafarve til {{color}}",
+    "setPremium": "Sæt temafarve til {{color}} (Premium)",
+    "colors": {
+      "blue": "blå",
+      "red": "rød",
+      "green": "grøn",
+      "purple": "lilla",
+      "amber": "rav",
+      "cyan": "cyan",
+      "pink": "pink",
+      "indigo": "indigo",
+      "orange": "orange",
+      "teal": "blågrøn",
+      "slate": "skifergrå",
+      "rose": "rosa",
+      "emerald": "smaragd",
+      "sky": "himmelblå",
+      "violet": "violet",
+      "lime": "lime",
+      "fuchsia": "fuchsia",
+      "yellow": "gul",
+      "stone": "stengrå",
+      "zinc": "zink"
+    }
+  },
+  "copyButton": {
+    "copied": "Kopieret til udklipsholder!",
+    "share": "Del invitationslink",
+    "copy": "Kopiér invitationslink"
+  },
+  "share": {
+    "joinTeam": "Kom med på racerholdet i {{appName}}!",
+    "joinNamedTeam": "Kom med på racerholdet {{partyName}} i {{appName}}!",
+    "dialogTitle": "Del invitation"
+  }
+}

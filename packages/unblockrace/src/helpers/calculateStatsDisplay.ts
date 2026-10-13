@@ -1,4 +1,5 @@
 import { BaseState } from '@bubblyclouds-app/template/types/state';
+import { Translate } from '@bubblyclouds-app/games/types/i18n';
 import { GameStateMetadata } from '../types/state';
 
 // A player's move count from a synced session. metadata.movesMade is the
@@ -33,7 +34,8 @@ export const movesDisplayFromState = (
 // names the difference ("2 over par"), not just the direction — "12 moves ·
 // over par" read as if all 12 were over.
 export const calculateStatsDisplayFromState = (
-  state: BaseState<string, string, GameStateMetadata>
+  state: BaseState<string, string, GameStateMetadata>,
+  t: Translate
 ): string | undefined => {
   const movesMade = movesMadeFromState(state);
   if (movesMade <= 0) {
@@ -41,11 +43,15 @@ export const calculateStatsDisplayFromState = (
   }
   const movesRequired = Number(state.metadata?.movesRequired);
   const movesDelta = movesMade - movesRequired;
+  const movesLabel = t('stats.moves', { count: movesMade });
+  if (!Number.isFinite(movesRequired) || movesRequired <= 0) {
+    return movesLabel;
+  }
   const parLabel =
-    Number.isFinite(movesRequired) && movesRequired > 0
-      ? movesDelta === 0
-        ? ' · par'
-        : ` · ${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
-      : '';
-  return `${movesMade} move${movesMade === 1 ? '' : 's'}${parLabel}`;
+    movesDelta === 0
+      ? t('stats.par')
+      : movesDelta > 0
+        ? t('stats.overPar', { delta: movesDelta })
+        : t('stats.underPar', { delta: -movesDelta });
+  return `${movesLabel} · ${parLabel}`;
 };

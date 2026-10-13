@@ -9,6 +9,16 @@ describe('NumberPad', () => {
     jest.clearAllMocks();
   });
 
+  describe('direction', () => {
+    it('lays digits out left to right regardless of document direction', () => {
+      const { container } = render(
+        <NumberPad selectNumber={mockSelectNumber} isInputDisabled={false} />
+      );
+
+      expect(container.firstChild).toHaveAttribute('dir', 'ltr');
+    });
+  });
+
   describe('rendering', () => {
     it('should render 9 number buttons', () => {
       render(

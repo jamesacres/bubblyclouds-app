@@ -313,4 +313,15 @@ describe('Toggle', () => {
       expect(setEnabled).toHaveBeenLastCalledWith(false);
     });
   });
+
+  describe('right-to-left', () => {
+    it('should slide the thumb the other way under rtl', () => {
+      const { container } = render(
+        <Toggle isEnabled={true} setEnabled={jest.fn()} />
+      );
+      const thumb = container.querySelector('span[aria-hidden="true"]');
+      expect(thumb).toHaveClass('translate-x-5');
+      expect(thumb).toHaveClass('rtl:-translate-x-5');
+    });
+  });
 });

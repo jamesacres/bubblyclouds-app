@@ -93,7 +93,7 @@ describe('HintBox', () => {
       const hintBox = container.querySelector('.bg-amber-100');
       expect(hintBox).toHaveClass('rounded-sm');
       expect(hintBox).toHaveClass('p-4');
-      expect(hintBox).toHaveClass('pr-8');
+      expect(hintBox).toHaveClass('pe-8');
       expect(hintBox).toHaveClass('text-black');
     });
 
@@ -122,7 +122,7 @@ describe('HintBox', () => {
       const closeIcon = container.querySelector('svg');
       expect(closeIcon).toHaveClass('absolute');
       expect(closeIcon).toHaveClass('top-2');
-      expect(closeIcon).toHaveClass('right-2');
+      expect(closeIcon).toHaveClass('end-2');
     });
   });
 
@@ -368,7 +368,7 @@ describe('HintBox', () => {
       const icon = container.querySelector('svg');
       expect(icon).toHaveClass('absolute');
       expect(icon).toHaveClass('top-2');
-      expect(icon).toHaveClass('right-2');
+      expect(icon).toHaveClass('end-2');
     });
   });
 

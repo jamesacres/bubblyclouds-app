@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Увійдіть, щоб продовжити",
+    "signInWith": "Увійти через {{provider}}",
+    "emailTitle": "Увійти за допомогою е-пошти",
+    "emailPlaceholder": "your@email.com",
+    "continue": "Продовжити",
+    "cancel": "Скасувати",
+    "terms": "Умови користування",
+    "privacy": "Політика конфіденційності"
+  },
+  "header": {
+    "signIn": "Увійти"
+  },
+  "avatar": {
+    "alt": "користувач"
+  },
+  "panel": {
+    "title": "Обліковий запис",
+    "greeting": "Привіт, {{name}}!",
+    "fallbackName": "Користувач",
+    "plusActive": "{{gameName}} {{plus}} активовано",
+    "joinGamePlus": "Отримати {{gameName}} {{plus}}",
+    "joinPlus": "Отримати {{plus}}",
+    "signOut": "Вийти",
+    "privacy": "Політика конфіденційності",
+    "terms": "Умови користування",
+    "credits": "Подяки",
+    "deleteAccount": "Видалити обліковий запис",
+    "poweredBy": "Розроблено {{companyName}}",
+    "deleteUnavailable": "Видалення облікового запису недоступне.",
+    "deleteFailed": "Не вдалося видалити обліковий запис. Спробуйте пізніше."
+  },
+  "deleteDialog": {
+    "title": "Видалення облікового запису",
+    "warning": "Цю дію неможливо скасувати. Усі ваші дані в усіх застосунках {{companyName}} буде видалено назавжди.",
+    "confirmation": "Підтверджую, що хочу видалити весь свій обліковий запис разом з усіма даними в усіх застосунках {{companyName}}.",
+    "cancel": "Скасувати",
+    "deleting": "Видалення...",
+    "submit": "Видалити запис"
+  }
+}

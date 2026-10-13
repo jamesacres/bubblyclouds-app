@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Devam etmek için giriş yapın",
+    "signInWith": "{{provider}} ile giriş yap",
+    "emailTitle": "E-posta ile giriş yap",
+    "emailPlaceholder": "eposta@adresiniz.com",
+    "continue": "Devam",
+    "cancel": "İptal",
+    "terms": "Hizmet Şartları",
+    "privacy": "Gizlilik Politikası"
+  },
+  "header": {
+    "signIn": "Giriş yap"
+  },
+  "avatar": {
+    "alt": "kullanıcı"
+  },
+  "panel": {
+    "title": "Hesap",
+    "greeting": "Merhaba {{name}}!",
+    "fallbackName": "Kullanıcı",
+    "plusActive": "{{gameName}} {{plus}} etkin",
+    "joinGamePlus": "{{gameName}} {{plus}} aboneliğine katıl",
+    "joinPlus": "{{plus}} aboneliğine katıl",
+    "signOut": "Çıkış yap",
+    "privacy": "Gizlilik politikası",
+    "terms": "Hizmet Şartları",
+    "credits": "Emeği geçenler",
+    "deleteAccount": "Hesabı sil",
+    "poweredBy": "Sağlayan: {{companyName}}",
+    "deleteUnavailable": "Hesap silme özelliği kullanılamıyor.",
+    "deleteFailed": "Hesap silinemedi. Lütfen daha sonra tekrar deneyin."
+  },
+  "deleteDialog": {
+    "title": "Hesabı sil",
+    "warning": "Bu işlem geri alınamaz. Tüm {{companyName}} uygulamalarındaki bütün verileriniz kalıcı olarak silinecektir.",
+    "confirmation": "Tüm {{companyName}} uygulamalarındaki bütün verilerim dahil olmak üzere hesabımın tamamını silmek istediğimi onaylıyorum.",
+    "cancel": "İptal",
+    "deleting": "Siliniyor...",
+    "submit": "Hesabı sil"
+  }
+}

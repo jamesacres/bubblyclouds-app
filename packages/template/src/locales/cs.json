@@ -1,0 +1,256 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone a iPad"
+  },
+  "errors": {
+    "generic": "Došlo k neočekávané chybě. Zkuste to prosím znovu.",
+    "dismiss": "Zavřít"
+  },
+  "errorBoundary": {
+    "title": "Jejda! Něco se pokazilo",
+    "description": "Narazili jsme na neočekávanou chybu. Nebojte se, váš postup je uložen!",
+    "reload": "Znovu načíst aplikaci",
+    "clearStorage": "Vymazat úložiště a znovu načíst",
+    "contactSupport": "Pokud problém přetrvává, kontaktujte prosím podporu."
+  },
+  "time": {
+    "minutesAgo_one": "před {{count}} min",
+    "minutesAgo_few": "před {{count}} min",
+    "minutesAgo_many": "před {{count}} min",
+    "minutesAgo_other": "před {{count}} min",
+    "hoursAgo_one": "před {{count}} h",
+    "hoursAgo_few": "před {{count}} h",
+    "hoursAgo_many": "před {{count}} h",
+    "hoursAgo_other": "před {{count}} h",
+    "daysAgo_one": "před {{count}} d",
+    "daysAgo_few": "před {{count}} d",
+    "daysAgo_many": "před {{count}} d",
+    "daysAgo_other": "před {{count}} d"
+  },
+  "tier": {
+    "novice": "Nováček",
+    "advancedBeginner": "Začátečník",
+    "competent": "Zdatný",
+    "proficient": "Pokročilý",
+    "expert": "Expert"
+  },
+  "moves": {
+    "onPar": "tahů, na úrovni par",
+    "overPar": "tahů, o {{delta}} nad par",
+    "underPar": "tahů, o {{delta}} pod par"
+  },
+  "lobby": {
+    "title": "Závodní lobby",
+    "close": "Zavřít lobby",
+    "onlineOpponents": "Soupeři online",
+    "refresh": "Obnovit soupeře online",
+    "noOpponents": "Nikdo není online — pozvěte přátele k závodu!",
+    "away": "Pryč",
+    "offlineTeams": "Offline · ve vašich týmech",
+    "removeMember": "Odebrat: {{name}}",
+    "aiOpponents": "Soupeři s UI",
+    "addAgent": "Přidat",
+    "noAgents": "Zatím žádní soupeři s UI — přidejte jednoho, ať máte vždy s kým závodit.",
+    "ownClock": "Každý hráč má své vlastní stopky",
+    "startSolving": "Začít řešit",
+    "finished": "Hotovo",
+    "inLobby": "V lobby",
+    "stageProgress": "Etapa {{current}} z {{total}}",
+    "finishedRunIn": "Závod dokončen za {{time}}",
+    "solvedIn": "Vyřešeno za {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · naposledy {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Sólo závod — jen vy a stopky",
+      "friends_one": "{{count}} přítel",
+      "friends_few": "{{count}} přátelé",
+      "friends_many": "{{count}} přítele",
+      "friends_other": "{{count}} přátel",
+      "aiOpponents_one": "{{count}} soupeř s UI",
+      "aiOpponents_few": "{{count}} soupeři s UI",
+      "aiOpponents_many": "{{count}} soupeře s UI",
+      "aiOpponents_other": "{{count}} soupeřů s UI",
+      "racing": "Závod: {{opponents}}"
+    },
+    "invite": {
+      "button": "Pozvat",
+      "eyebrow": "Sestavte svůj závod",
+      "title": "Pozvěte soupeře",
+      "close": "Zavřít",
+      "existingTeam": "Pozvat do stávajícího týmu",
+      "editTeamName": "Upravit název týmu",
+      "deleteTeam": "Smazat tým",
+      "leaveTeam": "Opustit tým",
+      "memberCount_one": "{{count}} člen",
+      "memberCount_few": "{{count}} členové",
+      "memberCount_many": "{{count}} člena",
+      "memberCount_other": "{{count}} členů",
+      "createTeam": "Vytvořit nový závodní tým",
+      "displayNameLabel": "Jak vám mají říkat členové týmu?",
+      "displayNamePlaceholder": "Zobrazované jméno",
+      "teamNameLabel": "Jak pojmenujeme tento tým?",
+      "teamNamePlaceholder": "Název týmu (např. Rodina)",
+      "createAndCopy": "Vytvořit a zkopírovat odkaz",
+      "defaultTeamName": "Nový tým",
+      "defaultPlayerName": "Hráč"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Zavřít panel",
+    "back": "Zpět",
+    "close": "Zavřít",
+    "title": "Vyberte si soupeře",
+    "subtitle": "Vyberte jednoho nebo více soupeřů",
+    "selectAtLeastOne": "Vyberte alespoň jednoho soupeře",
+    "race_one": "Závodit s {{count}} soupeřem",
+    "race_few": "Závodit s {{count}} soupeři",
+    "race_many": "Závodit s {{count}} soupeře",
+    "race_other": "Závodit s {{count}} soupeři",
+    "skill": {
+      "novice": "Nováček",
+      "advancedBeginner": "Začátečník",
+      "competent": "Zdatný",
+      "proficient": "Pokročilý",
+      "expert": "Expert"
+    }
+  },
+  "agentParty": {
+    "title": "Soupeři s UI",
+    "rivalCount_one": "{{count}} soupeř",
+    "rivalCount_few": "{{count}} soupeři",
+    "rivalCount_many": "{{count}} soupeře",
+    "rivalCount_other": "{{count}} soupeřů"
+  },
+  "party": {
+    "cancel": "Zrušit",
+    "editName": "Upravit název týmu",
+    "editMaxMembers": "Upravit maximální počet členů",
+    "memberCount_one": "{{count}} člen",
+    "memberCount_few": "{{count}} členové",
+    "memberCount_many": "{{count}} člena",
+    "memberCount_other": "{{count}} členů",
+    "memberCountPremium_one": "{{count}} člen ✨ Premium",
+    "memberCountPremium_few": "{{count}} členové ✨ Premium",
+    "memberCountPremium_many": "{{count}} člena ✨ Premium",
+    "memberCountPremium_other": "{{count}} členů ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} člen",
+    "membersOf_few": "{{current}}/{{count}} členové",
+    "membersOf_many": "{{current}}/{{count}} člena",
+    "membersOf_other": "{{current}}/{{count}} členů",
+    "shareLink": "Sdílejte tento odkaz se stávajícími členy týmu, aby se připojili k tomuto hlavolamu",
+    "you": "(vy)",
+    "notStarted": "Zatím bez startu! Vyzvěte hráče ke hře"
+  },
+  "partyConfirmation": {
+    "cancel": "Zrušit",
+    "leaveAgentParty": {
+      "title": "Odebrat soupeře s UI",
+      "action": "Odebrat",
+      "processing": "Odebírání...",
+      "message": "Opravdu chcete odebrat všechny soupeře s UI? V závodě se už nebudou objevovat."
+    },
+    "removeAgent": {
+      "title": "Odebrat místního soupeře",
+      "action": "Odebrat",
+      "processing": "Odebírání...",
+      "message": "Opravdu chcete odebrat „{{memberName}}“ ze závodu?"
+    },
+    "deleteParty": {
+      "title": "Smazat tým",
+      "action": "Smazat tým",
+      "processing": "Mazání...",
+      "message": "Opravdu chcete smazat tým „{{partyName}}“? Tým bude trvale odstraněn a všichni členové přijdou o přístup. Tuto akci nelze vrátit zpět."
+    },
+    "leave": {
+      "title": "Opustit tým",
+      "action": "Opustit",
+      "processing": "Opouštění...",
+      "message": "Opravdu chcete opustit tým „{{partyName}}“? Už neuvidíte postup ostatních členů ani se nebudete moci účastnit v tomto týmu."
+    },
+    "remove": {
+      "title": "Odebrat člena",
+      "action": "Odebrat",
+      "processing": "Odebírání...",
+      "message": "Opravdu chcete odebrat člena „{{memberName}}“ z týmu „{{partyName}}“? Už se nebude moci v tomto týmu účastnit."
+    }
+  },
+  "friends": {
+    "allTeams": "Všechny týmy",
+    "refresh": "Obnovit",
+    "refreshing": "Obnovování…",
+    "title": "Hlavolamy přátel",
+    "subtitle": "Klepněte na přítele, zobrazíte jeho nedávné hlavolamy a můžete ho vyzvat k závodu.",
+    "memberCount_one": "{{count}} člen",
+    "memberCount_few": "{{count}} členové",
+    "memberCount_many": "{{count}} člena",
+    "memberCount_other": "{{count}} členů",
+    "noRecentPuzzles": "Žádné nedávné hlavolamy — vyzvěte ho!",
+    "empty": {
+      "title": "Zatím žádné závodní týmy",
+      "description": "Pozvěte přátele z lobby závodů při řešení hlavolamu"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Vaše hlavolamy za posledních 30 dní.",
+    "empty": {
+      "title": "Zatím žádné hlavolamy",
+      "description": "Přejděte na Začít závod a vyřešte svůj první hlavolam"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} další funkce",
+    "moreFeatures_few": "+{{count}} další funkce",
+    "moreFeatures_many": "+{{count}} další funkce",
+    "moreFeatures_other": "+{{count}} dalších funkcí"
+  },
+  "crossPromo": {
+    "whyNotTry": "Proč nevyzkoušet",
+    "tryItFree": "Vyzkoušet zdarma"
+  },
+  "rateApp": {
+    "prompt": "Baví vás {{appName}}?",
+    "rateIt": "Ohodnotit",
+    "rateInSeconds": "Ohodnoťte za pár sekund"
+  },
+  "plus": {
+    "close": "Zavřít okno",
+    "appIconAlt": "Ikona aplikace",
+    "lifetime": "Doživotně",
+    "monthly": "Měsíční",
+    "perMonth": "{{price}}/měsíc",
+    "whatsIncluded": "Co je součástí",
+    "continue": "Pokračovat",
+    "restorePurchases": "Obnovit nákupy",
+    "cancel": "Zrušit"
+  },
+  "download": {
+    "title": "Pokračujte v aplikaci",
+    "appStoreAlt": "Stáhnout z {{appStore}}",
+    "googlePlayAlt": "Stáhnout z {{googlePlay}}",
+    "continueBrowser": "Pokračovat v prohlížeči",
+    "continueDesktop": "Pokračovat na počítači"
+  },
+  "session": {
+    "cheated": "Podvod",
+    "completedIn": "Dokončeno za {{minutes}} min {{seconds}} s",
+    "percentComplete": "{{percentage}} % dokončeno",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "Hlavolam č. {{number}}",
+    "daily": "Denní {{date}}",
+    "book": "Sbírka {{month}} č. {{number}}",
+    "collection": "Sbírka {{month}} č. {{number}}",
+    "scanned": "Naskenovaný hlavolam",
+    "you": "Vy",
+    "unknown": "Neznámý",
+    "unlockWith": "Odemknout pomocí {{label}}",
+    "lockedPuzzle": "Zamčený hlavolam",
+    "recommendedTechniques": "Doporučené techniky:",
+    "loadingFriends": "Načítání přátel..."
+  }
+}

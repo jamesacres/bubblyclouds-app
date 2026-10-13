@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Vapauta Kisa",
+    "gameName": "Vapauta Kisa",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Pelaa ja jaa kisataksesi ystävien kanssa pulman vapauttamisessa. Päivittäiset haasteet, toimii kaikilla laitteilla!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Aloita kisa",
+      "myPuzzles": "Omat pulmat",
+      "racingTeams": "Kisatiimit"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Pura ruuhka.",
+      "headlineAccent": "Voita kisa",
+      "subtitle": "Liu'uta palikoita, vapauta hohtava palikka ja kisaa ystävien kanssa uloskäynnille."
+    },
+    "leaderboard": "Tulostaulukko",
+    "dailyRace": {
+      "title": "Päivän kisa",
+      "refreshesDaily": "päivittyy päivittäin",
+      "todaysRace": "Päivän kisa",
+      "difficultyRange": "Aloittelija → Asiantuntija",
+      "description": "Viisi lautaa, yksi kello — nopein pakenee voittajana.",
+      "stages": "5 vaihetta",
+      "start": "Aloita kisa",
+      "morePuzzlesPrefix": "Lisää pulmia",
+      "puzzleCollection": "pulmakokoelmasta"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 pulmaa",
+      "title": "Kuukausittainen pulmakokoelma",
+      "description": "50 uutta ruuhkaa — {{month}}. Pura ne kaikki ennen kuun loppua.",
+      "browse": "Selaa pulmia"
+    },
+    "teams": {
+      "eyebrow": "Moninpeli",
+      "title": "Kisatiimit",
+      "raceFriends": "Kisaa {{names}} ja muita vastaan",
+      "challengeFriends": "Haasta ystäviä kisaan"
+    },
+    "premium": {
+      "title": "Premium-ominaisuudet",
+      "subtitle": "Avaa koko $t(brand.gameName)-kokemus"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudokukisa",
+    "tagline": "Jaa sudoku ystävien kanssa ja kisaa siitä, kuka ratkaisee sen nopeimmin."
+  },
+  "puzzle": {
+    "mobileDescription": "Paras kokemus on {{appName}}-sovelluksessa!",
+    "desktopDescription": "Lataa {{appName}}",
+    "openInAppLabel": "Avaa pulma"
+  },
+  "collection": {
+    "loading": {
+      "both": "Ladataan pulmakokoelmaa...",
+      "collection": "Ladataan pulmia...",
+      "sessions": "Ladataan edistymistäsi..."
+    },
+    "retry": "Yritä uudelleen",
+    "backHome": "Takaisin etusivulle",
+    "signInPrompt": "Kirjaudu sisään nähdäksesi pulmakokoelman.",
+    "signIn": "Kirjaudu sisään",
+    "noData": "Pulmakokoelman tietoja ei ole saatavilla.",
+    "title": "Pulmakokoelma: {{month}}",
+    "completed": "valmiina",
+    "inProgress": "kesken",
+    "unlockWithPlus": "Avaa kaikki pulmat Plus-käytöllä",
+    "jumpToDifficulty": "Siirry vaikeustasoon",
+    "scrollToTop": "Vieritä ylös",
+    "subtitle_one": "{{count}} pulma nopeista pakoista asiantuntijatason umpisolmuihin",
+    "subtitle_other": "{{count}} pulmaa nopeista pakoista asiantuntijatason umpisolmuihin"
+  },
+  "invite": {
+    "loading": "Ladataan kutsua...",
+    "iconAlt": "{{appName}}-kuvake",
+    "greeting": "👋 Hei {{name}}!",
+    "invited": "Sinut on kutsuttu!",
+    "joinTeam": "Liity kisatiimiin",
+    "tagline": "Vapauttakaa pulmia kilvan ja seuratkaa toistenne edistymistä reaaliajassa!",
+    "proTipLabel": "Vinkki:",
+    "proTip": "Kaikki jatkossa pelaamasi pulmat jaetaan tiimisi jäsenten kanssa ystävälliseen kilpailuun!",
+    "nicknameLabel": "Millä nimellä kisatiimisi tuntee sinut?",
+    "nicknamePlaceholder": "Kirjoita nimimerkkisi",
+    "joining": "Liitytään tiimiin...",
+    "join": "Liity mukaan! 🎉",
+    "signIn": "Kirjaudu sisään jatkaaksesi",
+    "bonus": "🎉 Bonus: saat {{duration}} {{plusName}} -käytön!",
+    "bonusDescription": "Liittymällä tähän kisatiimiin avaat premium-ominaisuudet täysin ilmaiseksi!",
+    "activation": "💡 Premium-käyttösi aktivoituu automaattisesti liittymisen jälkeen",
+    "duration": {
+      "oneMonth": "yhden kuukauden",
+      "oneYear": "yhden vuoden",
+      "lifetime": "elinikäisen",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Kutsu vanhentunut",
+      "description": "Tämä kutsulinkki ei ole enää voimassa. Pyydä ystävältäsi uusi kutsu tai kasvata tiimin kokoa."
+    },
+    "greetingAnonymous": "👋 Hei!"
+  },
+  "credits": {
+    "title": "Tekijät ja lähteet",
+    "intro": "Tämä sovellus perustuu useisiin erinomaisiin projekteihin",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Tämä sovellus on lisensoitu MIT-lisenssillä. Lisätietoja: <licenseLink>LICENSE</licenseLink> ja <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "rush": "Rush Hour -pulmaratkaisija ja pulmatietokanta, tekijä Michael Fogleman, käännetty WebAssemblyyn",
+      "nextjs": "React-kehys tuotantokäyttöön",
+      "typescript": "JavaScriptin tyypitetty laajennus",
+      "tailwind": "Apuluokkapohjainen CSS-kehys",
+      "capacitor": "Natiivi mobiilisovellusten ajoympäristö",
+      "electron": "Työpöytäsovellusten kehys",
+      "revenuecat": "Tilausten hallinta",
+      "react": "Käyttöliittymäkomponenttien kirjasto",
+      "turborepo": "Monorepo-koontijärjestelmä"
+    }
+  },
+  "notFound": {
+    "title": "Sivua ei löytynyt"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Kirjaudu aloittaaksesi päivän pulman",
+      "collection": "Kirjaudu selataksesi kokoelmaa",
+      "joinTeam": "Kirjaudu liittyäksesi tiimiin",
+      "raceLobby": "Kirjaudu kisataksesi muiden kanssa",
+      "puzzleEntry": "Kirjaudu pelataksesi"
+    },
+    "valueProps": {
+      "saveProgress": "Tallenna edistymisesi",
+      "raceFriends": "Kisaa ystävien kanssa",
+      "trackStats": "Seuraa tilastojasi"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Olet käyttänyt {{limit}} ilmaista vihjettä tänään.",
+      "body": "Plus antaa rajattomat vihjeet — et jää enää jumiin — ja pitää koko sovelluksen mainoksettomana."
+    },
+    "undo": {
+      "title": "Olet saavuttanut päivittäisen kumoamisrajan!",
+      "body": "Saat {{limit}} ilmaista kumoamista päivässä. Raja nollautuu huomenna, tai tilaa rajattomat kumoamiset."
+    },
+    "collectionLocked": {
+      "title": "Tämä pulma kuuluu Plus-kokoelmaan.",
+      "body": "Plus avaa jokaisen pulman jokaisen kuukauden paketissa ja pitää koko sovelluksen mainoksettomana."
+    },
+    "themeColor": {
+      "title": "Tämä teema on vain Plus-käyttäjille.",
+      "body": "Päivitä avataksesi kaikki upeat teemavärit ja personoidaksesi pulmakisakokemuksesi."
+    },
+    "removeMember": {
+      "title": "Jäsenten poistaminen tiimistä on premium-ominaisuus!",
+      "body": "Tilaa avataksesi tiimin hallinnan lisäominaisuudet, kuten jäsenten poiston."
+    },
+    "multipleParties": {
+      "title": "Useat kisatiimit ovat premium-ominaisuus!",
+      "body": "Ilmaiskäyttäjillä voi olla yksi tiimi. Tilaa luodaksesi ja liittyäksesi rajattomiin tiimeihin perheen, ystävien ja muiden kanssa."
+    },
+    "partyMaxSize": {
+      "title": "Suuret tiimit ovat premium-ominaisuus!",
+      "body": "Tilaa avataksesi tiimin hallinnan lisäominaisuudet, kuten suuret tiimit."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Aina mainokseton",
+      "description": "Ei koskaan mainoksia — vain sinä ja pulmat"
+    },
+    "hints": {
+      "title": "Rajattomat vihjeet",
+      "description": "Et jää koskaan jumiin — saat vihjeen aina kun tarvitset"
+    },
+    "monthlyPack": {
+      "title": "Koko kuukausittainen pulmakokoelma avattu, joka kuukausi",
+      "description": "Pelaa jokainen pulma jokaisella vaikeustasolla, ei lukkoja"
+    },
+    "undos": {
+      "title": "Rajattomat kumoamiset",
+      "description": "Kelaa takaisin niin monta siirtoa kuin haluat"
+    },
+    "teams": {
+      "title": "Useita kisatiimejä",
+      "description": "Järjestä yksityisiä kisoja ystävien ja perheen kanssa"
+    },
+    "management": {
+      "title": "Tiimin hallinta",
+      "description": "Luo suuria tiimejä jopa 15 hengelle ja poista jäseniä tiimistäsi."
+    },
+    "themes": {
+      "title": "Kaikki teemat avattu",
+      "description": "Personoi kisakokemuksesi"
+    }
+  },
+  "plusModal": {
+    "description": "Hanki <badge>{{plusName}}</badge>: <strong>rajattomat vihjeet</strong>, <strong>koko kuukausittainen pulmakokoelma avattuna</strong> ja <strong>rajattomat kumoamiset</strong>. Haasta ystäviä, nouse tulostaulukoissa ja pysy mainoksettomana."
+  },
+  "leaderboard": {
+    "collectionLabel": "Kokoelma",
+    "collectionDetailNoun": "kokoelmat"
+  },
+  "motivational": {
+    "messages": [
+      "Ystäväsi odottavat haastetta",
+      "Ketä vastaan kisaat tänään?",
+      "Aika näyttää nopeutesi",
+      "Haaste hyväksytty?",
+      "Kisaa maaliviivalle",
+      "Kuka on nopein ratkaisija?",
+      "Valmiina hallitsemaan tulostaulukkoa?",
+      "Kisataitosi odottavat",
+      "Aika jättää heidät pölyyn",
+      "Valmiina ylittämään maaliviivan ensimmäisenä?",
+      "Rata odottaa sinua",
+      "Aika painaa kaasu pohjaan",
+      "Valmiina polttamaan kumia pulmaruudukolla?",
+      "Vastustajasi lämmittelevät jo",
+      "Tänään on päivä uudelle ennätykselle",
+      "Henkilökohtainen ennätyksesi odottaa rikkomista",
+      "Jokainen pulma tekee sinusta nopeamman",
+      "Putken rakentaminen alkaa nyt",
+      "Aika nostaa pelisi uudelle tasolle",
+      "Seuraava läpimurtosi on yhden pulman päässä",
+      "Valmiina yllättämään itsesi?",
+      "Näytä, mistä olet tehty",
+      "Aika vapauttaa potentiaalisi",
+      "Nopein ratkaisusi on vielä edessäpäin",
+      "Valmiina tekemään tästä päivästä merkittävän?",
+      "Kisassa jokainen sekunti ratkaisee",
+      "Aika venyttää rajojasi",
+      "Kehittymismatkasi jatkuu",
+      "Valmiina ylittämään odotukset?",
+      "Kestätkö paineen?",
+      "Aika vaientaa epäilijät",
+      "Valmiina vaatimaan voitto?",
+      "Kilpailijasi eivät näe tätä tulevan",
+      "Aika jättää jälkesi",
+      "Valmiina varastamaan parrasvalot?",
+      "Voitto maistuu makeammalta ansaittuna",
+      "Aika todistaa, kuka on pomo",
+      "Valmiina näyttämään todelliset värisi?",
+      "Mestarin ajattelutapa alkaa tästä",
+      "Aika erottua joukosta",
+      "Valmiina kirjoittamaan legendasi?",
+      "Mestarit syntyvät tällaisina hetkinä",
+      "Aika muuttaa potentiaali suoritukseksi",
+      "Tuoreita pulmia, uusia mahdollisuuksia",
+      "Päivän haaste odottaa mestaruuttasi",
+      "Valmiina tekemään tästä parhaan päiväsi?",
+      "Uusi päivä tarkoittaa uusia ennätyksiä rikottavaksi",
+      "Aika lisätä kokoelmaasi uusi voitto",
+      "Valmiina aloittamaan vahvasti ja lopettamaan vielä vahvemmin?",
+      "Valmiina tekemään tästä päivästä legendaarinen?",
+      "Päivittäinen voitonannoksesi odottaa",
+      "Strategia kohtaa nopeuden ruudukolla",
+      "Valmiina päihittämään ajattelulla ja vauhdilla?",
+      "Pulmamestaruutesi kutsuu",
+      "Aika yhdistää logiikka ja salamannopeus",
+      "Valmiina ratkaisemaan kirurgisella tarkkuudella?",
+      "Täydellinen yhdistelmä: taito ja nopeus",
+      "Analyyttinen otteesi on kisaetusi",
+      "Aika näyttää pulmaylivoimasi",
+      "Valmiina ratkaisemaan kuin mestari?",
+      "Tarkka kisaaminen alkaa selkeästä ajattelusta",
+      "Ystäväsi odottavat uusintaottelua",
+      "Kuka ratkoo tänään?",
+      "Uusi päivän pulma on valmis",
+      "Putkesi on veitsen terällä",
+      "Tuoreita pulmia, uusi alku",
+      "Päivän haaste on auki",
+      "Kisaa ystävän kanssa päivän pulmassa",
+      "Uusi päivä, uudet pulmat",
+      "Joku on jo tulostaulukossa",
+      "Pidä putki hengissä",
+      "Päivän haasteet juuri päivittyivät",
+      "Tiimisi odottaa",
+      "Yksi pulma lähempänä huippua",
+      "Päivän pulmat odottavat sinua",
+      "Hyppää takaisin kisaan"
+    ]
+  }
+}

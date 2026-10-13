@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Nyelv",
+    "automatic": "Automatikus"
+  },
+  "header": {
+    "offline": "Offline",
+    "back": "Vissza"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Sötét mód be- és kikapcsolása"
+  },
+  "starRating": {
+    "label_one": "{{filled}} / {{count}} csillag",
+    "label_other": "{{filled}} / {{count}} csillag"
+  },
+  "timer": {
+    "go": "RAJT!"
+  },
+  "themeColor": {
+    "change": "Témaszín módosítása",
+    "set": "Témaszín beállítása: {{color}}",
+    "setPremium": "Témaszín beállítása: {{color}} (Prémium)",
+    "colors": {
+      "blue": "kék",
+      "red": "piros",
+      "green": "zöld",
+      "purple": "lila",
+      "amber": "borostyán",
+      "cyan": "ciánkék",
+      "pink": "rózsaszín",
+      "indigo": "indigó",
+      "orange": "narancs",
+      "teal": "pávakék",
+      "slate": "palaszürke",
+      "rose": "rózsapiros",
+      "emerald": "smaragd",
+      "sky": "égszínkék",
+      "violet": "ibolya",
+      "lime": "lime",
+      "fuchsia": "fukszia",
+      "yellow": "sárga",
+      "stone": "kőszürke",
+      "zinc": "cinkszürke"
+    }
+  },
+  "copyButton": {
+    "copied": "Vágólapra másolva!",
+    "share": "Meghívó link megosztása",
+    "copy": "Meghívó link másolása"
+  },
+  "share": {
+    "joinTeam": "Csatlakozz a versenycsapathoz itt: {{appName}}!",
+    "joinNamedTeam": "Csatlakozz a(z) {{partyName}} versenycsapathoz itt: {{appName}}!",
+    "dialogTitle": "Meghívó megosztása"
+  }
+}

@@ -15,7 +15,8 @@ import {
   Square,
   Unlock,
 } from 'lucide-react';
-import { Technique, HintResult } from 'human-sudoku-solver';
+import { HintResult } from 'human-sudoku-solver';
+import { useTranslation } from 'react-i18next';
 import { UserAvatar } from '@bubblyclouds-app/auth/components/UserAvatar';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { NumberPad } from '@bubblyclouds-app/games/components/NumberPad';
@@ -28,51 +29,6 @@ import {
   canUseCheckGrid,
   canUseHint,
 } from '@bubblyclouds-app/template/utils/dailyActionCounter';
-
-const TECHNIQUE_NAMES: Record<Technique, string> = {
-  nakedSingle: 'Naked Single',
-  hiddenSingleBox: 'Hidden Single (Box)',
-  hiddenSingleRow: 'Hidden Single (Row)',
-  hiddenSingleCol: 'Hidden Single (Column)',
-  nakedPair: 'Naked Pair',
-  nakedTriple: 'Naked Triple',
-  nakedQuad: 'Naked Quad',
-  hiddenPair: 'Hidden Pair',
-  hiddenTriple: 'Hidden Triple',
-  hiddenQuad: 'Hidden Quad',
-  lockedCandidatePointing: 'Locked Candidates (Pointing)',
-  lockedCandidateClaiming: 'Locked Candidates (Claiming)',
-  xWing: 'X-Wing',
-  swordfish: 'Swordfish',
-  jellyfish: 'Jellyfish',
-  skyscraper: 'Skyscraper',
-  twoStringKite: 'Two-String Kite',
-  finnedXWing: 'Finned X-Wing',
-  finnedSwordfish: 'Finned Swordfish',
-  finnedJellyfish: 'Finned Jellyfish',
-  emptyRectangle: 'Empty Rectangle',
-  wWing: 'W-Wing',
-  yWing: 'Y-Wing',
-  xyzWing: 'XYZ-Wing',
-  uniqueRectangleType1: 'Unique Rectangle (Type 1)',
-  uniqueRectangleType2: 'Unique Rectangle (Type 2)',
-  uniqueRectangleType3: 'Unique Rectangle (Type 3)',
-  uniqueRectangleType4: 'Unique Rectangle (Type 4)',
-  uniqueRectangleType5: 'Unique Rectangle (Type 5)',
-  bug: 'BUG',
-  xyChain: 'XY-Chain',
-  aic: 'AIC',
-  aicRing: 'AIC Ring',
-  groupedAIC: 'Grouped AIC',
-  alsXZ: 'ALS-XZ',
-  sueDeCoq: 'Sue de Coq',
-  deathBlossom: 'Death Blossom',
-  nishio: 'Nishio',
-  nishioNet: 'Nishio Net',
-  cellRegionForcingChain: 'Cell/Region Forcing Chain',
-  cellRegionForcingNet: 'Cell/Region Forcing Net',
-  forcingChain: 'Forcing Chain',
-};
 
 interface Arguments {
   disabled?: boolean;
@@ -136,6 +92,7 @@ const SudokuControls = ({
   onHideHint,
   onClearSelection,
 }: Arguments) => {
+  const { t } = useTranslation('sudoku');
   const [showAdvanced, setShowAdvanced] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -380,11 +337,11 @@ const SudokuControls = ({
     <div className="mb-0 mt-0 overflow-visible px-2 pt-2 lg:mb-16 xl:max-w-lg">
       <div className="hidden lg:block">
         <HintBox>
-          Keyboard: arrow keys, undo, redo.
+          {t('controls.keyboardHelp.navigation')}
           <br />
-          Hold shift or press n to toggle notes mode.
+          {t('controls.keyboardHelp.notes')}
           <br />
-          Press c to validate cell, g to validate grid.
+          {t('controls.keyboardHelp.validate')}
         </HintBox>
       </div>
 
@@ -426,8 +383,8 @@ const SudokuControls = ({
             {/* Owl speech bubble */}
             <div className="flex items-start gap-3">
               <span className="text-3xl leading-none">🦉</span>
-              <div className="relative whitespace-pre-line rounded-2xl rounded-tl-sm bg-amber-100 p-3 text-sm font-medium text-amber-900 dark:bg-amber-900/30 dark:text-amber-100">
-                <div className="absolute -left-2 top-3 h-0 w-0 border-b-8 border-r-8 border-t-8 border-b-transparent border-r-amber-100 border-t-transparent dark:border-r-amber-900/30" />
+              <div className="relative whitespace-pre-line rounded-2xl rounded-ss-sm bg-amber-100 p-3 text-sm font-medium text-amber-900 dark:bg-amber-900/30 dark:text-amber-100">
+                <div className="absolute -start-2 top-3 h-0 w-0 border-b-8 border-e-8 border-t-8 border-b-transparent border-e-amber-100 border-t-transparent dark:border-e-amber-900/30" />
                 {owlTyping ? (
                   <span className="inline-flex translate-y-0.5 items-end gap-1 leading-none">
                     <span className="animate-bounce text-sm [animation-delay:0ms] [animation-duration:300ms]">
@@ -441,28 +398,28 @@ const SudokuControls = ({
                     </span>
                   </span>
                 ) : hint === 'invalid' ? (
-                  'Looks like you have made a mistake. I recommend checking the grid.'
+                  t('controls.owl.invalid')
                 ) : (showExplanation || showWhere) && hint ? (
                   <div className="flex flex-col gap-2">
                     <span>
                       {showExplanation
-                        ? `${hint.explanation ?? 'Sorry, I am not sure.'}${hint.eureka ? ` \n\nEureka notation ${hint.eureka}` : ''}`
-                        : "I've highlighted the relevant cells for you"}
+                        ? `${hint.explanation ?? t('controls.owl.notSure')}${hint.eureka ? ` \n\n${t('controls.owl.eureka', { notation: hint.eureka })}` : ''}`
+                        : t('controls.owl.highlighted')}
                     </span>
                     <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
                       {hint.technique === 'deathBlossom' ? (
                         <>
                           <span className="flex items-center gap-1">
                             <span className="inline-block h-3 w-3 rounded-sm bg-yellow-400/70" />
-                            Stem
+                            {t('controls.legend.stem')}
                           </span>
                           <span className="flex items-center gap-1">
                             <span className="inline-block h-3 w-3 rounded-sm bg-blue-400/60" />
-                            Petal A
+                            {t('controls.legend.petalA')}
                           </span>
                           <span className="flex items-center gap-1">
                             <span className="inline-block h-3 w-3 rounded-sm bg-green-400/60" />
-                            Petal B
+                            {t('controls.legend.petalB')}
                           </span>
                         </>
                       ) : hint.technique === 'alsXZ' ||
@@ -470,22 +427,22 @@ const SudokuControls = ({
                         <>
                           <span className="flex items-center gap-1">
                             <span className="inline-block h-3 w-3 rounded-sm bg-blue-400/60" />
-                            ALS 1
+                            {t('controls.legend.als1')}
                           </span>
                           <span className="flex items-center gap-1">
                             <span className="inline-block h-3 w-3 rounded-sm bg-green-400/60" />
-                            ALS 2
+                            {t('controls.legend.als2')}
                           </span>
                         </>
                       ) : hint.chainPath && hint.chainPath.length > 0 ? (
                         <>
                           <span className="flex items-center gap-1">
                             <span className="inline-block h-3 w-3 rounded-sm bg-blue-400/60" />
-                            On (true)
+                            {t('controls.legend.on')}
                           </span>
                           <span className="flex items-center gap-1">
                             <span className="inline-block h-3 w-3 rounded-sm bg-green-400/60" />
-                            Off (false)
+                            {t('controls.legend.off')}
                           </span>
                         </>
                       ) : null}
@@ -501,23 +458,25 @@ const SudokuControls = ({
                               {d}
                             </span>
                           ))}
-                          Elimination
+                          {t('controls.legend.elimination')}
                         </span>
                       )}
                     </div>
                   </div>
                 ) : hint ? (
-                  `I've found a ${TECHNIQUE_NAMES[hint.technique]}`
+                  t('controls.owl.foundTechnique', {
+                    technique: t(`techniques.${hint.technique}`),
+                  })
                 ) : (
-                  'No hint available'
+                  t('controls.owl.noHint')
                 )}
               </div>
             </div>
             {/* User response bubble */}
             {!owlTyping && (
               <div className="flex items-start justify-end gap-3">
-                <div className="relative rounded-2xl rounded-tr-sm bg-gray-100 p-3 dark:bg-zinc-800">
-                  <div className="absolute -right-2 top-3 h-0 w-0 border-b-8 border-l-8 border-t-8 border-b-transparent border-l-gray-100 border-t-transparent dark:border-l-zinc-800" />
+                <div className="relative rounded-2xl rounded-se-sm bg-gray-100 p-3 dark:bg-zinc-800">
+                  <div className="absolute -end-2 top-3 h-0 w-0 border-b-8 border-s-8 border-t-8 border-b-transparent border-s-gray-100 border-t-transparent dark:border-s-zinc-800" />
                   {userTyping ? (
                     <span className="inline-flex translate-y-0.5 items-end gap-1 leading-none">
                       <span className="animate-bounce text-sm text-gray-900 [animation-delay:0ms] [animation-duration:300ms] dark:text-white">
@@ -537,7 +496,7 @@ const SudokuControls = ({
                           onClick={handleCloseHint}
                           className="cursor-pointer text-sm font-medium text-gray-900 dark:text-white"
                         >
-                          Thanks,
+                          {t('controls.reply.thanks')}
                         </span>
                       }
                       {hint !== 'invalid' &&
@@ -547,7 +506,7 @@ const SudokuControls = ({
                             onClick={handleTellMeMore}
                             className="bg-theme-primary hover:bg-theme-primary-dark active:bg-theme-primary-darker dark:bg-theme-primary-light dark:hover:bg-theme-primary dark:active:bg-theme-primary-dark cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium text-white transition-all duration-150"
                           >
-                            🤔 Tell me more
+                            {t('controls.reply.tellMeMore')}
                           </button>
                         ) : (
                           hint && (
@@ -555,7 +514,7 @@ const SudokuControls = ({
                               onClick={handleShowWhere}
                               className="bg-theme-primary hover:bg-theme-primary-dark active:bg-theme-primary-darker dark:bg-theme-primary-light dark:hover:bg-theme-primary dark:active:bg-theme-primary-dark cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium text-white transition-all duration-150"
                             >
-                              👀 Show me where
+                              {t('controls.reply.showMeWhere')}
                             </button>
                           )
                         ))}
@@ -563,7 +522,7 @@ const SudokuControls = ({
                         onClick={handleCloseHint}
                         className="bg-theme-primary hover:bg-theme-primary-dark active:bg-theme-primary-darker dark:bg-theme-primary-light dark:hover:bg-theme-primary dark:active:bg-theme-primary-dark cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium text-white transition-all duration-150"
                       >
-                        Hide Hint
+                        {t('controls.reply.hideHint')}
                       </button>
                     </div>
                   )}
@@ -583,16 +542,16 @@ const SudokuControls = ({
             )}
           </div>
         ) : (
-          <div className="mb-0 flex items-center justify-between border-b border-gray-200 pb-3 lg:mb-3 dark:border-gray-600">
+          <div className="mb-0 flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 pb-3 lg:mb-3 dark:border-gray-600">
             <div className="flex-1">
               <button
                 onClick={handleHint}
                 className={`${showRainbowNudge ? 'rainbow-border-wrap' : ''} relative flex cursor-pointer items-center gap-1 rounded-md bg-gray-100 px-1.5 py-1 text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500`}
               >
                 <MessageCircle size={10} />
-                Ask for help
+                {t('controls.askForHelp')}
                 {!isSubscribed && !canUseHint() && (
-                  <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                  <span className="absolute -end-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                     ✨
                   </span>
                 )}
@@ -601,7 +560,7 @@ const SudokuControls = ({
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1 text-xs font-medium text-gray-700 dark:text-gray-300">
                 {isNotesMode ? <Edit size={14} /> : <Edit2 size={14} />}
-                Notes
+                {t('controls.notes')}
               </div>
               <NotesToggle
                 isEnabled={isNotesMode}
@@ -614,7 +573,7 @@ const SudokuControls = ({
                 className="flex cursor-pointer items-center gap-1 rounded-md bg-gray-100 px-1.5 py-1 text-xs font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
               >
                 <Copy size={10} />
-                {isCopied ? 'Copied!' : 'Export'}
+                {isCopied ? t('controls.copied') : t('controls.export')}
               </button>
             </div>
           </div>
@@ -633,7 +592,7 @@ const SudokuControls = ({
 
             {/* Action buttons - compact layout for mobile */}
             <div className="order-2 w-full flex-1 overflow-visible lg:order-2 lg:w-auto">
-              <div className="grid grid-cols-3 gap-2 overflow-visible">
+              <div className="grid grid-cols-3 gap-2 overflow-visible [&>*]:min-w-0 [&>*]:break-words [&>*]:text-center">
                 {/* Row 1: Delete, Undo, and Redo */}
                 <button
                   disabled={isDeleteDisabled}
@@ -641,17 +600,17 @@ const SudokuControls = ({
                   className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 dark:disabled:bg-zinc-800"
                 >
                   <Delete size={15} />
-                  Delete
+                  {t('controls.delete')}
                 </button>
                 <button
                   disabled={isUndoDisabled}
                   onClick={() => undo()}
                   className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 dark:disabled:bg-zinc-800"
                 >
-                  <CornerUpLeft size={15} />
-                  Undo
+                  <CornerUpLeft size={15} className="rtl:-scale-x-100" />
+                  {t('controls.undo')}
                   {!isSubscribed && !canUseUndo() && (
-                    <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                    <span className="absolute -end-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                       ✨
                     </span>
                   )}
@@ -661,8 +620,8 @@ const SudokuControls = ({
                   onClick={() => redo()}
                   className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 dark:disabled:bg-zinc-800"
                 >
-                  Redo
-                  <CornerUpRight size={15} />
+                  {t('controls.redo')}
+                  <CornerUpRight size={15} className="rtl:-scale-x-100" />
                 </button>
               </div>
 
@@ -674,7 +633,7 @@ const SudokuControls = ({
                     : 'max-h-0 opacity-0 lg:max-h-96 lg:opacity-100'
                 }`}
               >
-                <div className="mb-2 grid grid-cols-3 gap-2 overflow-visible">
+                <div className="mb-2 grid grid-cols-3 gap-2 overflow-visible [&>*]:min-w-0 [&>*]:break-words [&>*]:text-center">
                   {/* Check Cell, Check Grid, Zoom Mode */}
                   <button
                     disabled={isValidateCellDisabled}
@@ -682,7 +641,7 @@ const SudokuControls = ({
                     className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500 dark:disabled:bg-zinc-800"
                   >
                     <Square size={15} />
-                    Cell
+                    {t('controls.cell')}
                   </button>
                   <button
                     disabled={disabled}
@@ -690,9 +649,9 @@ const SudokuControls = ({
                     className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
                     <Grid size={15} />
-                    Grid
+                    {t('controls.grid')}
                     {!isSubscribed && !canUseCheckGrid() && (
-                      <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                      <span className="absolute -end-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                         ✨
                       </span>
                     )}
@@ -707,17 +666,17 @@ const SudokuControls = ({
                     }`}
                   >
                     <Eye size={15} />
-                    Zoom
+                    {t('controls.zoom')}
                   </button>
                 </div>
-                <div className="grid grid-cols-2 gap-2 overflow-visible">
+                <div className="grid grid-cols-2 gap-2 overflow-visible [&>*]:min-w-0 [&>*]:break-words [&>*]:text-center">
                   <button
                     disabled={disabled}
                     onClick={() => setConfirmAction('reset')}
                     className="flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
                     <RefreshCw size={15} />
-                    Reset
+                    {t('controls.reset')}
                   </button>
                   <button
                     disabled={disabled}
@@ -725,9 +684,9 @@ const SudokuControls = ({
                     className="relative flex cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-gray-100 px-2 py-2.5 text-sm font-medium text-gray-700 transition-all duration-150 hover:bg-gray-200 active:bg-gray-300 dark:bg-zinc-700 dark:text-gray-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-500"
                   >
                     <Unlock size={15} />
-                    Reveal
+                    {t('controls.reveal')}
                     {!isSubscribed && (
-                      <span className="absolute -right-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
+                      <span className="absolute -end-1 -top-1 z-10 inline-flex items-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 px-1 py-0.5 text-xs font-semibold text-white shadow-lg">
                         ✨
                       </span>
                     )}
@@ -743,15 +702,19 @@ const SudokuControls = ({
         isOpen={confirmAction !== null}
         title={
           confirmAction === 'reset'
-            ? 'Reset the whole grid?'
-            : 'Reveal the whole grid?'
+            ? t('controls.confirm.reset.title')
+            : t('controls.confirm.reveal.title')
         }
         body={
           confirmAction === 'reset'
-            ? 'Are you sure you wish to reset the whole grid?'
-            : 'Are you sure you wish to reveal the whole grid?'
+            ? t('controls.confirm.reset.body')
+            : t('controls.confirm.reveal.body')
         }
-        confirmLabel={confirmAction === 'reset' ? 'Reset' : 'Reveal'}
+        confirmLabel={
+          confirmAction === 'reset'
+            ? t('controls.confirm.reset.confirm')
+            : t('controls.confirm.reveal.confirm')
+        }
         onConfirm={handleConfirmDialogConfirm}
         onCancel={() => setConfirmAction(null)}
       />

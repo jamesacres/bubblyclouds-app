@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Bok",
+    "defaultDetailNoun": "puslespillbøker"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Månedlig samling"
+  },
+  "hintBox": {
+    "dismiss": "Lukk hintet"
+  },
+  "lobbyButton": {
+    "opponents": "Motstandere"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Fortsett — neste puslespill",
+    "continueLocked": "Fortsett ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} av {{total}} {{label}} fullført"
+  },
+  "countdownOverlay": {
+    "getReady": "Gjør deg klar",
+    "go": "KJØR!"
+  },
+  "confirmDialog": {
+    "cancel": "Avbryt"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · fullført",
+    "retry": "Prøv igjen",
+    "points": "+{{points}} p",
+    "leaderboardPoints": "Poeng på resultatlisten"
+  },
+  "raceTimer": {
+    "time": "Tid"
+  },
+  "stageTopBar": {
+    "previous": "Forrige"
+  },
+  "raceHud": {
+    "opponents": "Motstandere",
+    "stageOf": "Etappe {{current}} av {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Mål!",
+    "runComplete": "Løpet er fullført",
+    "leaderboardPoints": "Poeng på resultatlisten",
+    "pointsSuffix": " p"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Sø",
+      "monday": "Ma",
+      "tuesday": "Ti",
+      "wednesday": "On",
+      "thursday": "To",
+      "friday": "Fr",
+      "saturday": "Lø"
+    },
+    "dayStreak_one": "dagers rekke",
+    "dayStreak_other": "dagers rekke",
+    "thisMonth": "denne måneden"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Du)",
+    "puzzles_one": "{{count}} puslespill",
+    "puzzles_other": "{{count}} puslespill",
+    "average": "Snitt: {{time}}",
+    "best": "Best: {{time}}",
+    "wins_one": "🏁 {{count}} seier",
+    "wins_other": "🏁 {{count}} seire",
+    "points_one": "poeng",
+    "points_other": "poeng"
+  },
+  "scoreBreakdown": {
+    "title": "Poengfordeling",
+    "volumeBonus": {
+      "label": "Volumbonus",
+      "detail_one": "{{count}} puslespill fullført",
+      "detail_other": "{{count}} puslespill fullført"
+    },
+    "dailyPuzzles": {
+      "label": "Daglige puslespill",
+      "detail_one": "{{count}} daglig utfordring",
+      "detail_other": "{{count}} daglige utfordringer"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}}-puslespill",
+      "detail": "{{count}} fra {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Skannede puslespill",
+      "detail_one": "{{count}} importert puslespill",
+      "detail_other": "{{count}} importerte puslespill"
+    },
+    "difficultyBonus": {
+      "label": "Vanskelighetsbonus",
+      "detail": "Vanskeligere puslespill = flere poeng"
+    },
+    "speedBonus": {
+      "label": "Fartsbonus",
+      "detail": "Raskest: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Løpsbonus",
+      "detail": "Slå venner som også har fullført"
+    },
+    "dailyCombo": {
+      "label": "Daglig kombo",
+      "detail": "Flere puslespill per dag = større multiplikator"
+    }
+  },
+  "leaderboard": {
+    "you": "Du",
+    "unknownUser": "Ukjent bruker",
+    "title": "Resultatliste",
+    "subtitleParty": "Siste 30 dager · {{partyName}}",
+    "subtitleAllTeams": "Siste 30 dager · Alle lag",
+    "howScoringWorks": "Slik fungerer poengene"
+  },
+  "scoringLegend": {
+    "title": "Slik fungerer poengene",
+    "subtitle": "{{gameName}} · Siste 30 dager",
+    "close": "Lukk",
+    "racingWins": {
+      "title": "Løpsseire",
+      "body": "Få <points>+{{points}} poeng</points> for hver venn du slår på det samme fullførte puslespillet. Kom først foran {{friends}} venner og få <points>+{{total}} poeng</points>."
+    },
+    "basePoints": {
+      "title": "Grunnpoeng",
+      "anyPuzzle": "Alle puslespill",
+      "dailyPuzzle": "Daglig puslespill",
+      "collectionPuzzle": "{{collection}}-puslespill",
+      "scannedPuzzle": "Skannet puslespill"
+    },
+    "difficultyMultipliers": {
+      "title": "Vanskelighetsmultiplikatorer",
+      "daily": "Dagens {{gameName}}",
+      "collection": "{{collection}}-puslespill"
+    },
+    "speedBonuses": {
+      "title": "Fartsbonuser",
+      "lightning": "Lynrask",
+      "fast": "Rask",
+      "quick": "Kjapp",
+      "steady": "Jevn",
+      "under": "under {{threshold}}",
+      "seconds": "{{value}} sek",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Daglig kombo",
+      "body": "Løs flere puslespill samme dag for å gange opp poengene for hvert puslespill, opptil <max>{{max}}×</max>.",
+      "puzzle": "Dagens puslespill nr. {{puzzle}}",
+      "puzzleOrMore": "Dagens puslespill nr. {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Løpet er fullført",
+    "raceProgress": "Løpsfremgang",
+    "stagesProgress": "{{completed}}/{{total}} etapper",
+    "retryStage": "Prøv etappen igjen",
+    "stageLabel": "Etappe {{number}}",
+    "stageCompletedLabel": "Etappe {{number}}, fullført på {{time}}",
+    "viewRacingStats": "Se løpsstatistikk",
+    "total": "Totalt"
+  },
+  "raceTrack": {
+    "you": "Du",
+    "viewFriends": "Klikk for å se venner",
+    "start": "Start",
+    "finish": "Mål",
+    "inviteToRace": "Inviter venner til å løpe",
+    "opponents": "Motstandere",
+    "racer": "Løper",
+    "stageBadge": "E{{number}}",
+    "total": "Totalt",
+    "leaderboard": "Resultatliste",
+    "puzzleBook": "Puslespillbok",
+    "puzzleBookLabel": "puslespillbok",
+    "refreshScores": "Oppdater poeng",
+    "challengeFriends": "🏁 Utfordre venner",
+    "yourTime": "Din tid:",
+    "inviteFriends": "Inviter venner",
+    "racingLabel": "løper"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Litt vrien",
+      "easy": "Utfordrende",
+      "intermediate": "Vanskelig",
+      "expert": "Ekspert"
+    },
+    "book": {
+      "veryEasy": "Veldig lett",
+      "easy": "Lett",
+      "moderatelyEasy": "Ganske lett",
+      "moderate": "Middels",
+      "moderatelyHard": "Ganske vanskelig",
+      "hard": "Vanskelig",
+      "vicious": "Ondskapsfull",
+      "fiendish": "Djevelsk",
+      "devilish": "Diabolsk",
+      "hell": "Helvete",
+      "beyondHell": "Hinsides helvete"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Siste siffer",
+    "hiddenSingleBox": "Skjult single (boks)",
+    "hiddenSingleLine": "Skjult single (linje)",
+    "hiddenSingleVariantRegion": "Skjult single (variantområde)",
+    "nakedSingle": "Naken single",
+    "hiddenPair": "Skjult par",
+    "lockedCandidate": "Låst kandidat",
+    "hiddenTriple": "Skjult trippel",
+    "hiddenQuadruple": "Skjult kvadrupel",
+    "nakedPair": "Nakent par",
+    "nakedTriple": "Naken trippel",
+    "nakedQuadruple": "Naken kvadrupel",
+    "xWing": "X-Wing",
+    "swordfish": "Sverdfisk",
+    "skyscraper": "Skyskraper",
+    "twoStringKite": "To-strengs drage",
+    "crane": "Trane",
+    "simpleColoring": "Enkel fargelegging",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Finnet/Sashimi X-Wing",
+    "emptyRectangle": "Tomt rektangel",
+    "uniqueRectangleType1": "Unikt rektangel type 1",
+    "uniqueRectangleType2": "Unikt rektangel type 2",
+    "uniqueRectangleType3": "Unikt rektangel type 3",
+    "uniqueRectangleType4": "Unikt rektangel type 4",
+    "uniqueRectangleType5": "Unikt rektangel type 5",
+    "finnedSashimiSwordfish": "Finnet/Sashimi sverdfisk",
+    "jellyfish": "Manet",
+    "bugBinaryUniversalGrave": "BUG (binær universell grav)",
+    "xChain": "X-kjede",
+    "groupedXChain": "Gruppert X-kjede",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Finnet/Sashimi manet",
+    "medusa3D": "3D-Medusa",
+    "xyChain": "XY-kjede",
+    "alternatingInferenceChainAIC": "Alternerende slutningskjede (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Gruppert alternerende slutningskjede (AIC)",
+    "nishioForcingChain": "Nishio-tvangskjede",
+    "nishioForcingNet": "Nishio-tvangsnett"
+  }
+}

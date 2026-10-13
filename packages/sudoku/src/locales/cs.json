@@ -1,0 +1,341 @@
+{
+  "brand": {
+    "gameName": "Závod v sudoku"
+  },
+  "board": {
+    "buttonGroup": "Skupina tlačítek"
+  },
+  "celebration": {
+    "solved": "Vyřešeno!",
+    "leaderboardPoints": "Body do žebříčku",
+    "pointsSuffix": " b."
+  },
+  "completion": {
+    "time": "Čas"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Udržte sérii ve sbírce"
+  },
+  "puzzleMeta": {
+    "daily": "Denní {{day}} {{month}}",
+    "dayOrdinal": "{{count}}.",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "book": "Sbírka {{month}} č. {{number}}",
+    "scanned": "Naskenovaný hlavolam"
+  },
+  "bookCover": {
+    "edition": "Vydání: {{month}}",
+    "puzzleCount": "50 hlavolamů • různé obtížnosti",
+    "months": {
+      "january": {
+        "tagline": "Od základů po brutální techniky",
+        "footer": "❄️ Zimní výzva ❄️"
+      },
+      "february": {
+        "tagline": "Od skrytých jedináčků po řetězce AIC",
+        "footer": "💕 Milujte výzvy 💕"
+      },
+      "march": {
+        "tagline": "Jarní skok k pokročilým technikám",
+        "footer": "🌸 Nové výzvy rozkvétají 🌸"
+      },
+      "april": {
+        "tagline": "Přečkejte každou řešitelskou bouři",
+        "footer": "🌈 Po dešti přichází vítězství 🌈"
+      },
+      "may": {
+        "tagline": "Rozkvěťte s mozkovou silou",
+        "footer": "🌻 Ať vaše dovednosti vzkvétají 🌻"
+      },
+      "june": {
+        "tagline": "Letní trénink mozku",
+        "footer": "☀️ Slunečná stránka řešení ☀️"
+      },
+      "july": {
+        "tagline": "Čtení na pláž, trénink pro mozek",
+        "footer": "🏖️ Prázdninové hry pro mysl 🏖️"
+      },
+      "august": {
+        "tagline": "Rozpalte svou mozkovou sílu",
+        "footer": "🔥 Žhavé výzvy 🔥"
+      },
+      "september": {
+        "tagline": "Pošlete svůj mozek do školy",
+        "footer": "📚 Poznání skrze čísla 📚"
+      },
+      "october": {
+        "tagline": "Strašidelně chytré výzvy",
+        "footer": "🎃 Děsivě zábavné 🎃"
+      },
+      "november": {
+        "tagline": "Mozkové ohňostroje",
+        "footer": "🍂 Podzim plný hlavolamů 🍂"
+      },
+      "december": {
+        "tagline": "Sváteční dárky pro mozek",
+        "footer": "🎄 Veselé svátky, řešiteli! 🎄"
+      },
+      "default": {
+        "tagline": "Vyzvěte svou mysl",
+        "footer": "🧩 Síla hlavolamů 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Jste offline, zkontrolujte prosím připojení",
+      "loadFailed": "Sbírku hlavolamů se nepodařilo načíst"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Klávesnice: šipky, zpět, znovu.",
+      "notes": "Podržte Shift nebo stiskněte n pro přepnutí režimu poznámek.",
+      "validate": "Stiskněte c pro kontrolu políčka, g pro kontrolu mřížky."
+    },
+    "owl": {
+      "invalid": "Vypadá to, že jste udělali chybu. Doporučuji zkontrolovat mřížku.",
+      "notSure": "Promiňte, nejsem si jistá.",
+      "eureka": "Zápis Eureka {{notation}}",
+      "highlighted": "Zvýraznila jsem pro vás příslušná políčka",
+      "foundTechnique": "Našla jsem techniku: {{technique}}",
+      "noHint": "Nápověda není k dispozici"
+    },
+    "legend": {
+      "stem": "Stonek",
+      "petalA": "Lístek A",
+      "petalB": "Lístek B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Zapnuto (pravda)",
+      "off": "Vypnuto (nepravda)",
+      "elimination": "Eliminace"
+    },
+    "reply": {
+      "thanks": "Děkuji,",
+      "tellMeMore": "🤔 Řekněte mi víc",
+      "showMeWhere": "👀 Ukažte mi, kde",
+      "hideHint": "Skrýt nápovědu"
+    },
+    "askForHelp": "Požádat o pomoc",
+    "notes": "Poznámky",
+    "copied": "Hotovo!",
+    "export": "Exportovat",
+    "delete": "Smazat",
+    "undo": "Zpět",
+    "redo": "Znovu",
+    "cell": "Políčko",
+    "grid": "Mřížka",
+    "zoom": "Zvětšit",
+    "reset": "Resetovat",
+    "reveal": "Odhalit",
+    "confirm": {
+      "reset": {
+        "title": "Resetovat celou mřížku?",
+        "body": "Opravdu chcete resetovat celou mřížku?",
+        "confirm": "Resetovat"
+      },
+      "reveal": {
+        "title": "Odhalit celou mřížku?",
+        "body": "Opravdu chcete odhalit celou mřížku?",
+        "confirm": "Odhalit"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Holý jedináček",
+    "hiddenSingleBox": "Skrytý jedináček (blok)",
+    "hiddenSingleRow": "Skrytý jedináček (řádek)",
+    "hiddenSingleCol": "Skrytý jedináček (sloupec)",
+    "nakedPair": "Holá dvojice",
+    "nakedTriple": "Holá trojice",
+    "nakedQuad": "Holá čtveřice",
+    "hiddenPair": "Skrytá dvojice",
+    "hiddenTriple": "Skrytá trojice",
+    "hiddenQuad": "Skrytá čtveřice",
+    "lockedCandidatePointing": "Uzamčení kandidáti (ukazující)",
+    "lockedCandidateClaiming": "Uzamčení kandidáti (nárokující)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Mrakodrap",
+    "twoStringKite": "Dvouřetězcový drak",
+    "finnedXWing": "X-Wing s ploutví",
+    "finnedSwordfish": "Swordfish s ploutví",
+    "finnedJellyfish": "Jellyfish s ploutví",
+    "emptyRectangle": "Prázdný obdélník",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Unikátní obdélník (typ 1)",
+    "uniqueRectangleType2": "Unikátní obdélník (typ 2)",
+    "uniqueRectangleType3": "Unikátní obdélník (typ 3)",
+    "uniqueRectangleType4": "Unikátní obdélník (typ 4)",
+    "uniqueRectangleType5": "Unikátní obdélník (typ 5)",
+    "bug": "BUG",
+    "xyChain": "XY-řetězec",
+    "aic": "AIC",
+    "aicRing": "Kruh AIC",
+    "groupedAIC": "Seskupený AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Death Blossom",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio – síť",
+    "cellRegionForcingChain": "Vynucující řetězec buňky/oblasti",
+    "cellRegionForcingNet": "Vynucující síť buňky/oblasti",
+    "forcingChain": "Vynucující řetězec"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "včela",
+      "personality": "Neposedný a nadšený. Po mřížce se prohání v návalech a pak se zasekne. Ke konci zrychlí příliš brzy a těsně před cílem uvízne.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Jednu vidím!",
+          "Počkat — ne, možná ne...",
+          "Bzz bzz! Postup!"
+        ],
+        "playerAhead": ["Hej, zpomal!", "Šlo mi to dobře…"],
+        "playerBehind": ["Dotahuji vás!", "Podívejte, jak jedu!"],
+        "endgame": ["Skoro tam! Asi!", "Počkat — kam to patří?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "kachna",
+      "personality": "Veselý a bezcílný. Pomalu a vytrvale, s dlouhými pauzami. V koncovce se k řešení dostane skoro náhodou.",
+      "voiceLines": {
+        "neutral": ["Jen si dávám načas...", "Hmm... někde tady."],
+        "playerAhead": ["Skvěle vám to jde!", "Nakonec to dokážu."],
+        "playerBehind": ["Ó! Jednu jsem našel!", "To je příjemné."],
+        "endgame": ["Myslím, že jsem skoro hotový?", "Ó! To vyšlo."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "ještěrka",
+      "personality": "Opatrný a pozorný. Dlouhé pauzy, pak malé skupinky tahů. V koncovce před každým vložením váhá.",
+      "voiceLines": {
+        "neutral": ["Ještě to překontroluji.", "To by mělo být správně."],
+        "playerAhead": ["Teď musím být opatrný.", "Nepospíchej s tím."],
+        "playerBehind": ["Dobře… dotahuji.", "Ještě je čas."],
+        "endgame": ["Opatrně...", "Skoro… jen si musím být jistý."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "pavouk",
+      "personality": "Rozvážný a systematický. Postup buduje pečlivě, kousek po kousku. V koncovce se struktura rozpadá — přichází váhání, jako by plán přestal platit.",
+      "voiceLines": {
+        "neutral": ["To zapadá do vzoru.", "Kousek po kousku..."],
+        "playerAhead": ["Fungovalo to...", "Musím to opravit..."],
+        "playerBehind": ["Pořád to drží.", "Ano… tohle funguje."],
+        "endgame": ["Počkat — ne, to to rozbije.", "Měl jsem to naplánované..."]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "mýval",
+      "personality": "Dravý a vychytralý. Nepravidelný rytmus. V koncovce nabere tempo a dokončí rychleji, než by se čekalo.",
+      "voiceLines": {
+        "neutral": ["To vyšlo!", "Trochu nepořádek, ale beru to."],
+        "playerAhead": ["Dobrá, čas přitlačit.", "Ještě nekončím."],
+        "playerBehind": ["Ó — pěkný nález.", "Teď se to skládá dohromady."],
+        "endgame": ["Jo, to mám.", "Teď to teče."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "tučňák",
+      "personality": "Systematický a metodický. Stálé tempo. Koncovka zůstává klidná — žádná panika, žádný sprint.",
+      "voiceLines": {
+        "neutral": ["To sedí.", "Držím tempo."],
+        "playerAhead": ["Udržuj tempo.", "Není třeba spěchat."],
+        "playerBehind": ["Pořád jedu podle plánu.", "Postup je stabilní."],
+        "endgame": ["Skoro hotovo.", "Dokončit čistě."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "opice",
+      "personality": "Nevyzpytatelný a znepokojivý. Nepředvídatelné nálety. V koncovce se náhle zrychlí způsobem, který působí nespravedlivě.",
+      "voiceLines": {
+        "neutral": ["Hehe… tohle jste nečekali?", "Ó, to je zajímavé."],
+        "playerAhead": ["Nezvykejte si na to.", "Koukejte na tohle."],
+        "playerBehind": ["Někdy to prostě zaklapne.", "Šťastný tip… nebo ne?"],
+        "endgame": ["Ó, páni — jdeme na to.", "To eskalovalo rychle."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "orel",
+      "personality": "Odtažitý a plynulý. Rozvážné, sebejisté vkládání čísel. Tiché zrychlení v koncovce.",
+      "voiceLines": {
+        "neutral": ["Tohle už jsem viděl.", "Jen to doplňuji."],
+        "playerAhead": ["Nic to nemění.", "Výsledek bude stejný."],
+        "playerBehind": ["Je to vlastně hotovo.", "Právě teď jsem jinde."],
+        "endgame": ["…skoro hotovo.", "Dokončuji."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "liška",
+      "personality": "Intenzivní a soutěživá. Rychlý start, neustálý tlak. Nápor v koncovce působí agresivně.",
+      "voiceLines": {
+        "neutral": ["Drž krok.", "Pořád jsi se mnou?"],
+        "playerAhead": ["Teď nezpomaluj.", "Dokážeš to lépe."],
+        "playerBehind": ["Příliš pomalu.", "Zaostáváš."],
+        "endgame": ["Dokonči to.", "Tohle je moje."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "žralok",
+      "personality": "Trpělivý a dravý. Drží se blízko, pak v koncovce tvrdě zaútočí.",
+      "voiceLines": {
+        "neutral": ["Hned za vámi.", "Ještě ne."],
+        "playerAhead": ["Zůstaň, kde jsi.", "Jsem blízko."],
+        "playerBehind": ["Přibližuji se.", "Tady jsi."],
+        "endgame": ["Teď to dokončíme.", "Mám tě."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "sova",
+      "personality": "Klidná a rozvážná. Plynulé tempo. Koncovka je čistá a nevyhnutelná.",
+      "voiceLines": {
+        "neutral": ["Jak se čekalo.", "Vše do sebe zapadá."],
+        "playerAhead": ["Dobře.", "Vidíte to."],
+        "playerBehind": ["Dotáhněte to.", "Vydržte."],
+        "endgame": ["Téměř hotovo.", "A je to."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "černá kočka",
+      "personality": "Tichý a nelidský. Minimum pauz. Koncovka je rychlý, nepřerušovaný finiš.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…stále."],
+        "playerBehind": ["Příliš pozdě.", "Zaváhali jste."],
+        "endgame": ["…hotovo.", "Konec."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drak",
+      "personality": "Bez námahy a absolutní. Po celou dobu udržuje dokonalou kontrolu. V koncovce provede rozhodný, nepřerušený úder — žádné mezery, žádný odpor.",
+      "voiceLines": {
+        "neutral": ["Očekávané.", "Žádná odchylka."],
+        "playerAhead": [
+          "Dobře jste udělali, že jste to zkusili.",
+          "Pokračujte."
+        ],
+        "playerBehind": ["Tímto to končí.", "Žádná alternativa."],
+        "endgame": ["To je vše.", "Dokončeno."]
+      }
+    }
+  }
+}

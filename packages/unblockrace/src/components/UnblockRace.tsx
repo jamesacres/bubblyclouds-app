@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 import { ChevronRight, X } from 'lucide-react';
 import Lobby from '@bubblyclouds-app/template/components/Lobby';
 import AuthGate from '@bubblyclouds-app/template/components/AuthGate';
@@ -30,6 +31,9 @@ import { useCollection } from '../providers/CollectionProvider';
 import { GameState, GameStateMetadata, ServerState } from '../types/state';
 import { Move } from '../types/board';
 import { AgentConfig } from '@bubblyclouds-app/games/types/Agent';
+import { Translate } from '@bubblyclouds-app/games/types/i18n';
+import { useAgentDisplay } from '@bubblyclouds-app/games/hooks/useAgentDisplay';
+import { useAgentDisplayResolver } from '@bubblyclouds-app/games/hooks/useAgentDisplayResolver';
 import { useGameState } from '../hooks/useGameState';
 import { DEFAULT_AGENT_CONFIGS } from '../helpers/defaultAgents';
 import {
@@ -120,7 +124,7 @@ const CONFETTI_COLORS = Array.from({ length: 10 }, (_, i) =>
 // Moves graded against par in the run's usual colours, with the golf-style
 // delta saying exactly how far over or under — RaceTrack's per-stage score
 // slot in the leaderboard table (SPEC.md §7).
-const renderStageScore = (score: StageScore) => {
+const createStageScoreRenderer = (t: Translate) => (score: StageScore) => {
   if (score.movesMade === undefined) {
     return null;
   }
@@ -138,10 +142,12 @@ const renderStageScore = (score: StageScore) => {
       {score.movesMade}/{score.movesRequired}
       {movesDelta !== 0 && ` ${movesDelta > 0 ? '+' : ''}${movesDelta}`}
       <span className="sr-only">
-        {` moves, ${
+        {` ${
           movesDelta === 0
-            ? 'on par'
-            : `${Math.abs(movesDelta)} ${movesDelta > 0 ? 'over' : 'under'} par`
+            ? t('score.srOnPar')
+            : movesDelta > 0
+              ? t('score.srOverPar', { delta: movesDelta })
+              : t('score.srUnderPar', { delta: -movesDelta })
         }`}
       </span>
     </span>
@@ -151,88 +157,90 @@ const renderStageScore = (score: StageScore) => {
 // Run-total moves readout under the total time in the leaderboard's last
 // column — mirrors runResults.ts's own totalMoves/totalMovesDelta math over
 // the row's completed stage results.
-const renderTotalScore = (
-  stageResults: (PlayerStageResult<StageScore> | undefined)[]
-) => {
-  const completedResults = stageResults.filter(
-    (stageResult): stageResult is NonNullable<typeof stageResult> =>
-      stageResult !== undefined
-  );
-  const totalMoves = completedResults.reduce(
-    (sum, stageResult) => sum + (stageResult.score.movesMade || 0),
-    0
-  );
-  if (totalMoves <= 0) {
-    return null;
-  }
-  const totalMovesDelta = completedResults.reduce(
-    (sum, stageResult) =>
-      stageResult.score.movesMade !== undefined
-        ? sum + stageResult.score.movesMade - stageResult.score.movesRequired
-        : sum,
-    0
-  );
-  return (
-    <span className="block text-[0.65rem] tabular-nums text-stone-400 dark:text-zinc-500">
-      {totalMoves} moves
-      {' · '}
-      <span
-        className={
-          totalMovesDelta > 0
-            ? 'text-amber-600 dark:text-amber-400'
-            : totalMovesDelta < 0
-              ? 'text-emerald-600 dark:text-emerald-400'
-              : undefined
-        }
-      >
-        {totalMovesDelta === 0
-          ? 'par'
-          : `${totalMovesDelta > 0 ? '+' : ''}${totalMovesDelta}`}
+const createTotalScoreRenderer =
+  (t: Translate) =>
+  (stageResults: (PlayerStageResult<StageScore> | undefined)[]) => {
+    const completedResults = stageResults.filter(
+      (stageResult): stageResult is NonNullable<typeof stageResult> =>
+        stageResult !== undefined
+    );
+    const totalMoves = completedResults.reduce(
+      (sum, stageResult) => sum + (stageResult.score.movesMade || 0),
+      0
+    );
+    if (totalMoves <= 0) {
+      return null;
+    }
+    const totalMovesDelta = completedResults.reduce(
+      (sum, stageResult) =>
+        stageResult.score.movesMade !== undefined
+          ? sum + stageResult.score.movesMade - stageResult.score.movesRequired
+          : sum,
+      0
+    );
+    return (
+      <span className="block text-[0.65rem] tabular-nums text-stone-400 dark:text-zinc-500">
+        {t('stats.moves', { count: totalMoves })}
+        {' · '}
+        <span
+          className={
+            totalMovesDelta > 0
+              ? 'text-amber-600 dark:text-amber-400'
+              : totalMovesDelta < 0
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : undefined
+          }
+        >
+          {totalMovesDelta === 0
+            ? t('stats.par')
+            : `${totalMovesDelta > 0 ? '+' : ''}${totalMovesDelta}`}
+        </span>
       </span>
-    </span>
-  );
-};
+    );
+  };
 
 // StageResultPanel's per-stage difficulty chip: unblockDifficultyDisplay's
 // label/chipClass pair, banded from the stage's own known-optimal par.
-const getStageDifficultyDisplay = (stage: RunStage) =>
-  unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired));
+const createStageDifficultyDisplay = (t: Translate) => (stage: RunStage) =>
+  unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired), t);
 
 // StageResultPanel's completed-stage result chip: moves made against par,
 // with the over/under/met-par state driving the chip's colour treatment.
-const renderStageResult = (result: PlayerStageResult<StageScore>) => {
-  const movesMade = result.score.movesMade ?? 0;
-  const movesRequired = result.score.movesRequired;
-  const parState =
-    movesMade > movesRequired
-      ? ('over' as const)
-      : movesMade < movesRequired
-        ? ('under' as const)
-        : ('met' as const);
-  return {
-    content: (
-      <>
-        {movesMade}/{movesRequired}
-        <span className="sr-only"> moves</span>
-      </>
-    ),
-    parState,
+const createStageResultRenderer =
+  (t: Translate) => (result: PlayerStageResult<StageScore>) => {
+    const movesMade = result.score.movesMade ?? 0;
+    const movesRequired = result.score.movesRequired;
+    const parState =
+      movesMade > movesRequired
+        ? ('over' as const)
+        : movesMade < movesRequired
+          ? ('under' as const)
+          : ('met' as const);
+    return {
+      content: (
+        <>
+          {movesMade}/{movesRequired}
+          <span className="sr-only"> {t('score.moves')}</span>
+        </>
+      ),
+      parState,
+    };
   };
-};
 
 // StageResultPanel's not-yet-reached stage caption.
-const renderStageUpcoming = (stage: RunStage) => `par ${stage.movesRequired}`;
+const createStageUpcomingRenderer = (t: Translate) => (stage: RunStage) =>
+  t('score.upcomingPar', { par: stage.movesRequired });
 
 // StageResultPanel's run-total row: the moves half of "1:10 · 10 moves".
-const renderStageResultTotal = (
-  results: PlayerStageResult<StageScore>[]
-): string => {
-  const totalMoves = results.reduce(
-    (sum, r) => sum + (r.score.movesMade ?? 0),
-    0
-  );
-  return `${totalMoves} moves`;
-};
+const createStageResultTotalRenderer =
+  (t: Translate) =>
+  (results: PlayerStageResult<StageScore>[]): string => {
+    const totalMoves = results.reduce(
+      (sum, r) => sum + (r.score.movesMade ?? 0),
+      0
+    );
+    return t('stats.moves', { count: totalMoves });
+  };
 
 const SimpleStateWrapper = ({ state }: { state: ServerState }) => (
   <SimpleBoard state={state} />
@@ -257,6 +265,7 @@ const UnblockRace = ({
   mobileDescription,
   desktopDescription,
   openInAppLabel,
+  plusName,
 }: {
   run: {
     stages: RunStage[];
@@ -275,8 +284,32 @@ const UnblockRace = ({
   mobileDescription: string;
   desktopDescription: string;
   openInAppLabel: string;
+  plusName?: string;
 }) => {
+  const { t, i18n } = useTranslation('unblockrace');
+  const { t: tGames } = useTranslation('games');
+  const resolveAgentName = useAgentDisplayResolver('unblockrace');
+  const getAgentDisplay = useAgentDisplay('unblockrace');
   const router = useRouter();
+  const renderStageScore = useMemo(() => createStageScoreRenderer(t), [t]);
+  const renderTotalScore = useMemo(() => createTotalScoreRenderer(t), [t]);
+  const getStageDifficultyDisplay = useMemo(
+    () => createStageDifficultyDisplay(t),
+    [t]
+  );
+  const renderStageResult = useMemo(() => createStageResultRenderer(t), [t]);
+  const renderStageUpcoming = useMemo(
+    () => createStageUpcomingRenderer(t),
+    [t]
+  );
+  const renderStageResultTotal = useMemo(
+    () => createStageResultTotalRenderer(t),
+    [t]
+  );
+  const getStatsDisplay = useCallback(
+    (state: ServerState) => calculateStatsDisplayFromState(state, t),
+    [t]
+  );
   const context = useContext(UserContext);
   const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
@@ -383,13 +416,29 @@ const UnblockRace = ({
   const [localAgentProgress, setLocalAgentProgress] = useState<
     AgentProgress<ServerState>[]
   >([]);
+  const displayedAgentProgress = useMemo(
+    () =>
+      localAgentProgress.map((progress) => {
+        const config = DEFAULT_AGENT_CONFIGS.find(
+          (c) => c.id === progress.configId
+        );
+        return config
+          ? { ...progress, name: resolveAgentName(config) }
+          : progress;
+      }),
+    [localAgentProgress, resolveAgentName]
+  );
   // Each agent's recorded result per stage, keyed by agent name (stable
   // across the per-stage timeline rebuilds) — the deterministic side of the
   // run leaderboard.
   const [agentStageResults, setAgentStageResults] = useState<
     Map<
       string,
-      { emoji: string; stages: Map<number, PlayerStageResult<StageScore>> }
+      {
+        configId: string;
+        emoji: string;
+        stages: Map<number, PlayerStageResult<StageScore>>;
+      }
     >
   >(new Map());
 
@@ -414,7 +463,11 @@ const UnblockRace = ({
             movesRequired: stageMovesRequired,
           },
         });
-        next.set(agent.name, { emoji: agent.emoji, stages: stageMap });
+        next.set(agent.name, {
+          configId: agent.configId,
+          emoji: agent.emoji,
+          stages: stageMap,
+        });
         return next;
       });
     },
@@ -538,12 +591,13 @@ const UnblockRace = ({
             [builtAgent],
             null,
             buildPristineAgentState,
-            calculateCompletionPercentageFromState
+            calculateCompletionPercentageFromState,
+            resolveAgentName
           ),
         ]);
       });
     },
-    [stages]
+    [stages, resolveAgentName]
   );
 
   // Bot selection from the lobby's agent sheet: every (re)selected agent
@@ -655,7 +709,8 @@ const UnblockRace = ({
           [agent],
           startTimeMs,
           buildPristineAgentState,
-          calculateCompletionPercentageFromState
+          calculateCompletionPercentageFromState,
+          resolveAgentName
         );
         setLocalAgentProgress((prev) =>
           prev.some(
@@ -702,6 +757,7 @@ const UnblockRace = ({
     stages,
     recordAgentStageResult,
     buildOneAgentForStage,
+    resolveAgentName,
   ]);
 
   // "Ask for help" (2 free hints/day, then Plus — hinted moves still count
@@ -716,14 +772,11 @@ const UnblockRace = ({
   } | null>(null);
   const [hintNoticeState, setHintNoticeState] = useState<{
     boardString: string;
-    message: string;
   } | null>(null);
   const hint =
     hintState && hintState.boardString === answer ? hintState.move : null;
-  const hintNotice =
-    hintNoticeState && hintNoticeState.boardString === answer
-      ? hintNoticeState.message
-      : null;
+  const hasHintNotice =
+    hintNoticeState !== null && hintNoticeState.boardString === answer;
 
   const handleHint = useCallback(() => {
     const performHint = () => {
@@ -732,11 +785,7 @@ const UnblockRace = ({
         if (result.kind === 'move') {
           setHintState({ boardString: boardAtRequest, move: result.move });
         } else if (result.kind === 'unsolvable') {
-          setHintNoticeState({
-            boardString: boardAtRequest,
-            message:
-              'No way through from here — undo or reset to get back on track',
-          });
+          setHintNoticeState({ boardString: boardAtRequest });
         }
       });
       // Count the hint against the daily allowance only for non-subscribers
@@ -1154,7 +1203,7 @@ const UnblockRace = ({
         movesMade: runTotals.moves,
         movesRequired: runTotalPar,
         points: runPoints,
-        label: isDailyRun ? getDailyLabel() : undefined,
+        label: isDailyRun ? getDailyLabel(t, i18n.language) : undefined,
       };
     }
     const result = completedStages.get(currentStageIndex);
@@ -1177,10 +1226,12 @@ const UnblockRace = ({
       ),
       label:
         isCollectionPuzzle && metadata.unblockCollectionPuzzleId
-          ? getCollectionPuzzleLabel(metadata.unblockCollectionPuzzleId)
+          ? getCollectionPuzzleLabel(metadata.unblockCollectionPuzzleId, t)
           : undefined,
     };
   }, [
+    t,
+    i18n.language,
     completed,
     stages.length,
     isFinalStage,
@@ -1258,7 +1309,7 @@ const UnblockRace = ({
     return buildNextPuzzleProgressLabel({
       isDailyPuzzle: isDailyRun,
       isCollectionPuzzle,
-      streakMessage: 'Keep the streak going in the collection',
+      streakMessage: t('nextPuzzle.streakMessage'),
       completedDifficulty,
       collectionPuzzles: collectionData?.puzzles || [],
       getDifficulty: (puzzle) => puzzle.difficulty,
@@ -1269,9 +1320,13 @@ const UnblockRace = ({
             session.state.completed &&
             !isPuzzleCheated(session.state.answerStack)
         ),
-      getDifficultyDisplay: unblockDifficultyDisplay,
+      getDifficultyDisplay: (difficulty) =>
+        unblockDifficultyDisplay(difficulty, t),
+      t: tGames,
     });
   }, [
+    t,
+    tGames,
     nextCollectionPuzzle,
     isDailyRun,
     isCollectionPuzzle,
@@ -1360,11 +1415,11 @@ const UnblockRace = ({
   );
   const puzzleDifficultyDisplay = useMemo(
     () =>
-      getUnblockDifficultyDisplay(puzzleDifficulty) || {
-        name: unblockDifficultyDisplay(puzzleDifficulty).label,
+      getUnblockDifficultyDisplay(puzzleDifficulty, t) || {
+        name: unblockDifficultyDisplay(puzzleDifficulty, t).label,
         badgeColor: 'bg-stone-500 text-white',
       },
-    [puzzleDifficulty]
+    [puzzleDifficulty, t]
   );
 
   const redirectUri = useMemo(
@@ -1388,10 +1443,10 @@ const UnblockRace = ({
   const raceTrackSecondaryCta = useMemo(
     () => ({
       href: '/collection' as const,
-      label: 'Collection',
+      label: t('raceTrack.collection'),
       icon: 'collection' as const,
     }),
-    []
+    [t]
   );
 
   const raceTrackState = useMemo<ServerState>(
@@ -1415,8 +1470,8 @@ const UnblockRace = ({
   }, []);
 
   const stageDifficulty = useMemo(
-    () => unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired)),
-    [stage.movesRequired]
+    () => unblockDifficultyDisplay(difficultyForMoves(stage.movesRequired), t),
+    [stage.movesRequired, t]
   );
 
   const completedStageIndexes = useMemo(
@@ -1431,8 +1486,9 @@ const UnblockRace = ({
   const agentRunInputs = useMemo(
     () =>
       [...agentStageResults.entries()].map(
-        ([name, { emoji, stages: stageMap }]): AgentRunInput => ({
+        ([name, { configId, emoji, stages: stageMap }]): AgentRunInput => ({
           agentId: `agent-${name}`,
+          configId,
           name,
           emoji,
           stageResults: stageMap,
@@ -1450,9 +1506,17 @@ const UnblockRace = ({
             userId: user?.sub,
             ownResults: completedStages,
             agentResults: agentRunInputs,
+            resolveAgentName,
           })
         : undefined,
-    [stages, runStageParties, user?.sub, completedStages, agentRunInputs]
+    [
+      stages,
+      runStageParties,
+      user?.sub,
+      completedStages,
+      agentRunInputs,
+      resolveAgentName,
+    ]
   );
 
   // Falls back to the configured (picked/default) names on the rare render
@@ -1559,6 +1623,7 @@ const UnblockRace = ({
           slow-drifting speed lines so the screen reads "race" even at rest */}
       <div
         aria-hidden="true"
+        dir="ltr"
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
         <style>{`
@@ -1570,9 +1635,9 @@ const UnblockRace = ({
             .unblock-speed-line { animation: none !important; opacity: 0 !important; }
           }
         `}</style>
-        <div className="bg-theme-primary absolute -top-24 right-[-10%] h-80 w-80 rounded-full opacity-[0.11] blur-3xl dark:opacity-[0.2]" />
-        <div className="absolute left-[-12%] top-1/3 h-72 w-72 rounded-full bg-fuchsia-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
-        <div className="absolute bottom-0 right-[10%] h-64 w-64 rounded-full bg-cyan-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
+        <div className="bg-theme-primary absolute -top-24 end-[-10%] h-80 w-80 rounded-full opacity-[0.11] blur-3xl dark:opacity-[0.2]" />
+        <div className="absolute start-[-12%] top-1/3 h-72 w-72 rounded-full bg-fuchsia-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
+        <div className="absolute bottom-0 end-[10%] h-64 w-64 rounded-full bg-cyan-500 opacity-[0.08] blur-3xl dark:opacity-[0.15]" />
         {[
           { top: '18%', duration: 7, delay: 0, color: 'var(--theme-primary)' },
           { top: '46%', duration: 10, delay: 2.5, color: '#d946ef' },
@@ -1583,7 +1648,7 @@ const UnblockRace = ({
             className="unblock-speed-line absolute h-px w-1/3 opacity-25 dark:opacity-35"
             style={{
               top: line.top,
-              left: 0,
+              insetInlineStart: 0,
               background: `linear-gradient(90deg, transparent, ${line.color}, transparent)`,
               filter: 'blur(0.5px)',
               animation: `unblock-speed-line ${line.duration}s linear ${line.delay}s infinite`,
@@ -1623,16 +1688,20 @@ const UnblockRace = ({
         }
         getMovesDisplay={movesDisplayFromState}
         getStarRating={starRatingFromState}
-        localAgentProgress={showLobby ? localAgentProgress : undefined}
+        localAgentProgress={showLobby ? displayedAgentProgress : undefined}
         onRemoveAgent={onRemoveAgent}
         agentOptions={DEFAULT_AGENT_CONFIGS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={currentAgentNames}
         onAgentMode={handleAgentMode}
         puzzleDifficulty={puzzleDifficultyDisplay.name}
         puzzleDifficultyBadgeColor={puzzleDifficultyDisplay.badgeColor}
         puzzleMetaLabel={
           stages.length > 1
-            ? `Stage ${currentStageIndex + 1} of ${stages.length}`
+            ? t('labels.stageOf', {
+                current: currentStageIndex + 1,
+                total: stages.length,
+              })
             : undefined
         }
         initialState={puzzleInitialState}
@@ -1657,7 +1726,7 @@ const UnblockRace = ({
               {formatSecondsShort(runTotals.seconds)}
               <span className="text-base font-semibold text-white/75">
                 {' '}
-                · {runTotals.moves} moves
+                · {t('stats.moves', { count: runTotals.moves })}
               </span>
             </>
           }
@@ -1670,7 +1739,7 @@ const UnblockRace = ({
       )}
 
       {/* Centered, board-width game column. Keeping the whole column at
-          max-w-xl means every inner block's `lg:mr-0` (a Sudoku-Race carry
+          max-w-xl means every inner block's `lg:me-0` (a Sudoku-Race carry
           over that hugs the right edge) has no extra space to hug into, so
           the board, race track, timer and slide all stay centred on desktop
           instead of pinned right. */}
@@ -1691,11 +1760,14 @@ const UnblockRace = ({
                   isTransitioning={!!transition}
                   onViewStats={scrollToRaceTrack}
                   runComplete={isFinalStage && !!completed}
-                  dailyLabel={isDailyRun ? getDailyLabel() : undefined}
+                  dailyLabel={
+                    isDailyRun ? getDailyLabel(t, i18n.language) : undefined
+                  }
                   collectionPuzzleLabel={
                     metadata.unblockCollectionPuzzleId
                       ? getCollectionPuzzleLabel(
-                          metadata.unblockCollectionPuzzleId
+                          metadata.unblockCollectionPuzzleId,
+                          t
                         )
                       : undefined
                   }
@@ -1757,15 +1829,15 @@ const UnblockRace = ({
 
               {/* Hint verdict row: the same amber the move gauge flips to
                   when a stage goes over par — a warning, not an error */}
-              {hintNotice && (
+              {hasHintNotice && (
                 <div
                   data-testid="hint-notice"
                   className="mb-2 flex items-center justify-between gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-600 dark:text-amber-400"
                 >
-                  <span>{hintNotice}</span>
+                  <span>{t('hint.unsolvable')}</span>
                   <button
                     type="button"
-                    aria-label="Dismiss hint notice"
+                    aria-label={t('hint.dismiss')}
                     className="shrink-0 cursor-pointer opacity-70 transition-opacity hover:opacity-100"
                     onClick={() => setHintNoticeState(null)}
                   >
@@ -1866,7 +1938,7 @@ const UnblockRace = ({
                           '0 2px 12px rgba(0,0,0,0.55), 0 0 34px color-mix(in srgb, var(--theme-primary) 80%, transparent)',
                       }}
                     >
-                      Stage {stageClear.stage} clear
+                      {t('stageClear.title', { stage: stageClear.stage })}
                     </div>
                     {/* Stars pop in one-by-one (moves vs par) — the first
                         beat of the payoff, before the numbers land */}
@@ -1897,9 +1969,12 @@ const UnblockRace = ({
                         className="flex min-w-24 flex-col items-center gap-1 rounded-xl bg-zinc-900/75 px-4 py-2 ring-1 ring-white/15 backdrop-blur"
                       >
                         <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/50">
-                          Time
+                          {t('labels.time')}
                         </span>
-                        <span className="font-mono text-xl font-bold tabular-nums leading-none text-white">
+                        <span
+                          dir="ltr"
+                          className="font-mono text-xl font-bold tabular-nums leading-none text-white"
+                        >
                           {formatSecondsShort(stageClear.seconds)}
                         </span>
                       </div>
@@ -1908,10 +1983,11 @@ const UnblockRace = ({
                         className="flex min-w-24 flex-col items-center gap-1 rounded-xl bg-zinc-900/75 px-4 py-2 ring-1 ring-white/15 backdrop-blur"
                       >
                         <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/50">
-                          Moves
+                          {t('labels.moves')}
                         </span>
                         <span
-                          className={`font-mono text-xl font-bold tabular-nums leading-none ${
+                          dir="ltr"
+                          className={`font-mono text-xl ${
                             stageClear.movesMade > stageClear.movesRequired
                               ? 'text-amber-400'
                               : stageClear.movesMade < stageClear.movesRequired
@@ -1938,10 +2014,16 @@ const UnblockRace = ({
                       }}
                     >
                       {stageClear.movesMade > stageClear.movesRequired
-                        ? `${stageClear.movesMade - stageClear.movesRequired} over par`
+                        ? t('stats.overPar', {
+                            delta:
+                              stageClear.movesMade - stageClear.movesRequired,
+                          })
                         : stageClear.movesMade < stageClear.movesRequired
-                          ? `${stageClear.movesRequired - stageClear.movesMade} under par`
-                          : 'On par'}
+                          ? t('stats.underPar', {
+                              delta:
+                                stageClear.movesRequired - stageClear.movesMade,
+                            })
+                          : t('stageClear.onPar')}
                     </div>
                     {/* Leaderboard points count up once the stars have
                         landed — the same number the run's total will rise by
@@ -1957,12 +2039,12 @@ const UnblockRace = ({
                       <CountUp
                         value={stageClearPoints}
                         prefix="+"
-                        suffix=" pts"
+                        suffix={t('stageClear.pointsSuffix')}
                         startDelayMs={stageClearStars * 220 + 200}
                         className="font-mono text-2xl font-black tabular-nums text-amber-300"
                       />
                       <span className="text-[0.6rem] font-black uppercase tracking-widest text-white/55">
-                        Leaderboard points
+                        {t('stageClear.leaderboardPoints')}
                       </span>
                     </div>
                     <style>{`
@@ -1986,8 +2068,11 @@ const UnblockRace = ({
                           'unblock-stage-clear-cta 400ms ease-out 350ms both, unblock-next-stage-pulse 1.8s ease-in-out 900ms infinite',
                       }}
                     >
-                      Next stage
-                      <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                      {t('stageClear.nextStage')}
+                      <ChevronRight
+                        className="h-4 w-4 rtl:-scale-x-100"
+                        aria-hidden="true"
+                      />
                     </button>
                     {/* Progress line: how far through the run this win takes
                         them, so the CTA reads as momentum, not just "next" */}
@@ -1999,8 +2084,11 @@ const UnblockRace = ({
                           'unblock-stage-clear-cta 400ms ease-out 450ms both',
                       }}
                     >
-                      Stage {stageClear.stage} of {stages.length} —{' '}
-                      {stages.length - stageClear.stage} to go
+                      {t('stageClear.progress', {
+                        stage: stageClear.stage,
+                        total: stages.length,
+                        remaining: stages.length - stageClear.stage,
+                      })}
                     </div>
                   </div>
                 )}
@@ -2016,18 +2104,22 @@ const UnblockRace = ({
                     <>
                       <div className="flex min-w-20 flex-col items-center gap-0.5 rounded-xl bg-stone-100/80 px-4 py-2 dark:bg-zinc-800/70">
                         <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
-                          Time
+                          {t('labels.time')}
                         </span>
-                        <span className="font-mono text-lg font-bold tabular-nums leading-none text-stone-900 dark:text-white">
+                        <span
+                          dir="ltr"
+                          className="font-mono text-lg font-bold tabular-nums leading-none text-stone-900 dark:text-white"
+                        >
                           {formatSecondsShort(completionSummary.seconds)}
                         </span>
                       </div>
                       <div className="flex min-w-20 flex-col items-center gap-0.5 rounded-xl bg-stone-100/80 px-4 py-2 dark:bg-zinc-800/70">
                         <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
-                          Moves
+                          {t('labels.moves')}
                         </span>
                         <span
-                          className={`font-mono text-lg font-bold tabular-nums leading-none ${
+                          dir="ltr"
+                          className={`font-mono text-lg ${
                             completionSummary.movesMade >
                             completionSummary.movesRequired
                               ? 'text-amber-600 dark:text-amber-400'
@@ -2063,6 +2155,7 @@ const UnblockRace = ({
                   <NextPuzzlePanel
                     isLocked={nextCollectionPuzzle.isLocked}
                     progressLabel={nextPuzzleProgressLabel}
+                    plusName={plusName}
                     onContinue={handleContinueToNext}
                   />
                 )}
@@ -2078,14 +2171,14 @@ const UnblockRace = ({
                   calculateCompletionPercentageFromState
                 }
                 isPuzzleCheated={isPuzzleCheated}
-                calculateStatsDisplayFromState={calculateStatsDisplayFromState}
+                calculateStatsDisplayFromState={getStatsDisplay}
                 onInviteFriends={handleInviteFriends}
                 runResults={runResults}
                 totalStages={stages.length}
                 renderStageScore={renderStageScore}
                 renderTotalScore={renderTotalScore}
                 presenceStageByUserId={presenceStageByUserId}
-                localAgentProgress={localAgentProgress}
+                localAgentProgress={displayedAgentProgress}
                 rateApp={rateApp}
                 secondaryCta={raceTrackSecondaryCta}
                 formatFinishTime={formatSecondsShort}
@@ -2098,14 +2191,20 @@ const UnblockRace = ({
       <ConfirmDialog
         isOpen={confirmAction !== null}
         title={
-          confirmAction === 'retry' ? 'Retry this stage?' : 'Reset this puzzle?'
+          confirmAction === 'retry'
+            ? t('confirm.retry.title')
+            : t('confirm.reset.title')
         }
         body={
           confirmAction === 'retry'
-            ? 'Your current time and moves will be replaced.'
-            : 'This clears your moves and starts the puzzle over.'
+            ? t('confirm.retry.body')
+            : t('confirm.reset.body')
         }
-        confirmLabel={confirmAction === 'retry' ? 'Retry' : 'Reset'}
+        confirmLabel={
+          confirmAction === 'retry'
+            ? t('confirm.retry.confirm')
+            : t('confirm.reset.confirm')
+        }
         onConfirm={handleConfirmDialogConfirm}
         onCancel={() => setConfirmAction(null)}
       />

@@ -1,3 +1,6 @@
+import { useTranslation } from 'react-i18next';
+import { Translate } from '../../types/i18n';
+
 const TIER_COLORS: Record<string, { fg: string; bg: string; bd: string }> = {
   novice: {
     fg: '#6ee7b7',
@@ -26,26 +29,35 @@ const TIER_COLORS: Record<string, { fg: string; bg: string; bd: string }> = {
   },
 };
 
-const TIER_LABELS: Record<string, string> = {
-  novice: 'Novice',
-  advancedBeginner: 'Beginner',
-  competent: 'Competent',
-  proficient: 'Proficient',
-  expert: 'Expert',
+const getTierLabel = (skillLevel: string, t: Translate): string => {
+  switch (skillLevel) {
+    case 'novice':
+      return t('tier.novice');
+    case 'advancedBeginner':
+      return t('tier.advancedBeginner');
+    case 'competent':
+      return t('tier.competent');
+    case 'proficient':
+      return t('tier.proficient');
+    case 'expert':
+      return t('tier.expert');
+    default:
+      return skillLevel;
+  }
 };
 
 export function TierBadge({ skillLevel }: { skillLevel: string }) {
+  const { t } = useTranslation('template');
   const c = TIER_COLORS[skillLevel] ?? TIER_COLORS.novice;
-  const label = TIER_LABELS[skillLevel] ?? skillLevel;
+  const label = getTierLabel(skillLevel, t);
   return (
     <span
-      className="inline-flex items-center rounded-full text-[9px] font-extrabold uppercase tracking-wider"
+      className="inline-flex items-center rounded-full text-center text-[9px] font-extrabold uppercase leading-tight tracking-wider"
       style={{
         padding: '4px 8px',
         color: c.fg,
         background: c.bg,
         border: `1px solid ${c.bd}`,
-        whiteSpace: 'nowrap',
       }}
     >
       {label}

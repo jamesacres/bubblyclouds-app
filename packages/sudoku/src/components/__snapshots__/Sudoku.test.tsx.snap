@@ -67,10 +67,10 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
             class="mt-auto"
           >
             <div
-              class="ml-auto mr-auto max-w-xl px-4 pb-1 lg:mr-0"
+              class="me-auto ms-auto max-w-xl px-4 pb-1 lg:me-0"
             >
               <div
-                class="text-right"
+                class="text-end"
               >
                 <span
                   class="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent"
@@ -80,7 +80,7 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
               </div>
             </div>
             <div
-              class="ml-auto mr-auto flex max-w-xl px-4 pb-1 lg:mr-0"
+              class="me-auto ms-auto flex max-w-xl px-4 pb-1 lg:me-0"
             >
               <div
                 aria-label="Button group"
@@ -94,7 +94,7 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
                 </div>
               </div>
               <div
-                class="grow text-right "
+                class="grow text-end "
               >
                 <div
                   data-testid="timer-display"
@@ -108,7 +108,8 @@ exports[`Sudoku snapshot should match snapshot 1`] = `
             >
               <div
                 aria-disabled="false"
-                class="border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative ml-auto mr-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900   transition-all duration-300"
+                class="border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative me-auto ms-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:me-0 portrait:max-w-[calc(50dvh)] lg:rtl:me-auto lg:rtl:ms-0 dark:bg-zinc-900   transition-all duration-300"
+                dir="ltr"
                 style="transform: scale(1);"
               >
                 <div

@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Sigue cada carrera",
+    "subtitle": "Consulta tu historial, tasas de finalización y cómo te comparas con tus amigos"
+  },
+  "01": {
+    "title": "Compite y aprende a la vez",
+    "subtitle": "Ayuda cuando te atasques,\nexplicación completa de la técnica"
+  },
+  "02": {
+    "title": "Libro de sudokus",
+    "subtitle": "Cada mes llega un libro seleccionado de retos centrados en técnicas"
+  },
+  "03": {
+    "title": "Importa y comparte tu sudoku",
+    "subtitle": "Escanea un sudoku de un libro y reta a tus amigos"
+  },
+  "04": {
+    "title": "El sudoku se ha vuelto competitivo",
+    "subtitle": "Reta a amigos y familia a una carrera en directo: mira quién lo resuelve más rápido"
+  },
+  "05": {
+    "title": "Compite con otros, IA o solo",
+    "subtitle": "Comparte un enlace con amigos y familia,\nañade rivales de IA o juega contra el reloj"
+  },
+  "06": {
+    "title": "Sube en la clasificación",
+    "subtitle": "Cada carrera da puntos — mira quién domina los últimos 30 días"
+  },
+  "07": {
+    "title": "Conoce a tus rivales",
+    "subtitle": "Elige entre rivales de IA únicos, cada uno con su personalidad y estilo de juego"
+  },
+  "08": {
+    "title": "Tus equipos privados",
+    "subtitle": "Invita a familiares y amigos, compitan juntos y creen su propia clasificación"
+  },
+  "09": {
+    "title": "Un enlace. Todos dentro.",
+    "subtitle": "Comparte un enlace de invitación y tus amigos se unen a la carrera en segundos"
+  }
+}

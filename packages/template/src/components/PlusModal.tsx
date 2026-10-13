@@ -7,6 +7,7 @@ import { PurchasesPackage as CapacitorPackage } from '@revenuecat/purchases-capa
 import { Package as WebPackage } from '@revenuecat/purchases-js';
 import { ComponentType, ReactNode, useContext, useState } from 'react';
 import { X, Check, Loader } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface PremiumFeature {
   icon: ComponentType<{ className?: string }>;
@@ -31,6 +32,7 @@ const PlusModal = ({
   description,
   contextMessages,
 }: PlusModalProps) => {
+  const { t } = useTranslation('template');
   const {
     isLoading,
     isSubscribed,
@@ -104,8 +106,8 @@ const PlusModal = ({
               modal?.hideModal();
               modal.cancelCallback();
             }}
-            className="absolute right-4 top-4 z-10 cursor-pointer rounded-full p-2 text-gray-400 backdrop-blur-sm transition-all hover:bg-gray-200/80 hover:text-gray-600 dark:hover:bg-gray-700/80 dark:hover:text-gray-300"
-            aria-label="Close modal"
+            className="absolute end-4 top-4 z-10 cursor-pointer rounded-full p-2 text-gray-400 backdrop-blur-sm transition-all hover:bg-gray-200/80 hover:text-gray-600 dark:hover:bg-gray-700/80 dark:hover:text-gray-300"
+            aria-label={t('plus.close')}
           >
             <X className="h-5 w-5" />
           </button>
@@ -117,7 +119,7 @@ const PlusModal = ({
               <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full">
                 <img
                   src="/icons/icon-512.webp"
-                  alt="App Icon"
+                  alt={t('plus.appIconAlt')}
                   width={512}
                   height={512}
                 />
@@ -131,16 +133,16 @@ const PlusModal = ({
             {/* Pricing Options */}
             <div className="mb-6 space-y-3 px-6">
               <div
-                className={`flex cursor-pointer items-center justify-between rounded-xl border-2 p-4 ${
+                className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl border-2 p-4 ${
                   selectedPlan === 'lifetime'
                     ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                     : 'border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700'
                 }`}
                 onClick={() => setSelectedPlan('lifetime')}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex min-w-0 items-center space-x-3">
                   <div
-                    className={`flex h-6 w-6 items-center justify-center rounded-full ${
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
                       selectedPlan === 'lifetime'
                         ? 'bg-blue-500 text-white'
                         : 'border-2 border-gray-300 dark:border-gray-500'
@@ -151,25 +153,25 @@ const PlusModal = ({
                     )}
                   </div>
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    Lifetime
+                    {t('plus.lifetime')}
                   </span>
                 </div>
-                <span className="font-bold text-gray-900 dark:text-white">
+                <span className="text-end font-bold text-gray-900 dark:text-white">
                   {lifetimePriceString}
                 </span>
               </div>
 
               <div
-                className={`flex cursor-pointer items-center justify-between rounded-xl border-2 p-4 ${
+                className={`flex cursor-pointer items-center justify-between gap-3 rounded-xl border-2 p-4 ${
                   selectedPlan === 'monthly'
                     ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
                     : 'border-gray-200 bg-white dark:border-gray-600 dark:bg-gray-700'
                 }`}
                 onClick={() => setSelectedPlan('monthly')}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex min-w-0 items-center space-x-3">
                   <div
-                    className={`flex h-6 w-6 items-center justify-center rounded-full ${
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${
                       selectedPlan === 'monthly'
                         ? 'bg-blue-500 text-white'
                         : 'border-2 border-gray-300 dark:border-gray-500'
@@ -180,11 +182,11 @@ const PlusModal = ({
                     )}
                   </div>
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    Monthly
+                    {t('plus.monthly')}
                   </span>
                 </div>
-                <span className="font-bold text-gray-900 dark:text-white">
-                  {monthlyPriceString}/month
+                <span className="text-end font-bold text-gray-900 dark:text-white">
+                  {t('plus.perMonth', { price: monthlyPriceString })}
                 </span>
               </div>
             </div>
@@ -192,7 +194,7 @@ const PlusModal = ({
             {/* Features Section */}
             <div className="mb-6 px-6">
               <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                What&apos;s Included
+                {t('plus.whatsIncluded')}
               </h3>
               <div className="space-y-4 pb-4">
                 {features.map((feature, index) => (
@@ -203,8 +205,8 @@ const PlusModal = ({
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white">
                       <feature.icon className="h-6 w-6" />
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <div className="min-w-0">
+                      <h4 className="break-words font-semibold text-gray-900 dark:text-white">
                         {feature.title}
                       </h4>
                       {feature.description && (
@@ -252,12 +254,12 @@ const PlusModal = ({
                 {isPurchasing ? (
                   <Loader className="h-5 w-5 animate-spin" />
                 ) : (
-                  'Continue'
+                  t('plus.continue')
                 )}
               </button>
               <div className="flex gap-4">
                 <button
-                  className="flex flex-1 cursor-pointer items-center justify-center py-2 text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
+                  className="flex flex-1 cursor-pointer items-center justify-center py-2 text-center text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
                   disabled={isPurchasing || isRestoring}
                   onClick={async () => {
                     if (restorePurchases) {
@@ -277,18 +279,18 @@ const PlusModal = ({
                   {isRestoring ? (
                     <Loader className="h-4 w-4 animate-spin" />
                   ) : (
-                    'Restore purchases'
+                    t('plus.restorePurchases')
                   )}
                 </button>
                 <button
-                  className="flex-1 cursor-pointer py-2 text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
+                  className="flex-1 cursor-pointer py-2 text-center text-sm text-gray-500 transition-colors hover:text-gray-700 disabled:cursor-not-allowed disabled:opacity-70 dark:text-gray-500 dark:hover:text-gray-300"
                   disabled={isPurchasing || isRestoring}
                   onClick={() => {
                     modal?.hideModal();
                     modal.cancelCallback();
                   }}
                 >
-                  Cancel
+                  {t('plus.cancel')}
                 </button>
               </div>
             </div>

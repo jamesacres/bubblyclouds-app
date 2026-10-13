@@ -24,7 +24,7 @@ describe('SimpleBoard', () => {
   it('renders pieces and walls from an initial board', () => {
     const { container } = render(<SimpleBoard initial={INITIAL} />);
     // 2 pieces + 1 wall
-    expect(container.firstChild?.childNodes).toHaveLength(3);
+    expect(container.firstChild?.firstChild?.childNodes).toHaveLength(3);
   });
 
   it('prefers the latest answer from a state', () => {

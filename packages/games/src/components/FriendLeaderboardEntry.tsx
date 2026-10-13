@@ -1,9 +1,11 @@
 'use client';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { FriendsLeaderboardScore } from '../types/scoringTypes';
 import { formatTime } from '../helpers/scoringUtils';
 import ScoreBreakdown from './ScoreBreakdown';
+import { formatLatinNumber } from '@bubblyclouds-app/ui/helpers/latinNumber';
 
 interface FriendLeaderboardEntryProps {
   entry: FriendsLeaderboardScore;
@@ -20,6 +22,7 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
   collectionLabel,
   collectionDetailNoun,
 }) => {
+  const { t, i18n } = useTranslation('games');
   const [showBreakdown, setShowBreakdown] = useState(false);
 
   const getRankIcon = (rank: number) => {
@@ -42,40 +45,65 @@ const FriendLeaderboardEntry: React.FC<FriendLeaderboardEntryProps> = ({
         onClick={() => setShowBreakdown(!showBreakdown)}
       >
         <div className="w-16 text-center">
-          <span className="text-2xl font-bold">{getRankIcon(rank)}</span>
+          <span dir="ltr" className="text-2xl font-bold">
+            {getRankIcon(rank)}
+          </span>
         </div>
 
-        <div className="ml-4 flex-1">
+        <div className="ms-4 flex-1">
           <div className="text-lg font-semibold text-gray-800 dark:text-gray-200">
             {entry.username}
             {isCurrentUser && (
-              <span className="ml-2 text-sm text-blue-600">(You)</span>
+              <span className="ms-2 text-sm text-blue-600">
+                {t('friendLeaderboardEntry.you')}
+              </span>
             )}
           </div>
           <div className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {entry.stats.totalPuzzles} puzzles • Avg:{' '}
-            {formatTime(entry.stats.averageTime)}
+            {t('friendLeaderboardEntry.puzzles', {
+              count: entry.stats.totalPuzzles,
+            })}{' '}
+            •{' '}
+            {t('friendLeaderboardEntry.average', {
+              time: formatTime(entry.stats.averageTime),
+            })}
             {entry.stats.fastestTime > 0 && (
-              <> • Best: {formatTime(entry.stats.fastestTime)}</>
+              <>
+                {' '}
+                •{' '}
+                {t('friendLeaderboardEntry.best', {
+                  time: formatTime(entry.stats.fastestTime),
+                })}
+              </>
             )}
             {entry.stats.racingWins > 0 && (
-              <> • 🏁 {entry.stats.racingWins} wins</>
+              <>
+                {' '}
+                •{' '}
+                {t('friendLeaderboardEntry.wins', {
+                  count: entry.stats.racingWins,
+                })}
+              </>
             )}
           </div>
         </div>
 
-        <div className="mr-4 text-right">
+        <div className="me-4 text-end">
           <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-            {entry.totalScore.toLocaleString()}
+            <span dir="ltr">
+              {formatLatinNumber(entry.totalScore, i18n.language)}
+            </span>
           </div>
-          <div className="text-sm text-gray-500">points</div>
+          <div className="text-sm text-gray-500">
+            {t('friendLeaderboardEntry.points', { count: entry.totalScore })}
+          </div>
         </div>
 
         <div className="text-gray-400">
           {showBreakdown ? (
             <ChevronDown size={20} />
           ) : (
-            <ChevronRight size={20} />
+            <ChevronRight size={20} className="rtl:-scale-x-100" />
           )}
         </div>
       </div>

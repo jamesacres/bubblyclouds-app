@@ -101,7 +101,7 @@ const CountUp: React.FC<CountUpProps> = ({
   const finalFormatted = format ? format(value) : `${value}`;
 
   return (
-    <span className={className}>
+    <span dir="ltr" className={className}>
       <span aria-hidden="true">
         {prefix}
         {formatted}

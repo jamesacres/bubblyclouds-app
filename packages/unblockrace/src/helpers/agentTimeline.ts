@@ -160,6 +160,7 @@ export async function createLocalAgents(
         // point a rebuilt agent's live kart at the wrong (or no) run-results
         // row, since positions can shift as agents are added/removed.
         id: `agent-${config.name}`,
+        configId: config.id,
         name: config.name,
         emoji: config.emoji,
         skillLevel: config.skillLevel,

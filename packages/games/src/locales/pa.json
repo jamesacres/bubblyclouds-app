@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "ਕਿਤਾਬ",
+    "defaultDetailNoun": "ਪਹੇਲੀ ਕਿਤਾਬਾਂ"
+  },
+  "collectionCover": {
+    "monthlyCollection": "ਮਹੀਨਾਵਾਰ ਸੰਗ੍ਰਹਿ"
+  },
+  "hintBox": {
+    "dismiss": "ਸੰਕੇਤ ਬੰਦ ਕਰੋ"
+  },
+  "lobbyButton": {
+    "opponents": "ਵਿਰੋਧੀ"
+  },
+  "nextPuzzlePanel": {
+    "continue": "ਜਾਰੀ ਰੱਖੋ — ਅਗਲੀ ਪਹੇਲੀ",
+    "continueLocked": "ਜਾਰੀ ਰੱਖੋ ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{total}} ਵਿੱਚੋਂ {{completed}} {{label}} ਪੂਰੇ"
+  },
+  "countdownOverlay": {
+    "getReady": "ਤਿਆਰ ਹੋ ਜਾਓ",
+    "go": "ਸ਼ੁਰੂ!"
+  },
+  "confirmDialog": {
+    "cancel": "ਰੱਦ ਕਰੋ"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · ਪੂਰਾ",
+    "retry": "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼",
+    "points": "+{{points}} ਅੰਕ",
+    "leaderboardPoints": "ਲੀਡਰਬੋਰਡ ਅੰਕ"
+  },
+  "raceTimer": {
+    "time": "ਸਮਾਂ"
+  },
+  "stageTopBar": {
+    "previous": "ਪਿਛਲਾ"
+  },
+  "raceHud": {
+    "opponents": "ਵਿਰੋਧੀ",
+    "stageOf": "ਪੜਾਅ {{current}} / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "ਮੁਕੰਮਲ!",
+    "runComplete": "ਦੌੜ ਪੂਰੀ",
+    "leaderboardPoints": "ਲੀਡਰਬੋਰਡ ਅੰਕ",
+    "pointsSuffix": " ਅੰਕ"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ਐਤ",
+      "monday": "ਸੋਮ",
+      "tuesday": "ਮੰਗ",
+      "wednesday": "ਬੁਧ",
+      "thursday": "ਵੀਰ",
+      "friday": "ਸ਼ੁ",
+      "saturday": "ਸ਼ਨ"
+    },
+    "dayStreak_one": "ਦਿਨ ਦੀ ਲੜੀ",
+    "dayStreak_other": "ਦਿਨਾਂ ਦੀ ਲੜੀ",
+    "thisMonth": "ਇਸ ਮਹੀਨੇ"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(ਤੁਸੀਂ)",
+    "puzzles_one": "{{count}} ਪਹੇਲੀ",
+    "puzzles_other": "{{count}} ਪਹੇਲੀਆਂ",
+    "average": "ਔਸਤ: {{time}}",
+    "best": "ਸਭ ਤੋਂ ਵਧੀਆ: {{time}}",
+    "wins_one": "🏁 {{count}} ਜਿੱਤ",
+    "wins_other": "🏁 {{count}} ਜਿੱਤਾਂ",
+    "points_one": "ਅੰਕ",
+    "points_other": "ਅੰਕ"
+  },
+  "scoreBreakdown": {
+    "title": "ਅੰਕਾਂ ਦਾ ਵੇਰਵਾ",
+    "volumeBonus": {
+      "label": "ਮਾਤਰਾ ਬੋਨਸ",
+      "detail_one": "{{count}} ਪਹੇਲੀ ਪੂਰੀ ਕੀਤੀ",
+      "detail_other": "{{count}} ਪਹੇਲੀਆਂ ਪੂਰੀਆਂ ਕੀਤੀਆਂ"
+    },
+    "dailyPuzzles": {
+      "label": "ਰੋਜ਼ਾਨਾ ਪਹੇਲੀਆਂ",
+      "detail_one": "{{count}} ਰੋਜ਼ਾਨਾ ਚੁਣੌਤੀ",
+      "detail_other": "{{count}} ਰੋਜ਼ਾਨਾ ਚੁਣੌਤੀਆਂ"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} ਪਹੇਲੀਆਂ",
+      "detail": "{{collection}} ਵਿੱਚੋਂ {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "ਸਕੈਨ ਕੀਤੀਆਂ ਪਹੇਲੀਆਂ",
+      "detail_one": "{{count}} ਆਯਾਤ ਕੀਤੀ ਪਹੇਲੀ",
+      "detail_other": "{{count}} ਆਯਾਤ ਕੀਤੀਆਂ ਪਹੇਲੀਆਂ"
+    },
+    "difficultyBonus": {
+      "label": "ਮੁਸ਼ਕਲ ਪੱਧਰ ਬੋਨਸ",
+      "detail": "ਔਖੀਆਂ ਪਹੇਲੀਆਂ = ਵੱਧ ਅੰਕ"
+    },
+    "speedBonus": {
+      "label": "ਰਫ਼ਤਾਰ ਬੋਨਸ",
+      "detail": "ਸਭ ਤੋਂ ਤੇਜ਼: {{time}}"
+    },
+    "racingBonus": {
+      "label": "ਰੇਸਿੰਗ ਬੋਨਸ",
+      "detail": "ਪੂਰੀ ਕਰਨ ਵਾਲੇ ਦੋਸਤਾਂ ਨੂੰ ਹਰਾਓ"
+    },
+    "dailyCombo": {
+      "label": "ਰੋਜ਼ਾਨਾ ਕੌਂਬੋ",
+      "detail": "ਇੱਕ ਦਿਨ ਵਿੱਚ ਵੱਧ ਪਹੇਲੀਆਂ = ਵੱਡਾ ਗੁਣਕ"
+    }
+  },
+  "leaderboard": {
+    "you": "ਤੁਸੀਂ",
+    "unknownUser": "ਅਣਜਾਣ ਉਪਭੋਗਤਾ",
+    "title": "ਲੀਡਰਬੋਰਡ",
+    "subtitleParty": "ਪਿਛਲੇ 30 ਦਿਨ · {{partyName}}",
+    "subtitleAllTeams": "ਪਿਛਲੇ 30 ਦਿਨ · ਸਾਰੀਆਂ ਟੀਮਾਂ",
+    "howScoringWorks": "ਅੰਕ ਕਿਵੇਂ ਮਿਲਦੇ ਹਨ"
+  },
+  "scoringLegend": {
+    "title": "ਅੰਕ ਕਿਵੇਂ ਮਿਲਦੇ ਹਨ",
+    "subtitle": "{{gameName}} · ਪਿਛਲੇ 30 ਦਿਨ",
+    "close": "ਬੰਦ ਕਰੋ",
+    "racingWins": {
+      "title": "ਰੇਸ ਦੀਆਂ ਜਿੱਤਾਂ",
+      "body": "ਇੱਕੋ ਪੂਰੀ ਕੀਤੀ ਪਹੇਲੀ 'ਤੇ ਹਰ ਹਰਾਏ ਦੋਸਤ ਲਈ <points>+{{points}} ਅੰਕ</points> ਕਮਾਓ। {{friends}} ਦੋਸਤਾਂ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰਾ ਕਰੋ ਅਤੇ <points>+{{total}} ਅੰਕ</points> ਪਾਓ।"
+    },
+    "basePoints": {
+      "title": "ਮੁੱਢਲੇ ਅੰਕ",
+      "anyPuzzle": "ਕੋਈ ਵੀ ਪਹੇਲੀ",
+      "dailyPuzzle": "ਰੋਜ਼ਾਨਾ ਪਹੇਲੀ",
+      "collectionPuzzle": "{{collection}} ਪਹੇਲੀ",
+      "scannedPuzzle": "ਸਕੈਨ ਕੀਤੀ ਪਹੇਲੀ"
+    },
+    "difficultyMultipliers": {
+      "title": "ਮੁਸ਼ਕਲ ਪੱਧਰ ਦੇ ਗੁਣਕ",
+      "daily": "ਅੱਜ ਦੀ {{gameName}}",
+      "collection": "{{collection}} ਪਹੇਲੀਆਂ"
+    },
+    "speedBonuses": {
+      "title": "ਰਫ਼ਤਾਰ ਬੋਨਸ",
+      "lightning": "ਬਿਜਲੀ",
+      "fast": "ਤੇਜ਼",
+      "quick": "ਫੁਰਤੀਲਾ",
+      "steady": "ਸਥਿਰ",
+      "under": "{{threshold}} ਤੋਂ ਘੱਟ",
+      "seconds": "{{value}} ਸਕਿੰਟ",
+      "minutes": "{{value}} ਮਿੰਟ"
+    },
+    "dailyCombo": {
+      "title": "ਰੋਜ਼ਾਨਾ ਕੌਂਬੋ",
+      "body": "ਇੱਕੋ ਦਿਨ ਵਿੱਚ ਵੱਧ ਪਹੇਲੀਆਂ ਹੱਲ ਕਰੋ ਤਾਂ ਹਰ ਪਹੇਲੀ ਦੇ ਅੰਕ <max>{{max}}×</max> ਤੱਕ ਗੁਣਾ ਹੋ ਜਾਂਦੇ ਹਨ।",
+      "puzzle": "ਦਿਨ ਦੀ ਪਹੇਲੀ {{puzzle}}",
+      "puzzleOrMore": "ਦਿਨ ਦੀ ਪਹੇਲੀ {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "ਦੌੜ ਪੂਰੀ",
+    "raceProgress": "ਰੇਸ ਦੀ ਤਰੱਕੀ",
+    "stagesProgress": "{{completed}}/{{total}} ਪੜਾਅ",
+    "retryStage": "ਪੜਾਅ ਦੁਬਾਰਾ ਖੇਡੋ",
+    "stageLabel": "ਪੜਾਅ {{number}}",
+    "stageCompletedLabel": "ਪੜਾਅ {{number}}, {{time}} ਵਿੱਚ ਪੂਰਾ ਕੀਤਾ",
+    "viewRacingStats": "ਰੇਸਿੰਗ ਅੰਕੜੇ ਵੇਖੋ",
+    "total": "ਕੁੱਲ"
+  },
+  "raceTrack": {
+    "you": "ਤੁਸੀਂ",
+    "viewFriends": "ਦੋਸਤ ਵੇਖਣ ਲਈ ਕਲਿੱਕ ਕਰੋ",
+    "start": "ਸ਼ੁਰੂ",
+    "finish": "ਅੰਤ",
+    "inviteToRace": "ਦੋਸਤਾਂ ਨੂੰ ਰੇਸ ਲਈ ਸੱਦਾ ਦਿਓ",
+    "opponents": "ਵਿਰੋਧੀ",
+    "racer": "ਰੇਸਰ",
+    "stageBadge": "ਪੜਾਅ {{number}}",
+    "total": "ਕੁੱਲ",
+    "leaderboard": "ਲੀਡਰਬੋਰਡ",
+    "puzzleBook": "ਪਹੇਲੀ ਕਿਤਾਬ",
+    "puzzleBookLabel": "ਪਹੇਲੀ ਕਿਤਾਬ",
+    "refreshScores": "ਅੰਕ ਤਾਜ਼ਾ ਕਰੋ",
+    "challengeFriends": "🏁 ਦੋਸਤਾਂ ਨੂੰ ਚੁਣੌਤੀ ਦਿਓ",
+    "yourTime": "ਤੁਹਾਡਾ ਸਮਾਂ:",
+    "inviteFriends": "ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ",
+    "racingLabel": "ਰੇਸ ਜਾਰੀ"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "ਗੁੰਝਲਦਾਰ",
+      "easy": "ਚੁਣੌਤੀਪੂਰਨ",
+      "intermediate": "ਔਖਾ",
+      "expert": "ਮਾਹਰ"
+    },
+    "book": {
+      "veryEasy": "ਬਹੁਤ ਆਸਾਨ",
+      "easy": "ਆਸਾਨ",
+      "moderatelyEasy": "ਕੁਝ ਆਸਾਨ",
+      "moderate": "ਦਰਮਿਆਨਾ",
+      "moderatelyHard": "ਕੁਝ ਔਖਾ",
+      "hard": "ਔਖਾ",
+      "vicious": "ਬੇਰਹਿਮ",
+      "fiendish": "ਦੈਂਤੀ",
+      "devilish": "ਸ਼ੈਤਾਨੀ",
+      "hell": "ਨਰਕ",
+      "beyondHell": "ਨਰਕ ਤੋਂ ਪਰੇ"
+    }
+  },
+  "techniques": {
+    "lastDigit": "ਆਖ਼ਰੀ ਅੰਕ",
+    "hiddenSingleBox": "ਲੁਕਿਆ ਸਿੰਗਲ (ਬਾਕਸ)",
+    "hiddenSingleLine": "ਲੁਕਿਆ ਸਿੰਗਲ (ਲਾਈਨ)",
+    "hiddenSingleVariantRegion": "ਲੁਕਿਆ ਸਿੰਗਲ (ਵੇਰੀਐਂਟ ਖੇਤਰ)",
+    "nakedSingle": "ਨੰਗਾ ਸਿੰਗਲ",
+    "hiddenPair": "ਲੁਕਿਆ ਜੋੜਾ",
+    "lockedCandidate": "ਲੌਕ ਕੀਤਾ ਉਮੀਦਵਾਰ",
+    "hiddenTriple": "ਲੁਕੀ ਤਿੱਕੜੀ",
+    "hiddenQuadruple": "ਲੁਕੀ ਚੌਕੜੀ",
+    "nakedPair": "ਨੰਗਾ ਜੋੜਾ",
+    "nakedTriple": "ਨੰਗੀ ਤਿੱਕੜੀ",
+    "nakedQuadruple": "ਨੰਗੀ ਚੌਕੜੀ",
+    "xWing": "ਐਕਸ-ਵਿੰਗ",
+    "swordfish": "ਸਵੋਰਡਫਿਸ਼",
+    "skyscraper": "ਸਕਾਈਸਕ੍ਰੇਪਰ",
+    "twoStringKite": "ਟੂ-ਸਟ੍ਰਿੰਗ ਕਾਈਟ",
+    "crane": "ਕ੍ਰੇਨ",
+    "simpleColoring": "ਸਿੰਪਲ ਕਲਰਿੰਗ",
+    "yWing": "ਵਾਈ-ਵਿੰਗ",
+    "xYZWing": "ਐਕਸਵਾਈਜ਼ੈੱਡ-ਵਿੰਗ",
+    "wWing": "ਡਬਲਯੂ-ਵਿੰਗ",
+    "finnedSashimiXWing": "ਫਿੰਡ/ਸਾਸ਼ਿਮੀ ਐਕਸ-ਵਿੰਗ",
+    "emptyRectangle": "ਖਾਲੀ ਆਇਤ",
+    "uniqueRectangleType1": "ਵਿਲੱਖਣ ਆਇਤ ਕਿਸਮ 1",
+    "uniqueRectangleType2": "ਵਿਲੱਖਣ ਆਇਤ ਕਿਸਮ 2",
+    "uniqueRectangleType3": "ਵਿਲੱਖਣ ਆਇਤ ਕਿਸਮ 3",
+    "uniqueRectangleType4": "ਵਿਲੱਖਣ ਆਇਤ ਕਿਸਮ 4",
+    "uniqueRectangleType5": "ਵਿਲੱਖਣ ਆਇਤ ਕਿਸਮ 5",
+    "finnedSashimiSwordfish": "ਫਿੰਡ/ਸਾਸ਼ਿਮੀ ਸਵੋਰਡਫਿਸ਼",
+    "jellyfish": "ਜੈਲੀਫਿਸ਼",
+    "bugBinaryUniversalGrave": "BUG (ਬਾਇਨਰੀ ਯੂਨੀਵਰਸਲ ਗ੍ਰੇਵ)",
+    "xChain": "ਐਕਸ-ਚੇਨ",
+    "groupedXChain": "ਸਮੂਹਬੱਧ ਐਕਸ-ਚੇਨ",
+    "YWing4WXYZWing": "4-ਵਾਈ-ਵਿੰਗ (ਡਬਲਯੂਐਕਸਵਾਈਜ਼ੈੱਡ-ਵਿੰਗ)",
+    "yWing5": "5-ਵਾਈ-ਵਿੰਗ",
+    "yWing6": "6-ਵਾਈ-ਵਿੰਗ",
+    "yWing7": "7-ਵਾਈ-ਵਿੰਗ",
+    "yWing8": "8-ਵਾਈ-ਵਿੰਗ",
+    "yWing9": "9-ਵਾਈ-ਵਿੰਗ",
+    "finnedSashimiJellyfish": "ਫਿੰਡ/ਸਾਸ਼ਿਮੀ ਜੈਲੀਫਿਸ਼",
+    "medusa3D": "3D ਮੇਡੂਸਾ",
+    "xyChain": "ਐਕਸਵਾਈ-ਚੇਨ",
+    "alternatingInferenceChainAIC": "ਬਦਲਵੀਂ ਅਨੁਮਾਨ ਲੜੀ (AIC)",
+    "groupedAlternatingInferenceChainAIC": "ਸਮੂਹਬੱਧ ਬਦਲਵੀਂ ਅਨੁਮਾਨ ਲੜੀ (AIC)",
+    "nishioForcingChain": "ਨਿਸ਼ੀਓ ਫੋਰਸਿੰਗ ਚੇਨ",
+    "nishioForcingNet": "ਨਿਸ਼ੀਓ ਫੋਰਸਿੰਗ ਨੈੱਟ"
+  }
+}

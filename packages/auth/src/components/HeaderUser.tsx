@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { UserContext } from '../providers/AuthProvider';
 import { UserButton } from './UserButton';
 
@@ -29,6 +30,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
   companyUrl,
   companyName,
 }) => {
+  const { t } = useTranslation('auth');
   const { isLoggingIn, logout, user, gameName, showLoginModal } =
     React.useContext(UserContext) || {};
 
@@ -54,7 +56,7 @@ const HeaderUser: React.FC<HeaderUserDependencies> = ({
         onClick={() => showLoginModal?.()}
         className={`${isLoggingIn ? 'cursor-wait' : 'cursor-pointer'} bg-theme-primary disabled:bg-theme-primary-lighter mx-1 inline-block rounded-full px-4 py-1.5 text-sm font-medium text-white transition-opacity active:opacity-70`}
       >
-        Sign in
+        {t('header.signIn')}
       </button>
     )
   );

@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Za nadaljevanje se prijavite",
+    "signInWith": "Prijava z {{provider}}",
+    "emailTitle": "Prijava z e-pošto",
+    "emailPlaceholder": "vaš@email.com",
+    "continue": "Nadaljuj",
+    "cancel": "Prekliči",
+    "terms": "Pogoji uporabe",
+    "privacy": "Politika zasebnosti"
+  },
+  "header": {
+    "signIn": "Prijava"
+  },
+  "avatar": {
+    "alt": "uporabnik"
+  },
+  "panel": {
+    "title": "Račun",
+    "greeting": "Pozdravljeni, {{name}}!",
+    "fallbackName": "Uporabnik",
+    "plusActive": "{{gameName}} {{plus}} je aktiven",
+    "joinGamePlus": "Pridružite se: {{gameName}} {{plus}}",
+    "joinPlus": "Pridružite se: {{plus}}",
+    "signOut": "Odjava",
+    "privacy": "Politika zasebnosti",
+    "terms": "Pogoji uporabe",
+    "credits": "Zasluge",
+    "deleteAccount": "Izbriši račun",
+    "poweredBy": "Zagotavlja {{companyName}}",
+    "deleteUnavailable": "Brisanje računa ni na voljo.",
+    "deleteFailed": "Računa ni bilo mogoče izbrisati. Poskusite znova pozneje."
+  },
+  "deleteDialog": {
+    "title": "Izbris računa",
+    "warning": "Tega dejanja ni mogoče razveljaviti. Vsi vaši podatki v vseh aplikacijah {{companyName}} bodo trajno izbrisani.",
+    "confirmation": "Potrjujem, da želim izbrisati celoten račun, vključno z vsemi podatki v vseh aplikacijah {{companyName}}.",
+    "cancel": "Prekliči",
+    "deleting": "Brisanje ...",
+    "submit": "Izbriši račun"
+  }
+}

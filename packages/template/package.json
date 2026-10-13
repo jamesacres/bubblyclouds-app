@@ -16,7 +16,8 @@
     ],
     "./services/*": "./src/services/*.ts",
     "./types/*": "./src/types/*.ts",
-    "./utils/*": "./src/utils/*.ts"
+    "./utils/*": "./src/utils/*.ts",
+    "./locales/*": "./src/locales/*.json"
   },
   "scripts": {
     "build": "echo 'Template package is pure TypeScript - no compilation needed'",
@@ -30,19 +31,20 @@
     "@bubblyclouds-app/auth": "workspace:*",
     "@bubblyclouds-app/types": "workspace:*",
     "@bubblyclouds-app/ui": "workspace:*",
-    "@capacitor-community/in-app-review": "^8.0.0",
-    "@capacitor/app": "^8.1.0",
-    "@capacitor/browser": "^8.0.3",
-    "@capacitor/core": "^8.3.1",
-    "@capacitor/status-bar": "^8.0.2",
+    "@capacitor-community/in-app-review": "catalog:",
+    "@capacitor/app": "catalog:",
+    "@capacitor/browser": "catalog:",
+    "@capacitor/core": "catalog:",
+    "@capacitor/status-bar": "catalog:",
     "@headlessui/react": "^2.2.9",
-    "@revenuecat/purchases-capacitor": "^12.3.1",
-    "@revenuecat/purchases-js": "^1.30.0",
-    "capacitor-secure-storage-plugin": "^0.13.0",
+    "@revenuecat/purchases-capacitor": "catalog:",
+    "@revenuecat/purchases-js": "catalog:",
+    "capacitor-secure-storage-plugin": "catalog:",
     "lucide-react": "^0.563.0",
     "next": "^16.2.2",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "react-i18next": "^17.0.16"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

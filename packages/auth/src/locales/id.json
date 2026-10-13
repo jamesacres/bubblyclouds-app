@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Masuk untuk melanjutkan",
+    "signInWith": "Masuk dengan {{provider}}",
+    "emailTitle": "Masuk dengan email",
+    "emailPlaceholder": "email@anda.com",
+    "continue": "Lanjutkan",
+    "cancel": "Batal",
+    "terms": "Ketentuan Layanan",
+    "privacy": "Kebijakan Privasi"
+  },
+  "header": {
+    "signIn": "Masuk"
+  },
+  "avatar": {
+    "alt": "pengguna"
+  },
+  "panel": {
+    "title": "Akun",
+    "greeting": "Hai, {{name}}!",
+    "fallbackName": "Pengguna",
+    "plusActive": "{{gameName}} {{plus}} Aktif",
+    "joinGamePlus": "Gabung {{gameName}} {{plus}}",
+    "joinPlus": "Gabung {{plus}}",
+    "signOut": "Keluar",
+    "privacy": "Kebijakan privasi",
+    "terms": "Ketentuan Layanan",
+    "credits": "Kredit",
+    "deleteAccount": "Hapus akun",
+    "poweredBy": "Didukung oleh {{companyName}}",
+    "deleteUnavailable": "Fitur hapus akun tidak tersedia.",
+    "deleteFailed": "Gagal menghapus akun. Silakan coba lagi nanti."
+  },
+  "deleteDialog": {
+    "title": "Hapus Akun",
+    "warning": "Tindakan ini tidak dapat dibatalkan. Semua data Anda di seluruh aplikasi {{companyName}} akan dihapus secara permanen.",
+    "confirmation": "Saya mengonfirmasi bahwa saya ingin menghapus seluruh akun saya, termasuk semua data di seluruh aplikasi {{companyName}}.",
+    "cancel": "Batal",
+    "deleting": "Menghapus...",
+    "submit": "Hapus Akun"
+  }
+}

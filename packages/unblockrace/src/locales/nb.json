@@ -1,0 +1,256 @@
+{
+  "brand": {
+    "gameName": "Frigjør Løpet"
+  },
+  "controls": {
+    "hint": "Hint",
+    "hintTitle": "Be om hjelp",
+    "undo": "Angre",
+    "redo": "Gjør om",
+    "reset": "Nullstill"
+  },
+  "labels": {
+    "time": "Tid",
+    "moves": "Trekk",
+    "stageOf": "Etappe {{current}} av {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} trekk",
+    "moves_other": "{{count}} trekk",
+    "par": "par",
+    "overPar": "{{delta}} over par",
+    "underPar": "{{delta}} under par"
+  },
+  "score": {
+    "moves": "trekk",
+    "srOnPar": "trekk, på par",
+    "srOverPar": "trekk, {{delta}} over par",
+    "srUnderPar": "trekk, {{delta}} under par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Daglig · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Nybegynner",
+    "challenging": "Utfordrende",
+    "hard": "Vanskelig",
+    "expert": "Ekspert"
+  },
+  "collection": {
+    "puzzleLabel": "Samlingens puslespill {{number}}",
+    "theme": {
+      "january": "Nytt år, nytt kaos",
+      "february": "Frossen trafikkork",
+      "march": "Åpnet på vidt gap",
+      "april": "Byger av blokker",
+      "may": "Friske baner blomstrer",
+      "june": "Rekordfart i klarering",
+      "july": "Sommerens løpsserie",
+      "august": "Glovarm trafikkork",
+      "september": "Tilbake til brettet",
+      "october": "Hjemsøkt trafikkork",
+      "november": "Rydder banene",
+      "december": "Juletrafikkork",
+      "default": "Månedlig samling"
+    },
+    "error": {
+      "offline": "Du er frakoblet. Sjekk tilkoblingen din",
+      "loadFailed": "Kunne ikke laste puslespillsamlingen"
+    }
+  },
+  "stageClear": {
+    "title": "Etappe {{stage}} fullført",
+    "onPar": "På par",
+    "pointsSuffix": " p",
+    "leaderboardPoints": "Poeng på resultatlisten",
+    "nextStage": "Neste etappe",
+    "progress": "Etappe {{stage}} av {{total}} — {{remaining}} igjen"
+  },
+  "hint": {
+    "unsolvable": "Ingen vei ut herfra — angre eller nullstill for å komme tilbake på sporet",
+    "dismiss": "Lukk hintmeldingen"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Hold rekka gående i samlingen"
+  },
+  "raceTrack": {
+    "collection": "Samling"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Prøve denne etappen igjen?",
+      "body": "Din nåværende tid og dine trekk erstattes.",
+      "confirm": "Prøv igjen"
+    },
+    "reset": {
+      "title": "Nullstille dette puslespillet?",
+      "body": "Dette fjerner trekkene dine og starter puslespillet på nytt.",
+      "confirm": "Nullstill"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "bie",
+      "personality": "Rastløs og entusiastisk. Skyver blokker rundt i støt, og stopper så opp. Nær utgangen øker farten for tidlig og setter fast banen rett før mål.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Denne glir!",
+          "Vent — nei, den blokkerer meg...",
+          "Bzzz bzzz! Lager plass!"
+        ],
+        "playerAhead": ["Hei, ta det rolig!", "Jeg ryddet en vei…"],
+        "playerBehind": ["Jeg tar deg igjen!", "Se hvordan jeg glir!"],
+        "endgame": ["Utgangen! Jeg ser den!", "Vent — hvem parkerte der?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "and",
+      "personality": "Glad og planløs. Rolig og jevn med lange pauser. På sluttspurten driver den nesten tilfeldig ut av trafikkorken.",
+      "voiceLines": {
+        "neutral": [
+          "Dytter bare ting framover...",
+          "Hmm... kanskje denne blokka."
+        ],
+        "playerAhead": [
+          "Du gjør det kjempebra!",
+          "Jeg kommer meg ut etter hvert."
+        ],
+        "playerBehind": ["Å! Den flyttet seg!", "Dette er koselig."],
+        "endgame": ["Er det utgangen?", "Å! Veien ryddet seg selv."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "øgle",
+      "personality": "Forsiktig og observant. Lange pauser, så små klynger av glid. På sluttspurten nøler den før hvert trekk.",
+      "voiceLines": {
+        "neutral": [
+          "La meg sjekke hva det frigjør.",
+          "Det glidet burde være trygt."
+        ],
+        "playerAhead": ["Jeg må være forsiktig nå.", "Ikke lås banen."],
+        "playerBehind": ["Ok… jeg tar igjen.", "Det er fortsatt tid."],
+        "endgame": ["Forsiktig nå...", "Nesten ute… jeg må bare være sikker."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "edderkopp",
+      "personality": "Bevisst og strukturert. Rydder banen omhyggelig, blokk for blokk. På sluttspurten bryter planen sammen — nølingen sniker seg inn, som om ruten ikke holder lenger.",
+      "voiceLines": {
+        "neutral": ["Det åpner ruten.", "Blokk for blokk..."],
+        "playerAhead": ["Ruten fungerte jo...", "Jeg må planlegge på nytt..."],
+        "playerBehind": ["Det holder fortsatt sammen.", "Ja… banen åpner seg."],
+        "endgame": [
+          "Vent — nei, nå sitter jeg fast igjen.",
+          "Jeg hadde planlagt denne ruten..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "vaskebjørn",
+      "personality": "Pågående og opportunistisk. Ujevn rytme. På sluttspurten finner den driv og glir ut raskere enn forventet.",
+      "voiceLines": {
+        "neutral": ["Der flyttet det seg!", "Litt trangt, men jeg tar det."],
+        "playerAhead": ["Greit, nå må jeg presse på.", "Ikke innestengt ennå."],
+        "playerBehind": ["Å — fint gap.", "Banen åpner seg nå."],
+        "endgame": ["Jepp, åpen vei foran.", "Nå ruller det."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Strukturert og metodisk. Jevnt tempo. Sluttspurten er rolig — ingen panikk, ingen sprint.",
+      "voiceLines": {
+        "neutral": ["Det glidet passer ruten.", "Holder jevnt tempo."],
+        "playerAhead": ["Hold tempoet.", "Ingen grunn til å haste på brettet."],
+        "playerBehind": ["Fortsatt på sporet.", "Banen åpner seg jevnt."],
+        "endgame": ["Nesten ute.", "Ut på en ren måte."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "ape",
+      "personality": "Uberegnelig og urovekkende. Uforutsigbare støt. På sluttspurten akselererer den plutselig på en måte som føles urettferdig.",
+      "voiceLines": {
+        "neutral": ["Hehe… så du ikke det gapet?", "Å, så interessant glid."],
+        "playerAhead": ["Ikke føl deg for trygg.", "Se på dette trekket."],
+        "playerBehind": [
+          "Av og til deler trafikken seg bare.",
+          "Flaksglid… eller var det det?"
+        ],
+        "endgame": ["Oi — veien er helt åpen.", "Det ryddet seg fort."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "ørn",
+      "personality": "Avmålt og flytende. Rolige, selvsikre glid. Stille akselerasjon mot slutten.",
+      "voiceLines": {
+        "neutral": ["Har allerede sett ruten.", "Glir bare gjennom."],
+        "playerAhead": ["Det endrer ikke ruten.", "Samme utgang uansett."],
+        "playerBehind": ["Det er egentlig ryddet.", "Ruller herfra."],
+        "endgame": ["…nesten ute.", "Ruller mot utgangen."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "rev",
+      "personality": "Intens og konkurransepreget. Rask start, konstant press. Sluttspurten føles aggressiv.",
+      "voiceLines": {
+        "neutral": ["Hold følge.", "Sitter du fortsatt fast i trafikken?"],
+        "playerAhead": ["Ikke stopp nå.", "Du kan skyve fortere enn det."],
+        "playerBehind": ["For tregt.", "Du er innestengt."],
+        "endgame": ["Rydd banen.", "Denne utgangen er min."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "hai",
+      "personality": "Tålmodig og rovdyraktig. Holder seg tett på, og slår til hardt på sluttspurten.",
+      "voiceLines": {
+        "neutral": ["Rett bak deg.", "Ikke ennå."],
+        "playerAhead": ["Hold deg i din bane.", "Jeg er tett på nå."],
+        "playerBehind": ["Nærmer meg.", "Der er gapet."],
+        "endgame": ["Nå glir vi ut.", "Fikk utgangen."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "ugle",
+      "personality": "Rolig og overveid. Jevnt tempo. Sluttspurten er ren og uunngåelig.",
+      "voiceLines": {
+        "neutral": ["Som forventet.", "Hver blokk på sin plass."],
+        "playerAhead": ["Bra.", "Du ser ruten."],
+        "playerBehind": ["Følg banen.", "Hold ut."],
+        "endgame": ["Nesten ute.", "Der er utgangen."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "svart katt",
+      "personality": "Taus og umenneskelig. Minimale pauser. Sluttspurten er et raskt, uavbrutt glid mot utgangen.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…fortsatt."],
+        "playerBehind": ["For sent.", "Du nølte."],
+        "endgame": ["…ute.", "Utgang."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "drage",
+      "personality": "Uanstrengt og absolutt. Har perfekt kontroll hele veien. På sluttspurten gjennomfører den en avgjørende, uavbrutt feiing mot utgangen — ingen åpninger, ingen motstand.",
+      "voiceLines": {
+        "neutral": ["Forventet.", "Ingen avvik."],
+        "playerAhead": ["Du gjorde klokt i å prøve.", "Fortsett."],
+        "playerBehind": ["Dette avslutter det.", "Ingen alternativer."],
+        "endgame": ["Det var alt.", "Fri vei."]
+      }
+    }
+  }
+}

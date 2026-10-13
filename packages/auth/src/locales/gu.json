@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "આગળ વધવા માટે સાઇન ઇન કરો",
+    "signInWith": "{{provider}} વડે સાઇન ઇન કરો",
+    "emailTitle": "ઇમેઇલ વડે સાઇન ઇન કરો",
+    "emailPlaceholder": "તમારું@ઇમેઇલ.com",
+    "continue": "ચાલુ રાખો",
+    "cancel": "રદ કરો",
+    "terms": "સેવાની શરતો",
+    "privacy": "ગોપનીયતા નીતિ"
+  },
+  "header": {
+    "signIn": "સાઇન ઇન"
+  },
+  "avatar": {
+    "alt": "વપરાશકર્તા"
+  },
+  "panel": {
+    "title": "એકાઉન્ટ",
+    "greeting": "નમસ્તે, {{name}}!",
+    "fallbackName": "વપરાશકર્તા",
+    "plusActive": "{{gameName}} {{plus}} સક્રિય",
+    "joinGamePlus": "{{gameName}} {{plus}} માં જોડાઓ",
+    "joinPlus": "{{plus}} માં જોડાઓ",
+    "signOut": "સાઇન આઉટ",
+    "privacy": "ગોપનીયતા નીતિ",
+    "terms": "સેવાની શરતો",
+    "credits": "શ્રેય",
+    "deleteAccount": "એકાઉન્ટ કાઢી નાખો",
+    "poweredBy": "{{companyName}} દ્વારા સંચાલિત",
+    "deleteUnavailable": "એકાઉન્ટ કાઢી નાખવાની સુવિધા ઉપલબ્ધ નથી.",
+    "deleteFailed": "એકાઉન્ટ કાઢી નાખવામાં નિષ્ફળ. કૃપા કરીને થોડા સમય પછી ફરી પ્રયાસ કરો."
+  },
+  "deleteDialog": {
+    "title": "એકાઉન્ટ કાઢી નાખો",
+    "warning": "આ ક્રિયા પૂર્વવત્ કરી શકાશે નહીં. તમામ {{companyName}} એપ્લિકેશનોમાંનો તમારો બધો ડેટા કાયમ માટે કાઢી નાખવામાં આવશે.",
+    "confirmation": "હું પુષ્ટિ કરું છું કે હું તમામ {{companyName}} એપ્લિકેશનોના ડેટા સહિત મારું આખું એકાઉન્ટ કાઢી નાખવા માંગું છું.",
+    "cancel": "રદ કરો",
+    "deleting": "કાઢી નાખી રહ્યા છીએ…",
+    "submit": "એકાઉન્ટ કાઢી નાખો"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Prati svaku utrku",
+    "subtitle": "Pogledaj povijest, postotke dovršenosti i usporedbu s prijateljima"
+  },
+  "01": {
+    "title": "Utrkuj se i uči istodobno",
+    "subtitle": "Savjeti kad zapneš,\npuno objašnjenje tehnike"
+  },
+  "02": {
+    "title": "Knjiga zagonetki",
+    "subtitle": "Svakog mjeseca izlazi odabrana knjiga zagonetki usmjerenih na tehnike"
+  },
+  "03": {
+    "title": "Uvezi bilo koju zagonetku i podijeli",
+    "subtitle": "Skeniraj sudoku iz knjige i izazovi prijatelje"
+  },
+  "04": {
+    "title": "Sudoku je postao natjecateljski",
+    "subtitle": "Izazovi prijatelje i obitelj na utrku uživo — vidi tko ga najbrže riješi"
+  },
+  "05": {
+    "title": "Utrkuj se s drugima, AI-jem ili sam",
+    "subtitle": "Podijeli poveznicu s prijateljima i obitelji,\ndodaj AI protivnike ili igraj protiv sata"
+  },
+  "06": {
+    "title": "Penji se na ljestvici",
+    "subtitle": "Svaka utrka donosi bodove — prati tko vlada zadnjih 30 dana"
+  },
+  "07": {
+    "title": "Upoznaj svoje suparnike",
+    "subtitle": "Odaberi među jedinstvenim AI protivnicima — svaki ima svoju osobnost i stil igre"
+  },
+  "08": {
+    "title": "Tvoji privatni timovi",
+    "subtitle": "Pozovi obitelj i prijatelje, utrkujte se zajedno i izgradite vlastitu ljestvicu"
+  },
+  "09": {
+    "title": "Jedna poveznica. Svi su unutra.",
+    "subtitle": "Podijeli pozivnicu i tvoji prijatelji se pridružuju utrci u nekoliko sekundi"
+  }
+}

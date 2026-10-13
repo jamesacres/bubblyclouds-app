@@ -88,7 +88,7 @@ const Piece = ({
         isExiting ? 'transition-transform ease-in' : ''
       }`}
       style={{
-        left: `${(col / width) * 100}%`,
+        insetInlineStart: `${(col / width) * 100}%`,
         top: `${(row / height) * 100}%`,
         width: `${(spanX / width) * 100}%`,
         height: `${(spanY / height) * 100}%`,
@@ -141,8 +141,8 @@ const Piece = ({
           style={{
             position: 'absolute',
             top: 0,
-            left: 0,
-            right: 0,
+            insetInlineStart: 0,
+            insetInlineEnd: 0,
             height: '42%',
             borderRadius: '22% 22% 40% 40%',
             background: `linear-gradient(to bottom, rgba(255,255,255,${isPrimary ? 0.3 : 0.2}), transparent)`,
@@ -160,7 +160,7 @@ const Piece = ({
                 position: 'absolute',
                 ...(horizontal
                   ? {
-                      left: along,
+                      insetInlineStart: along,
                       [edge]: '-3%',
                       width: `${36 / piece.size}%`,
                       height: '10%',
@@ -192,8 +192,18 @@ const Piece = ({
               style={{
                 position: 'absolute',
                 ...(horizontal
-                  ? { left: '4%', right: '4%', top: '42%', height: '16%' }
-                  : { top: '4%', bottom: '4%', left: '42%', width: '16%' }),
+                  ? {
+                      insetInlineStart: '4%',
+                      insetInlineEnd: '4%',
+                      top: '42%',
+                      height: '16%',
+                    }
+                  : {
+                      top: '4%',
+                      bottom: '4%',
+                      insetInlineStart: '42%',
+                      width: '16%',
+                    }),
                 borderRadius: 999,
                 background: 'rgba(255,255,255,0.35)',
               }}
@@ -203,8 +213,18 @@ const Piece = ({
               style={{
                 position: 'absolute',
                 ...(horizontal
-                  ? { left: '34%', width: '30%', top: '16%', bottom: '16%' }
-                  : { top: '34%', height: '30%', left: '16%', right: '16%' }),
+                  ? {
+                      insetInlineStart: '34%',
+                      width: '30%',
+                      top: '16%',
+                      bottom: '16%',
+                    }
+                  : {
+                      top: '34%',
+                      height: '30%',
+                      insetInlineStart: '16%',
+                      insetInlineEnd: '16%',
+                    }),
                 borderRadius: '26%',
                 background:
                   'linear-gradient(150deg, rgba(15,23,42,0.55), rgba(15,23,42,0.35))',
@@ -218,8 +238,8 @@ const Piece = ({
                 style={{
                   position: 'absolute',
                   ...(horizontal
-                    ? { right: '4%', top: `${across}%` }
-                    : { bottom: '4%', left: `${across}%` }),
+                    ? { insetInlineEnd: '4%', top: `${across}%` }
+                    : { bottom: '4%', insetInlineStart: `${across}%` }),
                   transform: horizontal
                     ? 'translateY(-50%)'
                     : 'translateX(-50%)',
@@ -239,8 +259,8 @@ const Piece = ({
                 style={{
                   position: 'absolute',
                   ...(horizontal
-                    ? { left: '4.5%', top: `${across}%` }
-                    : { top: '4.5%', left: `${across}%` }),
+                    ? { insetInlineStart: '4.5%', top: `${across}%` }
+                    : { top: '4.5%', insetInlineStart: `${across}%` }),
                   transform: horizontal
                     ? 'translateY(-50%)'
                     : 'translateX(-50%)',
@@ -269,7 +289,7 @@ const Piece = ({
                     position: 'absolute',
                     ...(horizontal
                       ? {
-                          left: along,
+                          insetInlineStart: along,
                           width: piece.size >= 3 ? '16%' : '18%',
                           top: '20%',
                           bottom: '20%',
@@ -277,8 +297,8 @@ const Piece = ({
                       : {
                           top: along,
                           height: piece.size >= 3 ? '16%' : '18%',
-                          left: '20%',
-                          right: '20%',
+                          insetInlineStart: '20%',
+                          insetInlineEnd: '20%',
                         }),
                     borderRadius: '30%',
                     background:

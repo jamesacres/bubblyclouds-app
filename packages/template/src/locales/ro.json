@@ -1,0 +1,244 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone și iPad"
+  },
+  "errors": {
+    "generic": "A apărut o eroare neașteptată. Încercați din nou.",
+    "dismiss": "Închideți"
+  },
+  "errorBoundary": {
+    "title": "Hopa! Ceva nu a mers bine",
+    "description": "A apărut o eroare neașteptată. Nu vă faceți griji, progresul dumneavoastră este salvat!",
+    "reload": "Reîncărcați aplicația",
+    "clearStorage": "Ștergeți datele și reîncărcați",
+    "contactSupport": "Dacă problema persistă, contactați asistența."
+  },
+  "time": {
+    "minutesAgo_one": "acum {{count}} min",
+    "minutesAgo_few": "acum {{count}} min",
+    "minutesAgo_other": "acum {{count}} min",
+    "hoursAgo_one": "acum {{count}} h",
+    "hoursAgo_few": "acum {{count}} h",
+    "hoursAgo_other": "acum {{count}} h",
+    "daysAgo_one": "acum {{count}} z",
+    "daysAgo_few": "acum {{count}} z",
+    "daysAgo_other": "acum {{count}} z"
+  },
+  "tier": {
+    "novice": "Debutant",
+    "advancedBeginner": "Începător",
+    "competent": "Competent",
+    "proficient": "Priceput",
+    "expert": "Expert"
+  },
+  "moves": {
+    "onPar": "mutări, la par",
+    "overPar": "mutări, cu {{delta}} peste par",
+    "underPar": "mutări, cu {{delta}} sub par"
+  },
+  "lobby": {
+    "title": "Lobby-ul cursei",
+    "close": "Închideți lobby-ul",
+    "onlineOpponents": "Adversari online",
+    "refresh": "Reîmprospătați adversarii online",
+    "noOpponents": "Niciun adversar online — invitați prieteni la o cursă!",
+    "away": "Absent",
+    "offlineTeams": "Offline · din echipele dvs.",
+    "removeMember": "Eliminați {{name}}",
+    "aiOpponents": "Adversari IA",
+    "addAgent": "Adăugați",
+    "noAgents": "Încă niciun adversar IA — adăugați unul ca să aveți mereu cu cine face cursă.",
+    "ownClock": "Fiecare jucător concurează pe propriul cronometru",
+    "startSolving": "Începeți rezolvarea",
+    "finished": "Terminat",
+    "inLobby": "În lobby",
+    "stageProgress": "Etapa {{current}} din {{total}}",
+    "finishedRunIn": "Cursă terminată în {{time}}",
+    "solvedIn": "Rezolvat în {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · văzut ultima dată {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Cursă solo — doar dumneavoastră și cronometrul",
+      "friends_one": "{{count}} prieten",
+      "friends_few": "{{count}} prieteni",
+      "friends_other": "{{count}} de prieteni",
+      "aiOpponents_one": "{{count}} adversar IA",
+      "aiOpponents_few": "{{count}} adversari IA",
+      "aiOpponents_other": "{{count}} de adversari IA",
+      "racing": "În cursă cu {{opponents}}"
+    },
+    "invite": {
+      "button": "Invitați",
+      "eyebrow": "Construiți-vă cursa",
+      "title": "Invitați adversari",
+      "close": "Închideți",
+      "existingTeam": "Invitați în echipa existentă",
+      "editTeamName": "Editați numele echipei",
+      "deleteTeam": "Ștergeți echipa",
+      "leaveTeam": "Părăsiți echipa",
+      "memberCount_one": "{{count}} membru",
+      "memberCount_few": "{{count}} membri",
+      "memberCount_other": "{{count}} de membri",
+      "createTeam": "Creați o echipă de curse nouă",
+      "displayNameLabel": "Cum vă numesc membrii echipei?",
+      "displayNamePlaceholder": "Nume afișat",
+      "teamNameLabel": "Cum să numim această echipă?",
+      "teamNamePlaceholder": "Numele echipei (ex.: Familia)",
+      "createAndCopy": "Creați și copiați linkul",
+      "defaultTeamName": "Echipă nouă",
+      "defaultPlayerName": "Jucător"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Închideți panoul",
+    "back": "Înapoi",
+    "close": "Închideți",
+    "title": "Alegeți-vă rivalii",
+    "subtitle": "Selectați unul sau mai mulți adversari",
+    "selectAtLeastOne": "Selectați cel puțin un rival",
+    "race_one": "Cursă cu {{count}} rival",
+    "race_few": "Cursă cu {{count}} rivali",
+    "race_other": "Cursă cu {{count}} de rivali",
+    "skill": {
+      "novice": "Debutant",
+      "advancedBeginner": "Începător",
+      "competent": "Competent",
+      "proficient": "Priceput",
+      "expert": "Expert"
+    }
+  },
+  "agentParty": {
+    "title": "Rivali IA",
+    "rivalCount_one": "{{count}} rival",
+    "rivalCount_few": "{{count}} rivali",
+    "rivalCount_other": "{{count}} de rivali"
+  },
+  "party": {
+    "cancel": "Anulare",
+    "editName": "Editați numele echipei",
+    "editMaxMembers": "Editați numărul maxim de membri",
+    "memberCount_one": "{{count}} membru",
+    "memberCount_few": "{{count}} membri",
+    "memberCount_other": "{{count}} de membri",
+    "memberCountPremium_one": "{{count}} membru ✨ Premium",
+    "memberCountPremium_few": "{{count}} membri ✨ Premium",
+    "memberCountPremium_other": "{{count}} de membri ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} membru",
+    "membersOf_few": "{{current}}/{{count}} membri",
+    "membersOf_other": "{{current}}/{{count}} de membri",
+    "shareLink": "Trimiteți acest link membrilor actuali ai echipei pentru a se alătura acestui puzzle",
+    "you": "(dvs.)",
+    "notStarted": "Nu a început! Cereți-i să joace"
+  },
+  "partyConfirmation": {
+    "cancel": "Anulare",
+    "leaveAgentParty": {
+      "title": "Eliminați rivalii IA",
+      "action": "Eliminați",
+      "processing": "Se elimină...",
+      "message": "Sigur doriți să eliminați toți rivalii IA? Aceștia nu vor mai apărea în cursă."
+    },
+    "removeAgent": {
+      "title": "Eliminați adversarul local",
+      "action": "Eliminați",
+      "processing": "Se elimină...",
+      "message": "Sigur doriți să eliminați „{{memberName}}” din cursă?"
+    },
+    "deleteParty": {
+      "title": "Ștergeți echipa",
+      "action": "Ștergeți echipa",
+      "processing": "Se șterge...",
+      "message": "Sigur doriți să ștergeți „{{partyName}}”? Echipa va fi eliminată definitiv, iar toți membrii vor pierde accesul. Această acțiune nu poate fi anulată."
+    },
+    "leave": {
+      "title": "Părăsiți echipa",
+      "action": "Părăsiți",
+      "processing": "Se părăsește...",
+      "message": "Sigur doriți să părăsiți „{{partyName}}”? Nu veți mai vedea progresul celorlalți membri și nu veți mai putea participa în această echipă."
+    },
+    "remove": {
+      "title": "Eliminați membrul",
+      "action": "Eliminați",
+      "processing": "Se elimină...",
+      "message": "Sigur doriți să eliminați „{{memberName}}” din „{{partyName}}”? Nu va mai putea participa în această echipă."
+    }
+  },
+  "friends": {
+    "allTeams": "Toate echipele",
+    "refresh": "Reîmprospătați",
+    "refreshing": "Se reîmprospătează…",
+    "title": "Puzzle-urile prietenilor",
+    "subtitle": "Atingeți un prieten pentru a-i vedea puzzle-urile recente și a face cursă cu el.",
+    "memberCount_one": "{{count}} membru",
+    "memberCount_few": "{{count}} membri",
+    "memberCount_other": "{{count}} de membri",
+    "noRecentPuzzles": "Niciun puzzle recent — provocați-l la o cursă!",
+    "empty": {
+      "title": "Încă nu aveți echipe de curse",
+      "description": "Invitați prieteni din lobby-ul cursei când rezolvați un puzzle"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Puzzle-urile dumneavoastră din ultimele 30 de zile.",
+    "empty": {
+      "title": "Încă niciun puzzle",
+      "description": "Accesați „Start cursă” pentru a rezolva primul puzzle"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} funcție în plus",
+    "moreFeatures_few": "+{{count}} funcții în plus",
+    "moreFeatures_other": "+{{count}} de funcții în plus"
+  },
+  "crossPromo": {
+    "whyNotTry": "De ce nu ați încerca",
+    "tryItFree": "Încercați gratuit"
+  },
+  "rateApp": {
+    "prompt": "Vă place {{appName}}?",
+    "rateIt": "Evaluați",
+    "rateInSeconds": "Evaluați în câteva secunde"
+  },
+  "plus": {
+    "close": "Închideți fereastra",
+    "appIconAlt": "Pictograma aplicației",
+    "lifetime": "Pe viață",
+    "monthly": "Lunar",
+    "perMonth": "{{price}}/lună",
+    "whatsIncluded": "Ce include",
+    "continue": "Continuați",
+    "restorePurchases": "Restaurați achizițiile",
+    "cancel": "Anulare"
+  },
+  "download": {
+    "title": "Continuați în aplicație",
+    "appStoreAlt": "Descărcați din {{appStore}}",
+    "googlePlayAlt": "Disponibil pe {{googlePlay}}",
+    "continueBrowser": "Continuați în browser",
+    "continueDesktop": "Continuați pe desktop"
+  },
+  "session": {
+    "cheated": "Trișat",
+    "completedIn": "Finalizat în {{minutes}} min {{seconds}} s",
+    "percentComplete": "{{percentage}}% finalizat",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Puzzle nr. {{number}}",
+    "daily": "Zilnic {{date}}",
+    "book": "Carte {{month}} nr. {{number}}",
+    "collection": "Colecție {{month}} nr. {{number}}",
+    "scanned": "Puzzle scanat",
+    "you": "Dvs.",
+    "unknown": "Necunoscut",
+    "unlockWith": "Deblocați cu {{label}}",
+    "lockedPuzzle": "Puzzle blocat",
+    "recommendedTechniques": "Tehnici recomandate:",
+    "loadingFriends": "Se încarcă prietenii..."
+  }
+}

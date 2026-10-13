@@ -1,0 +1,304 @@
+{
+  "brand": {
+    "gameName": "Freifahrt-Rennen"
+  },
+  "controls": {
+    "hint": "Hinweis",
+    "hintTitle": "Hilfe anfragen",
+    "undo": "Undo",
+    "redo": "Redo",
+    "reset": "Zurücksetzen"
+  },
+  "labels": {
+    "time": "Zeit",
+    "moves": "Züge",
+    "stageOf": "Etappe {{current}} von {{total}}"
+  },
+  "stats": {
+    "moves_one": "{{count}} Zug",
+    "moves_other": "{{count}} Züge",
+    "par": "Par",
+    "overPar": "{{delta}} über Par",
+    "underPar": "{{delta}} unter Par"
+  },
+  "score": {
+    "moves": "Züge",
+    "srOnPar": "Züge, im Par",
+    "srOverPar": "Züge, {{delta}} über Par",
+    "srUnderPar": "Züge, {{delta}} unter Par",
+    "upcomingPar": "Par {{par}}"
+  },
+  "daily": {
+    "label": "Tagesrätsel · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Anfänger",
+    "challenging": "Anspruchsvoll",
+    "hard": "Schwer",
+    "expert": "Experte"
+  },
+  "collection": {
+    "puzzleLabel": "Sammlungsrätsel {{number}}",
+    "theme": {
+      "january": "Neues Jahr, neuer Stau",
+      "february": "Eingefrorener Stau",
+      "march": "Weit aufgerissen",
+      "april": "Aprilschauer aus Blöcken",
+      "may": "Neue Spuren blühen auf",
+      "june": "Rekordtempo beim Freiräumen",
+      "july": "Sommer-Rennserie",
+      "august": "Glühend heißer Stau",
+      "september": "Zurück zum Spielbrett",
+      "october": "Spukender Stau",
+      "november": "Die Spuren freiräumen",
+      "december": "Festtagsstau",
+      "default": "Monatliche Rätselsammlung"
+    },
+    "error": {
+      "offline": "Sie sind offline. Bitte prüfen Sie Ihre Verbindung",
+      "loadFailed": "Die Rätselsammlung konnte nicht geladen werden"
+    }
+  },
+  "stageClear": {
+    "title": "Etappe {{stage}} geschafft",
+    "onPar": "Im Par",
+    "pointsSuffix": " Pkt.",
+    "leaderboardPoints": "Ranglistenpunkte",
+    "nextStage": "Nächste Etappe",
+    "progress": "Etappe {{stage}} von {{total}} — noch {{remaining}}"
+  },
+  "hint": {
+    "unsolvable": "Von hier gibt es keinen Weg – machen Sie Züge rückgängig oder setzen Sie zurück, um wieder auf Kurs zu kommen",
+    "dismiss": "Hinweis schließen"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Halten Sie die Serie in der Sammlung am Laufen"
+  },
+  "raceTrack": {
+    "collection": "Sammlung"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Diese Etappe wiederholen?",
+      "body": "Ihre aktuelle Zeit und Ihre Züge werden ersetzt.",
+      "confirm": "Wiederholen"
+    },
+    "reset": {
+      "title": "Dieses Rätsel zurücksetzen?",
+      "body": "Dadurch werden Ihre Züge gelöscht und das Rätsel beginnt von vorn.",
+      "confirm": "Zurücksetzen"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "Biene",
+      "personality": "Rastlos und begeistert. Schiebt Blöcke schubweise umher und bleibt dann stecken. Kurz vor dem Ausgang gibt Bumblebee zu früh Gas und verstopft die Spur kurz vor dem Ziel.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Der hier lässt sich schieben!",
+          "Moment – nein, der blockiert mich...",
+          "Summ summ! Ich schaffe Platz!"
+        ],
+        "playerAhead": [
+          "Hey, nicht so schnell!",
+          "Ich habe gerade einen Weg freigeräumt…"
+        ],
+        "playerBehind": ["Ich hole auf!", "Sehen Sie, wie ich schiebe!"],
+        "endgame": [
+          "Der Ausgang! Ich sehe ihn!",
+          "Moment – wer hat das da geparkt?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "Ente",
+      "personality": "Fröhlich und ziellos. Langsam und stetig, mit langen Pausen. Im Endspiel treibt Puddle fast zufällig aus dem Stau heraus.",
+      "voiceLines": {
+        "neutral": [
+          "Ich schiebe nur ein bisschen herum...",
+          "Hmm... vielleicht dieser Block."
+        ],
+        "playerAhead": ["Das machen Sie toll!", "Ich komme schon noch raus."],
+        "playerBehind": ["Oh! Der hat sich bewegt!", "Das ist schön."],
+        "endgame": [
+          "Ist das der Ausgang?",
+          "Oh! Die Straße hat sich von selbst geräumt."
+        ]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "Eidechse",
+      "personality": "Vorsichtig und aufmerksam. Lange Pausen, dann kleine Gruppen von Schiebezügen. Im Endspiel zögert Flint vor jedem Zug.",
+      "voiceLines": {
+        "neutral": [
+          "Ich schaue erst, was das freigibt.",
+          "Dieser Zug sollte sicher sein."
+        ],
+        "playerAhead": [
+          "Jetzt muss ich vorsichtig sein.",
+          "Die Spur nicht verstopfen."
+        ],
+        "playerBehind": ["Okay… ich hole auf.", "Es ist noch Zeit."],
+        "endgame": [
+          "Jetzt vorsichtig...",
+          "Fast draußen… ich muss nur sicher sein."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "Spinne",
+      "personality": "Überlegt und strukturiert. Räumt die Spur sorgfältig Block für Block frei. Im Endspiel bricht der Plan zusammen – Zögern schleicht sich ein, als hielte die Route nicht mehr.",
+      "voiceLines": {
+        "neutral": ["Das öffnet die Route.", "Block für Block..."],
+        "playerAhead": [
+          "Die Route hat funktioniert...",
+          "Ich muss neu planen..."
+        ],
+        "playerBehind": ["Es hält noch zusammen.", "Ja… die Spur öffnet sich."],
+        "endgame": [
+          "Moment – nein, so sperre ich mich wieder ein.",
+          "Ich hatte diese Route geplant..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "Waschbär",
+      "personality": "Rau und opportunistisch. Unregelmäßiger Rhythmus. Im Endspiel kommt Schwung auf, und Maple schiebt sich schneller hinaus als erwartet.",
+      "voiceLines": {
+        "neutral": ["Das bringt Bewegung!", "Etwas eng, aber ich nehme es."],
+        "playerAhead": [
+          "Gut, Zeit, Druck zu machen.",
+          "Noch nicht eingekeilt."
+        ],
+        "playerBehind": ["Oh – schöne Lücke.", "Die Spur öffnet sich jetzt."],
+        "endgame": ["Ja, freie Fahrt voraus.", "Jetzt rollt es."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "Pinguin",
+      "personality": "Strukturiert und methodisch. Gleichmäßiges Tempo. Das Endspiel bleibt stetig – keine Panik, kein Sprint.",
+      "voiceLines": {
+        "neutral": ["Dieser Zug passt zur Route.", "Ich bleibe konstant."],
+        "playerAhead": [
+          "Tempo halten.",
+          "Kein Grund, das Gitter zu überstürzen."
+        ],
+        "playerBehind": [
+          "Weiter auf Kurs.",
+          "Die Spur räumt sich stetig frei."
+        ],
+        "endgame": ["Fast durch.", "Sauber hinausfahren."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "Affe",
+      "personality": "Sprunghaft und unheimlich. Unvorhersehbare Schübe. Im Endspiel beschleunigt Jinx plötzlich auf eine Weise, die sich unfair anfühlt.",
+      "voiceLines": {
+        "neutral": [
+          "Heh… die Lücke hatten Sie nicht gesehen?",
+          "Oh, das ist ein interessanter Zug."
+        ],
+        "playerAhead": [
+          "Machen Sie es sich nicht zu bequem.",
+          "Sehen Sie sich diesen Zug an."
+        ],
+        "playerBehind": [
+          "Manchmal löst sich der Verkehr einfach auf.",
+          "Glückszug… oder doch nicht?"
+        ],
+        "endgame": [
+          "Oh wow – die Straße ist völlig frei.",
+          "Das war schnell frei."
+        ]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "Adler",
+      "personality": "Distanziert und fließend. Weit verteilte, selbstbewusste Züge. Leise Beschleunigung im Endspiel.",
+      "voiceLines": {
+        "neutral": [
+          "Die Route kannte ich schon.",
+          "Ich gleite einfach hindurch."
+        ],
+        "playerAhead": [
+          "Das ändert nichts an der Route.",
+          "Derselbe Ausgang, so oder so."
+        ],
+        "playerBehind": [
+          "Es ist ja schon frei.",
+          "Ab hier rolle ich nur noch."
+        ],
+        "endgame": ["…fast draußen.", "Rollend zum Ausgang."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "Fuchs",
+      "personality": "Intensiv und kämpferisch. Schneller Start, ständiger Druck. Der Endspurt wirkt aggressiv.",
+      "voiceLines": {
+        "neutral": ["Bleiben Sie dran.", "Noch im Stau?"],
+        "playerAhead": [
+          "Jetzt nicht ins Stocken geraten.",
+          "Sie können schneller schieben."
+        ],
+        "playerBehind": ["Zu langsam.", "Sie sind eingekeilt."],
+        "endgame": ["Spur frei machen.", "Dieser Ausgang gehört mir."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "Hai",
+      "personality": "Geduldig und raubtierhaft. Bleibt dicht dran und schlägt im Endspiel hart zu.",
+      "voiceLines": {
+        "neutral": ["Direkt hinter Ihnen.", "Noch nicht."],
+        "playerAhead": [
+          "Bleiben Sie auf Ihrer Spur.",
+          "Ich bin jetzt nah dran."
+        ],
+        "playerBehind": ["Ich komme näher.", "Da ist die Lücke."],
+        "endgame": ["Jetzt schieben wir uns hinaus.", "Der Ausgang gehört mir."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "Eule",
+      "personality": "Ruhig und bedacht. Gleichmäßiges Tempo. Das Endspiel ist sauber und unausweichlich.",
+      "voiceLines": {
+        "neutral": ["Wie erwartet.", "Jeder Block an seinem Platz."],
+        "playerAhead": ["Gut.", "Sie sehen die Route."],
+        "playerBehind": ["Folgen Sie der Spur.", "Bleiben Sie dabei."],
+        "endgame": ["Fast durch.", "Da ist der Ausgang."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "schwarze Katze",
+      "personality": "Lautlos und unmenschlich. Minimale Pausen. Das Endspiel ist ein schnelles, ununterbrochenes Gleiten zum Ausgang.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…still."],
+        "playerBehind": ["Zu spät.", "Sie haben gezögert."],
+        "endgame": ["…raus.", "Ausgang."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "Drache",
+      "personality": "Mühelos und absolut. Behält durchgehend die perfekte Kontrolle. Im Endspiel ein entschlossener, ununterbrochener Durchmarsch zum Ausgang – keine Lücken, kein Widerstand.",
+      "voiceLines": {
+        "neutral": ["Wie erwartet.", "Keine Abweichung."],
+        "playerAhead": ["Gut, dass Sie es versucht haben.", "Weiter."],
+        "playerBehind": ["Damit endet es.", "Keine Alternative."],
+        "endgame": ["Das ist alles.", "Frei."]
+      }
+    }
+  }
+}

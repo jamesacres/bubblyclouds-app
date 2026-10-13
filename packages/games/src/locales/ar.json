@@ -1,0 +1,288 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "كتاب",
+    "defaultDetailNoun": "كتب الألغاز"
+  },
+  "collectionCover": {
+    "monthlyCollection": "مجموعة الألغاز الشهرية"
+  },
+  "hintBox": {
+    "dismiss": "إخفاء التلميح"
+  },
+  "lobbyButton": {
+    "opponents": "الخصوم"
+  },
+  "nextPuzzlePanel": {
+    "continue": "متابعة — اللغز التالي",
+    "continueLocked": "متابعة ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "اكتمل {{completed}} من {{total}} {{label}}"
+  },
+  "countdownOverlay": {
+    "getReady": "استعد",
+    "go": "انطلق!"
+  },
+  "confirmDialog": {
+    "cancel": "إلغاء"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · مكتمل",
+    "retry": "إعادة المحاولة",
+    "points": "+{{points}} نقطة",
+    "leaderboardPoints": "نقاط لوحة المتصدرين"
+  },
+  "raceTimer": {
+    "time": "الوقت"
+  },
+  "stageTopBar": {
+    "previous": "السابق"
+  },
+  "raceHud": {
+    "opponents": "الخصوم",
+    "stageOf": "المرحلة {{current}} من {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "خط النهاية!",
+    "runComplete": "اكتملت الجولة",
+    "leaderboardPoints": "نقاط لوحة المتصدرين",
+    "pointsSuffix": " نقطة"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ح",
+      "monday": "ن",
+      "tuesday": "ث",
+      "wednesday": "ر",
+      "thursday": "خ",
+      "friday": "ج",
+      "saturday": "س"
+    },
+    "dayStreak_zero": "أيام متتالية",
+    "dayStreak_one": "يوم متتالٍ",
+    "dayStreak_two": "أيام متتالية",
+    "dayStreak_few": "أيام متتالية",
+    "dayStreak_many": "يومًا متتاليًا",
+    "dayStreak_other": "يوم متتالٍ",
+    "thisMonth": "هذا الشهر"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(أنت)",
+    "puzzles_zero": "{{count}} ألغاز",
+    "puzzles_one": "لغز واحد",
+    "puzzles_two": "لغزان",
+    "puzzles_few": "{{count}} ألغاز",
+    "puzzles_many": "{{count}} لغزًا",
+    "puzzles_other": "{{count}} لغز",
+    "average": "المتوسط: {{time}}",
+    "best": "الأفضل: {{time}}",
+    "wins_zero": "🏁 {{count}} انتصارات",
+    "wins_one": "🏁 انتصار واحد",
+    "wins_two": "🏁 انتصاران",
+    "wins_few": "🏁 {{count}} انتصارات",
+    "wins_many": "🏁 {{count}} انتصارًا",
+    "wins_other": "🏁 {{count}} انتصار",
+    "points_zero": "نقاط",
+    "points_one": "نقطة",
+    "points_two": "نقطتان",
+    "points_few": "نقاط",
+    "points_many": "نقطة",
+    "points_other": "نقطة"
+  },
+  "scoreBreakdown": {
+    "title": "تفاصيل النقاط",
+    "volumeBonus": {
+      "label": "مكافأة العدد",
+      "detail_zero": "{{count}} ألغاز مكتملة",
+      "detail_one": "لغز واحد مكتمل",
+      "detail_two": "لغزان مكتملان",
+      "detail_few": "{{count}} ألغاز مكتملة",
+      "detail_many": "{{count}} لغزًا مكتملًا",
+      "detail_other": "{{count}} لغز مكتمل"
+    },
+    "dailyPuzzles": {
+      "label": "الألغاز اليومية",
+      "detail_zero": "{{count}} تحديات يومية",
+      "detail_one": "تحدٍّ يومي واحد",
+      "detail_two": "تحدّيان يوميان",
+      "detail_few": "{{count}} تحديات يومية",
+      "detail_many": "{{count}} تحديًا يوميًا",
+      "detail_other": "{{count}} تحدٍّ يومي"
+    },
+    "collectionPuzzles": {
+      "label": "ألغاز {{collection}}",
+      "detail": "{{count}} من {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "الألغاز الممسوحة",
+      "detail_zero": "{{count}} ألغاز مستوردة",
+      "detail_one": "لغز واحد مستورد",
+      "detail_two": "لغزان مستوردان",
+      "detail_few": "{{count}} ألغاز مستوردة",
+      "detail_many": "{{count}} لغزًا مستوردًا",
+      "detail_other": "{{count}} لغز مستورد"
+    },
+    "difficultyBonus": {
+      "label": "مكافأة الصعوبة",
+      "detail": "ألغاز أصعب = نقاط أكثر"
+    },
+    "speedBonus": {
+      "label": "مكافأة السرعة",
+      "detail": "الأسرع: {{time}}"
+    },
+    "racingBonus": {
+      "label": "مكافأة السباق",
+      "detail": "تغلّب على الأصدقاء الذين أكملوا اللغز أيضًا"
+    },
+    "dailyCombo": {
+      "label": "المضاعف اليومي",
+      "detail": "ألغاز أكثر في اليوم = مضاعف أكبر"
+    }
+  },
+  "leaderboard": {
+    "you": "أنت",
+    "unknownUser": "مستخدم غير معروف",
+    "title": "لوحة المتصدرين",
+    "subtitleParty": "آخر 30 يومًا · {{partyName}}",
+    "subtitleAllTeams": "آخر 30 يومًا · كل الفرق",
+    "howScoringWorks": "كيف تُحتسب النقاط"
+  },
+  "scoringLegend": {
+    "title": "كيف تُحتسب النقاط",
+    "subtitle": "{{gameName}} · آخر 30 يومًا",
+    "close": "إغلاق",
+    "racingWins": {
+      "title": "انتصارات السباق",
+      "body": "اكسب <points>+{{points}} نقطة</points> عن كل صديق تتغلّب عليه في اللغز المكتمل نفسه. أنهِ أولًا بين {{friends}} من الأصدقاء لتحصل على <points>+{{total}} نقطة</points>."
+    },
+    "basePoints": {
+      "title": "النقاط الأساسية",
+      "anyPuzzle": "أي لغز",
+      "dailyPuzzle": "لغز يومي",
+      "collectionPuzzle": "لغز {{collection}}",
+      "scannedPuzzle": "لغز ممسوح"
+    },
+    "difficultyMultipliers": {
+      "title": "مضاعفات الصعوبة",
+      "daily": "{{gameName}} اليوم",
+      "collection": "ألغاز {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "مكافآت السرعة",
+      "lightning": "خاطف",
+      "fast": "سريع",
+      "quick": "نشيط",
+      "steady": "ثابت",
+      "under": "أقل من {{threshold}}",
+      "seconds": "{{value}} ث",
+      "minutes": "{{value}} د"
+    },
+    "dailyCombo": {
+      "title": "المضاعف اليومي",
+      "body": "حلّ المزيد من الألغاز في اليوم نفسه لمضاعفة نقاط كل لغز، حتى <max>{{max}}×</max>.",
+      "puzzle": "اللغز {{puzzle}} في اليوم",
+      "puzzleOrMore": "اللغز {{puzzle}}+ في اليوم"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "اكتملت الجولة",
+    "raceProgress": "تقدّم السباق",
+    "stagesProgress": "{{completed}}/{{total}} مراحل",
+    "retryStage": "إعادة المرحلة",
+    "stageLabel": "المرحلة {{number}}",
+    "stageCompletedLabel": "المرحلة {{number}}، اكتملت في {{time}}",
+    "viewRacingStats": "عرض إحصاءات السباق",
+    "total": "المجموع"
+  },
+  "raceTrack": {
+    "you": "أنت",
+    "viewFriends": "انقر لعرض الأصدقاء",
+    "start": "البداية",
+    "finish": "النهاية",
+    "inviteToRace": "ادعُ الأصدقاء للتسابق",
+    "opponents": "الخصوم",
+    "racer": "المتسابق",
+    "stageBadge": "م{{number}}",
+    "total": "المجموع",
+    "leaderboard": "لوحة المتصدرين",
+    "puzzleBook": "كتاب الألغاز",
+    "puzzleBookLabel": "كتاب الألغاز",
+    "refreshScores": "تحديث النتائج",
+    "challengeFriends": "🏁 تحدَّ الأصدقاء",
+    "yourTime": "وقتك:",
+    "inviteFriends": "دعوة الأصدقاء",
+    "racingLabel": "تسابق"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "مراوغ",
+      "easy": "تحدٍّ",
+      "intermediate": "صعب",
+      "expert": "خبير"
+    },
+    "book": {
+      "veryEasy": "سهل جدًا",
+      "easy": "سهل",
+      "moderatelyEasy": "سهل نسبيًا",
+      "moderate": "متوسط",
+      "moderatelyHard": "صعب نسبيًا",
+      "hard": "صعب",
+      "vicious": "شرس",
+      "fiendish": "خبيث",
+      "devilish": "شيطاني",
+      "hell": "جحيم",
+      "beyondHell": "ما بعد الجحيم"
+    }
+  },
+  "techniques": {
+    "lastDigit": "الرقم الأخير",
+    "hiddenSingleBox": "مفرد مخفي (مربع)",
+    "hiddenSingleLine": "مفرد مخفي (خط)",
+    "hiddenSingleVariantRegion": "مفرد مخفي (منطقة خاصة)",
+    "nakedSingle": "مفرد مكشوف",
+    "hiddenPair": "زوج مخفي",
+    "lockedCandidate": "مرشح مقفل",
+    "hiddenTriple": "ثلاثي مخفي",
+    "hiddenQuadruple": "رباعي مخفي",
+    "nakedPair": "زوج مكشوف",
+    "nakedTriple": "ثلاثي مكشوف",
+    "nakedQuadruple": "رباعي مكشوف",
+    "xWing": "جناح X",
+    "swordfish": "سمكة أبو سيف",
+    "skyscraper": "ناطحة سحاب",
+    "twoStringKite": "طائرة ورقية ثنائية الخيط",
+    "crane": "الكركي",
+    "simpleColoring": "التلوين البسيط",
+    "yWing": "جناح Y",
+    "xYZWing": "جناح XYZ",
+    "wWing": "جناح W",
+    "finnedSashimiXWing": "جناح X ذو زعنفة/ساشيمي",
+    "emptyRectangle": "مستطيل فارغ",
+    "uniqueRectangleType1": "مستطيل فريد من النوع 1",
+    "uniqueRectangleType2": "مستطيل فريد من النوع 2",
+    "uniqueRectangleType3": "مستطيل فريد من النوع 3",
+    "uniqueRectangleType4": "مستطيل فريد من النوع 4",
+    "uniqueRectangleType5": "مستطيل فريد من النوع 5",
+    "finnedSashimiSwordfish": "سمكة أبو سيف ذات زعنفة/ساشيمي",
+    "jellyfish": "قنديل البحر",
+    "bugBinaryUniversalGrave": "BUG (القبر العالمي الثنائي)",
+    "xChain": "سلسلة X",
+    "groupedXChain": "سلسلة X مجمّعة",
+    "YWing4WXYZWing": "جناح Y رباعي (جناح WXYZ)",
+    "yWing5": "جناح Y خماسي",
+    "yWing6": "جناح Y سداسي",
+    "yWing7": "جناح Y سباعي",
+    "yWing8": "جناح Y ثماني",
+    "yWing9": "جناح Y تساعي",
+    "finnedSashimiJellyfish": "قنديل البحر ذو زعنفة/ساشيمي",
+    "medusa3D": "ميدوسا ثلاثية الأبعاد",
+    "xyChain": "سلسلة XY",
+    "alternatingInferenceChainAIC": "سلسلة الاستدلال المتناوب (AIC)",
+    "groupedAlternatingInferenceChainAIC": "سلسلة الاستدلال المتناوب المجمّعة (AIC)",
+    "nishioForcingChain": "سلسلة الإجبار نيشيو",
+    "nishioForcingNet": "شبكة الإجبار نيشيو"
+  }
+}

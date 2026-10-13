@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Bok",
+    "defaultDetailNoun": "pusselböcker"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Månadens samling"
+  },
+  "hintBox": {
+    "dismiss": "Stäng tipset"
+  },
+  "lobbyButton": {
+    "opponents": "Motståndare"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Fortsätt – nästa pussel",
+    "continueLocked": "Fortsätt ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} av {{total}} {{label}} klara"
+  },
+  "countdownOverlay": {
+    "getReady": "Gör dig redo",
+    "go": "KÖR!"
+  },
+  "confirmDialog": {
+    "cancel": "Avbryt"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · klart",
+    "retry": "Försök igen",
+    "points": "+{{points}} p",
+    "leaderboardPoints": "Topplistepoäng"
+  },
+  "raceTimer": {
+    "time": "Tid"
+  },
+  "stageTopBar": {
+    "previous": "Föregående"
+  },
+  "raceHud": {
+    "opponents": "Motståndare",
+    "stageOf": "Etapp {{current}} av {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Mål!",
+    "runComplete": "Loppet avklarat",
+    "leaderboardPoints": "Topplistepoäng",
+    "pointsSuffix": " p"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Sö",
+      "monday": "Må",
+      "tuesday": "Ti",
+      "wednesday": "On",
+      "thursday": "To",
+      "friday": "Fr",
+      "saturday": "Lö"
+    },
+    "dayStreak_one": "dagars svit",
+    "dayStreak_other": "dagars svit",
+    "thisMonth": "den här månaden"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Du)",
+    "puzzles_one": "{{count}} pussel",
+    "puzzles_other": "{{count}} pussel",
+    "average": "Snitt: {{time}}",
+    "best": "Bäst: {{time}}",
+    "wins_one": "🏁 {{count}} seger",
+    "wins_other": "🏁 {{count}} segrar",
+    "points_one": "poäng",
+    "points_other": "poäng"
+  },
+  "scoreBreakdown": {
+    "title": "Poängfördelning",
+    "volumeBonus": {
+      "label": "Volymbonus",
+      "detail_one": "{{count}} pussel avklarat",
+      "detail_other": "{{count}} pussel avklarade"
+    },
+    "dailyPuzzles": {
+      "label": "Dagliga pussel",
+      "detail_one": "{{count}} daglig utmaning",
+      "detail_other": "{{count}} dagliga utmaningar"
+    },
+    "collectionPuzzles": {
+      "label": "Pussel – {{collection}}",
+      "detail": "{{count}} från {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Skannade pussel",
+      "detail_one": "{{count}} importerat pussel",
+      "detail_other": "{{count}} importerade pussel"
+    },
+    "difficultyBonus": {
+      "label": "Svårighetsbonus",
+      "detail": "Svårare pussel = fler poäng"
+    },
+    "speedBonus": {
+      "label": "Snabbhetsbonus",
+      "detail": "Snabbast: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Tävlingsbonus",
+      "detail": "Slå vänner som också klarat pusslet"
+    },
+    "dailyCombo": {
+      "label": "Daglig kombo",
+      "detail": "Fler pussel per dag = större multiplikator"
+    }
+  },
+  "leaderboard": {
+    "you": "Du",
+    "unknownUser": "Okänd användare",
+    "title": "Topplista",
+    "subtitleParty": "Senaste 30 dagarna · {{partyName}}",
+    "subtitleAllTeams": "Senaste 30 dagarna · Alla lag",
+    "howScoringWorks": "Så fungerar poängen"
+  },
+  "scoringLegend": {
+    "title": "Så fungerar poängen",
+    "subtitle": "{{gameName}} · Senaste 30 dagarna",
+    "close": "Stäng",
+    "racingWins": {
+      "title": "Tävlingsvinster",
+      "body": "Få <points>+{{points}} p</points> för varje vän du slår på samma avklarade pussel. Kom först mot {{friends}} vänner och samla in <points>+{{total}} p</points>."
+    },
+    "basePoints": {
+      "title": "Grundpoäng",
+      "anyPuzzle": "Alla pussel",
+      "dailyPuzzle": "Dagligt pussel",
+      "collectionPuzzle": "Pussel – {{collection}}",
+      "scannedPuzzle": "Skannat pussel"
+    },
+    "difficultyMultipliers": {
+      "title": "Svårighetsmultiplikatorer",
+      "daily": "Dagens {{gameName}}",
+      "collection": "Pussel – {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Snabbhetsbonusar",
+      "lightning": "Blixtsnabb",
+      "fast": "Snabb",
+      "quick": "Rask",
+      "steady": "Jämn",
+      "under": "under {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Daglig kombo",
+      "body": "Lös fler pussel samma dag för att multiplicera poängen för varje pussel, upp till <max>{{max}}×</max>.",
+      "puzzle": "Dagens pussel nr {{puzzle}}",
+      "puzzleOrMore": "Dagens pussel nr {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Loppet avklarat",
+    "raceProgress": "Loppets framsteg",
+    "stagesProgress": "{{completed}}/{{total}} etapper",
+    "retryStage": "Gör om etappen",
+    "stageLabel": "Etapp {{number}}",
+    "stageCompletedLabel": "Etapp {{number}}, klarad på {{time}}",
+    "viewRacingStats": "Visa tävlingsstatistik",
+    "total": "Totalt"
+  },
+  "raceTrack": {
+    "you": "Du",
+    "viewFriends": "Klicka för att se vänner",
+    "start": "Start",
+    "finish": "Mål",
+    "inviteToRace": "Bjud in vänner att tävla",
+    "opponents": "Motståndare",
+    "racer": "Tävlande",
+    "stageBadge": "E{{number}}",
+    "total": "Totalt",
+    "leaderboard": "Topplista",
+    "puzzleBook": "Pusselbok",
+    "puzzleBookLabel": "pusselbok",
+    "refreshScores": "Uppdatera poäng",
+    "challengeFriends": "🏁 Utmana vänner",
+    "yourTime": "Din tid:",
+    "inviteFriends": "Bjud in vänner",
+    "racingLabel": "tävlar"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Klurig",
+      "easy": "Utmanande",
+      "intermediate": "Svår",
+      "expert": "Expert"
+    },
+    "book": {
+      "veryEasy": "Mycket lätt",
+      "easy": "Lätt",
+      "moderatelyEasy": "Ganska lätt",
+      "moderate": "Medel",
+      "moderatelyHard": "Ganska svår",
+      "hard": "Svår",
+      "vicious": "Elak",
+      "fiendish": "Djävulsk",
+      "devilish": "Ondskefull",
+      "hell": "Helvete",
+      "beyondHell": "Bortom helvetet"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Sista siffran",
+    "hiddenSingleBox": "Dold singel (ruta)",
+    "hiddenSingleLine": "Dold singel (linje)",
+    "hiddenSingleVariantRegion": "Dold singel (variantområde)",
+    "nakedSingle": "Naken singel",
+    "hiddenPair": "Dolt par",
+    "lockedCandidate": "Låst kandidat",
+    "hiddenTriple": "Dold trippel",
+    "hiddenQuadruple": "Dold kvadrupel",
+    "nakedPair": "Naket par",
+    "nakedTriple": "Naken trippel",
+    "nakedQuadruple": "Naken kvadrupel",
+    "xWing": "X-Wing",
+    "swordfish": "Svärdfisk",
+    "skyscraper": "Skyskrapa",
+    "twoStringKite": "Tvåsträngsdrake",
+    "crane": "Trana",
+    "simpleColoring": "Enkel färgning",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing med fena/sashimi",
+    "emptyRectangle": "Tom rektangel",
+    "uniqueRectangleType1": "Unik rektangel typ 1",
+    "uniqueRectangleType2": "Unik rektangel typ 2",
+    "uniqueRectangleType3": "Unik rektangel typ 3",
+    "uniqueRectangleType4": "Unik rektangel typ 4",
+    "uniqueRectangleType5": "Unik rektangel typ 5",
+    "finnedSashimiSwordfish": "Svärdfisk med fena/sashimi",
+    "jellyfish": "Manet",
+    "bugBinaryUniversalGrave": "BUG (binär universell grav)",
+    "xChain": "X-kedja",
+    "groupedXChain": "Grupperad X-kedja",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Manet med fena/sashimi",
+    "medusa3D": "3D-Medusa",
+    "xyChain": "XY-kedja",
+    "alternatingInferenceChainAIC": "Alternerande inferenskedja (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Grupperad alternerande inferenskedja (AIC)",
+    "nishioForcingChain": "Nishio-tvångskedja",
+    "nishioForcingNet": "Nishio-tvångsnät"
+  }
+}

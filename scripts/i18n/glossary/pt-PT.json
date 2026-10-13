@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Corrida Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "corrida",
+      "team": "equipa",
+      "leaderboard": "classificação",
+      "hint": "pista",
+      "undo": "desfazer",
+      "theme": "tema",
+      "dailyPuzzle": "jogo diário",
+      "monthlyCollection": "livro de jogos mensal",
+      "aiOpponent": "adversário de IA",
+      "monthly": "mensal",
+      "lifetime": "vitalício",
+      "plusAccess": "Acesso Plus",
+      "plusFeatureLine": "Corridas ilimitadas, equipas, temas, desfazer"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Corrida Livre",
+      "gameName": "Corrida Livre",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "corrida",
+      "team": "equipa",
+      "leaderboard": "classificação",
+      "hint": "pista",
+      "undo": "desfazer",
+      "theme": "tema",
+      "dailyPuzzle": "jogo diário",
+      "monthlyCollection": "coleção mensal de puzzles",
+      "aiOpponent": "adversário de IA",
+      "monthly": "mensal",
+      "lifetime": "vitalício",
+      "plusAccess": "Acesso Plus",
+      "plusFeatureLine": "Corridas ilimitadas, equipas, temas, desfazer"
+    }
+  }
+}

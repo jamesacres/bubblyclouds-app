@@ -1,0 +1,294 @@
+{
+  "brand": {
+    "appName": "Carrera Libre",
+    "gameName": "Carrera Libre",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Juegue y comparta para competir con amigos y desbloquear el puzle. ¡Retos diarios y multidispositivo!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Iniciar carrera",
+      "myPuzzles": "Mis puzles",
+      "racingTeams": "Equipos"
+    },
+    "hero": {
+      "live": "En vivo",
+      "headlineLine1": "Despeje el atasco.",
+      "headlineAccent": "Gane la carrera",
+      "subtitle": "Deslice los bloques, libere el brillante y compita con sus amigos hasta la salida."
+    },
+    "leaderboard": "Clasificación",
+    "dailyRace": {
+      "title": "Carrera diaria",
+      "refreshesDaily": "se renueva a diario",
+      "todaysRace": "La carrera de hoy",
+      "difficultyRange": "Principiante → Experto",
+      "description": "Cinco tableros, un reloj: gana quien escape primero.",
+      "stages": "5 etapas",
+      "start": "Empezar a competir",
+      "morePuzzlesPrefix": "Más puzles en la",
+      "puzzleCollection": "colección de puzles"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 puzles",
+      "title": "Colección mensual",
+      "description": "50 atascos nuevos para {{month}}: despéjelos todos antes de que acabe el mes.",
+      "browse": "Explorar puzles"
+    },
+    "teams": {
+      "eyebrow": "Multijugador",
+      "title": "Equipos de carreras",
+      "raceFriends": "Compita con {{names}} y más",
+      "challengeFriends": "Rete a sus amigos a una carrera"
+    },
+    "premium": {
+      "title": "Funciones premium",
+      "subtitle": "Desbloquee la experiencia completa de $t(brand.gameName)"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Carrera Sudoku",
+    "tagline": "Comparta un sudoku con amigos y compitan por resolverlo más rápido."
+  },
+  "puzzle": {
+    "mobileDescription": "¡Disfrute de la mejor experiencia con nuestra app {{appName}}!",
+    "desktopDescription": "Descargar {{appName}}",
+    "openInAppLabel": "Abrir puzle"
+  },
+  "collection": {
+    "loading": {
+      "both": "Cargando colección de puzles...",
+      "collection": "Cargando puzles...",
+      "sessions": "Cargando su progreso..."
+    },
+    "retry": "Reintentar",
+    "backHome": "Volver al inicio",
+    "signInPrompt": "Inicie sesión para acceder a la colección de puzles.",
+    "signIn": "Iniciar sesión",
+    "noData": "No hay datos de la colección de puzles disponibles.",
+    "title": "Colección de puzles de {{month}}",
+    "completed": "completados",
+    "inProgress": "en curso",
+    "unlockWithPlus": "Desbloquee todos los puzles con Plus",
+    "jumpToDifficulty": "Ir a la dificultad",
+    "scrollToTop": "Volver arriba",
+    "subtitle_one": "{{count}} puzle, desde escapes rápidos hasta atascos expertos",
+    "subtitle_many": "{{count}} de puzles, desde escapes rápidos hasta atascos expertos",
+    "subtitle_other": "{{count}} puzles, desde escapes rápidos hasta atascos expertos"
+  },
+  "invite": {
+    "loading": "Cargando invitación...",
+    "iconAlt": "Icono de {{appName}}",
+    "greeting": "👋 ¡Hola, {{name}}!",
+    "invited": "¡Tiene una invitación!",
+    "joinTeam": "Únase al equipo de carreras",
+    "tagline": "¡Compitan juntos para desbloquear puzles y vean el progreso de los demás en tiempo real!",
+    "proTipLabel": "Consejo:",
+    "proTip": "¡Todos los puzles que juegue a partir de ahora se compartirán con los miembros de su equipo para una competición amistosa!",
+    "nicknameLabel": "¿Cómo le llama su equipo de carreras?",
+    "nicknamePlaceholder": "Escriba su apodo",
+    "joining": "Uniéndose al equipo...",
+    "join": "¡Únase a la diversión! 🎉",
+    "signIn": "Inicie sesión para continuar",
+    "bonus": "🎉 Regalo: ¡obtenga {{duration}} a {{plusName}}!",
+    "bonusDescription": "Al unirse a este equipo de carreras, desbloqueará funciones premium totalmente gratis.",
+    "activation": "💡 Su acceso premium se activará automáticamente al unirse",
+    "duration": {
+      "oneMonth": "un mes de acceso",
+      "oneYear": "un año de acceso",
+      "lifetime": "acceso de por vida",
+      "premium": "acceso premium"
+    },
+    "expired": {
+      "title": "Invitación caducada",
+      "description": "Este enlace de invitación ya no es válido. Pida a su amigo una invitación nueva o aumente el tamaño del equipo."
+    },
+    "greetingAnonymous": "👋 ¡Hola!"
+  },
+  "credits": {
+    "title": "Créditos y atribuciones",
+    "intro": "Esta app está construida sobre varios proyectos excelentes",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Esta app tiene licencia MIT. Consulte nuestro <licenseLink>LICENSE</licenseLink> y <creditsLink>CREDITS</creditsLink> para más información.",
+    "items": {
+      "rush": "Resolutor y base de datos de puzles de Rush Hour de Michael Fogleman, compilado a WebAssembly",
+      "nextjs": "Framework de React para producción",
+      "typescript": "Superconjunto tipado de JavaScript",
+      "tailwind": "Framework de CSS basado en utilidades",
+      "capacitor": "Entorno de ejecución de apps móviles nativas",
+      "electron": "Framework de apps de escritorio",
+      "revenuecat": "Gestión de suscripciones",
+      "react": "Biblioteca de componentes de interfaz",
+      "turborepo": "Sistema de compilación para monorepos"
+    }
+  },
+  "notFound": {
+    "title": "Página no encontrada"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Inicie sesión para empezar el puzle de hoy",
+      "collection": "Inicie sesión para explorar la colección",
+      "joinTeam": "Inicie sesión para unirse al equipo",
+      "raceLobby": "Inicie sesión para competir con otros",
+      "puzzleEntry": "Inicie sesión para jugar"
+    },
+    "valueProps": {
+      "saveProgress": "Guarde su progreso",
+      "raceFriends": "Compita con amigos",
+      "trackStats": "Siga sus estadísticas"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Ha usado sus {{limit}} pistas gratuitas de hoy.",
+      "body": "Plus le ofrece pistas ilimitadas, para no volver a atascarse, y mantiene toda la app sin anuncios."
+    },
+    "undo": {
+      "title": "¡Ha alcanzado su límite diario de deshacer!",
+      "body": "Dispone de {{limit}} acciones de deshacer gratuitas al día. El límite se restablece mañana, o suscríbase para deshacer sin límite."
+    },
+    "collectionLocked": {
+      "title": "Este puzle forma parte de la colección Plus.",
+      "body": "Plus desbloquea todos los puzles del paquete de cada mes y mantiene toda la app sin anuncios."
+    },
+    "themeColor": {
+      "title": "Este tema es exclusivo de Plus.",
+      "body": "Mejore su plan para desbloquear todos los colores de tema y personalizar su experiencia en Carrera Libre."
+    },
+    "removeMember": {
+      "title": "¡Quitar miembros de su equipo es una función premium!",
+      "body": "Suscríbase para desbloquear funciones avanzadas de gestión de equipos, como quitar miembros."
+    },
+    "multipleParties": {
+      "title": "¡Tener varios equipos de carreras es una función premium!",
+      "body": "Los usuarios gratuitos pueden tener un equipo. Suscríbase para crear y unirse a equipos ilimitados con familia, amigos y más."
+    },
+    "partyMaxSize": {
+      "title": "¡Los equipos grandes son una función premium!",
+      "body": "Suscríbase para desbloquear funciones avanzadas de gestión de equipos, incluidos los equipos grandes."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Siempre sin anuncios",
+      "description": "Sin anuncios, nunca: solo usted y los puzles"
+    },
+    "hints": {
+      "title": "Pistas ilimitadas",
+      "description": "Nunca se atasque: pida una pista siempre que la necesite"
+    },
+    "monthlyPack": {
+      "title": "Paquete mensual completo desbloqueado, cada mes",
+      "description": "Juegue todos los puzles en todas las dificultades, sin bloqueos"
+    },
+    "undos": {
+      "title": "Deshacer ilimitado",
+      "description": "Retroceda tantas jugadas como quiera"
+    },
+    "teams": {
+      "title": "Varios equipos de carreras",
+      "description": "Organice competiciones privadas con amigos y familia"
+    },
+    "management": {
+      "title": "Gestión de equipos",
+      "description": "Cree grupos grandes de hasta 15 personas y quite miembros de su equipo."
+    },
+    "themes": {
+      "title": "Todos los temas desbloqueados",
+      "description": "Personalice su experiencia de carreras"
+    }
+  },
+  "plusModal": {
+    "description": "Únase a <badge>{{plusName}}</badge> para tener <strong>pistas ilimitadas</strong>, el <strong>paquete mensual completo desbloqueado</strong> y <strong>deshacer sin límite</strong>. Rete a sus amigos, suba en las clasificaciones y disfrute sin anuncios."
+  },
+  "leaderboard": {
+    "collectionLabel": "Colección",
+    "collectionDetailNoun": "colecciones"
+  },
+  "motivational": {
+    "messages": [
+      "Sus amigos esperan un desafío",
+      "¿Contra quién competirá hoy?",
+      "Es hora de mostrar su velocidad",
+      "¿Reto aceptado?",
+      "Carrera hacia la línea de meta",
+      "¿Quién es el solucionador más rápido?",
+      "¿Listo para dominar la clasificación?",
+      "Sus habilidades de carrera le esperan",
+      "Es hora de dejarlos atrás",
+      "¿Listo para cruzar la meta el primero?",
+      "La pista le está esperando",
+      "Es hora de meter la marcha más alta",
+      "¿Listo para quemar neumáticos en la cuadrícula?",
+      "Sus rivales ya están calentando",
+      "Hoy es el día de batir un nuevo récord",
+      "Su mejor marca personal espera a ser superada",
+      "Cada puzle le hace más rápido",
+      "La racha empieza ahora",
+      "Es hora de subir de nivel",
+      "Su próximo gran avance está a un puzle de distancia",
+      "¿Listo para sorprenderse a sí mismo?",
+      "Muéstreles de qué pasta está hecho",
+      "Es hora de liberar su potencial",
+      "Su resolución más rápida aún está por llegar",
+      "¿Listo para que hoy cuente?",
+      "Cada segundo cuenta en la carrera",
+      "Es hora de superar sus límites",
+      "Su camino de mejora continúa",
+      "¿Listo para superar las expectativas?",
+      "¿Cree que puede con la presión?",
+      "Es hora de callar a los escépticos",
+      "¿Listo para reclamar la victoria?",
+      "Su competencia no lo verá venir",
+      "Es hora de dejar su huella",
+      "¿Listo para robar el protagonismo?",
+      "La victoria sabe mejor cuando se gana",
+      "Es hora de demostrar quién manda",
+      "¿Listo para mostrar su verdadero carácter?",
+      "La mentalidad de campeón empieza aquí",
+      "Es hora de destacar del resto",
+      "¿Listo para escribir su leyenda?",
+      "Los campeones se forjan en momentos como este",
+      "Es hora de convertir el potencial en rendimiento",
+      "Puzles nuevos, oportunidades nuevas",
+      "El reto de hoy espera su maestría",
+      "¿Listo para que este sea su mejor día?",
+      "Un nuevo día trae nuevos récords por batir",
+      "Es hora de sumar otra victoria a su colección",
+      "¿Listo para empezar fuerte y terminar aún mejor?",
+      "¿Listo para hacer de hoy un día legendario?",
+      "Su dosis diaria de triunfo le espera",
+      "En la cuadrícula, la estrategia se une a la velocidad",
+      "¿Listo para pensar y correr más que los demás?",
+      "Su dominio de los puzles le llama",
+      "Es hora de combinar lógica con velocidad relámpago",
+      "¿Listo para resolver con precisión quirúrgica?",
+      "La combinación perfecta: habilidad y velocidad",
+      "Su ventaja analítica es su ventaja en la carrera",
+      "Es hora de demostrar su supremacía en los puzles",
+      "¿Listo para resolver como un campeón?",
+      "Las carreras de precisión empiezan con ideas claras",
+      "Sus amigos esperan la revancha",
+      "¿Quién resuelve hoy?",
+      "Hay un nuevo puzle diario listo",
+      "Su racha está en juego",
+      "Puzles nuevos, nuevo comienzo",
+      "El reto de hoy ya está disponible",
+      "Compita con un amigo en el puzle diario",
+      "Nuevo día, puzles nuevos",
+      "Alguien ya está en la clasificación",
+      "Mantenga viva la racha",
+      "Los retos diarios acaban de renovarse",
+      "Su equipo le está esperando",
+      "Un puzle más cerca de la cima",
+      "Los puzles de hoy le están esperando",
+      "Vuelva a entrar y compita"
+    ]
+  }
+}

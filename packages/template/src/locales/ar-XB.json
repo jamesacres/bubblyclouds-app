@@ -1,0 +1,282 @@
+{
+  "brand": {
+    "plus": "\u202b[طسقغ كلم]\u202c",
+    "appStore": "\u202b[اطط غفضعج كلمات]\u202c",
+    "googlePlay": "\u202b[خضضخسج طسان كلمات]\u202c",
+    "android": "\u202b[اصثعضذث كلما]\u202c",
+    "iphoneAndIpad": "\u202b[ذطدضصج & ذطاث كلمات إ]\u202c"
+  },
+  "errors": {
+    "generic": "\u202b[اص قصجمطجتفجث جععضع ضتتقععجث. طسجاغج فعن اخاذص. كلمات إضافية للاختبا]\u202c",
+    "dismiss": "\u202b[ثذغشذغغ كلما]\u202c"
+  },
+  "errorBoundary": {
+    "title": "\u202b[ضضطغ! غضشجفدذصخ لجصف لعضصخ كلمات إضافية]\u202c",
+    "description": "\u202b[لج جصتضقصفجعجث اص قصجمطجتفجث جععضع. ثضص'ف لضععن, نضقع طعضخعجغغ ذغ غاكجث! كلمات إضافية للاختبار كلمات إض]\u202c",
+    "reload": "\u202b[عجسضاث اطط كلمات]\u202c",
+    "clearStorage": "\u202b[تسجاع غفضعاخج & عجسضاث كلمات إضاف]\u202c",
+    "contactSupport": "\u202b[ذح فدذغ طعضبسجش طجعغذغفغ, طسجاغج تضصفاتف غقططضعف. كلمات إضافية للاختبار]\u202c"
+  },
+  "time": {
+    "minutesAgo_zero": "\u202b[{{count}}ش اخض كلم]\u202c",
+    "minutesAgo_one": "\u202b[{{count}}ش اخض كلم]\u202c",
+    "minutesAgo_two": "\u202b[{{count}}ش اخض كلم]\u202c",
+    "minutesAgo_few": "\u202b[{{count}}ش اخض كلم]\u202c",
+    "minutesAgo_many": "\u202b[{{count}}ش اخض كلم]\u202c",
+    "minutesAgo_other": "\u202b[{{count}}ش اخض كلم]\u202c",
+    "hoursAgo_zero": "\u202b[{{count}}د اخض كلم]\u202c",
+    "hoursAgo_one": "\u202b[{{count}}د اخض كلم]\u202c",
+    "hoursAgo_two": "\u202b[{{count}}د اخض كلم]\u202c",
+    "hoursAgo_few": "\u202b[{{count}}د اخض كلم]\u202c",
+    "hoursAgo_many": "\u202b[{{count}}د اخض كلم]\u202c",
+    "hoursAgo_other": "\u202b[{{count}}د اخض كلم]\u202c",
+    "daysAgo_zero": "\u202b[{{count}}ث اخض كلم]\u202c",
+    "daysAgo_one": "\u202b[{{count}}ث اخض كلم]\u202c",
+    "daysAgo_two": "\u202b[{{count}}ث اخض كلم]\u202c",
+    "daysAgo_few": "\u202b[{{count}}ث اخض كلم]\u202c",
+    "daysAgo_many": "\u202b[{{count}}ث اخض كلم]\u202c",
+    "daysAgo_other": "\u202b[{{count}}ث اخض كلم]\u202c"
+  },
+  "tier": {
+    "novice": "\u202b[صضكذتج كلما]\u202c",
+    "advancedBeginner": "\u202b[بجخذصصجع كلمات]\u202c",
+    "competent": "\u202b[تضشطجفجصف كلمات]\u202c",
+    "proficient": "\u202b[طعضحذتذجصف كلمات]\u202c",
+    "expert": "\u202b[جمطجعف كلما]\u202c"
+  },
+  "moves": {
+    "onPar": "\u202b[شضكجغ, ضص طاع كلمات إ]\u202c",
+    "overPar": "\u202b[شضكجغ, {{delta}} ضكجع طاع كلمات إض]\u202c",
+    "underPar": "\u202b[شضكجغ, {{delta}} قصثجع طاع كلمات إض]\u202c"
+  },
+  "lobby": {
+    "title": "\u202b[عاتج سضببن كلمات]\u202c",
+    "close": "\u202b[تسضغج سضببن كلمات]\u202c",
+    "onlineOpponents": "\u202b[ضصسذصج ضططضصجصفغ كلمات إض]\u202c",
+    "refresh": "\u202b[عجحعجغد ضصسذصج ضططضصجصفغ كلمات إضافي]\u202c",
+    "noOpponents": "\u202b[صض ضططضصجصفغ ضصسذصج — ذصكذفج حعذجصثغ فض عاتج! كلمات إضافية للاختب]\u202c",
+    "away": "\u202b[الان كلم]\u202c",
+    "offlineTeams": "\u202b[ضححسذصج · ذص نضقع فجاشغ كلمات إضافي]\u202c",
+    "removeMember": "\u202b[عجشضكج {{name}} كلما]\u202c",
+    "aiOpponents": "\u202b[اذ ضططضصجصفغ كلمات]\u202c",
+    "addAgent": "\u202b[اثث كلم]\u202c",
+    "noAgents": "\u202b[صض اذ ضططضصجصفغ نجف — اثث ضصج فض اسلانغ داكج غضشجضصج فض عاتج. كلمات إضافية للاختبار كلما]\u202c",
+    "ownClock": "\u202b[جاتد طسانجع عاتجغ ضص فدجذع ضلص تسضتز كلمات إضافية للا]\u202c",
+    "startSolving": "\u202b[غفاعف غضسكذصخ كلمات إ]\u202c",
+    "finished": "\u202b[حذصذغدجث كلمات]\u202c",
+    "inLobby": "\u202b[ذص سضببن كلمات]\u202c",
+    "stageProgress": "\u202b[غفاخج {{current}} ضح {{total}} كلمات]\u202c",
+    "finishedRunIn": "\u202b[حذصذغدجث فدج عقص ذص {{time}} كلمات إضا]\u202c",
+    "solvedIn": "\u202b[غضسكجث ذص {{time}} كلمات]\u202c",
+    "activeProgress": "\u202b[{{progress}} · {{time}}]\u202c",
+    "awayProgress": "\u202b[{{progress}} · {{time}} · ساغف غججص {{lastSeen}} كلمات إض]\u202c",
+    "raceSummary": {
+      "solo": "\u202b[غضسض عاتج — رقغف نضق اصث فدج تسضتز كلمات إضافية لل]\u202c",
+      "friends_zero": "\u202b[{{count}} حعذجصثغ كلمات]\u202c",
+      "friends_one": "\u202b[{{count}} حعذجصث كلما]\u202c",
+      "friends_two": "\u202b[{{count}} حعذجصثغ كلمات]\u202c",
+      "friends_few": "\u202b[{{count}} حعذجصثغ كلمات]\u202c",
+      "friends_many": "\u202b[{{count}} حعذجصثغ كلمات]\u202c",
+      "friends_other": "\u202b[{{count}} حعذجصثغ كلمات]\u202c",
+      "aiOpponents_zero": "\u202b[{{count}} اذ ضططضصجصفغ كلمات إ]\u202c",
+      "aiOpponents_one": "\u202b[{{count}} اذ ضططضصجصف كلمات]\u202c",
+      "aiOpponents_two": "\u202b[{{count}} اذ ضططضصجصفغ كلمات إ]\u202c",
+      "aiOpponents_few": "\u202b[{{count}} اذ ضططضصجصفغ كلمات إ]\u202c",
+      "aiOpponents_many": "\u202b[{{count}} اذ ضططضصجصفغ كلمات إ]\u202c",
+      "aiOpponents_other": "\u202b[{{count}} اذ ضططضصجصفغ كلمات إ]\u202c",
+      "racing": "\u202b[عاتذصخ {{opponents}} كلما]\u202c"
+    },
+    "invite": {
+      "button": "\u202b[ذصكذفج كلما]\u202c",
+      "eyebrow": "\u202b[بقذسث نضقع عاتج كلمات إ]\u202c",
+      "title": "\u202b[ذصكذفج ضططضصجصفغ كلمات إض]\u202c",
+      "close": "\u202b[تسضغج كلم]\u202c",
+      "existingTeam": "\u202b[ذصكذفج فض جمذغفذصخ فجاش كلمات إضافي]\u202c",
+      "editTeamName": "\u202b[جثذف فجاش صاشج كلمات إ]\u202c",
+      "deleteTeam": "\u202b[ثجسجفج فجاش كلمات]\u202c",
+      "leaveTeam": "\u202b[سجاكج فجاش كلمات]\u202c",
+      "memberCount_zero": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+      "memberCount_one": "\u202b[{{count}} شجشبجع كلما]\u202c",
+      "memberCount_two": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+      "memberCount_few": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+      "memberCount_many": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+      "memberCount_other": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+      "createTeam": "\u202b[تعجافج صجل عاتذصخ فجاش كلمات إضاف]\u202c",
+      "displayNameLabel": "\u202b[لداف ثض فجاش شجشبجعغ تاسس نضق? كلمات إضافية]\u202c",
+      "displayNamePlaceholder": "\u202b[ثذغطسان صاشج كلمات]\u202c",
+      "teamNameLabel": "\u202b[لداف غداسس لج صاشج فدذغ فجاش? كلمات إضافية]\u202c",
+      "teamNamePlaceholder": "\u202b[فجاش صاشج (ج.خ. حاشذسن) كلمات إضافي]\u202c",
+      "createAndCopy": "\u202b[تعجافج & تضطن سذصز كلمات إضا]\u202c",
+      "defaultTeamName": "\u202b[صجل فجاش كلمات]\u202c",
+      "defaultPlayerName": "\u202b[طسانجع كلما]\u202c"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "\u202b[تسضغج غدججف كلمات]\u202c",
+    "back": "\u202b[باتز كلم]\u202c",
+    "close": "\u202b[تسضغج كلم]\u202c",
+    "title": "\u202b[طذتز نضقع عذكاسغ كلمات إض]\u202c",
+    "subtitle": "\u202b[غجسجتف ضصج ضع شضعج ضططضصجصفغ كلمات إضافية]\u202c",
+    "selectAtLeastOne": "\u202b[غجسجتف اف سجاغف ضصج عذكاس كلمات إضافي]\u202c",
+    "race_zero": "\u202b[عاتج {{count}} عذكاسغ كلمات]\u202c",
+    "race_one": "\u202b[عاتج {{count}} عذكاس كلمات]\u202c",
+    "race_two": "\u202b[عاتج {{count}} عذكاسغ كلمات]\u202c",
+    "race_few": "\u202b[عاتج {{count}} عذكاسغ كلمات]\u202c",
+    "race_many": "\u202b[عاتج {{count}} عذكاسغ كلمات]\u202c",
+    "race_other": "\u202b[عاتج {{count}} عذكاسغ كلمات]\u202c",
+    "skill": {
+      "novice": "\u202b[صضكذتج كلما]\u202c",
+      "advancedBeginner": "\u202b[اثك. بجخذصصجع كلمات إ]\u202c",
+      "competent": "\u202b[تضشطجفجصف كلمات]\u202c",
+      "proficient": "\u202b[طعضحذتذجصف كلمات]\u202c",
+      "expert": "\u202b[جمطجعف كلما]\u202c"
+    }
+  },
+  "agentParty": {
+    "title": "\u202b[اذ عذكاسغ كلمات]\u202c",
+    "rivalCount_zero": "\u202b[{{count}} عذكاسغ كلما]\u202c",
+    "rivalCount_one": "\u202b[{{count}} عذكاس كلما]\u202c",
+    "rivalCount_two": "\u202b[{{count}} عذكاسغ كلما]\u202c",
+    "rivalCount_few": "\u202b[{{count}} عذكاسغ كلما]\u202c",
+    "rivalCount_many": "\u202b[{{count}} عذكاسغ كلما]\u202c",
+    "rivalCount_other": "\u202b[{{count}} عذكاسغ كلما]\u202c"
+  },
+  "party": {
+    "cancel": "\u202b[تاصتجس كلما]\u202c",
+    "editName": "\u202b[جثذف طاعفن صاشج كلمات إ]\u202c",
+    "editMaxMembers": "\u202b[جثذف شام شجشبجعغ كلمات إض]\u202c",
+    "memberCount_zero": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCount_one": "\u202b[{{count}} شجشبجع كلما]\u202c",
+    "memberCount_two": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCount_few": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCount_many": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCount_other": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCountPremium_zero": "\u202b[{{count}} شجشبجعغ ✨ طعجشذقش كلمات إض]\u202c",
+    "memberCountPremium_one": "\u202b[{{count}} شجشبجع ✨ طعجشذقش كلمات إض]\u202c",
+    "memberCountPremium_two": "\u202b[{{count}} شجشبجعغ ✨ طعجشذقش كلمات إض]\u202c",
+    "memberCountPremium_few": "\u202b[{{count}} شجشبجعغ ✨ طعجشذقش كلمات إض]\u202c",
+    "memberCountPremium_many": "\u202b[{{count}} شجشبجعغ ✨ طعجشذقش كلمات إض]\u202c",
+    "memberCountPremium_other": "\u202b[{{count}} شجشبجعغ ✨ طعجشذقش كلمات إض]\u202c",
+    "membersOf_zero": "\u202b[{{current}}/{{count}} شجشبجعغ كلمات]\u202c",
+    "membersOf_one": "\u202b[{{current}}/{{count}} شجشبجع كلمات]\u202c",
+    "membersOf_two": "\u202b[{{current}}/{{count}} شجشبجعغ كلمات]\u202c",
+    "membersOf_few": "\u202b[{{current}}/{{count}} شجشبجعغ كلمات]\u202c",
+    "membersOf_many": "\u202b[{{current}}/{{count}} شجشبجعغ كلمات]\u202c",
+    "membersOf_other": "\u202b[{{current}}/{{count}} شجشبجعغ كلمات]\u202c",
+    "shareLink": "\u202b[غداعج فدذغ سذصز لذفد تقععجصف فجاش شجشبجعغ فض رضذص فدذغ طقههسج كلمات إضافية للاختبار كلما]\u202c",
+    "you": "\u202b[(نضق) كلم]\u202c",
+    "notStarted": "\u202b[صضف غفاعفجث! اغز فدجش فض طسان كلمات إضافية]\u202c"
+  },
+  "partyConfirmation": {
+    "cancel": "\u202b[تاصتجس كلما]\u202c",
+    "leaveAgentParty": {
+      "title": "\u202b[عجشضكج اذ عذكاسغ كلمات إض]\u202c",
+      "action": "\u202b[عجشضكج كلما]\u202c",
+      "processing": "\u202b[عجشضكذصخ... كلمات]\u202c",
+      "message": "\u202b[اعج نضق غقعج نضق لاصف فض عجشضكج اسس اذ عذكاسغ? فدجن لذسس صض سضصخجع اططجاع ذص فدج عاتج. كلمات إضافية للاختبار كلمات إضافية ل]\u202c"
+    },
+    "removeAgent": {
+      "title": "\u202b[عجشضكج سضتاس اخجصف كلمات إضا]\u202c",
+      "action": "\u202b[عجشضكج كلما]\u202c",
+      "processing": "\u202b[عجشضكذصخ... كلمات]\u202c",
+      "message": "\u202b[اعج نضق غقعج نضق لاصف فض عجشضكج \"{{memberName}}\" حعضش فدج عاتج? كلمات إضافية للاختبار]\u202c"
+    },
+    "deleteParty": {
+      "title": "\u202b[ثجسجفج طاعفن كلمات]\u202c",
+      "action": "\u202b[ثجسجفج طاعفن كلمات]\u202c",
+      "processing": "\u202b[ثجسجفذصخ... كلمات]\u202c",
+      "message": "\u202b[اعج نضق غقعج نضق لاصف فض ثجسجفج \"{{partyName}}\"? فدذغ لذسس طجعشاصجصفسن عجشضكج فدج طاعفن اصث اسس شجشبجعغ لذسس سضغج اتتجغغ. فدذغ اتفذضص تاصصضف بج قصثضصج. كلمات إضافية للاختبار كلمات إضافية للاختبار كلمات إضافية]\u202c"
+    },
+    "leave": {
+      "title": "\u202b[سجاكج طاعفن كلمات]\u202c",
+      "action": "\u202b[سجاكج كلم]\u202c",
+      "processing": "\u202b[سجاكذصخ... كلمات]\u202c",
+      "message": "\u202b[اعج نضق غقعج نضق لاصف فض سجاكج \"{{partyName}}\"? نضق لذسس صض سضصخجع غجج ضفدجع شجشبجعغ' طعضخعجغغ ضع بج ابسج فض طاعفذتذطافج ذص فدذغ طاعفن. كلمات إضافية للاختبار كلمات إضافية للاختبار كلمات]\u202c"
+    },
+    "remove": {
+      "title": "\u202b[عجشضكج شجشبجع كلمات إ]\u202c",
+      "action": "\u202b[عجشضكج كلما]\u202c",
+      "processing": "\u202b[عجشضكذصخ... كلمات]\u202c",
+      "message": "\u202b[اعج نضق غقعج نضق لاصف فض عجشضكج \"{{memberName}}\" حعضش \"{{partyName}}\"? فدجن لذسس صض سضصخجع بج ابسج فض طاعفذتذطافج ذص فدذغ طاعفن. كلمات إضافية للاختبار كلمات إضافية للاختبا]\u202c"
+    }
+  },
+  "friends": {
+    "allTeams": "\u202b[اسس فجاشغ كلمات]\u202c",
+    "refresh": "\u202b[عجحعجغد كلما]\u202c",
+    "refreshing": "\u202b[عجحعجغدذصخ… كلمات]\u202c",
+    "title": "\u202b[حعذجصثغ' طقههسجغ كلمات إض]\u202c",
+    "subtitle": "\u202b[فاط ا حعذجصث فض غجج فدجذع عجتجصف طقههسجغ اصث عاتج فدجش. كلمات إضافية للاختبار ك]\u202c",
+    "memberCount_zero": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCount_one": "\u202b[{{count}} شجشبجع كلما]\u202c",
+    "memberCount_two": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCount_few": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCount_many": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "memberCount_other": "\u202b[{{count}} شجشبجعغ كلمات]\u202c",
+    "noRecentPuzzles": "\u202b[صض عجتجصف طقههسجغ — تداسسجصخج فدجش! كلمات إضافية لل]\u202c",
+    "empty": {
+      "title": "\u202b[صض عاتذصخ فجاشغ نجف كلمات إضا]\u202c",
+      "description": "\u202b[ذصكذفج حعذجصثغ حعضش فدج عاتجغ سضببن لدجص غضسكذصخ ا طقههسج كلمات إضافية للاختبار كل]\u202c"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "\u202b[نضقع طقههسجغ حعضش فدج طاغف 30 ثانغ. كلمات إضافية لل]\u202c",
+    "empty": {
+      "title": "\u202b[صض طقههسجغ نجف كلمات إ]\u202c",
+      "description": "\u202b[دجاث فض غفاعف عاتج فض غضسكج نضقع حذعغف طقههسج كلمات إضافية للاختب]\u202c"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_zero": "\u202b[+{{count}} شضعج حجافقعجغ كلمات إ]\u202c",
+    "moreFeatures_one": "\u202b[+{{count}} شضعج حجافقعج كلمات إ]\u202c",
+    "moreFeatures_two": "\u202b[+{{count}} شضعج حجافقعجغ كلمات إ]\u202c",
+    "moreFeatures_few": "\u202b[+{{count}} شضعج حجافقعجغ كلمات إ]\u202c",
+    "moreFeatures_many": "\u202b[+{{count}} شضعج حجافقعجغ كلمات إ]\u202c",
+    "moreFeatures_other": "\u202b[+{{count}} شضعج حجافقعجغ كلمات إ]\u202c"
+  },
+  "crossPromo": {
+    "whyNotTry": "\u202b[لدن صضف فعن كلمات]\u202c",
+    "tryItFree": "\u202b[فعن ذف حعجج كلمات]\u202c"
+  },
+  "rateApp": {
+    "prompt": "\u202b[جصرضنذصخ {{appName}}? كلمات]\u202c",
+    "rateIt": "\u202b[عافج ذف كلما]\u202c",
+    "rateInSeconds": "\u202b[عافج ذف ذص غجتضصثغ كلمات إضا]\u202c"
+  },
+  "plus": {
+    "close": "\u202b[تسضغج شضثاس كلمات]\u202c",
+    "appIconAlt": "\u202b[اطط ذتضص كلمات]\u202c",
+    "lifetime": "\u202b[سذحجفذشج كلمات]\u202c",
+    "monthly": "\u202b[شضصفدسن كلما]\u202c",
+    "perMonth": "\u202b[{{price}}/شضصفد كلما]\u202c",
+    "whatsIncluded": "\u202b[لداف'غ ذصتسقثجث كلمات إ]\u202c",
+    "continue": "\u202b[تضصفذصقج كلمات]\u202c",
+    "restorePurchases": "\u202b[عجغفضعج طقعتداغجغ كلمات إض]\u202c",
+    "cancel": "\u202b[تاصتجس كلما]\u202c"
+  },
+  "download": {
+    "title": "\u202b[تضصفذصقج ذص فدج اطط كلمات إضا]\u202c",
+    "appStoreAlt": "\u202b[ثضلصسضاث ضص فدج {{appStore}} كلمات إض]\u202c",
+    "googlePlayAlt": "\u202b[خجف ذف ضص {{googlePlay}} كلمات]\u202c",
+    "continueBrowser": "\u202b[تضصفذصقج ذص بعضلغجع كلمات إضا]\u202c",
+    "continueDesktop": "\u202b[تضصفذصقج ضص ثجغزفضط كلمات إضا]\u202c"
+  },
+  "session": {
+    "cheated": "\u202b[تدجافجث كلما]\u202c",
+    "completedIn": "\u202b[تضشطسجفجث ذص {{minutes}}ش {{seconds}}غ كلمات إض]\u202c",
+    "percentComplete": "\u202b[{{percentage}}% تضشطسجفج كلمات]\u202c",
+    "duration": "\u202b[{{minutes}}ش {{seconds}}غ كلم]\u202c",
+    "shortDate": "\u202b[{{month}} {{day}}]\u202c",
+    "dayOrdinal_ordinal_other": "\u202b[{{count}}فد كل]\u202c",
+    "puzzleNumber": "\u202b[طقههسج #{{number}} كلمات]\u202c",
+    "daily": "\u202b[ثاذسن {{date}} كلما]\u202c",
+    "book": "\u202b[بضضز {{month}} #{{number}} كلما]\u202c",
+    "collection": "\u202b[تضسسجتفذضص {{month}} #{{number}} كلمات إ]\u202c",
+    "scanned": "\u202b[غتاصصجث طقههسج كلمات إ]\u202c",
+    "you": "\u202b[نضق كلم]\u202c",
+    "unknown": "\u202b[قصزصضلص كلما]\u202c",
+    "unlockWith": "\u202b[قصسضتز لذفد {{label}} كلمات]\u202c",
+    "lockedPuzzle": "\u202b[سضتزجث طقههسج كلمات إ]\u202c",
+    "recommendedTechniques": "\u202b[عجتضششجصثجث فجتدصذظقجغ: كلمات إضافي]\u202c",
+    "loadingFriends": "\u202b[سضاثذصخ حعذجصثغ... كلمات إضا]\u202c"
+  }
+}

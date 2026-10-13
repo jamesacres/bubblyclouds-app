@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "ഭാഷ",
+    "automatic": "സ്വയമേവ"
+  },
+  "header": {
+    "offline": "ഓഫ്‌ലൈൻ",
+    "back": "തിരികെ"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "ഡാർക്ക് മോഡ് മാറ്റുക"
+  },
+  "starRating": {
+    "label_one": "{{count}} നക്ഷത്രത്തിൽ {{filled}}",
+    "label_other": "{{count}} നക്ഷത്രങ്ങളിൽ {{filled}}"
+  },
+  "timer": {
+    "go": "ഗോ!"
+  },
+  "themeColor": {
+    "change": "തീം നിറം മാറ്റുക",
+    "set": "തീം നിറം {{color}} ആക്കുക",
+    "setPremium": "തീം നിറം {{color}} ആക്കുക (പ്രീമിയം)",
+    "colors": {
+      "blue": "നീല",
+      "red": "ചുവപ്പ്",
+      "green": "പച്ച",
+      "purple": "പർപ്പിൾ",
+      "amber": "ആംബർ",
+      "cyan": "സിയാൻ",
+      "pink": "പിങ്ക്",
+      "indigo": "ഇൻഡിഗോ",
+      "orange": "ഓറഞ്ച്",
+      "teal": "ടീൽ",
+      "slate": "സ്ലേറ്റ്",
+      "rose": "റോസ്",
+      "emerald": "മരതകം",
+      "sky": "ആകാശനീല",
+      "violet": "വയലറ്റ്",
+      "lime": "ലൈം",
+      "fuchsia": "ഫ്യൂഷിയ",
+      "yellow": "മഞ്ഞ",
+      "stone": "സ്റ്റോൺ",
+      "zinc": "സിങ്ക്"
+    }
+  },
+  "copyButton": {
+    "copied": "ക്ലിപ്ബോർഡിലേക്ക് പകർത്തി!",
+    "share": "ക്ഷണ ലിങ്ക് പങ്കിടുക",
+    "copy": "ക്ഷണ ലിങ്ക് പകർത്തുക"
+  },
+  "share": {
+    "joinTeam": "{{appName}}: റേസിംഗ് ടീമിൽ ചേരൂ!",
+    "joinNamedTeam": "{{appName}}: {{partyName}} റേസിംഗ് ടീമിൽ ചേരൂ!",
+    "dialogTitle": "ക്ഷണം പങ്കിടുക"
+  }
+}

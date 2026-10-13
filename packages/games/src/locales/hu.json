@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Könyv",
+    "defaultDetailNoun": "rejtvénykönyvek"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Havi rejtvénygyűjtemény"
+  },
+  "hintBox": {
+    "dismiss": "Tipp bezárása"
+  },
+  "lobbyButton": {
+    "opponents": "Ellenfelek"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Tovább – következő rejtvény",
+    "continueLocked": "Folytatás ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}}/{{total}} {{label}} kész"
+  },
+  "countdownOverlay": {
+    "getReady": "Készülj",
+    "go": "RAJT!"
+  },
+  "confirmDialog": {
+    "cancel": "Mégse"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · kész",
+    "retry": "Újra",
+    "points": "+{{points}} pont",
+    "leaderboardPoints": "Ranglistapontok"
+  },
+  "raceTimer": {
+    "time": "Idő"
+  },
+  "stageTopBar": {
+    "previous": "Előző"
+  },
+  "raceHud": {
+    "opponents": "Ellenfelek",
+    "stageOf": "{{current}}. szakasz / {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Cél!",
+    "runComplete": "Futam teljesítve",
+    "leaderboardPoints": "Ranglistapontok",
+    "pointsSuffix": " pont"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "V",
+      "monday": "H",
+      "tuesday": "K",
+      "wednesday": "Sze",
+      "thursday": "Cs",
+      "friday": "P",
+      "saturday": "Szo"
+    },
+    "dayStreak_one": "napos sorozat",
+    "dayStreak_other": "napos sorozat",
+    "thisMonth": "ebben a hónapban"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Ön)",
+    "puzzles_one": "{{count}} rejtvény",
+    "puzzles_other": "{{count}} rejtvény",
+    "average": "Átl.: {{time}}",
+    "best": "Legjobb: {{time}}",
+    "wins_one": "🏁 {{count}} győzelem",
+    "wins_other": "🏁 {{count}} győzelem",
+    "points_one": "pont",
+    "points_other": "pont"
+  },
+  "scoreBreakdown": {
+    "title": "Pontok részletezése",
+    "volumeBonus": {
+      "label": "Mennyiségi bónusz",
+      "detail_one": "{{count}} megoldott rejtvény",
+      "detail_other": "{{count}} megoldott rejtvény"
+    },
+    "dailyPuzzles": {
+      "label": "Napi rejtvények",
+      "detail_one": "{{count}} napi kihívás",
+      "detail_other": "{{count}} napi kihívás"
+    },
+    "collectionPuzzles": {
+      "label": "Rejtvények: {{collection}}",
+      "detail": "{{collection}}: {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "Beolvasott rejtvények",
+      "detail_one": "{{count}} importált rejtvény",
+      "detail_other": "{{count}} importált rejtvény"
+    },
+    "difficultyBonus": {
+      "label": "Nehézségi bónusz",
+      "detail": "Nehezebb rejtvény = több pont"
+    },
+    "speedBonus": {
+      "label": "Sebességbónusz",
+      "detail": "Leggyorsabb: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Versenybónusz",
+      "detail": "Győzze le a barátokat, akik szintén befejezték"
+    },
+    "dailyCombo": {
+      "label": "Napi kombó",
+      "detail": "Naponta több rejtvény = nagyobb szorzó"
+    }
+  },
+  "leaderboard": {
+    "you": "Ön",
+    "unknownUser": "Ismeretlen felhasználó",
+    "title": "Ranglista",
+    "subtitleParty": "Elmúlt 30 nap · {{partyName}}",
+    "subtitleAllTeams": "Elmúlt 30 nap · Minden csapat",
+    "howScoringWorks": "Hogyan működik a pontozás"
+  },
+  "scoringLegend": {
+    "title": "Hogyan működik a pontozás",
+    "subtitle": "{{gameName}} · Elmúlt 30 nap",
+    "close": "Bezárás",
+    "racingWins": {
+      "title": "Versenygyőzelmek",
+      "body": "Szerezzen <points>+{{points}} pontot</points> minden barátért, akit legyőz ugyanazon a befejezett rejtvényen. Ha {{friends}} barát közül mindenkit megelőz, további <points>+{{total}} pontot</points> kap."
+    },
+    "basePoints": {
+      "title": "Alappontok",
+      "anyPuzzle": "Bármely rejtvény",
+      "dailyPuzzle": "Napi rejtvény",
+      "collectionPuzzle": "Rejtvény: {{collection}}",
+      "scannedPuzzle": "Beolvasott rejtvény"
+    },
+    "difficultyMultipliers": {
+      "title": "Nehézségi szorzók",
+      "daily": "A nap rejtvénye ({{gameName}})",
+      "collection": "Rejtvények: {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Sebességbónuszok",
+      "lightning": "Villám",
+      "fast": "Gyors",
+      "quick": "Fürge",
+      "steady": "Egyenletes",
+      "under": "{{threshold}} alatt",
+      "seconds": "{{value}} mp",
+      "minutes": "{{value}} p"
+    },
+    "dailyCombo": {
+      "title": "Napi kombó",
+      "body": "Oldjon meg több rejtvényt ugyanazon a napon, hogy megszorozza az egyes rejtvények pontjait, legfeljebb <max>{{max}}×</max>-osra.",
+      "puzzle": "A nap {{puzzle}}. rejtvénye",
+      "puzzleOrMore": "A nap {{puzzle}}. és további rejtvénye"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Futam teljesítve",
+    "raceProgress": "Verseny állása",
+    "stagesProgress": "{{completed}}/{{total}} szakasz",
+    "retryStage": "Szakasz újra",
+    "stageLabel": "{{number}}. szakasz",
+    "stageCompletedLabel": "{{number}}. szakasz, teljesítve: {{time}}",
+    "viewRacingStats": "Versenystatisztika megtekintése",
+    "total": "Összesen"
+  },
+  "raceTrack": {
+    "you": "Ön",
+    "viewFriends": "Kattintson a barátok megtekintéséhez",
+    "start": "Rajt",
+    "finish": "Cél",
+    "inviteToRace": "Barátok meghívása versenyre",
+    "opponents": "Ellenfelek",
+    "racer": "Versenyző",
+    "stageBadge": "Sz{{number}}",
+    "total": "Összesen",
+    "leaderboard": "Ranglista",
+    "puzzleBook": "Rejtvénykönyv",
+    "puzzleBookLabel": "rejtvénykönyv",
+    "refreshScores": "Pontszámok frissítése",
+    "challengeFriends": "🏁 Barátok kihívása",
+    "yourTime": "Az Ön ideje:",
+    "inviteFriends": "Barátok meghívása",
+    "racingLabel": "versenyben"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Trükkös",
+      "easy": "Kihívó",
+      "intermediate": "Nehéz",
+      "expert": "Szakértő"
+    },
+    "book": {
+      "veryEasy": "Nagyon könnyű",
+      "easy": "Könnyű",
+      "moderatelyEasy": "Mérsékelten könnyű",
+      "moderate": "Közepes",
+      "moderatelyHard": "Mérsékelten nehéz",
+      "hard": "Nehéz",
+      "vicious": "Kegyetlen",
+      "fiendish": "Ördögi",
+      "devilish": "Pokoli",
+      "hell": "Pokol",
+      "beyondHell": "A pokolon túl"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Utolsó számjegy",
+    "hiddenSingleBox": "Rejtett egyes (blokk)",
+    "hiddenSingleLine": "Rejtett egyes (sor/oszlop)",
+    "hiddenSingleVariantRegion": "Rejtett egyes (változatrégió)",
+    "nakedSingle": "Csupasz egyes",
+    "hiddenPair": "Rejtett pár",
+    "lockedCandidate": "Zárolt jelölt",
+    "hiddenTriple": "Rejtett hármas",
+    "hiddenQuadruple": "Rejtett négyes",
+    "nakedPair": "Csupasz pár",
+    "nakedTriple": "Csupasz hármas",
+    "nakedQuadruple": "Csupasz négyes",
+    "xWing": "X-Wing",
+    "swordfish": "Kardhal",
+    "skyscraper": "Felhőkarcoló",
+    "twoStringKite": "Kétszálú sárkány",
+    "crane": "Daru",
+    "simpleColoring": "Egyszerű színezés",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Uszonyos/Sashimi X-Wing",
+    "emptyRectangle": "Üres téglalap",
+    "uniqueRectangleType1": "Egyedi téglalap, 1. típus",
+    "uniqueRectangleType2": "Egyedi téglalap, 2. típus",
+    "uniqueRectangleType3": "Egyedi téglalap, 3. típus",
+    "uniqueRectangleType4": "Egyedi téglalap, 4. típus",
+    "uniqueRectangleType5": "Egyedi téglalap, 5. típus",
+    "finnedSashimiSwordfish": "Uszonyos/Sashimi kardhal",
+    "jellyfish": "Medúza",
+    "bugBinaryUniversalGrave": "BUG (bináris univerzális sír)",
+    "xChain": "X-lánc",
+    "groupedXChain": "Csoportos X-lánc",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Uszonyos/Sashimi medúza",
+    "medusa3D": "3D Medúza",
+    "xyChain": "XY-lánc",
+    "alternatingInferenceChainAIC": "Váltakozó következtetési lánc (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Csoportos váltakozó következtetési lánc (AIC)",
+    "nishioForcingChain": "Nishio kényszerlánc",
+    "nishioForcingNet": "Nishio kényszerháló"
+  }
+}

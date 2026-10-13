@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "തുടരാൻ സൈൻ ഇൻ ചെയ്യുക",
+    "signInWith": "{{provider}} ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യുക",
+    "emailTitle": "ഇമെയിൽ ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യുക",
+    "emailPlaceholder": "your@email.com",
+    "continue": "തുടരുക",
+    "cancel": "റദ്ദാക്കുക",
+    "terms": "സേവന നിബന്ധനകൾ",
+    "privacy": "സ്വകാര്യതാ നയം"
+  },
+  "header": {
+    "signIn": "സൈൻ ഇൻ"
+  },
+  "avatar": {
+    "alt": "ഉപയോക്താവ്"
+  },
+  "panel": {
+    "title": "അക്കൗണ്ട്",
+    "greeting": "ഹായ്, {{name}}!",
+    "fallbackName": "ഉപയോക്താവ്",
+    "plusActive": "{{gameName}} {{plus}} സജീവമാണ്",
+    "joinGamePlus": "{{gameName}} {{plus}} സ്വന്തമാക്കൂ",
+    "joinPlus": "{{plus}} സ്വന്തമാക്കൂ",
+    "signOut": "സൈൻ ഔട്ട്",
+    "privacy": "സ്വകാര്യതാ നയം",
+    "terms": "സേവന നിബന്ധനകൾ",
+    "credits": "ക്രെഡിറ്റുകൾ",
+    "deleteAccount": "അക്കൗണ്ട് ഇല്ലാതാക്കുക",
+    "poweredBy": "{{companyName}} നൽകുന്ന സേവനം",
+    "deleteUnavailable": "അക്കൗണ്ട് ഇല്ലാതാക്കാനുള്ള സൗകര്യം ലഭ്യമല്ല.",
+    "deleteFailed": "അക്കൗണ്ട് ഇല്ലാതാക്കാൻ കഴിഞ്ഞില്ല. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "deleteDialog": {
+    "title": "അക്കൗണ്ട് ഇല്ലാതാക്കുക",
+    "warning": "ഈ നടപടി പഴയപടിയാക്കാൻ കഴിയില്ല. {{companyName}} ആപ്പുകളിലുടനീളമുള്ള നിങ്ങളുടെ എല്ലാ ഡാറ്റയും ശാശ്വതമായി ഇല്ലാതാക്കപ്പെടും.",
+    "confirmation": "{{companyName}} ആപ്പുകളിലുടനീളമുള്ള എല്ലാ ഡാറ്റയും ഉൾപ്പെടെ എന്റെ മുഴുവൻ അക്കൗണ്ടും ഇല്ലാതാക്കണമെന്ന് ഞാൻ സ്ഥിരീകരിക്കുന്നു.",
+    "cancel": "റദ്ദാക്കുക",
+    "deleting": "ഇല്ലാതാക്കുന്നു...",
+    "submit": "അക്കൗണ്ട് ഇല്ലാതാക്കുക"
+  }
+}

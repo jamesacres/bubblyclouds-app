@@ -1,0 +1,338 @@
+{
+  "brand": {
+    "gameName": "数独竞速"
+  },
+  "board": {
+    "buttonGroup": "按钮组"
+  },
+  "celebration": {
+    "solved": "已解出！",
+    "leaderboardPoints": "排行榜积分",
+    "pointsSuffix": " 分"
+  },
+  "completion": {
+    "time": "用时"
+  },
+  "nextPuzzle": {
+    "streakMessage": "在谜题集中继续保持连续记录"
+  },
+  "puzzleMeta": {
+    "daily": "每日 {{month}}{{day}}",
+    "dayOrdinal": "{{count}}日",
+    "dayOrdinal_ordinal_other": "{{count}}日",
+    "book": "谜题集 {{month}} #{{number}}",
+    "scanned": "扫描的谜题"
+  },
+  "bookCover": {
+    "edition": "{{month}}特辑",
+    "puzzleCount": "50 道谜题 • 多种难度",
+    "months": {
+      "january": {
+        "tagline": "从基础到极限的解题技巧",
+        "footer": "❄️ 冬季挑战特辑 ❄️"
+      },
+      "february": {
+        "tagline": "从隐性唯一数到 AIC 链",
+        "footer": "💕 爱上挑战 💕"
+      },
+      "march": {
+        "tagline": "春日里，向高阶技巧进发",
+        "footer": "🌸 新挑战，如花盛放 🌸"
+      },
+      "april": {
+        "tagline": "任凭解题风雨来袭",
+        "footer": "🌈 雨过天晴，胜利在望 🌈"
+      },
+      "may": {
+        "tagline": "脑力绽放",
+        "footer": "🌻 愿您的技艺蓬勃生长 🌻"
+      },
+      "june": {
+        "tagline": "夏日大脑训练",
+        "footer": "☀️ 解题的阳光面 ☀️"
+      },
+      "july": {
+        "tagline": "海滩阅读，大脑训练",
+        "footer": "🏖️ 假日烧脑游戏 🏖️"
+      },
+      "august": {
+        "tagline": "为您的脑力升温",
+        "footer": "🔥 炙热难耐的挑战 🔥"
+      },
+      "september": {
+        "tagline": "给大脑上一课",
+        "footer": "📚 用数字通往知识 📚"
+      },
+      "october": {
+        "tagline": "惊悚又聪明的挑战",
+        "footer": "🎃 吓人的有趣 🎃"
+      },
+      "november": {
+        "tagline": "篝火之夜的烧脑挑战",
+        "footer": "🍂 铭记，铭记！🍂"
+      },
+      "december": {
+        "tagline": "假日里的大脑礼物",
+        "footer": "🎄 解题高手，节日快乐！🎄"
+      },
+      "default": {
+        "tagline": "挑战您的头脑",
+        "footer": "🧩 谜题的力量 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "您当前处于离线状态，请检查网络连接",
+      "loadFailed": "加载谜题集失败"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "键盘：方向键、撤销、重做。",
+      "notes": "按住 Shift 或按 n 键切换笔记模式。",
+      "validate": "按 c 检查格子，按 g 检查网格。"
+    },
+    "owl": {
+      "invalid": "看起来您出错了，建议检查一下网格。",
+      "notSure": "抱歉，我不确定。",
+      "eureka": "Eureka 记法 {{notation}}",
+      "highlighted": "我已为您标出相关格子",
+      "foundTechnique": "我发现了一个技巧：{{technique}}",
+      "noHint": "暂无可用提示"
+    },
+    "legend": {
+      "stem": "茎",
+      "petalA": "花瓣 A",
+      "petalB": "花瓣 B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "开（真）",
+      "off": "关（假）",
+      "elimination": "排除"
+    },
+    "reply": {
+      "thanks": "谢谢，",
+      "tellMeMore": "🤔 详细说说",
+      "showMeWhere": "👀 指给我看",
+      "hideHint": "隐藏提示"
+    },
+    "askForHelp": "求助",
+    "notes": "笔记",
+    "copied": "已复制！",
+    "export": "导出",
+    "delete": "删除",
+    "undo": "撤销",
+    "redo": "重做",
+    "cell": "格子",
+    "grid": "网格",
+    "zoom": "缩放",
+    "reset": "重置",
+    "reveal": "显示答案",
+    "confirm": {
+      "reset": {
+        "title": "重置整个网格？",
+        "body": "确定要重置整个网格吗？",
+        "confirm": "重置"
+      },
+      "reveal": {
+        "title": "显示整个网格的答案？",
+        "body": "确定要显示整个网格的答案吗？",
+        "confirm": "显示答案"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "显性唯一数",
+    "hiddenSingleBox": "隐性唯一数（宫）",
+    "hiddenSingleRow": "隐性唯一数（行）",
+    "hiddenSingleCol": "隐性唯一数（列）",
+    "nakedPair": "显性数对",
+    "nakedTriple": "显性三数组",
+    "nakedQuad": "显性四数组",
+    "hiddenPair": "隐性数对",
+    "hiddenTriple": "隐性三数组",
+    "hiddenQuad": "隐性四数组",
+    "lockedCandidatePointing": "锁定候选数（指向型）",
+    "lockedCandidateClaiming": "锁定候选数（占据型）",
+    "xWing": "X 翼",
+    "swordfish": "剑鱼",
+    "jellyfish": "水母",
+    "skyscraper": "摩天楼",
+    "twoStringKite": "双线风筝",
+    "finnedXWing": "鳍式 X 翼",
+    "finnedSwordfish": "鳍式剑鱼",
+    "finnedJellyfish": "鳍式水母",
+    "emptyRectangle": "空矩形",
+    "wWing": "W 翼",
+    "yWing": "Y 翼",
+    "xyzWing": "XYZ 翼",
+    "uniqueRectangleType1": "唯一矩形（类型 1）",
+    "uniqueRectangleType2": "唯一矩形（类型 2）",
+    "uniqueRectangleType3": "唯一矩形（类型 3）",
+    "uniqueRectangleType4": "唯一矩形（类型 4）",
+    "uniqueRectangleType5": "唯一矩形（类型 5）",
+    "bug": "BUG",
+    "xyChain": "XY 链",
+    "aic": "AIC",
+    "aicRing": "AIC 环",
+    "groupedAIC": "分组 AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "死亡之花",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio 网",
+    "cellRegionForcingChain": "格/区域强制链",
+    "cellRegionForcingNet": "格/区域强制网",
+    "forcingChain": "强制链"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "邦布比",
+      "emojiName": "蜜蜂",
+      "personality": "坐不住，热情洋溢。在网格上一阵猛冲，然后又停滞不前。接近终点时太早加速，在最后关头卡住。",
+      "voiceLines": {
+        "neutral": [
+          "哦！我看到一个！",
+          "等等——不对，也许不是……",
+          "嗡嗡！有进展啦！"
+        ],
+        "playerAhead": ["喂，慢一点！", "我本来进展得挺好的…"],
+        "playerBehind": ["我在追上来了！", "看我飞！"],
+        "endgame": ["快到了！我觉得！", "等等——这个该填哪儿？！"]
+      }
+    },
+    "puddle": {
+      "name": "帕德尔",
+      "emojiName": "鸭子",
+      "personality": "开朗，漫无目的。慢而稳，常常长时间停顿。到了终盘，几乎是不经意间漂向了答案。",
+      "voiceLines": {
+        "neutral": ["慢慢来就好……", "嗯……大概在这附近。"],
+        "playerAhead": ["您做得真棒！", "我迟早会到的。"],
+        "playerBehind": ["哦！我找到一个！", "真不错。"],
+        "endgame": ["我好像快做完了？", "哦！居然成了。"]
+      }
+    },
+    "flint": {
+      "name": "弗林特",
+      "emojiName": "蜥蜴",
+      "personality": "谨慎，善于观察。长时间停顿，然后落下几个数字。到了终盘，每次落子前都会犹豫。",
+      "voiceLines": {
+        "neutral": ["让我再确认一下。", "这样应该没错。"],
+        "playerAhead": ["现在得小心点了。", "别急。"],
+        "playerBehind": ["好吧……在追了。", "还有时间。"],
+        "endgame": ["小心点……", "快了……只要再确认一下。"]
+      }
+    },
+    "tangle": {
+      "name": "坦格尔",
+      "emojiName": "蜘蛛",
+      "personality": "审慎，有条理。一步一步稳稳推进。到了终盘，条理瓦解——犹豫悄悄蔓延，仿佛计划已不再成立。",
+      "voiceLines": {
+        "neutral": ["这符合规律。", "一步一步来……"],
+        "playerAhead": ["本来挺顺的……", "我得修正一下……"],
+        "playerBehind": ["还撑得住。", "对……这样行得通。"],
+        "endgame": ["等等——不对，这样会全盘崩掉。", "我明明都计划好了……"]
+      }
+    },
+    "maple": {
+      "name": "梅普尔",
+      "emojiName": "浣熊",
+      "personality": "机灵，善于抓机会。节奏忽快忽慢。到了终盘，找到状态，收尾比预想的更快。",
+      "voiceLines": {
+        "neutral": ["这样行！", "有点乱，不过我认了。"],
+        "playerAhead": ["好吧，该发力了。", "还没完呢。"],
+        "playerBehind": ["哦——找得好。", "现在渐入佳境了。"],
+        "endgame": ["嗯，这题我拿下了。", "现在顺了。"]
+      }
+    },
+    "compass": {
+      "name": "康帕斯",
+      "emojiName": "企鹅",
+      "personality": "有条理，讲方法。节奏稳定。终盘依然平稳——不慌张，不冲刺。",
+      "voiceLines": {
+        "neutral": ["这样合适。", "保持稳定。"],
+        "playerAhead": ["保持节奏。", "不必着急。"],
+        "playerBehind": ["仍在正轨。", "进展稳定。"],
+        "endgame": ["快到了。", "干净利落地收尾。"]
+      }
+    },
+    "jinx": {
+      "name": "金克斯",
+      "emojiName": "猴子",
+      "personality": "反复无常，令人不安。爆发毫无规律。到了终盘，突然加速，快得让人觉得不公平。",
+      "voiceLines": {
+        "neutral": ["嘿嘿……没想到吧？", "哦，这很有意思。"],
+        "playerAhead": ["别太得意。", "看好了。"],
+        "playerBehind": ["有时候就是突然开窍。", "瞎猜的……还是说不是？"],
+        "endgame": ["哇哦——来了。", "局势一下就升级了。"]
+      }
+    },
+    "drift": {
+      "name": "德里夫特",
+      "emojiName": "老鹰",
+      "personality": "超然，行云流水。落子间隔疏远而自信。终盘悄然加速。",
+      "voiceLines": {
+        "neutral": ["早就看出来了。", "随手填上而已。"],
+        "playerAhead": ["改变不了什么。", "结果还是一样。"],
+        "playerBehind": ["其实已经做完了。", "此刻心在别处。"],
+        "endgame": ["……快完成了。", "收尾了。"]
+      }
+    },
+    "ember": {
+      "name": "恩伯",
+      "emojiName": "狐狸",
+      "personality": "热烈，好胜。起步飞快，压力不断。终盘的冲刺很有攻击性。",
+      "voiceLines": {
+        "neutral": ["跟上。", "还跟得上吗？"],
+        "playerAhead": ["现在别慢下来。", "您可以做得更好。"],
+        "playerBehind": ["太慢了。", "您落后了。"],
+        "endgame": ["解决它。", "这是我的。"]
+      }
+    },
+    "latch": {
+      "name": "拉奇",
+      "emojiName": "鲨鱼",
+      "personality": "耐心，像猎食者。紧紧跟随，到了终盘猛然逼近。",
+      "voiceLines": {
+        "neutral": ["就在您身后。", "还没到时候。"],
+        "playerAhead": ["待在原地别动。", "我已经很近了。"],
+        "playerBehind": ["逼近中。", "找到您了。"],
+        "endgame": ["现在，收尾。", "抓到您了。"]
+      }
+    },
+    "sage": {
+      "name": "塞奇",
+      "emojiName": "猫头鹰",
+      "personality": "冷静，从容。节奏流畅。终盘干净利落，水到渠成。",
+      "voiceLines": {
+        "neutral": ["不出所料。", "一切吻合。"],
+        "playerAhead": ["很好。", "您看出来了。"],
+        "playerBehind": ["坚持到底。", "继续保持。"],
+        "endgame": ["就快完成。", "就是这样。"]
+      }
+    },
+    "phantom": {
+      "name": "范托姆",
+      "emojiName": "黑猫",
+      "personality": "沉默，不似人类。几乎没有停顿。终盘一气呵成，快速收官。",
+      "voiceLines": {
+        "neutral": ["……", "……"],
+        "playerAhead": ["……", "……依旧。"],
+        "playerBehind": ["太迟了。", "您犹豫了。"],
+        "endgame": ["……完成。", "结束。"]
+      }
+    },
+    "zenith": {
+      "name": "泽尼思",
+      "emojiName": "龙",
+      "personality": "举重若轻，绝对掌控。全程保持完美的节奏。终盘果断地一扫而过，不留破绽，毫无阻碍。",
+      "voiceLines": {
+        "neutral": ["意料之中。", "毫无偏差。"],
+        "playerAhead": ["您肯尝试，是明智的。", "继续。"],
+        "playerBehind": ["到此为止。", "别无他途。"],
+        "endgame": ["仅此而已。", "完成。"]
+      }
+    }
+  }
+}

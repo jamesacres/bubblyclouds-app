@@ -1,0 +1,300 @@
+{
+  "brand": {
+    "appName": "Balap Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Main dan bagikan untuk balapan sudoku bersama teman. Tantangan harian & lintas perangkat!"
+  },
+  "puzzle": {
+    "mobileDescription": "Nikmati pengalaman balapan terbaik dengan aplikasi {{appName}} kami!",
+    "desktopDescription": "Unduh {{appName}}",
+    "openInAppLabel": "Buka Teka-teki"
+  },
+  "crossPromo": {
+    "gameName": "Balap Bebas",
+    "tagline": "Geser balok dan balapan bersama teman untuk mengurai kemacetan."
+  },
+  "notFound": {
+    "message": "Halaman Tidak Ditemukan"
+  },
+  "login": {
+    "dailyPuzzle": "Masuk untuk memulai teka-teki hari ini",
+    "puzzleBook": "Masuk untuk menjelajahi buku teka-teki",
+    "joinTeam": "Masuk untuk bergabung dengan tim",
+    "raceLobby": "Masuk untuk balapan dengan orang lain",
+    "puzzleEntry": "Masuk untuk bermain",
+    "valueProps": {
+      "saveProgress": "Simpan progres Anda",
+      "raceFriends": "Balapan dengan teman",
+      "trackStats": "Pantau statistik Anda"
+    }
+  },
+  "plusModal": {
+    "description": "Gabung <badge>{{plusName}}</badge> untuk <emphasis>menghapus semua batas kecepatan</emphasis>. Tantang teman, panjat papan peringkat, dan tingkatkan kecepatan Anda menyelesaikan teka-teki. Tetap bebas iklan."
+  },
+  "premiumFeatures": {
+    "title": "Fitur premium",
+    "subtitle": "Buka pengalaman {{appName}} sepenuhnya",
+    "unlimitedPlay": {
+      "title": "Bermain dan balapan tanpa batas",
+      "description": "Balapan dengan teman secara real time lebih dari sekali sehari"
+    },
+    "unlimitedHints": {
+      "title": "Petunjuk tanpa batas",
+      "description": "Tak perlu lagi buntu — dapatkan petunjuk kapan pun Anda butuhkan"
+    },
+    "monthlyBook": {
+      "title": "Seluruh buku bulanan terbuka, setiap bulan",
+      "description": "Mainkan setiap teka-teki di semua tingkat kesulitan, tanpa kunci"
+    },
+    "multipleTeams": {
+      "title": "Beberapa tim balap",
+      "description": "Adakan kompetisi pribadi bersama teman dan keluarga"
+    },
+    "teamManagement": {
+      "title": "Pengelolaan tim",
+      "description": "Buat tim besar hingga 15 orang, dan keluarkan anggota dari tim Anda."
+    },
+    "themes": {
+      "title": "Semua tema terbuka",
+      "description": "Personalisasi pengalaman balapan Anda"
+    },
+    "unlimitedActions": {
+      "title": "Urungkan, periksa, dan tampilkan tanpa batas",
+      "description": "Hapus batas harian urungkan, periksa, dan tampilkan"
+    }
+  },
+  "subscription": {
+    "hint_other": "💡 <bold>Anda sudah memakai {{count}} petunjuk gratis hari ini.</bold> $t(brand.plus) memberi Anda petunjuk tanpa batas — tak perlu lagi buntu — dan menjaga seluruh aplikasi bebas iklan.",
+    "undo_other": "📅 <bold>Anda telah mencapai batas urungkan harian!</bold> Anda mendapat {{count}} urungkan gratis per hari. Batas akan disetel ulang besok, atau berlangganan untuk urungkan tanpa batas.",
+    "checkGrid_other": "📅 <bold>Anda telah mencapai batas pemeriksaan grid harian!</bold> Anda mendapat {{count}} pemeriksaan grid gratis per hari. Batas akan disetel ulang besok, atau berlangganan untuk pemeriksaan tanpa batas.",
+    "reveal": "🔓 <bold>Tampilkan grid adalah fitur premium!</bold> Berlangganan untuk membuka kemampuan menampilkan solusi lengkap.",
+    "themeColor": "🎨 <bold>Tema ini eksklusif untuk $t(brand.plus).</bold> Tingkatkan untuk membuka semua warna tema yang indah dan personalisasi pengalaman sudoku Anda.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Anda telah mencapai batas teka-teki harian!</bold> Pengguna gratis dapat memainkan {{count}} teka-teki per hari. Batas akan disetel ulang besok, atau berlangganan untuk teka-teki tanpa batas.",
+    "collectionLocked": "✨ <bold>Teka-teki ini bagian dari buku $t(brand.plus).</bold> $t(brand.plus) membuka setiap teka-teki di buku tiap bulan, dan menjaga seluruh aplikasi bebas iklan.",
+    "removeMember": "👥 <bold>Mengeluarkan anggota dari tim adalah fitur premium!</bold> Berlangganan untuk membuka fitur pengelolaan tim lanjutan, termasuk mengeluarkan anggota.",
+    "multipleParties": "🏘️ <bold>Beberapa tim balap adalah fitur premium!</bold> Pengguna gratis dapat memiliki satu tim. Berlangganan untuk membuat dan bergabung dengan tim tanpa batas untuk keluarga, teman, dan lainnya.",
+    "partyMaxSize": "👥 <bold>Tim besar adalah fitur premium!</bold> Berlangganan untuk membuka fitur pengelolaan tim lanjutan, termasuk tim besar."
+  },
+  "motivational": {
+    "messages": [
+      "Teman Anda menunggu tantangan",
+      "Melawan siapa Anda hari ini?",
+      "Saatnya menunjukkan kecepatan Anda",
+      "Tantangan diterima?",
+      "Berpacu menuju garis finis",
+      "Siapa penyelesai tercepat?",
+      "Siap menguasai papan peringkat?",
+      "Kemampuan balap Anda menanti",
+      "Saatnya meninggalkan mereka dalam debu",
+      "Siap melewati garis finis lebih dulu?",
+      "Lintasan sedang menunggu Anda",
+      "Saatnya masuk gigi tertinggi",
+      "Siap membakar aspal di grid teka-teki?",
+      "Lawan Anda sudah mulai pemanasan",
+      "Hari ini saatnya mencetak rekor baru",
+      "Rekor pribadi Anda menunggu untuk dipecahkan",
+      "Setiap teka-teki membuat Anda makin cepat",
+      "Membangun rentetan dimulai sekarang",
+      "Saatnya naik level",
+      "Terobosan berikutnya hanya satu teka-teki lagi",
+      "Siap mengejutkan diri sendiri?",
+      "Tunjukkan kemampuan Anda",
+      "Saatnya membuka potensi Anda",
+      "Penyelesaian tercepat Anda masih di depan",
+      "Siap membuat hari ini berarti?",
+      "Setiap detik berarti dalam balapan",
+      "Saatnya mendorong batas Anda",
+      "Perjalanan peningkatan Anda berlanjut",
+      "Siap melampaui harapan?",
+      "Merasa sanggup menghadapi tekanan?",
+      "Saatnya membungkam para peragu",
+      "Siap meraih kemenangan?",
+      "Pesaing Anda tak akan menduganya",
+      "Saatnya meninggalkan jejak",
+      "Siap merebut sorotan?",
+      "Kemenangan terasa lebih manis saat diperjuangkan",
+      "Saatnya membuktikan siapa bosnya",
+      "Siap menunjukkan jati diri Anda?",
+      "Mental juara dimulai di sini",
+      "Saatnya menonjol dari yang lain",
+      "Siap menulis legenda Anda?",
+      "Juara lahir dari momen seperti ini",
+      "Saatnya mengubah potensi menjadi performa",
+      "Teka-teki segar, peluang segar",
+      "Tantangan hari ini menunggu keahlian Anda",
+      "Siap menjadikan ini hari terbaik Anda?",
+      "Hari baru berarti rekor baru untuk dipecahkan",
+      "Saatnya menambah satu kemenangan lagi",
+      "Siap mulai dengan kuat dan selesai lebih kuat?",
+      "Siap membuat hari ini legendaris?",
+      "Dosis kemenangan harian Anda menanti",
+      "Strategi bertemu kecepatan di grid",
+      "Siap berpikir dan bergerak lebih cepat?",
+      "Kemahiran teka-teki Anda memanggil",
+      "Saatnya memadukan logika dengan kecepatan kilat",
+      "Siap menyelesaikan dengan presisi bedah?",
+      "Kombinasi sempurna: keterampilan dan kecepatan",
+      "Ketajaman analisis Anda adalah keunggulan balap Anda",
+      "Saatnya menunjukkan supremasi teka-teki",
+      "Siap menyelesaikan seperti juara?",
+      "Balapan presisi dimulai dari berpikir jernih",
+      "Teman Anda menunggu pertandingan ulang",
+      "Siapa yang bermain hari ini?",
+      "Teka-teki harian baru sudah siap",
+      "Rentetan Anda sedang dipertaruhkan",
+      "Teka-teki segar, awal yang segar",
+      "Tantangan hari ini sudah tersedia",
+      "Balapan dengan teman di teka-teki harian",
+      "Hari baru, teka-teki baru",
+      "Seseorang sudah ada di papan peringkat",
+      "Jaga rentetan tetap menyala",
+      "Tantangan harian baru saja diperbarui",
+      "Tim Anda menunggu",
+      "Satu teka-teki lebih dekat ke puncak",
+      "Teka-teki hari ini menunggu Anda",
+      "Ayo kembali dan balapan"
+    ]
+  },
+  "home": {
+    "live": "Langsung",
+    "headline": "Siap Balapan? 🏁",
+    "subtitle": "Bagikan tantangan — undang teman dan lihat siapa penyelesai Sudoku tercepat.",
+    "leaderboard": "Papan peringkat",
+    "daily": {
+      "title": "Tantangan harian",
+      "refreshes": "diperbarui setiap hari",
+      "moreLevels": "Tingkat kesulitan lainnya ada di <bookLink>buku teka-teki</bookLink>",
+      "difficulty": {
+        "simple": "Rumit",
+        "easy": "Menantang",
+        "intermediate": "Sulit"
+      }
+    },
+    "book": {
+      "summary_other": "{{month}} · {{count}} teka-teki",
+      "title": "Buku bulanan",
+      "browse": "Jelajahi teka-teki"
+    },
+    "import": {
+      "title": "Impor teka-teki apa pun",
+      "description": "Pindai dengan kamera atau tempel string teka-teki",
+      "desktopTitle": "Balapan teka-teki apa pun",
+      "desktopDescription": "Pindai dari buku atau koran"
+    },
+    "teams": {
+      "title": "Tim balap",
+      "withFriends": "Balapan dengan {{friends}} dan lainnya",
+      "noFriends": "Tantang teman untuk balapan"
+    },
+    "tabs": {
+      "startRace": "Mulai Balapan",
+      "myPuzzles": "Teka-teki Saya",
+      "racingTeams": "Tim Balap"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Memuat buku teka-teki...",
+      "puzzles": "Memuat teka-teki...",
+      "progress": "Memuat progres Anda..."
+    },
+    "tryAgain": "Coba lagi",
+    "backHome": "Kembali ke beranda",
+    "signInPrompt": "Masuk untuk mengakses buku teka-teki.",
+    "signIn": "Masuk",
+    "noData": "Data buku teka-teki tidak tersedia.",
+    "title": "Buku teka-teki {{month}}",
+    "puzzleCount_other": "{{count}} teka-teki berfokus teknik",
+    "completed": "{{count}} selesai",
+    "inProgress": "{{count}} sedang dikerjakan",
+    "unlockWithPlus": "Buka setiap teka-teki dengan $t(brand.plus)",
+    "jumpToDifficulty": "Lompat ke tingkat kesulitan",
+    "scrollToTop": "Gulir ke atas",
+    "difficulty": {
+      "veryEasy": "Sangat Mudah",
+      "easy": "Mudah",
+      "moderatelyEasy": "Cukup Mudah",
+      "moderate": "Sedang",
+      "moderatelyHard": "Cukup Sulit",
+      "hard": "Sulit",
+      "vicious": "Kejam",
+      "fiendish": "Licik",
+      "devilish": "Diabolis",
+      "hell": "Neraka",
+      "beyondHell": "Di Luar Neraka"
+    }
+  },
+  "invite": {
+    "loading": "Memuat undangan...",
+    "iconAlt": "Ikon {{gameName}}",
+    "greeting": "👋 Hai!",
+    "greetingNamed": "👋 Hai {{name}}!",
+    "invited": "Kamu Diundang!",
+    "joinTeam": "Gabung tim balap <team/>",
+    "description": "Selesaikan teka-teki Sudoku bersama dan lihat progres satu sama lain secara real time!",
+    "proTip": "💡 <bold>Tips:</bold> Semua teka-teki yang kamu mainkan nanti akan dibagikan ke anggota timmu untuk persaingan yang seru!",
+    "nicknameLabel": "Apa panggilanmu di tim balap?",
+    "nicknamePlaceholder": "Masukkan nama panggilan",
+    "joining": "Bergabung ke Tim...",
+    "join": "Ayo Bergabung! 🎉",
+    "signIn": "Masuk untuk Melanjutkan",
+    "bonus": {
+      "title": "🎉 Bonus: Dapatkan {{plusName}} selama {{duration}}!",
+      "duration": {
+        "oneMonth": "satu bulan",
+        "oneYear": "satu tahun",
+        "lifetime": "seumur hidup",
+        "premium": "premium"
+      },
+      "subtitle": "Dengan bergabung di tim balap ini, kamu membuka fitur premium sepenuhnya gratis!",
+      "note": "💡 Akses premium kamu akan aktif otomatis setelah bergabung"
+    },
+    "expired": {
+      "title": "Undangan Kedaluwarsa",
+      "body": "Tautan undangan ini sudah tidak berlaku. Silakan minta undangan baru dari temanmu atau perbesar ukuran tim."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Masukkan string teka-teki",
+      "help": "Tempel string 81 karakter atau grid HoDoKu — gunakan angka 1–9 dan 0 atau . untuk sel kosong.",
+      "submit": "Impor teka-teki"
+    },
+    "orScan": "atau pindai dengan kamera",
+    "cameraHelp": "Arahkan kamera ke teka-teki sudoku yang belum selesai dan tunggu hingga terdeteksi.",
+    "errors": {
+      "parse": "Teka-teki tidak dapat dibaca. Tempel string 81 karakter atau grid HoDoKu.",
+      "solverLoading": "Penyelesai masih dimuat — silakan coba lagi.",
+      "noSolution": "Solusi tidak ditemukan. Silakan periksa teka-teki.",
+      "camera": "Kamera tidak dapat dimulai. Periksa izin dan coba lagi."
+    }
+  },
+  "credits": {
+    "title": "Kredit & Atribusi",
+    "subtitle": "Aplikasi ini dibangun di atas beberapa proyek hebat",
+    "copyright": "Hak cipta (c) 2026 James Acres ({{companyName}})",
+    "license": "Aplikasi ini dilisensikan di bawah Lisensi MIT. Lihat <licenseLink>LICENSE</licenseLink> dan <creditsLink>CREDITS</creditsLink> kami untuk detailnya.",
+    "items": {
+      "humanSudokuSolver": "Pustaka TypeScript yang menyelesaikan teka-teki Sudoku dengan teknik manusia.",
+      "qqwing": "Pembuatan teka-teki Sudoku Hari Ini",
+      "tdoku": "Penyelesai Sudoku cepat untuk teka-teki hasil pindai",
+      "arBrowserSudoku": "Teknologi pemindai augmented reality",
+      "sudokuCoach": "Inspirasi untuk algoritma perhitungan tingkat kesulitan",
+      "nextjs": "Framework React untuk produksi",
+      "typescript": "Superset JavaScript bertipe",
+      "tailwind": "Framework CSS berbasis utilitas",
+      "capacitor": "Runtime aplikasi seluler native",
+      "electron": "Framework aplikasi desktop",
+      "tensorflow": "Pembelajaran mesin untuk fitur AR",
+      "revenuecat": "Pengelolaan langganan",
+      "react": "Pustaka komponen UI",
+      "turborepo": "Sistem build monorepo"
+    }
+  }
+}

@@ -21,6 +21,7 @@ const config = {
         tsconfig: {
           jsx: 'react-jsx',
           esModuleInterop: true,
+          resolveJsonModule: true,
           allowSyntheticDefaultImports: true,
         },
       },

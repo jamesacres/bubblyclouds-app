@@ -1,0 +1,249 @@
+{
+  "brand": {
+    "gameName": "언블록 레이스"
+  },
+  "controls": {
+    "hint": "힌트",
+    "hintTitle": "도움 요청",
+    "undo": "되돌리기",
+    "redo": "다시 실행",
+    "reset": "초기화"
+  },
+  "labels": {
+    "time": "시간",
+    "moves": "이동",
+    "stageOf": "{{total}}단계 중 {{current}}단계"
+  },
+  "stats": {
+    "moves_other": "{{count}}회 이동",
+    "par": "기준",
+    "overPar": "기준보다 {{delta}} 많음",
+    "underPar": "기준보다 {{delta}} 적음"
+  },
+  "score": {
+    "moves": "이동",
+    "srOnPar": "이동, 기준과 같음",
+    "srOverPar": "이동, 기준보다 {{delta}} 많음",
+    "srUnderPar": "이동, 기준보다 {{delta}} 적음",
+    "upcomingPar": "기준 {{par}}"
+  },
+  "daily": {
+    "label": "데일리 · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "초급",
+    "challenging": "도전적",
+    "hard": "어려움",
+    "expert": "전문가"
+  },
+  "collection": {
+    "puzzleLabel": "컬렉션 퍼즐 {{number}}",
+    "theme": {
+      "january": "새해, 새로운 정체",
+      "february": "꽁꽁 언 정체",
+      "march": "활짝 열린 길",
+      "april": "블록 소나기",
+      "may": "새 차선이 피어나요",
+      "june": "최고 클리어 속도",
+      "july": "여름 레이싱 시리즈",
+      "august": "뜨겁게 달아오른 정체",
+      "september": "다시 보드 앞으로",
+      "october": "유령의 정체 구간",
+      "november": "차선을 비워요",
+      "december": "연말 정체",
+      "default": "월간 퍼즐 컬렉션"
+    },
+    "error": {
+      "offline": "오프라인 상태예요. 연결을 확인해 주세요",
+      "loadFailed": "퍼즐 컬렉션을 불러오지 못했어요"
+    }
+  },
+  "stageClear": {
+    "title": "{{stage}}단계 클리어",
+    "onPar": "기준 달성",
+    "pointsSuffix": "점",
+    "leaderboardPoints": "리더보드 점수",
+    "nextStage": "다음 단계",
+    "progress": "{{total}}단계 중 {{stage}}단계 — {{remaining}} 남음"
+  },
+  "hint": {
+    "unsolvable": "여기서는 길이 없어요. 되돌리기나 초기화로 다시 시작하세요",
+    "dismiss": "힌트 알림 닫기"
+  },
+  "nextPuzzle": {
+    "streakMessage": "컬렉션에서 연속 기록을 이어 가세요"
+  },
+  "raceTrack": {
+    "collection": "컬렉션"
+  },
+  "confirm": {
+    "retry": {
+      "title": "이 단계를 다시 도전할까요?",
+      "body": "현재 시간과 이동 횟수가 대체돼요.",
+      "confirm": "다시 도전"
+    },
+    "reset": {
+      "title": "이 퍼즐을 초기화할까요?",
+      "body": "이동 기록을 지우고 퍼즐을 처음부터 다시 시작해요.",
+      "confirm": "초기화"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "범블비",
+      "emojiName": "벌",
+      "personality": "차분하지 못하고 열정적이에요. 블록을 휙휙 밀다가 멈춰 서곤 해요. 출구 근처에서는 너무 일찍 속도를 올려 마무리 직전에 차선을 막아 버려요.",
+      "voiceLines": {
+        "neutral": [
+          "오! 이건 밀려요!",
+          "잠깐, 아니, 이러면 내가 막혀요...",
+          "윙윙! 자리를 만드는 중이에요!"
+        ],
+        "playerAhead": ["이봐요, 천천히요!", "길을 뚫고 있었는데…"],
+        "playerBehind": ["따라잡는 중이에요!", "나 좀 봐요, 쓱쓱 밀어요!"],
+        "endgame": ["출구다! 보여요!", "잠깐, 누가 저기에 주차했어요?!"]
+      }
+    },
+    "puddle": {
+      "name": "퍼들",
+      "emojiName": "오리",
+      "personality": "느긋하고 목적 없이 즐겨요. 천천히 꾸준히 가고, 오래 멈춰 있기도 해요. 막판에는 거의 우연처럼 정체에서 빠져나와요.",
+      "voiceLines": {
+        "neutral": ["그냥 조금씩 밀어 보는 중이에요...", "음... 이 블록일까."],
+        "playerAhead": ["정말 잘하고 계세요!", "저도 언젠가는 나가겠죠."],
+        "playerBehind": ["어! 저게 움직였어요!", "기분 좋네요."],
+        "endgame": ["저게 출구인가요?", "어! 길이 저절로 뚫렸어요."]
+      }
+    },
+    "flint": {
+      "name": "플린트",
+      "emojiName": "도마뱀",
+      "personality": "신중하고 관찰력이 좋아요. 오래 멈췄다가 몇 번 연달아 밀어요. 막판에는 움직일 때마다 망설여요.",
+      "voiceLines": {
+        "neutral": [
+          "이게 뭘 풀어 주는지 볼게요.",
+          "이렇게 밀면 안전할 거예요."
+        ],
+        "playerAhead": ["이제 조심해야 해요.", "차선을 막으면 안 돼요."],
+        "playerBehind": ["좋아요… 따라잡는 중.", "아직 시간 있어요."],
+        "endgame": ["조심, 조심...", "거의 나왔어요… 확실히만 하면 돼요."]
+      }
+    },
+    "tangle": {
+      "name": "탱글",
+      "emojiName": "거미",
+      "personality": "신중하고 체계적이에요. 블록을 하나씩 차근차근 밀어 길을 터요. 막판에는 계획이 무너져요. 경로가 더는 통하지 않는 듯 망설임이 스며들어요.",
+      "voiceLines": {
+        "neutral": ["경로가 열려요.", "블록을 하나씩..."],
+        "playerAhead": ["경로가 잘 맞았는데...", "다시 계획해야 해요..."],
+        "playerBehind": ["아직 버티고 있어요.", "네… 차선이 열리고 있어요."],
+        "endgame": [
+          "잠깐, 아니, 이러면 다시 갇혀요.",
+          "이 경로를 계획해 뒀었는데..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "메이플",
+      "emojiName": "너구리",
+      "personality": "악착같고 기회를 잘 잡아요. 리듬이 들쭉날쭉해요. 막판에는 기세를 타서 예상보다 빨리 빠져나와요.",
+      "voiceLines": {
+        "neutral": ["움직였다!", "좀 비좁지만 괜찮아요."],
+        "playerAhead": ["좋아요, 밀어붙일 때예요.", "아직 갇히지 않았어요."],
+        "playerBehind": ["오, 틈이 좋네요.", "이제 차선이 열리고 있어요."],
+        "endgame": ["네, 앞길이 뻥 뚫렸어요.", "이제 굴러가요."]
+      }
+    },
+    "compass": {
+      "name": "컴퍼스",
+      "emojiName": "펭귄",
+      "personality": "체계적이고 꼼꼼해요. 일정한 속도를 지켜요. 막판에도 흔들림 없이, 당황도 질주도 없어요.",
+      "voiceLines": {
+        "neutral": ["이 슬라이드가 경로에 맞아요.", "꾸준히 가요."],
+        "playerAhead": ["속도를 유지해요.", "격자를 서두를 필요 없어요."],
+        "playerBehind": ["계속 순조로워요.", "차선이 꾸준히 비워지고 있어요."],
+        "endgame": ["거의 다 빠져나왔어요.", "깔끔하게 나가요."]
+      }
+    },
+    "jinx": {
+      "name": "징크스",
+      "emojiName": "원숭이",
+      "personality": "변덕스럽고 불안하게 만들어요. 예측할 수 없이 몰아쳐요. 막판에는 반칙처럼 느껴질 만큼 갑자기 가속해요.",
+      "voiceLines": {
+        "neutral": ["헤헤… 그 틈을 못 봤어?", "오, 재미있는 슬라이드네."],
+        "playerAhead": ["방심하지 마.", "이 수를 잘 봐."],
+        "playerBehind": [
+          "가끔은 차들이 알아서 비켜 주지.",
+          "운 좋은 슬라이드… 일까?"
+        ],
+        "endgame": ["오, 와— 길이 활짝 열렸네.", "금방 비었네."]
+      }
+    },
+    "drift": {
+      "name": "드리프트",
+      "emojiName": "독수리",
+      "personality": "초연하고 유연해요. 여유 있고 자신 있게 밀어요. 막판에 조용히 가속해요.",
+      "voiceLines": {
+        "neutral": ["경로는 이미 봤어.", "그냥 미끄러져 가는 중."],
+        "playerAhead": ["경로는 달라지지 않아.", "어느 쪽이든 출구는 같아."],
+        "playerBehind": ["사실 이미 비었어.", "여기서부터는 관성으로."],
+        "endgame": ["…거의 나왔어.", "출구로 굴러가는 중."]
+      }
+    },
+    "ember": {
+      "name": "엠버",
+      "emojiName": "여우",
+      "personality": "격렬하고 승부욕이 강해요. 빠르게 시작해 끊임없이 압박해요. 막판의 질주는 공격적으로 느껴져요.",
+      "voiceLines": {
+        "neutral": ["따라와.", "아직도 정체에 갇혀 있어?"],
+        "playerAhead": ["지금 멈추지 마.", "그것보다 빨리 밀 수 있잖아."],
+        "playerBehind": ["너무 느려.", "갇혔네."],
+        "endgame": ["차선을 비워.", "이 출구는 내 거야."]
+      }
+    },
+    "latch": {
+      "name": "래치",
+      "emojiName": "상어",
+      "personality": "참을성 있고 포식자 같아요. 바짝 붙어 있다가 막판에 거세게 조여 와요.",
+      "voiceLines": {
+        "neutral": ["바로 뒤에 있어.", "아직이야."],
+        "playerAhead": ["네 차선에 있어.", "이제 가까워졌어."],
+        "playerBehind": ["거리를 좁히는 중.", "저기 틈이 있군."],
+        "endgame": ["이제 빠져나가자.", "출구를 잡았다."]
+      }
+    },
+    "sage": {
+      "name": "세이지",
+      "emojiName": "올빼미",
+      "personality": "침착하고 신중해요. 매끄러운 페이스를 유지해요. 막판은 깔끔하고 필연적이에요.",
+      "voiceLines": {
+        "neutral": ["예상대로네요.", "모든 블록이 제자리에 있어요."],
+        "playerAhead": ["좋아요.", "경로가 보이시는군요."],
+        "playerBehind": ["차선을 따라가요.", "계속 집중해요."],
+        "endgame": ["거의 다 빠져나왔어요.", "출구가 보이네요."]
+      }
+    },
+    "phantom": {
+      "name": "팬텀",
+      "emojiName": "검은 고양이",
+      "personality": "말이 없고 사람 같지 않아요. 멈춤이 거의 없어요. 막판은 출구까지 끊김 없이 빠르게 미끄러져요.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…여전히."],
+        "playerBehind": ["너무 늦었어.", "망설였군."],
+        "endgame": ["…탈출.", "출구."]
+      }
+    },
+    "zenith": {
+      "name": "제니스",
+      "emojiName": "용",
+      "personality": "힘들이지 않고 절대적이에요. 처음부터 끝까지 완벽하게 통제해요. 막판에는 틈도 저항도 없이 결정적이고 거침없이 출구까지 휩쓸어요.",
+      "voiceLines": {
+        "neutral": ["예상대로.", "일탈은 없다."],
+        "playerAhead": ["시도한 건 현명했어.", "계속해."],
+        "playerBehind": ["이것으로 끝이다.", "다른 길은 없다."],
+        "endgame": ["이상이다.", "클리어."]
+      }
+    }
+  }
+}

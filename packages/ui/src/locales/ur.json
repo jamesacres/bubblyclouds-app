@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "زبان",
+    "automatic": "خودکار"
+  },
+  "header": {
+    "offline": "آف لائن",
+    "back": "واپس"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "تاریک موڈ بدلیں"
+  },
+  "starRating": {
+    "label_one": "{{count}} میں سے {{filled}} ستارہ",
+    "label_other": "{{count}} میں سے {{filled}} ستارے"
+  },
+  "timer": {
+    "go": "شروع!"
+  },
+  "themeColor": {
+    "change": "تھیم کا رنگ بدلیں",
+    "set": "تھیم کا رنگ {{color}} کریں",
+    "setPremium": "تھیم کا رنگ {{color}} کریں (پریمیم)",
+    "colors": {
+      "blue": "نیلا",
+      "red": "سرخ",
+      "green": "سبز",
+      "purple": "ارغوانی",
+      "amber": "عنبری",
+      "cyan": "فیروزی",
+      "pink": "گلابی",
+      "indigo": "نیلی",
+      "orange": "نارنجی",
+      "teal": "ٹیل",
+      "slate": "سلیٹی",
+      "rose": "گلاب",
+      "emerald": "زمردی",
+      "sky": "آسمانی",
+      "violet": "بنفشی",
+      "lime": "لائم",
+      "fuchsia": "فیوشیا",
+      "yellow": "پیلا",
+      "stone": "پتھری",
+      "zinc": "جستی"
+    }
+  },
+  "copyButton": {
+    "copied": "کلپ بورڈ پر کاپی ہو گیا!",
+    "share": "دعوتی لنک شیئر کریں",
+    "copy": "دعوتی لنک کاپی کریں"
+  },
+  "share": {
+    "joinTeam": "{{appName}} پر ریسنگ ٹیم میں شامل ہوں!",
+    "joinNamedTeam": "{{appName}} پر {{partyName}} ریسنگ ٹیم میں شامل ہوں!",
+    "dialogTitle": "دعوت شیئر کریں"
+  }
+}

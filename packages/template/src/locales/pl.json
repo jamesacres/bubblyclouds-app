@@ -1,0 +1,256 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone i iPad"
+  },
+  "errors": {
+    "generic": "Wystąpił nieoczekiwany błąd. Proszę spróbować ponownie.",
+    "dismiss": "Zamknij"
+  },
+  "errorBoundary": {
+    "title": "Ups! Coś poszło nie tak",
+    "description": "Wystąpił nieoczekiwany błąd. Bez obaw – postępy są zapisane!",
+    "reload": "Załaduj aplikację ponownie",
+    "clearStorage": "Wyczyść dane i załaduj ponownie",
+    "contactSupport": "Jeśli problem się powtarza, proszę skontaktować się z pomocą techniczną."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} min temu",
+    "minutesAgo_few": "{{count}} min temu",
+    "minutesAgo_many": "{{count}} min temu",
+    "minutesAgo_other": "{{count}} min temu",
+    "hoursAgo_one": "{{count}} godz. temu",
+    "hoursAgo_few": "{{count}} godz. temu",
+    "hoursAgo_many": "{{count}} godz. temu",
+    "hoursAgo_other": "{{count}} godz. temu",
+    "daysAgo_one": "{{count}} dzień temu",
+    "daysAgo_few": "{{count}} dni temu",
+    "daysAgo_many": "{{count}} dni temu",
+    "daysAgo_other": "{{count}} dnia temu"
+  },
+  "tier": {
+    "novice": "Nowicjusz",
+    "advancedBeginner": "Początkujący",
+    "competent": "Sprawny",
+    "proficient": "Biegły",
+    "expert": "Ekspert"
+  },
+  "moves": {
+    "onPar": "ruchów, w normie",
+    "overPar": "ruchów, {{delta}} ponad normę",
+    "underPar": "ruchów, {{delta}} poniżej normy"
+  },
+  "lobby": {
+    "title": "Poczekalnia wyścigu",
+    "close": "Zamknij poczekalnię",
+    "onlineOpponents": "Przeciwnicy online",
+    "refresh": "Odśwież listę przeciwników online",
+    "noOpponents": "Brak przeciwników online — zaproś znajomych do wyścigu!",
+    "away": "Nieobecny",
+    "offlineTeams": "Offline · członkowie zespołów",
+    "removeMember": "Usuń: {{name}}",
+    "aiOpponents": "Przeciwnicy AI",
+    "addAgent": "Dodaj",
+    "noAgents": "Brak przeciwników AI — można dodać jednego, by zawsze mieć z kim się ścigać.",
+    "ownClock": "Każdy gracz ściga się na własnym zegarze",
+    "startSolving": "Zacznij rozwiązywać",
+    "finished": "Ukończono",
+    "inLobby": "W poczekalni",
+    "stageProgress": "Etap {{current}} z {{total}}",
+    "finishedRunIn": "Ukończono serię w {{time}}",
+    "solvedIn": "Rozwiązano w {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · ostatnio widziano {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Wyścig solo — tylko zegar i łamigłówka",
+      "friends_one": "{{count}} znajomy",
+      "friends_few": "{{count}} znajomych",
+      "friends_many": "{{count}} znajomych",
+      "friends_other": "{{count}} znajomego",
+      "aiOpponents_one": "{{count}} przeciwnik AI",
+      "aiOpponents_few": "{{count}} przeciwników AI",
+      "aiOpponents_many": "{{count}} przeciwników AI",
+      "aiOpponents_other": "{{count}} przeciwnika AI",
+      "racing": "Wyścig z: {{opponents}}"
+    },
+    "invite": {
+      "button": "Zaproś",
+      "eyebrow": "Przygotuj wyścig",
+      "title": "Zaproś przeciwników",
+      "close": "Zamknij",
+      "existingTeam": "Zaproś do istniejącego zespołu",
+      "editTeamName": "Zmień nazwę zespołu",
+      "deleteTeam": "Usuń zespół",
+      "leaveTeam": "Opuść zespół",
+      "memberCount_one": "{{count}} członek",
+      "memberCount_few": "{{count}} członków",
+      "memberCount_many": "{{count}} członków",
+      "memberCount_other": "{{count}} członka",
+      "createTeam": "Utwórz nowy zespół wyścigowy",
+      "displayNameLabel": "Nazwa widoczna dla członków zespołu",
+      "displayNamePlaceholder": "Nazwa wyświetlana",
+      "teamNameLabel": "Jak nazwać ten zespół?",
+      "teamNamePlaceholder": "Nazwa zespołu (np. Rodzina)",
+      "createAndCopy": "Utwórz i skopiuj link",
+      "defaultTeamName": "Nowy zespół",
+      "defaultPlayerName": "Gracz"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Zamknij panel",
+    "back": "Wstecz",
+    "close": "Zamknij",
+    "title": "Wybór rywali",
+    "subtitle": "Wybierz jednego lub więcej przeciwników",
+    "selectAtLeastOne": "Wybierz co najmniej jednego rywala",
+    "race_one": "Wyścig z {{count}} rywalem",
+    "race_few": "Wyścig z {{count}} rywalami",
+    "race_many": "Wyścig z {{count}} rywalami",
+    "race_other": "Wyścig z {{count}} rywalem",
+    "skill": {
+      "novice": "Nowicjusz",
+      "advancedBeginner": "Początkujący",
+      "competent": "Sprawny",
+      "proficient": "Biegły",
+      "expert": "Ekspert"
+    }
+  },
+  "agentParty": {
+    "title": "Rywale AI",
+    "rivalCount_one": "{{count}} rywal",
+    "rivalCount_few": "{{count}} rywali",
+    "rivalCount_many": "{{count}} rywali",
+    "rivalCount_other": "{{count}} rywala"
+  },
+  "party": {
+    "cancel": "Anuluj",
+    "editName": "Zmień nazwę zespołu",
+    "editMaxMembers": "Zmień maksymalną liczbę członków",
+    "memberCount_one": "{{count}} członek",
+    "memberCount_few": "{{count}} członków",
+    "memberCount_many": "{{count}} członków",
+    "memberCount_other": "{{count}} członka",
+    "memberCountPremium_one": "{{count}} członek ✨ Premium",
+    "memberCountPremium_few": "{{count}} członków ✨ Premium",
+    "memberCountPremium_many": "{{count}} członków ✨ Premium",
+    "memberCountPremium_other": "{{count}} członka ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} członka",
+    "membersOf_few": "{{current}}/{{count}} członków",
+    "membersOf_many": "{{current}}/{{count}} członków",
+    "membersOf_other": "{{current}}/{{count}} członka",
+    "shareLink": "Ten link warto udostępnić obecnym członkom zespołu, aby mogli dołączyć do tej łamigłówki",
+    "you": "(Ja)",
+    "notStarted": "Jeszcze nie zaczęto! Warto zachęcić do gry"
+  },
+  "partyConfirmation": {
+    "cancel": "Anuluj",
+    "leaveAgentParty": {
+      "title": "Usuń rywali AI",
+      "action": "Usuń",
+      "processing": "Usuwanie...",
+      "message": "Czy na pewno usunąć wszystkich rywali AI? Nie będą już widoczni w wyścigu."
+    },
+    "removeAgent": {
+      "title": "Usuń lokalnego przeciwnika",
+      "action": "Usuń",
+      "processing": "Usuwanie...",
+      "message": "Czy na pewno usunąć „{{memberName}}” z wyścigu?"
+    },
+    "deleteParty": {
+      "title": "Usuń zespół",
+      "action": "Usuń zespół",
+      "processing": "Usuwanie...",
+      "message": "Czy na pewno usunąć zespół „{{partyName}}”? Zespół zostanie trwale usunięty, a wszyscy członkowie utracą dostęp. Tej operacji nie można cofnąć."
+    },
+    "leave": {
+      "title": "Opuść zespół",
+      "action": "Opuść",
+      "processing": "Opuszczanie...",
+      "message": "Czy na pewno opuścić zespół „{{partyName}}”? Postępy innych członków nie będą już widoczne, a udział w tym zespole nie będzie możliwy."
+    },
+    "remove": {
+      "title": "Usuń członka",
+      "action": "Usuń",
+      "processing": "Usuwanie...",
+      "message": "Czy na pewno usunąć „{{memberName}}” z zespołu „{{partyName}}”? Udział w tym zespole nie będzie już możliwy."
+    }
+  },
+  "friends": {
+    "allTeams": "Wszystkie zespoły",
+    "refresh": "Odśwież",
+    "refreshing": "Odświeżanie…",
+    "title": "Łamigłówki znajomych",
+    "subtitle": "Wystarczy dotknąć znajomego, aby zobaczyć jego ostatnie łamigłówki i zmierzyć się z nim.",
+    "memberCount_one": "{{count}} członek",
+    "memberCount_few": "{{count}} członków",
+    "memberCount_many": "{{count}} członków",
+    "memberCount_other": "{{count}} członka",
+    "noRecentPuzzles": "Brak ostatnich łamigłówek — czas rzucić wyzwanie!",
+    "empty": {
+      "title": "Brak zespołów wyścigowych",
+      "description": "Znajomych można zaprosić z poczekalni wyścigu podczas rozwiązywania łamigłówki"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Łamigłówki z ostatnich 30 dni.",
+    "empty": {
+      "title": "Brak łamigłówek",
+      "description": "Pierwszą łamigłówkę można rozwiązać po wybraniu opcji „Zacznij wyścig”"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} funkcja więcej",
+    "moreFeatures_few": "+{{count}} funkcje więcej",
+    "moreFeatures_many": "+{{count}} funkcji więcej",
+    "moreFeatures_other": "+{{count}} funkcji więcej"
+  },
+  "crossPromo": {
+    "whyNotTry": "Warto wypróbować",
+    "tryItFree": "Wypróbuj bezpłatnie"
+  },
+  "rateApp": {
+    "prompt": "Czy aplikacja {{appName}} przypadła do gustu?",
+    "rateIt": "Oceń",
+    "rateInSeconds": "Oceń w kilka sekund"
+  },
+  "plus": {
+    "close": "Zamknij okno",
+    "appIconAlt": "Ikona aplikacji",
+    "lifetime": "Na zawsze",
+    "monthly": "Miesięcznie",
+    "perMonth": "{{price}}/mies.",
+    "whatsIncluded": "Co zawiera",
+    "continue": "Kontynuuj",
+    "restorePurchases": "Przywróć zakupy",
+    "cancel": "Anuluj"
+  },
+  "download": {
+    "title": "Kontynuuj w aplikacji",
+    "appStoreAlt": "Pobierz z {{appStore}}",
+    "googlePlayAlt": "Pobierz z {{googlePlay}}",
+    "continueBrowser": "Kontynuuj w przeglądarce",
+    "continueDesktop": "Kontynuuj na komputerze"
+  },
+  "session": {
+    "cheated": "Oszustwo",
+    "completedIn": "Ukończono w {{minutes}} min {{seconds}} s",
+    "percentComplete": "Ukończono: {{percentage}}%",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "Łamigłówka nr {{number}}",
+    "daily": "Codzienna: {{date}}",
+    "book": "Zbiór {{month}} nr {{number}}",
+    "collection": "Zbiór {{month}} nr {{number}}",
+    "scanned": "Zeskanowana łamigłówka",
+    "you": "Ja",
+    "unknown": "Nieznany",
+    "unlockWith": "Odblokuj za pomocą: {{label}}",
+    "lockedPuzzle": "Zablokowana łamigłówka",
+    "recommendedTechniques": "Zalecane techniki:",
+    "loadingFriends": "Ładowanie znajomych..."
+  }
+}

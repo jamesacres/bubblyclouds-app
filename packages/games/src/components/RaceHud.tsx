@@ -2,6 +2,7 @@
 
 import { memo } from 'react';
 import { Users } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { DifficultyDisplay } from '../types/difficultyDisplay';
 
 interface RaceHudProps {
@@ -32,10 +33,11 @@ const RaceHud = memo(function RaceHud({
   completedStageIndexes,
   difficulty,
 }: RaceHudProps) {
+  const { t } = useTranslation('games');
   return (
     <div
       data-testid="race-hud"
-      className="flex w-full items-center gap-3 px-3 pb-1 pt-2"
+      className="flex w-full flex-wrap items-center gap-x-3 gap-y-1 px-3 pb-1 pt-2"
     >
       <button
         type="button"
@@ -43,13 +45,17 @@ const RaceHud = memo(function RaceHud({
         className="text-theme-primary dark:text-theme-primary-light flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border border-stone-200/70 bg-white/60 px-2.5 py-1.5 text-xs font-semibold backdrop-blur transition-all duration-200 hover:bg-white active:scale-95 dark:border-white/10 dark:bg-zinc-900/60 dark:hover:bg-zinc-800"
       >
         <Users className="h-4 w-4" aria-hidden="true" />
-        Opponents
+        {t('raceHud.opponents')}
       </button>
 
       {stageCount > 1 && (
         <span
           data-testid="stage-chip"
-          aria-label={`Stage ${currentStageIndex + 1} of ${stageCount}`}
+          aria-label={t('raceHud.stageOf', {
+            current: currentStageIndex + 1,
+            total: stageCount,
+          })}
+          dir="ltr"
           className="flex items-center gap-1"
         >
           <span className="flex items-center gap-1" aria-hidden="true">
@@ -81,7 +87,7 @@ const RaceHud = memo(function RaceHud({
       )}
 
       <span
-        className={`ml-auto shrink-0 rounded-full px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
+        className={`ms-auto shrink-0 rounded-full px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide ${difficulty.chipClass}`}
       >
         {difficulty.label}
       </span>

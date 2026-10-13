@@ -1,0 +1,234 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "કોઈ અણધારી ભૂલ થઈ. કૃપા કરીને ફરી પ્રયાસ કરો.",
+    "dismiss": "બંધ કરો"
+  },
+  "errorBoundary": {
+    "title": "અરેરે! કંઈક ખોટું થયું",
+    "description": "અમને એક અણધારી ભૂલ મળી. ચિંતા ન કરો, તમારી પ્રગતિ સચવાયેલી છે!",
+    "reload": "એપ ફરી લોડ કરો",
+    "clearStorage": "સ્ટોરેજ સાફ કરો અને ફરી લોડ કરો",
+    "contactSupport": "જો આ સમસ્યા ચાલુ રહે, તો કૃપા કરીને સપોર્ટનો સંપર્ક કરો."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} મિ. પહેલાં",
+    "minutesAgo_other": "{{count}} મિ. પહેલાં",
+    "hoursAgo_one": "{{count}} કલાક પહેલાં",
+    "hoursAgo_other": "{{count}} કલાક પહેલાં",
+    "daysAgo_one": "{{count}} દિવસ પહેલાં",
+    "daysAgo_other": "{{count}} દિવસ પહેલાં"
+  },
+  "tier": {
+    "novice": "નવશિખિયો",
+    "advancedBeginner": "શિખાઉ",
+    "competent": "સક્ષમ",
+    "proficient": "કુશળ",
+    "expert": "નિષ્ણાત"
+  },
+  "moves": {
+    "onPar": "ચાલ, લક્ષ્ય પ્રમાણે",
+    "overPar": "ચાલ, લક્ષ્યથી {{delta}} વધુ",
+    "underPar": "ચાલ, લક્ષ્યથી {{delta}} ઓછી"
+  },
+  "lobby": {
+    "title": "રેસ લૉબી",
+    "close": "લૉબી બંધ કરો",
+    "onlineOpponents": "ઑનલાઇન પ્રતિસ્પર્ધીઓ",
+    "refresh": "ઑનલાઇન પ્રતિસ્પર્ધીઓ રિફ્રેશ કરો",
+    "noOpponents": "કોઈ પ્રતિસ્પર્ધી ઑનલાઇન નથી — રેસ માટે મિત્રોને આમંત્રિત કરો!",
+    "away": "દૂર",
+    "offlineTeams": "ઑફલાઇન · તમારી ટીમોમાં",
+    "removeMember": "{{name}} ને દૂર કરો",
+    "aiOpponents": "AI પ્રતિસ્પર્ધીઓ",
+    "addAgent": "ઉમેરો",
+    "noAgents": "હજી કોઈ AI પ્રતિસ્પર્ધી નથી — રેસ માટે હંમેશાં કોઈ મળી રહે તે માટે એક ઉમેરો.",
+    "ownClock": "દરેક ખેલાડી પોતાની ઘડિયાળ પર રેસ કરે છે",
+    "startSolving": "ઉકેલવાનું શરૂ કરો",
+    "finished": "પૂર્ણ",
+    "inLobby": "લૉબીમાં",
+    "stageProgress": "{{total}} માંથી તબક્કો {{current}}",
+    "finishedRunIn": "{{time}} માં રન પૂર્ણ કર્યો",
+    "solvedIn": "{{time}} માં ઉકેલાયું",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · છેલ્લે જોવાયા: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "એકલ રેસ — ફક્ત તમે અને ઘડિયાળ",
+      "friends_one": "{{count}} મિત્ર",
+      "friends_other": "{{count}} મિત્રો",
+      "aiOpponents_one": "{{count}} AI પ્રતિસ્પર્ધી",
+      "aiOpponents_other": "{{count}} AI પ્રતિસ્પર્ધીઓ",
+      "racing": "{{opponents}} સામે રેસ"
+    },
+    "invite": {
+      "button": "આમંત્રિત કરો",
+      "eyebrow": "તમારી રેસ બનાવો",
+      "title": "પ્રતિસ્પર્ધીઓને આમંત્રિત કરો",
+      "close": "બંધ કરો",
+      "existingTeam": "હાલની ટીમમાં આમંત્રિત કરો",
+      "editTeamName": "ટીમનું નામ બદલો",
+      "deleteTeam": "ટીમ કાઢી નાખો",
+      "leaveTeam": "ટીમ છોડો",
+      "memberCount_one": "{{count}} સભ્ય",
+      "memberCount_other": "{{count}} સભ્યો",
+      "createTeam": "નવી રેસિંગ ટીમ બનાવો",
+      "displayNameLabel": "ટીમના સભ્યો તમને કયા નામથી બોલાવે છે?",
+      "displayNamePlaceholder": "પ્રદર્શિત નામ",
+      "teamNameLabel": "આ ટીમનું નામ શું રાખીએ?",
+      "teamNamePlaceholder": "ટીમનું નામ (દા.ત. પરિવાર)",
+      "createAndCopy": "બનાવો અને લિંક કૉપિ કરો",
+      "defaultTeamName": "નવી ટીમ",
+      "defaultPlayerName": "ખેલાડી"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "શીટ બંધ કરો",
+    "back": "પાછળ",
+    "close": "બંધ કરો",
+    "title": "તમારા હરીફો પસંદ કરો",
+    "subtitle": "એક કે વધુ પ્રતિસ્પર્ધીઓ પસંદ કરો",
+    "selectAtLeastOne": "ઓછામાં ઓછો એક હરીફ પસંદ કરો",
+    "race_one": "{{count}} હરીફ સામે રેસ",
+    "race_other": "{{count}} હરીફો સામે રેસ",
+    "skill": {
+      "novice": "નવશિખિયો",
+      "advancedBeginner": "અનુભવી શિખાઉ",
+      "competent": "સક્ષમ",
+      "proficient": "કુશળ",
+      "expert": "નિષ્ણાત"
+    }
+  },
+  "agentParty": {
+    "title": "AI હરીફો",
+    "rivalCount_one": "{{count}} હરીફ",
+    "rivalCount_other": "{{count}} હરીફો"
+  },
+  "party": {
+    "cancel": "રદ કરો",
+    "editName": "ટીમનું નામ બદલો",
+    "editMaxMembers": "મહત્તમ સભ્યો બદલો",
+    "memberCount_one": "{{count}} સભ્ય",
+    "memberCount_other": "{{count}} સભ્યો",
+    "memberCountPremium_one": "{{count}} સભ્ય ✨ પ્રીમિયમ",
+    "memberCountPremium_other": "{{count}} સભ્યો ✨ પ્રીમિયમ",
+    "membersOf_one": "{{current}}/{{count}} સભ્ય",
+    "membersOf_other": "{{current}}/{{count}} સભ્યો",
+    "shareLink": "આ કોયડામાં જોડાવા માટે ટીમના હાલના સભ્યો સાથે આ લિંક શેર કરો",
+    "you": "(તમે)",
+    "notStarted": "શરૂ કર્યું નથી! તેમને રમવા કહો"
+  },
+  "partyConfirmation": {
+    "cancel": "રદ કરો",
+    "leaveAgentParty": {
+      "title": "AI હરીફોને દૂર કરો",
+      "action": "દૂર કરો",
+      "processing": "દૂર કરી રહ્યા છીએ…",
+      "message": "શું તમે બધા AI હરીફોને દૂર કરવા માંગો છો? તેઓ હવે રેસમાં દેખાશે નહીં."
+    },
+    "removeAgent": {
+      "title": "સ્થાનિક હરીફને દૂર કરો",
+      "action": "દૂર કરો",
+      "processing": "દૂર કરી રહ્યા છીએ…",
+      "message": "શું તમે રેસમાંથી \"{{memberName}}\" ને દૂર કરવા માંગો છો?"
+    },
+    "deleteParty": {
+      "title": "ટીમ કાઢી નાખો",
+      "action": "ટીમ કાઢી નાખો",
+      "processing": "કાઢી નાખી રહ્યા છીએ…",
+      "message": "શું તમે \"{{partyName}}\" ને કાઢી નાખવા માંગો છો? આનાથી ટીમ કાયમ માટે દૂર થશે અને બધા સભ્યો એક્સેસ ગુમાવશે. આ ક્રિયા પૂર્વવત્ કરી શકાશે નહીં."
+    },
+    "leave": {
+      "title": "ટીમ છોડો",
+      "action": "છોડો",
+      "processing": "છોડી રહ્યા છીએ…",
+      "message": "શું તમે \"{{partyName}}\" છોડવા માંગો છો? તમે હવે અન્ય સભ્યોની પ્રગતિ જોઈ શકશો નહીં કે આ ટીમમાં ભાગ લઈ શકશો નહીં."
+    },
+    "remove": {
+      "title": "સભ્યને દૂર કરો",
+      "action": "દૂર કરો",
+      "processing": "દૂર કરી રહ્યા છીએ…",
+      "message": "શું તમે \"{{partyName}}\" માંથી \"{{memberName}}\" ને દૂર કરવા માંગો છો? તેઓ હવે આ ટીમમાં ભાગ લઈ શકશે નહીં."
+    }
+  },
+  "friends": {
+    "allTeams": "બધી ટીમો",
+    "refresh": "રિફ્રેશ કરો",
+    "refreshing": "રિફ્રેશ થઈ રહ્યું છે…",
+    "title": "મિત્રોના કોયડા",
+    "subtitle": "મિત્રના તાજેતરના કોયડા જોવા અને તેમની સામે રેસ કરવા તેમના પર ટૅપ કરો.",
+    "memberCount_one": "{{count}} સભ્ય",
+    "memberCount_other": "{{count}} સભ્યો",
+    "noRecentPuzzles": "તાજેતરના કોઈ કોયડા નથી — તેમને પડકાર આપો!",
+    "empty": {
+      "title": "હજી કોઈ રેસિંગ ટીમ નથી",
+      "description": "કોયડો ઉકેલતી વખતે રેસ લૉબીમાંથી મિત્રોને આમંત્રિત કરો"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "છેલ્લા 30 દિવસના તમારા કોયડા.",
+    "empty": {
+      "title": "હજી કોઈ કોયડા નથી",
+      "description": "તમારો પહેલો કોયડો ઉકેલવા માટે રેસ શરૂ કરો પર જાઓ"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} વધુ સુવિધા",
+    "moreFeatures_other": "+{{count}} વધુ સુવિધાઓ"
+  },
+  "crossPromo": {
+    "whyNotTry": "અજમાવી જુઓ",
+    "tryItFree": "મફત અજમાવો"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} ગમે છે?",
+    "rateIt": "રેટ કરો",
+    "rateInSeconds": "સેકન્ડોમાં રેટ કરો"
+  },
+  "plus": {
+    "close": "મોડલ બંધ કરો",
+    "appIconAlt": "એપ આઇકન",
+    "lifetime": "આજીવન",
+    "monthly": "માસિક",
+    "perMonth": "{{price}}/મહિને",
+    "whatsIncluded": "શામેલ શું છે",
+    "continue": "ચાલુ રાખો",
+    "restorePurchases": "ખરીદી પુનઃસ્થાપિત કરો",
+    "cancel": "રદ કરો"
+  },
+  "download": {
+    "title": "એપમાં ચાલુ રાખો",
+    "appStoreAlt": "{{appStore}} પર ડાઉનલોડ કરો",
+    "googlePlayAlt": "{{googlePlay}} પર મેળવો",
+    "continueBrowser": "બ્રાઉઝરમાં ચાલુ રાખો",
+    "continueDesktop": "ડેસ્કટૉપ પર ચાલુ રાખો"
+  },
+  "session": {
+    "cheated": "છેતરપિંડી",
+    "completedIn": "{{minutes}} મિ {{seconds}} સે માં પૂર્ણ",
+    "percentComplete": "{{percentage}}% પૂર્ણ",
+    "duration": "{{minutes}} મિ {{seconds}} સે",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}લી",
+    "dayOrdinal_ordinal_two": "{{count}}જી",
+    "dayOrdinal_ordinal_few": "{{count}}થી",
+    "dayOrdinal_ordinal_many": "{{count}}ઠ્ઠી",
+    "dayOrdinal_ordinal_other": "{{count}}મી",
+    "puzzleNumber": "કોયડો #{{number}}",
+    "daily": "દૈનિક {{date}}",
+    "book": "પુસ્તક {{month}} #{{number}}",
+    "collection": "સંગ્રહ {{month}} #{{number}}",
+    "scanned": "સ્કૅન કરેલો કોયડો",
+    "you": "તમે",
+    "unknown": "અજ્ઞાત",
+    "unlockWith": "{{label}} સાથે અનલૉક કરો",
+    "lockedPuzzle": "લૉક કરેલો કોયડો",
+    "recommendedTechniques": "ભલામણ કરેલ તકનીકો:",
+    "loadingFriends": "મિત્રો લોડ થઈ રહ્યા છે..."
+  }
+}

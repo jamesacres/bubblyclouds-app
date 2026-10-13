@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Entre para continuar",
+    "signInWith": "Entrar com {{provider}}",
+    "emailTitle": "Entrar com e-mail",
+    "emailPlaceholder": "seu@email.com",
+    "continue": "Continuar",
+    "cancel": "Cancelar",
+    "terms": "Termos de Serviço",
+    "privacy": "Política de Privacidade"
+  },
+  "header": {
+    "signIn": "Entrar"
+  },
+  "avatar": {
+    "alt": "usuário"
+  },
+  "panel": {
+    "title": "Conta",
+    "greeting": "Olá, {{name}}!",
+    "fallbackName": "Usuário",
+    "plusActive": "{{gameName}} {{plus}} ativo",
+    "joinGamePlus": "Assinar {{gameName}} {{plus}}",
+    "joinPlus": "Assinar {{plus}}",
+    "signOut": "Sair",
+    "privacy": "Política de privacidade",
+    "terms": "Termos de Serviço",
+    "credits": "Créditos",
+    "deleteAccount": "Excluir conta",
+    "poweredBy": "Desenvolvido por {{companyName}}",
+    "deleteUnavailable": "A exclusão de conta não está disponível.",
+    "deleteFailed": "Não foi possível excluir a conta. Tente novamente mais tarde."
+  },
+  "deleteDialog": {
+    "title": "Excluir conta",
+    "warning": "Esta ação não pode ser desfeita. Todos os seus dados em todos os aplicativos da {{companyName}} serão excluídos permanentemente.",
+    "confirmation": "Confirmo que quero excluir toda a minha conta, incluindo todos os dados em todos os aplicativos da {{companyName}}.",
+    "cancel": "Cancelar",
+    "deleting": "Excluindo...",
+    "submit": "Excluir conta"
+  }
+}

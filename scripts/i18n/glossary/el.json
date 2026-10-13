@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Αγώνας Sudoku",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "αγώνας",
+      "team": "ομάδα",
+      "leaderboard": "πίνακας κατάταξης",
+      "hint": "υπόδειξη",
+      "undo": "αναίρεση",
+      "theme": "θέμα",
+      "dailyPuzzle": "καθημερινό παζλ",
+      "monthlyCollection": "μηνιαίο βιβλίο παζλ",
+      "aiOpponent": "αντίπαλος ΤΝ",
+      "monthly": "μηνιαία",
+      "lifetime": "εφ' όρου ζωής",
+      "plusAccess": "Πρόσβαση Plus",
+      "plusFeatureLine": "Απεριόριστοι αγώνες, ομάδες, θέματα, αναίρεση"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Ξεμπλόκαρε Αγώνα",
+      "gameName": "Ξεμπλόκαρε Αγώνα",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "αγώνας",
+      "team": "ομάδα",
+      "leaderboard": "πίνακας κατάταξης",
+      "hint": "υπόδειξη",
+      "undo": "αναίρεση",
+      "theme": "θέμα",
+      "dailyPuzzle": "καθημερινό παζλ",
+      "monthlyCollection": "μηνιαία συλλογή παζλ",
+      "aiOpponent": "αντίπαλος ΤΝ",
+      "monthly": "μηνιαία",
+      "lifetime": "εφ' όρου ζωής",
+      "plusAccess": "Πρόσβαση Plus",
+      "plusFeatureLine": "Απεριόριστοι αγώνες, ομάδες, θέματα, αναίρεση"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Segueix cada cursa",
+    "subtitle": "Consulta el teu historial, els percentatges de completat i com et comparen els amics"
+  },
+  "01": {
+    "title": "Competeix i aprèn alhora",
+    "subtitle": "Orientació quan t'encalles,\nexplicació completa de la tècnica"
+  },
+  "02": {
+    "title": "Llibre de sudokus",
+    "subtitle": "Cada mes arriba un llibre seleccionat de reptes centrats en tècniques"
+  },
+  "03": {
+    "title": "Importa qualsevol puzle i comparteix",
+    "subtitle": "Escaneja un sudoku d'un llibre i repta els teus amics"
+  },
+  "04": {
+    "title": "El sudoku s'ha tornat competitiu",
+    "subtitle": "Repta amics i família a una cursa en directe: mira qui el resol més ràpid"
+  },
+  "05": {
+    "title": "Competeix amb altres, IA o sol",
+    "subtitle": "Comparteix un enllaç amb amics i família,\nafegeix rivals d'IA o juga contra el rellotge"
+  },
+  "06": {
+    "title": "Puja a la classificació",
+    "subtitle": "Cada cursa dona punts — mira qui domina els últims 30 dies"
+  },
+  "07": {
+    "title": "Coneix els teus rivals",
+    "subtitle": "Tria entre rivals d'IA únics, cadascun amb la seva personalitat i estil de joc"
+  },
+  "08": {
+    "title": "Els teus equips privats",
+    "subtitle": "Convida família i amics, competiu junts i creeu la vostra classificació"
+  },
+  "09": {
+    "title": "Un enllaç. Tothom dins.",
+    "subtitle": "Comparteix un enllaç d'invitació i els teus amics s'hi apunten en segons"
+  }
+}

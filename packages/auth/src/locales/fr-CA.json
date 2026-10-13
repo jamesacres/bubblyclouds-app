@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Connectez-vous pour continuer",
+    "signInWith": "Se connecter avec {{provider}}",
+    "emailTitle": "Se connecter par courriel",
+    "emailPlaceholder": "votre@courriel.com",
+    "continue": "Continuer",
+    "cancel": "Annuler",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité"
+  },
+  "header": {
+    "signIn": "Connexion"
+  },
+  "avatar": {
+    "alt": "utilisateur"
+  },
+  "panel": {
+    "title": "Compte",
+    "greeting": "Bonjour {{name}}!",
+    "fallbackName": "Utilisateur",
+    "plusActive": "{{gameName}} {{plus}} actif",
+    "joinGamePlus": "Rejoindre {{gameName}} {{plus}}",
+    "joinPlus": "Rejoindre {{plus}}",
+    "signOut": "Se déconnecter",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "credits": "Crédits",
+    "deleteAccount": "Supprimer le compte",
+    "poweredBy": "Propulsé par {{companyName}}",
+    "deleteUnavailable": "La suppression du compte n'est pas disponible.",
+    "deleteFailed": "Échec de la suppression du compte. Veuillez réessayer plus tard."
+  },
+  "deleteDialog": {
+    "title": "Supprimer le compte",
+    "warning": "Cette action est irréversible. Toutes vos données dans toutes les applications {{companyName}} seront définitivement supprimées.",
+    "confirmation": "Je confirme vouloir supprimer l'intégralité de mon compte, y compris toutes les données de toutes les applications {{companyName}}.",
+    "cancel": "Annuler",
+    "deleting": "Suppression...",
+    "submit": "Supprimer le compte"
+  }
+}

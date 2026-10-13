@@ -1,0 +1,348 @@
+{
+  "brand": {
+    "gameName": "Cursă Sudoku"
+  },
+  "board": {
+    "buttonGroup": "Grup de butoane"
+  },
+  "celebration": {
+    "solved": "Rezolvat!",
+    "leaderboardPoints": "Puncte în clasament",
+    "pointsSuffix": " pct"
+  },
+  "completion": {
+    "time": "Timp"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Mențineți seria în carte"
+  },
+  "puzzleMeta": {
+    "daily": "Zilnic {{day}} {{month}}",
+    "dayOrdinal": "{{count}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "book": "Carte {{month}} nr. {{number}}",
+    "scanned": "Puzzle scanat"
+  },
+  "bookCover": {
+    "edition": "Ediția {{month}}",
+    "puzzleCount": "50 de puzzle-uri • Mai multe niveluri de dificultate",
+    "months": {
+      "january": {
+        "tagline": "De la tehnici de bază la cele extrem de dificile",
+        "footer": "❄️ Ediția provocării de iarnă ❄️"
+      },
+      "february": {
+        "tagline": "De la single-uri ascunse la lanțuri AIC",
+        "footer": "💕 Iubiți provocarea 💕"
+      },
+      "march": {
+        "tagline": "Primăvara aduce tehnici avansate",
+        "footer": "🌸 Provocări proaspete înfloresc 🌸"
+      },
+      "april": {
+        "tagline": "Înfruntați orice furtună de rezolvare",
+        "footer": "🌈 După ploaie vine victoria 🌈"
+      },
+      "may": {
+        "tagline": "Înfloriți cu forța minții",
+        "footer": "🌻 Să vă înflorească abilitățile 🌻"
+      },
+      "june": {
+        "tagline": "Antrenament mental de vară",
+        "footer": "☀️ Partea însorită a rezolvării ☀️"
+      },
+      "july": {
+        "tagline": "Lectură de plajă, antrenament pentru minte",
+        "footer": "🏖️ Jocuri mintale de vacanță 🏖️"
+      },
+      "august": {
+        "tagline": "Încălziți-vă puterea minții",
+        "footer": "🔥 Provocări încinse 🔥"
+      },
+      "september": {
+        "tagline": "Puneți-vă mintea la școală",
+        "footer": "📚 Cunoaștere prin cifre 📚"
+      },
+      "october": {
+        "tagline": "Provocări înfricoșător de istețe",
+        "footer": "🎃 Înfricoșător de distractiv 🎃"
+      },
+      "november": {
+        "tagline": "Provocări aprinse ca focul de tabără",
+        "footer": "🍂 Nu uitați, nu uitați! 🍂"
+      },
+      "december": {
+        "tagline": "Cadouri de sărbători pentru minte",
+        "footer": "🎄 Sărbători fericite, rezolvatori! 🎄"
+      },
+      "default": {
+        "tagline": "Provocați-vă mintea",
+        "footer": "🧩 Puterea puzzle-urilor 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Sunteți offline, verificați conexiunea",
+      "loadFailed": "Cartea de puzzle-uri nu a putut fi încărcată"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Tastatură: tastele săgeată, anulare, refacere.",
+      "notes": "Țineți apăsat Shift sau apăsați n pentru a comuta modul note.",
+      "validate": "Apăsați c pentru a valida celula, g pentru a valida grila."
+    },
+    "owl": {
+      "invalid": "Se pare că ați făcut o greșeală. Vă recomand să verificați grila.",
+      "notSure": "Îmi pare rău, nu sunt sigur.",
+      "eureka": "Notația Eureka {{notation}}",
+      "highlighted": "Am evidențiat pentru dumneavoastră celulele relevante",
+      "foundTechnique": "Am găsit o tehnică: {{technique}}",
+      "noHint": "Niciun indiciu disponibil"
+    },
+    "legend": {
+      "stem": "Tulpină",
+      "petalA": "Petală A",
+      "petalB": "Petală B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Activat (adevărat)",
+      "off": "Dezactivat (fals)",
+      "elimination": "Eliminare"
+    },
+    "reply": {
+      "thanks": "Mulțumesc,",
+      "tellMeMore": "🤔 Spuneți-mi mai mult",
+      "showMeWhere": "👀 Arătați-mi unde",
+      "hideHint": "Ascundeți indiciul"
+    },
+    "askForHelp": "Cereți ajutor",
+    "notes": "Note",
+    "copied": "Copiat!",
+    "export": "Export",
+    "delete": "Ștergere",
+    "undo": "Anulare",
+    "redo": "Refacere",
+    "cell": "Celulă",
+    "grid": "Grilă",
+    "zoom": "Zoom",
+    "reset": "Resetare",
+    "reveal": "Dezvăluire",
+    "confirm": {
+      "reset": {
+        "title": "Resetați întreaga grilă?",
+        "body": "Sigur doriți să resetați întreaga grilă?",
+        "confirm": "Resetare"
+      },
+      "reveal": {
+        "title": "Dezvăluiți întreaga grilă?",
+        "body": "Sigur doriți să dezvăluiți întreaga grilă?",
+        "confirm": "Dezvăluire"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Single evident",
+    "hiddenSingleBox": "Single ascuns (Careu)",
+    "hiddenSingleRow": "Single ascuns (Rând)",
+    "hiddenSingleCol": "Single ascuns (Coloană)",
+    "nakedPair": "Pereche evidentă",
+    "nakedTriple": "Triplet evident",
+    "nakedQuad": "Cvadruplet evident",
+    "hiddenPair": "Pereche ascunsă",
+    "hiddenTriple": "Triplet ascuns",
+    "hiddenQuad": "Cvadruplet ascuns",
+    "lockedCandidatePointing": "Candidați blocați (Pointing)",
+    "lockedCandidateClaiming": "Candidați blocați (Claiming)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String Kite",
+    "finnedXWing": "X-Wing Finned",
+    "finnedSwordfish": "Swordfish Finned",
+    "finnedJellyfish": "Jellyfish Finned",
+    "emptyRectangle": "Dreptunghi gol",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Dreptunghi unic (Tip 1)",
+    "uniqueRectangleType2": "Dreptunghi unic (Tip 2)",
+    "uniqueRectangleType3": "Dreptunghi unic (Tip 3)",
+    "uniqueRectangleType4": "Dreptunghi unic (Tip 4)",
+    "uniqueRectangleType5": "Dreptunghi unic (Tip 5)",
+    "bug": "BUG",
+    "xyChain": "XY-Chain",
+    "aic": "AIC",
+    "aicRing": "Inel AIC",
+    "groupedAIC": "AIC grupat",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Death Blossom",
+    "nishio": "Nishio",
+    "nishioNet": "Rețea Nishio",
+    "cellRegionForcingChain": "Lanț forțat celulă/regiune",
+    "cellRegionForcingNet": "Rețea forțată celulă/regiune",
+    "forcingChain": "Lanț forțat"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "albină",
+      "personality": "Neliniștit și entuziast. Se aruncă prin grilă în reprize, apoi se oprește. Spre final accelerează prea devreme și se blochează chiar înainte de a termina.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Văd una!",
+          "Stai — nu, poate că nu...",
+          "Bzz bzz! Progres!"
+        ],
+        "playerAhead": ["Hei, mai încet!", "Îmi mergea bine…"],
+        "playerBehind": ["Vă ajung din urmă!", "Uitați-vă la mine cum zbor!"],
+        "endgame": ["Aproape am ajuns! Cred!", "Stai — unde se pune asta?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "rață",
+      "personality": "Vesel și fără țintă. Lent și constant, cu pauze lungi. În finalul jocului ajunge la soluție aproape din întâmplare.",
+      "voiceLines": {
+        "neutral": ["Îmi iau timpul necesar...", "Hmm... pe undeva pe aici."],
+        "playerAhead": ["Vă descurcați grozav!", "Până la urmă ajung și eu."],
+        "playerBehind": ["Oh! Am găsit una!", "E plăcut."],
+        "endgame": ["Cred că am aproape terminat?", "Oh! A ieșit bine."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "șopârlă",
+      "personality": "Precaut și atent. Pauze lungi, apoi grupuri mici de mutări. În finalul jocului ezită înainte de fiecare plasare.",
+      "voiceLines": {
+        "neutral": ["Să verific încă o dată.", "Ar trebui să fie corect."],
+        "playerAhead": ["Acum trebuie să fiu atent.", "Nu vă grăbiți."],
+        "playerBehind": ["Bine… recuperez.", "Mai e timp."],
+        "endgame": ["Cu atenție acum...", "Aproape… trebuie doar să fiu sigur."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "păianjen",
+      "personality": "Deliberat și structurat. Își construiește progresul atent, bucată cu bucată. În finalul jocului structura se prăbușește — apare ezitarea, de parcă planul nu ar mai ține.",
+      "voiceLines": {
+        "neutral": ["Se potrivește tiparului.", "Bucată cu bucată..."],
+        "playerAhead": ["Funcționa...", "Trebuie să repar asta..."],
+        "playerBehind": ["Încă se ține.", "Da… merge."],
+        "endgame": [
+          "Stai — nu, asta strică totul.",
+          "Aveam totul planificat..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "raton",
+      "personality": "Ambițios și oportunist. Ritm neuniform. În finalul jocului prinde avânt și termină mai repede decât te aștepți.",
+      "voiceLines": {
+        "neutral": ["Merge!", "E cam dezordonat, dar mă mulțumesc."],
+        "playerAhead": ["Bine, e timpul să apăs.", "Încă nu am terminat."],
+        "playerBehind": ["Oh — frumoasă descoperire.", "Acum totul se leagă."],
+        "endgame": ["Da, o am.", "Acum curge."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pinguin",
+      "personality": "Structurat și metodic. Ritm constant. Finalul rămâne calm — fără panică, fără sprint.",
+      "voiceLines": {
+        "neutral": ["Se potrivește.", "Rămân constant."],
+        "playerAhead": ["Păstrez ritmul.", "Nu e nevoie să ne grăbim."],
+        "playerBehind": ["Încă pe drumul cel bun.", "Progresul este constant."],
+        "endgame": ["Aproape am ajuns.", "Terminăm curat."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "maimuță",
+      "personality": "Imprevizibil și neliniștitor. Reprize neașteptate. În finalul jocului accelerează brusc, într-un mod care pare nedrept.",
+      "voiceLines": {
+        "neutral": ["Heh… nu v-ați așteptat la asta?", "Oh, ce interesant."],
+        "playerAhead": ["Nu vă simțiți prea confortabil.", "Priviți asta."],
+        "playerBehind": [
+          "Uneori lucrurile se leagă pur și simplu.",
+          "Noroc… sau nu?"
+        ],
+        "endgame": ["Oh, wow — începem.", "A escaladat repede."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "acvilă",
+      "personality": "Detașat și fluid. Plasări rare, dar sigure. Accelerare discretă în final.",
+      "voiceLines": {
+        "neutral": ["Am văzut deja asta.", "Doar completez."],
+        "playerAhead": ["Nu schimbă nimic.", "Rezultatul rămâne același."],
+        "playerBehind": [
+          "E gata, de fapt.",
+          "Acum sunt cu gândul în altă parte."
+        ],
+        "endgame": ["…aproape terminat.", "Încheiem."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "vulpe",
+      "personality": "Intens și competitiv. Start rapid, presiune constantă. Avântul din final pare agresiv.",
+      "voiceLines": {
+        "neutral": ["Țineți pasul.", "Încă sunteți cu mine?"],
+        "playerAhead": ["Nu încetiniți acum.", "Puteți mai bine de atât."],
+        "playerBehind": ["Prea lent.", "Rămâneți în urmă."],
+        "endgame": ["Terminați.", "Asta este al meu."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "rechin",
+      "personality": "Răbdător și prădător. Rămâne aproape, apoi lovește tare în final.",
+      "voiceLines": {
+        "neutral": ["Chiar în spatele dumneavoastră.", "Nu încă."],
+        "playerAhead": ["Rămâneți unde sunteți.", "Sunt aproape acum."],
+        "playerBehind": ["Mă apropii.", "Iată-vă."],
+        "endgame": ["Acum terminăm.", "V-am prins."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "bufniță",
+      "personality": "Calm și chibzuit. Ritm fluid. Finalul este curat și inevitabil.",
+      "voiceLines": {
+        "neutral": ["Cum era de așteptat.", "Totul se aliniază."],
+        "playerAhead": ["Bine.", "Vedeți."],
+        "playerBehind": ["Duceți-l până la capăt.", "Rămâneți concentrați."],
+        "endgame": ["Aproape complet.", "Gata."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "pisică neagră",
+      "personality": "Tăcut și inuman. Pauze minime. Finalul este o terminare rapidă, fără întreruperi.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…încă."],
+        "playerBehind": ["Prea târziu.", "Ați ezitat."],
+        "endgame": ["…gata.", "Final."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "dragon",
+      "personality": "Firesc și absolut. Păstrează controlul perfect pe tot parcursul. În final execută o baleiere decisivă, neîntreruptă — fără breșe, fără rezistență.",
+      "voiceLines": {
+        "neutral": ["Previzibil.", "Fără abateri."],
+        "playerAhead": ["Ați făcut bine că ați încercat.", "Continuați."],
+        "playerBehind": ["Aici se încheie.", "Nu există alternativă."],
+        "endgame": ["Asta e tot.", "Complet."]
+      }
+    }
+  }
+}

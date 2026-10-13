@@ -1,0 +1,217 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone 與 iPad"
+  },
+  "errors": {
+    "generic": "發生未預期的錯誤，請再試一次。",
+    "dismiss": "關閉"
+  },
+  "errorBoundary": {
+    "title": "哎呀！發生錯誤了",
+    "description": "我們遇到了未預期的錯誤。別擔心，您的進度已儲存！",
+    "reload": "重新載入 App",
+    "clearStorage": "清除儲存資料並重新載入",
+    "contactSupport": "如果問題持續發生，請聯絡客服。"
+  },
+  "time": {
+    "minutesAgo_other": "{{count}} 分鐘前",
+    "hoursAgo_other": "{{count}} 小時前",
+    "daysAgo_other": "{{count}} 天前"
+  },
+  "tier": {
+    "novice": "新手",
+    "advancedBeginner": "初學者",
+    "competent": "稱職",
+    "proficient": "熟練",
+    "expert": "專家"
+  },
+  "moves": {
+    "onPar": "步，與基準持平",
+    "overPar": "步，比基準多 {{delta}} 步",
+    "underPar": "步，比基準少 {{delta}} 步"
+  },
+  "lobby": {
+    "title": "競速大廳",
+    "close": "關閉大廳",
+    "onlineOpponents": "線上對手",
+    "refresh": "重新整理線上對手",
+    "noOpponents": "目前沒有線上對手——邀請好友來競速吧！",
+    "away": "離開",
+    "offlineTeams": "離線 · 在您的團隊中",
+    "removeMember": "移除 {{name}}",
+    "aiOpponents": "AI 對手",
+    "addAgent": "新增",
+    "noAgents": "還沒有 AI 對手——新增一位，隨時都有對手可以競速。",
+    "ownClock": "每位玩家依各自的計時競速",
+    "startSolving": "開始解題",
+    "finished": "已完成",
+    "inLobby": "在大廳中",
+    "stageProgress": "第 {{current}} 關，共 {{total}} 關",
+    "finishedRunIn": "以 {{time}} 完成全程",
+    "solvedIn": "以 {{time}} 解出",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · 上次上線 {{lastSeen}}",
+    "raceSummary": {
+      "solo": "單人競速——只有您和計時器",
+      "friends_other": "{{count}} 位好友",
+      "aiOpponents_other": "{{count}} 位 AI 對手",
+      "racing": "對戰 {{opponents}}"
+    },
+    "invite": {
+      "button": "邀請",
+      "eyebrow": "打造您的競速",
+      "title": "邀請對手",
+      "close": "關閉",
+      "existingTeam": "邀請加入現有團隊",
+      "editTeamName": "編輯團隊名稱",
+      "deleteTeam": "刪除團隊",
+      "leaveTeam": "退出團隊",
+      "memberCount_other": "{{count}} 位成員",
+      "createTeam": "建立新的競速團隊",
+      "displayNameLabel": "團隊成員怎麼稱呼您？",
+      "displayNamePlaceholder": "顯示名稱",
+      "teamNameLabel": "要為這個團隊取什麼名字？",
+      "teamNamePlaceholder": "團隊名稱（例如：家人）",
+      "createAndCopy": "建立並複製連結",
+      "defaultTeamName": "新團隊",
+      "defaultPlayerName": "玩家"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "關閉面板",
+    "back": "返回",
+    "close": "關閉",
+    "title": "選擇您的對手",
+    "subtitle": "選擇一位或多位對手",
+    "selectAtLeastOne": "請至少選擇一位對手",
+    "race_other": "與 {{count}} 位對手競速",
+    "skill": {
+      "novice": "新手",
+      "advancedBeginner": "進階新手",
+      "competent": "稱職",
+      "proficient": "熟練",
+      "expert": "專家"
+    }
+  },
+  "agentParty": {
+    "title": "AI 對手",
+    "rivalCount_other": "{{count}} 位對手"
+  },
+  "party": {
+    "cancel": "取消",
+    "editName": "編輯團隊名稱",
+    "editMaxMembers": "編輯成員上限",
+    "memberCount_other": "{{count}} 位成員",
+    "memberCountPremium_other": "{{count}} 位成員 ✨ Plus",
+    "membersOf_other": "{{current}}/{{count}} 位成員",
+    "shareLink": "將此連結分享給現有團隊成員，邀請他們加入這道謎題",
+    "you": "（您）",
+    "notStarted": "還沒開始！請他們來玩吧"
+  },
+  "partyConfirmation": {
+    "cancel": "取消",
+    "leaveAgentParty": {
+      "title": "移除 AI 對手",
+      "action": "移除",
+      "processing": "移除中…",
+      "message": "確定要移除所有 AI 對手嗎？他們將不再出現在比賽中。"
+    },
+    "removeAgent": {
+      "title": "移除本機對手",
+      "action": "移除",
+      "processing": "移除中…",
+      "message": "確定要將「{{memberName}}」從比賽中移除嗎？"
+    },
+    "deleteParty": {
+      "title": "刪除團隊",
+      "action": "刪除團隊",
+      "processing": "刪除中…",
+      "message": "確定要刪除「{{partyName}}」嗎？這會永久移除該團隊，所有成員都將無法再存取。此操作無法復原。"
+    },
+    "leave": {
+      "title": "退出團隊",
+      "action": "退出",
+      "processing": "退出中…",
+      "message": "確定要退出「{{partyName}}」嗎？您將無法再查看其他成員的進度，也無法參與該團隊的活動。"
+    },
+    "remove": {
+      "title": "移除成員",
+      "action": "移除",
+      "processing": "移除中…",
+      "message": "確定要將「{{memberName}}」從「{{partyName}}」中移除嗎？他們將無法再參與該團隊的活動。"
+    }
+  },
+  "friends": {
+    "allTeams": "所有團隊",
+    "refresh": "重新整理",
+    "refreshing": "重新整理中…",
+    "title": "好友的謎題",
+    "subtitle": "點選好友，查看他們最近的謎題並與他們競速。",
+    "memberCount_other": "{{count}} 位成員",
+    "noRecentPuzzles": "最近沒有謎題——向他們發出挑戰吧！",
+    "empty": {
+      "title": "還沒有競速團隊",
+      "description": "解題時可在競速大廳中邀請好友"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "您過去 30 天內的謎題。",
+    "empty": {
+      "title": "還沒有謎題",
+      "description": "前往「開始競速」，解出您的第一道謎題"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_other": "另有 {{count}} 項功能"
+  },
+  "crossPromo": {
+    "whyNotTry": "不妨試試",
+    "tryItFree": "免費試玩"
+  },
+  "rateApp": {
+    "prompt": "喜歡 {{appName}} 嗎？",
+    "rateIt": "前往評分",
+    "rateInSeconds": "幾秒鐘就能評分"
+  },
+  "plus": {
+    "close": "關閉視窗",
+    "appIconAlt": "App 圖示",
+    "lifetime": "終身版",
+    "monthly": "月度",
+    "perMonth": "{{price}}/月",
+    "whatsIncluded": "包含內容",
+    "continue": "繼續",
+    "restorePurchases": "恢復購買",
+    "cancel": "取消"
+  },
+  "download": {
+    "title": "在 App 中繼續",
+    "appStoreAlt": "在 {{appStore}} 下載",
+    "googlePlayAlt": "在 {{googlePlay}} 取得",
+    "continueBrowser": "在瀏覽器中繼續",
+    "continueDesktop": "在桌面版中繼續"
+  },
+  "session": {
+    "cheated": "作弊",
+    "completedIn": "以 {{minutes}} 分 {{seconds}} 秒完成",
+    "percentComplete": "已完成 {{percentage}}%",
+    "duration": "{{minutes}} 分 {{seconds}} 秒",
+    "shortDate": "{{month}}{{day}}",
+    "dayOrdinal_ordinal_other": "{{count}}日",
+    "puzzleNumber": "第 {{number}} 題",
+    "daily": "每日 {{date}}",
+    "book": "謎題集 {{month}} #{{number}}",
+    "collection": "合集 {{month}} #{{number}}",
+    "scanned": "掃描的謎題",
+    "you": "您",
+    "unknown": "未知",
+    "unlockWith": "使用 {{label}} 解鎖",
+    "lockedPuzzle": "未解鎖的謎題",
+    "recommendedTechniques": "建議技巧：",
+    "loadingFriends": "載入好友中…"
+  }
+}

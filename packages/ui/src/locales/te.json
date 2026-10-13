@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "భాష",
+    "automatic": "ఆటోమేటిక్"
+  },
+  "header": {
+    "offline": "ఆఫ్‌లైన్",
+    "back": "వెనుకకు"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "డార్క్ మోడ్ మార్చండి"
+  },
+  "starRating": {
+    "label_one": "{{count}} స్టార్‌లో {{filled}}",
+    "label_other": "{{count}} స్టార్‌లలో {{filled}}"
+  },
+  "timer": {
+    "go": "గో!"
+  },
+  "themeColor": {
+    "change": "థీమ్ రంగును మార్చండి",
+    "set": "థీమ్ రంగును సెట్ చేయండి: {{color}}",
+    "setPremium": "థీమ్ రంగును సెట్ చేయండి: {{color}} (ప్రీమియం)",
+    "colors": {
+      "blue": "నీలం",
+      "red": "ఎరుపు",
+      "green": "ఆకుపచ్చ",
+      "purple": "ఊదా",
+      "amber": "అంబర్",
+      "cyan": "సియాన్",
+      "pink": "గులాబీ",
+      "indigo": "ఇండిగో",
+      "orange": "నారింజ",
+      "teal": "టీల్",
+      "slate": "స్లేట్",
+      "rose": "రోజ్",
+      "emerald": "ఎమరాల్డ్",
+      "sky": "ఆకాశ నీలం",
+      "violet": "వైలెట్",
+      "lime": "లైమ్",
+      "fuchsia": "ఫ్యూషియా",
+      "yellow": "పసుపు",
+      "stone": "రాతి రంగు",
+      "zinc": "జింక్"
+    }
+  },
+  "copyButton": {
+    "copied": "క్లిప్‌బోర్డ్‌కు కాపీ అయింది!",
+    "share": "ఆహ్వాన లింక్‌ను షేర్ చేయండి",
+    "copy": "ఆహ్వాన లింక్‌ను కాపీ చేయండి"
+  },
+  "share": {
+    "joinTeam": "{{appName}} రేసింగ్ టీమ్‌లో చేరండి!",
+    "joinNamedTeam": "{{appName}}: {{partyName}} రేసింగ్ టీమ్‌లో చేరండి!",
+    "dialogTitle": "ఆహ్వానాన్ని షేర్ చేయండి"
+  }
+}

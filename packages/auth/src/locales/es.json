@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Inicie sesión para continuar",
+    "signInWith": "Iniciar sesión con {{provider}}",
+    "emailTitle": "Iniciar sesión con correo electrónico",
+    "emailPlaceholder": "su@correo.com",
+    "continue": "Continuar",
+    "cancel": "Cancelar",
+    "terms": "Términos del servicio",
+    "privacy": "Política de privacidad"
+  },
+  "header": {
+    "signIn": "Iniciar sesión"
+  },
+  "avatar": {
+    "alt": "usuario"
+  },
+  "panel": {
+    "title": "Cuenta",
+    "greeting": "¡Hola, {{name}}!",
+    "fallbackName": "Usuario",
+    "plusActive": "{{gameName}} {{plus}} activo",
+    "joinGamePlus": "Únase a {{gameName}} {{plus}}",
+    "joinPlus": "Únase a {{plus}}",
+    "signOut": "Cerrar sesión",
+    "privacy": "Política de privacidad",
+    "terms": "Términos del servicio",
+    "credits": "Créditos",
+    "deleteAccount": "Eliminar cuenta",
+    "poweredBy": "Con tecnología de {{companyName}}",
+    "deleteUnavailable": "La función de eliminar cuenta no está disponible.",
+    "deleteFailed": "No se pudo eliminar la cuenta. Inténtelo de nuevo más tarde."
+  },
+  "deleteDialog": {
+    "title": "Eliminar cuenta",
+    "warning": "Esta acción no se puede deshacer. Todos sus datos de todas las aplicaciones de {{companyName}} se eliminarán de forma permanente.",
+    "confirmation": "Confirmo que quiero eliminar toda mi cuenta, incluidos todos los datos de todas las aplicaciones de {{companyName}}.",
+    "cancel": "Cancelar",
+    "deleting": "Eliminando...",
+    "submit": "Eliminar cuenta"
+  }
+}

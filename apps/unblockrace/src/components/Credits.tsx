@@ -1,4 +1,8 @@
+'use client';
+
 import React from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import { Translate } from '@bubblyclouds-app/template/types/i18n';
 
 interface CreditItem {
   name: string;
@@ -7,52 +11,51 @@ interface CreditItem {
   license?: string;
 }
 
-const credits: CreditItem[] = [
+const getCredits = (t: Translate): CreditItem[] => [
   {
     name: 'Rush',
-    description:
-      'Rush Hour puzzle solver and puzzle database by Michael Fogleman, compiled to WebAssembly',
+    description: t('credits.items.rush'),
     url: 'https://github.com/fogleman/rush',
     license: 'MIT',
   },
   {
     name: 'Next.js',
-    description: 'React framework for production',
+    description: t('credits.items.nextjs'),
     url: 'https://nextjs.org',
   },
   {
     name: 'TypeScript',
-    description: 'Typed superset of JavaScript',
+    description: t('credits.items.typescript'),
     url: 'https://www.typescriptlang.org',
   },
   {
     name: 'Tailwind CSS',
-    description: 'Utility-first CSS framework',
+    description: t('credits.items.tailwind'),
     url: 'https://tailwindcss.com',
   },
   {
     name: 'Capacitor',
-    description: 'Native mobile app runtime',
+    description: t('credits.items.capacitor'),
     url: 'https://capacitorjs.com',
   },
   {
     name: 'Electron',
-    description: 'Desktop app framework',
+    description: t('credits.items.electron'),
     url: 'https://www.electronjs.org',
   },
   {
     name: 'RevenueCat',
-    description: 'Subscription management',
+    description: t('credits.items.revenuecat'),
     url: 'https://www.revenuecat.com',
   },
   {
     name: 'React',
-    description: 'UI component library',
+    description: t('credits.items.react'),
     url: 'https://react.dev',
   },
   {
     name: 'Turborepo',
-    description: 'Monorepo build system',
+    description: t('credits.items.turborepo'),
     url: 'https://turbo.build/repo',
   },
 ];
@@ -66,19 +69,18 @@ export const Credits: React.FC<CreditsProps> = ({
   showTitle = true,
   className = '',
 }) => {
+  const { t } = useTranslation('app');
   return (
     <div className={`space-y-6 ${className}`}>
       {showTitle && (
         <div>
-          <h2 className="mb-2 text-2xl font-bold">Credits & Attribution</h2>
-          <p className="text-sm opacity-80">
-            This app is built upon several excellent projects
-          </p>
+          <h2 className="mb-2 text-2xl font-bold">{t('credits.title')}</h2>
+          <p className="text-sm opacity-80">{t('credits.intro')}</p>
         </div>
       )}
 
       <div className="space-y-4">
-        {credits.map((credit) => (
+        {getCredits(t).map((credit) => (
           <div
             key={credit.name}
             className="rounded-lg bg-black/10 p-4 dark:bg-white/10"
@@ -116,27 +118,30 @@ export const Credits: React.FC<CreditsProps> = ({
       </div>
 
       <div className="border-t border-black/10 pt-4 dark:border-white/10">
-        <p>Copyright (c) 2026 James Acres (Bubbly Clouds)</p>
+        <p>{t('credits.copyright')}</p>
         <p className="text-xs opacity-60">
-          This app is licensed under the MIT License. See our{' '}
-          <a
-            href="https://github.com/jamesacres/bubblyclouds-app/blob/main/LICENSE"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:opacity-100"
-          >
-            LICENSE
-          </a>{' '}
-          and{' '}
-          <a
-            href="https://github.com/jamesacres/bubblyclouds-app/blob/main/CREDITS.md"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:opacity-100"
-          >
-            CREDITS
-          </a>{' '}
-          for details.
+          <Trans
+            t={t}
+            i18nKey="credits.licenseNotice"
+            components={{
+              licenseLink: (
+                <a
+                  href="https://github.com/jamesacres/bubblyclouds-app/blob/main/LICENSE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-100"
+                />
+              ),
+              creditsLink: (
+                <a
+                  href="https://github.com/jamesacres/bubblyclouds-app/blob/main/CREDITS.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-100"
+                />
+              ),
+            }}
+          />
         </p>
       </div>
     </div>

@@ -1,0 +1,267 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Libro",
+    "defaultDetailNoun": "libri di schemi"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Raccolta mensile"
+  },
+  "hintBox": {
+    "dismiss": "Chiudi il suggerimento"
+  },
+  "lobbyButton": {
+    "opponents": "Avversari"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Continua — prossimo schema",
+    "continueLocked": "Continua ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}: {{completed}} di {{total}} completati"
+  },
+  "countdownOverlay": {
+    "getReady": "Pronti",
+    "go": "VIA!"
+  },
+  "confirmDialog": {
+    "cancel": "Annulla"
+  },
+  "completionSummary": {
+    "complete": "Completato: {{label}}",
+    "retry": "Riprova",
+    "points": "+{{points}} pt",
+    "leaderboardPoints": "Punti classifica"
+  },
+  "raceTimer": {
+    "time": "Tempo"
+  },
+  "stageTopBar": {
+    "previous": "Precedente"
+  },
+  "raceHud": {
+    "opponents": "Avversari",
+    "stageOf": "Fase {{current}} di {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Arrivo!",
+    "runComplete": "Percorso completato",
+    "leaderboardPoints": "Punti classifica",
+    "pointsSuffix": " pt"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Do",
+      "monday": "Lu",
+      "tuesday": "Ma",
+      "wednesday": "Me",
+      "thursday": "Gi",
+      "friday": "Ve",
+      "saturday": "Sa"
+    },
+    "dayStreak_one": "giorno di fila",
+    "dayStreak_many": "giorni di fila",
+    "dayStreak_other": "giorni di fila",
+    "thisMonth": "questo mese"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Io)",
+    "puzzles_one": "{{count}} schema",
+    "puzzles_many": "{{count}} di schemi",
+    "puzzles_other": "{{count}} schemi",
+    "average": "Media: {{time}}",
+    "best": "Migliore: {{time}}",
+    "wins_one": "🏁 {{count}} vittoria",
+    "wins_many": "🏁 {{count}} di vittorie",
+    "wins_other": "🏁 {{count}} vittorie",
+    "points_one": "punto",
+    "points_many": "punti",
+    "points_other": "punti"
+  },
+  "scoreBreakdown": {
+    "title": "Dettaglio del punteggio",
+    "volumeBonus": {
+      "label": "Bonus volume",
+      "detail_one": "{{count}} schema completato",
+      "detail_many": "{{count}} di schemi completati",
+      "detail_other": "{{count}} schemi completati"
+    },
+    "dailyPuzzles": {
+      "label": "Schemi del giorno",
+      "detail_one": "{{count}} sfida quotidiana",
+      "detail_many": "{{count}} di sfide quotidiane",
+      "detail_other": "{{count}} sfide quotidiane"
+    },
+    "collectionPuzzles": {
+      "label": "Schemi {{collection}}",
+      "detail": "{{count}} da {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Schemi scansionati",
+      "detail_one": "{{count}} schema importato",
+      "detail_many": "{{count}} di schemi importati",
+      "detail_other": "{{count}} schemi importati"
+    },
+    "difficultyBonus": {
+      "label": "Bonus difficoltà",
+      "detail": "Schemi più difficili = più punti"
+    },
+    "speedBonus": {
+      "label": "Bonus velocità",
+      "detail": "Più veloce: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Bonus gara",
+      "detail": "Per aver battuto gli amici che hanno completato lo schema"
+    },
+    "dailyCombo": {
+      "label": "Combo giornaliera",
+      "detail": "Più schemi al giorno = moltiplicatore più alto"
+    }
+  },
+  "leaderboard": {
+    "you": "Io",
+    "unknownUser": "Utente sconosciuto",
+    "title": "Classifica",
+    "subtitleParty": "Ultimi 30 giorni · {{partyName}}",
+    "subtitleAllTeams": "Ultimi 30 giorni · Tutti i team",
+    "howScoringWorks": "Come funziona il punteggio"
+  },
+  "scoringLegend": {
+    "title": "Come funziona il punteggio",
+    "subtitle": "{{gameName}} · Ultimi 30 giorni",
+    "close": "Chiudi",
+    "racingWins": {
+      "title": "Vittorie in gara",
+      "body": "Guadagna <points>+{{points}} pt</points> per ogni amico battuto sullo stesso schema completato. Se arriva primo davanti a tutti gli amici ({{friends}}), incassa <points>+{{total}} pt</points>."
+    },
+    "basePoints": {
+      "title": "Punti base",
+      "anyPuzzle": "Qualsiasi schema",
+      "dailyPuzzle": "Schema del giorno",
+      "collectionPuzzle": "Schema {{collection}}",
+      "scannedPuzzle": "Schema scansionato"
+    },
+    "difficultyMultipliers": {
+      "title": "Moltiplicatori di difficoltà",
+      "daily": "{{gameName}} del giorno",
+      "collection": "Schemi {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Bonus velocità",
+      "lightning": "Fulmineo",
+      "fast": "Veloce",
+      "quick": "Rapido",
+      "steady": "Costante",
+      "under": "meno di {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Combo giornaliera",
+      "body": "Risolva più schemi nello stesso giorno per moltiplicare i punti di ogni schema, fino a <max>{{max}}×</max>.",
+      "puzzle": "Schema {{puzzle}} del giorno",
+      "puzzleOrMore": "Schema {{puzzle}}+ del giorno"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Percorso completato",
+    "raceProgress": "Avanzamento della gara",
+    "stagesProgress": "{{completed}}/{{total}} fasi",
+    "retryStage": "Riprova la fase",
+    "stageLabel": "Fase {{number}}",
+    "stageCompletedLabel": "Fase {{number}}, completata in {{time}}",
+    "viewRacingStats": "Vedi le statistiche di gara",
+    "total": "Totale"
+  },
+  "raceTrack": {
+    "you": "Io",
+    "viewFriends": "Clicchi per vedere gli amici",
+    "start": "Partenza",
+    "finish": "Arrivo",
+    "inviteToRace": "Invita gli amici a gareggiare",
+    "opponents": "Avversari",
+    "racer": "Concorrente",
+    "stageBadge": "F{{number}}",
+    "total": "Totale",
+    "leaderboard": "Classifica",
+    "puzzleBook": "Libro di schemi",
+    "puzzleBookLabel": "libro di schemi",
+    "refreshScores": "Aggiorna i punteggi",
+    "challengeFriends": "🏁 Sfida gli amici",
+    "yourTime": "Il suo tempo:",
+    "inviteFriends": "Invita amici",
+    "racingLabel": "in gara"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Insidioso",
+      "easy": "Impegnativo",
+      "intermediate": "Difficile",
+      "expert": "Esperto"
+    },
+    "book": {
+      "veryEasy": "Molto facile",
+      "easy": "Facile",
+      "moderatelyEasy": "Abbastanza facile",
+      "moderate": "Media",
+      "moderatelyHard": "Abbastanza difficile",
+      "hard": "Difficile",
+      "vicious": "Spietato",
+      "fiendish": "Diabolico",
+      "devilish": "Demoniaco",
+      "hell": "Inferno",
+      "beyondHell": "Oltre l’inferno"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Ultima cifra",
+    "hiddenSingleBox": "Singolo nascosto (riquadro)",
+    "hiddenSingleLine": "Singolo nascosto (linea)",
+    "hiddenSingleVariantRegion": "Singolo nascosto (regione variante)",
+    "nakedSingle": "Singolo nudo",
+    "hiddenPair": "Coppia nascosta",
+    "lockedCandidate": "Candidato bloccato",
+    "hiddenTriple": "Tripla nascosta",
+    "hiddenQuadruple": "Quadrupla nascosta",
+    "nakedPair": "Coppia nuda",
+    "nakedTriple": "Tripla nuda",
+    "nakedQuadruple": "Quadrupla nuda",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Grattacielo",
+    "twoStringKite": "Aquilone a due fili",
+    "crane": "Gru",
+    "simpleColoring": "Colorazione semplice",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing con pinna/Sashimi",
+    "emptyRectangle": "Rettangolo vuoto",
+    "uniqueRectangleType1": "Rettangolo unico di tipo 1",
+    "uniqueRectangleType2": "Rettangolo unico di tipo 2",
+    "uniqueRectangleType3": "Rettangolo unico di tipo 3",
+    "uniqueRectangleType4": "Rettangolo unico di tipo 4",
+    "uniqueRectangleType5": "Rettangolo unico di tipo 5",
+    "finnedSashimiSwordfish": "Swordfish con pinna/Sashimi",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (tomba universale binaria)",
+    "xChain": "Catena X",
+    "groupedXChain": "Catena X raggruppata",
+    "YWing4WXYZWing": "Y-Wing a 4 (WXYZ-Wing)",
+    "yWing5": "Y-Wing a 5",
+    "yWing6": "Y-Wing a 6",
+    "yWing7": "Y-Wing a 7",
+    "yWing8": "Y-Wing a 8",
+    "yWing9": "Y-Wing a 9",
+    "finnedSashimiJellyfish": "Jellyfish con pinna/Sashimi",
+    "medusa3D": "Medusa 3D",
+    "xyChain": "Catena XY",
+    "alternatingInferenceChainAIC": "Catena di inferenza alternata (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Catena di inferenza alternata raggruppata (AIC)",
+    "nishioForcingChain": "Catena forzante di Nishio",
+    "nishioForcingNet": "Rete forzante di Nishio"
+  }
+}

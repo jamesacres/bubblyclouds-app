@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "سباق سودوكو",
+      "gameName": "سودوكو",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "سودوكو Plus"
+    },
+    "terms": {
+      "race": "سباق",
+      "team": "فريق",
+      "leaderboard": "لوحة المتصدرين",
+      "hint": "تلميح",
+      "undo": "تراجع",
+      "theme": "سمة",
+      "dailyPuzzle": "لغز يومي",
+      "monthlyCollection": "كتاب الألغاز الشهري",
+      "aiOpponent": "خصم بالذكاء الاصطناعي",
+      "monthly": "شهري",
+      "lifetime": "مدى الحياة",
+      "plusAccess": "وصول Plus",
+      "plusFeatureLine": "سباقات غير محدودة وفرق وسمات وتراجع"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "سباق فك الحصار",
+      "gameName": "سباق فك الحصار",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "سباق",
+      "team": "فريق",
+      "leaderboard": "لوحة المتصدرين",
+      "hint": "تلميح",
+      "undo": "تراجع",
+      "theme": "سمة",
+      "dailyPuzzle": "لغز يومي",
+      "monthlyCollection": "مجموعة الألغاز الشهرية",
+      "aiOpponent": "خصم بالذكاء الاصطناعي",
+      "monthly": "شهري",
+      "lifetime": "مدى الحياة",
+      "plusAccess": "وصول Plus",
+      "plusFeatureLine": "سباقات غير محدودة وفرق وسمات وتراجع"
+    }
+  }
+}

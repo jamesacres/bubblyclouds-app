@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "അപ്രതീക്ഷിത പിശക് സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+    "dismiss": "അടയ്ക്കുക"
+  },
+  "errorBoundary": {
+    "title": "ക്ഷമിക്കണം! എന്തോ പിഴവ് സംഭവിച്ചു",
+    "description": "അപ്രതീക്ഷിത പിശക് നേരിട്ടു. വിഷമിക്കേണ്ട, നിങ്ങളുടെ പുരോഗതി സേവ് ചെയ്തിട്ടുണ്ട്!",
+    "reload": "ആപ്പ് റീലോഡ് ചെയ്യുക",
+    "clearStorage": "സ്റ്റോറേജ് മായ്ച്ച് റീലോഡ് ചെയ്യുക",
+    "contactSupport": "ഈ പ്രശ്നം തുടരുകയാണെങ്കിൽ ദയവായി സപ്പോർട്ടുമായി ബന്ധപ്പെടുക."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} മി. മുൻപ്",
+    "minutesAgo_other": "{{count}} മി. മുൻപ്",
+    "hoursAgo_one": "{{count}} മണി. മുൻപ്",
+    "hoursAgo_other": "{{count}} മണി. മുൻപ്",
+    "daysAgo_one": "{{count}} ദിവസം മുൻപ്",
+    "daysAgo_other": "{{count}} ദിവസം മുൻപ്"
+  },
+  "tier": {
+    "novice": "പുതുമുഖം",
+    "advancedBeginner": "തുടക്കക്കാരൻ",
+    "competent": "പ്രാപ്തൻ",
+    "proficient": "പ്രാവീണ്യൻ",
+    "expert": "വിദഗ്ധൻ"
+  },
+  "moves": {
+    "onPar": "നീക്കങ്ങൾ, പാറിന് തുല്യം",
+    "overPar": "നീക്കങ്ങൾ, പാറിനേക്കാൾ {{delta}} കൂടുതൽ",
+    "underPar": "നീക്കങ്ങൾ, പാറിനേക്കാൾ {{delta}} കുറവ്"
+  },
+  "lobby": {
+    "title": "റേസ് ലോബി",
+    "close": "ലോബി അടയ്ക്കുക",
+    "onlineOpponents": "ഓൺലൈൻ എതിരാളികൾ",
+    "refresh": "ഓൺലൈൻ എതിരാളികളെ പുതുക്കുക",
+    "noOpponents": "ഓൺലൈനിൽ എതിരാളികളില്ല — റേസ് ചെയ്യാൻ സുഹൃത്തുക്കളെ ക്ഷണിക്കൂ!",
+    "away": "ലഭ്യമല്ല",
+    "offlineTeams": "ഓഫ്‌ലൈൻ · നിങ്ങളുടെ ടീമുകളിൽ",
+    "removeMember": "{{name}} നീക്കം ചെയ്യുക",
+    "aiOpponents": "AI എതിരാളികൾ",
+    "addAgent": "ചേർക്കുക",
+    "noAgents": "AI എതിരാളികളില്ല — എപ്പോഴും റേസ് ചെയ്യാൻ ഒരാളെ ചേർക്കൂ.",
+    "ownClock": "ഓരോ കളിക്കാരനും സ്വന്തം ക്ലോക്കിൽ റേസ് ചെയ്യുന്നു",
+    "startSolving": "പരിഹരിക്കൽ തുടങ്ങുക",
+    "finished": "പൂർത്തിയായി",
+    "inLobby": "ലോബിയിൽ",
+    "stageProgress": "ഘട്ടം {{current}} / {{total}}",
+    "finishedRunIn": "{{time}} കൊണ്ട് റൺ പൂർത്തിയാക്കി",
+    "solvedIn": "{{time}} കൊണ്ട് പരിഹരിച്ചു",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · അവസാനം കണ്ടത്: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "ഒറ്റയ്ക്കുള്ള റേസ് — നിങ്ങളും ക്ലോക്കും മാത്രം",
+      "friends_one": "{{count}} സുഹൃത്ത്",
+      "friends_other": "{{count}} സുഹൃത്തുക്കൾ",
+      "aiOpponents_one": "{{count}} AI എതിരാളി",
+      "aiOpponents_other": "{{count}} AI എതിരാളികൾ",
+      "racing": "റേസിംഗ്: {{opponents}}"
+    },
+    "invite": {
+      "button": "ക്ഷണിക്കുക",
+      "eyebrow": "നിങ്ങളുടെ റേസ് ഒരുക്കൂ",
+      "title": "എതിരാളികളെ ക്ഷണിക്കൂ",
+      "close": "അടയ്ക്കുക",
+      "existingTeam": "നിലവിലുള്ള ടീമിലേക്ക് ക്ഷണിക്കുക",
+      "editTeamName": "ടീമിന്റെ പേര് മാറ്റുക",
+      "deleteTeam": "ടീം ഇല്ലാതാക്കുക",
+      "leaveTeam": "ടീം വിടുക",
+      "memberCount_one": "{{count}} അംഗം",
+      "memberCount_other": "{{count}} അംഗങ്ങൾ",
+      "createTeam": "പുതിയ റേസിംഗ് ടീം സൃഷ്ടിക്കുക",
+      "displayNameLabel": "ടീം അംഗങ്ങൾ നിങ്ങളെ എന്താണ് വിളിക്കുന്നത്?",
+      "displayNamePlaceholder": "പ്രദർശന നാമം",
+      "teamNameLabel": "ഈ ടീമിന് എന്ത് പേരിടണം?",
+      "teamNamePlaceholder": "ടീമിന്റെ പേര് (ഉദാ. കുടുംബം)",
+      "createAndCopy": "സൃഷ്ടിച്ച് ലിങ്ക് പകർത്തുക",
+      "defaultTeamName": "പുതിയ ടീം",
+      "defaultPlayerName": "കളിക്കാരൻ"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "ഷീറ്റ് അടയ്ക്കുക",
+    "back": "തിരികെ",
+    "close": "അടയ്ക്കുക",
+    "title": "നിങ്ങളുടെ എതിരാളികളെ തിരഞ്ഞെടുക്കൂ",
+    "subtitle": "ഒന്നോ അതിലധികമോ എതിരാളികളെ തിരഞ്ഞെടുക്കുക",
+    "selectAtLeastOne": "കുറഞ്ഞത് ഒരു എതിരാളിയെ തിരഞ്ഞെടുക്കുക",
+    "race_one": "{{count}} എതിരാളിയോട് റേസ് ചെയ്യുക",
+    "race_other": "{{count}} എതിരാളികളോട് റേസ് ചെയ്യുക",
+    "skill": {
+      "novice": "പുതുമുഖം",
+      "advancedBeginner": "തുടക്കക്കാരൻ",
+      "competent": "പ്രാപ്തൻ",
+      "proficient": "പ്രാവീണ്യൻ",
+      "expert": "വിദഗ്ധൻ"
+    }
+  },
+  "agentParty": {
+    "title": "AI എതിരാളികൾ",
+    "rivalCount_one": "{{count}} എതിരാളി",
+    "rivalCount_other": "{{count}} എതിരാളികൾ"
+  },
+  "party": {
+    "cancel": "റദ്ദാക്കുക",
+    "editName": "ടീമിന്റെ പേര് മാറ്റുക",
+    "editMaxMembers": "പരമാവധി അംഗങ്ങളെ മാറ്റുക",
+    "memberCount_one": "{{count}} അംഗം",
+    "memberCount_other": "{{count}} അംഗങ്ങൾ",
+    "memberCountPremium_one": "{{count}} അംഗം ✨ പ്രീമിയം",
+    "memberCountPremium_other": "{{count}} അംഗങ്ങൾ ✨ പ്രീമിയം",
+    "membersOf_one": "{{current}}/{{count}} അംഗം",
+    "membersOf_other": "{{current}}/{{count}} അംഗങ്ങൾ",
+    "shareLink": "ഈ പസിലിൽ ചേരാൻ നിലവിലെ ടീം അംഗങ്ങളുമായി ഈ ലിങ്ക് പങ്കിടുക",
+    "you": "(നിങ്ങൾ)",
+    "notStarted": "ആരംഭിച്ചിട്ടില്ല! കളിക്കാൻ ആവശ്യപ്പെടൂ"
+  },
+  "partyConfirmation": {
+    "cancel": "റദ്ദാക്കുക",
+    "leaveAgentParty": {
+      "title": "AI എതിരാളികളെ നീക്കം ചെയ്യുക",
+      "action": "നീക്കം ചെയ്യുക",
+      "processing": "നീക്കം ചെയ്യുന്നു...",
+      "message": "എല്ലാ AI എതിരാളികളെയും നീക്കം ചെയ്യണമെന്ന് ഉറപ്പാണോ? അവർ ഇനി റേസിൽ ദൃശ്യമാകില്ല."
+    },
+    "removeAgent": {
+      "title": "ലോക്കൽ ഏജന്റിനെ നീക്കം ചെയ്യുക",
+      "action": "നീക്കം ചെയ്യുക",
+      "processing": "നീക്കം ചെയ്യുന്നു...",
+      "message": "റേസിൽ നിന്ന് \"{{memberName}}\" എന്നയാളെ നീക്കം ചെയ്യണമെന്ന് ഉറപ്പാണോ?"
+    },
+    "deleteParty": {
+      "title": "ടീം ഇല്ലാതാക്കുക",
+      "action": "ടീം ഇല്ലാതാക്കുക",
+      "processing": "ഇല്ലാതാക്കുന്നു...",
+      "message": "\"{{partyName}}\" എന്ന ടീം ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ? ഇത് ടീമിനെ ശാശ്വതമായി നീക്കം ചെയ്യും, എല്ലാ അംഗങ്ങൾക്കും ആക്സസ് നഷ്ടപ്പെടും. ഈ നടപടി പഴയപടിയാക്കാൻ കഴിയില്ല."
+    },
+    "leave": {
+      "title": "ടീം വിടുക",
+      "action": "വിടുക",
+      "processing": "വിടുന്നു...",
+      "message": "\"{{partyName}}\" എന്ന ടീം വിടണമെന്ന് ഉറപ്പാണോ? മറ്റ് അംഗങ്ങളുടെ പുരോഗതി ഇനി കാണാനോ ഈ ടീമിൽ പങ്കെടുക്കാനോ കഴിയില്ല."
+    },
+    "remove": {
+      "title": "അംഗത്തെ നീക്കം ചെയ്യുക",
+      "action": "നീക്കം ചെയ്യുക",
+      "processing": "നീക്കം ചെയ്യുന്നു...",
+      "message": "\"{{partyName}}\" ടീമിൽ നിന്ന് \"{{memberName}}\" എന്നയാളെ നീക്കം ചെയ്യണമെന്ന് ഉറപ്പാണോ? അവർക്ക് ഇനി ഈ ടീമിൽ പങ്കെടുക്കാൻ കഴിയില്ല."
+    }
+  },
+  "friends": {
+    "allTeams": "എല്ലാ ടീമുകളും",
+    "refresh": "പുതുക്കുക",
+    "refreshing": "പുതുക്കുന്നു…",
+    "title": "സുഹൃത്തുക്കളുടെ പസിലുകൾ",
+    "subtitle": "ഒരു സുഹൃത്തിനെ ടാപ്പ് ചെയ്ത് അവരുടെ സമീപകാല പസിലുകൾ കാണൂ, അവരോട് റേസ് ചെയ്യൂ.",
+    "memberCount_one": "{{count}} അംഗം",
+    "memberCount_other": "{{count}} അംഗങ്ങൾ",
+    "noRecentPuzzles": "സമീപകാല പസിലുകളില്ല — അവരെ വെല്ലുവിളിക്കൂ!",
+    "empty": {
+      "title": "റേസിംഗ് ടീമുകളില്ല",
+      "description": "പസിൽ പരിഹരിക്കുമ്പോൾ റേസ് ലോബിയിൽ നിന്ന് സുഹൃത്തുക്കളെ ക്ഷണിക്കൂ"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "കഴിഞ്ഞ 30 ദിവസത്തെ നിങ്ങളുടെ പസിലുകൾ.",
+    "empty": {
+      "title": "പസിലുകളില്ല",
+      "description": "ആദ്യ പസിൽ പരിഹരിക്കാൻ റേസ് തുടങ്ങുക എന്ന ടാബിലേക്ക് പോകൂ"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} ഫീച്ചർ കൂടി",
+    "moreFeatures_other": "+{{count}} ഫീച്ചറുകൾ കൂടി"
+  },
+  "crossPromo": {
+    "whyNotTry": "ഇതൊന്ന് പരീക്ഷിച്ചുനോക്കൂ",
+    "tryItFree": "സൗജന്യമായി പരീക്ഷിക്കൂ"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} ഇഷ്ടപ്പെടുന്നുണ്ടോ?",
+    "rateIt": "റേറ്റ് ചെയ്യൂ",
+    "rateInSeconds": "സെക്കൻഡുകൾക്കുള്ളിൽ റേറ്റ് ചെയ്യൂ"
+  },
+  "plus": {
+    "close": "മോഡൽ അടയ്ക്കുക",
+    "appIconAlt": "ആപ്പ് ഐക്കൺ",
+    "lifetime": "ആജീവനാന്തം",
+    "monthly": "പ്രതിമാസ",
+    "perMonth": "{{price}}/മാസം",
+    "whatsIncluded": "ഉൾപ്പെടുന്നവ",
+    "continue": "തുടരുക",
+    "restorePurchases": "വാങ്ങലുകൾ പുനഃസ്ഥാപിക്കുക",
+    "cancel": "റദ്ദാക്കുക"
+  },
+  "download": {
+    "title": "ആപ്പിൽ തുടരുക",
+    "appStoreAlt": "ഡൗൺലോഡ് ചെയ്യുക: {{appStore}}",
+    "googlePlayAlt": "ലഭ്യമാക്കുക: {{googlePlay}}",
+    "continueBrowser": "ബ്രൗസറിൽ തുടരുക",
+    "continueDesktop": "ഡെസ്ക്ടോപ്പിൽ തുടരുക"
+  },
+  "session": {
+    "cheated": "ചതിച്ചു",
+    "completedIn": "{{minutes}} മി {{seconds}} സെ കൊണ്ട് പൂർത്തിയാക്കി",
+    "percentComplete": "{{percentage}}% പൂർത്തിയായി",
+    "duration": "{{minutes}} മി {{seconds}} സെ",
+    "shortDate": "{{month}} {{day}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "പസിൽ #{{number}}",
+    "daily": "ദിവസേന · {{date}}",
+    "book": "പുസ്തകം {{month}} #{{number}}",
+    "collection": "ശേഖരം {{month}} #{{number}}",
+    "scanned": "സ്കാൻ ചെയ്ത പസിൽ",
+    "you": "നിങ്ങൾ",
+    "unknown": "അജ്ഞാതം",
+    "unlockWith": "{{label}} ഉപയോഗിച്ച് അൺലോക്ക് ചെയ്യുക",
+    "lockedPuzzle": "ലോക്ക് ചെയ്ത പസിൽ",
+    "recommendedTechniques": "ശുപാർശ ചെയ്യുന്ന സാങ്കേതികതകൾ:",
+    "loadingFriends": "സുഹൃത്തുക്കളെ ലോഡ് ചെയ്യുന്നു..."
+  }
+}

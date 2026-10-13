@@ -1,0 +1,341 @@
+{
+  "brand": {
+    "gameName": "Sudoku dirka"
+  },
+  "board": {
+    "buttonGroup": "Skupina gumbov"
+  },
+  "celebration": {
+    "solved": "Rešeno!",
+    "leaderboardPoints": "Točke na lestvici",
+    "pointsSuffix": " točk"
+  },
+  "completion": {
+    "time": "Čas"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Nadaljujte niz v knjigi"
+  },
+  "puzzleMeta": {
+    "daily": "Dnevna {{day}} {{month}}",
+    "dayOrdinal": "{{count}}.",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "book": "Knjiga {{month}} št. {{number}}",
+    "scanned": "Skenirana uganka"
+  },
+  "bookCover": {
+    "edition": "Izdaja: {{month}}",
+    "puzzleCount": "50 ugank • Več težavnosti",
+    "months": {
+      "january": {
+        "tagline": "Od osnov do brutalnih tehnik",
+        "footer": "❄️ Zimska izzivalna izdaja ❄️"
+      },
+      "february": {
+        "tagline": "Od skritih enojcev do verig AIC",
+        "footer": "💕 Ljubite izziv 💕"
+      },
+      "march": {
+        "tagline": "Pomlad naprednih tehnik",
+        "footer": "🌸 Cvetijo sveži izzivi 🌸"
+      },
+      "april": {
+        "tagline": "Kljubujte vsaki reševalski nevihti",
+        "footer": "🌈 Po dežju pride zmaga 🌈"
+      },
+      "may": {
+        "tagline": "Cvetite z močjo možganov",
+        "footer": "🌻 Naj vaše spretnosti cvetijo 🌻"
+      },
+      "june": {
+        "tagline": "Poletni trening za možgane",
+        "footer": "☀️ Sončna plat reševanja ☀️"
+      },
+      "july": {
+        "tagline": "Branje na plaži, trening za možgane",
+        "footer": "🏖️ Počitniške miselne igre 🏖️"
+      },
+      "august": {
+        "tagline": "Ogrejte svoje možgane",
+        "footer": "🔥 Vroči izzivi 🔥"
+      },
+      "september": {
+        "tagline": "Šolajte svoje možgane",
+        "footer": "📚 Znanje prek števil 📚"
+      },
+      "october": {
+        "tagline": "Strašljivo pametni izzivi",
+        "footer": "🎃 Strašno zabavno 🎃"
+      },
+      "november": {
+        "tagline": "Ognjeni izzivi za možgane",
+        "footer": "🍂 Jesenski večeri z ugankami 🍂"
+      },
+      "december": {
+        "tagline": "Praznična darila za možgane",
+        "footer": "🎄 Vesel božič, reševalec! 🎄"
+      },
+      "default": {
+        "tagline": "Izzovite svoj um",
+        "footer": "🧩 Moč ugank 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Niste povezani, preverite svojo povezavo",
+      "loadFailed": "Knjige ugank ni bilo mogoče naložiti"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Tipkovnica: smerne tipke, razveljavi, uveljavi.",
+      "notes": "Držite shift ali pritisnite n za preklop načina zapiskov.",
+      "validate": "Pritisnite c za preverjanje celice, g za preverjanje mreže."
+    },
+    "owl": {
+      "invalid": "Videti je, da ste naredili napako. Priporočam, da preverite mrežo.",
+      "notSure": "Žal ne vem zagotovo.",
+      "eureka": "Zapis Eureka: {{notation}}",
+      "highlighted": "Ustrezne celice so označene",
+      "foundTechnique": "Najdeno: {{technique}}",
+      "noHint": "Namig ni na voljo"
+    },
+    "legend": {
+      "stem": "Steblo",
+      "petalA": "Listič A",
+      "petalB": "Listič B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Vklopljeno (res)",
+      "off": "Izklopljeno (neres)",
+      "elimination": "Izločitev"
+    },
+    "reply": {
+      "thanks": "Hvala,",
+      "tellMeMore": "🤔 Povejte mi več",
+      "showMeWhere": "👀 Pokažite mi, kje",
+      "hideHint": "Skrij namig"
+    },
+    "askForHelp": "Prosi za pomoč",
+    "notes": "Zapiski",
+    "copied": "Kopirano!",
+    "export": "Izvozi",
+    "delete": "Izbriši",
+    "undo": "Razveljavi",
+    "redo": "Uveljavi",
+    "cell": "Celica",
+    "grid": "Mreža",
+    "zoom": "Povečava",
+    "reset": "Ponastavi",
+    "reveal": "Razkrij",
+    "confirm": {
+      "reset": {
+        "title": "Ponastavim celotno mrežo?",
+        "body": "Ali res želite ponastaviti celotno mrežo?",
+        "confirm": "Ponastavi"
+      },
+      "reveal": {
+        "title": "Razkrijem celotno mrežo?",
+        "body": "Ali res želite razkriti celotno mrežo?",
+        "confirm": "Razkrij"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Goli enojec",
+    "hiddenSingleBox": "Skriti enojec (kvadrat)",
+    "hiddenSingleRow": "Skriti enojec (vrstica)",
+    "hiddenSingleCol": "Skriti enojec (stolpec)",
+    "nakedPair": "Goli par",
+    "nakedTriple": "Gola trojica",
+    "nakedQuad": "Gola četverica",
+    "hiddenPair": "Skriti par",
+    "hiddenTriple": "Skrita trojica",
+    "hiddenQuad": "Skrita četverica",
+    "lockedCandidatePointing": "Zaklenjeni kandidati (kažoči)",
+    "lockedCandidateClaiming": "Zaklenjeni kandidati (zahtevajoči)",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "jellyfish": "Jellyfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String Kite",
+    "finnedXWing": "Finned X-Wing",
+    "finnedSwordfish": "Finned Swordfish",
+    "finnedJellyfish": "Finned Jellyfish",
+    "emptyRectangle": "Prazni pravokotnik",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Edinstveni pravokotnik (tip 1)",
+    "uniqueRectangleType2": "Edinstveni pravokotnik (tip 2)",
+    "uniqueRectangleType3": "Edinstveni pravokotnik (tip 3)",
+    "uniqueRectangleType4": "Edinstveni pravokotnik (tip 4)",
+    "uniqueRectangleType5": "Edinstveni pravokotnik (tip 5)",
+    "bug": "BUG",
+    "xyChain": "XY-veriga",
+    "aic": "AIC",
+    "aicRing": "Obroč AIC",
+    "groupedAIC": "Združeni AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Death Blossom",
+    "nishio": "Nishio",
+    "nishioNet": "Mreža Nishio",
+    "cellRegionForcingChain": "Vsiljena veriga celica/območje",
+    "cellRegionForcingNet": "Vsiljena mreža celica/območje",
+    "forcingChain": "Vsiljena veriga"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "čebela",
+      "personality": "Nemiren in navdušen. Švigne po mreži v izbruhih, nato obstane. Proti koncu pospeši prezgodaj in obtiči tik pred ciljem.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Vidim eno!",
+          "Počakaj – ne, mogoče pa ne ...",
+          "Bzzz bzzz! Napredek!"
+        ],
+        "playerAhead": ["Hej, počasneje!", "Šlo mi je dobro …"],
+        "playerBehind": ["Dohitevam vas!", "Poglejte me!"],
+        "endgame": ["Skoraj sem tam! Mislim!", "Počakaj – kam spada to?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "raca",
+      "personality": "Vesela in brez cilja. Počasna in enakomerna z dolgimi premori. V končnici zaide v rešitev skoraj po naključju.",
+      "voiceLines": {
+        "neutral": ["Samo vzamem si čas ...", "Hmm ... nekje tukaj."],
+        "playerAhead": ["Odlično vam gre!", "Že še pridem tja."],
+        "playerBehind": ["Oh! Našla sem eno!", "Lepo je."],
+        "endgame": ["Mislim, da sem skoraj končala?", "Oh! To se je izšlo."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "kuščar",
+      "personality": "Previden in pozoren. Dolgi premori, nato majhne skupine potez. V končnici okleva pred vsako postavitvijo.",
+      "voiceLines": {
+        "neutral": ["Naj še enkrat preverim.", "To bi moralo biti prav."],
+        "playerAhead": ["Zdaj moram biti previden.", "Ne hitite s tem."],
+        "playerBehind": ["Dobro … dohitevam.", "Še je čas."],
+        "endgame": ["Previdno zdaj ...", "Skoraj … samo prepričati se moram."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "pajek",
+      "personality": "Premišljen in strukturiran. Napredek gradi skrbno, košček za koščkom. V končnici se struktura podre – vkrade se oklevanje, kot da načrt ne drži več.",
+      "voiceLines": {
+        "neutral": ["To ustreza vzorcu.", "Košček za koščkom ..."],
+        "playerAhead": ["Delovalo je ...", "To moram popraviti ..."],
+        "playerBehind": ["Še vedno drži skupaj.", "Ja … to deluje."],
+        "endgame": ["Počakaj – ne, to vse podre.", "Imel sem to načrtovano ..."]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "rakun",
+      "personality": "Prebrisan in oportunističen. Neenakomeren ritem. V končnici ujame zagon in zaključi hitreje, kot bi pričakovali.",
+      "voiceLines": {
+        "neutral": ["To deluje!", "Malo neurejeno, a vzamem."],
+        "playerAhead": ["Dobro, čas je za pritisk.", "Še nisem končal."],
+        "playerBehind": ["Oh – lepa najdba.", "Zdaj se sestavlja."],
+        "endgame": ["Ja, to mi gre.", "Zdaj teče."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingvin",
+      "personality": "Strukturiran in metodičen. Enakomeren tempo. Končnica ostane stabilna – brez panike, brez sprinta.",
+      "voiceLines": {
+        "neutral": ["To ustreza.", "Ostajam dosleden."],
+        "playerAhead": ["Ohranjam tempo.", "Ni treba hiteti."],
+        "playerBehind": ["Še vedno na poti.", "Napredek je enakomeren."],
+        "endgame": ["Skoraj tam.", "Zaključi čisto."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "opica",
+      "personality": "Nepredvidljiva in vznemirljiva. Nepredvidljivi izbruhi. V končnici nenadoma pospeši na način, ki se zdi nepošten.",
+      "voiceLines": {
+        "neutral": ["He … tega niste pričakovali?", "Oh, to je zanimivo."],
+        "playerAhead": ["Ne ugodite si preveč.", "Poglejte to."],
+        "playerBehind": [
+          "Včasih se enostavno sklopi.",
+          "Srečna slutnja … ali pa ne?"
+        ],
+        "endgame": ["Oh, vau – gremo.", "To se je hitro stopnjevalo."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "orel",
+      "personality": "Zadržan in tekoč. Razmaknjene, samozavestne poteze. Tiho pospeševanje v končnici.",
+      "voiceLines": {
+        "neutral": ["To sem že videl.", "Samo izpolnjujem."],
+        "playerAhead": ["To ničesar ne spremeni.", "Izid ostaja isti."],
+        "playerBehind": ["Končano je, resnično.", "Trenutno sem drugje."],
+        "endgame": ["… skoraj končano.", "Zaključujem."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "lisica",
+      "personality": "Intenzivna in tekmovalna. Hiter začetek, stalen pritisk. Sunek v končnici deluje agresivno.",
+      "voiceLines": {
+        "neutral": ["Držite korak.", "Še vedno z mano?"],
+        "playerAhead": ["Zdaj ne popustite.", "Zmorete bolje od tega."],
+        "playerBehind": ["Prepočasi.", "Zaostajate."],
+        "endgame": ["Končajte to.", "To je moje."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "morski pes",
+      "personality": "Potrpežljiv in plenilski. Ostaja blizu, nato v končnici močno pritisne.",
+      "voiceLines": {
+        "neutral": ["Tik za vami.", "Še ne."],
+        "playerAhead": ["Ostanite, kjer ste.", "Zdaj sem blizu."],
+        "playerBehind": ["Približujem se.", "Tukaj ste."],
+        "endgame": ["Zdaj končamo.", "Imam vas."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "sova",
+      "personality": "Mirna in preudarna. Gladko tempo. Končnica je čista in neizogibna.",
+      "voiceLines": {
+        "neutral": ["Kot pričakovano.", "Vse se ujema."],
+        "playerAhead": ["Dobro.", "Vidite ga."],
+        "playerBehind": ["Zdržite do konca.", "Ostanite pri tem."],
+        "endgame": ["Skoraj dokončano.", "Tukaj je."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "črna mačka",
+      "personality": "Tiha in nečloveška. Minimalni premori. Končnica je hiter, neprekinjen zaključek.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "… še vedno."],
+        "playerBehind": ["Prepozno.", "Oklevali ste."],
+        "endgame": ["… končano.", "Konec."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "zmaj",
+      "personality": "Brez napora in absolutna. Ves čas ohranja popoln nadzor. V končnici izvede odločen, neprekinjen zamah – brez odprtin, brez odpora.",
+      "voiceLines": {
+        "neutral": ["Pričakovano.", "Brez odstopanj."],
+        "playerAhead": ["Prav ste storili, da ste poskusili.", "Nadaljujte."],
+        "playerBehind": ["To je konec.", "Ni alternative."],
+        "endgame": ["To je vse.", "Dokončano."]
+      }
+    }
+  }
+}

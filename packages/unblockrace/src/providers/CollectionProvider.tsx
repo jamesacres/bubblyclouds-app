@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { UnblockCollectionOfTheMonth } from '../types/serverTypes';
 import { useUnblockServerStorage } from '../hooks/useUnblockServerStorage';
+import { useTranslation } from 'react-i18next';
 import { useOnline } from '@bubblyclouds-app/template/hooks/online';
 
 interface CollectionContextType {
@@ -123,7 +124,16 @@ export const CollectionProvider = ({
   const [collectionData, setCollectionData] =
     useState<UnblockCollectionOfTheMonth | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<'offline' | 'loadFailed' | null>(
+    null
+  );
+  const { t } = useTranslation('unblockrace');
+  const error =
+    errorCode === 'offline'
+      ? t('collection.error.offline')
+      : errorCode === 'loadFailed'
+        ? t('collection.error.loadFailed')
+        : null;
   const { getUnblockRaceCollectionOfTheMonth } = useUnblockServerStorage({
     app,
     apiUrl,
@@ -144,7 +154,7 @@ export const CollectionProvider = ({
     }
 
     setIsLoading(true);
-    setError(null);
+    setErrorCode(null);
 
     try {
       const result = await getUnblockRaceCollectionOfTheMonth();
@@ -153,14 +163,14 @@ export const CollectionProvider = ({
         saveCachedCollectionData(result);
       } else {
         if (!isOnline) {
-          setError('You are offline, please check your connection');
+          setErrorCode('offline');
         } else {
-          setError('Failed to load puzzle collection');
+          setErrorCode('loadFailed');
         }
       }
     } catch (err) {
       console.error(err);
-      setError('Failed to load puzzle collection');
+      setErrorCode('loadFailed');
     } finally {
       setIsLoading(false);
     }
@@ -168,7 +178,7 @@ export const CollectionProvider = ({
 
   const clearCollectionData = useCallback(() => {
     setCollectionData(null);
-    setError(null);
+    setErrorCode(null);
     // Also clear the cache
     try {
       const monthKey = getCurrentMonthKey();

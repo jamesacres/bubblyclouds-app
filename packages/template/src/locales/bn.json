@@ -1,0 +1,234 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "dismiss": "বন্ধ করুন"
+  },
+  "errorBoundary": {
+    "title": "ওহ! কিছু একটা ভুল হয়েছে",
+    "description": "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। চিন্তা করবেন না, আপনার অগ্রগতি সংরক্ষিত আছে!",
+    "reload": "অ্যাপ রিলোড করুন",
+    "clearStorage": "স্টোরেজ মুছে রিলোড করুন",
+    "contactSupport": "সমস্যাটি থেকে গেলে অনুগ্রহ করে সহায়তার সঙ্গে যোগাযোগ করুন।"
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} মিনিট আগে",
+    "minutesAgo_other": "{{count}} মিনিট আগে",
+    "hoursAgo_one": "{{count}} ঘণ্টা আগে",
+    "hoursAgo_other": "{{count}} ঘণ্টা আগে",
+    "daysAgo_one": "{{count}} দিন আগে",
+    "daysAgo_other": "{{count}} দিন আগে"
+  },
+  "tier": {
+    "novice": "নবীন",
+    "advancedBeginner": "শিক্ষানবিশ",
+    "competent": "দক্ষ",
+    "proficient": "পারদর্শী",
+    "expert": "বিশেষজ্ঞ"
+  },
+  "moves": {
+    "onPar": "চাল, প্যারে",
+    "overPar": "চাল, প্যারের চেয়ে {{delta}} বেশি",
+    "underPar": "চাল, প্যারের চেয়ে {{delta}} কম"
+  },
+  "lobby": {
+    "title": "রেস লবি",
+    "close": "লবি বন্ধ করুন",
+    "onlineOpponents": "অনলাইন প্রতিপক্ষ",
+    "refresh": "অনলাইন প্রতিপক্ষ রিফ্রেশ করুন",
+    "noOpponents": "কোনো প্রতিপক্ষ অনলাইনে নেই — বন্ধুদের রেসে আমন্ত্রণ জানান!",
+    "away": "অনুপস্থিত",
+    "offlineTeams": "অফলাইন · আপনার টিমে",
+    "removeMember": "সরান: {{name}}",
+    "aiOpponents": "AI প্রতিপক্ষ",
+    "addAgent": "যোগ করুন",
+    "noAgents": "এখনও কোনো AI প্রতিপক্ষ নেই — সবসময় রেস করার জন্য কাউকে যোগ করুন।",
+    "ownClock": "প্রত্যেক খেলোয়াড় নিজের ঘড়িতে রেস করেন",
+    "startSolving": "সমাধান শুরু করুন",
+    "finished": "সম্পন্ন",
+    "inLobby": "লবিতে",
+    "stageProgress": "ধাপ {{current}}/{{total}}",
+    "finishedRunIn": "{{time}} সময়ে রান শেষ করেছেন",
+    "solvedIn": "{{time}} সময়ে সমাধান হয়েছে",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · সর্বশেষ দেখা গেছে {{lastSeen}}",
+    "raceSummary": {
+      "solo": "একা রেস — শুধু আপনি আর ঘড়ি",
+      "friends_one": "{{count}} জন বন্ধু",
+      "friends_other": "{{count}} জন বন্ধু",
+      "aiOpponents_one": "{{count}} জন AI প্রতিপক্ষ",
+      "aiOpponents_other": "{{count}} জন AI প্রতিপক্ষ",
+      "racing": "রেস চলছে: {{opponents}}"
+    },
+    "invite": {
+      "button": "আমন্ত্রণ",
+      "eyebrow": "আপনার রেস সাজান",
+      "title": "প্রতিপক্ষদের আমন্ত্রণ জানান",
+      "close": "বন্ধ করুন",
+      "existingTeam": "বিদ্যমান টিমে আমন্ত্রণ জানান",
+      "editTeamName": "টিমের নাম সম্পাদনা করুন",
+      "deleteTeam": "টিম মুছুন",
+      "leaveTeam": "টিম ছেড়ে যান",
+      "memberCount_one": "{{count}} জন সদস্য",
+      "memberCount_other": "{{count}} জন সদস্য",
+      "createTeam": "নতুন রেসিং টিম তৈরি করুন",
+      "displayNameLabel": "টিমের সদস্যরা আপনাকে কী নামে ডাকে?",
+      "displayNamePlaceholder": "প্রদর্শনের নাম",
+      "teamNameLabel": "এই টিমের নাম কী রাখব?",
+      "teamNamePlaceholder": "টিমের নাম (যেমন পরিবার)",
+      "createAndCopy": "তৈরি করুন ও লিংক কপি করুন",
+      "defaultTeamName": "নতুন টিম",
+      "defaultPlayerName": "খেলোয়াড়"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "শিট বন্ধ করুন",
+    "back": "পিছনে",
+    "close": "বন্ধ করুন",
+    "title": "আপনার প্রতিদ্বন্দ্বী বেছে নিন",
+    "subtitle": "এক বা একাধিক প্রতিপক্ষ বেছে নিন",
+    "selectAtLeastOne": "অন্তত একজন প্রতিদ্বন্দ্বী বেছে নিন",
+    "race_one": "{{count}} জন প্রতিদ্বন্দ্বীর সঙ্গে রেস করুন",
+    "race_other": "{{count}} জন প্রতিদ্বন্দ্বীর সঙ্গে রেস করুন",
+    "skill": {
+      "novice": "নবীন",
+      "advancedBeginner": "উন্নত শিক্ষানবিশ",
+      "competent": "দক্ষ",
+      "proficient": "পারদর্শী",
+      "expert": "বিশেষজ্ঞ"
+    }
+  },
+  "agentParty": {
+    "title": "AI প্রতিদ্বন্দ্বী",
+    "rivalCount_one": "{{count}} জন প্রতিদ্বন্দ্বী",
+    "rivalCount_other": "{{count}} জন প্রতিদ্বন্দ্বী"
+  },
+  "party": {
+    "cancel": "বাতিল করুন",
+    "editName": "টিমের নাম সম্পাদনা করুন",
+    "editMaxMembers": "সর্বোচ্চ সদস্যসংখ্যা সম্পাদনা করুন",
+    "memberCount_one": "{{count}} জন সদস্য",
+    "memberCount_other": "{{count}} জন সদস্য",
+    "memberCountPremium_one": "{{count}} জন সদস্য ✨ প্রিমিয়াম",
+    "memberCountPremium_other": "{{count}} জন সদস্য ✨ প্রিমিয়াম",
+    "membersOf_one": "{{count}} জন সদস্যের মধ্যে {{current}} জন",
+    "membersOf_other": "{{count}} জন সদস্যের মধ্যে {{current}} জন",
+    "shareLink": "এই ধাঁধায় যোগ দিতে বর্তমান টিম সদস্যদের সঙ্গে এই লিংক শেয়ার করুন",
+    "you": "(আপনি)",
+    "notStarted": "শুরু করেননি! তাদের খেলতে বলুন"
+  },
+  "partyConfirmation": {
+    "cancel": "বাতিল করুন",
+    "leaveAgentParty": {
+      "title": "AI প্রতিদ্বন্দ্বীদের সরান",
+      "action": "সরান",
+      "processing": "সরানো হচ্ছে...",
+      "message": "আপনি কি নিশ্চিত যে সব AI প্রতিদ্বন্দ্বীকে সরাতে চান? তারা আর রেসে দেখা যাবে না।"
+    },
+    "removeAgent": {
+      "title": "লোকাল এজেন্ট সরান",
+      "action": "সরান",
+      "processing": "সরানো হচ্ছে...",
+      "message": "আপনি কি নিশ্চিত যে এই সদস্যকে রেস থেকে সরাতে চান: \"{{memberName}}\"?"
+    },
+    "deleteParty": {
+      "title": "টিম মুছুন",
+      "action": "টিম মুছুন",
+      "processing": "মোছা হচ্ছে...",
+      "message": "আপনি কি নিশ্চিত যে \"{{partyName}}\" টিমটি মুছে ফেলতে চান? এতে টিমটি স্থায়ীভাবে মুছে যাবে এবং সব সদস্য অ্যাক্সেস হারাবেন। এই পদক্ষেপ পূর্বাবস্থায় ফেরানো যাবে না।"
+    },
+    "leave": {
+      "title": "টিম ছেড়ে যান",
+      "action": "ছেড়ে যান",
+      "processing": "ছাড়া হচ্ছে...",
+      "message": "আপনি কি নিশ্চিত যে \"{{partyName}}\" টিম ছেড়ে যেতে চান? আপনি আর অন্য সদস্যদের অগ্রগতি দেখতে পাবেন না বা এই টিমে অংশ নিতে পারবেন না।"
+    },
+    "remove": {
+      "title": "সদস্য সরান",
+      "action": "সরান",
+      "processing": "সরানো হচ্ছে...",
+      "message": "আপনি কি নিশ্চিত যে \"{{partyName}}\" টিম থেকে সদস্য \"{{memberName}}\" কে সরাতে চান? তিনি আর এই টিমে অংশ নিতে পারবেন না।"
+    }
+  },
+  "friends": {
+    "allTeams": "সব টিম",
+    "refresh": "রিফ্রেশ",
+    "refreshing": "রিফ্রেশ হচ্ছে…",
+    "title": "বন্ধুদের ধাঁধা",
+    "subtitle": "কোনো বন্ধুকে ট্যাপ করে তাদের সাম্প্রতিক ধাঁধা দেখুন ও তাদের সঙ্গে রেস করুন।",
+    "memberCount_one": "{{count}} জন সদস্য",
+    "memberCount_other": "{{count}} জন সদস্য",
+    "noRecentPuzzles": "সাম্প্রতিক কোনো ধাঁধা নেই — তাদের চ্যালেঞ্জ করুন!",
+    "empty": {
+      "title": "এখনও কোনো রেসিং টিম নেই",
+      "description": "ধাঁধা সমাধানের সময় রেস লবি থেকে বন্ধুদের আমন্ত্রণ জানান"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "গত 30 দিনের আপনার ধাঁধা।",
+    "empty": {
+      "title": "এখনও কোনো ধাঁধা নেই",
+      "description": "প্রথম ধাঁধা সমাধান করতে রেস শুরু করুন ট্যাবে যান"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}}টি আরও সুবিধা",
+    "moreFeatures_other": "+{{count}}টি আরও সুবিধা"
+  },
+  "crossPromo": {
+    "whyNotTry": "একবার খেলে দেখুন",
+    "tryItFree": "বিনামূল্যে চেষ্টা করুন"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} কেমন লাগছে?",
+    "rateIt": "রেট করুন",
+    "rateInSeconds": "কয়েক সেকেন্ডেই রেট করুন"
+  },
+  "plus": {
+    "close": "মোডাল বন্ধ করুন",
+    "appIconAlt": "অ্যাপ আইকন",
+    "lifetime": "আজীবন",
+    "monthly": "মাসিক",
+    "perMonth": "{{price}}/মাস",
+    "whatsIncluded": "যা যা অন্তর্ভুক্ত",
+    "continue": "চালিয়ে যান",
+    "restorePurchases": "ক্রয় পুনরুদ্ধার করুন",
+    "cancel": "বাতিল করুন"
+  },
+  "download": {
+    "title": "অ্যাপে চালিয়ে যান",
+    "appStoreAlt": "{{appStore}} থেকে ডাউনলোড করুন",
+    "googlePlayAlt": "{{googlePlay}} থেকে নিন",
+    "continueBrowser": "ব্রাউজারে চালিয়ে যান",
+    "continueDesktop": "ডেস্কটপে চালিয়ে যান"
+  },
+  "session": {
+    "cheated": "প্রতারণা করা হয়েছে",
+    "completedIn": "{{minutes}} মি {{seconds}} সে সময়ে সম্পন্ন",
+    "percentComplete": "{{percentage}}% সম্পন্ন",
+    "duration": "{{minutes}} মি {{seconds}} সে",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_two": "{{count}}",
+    "dayOrdinal_ordinal_few": "{{count}}",
+    "dayOrdinal_ordinal_many": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "ধাঁধা #{{number}}",
+    "daily": "দৈনিক {{date}}",
+    "book": "বই {{month}} #{{number}}",
+    "collection": "সংগ্রহ {{month}} #{{number}}",
+    "scanned": "স্ক্যান করা ধাঁধা",
+    "you": "আপনি",
+    "unknown": "অজানা",
+    "unlockWith": "{{label}} দিয়ে আনলক করুন",
+    "lockedPuzzle": "লক করা ধাঁধা",
+    "recommendedTechniques": "প্রস্তাবিত কৌশল:",
+    "loadingFriends": "বন্ধুদের লোড করা হচ্ছে..."
+  }
+}

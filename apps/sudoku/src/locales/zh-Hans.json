@@ -1,0 +1,300 @@
+{
+  "brand": {
+    "appName": "数独竞速",
+    "gameName": "数独",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "数独 Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "分享并与朋友一起玩数独竞速。每日挑战，跨设备同步！"
+  },
+  "puzzle": {
+    "mobileDescription": "用我们的 {{appName}} 应用，享受最佳竞速体验！",
+    "desktopDescription": "下载 {{appName}}",
+    "openInAppLabel": "打开谜题"
+  },
+  "crossPromo": {
+    "gameName": "解锁竞速",
+    "tagline": "滑动积木，与朋友竞速清除堵局。"
+  },
+  "notFound": {
+    "message": "页面未找到"
+  },
+  "login": {
+    "dailyPuzzle": "登录后开始今天的谜题",
+    "puzzleBook": "登录后浏览谜题集",
+    "joinTeam": "登录后加入团队",
+    "raceLobby": "登录后与他人竞速",
+    "puzzleEntry": "登录后开始游玩",
+    "valueProps": {
+      "saveProgress": "保存您的进度",
+      "raceFriends": "与好友竞速",
+      "trackStats": "追踪您的数据"
+    }
+  },
+  "plusModal": {
+    "description": "加入 <badge>{{plusName}}</badge>，<emphasis>解除所有速度限制</emphasis>。挑战好友，冲上排行榜，提升您的解题速度。全程无广告。"
+  },
+  "premiumFeatures": {
+    "title": "高级功能",
+    "subtitle": "解锁 {{appName}} 的完整体验",
+    "unlimitedPlay": {
+      "title": "无限畅玩与竞速",
+      "description": "每天不止一次与好友实时竞速"
+    },
+    "unlimitedHints": {
+      "title": "无限提示",
+      "description": "再也不会卡关——需要时随时获取提示"
+    },
+    "monthlyBook": {
+      "title": "每月谜题集全部解锁",
+      "description": "所有难度的每一道谜题，全部开放"
+    },
+    "multipleTeams": {
+      "title": "多个竞速团队",
+      "description": "与朋友和家人举办私人比赛"
+    },
+    "teamManagement": {
+      "title": "团队管理",
+      "description": "创建最多 15 人的大型团队，并可移除团队成员。"
+    },
+    "themes": {
+      "title": "解锁全部主题",
+      "description": "打造专属的竞速体验"
+    },
+    "unlimitedActions": {
+      "title": "无限撤销、检查和显示答案",
+      "description": "取消每日撤销、检查和显示答案的次数限制"
+    }
+  },
+  "subscription": {
+    "hint_other": "💡 <bold>您今天已用完 {{count}} 次免费提示。</bold>$t(brand.plus) 为您提供无限提示——再也不会卡关——并让整个应用保持无广告。",
+    "undo_other": "📅 <bold>您已达到每日撤销上限！</bold>每天可免费撤销 {{count}} 次。上限将于明天重置，或订阅后无限次撤销。",
+    "checkGrid_other": "📅 <bold>您已达到每日网格检查上限！</bold>每天可免费检查网格 {{count}} 次。上限将于明天重置，或订阅后无限次检查。",
+    "reveal": "🔓 <bold>显示网格答案是高级功能！</bold>订阅后即可查看完整解答。",
+    "themeColor": "🎨 <bold>此主题为 $t(brand.plus) 专享。</bold>升级即可解锁所有精美主题颜色，打造专属的数独体验。",
+    "dailyPuzzleLimit_other": "🧩 <bold>您已达到每日谜题上限！</bold>免费用户每天可玩 {{count}} 道谜题。上限将于明天重置，或订阅后无限畅玩。",
+    "collectionLocked": "✨ <bold>这道谜题属于 $t(brand.plus) 谜题集。</bold>$t(brand.plus) 可解锁每个月谜题集中的所有谜题，并让整个应用保持无广告。",
+    "removeMember": "👥 <bold>移除团队成员是高级功能！</bold>订阅后即可使用高级团队管理功能，包括移除成员。",
+    "multipleParties": "🏘️ <bold>多个竞速团队是高级功能！</bold>免费用户只能拥有一个团队。订阅后可创建并加入无限个团队，与家人、朋友等一起玩。",
+    "partyMaxSize": "👥 <bold>大型团队是高级功能！</bold>订阅后即可使用高级团队管理功能，包括大型团队。"
+  },
+  "motivational": {
+    "messages": [
+      "您的朋友正等着迎接挑战",
+      "今天您要和谁竞速？",
+      "是时候展现您的速度了",
+      "接受挑战吗？",
+      "冲向终点线",
+      "谁是最快的解题高手？",
+      "准备好称霸排行榜了吗？",
+      "您的竞速实力正待施展",
+      "是时候把他们甩在身后了",
+      "准备好第一个冲过终点线了吗？",
+      "赛道正等着您",
+      "是时候换上高速挡了",
+      "准备好在谜题网格上飙车了吗？",
+      "您的对手已经在热身了",
+      "今天就是刷新纪录的日子",
+      "您的个人最佳纪录等着被打破",
+      "每解一道题，您都会更快",
+      "连续记录从现在开始",
+      "是时候提升您的实力了",
+      "您的下一个突破只差一道谜题",
+      "准备好给自己一个惊喜了吗？",
+      "让他们看看您的真本事",
+      "是时候释放您的潜力了",
+      "您最快的解题纪录还在前方",
+      "准备好让今天与众不同了吗？",
+      "竞速中，每一秒都很关键",
+      "是时候挑战极限了",
+      "您的进步之旅仍在继续",
+      "准备好超越期待了吗？",
+      "觉得自己扛得住压力吗？",
+      "是时候让质疑者闭嘴了",
+      "准备好夺取胜利了吗？",
+      "对手绝对想不到",
+      "是时候留下您的印记了",
+      "准备好成为焦点了吗？",
+      "凭实力赢得的胜利，滋味更甜",
+      "是时候证明谁才是老大了",
+      "准备好展现真正的实力了吗？",
+      "冠军心态，从这里开始",
+      "是时候从人群中脱颖而出了",
+      "准备好书写您的传奇了吗？",
+      "冠军，就是在这样的时刻诞生的",
+      "是时候把潜力变成实力了",
+      "新的谜题，新的机会",
+      "今天的挑战等着您来征服",
+      "准备好让今天成为最棒的一天了吗？",
+      "新的一天，意味着新的纪录等您打破",
+      "是时候再为您的战绩添一场胜利了",
+      "准备好开局强势、收官更强了吗？",
+      "准备好让今天成为传奇了吗？",
+      "您每日的胜利感正等着您",
+      "策略与速度，在网格上相遇",
+      "准备好以智取胜、以快制胜了吗？",
+      "您的解题功力在召唤",
+      "是时候将逻辑与闪电般的速度融为一体了",
+      "准备好精准解题了吗？",
+      "完美组合：技巧加速度",
+      "您的分析优势，就是您的竞速优势",
+      "是时候展示谜题王者风范了",
+      "准备好像冠军一样解题了吗？",
+      "精准竞速，始于清晰思考",
+      "您的朋友正等着再战一场",
+      "今天谁来解题？",
+      "新的每日谜题已就绪",
+      "您的连续记录岌岌可危",
+      "新谜题，新开始",
+      "今天的挑战已上线",
+      "在每日谜题上和朋友一较高下",
+      "新的一天，新的谜题",
+      "已经有人登上排行榜了",
+      "保持连续记录",
+      "每日挑战刚刚刷新",
+      "您的团队在等您",
+      "离榜首又近了一道谜题",
+      "今天的谜题正等着您",
+      "回来继续竞速吧"
+    ]
+  },
+  "home": {
+    "live": "实时",
+    "headline": "准备好竞速了吗？🏁",
+    "subtitle": "分享挑战——邀请好友，看看谁是最快的数独解题高手。",
+    "leaderboard": "排行榜",
+    "daily": {
+      "title": "每日挑战",
+      "refreshes": "每日刷新",
+      "moreLevels": "更多难度请见<bookLink>谜题集</bookLink>",
+      "difficulty": {
+        "simple": "棘手",
+        "easy": "有挑战",
+        "intermediate": "困难"
+      }
+    },
+    "book": {
+      "summary_other": "{{month}} · {{count}} 道谜题",
+      "title": "每月谜题集",
+      "browse": "浏览谜题"
+    },
+    "import": {
+      "title": "导入任意谜题",
+      "description": "用相机扫描，或粘贴谜题字符串",
+      "desktopTitle": "与好友竞速任意谜题",
+      "desktopDescription": "从书本或报纸上扫描"
+    },
+    "teams": {
+      "title": "竞速团队",
+      "withFriends": "与 {{friends}} 等人竞速",
+      "noFriends": "向好友发起竞速挑战"
+    },
+    "tabs": {
+      "startRace": "开始竞速",
+      "myPuzzles": "我的谜题",
+      "racingTeams": "竞速团队"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "正在加载谜题集…",
+      "puzzles": "正在加载谜题…",
+      "progress": "正在加载您的进度…"
+    },
+    "tryAgain": "重试",
+    "backHome": "返回首页",
+    "signInPrompt": "登录后访问谜题集。",
+    "signIn": "登录",
+    "noData": "暂无谜题集数据。",
+    "title": "{{month}}谜题集",
+    "puzzleCount_other": "{{count}} 道技巧专练谜题",
+    "completed": "已完成 {{count}} 道",
+    "inProgress": "进行中 {{count}} 道",
+    "unlockWithPlus": "使用 $t(brand.plus) 解锁所有谜题",
+    "jumpToDifficulty": "跳转到难度",
+    "scrollToTop": "回到顶部",
+    "difficulty": {
+      "veryEasy": "非常简单",
+      "easy": "简单",
+      "moderatelyEasy": "较简单",
+      "moderate": "中等",
+      "moderatelyHard": "较困难",
+      "hard": "困难",
+      "vicious": "凶残",
+      "fiendish": "邪恶",
+      "devilish": "魔鬼",
+      "hell": "地狱",
+      "beyondHell": "超越地狱"
+    }
+  },
+  "invite": {
+    "loading": "正在加载邀请…",
+    "iconAlt": "{{gameName}}图标",
+    "greeting": "👋 您好！",
+    "greetingNamed": "👋 您好，{{name}}！",
+    "invited": "您受到了邀请！",
+    "joinTeam": "加入竞速团队 <team/>",
+    "description": "一起解数独谜题，实时查看彼此的进度！",
+    "proTip": "💡 <bold>小贴士：</bold>您今后玩的所有谜题都会与团队成员共享，开展友好竞争！",
+    "nicknameLabel": "您的竞速团队怎么称呼您？",
+    "nicknamePlaceholder": "输入您的昵称",
+    "joining": "正在加入团队…",
+    "join": "加入乐趣！🎉",
+    "signIn": "登录后继续",
+    "bonus": {
+      "title": "🎉 福利：获赠{{duration}}的 {{plusName}}！",
+      "duration": {
+        "oneMonth": "一个月",
+        "oneYear": "一年",
+        "lifetime": "终身",
+        "premium": "高级"
+      },
+      "subtitle": "加入这个竞速团队，即可完全免费解锁高级功能！",
+      "note": "💡 加入后，您的高级权益将自动激活"
+    },
+    "expired": {
+      "title": "邀请已过期",
+      "body": "此邀请链接已失效。请向您的朋友索取新的邀请，或提高团队人数上限。"
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "输入谜题字符串",
+      "help": "粘贴 81 个字符的字符串或 HoDoKu 网格——用数字 1–9 表示已知数字，用 0 或 . 表示空格。",
+      "submit": "导入谜题"
+    },
+    "orScan": "或用相机扫描",
+    "cameraHelp": "将相机对准未解的数独谜题，等待识别完成。",
+    "errors": {
+      "parse": "无法解析谜题。请粘贴 81 个字符的字符串或 HoDoKu 网格。",
+      "solverLoading": "求解器仍在加载——请重试。",
+      "noSolution": "未找到解答。请检查谜题。",
+      "camera": "无法启动相机。请检查权限后重试。"
+    }
+  },
+  "credits": {
+    "title": "致谢与署名",
+    "subtitle": "本应用基于多个优秀项目构建",
+    "copyright": "版权所有 (c) 2026 James Acres（{{companyName}}）",
+    "license": "本应用基于 MIT 许可证授权。详情请参阅我们的 <licenseLink>LICENSE</licenseLink> 和 <creditsLink>CREDITS</creditsLink>。",
+    "items": {
+      "humanSudokuSolver": "使用人类解题技巧求解数独谜题的 TypeScript 库。",
+      "qqwing": "每日数独谜题生成",
+      "tdoku": "用于扫描谜题的快速数独求解器",
+      "arBrowserSudoku": "增强现实扫描技术",
+      "sudokuCoach": "难度计算算法的灵感来源",
+      "nextjs": "面向生产环境的 React 框架",
+      "typescript": "JavaScript 的类型化超集",
+      "tailwind": "实用优先的 CSS 框架",
+      "capacitor": "原生移动应用运行时",
+      "electron": "桌面应用框架",
+      "tensorflow": "用于 AR 功能的机器学习",
+      "revenuecat": "订阅管理",
+      "react": "UI 组件库",
+      "turborepo": "Monorepo 构建系统"
+    }
+  }
+}

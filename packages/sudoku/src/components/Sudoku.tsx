@@ -47,6 +47,9 @@ import RaceCelebrationOverlay, {
 import { isCapacitor } from '@bubblyclouds-app/template/helpers/capacitor';
 import LobbyButton from '@bubblyclouds-app/games/components/LobbyButton';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
+import { useAgentDisplay } from '@bubblyclouds-app/games/hooks/useAgentDisplay';
+import { useAgentDisplayResolver } from '@bubblyclouds-app/games/hooks/useAgentDisplayResolver';
 import {
   puzzleToGrid,
   buildCandidates,
@@ -105,6 +108,7 @@ const Sudoku = ({
   showRacingPrompt: showRacingPromptProp = true,
   app,
   appName,
+  plusName,
   apiUrl,
   appUrl,
   appStoreUrl,
@@ -125,6 +129,7 @@ const Sudoku = ({
   showRacingPrompt?: boolean;
   app: string;
   appName: string;
+  plusName?: string;
   apiUrl: string;
   appUrl: string;
   appStoreUrl: string;
@@ -135,6 +140,10 @@ const Sudoku = ({
   openInAppLabel: string;
 }) => {
   const router = useRouter();
+  const { t, i18n } = useTranslation('sudoku');
+  const { t: tGames } = useTranslation('games');
+  const resolveAgentName = useAgentDisplayResolver('sudoku');
+  const getAgentDisplay = useAgentDisplay('sudoku');
   const context = useContext(UserContext);
   const { user, isInitialised, showLoginModal } = context || {};
   const { isSubscribed, subscribeModal } = useContext(RevenueCatContext) || {};
@@ -198,7 +207,8 @@ const Sudoku = ({
           agents,
           null,
           buildPristineAgentState,
-          calculateCompletionPercentageFromState
+          calculateCompletionPercentageFromState,
+          resolveAgentName
         )
       : []
   );
@@ -292,15 +302,18 @@ const Sudoku = ({
       agents,
       agentStartTimeMsRef.current,
       buildPristineAgentState,
-      calculateCompletionPercentageFromState
+      calculateCompletionPercentageFromState,
+      resolveAgentName
     );
     setLocalAgentProgress((prev) =>
       prev.length === next.length &&
-      prev.every((p, i) => p.percentage === next[i].percentage)
+      prev.every(
+        (p, i) => p.percentage === next[i].percentage && p.name === next[i].name
+      )
         ? prev
         : next
     );
-  }, [agents, timer]);
+  }, [agents, timer, resolveAgentName]);
 
   useEffect(() => {
     if (!completed || agentStartTimeMsRef.current === null) return;
@@ -310,12 +323,16 @@ const Sudoku = ({
         agents,
         agentStartTimeMsRef.current,
         buildPristineAgentState,
-        calculateCompletionPercentageFromState
+        calculateCompletionPercentageFromState,
+        resolveAgentName
       );
       setLocalAgentProgress((prev) => {
         if (
           prev.length === next.length &&
-          prev.every((p, i) => p.percentage === next[i].percentage)
+          prev.every(
+            (p, i) =>
+              p.percentage === next[i].percentage && p.name === next[i].name
+          )
         )
           return prev;
         if (next.every((p) => p.percentage === 100)) clearInterval(interval);
@@ -324,7 +341,7 @@ const Sudoku = ({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [completed, agents]);
+  }, [completed, agents, resolveAgentName]);
 
   const friendsOnClick = useCallback(() => {
     setShowLobby((prev) => !prev);
@@ -629,7 +646,8 @@ const Sudoku = ({
           created,
           null,
           buildPristineAgentState,
-          calculateCompletionPercentageFromState
+          calculateCompletionPercentageFromState,
+          resolveAgentName
         )
       );
       setHasManuallySelectedMode(true);
@@ -643,6 +661,7 @@ const Sudoku = ({
       metadata.difficulty,
       setMode,
       setAgentNames,
+      resolveAgentName,
     ]
   );
 
@@ -748,16 +767,16 @@ const Sudoku = ({
   const puzzleDifficultyDisplay = useMemo(
     () =>
       metadata.difficulty
-        ? getDifficultyDisplay(metadata.difficulty)
+        ? getDifficultyDisplay(metadata.difficulty, tGames)
         : undefined,
-    [metadata.difficulty]
+    [metadata.difficulty, tGames]
   );
   const puzzleDifficulty = puzzleDifficultyDisplay?.name;
   const puzzleDifficultyBadgeColor = puzzleDifficultyDisplay?.badgeColor;
 
   const puzzleMetaLabel = useMemo(
-    () => derivePuzzleMetaLabel(metadata),
-    [metadata]
+    () => derivePuzzleMetaLabel(metadata, t, i18n.language),
+    [metadata, t, i18n.language]
   );
 
   // How many other puzzles were completed today — feeds the daily combo
@@ -852,8 +871,8 @@ const Sudoku = ({
     if (!isBookPuzzle || !metadata.difficulty) {
       return undefined;
     }
-    return sudokuDifficultyDisplay(metadata.difficulty);
-  }, [isBookPuzzle, metadata.difficulty]);
+    return sudokuDifficultyDisplay(metadata.difficulty, tGames);
+  }, [isBookPuzzle, metadata.difficulty, tGames]);
 
   const nextPuzzleProgressLabel = useMemo(() => {
     if (!nextBookPuzzle) {
@@ -862,7 +881,7 @@ const Sudoku = ({
     return buildNextPuzzleProgressLabel({
       isDailyPuzzle,
       isCollectionPuzzle: isBookPuzzle,
-      streakMessage: 'Keep the streak going in the book',
+      streakMessage: t('nextPuzzle.streakMessage'),
       completedDifficulty: metadata.difficulty,
       collectionPuzzles: bookData?.puzzles || [],
       getDifficulty: (puzzle) => puzzle.difficulty.coach,
@@ -873,7 +892,9 @@ const Sudoku = ({
             session.state.completed &&
             !isPuzzleCheated(session.state.answerStack)
         ),
-      getDifficultyDisplay: sudokuDifficultyDisplay,
+      getDifficultyDisplay: (difficulty) =>
+        sudokuDifficultyDisplay(difficulty, tGames),
+      t: tGames,
     });
   }, [
     nextBookPuzzle,
@@ -882,6 +903,8 @@ const Sudoku = ({
     bookData,
     sessions,
     metadata.difficulty,
+    t,
+    tGames,
   ]);
 
   const isInputDisabled =
@@ -950,6 +973,7 @@ const Sudoku = ({
         localAgentProgress={showLobby ? localAgentProgress : undefined}
         onRemoveAgent={onRemoveAgent}
         agentOptions={DEFAULT_AGENT_CONFIGS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={currentAgentNames}
         onAgentMode={handleAgentMode}
         puzzleDifficulty={puzzleDifficulty}
@@ -980,7 +1004,7 @@ const Sudoku = ({
               prompt still lives solely in CelebrationAnimation. */}
           <RaceCelebrationOverlay
             isVisible={showAnimation}
-            title="Solved!"
+            title={t('celebration.solved')}
             belowBadge={
               puzzlePoints !== undefined && (
                 <div
@@ -994,12 +1018,12 @@ const Sudoku = ({
                   <CountUp
                     value={puzzlePoints}
                     prefix="+"
-                    suffix=" pts"
+                    suffix={t('celebration.pointsSuffix')}
                     startDelayMs={500}
                     className="font-mono text-3xl font-black tabular-nums text-amber-300"
                   />
                   <span className="text-[0.65rem] font-black uppercase tracking-widest text-white/60">
-                    Leaderboard points
+                    {t('celebration.leaderboardPoints')}
                   </span>
                 </div>
               )
@@ -1012,24 +1036,24 @@ const Sudoku = ({
         <div className="container mx-auto px-4 pb-4 lg:pb-0">
           <div className="flex flex-col">
             <div className="mt-auto">
-              <div className="ml-auto mr-auto max-w-xl px-4 pb-1 lg:mr-0">
-                <div className="text-right">
+              <div className="me-auto ms-auto max-w-xl px-4 pb-1 lg:me-0">
+                <div className="text-end">
                   <span className="bg-theme-primary inline-flex items-center bg-clip-text text-sm text-transparent">
                     {appName}
                   </span>
                 </div>
               </div>
 
-              <div className="ml-auto mr-auto flex max-w-xl px-4 pb-1 lg:mr-0">
+              <div className="me-auto ms-auto flex max-w-xl px-4 pb-1 lg:me-0">
                 <div
                   className="flex-nowrap items-center"
                   role="group"
-                  aria-label="Button group"
+                  aria-label={t('board.buttonGroup')}
                 >
                   <LobbyButton friendsOnClick={friendsOnClick} />
                 </div>
                 <div
-                  className={`grow text-right ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}
+                  className={`grow text-end ${timer?.countdown || !!completed ? 'text-2xl' : ''}`}
                 >
                   <TimerDisplay
                     seconds={calculateSeconds(timer)}
@@ -1042,8 +1066,9 @@ const Sudoku = ({
               <div className="relative overflow-visible lg:overflow-hidden">
                 <div
                   ref={gridRef}
+                  dir="ltr"
                   aria-disabled={isBoardGated}
-                  className={`border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative ml-auto mr-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:mr-0 portrait:max-w-[calc(50dvh)] dark:bg-zinc-900 ${
+                  className={`border-theme-primary dark:border-theme-primary-light landscape:max-w-[calc(100dvh - 400px)] portrait:max-h-[calc(50dvh - 400px)] relative me-auto ms-auto grid max-h-full max-w-xl grid-cols-3 grid-rows-3 border border-2 bg-zinc-50 lg:me-0 portrait:max-w-[calc(50dvh)] lg:rtl:me-auto lg:rtl:ms-0 dark:bg-zinc-900 ${
                     isBoardGated ? 'pointer-events-none' : ''
                   } ${
                     dragStarted
@@ -1102,12 +1127,12 @@ const Sudoku = ({
                   transient celebration fades so a solved puzzle never leaves
                   the player looking at a blank result. */}
               {completed && puzzlePoints !== undefined && (
-                <div className="ml-auto mr-auto max-w-xl lg:mr-0">
+                <div className="me-auto ms-auto max-w-xl lg:me-0">
                   <CompletionSummary
                     statCells={
                       <div className="flex min-w-20 flex-col items-center gap-0.5 rounded-xl bg-stone-100/80 px-4 py-2 dark:bg-zinc-800/70">
                         <span className="text-[0.55rem] font-black uppercase tracking-widest text-stone-400 dark:text-zinc-500">
-                          Time
+                          {t('completion.time')}
                         </span>
                         <span className="font-mono text-lg font-bold tabular-nums leading-none text-stone-900 dark:text-white">
                           {formatTime(completed.seconds)}
@@ -1125,10 +1150,11 @@ const Sudoku = ({
                   puzzle (continue through the book) and after the daily
                   puzzle (keep the streak going in the book). */}
               {completed && nextBookPuzzle && (
-                <div className="ml-auto mr-auto max-w-xl lg:mr-0">
+                <div className="me-auto ms-auto max-w-xl lg:me-0">
                   <NextPuzzlePanel
                     isLocked={nextBookPuzzle.isLocked}
                     progressLabel={nextPuzzleProgressLabel}
+                    plusName={plusName}
                     onContinue={handleContinueToNext}
                   />
                 </div>

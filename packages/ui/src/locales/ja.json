@@ -1,0 +1,56 @@
+{
+  "language": {
+    "label": "言語",
+    "automatic": "自動"
+  },
+  "header": {
+    "offline": "オフライン",
+    "back": "戻る"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "ダークモードを切り替え"
+  },
+  "starRating": {
+    "label_other": "星{{count}}個中{{filled}}個"
+  },
+  "timer": {
+    "go": "GO!"
+  },
+  "themeColor": {
+    "change": "テーマカラーを変更",
+    "set": "テーマカラーを{{color}}に設定",
+    "setPremium": "テーマカラーを{{color}}に設定（プレミアム）",
+    "colors": {
+      "blue": "青",
+      "red": "赤",
+      "green": "緑",
+      "purple": "紫",
+      "amber": "アンバー",
+      "cyan": "シアン",
+      "pink": "ピンク",
+      "indigo": "インディゴ",
+      "orange": "オレンジ",
+      "teal": "ティール",
+      "slate": "スレート",
+      "rose": "ローズ",
+      "emerald": "エメラルド",
+      "sky": "スカイ",
+      "violet": "バイオレット",
+      "lime": "ライム",
+      "fuchsia": "フューシャ",
+      "yellow": "黄",
+      "stone": "ストーン",
+      "zinc": "ジンク"
+    }
+  },
+  "copyButton": {
+    "copied": "クリップボードにコピーしました！",
+    "share": "招待リンクを共有",
+    "copy": "招待リンクをコピー"
+  },
+  "share": {
+    "joinTeam": "{{appName}}のレースチームに参加しましょう！",
+    "joinNamedTeam": "{{appName}}の{{partyName}}レースチームに参加しましょう！",
+    "dialogTitle": "招待を共有"
+  }
+}

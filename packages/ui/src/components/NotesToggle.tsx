@@ -18,7 +18,7 @@ export const Toggle = ({
       <span
         aria-hidden="true"
         className={`pointer-events-none inline-block size-5 rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${
-          isEnabled ? 'translate-x-5' : 'translate-x-0'
+          isEnabled ? 'translate-x-5 rtl:-translate-x-5' : 'translate-x-0'
         }`}
       />
     </Switch>

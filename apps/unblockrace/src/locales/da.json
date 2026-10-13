@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Frigør Løbet",
+    "gameName": "Frigør Løbet",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Spil og del for at køre løb mod venner om at frigøre puslespillet. Daglige udfordringer og på tværs af enheder!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Start løb",
+      "myPuzzles": "Mine puslespil",
+      "racingTeams": "Racerhold"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Ryd trafikpropen.",
+      "headlineAccent": "Vind løbet",
+      "subtitle": "Skub blokkene, frigør den lysende blok, og kør løb mod dine venner til udgangen."
+    },
+    "leaderboard": "Rangliste",
+    "dailyRace": {
+      "title": "Dagligt løb",
+      "refreshesDaily": "opdateres dagligt",
+      "todaysRace": "Dagens løb",
+      "difficultyRange": "Begynder → Ekspert",
+      "description": "Fem baner, ét ur — den hurtigste flugt vinder.",
+      "stages": "5 etaper",
+      "start": "Start løbet",
+      "morePuzzlesPrefix": "Flere puslespil i",
+      "puzzleCollection": "puslespilssamlingen"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 puslespil",
+      "title": "Månedlig samling",
+      "description": "50 nye trafikpropper for {{month}} — ryd dem alle, før måneden er omme.",
+      "browse": "Gennemse puslespil"
+    },
+    "teams": {
+      "eyebrow": "Multiplayer",
+      "title": "Racerhold",
+      "raceFriends": "Kør løb mod {{names}} og flere",
+      "challengeFriends": "Udfordr venner til et løb"
+    },
+    "premium": {
+      "title": "Premium-funktioner",
+      "subtitle": "Lås hele $t(brand.gameName)-oplevelsen op"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudokuløb",
+    "tagline": "Del en sudoku med venner, og kør løb om at løse den hurtigst."
+  },
+  "puzzle": {
+    "mobileDescription": "Få den bedste oplevelse med vores {{appName}}-app!",
+    "desktopDescription": "Hent {{appName}}",
+    "openInAppLabel": "Åbn puslespil"
+  },
+  "collection": {
+    "loading": {
+      "both": "Indlæser puslespilssamling...",
+      "collection": "Indlæser puslespil...",
+      "sessions": "Indlæser dine fremskridt..."
+    },
+    "retry": "Prøv igen",
+    "backHome": "Tilbage til forsiden",
+    "signInPrompt": "Log ind for at få adgang til puslespilssamlingen.",
+    "signIn": "Log ind",
+    "noData": "Ingen data om puslespilssamlingen tilgængelige.",
+    "title": "Puslespilssamling for {{month}}",
+    "completed": "gennemført",
+    "inProgress": "i gang",
+    "unlockWithPlus": "Lås alle puslespil op med Plus",
+    "jumpToDifficulty": "Spring til sværhedsgrad",
+    "scrollToTop": "Rul til toppen",
+    "subtitle_one": "{{count}} puslespil fra hurtige flugter til ekspertfastlåsninger",
+    "subtitle_other": "{{count}} puslespil fra hurtige flugter til ekspertfastlåsninger"
+  },
+  "invite": {
+    "loading": "Indlæser invitation...",
+    "iconAlt": "{{appName}}-ikon",
+    "greeting": "👋 Hej {{name}}!",
+    "invited": "Du er inviteret!",
+    "joinTeam": "Kom med på racerholdet",
+    "tagline": "Kør løb om at frigøre puslespil sammen, og se hinandens fremskridt i realtid!",
+    "proTipLabel": "Tip:",
+    "proTip": "Alle puslespil, du spiller fremover, deles med dine holdmedlemmer i en venskabelig konkurrence!",
+    "nicknameLabel": "Hvad kalder dit racerhold dig?",
+    "nicknamePlaceholder": "Indtast dit kaldenavn",
+    "joining": "Tilmelder til hold...",
+    "join": "Kom med i det sjove! 🎉",
+    "signIn": "Log ind for at fortsætte",
+    "bonus": "🎉 Bonus: Få {{duration}} {{plusName}}!",
+    "bonusDescription": "Ved at deltage på dette racerhold låser du premium-funktioner op helt gratis!",
+    "activation": "💡 Din premium-adgang aktiveres automatisk, når du har tilmeldt dig",
+    "duration": {
+      "oneMonth": "én måneds",
+      "oneYear": "ét års",
+      "lifetime": "livstids",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Invitationen er udløbet",
+      "description": "Dette invitationslink er ikke længere gyldigt. Bed din ven om en ny invitation, eller øg holdets størrelse."
+    },
+    "greetingAnonymous": "👋 Hej!"
+  },
+  "credits": {
+    "title": "Tak og kildehenvisninger",
+    "intro": "Denne app bygger på flere fremragende projekter",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Denne app er licenseret under MIT-licensen. Se vores <licenseLink>LICENSE</licenseLink> og <creditsLink>CREDITS</creditsLink> for detaljer.",
+    "items": {
+      "rush": "Rush Hour-løser og puslespilsdatabase af Michael Fogleman, kompileret til WebAssembly",
+      "nextjs": "React-framework til produktion",
+      "typescript": "Typet supersæt af JavaScript",
+      "tailwind": "CSS-framework med fokus på utility-klasser",
+      "capacitor": "Runtime til native mobilapps",
+      "electron": "Framework til desktop-apps",
+      "revenuecat": "Abonnementsstyring",
+      "react": "Bibliotek til UI-komponenter",
+      "turborepo": "Byggesystem til monorepoer"
+    }
+  },
+  "notFound": {
+    "title": "Siden blev ikke fundet"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Log ind for at starte dagens puslespil",
+      "collection": "Log ind for at se samlingen",
+      "joinTeam": "Log ind for at deltage på holdet",
+      "raceLobby": "Log ind for at køre løb mod andre",
+      "puzzleEntry": "Log ind for at spille"
+    },
+    "valueProps": {
+      "saveProgress": "Gem dine fremskridt",
+      "raceFriends": "Kør løb mod venner",
+      "trackStats": "Følg din statistik"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Du har brugt dine {{limit}} gratis hint i dag.",
+      "body": "Plus giver dig ubegrænsede hint — sid aldrig fast igen — og holder hele appen fri for reklamer."
+    },
+    "undo": {
+      "title": "Du har nået din daglige grænse for fortryd!",
+      "body": "Du får {{limit}} gratis fortryd om dagen. Grænsen nulstilles i morgen, eller abonnér for ubegrænset fortryd."
+    },
+    "collectionLocked": {
+      "title": "Dette puslespil er en del af Plus-samlingen.",
+      "body": "Plus låser alle puslespil i hver måneds pakke op og holder hele appen fri for reklamer."
+    },
+    "themeColor": {
+      "title": "Dette tema er eksklusivt for Plus.",
+      "body": "Opgrader for at låse alle de smukke temafarver op og gøre din oplevelse personlig."
+    },
+    "removeMember": {
+      "title": "Det er en premium-funktion at fjerne medlemmer fra dit hold!",
+      "body": "Abonnér for at låse avanceret holdstyring op, herunder fjernelse af medlemmer."
+    },
+    "multipleParties": {
+      "title": "Flere racerhold er en premium-funktion!",
+      "body": "Gratisbrugere kan have ét hold. Abonnér for at oprette og deltage på ubegrænsede hold for familie, venner og mere."
+    },
+    "partyMaxSize": {
+      "title": "Store hold er en premium-funktion!",
+      "body": "Abonnér for at låse avanceret holdstyring op, herunder store hold."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Altid uden reklamer",
+      "description": "Aldrig reklamer — kun dig og puslespillene"
+    },
+    "hints": {
+      "title": "Ubegrænsede hint",
+      "description": "Sid aldrig fast — få et hint, når du har brug for det"
+    },
+    "monthlyPack": {
+      "title": "Hele månedens pakke låst op, hver måned",
+      "description": "Spil alle puslespil i alle sværhedsgrader uden låse"
+    },
+    "undos": {
+      "title": "Ubegrænset fortryd",
+      "description": "Spol så mange træk tilbage, du vil"
+    },
+    "teams": {
+      "title": "Flere racerhold",
+      "description": "Vær vært for private konkurrencer med venner og familie"
+    },
+    "management": {
+      "title": "Holdstyring",
+      "description": "Opret store hold med op til 15 personer, og fjern medlemmer fra dit hold."
+    },
+    "themes": {
+      "title": "Alle temaer låst op",
+      "description": "Tilpas din løbsoplevelse"
+    }
+  },
+  "plusModal": {
+    "description": "Få <badge>{{plusName}}</badge> og få <strong>ubegrænsede hint</strong>, <strong>hele månedens pakke låst op</strong> og <strong>ubegrænset fortryd</strong>. Udfordr venner, kæmp dig op ad ranglisterne, og hold appen fri for reklamer."
+  },
+  "leaderboard": {
+    "collectionLabel": "Samling",
+    "collectionDetailNoun": "samlinger"
+  },
+  "motivational": {
+    "messages": [
+      "Dine venner venter på en udfordring",
+      "Hvem skal du køre løb mod i dag?",
+      "Tid til at vise din fart",
+      "Udfordring accepteret?",
+      "Løb mod målstregen",
+      "Hvem er den hurtigste løser?",
+      "Klar til at dominere ranglisten?",
+      "Dine løbsevner venter",
+      "Tid til at efterlade dem i støvet",
+      "Klar til at krydse målstregen først?",
+      "Banen venter på dig",
+      "Tid til at skifte op i højeste gear",
+      "Klar til at give gas på puslespilsgitteret?",
+      "Dine modstandere varmer allerede op",
+      "I dag er dagen til at sætte ny rekord",
+      "Din personlige rekord venter på at blive slået",
+      "Hvert puslespil gør dig hurtigere",
+      "Nu begynder du at bygge en stime",
+      "Tid til at løfte dit spil",
+      "Dit næste gennembrud er kun ét puslespil væk",
+      "Klar til at overraske dig selv?",
+      "Vis dem, hvad du er gjort af",
+      "Tid til at frigøre dit potentiale",
+      "Din hurtigste løsning ligger stadig foran dig",
+      "Klar til at få dagen til at tælle?",
+      "Hvert sekund tæller i løbet",
+      "Tid til at presse dine grænser",
+      "Din udvikling fortsætter",
+      "Klar til at overgå forventningerne?",
+      "Tror du, du kan klare presset?",
+      "Tid til at lukke munden på skeptikerne",
+      "Klar til at gå efter sejren?",
+      "Din konkurrence ser det ikke komme",
+      "Tid til at sætte dit præg",
+      "Klar til at stjæle rampelyset?",
+      "Sejren smager sødere, når den er fortjent",
+      "Tid til at vise, hvem der bestemmer",
+      "Klar til at vise dit sande jeg?",
+      "Mesterskabsmentaliteten begynder her",
+      "Tid til at skille dig ud fra flokken",
+      "Klar til at skrive din legende?",
+      "Mestre skabes i øjeblikke som dette",
+      "Tid til at gøre potentiale til præstation",
+      "Nye puslespil, nye muligheder",
+      "Dagens udfordring venter på din mesterlighed",
+      "Klar til at gøre dette til din bedste dag nogensinde?",
+      "En ny dag betyder nye rekorder at slå",
+      "Tid til at føje endnu en sejr til samlingen",
+      "Klar til at starte stærkt og slutte endnu stærkere?",
+      "Klar til at gøre dagen legendarisk?",
+      "Din daglige dosis triumf venter",
+      "Strategi møder fart på gitteret",
+      "Klar til at udtænke og overhale?",
+      "Din puslespilsmestring kalder",
+      "Tid til at forene logik med lynhurtig fart",
+      "Klar til at løse med kirurgisk præcision?",
+      "Den perfekte kombination: evner og fart",
+      "Din analytiske kant er din løbsfordel",
+      "Tid til at vise puslespilsoverlegenhed",
+      "Klar til at løse som en mester?",
+      "Præcisionsløb begynder med klar tænkning",
+      "Dine venner venter på en returkamp",
+      "Hvem løser i dag?",
+      "Et nyt dagligt puslespil er klar",
+      "Din stime er på spil",
+      "Nye puslespil, en frisk start",
+      "Dagens udfordring er oppe",
+      "Kør løb mod en ven i dagens puslespil",
+      "Ny dag, nye puslespil",
+      "Nogen er allerede på ranglisten",
+      "Hold stimen i live",
+      "De daglige udfordringer er lige blevet opdateret",
+      "Dit hold venter",
+      "Ét puslespil tættere på toppen",
+      "Dagens puslespil venter på dig",
+      "Hop ind igen, og kør løb"
+    ]
+  }
+}

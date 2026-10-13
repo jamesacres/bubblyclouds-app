@@ -1,0 +1,312 @@
+{
+  "brand": {
+    "appName": "Corrida Sudoku",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Jogue e partilhe para correr no sudoku com amigos. Desafios diários e entre dispositivos!"
+  },
+  "puzzle": {
+    "mobileDescription": "Tenha a melhor experiência de corrida com a app {{appName}}!",
+    "desktopDescription": "Descarregar {{appName}}",
+    "openInAppLabel": "Abrir jogo"
+  },
+  "crossPromo": {
+    "gameName": "Corrida Livre",
+    "tagline": "Deslize os blocos e corra contra amigos para desfazer o engarrafamento."
+  },
+  "notFound": {
+    "message": "Página não encontrada"
+  },
+  "login": {
+    "dailyPuzzle": "Inicie sessão para começar o jogo de hoje",
+    "puzzleBook": "Inicie sessão para ver o livro de jogos",
+    "joinTeam": "Inicie sessão para se juntar à equipa",
+    "raceLobby": "Inicie sessão para correr com outras pessoas",
+    "puzzleEntry": "Inicie sessão para jogar",
+    "valueProps": {
+      "saveProgress": "Guarde o seu progresso",
+      "raceFriends": "Corra contra amigos",
+      "trackStats": "Acompanhe as suas estatísticas"
+    }
+  },
+  "plusModal": {
+    "description": "Subscreva <badge>{{plusName}}</badge> para <emphasis>remover todos os limites de velocidade</emphasis>. Desafie amigos, suba nas classificações e melhore a sua velocidade de resolução. Sem anúncios."
+  },
+  "premiumFeatures": {
+    "title": "Funcionalidades premium",
+    "subtitle": "Desbloqueie a experiência completa de {{appName}}",
+    "unlimitedPlay": {
+      "title": "Jogo e corrida ilimitados",
+      "description": "Corra contra amigos em tempo real mais de uma vez por dia"
+    },
+    "unlimitedHints": {
+      "title": "Pistas ilimitadas",
+      "description": "Nunca fique preso — peça uma pista sempre que precisar"
+    },
+    "monthlyBook": {
+      "title": "Livro mensal inteiro desbloqueado, todo mês",
+      "description": "Jogue todos os jogos em todas as dificuldades, sem bloqueios"
+    },
+    "multipleTeams": {
+      "title": "Várias equipas de corrida",
+      "description": "Organize competições privadas com amigos e familiares"
+    },
+    "teamManagement": {
+      "title": "Gestão de equipa",
+      "description": "Crie equipas grandes até 15 pessoas e remova membros da sua equipa."
+    },
+    "themes": {
+      "title": "Todos os temas desbloqueados",
+      "description": "Personalize a sua experiência de corrida"
+    },
+    "unlimitedActions": {
+      "title": "Desfazer, verificar e revelar ilimitados",
+      "description": "Sem limites diários de desfazer, verificar e revelar"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Utilizou a sua {{count}} pista gratuita hoje.</bold> Com $t(brand.plus), tem pistas ilimitadas — nunca mais fica preso — e toda a app fica sem anúncios.",
+    "hint_many": "💡 <bold>Utilizou as suas {{count}} pistas gratuitas hoje.</bold> Com $t(brand.plus), tem pistas ilimitadas — nunca mais fica preso — e toda a app fica sem anúncios.",
+    "hint_other": "💡 <bold>Utilizou as suas {{count}} pistas gratuitas hoje.</bold> Com $t(brand.plus), tem pistas ilimitadas — nunca mais fica preso — e toda a app fica sem anúncios.",
+    "undo_one": "📅 <bold>Atingiu o limite diário de desfazer!</bold> Tem {{count}} desfazer gratuito por dia. O limite é renovado amanhã, ou subscreva para desfazer ilimitado.",
+    "undo_many": "📅 <bold>Atingiu o limite diário de desfazer!</bold> Tem {{count}} desfazeres gratuitos por dia. O limite é renovado amanhã, ou subscreva para desfazer ilimitado.",
+    "undo_other": "📅 <bold>Atingiu o limite diário de desfazer!</bold> Tem {{count}} desfazeres gratuitos por dia. O limite é renovado amanhã, ou subscreva para desfazer ilimitado.",
+    "checkGrid_one": "📅 <bold>Atingiu o limite diário de verificação da grelha!</bold> Tem {{count}} verificação gratuita por dia. O limite é renovado amanhã, ou subscreva para verificações ilimitadas.",
+    "checkGrid_many": "📅 <bold>Atingiu o limite diário de verificação da grelha!</bold> Tem {{count}} verificações gratuitas por dia. O limite é renovado amanhã, ou subscreva para verificações ilimitadas.",
+    "checkGrid_other": "📅 <bold>Atingiu o limite diário de verificação da grelha!</bold> Tem {{count}} verificações gratuitas por dia. O limite é renovado amanhã, ou subscreva para verificações ilimitadas.",
+    "reveal": "🔓 <bold>Revelar a grelha é um funcionalidade premium!</bold> Subscreva para desbloquear a solução completa.",
+    "themeColor": "🎨 <bold>Este tema é exclusivo para $t(brand.plus).</bold> Atualize para desbloquear todas as belas cores de tema e personalizar a sua experiência de sudoku.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Atingiu o limite diário de jogos!</bold> Os utilizadores gratuitos podem jogar {{count}} jogo por dia. O limite é renovado amanhã, ou subscreva para jogos ilimitados.",
+    "dailyPuzzleLimit_many": "🧩 <bold>Atingiu o limite diário de jogos!</bold> Os utilizadores gratuitos podem jogar {{count}} jogos por dia. O limite é renovado amanhã, ou subscreva para jogos ilimitados.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Atingiu o limite diário de jogos!</bold> Os utilizadores gratuitos podem jogar {{count}} jogos por dia. O limite é renovado amanhã, ou subscreva para jogos ilimitados.",
+    "collectionLocked": "✨ <bold>Este jogo faz parte do livro $t(brand.plus).</bold> Com $t(brand.plus), desbloqueia todos os jogos do livro de cada mês e toda a app fica sem anúncios.",
+    "removeMember": "👥 <bold>Remover membros da sua equipa é uma funcionalidade premium!</bold> Subscreva para desbloquear funcionalidades avançadas de gestão de equipas, incluindo a remoção de membros.",
+    "multipleParties": "🏘️ <bold>Várias equipas de corrida é uma funcionalidade premium!</bold> Os utilizadores gratuitos podem ter uma equipa. Subscreva para criar e participar em equipas ilimitadas com família, amigos e mais.",
+    "partyMaxSize": "👥 <bold>Equipas grandes é uma funcionalidade premium!</bold> Subscreva para desbloquear funcionalidades avançadas de gestão de equipas, incluindo equipas grandes."
+  },
+  "motivational": {
+    "messages": [
+      "Os seus amigos estão à espera de um desafio",
+      "Contra quem vai correr hoje?",
+      "Hora de mostrar a sua velocidade",
+      "Desafio aceite?",
+      "Corra até à linha de meta",
+      "Quem é o resolvedor mais rápido?",
+      "Pronto para dominar a classificação?",
+      "As suas capacidades de corrida esperam por si",
+      "Hora de os deixar a comer pó",
+      "Pronto para cruzar a meta em primeiro?",
+      "A pista está à sua espera",
+      "Hora de engatar a mudança mais alta",
+      "Pronto para queimar borracha na grelha?",
+      "Os seus adversários já estão a aquecer",
+      "Hoje é o dia de bater um novo recorde",
+      "O seu recorde pessoal espera para ser batido",
+      "Cada jogo torna-o mais rápido",
+      "A sequência começa agora",
+      "Hora de subir de nível",
+      "O seu próximo avanço está a um jogo de distância",
+      "Pronto para se surpreender a si mesmo?",
+      "Mostre do que é capaz",
+      "Hora de libertar o seu potencial",
+      "A sua resolução mais rápida ainda está por vir",
+      "Pronto para fazer o dia valer a pena?",
+      "Cada segundo conta na corrida",
+      "Hora de ultrapassar os seus limites",
+      "A sua jornada de evolução continua",
+      "Pronto para superar expectativas?",
+      "Acha que aguenta a pressão?",
+      "Hora de calar os descrentes",
+      "Pronto para conquistar a vitória?",
+      "Os seus concorrentes não vão ver isto a chegar",
+      "Hora de deixar a sua marca",
+      "Pronto para roubar os holofotes?",
+      "A vitória sabe melhor quando é conquistada",
+      "Hora de provar quem manda",
+      "Pronto para mostrar quem é?",
+      "A mentalidade de campeão começa aqui",
+      "Hora de se destacar do pelotão",
+      "Pronto para escrever a sua lenda?",
+      "Os campeões fazem-se em momentos como este",
+      "Hora de transformar potencial em desempenho",
+      "Jogos novos, novas oportunidades",
+      "O desafio de hoje espera pela sua mestria",
+      "Pronto para fazer deste o seu melhor dia?",
+      "Um novo dia significa novos recordes para bater",
+      "Hora de somar mais uma vitória à sua coleção",
+      "Pronto para começar forte e terminar ainda mais forte?",
+      "Pronto para tornar o dia lendário?",
+      "A sua dose diária de triunfo espera por si",
+      "A estratégia encontra a velocidade na grelha",
+      "Pronto para pensar e correr mais do que todos?",
+      "A sua mestria nos jogos está a chamar",
+      "Hora de unir lógica e velocidade relâmpago",
+      "Pronto para resolver com precisão cirúrgica?",
+      "A combinação perfeita: capacidade e velocidade",
+      "O seu raciocínio analítico é a sua vantagem na corrida",
+      "Hora de demonstrar supremacia nos jogos",
+      "Pronto para resolver como um campeão?",
+      "A corrida de precisão começa com raciocínio claro",
+      "Os seus amigos esperam por uma desforra",
+      "Quem vai resolver hoje?",
+      "Um novo jogo diário está pronto",
+      "A sua sequência está em jogo",
+      "Jogos novos, novo começo",
+      "O desafio de hoje já chegou",
+      "Corra contra um amigo no jogo diário",
+      "Novo dia, novos jogos",
+      "Alguém já está na classificação",
+      "Mantenha a sequência viva",
+      "Os desafios diários acabaram de ser renovados",
+      "A sua equipa está à espera",
+      "Mais um jogo para chegar ao topo",
+      "Os jogos de hoje estão à sua espera",
+      "Volte e corra"
+    ]
+  },
+  "home": {
+    "live": "Direto",
+    "headline": "Pronto para correr? 🏁",
+    "subtitle": "Partilhe o desafio — convide amigos e descubra quem resolve sudoku mais rápido.",
+    "leaderboard": "Classificação",
+    "daily": {
+      "title": "Desafios diários",
+      "refreshes": "renova todo dia",
+      "moreLevels": "Mais níveis de dificuldade no <bookLink>livro de jogos</bookLink>",
+      "difficulty": {
+        "simple": "Complicado",
+        "easy": "Desafiador",
+        "intermediate": "Difícil"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} jogo",
+      "summary_many": "{{month}} · {{count}} de jogos",
+      "summary_other": "{{month}} · {{count}} jogos",
+      "title": "Livro mensal",
+      "browse": "Ver jogos"
+    },
+    "import": {
+      "title": "Importe qualquer jogo",
+      "description": "Digitalize com a câmara ou cole o código do jogo",
+      "desktopTitle": "Corra com qualquer jogo",
+      "desktopDescription": "Digitalize de um livro ou jornal"
+    },
+    "teams": {
+      "title": "Equipas de corrida",
+      "withFriends": "Corra contra {{friends}} e mais",
+      "noFriends": "Desafie amigos para uma corrida"
+    },
+    "tabs": {
+      "startRace": "Iniciar corrida",
+      "myPuzzles": "Os meus jogos",
+      "racingTeams": "Equipas"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "A carregar livro de jogos...",
+      "puzzles": "A carregar jogos...",
+      "progress": "A carregar o seu progresso..."
+    },
+    "tryAgain": "Tentar novamente",
+    "backHome": "Voltar ao início",
+    "signInPrompt": "Inicie sessão para aceder ao livro de jogos.",
+    "signIn": "Iniciar sessão",
+    "noData": "Nenhum dado do livro de jogos disponível.",
+    "title": "Livro de jogos de {{month}}",
+    "puzzleCount_one": "{{count}} jogo focado em técnica",
+    "puzzleCount_many": "{{count}} de jogos focados em técnica",
+    "puzzleCount_other": "{{count}} jogos focados em técnica",
+    "completed": "Concluídos: {{count}}",
+    "inProgress": "Em andamento: {{count}}",
+    "unlockWithPlus": "Desbloqueie todos os jogos com $t(brand.plus)",
+    "jumpToDifficulty": "Ir para dificuldade",
+    "scrollToTop": "Voltar ao topo",
+    "difficulty": {
+      "veryEasy": "Muito fácil",
+      "easy": "Fácil",
+      "moderatelyEasy": "Algo fácil",
+      "moderate": "Moderado",
+      "moderatelyHard": "Algo difícil",
+      "hard": "Difícil",
+      "vicious": "Cruel",
+      "fiendish": "Diabólico",
+      "devilish": "Endiabrado",
+      "hell": "Inferno",
+      "beyondHell": "Além do inferno"
+    }
+  },
+  "invite": {
+    "loading": "A carregar convite...",
+    "iconAlt": "Ícone: {{gameName}}",
+    "greeting": "👋 Olá!",
+    "greetingNamed": "👋 Olá, {{name}}!",
+    "invited": "Foi convidado!",
+    "joinTeam": "Junte-se à equipa de corrida <team/>",
+    "description": "Resolvam sudoku juntos e vejam o progresso um do outro em tempo real!",
+    "proTip": "💡 <bold>Dica:</bold> todos os jogos futuros que jogar serão partilhados com os membros da equipa para uma competição amistosa!",
+    "nicknameLabel": "Como é que a sua equipa de corrida o chama?",
+    "nicknamePlaceholder": "Introduza a sua alcunha",
+    "joining": "A juntar-se à equipa...",
+    "join": "Junte-se à diversão! 🎉",
+    "signIn": "Inicie sessão para continuar",
+    "bonus": {
+      "title": "🎉 Bónus: ganhe {{duration}} de {{plusName}}!",
+      "duration": {
+        "oneMonth": "um mês",
+        "oneYear": "um ano",
+        "lifetime": "acesso vitalício",
+        "premium": "acesso premium"
+      },
+      "subtitle": "Ao juntar-se a esta equipa de corrida, desbloqueia funcionalidades premium totalmente grátis!",
+      "note": "💡 O seu acesso premium será ativado automaticamente após se juntar"
+    },
+    "expired": {
+      "title": "Convite expirado",
+      "body": "Esta ligação de convite já não é válida. Peça um novo convite ao seu amigo ou aumente o tamanho da equipa."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Introduza o código de um jogo",
+      "help": "Cole um código de 81 caracteres ou uma grelha HoDoKu — use dígitos de 1 a 9 e 0 ou . para células vazias.",
+      "submit": "Importar jogo"
+    },
+    "orScan": "ou digitalize com a câmara",
+    "cameraHelp": "Aponte a câmara para um sudoku por resolver e aguarde a deteção.",
+    "errors": {
+      "parse": "Não foi possível interpretar o jogo. Cole um código de 81 caracteres ou uma grelha HoDoKu.",
+      "solverLoading": "O solucionador ainda está a carregar — tente novamente.",
+      "noSolution": "Nenhuma solução encontrada. Verifique o jogo.",
+      "camera": "Não foi possível iniciar a câmara. Verifique as permissões e tente novamente."
+    }
+  },
+  "credits": {
+    "title": "Créditos e atribuições",
+    "subtitle": "Esta app foi criada com base em vários projetos excelentes",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Esta app é licenciada sob a Licença MIT. Consulte o nosso <licenseLink>LICENSE</licenseLink> e <creditsLink>CREDITS</creditsLink> para mais detalhes.",
+    "items": {
+      "humanSudokuSolver": "Biblioteca TypeScript que resolve sudokus com técnicas humanas.",
+      "qqwing": "Geração dos jogos do Sudoku do dia",
+      "tdoku": "Solucionador de sudoku rápido para jogos digitalizados",
+      "arBrowserSudoku": "Tecnologia de scanner de realidade aumentada",
+      "sudokuCoach": "Inspiração para os algoritmos de cálculo de dificuldade",
+      "nextjs": "Framework React para produção",
+      "typescript": "Superconjunto tipado de JavaScript",
+      "tailwind": "Framework CSS utility-first",
+      "capacitor": "Runtime de apps móveis nativas",
+      "electron": "Framework para apps de desktop",
+      "tensorflow": "Aprendizado de máquina para funcionalidades de RA",
+      "revenuecat": "Gestão de assinaturas",
+      "react": "Biblioteca de componentes de interface",
+      "turborepo": "Sistema de build para monorepo"
+    }
+  }
+}

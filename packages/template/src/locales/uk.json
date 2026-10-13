@@ -1,0 +1,257 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone та iPad"
+  },
+  "errors": {
+    "generic": "Сталася неочікувана помилка. Спробуйте ще раз.",
+    "dismiss": "Закрити"
+  },
+  "errorBoundary": {
+    "title": "Ой! Щось пішло не так",
+    "description": "Сталася неочікувана помилка. Не хвилюйтеся, ваш прогрес збережено!",
+    "reload": "Перезапустити застосунок",
+    "clearStorage": "Очистити сховище й перезапустити",
+    "contactSupport": "Якщо проблема не зникає, зверніться до підтримки."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} хв тому",
+    "minutesAgo_few": "{{count}} хв тому",
+    "minutesAgo_many": "{{count}} хв тому",
+    "minutesAgo_other": "{{count}} хв тому",
+    "hoursAgo_one": "{{count}} год тому",
+    "hoursAgo_few": "{{count}} год тому",
+    "hoursAgo_many": "{{count}} год тому",
+    "hoursAgo_other": "{{count}} год тому",
+    "daysAgo_one": "{{count}} дн. тому",
+    "daysAgo_few": "{{count}} дн. тому",
+    "daysAgo_many": "{{count}} дн. тому",
+    "daysAgo_other": "{{count}} дн. тому"
+  },
+  "tier": {
+    "novice": "Новачок",
+    "advancedBeginner": "Початківець",
+    "competent": "Компетентний",
+    "proficient": "Досвідчений",
+    "expert": "Експерт"
+  },
+  "moves": {
+    "onPar": "ходів, за нормою",
+    "overPar": "ходів, {{delta}} понад норму",
+    "underPar": "ходів, {{delta}} менше за норму"
+  },
+  "lobby": {
+    "title": "Лобі перегонів",
+    "close": "Закрити лобі",
+    "onlineOpponents": "Суперники онлайн",
+    "refresh": "Оновити список суперників онлайн",
+    "noOpponents": "Суперників онлайн немає — запросіть друзів на перегони!",
+    "away": "Відійшов",
+    "offlineTeams": "Офлайн · у ваших командах",
+    "removeMember": "Вилучити: {{name}}",
+    "aiOpponents": "ШІ-суперники",
+    "addAgent": "Додати",
+    "noAgents": "ШІ-суперників ще немає — додайте когось, щоб завжди було з ким змагатися.",
+    "ownClock": "Кожен гравець змагається на власному таймері",
+    "startSolving": "Почати розв’язувати",
+    "finished": "Завершено",
+    "inLobby": "У лобі",
+    "stageProgress": "Етап {{current}} із {{total}}",
+    "finishedRunIn": "Забіг завершено за {{time}}",
+    "solvedIn": "Розв’язано за {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · востаннє в мережі: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Одиночні перегони — тільки ви та таймер",
+      "friends_one": "{{count}} друг",
+      "friends_few": "{{count}} друзі",
+      "friends_many": "{{count}} друзів",
+      "friends_other": "{{count}} друга",
+      "aiOpponents_one": "{{count}} ШІ-суперник",
+      "aiOpponents_few": "{{count}} ШІ-суперники",
+      "aiOpponents_many": "{{count}} ШІ-суперників",
+      "aiOpponents_other": "{{count}} ШІ-суперника",
+      "racing": "Суперники: {{opponents}}"
+    },
+    "invite": {
+      "button": "Запросити",
+      "eyebrow": "Зберіть свої перегони",
+      "title": "Запросіть суперників",
+      "close": "Закрити",
+      "existingTeam": "Запросити в наявну команду",
+      "editTeamName": "Змінити назву команди",
+      "deleteTeam": "Видалити команду",
+      "leaveTeam": "Вийти з команди",
+      "memberCount_one": "{{count}} учасник",
+      "memberCount_few": "{{count}} учасники",
+      "memberCount_many": "{{count}} учасників",
+      "memberCount_other": "{{count}} учасника",
+      "createTeam": "Створити нову команду перегонів",
+      "displayNameLabel": "Як вас називатимуть учасники команди?",
+      "displayNamePlaceholder": "Ім’я для показу",
+      "teamNameLabel": "Як назвемо цю команду?",
+      "teamNamePlaceholder": "Назва команди (напр., Родина)",
+      "createAndCopy": "Створити й копіювати посилання",
+      "defaultTeamName": "Нова команда",
+      "defaultPlayerName": "Гравець"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Закрити панель",
+    "back": "Назад",
+    "close": "Закрити",
+    "title": "Оберіть суперників",
+    "subtitle": "Виберіть одного чи кількох суперників",
+    "selectAtLeastOne": "Виберіть хоча б одного суперника",
+    "race_one": "Змагатися з {{count}} суперником",
+    "race_few": "Змагатися з {{count}} суперниками",
+    "race_many": "Змагатися з {{count}} суперниками",
+    "race_other": "Змагатися з {{count}} суперником",
+    "skill": {
+      "novice": "Новачок",
+      "advancedBeginner": "Просунутий поч.",
+      "competent": "Компетентний",
+      "proficient": "Досвідчений",
+      "expert": "Експерт"
+    }
+  },
+  "agentParty": {
+    "title": "ШІ-суперники",
+    "rivalCount_one": "{{count}} суперник",
+    "rivalCount_few": "{{count}} суперники",
+    "rivalCount_many": "{{count}} суперників",
+    "rivalCount_other": "{{count}} суперника"
+  },
+  "party": {
+    "cancel": "Скасувати",
+    "editName": "Змінити назву команди",
+    "editMaxMembers": "Змінити максимум учасників",
+    "memberCount_one": "{{count}} учасник",
+    "memberCount_few": "{{count}} учасники",
+    "memberCount_many": "{{count}} учасників",
+    "memberCount_other": "{{count}} учасника",
+    "memberCountPremium_one": "{{count}} учасник ✨ Преміум",
+    "memberCountPremium_few": "{{count}} учасники ✨ Преміум",
+    "memberCountPremium_many": "{{count}} учасників ✨ Преміум",
+    "memberCountPremium_other": "{{count}} учасника ✨ Преміум",
+    "membersOf_one": "{{current}}/{{count}} учасник",
+    "membersOf_few": "{{current}}/{{count}} учасники",
+    "membersOf_many": "{{current}}/{{count}} учасників",
+    "membersOf_other": "{{current}}/{{count}} учасника",
+    "shareLink": "Поділіться цим посиланням із чинними учасниками команди, щоб вони долучилися до цієї головоломки",
+    "you": "(ви)",
+    "notStarted": "Ще не почав! Попросіть зіграти"
+  },
+  "partyConfirmation": {
+    "cancel": "Скасувати",
+    "leaveAgentParty": {
+      "title": "Вилучення ШІ-суперників",
+      "action": "Вилучити",
+      "processing": "Вилучення...",
+      "message": "Ви справді хочете вилучити всіх ШІ-суперників? Вони більше не з’являтимуться в перегонах."
+    },
+    "removeAgent": {
+      "title": "Вилучення локального агента",
+      "action": "Вилучити",
+      "processing": "Вилучення...",
+      "message": "Ви справді хочете вилучити «{{memberName}}» з перегонів?"
+    },
+    "deleteParty": {
+      "title": "Видалення команди",
+      "action": "Видалити команду",
+      "processing": "Видалення...",
+      "message": "Ви справді хочете видалити «{{partyName}}»? Команду буде видалено назавжди, а всі учасники втратять доступ. Цю дію неможливо скасувати."
+    },
+    "leave": {
+      "title": "Вихід із команди",
+      "action": "Вийти",
+      "processing": "Вихід...",
+      "message": "Ви справді хочете вийти з «{{partyName}}»? Ви більше не бачитимете прогрес інших учасників і не зможете брати участь у цій команді."
+    },
+    "remove": {
+      "title": "Вилучення учасника",
+      "action": "Вилучити",
+      "processing": "Вилучення...",
+      "message": "Ви справді хочете вилучити «{{memberName}}» з «{{partyName}}»? Учасник більше не зможе брати участь у цій команді."
+    }
+  },
+  "friends": {
+    "allTeams": "Усі команди",
+    "refresh": "Оновити",
+    "refreshing": "Оновлення…",
+    "title": "Головоломки друзів",
+    "subtitle": "Торкніться друга, щоб побачити його останні головоломки та позмагатися з ним.",
+    "memberCount_one": "{{count}} учасник",
+    "memberCount_few": "{{count}} учасники",
+    "memberCount_many": "{{count}} учасників",
+    "memberCount_other": "{{count}} учасника",
+    "noRecentPuzzles": "Недавніх головоломок немає — киньте виклик!",
+    "empty": {
+      "title": "Команд перегонів ще немає",
+      "description": "Запрошуйте друзів із лобі перегонів під час розв’язування головоломки"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Ваші головоломки за останні 30 днів.",
+    "empty": {
+      "title": "Головоломок ще немає",
+      "description": "Перейдіть до «Почати перегони», щоб розв’язати першу головоломку"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "Ще {{count}} функція",
+    "moreFeatures_few": "Ще {{count}} функції",
+    "moreFeatures_many": "Ще {{count}} функцій",
+    "moreFeatures_other": "Ще {{count}} функції"
+  },
+  "crossPromo": {
+    "whyNotTry": "Спробуйте",
+    "tryItFree": "Спробувати безкоштовно"
+  },
+  "rateApp": {
+    "prompt": "Подобається {{appName}}?",
+    "rateIt": "Оцінити",
+    "rateInSeconds": "Оцініть за кілька секунд"
+  },
+  "plus": {
+    "close": "Закрити вікно",
+    "appIconAlt": "Значок застосунку",
+    "lifetime": "Назавжди",
+    "monthly": "На місяць",
+    "perMonth": "{{price}}/міс.",
+    "whatsIncluded": "Що входить",
+    "continue": "Продовжити",
+    "restorePurchases": "Відновити покупки",
+    "cancel": "Скасувати"
+  },
+  "download": {
+    "title": "Продовжити в застосунку",
+    "appStoreAlt": "Завантажити в {{appStore}}",
+    "googlePlayAlt": "Доступно в {{googlePlay}}",
+    "continueBrowser": "Продовжити в браузері",
+    "continueDesktop": "Продовжити на комп’ютері"
+  },
+  "session": {
+    "cheated": "Зі шпаргалкою",
+    "completedIn": "Завершено за {{minutes}} хв {{seconds}} с",
+    "percentComplete": "Завершено на {{percentage}}%",
+    "duration": "{{minutes}} хв {{seconds}} с",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_few": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Головоломка №{{number}}",
+    "daily": "Щоденна: {{date}}",
+    "book": "Збірник: {{month}} №{{number}}",
+    "collection": "Колекція: {{month}} №{{number}}",
+    "scanned": "Сканована головоломка",
+    "you": "Ви",
+    "unknown": "Невідомо",
+    "unlockWith": "Розблокувати: {{label}}",
+    "lockedPuzzle": "Заблокована головоломка",
+    "recommendedTechniques": "Рекомендовані техніки:",
+    "loadingFriends": "Завантаження друзів..."
+  }
+}

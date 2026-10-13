@@ -68,54 +68,56 @@ const SimpleBoard = (props: SimpleBoardProps) => {
   return (
     <div
       className={`relative aspect-square overflow-hidden rounded-lg border border-zinc-900/20 dark:border-zinc-50/20 ${background} ${
-        compact ? 'h-full w-full' : 'ml-auto mr-auto max-w-xl lg:mr-0'
+        compact ? 'h-full w-full' : 'me-auto ms-auto max-w-xl lg:me-0'
       }`}
     >
-      {board.walls.map((wall) => (
-        <div
-          key={`wall-${wall}`}
-          className="absolute bg-stone-300 dark:bg-zinc-700"
-          style={{
-            left: `${((wall % board.width) / board.width) * 100}%`,
-            top: `${(Math.floor(wall / board.width) / board.height) * 100}%`,
-            width: `${(1 / board.width) * 100}%`,
-            height: `${(1 / board.height) * 100}%`,
-          }}
-        />
-      ))}
-      {board.pieces.map((piece, index) => {
-        const horizontal = piece.orientation === 'horizontal';
-        const spanX = horizontal ? piece.size : 1;
-        const spanY = horizontal ? 1 : piece.size;
-        const isPrimary = index === 0;
-        return (
+      <div dir="ltr" className="absolute inset-0">
+        {board.walls.map((wall) => (
           <div
-            key={String.fromCharCode(65 + index)}
-            className="absolute"
+            key={`wall-${wall}`}
+            className="absolute bg-stone-300 dark:bg-zinc-700"
             style={{
-              left: `${(pieceCol(piece, board.width) / board.width) * 100}%`,
-              top: `${(pieceRow(piece, board.width) / board.height) * 100}%`,
-              width: `${(spanX / board.width) * 100}%`,
-              height: `${(spanY / board.height) * 100}%`,
+              insetInlineStart: `${((wall % board.width) / board.width) * 100}%`,
+              top: `${(Math.floor(wall / board.width) / board.height) * 100}%`,
+              width: `${(1 / board.width) * 100}%`,
+              height: `${(1 / board.height) * 100}%`,
             }}
-          >
+          />
+        ))}
+        {board.pieces.map((piece, index) => {
+          const horizontal = piece.orientation === 'horizontal';
+          const spanX = horizontal ? piece.size : 1;
+          const spanY = horizontal ? 1 : piece.size;
+          const isPrimary = index === 0;
+          return (
             <div
-              className={
-                muteRivals && !isPrimary
-                  ? 'bg-stone-300/90 dark:bg-zinc-600/80'
-                  : undefined
-              }
+              key={String.fromCharCode(65 + index)}
+              className="absolute"
               style={{
-                position: 'absolute',
-                inset: '8%',
-                borderRadius: '22%',
-                background:
-                  muteRivals && !isPrimary ? undefined : pieceColors[index],
+                insetInlineStart: `${(pieceCol(piece, board.width) / board.width) * 100}%`,
+                top: `${(pieceRow(piece, board.width) / board.height) * 100}%`,
+                width: `${(spanX / board.width) * 100}%`,
+                height: `${(spanY / board.height) * 100}%`,
               }}
-            />
-          </div>
-        );
-      })}
+            >
+              <div
+                className={
+                  muteRivals && !isPrimary
+                    ? 'bg-stone-300/90 dark:bg-zinc-600/80'
+                    : undefined
+                }
+                style={{
+                  position: 'absolute',
+                  inset: '8%',
+                  borderRadius: '22%',
+                  background:
+                    muteRivals && !isPrimary ? undefined : pieceColors[index],
+                }}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -8,7 +8,9 @@ import {
   Share as ShareIOS,
   Share2 as ShareAndroid,
 } from 'lucide-react';
-import { canShareUrl, shareOrCopyUrl } from '../helpers/share';
+import { useTranslation } from 'react-i18next';
+import { canShareUrl } from '../helpers/share';
+import { useShareOrCopyUrl } from '../hooks/useShareOrCopyUrl';
 
 const CopyButton = ({
   getText,
@@ -29,6 +31,8 @@ const CopyButton = ({
   appName: string;
   onSuccess?: () => void;
 }) => {
+  const { t } = useTranslation('ui');
+  const shareOrCopyUrl = useShareOrCopyUrl();
   const [isLoading, setIsLoading] = useState(false);
   const [showCopied, setShowCopied] = useState(false);
   const [canShare, setCanShare] = useState(false);
@@ -72,8 +76,8 @@ const CopyButton = ({
     >
       {showCopied ? (
         <>
-          <Check className="mr-2" size={extraSmall ? 14 : 18} /> Copied to
-          clipboard!
+          <Check className="me-2 shrink-0" size={extraSmall ? 14 : 18} />{' '}
+          {t('copyButton.copied')}
         </>
       ) : (
         <>
@@ -84,13 +88,16 @@ const CopyButton = ({
             />
           ) : canShare ? (
             <>
-              <ShareIcon className="mr-2" size={extraSmall ? 14 : 18} /> Share
-              Invite Link
+              <ShareIcon
+                className="me-2 shrink-0"
+                size={extraSmall ? 14 : 18}
+              />{' '}
+              {t('copyButton.share')}
             </>
           ) : (
             <>
-              <Copy className="mr-2" size={extraSmall ? 14 : 18} /> Copy Invite
-              Link
+              <Copy className="me-2 shrink-0" size={extraSmall ? 14 : 18} />{' '}
+              {t('copyButton.copy')}
             </>
           )}
         </>

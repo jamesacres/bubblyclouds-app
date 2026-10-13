@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Přihlaste se a pokračujte",
+    "signInWith": "Přihlásit se přes {{provider}}",
+    "emailTitle": "Přihlásit se e-mailem",
+    "emailPlaceholder": "vas@email.cz",
+    "continue": "Pokračovat",
+    "cancel": "Zrušit",
+    "terms": "Podmínky služby",
+    "privacy": "Zásady ochrany osobních údajů"
+  },
+  "header": {
+    "signIn": "Přihlásit se"
+  },
+  "avatar": {
+    "alt": "uživatel"
+  },
+  "panel": {
+    "title": "Účet",
+    "greeting": "Ahoj, {{name}}!",
+    "fallbackName": "Uživatel",
+    "plusActive": "{{gameName}} {{plus}} je aktivní",
+    "joinGamePlus": "Získat {{gameName}} {{plus}}",
+    "joinPlus": "Získat {{plus}}",
+    "signOut": "Odhlásit se",
+    "privacy": "Zásady ochrany osobních údajů",
+    "terms": "Podmínky služby",
+    "credits": "Poděkování",
+    "deleteAccount": "Smazat účet",
+    "poweredBy": "Provozuje {{companyName}}",
+    "deleteUnavailable": "Smazání účtu není k dispozici.",
+    "deleteFailed": "Účet se nepodařilo smazat. Zkuste to prosím později."
+  },
+  "deleteDialog": {
+    "title": "Smazat účet",
+    "warning": "Tuto akci nelze vrátit zpět. Všechna vaše data napříč všemi aplikacemi {{companyName}} budou trvale smazána.",
+    "confirmation": "Potvrzuji, že chci smazat celý svůj účet včetně všech dat napříč všemi aplikacemi {{companyName}}.",
+    "cancel": "Zrušit",
+    "deleting": "Mazání...",
+    "submit": "Smazat účet"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "سوڈوکو ریس",
+      "gameName": "سوڈوکو",
+      "companyName": "Bubbly Clouds",
+      "plus": "پلس",
+      "plusName": "سوڈوکو پلس"
+    },
+    "terms": {
+      "race": "ریس",
+      "team": "ٹیم",
+      "leaderboard": "لیڈر بورڈ",
+      "hint": "اشارہ",
+      "undo": "واپسی",
+      "theme": "تھیم",
+      "dailyPuzzle": "روزانہ پہیلی",
+      "monthlyCollection": "ماہانہ پہیلی کتاب",
+      "aiOpponent": "اے آئی حریف",
+      "monthly": "ماہانہ",
+      "lifetime": "تاحیات",
+      "plusAccess": "پلس رسائی",
+      "plusFeatureLine": "لامحدود ریس، ٹیمیں، تھیمز اور واپسی"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "ان بلاک ریس",
+      "gameName": "ان بلاک ریس",
+      "companyName": "Bubbly Clouds",
+      "plus": "پلس",
+      "plusProduct": "$t(brand.gameName) پلس"
+    },
+    "terms": {
+      "race": "ریس",
+      "team": "ٹیم",
+      "leaderboard": "لیڈر بورڈ",
+      "hint": "اشارہ",
+      "undo": "واپسی",
+      "theme": "تھیم",
+      "dailyPuzzle": "روزانہ پہیلی",
+      "monthlyCollection": "ماہانہ پہیلی مجموعہ",
+      "aiOpponent": "اے آئی حریف",
+      "monthly": "ماہانہ",
+      "lifetime": "تاحیات",
+      "plusAccess": "پلس رسائی",
+      "plusFeatureLine": "لامحدود ریس، ٹیمیں، تھیمز اور واپسی"
+    }
+  }
+}

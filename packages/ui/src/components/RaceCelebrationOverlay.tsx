@@ -84,7 +84,7 @@ const confettiStyle = (
   const wearsCheckered = checkered && piece.isCheckered;
   const color = colors[piece.colorIndex % colors.length];
   return {
-    left: `${piece.left}%`,
+    insetInlineStart: `${piece.left}%`,
     width: piece.size,
     height: piece.size,
     borderRadius: wearsCheckered ? 1 : 2,

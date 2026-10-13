@@ -27,6 +27,7 @@ const JAM_STATIC_PIECES = [
 export const UnblockRaceBoardPreview = () => (
   <div
     aria-hidden="true"
+    dir="ltr"
     className="relative aspect-square w-full overflow-hidden rounded-2xl"
     style={{
       background: 'rgba(2,8,20,0.85)',
@@ -88,11 +89,11 @@ export const UnblockRaceBoardPreview = () => (
       />
     </div>
     <div
-      className="absolute right-0 flex items-center justify-end pr-0.5"
+      className="absolute end-0 flex items-center justify-end pe-0.5"
       style={{ top: jamCell(2), height: jamCell(1) }}
     >
       <div
-        className="absolute right-0 h-full w-[3px]"
+        className="absolute end-0 h-full w-[3px]"
         style={{
           background:
             'linear-gradient(180deg, transparent, var(--theme-primary-light), transparent)',

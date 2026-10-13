@@ -1,0 +1,306 @@
+{
+  "brand": {
+    "appName": "Sudoku-Rennen",
+    "gameName": "Sudoku",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "Sudoku Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Sudoku-Rennen mit Freunden spielen und teilen. Tägliche Herausforderungen & geräteübergreifend!"
+  },
+  "puzzle": {
+    "mobileDescription": "Erleben Sie das beste Rennerlebnis mit unserer {{appName}}-App!",
+    "desktopDescription": "{{appName}} herunterladen",
+    "openInAppLabel": "Rätsel öffnen"
+  },
+  "crossPromo": {
+    "gameName": "Freifahrt-Rennen",
+    "tagline": "Schieben Sie die Blöcke und lösen Sie mit Freunden im Rennen den Stau auf."
+  },
+  "notFound": {
+    "message": "Seite nicht gefunden"
+  },
+  "login": {
+    "dailyPuzzle": "Melden Sie sich an, um das heutige Rätsel zu starten",
+    "puzzleBook": "Melden Sie sich an, um das Rätselbuch zu durchsuchen",
+    "joinTeam": "Melden Sie sich an, um dem Team beizutreten",
+    "raceLobby": "Melden Sie sich an, um gegen andere anzutreten",
+    "puzzleEntry": "Melden Sie sich zum Spielen an",
+    "valueProps": {
+      "saveProgress": "Fortschritt speichern",
+      "raceFriends": "Gegen Freunde antreten",
+      "trackStats": "Statistiken verfolgen"
+    }
+  },
+  "plusModal": {
+    "description": "Werden Sie Mitglied bei <badge>{{plusName}}</badge> und <emphasis>heben Sie alle Tempolimits auf</emphasis>. Fordern Sie Freunde heraus, steigen Sie in der Rangliste auf und werden Sie schneller beim Lösen. Ganz ohne Werbung."
+  },
+  "premiumFeatures": {
+    "title": "Premium-Funktionen",
+    "subtitle": "Schalten Sie das volle {{appName}}-Erlebnis frei",
+    "unlimitedPlay": {
+      "title": "Unbegrenzt spielen und rennen",
+      "description": "Treten Sie in Echtzeit mehr als einmal am Tag gegen Freunde an"
+    },
+    "unlimitedHints": {
+      "title": "Unbegrenzte Hinweise",
+      "description": "Nie wieder festhängen – holen Sie sich einen Hinweis, wann immer Sie einen brauchen"
+    },
+    "monthlyBook": {
+      "title": "Gesamtes monatliches Rätselbuch freigeschaltet, jeden Monat",
+      "description": "Spielen Sie jedes Rätsel in jedem Schwierigkeitsgrad, ohne Sperren"
+    },
+    "multipleTeams": {
+      "title": "Mehrere Rennteams",
+      "description": "Veranstalten Sie private Wettbewerbe mit Freunden und Familie"
+    },
+    "teamManagement": {
+      "title": "Teamverwaltung",
+      "description": "Erstellen Sie große Teams mit bis zu 15 Personen und entfernen Sie Mitglieder aus Ihrem Team."
+    },
+    "themes": {
+      "title": "Alle Designs freigeschaltet",
+      "description": "Gestalten Sie Ihr Rennerlebnis persönlich"
+    },
+    "unlimitedActions": {
+      "title": "Unbegrenzt Undo, Prüfen und Aufdecken",
+      "description": "Keine täglichen Limits mehr für Undo, Prüfen und Aufdecken"
+    }
+  },
+  "subscription": {
+    "hint_one": "💡 <bold>Sie haben heute {{count}} kostenlosen Hinweis genutzt.</bold> $t(brand.plus) bietet Ihnen unbegrenzte Hinweise – nie wieder festhängen – und hält die ganze App werbefrei.",
+    "hint_other": "💡 <bold>Sie haben heute {{count}} kostenlose Hinweise genutzt.</bold> $t(brand.plus) bietet Ihnen unbegrenzte Hinweise – nie wieder festhängen – und hält die ganze App werbefrei.",
+    "undo_one": "📅 <bold>Sie haben Ihr tägliches Undo-Limit erreicht!</bold> Sie erhalten {{count}} kostenloses Undo pro Tag. Das Limit wird morgen zurückgesetzt, oder abonnieren Sie für unbegrenzte Undos.",
+    "undo_other": "📅 <bold>Sie haben Ihr tägliches Undo-Limit erreicht!</bold> Sie erhalten {{count}} kostenlose Undos pro Tag. Das Limit wird morgen zurückgesetzt, oder abonnieren Sie für unbegrenzte Undos.",
+    "checkGrid_one": "📅 <bold>Sie haben Ihr tägliches Limit für Gitterprüfungen erreicht!</bold> Sie erhalten {{count}} kostenlose Gitterprüfung pro Tag. Das Limit wird morgen zurückgesetzt, oder abonnieren Sie für unbegrenzte Prüfungen.",
+    "checkGrid_other": "📅 <bold>Sie haben Ihr tägliches Limit für Gitterprüfungen erreicht!</bold> Sie erhalten {{count}} kostenlose Gitterprüfungen pro Tag. Das Limit wird morgen zurückgesetzt, oder abonnieren Sie für unbegrenzte Prüfungen.",
+    "reveal": "🔓 <bold>Gitter aufdecken ist eine Premium-Funktion!</bold> Abonnieren Sie, um die komplette Lösung aufdecken zu können.",
+    "themeColor": "🎨 <bold>Dieses Design ist $t(brand.plus) vorbehalten.</bold> Führen Sie ein Upgrade durch, um alle schönen Designfarben freizuschalten und Ihr Sudoku-Erlebnis persönlich zu gestalten.",
+    "dailyPuzzleLimit_one": "🧩 <bold>Sie haben Ihr tägliches Rätsellimit erreicht!</bold> Kostenlose Nutzer können {{count}} Rätsel pro Tag spielen. Das Limit wird morgen zurückgesetzt, oder abonnieren Sie für unbegrenzte Rätsel.",
+    "dailyPuzzleLimit_other": "🧩 <bold>Sie haben Ihr tägliches Rätsellimit erreicht!</bold> Kostenlose Nutzer können {{count}} Rätsel pro Tag spielen. Das Limit wird morgen zurückgesetzt, oder abonnieren Sie für unbegrenzte Rätsel.",
+    "collectionLocked": "✨ <bold>Dieses Rätsel gehört zum $t(brand.plus)-Rätselbuch.</bold> $t(brand.plus) schaltet jedes Rätsel im Rätselbuch jedes Monats frei und hält die ganze App werbefrei.",
+    "removeMember": "👥 <bold>Mitglieder aus Ihrem Team zu entfernen ist eine Premium-Funktion!</bold> Abonnieren Sie, um erweiterte Funktionen der Teamverwaltung wie das Entfernen von Mitgliedern freizuschalten.",
+    "multipleParties": "🏘️ <bold>Mehrere Rennteams sind eine Premium-Funktion!</bold> Kostenlose Nutzer können ein Team haben. Abonnieren Sie, um unbegrenzt Teams für Familie, Freunde und mehr zu erstellen und ihnen beizutreten.",
+    "partyMaxSize": "👥 <bold>Große Teams sind eine Premium-Funktion!</bold> Abonnieren Sie, um erweiterte Funktionen der Teamverwaltung wie große Teams freizuschalten."
+  },
+  "motivational": {
+    "messages": [
+      "Ihre Freunde warten auf eine Herausforderung",
+      "Gegen wen treten Sie heute an?",
+      "Zeit, Ihr Tempo zu zeigen",
+      "Herausforderung angenommen?",
+      "Rennen Sie zur Ziellinie",
+      "Wer ist der schnellste Löser?",
+      "Bereit, die Rangliste zu dominieren?",
+      "Ihre Rennfähigkeiten warten",
+      "Zeit, die anderen abzuhängen",
+      "Bereit, als Erster die Ziellinie zu überqueren?",
+      "Die Strecke wartet auf Sie",
+      "Zeit, einen Gang höher zu schalten",
+      "Bereit, auf dem Rätselgitter Gummi zu geben?",
+      "Ihre Gegner wärmen sich schon auf",
+      "Heute ist der Tag für einen neuen Rekord",
+      "Ihre Bestzeit wartet darauf, geschlagen zu werden",
+      "Jedes Rätsel macht Sie schneller",
+      "Jetzt beginnt Ihre Serie",
+      "Zeit, Ihr Spiel auf das nächste Level zu heben",
+      "Ihr nächster Durchbruch ist nur ein Rätsel entfernt",
+      "Bereit, sich selbst zu überraschen?",
+      "Zeigen Sie, was in Ihnen steckt",
+      "Zeit, Ihr Potenzial zu entfalten",
+      "Ihre schnellste Lösung liegt noch vor Ihnen",
+      "Bereit, den heutigen Tag zählen zu lassen?",
+      "Im Rennen zählt jede Sekunde",
+      "Zeit, Ihre Grenzen zu verschieben",
+      "Ihr Weg zur Verbesserung geht weiter",
+      "Bereit, Erwartungen zu übertreffen?",
+      "Glauben Sie, Sie halten dem Druck stand?",
+      "Zeit, die Zweifler verstummen zu lassen",
+      "Bereit für den Sieg?",
+      "Ihre Konkurrenz wird das nicht kommen sehen",
+      "Zeit, Ihre Spuren zu hinterlassen",
+      "Bereit, im Rampenlicht zu stehen?",
+      "Ein verdienter Sieg schmeckt süßer",
+      "Zeit zu beweisen, wer der Boss ist",
+      "Bereit, Ihr wahres Gesicht zu zeigen?",
+      "Hier beginnt die Meister-Mentalität",
+      "Zeit, sich vom Feld abzusetzen",
+      "Bereit, Ihre Legende zu schreiben?",
+      "Champions werden in Momenten wie diesem gemacht",
+      "Zeit, Potenzial in Leistung zu verwandeln",
+      "Frische Rätsel, frische Chancen",
+      "Die heutige Herausforderung wartet auf Ihr Können",
+      "Bereit, dies zu Ihrem bisher besten Tag zu machen?",
+      "Ein neuer Tag bedeutet neue Rekorde zu brechen",
+      "Zeit, Ihrer Sammlung einen weiteren Sieg hinzuzufügen",
+      "Bereit, stark zu starten und noch stärker zu finishen?",
+      "Bereit, den heutigen Tag legendär zu machen?",
+      "Ihre tägliche Dosis Triumph wartet",
+      "Auf dem Gitter trifft Strategie auf Tempo",
+      "Bereit, klüger und schneller zu sein?",
+      "Ihre Rätsel-Meisterschaft ruft",
+      "Zeit, Logik mit Blitzgeschwindigkeit zu verbinden",
+      "Bereit, mit chirurgischer Präzision zu lösen?",
+      "Die perfekte Kombination: Können und Tempo",
+      "Ihr analytischer Vorsprung ist Ihr Rennvorteil",
+      "Zeit, Ihre Rätsel-Überlegenheit zu zeigen",
+      "Bereit, wie ein Champion zu lösen?",
+      "Präzises Rennen beginnt mit klarem Denken",
+      "Ihre Freunde warten auf eine Revanche",
+      "Wer löst heute?",
+      "Ein neues Tagesrätsel ist bereit",
+      "Ihre Serie steht auf dem Spiel",
+      "Frische Rätsel, frischer Start",
+      "Die heutige Herausforderung ist online",
+      "Treten Sie beim Tagesrätsel gegen einen Freund an",
+      "Neuer Tag, neue Rätsel",
+      "Jemand steht schon in der Rangliste",
+      "Halten Sie die Serie am Leben",
+      "Die täglichen Herausforderungen sind aktualisiert",
+      "Ihr Team wartet",
+      "Ein Rätsel näher an der Spitze",
+      "Die heutigen Rätsel warten auf Sie",
+      "Steigen Sie wieder ein und rennen Sie los"
+    ]
+  },
+  "home": {
+    "live": "Live",
+    "headline": "Bereit fürs Rennen? 🏁",
+    "subtitle": "Teilen Sie die Herausforderung – laden Sie Freunde ein und sehen Sie, wer der schnellste Sudoku-Löser ist.",
+    "leaderboard": "Rangliste",
+    "daily": {
+      "title": "Tägliche Herausforderungen",
+      "refreshes": "wird täglich erneuert",
+      "moreLevels": "Weitere Schwierigkeitsstufen im <bookLink>Rätselbuch</bookLink>",
+      "difficulty": {
+        "simple": "Knifflig",
+        "easy": "Anspruchsvoll",
+        "intermediate": "Schwer"
+      }
+    },
+    "book": {
+      "summary_one": "{{month}} · {{count}} Rätsel",
+      "summary_other": "{{month}} · {{count}} Rätsel",
+      "title": "Monatliches Rätselbuch",
+      "browse": "Rätsel durchsuchen"
+    },
+    "import": {
+      "title": "Jedes Rätsel importieren",
+      "description": "Mit der Kamera scannen oder einen Rätsel-String einfügen",
+      "desktopTitle": "Jedes Rätsel im Rennen",
+      "desktopDescription": "Aus einem Buch oder einer Zeitung scannen"
+    },
+    "teams": {
+      "title": "Rennteams",
+      "withFriends": "Rennen gegen {{friends}} und mehr",
+      "noFriends": "Fordern Sie Freunde zu einem Rennen heraus"
+    },
+    "tabs": {
+      "startRace": "Rennen starten",
+      "myPuzzles": "Meine Rätsel",
+      "racingTeams": "Rennteams"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "Rätselbuch wird geladen...",
+      "puzzles": "Rätsel werden geladen...",
+      "progress": "Ihr Fortschritt wird geladen..."
+    },
+    "tryAgain": "Erneut versuchen",
+    "backHome": "Zurück zur Startseite",
+    "signInPrompt": "Melden Sie sich an, um auf das Rätselbuch zuzugreifen.",
+    "signIn": "Anmelden",
+    "noData": "Keine Rätselbuchdaten verfügbar.",
+    "title": "Rätselbuch {{month}}",
+    "puzzleCount_one": "{{count}} technikorientiertes Rätsel",
+    "puzzleCount_other": "{{count}} technikorientierte Rätsel",
+    "completed": "{{count}} abgeschlossen",
+    "inProgress": "{{count}} in Arbeit",
+    "unlockWithPlus": "Alle Rätsel mit $t(brand.plus) freischalten",
+    "jumpToDifficulty": "Zum Schwierigkeitsgrad springen",
+    "scrollToTop": "Nach oben scrollen",
+    "difficulty": {
+      "veryEasy": "Sehr leicht",
+      "easy": "Leicht",
+      "moderatelyEasy": "Eher leicht",
+      "moderate": "Mittel",
+      "moderatelyHard": "Eher schwer",
+      "hard": "Schwer",
+      "vicious": "Fies",
+      "fiendish": "Teuflisch",
+      "devilish": "Diabolisch",
+      "hell": "Hölle",
+      "beyondHell": "Jenseits der Hölle"
+    }
+  },
+  "invite": {
+    "loading": "Einladung wird geladen...",
+    "iconAlt": "{{gameName}}-Symbol",
+    "greeting": "👋 Hallo!",
+    "greetingNamed": "👋 Hallo {{name}}!",
+    "invited": "Sie sind eingeladen!",
+    "joinTeam": "Treten Sie dem Rennteam bei <team/>",
+    "description": "Lösen Sie gemeinsam Sudoku-Rätsel und sehen Sie den Fortschritt der anderen in Echtzeit!",
+    "proTip": "💡 <bold>Profi-Tipp:</bold> Alle Rätsel, die Sie künftig spielen, werden mit Ihren Teammitgliedern geteilt – für freundschaftlichen Wettbewerb!",
+    "nicknameLabel": "Wie nennt Ihr Rennteam Sie?",
+    "nicknamePlaceholder": "Spitznamen eingeben",
+    "joining": "Beitritt zum Team...",
+    "join": "Jetzt mitmachen! 🎉",
+    "signIn": "Anmelden und fortfahren",
+    "bonus": {
+      "title": "🎉 Bonus: {{duration}} {{plusName}} gratis!",
+      "duration": {
+        "oneMonth": "einen Monat",
+        "oneYear": "ein Jahr",
+        "lifetime": "lebenslang",
+        "premium": "Premium-Zugang"
+      },
+      "subtitle": "Mit dem Beitritt zu diesem Rennteam schalten Sie Premium-Funktionen völlig kostenlos frei!",
+      "note": "💡 Ihr Premium-Zugang wird nach dem Beitritt automatisch aktiviert"
+    },
+    "expired": {
+      "title": "Einladung abgelaufen",
+      "body": "Dieser Einladungslink ist nicht mehr gültig. Bitten Sie Ihren Freund um eine neue Einladung oder erhöhen Sie die Teamgröße."
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "Rätsel-String eingeben",
+      "help": "Fügen Sie einen String mit 81 Zeichen oder ein HoDoKu-Gitter ein – verwenden Sie die Ziffern 1–9 und 0 oder . für leere Zellen.",
+      "submit": "Rätsel importieren"
+    },
+    "orScan": "oder mit der Kamera scannen",
+    "cameraHelp": "Richten Sie Ihre Kamera auf ein ungelöstes Sudoku-Rätsel und warten Sie, bis es erkannt wird.",
+    "errors": {
+      "parse": "Das Rätsel konnte nicht gelesen werden. Fügen Sie einen String mit 81 Zeichen oder ein HoDoKu-Gitter ein.",
+      "solverLoading": "Der Löser wird noch geladen – bitte versuchen Sie es erneut.",
+      "noSolution": "Keine Lösung gefunden. Bitte prüfen Sie das Rätsel.",
+      "camera": "Die Kamera konnte nicht gestartet werden. Bitte prüfen Sie die Berechtigungen und versuchen Sie es erneut."
+    }
+  },
+  "credits": {
+    "title": "Credits und Danksagungen",
+    "subtitle": "Diese App basiert auf mehreren hervorragenden Projekten",
+    "copyright": "Copyright (c) 2026 James Acres ({{companyName}})",
+    "license": "Diese App steht unter der MIT-Lizenz. Details finden Sie in unserer <licenseLink>LICENSE</licenseLink> und in den <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "humanSudokuSolver": "TypeScript-Bibliothek, die Sudoku-Rätsel mit menschlichen Techniken löst.",
+      "qqwing": "Rätselgenerierung für das Sudoku des Tages",
+      "tdoku": "Schneller Sudoku-Löser für gescannte Rätsel",
+      "arBrowserSudoku": "Scanner-Technologie mit erweiterter Realität",
+      "sudokuCoach": "Inspiration für Algorithmen zur Schwierigkeitsberechnung",
+      "nextjs": "React-Framework für die Produktion",
+      "typescript": "Typisierte Obermenge von JavaScript",
+      "tailwind": "Utility-First-CSS-Framework",
+      "capacitor": "Laufzeitumgebung für native mobile Apps",
+      "electron": "Framework für Desktop-Apps",
+      "tensorflow": "Maschinelles Lernen für AR-Funktionen",
+      "revenuecat": "Abonnementverwaltung",
+      "react": "Bibliothek für UI-Komponenten",
+      "turborepo": "Build-System für Monorepos"
+    }
+  }
+}

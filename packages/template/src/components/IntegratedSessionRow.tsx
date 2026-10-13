@@ -11,78 +11,58 @@ import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
 import { BaseServerState } from '../types/state';
 import { MovesDisplay } from './MovesDisplay';
+import { useTranslation } from 'react-i18next';
+import { Translate } from '../types/i18n';
 
-// Function to get game status text
 const getGameStatusText = <State extends BaseServerState = BaseServerState>(
   session: ServerStateResult<State>,
   isPuzzleCheated: (state: State) => boolean,
   calculateCompletionPercentageFromState: (state: State) => number,
-  _userSessions?: ServerStateResult<State>[]
+  t: Translate
 ): string => {
   const { state } = session;
 
   if (state.completed) {
     if (isPuzzleCheated(state)) {
-      return 'Cheated';
+      return t('session.cheated');
     }
     const seconds = state.completed.seconds;
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `Completed in ${minutes}m ${remainingSeconds}s`;
+    return t('session.completedIn', {
+      minutes: Math.floor(seconds / 60),
+      seconds: seconds % 60,
+    });
   }
 
-  // Calculate completion percentage for incomplete puzzles
   const percentage = calculateCompletionPercentageFromState(state);
-  return `${percentage}% complete`;
+  return t('session.percentComplete', { percentage });
 };
 
-const MONTH_NAMES = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
+const formatShortMonth = (monthIndex: number, language: string) =>
+  new Intl.DateTimeFormat(language, { month: 'short', timeZone: 'UTC' }).format(
+    new Date(Date.UTC(2000, monthIndex, 1))
+  );
 
-// Helper function to format date from YYYYMMDD to "Mon DD"
-const formatDateString = (dateString: string) => {
-  // dateString is in format YYYYMMDD
+// dateString is in format YYYYMMDD
+const formatDateString = (
+  dateString: string,
+  language: string,
+  t: Translate
+) => {
   if (dateString.length !== 8) return dateString;
 
   const year = dateString.substring(0, 4);
   const month = dateString.substring(4, 6);
   const day = dateString.substring(6, 8);
 
-  // Create a date object and format it
   const date = new Date(`${year}-${month}-${day}`);
 
-  // Format as "Aug 17th"
-  const monthName = MONTH_NAMES[date.getMonth()];
-  const dayNum = date.getDate();
-
-  // Add ordinal suffix (st, nd, rd, th)
-  const getOrdinalSuffix = (day: number) => {
-    if (day >= 11 && day <= 13) return 'th';
-    switch (day % 10) {
-      case 1:
-        return 'st';
-      case 2:
-        return 'nd';
-      case 3:
-        return 'rd';
-      default:
-        return 'th';
-    }
-  };
-
-  return `${monthName} ${dayNum}${getOrdinalSuffix(dayNum)}`;
+  return t('session.shortDate', {
+    month: formatShortMonth(date.getUTCMonth(), language),
+    day: t('session.dayOrdinal', {
+      count: date.getUTCDate(),
+      ordinal: true,
+    }),
+  });
 };
 
 // Helper function to extract metadata information
@@ -262,6 +242,7 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
   session: ServerStateResult<State>,
   currentUserId: string | undefined,
   parties: Party[],
+  unknownNickname: string,
   isPuzzleCheated: (state: State) => boolean,
   calculateCompletionPercentageFromState: (state: State) => number,
   getMovesDisplay?: (
@@ -294,7 +275,7 @@ const getFriendSessions = <State extends BaseServerState = BaseServerState>(
         parties
           ?.flatMap((party) => party.members || [])
           .find((member) => member?.userId === userId)?.memberNickname ||
-        'Unknown';
+        unknownNickname;
 
       const completionPercentage = calculateCompletionPercentageFromState(
         matchingSession.state
@@ -341,8 +322,10 @@ export const IntegratedSessionRow = <
   getStarRating,
   isLocked,
   onLockedClick,
-  lockedLabel = 'Plus',
+  lockedLabel: lockedLabelProp,
 }: IntegratedSessionRowProps<State, BookPuzzle, Techniques>) => {
+  const { t, i18n } = useTranslation('template');
+  const lockedLabel = lockedLabelProp ?? t('brand.plus');
   const context = useContext(UserContext);
   const { user } = context || {};
   const { friendSessions, isFriendSessionsLoading } = useSessions<State>();
@@ -374,21 +357,33 @@ export const IntegratedSessionRow = <
   // Get puzzle title
   const puzzleTitle = (() => {
     if (bookPuzzle) {
-      return `Puzzle #${bookPuzzle.index + 1}`;
+      return t('session.puzzleNumber', { number: bookPuzzle.index + 1 });
     }
     if (metadataInfo?.type === 'daily' && metadataInfo.date) {
-      return `Daily ${formatDateString(metadataInfo.date)}`;
+      return t('session.daily', {
+        date: formatDateString(metadataInfo.date, i18n.language, t),
+      });
     }
     if (metadataInfo?.type === 'book' && metadataInfo.bookInfo) {
-      const monthName = MONTH_NAMES[parseInt(metadataInfo.bookInfo.month) - 1];
-      return `Book ${monthName} #${metadataInfo.bookInfo.number}`;
+      return t('session.book', {
+        month: formatShortMonth(
+          parseInt(metadataInfo.bookInfo.month) - 1,
+          i18n.language
+        ),
+        number: metadataInfo.bookInfo.number,
+      });
     }
     if (metadataInfo?.type === 'scanned') {
-      return 'Scanned Puzzle';
+      return t('session.scanned');
     }
     if (metadataInfo?.type === 'collection' && metadataInfo.bookInfo) {
-      const monthName = MONTH_NAMES[parseInt(metadataInfo.bookInfo.month) - 1];
-      return `Collection ${monthName} #${metadataInfo.bookInfo.number}`;
+      return t('session.collection', {
+        month: formatShortMonth(
+          parseInt(metadataInfo.bookInfo.month) - 1,
+          i18n.language
+        ),
+        number: metadataInfo.bookInfo.number,
+      });
     }
     return '';
   })();
@@ -424,7 +419,7 @@ export const IntegratedSessionRow = <
     // Add user's session if they have actually played this puzzle, or if we're in MyPuzzlesTab
     if (actualSession || !userSessions) {
       allPlayerSessions.push({
-        nickname: 'You',
+        nickname: t('session.you'),
         userId: null,
         completionPercentage: myPercentage,
         completionTime: actualSession?.state.completed?.seconds || null,
@@ -449,6 +444,7 @@ export const IntegratedSessionRow = <
       session,
       user?.sub,
       parties || [],
+      t('session.unknown'),
       isPuzzleCheated,
       calculateCompletionPercentageFromState,
       getMovesDisplay,
@@ -521,14 +517,18 @@ export const IntegratedSessionRow = <
       ? getStarRating?.(actualSession.state)
       : undefined;
 
+  const formatDuration = (totalSeconds: number) =>
+    t('session.duration', {
+      minutes: Math.floor(totalSeconds / 60),
+      seconds: totalSeconds % 60,
+    });
+
   // Helper to get timer display
   const getTimerDisplay = () => {
     if (actualSession?.state.timer !== undefined) {
       const seconds = calculateSeconds(actualSession.state.timer);
       return (
-        <span className="text-xs opacity-75">
-          {Math.floor(seconds / 60)}m {seconds % 60}s
-        </span>
+        <span className="text-xs opacity-75">{formatDuration(seconds)}</span>
       );
     }
     return null;
@@ -545,21 +545,21 @@ export const IntegratedSessionRow = <
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-amber-950/50 via-amber-900/10 to-transparent"
           />
-          <span className="absolute right-2 top-2 z-20 inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wide text-amber-950 shadow-md">
+          <span className="absolute end-2 top-2 z-20 inline-flex max-w-[calc(100%-1rem)] items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-2 py-0.5 text-[0.65rem] font-black uppercase tracking-wide text-amber-950 shadow-md">
             <Sparkles className="h-3 w-3" aria-hidden="true" />
             {lockedLabel}
           </span>
         </>
       )}
-      <div className={isLocked ? 'opacity-80' : ''}>
+      <div dir="ltr" className={isLocked ? 'opacity-80' : ''}>
         <SimpleState state={session.state} />
       </div>
       <div className="space-y-2 px-4 py-2">
         <div className="text-center text-gray-900 dark:text-white">
-          <h3 className="text-sm font-semibold">{puzzleTitle}</h3>
+          <h3 className="break-words text-sm font-semibold">{puzzleTitle}</h3>
           {isLocked ? (
             <p className="text-xs font-semibold text-amber-600 dark:text-amber-400">
-              Unlock with {lockedLabel}
+              {t('session.unlockWith', { label: lockedLabel })}
             </p>
           ) : (
             <p className="text-xs opacity-75">
@@ -567,7 +567,7 @@ export const IntegratedSessionRow = <
                 session,
                 isPuzzleCheated,
                 calculateCompletionPercentageFromState,
-                userSessions
+                t
               )}
             </p>
           )}
@@ -590,7 +590,7 @@ export const IntegratedSessionRow = <
             className={`space-y-2 rounded-lg p-3 text-white ${difficultyInfo?.badgeColor.replace('text-white', '') || 'bg-red-500'}`}
           >
             <h4 className="text-center text-sm font-semibold">
-              Recommended Techniques:
+              {t('session.recommendedTechniques')}
             </h4>
             <div className="flex flex-wrap justify-start gap-1">
               {techniques.map((technique, i) => (
@@ -618,8 +618,8 @@ export const IntegratedSessionRow = <
         <button
           type="button"
           onClick={onLockedClick}
-          aria-label="Locked puzzle"
-          className="relative block w-full cursor-pointer text-left"
+          aria-label={t('session.lockedPuzzle')}
+          className="relative block w-full cursor-pointer text-start"
         >
           {rowInner}
         </button>
@@ -638,7 +638,7 @@ export const IntegratedSessionRow = <
           className="flex w-full cursor-pointer items-center justify-center gap-1.5 border-t border-amber-200/60 bg-amber-100/50 px-2 py-2 text-xs font-bold text-amber-700 transition-colors hover:bg-amber-100 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20"
         >
           <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-          Unlock with {lockedLabel}
+          {t('session.unlockWith', { label: lockedLabel })}
         </button>
       ) : (
         <div className="border-t border-stone-200 bg-stone-100/50 dark:border-zinc-600 dark:bg-zinc-700/50">
@@ -674,9 +674,11 @@ export const IntegratedSessionRow = <
                         {isWinner && (
                           <Award className="h-3 w-3 shrink-0 text-yellow-600 dark:text-yellow-400" />
                         )}
-                        <span className="truncate">{nickname}</span>
+                        <span className="truncate" title={nickname}>
+                          {nickname}
+                        </span>
                       </span>
-                      <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
+                      <div className="flex min-w-0 flex-wrap items-center gap-1">
                         {isCompleted ? (
                           <>
                             <span
@@ -690,8 +692,7 @@ export const IntegratedSessionRow = <
                             </span>
                             {completionTime && (
                               <span className="shrink-0 text-xs opacity-75">
-                                {Math.floor(completionTime / 60)}m{' '}
-                                {completionTime % 60}s
+                                {formatDuration(completionTime)}
                               </span>
                             )}
                             {moves && !isCheated && (
@@ -704,11 +705,10 @@ export const IntegratedSessionRow = <
                           <>
                             {inProgressSeconds !== null && (
                               <span className="text-xs opacity-75">
-                                {Math.floor(inProgressSeconds / 60)}m{' '}
-                                {inProgressSeconds % 60}s
+                                {formatDuration(inProgressSeconds)}
                               </span>
                             )}
-                            <span className="ml-1 shrink-0 opacity-75">
+                            <span className="ms-1 shrink-0 opacity-75">
                               {myPercentage}%
                             </span>
                             {moves && (
@@ -721,11 +721,10 @@ export const IntegratedSessionRow = <
                           <>
                             {inProgressSeconds !== null && (
                               <span className="text-xs opacity-75">
-                                {Math.floor(inProgressSeconds / 60)}m{' '}
-                                {inProgressSeconds % 60}s
+                                {formatDuration(inProgressSeconds)}
                               </span>
                             )}
-                            <span className="ml-1 shrink-0 opacity-75">
+                            <span className="ms-1 shrink-0 opacity-75">
                               {completionPercentage}%
                             </span>
                             {moves && (
@@ -748,9 +747,9 @@ export const IntegratedSessionRow = <
                 /* Show only user when no friends or still loading */
                 <div className="flex w-full flex-col gap-0.5 rounded bg-green-100/50 px-2 py-1 text-xs text-green-900 dark:bg-green-950/30 dark:text-green-100">
                   <span className="flex min-w-0 items-center gap-1 truncate font-medium">
-                    You
+                    {t('session.you')}
                   </span>
-                  <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
+                  <div className="flex min-w-0 flex-wrap items-center gap-1">
                     {isCompleted ? (
                       <>
                         <span
@@ -767,8 +766,7 @@ export const IntegratedSessionRow = <
                         </span>
                         {session.state.completed && (
                           <span className="shrink-0 text-xs opacity-75">
-                            {Math.floor(session.state.completed.seconds / 60)}m{' '}
-                            {session.state.completed.seconds % 60}s
+                            {formatDuration(session.state.completed.seconds)}
                           </span>
                         )}
                         {ownMoves && (
@@ -780,7 +778,7 @@ export const IntegratedSessionRow = <
                     ) : (
                       <>
                         {getTimerDisplay()}
-                        <span className="ml-1 shrink-0 opacity-75">
+                        <span className="ms-1 shrink-0 opacity-75">
                           {myPercentage}%
                         </span>
                         {ownMoves && (
@@ -807,9 +805,9 @@ export const IntegratedSessionRow = <
                 isFriendSessionsLoading &&
                 playerSessions.length === 0 && (
                   <div className="flex items-center justify-center p-1 text-xs opacity-50">
-                    <Loader className="mr-1 h-2 w-2 animate-spin text-gray-400" />
+                    <Loader className="me-1 h-2 w-2 animate-spin text-gray-400" />
                     <span className="text-[10px] text-gray-500 dark:text-gray-500">
-                      Loading friends...
+                      {t('session.loadingFriends')}
                     </span>
                   </div>
                 )}

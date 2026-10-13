@@ -42,14 +42,14 @@ const Header = ({
 }: HeaderProps) => {
   return (
     <>
-      <nav className="bg-stone-50/96 dark:bg-zinc-900/96 fixed left-0 top-0 z-50 flex w-screen items-center border-b border-stone-200/60 px-1 pt-[var(--ion-safe-area-top)] shadow-sm shadow-stone-900/[0.04] backdrop-blur-md dark:border-zinc-700/60 dark:shadow-black/10">
-        <div className="flex h-11 shrink-0 items-center">
+      <nav className="bg-stone-50/96 dark:bg-zinc-900/96 fixed start-0 top-0 z-50 flex w-screen items-center border-b border-stone-200/60 px-1 pt-[var(--ion-safe-area-top)] shadow-sm shadow-stone-900/[0.04] backdrop-blur-md dark:border-zinc-700/60 dark:shadow-black/10">
+        <div className="flex min-h-11 shrink-0 items-center">
           <HeaderBack appName={appName} />
         </div>
         <div className="flex min-w-0 flex-1 items-center justify-center">
           <HeaderTitle appName={appName} />
         </div>
-        <div className="flex h-11 shrink-0 items-center gap-0">
+        <div className="flex min-h-11 shrink-0 items-center gap-0">
           {HeaderUser && headerUserProps && (
             <HeaderUser {...(headerUserProps as HeaderUserProps)} />
           )}

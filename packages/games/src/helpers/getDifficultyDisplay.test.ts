@@ -1,4 +1,10 @@
-import { getDifficultyDisplay } from './getDifficultyDisplay';
+import { getI18n } from 'react-i18next';
+import { getDifficultyDisplay as getDifficultyDisplayWithT } from './getDifficultyDisplay';
+
+const t = getI18n().getFixedT('en', 'games');
+
+const getDifficultyDisplay = (difficulty: string) =>
+  getDifficultyDisplayWithT(difficulty, t);
 
 describe('getDifficultyDisplay', () => {
   describe('Standard Difficulty Levels', () => {

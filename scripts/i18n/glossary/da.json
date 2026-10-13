@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Sudokuløb",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "løb",
+      "team": "hold",
+      "leaderboard": "rangliste",
+      "hint": "hint",
+      "undo": "fortryd",
+      "theme": "tema",
+      "dailyPuzzle": "dagligt puslespil",
+      "monthlyCollection": "månedlig puslespilsbog",
+      "aiOpponent": "AI-modstander",
+      "monthly": "månedlig",
+      "lifetime": "for livet",
+      "plusAccess": "Plus-adgang",
+      "plusFeatureLine": "Ubegrænsede løb, hold, temaer & fortryd"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Frigør Løbet",
+      "gameName": "Frigør Løbet",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "løb",
+      "team": "hold",
+      "leaderboard": "rangliste",
+      "hint": "hint",
+      "undo": "fortryd",
+      "theme": "tema",
+      "dailyPuzzle": "dagligt puslespil",
+      "monthlyCollection": "månedlig puslespilssamling",
+      "aiOpponent": "AI-modstander",
+      "monthly": "månedlig",
+      "lifetime": "for livet",
+      "plusAccess": "Plus-adgang",
+      "plusFeatureLine": "Ubegrænsede løb, hold, temaer & fortryd"
+    }
+  }
+}

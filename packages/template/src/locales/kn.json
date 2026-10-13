@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "ಅನಿರೀಕ್ಷಿತ ದೋಷ ಸಂಭವಿಸಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    "dismiss": "ಮುಚ್ಚಿ"
+  },
+  "errorBoundary": {
+    "title": "ಅಯ್ಯೋ! ಏನೋ ತಪ್ಪಾಗಿದೆ",
+    "description": "ಅನಿರೀಕ್ಷಿತ ದೋಷ ಎದುರಾಗಿದೆ. ಚಿಂತಿಸಬೇಡಿ, ನಿಮ್ಮ ಪ್ರಗತಿ ಉಳಿಸಲಾಗಿದೆ!",
+    "reload": "ಅಪ್ಲಿಕೇಶನ್ ಮರುಲೋಡ್ ಮಾಡಿ",
+    "clearStorage": "ಸಂಗ್ರಹಣೆ ತೆರವುಗೊಳಿಸಿ ಮತ್ತು ಮರುಲೋಡ್ ಮಾಡಿ",
+    "contactSupport": "ಈ ಸಮಸ್ಯೆ ಮುಂದುವರಿದರೆ, ದಯವಿಟ್ಟು ಬೆಂಬಲವನ್ನು ಸಂಪರ್ಕಿಸಿ."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} ನಿಮಿ ಹಿಂದೆ",
+    "minutesAgo_other": "{{count}} ನಿಮಿ ಹಿಂದೆ",
+    "hoursAgo_one": "{{count}} ಗಂಟೆ ಹಿಂದೆ",
+    "hoursAgo_other": "{{count}} ಗಂಟೆ ಹಿಂದೆ",
+    "daysAgo_one": "{{count}} ದಿನ ಹಿಂದೆ",
+    "daysAgo_other": "{{count}} ದಿನ ಹಿಂದೆ"
+  },
+  "tier": {
+    "novice": "ಹೊಸಬ",
+    "advancedBeginner": "ಆರಂಭಿಕ",
+    "competent": "ಸಮರ್ಥ",
+    "proficient": "ನುರಿತ",
+    "expert": "ತಜ್ಞ"
+  },
+  "moves": {
+    "onPar": "ನಡೆಗಳು, ಪಾರ್‌ನಲ್ಲಿ",
+    "overPar": "ನಡೆಗಳು, ಪಾರ್‌ಗಿಂತ {{delta}} ಹೆಚ್ಚು",
+    "underPar": "ನಡೆಗಳು, ಪಾರ್‌ಗಿಂತ {{delta}} ಕಡಿಮೆ"
+  },
+  "lobby": {
+    "title": "ರೇಸ್ ಲಾಬಿ",
+    "close": "ಲಾಬಿ ಮುಚ್ಚಿ",
+    "onlineOpponents": "ಆನ್‌ಲೈನ್ ಎದುರಾಳಿಗಳು",
+    "refresh": "ಆನ್‌ಲೈನ್ ಎದುರಾಳಿಗಳನ್ನು ರಿಫ್ರೆಶ್ ಮಾಡಿ",
+    "noOpponents": "ಯಾವ ಎದುರಾಳಿಯೂ ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಇಲ್ಲ — ರೇಸ್‌ಗೆ ಸ್ನೇಹಿತರನ್ನು ಆಹ್ವಾನಿಸಿ!",
+    "away": "ದೂರದಲ್ಲಿದ್ದಾರೆ",
+    "offlineTeams": "ಆಫ್‌ಲೈನ್ · ನಿಮ್ಮ ತಂಡಗಳಲ್ಲಿ",
+    "removeMember": "{{name}} ಅವರನ್ನು ತೆಗೆದುಹಾಕಿ",
+    "aiOpponents": "AI ಎದುರಾಳಿಗಳು",
+    "addAgent": "ಸೇರಿಸಿ",
+    "noAgents": "ಇನ್ನೂ AI ಎದುರಾಳಿಗಳಿಲ್ಲ — ಯಾವಾಗಲೂ ರೇಸ್ ಮಾಡಲು ಒಬ್ಬರನ್ನು ಸೇರಿಸಿ.",
+    "ownClock": "ಪ್ರತಿಯೊಬ್ಬ ಆಟಗಾರರೂ ತಮ್ಮದೇ ಗಡಿಯಾರದಲ್ಲಿ ರೇಸ್ ಮಾಡುತ್ತಾರೆ",
+    "startSolving": "ಬಿಡಿಸಲು ಪ್ರಾರಂಭಿಸಿ",
+    "finished": "ಮುಗಿಸಿದ್ದಾರೆ",
+    "inLobby": "ಲಾಬಿಯಲ್ಲಿ",
+    "stageProgress": "ಹಂತ {{current}} / {{total}}",
+    "finishedRunIn": "{{time}} ನಲ್ಲಿ ರನ್ ಮುಗಿಸಿದ್ದಾರೆ",
+    "solvedIn": "{{time}} ನಲ್ಲಿ ಬಿಡಿಸಿದ್ದಾರೆ",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · ಕೊನೆಯದಾಗಿ ಕಂಡದ್ದು {{lastSeen}}",
+    "raceSummary": {
+      "solo": "ಏಕಾಂಗಿ ರೇಸ್ — ನೀವು ಮತ್ತು ಗಡಿಯಾರ ಮಾತ್ರ",
+      "friends_one": "{{count}} ಸ್ನೇಹಿತ",
+      "friends_other": "{{count}} ಸ್ನೇಹಿತರು",
+      "aiOpponents_one": "{{count}} AI ಎದುರಾಳಿ",
+      "aiOpponents_other": "{{count}} AI ಎದುರಾಳಿಗಳು",
+      "racing": "{{opponents}} ವಿರುದ್ಧ ರೇಸ್"
+    },
+    "invite": {
+      "button": "ಆಹ್ವಾನಿಸಿ",
+      "eyebrow": "ನಿಮ್ಮ ರೇಸ್ ಸಿದ್ಧಪಡಿಸಿ",
+      "title": "ಎದುರಾಳಿಗಳನ್ನು ಆಹ್ವಾನಿಸಿ",
+      "close": "ಮುಚ್ಚಿ",
+      "existingTeam": "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ತಂಡಕ್ಕೆ ಆಹ್ವಾನಿಸಿ",
+      "editTeamName": "ತಂಡದ ಹೆಸರು ಸಂಪಾದಿಸಿ",
+      "deleteTeam": "ತಂಡ ಅಳಿಸಿ",
+      "leaveTeam": "ತಂಡ ತೊರೆಯಿರಿ",
+      "memberCount_one": "{{count}} ಸದಸ್ಯ",
+      "memberCount_other": "{{count}} ಸದಸ್ಯರು",
+      "createTeam": "ಹೊಸ ರೇಸಿಂಗ್ ತಂಡ ರಚಿಸಿ",
+      "displayNameLabel": "ತಂಡದ ಸದಸ್ಯರು ನಿಮ್ಮನ್ನು ಏನೆಂದು ಕರೆಯುತ್ತಾರೆ?",
+      "displayNamePlaceholder": "ಪ್ರದರ್ಶನ ಹೆಸರು",
+      "teamNameLabel": "ಈ ತಂಡಕ್ಕೆ ಏನು ಹೆಸರಿಡೋಣ?",
+      "teamNamePlaceholder": "ತಂಡದ ಹೆಸರು (ಉದಾ. ಕುಟುಂಬ)",
+      "createAndCopy": "ರಚಿಸಿ ಮತ್ತು ಲಿಂಕ್ ನಕಲಿಸಿ",
+      "defaultTeamName": "ಹೊಸ ತಂಡ",
+      "defaultPlayerName": "ಆಟಗಾರ"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "ಶೀಟ್ ಮುಚ್ಚಿ",
+    "back": "ಹಿಂದೆ",
+    "close": "ಮುಚ್ಚಿ",
+    "title": "ನಿಮ್ಮ ಪ್ರತಿಸ್ಪರ್ಧಿಗಳನ್ನು ಆರಿಸಿ",
+    "subtitle": "ಒಬ್ಬ ಅಥವಾ ಹೆಚ್ಚು ಎದುರಾಳಿಗಳನ್ನು ಆರಿಸಿ",
+    "selectAtLeastOne": "ಕನಿಷ್ಠ ಒಬ್ಬ ಪ್ರತಿಸ್ಪರ್ಧಿಯನ್ನು ಆರಿಸಿ",
+    "race_one": "{{count}} ಪ್ರತಿಸ್ಪರ್ಧಿಯೊಂದಿಗೆ ರೇಸ್ ಮಾಡಿ",
+    "race_other": "{{count}} ಪ್ರತಿಸ್ಪರ್ಧಿಗಳೊಂದಿಗೆ ರೇಸ್ ಮಾಡಿ",
+    "skill": {
+      "novice": "ಹೊಸಬ",
+      "advancedBeginner": "ಉತ್ತಮ ಆರಂಭಿಕ",
+      "competent": "ಸಮರ್ಥ",
+      "proficient": "ನುರಿತ",
+      "expert": "ತಜ್ಞ"
+    }
+  },
+  "agentParty": {
+    "title": "AI ಪ್ರತಿಸ್ಪರ್ಧಿಗಳು",
+    "rivalCount_one": "{{count}} ಪ್ರತಿಸ್ಪರ್ಧಿ",
+    "rivalCount_other": "{{count}} ಪ್ರತಿಸ್ಪರ್ಧಿಗಳು"
+  },
+  "party": {
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "editName": "ತಂಡದ ಹೆಸರು ಸಂಪಾದಿಸಿ",
+    "editMaxMembers": "ಗರಿಷ್ಠ ಸದಸ್ಯರ ಸಂಖ್ಯೆ ಸಂಪಾದಿಸಿ",
+    "memberCount_one": "{{count}} ಸದಸ್ಯ",
+    "memberCount_other": "{{count}} ಸದಸ್ಯರು",
+    "memberCountPremium_one": "{{count}} ಸದಸ್ಯ ✨ ಪ್ರೀಮಿಯಂ",
+    "memberCountPremium_other": "{{count}} ಸದಸ್ಯರು ✨ ಪ್ರೀಮಿಯಂ",
+    "membersOf_one": "{{current}}/{{count}} ಸದಸ್ಯ",
+    "membersOf_other": "{{current}}/{{count}} ಸದಸ್ಯರು",
+    "shareLink": "ಈ ಒಗಟಿಗೆ ಸೇರಲು ಈ ಲಿಂಕ್ ಅನ್ನು ಪ್ರಸ್ತುತ ತಂಡದ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ",
+    "you": "(ನೀವು)",
+    "notStarted": "ಇನ್ನೂ ಪ್ರಾರಂಭಿಸಿಲ್ಲ! ಆಡಲು ಹೇಳಿ"
+  },
+  "partyConfirmation": {
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "leaveAgentParty": {
+      "title": "AI ಪ್ರತಿಸ್ಪರ್ಧಿಗಳನ್ನು ತೆಗೆದುಹಾಕಿ",
+      "action": "ತೆಗೆದುಹಾಕಿ",
+      "processing": "ತೆಗೆಯಲಾಗುತ್ತಿದೆ...",
+      "message": "ಎಲ್ಲಾ AI ಪ್ರತಿಸ್ಪರ್ಧಿಗಳನ್ನು ತೆಗೆದುಹಾಕಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ? ಅವರು ಇನ್ನು ಮುಂದೆ ರೇಸ್‌ನಲ್ಲಿ ಕಾಣಿಸುವುದಿಲ್ಲ."
+    },
+    "removeAgent": {
+      "title": "ಸ್ಥಳೀಯ ಏಜೆಂಟ್ ತೆಗೆದುಹಾಕಿ",
+      "action": "ತೆಗೆದುಹಾಕಿ",
+      "processing": "ತೆಗೆಯಲಾಗುತ್ತಿದೆ...",
+      "message": "ರೇಸ್‌ನಿಂದ \"{{memberName}}\" ಅವರನ್ನು ತೆಗೆದುಹಾಕಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ?"
+    },
+    "deleteParty": {
+      "title": "ತಂಡ ಅಳಿಸಿ",
+      "action": "ತಂಡ ಅಳಿಸಿ",
+      "processing": "ಅಳಿಸಲಾಗುತ್ತಿದೆ...",
+      "message": "\"{{partyName}}\" ಅನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ? ಇದು ತಂಡವನ್ನು ಶಾಶ್ವತವಾಗಿ ತೆಗೆದುಹಾಕುತ್ತದೆ ಮತ್ತು ಎಲ್ಲಾ ಸದಸ್ಯರು ಪ್ರವೇಶ ಕಳೆದುಕೊಳ್ಳುತ್ತಾರೆ. ಈ ಕ್ರಿಯೆಯನ್ನು ಹಿಂತಿರುಗಿಸಲಾಗದು."
+    },
+    "leave": {
+      "title": "ತಂಡ ತೊರೆಯಿರಿ",
+      "action": "ತೊರೆಯಿರಿ",
+      "processing": "ತೊರೆಯಲಾಗುತ್ತಿದೆ...",
+      "message": "\"{{partyName}}\" ತಂಡವನ್ನು ತೊರೆಯಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ? ನೀವು ಇನ್ನು ಮುಂದೆ ಇತರ ಸದಸ್ಯರ ಪ್ರಗತಿಯನ್ನು ನೋಡಲು ಅಥವಾ ಈ ತಂಡದಲ್ಲಿ ಭಾಗವಹಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ."
+    },
+    "remove": {
+      "title": "ಸದಸ್ಯರನ್ನು ತೆಗೆದುಹಾಕಿ",
+      "action": "ತೆಗೆದುಹಾಕಿ",
+      "processing": "ತೆಗೆಯಲಾಗುತ್ತಿದೆ...",
+      "message": "\"{{partyName}}\" ತಂಡದಿಂದ \"{{memberName}}\" ಅವರನ್ನು ತೆಗೆದುಹಾಕಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ? ಅವರು ಇನ್ನು ಮುಂದೆ ಈ ತಂಡದಲ್ಲಿ ಭಾಗವಹಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ."
+    }
+  },
+  "friends": {
+    "allTeams": "ಎಲ್ಲಾ ತಂಡಗಳು",
+    "refresh": "ರಿಫ್ರೆಶ್",
+    "refreshing": "ರಿಫ್ರೆಶ್ ಆಗುತ್ತಿದೆ…",
+    "title": "ಸ್ನೇಹಿತರ ಒಗಟುಗಳು",
+    "subtitle": "ಸ್ನೇಹಿತರ ಇತ್ತೀಚಿನ ಒಗಟುಗಳನ್ನು ನೋಡಿ ಅವರೊಂದಿಗೆ ರೇಸ್ ಮಾಡಲು ಅವರ ಮೇಲೆ ಟ್ಯಾಪ್ ಮಾಡಿ.",
+    "memberCount_one": "{{count}} ಸದಸ್ಯ",
+    "memberCount_other": "{{count}} ಸದಸ್ಯರು",
+    "noRecentPuzzles": "ಇತ್ತೀಚಿನ ಒಗಟುಗಳಿಲ್ಲ — ಅವರಿಗೆ ಸವಾಲು ಹಾಕಿ!",
+    "empty": {
+      "title": "ಇನ್ನೂ ರೇಸಿಂಗ್ ತಂಡಗಳಿಲ್ಲ",
+      "description": "ಒಗಟು ಬಿಡಿಸುವಾಗ ರೇಸ್ ಲಾಬಿಯಿಂದ ಸ್ನೇಹಿತರನ್ನು ಆಹ್ವಾನಿಸಿ"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "ಕಳೆದ 30 ದಿನಗಳಲ್ಲಿ ನೀವು ಆಡಿದ ಒಗಟುಗಳು.",
+    "empty": {
+      "title": "ಇನ್ನೂ ಒಗಟುಗಳಿಲ್ಲ",
+      "description": "ನಿಮ್ಮ ಮೊದಲ ಒಗಟನ್ನು ಬಿಡಿಸಲು “ರೇಸ್ ಪ್ರಾರಂಭಿಸಿ” ಗೆ ಹೋಗಿ"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} ಹೆಚ್ಚಿನ ಸೌಲಭ್ಯ",
+    "moreFeatures_other": "+{{count}} ಹೆಚ್ಚಿನ ಸೌಲಭ್ಯಗಳು"
+  },
+  "crossPromo": {
+    "whyNotTry": "ಇದನ್ನು ಏಕೆ ಪ್ರಯತ್ನಿಸಬಾರದು",
+    "tryItFree": "ಉಚಿತವಾಗಿ ಪ್ರಯತ್ನಿಸಿ"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} ಇಷ್ಟವಾಗುತ್ತಿದೆಯೇ?",
+    "rateIt": "ರೇಟ್ ಮಾಡಿ",
+    "rateInSeconds": "ಕೆಲವೇ ಸೆಕೆಂಡುಗಳಲ್ಲಿ ರೇಟ್ ಮಾಡಿ"
+  },
+  "plus": {
+    "close": "ಮೋಡಲ್ ಮುಚ್ಚಿ",
+    "appIconAlt": "ಅಪ್ಲಿಕೇಶನ್ ಐಕಾನ್",
+    "lifetime": "ಜೀವಿತಾವಧಿ",
+    "monthly": "ಮಾಸಿಕ",
+    "perMonth": "{{price}}/ತಿಂಗಳು",
+    "whatsIncluded": "ಏನೇನು ಒಳಗೊಂಡಿದೆ",
+    "continue": "ಮುಂದುವರಿಸಿ",
+    "restorePurchases": "ಖರೀದಿಗಳನ್ನು ಮರುಸ್ಥಾಪಿಸಿ",
+    "cancel": "ರದ್ದುಮಾಡಿ"
+  },
+  "download": {
+    "title": "ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಮುಂದುವರಿಸಿ",
+    "appStoreAlt": "{{appStore}} ನಿಂದ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+    "googlePlayAlt": "{{googlePlay}} ನಲ್ಲಿ ಪಡೆಯಿರಿ",
+    "continueBrowser": "ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮುಂದುವರಿಸಿ",
+    "continueDesktop": "ಡೆಸ್ಕ್‌ಟಾಪ್‌ನಲ್ಲಿ ಮುಂದುವರಿಸಿ"
+  },
+  "session": {
+    "cheated": "ಮೋಸ ಮಾಡಲಾಗಿದೆ",
+    "completedIn": "{{minutes}}ನಿ {{seconds}}ಸೆ ನಲ್ಲಿ ಪೂರ್ಣಗೊಂಡಿದೆ",
+    "percentComplete": "{{percentage}}% ಪೂರ್ಣ",
+    "duration": "{{minutes}}ನಿ {{seconds}}ಸೆ",
+    "shortDate": "{{month}} {{day}}",
+    "dayOrdinal_ordinal_other": "{{count}}ನೇ",
+    "puzzleNumber": "ಒಗಟು #{{number}}",
+    "daily": "ದೈನಂದಿನ {{date}}",
+    "book": "ಪುಸ್ತಕ {{month}} #{{number}}",
+    "collection": "ಸಂಗ್ರಹ {{month}} #{{number}}",
+    "scanned": "ಸ್ಕ್ಯಾನ್ ಮಾಡಿದ ಒಗಟು",
+    "you": "ನೀವು",
+    "unknown": "ಅಜ್ಞಾತ",
+    "unlockWith": "{{label}} ಮೂಲಕ ಅನ್‌ಲಾಕ್ ಮಾಡಿ",
+    "lockedPuzzle": "ಲಾಕ್ ಆದ ಒಗಟು",
+    "recommendedTechniques": "ಶಿಫಾರಸು ಮಾಡಿದ ತಂತ್ರಗಳು:",
+    "loadingFriends": "ಸ್ನೇಹಿತರನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ..."
+  }
+}

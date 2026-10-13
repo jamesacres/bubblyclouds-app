@@ -1,0 +1,231 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone és iPad"
+  },
+  "errors": {
+    "generic": "Váratlan hiba történt. Kérjük, próbálja újra.",
+    "dismiss": "Bezárás"
+  },
+  "errorBoundary": {
+    "title": "Hoppá! Valami elromlott",
+    "description": "Váratlan hiba történt. Ne aggódjon, a haladása el van mentve!",
+    "reload": "Alkalmazás újratöltése",
+    "clearStorage": "Tárhely törlése és újratöltés",
+    "contactSupport": "Ha a probléma továbbra is fennáll, kérjük, vegye fel a kapcsolatot az ügyfélszolgálattal."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} perce",
+    "minutesAgo_other": "{{count}} perce",
+    "hoursAgo_one": "{{count}} órája",
+    "hoursAgo_other": "{{count}} órája",
+    "daysAgo_one": "{{count}} napja",
+    "daysAgo_other": "{{count}} napja"
+  },
+  "tier": {
+    "novice": "Újonc",
+    "advancedBeginner": "Kezdő",
+    "competent": "Gyakorlott",
+    "proficient": "Jártas",
+    "expert": "Szakértő"
+  },
+  "moves": {
+    "onPar": "lépés, a célértéken",
+    "overPar": "lépés, {{delta}} a célérték felett",
+    "underPar": "lépés, {{delta}} a célérték alatt"
+  },
+  "lobby": {
+    "title": "Versenyelőszoba",
+    "close": "Előszoba bezárása",
+    "onlineOpponents": "Online ellenfelek",
+    "refresh": "Online ellenfelek frissítése",
+    "noOpponents": "Nincs online ellenfél – hívjon meg barátokat a versenyre!",
+    "away": "Távol",
+    "offlineTeams": "Offline · a csapataiban",
+    "removeMember": "{{name}} eltávolítása",
+    "aiOpponents": "MI-ellenfelek",
+    "addAgent": "Hozzáadás",
+    "noAgents": "Még nincs MI-ellenfél – adjon hozzá egyet, hogy mindig legyen kivel versenyeznie.",
+    "ownClock": "Mindenki a saját órájával versenyez",
+    "startSolving": "Megoldás indítása",
+    "finished": "Befejezte",
+    "inLobby": "Előszobában",
+    "stageProgress": "{{current}}. szakasz / {{total}}",
+    "finishedRunIn": "A futamot befejezte: {{time}}",
+    "solvedIn": "Megoldva: {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · utoljára látva: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Egyéni verseny – csak Ön és az óra",
+      "friends_one": "{{count}} barát",
+      "friends_other": "{{count}} barát",
+      "aiOpponents_one": "{{count}} MI-ellenfél",
+      "aiOpponents_other": "{{count}} MI-ellenfél",
+      "racing": "Ellenfelek: {{opponents}}"
+    },
+    "invite": {
+      "button": "Meghívás",
+      "eyebrow": "Állítsa össze a versenyt",
+      "title": "Ellenfelek meghívása",
+      "close": "Bezárás",
+      "existingTeam": "Meghívás meglévő csapatba",
+      "editTeamName": "Csapatnév szerkesztése",
+      "deleteTeam": "Csapat törlése",
+      "leaveTeam": "Kilépés a csapatból",
+      "memberCount_one": "{{count}} tag",
+      "memberCount_other": "{{count}} tag",
+      "createTeam": "Új versenycsapat létrehozása",
+      "displayNameLabel": "Minek hívjanak a csapattagok?",
+      "displayNamePlaceholder": "Megjelenített név",
+      "teamNameLabel": "Mi legyen a csapat neve?",
+      "teamNamePlaceholder": "Csapatnév (pl. Család)",
+      "createAndCopy": "Létrehozás és link másolása",
+      "defaultTeamName": "Új csapat",
+      "defaultPlayerName": "Játékos"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Panel bezárása",
+    "back": "Vissza",
+    "close": "Bezárás",
+    "title": "Válassza ki a riválisait",
+    "subtitle": "Válasszon egy vagy több ellenfelet",
+    "selectAtLeastOne": "Válasszon legalább egy riválist",
+    "race_one": "Verseny {{count}} riválissal",
+    "race_other": "Verseny {{count}} riválissal",
+    "skill": {
+      "novice": "Újonc",
+      "advancedBeginner": "Haladó kezdő",
+      "competent": "Gyakorlott",
+      "proficient": "Jártas",
+      "expert": "Szakértő"
+    }
+  },
+  "agentParty": {
+    "title": "MI-riválisok",
+    "rivalCount_one": "{{count}} rivális",
+    "rivalCount_other": "{{count}} rivális"
+  },
+  "party": {
+    "cancel": "Mégse",
+    "editName": "Csapatnév szerkesztése",
+    "editMaxMembers": "Maximális létszám szerkesztése",
+    "memberCount_one": "{{count}} tag",
+    "memberCount_other": "{{count}} tag",
+    "memberCountPremium_one": "{{count}} tag ✨ Prémium",
+    "memberCountPremium_other": "{{count}} tag ✨ Prémium",
+    "membersOf_one": "{{current}}/{{count}} tag",
+    "membersOf_other": "{{current}}/{{count}} tag",
+    "shareLink": "Ossza meg ezt a linket a csapat tagjaival, hogy csatlakozhassanak ehhez a rejtvényhez",
+    "you": "(Ön)",
+    "notStarted": "Még nem kezdte el! Kérje meg, hogy játsszon"
+  },
+  "partyConfirmation": {
+    "cancel": "Mégse",
+    "leaveAgentParty": {
+      "title": "MI-riválisok eltávolítása",
+      "action": "Eltávolítás",
+      "processing": "Eltávolítás…",
+      "message": "Biztosan eltávolítja az összes MI-riválist? Többé nem jelennek meg a versenyben."
+    },
+    "removeAgent": {
+      "title": "Helyi ellenfél eltávolítása",
+      "action": "Eltávolítás",
+      "processing": "Eltávolítás…",
+      "message": "Biztosan eltávolítja a következő résztvevőt a versenyből: „{{memberName}}”?"
+    },
+    "deleteParty": {
+      "title": "Csapat törlése",
+      "action": "Csapat törlése",
+      "processing": "Törlés…",
+      "message": "Biztosan törli a következő csapatot: „{{partyName}}”? A csapat véglegesen megszűnik, és a tagok elveszítik a hozzáférést. Ez a művelet nem vonható vissza."
+    },
+    "leave": {
+      "title": "Kilépés a csapatból",
+      "action": "Kilépés",
+      "processing": "Kilépés…",
+      "message": "Biztosan kilép a következő csapatból: „{{partyName}}”? Többé nem látja a többi tag haladását, és nem vehet részt a csapat versenyein."
+    },
+    "remove": {
+      "title": "Tag eltávolítása",
+      "action": "Eltávolítás",
+      "processing": "Eltávolítás…",
+      "message": "Biztosan eltávolítja „{{memberName}}” tagot a következő csapatból: „{{partyName}}”? Többé nem vehet részt a csapat versenyein."
+    }
+  },
+  "friends": {
+    "allTeams": "Minden csapat",
+    "refresh": "Frissítés",
+    "refreshing": "Frissítés…",
+    "title": "Barátok rejtvényei",
+    "subtitle": "Koppintson egy barátra, hogy lássa a legutóbbi rejtvényeit, és versenyezzen vele.",
+    "memberCount_one": "{{count}} tag",
+    "memberCount_other": "{{count}} tag",
+    "noRecentPuzzles": "Nincs friss rejtvény – hívja ki őket!",
+    "empty": {
+      "title": "Még nincs versenycsapat",
+      "description": "Hívjon meg barátokat a Versenyelőszobából rejtvény megoldása közben"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Az elmúlt 30 nap rejtvényei.",
+    "empty": {
+      "title": "Még nincs rejtvény",
+      "description": "Lépjen a Verseny indítása részre az első rejtvény megoldásához"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} további funkció",
+    "moreFeatures_other": "+{{count}} további funkció"
+  },
+  "crossPromo": {
+    "whyNotTry": "Próbálja ki",
+    "tryItFree": "Ingyenes kipróbálás"
+  },
+  "rateApp": {
+    "prompt": "Tetszik az alkalmazás: {{appName}}?",
+    "rateIt": "Értékelés",
+    "rateInSeconds": "Értékelés pár másodperc alatt"
+  },
+  "plus": {
+    "close": "Ablak bezárása",
+    "appIconAlt": "Alkalmazásikon",
+    "lifetime": "Örökre",
+    "monthly": "Havi",
+    "perMonth": "{{price}}/hó",
+    "whatsIncluded": "Mit tartalmaz",
+    "continue": "Folytatás",
+    "restorePurchases": "Vásárlások visszaállítása",
+    "cancel": "Mégse"
+  },
+  "download": {
+    "title": "Folytatás az alkalmazásban",
+    "appStoreAlt": "Letöltés innen: {{appStore}}",
+    "googlePlayAlt": "Letöltés innen: {{googlePlay}}",
+    "continueBrowser": "Folytatás böngészőben",
+    "continueDesktop": "Folytatás számítógépen"
+  },
+  "session": {
+    "cheated": "Csalt",
+    "completedIn": "Befejezve: {{minutes}} p {{seconds}} mp alatt",
+    "percentComplete": "{{percentage}}% kész",
+    "duration": "{{minutes}} p {{seconds}} mp",
+    "shortDate": "{{month}} {{day}}.",
+    "dayOrdinal_ordinal_one": "{{count}}.",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "{{number}}. rejtvény",
+    "daily": "Napi: {{date}}",
+    "book": "Könyv {{month}} · {{number}}. rejtvény",
+    "collection": "Gyűjtemény {{month}} · {{number}}. rejtvény",
+    "scanned": "Beolvasott rejtvény",
+    "you": "Ön",
+    "unknown": "Ismeretlen",
+    "unlockWith": "Feloldás: {{label}}",
+    "lockedPuzzle": "Zárolt rejtvény",
+    "recommendedTechniques": "Ajánlott technikák:",
+    "loadingFriends": "Barátok betöltése…"
+  }
+}

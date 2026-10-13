@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "ଜାରି ରଖିବାକୁ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+    "signInWith": "{{provider}} ସହିତ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+    "emailTitle": "ଇମେଲ୍ ସହିତ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ",
+    "emailPlaceholder": "your@email.com",
+    "continue": "ଜାରି ରଖନ୍ତୁ",
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ",
+    "terms": "ସେବା ସର୍ତ୍ତାବଳୀ",
+    "privacy": "ଗୋପନୀୟତା ନୀତି"
+  },
+  "header": {
+    "signIn": "ସାଇନ୍ ଇନ୍"
+  },
+  "avatar": {
+    "alt": "ଉପଭୋକ୍ତା"
+  },
+  "panel": {
+    "title": "ଖାତା",
+    "greeting": "ନମସ୍କାର, {{name}}!",
+    "fallbackName": "ଉପଭୋକ୍ତା",
+    "plusActive": "{{gameName}} {{plus}} ସକ୍ରିୟ",
+    "joinGamePlus": "ଯୋଗ ଦିଅନ୍ତୁ: {{gameName}} {{plus}}",
+    "joinPlus": "ଯୋଗ ଦିଅନ୍ତୁ: {{plus}}",
+    "signOut": "ସାଇନ୍ ଆଉଟ୍",
+    "privacy": "ଗୋପନୀୟତା ନୀତି",
+    "terms": "ସେବା ସର୍ତ୍ତାବଳୀ",
+    "credits": "କ୍ରେଡିଟ୍",
+    "deleteAccount": "ଖାତା ଡିଲିଟ୍ କରନ୍ତୁ",
+    "poweredBy": "{{companyName}} ଦ୍ୱାରା ଚାଳିତ",
+    "deleteUnavailable": "ଖାତା ଡିଲିଟ୍ କରିବାର ସୁବିଧା ଉପଲବ୍ଧ ନାହିଁ।",
+    "deleteFailed": "ଖାତା ଡିଲିଟ୍ କରିବାରେ ବିଫଳ ହେଲା। ଦୟାକରି ପରେ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।"
+  },
+  "deleteDialog": {
+    "title": "ଖାତା ଡିଲିଟ୍ କରନ୍ତୁ",
+    "warning": "ଏହି କାର୍ଯ୍ୟକୁ ପୂର୍ବ ଅବସ୍ଥାକୁ ଫେରାଇ ହେବ ନାହିଁ। ସମସ୍ତ {{companyName}} ଆପ୍ଲିକେସନ୍‌ରେ ଥିବା ଆପଣଙ୍କ ସମସ୍ତ ଡାଟା ସ୍ଥାୟୀ ଭାବେ ଡିଲିଟ୍ ହେବ।",
+    "confirmation": "ମୁଁ ନିଶ୍ଚିତ କରୁଛି ଯେ ସମସ୍ତ {{companyName}} ଆପ୍ଲିକେସନ୍‌ରେ ଥିବା ସମସ୍ତ ଡାଟା ସହିତ ମୋର ସମ୍ପୂର୍ଣ୍ଣ ଖାତା ଡିଲିଟ୍ କରିବାକୁ ମୁଁ ଚାହୁଁଛି।",
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ",
+    "deleting": "ଡିଲିଟ୍ ହେଉଛି...",
+    "submit": "ଖାତା ଡିଲିଟ୍ କରନ୍ତୁ"
+  }
+}

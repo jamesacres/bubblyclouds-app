@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { useTranslation } from 'react-i18next';
 import { Providers } from './providers';
 
 // Mock next/navigation
@@ -88,6 +89,24 @@ jest.mock('next-themes', () => ({
 }));
 
 describe('Providers', () => {
+  describe('i18n', () => {
+    it('should provide an i18n instance with the default locale', () => {
+      const Probe = () => {
+        const { i18n } = useTranslation();
+        return <div data-testid="language">{i18n.language}</div>;
+      };
+
+      render(
+        <Providers>
+          <Probe />
+        </Providers>
+      );
+
+      expect(screen.getByTestId('language')).toHaveTextContent('en');
+      expect(document.documentElement.lang).toBe('en');
+    });
+  });
+
   describe('rendering', () => {
     it('should render children', () => {
       render(

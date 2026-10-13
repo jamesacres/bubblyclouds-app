@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Rätselbuch",
+    "defaultDetailNoun": "Rätselbücher"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Monatliche Sammlung"
+  },
+  "hintBox": {
+    "dismiss": "Hinweis schließen"
+  },
+  "lobbyButton": {
+    "opponents": "Gegner"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Weiter – nächstes Rätsel",
+    "continueLocked": "Weiter ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} von {{total}} {{label}} abgeschlossen"
+  },
+  "countdownOverlay": {
+    "getReady": "Bereit machen",
+    "go": "LOS!"
+  },
+  "confirmDialog": {
+    "cancel": "Abbrechen"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · abgeschlossen",
+    "retry": "Wiederholen",
+    "points": "+{{points}} Pkt.",
+    "leaderboardPoints": "Ranglistenpunkte"
+  },
+  "raceTimer": {
+    "time": "Zeit"
+  },
+  "stageTopBar": {
+    "previous": "Zurück"
+  },
+  "raceHud": {
+    "opponents": "Gegner",
+    "stageOf": "Etappe {{current}} von {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Ziel!",
+    "runComplete": "Lauf abgeschlossen",
+    "leaderboardPoints": "Ranglistenpunkte",
+    "pointsSuffix": " Pkt."
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "So",
+      "monday": "Mo",
+      "tuesday": "Di",
+      "wednesday": "Mi",
+      "thursday": "Do",
+      "friday": "Fr",
+      "saturday": "Sa"
+    },
+    "dayStreak_one": "Tag in Folge",
+    "dayStreak_other": "Tage in Folge",
+    "thisMonth": "in diesem Monat"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Sie)",
+    "puzzles_one": "{{count}} Rätsel",
+    "puzzles_other": "{{count}} Rätsel",
+    "average": "Ø: {{time}}",
+    "best": "Beste: {{time}}",
+    "wins_one": "🏁 {{count}} Sieg",
+    "wins_other": "🏁 {{count}} Siege",
+    "points_one": "Punkt",
+    "points_other": "Punkte"
+  },
+  "scoreBreakdown": {
+    "title": "Punkteaufschlüsselung",
+    "volumeBonus": {
+      "label": "Mengenbonus",
+      "detail_one": "{{count}} Rätsel gelöst",
+      "detail_other": "{{count}} Rätsel gelöst"
+    },
+    "dailyPuzzles": {
+      "label": "Tagesrätsel",
+      "detail_one": "{{count}} Tagesrätsel",
+      "detail_other": "{{count}} Tagesrätsel"
+    },
+    "collectionPuzzles": {
+      "label": "Rätsel: {{collection}}",
+      "detail": "{{count}} aus {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Gescannte Rätsel",
+      "detail_one": "{{count}} importiertes Rätsel",
+      "detail_other": "{{count}} importierte Rätsel"
+    },
+    "difficultyBonus": {
+      "label": "Schwierigkeitsbonus",
+      "detail": "Schwerere Rätsel = mehr Punkte"
+    },
+    "speedBonus": {
+      "label": "Tempobonus",
+      "detail": "Schnellste: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Rennbonus",
+      "detail": "Schlagen Sie Freunde, die ebenfalls fertig sind"
+    },
+    "dailyCombo": {
+      "label": "Tageskombo",
+      "detail": "Mehr Rätsel pro Tag = größerer Multiplikator"
+    }
+  },
+  "leaderboard": {
+    "you": "Sie",
+    "unknownUser": "Unbekannter Nutzer",
+    "title": "Rangliste",
+    "subtitleParty": "Letzte 30 Tage · {{partyName}}",
+    "subtitleAllTeams": "Letzte 30 Tage · Alle Teams",
+    "howScoringWorks": "So funktioniert die Wertung"
+  },
+  "scoringLegend": {
+    "title": "So funktioniert die Wertung",
+    "subtitle": "{{gameName}} · Letzte 30 Tage",
+    "close": "Schließen",
+    "racingWins": {
+      "title": "Rennsiege",
+      "body": "Erhalten Sie <points>+{{points}} Pkt.</points> für jeden Freund, den Sie bei demselben abgeschlossenen Rätsel schlagen. Werden Sie bei {{friends}} Freunden Erster und sichern Sie sich <points>+{{total}} Pkt.</points>."
+    },
+    "basePoints": {
+      "title": "Basispunkte",
+      "anyPuzzle": "Beliebiges Rätsel",
+      "dailyPuzzle": "Tagesrätsel",
+      "collectionPuzzle": "Rätsel: {{collection}}",
+      "scannedPuzzle": "Gescanntes Rätsel"
+    },
+    "difficultyMultipliers": {
+      "title": "Schwierigkeitsmultiplikatoren",
+      "daily": "{{gameName}} des Tages",
+      "collection": "Rätsel: {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Tempoboni",
+      "lightning": "Blitz",
+      "fast": "Schnell",
+      "quick": "Flink",
+      "steady": "Stetig",
+      "under": "unter {{threshold}}",
+      "seconds": "{{value}} Sek.",
+      "minutes": "{{value}} Min."
+    },
+    "dailyCombo": {
+      "title": "Tageskombo",
+      "body": "Lösen Sie am selben Tag mehr Rätsel, um die Punkte jedes Rätsels zu vervielfachen – bis zu <max>{{max}}×</max>.",
+      "puzzle": "Rätsel {{puzzle}} des Tages",
+      "puzzleOrMore": "Rätsel {{puzzle}}+ des Tages"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Lauf abgeschlossen",
+    "raceProgress": "Rennfortschritt",
+    "stagesProgress": "{{completed}}/{{total}} Etappen",
+    "retryStage": "Etappe wiederholen",
+    "stageLabel": "Etappe {{number}}",
+    "stageCompletedLabel": "Etappe {{number}}, abgeschlossen in {{time}}",
+    "viewRacingStats": "Rennstatistik ansehen",
+    "total": "Gesamt"
+  },
+  "raceTrack": {
+    "you": "Sie",
+    "viewFriends": "Klicken, um Freunde anzuzeigen",
+    "start": "Start",
+    "finish": "Ziel",
+    "inviteToRace": "Freunde zum Rennen einladen",
+    "opponents": "Gegner",
+    "racer": "Teilnehmer",
+    "stageBadge": "E{{number}}",
+    "total": "Gesamt",
+    "leaderboard": "Rangliste",
+    "puzzleBook": "Rätselbuch",
+    "puzzleBookLabel": "Rätselbuch",
+    "refreshScores": "Punkte aktualisieren",
+    "challengeFriends": "🏁 Freunde herausfordern",
+    "yourTime": "Ihre Zeit:",
+    "inviteFriends": "Freunde einladen",
+    "racingLabel": "im Rennen"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Knifflig",
+      "easy": "Anspruchsvoll",
+      "intermediate": "Schwer",
+      "expert": "Experte"
+    },
+    "book": {
+      "veryEasy": "Sehr leicht",
+      "easy": "Leicht",
+      "moderatelyEasy": "Eher leicht",
+      "moderate": "Mittel",
+      "moderatelyHard": "Eher schwer",
+      "hard": "Schwer",
+      "vicious": "Fies",
+      "fiendish": "Teuflisch",
+      "devilish": "Diabolisch",
+      "hell": "Hölle",
+      "beyondHell": "Jenseits der Hölle"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Letzte Ziffer",
+    "hiddenSingleBox": "Verstecktes Single (Block)",
+    "hiddenSingleLine": "Verstecktes Single (Linie)",
+    "hiddenSingleVariantRegion": "Verstecktes Single (Variantenbereich)",
+    "nakedSingle": "Nacktes Single",
+    "hiddenPair": "Verstecktes Paar",
+    "lockedCandidate": "Gesperrter Kandidat",
+    "hiddenTriple": "Verstecktes Tripel",
+    "hiddenQuadruple": "Verstecktes Quadrupel",
+    "nakedPair": "Nacktes Paar",
+    "nakedTriple": "Nacktes Tripel",
+    "nakedQuadruple": "Nacktes Quadrupel",
+    "xWing": "X-Wing",
+    "swordfish": "Schwertfisch",
+    "skyscraper": "Wolkenkratzer",
+    "twoStringKite": "Zwei-String-Drachen",
+    "crane": "Kranich",
+    "simpleColoring": "Einfaches Färben",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Finned/Sashimi-X-Wing",
+    "emptyRectangle": "Leeres Rechteck",
+    "uniqueRectangleType1": "Eindeutiges Rechteck Typ 1",
+    "uniqueRectangleType2": "Eindeutiges Rechteck Typ 2",
+    "uniqueRectangleType3": "Eindeutiges Rechteck Typ 3",
+    "uniqueRectangleType4": "Eindeutiges Rechteck Typ 4",
+    "uniqueRectangleType5": "Eindeutiges Rechteck Typ 5",
+    "finnedSashimiSwordfish": "Finned/Sashimi-Schwertfisch",
+    "jellyfish": "Qualle",
+    "bugBinaryUniversalGrave": "BUG (Binäres Universalgrab)",
+    "xChain": "X-Kette",
+    "groupedXChain": "Gruppierte X-Kette",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Finned/Sashimi-Qualle",
+    "medusa3D": "3D-Medusa",
+    "xyChain": "XY-Kette",
+    "alternatingInferenceChainAIC": "Alternierende Inferenzkette (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Gruppierte alternierende Inferenzkette (AIC)",
+    "nishioForcingChain": "Nishio-Forcing-Kette",
+    "nishioForcingNet": "Nishio-Forcing-Netz"
+  }
+}

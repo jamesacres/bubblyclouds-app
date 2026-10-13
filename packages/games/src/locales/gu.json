@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "પુસ્તક",
+    "defaultDetailNoun": "કોયડા પુસ્તકો"
+  },
+  "collectionCover": {
+    "monthlyCollection": "માસિક સંગ્રહ"
+  },
+  "hintBox": {
+    "dismiss": "સંકેત બંધ કરો"
+  },
+  "lobbyButton": {
+    "opponents": "પ્રતિસ્પર્ધીઓ"
+  },
+  "nextPuzzlePanel": {
+    "continue": "ચાલુ રાખો — આગલો કોયડો",
+    "continueLocked": "ચાલુ રાખો ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{total}} માંથી {{completed}} {{label}} પૂર્ણ"
+  },
+  "countdownOverlay": {
+    "getReady": "તૈયાર થાઓ",
+    "go": "ચાલો!"
+  },
+  "confirmDialog": {
+    "cancel": "રદ કરો"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · પૂર્ણ",
+    "retry": "ફરી પ્રયાસ",
+    "points": "+{{points}} ગુણ",
+    "leaderboardPoints": "લીડરબોર્ડ ગુણ"
+  },
+  "raceTimer": {
+    "time": "સમય"
+  },
+  "stageTopBar": {
+    "previous": "પાછલું"
+  },
+  "raceHud": {
+    "opponents": "પ્રતિસ્પર્ધીઓ",
+    "stageOf": "{{total}} માંથી તબક્કો {{current}}"
+  },
+  "raceCelebration": {
+    "finish": "ફિનિશ!",
+    "runComplete": "રન પૂર્ણ",
+    "leaderboardPoints": "લીડરબોર્ડ ગુણ",
+    "pointsSuffix": " ગુણ"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "ર",
+      "monday": "સો",
+      "tuesday": "મં",
+      "wednesday": "બુ",
+      "thursday": "ગુ",
+      "friday": "શુ",
+      "saturday": "શ"
+    },
+    "dayStreak_one": "દિવસની સ્ટ્રીક",
+    "dayStreak_other": "દિવસની સ્ટ્રીક",
+    "thisMonth": "આ મહિને"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(તમે)",
+    "puzzles_one": "{{count}} કોયડો",
+    "puzzles_other": "{{count}} કોયડા",
+    "average": "સરેરાશ: {{time}}",
+    "best": "શ્રેષ્ઠ: {{time}}",
+    "wins_one": "🏁 {{count}} જીત",
+    "wins_other": "🏁 {{count}} જીત",
+    "points_one": "ગુણ",
+    "points_other": "ગુણ"
+  },
+  "scoreBreakdown": {
+    "title": "સ્કોરની વિગત",
+    "volumeBonus": {
+      "label": "સંખ્યા બોનસ",
+      "detail_one": "{{count}} કોયડો પૂર્ણ",
+      "detail_other": "{{count}} કોયડા પૂર્ણ"
+    },
+    "dailyPuzzles": {
+      "label": "દૈનિક કોયડા",
+      "detail_one": "{{count}} દૈનિક પડકાર",
+      "detail_other": "{{count}} દૈનિક પડકારો"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} કોયડા",
+      "detail": "{{collection}} માંથી {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "સ્કૅન કરેલા કોયડા",
+      "detail_one": "{{count}} આયાત કરેલો કોયડો",
+      "detail_other": "{{count}} આયાત કરેલા કોયડા"
+    },
+    "difficultyBonus": {
+      "label": "મુશ્કેલી બોનસ",
+      "detail": "વધુ કઠિન કોયડા = વધુ ગુણ"
+    },
+    "speedBonus": {
+      "label": "ઝડપ બોનસ",
+      "detail": "સૌથી ઝડપી: {{time}}"
+    },
+    "racingBonus": {
+      "label": "રેસિંગ બોનસ",
+      "detail": "પૂર્ણ કરનાર મિત્રોને હરાવો"
+    },
+    "dailyCombo": {
+      "label": "દૈનિક કૉમ્બો",
+      "detail": "દિવસમાં વધુ કોયડા = મોટો ગુણક"
+    }
+  },
+  "leaderboard": {
+    "you": "તમે",
+    "unknownUser": "અજ્ઞાત વપરાશકર્તા",
+    "title": "લીડરબોર્ડ",
+    "subtitleParty": "છેલ્લા 30 દિવસ · {{partyName}}",
+    "subtitleAllTeams": "છેલ્લા 30 દિવસ · બધી ટીમો",
+    "howScoringWorks": "સ્કોરિંગ કેવી રીતે કામ કરે છે"
+  },
+  "scoringLegend": {
+    "title": "સ્કોરિંગ કેવી રીતે કામ કરે છે",
+    "subtitle": "{{gameName}} · છેલ્લા 30 દિવસ",
+    "close": "બંધ કરો",
+    "racingWins": {
+      "title": "રેસ જીત",
+      "body": "એ જ પૂર્ણ કરેલા કોયડામાં તમે જે દરેક મિત્રને હરાવો તેના માટે <points>+{{points}} ગુણ</points> મેળવો. {{friends}} મિત્રોમાં સૌથી પહેલા પૂર્ણ કરો અને <points>+{{total}} ગુણ</points> મેળવો."
+    },
+    "basePoints": {
+      "title": "મૂળ ગુણ",
+      "anyPuzzle": "કોઈપણ કોયડો",
+      "dailyPuzzle": "દૈનિક કોયડો",
+      "collectionPuzzle": "{{collection}} કોયડો",
+      "scannedPuzzle": "સ્કૅન કરેલો કોયડો"
+    },
+    "difficultyMultipliers": {
+      "title": "મુશ્કેલી ગુણક",
+      "daily": "દિવસનો {{gameName}}",
+      "collection": "{{collection}} કોયડા"
+    },
+    "speedBonuses": {
+      "title": "ઝડપ બોનસ",
+      "lightning": "વીજળી",
+      "fast": "ઝડપી",
+      "quick": "ચપળ",
+      "steady": "સ્થિર",
+      "under": "{{threshold}} થી ઓછું",
+      "seconds": "{{value}} સેકન્ડ",
+      "minutes": "{{value}} મિનિટ"
+    },
+    "dailyCombo": {
+      "title": "દૈનિક કૉમ્બો",
+      "body": "દરેક કોયડાના ગુણને ગુણાકાર કરવા માટે એ જ દિવસે વધુ કોયડા ઉકેલો, વધુમાં વધુ <max>{{max}}×</max> સુધી.",
+      "puzzle": "દિવસનો કોયડો {{puzzle}}",
+      "puzzleOrMore": "દિવસનો કોયડો {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "રન પૂર્ણ",
+    "raceProgress": "રેસની પ્રગતિ",
+    "stagesProgress": "{{completed}}/{{total}} તબક્કા",
+    "retryStage": "તબક્કો ફરી રમો",
+    "stageLabel": "તબક્કો {{number}}",
+    "stageCompletedLabel": "તબક્કો {{number}}, {{time}} માં પૂર્ણ",
+    "viewRacingStats": "રેસિંગ આંકડા જુઓ",
+    "total": "કુલ"
+  },
+  "raceTrack": {
+    "you": "તમે",
+    "viewFriends": "મિત્રો જોવા માટે ક્લિક કરો",
+    "start": "શરૂ",
+    "finish": "ફિનિશ",
+    "inviteToRace": "રેસ માટે મિત્રોને આમંત્રિત કરો",
+    "opponents": "પ્રતિસ્પર્ધીઓ",
+    "racer": "રેસર",
+    "stageBadge": "ત{{number}}",
+    "total": "કુલ",
+    "leaderboard": "લીડરબોર્ડ",
+    "puzzleBook": "કોયડા પુસ્તક",
+    "puzzleBookLabel": "કોયડા પુસ્તક",
+    "refreshScores": "સ્કોર રિફ્રેશ કરો",
+    "challengeFriends": "🏁 મિત્રોને પડકાર આપો",
+    "yourTime": "તમારો સમય:",
+    "inviteFriends": "મિત્રોને આમંત્રિત કરો",
+    "racingLabel": "રેસિંગ"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "અટપટું",
+      "easy": "પડકારજનક",
+      "intermediate": "કઠિન",
+      "expert": "નિષ્ણાત"
+    },
+    "book": {
+      "veryEasy": "ખૂબ સરળ",
+      "easy": "સરળ",
+      "moderatelyEasy": "સાધારણ સરળ",
+      "moderate": "મધ્યમ",
+      "moderatelyHard": "સાધારણ કઠિન",
+      "hard": "કઠિન",
+      "vicious": "ક્રૂર",
+      "fiendish": "શૈતાની",
+      "devilish": "રાક્ષસી",
+      "hell": "નરક",
+      "beyondHell": "નરકથી પણ આગળ"
+    }
+  },
+  "techniques": {
+    "lastDigit": "લાસ્ટ ડિજિટ",
+    "hiddenSingleBox": "હિડન સિંગલ (બૉક્સ)",
+    "hiddenSingleLine": "હિડન સિંગલ (લાઇન)",
+    "hiddenSingleVariantRegion": "હિડન સિંગલ (વેરિઅન્ટ રિજન)",
+    "nakedSingle": "નેકેડ સિંગલ",
+    "hiddenPair": "હિડન પેર",
+    "lockedCandidate": "લૉક્ડ કેન્ડિડેટ",
+    "hiddenTriple": "હિડન ટ્રિપલ",
+    "hiddenQuadruple": "હિડન ક્વાડ્રપલ",
+    "nakedPair": "નેકેડ પેર",
+    "nakedTriple": "નેકેડ ટ્રિપલ",
+    "nakedQuadruple": "નેકેડ ક્વાડ્રપલ",
+    "xWing": "X-વિંગ",
+    "swordfish": "સ્વોર્ડફિશ",
+    "skyscraper": "સ્કાયસ્ક્રેપર",
+    "twoStringKite": "ટુ-સ્ટ્રિંગ કાઇટ",
+    "crane": "ક્રેન",
+    "simpleColoring": "સિમ્પલ કલરિંગ",
+    "yWing": "Y-વિંગ",
+    "xYZWing": "XYZ-વિંગ",
+    "wWing": "W-વિંગ",
+    "finnedSashimiXWing": "ફિન્ડ/સાશિમી X-વિંગ",
+    "emptyRectangle": "એમ્પ્ટી રેક્ટેન્ગલ",
+    "uniqueRectangleType1": "યુનિક રેક્ટેન્ગલ પ્રકાર 1",
+    "uniqueRectangleType2": "યુનિક રેક્ટેન્ગલ પ્રકાર 2",
+    "uniqueRectangleType3": "યુનિક રેક્ટેન્ગલ પ્રકાર 3",
+    "uniqueRectangleType4": "યુનિક રેક્ટેન્ગલ પ્રકાર 4",
+    "uniqueRectangleType5": "યુનિક રેક્ટેન્ગલ પ્રકાર 5",
+    "finnedSashimiSwordfish": "ફિન્ડ/સાશિમી સ્વોર્ડફિશ",
+    "jellyfish": "જેલીફિશ",
+    "bugBinaryUniversalGrave": "BUG (બાઇનરી યુનિવર્સલ ગ્રેવ)",
+    "xChain": "X-ચેઇન",
+    "groupedXChain": "ગ્રુપ્ડ X-ચેઇન",
+    "YWing4WXYZWing": "4-Y-વિંગ (WXYZ-વિંગ)",
+    "yWing5": "5-Y-વિંગ",
+    "yWing6": "6-Y-વિંગ",
+    "yWing7": "7-Y-વિંગ",
+    "yWing8": "8-Y-વિંગ",
+    "yWing9": "9-Y-વિંગ",
+    "finnedSashimiJellyfish": "ફિન્ડ/સાશિમી જેલીફિશ",
+    "medusa3D": "3D મેડુસા",
+    "xyChain": "XY-ચેઇન",
+    "alternatingInferenceChainAIC": "અલ્ટરનેટિંગ ઇન્ફરન્સ ચેઇન (AIC)",
+    "groupedAlternatingInferenceChainAIC": "ગ્રુપ્ડ અલ્ટરનેટિંગ ઇન્ફરન્સ ચેઇન (AIC)",
+    "nishioForcingChain": "નિશિઓ ફોર્સિંગ ચેઇન",
+    "nishioForcingNet": "નિશિઓ ફોર્સિંગ નેટ"
+  }
+}

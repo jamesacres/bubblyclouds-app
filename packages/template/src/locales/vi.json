@@ -1,0 +1,218 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
+    "dismiss": "Đóng"
+  },
+  "errorBoundary": {
+    "title": "Ôi! Đã xảy ra sự cố",
+    "description": "Chúng tôi gặp một lỗi không mong muốn. Đừng lo, tiến độ của bạn đã được lưu!",
+    "reload": "Tải lại ứng dụng",
+    "clearStorage": "Xóa bộ nhớ và tải lại",
+    "contactSupport": "Nếu sự cố vẫn tiếp diễn, vui lòng liên hệ bộ phận hỗ trợ."
+  },
+  "time": {
+    "minutesAgo_other": "{{count}} phút trước",
+    "hoursAgo_other": "{{count}} giờ trước",
+    "daysAgo_other": "{{count}} ngày trước"
+  },
+  "tier": {
+    "novice": "Người mới",
+    "advancedBeginner": "Sơ cấp",
+    "competent": "Trung cấp",
+    "proficient": "Thành thạo",
+    "expert": "Chuyên gia"
+  },
+  "moves": {
+    "onPar": "nước đi, đúng chuẩn",
+    "overPar": "nước đi, hơn chuẩn {{delta}}",
+    "underPar": "nước đi, ít hơn chuẩn {{delta}}"
+  },
+  "lobby": {
+    "title": "Sảnh đua",
+    "close": "Đóng sảnh",
+    "onlineOpponents": "Đối thủ trực tuyến",
+    "refresh": "Làm mới đối thủ trực tuyến",
+    "noOpponents": "Chưa có đối thủ trực tuyến — hãy mời bạn bè đến đua!",
+    "away": "Vắng mặt",
+    "offlineTeams": "Ngoại tuyến · trong các đội của bạn",
+    "removeMember": "Xóa {{name}}",
+    "aiOpponents": "Đối thủ AI",
+    "addAgent": "Thêm",
+    "noAgents": "Chưa có đối thủ AI — hãy thêm một đối thủ để luôn có người đua cùng.",
+    "ownClock": "Mỗi người chơi đua theo đồng hồ riêng",
+    "startSolving": "Bắt đầu giải",
+    "finished": "Đã xong",
+    "inLobby": "Trong sảnh",
+    "stageProgress": "Chặng {{current}}/{{total}}",
+    "finishedRunIn": "Hoàn thành lượt đua trong {{time}}",
+    "solvedIn": "Giải xong trong {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · lần cuối thấy {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Đua một mình — chỉ bạn và đồng hồ",
+      "friends_other": "{{count}} bạn bè",
+      "aiOpponents_other": "{{count}} đối thủ AI",
+      "racing": "Đua với {{opponents}}"
+    },
+    "invite": {
+      "button": "Mời",
+      "eyebrow": "Lập cuộc đua của bạn",
+      "title": "Mời đối thủ",
+      "close": "Đóng",
+      "existingTeam": "Mời vào đội hiện có",
+      "editTeamName": "Sửa tên đội",
+      "deleteTeam": "Xóa đội",
+      "leaveTeam": "Rời đội",
+      "memberCount_other": "{{count}} thành viên",
+      "createTeam": "Tạo đội đua mới",
+      "displayNameLabel": "Các thành viên trong đội gọi bạn là gì?",
+      "displayNamePlaceholder": "Tên hiển thị",
+      "teamNameLabel": "Chúng ta đặt tên đội này là gì?",
+      "teamNamePlaceholder": "Tên đội (ví dụ: Gia đình)",
+      "createAndCopy": "Tạo và sao chép liên kết",
+      "defaultTeamName": "Đội mới",
+      "defaultPlayerName": "Người chơi"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Đóng bảng",
+    "back": "Quay lại",
+    "close": "Đóng",
+    "title": "Chọn đối thủ của bạn",
+    "subtitle": "Chọn một hoặc nhiều đối thủ",
+    "selectAtLeastOne": "Chọn ít nhất một đối thủ",
+    "race_other": "Đua với {{count}} đối thủ",
+    "skill": {
+      "novice": "Người mới",
+      "advancedBeginner": "Sơ cấp",
+      "competent": "Trung cấp",
+      "proficient": "Thành thạo",
+      "expert": "Chuyên gia"
+    }
+  },
+  "agentParty": {
+    "title": "Đối thủ AI",
+    "rivalCount_other": "{{count}} đối thủ"
+  },
+  "party": {
+    "cancel": "Hủy",
+    "editName": "Sửa tên đội",
+    "editMaxMembers": "Sửa số thành viên tối đa",
+    "memberCount_other": "{{count}} thành viên",
+    "memberCountPremium_other": "{{count}} thành viên ✨ Premium",
+    "membersOf_other": "{{current}}/{{count}} thành viên",
+    "shareLink": "Chia sẻ liên kết này với các thành viên hiện tại của đội để họ tham gia câu đố này",
+    "you": "(bạn)",
+    "notStarted": "Chưa bắt đầu! Hãy rủ họ chơi"
+  },
+  "partyConfirmation": {
+    "cancel": "Hủy",
+    "leaveAgentParty": {
+      "title": "Xóa đối thủ AI",
+      "action": "Xóa",
+      "processing": "Đang xóa...",
+      "message": "Bạn có chắc muốn xóa tất cả đối thủ AI không? Họ sẽ không còn xuất hiện trong cuộc đua."
+    },
+    "removeAgent": {
+      "title": "Xóa đối thủ cục bộ",
+      "action": "Xóa",
+      "processing": "Đang xóa...",
+      "message": "Bạn có chắc muốn xóa \"{{memberName}}\" khỏi cuộc đua không?"
+    },
+    "deleteParty": {
+      "title": "Xóa đội",
+      "action": "Xóa đội",
+      "processing": "Đang xóa...",
+      "message": "Bạn có chắc muốn xóa \"{{partyName}}\" không? Đội sẽ bị xóa vĩnh viễn và mọi thành viên sẽ mất quyền truy cập. Hành động này không thể hoàn tác."
+    },
+    "leave": {
+      "title": "Rời đội",
+      "action": "Rời đội",
+      "processing": "Đang rời...",
+      "message": "Bạn có chắc muốn rời \"{{partyName}}\" không? Bạn sẽ không còn thấy tiến độ của các thành viên khác hay tham gia đội này nữa."
+    },
+    "remove": {
+      "title": "Xóa thành viên",
+      "action": "Xóa",
+      "processing": "Đang xóa...",
+      "message": "Bạn có chắc muốn xóa \"{{memberName}}\" khỏi \"{{partyName}}\" không? Họ sẽ không thể tham gia đội này nữa."
+    }
+  },
+  "friends": {
+    "allTeams": "Tất cả đội",
+    "refresh": "Làm mới",
+    "refreshing": "Đang làm mới…",
+    "title": "Câu đố của bạn bè",
+    "subtitle": "Chạm vào một người bạn để xem các câu đố gần đây của họ và đua với họ.",
+    "memberCount_other": "{{count}} thành viên",
+    "noRecentPuzzles": "Chưa có câu đố gần đây — hãy thách đấu họ!",
+    "empty": {
+      "title": "Chưa có đội đua nào",
+      "description": "Mời bạn bè từ sảnh đua khi đang giải câu đố"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Các câu đố của bạn trong 30 ngày qua.",
+    "empty": {
+      "title": "Chưa có câu đố nào",
+      "description": "Vào Bắt đầu đua để giải câu đố đầu tiên của bạn"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_other": "+{{count}} tính năng khác"
+  },
+  "crossPromo": {
+    "whyNotTry": "Sao không thử",
+    "tryItFree": "Dùng thử miễn phí"
+  },
+  "rateApp": {
+    "prompt": "Bạn thích {{appName}} chứ?",
+    "rateIt": "Đánh giá",
+    "rateInSeconds": "Đánh giá chỉ trong vài giây"
+  },
+  "plus": {
+    "close": "Đóng cửa sổ",
+    "appIconAlt": "Biểu tượng ứng dụng",
+    "lifetime": "Trọn đời",
+    "monthly": "Hằng tháng",
+    "perMonth": "{{price}}/tháng",
+    "whatsIncluded": "Bao gồm những gì",
+    "continue": "Tiếp tục",
+    "restorePurchases": "Khôi phục giao dịch mua",
+    "cancel": "Hủy"
+  },
+  "download": {
+    "title": "Tiếp tục trong ứng dụng",
+    "appStoreAlt": "Tải về trên {{appStore}}",
+    "googlePlayAlt": "Tải về trên {{googlePlay}}",
+    "continueBrowser": "Tiếp tục trên trình duyệt",
+    "continueDesktop": "Tiếp tục trên máy tính"
+  },
+  "session": {
+    "cheated": "Đã gian lận",
+    "completedIn": "Hoàn thành trong {{minutes}} phút {{seconds}} giây",
+    "percentComplete": "Hoàn thành {{percentage}}%",
+    "duration": "{{minutes}} phút {{seconds}} giây",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Câu đố #{{number}}",
+    "daily": "Hằng ngày {{date}}",
+    "book": "Sách {{month}} #{{number}}",
+    "collection": "Bộ sưu tập {{month}} #{{number}}",
+    "scanned": "Câu đố đã quét",
+    "you": "Bạn",
+    "unknown": "Không rõ",
+    "unlockWith": "Mở khóa bằng {{label}}",
+    "lockedPuzzle": "Câu đố bị khóa",
+    "recommendedTechniques": "Kỹ thuật được đề xuất:",
+    "loadingFriends": "Đang tải bạn bè..."
+  }
+}

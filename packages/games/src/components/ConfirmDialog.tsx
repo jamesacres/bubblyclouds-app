@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ConfirmDialogProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ const ConfirmDialog = ({
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) => {
+  const { t } = useTranslation('games');
   const dialogRef = useRef<HTMLDivElement>(null);
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
@@ -128,7 +130,7 @@ const ConfirmDialog = ({
             onClick={onCancel}
             className="flex-1 cursor-pointer rounded-full border border-stone-200/80 bg-white/70 px-4 py-2 text-sm font-semibold text-stone-700 transition-all duration-200 hover:bg-white active:scale-95 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
           >
-            Cancel
+            {t('confirmDialog.cancel')}
           </button>
           <button
             type="button"

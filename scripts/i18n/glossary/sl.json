@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Sudoku dirka",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "dirka",
+      "team": "ekipa",
+      "leaderboard": "lestvica",
+      "hint": "namig",
+      "undo": "razveljavi",
+      "theme": "tema",
+      "dailyPuzzle": "dnevna uganka",
+      "monthlyCollection": "mesečna knjiga ugank",
+      "aiOpponent": "nasprotnik z UI",
+      "monthly": "mesečni",
+      "lifetime": "za vedno",
+      "plusAccess": "Dostop Plus",
+      "plusFeatureLine": "Neomejene dirke, ekipe, teme in razveljavi"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Prosta Dirka",
+      "gameName": "Prosta Dirka",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "dirka",
+      "team": "ekipa",
+      "leaderboard": "lestvica",
+      "hint": "namig",
+      "undo": "razveljavi",
+      "theme": "tema",
+      "dailyPuzzle": "dnevna uganka",
+      "monthlyCollection": "mesečna zbirka ugank",
+      "aiOpponent": "nasprotnik z UI",
+      "monthly": "mesečni",
+      "lifetime": "za vedno",
+      "plusAccess": "Dostop Plus",
+      "plusFeatureLine": "Neomejene dirke, ekipe, teme in razveljavi"
+    }
+  }
+}

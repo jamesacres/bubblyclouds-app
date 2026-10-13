@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone & iPad"
+  },
+  "errors": {
+    "generic": "Der opstod en uventet fejl. Prøv igen.",
+    "dismiss": "Luk"
+  },
+  "errorBoundary": {
+    "title": "Hovsa! Noget gik galt",
+    "description": "Der opstod en uventet fejl. Bare rolig, dine fremskridt er gemt!",
+    "reload": "Genindlæs appen",
+    "clearStorage": "Ryd lager og genindlæs",
+    "contactSupport": "Hvis problemet fortsætter, så kontakt support."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} min. siden",
+    "minutesAgo_other": "{{count}} min. siden",
+    "hoursAgo_one": "{{count}} t. siden",
+    "hoursAgo_other": "{{count}} t. siden",
+    "daysAgo_one": "{{count}} d. siden",
+    "daysAgo_other": "{{count}} d. siden"
+  },
+  "tier": {
+    "novice": "Nybegynder",
+    "advancedBeginner": "Let øvet",
+    "competent": "Kompetent",
+    "proficient": "Dygtig",
+    "expert": "Ekspert"
+  },
+  "moves": {
+    "onPar": "træk, på par",
+    "overPar": "træk, {{delta}} over par",
+    "underPar": "træk, {{delta}} under par"
+  },
+  "lobby": {
+    "title": "Løbslobby",
+    "close": "Luk lobby",
+    "onlineOpponents": "Modstandere online",
+    "refresh": "Opdater modstandere online",
+    "noOpponents": "Ingen modstandere online — inviter venner til et løb!",
+    "away": "Væk",
+    "offlineTeams": "Offline · på dine hold",
+    "removeMember": "Fjern {{name}}",
+    "aiOpponents": "AI-modstandere",
+    "addAgent": "Tilføj",
+    "noAgents": "Ingen AI-modstandere endnu — tilføj en, så du altid har nogen at køre løb mod.",
+    "ownClock": "Hver spiller kører på sit eget ur",
+    "startSolving": "Begynd at løse",
+    "finished": "Færdig",
+    "inLobby": "I lobbyen",
+    "stageProgress": "Etape {{current}} af {{total}}",
+    "finishedRunIn": "Gennemførte løbet på {{time}}",
+    "solvedIn": "Løst på {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · sidst set {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Sololøb — kun dig og uret",
+      "friends_one": "{{count}} ven",
+      "friends_other": "{{count}} venner",
+      "aiOpponents_one": "{{count}} AI-modstander",
+      "aiOpponents_other": "{{count}} AI-modstandere",
+      "racing": "Kører mod {{opponents}}"
+    },
+    "invite": {
+      "button": "Inviter",
+      "eyebrow": "Byg dit løb",
+      "title": "Inviter modstandere",
+      "close": "Luk",
+      "existingTeam": "Inviter til eksisterende hold",
+      "editTeamName": "Rediger holdnavn",
+      "deleteTeam": "Slet hold",
+      "leaveTeam": "Forlad hold",
+      "memberCount_one": "{{count}} medlem",
+      "memberCount_other": "{{count}} medlemmer",
+      "createTeam": "Opret nyt racerhold",
+      "displayNameLabel": "Hvad kalder holdets medlemmer dig?",
+      "displayNamePlaceholder": "Visningsnavn",
+      "teamNameLabel": "Hvad skal holdet hedde?",
+      "teamNamePlaceholder": "Holdnavn (fx Familien)",
+      "createAndCopy": "Opret og kopiér link",
+      "defaultTeamName": "Nyt hold",
+      "defaultPlayerName": "Spiller"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Luk panel",
+    "back": "Tilbage",
+    "close": "Luk",
+    "title": "Vælg dine rivaler",
+    "subtitle": "Vælg en eller flere modstandere",
+    "selectAtLeastOne": "Vælg mindst én rival",
+    "race_one": "Kør mod {{count}} rival",
+    "race_other": "Kør mod {{count}} rivaler",
+    "skill": {
+      "novice": "Nybegynder",
+      "advancedBeginner": "Let øvet",
+      "competent": "Kompetent",
+      "proficient": "Dygtig",
+      "expert": "Ekspert"
+    }
+  },
+  "agentParty": {
+    "title": "AI-rivaler",
+    "rivalCount_one": "{{count}} rival",
+    "rivalCount_other": "{{count}} rivaler"
+  },
+  "party": {
+    "cancel": "Annuller",
+    "editName": "Rediger holdnavn",
+    "editMaxMembers": "Rediger maks. antal medlemmer",
+    "memberCount_one": "{{count}} medlem",
+    "memberCount_other": "{{count}} medlemmer",
+    "memberCountPremium_one": "{{count}} medlem ✨ Premium",
+    "memberCountPremium_other": "{{count}} medlemmer ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} medlem",
+    "membersOf_other": "{{current}}/{{count}} medlemmer",
+    "shareLink": "Del dette link med nuværende holdmedlemmer, så de kan deltage i dette puslespil",
+    "you": "(dig)",
+    "notStarted": "Ikke startet! Bed dem om at spille"
+  },
+  "partyConfirmation": {
+    "cancel": "Annuller",
+    "leaveAgentParty": {
+      "title": "Fjern AI-rivaler",
+      "action": "Fjern",
+      "processing": "Fjerner...",
+      "message": "Er du sikker på, at du vil fjerne alle AI-rivaler? De vises ikke længere i løbet."
+    },
+    "removeAgent": {
+      "title": "Fjern lokal agent",
+      "action": "Fjern",
+      "processing": "Fjerner...",
+      "message": "Er du sikker på, at du vil fjerne \"{{memberName}}\" fra løbet?"
+    },
+    "deleteParty": {
+      "title": "Slet hold",
+      "action": "Slet hold",
+      "processing": "Sletter...",
+      "message": "Er du sikker på, at du vil slette \"{{partyName}}\"? Holdet fjernes permanent, og alle medlemmer mister adgangen. Denne handling kan ikke fortrydes."
+    },
+    "leave": {
+      "title": "Forlad hold",
+      "action": "Forlad",
+      "processing": "Forlader...",
+      "message": "Er du sikker på, at du vil forlade \"{{partyName}}\"? Du kan ikke længere se andre medlemmers fremskridt eller deltage på dette hold."
+    },
+    "remove": {
+      "title": "Fjern medlem",
+      "action": "Fjern",
+      "processing": "Fjerner...",
+      "message": "Er du sikker på, at du vil fjerne \"{{memberName}}\" fra \"{{partyName}}\"? Vedkommende kan ikke længere deltage på dette hold."
+    }
+  },
+  "friends": {
+    "allTeams": "Alle hold",
+    "refresh": "Opdater",
+    "refreshing": "Opdaterer…",
+    "title": "Venners puslespil",
+    "subtitle": "Tryk på en ven for at se vedkommendes seneste puslespil og udfordre dem.",
+    "memberCount_one": "{{count}} medlem",
+    "memberCount_other": "{{count}} medlemmer",
+    "noRecentPuzzles": "Ingen nylige puslespil — udfordr dem!",
+    "empty": {
+      "title": "Ingen racerhold endnu",
+      "description": "Inviter venner fra løbslobbyen, når du løser et puslespil"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Dine puslespil fra de seneste 30 dage.",
+    "empty": {
+      "title": "Ingen puslespil endnu",
+      "description": "Gå til Start løb for at løse dit første puslespil"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} funktion mere",
+    "moreFeatures_other": "+{{count}} funktioner mere"
+  },
+  "crossPromo": {
+    "whyNotTry": "Hvorfor ikke prøve",
+    "tryItFree": "Prøv gratis"
+  },
+  "rateApp": {
+    "prompt": "Kan du lide {{appName}}?",
+    "rateIt": "Bedøm",
+    "rateInSeconds": "Bedøm på få sekunder"
+  },
+  "plus": {
+    "close": "Luk vindue",
+    "appIconAlt": "App-ikon",
+    "lifetime": "For livet",
+    "monthly": "Månedlig",
+    "perMonth": "{{price}}/md.",
+    "whatsIncluded": "Hvad er inkluderet",
+    "continue": "Fortsæt",
+    "restorePurchases": "Gendan køb",
+    "cancel": "Annuller"
+  },
+  "download": {
+    "title": "Fortsæt i appen",
+    "appStoreAlt": "Hent i {{appStore}}",
+    "googlePlayAlt": "Hent på {{googlePlay}}",
+    "continueBrowser": "Fortsæt i browseren",
+    "continueDesktop": "Fortsæt på computeren"
+  },
+  "session": {
+    "cheated": "Snydt",
+    "completedIn": "Gennemført på {{minutes}} min. {{seconds}} sek.",
+    "percentComplete": "{{percentage}} % gennemført",
+    "duration": "{{minutes}} min. {{seconds}} sek.",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "Puslespil nr. {{number}}",
+    "daily": "Dagligt {{date}}",
+    "book": "Bog {{month}} nr. {{number}}",
+    "collection": "Samling {{month}} nr. {{number}}",
+    "scanned": "Scannet puslespil",
+    "you": "Dig",
+    "unknown": "Ukendt",
+    "unlockWith": "Lås op med {{label}}",
+    "lockedPuzzle": "Låst puslespil",
+    "recommendedTechniques": "Anbefalede teknikker:",
+    "loadingFriends": "Indlæser venner..."
+  }
+}

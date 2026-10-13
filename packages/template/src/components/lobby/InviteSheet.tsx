@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Edit3, Loader, LogOut, Sparkles, Trash, X } from 'lucide-react';
 import { useServerStorage } from '../../hooks/serverStorage';
 import { buildPartyInviteUrl } from '../../helpers/inviteUrl';
 import { CopyButton } from '@bubblyclouds-app/ui/components/CopyButton';
-import { shareOrCopyUrl } from '@bubblyclouds-app/ui/helpers/share';
+import { useShareOrCopyUrl } from '@bubblyclouds-app/ui/hooks/useShareOrCopyUrl';
 import { isIOS } from '../../helpers/capacitor';
 import { PartyConfirmationDialog } from '../PartyConfirmationDialog';
 import { SubscriptionContext } from '@bubblyclouds-app/types/subscriptionContext';
@@ -12,7 +13,7 @@ import { RevenueCatContextInterface } from '../../providers/RevenueCatProvider';
 const DEFAULT_MAX = 5;
 
 const copyButtonClassName =
-  'inline-flex h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] text-xs font-semibold transition-transform active:scale-95';
+  'inline-flex min-h-[34px] flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-[14px] py-1 text-center text-xs font-semibold transition-transform active:scale-95';
 const copyButtonStyle = {
   background: 'color-mix(in srgb, var(--theme-primary-light) 14%, transparent)',
   border:
@@ -69,6 +70,8 @@ export function InviteSheet({
   isSubscribed?: boolean;
   subscribeModal?: RevenueCatContextInterface['subscribeModal'];
 }) {
+  const { t } = useTranslation('template');
+  const shareOrCopyUrl = useShareOrCopyUrl();
   const [display, setDisplay] = useState(defaultDisplayName ?? '');
   useEffect(() => {
     setDisplay((prev) => (prev === '' ? (defaultDisplayName ?? '') : prev));
@@ -104,8 +107,8 @@ export function InviteSheet({
     });
 
   const create = async () => {
-    const nm = teamName.trim() || 'New team';
-    const dn = display.trim() || 'Player';
+    const nm = teamName.trim() || t('lobby.invite.defaultTeamName');
+    const dn = display.trim() || t('lobby.invite.defaultPlayerName');
     setIsSaving(true);
     try {
       const party = await saveParty({ memberNickname: dn, partyName: nm });
@@ -133,7 +136,7 @@ export function InviteSheet({
   };
 
   const inputClassName =
-    'w-full h-[52px] rounded-[14px] border border-white/[0.12] bg-white/[0.04] px-4 text-[15px] font-medium text-white outline-none';
+    'w-full min-h-[52px] rounded-[14px] border border-white/[0.12] bg-white/[0.04] px-4 text-[15px] font-medium text-white outline-none';
 
   return (
     <div
@@ -152,38 +155,36 @@ export function InviteSheet({
         }}
       />
       <div
-        className={`absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] ${
+        className={`absolute inset-x-0 bottom-0 flex flex-col overflow-hidden rounded-t-[26px] transition-[transform,opacity] duration-[320ms] ease-[cubic-bezier(0.34,1.2,0.64,1)] md:bottom-auto md:end-auto md:start-1/2 md:top-1/2 md:w-full md:max-w-md md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-b-[26px] md:rtl:translate-x-1/2 ${
           open
             ? 'translate-y-0 md:scale-100 md:opacity-100'
             : 'pointer-events-none translate-y-full md:scale-95 md:opacity-0'
         }`}
         style={{
           maxHeight: '88%',
-          borderTopLeftRadius: 26,
-          borderTopRightRadius: 26,
           background: 'linear-gradient(180deg,#15102e 0%,#0c0a1c 100%)',
           borderTop: '1px solid rgba(167,139,250,0.22)',
           boxShadow: '0 -20px 60px rgba(0,0,0,0.55)',
         }}
       >
         <div
-          className="flex items-start justify-between px-5 pb-4 pt-5"
+          className="flex items-start justify-between gap-3 px-5 pb-4 pt-5"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
         >
-          <div>
+          <div className="min-w-0">
             <div
               className="mb-1.5 text-[10.5px] font-extrabold uppercase tracking-widest"
               style={{ color: 'var(--theme-primary-light)' }}
             >
-              Build your race
+              {t('lobby.invite.eyebrow')}
             </div>
-            <h2 className="m-0 text-2xl font-bold tracking-tight text-white">
-              Invite opponents
+            <h2 className="m-0 break-words text-2xl font-bold tracking-tight text-white">
+              {t('lobby.invite.title')}
             </h2>
           </div>
           <button
             onClick={handleClose}
-            aria-label="Close"
+            aria-label={t('lobby.invite.close')}
             className="flex h-9 w-9 flex-shrink-0 cursor-pointer items-center justify-center rounded-full"
             style={{
               border: '1px solid rgba(255,255,255,0.12)',
@@ -206,7 +207,7 @@ export function InviteSheet({
                 className="mb-2.5 text-[11px] font-extrabold uppercase tracking-wider"
                 style={{ color: 'var(--theme-primary-light)' }}
               >
-                Invite to existing team
+                {t('lobby.invite.existingTeam')}
               </div>
               <div className="mb-5 flex flex-col gap-2.5">
                 {parties.map((party) => {
@@ -248,7 +249,7 @@ export function InviteSheet({
                             }}
                           />
                         ) : (
-                          <span className="min-w-0 text-sm font-bold text-white">
+                          <span className="min-w-0 break-words text-sm font-bold text-white">
                             {party.partyName}
                           </span>
                         )}
@@ -260,7 +261,7 @@ export function InviteSheet({
                             }}
                             className="flex-shrink-0 cursor-pointer p-1"
                             style={{ color: 'rgba(255,255,255,0.35)' }}
-                            aria-label="Edit team name"
+                            aria-label={t('lobby.invite.editTeamName')}
                           >
                             <Edit3 size={13} />
                           </button>
@@ -276,18 +277,20 @@ export function InviteSheet({
                           className="flex-shrink-0 cursor-pointer p-1 transition-colors hover:text-red-400"
                           style={{ color: 'rgba(255,255,255,0.3)' }}
                           aria-label={
-                            party.isOwner ? 'Delete team' : 'Leave team'
+                            party.isOwner
+                              ? t('lobby.invite.deleteTeam')
+                              : t('lobby.invite.leaveTeam')
                           }
                         >
                           {party.isOwner ? (
                             <Trash size={13} />
                           ) : (
-                            <LogOut size={13} />
+                            <LogOut size={13} className="rtl:-scale-x-100" />
                           )}
                         </button>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span
                           className="text-xs font-semibold"
                           style={{ color: 'rgba(255,255,255,0.45)' }}
@@ -311,7 +314,7 @@ export function InviteSheet({
                           >
                             {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                               <option key={n} value={n}>
-                                {n} members
+                                {t('lobby.invite.memberCount', { count: n })}
                               </option>
                             ))}
                           </select>
@@ -320,7 +323,9 @@ export function InviteSheet({
                             className="text-xs font-semibold"
                             style={{ color: 'rgba(255,255,255,0.45)' }}
                           >
-                            {party.maxSize ?? DEFAULT_MAX} members
+                            {t('lobby.invite.memberCount', {
+                              count: party.maxSize ?? DEFAULT_MAX,
+                            })}
                           </span>
                         )}
                         <div className="flex-1" />
@@ -354,7 +359,7 @@ export function InviteSheet({
             className="mb-3.5 text-[11px] font-extrabold uppercase tracking-wider"
             style={{ color: '#fcd34d' }}
           >
-            Create new racing team
+            {t('lobby.invite.createTeam')}
           </div>
 
           <label
@@ -362,13 +367,13 @@ export function InviteSheet({
             className="mb-2 block text-xs font-semibold"
             style={{ color: 'rgba(255,255,255,0.6)' }}
           >
-            What do team members call you?
+            {t('lobby.invite.displayNameLabel')}
           </label>
           <input
             id="invite-display-name"
             value={display}
             onChange={(e) => setDisplay(e.target.value)}
-            placeholder="Display name"
+            placeholder={t('lobby.invite.displayNamePlaceholder')}
             className={inputClassName}
           />
 
@@ -377,27 +382,28 @@ export function InviteSheet({
             className="mb-2 mt-4 block text-xs font-semibold"
             style={{ color: 'rgba(255,255,255,0.6)' }}
           >
-            What shall we name this team?
+            {t('lobby.invite.teamNameLabel')}
           </label>
           <input
             id="invite-team-name"
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
-            placeholder="Team name (e.g. Family)"
+            placeholder={t('lobby.invite.teamNamePlaceholder')}
             className={inputClassName}
           />
 
           <button
             onClick={handleCreateClick}
             disabled={isSaving || !teamName.trim() || !display.trim()}
-            className="bg-theme-primary hover:bg-theme-primary-dark mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl text-base font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
-            style={{ height: 54 }}
+            className="bg-theme-primary hover:bg-theme-primary-dark mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl px-4 py-2 text-center text-base font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
+            style={{ minHeight: 54 }}
           >
             {isSaving ? (
               <Loader size={18} className="animate-spin" />
             ) : (
               <>
-                <Sparkles size={18} color="white" /> Create &amp; copy link
+                <Sparkles size={18} color="white" />{' '}
+                {t('lobby.invite.createAndCopy')}
               </>
             )}
           </button>

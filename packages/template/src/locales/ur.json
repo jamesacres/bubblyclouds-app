@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "پلس",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone اور iPad"
+  },
+  "errors": {
+    "generic": "ایک غیر متوقع خرابی پیش آئی۔ براہِ کرم دوبارہ کوشش کریں۔",
+    "dismiss": "بند کریں"
+  },
+  "errorBoundary": {
+    "title": "اوہو! کچھ غلط ہو گیا",
+    "description": "ہمیں ایک غیر متوقع خرابی کا سامنا ہوا۔ فکر نہ کریں، آپ کی پیش رفت محفوظ ہے!",
+    "reload": "ایپ دوبارہ لوڈ کریں",
+    "clearStorage": "اسٹوریج صاف کریں اور دوبارہ لوڈ کریں",
+    "contactSupport": "اگر یہ مسئلہ برقرار رہے تو براہِ کرم سپورٹ سے رابطہ کریں۔"
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} منٹ پہلے",
+    "minutesAgo_other": "{{count}} منٹ پہلے",
+    "hoursAgo_one": "{{count}} گھنٹہ پہلے",
+    "hoursAgo_other": "{{count}} گھنٹے پہلے",
+    "daysAgo_one": "{{count}} دن پہلے",
+    "daysAgo_other": "{{count}} دن پہلے"
+  },
+  "tier": {
+    "novice": "نوآموز",
+    "advancedBeginner": "مبتدی",
+    "competent": "قابل",
+    "proficient": "ماہر کار",
+    "expert": "ماہر"
+  },
+  "moves": {
+    "onPar": "چالیں، ہدف کے برابر",
+    "overPar": "چالیں، ہدف سے {{delta}} زیادہ",
+    "underPar": "چالیں، ہدف سے {{delta}} کم"
+  },
+  "lobby": {
+    "title": "ریس لابی",
+    "close": "لابی بند کریں",
+    "onlineOpponents": "آن لائن حریف",
+    "refresh": "آن لائن حریف تازہ کریں",
+    "noOpponents": "کوئی حریف آن لائن نہیں — دوستوں کو ریس کی دعوت دیں!",
+    "away": "غیر حاضر",
+    "offlineTeams": "آف لائن · آپ کی ٹیموں میں",
+    "removeMember": "{{name}} کو ہٹائیں",
+    "aiOpponents": "اے آئی حریف",
+    "addAgent": "شامل کریں",
+    "noAgents": "ابھی کوئی اے آئی حریف نہیں — ایک شامل کریں تاکہ ریس کے لیے ہمیشہ کوئی موجود ہو۔",
+    "ownClock": "ہر کھلاڑی اپنی گھڑی پر ریس کرتا ہے",
+    "startSolving": "حل شروع کریں",
+    "finished": "مکمل",
+    "inLobby": "لابی میں",
+    "stageProgress": "مرحلہ {{current}} از {{total}}",
+    "finishedRunIn": "دوڑ {{time}} میں مکمل کی",
+    "solvedIn": "{{time}} میں حل کیا",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · آخری بار {{lastSeen}}",
+    "raceSummary": {
+      "solo": "اکیلی ریس — بس آپ اور گھڑی",
+      "friends_one": "{{count}} دوست",
+      "friends_other": "{{count}} دوست",
+      "aiOpponents_one": "{{count}} اے آئی حریف",
+      "aiOpponents_other": "{{count}} اے آئی حریف",
+      "racing": "{{opponents}} کے ساتھ ریس"
+    },
+    "invite": {
+      "button": "مدعو کریں",
+      "eyebrow": "اپنی ریس بنائیں",
+      "title": "حریفوں کو مدعو کریں",
+      "close": "بند کریں",
+      "existingTeam": "موجودہ ٹیم میں مدعو کریں",
+      "editTeamName": "ٹیم کا نام تبدیل کریں",
+      "deleteTeam": "ٹیم حذف کریں",
+      "leaveTeam": "ٹیم چھوڑیں",
+      "memberCount_one": "{{count}} رکن",
+      "memberCount_other": "{{count}} اراکین",
+      "createTeam": "نئی ریسنگ ٹیم بنائیں",
+      "displayNameLabel": "ٹیم کے اراکین آپ کو کیا کہہ کر پکارتے ہیں؟",
+      "displayNamePlaceholder": "ظاہر ہونے والا نام",
+      "teamNameLabel": "اس ٹیم کا نام کیا رکھیں؟",
+      "teamNamePlaceholder": "ٹیم کا نام (مثلاً خاندان)",
+      "createAndCopy": "بنائیں اور لنک کاپی کریں",
+      "defaultTeamName": "نئی ٹیم",
+      "defaultPlayerName": "کھلاڑی"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "شیٹ بند کریں",
+    "back": "واپس",
+    "close": "بند کریں",
+    "title": "اپنے حریف چنیں",
+    "subtitle": "ایک یا زیادہ حریف منتخب کریں",
+    "selectAtLeastOne": "کم از کم ایک حریف منتخب کریں",
+    "race_one": "{{count}} حریف کے ساتھ ریس",
+    "race_other": "{{count}} حریفوں کے ساتھ ریس",
+    "skill": {
+      "novice": "نوآموز",
+      "advancedBeginner": "مبتدی",
+      "competent": "قابل",
+      "proficient": "ماہر کار",
+      "expert": "ماہر"
+    }
+  },
+  "agentParty": {
+    "title": "اے آئی حریف",
+    "rivalCount_one": "{{count}} حریف",
+    "rivalCount_other": "{{count}} حریف"
+  },
+  "party": {
+    "cancel": "منسوخ کریں",
+    "editName": "ٹیم کا نام تبدیل کریں",
+    "editMaxMembers": "زیادہ سے زیادہ اراکین تبدیل کریں",
+    "memberCount_one": "{{count}} رکن",
+    "memberCount_other": "{{count}} اراکین",
+    "memberCountPremium_one": "{{count}} رکن ✨ پریمیم",
+    "memberCountPremium_other": "{{count}} اراکین ✨ پریمیم",
+    "membersOf_one": "{{current}}/{{count}} رکن",
+    "membersOf_other": "{{current}}/{{count}} اراکین",
+    "shareLink": "اس پہیلی میں شامل ہونے کے لیے یہ لنک ٹیم کے موجودہ اراکین کے ساتھ شیئر کریں",
+    "you": "(آپ)",
+    "notStarted": "شروع نہیں کیا! انہیں کھیلنے کا کہیں"
+  },
+  "partyConfirmation": {
+    "cancel": "منسوخ کریں",
+    "leaveAgentParty": {
+      "title": "اے آئی حریف ہٹائیں",
+      "action": "ہٹائیں",
+      "processing": "ہٹایا جا رہا ہے...",
+      "message": "کیا آپ واقعی تمام اے آئی حریفوں کو ہٹانا چاہتے ہیں؟ وہ ریس میں نظر نہیں آئیں گے۔"
+    },
+    "removeAgent": {
+      "title": "مقامی حریف ہٹائیں",
+      "action": "ہٹائیں",
+      "processing": "ہٹایا جا رہا ہے...",
+      "message": "کیا آپ واقعی \"{{memberName}}\" کو ریس سے ہٹانا چاہتے ہیں؟"
+    },
+    "deleteParty": {
+      "title": "ٹیم حذف کریں",
+      "action": "ٹیم حذف کریں",
+      "processing": "حذف ہو رہی ہے...",
+      "message": "کیا آپ واقعی \"{{partyName}}\" کو حذف کرنا چاہتے ہیں؟ اس سے ٹیم مستقل طور پر ہٹ جائے گی اور تمام اراکین کی رسائی ختم ہو جائے گی۔ اس عمل کو واپس نہیں کیا جا سکتا۔"
+    },
+    "leave": {
+      "title": "ٹیم چھوڑیں",
+      "action": "چھوڑیں",
+      "processing": "چھوڑ رہے ہیں...",
+      "message": "کیا آپ واقعی \"{{partyName}}\" کو چھوڑنا چاہتے ہیں؟ آپ دوسرے اراکین کی پیش رفت نہیں دیکھ سکیں گے اور نہ ہی اس ٹیم میں حصہ لے سکیں گے۔"
+    },
+    "remove": {
+      "title": "رکن کو ہٹائیں",
+      "action": "ہٹائیں",
+      "processing": "ہٹایا جا رہا ہے...",
+      "message": "کیا آپ واقعی \"{{memberName}}\" کو \"{{partyName}}\" سے ہٹانا چاہتے ہیں؟ وہ اس ٹیم میں حصہ نہیں لے سکیں گے۔"
+    }
+  },
+  "friends": {
+    "allTeams": "تمام ٹیمیں",
+    "refresh": "تازہ کریں",
+    "refreshing": "تازہ ہو رہا ہے…",
+    "title": "دوستوں کی پہیلیاں",
+    "subtitle": "کسی دوست پر ٹیپ کریں تاکہ ان کی حالیہ پہیلیاں دیکھیں اور ان کے ساتھ ریس کریں۔",
+    "memberCount_one": "{{count}} رکن",
+    "memberCount_other": "{{count}} اراکین",
+    "noRecentPuzzles": "کوئی حالیہ پہیلی نہیں — انہیں چیلنج کریں!",
+    "empty": {
+      "title": "ابھی کوئی ریسنگ ٹیم نہیں",
+      "description": "پہیلی حل کرتے ہوئے ریس لابی سے دوستوں کو مدعو کریں"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "پچھلے 30 دنوں کی آپ کی پہیلیاں۔",
+    "empty": {
+      "title": "ابھی کوئی پہیلی نہیں",
+      "description": "اپنی پہلی پہیلی حل کرنے کے لیے ریس شروع پر جائیں"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} مزید خصوصیت",
+    "moreFeatures_other": "+{{count}} مزید خصوصیات"
+  },
+  "crossPromo": {
+    "whyNotTry": "کیوں نہ آزمائیں",
+    "tryItFree": "مفت آزمائیں"
+  },
+  "rateApp": {
+    "prompt": "کیا آپ کو {{appName}} پسند آ رہا ہے؟",
+    "rateIt": "ریٹنگ دیں",
+    "rateInSeconds": "چند سیکنڈ میں ریٹنگ دیں"
+  },
+  "plus": {
+    "close": "ونڈو بند کریں",
+    "appIconAlt": "ایپ آئیکن",
+    "lifetime": "تاحیات",
+    "monthly": "ماہانہ",
+    "perMonth": "{{price}}/ماہ",
+    "whatsIncluded": "کیا شامل ہے",
+    "continue": "جاری رکھیں",
+    "restorePurchases": "خریداریاں بحال کریں",
+    "cancel": "منسوخ کریں"
+  },
+  "download": {
+    "title": "ایپ میں جاری رکھیں",
+    "appStoreAlt": "{{appStore}} سے ڈاؤن لوڈ کریں",
+    "googlePlayAlt": "{{googlePlay}} پر حاصل کریں",
+    "continueBrowser": "براؤزر میں جاری رکھیں",
+    "continueDesktop": "ڈیسک ٹاپ پر جاری رکھیں"
+  },
+  "session": {
+    "cheated": "دھوکہ دیا",
+    "completedIn": "{{minutes}} منٹ {{seconds}} سیکنڈ میں مکمل",
+    "percentComplete": "{{percentage}}% مکمل",
+    "duration": "{{minutes}} منٹ {{seconds}} سیکنڈ",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "پہیلی #{{number}}",
+    "daily": "روزانہ {{date}}",
+    "book": "کتاب {{month}} #{{number}}",
+    "collection": "مجموعہ {{month}} #{{number}}",
+    "scanned": "اسکین کی گئی پہیلی",
+    "you": "آپ",
+    "unknown": "نامعلوم",
+    "unlockWith": "{{label}} کے ساتھ کھولیں",
+    "lockedPuzzle": "مقفل پہیلی",
+    "recommendedTechniques": "تجویز کردہ تکنیکیں:",
+    "loadingFriends": "دوست لوڈ ہو رہے ہیں..."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Sudoku utrka",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "utrka",
+      "team": "tim",
+      "leaderboard": "ljestvica",
+      "hint": "nagovještaj",
+      "undo": "poništi",
+      "theme": "tema",
+      "dailyPuzzle": "dnevna zagonetka",
+      "monthlyCollection": "mjesečna knjiga zagonetki",
+      "aiOpponent": "AI protivnik",
+      "monthly": "mjesečni",
+      "lifetime": "doživotno",
+      "plusAccess": "Pristup Plus",
+      "plusFeatureLine": "Neograničene utrke, timovi, teme i poništi"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Slobodna Utrka",
+      "gameName": "Slobodna Utrka",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "utrka",
+      "team": "tim",
+      "leaderboard": "ljestvica",
+      "hint": "nagovještaj",
+      "undo": "poništi",
+      "theme": "tema",
+      "dailyPuzzle": "dnevna zagonetka",
+      "monthlyCollection": "mjesečna zbirka zagonetki",
+      "aiOpponent": "AI protivnik",
+      "monthly": "mjesečni",
+      "lifetime": "doživotno",
+      "plusAccess": "Pristup Plus",
+      "plusFeatureLine": "Neograničene utrke, timovi, teme i poništi"
+    }
+  }
+}

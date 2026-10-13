@@ -1,3 +1,22 @@
 packages:
   - "apps/*"
   - "packages/*"
+supportedArchitectures:
+  os: [current, linux]
+  cpu: [current, arm64]
+  libc: [current, glibc]
+catalog:
+  "@capacitor-community/in-app-review": ^8.0.0
+  "@capacitor/android": ^8.5.3
+  "@capacitor/app": ^8.1.2
+  "@capacitor/assets": ^3.0.5
+  "@capacitor/browser": ^8.0.5
+  "@capacitor/cli": ^8.5.3
+  "@capacitor/core": ^8.5.3
+  "@capacitor/ios": ^8.5.3
+  "@capacitor/keyboard": ^8.0.6
+  "@capacitor/share": ^8.0.3
+  "@capacitor/status-bar": ^8.0.4
+  "@revenuecat/purchases-capacitor": ^13.7.3
+  "@revenuecat/purchases-js": ^1.70.0
+  "capacitor-secure-storage-plugin": ^0.13.0

@@ -1,0 +1,253 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Buku",
+    "defaultDetailNoun": "buku teka-teki"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Koleksi bulanan"
+  },
+  "hintBox": {
+    "dismiss": "Tutup petunjuk"
+  },
+  "lobbyButton": {
+    "opponents": "Lawan"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Teka-teki seterusnya",
+    "continueLocked": "Teruskan ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} daripada {{total}} {{label}} selesai"
+  },
+  "countdownOverlay": {
+    "getReady": "Bersedia",
+    "go": "MULA!"
+  },
+  "confirmDialog": {
+    "cancel": "Batal"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · selesai",
+    "retry": "Cuba lagi",
+    "points": "+{{points}} mata",
+    "leaderboardPoints": "Mata papan pendahulu"
+  },
+  "raceTimer": {
+    "time": "Masa"
+  },
+  "stageTopBar": {
+    "previous": "Sebelumnya"
+  },
+  "raceHud": {
+    "opponents": "Lawan",
+    "stageOf": "Peringkat {{current}} daripada {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Tamat!",
+    "runComplete": "Larian selesai",
+    "leaderboardPoints": "Mata papan pendahulu",
+    "pointsSuffix": " mata"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Ahd",
+      "monday": "Isn",
+      "tuesday": "Sel",
+      "wednesday": "Rab",
+      "thursday": "Kha",
+      "friday": "Jum",
+      "saturday": "Sab"
+    },
+    "dayStreak_other": "hari berturut-turut",
+    "thisMonth": "bulan ini"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Anda)",
+    "puzzles_other": "{{count}} teka-teki",
+    "average": "Purata: {{time}}",
+    "best": "Terbaik: {{time}}",
+    "wins_other": "🏁 {{count}} kemenangan",
+    "points_other": "mata"
+  },
+  "scoreBreakdown": {
+    "title": "Pecahan Skor",
+    "volumeBonus": {
+      "label": "Bonus Jumlah",
+      "detail_other": "{{count}} teka-teki selesai"
+    },
+    "dailyPuzzles": {
+      "label": "Teka-teki Harian",
+      "detail_other": "{{count}} cabaran harian"
+    },
+    "collectionPuzzles": {
+      "label": "Teka-teki {{collection}}",
+      "detail": "{{count}} daripada {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Teka-teki Diimbas",
+      "detail_other": "{{count}} teka-teki diimport"
+    },
+    "difficultyBonus": {
+      "label": "Bonus Kesukaran",
+      "detail": "Teka-teki lebih sukar = lebih banyak mata"
+    },
+    "speedBonus": {
+      "label": "Bonus Kelajuan",
+      "detail": "Terpantas: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Bonus Perlumbaan",
+      "detail": "Kalahkan rakan yang turut menyelesaikannya"
+    },
+    "dailyCombo": {
+      "label": "Kombo harian",
+      "detail": "Lebih banyak teka-teki sehari = pengganda lebih besar"
+    }
+  },
+  "leaderboard": {
+    "you": "Anda",
+    "unknownUser": "Pengguna Tidak Diketahui",
+    "title": "Papan pendahulu",
+    "subtitleParty": "30 hari lalu · {{partyName}}",
+    "subtitleAllTeams": "30 hari lalu · Semua pasukan",
+    "howScoringWorks": "Cara pemarkahan berfungsi"
+  },
+  "scoringLegend": {
+    "title": "Cara pemarkahan berfungsi",
+    "subtitle": "{{gameName}} · 30 hari lalu",
+    "close": "Tutup",
+    "racingWins": {
+      "title": "Kemenangan perlumbaan",
+      "body": "Dapatkan <points>+{{points}} mata</points> bagi setiap rakan yang anda kalahkan pada teka-teki yang sama. Tamat dahulu merentasi {{friends}} rakan dan raih <points>+{{total}} mata</points>."
+    },
+    "basePoints": {
+      "title": "Mata asas",
+      "anyPuzzle": "Mana-mana teka-teki",
+      "dailyPuzzle": "Teka-teki harian",
+      "collectionPuzzle": "Teka-teki {{collection}}",
+      "scannedPuzzle": "Teka-teki diimbas"
+    },
+    "difficultyMultipliers": {
+      "title": "Pengganda kesukaran",
+      "daily": "{{gameName}} Hari Ini",
+      "collection": "Teka-teki {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Bonus kelajuan",
+      "lightning": "Kilat",
+      "fast": "Pantas",
+      "quick": "Cepat",
+      "steady": "Stabil",
+      "under": "bawah {{threshold}}",
+      "seconds": "{{value}} saat",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Kombo harian",
+      "body": "Selesaikan lebih banyak teka-teki pada hari yang sama untuk menggandakan mata setiap teka-teki, sehingga <max>{{max}}×</max>.",
+      "puzzle": "Teka-teki ke-{{puzzle}} hari ini",
+      "puzzleOrMore": "Teka-teki ke-{{puzzle}}+ hari ini"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Larian selesai",
+    "raceProgress": "Kemajuan perlumbaan",
+    "stagesProgress": "{{completed}}/{{total}} peringkat",
+    "retryStage": "Ulang peringkat",
+    "stageLabel": "Peringkat {{number}}",
+    "stageCompletedLabel": "Peringkat {{number}}, selesai dalam {{time}}",
+    "viewRacingStats": "Lihat statistik perlumbaan",
+    "total": "Jumlah"
+  },
+  "raceTrack": {
+    "you": "Anda",
+    "viewFriends": "Klik untuk melihat rakan",
+    "start": "Mula",
+    "finish": "Tamat",
+    "inviteToRace": "Jemput rakan untuk berlumba",
+    "opponents": "Lawan",
+    "racer": "Pelumba",
+    "stageBadge": "P{{number}}",
+    "total": "Jumlah",
+    "leaderboard": "Papan pendahulu",
+    "puzzleBook": "Buku teka-teki",
+    "puzzleBookLabel": "buku teka-teki",
+    "refreshScores": "Muat semula skor",
+    "challengeFriends": "🏁 Cabar rakan",
+    "yourTime": "Masa anda:",
+    "inviteFriends": "Jemput rakan",
+    "racingLabel": "berlumba"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Rumit",
+      "easy": "Mencabar",
+      "intermediate": "Sukar",
+      "expert": "Pakar"
+    },
+    "book": {
+      "veryEasy": "Sangat Mudah",
+      "easy": "Mudah",
+      "moderatelyEasy": "Agak Mudah",
+      "moderate": "Sederhana",
+      "moderatelyHard": "Agak Sukar",
+      "hard": "Sukar",
+      "vicious": "Kejam",
+      "fiendish": "Bengis",
+      "devilish": "Menggila",
+      "hell": "Neraka",
+      "beyondHell": "Melampaui Neraka"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Digit Terakhir",
+    "hiddenSingleBox": "Single Tersembunyi (Kotak)",
+    "hiddenSingleLine": "Single Tersembunyi (Garisan)",
+    "hiddenSingleVariantRegion": "Single Tersembunyi (Wilayah Varian)",
+    "nakedSingle": "Single Terdedah",
+    "hiddenPair": "Pasangan Tersembunyi",
+    "lockedCandidate": "Calon Terkunci",
+    "hiddenTriple": "Triple Tersembunyi",
+    "hiddenQuadruple": "Kuadruple Tersembunyi",
+    "nakedPair": "Pasangan Terdedah",
+    "nakedTriple": "Triple Terdedah",
+    "nakedQuadruple": "Kuadruple Terdedah",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Pencakar Langit",
+    "twoStringKite": "Layang-layang Dua Tali",
+    "crane": "Bangau",
+    "simpleColoring": "Pewarnaan Mudah",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing Bersirip/Sashimi",
+    "emptyRectangle": "Segi Empat Tepat Kosong",
+    "uniqueRectangleType1": "Segi Empat Tepat Unik Jenis 1",
+    "uniqueRectangleType2": "Segi Empat Tepat Unik Jenis 2",
+    "uniqueRectangleType3": "Segi Empat Tepat Unik Jenis 3",
+    "uniqueRectangleType4": "Segi Empat Tepat Unik Jenis 4",
+    "uniqueRectangleType5": "Segi Empat Tepat Unik Jenis 5",
+    "finnedSashimiSwordfish": "Swordfish Bersirip/Sashimi",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Kubur Universal Perduaan)",
+    "xChain": "Rantaian X",
+    "groupedXChain": "Rantaian X Berkumpulan",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Jellyfish Bersirip/Sashimi",
+    "medusa3D": "3D Medusa",
+    "xyChain": "Rantaian XY",
+    "alternatingInferenceChainAIC": "Rantaian Inferens Berselang-seli (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Rantaian Inferens Berselang-seli Berkumpulan (AIC)",
+    "nishioForcingChain": "Rantaian Paksaan Nishio",
+    "nishioForcingNet": "Jaringan Paksaan Nishio"
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Kitap",
+    "defaultDetailNoun": "bulmaca kitapları"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Aylık koleksiyon"
+  },
+  "hintBox": {
+    "dismiss": "İpucunu kapat"
+  },
+  "lobbyButton": {
+    "opponents": "Rakipler"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Devam — sıradaki bulmaca",
+    "continueLocked": "Devam ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}: {{completed}}/{{total}} tamamlandı"
+  },
+  "countdownOverlay": {
+    "getReady": "Hazır olun",
+    "go": "BAŞLA!"
+  },
+  "confirmDialog": {
+    "cancel": "İptal"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · tamamlandı",
+    "retry": "Tekrar dene",
+    "points": "+{{points}} puan",
+    "leaderboardPoints": "Sıralama puanı"
+  },
+  "raceTimer": {
+    "time": "Süre"
+  },
+  "stageTopBar": {
+    "previous": "Önceki"
+  },
+  "raceHud": {
+    "opponents": "Rakipler",
+    "stageOf": "Aşama {{current}}/{{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Bitiş!",
+    "runComplete": "Tur tamamlandı",
+    "leaderboardPoints": "Sıralama puanı",
+    "pointsSuffix": " puan"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Paz",
+      "monday": "Pzt",
+      "tuesday": "Sal",
+      "wednesday": "Çar",
+      "thursday": "Per",
+      "friday": "Cum",
+      "saturday": "Cmt"
+    },
+    "dayStreak_one": "günlük seri",
+    "dayStreak_other": "günlük seri",
+    "thisMonth": "bu ay"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Siz)",
+    "puzzles_one": "{{count}} bulmaca",
+    "puzzles_other": "{{count}} bulmaca",
+    "average": "Ort: {{time}}",
+    "best": "En iyi: {{time}}",
+    "wins_one": "🏁 {{count}} galibiyet",
+    "wins_other": "🏁 {{count}} galibiyet",
+    "points_one": "puan",
+    "points_other": "puan"
+  },
+  "scoreBreakdown": {
+    "title": "Puan dökümü",
+    "volumeBonus": {
+      "label": "Hacim bonusu",
+      "detail_one": "{{count}} bulmaca tamamlandı",
+      "detail_other": "{{count}} bulmaca tamamlandı"
+    },
+    "dailyPuzzles": {
+      "label": "Günlük bulmacalar",
+      "detail_one": "{{count}} günlük meydan okuma",
+      "detail_other": "{{count}} günlük meydan okuma"
+    },
+    "collectionPuzzles": {
+      "label": "{{collection}} bulmacaları",
+      "detail": "{{collection}} içinden {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "Taranan bulmacalar",
+      "detail_one": "{{count}} içe aktarılan bulmaca",
+      "detail_other": "{{count}} içe aktarılan bulmaca"
+    },
+    "difficultyBonus": {
+      "label": "Zorluk bonusu",
+      "detail": "Daha zor bulmaca = daha çok puan"
+    },
+    "speedBonus": {
+      "label": "Hız bonusu",
+      "detail": "En hızlı: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Yarış bonusu",
+      "detail": "Aynı bulmacayı tamamlayan arkadaşlarınızı geçin"
+    },
+    "dailyCombo": {
+      "label": "Günlük kombo",
+      "detail": "Günde daha çok bulmaca = daha büyük çarpan"
+    }
+  },
+  "leaderboard": {
+    "you": "Siz",
+    "unknownUser": "Bilinmeyen kullanıcı",
+    "title": "Sıralama listesi",
+    "subtitleParty": "Son 30 gün · {{partyName}}",
+    "subtitleAllTeams": "Son 30 gün · Tüm takımlar",
+    "howScoringWorks": "Puanlama nasıl işler"
+  },
+  "scoringLegend": {
+    "title": "Puanlama nasıl işler",
+    "subtitle": "{{gameName}} · Son 30 gün",
+    "close": "Kapat",
+    "racingWins": {
+      "title": "Yarış galibiyetleri",
+      "body": "Aynı tamamlanan bulmacada geçtiğiniz her arkadaş için <points>+{{points}} puan</points> kazanın. {{friends}} arkadaşın hepsinden önce bitirin ve <points>+{{total}} puan</points> toplayın."
+    },
+    "basePoints": {
+      "title": "Temel puanlar",
+      "anyPuzzle": "Herhangi bir bulmaca",
+      "dailyPuzzle": "Günlük bulmaca",
+      "collectionPuzzle": "{{collection}} bulmacası",
+      "scannedPuzzle": "Taranan bulmaca"
+    },
+    "difficultyMultipliers": {
+      "title": "Zorluk çarpanları",
+      "daily": "Günün bulmacası: {{gameName}}",
+      "collection": "{{collection}} bulmacaları"
+    },
+    "speedBonuses": {
+      "title": "Hız bonusları",
+      "lightning": "Şimşek",
+      "fast": "Hızlı",
+      "quick": "Çevik",
+      "steady": "Dengeli",
+      "under": "{{threshold}} altı",
+      "seconds": "{{value}} sn",
+      "minutes": "{{value}} dk"
+    },
+    "dailyCombo": {
+      "title": "Günlük kombo",
+      "body": "Aynı gün daha çok bulmaca çözerek her bulmacanın puanını <max>{{max}}×</max> katına kadar çarpın.",
+      "puzzle": "Günün {{puzzle}}. bulmacası",
+      "puzzleOrMore": "Günün {{puzzle}}+ bulmacası"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Tur tamamlandı",
+    "raceProgress": "Yarış ilerleyişi",
+    "stagesProgress": "{{completed}}/{{total}} aşama",
+    "retryStage": "Aşamayı tekrarla",
+    "stageLabel": "Aşama {{number}}",
+    "stageCompletedLabel": "Aşama {{number}}, {{time}} içinde tamamlandı",
+    "viewRacingStats": "Yarış istatistiklerini gör",
+    "total": "Toplam"
+  },
+  "raceTrack": {
+    "you": "Siz",
+    "viewFriends": "Arkadaşları görmek için tıklayın",
+    "start": "Başlangıç",
+    "finish": "Bitiş",
+    "inviteToRace": "Arkadaşları yarışa davet edin",
+    "opponents": "Rakipler",
+    "racer": "Yarışçı",
+    "stageBadge": "A{{number}}",
+    "total": "Toplam",
+    "leaderboard": "Sıralama listesi",
+    "puzzleBook": "Bulmaca kitabı",
+    "puzzleBookLabel": "bulmaca kitabı",
+    "refreshScores": "Puanları yenile",
+    "challengeFriends": "🏁 Arkadaşlarınıza meydan okuyun",
+    "yourTime": "Süreniz:",
+    "inviteFriends": "Arkadaşları davet edin",
+    "racingLabel": "yarışıyor"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Sinsi",
+      "easy": "Zorlayıcı",
+      "intermediate": "Zor",
+      "expert": "Uzman"
+    },
+    "book": {
+      "veryEasy": "Çok kolay",
+      "easy": "Kolay",
+      "moderatelyEasy": "Oldukça kolay",
+      "moderate": "Orta",
+      "moderatelyHard": "Oldukça zor",
+      "hard": "Zor",
+      "vicious": "Acımasız",
+      "fiendish": "Şeytani",
+      "devilish": "Cehennemi",
+      "hell": "Cehennem",
+      "beyondHell": "Cehennemin ötesi"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Son rakam",
+    "hiddenSingleBox": "Gizli tekli (kutu)",
+    "hiddenSingleLine": "Gizli tekli (satır/sütun)",
+    "hiddenSingleVariantRegion": "Gizli tekli (varyant bölge)",
+    "nakedSingle": "Çıplak tekli",
+    "hiddenPair": "Gizli çift",
+    "lockedCandidate": "Kilitli aday",
+    "hiddenTriple": "Gizli üçlü",
+    "hiddenQuadruple": "Gizli dörtlü",
+    "nakedPair": "Çıplak çift",
+    "nakedTriple": "Çıplak üçlü",
+    "nakedQuadruple": "Çıplak dörtlü",
+    "xWing": "X-Kanat",
+    "swordfish": "Kılıçbalığı",
+    "skyscraper": "Gökdelen",
+    "twoStringKite": "İki ipli uçurtma",
+    "crane": "Turna",
+    "simpleColoring": "Basit renklendirme",
+    "yWing": "Y-Kanat",
+    "xYZWing": "XYZ-Kanat",
+    "wWing": "W-Kanat",
+    "finnedSashimiXWing": "Yüzgeçli/Sashimi X-Kanat",
+    "emptyRectangle": "Boş dikdörtgen",
+    "uniqueRectangleType1": "Benzersiz dikdörtgen tür 1",
+    "uniqueRectangleType2": "Benzersiz dikdörtgen tür 2",
+    "uniqueRectangleType3": "Benzersiz dikdörtgen tür 3",
+    "uniqueRectangleType4": "Benzersiz dikdörtgen tür 4",
+    "uniqueRectangleType5": "Benzersiz dikdörtgen tür 5",
+    "finnedSashimiSwordfish": "Yüzgeçli/Sashimi kılıçbalığı",
+    "jellyfish": "Denizanası",
+    "bugBinaryUniversalGrave": "BUG (İkili evrensel mezar)",
+    "xChain": "X-Zinciri",
+    "groupedXChain": "Gruplu X-Zinciri",
+    "YWing4WXYZWing": "4-Y-Kanat (WXYZ-Kanat)",
+    "yWing5": "5-Y-Kanat",
+    "yWing6": "6-Y-Kanat",
+    "yWing7": "7-Y-Kanat",
+    "yWing8": "8-Y-Kanat",
+    "yWing9": "9-Y-Kanat",
+    "finnedSashimiJellyfish": "Yüzgeçli/Sashimi denizanası",
+    "medusa3D": "3D Medusa",
+    "xyChain": "XY-Zinciri",
+    "alternatingInferenceChainAIC": "Değişimli çıkarım zinciri (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Gruplu değişimli çıkarım zinciri (AIC)",
+    "nishioForcingChain": "Nishio zorlama zinciri",
+    "nishioForcingNet": "Nishio zorlama ağı"
+  }
+}

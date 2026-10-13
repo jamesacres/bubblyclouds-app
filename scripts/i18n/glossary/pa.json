@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "ਸੁਡੋਕੂ ਰੇਸ",
+      "gameName": "ਸੁਡੋਕੂ",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "ਸੁਡੋਕੂ Plus"
+    },
+    "terms": {
+      "race": "ਰੇਸ",
+      "team": "ਟੀਮ",
+      "leaderboard": "ਲੀਡਰਬੋਰਡ",
+      "hint": "ਸੰਕੇਤ",
+      "undo": "ਅਨਡੂ",
+      "theme": "ਥੀਮ",
+      "dailyPuzzle": "ਰੋਜ਼ਾਨਾ ਪਹੇਲੀ",
+      "monthlyCollection": "ਮਹੀਨਾਵਾਰ ਪਹੇਲੀ ਕਿਤਾਬ",
+      "aiOpponent": "AI ਵਿਰੋਧੀ",
+      "monthly": "ਮਹੀਨਾਵਾਰ",
+      "lifetime": "ਉਮਰ ਭਰ",
+      "plusAccess": "Plus ਐਕਸੈਸ",
+      "plusFeatureLine": "ਅਸੀਮਿਤ ਰੇਸ, ਟੀਮਾਂ, ਥੀਮ ਅਤੇ ਅਨਡੂ"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "ਅਨਬਲਾਕ ਰੇਸ",
+      "gameName": "ਅਨਬਲਾਕ ਰੇਸ",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "ਰੇਸ",
+      "team": "ਟੀਮ",
+      "leaderboard": "ਲੀਡਰਬੋਰਡ",
+      "hint": "ਸੰਕੇਤ",
+      "undo": "ਅਨਡੂ",
+      "theme": "ਥੀਮ",
+      "dailyPuzzle": "ਰੋਜ਼ਾਨਾ ਪਹੇਲੀ",
+      "monthlyCollection": "ਮਹੀਨਾਵਾਰ ਪਹੇਲੀ ਸੰਗ੍ਰਹਿ",
+      "aiOpponent": "AI ਵਿਰੋਧੀ",
+      "monthly": "ਮਹੀਨਾਵਾਰ",
+      "lifetime": "ਉਮਰ ਭਰ",
+      "plusAccess": "Plus ਐਕਸੈਸ",
+      "plusFeatureLine": "ਅਸੀਮਿਤ ਰੇਸ, ਟੀਮਾਂ, ਥੀਮ ਅਤੇ ਅਨਡੂ"
+    }
+  }
+}

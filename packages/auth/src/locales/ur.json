@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "پلس",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "جاری رکھنے کے لیے سائن اِن کریں",
+    "signInWith": "{{provider}} سے سائن اِن کریں",
+    "emailTitle": "ای میل سے سائن اِن کریں",
+    "emailPlaceholder": "your@email.com",
+    "continue": "جاری رکھیں",
+    "cancel": "منسوخ کریں",
+    "terms": "سروس کی شرائط",
+    "privacy": "رازداری کی پالیسی"
+  },
+  "header": {
+    "signIn": "سائن اِن"
+  },
+  "avatar": {
+    "alt": "صارف"
+  },
+  "panel": {
+    "title": "اکاؤنٹ",
+    "greeting": "ہیلو، {{name}}!",
+    "fallbackName": "صارف",
+    "plusActive": "{{gameName}} {{plus}} فعال ہے",
+    "joinGamePlus": "{{gameName}} {{plus}} میں شامل ہوں",
+    "joinPlus": "{{plus}} میں شامل ہوں",
+    "signOut": "سائن آؤٹ",
+    "privacy": "رازداری کی پالیسی",
+    "terms": "سروس کی شرائط",
+    "credits": "کریڈٹس",
+    "deleteAccount": "اکاؤنٹ حذف کریں",
+    "poweredBy": "{{companyName}} کی طرف سے",
+    "deleteUnavailable": "اکاؤنٹ حذف کرنے کی سہولت دستیاب نہیں۔",
+    "deleteFailed": "اکاؤنٹ حذف نہیں ہو سکا۔ براہِ کرم بعد میں دوبارہ کوشش کریں۔"
+  },
+  "deleteDialog": {
+    "title": "اکاؤنٹ حذف کریں",
+    "warning": "اس عمل کو واپس نہیں کیا جا سکتا۔ {{companyName}} کی تمام ایپلیکیشنز میں آپ کا تمام ڈیٹا مستقل طور پر حذف کر دیا جائے گا۔",
+    "confirmation": "میری تصدیق ہے کہ مجھے اپنا پورا اکاؤنٹ، بشمول {{companyName}} کی تمام ایپلیکیشنز کا تمام ڈیٹا، حذف کرنا ہے۔",
+    "cancel": "منسوخ کریں",
+    "deleting": "حذف ہو رہا ہے...",
+    "submit": "اکاؤنٹ حذف کریں"
+  }
+}

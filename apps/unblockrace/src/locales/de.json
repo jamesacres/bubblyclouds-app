@@ -1,0 +1,293 @@
+{
+  "brand": {
+    "appName": "Freifahrt-Rennen",
+    "gameName": "Freifahrt-Rennen",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Mit Freunden um die Wette Blöcke freischieben. Spielen und teilen. Tägliche Herausforderungen & geräteübergreifend!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Rennen starten",
+      "myPuzzles": "Meine Rätsel",
+      "racingTeams": "Rennteams"
+    },
+    "hero": {
+      "live": "Live",
+      "headlineLine1": "Lösen Sie den Stau auf.",
+      "headlineAccent": "Gewinnen Sie das Rennen",
+      "subtitle": "Schieben Sie die Blöcke, befreien Sie den leuchtenden Block und rennen Sie mit Ihren Freunden zum Ausgang."
+    },
+    "leaderboard": "Rangliste",
+    "dailyRace": {
+      "title": "Tagesrennen",
+      "refreshesDaily": "wird täglich erneuert",
+      "todaysRace": "Das heutige Rennen",
+      "difficultyRange": "Anfänger → Experte",
+      "description": "Fünf Bretter, eine Uhr – wer am schnellsten entkommt, gewinnt.",
+      "stages": "5 Etappen",
+      "start": "Rennen starten",
+      "morePuzzlesPrefix": "Mehr Rätsel in der",
+      "puzzleCollection": "Rätselsammlung"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 Rätsel",
+      "title": "Monatliche Rätselsammlung",
+      "description": "50 frische Staus für {{month}} – lösen Sie alle, bevor der Monat zu Ende ist.",
+      "browse": "Rätsel durchsuchen"
+    },
+    "teams": {
+      "eyebrow": "Mehrspieler",
+      "title": "Rennteams",
+      "raceFriends": "Rennen gegen {{names}} und mehr",
+      "challengeFriends": "Fordern Sie Freunde zu einem Rennen heraus"
+    },
+    "premium": {
+      "title": "Premium-Funktionen",
+      "subtitle": "Schalten Sie das volle $t(brand.gameName)-Erlebnis frei"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Sudoku-Rennen",
+    "tagline": "Teilen Sie ein Sudoku mit Freunden und rennen Sie um die schnellste Lösung."
+  },
+  "puzzle": {
+    "mobileDescription": "Das beste Erlebnis mit unserer {{appName}}-App!",
+    "desktopDescription": "{{appName}} herunterladen",
+    "openInAppLabel": "Rätsel öffnen"
+  },
+  "collection": {
+    "loading": {
+      "both": "Rätselsammlung wird geladen...",
+      "collection": "Rätsel werden geladen...",
+      "sessions": "Ihr Fortschritt wird geladen..."
+    },
+    "retry": "Erneut versuchen",
+    "backHome": "Zurück zur Startseite",
+    "signInPrompt": "Melden Sie sich an, um auf die Rätselsammlung zuzugreifen.",
+    "signIn": "Anmelden",
+    "noData": "Keine Daten der Rätselsammlung verfügbar.",
+    "title": "Rätselsammlung {{month}}",
+    "completed": "abgeschlossen",
+    "inProgress": "in Arbeit",
+    "unlockWithPlus": "Alle Rätsel mit Plus freischalten",
+    "jumpToDifficulty": "Zum Schwierigkeitsgrad springen",
+    "scrollToTop": "Nach oben scrollen",
+    "subtitle_one": "{{count}} Rätsel – von schnellen Ausfahrten bis zum Experten-Stau",
+    "subtitle_other": "{{count}} Rätsel – von schnellen Ausfahrten bis zum Experten-Stau"
+  },
+  "invite": {
+    "loading": "Einladung wird geladen...",
+    "iconAlt": "{{appName}}-Symbol",
+    "greeting": "👋 Hallo {{name}}!",
+    "invited": "Sie sind eingeladen!",
+    "joinTeam": "Treten Sie dem Rennteam bei",
+    "tagline": "Lösen Sie gemeinsam Blockaden-Rätsel im Rennen und sehen Sie den Fortschritt der anderen in Echtzeit!",
+    "proTipLabel": "Profi-Tipp:",
+    "proTip": "Alle Rätsel, die Sie künftig spielen, werden mit Ihren Teammitgliedern geteilt – für freundschaftlichen Wettbewerb!",
+    "nicknameLabel": "Wie nennt Ihr Rennteam Sie?",
+    "nicknamePlaceholder": "Spitznamen eingeben",
+    "joining": "Beitritt zum Team...",
+    "join": "Jetzt mitmachen! 🎉",
+    "signIn": "Anmelden und fortfahren",
+    "bonus": "🎉 Bonus: {{duration}} {{plusName}} gratis!",
+    "bonusDescription": "Mit dem Beitritt zu diesem Rennteam schalten Sie Premium-Funktionen völlig kostenlos frei!",
+    "activation": "💡 Ihr Premium-Zugang wird nach dem Beitritt automatisch aktiviert",
+    "duration": {
+      "oneMonth": "einen Monat",
+      "oneYear": "ein Jahr",
+      "lifetime": "lebenslang",
+      "premium": "Premium-Zugang"
+    },
+    "expired": {
+      "title": "Einladung abgelaufen",
+      "description": "Dieser Einladungslink ist nicht mehr gültig. Bitten Sie Ihren Freund um eine neue Einladung oder erhöhen Sie die Teamgröße."
+    },
+    "greetingAnonymous": "👋 Hallo!"
+  },
+  "credits": {
+    "title": "Credits und Danksagungen",
+    "intro": "Diese App basiert auf mehreren hervorragenden Projekten",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Diese App steht unter der MIT-Lizenz. Details finden Sie in unserer <licenseLink>LICENSE</licenseLink> und in den <creditsLink>CREDITS</creditsLink>.",
+    "items": {
+      "rush": "Rush-Hour-Rätsellöser und Rätseldatenbank von Michael Fogleman, kompiliert zu WebAssembly",
+      "nextjs": "React-Framework für die Produktion",
+      "typescript": "Typisierte Obermenge von JavaScript",
+      "tailwind": "Utility-First-CSS-Framework",
+      "capacitor": "Laufzeitumgebung für native mobile Apps",
+      "electron": "Framework für Desktop-Apps",
+      "revenuecat": "Abonnementverwaltung",
+      "react": "Bibliothek für UI-Komponenten",
+      "turborepo": "Build-System für Monorepos"
+    }
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Melden Sie sich an, um das heutige Rätsel zu starten",
+      "collection": "Melden Sie sich an, um die Sammlung zu durchsuchen",
+      "joinTeam": "Melden Sie sich an, um dem Team beizutreten",
+      "raceLobby": "Melden Sie sich an, um gegen andere anzutreten",
+      "puzzleEntry": "Melden Sie sich zum Spielen an"
+    },
+    "valueProps": {
+      "saveProgress": "Fortschritt speichern",
+      "raceFriends": "Gegen Freunde antreten",
+      "trackStats": "Statistiken verfolgen"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Sie haben heute Ihre {{limit}} kostenlosen Hinweise genutzt.",
+      "body": "Plus bietet Ihnen unbegrenzte Hinweise – nie wieder festhängen – und hält die ganze App werbefrei."
+    },
+    "undo": {
+      "title": "Sie haben Ihr tägliches Undo-Limit erreicht!",
+      "body": "Sie erhalten {{limit}} kostenlose Undos pro Tag. Das Limit wird morgen zurückgesetzt, oder abonnieren Sie für unbegrenzte Undos."
+    },
+    "collectionLocked": {
+      "title": "Dieses Rätsel gehört zur Plus-Sammlung.",
+      "body": "Plus schaltet jedes Rätsel der Monatspakete frei und hält die ganze App werbefrei."
+    },
+    "themeColor": {
+      "title": "Dieses Design ist Plus vorbehalten.",
+      "body": "Wechseln Sie zu Plus, um alle schönen Designfarben freizuschalten und Ihr Spielerlebnis persönlich zu gestalten."
+    },
+    "removeMember": {
+      "title": "Mitglieder aus Ihrem Team zu entfernen ist eine Premium-Funktion!",
+      "body": "Abonnieren Sie, um erweiterte Funktionen der Teamverwaltung wie das Entfernen von Mitgliedern freizuschalten."
+    },
+    "multipleParties": {
+      "title": "Mehrere Rennteams sind eine Premium-Funktion!",
+      "body": "Kostenlose Nutzer können ein Team haben. Abonnieren Sie, um unbegrenzt Teams für Familie, Freunde und mehr zu erstellen und ihnen beizutreten."
+    },
+    "partyMaxSize": {
+      "title": "Große Teams sind eine Premium-Funktion!",
+      "body": "Abonnieren Sie, um erweiterte Funktionen der Teamverwaltung wie große Teams freizuschalten."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Immer werbefrei",
+      "description": "Nie Werbung – nur Sie und die Rätsel"
+    },
+    "hints": {
+      "title": "Unbegrenzte Hinweise",
+      "description": "Nie wieder festhängen – holen Sie sich einen Hinweis, wann immer Sie einen brauchen"
+    },
+    "monthlyPack": {
+      "title": "Gesamtes Monatspaket freigeschaltet, jeden Monat",
+      "description": "Spielen Sie jedes Rätsel in jedem Schwierigkeitsgrad, ohne Sperren"
+    },
+    "undos": {
+      "title": "Unbegrenztes Undo",
+      "description": "Spulen Sie so viele Züge zurück, wie Sie möchten"
+    },
+    "teams": {
+      "title": "Mehrere Rennteams",
+      "description": "Veranstalten Sie private Wettbewerbe mit Freunden und Familie"
+    },
+    "management": {
+      "title": "Teamverwaltung",
+      "description": "Erstellen Sie große Teams mit bis zu 15 Personen und entfernen Sie Mitglieder aus Ihrem Team."
+    },
+    "themes": {
+      "title": "Alle Designs freigeschaltet",
+      "description": "Gestalten Sie Ihr Rennerlebnis persönlich"
+    }
+  },
+  "plusModal": {
+    "description": "Werden Sie Mitglied bei <badge>{{plusName}}</badge> für <strong>unbegrenzte Hinweise</strong>, das <strong>komplett freigeschaltete Monatspaket</strong> und <strong>unbegrenztes Undo</strong>. Fordern Sie Freunde heraus, steigen Sie in der Rangliste auf und bleiben Sie werbefrei."
+  },
+  "leaderboard": {
+    "collectionLabel": "Sammlung",
+    "collectionDetailNoun": "Sammlungen"
+  },
+  "motivational": {
+    "messages": [
+      "Ihre Freunde warten auf eine Herausforderung",
+      "Gegen wen treten Sie heute an?",
+      "Zeit, Ihr Tempo zu zeigen",
+      "Herausforderung angenommen?",
+      "Rennen Sie zur Ziellinie",
+      "Wer ist der schnellste Löser?",
+      "Bereit, die Rangliste zu dominieren?",
+      "Ihre Rennfähigkeiten warten",
+      "Zeit, die anderen abzuhängen",
+      "Bereit, als Erster die Ziellinie zu überqueren?",
+      "Die Strecke wartet auf Sie",
+      "Zeit, einen Gang höher zu schalten",
+      "Bereit, auf dem Rätselgitter Gummi zu geben?",
+      "Ihre Gegner wärmen sich schon auf",
+      "Heute ist der Tag für einen neuen Rekord",
+      "Ihre Bestzeit wartet darauf, geschlagen zu werden",
+      "Jedes Rätsel macht Sie schneller",
+      "Jetzt beginnt Ihre Serie",
+      "Zeit, Ihr Spiel auf das nächste Level zu heben",
+      "Ihr nächster Durchbruch ist nur ein Rätsel entfernt",
+      "Bereit, sich selbst zu überraschen?",
+      "Zeigen Sie, was in Ihnen steckt",
+      "Zeit, Ihr Potenzial zu entfalten",
+      "Ihre schnellste Lösung liegt noch vor Ihnen",
+      "Bereit, den heutigen Tag zählen zu lassen?",
+      "Im Rennen zählt jede Sekunde",
+      "Zeit, Ihre Grenzen zu verschieben",
+      "Ihr Weg zur Verbesserung geht weiter",
+      "Bereit, Erwartungen zu übertreffen?",
+      "Glauben Sie, Sie halten dem Druck stand?",
+      "Zeit, die Zweifler verstummen zu lassen",
+      "Bereit für den Sieg?",
+      "Ihre Konkurrenz wird das nicht kommen sehen",
+      "Zeit, Ihre Spuren zu hinterlassen",
+      "Bereit, im Rampenlicht zu stehen?",
+      "Ein verdienter Sieg schmeckt süßer",
+      "Zeit zu beweisen, wer der Boss ist",
+      "Bereit, Ihr wahres Gesicht zu zeigen?",
+      "Hier beginnt die Meister-Mentalität",
+      "Zeit, sich vom Feld abzusetzen",
+      "Bereit, Ihre Legende zu schreiben?",
+      "Champions werden in Momenten wie diesem gemacht",
+      "Zeit, Potenzial in Leistung zu verwandeln",
+      "Frische Rätsel, frische Chancen",
+      "Die heutige Herausforderung wartet auf Ihr Können",
+      "Bereit, dies zu Ihrem bisher besten Tag zu machen?",
+      "Ein neuer Tag bedeutet neue Rekorde zu brechen",
+      "Zeit, Ihrer Sammlung einen weiteren Sieg hinzuzufügen",
+      "Bereit, stark zu starten und noch stärker zu finishen?",
+      "Bereit, den heutigen Tag legendär zu machen?",
+      "Ihre tägliche Dosis Triumph wartet",
+      "Auf dem Gitter trifft Strategie auf Tempo",
+      "Bereit, klüger und schneller zu sein?",
+      "Ihre Rätsel-Meisterschaft ruft",
+      "Zeit, Logik mit Blitzgeschwindigkeit zu verbinden",
+      "Bereit, mit chirurgischer Präzision zu lösen?",
+      "Die perfekte Kombination: Können und Tempo",
+      "Ihr analytischer Vorsprung ist Ihr Rennvorteil",
+      "Zeit, Ihre Rätsel-Überlegenheit zu zeigen",
+      "Bereit, wie ein Champion zu lösen?",
+      "Präzises Rennen beginnt mit klarem Denken",
+      "Ihre Freunde warten auf eine Revanche",
+      "Wer löst heute?",
+      "Ein neues Tagesrätsel ist bereit",
+      "Ihre Serie steht auf dem Spiel",
+      "Frische Rätsel, frischer Start",
+      "Die heutige Herausforderung ist online",
+      "Treten Sie beim Tagesrätsel gegen einen Freund an",
+      "Neuer Tag, neue Rätsel",
+      "Jemand steht schon in der Rangliste",
+      "Halten Sie die Serie am Leben",
+      "Die täglichen Herausforderungen sind aktualisiert",
+      "Ihr Team wartet",
+      "Ein Rätsel näher an der Spitze",
+      "Die heutigen Rätsel warten auf Sie",
+      "Steigen Sie wieder ein und rennen Sie los"
+    ]
+  }
+}

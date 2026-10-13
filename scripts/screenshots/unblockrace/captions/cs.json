@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Sleduj každý závod",
+    "subtitle": "Prohlédni si historii, úspěšnost a srovnání s přáteli"
+  },
+  "01": {
+    "title": "Denní závod o 5 etapách",
+    "subtitle": "Cílem je co nejméně tahů a nejrychlejší čas."
+  },
+  "02": {
+    "title": "Sbírka hlavolamů",
+    "subtitle": "Každý měsíc přibude vybraná sbírka nových hlavolamů"
+  },
+  "03": {
+    "title": "Závoď a uč se zároveň",
+    "subtitle": "Vizuální nápovědy, když se zasekneš."
+  },
+  "04": {
+    "title": "Závod bez zácpy",
+    "subtitle": "Rozpusť zácpu. Vyhraj závod 🏁\nZávoď s přáteli k východu."
+  },
+  "05": {
+    "title": "Závoď s ostatními, UI i sám",
+    "subtitle": "Pošli odkaz přátelům a rodině,\npřidej soupeře s UI nebo závoď s časem"
+  },
+  "06": {
+    "title": "Vyšplhej v žebříčku",
+    "subtitle": "Každý závod přináší body — sleduj, kdo vládne posledních 30 dní"
+  },
+  "07": {
+    "title": "Poznej své soupeře",
+    "subtitle": "Vyber si z jedinečných soupeřů s UI — každý má vlastní povahu a styl hry"
+  },
+  "08": {
+    "title": "Tvé soukromé týmy",
+    "subtitle": "Pozvi rodinu a přátele, závoďte spolu a vytvořte si vlastní žebříček"
+  },
+  "09": {
+    "title": "Jeden odkaz. Všichni v tom.",
+    "subtitle": "Sdílej pozvánku a přátelé se připojí k závodu během vteřin"
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "brand": {
+    "plus": "\u202b[طسقغ كلم]\u202c"
+  },
+  "collection": {
+    "defaultLabel": "\u202b[بضضز كلم]\u202c",
+    "defaultDetailNoun": "\u202b[طقههسج بضضزغ كلمات]\u202c"
+  },
+  "collectionCover": {
+    "monthlyCollection": "\u202b[شضصفدسن تضسسجتفذضص كلمات إضا]\u202c"
+  },
+  "hintBox": {
+    "dismiss": "\u202b[ثذغشذغغ دذصف كلمات]\u202c"
+  },
+  "lobbyButton": {
+    "opponents": "\u202b[ضططضصجصفغ كلمات]\u202c"
+  },
+  "nextPuzzlePanel": {
+    "continue": "\u202b[تضصفذصقج — صجمف طقههسج كلمات إضاف]\u202c",
+    "continueLocked": "\u202b[تضصفذصقج ({{plusName}}) كلمات]\u202c"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "\u202b[{{completed}} ضح {{total}} {{label}} تضشطسجفج كلمات إ]\u202c"
+  },
+  "countdownOverlay": {
+    "getReady": "\u202b[خجف عجاثن كلمات]\u202c",
+    "go": "\u202b[خض! كلم]\u202c"
+  },
+  "confirmDialog": {
+    "cancel": "\u202b[تاصتجس كلما]\u202c"
+  },
+  "completionSummary": {
+    "complete": "\u202b[{{label}} · تضشطسجفج كلمات]\u202c",
+    "retry": "\u202b[عجفعن كلم]\u202c",
+    "points": "\u202b[+{{points}} طفغ كلم]\u202c",
+    "leaderboardPoints": "\u202b[سجاثجعبضاعث طضذصفغ كلمات إضا]\u202c"
+  },
+  "raceTimer": {
+    "time": "\u202b[فذشج كلم]\u202c"
+  },
+  "stageTopBar": {
+    "previous": "\u202b[طعجكذضقغ كلمات]\u202c"
+  },
+  "raceHud": {
+    "opponents": "\u202b[ضططضصجصفغ كلمات]\u202c",
+    "stageOf": "\u202b[غفاخج {{current}} ضح {{total}} كلمات]\u202c"
+  },
+  "raceCelebration": {
+    "finish": "\u202b[حذصذغد! كلما]\u202c",
+    "runComplete": "\u202b[عقص تضشطسجفج كلمات]\u202c",
+    "leaderboardPoints": "\u202b[سجاثجعبضاعث طضذصفغ كلمات إضا]\u202c",
+    "pointsSuffix": " \u202b[طفغ كلم]\u202c"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "\u202b[غق كل]\u202c",
+      "monday": "\u202b[ش كل]\u202c",
+      "tuesday": "\u202b[فق كل]\u202c",
+      "wednesday": "\u202b[ل كل]\u202c",
+      "thursday": "\u202b[فد كل]\u202c",
+      "friday": "\u202b[ح كل]\u202c",
+      "saturday": "\u202b[غا كل]\u202c"
+    },
+    "dayStreak_zero": "\u202b[ثان غفعجاز كلمات]\u202c",
+    "dayStreak_one": "\u202b[ثان غفعجاز كلمات]\u202c",
+    "dayStreak_two": "\u202b[ثان غفعجاز كلمات]\u202c",
+    "dayStreak_few": "\u202b[ثان غفعجاز كلمات]\u202c",
+    "dayStreak_many": "\u202b[ثان غفعجاز كلمات]\u202c",
+    "dayStreak_other": "\u202b[ثان غفعجاز كلمات]\u202c",
+    "thisMonth": "\u202b[فدذغ شضصفد كلمات]\u202c"
+  },
+  "friendLeaderboardEntry": {
+    "you": "\u202b[(نضق) كلم]\u202c",
+    "puzzles_zero": "\u202b[{{count}} طقههسجغ كلمات]\u202c",
+    "puzzles_one": "\u202b[{{count}} طقههسج كلما]\u202c",
+    "puzzles_two": "\u202b[{{count}} طقههسجغ كلمات]\u202c",
+    "puzzles_few": "\u202b[{{count}} طقههسجغ كلمات]\u202c",
+    "puzzles_many": "\u202b[{{count}} طقههسجغ كلمات]\u202c",
+    "puzzles_other": "\u202b[{{count}} طقههسجغ كلمات]\u202c",
+    "average": "\u202b[اكخ: {{time}} كلم]\u202c",
+    "best": "\u202b[بجغف: {{time}} كلما]\u202c",
+    "wins_zero": "🏁 \u202b[{{count}} لذصغ كلم]\u202c",
+    "wins_one": "🏁 \u202b[{{count}} لذص كلم]\u202c",
+    "wins_two": "🏁 \u202b[{{count}} لذصغ كلم]\u202c",
+    "wins_few": "🏁 \u202b[{{count}} لذصغ كلم]\u202c",
+    "wins_many": "🏁 \u202b[{{count}} لذصغ كلم]\u202c",
+    "wins_other": "🏁 \u202b[{{count}} لذصغ كلم]\u202c",
+    "points_zero": "\u202b[طضذصفغ كلما]\u202c",
+    "points_one": "\u202b[طضذصف كلم]\u202c",
+    "points_two": "\u202b[طضذصفغ كلما]\u202c",
+    "points_few": "\u202b[طضذصفغ كلما]\u202c",
+    "points_many": "\u202b[طضذصفغ كلما]\u202c",
+    "points_other": "\u202b[طضذصفغ كلما]\u202c"
+  },
+  "scoreBreakdown": {
+    "title": "\u202b[غتضعج بعجازثضلص كلمات إ]\u202c",
+    "volumeBonus": {
+      "label": "\u202b[كضسقشج بضصقغ كلمات]\u202c",
+      "detail_zero": "\u202b[{{count}} طقههسجغ تضشطسجفجث كلمات إضا]\u202c",
+      "detail_one": "\u202b[{{count}} طقههسج تضشطسجفجث كلمات إض]\u202c",
+      "detail_two": "\u202b[{{count}} طقههسجغ تضشطسجفجث كلمات إضا]\u202c",
+      "detail_few": "\u202b[{{count}} طقههسجغ تضشطسجفجث كلمات إضا]\u202c",
+      "detail_many": "\u202b[{{count}} طقههسجغ تضشطسجفجث كلمات إضا]\u202c",
+      "detail_other": "\u202b[{{count}} طقههسجغ تضشطسجفجث كلمات إضا]\u202c"
+    },
+    "dailyPuzzles": {
+      "label": "\u202b[ثاذسن طقههسجغ كلمات إ]\u202c",
+      "detail_zero": "\u202b[{{count}} ثاذسن تداسسجصخجغ كلمات إض]\u202c",
+      "detail_one": "\u202b[{{count}} ثاذسن تداسسجصخج كلمات إض]\u202c",
+      "detail_two": "\u202b[{{count}} ثاذسن تداسسجصخجغ كلمات إض]\u202c",
+      "detail_few": "\u202b[{{count}} ثاذسن تداسسجصخجغ كلمات إض]\u202c",
+      "detail_many": "\u202b[{{count}} ثاذسن تداسسجصخجغ كلمات إض]\u202c",
+      "detail_other": "\u202b[{{count}} ثاذسن تداسسجصخجغ كلمات إض]\u202c"
+    },
+    "collectionPuzzles": {
+      "label": "\u202b[{{collection}} طقههسجغ كلمات]\u202c",
+      "detail": "\u202b[{{count}} حعضش {{collection}} كلما]\u202c"
+    },
+    "scannedPuzzles": {
+      "label": "\u202b[غتاصصجث طقههسجغ كلمات إ]\u202c",
+      "detail_zero": "\u202b[{{count}} ذشطضعفجث طقههسجغ كلمات إض]\u202c",
+      "detail_one": "\u202b[{{count}} ذشطضعفجث طقههسج كلمات إض]\u202c",
+      "detail_two": "\u202b[{{count}} ذشطضعفجث طقههسجغ كلمات إض]\u202c",
+      "detail_few": "\u202b[{{count}} ذشطضعفجث طقههسجغ كلمات إض]\u202c",
+      "detail_many": "\u202b[{{count}} ذشطضعفجث طقههسجغ كلمات إض]\u202c",
+      "detail_other": "\u202b[{{count}} ذشطضعفجث طقههسجغ كلمات إض]\u202c"
+    },
+    "difficultyBonus": {
+      "label": "\u202b[ثذححذتقسفن بضصقغ كلمات إض]\u202c",
+      "detail": "\u202b[داعثجع طقههسجغ = شضعج طضذصفغ كلمات إضافية]\u202c"
+    },
+    "speedBonus": {
+      "label": "\u202b[غطججث بضصقغ كلمات]\u202c",
+      "detail": "\u202b[حاغفجغف: {{time}} كلمات]\u202c"
+    },
+    "racingBonus": {
+      "label": "\u202b[عاتذصخ بضصقغ كلمات]\u202c",
+      "detail": "\u202b[بجاف حعذجصثغ لدض اسغض تضشطسجفجث كلمات إضافية ل]\u202c"
+    },
+    "dailyCombo": {
+      "label": "\u202b[ثاذسن تضشبض كلمات]\u202c",
+      "detail": "\u202b[شضعج طقههسجغ طجع ثان = بذخخجع شقسفذطسذجع كلمات إضافية للاخ]\u202c"
+    }
+  },
+  "leaderboard": {
+    "you": "\u202b[نضق كلم]\u202c",
+    "unknownUser": "\u202b[قصزصضلص قغجع كلمات]\u202c",
+    "title": "\u202b[سجاثجعبضاعث كلمات]\u202c",
+    "subtitleParty": "\u202b[ساغف 30 ثانغ · {{partyName}} كلمات إ]\u202c",
+    "subtitleAllTeams": "\u202b[ساغف 30 ثانغ · اسس فجاشغ كلمات إضافي]\u202c",
+    "howScoringWorks": "\u202b[دضل غتضعذصخ لضعزغ كلمات إض]\u202c"
+  },
+  "scoringLegend": {
+    "title": "\u202b[دضل غتضعذصخ لضعزغ كلمات إض]\u202c",
+    "subtitle": "\u202b[{{gameName}} · ساغف 30 ثانغ كلمات إ]\u202c",
+    "close": "\u202b[تسضغج كلم]\u202c",
+    "racingWins": {
+      "title": "\u202b[عاتذصخ لذصغ كلمات]\u202c",
+      "body": "\u202b[جاعص <points>+{{points}} طفغ</points> حضع جاتد حعذجصث نضق بجاف ضص فدج غاشج تضشطسجفجث طقههسج. حذصذغد حذعغف اتعضغغ {{friends}} حعذجصثغ اصث تضسسجتف <points>+{{total}} طفغ</points>. كلمات إضافية للاختبار كلمات إضافية للاختبار كلم]\u202c"
+    },
+    "basePoints": {
+      "title": "\u202b[باغج طضذصفغ كلمات]\u202c",
+      "anyPuzzle": "\u202b[اصن طقههسج كلمات]\u202c",
+      "dailyPuzzle": "\u202b[ثاذسن طقههسج كلمات]\u202c",
+      "collectionPuzzle": "\u202b[{{collection}} طقههسج كلما]\u202c",
+      "scannedPuzzle": "\u202b[غتاصصجث طقههسج كلمات إ]\u202c"
+    },
+    "difficultyMultipliers": {
+      "title": "\u202b[ثذححذتقسفن شقسفذطسذجعغ كلمات إضاف]\u202c",
+      "daily": "\u202b[{{gameName}} ضح فدج ثان كلمات]\u202c",
+      "collection": "\u202b[{{collection}} طقههسجغ كلمات]\u202c"
+    },
+    "speedBonuses": {
+      "title": "\u202b[غطججث بضصقغجغ كلمات إ]\u202c",
+      "lightning": "\u202b[سذخدفصذصخ كلمات]\u202c",
+      "fast": "\u202b[حاغف كلم]\u202c",
+      "quick": "\u202b[ظقذتز كلم]\u202c",
+      "steady": "\u202b[غفجاثن كلما]\u202c",
+      "under": "\u202b[قصثجع {{threshold}} كلما]\u202c",
+      "seconds": "\u202b[{{value}} غجت كلم]\u202c",
+      "minutes": "\u202b[{{value}} شذص كلم]\u202c"
+    },
+    "dailyCombo": {
+      "title": "\u202b[ثاذسن تضشبض كلمات]\u202c",
+      "body": "\u202b[غضسكج شضعج طقههسجغ ضص فدج غاشج ثان فض شقسفذطسن جاتد طقههسج'غ طضذصفغ, قط فض <max>{{max}}×</max>. كلمات إضافية للاختبار كلمات إضاف]\u202c",
+      "puzzle": "\u202b[طقههسج {{puzzle}} ضح فدج ثان كلمات إضا]\u202c",
+      "puzzleOrMore": "\u202b[طقههسج {{puzzle}}+ ضح فدج ثان كلمات إضا]\u202c"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "\u202b[عقص تضشطسجفج كلمات]\u202c",
+    "raceProgress": "\u202b[عاتج طعضخعجغغ كلمات إ]\u202c",
+    "stagesProgress": "\u202b[{{completed}}/{{total}} غفاخجغ كلمات]\u202c",
+    "retryStage": "\u202b[عجفعن غفاخج كلمات]\u202c",
+    "stageLabel": "\u202b[غفاخج {{number}} كلما]\u202c",
+    "stageCompletedLabel": "\u202b[غفاخج {{number}}, تضشطسجفجث ذص {{time}} كلمات إضاف]\u202c",
+    "viewRacingStats": "\u202b[كذجل عاتذصخ غفافغ كلمات إض]\u202c",
+    "total": "\u202b[فضفاس كلم]\u202c"
+  },
+  "raceTrack": {
+    "you": "\u202b[نضق كلم]\u202c",
+    "viewFriends": "\u202b[تسذتز فض كذجل حعذجصثغ كلمات إضاف]\u202c",
+    "start": "\u202b[غفاعف كلم]\u202c",
+    "finish": "\u202b[حذصذغد كلما]\u202c",
+    "inviteToRace": "\u202b[ذصكذفج حعذجصثغ فض عاتج كلمات إضاف]\u202c",
+    "opponents": "\u202b[ضططضصجصفغ كلمات]\u202c",
+    "racer": "\u202b[عاتجع كلم]\u202c",
+    "stageBadge": "\u202b[غ{{number}} كل]\u202c",
+    "total": "\u202b[فضفاس كلم]\u202c",
+    "leaderboard": "\u202b[سجاثجعبضاعث كلمات]\u202c",
+    "puzzleBook": "\u202b[طقههسج بضضز كلمات]\u202c",
+    "puzzleBookLabel": "\u202b[طقههسج بضضز كلمات]\u202c",
+    "refreshScores": "\u202b[عجحعجغد غتضعجغ كلمات إ]\u202c",
+    "challengeFriends": "🏁 \u202b[تداسسجصخج حعذجصثغ كلمات إض]\u202c",
+    "yourTime": "\u202b[نضقع فذشج: كلمات]\u202c",
+    "inviteFriends": "\u202b[ذصكذفج حعذجصثغ كلمات إ]\u202c",
+    "racingLabel": "\u202b[عاتذصخ كلما]\u202c"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "\u202b[فعذتزن كلما]\u202c",
+      "easy": "\u202b[تداسسجصخذصخ كلمات]\u202c",
+      "intermediate": "\u202b[داعث كلم]\u202c",
+      "expert": "\u202b[جمطجعف كلما]\u202c"
+    },
+    "book": {
+      "veryEasy": "\u202b[كجعن جاغن كلمات]\u202c",
+      "easy": "\u202b[جاغن كلم]\u202c",
+      "moderatelyEasy": "\u202b[شضثجعافجسن جاغن كلمات إ]\u202c",
+      "moderate": "\u202b[شضثجعافج كلمات]\u202c",
+      "moderatelyHard": "\u202b[شضثجعافجسن داعث كلمات إ]\u202c",
+      "hard": "\u202b[داعث كلم]\u202c",
+      "vicious": "\u202b[كذتذضقغ كلما]\u202c",
+      "fiendish": "\u202b[حذجصثذغد كلمات]\u202c",
+      "devilish": "\u202b[ثجكذسذغد كلمات]\u202c",
+      "hell": "\u202b[دجسس كلم]\u202c",
+      "beyondHell": "\u202b[بجنضصث دجسس كلمات]\u202c"
+    }
+  },
+  "techniques": {
+    "lastDigit": "\u202b[ساغف ثذخذف كلمات]\u202c",
+    "hiddenSingleBox": "\u202b[دذثثجص غذصخسج (بضم) كلمات إضا]\u202c",
+    "hiddenSingleLine": "\u202b[دذثثجص غذصخسج (سذصج) كلمات إضا]\u202c",
+    "hiddenSingleVariantRegion": "\u202b[دذثثجص غذصخسج (كاعذاصف عجخذضص) كلمات إضافية]\u202c",
+    "nakedSingle": "\u202b[صازجث غذصخسج كلمات]\u202c",
+    "hiddenPair": "\u202b[دذثثجص طاذع كلمات]\u202c",
+    "lockedCandidate": "\u202b[سضتزجث تاصثذثافج كلمات إض]\u202c",
+    "hiddenTriple": "\u202b[دذثثجص فعذطسج كلمات إ]\u202c",
+    "hiddenQuadruple": "\u202b[دذثثجص ظقاثعقطسج كلمات إض]\u202c",
+    "nakedPair": "\u202b[صازجث طاذع كلمات]\u202c",
+    "nakedTriple": "\u202b[صازجث فعذطسج كلمات]\u202c",
+    "nakedQuadruple": "\u202b[صازجث ظقاثعقطسج كلمات إ]\u202c",
+    "xWing": "\u202b[م-لذصخ كلما]\u202c",
+    "swordfish": "\u202b[غلضعثحذغد كلمات]\u202c",
+    "skyscraper": "\u202b[غزنغتعاطجع كلمات]\u202c",
+    "twoStringKite": "\u202b[فلض-غفعذصخ-زذفج كلمات إ]\u202c",
+    "crane": "\u202b[تعاصج كلم]\u202c",
+    "simpleColoring": "\u202b[غذشطسج تضسضعذصخ كلمات إ]\u202c",
+    "yWing": "\u202b[ن-لذصخ كلما]\u202c",
+    "xYZWing": "\u202b[منه-لذصخ كلمات]\u202c",
+    "wWing": "\u202b[ل-لذصخ كلما]\u202c",
+    "finnedSashimiXWing": "\u202b[حذصصجث/غاغدذشذ م-لذصخ كلمات إضاف]\u202c",
+    "emptyRectangle": "\u202b[جشطفن عجتفاصخسج كلمات إ]\u202c",
+    "uniqueRectangleType1": "\u202b[قصذظقج عجتفاصخسج فنطج 1 كلمات إضافي]\u202c",
+    "uniqueRectangleType2": "\u202b[قصذظقج عجتفاصخسج فنطج 2 كلمات إضافي]\u202c",
+    "uniqueRectangleType3": "\u202b[قصذظقج عجتفاصخسج فنطج 3 كلمات إضافي]\u202c",
+    "uniqueRectangleType4": "\u202b[قصذظقج عجتفاصخسج فنطج 4 كلمات إضافي]\u202c",
+    "uniqueRectangleType5": "\u202b[قصذظقج عجتفاصخسج فنطج 5 كلمات إضافي]\u202c",
+    "finnedSashimiSwordfish": "\u202b[حذصصجث/غاغدذشذ غلضعثحذغد كلمات إضافي]\u202c",
+    "jellyfish": "\u202b[رجسسنحذغد كلمات]\u202c",
+    "bugBinaryUniversalGrave": "\u202b[بقخ (بذصاعن قصذكجعغاس خعاكج) كلمات إضافية]\u202c",
+    "xChain": "\u202b[م-تداذص كلما]\u202c",
+    "groupedXChain": "\u202b[خعضقطجث م-تداذص كلمات إ]\u202c",
+    "YWing4WXYZWing": "\u202b[4-ن-لذصخ (لمنه-لذصخ) كلمات إضا]\u202c",
+    "yWing5": "\u202b[5-ن-لذصخ كلمات]\u202c",
+    "yWing6": "\u202b[6-ن-لذصخ كلمات]\u202c",
+    "yWing7": "\u202b[7-ن-لذصخ كلمات]\u202c",
+    "yWing8": "\u202b[8-ن-لذصخ كلمات]\u202c",
+    "yWing9": "\u202b[9-ن-لذصخ كلمات]\u202c",
+    "finnedSashimiJellyfish": "\u202b[حذصصجث/غاغدذشذ رجسسنحذغد كلمات إضافي]\u202c",
+    "medusa3D": "\u202b[3ث شجثقغا كلمات]\u202c",
+    "xyChain": "\u202b[من-تداذص كلمات]\u202c",
+    "alternatingInferenceChainAIC": "\u202b[اسفجعصافذصخ ذصحجعجصتج تداذص (اذت) كلمات إضافية لل]\u202c",
+    "groupedAlternatingInferenceChainAIC": "\u202b[خعضقطجث اسفجعصافذصخ ذصحجعجصتج تداذص (اذت) كلمات إضافية للاخت]\u202c",
+    "nishioForcingChain": "\u202b[صذغدذض حضعتذصخ تداذص كلمات إضا]\u202c",
+    "nishioForcingNet": "\u202b[صذغدذض حضعتذصخ صجف كلمات إضا]\u202c"
+  }
+}

@@ -1,5 +1,8 @@
+import { getI18n } from 'react-i18next';
 import { nextPuzzleProgressLabel } from './nextPuzzleProgressLabel';
 import { getDifficultyDisplay } from './getDifficultyDisplay';
+
+const t = getI18n().getFixedT('en', 'games');
 
 interface FakePuzzle {
   initial: string;
@@ -21,9 +24,10 @@ const label = (args: {
   nextPuzzleProgressLabel({
     ...args,
     streakMessage: 'Keep the streak going in the collection',
+    t,
     getDifficulty: (puzzle) => puzzle.difficulty,
     getDifficultyDisplay: (difficulty) => {
-      const { name, badgeColor } = getDifficultyDisplay(difficulty);
+      const { name, badgeColor } = getDifficultyDisplay(difficulty, t);
       return { label: name, chipClass: badgeColor };
     },
   });

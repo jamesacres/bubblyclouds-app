@@ -1,4 +1,5 @@
 import { DifficultyDisplay } from '@bubblyclouds-app/games/types/difficultyDisplay';
+import { Translate } from '@bubblyclouds-app/games/types/i18n';
 import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficultyDisplay';
 
 // Emoji-free difficulty presentation for the shared multi-stage components
@@ -8,8 +9,9 @@ import { getDifficultyDisplay } from '@bubblyclouds-app/games/helpers/getDifficu
 // the {label, chipClass} shape those components expect, mirroring Unblock
 // Race's own unblockDifficultyDisplay.
 export const sudokuDifficultyDisplay = (
-  difficulty: string
+  difficulty: string,
+  t: Translate
 ): DifficultyDisplay => {
-  const { name, badgeColor } = getDifficultyDisplay(difficulty);
+  const { name, badgeColor } = getDifficultyDisplay(difficulty, t);
   return { label: name, chipClass: badgeColor };
 };

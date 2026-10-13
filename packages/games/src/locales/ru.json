@@ -1,0 +1,274 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Сборник",
+    "defaultDetailNoun": "сборники головоломок"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Ежемесячный сборник"
+  },
+  "hintBox": {
+    "dismiss": "Скрыть подсказку"
+  },
+  "lobbyButton": {
+    "opponents": "Соперники"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Далее: следующая головоломка",
+    "continueLocked": "Далее ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}: {{completed}} из {{total}} завершено"
+  },
+  "countdownOverlay": {
+    "getReady": "Приготовьтесь",
+    "go": "СТАРТ!"
+  },
+  "confirmDialog": {
+    "cancel": "Отмена"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · завершено",
+    "retry": "Повторить",
+    "points": "+{{points}} очк.",
+    "leaderboardPoints": "Очки в таблице лидеров"
+  },
+  "raceTimer": {
+    "time": "Время"
+  },
+  "stageTopBar": {
+    "previous": "Назад"
+  },
+  "raceHud": {
+    "opponents": "Соперники",
+    "stageOf": "Этап {{current}} из {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Финиш!",
+    "runComplete": "Заезд завершён",
+    "leaderboardPoints": "Очки в таблице лидеров",
+    "pointsSuffix": " очк."
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Вс",
+      "monday": "Пн",
+      "tuesday": "Вт",
+      "wednesday": "Ср",
+      "thursday": "Чт",
+      "friday": "Пт",
+      "saturday": "Сб"
+    },
+    "dayStreak_one": "день подряд",
+    "dayStreak_few": "дня подряд",
+    "dayStreak_many": "дней подряд",
+    "dayStreak_other": "дня подряд",
+    "thisMonth": "в этом месяце"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Вы)",
+    "puzzles_one": "{{count}} головоломка",
+    "puzzles_few": "{{count}} головоломки",
+    "puzzles_many": "{{count}} головоломок",
+    "puzzles_other": "{{count}} головоломки",
+    "average": "Средн.: {{time}}",
+    "best": "Лучшее: {{time}}",
+    "wins_one": "🏁 {{count}} победа",
+    "wins_few": "🏁 {{count}} победы",
+    "wins_many": "🏁 {{count}} побед",
+    "wins_other": "🏁 {{count}} победы",
+    "points_one": "очко",
+    "points_few": "очка",
+    "points_many": "очков",
+    "points_other": "очка"
+  },
+  "scoreBreakdown": {
+    "title": "Расчёт очков",
+    "volumeBonus": {
+      "label": "Бонус за объём",
+      "detail_one": "{{count}} головоломка решена",
+      "detail_few": "{{count}} головоломки решены",
+      "detail_many": "{{count}} головоломок решено",
+      "detail_other": "{{count}} головоломки решено"
+    },
+    "dailyPuzzles": {
+      "label": "Ежедневные головоломки",
+      "detail_one": "{{count}} ежедневное задание",
+      "detail_few": "{{count}} ежедневных задания",
+      "detail_many": "{{count}} ежедневных заданий",
+      "detail_other": "{{count}} ежедневного задания"
+    },
+    "collectionPuzzles": {
+      "label": "Головоломки: {{collection}}",
+      "detail": "{{count}} из раздела «{{collection}}»"
+    },
+    "scannedPuzzles": {
+      "label": "Отсканированные головоломки",
+      "detail_one": "{{count}} импортированная головоломка",
+      "detail_few": "{{count}} импортированные головоломки",
+      "detail_many": "{{count}} импортированных головоломок",
+      "detail_other": "{{count}} импортированной головоломки"
+    },
+    "difficultyBonus": {
+      "label": "Бонус за сложность",
+      "detail": "Сложнее головоломка — больше очков"
+    },
+    "speedBonus": {
+      "label": "Бонус за скорость",
+      "detail": "Быстрее всех: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Бонус за гонку",
+      "detail": "Вы опередили друзей, тоже решивших головоломку"
+    },
+    "dailyCombo": {
+      "label": "Дневное комбо",
+      "detail": "Больше головоломок за день — выше множитель"
+    }
+  },
+  "leaderboard": {
+    "you": "Вы",
+    "unknownUser": "Неизвестный пользователь",
+    "title": "Таблица лидеров",
+    "subtitleParty": "Последние 30 дней · {{partyName}}",
+    "subtitleAllTeams": "Последние 30 дней · Все команды",
+    "howScoringWorks": "Как начисляются очки"
+  },
+  "scoringLegend": {
+    "title": "Как начисляются очки",
+    "subtitle": "{{gameName}} · Последние 30 дней",
+    "close": "Закрыть",
+    "racingWins": {
+      "title": "Победы в гонках",
+      "body": "Получайте <points>+{{points}} очк.</points> за каждого друга, которого вы опередили в одной и той же решённой головоломке. Финишируйте первым среди {{friends}} друзей и получите <points>+{{total}} очк.</points>"
+    },
+    "basePoints": {
+      "title": "Базовые очки",
+      "anyPuzzle": "Любая головоломка",
+      "dailyPuzzle": "Ежедневная головоломка",
+      "collectionPuzzle": "Головоломка: {{collection}}",
+      "scannedPuzzle": "Отсканированная головоломка"
+    },
+    "difficultyMultipliers": {
+      "title": "Множители сложности",
+      "daily": "Ежедневно: {{gameName}}",
+      "collection": "Головоломки: {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Бонусы за скорость",
+      "lightning": "Молния",
+      "fast": "Быстро",
+      "quick": "Шустро",
+      "steady": "Стабильно",
+      "under": "менее {{threshold}}",
+      "seconds": "{{value}} с",
+      "minutes": "{{value}} мин"
+    },
+    "dailyCombo": {
+      "title": "Дневное комбо",
+      "body": "Решайте больше головоломок в один день, чтобы умножить очки за каждую, до <max>{{max}}×</max>.",
+      "puzzle": "Головоломка дня №{{puzzle}}",
+      "puzzleOrMore": "Головоломка дня №{{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Заезд завершён",
+    "raceProgress": "Ход гонки",
+    "stagesProgress": "{{completed}}/{{total}} этапов",
+    "retryStage": "Повторить этап",
+    "stageLabel": "Этап {{number}}",
+    "stageCompletedLabel": "Этап {{number}}, пройден за {{time}}",
+    "viewRacingStats": "Статистика гонок",
+    "total": "Итого"
+  },
+  "raceTrack": {
+    "you": "Вы",
+    "viewFriends": "Нажмите, чтобы увидеть друзей",
+    "start": "Старт",
+    "finish": "Финиш",
+    "inviteToRace": "Пригласить друзей на гонку",
+    "opponents": "Соперники",
+    "racer": "Гонщик",
+    "stageBadge": "Э{{number}}",
+    "total": "Итого",
+    "leaderboard": "Таблица лидеров",
+    "puzzleBook": "Сборник головоломок",
+    "puzzleBookLabel": "сборник головоломок",
+    "refreshScores": "Обновить результаты",
+    "challengeFriends": "🏁 Бросить вызов друзьям",
+    "yourTime": "Ваше время:",
+    "inviteFriends": "Пригласить друзей",
+    "racingLabel": "гонка"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Хитрая",
+      "easy": "Непростая",
+      "intermediate": "Трудная",
+      "expert": "Эксперт"
+    },
+    "book": {
+      "veryEasy": "Очень легко",
+      "easy": "Легко",
+      "moderatelyEasy": "Довольно легко",
+      "moderate": "Средне",
+      "moderatelyHard": "Довольно трудно",
+      "hard": "Трудно",
+      "vicious": "Жестоко",
+      "fiendish": "Коварно",
+      "devilish": "Дьявольски",
+      "hell": "Ад",
+      "beyondHell": "За гранью ада"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Последняя цифра",
+    "hiddenSingleBox": "Скрытый одиночка (блок)",
+    "hiddenSingleLine": "Скрытый одиночка (линия)",
+    "hiddenSingleVariantRegion": "Скрытый одиночка (особая область)",
+    "nakedSingle": "Голый одиночка",
+    "hiddenPair": "Скрытая пара",
+    "lockedCandidate": "Заблокированные кандидаты",
+    "hiddenTriple": "Скрытая тройка",
+    "hiddenQuadruple": "Скрытая четвёрка",
+    "nakedPair": "Голая пара",
+    "nakedTriple": "Голая тройка",
+    "nakedQuadruple": "Голая четвёрка",
+    "xWing": "X-Wing",
+    "swordfish": "Рыба-меч",
+    "skyscraper": "Небоскрёб",
+    "twoStringKite": "Воздушный змей",
+    "crane": "Журавль",
+    "simpleColoring": "Простая раскраска",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing с плавником/сашими",
+    "emptyRectangle": "Пустой прямоугольник",
+    "uniqueRectangleType1": "Уникальный прямоугольник, тип 1",
+    "uniqueRectangleType2": "Уникальный прямоугольник, тип 2",
+    "uniqueRectangleType3": "Уникальный прямоугольник, тип 3",
+    "uniqueRectangleType4": "Уникальный прямоугольник, тип 4",
+    "uniqueRectangleType5": "Уникальный прямоугольник, тип 5",
+    "finnedSashimiSwordfish": "Рыба-меч с плавником/сашими",
+    "jellyfish": "Медуза",
+    "bugBinaryUniversalGrave": "BUG (бинарная универсальная могила)",
+    "xChain": "X-цепочка",
+    "groupedXChain": "Групповая X-цепочка",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Медуза с плавником/сашими",
+    "medusa3D": "3D-Медуза",
+    "xyChain": "XY-цепочка",
+    "alternatingInferenceChainAIC": "Цепочка чередующихся выводов (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Групповая цепочка чередующихся выводов (AIC)",
+    "nishioForcingChain": "Принуждающая цепочка Нишио",
+    "nishioForcingNet": "Принуждающая сеть Нишио"
+  }
+}

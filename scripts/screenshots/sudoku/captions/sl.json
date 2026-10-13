@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Spremljaj vsako dirko",
+    "subtitle": "Oglej si zgodovino, deleže dokončanja in primerjavo s prijatelji"
+  },
+  "01": {
+    "title": "Dirkaj in se uči hkrati",
+    "subtitle": "Pomoč, ko obtičiš,\npolna razlaga tehnike"
+  },
+  "02": {
+    "title": "Knjiga ugank",
+    "subtitle": "Vsak mesec izide izbrana knjiga ugank, osredotočenih na tehnike"
+  },
+  "03": {
+    "title": "Uvozi poljubno uganko in deli",
+    "subtitle": "Skeniraj sudoku iz knjige in izzovi prijatelje"
+  },
+  "04": {
+    "title": "Sudoku je postal tekmovalen",
+    "subtitle": "Izzovi prijatelje in družino na dirko v živo — poglej, kdo ga reši najhitreje"
+  },
+  "05": {
+    "title": "Z drugimi, z UI ali sam",
+    "subtitle": "Deli povezavo s prijatelji in družino,\ndodaj nasprotnike z UI ali tekmuj proti uri"
+  },
+  "06": {
+    "title": "Povzpni se na lestvici",
+    "subtitle": "Vsaka dirka prinese točke — spremljaj, kdo vodi zadnjih 30 dni"
+  },
+  "07": {
+    "title": "Spoznaj svoje tekmece",
+    "subtitle": "Izberi med edinstvenimi nasprotniki z UI — vsak ima svojo osebnost in slog igre"
+  },
+  "08": {
+    "title": "Tvoje zasebne ekipe",
+    "subtitle": "Povabi družino in prijatelje, dirkajte skupaj in zgradite svojo lestvico"
+  },
+  "09": {
+    "title": "Ena povezava. Vsi zraven.",
+    "subtitle": "Deli povabilo in prijatelji se dirki pridružijo v nekaj sekundah"
+  }
+}

@@ -682,3 +682,9 @@ function RacingMode({ partyMembers }) {
 ## Version
 
 Current version: 0.1.0
+
+## Localisation
+
+User-facing strings live in `src/locales/en.json` (namespace `sudoku`, exported as
+`@bubblyclouds-app/sudoku/locales/en`) and are read with
+`useTranslation('sudoku')`. See Internationalisation in `ARCHITECTURE.md`.

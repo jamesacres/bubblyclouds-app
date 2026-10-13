@@ -14,7 +14,7 @@ export function SectionHead({
   return (
     <div className="mb-3 flex items-center gap-2.5">
       {Icon && <Icon size={17} color="var(--theme-primary-light)" />}
-      <h2 className="m-0 text-base font-bold tracking-tight text-white">
+      <h2 className="m-0 min-w-0 break-words text-base font-bold tracking-tight text-white">
         {title}
       </h2>
       {count != null && (

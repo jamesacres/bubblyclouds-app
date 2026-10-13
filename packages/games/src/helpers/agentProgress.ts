@@ -1,5 +1,5 @@
 import { AgentProgress } from '@bubblyclouds-app/types/agentTypes';
-import { LocalAgent } from '../types/Agent';
+import { AgentDisplayResolver, LocalAgent } from '../types/Agent';
 
 export function getAgentCurrentState<Extra, State>(
   agent: LocalAgent<Extra, State>,
@@ -40,7 +40,8 @@ export function getAllAgentProgress<Extra, State>(
   agents: LocalAgent<Extra, State>[],
   startTimeMs: number | null,
   buildPristineState: (firstState: State) => State,
-  calculateCompletionPercentageFromState: (state: State) => number
+  calculateCompletionPercentageFromState: (state: State) => number,
+  resolveAgentName: AgentDisplayResolver
 ): AgentProgress<State>[] {
   const elapsedTime = startTimeMs === null ? -1 : Date.now() - startTimeMs;
 
@@ -55,7 +56,8 @@ export function getAllAgentProgress<Extra, State>(
         : undefined;
     return {
       agentId: agent.id,
-      name: agent.name,
+      configId: agent.configId,
+      name: resolveAgentName({ id: agent.configId, name: agent.name }),
       emoji: agent.emoji,
       percentage,
       finishTime,

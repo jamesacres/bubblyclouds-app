@@ -1,0 +1,294 @@
+{
+  "brand": {
+    "appName": "Cursa Lliure",
+    "gameName": "Cursa Lliure",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusProduct": "$t(brand.gameName) Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "Jugueu i compartiu per competir amb amics a desbloquejar el puzle. Reptes diaris i multidispositiu!"
+  },
+  "home": {
+    "tabs": {
+      "startRace": "Nova cursa",
+      "myPuzzles": "Els meus puzles",
+      "racingTeams": "Equips de curses"
+    },
+    "hero": {
+      "live": "En viu",
+      "headlineLine1": "Desfeu l'embús.",
+      "headlineAccent": "Guanyeu la cursa",
+      "subtitle": "Llisqueu els blocs, allibereu el bloc brillant i competiu amb els amics fins a la sortida."
+    },
+    "leaderboard": "Classificació",
+    "dailyRace": {
+      "title": "Cursa diària",
+      "refreshesDaily": "s'actualitza cada dia",
+      "todaysRace": "La cursa d'avui",
+      "difficultyRange": "Principiant → Expert",
+      "description": "Cinc taulers, un sol cronòmetre: guanya qui s'escapa primer.",
+      "stages": "5 etapes",
+      "start": "Comenceu a competir",
+      "morePuzzlesPrefix": "Més puzles a la",
+      "puzzleCollection": "col·lecció de puzles"
+    },
+    "collection": {
+      "eyebrow": "{{month}} · 50 puzles",
+      "title": "Col·lecció mensual",
+      "description": "50 embussos nous per a {{month}}: desfeu-los tots abans que acabi el mes.",
+      "browse": "Exploreu els puzles"
+    },
+    "teams": {
+      "eyebrow": "Multijugador",
+      "title": "Equips de curses",
+      "raceFriends": "Competiu amb {{names}} i més",
+      "challengeFriends": "Repteu amics a una cursa"
+    },
+    "premium": {
+      "title": "Funcions premium",
+      "subtitle": "Desbloquegeu tota l'experiència: $t(brand.gameName)"
+    }
+  },
+  "crossPromo": {
+    "gameName": "Cursa Sudoku",
+    "tagline": "Compartiu un sudoku amb amics i competiu per resoldre'l com més de pressa millor."
+  },
+  "puzzle": {
+    "mobileDescription": "Gaudiu de la millor experiència amb la nostra aplicació {{appName}}!",
+    "desktopDescription": "Descarregueu {{appName}}",
+    "openInAppLabel": "Obriu el puzle"
+  },
+  "collection": {
+    "loading": {
+      "both": "Carregant la col·lecció de puzles...",
+      "collection": "Carregant puzles...",
+      "sessions": "Carregant el vostre progrés..."
+    },
+    "retry": "Torneu-ho a provar",
+    "backHome": "Torneu a l'inici",
+    "signInPrompt": "Inicieu la sessió per accedir a la col·lecció de puzles.",
+    "signIn": "Inicieu la sessió",
+    "noData": "No hi ha dades de la col·lecció de puzles disponibles.",
+    "title": "Col·lecció de puzles · {{month}}",
+    "completed": "completats",
+    "inProgress": "en curs",
+    "unlockWithPlus": "Desbloquegeu tots els puzles amb Plus",
+    "jumpToDifficulty": "Aneu a la dificultat",
+    "scrollToTop": "Torneu amunt",
+    "subtitle_one": "{{count}} puzle, des d'escapades ràpides fins a embussos experts",
+    "subtitle_many": "{{count}} de puzles, des d'escapades ràpides fins a embussos experts",
+    "subtitle_other": "{{count}} puzles, des d'escapades ràpides fins a embussos experts"
+  },
+  "invite": {
+    "loading": "Carregant la invitació...",
+    "iconAlt": "Icona de {{appName}}",
+    "greeting": "👋 Hola, {{name}}!",
+    "invited": "Esteu convidats!",
+    "joinTeam": "Uniu-vos a l'equip de curses",
+    "tagline": "Competiu per desbloquejar puzles junts i veieu el progrés de cadascú en temps real!",
+    "proTipLabel": "Consell:",
+    "proTip": "Tots els puzles que jugueu a partir d'ara es compartiran amb els membres del vostre equip per a una competició amistosa!",
+    "nicknameLabel": "Com us anomena el vostre equip de curses?",
+    "nicknamePlaceholder": "Introduïu el vostre sobrenom",
+    "joining": "Unint-vos a l'equip...",
+    "join": "Uniu-vos a la diversió! 🎉",
+    "signIn": "Inicieu la sessió per continuar",
+    "bonus": "🎉 Bonus: {{plusName}} — {{duration}}!",
+    "bonusDescription": "En unir-vos a aquest equip de curses, desbloquejareu funcions premium totalment gratis!",
+    "activation": "💡 El vostre accés premium s'activarà automàticament en unir-vos",
+    "duration": {
+      "oneMonth": "un mes",
+      "oneYear": "un any",
+      "lifetime": "per a tota la vida",
+      "premium": "premium"
+    },
+    "expired": {
+      "title": "Invitació caducada",
+      "description": "Aquest enllaç d'invitació ja no és vàlid. Demaneu al vostre amic una invitació nova o augmenteu la mida de l'equip."
+    },
+    "greetingAnonymous": "👋 Hola!"
+  },
+  "credits": {
+    "title": "Crèdits i atribucions",
+    "intro": "Aquesta aplicació es basa en diversos projectes excel·lents",
+    "copyright": "Copyright (c) 2026 James Acres ($t(brand.companyName))",
+    "licenseNotice": "Aquesta aplicació té llicència MIT. Consulteu <licenseLink>LICENSE</licenseLink> i <creditsLink>CREDITS</creditsLink> per a més detalls.",
+    "items": {
+      "rush": "Resolutor de puzles Rush Hour i base de dades de puzles de Michael Fogleman, compilats a WebAssembly",
+      "nextjs": "Framework de React per a producció",
+      "typescript": "Superconjunt tipat de JavaScript",
+      "tailwind": "Framework CSS basat en utilitats",
+      "capacitor": "Entorn d'execució d'aplicacions mòbils natives",
+      "electron": "Framework d'aplicacions d'escriptori",
+      "revenuecat": "Gestió de subscripcions",
+      "react": "Biblioteca de components d'interfície",
+      "turborepo": "Sistema de compilació de monorepositoris"
+    }
+  },
+  "notFound": {
+    "title": "Pàgina no trobada"
+  },
+  "login": {
+    "context": {
+      "dailyPuzzle": "Inicieu la sessió per començar el puzle d'avui",
+      "collection": "Inicieu la sessió per consultar la col·lecció",
+      "joinTeam": "Inicieu la sessió per unir-vos a l'equip",
+      "raceLobby": "Inicieu la sessió per competir amb altres",
+      "puzzleEntry": "Inicieu la sessió per jugar"
+    },
+    "valueProps": {
+      "saveProgress": "Deseu el vostre progrés",
+      "raceFriends": "Competiu amb amics",
+      "trackStats": "Seguiu les vostres estadístiques"
+    }
+  },
+  "subscription": {
+    "hint": {
+      "title": "Avui heu utilitzat {{limit}} pistes gratuïtes.",
+      "body": "Plus us dona pistes il·limitades —no us tornareu a encallar— i manté tota l'aplicació sense anuncis."
+    },
+    "undo": {
+      "title": "Heu arribat al límit diari de desfer!",
+      "body": "Teniu {{limit}} accions de desfer gratuïtes al dia. El límit es reinicia demà, o subscriviu-vos per tenir desfer il·limitat."
+    },
+    "collectionLocked": {
+      "title": "Aquest puzle forma part de la col·lecció Plus.",
+      "body": "Plus desbloqueja tots els puzles del paquet de cada mes i manté tota l'aplicació sense anuncis."
+    },
+    "themeColor": {
+      "title": "Aquest tema és exclusiu de Plus.",
+      "body": "Passeu-hi per desbloquejar tots els bonics colors de tema i personalitzar la vostra experiència de joc."
+    },
+    "removeMember": {
+      "title": "Eliminar membres de l'equip és una funció premium!",
+      "body": "Subscriviu-vos per desbloquejar funcions avançades de gestió d'equip, com ara eliminar membres."
+    },
+    "multipleParties": {
+      "title": "Tenir diversos equips de curses és una funció premium!",
+      "body": "Els usuaris gratuïts poden tenir un equip. Subscriviu-vos per crear i unir-vos a equips il·limitats per a la família, els amics i més."
+    },
+    "partyMaxSize": {
+      "title": "Els grups grans són una funció premium!",
+      "body": "Subscriviu-vos per desbloquejar funcions avançades de gestió d'equip, com ara els grups grans."
+    }
+  },
+  "premiumFeatures": {
+    "adFree": {
+      "title": "Sempre sense anuncis",
+      "description": "Mai cap anunci: només vosaltres i els puzles"
+    },
+    "hints": {
+      "title": "Pistes il·limitades",
+      "description": "No us encalleu mai: obteniu una pista sempre que la necessiteu"
+    },
+    "monthlyPack": {
+      "title": "Tot el paquet mensual desbloquejat, cada mes",
+      "description": "Jugueu tots els puzles de totes les dificultats, sense bloquejos"
+    },
+    "undos": {
+      "title": "Desfer il·limitat",
+      "description": "Rebobineu tants moviments com vulgueu"
+    },
+    "teams": {
+      "title": "Diversos equips de curses",
+      "description": "Organitzeu competicions privades amb amics i família"
+    },
+    "management": {
+      "title": "Gestió d'equips",
+      "description": "Creeu grups grans de fins a 15 persones i elimineu membres del vostre equip."
+    },
+    "themes": {
+      "title": "Tots els temes desbloquejats",
+      "description": "Personalitzeu la vostra experiència de cursa"
+    }
+  },
+  "plusModal": {
+    "description": "Passeu a <badge>{{plusName}}</badge> per tenir <strong>pistes il·limitades</strong>, <strong>tot el paquet mensual desbloquejat</strong> i <strong>desfer il·limitat</strong>. Repteu amics, pugeu a les classificacions i jugueu sense anuncis."
+  },
+  "leaderboard": {
+    "collectionLabel": "Col·lecció",
+    "collectionDetailNoun": "col·leccions"
+  },
+  "motivational": {
+    "messages": [
+      "Els vostres amics esperen un repte",
+      "Contra qui competireu avui?",
+      "Hora de mostrar la vostra velocitat",
+      "Repte acceptat?",
+      "A la cursa cap a la meta",
+      "Qui és el resolutor més ràpid?",
+      "Preparats per dominar la classificació?",
+      "Les vostres habilitats de cursa us esperen",
+      "Hora de deixar-los enrere",
+      "Preparats per creuar la meta primers?",
+      "El circuit us està esperant",
+      "Hora de canviar a una marxa més alta",
+      "Preparats per cremar goma a la graella?",
+      "Els vostres rivals ja s'estan escalfant",
+      "Avui és el dia d'establir un nou rècord",
+      "El vostre millor temps espera ser superat",
+      "Cada puzle us fa més ràpids",
+      "La ratxa comença ara",
+      "Hora de pujar de nivell",
+      "El vostre proper gran avenç és a un puzle de distància",
+      "Preparats per sorprendre-us a vosaltres mateixos?",
+      "Mostreu-los de què sou capaços",
+      "Hora de desbloquejar el vostre potencial",
+      "La vostra resolució més ràpida encara és per arribar",
+      "Preparats per fer que avui valgui la pena?",
+      "Cada segon compta a la cursa",
+      "Hora de superar els vostres límits",
+      "El vostre camí de millora continua",
+      "Preparats per superar les expectatives?",
+      "Creieu que podeu suportar la pressió?",
+      "Hora de fer callar els escèptics",
+      "Preparats per reclamar la victòria?",
+      "La vostra competència no ho veurà venir",
+      "Hora de deixar la vostra empremta",
+      "Preparats per robar el protagonisme?",
+      "La victòria és més dolça quan es guanya",
+      "Hora de demostrar qui mana",
+      "Preparats per mostrar el vostre vertader color?",
+      "La mentalitat de campió comença aquí",
+      "Hora de diferenciar-vos del grup",
+      "Preparats per escriure la vostra llegenda?",
+      "Els campions es fan en moments com aquest",
+      "Hora de convertir el potencial en rendiment",
+      "Puzles nous, oportunitats noves",
+      "El repte d'avui espera el vostre domini",
+      "Preparats per fer d'avui el vostre millor dia?",
+      "Un dia nou significa rècords nous per batre",
+      "Hora d'afegir una victòria més a la vostra col·lecció",
+      "Preparats per començar amb força i acabar amb més força?",
+      "Preparats per fer d'avui un dia llegendari?",
+      "La vostra dosi diària de triomf us espera",
+      "L'estratègia es troba amb la velocitat a la graella",
+      "Preparats per pensar i córrer més que ningú?",
+      "El vostre domini dels puzles us crida",
+      "Hora de combinar la lògica amb la velocitat del llamp",
+      "Preparats per resoldre amb precisió quirúrgica?",
+      "La combinació perfecta: habilitat i velocitat",
+      "El vostre avantatge analític és el vostre avantatge a la cursa",
+      "Hora de demostrar la supremacia en puzles",
+      "Preparats per resoldre com un campió?",
+      "La cursa de precisió comença amb un pensament clar",
+      "Els vostres amics esperen la revenja",
+      "Qui resol avui?",
+      "Un nou puzle diari ja és aquí",
+      "La vostra ratxa està en joc",
+      "Puzles nous, un nou començament",
+      "El repte d'avui ja és aquí",
+      "Competiu amb un amic al diari",
+      "Dia nou, puzles nous",
+      "Algú ja és a la classificació",
+      "Mantingueu viva la ratxa",
+      "Els reptes diaris s'acaben d'actualitzar",
+      "El vostre equip us espera",
+      "Un puzle més a prop del capdamunt",
+      "Els puzles d'avui us esperen",
+      "Torneu-hi i competiu"
+    ]
+  }
+}

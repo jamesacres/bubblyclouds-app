@@ -1,0 +1,356 @@
+{
+  "brand": {
+    "gameName": "Sudokukisa"
+  },
+  "board": {
+    "buttonGroup": "Painikeryhmä"
+  },
+  "celebration": {
+    "solved": "Ratkaistu!",
+    "leaderboardPoints": "Tulostaulukon pisteet",
+    "pointsSuffix": " p"
+  },
+  "completion": {
+    "time": "Aika"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Pidä putki yllä kirjassa"
+  },
+  "puzzleMeta": {
+    "daily": "Päivittäinen {{month}} {{day}}",
+    "dayOrdinal": "{{count}}.",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "book": "Kirja {{month}} #{{number}}",
+    "scanned": "Skannattu pulma"
+  },
+  "bookCover": {
+    "edition": "Painos: {{month}}",
+    "puzzleCount": "50 pulmaa • Useita vaikeustasoja",
+    "months": {
+      "january": {
+        "tagline": "Perusteista äärimmäisen vaikeisiin tekniikoihin",
+        "footer": "❄️ Talven haasteiden painos ❄️"
+      },
+      "february": {
+        "tagline": "Piilotetuista yksittäisistä AIC-ketjuihin",
+        "footer": "💕 Rakasta haastetta 💕"
+      },
+      "march": {
+        "tagline": "Keväisesti kohti edistyneitä tekniikoita",
+        "footer": "🌸 Tuoreet haasteet kukkivat 🌸"
+      },
+      "april": {
+        "tagline": "Selviä jokaisesta ratkaisumyrskystä",
+        "footer": "🌈 Sateen jälkeen tulee voitto 🌈"
+      },
+      "may": {
+        "tagline": "Kukoista aivovoimalla",
+        "footer": "🌻 Kukoistakoot taitosi 🌻"
+      },
+      "june": {
+        "tagline": "Kesän aivotreeni",
+        "footer": "☀️ Ratkaisemisen aurinkoinen puoli ☀️"
+      },
+      "july": {
+        "tagline": "Rantalukemista, aivotreeniä",
+        "footer": "🏖️ Lomafiiliksen aivopelit 🏖️"
+      },
+      "august": {
+        "tagline": "Kuumenna aivovoimasi",
+        "footer": "🔥 Tulikuumat haasteet 🔥"
+      },
+      "september": {
+        "tagline": "Kouluta aivosi",
+        "footer": "📚 Tietoa numeroiden kautta 📚"
+      },
+      "october": {
+        "tagline": "Hyytävän älykkäitä haasteita",
+        "footer": "🎃 Pelottavan hauskaa 🎃"
+      },
+      "november": {
+        "tagline": "Aivojen sytyttäjiä pimeisiin iltoihin",
+        "footer": "🍂 Muista, muista! 🍂"
+      },
+      "december": {
+        "tagline": "Joulun aivolahjoja",
+        "footer": "🎄 Hyvää joulua, ratkoja! 🎄"
+      },
+      "default": {
+        "tagline": "Haasta mielesi",
+        "footer": "🧩 Pulmavoimaa 🧩"
+      }
+    }
+  },
+  "bookProvider": {
+    "errors": {
+      "offline": "Et ole verkossa, tarkista yhteytesi",
+      "loadFailed": "Pulmakirjan lataus epäonnistui"
+    }
+  },
+  "controls": {
+    "keyboardHelp": {
+      "navigation": "Näppäimistö: nuolinäppäimet, kumoa, tee uudelleen.",
+      "notes": "Pidä vaihtonäppäintä alhaalla tai paina n vaihtaaksesi merkintätilaa.",
+      "validate": "Paina c tarkistaaksesi ruudun, g tarkistaaksesi ruudukon."
+    },
+    "owl": {
+      "invalid": "Näyttää siltä, että olet tehnyt virheen. Suosittelen tarkistamaan ruudukon.",
+      "notSure": "Valitettavasti en ole varma.",
+      "eureka": "Eureka-merkintä {{notation}}",
+      "highlighted": "Olen korostanut sinulle olennaiset ruudut",
+      "foundTechnique": "Löysin tekniikan: {{technique}}",
+      "noHint": "Vihjettä ei ole saatavilla"
+    },
+    "legend": {
+      "stem": "Varsi",
+      "petalA": "Terälehti A",
+      "petalB": "Terälehti B",
+      "als1": "ALS 1",
+      "als2": "ALS 2",
+      "on": "Päällä (tosi)",
+      "off": "Pois (epätosi)",
+      "elimination": "Eliminointi"
+    },
+    "reply": {
+      "thanks": "Kiitos,",
+      "tellMeMore": "🤔 Kerro lisää",
+      "showMeWhere": "👀 Näytä, missä",
+      "hideHint": "Piilota vihje"
+    },
+    "askForHelp": "Pyydä apua",
+    "notes": "Merkinnät",
+    "copied": "Kopioitu!",
+    "export": "Vie",
+    "delete": "Poista",
+    "undo": "Kumoa",
+    "redo": "Uudelleen",
+    "cell": "Ruutu",
+    "grid": "Ruudukko",
+    "zoom": "Zoomaa",
+    "reset": "Nollaa",
+    "reveal": "Paljasta",
+    "confirm": {
+      "reset": {
+        "title": "Nollataanko koko ruudukko?",
+        "body": "Haluatko varmasti nollata koko ruudukon?",
+        "confirm": "Nollaa"
+      },
+      "reveal": {
+        "title": "Paljastetaanko koko ruudukko?",
+        "body": "Haluatko varmasti paljastaa koko ruudukon?",
+        "confirm": "Paljasta"
+      }
+    }
+  },
+  "techniques": {
+    "nakedSingle": "Paljas yksittäinen",
+    "hiddenSingleBox": "Piilotettu yksittäinen (ruutu)",
+    "hiddenSingleRow": "Piilotettu yksittäinen (rivi)",
+    "hiddenSingleCol": "Piilotettu yksittäinen (sarake)",
+    "nakedPair": "Paljas pari",
+    "nakedTriple": "Paljas kolmikko",
+    "nakedQuad": "Paljas nelikko",
+    "hiddenPair": "Piilotettu pari",
+    "hiddenTriple": "Piilotettu kolmikko",
+    "hiddenQuad": "Piilotettu nelikko",
+    "lockedCandidatePointing": "Lukitut ehdokkaat (osoittava)",
+    "lockedCandidateClaiming": "Lukitut ehdokkaat (vaativa)",
+    "xWing": "X-Wing",
+    "swordfish": "Miekkakala",
+    "jellyfish": "Meduusa",
+    "skyscraper": "Pilvenpiirtäjä",
+    "twoStringKite": "Kaksinarainen leija",
+    "finnedXWing": "Evällinen X-Wing",
+    "finnedSwordfish": "Evällinen miekkakala",
+    "finnedJellyfish": "Evällinen meduusa",
+    "emptyRectangle": "Tyhjä suorakulmio",
+    "wWing": "W-Wing",
+    "yWing": "Y-Wing",
+    "xyzWing": "XYZ-Wing",
+    "uniqueRectangleType1": "Yksikäsitteinen suorakulmio (tyyppi 1)",
+    "uniqueRectangleType2": "Yksikäsitteinen suorakulmio (tyyppi 2)",
+    "uniqueRectangleType3": "Yksikäsitteinen suorakulmio (tyyppi 3)",
+    "uniqueRectangleType4": "Yksikäsitteinen suorakulmio (tyyppi 4)",
+    "uniqueRectangleType5": "Yksikäsitteinen suorakulmio (tyyppi 5)",
+    "bug": "BUG",
+    "xyChain": "XY-ketju",
+    "aic": "AIC",
+    "aicRing": "AIC-rengas",
+    "groupedAIC": "Ryhmitetty AIC",
+    "alsXZ": "ALS-XZ",
+    "sueDeCoq": "Sue de Coq",
+    "deathBlossom": "Kuoleman kukka",
+    "nishio": "Nishio",
+    "nishioNet": "Nishio-verkko",
+    "cellRegionForcingChain": "Ruutu-/aluepakotusketju",
+    "cellRegionForcingNet": "Ruutu-/aluepakotusverkko",
+    "forcingChain": "Pakotusketju"
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "mehiläinen",
+      "personality": "Levoton ja innostunut. Singahtelee ruudukossa purskeina ja jää sitten junnaamaan. Loppua kohti kiihdyttää liian aikaisin ja jumiutuu juuri ennen maalia.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Näen yhden!",
+          "Hetkinen — ei, ehkä ei...",
+          "Pörinää pörinää! Edistystä!"
+        ],
+        "playerAhead": ["Hei, hidasta vähän!", "Minulla meni juuri hyvin…"],
+        "playerBehind": ["Kurson kiinni!", "Katso minua!"],
+        "endgame": ["Melkein perillä! Luulen!", "Hetkinen — mihin tämä menee?!"]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "ankka",
+      "personality": "Iloinen ja päämäärätön. Hidas ja tasainen pitkin tauoin. Loppupelissä ajautuu ratkaisuun melkein vahingossa.",
+      "voiceLines": {
+        "neutral": ["Otan vain rauhassa...", "Hmm... jossain tässä lähellä."],
+        "playerAhead": [
+          "Sinulla menee loistavasti!",
+          "Kyllä minä sinne vielä pääsen."
+        ],
+        "playerBehind": ["Oi! Löysin yhden!", "Tämä on mukavaa."],
+        "endgame": ["Taidan olla melkein valmis?", "Oi! Se onnistui."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "lisko",
+      "personality": "Varovainen ja tarkkaavainen. Pitkiä taukoja, sitten pieniä rykelmiä. Loppupelissä epäröi jokaisen sijoituksen kohdalla.",
+      "voiceLines": {
+        "neutral": ["Tarkistan vielä tuon.", "Tämän pitäisi olla oikein."],
+        "playerAhead": ["Nyt täytyy olla varovainen.", "Ei kiirehditä."],
+        "playerBehind": ["Okei… kurson kiinni.", "Aikaa on vielä."],
+        "endgame": ["Varovasti nyt...", "Melkein… täytyy vain olla varma."]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "hämähäkki",
+      "personality": "Harkitseva ja järjestelmällinen. Rakentaa edistystä huolellisesti pala palalta. Loppupelissä rakenne murtuu — epäröinti hiipii mukaan, ikään kuin suunnitelma ei enää pitäisi.",
+      "voiceLines": {
+        "neutral": ["Tämä sopii kuvioon.", "Pala palalta..."],
+        "playerAhead": ["Se toimi...", "Minun täytyy korjata tämä..."],
+        "playerBehind": ["Pysyy vielä kasassa.", "Kyllä… tämä toimii."],
+        "endgame": [
+          "Hetkinen — ei, se rikkoo kaiken.",
+          "Minulla oli tämä suunniteltu..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "pesukarhu",
+      "personality": "Sisukas ja tilaisuuksia vaaniva. Epätasainen rytmi. Loppupelissä saa vauhdin päälle ja maalaa odotettua nopeammin.",
+      "voiceLines": {
+        "neutral": ["Tämä toimii!", "Vähän sotkuista, mutta kelpaa."],
+        "playerAhead": [
+          "Hyvä on, aika painaa päälle.",
+          "Ei olla vielä valmiita."
+        ],
+        "playerBehind": ["Oi — hyvä löytö.", "Nyt alkaa homma luistaa."],
+        "endgame": ["Joo, tämä on minun.", "Nyt se vain sujuu."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pingviini",
+      "personality": "Järjestelmällinen ja metodinen. Tasainen tahti. Loppupeli pysyy rauhallisena — ei paniikkia, ei loppukiriä.",
+      "voiceLines": {
+        "neutral": ["Tämä sopii.", "Pysyn tasaisena."],
+        "playerAhead": ["Pidä tahti.", "Ei tarvitse kiirehtiä."],
+        "playerBehind": [
+          "Edelleen oikealla tiellä.",
+          "Eteneminen on tasaista."
+        ],
+        "endgame": ["Melkein perillä.", "Viimeistele puhtaasti."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "apina",
+      "personality": "Arvaamaton ja häiritsevä. Ennalta-arvaamattomia purskeita. Loppupelissä kiihdyttää yhtäkkiä tavalla, joka tuntuu epäreilulta.",
+      "voiceLines": {
+        "neutral": ["Heh… etkö odottanut tuota?", "Oho, kiinnostavaa."],
+        "playerAhead": ["Älä totu liian mukavaan.", "Katsopa tätä."],
+        "playerBehind": [
+          "Joskus kaikki vain loksahtaa.",
+          "Tuuri arvaus… vai oliko?"
+        ],
+        "endgame": ["Oho — nyt mennään.", "Tuo eskaloitui nopeasti."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "kotka",
+      "personality": "Etäinen ja sulava. Hajanaisia, varmoja sijoituksia. Hiljainen loppukiihdytys.",
+      "voiceLines": {
+        "neutral": ["Tämän olin jo nähnyt.", "Täytän vain tämän."],
+        "playerAhead": ["Ei muuta mitään.", "Lopputulos on silti sama."],
+        "playerBehind": [
+          "Se on oikeastaan jo ohi.",
+          "Ajatukset muualla juuri nyt."
+        ],
+        "endgame": ["…melkein valmis.", "Viimeistellään."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "kettu",
+      "personality": "Tulinen ja kilpailuhenkinen. Nopea alku, jatkuva paine. Loppukiri tuntuu aggressiiviselta.",
+      "voiceLines": {
+        "neutral": ["Pysy mukana.", "Vieläkö olet messissä?"],
+        "playerAhead": ["Älä hidasta nyt.", "Pystyt parempaan."],
+        "playerBehind": ["Liian hidasta.", "Jäät jälkeen."],
+        "endgame": ["Vie se loppuun.", "Tämä on minun."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "hai",
+      "personality": "Kärsivällinen ja saalistava. Pysyy lähellä ja iskee kovaa loppupelissä.",
+      "voiceLines": {
+        "neutral": ["Aivan perässäsi.", "Ei vielä."],
+        "playerAhead": ["Pysy missä olet.", "Olen jo lähellä."],
+        "playerBehind": ["Lähestyn.", "Siinähän sinä olet."],
+        "endgame": ["Nyt viimeistellään.", "Sain sinut."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "pöllö",
+      "personality": "Rauhallinen ja harkitseva. Sujuva tahti. Loppupeli on puhdas ja väistämätön.",
+      "voiceLines": {
+        "neutral": ["Kuten odotettua.", "Kaikki loksahtaa kohdalleen."],
+        "playerAhead": ["Hyvä.", "Näet sen."],
+        "playerBehind": ["Vie se loppuun.", "Pysy mukana."],
+        "endgame": ["Lähes valmis.", "Siinä se on."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "musta kissa",
+      "personality": "Hiljainen ja epäinhimillinen. Minimaalisia taukoja. Loppupeli on nopea, keskeytymätön maaliinvienti.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…yhä."],
+        "playerBehind": ["Liian myöhään.", "Epäröit."],
+        "endgame": ["…valmis.", "Loppu."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "lohikäärme",
+      "personality": "Vaivaton ja ehdoton. Pitää täydellisen otteen koko ajan. Loppupelissä tekee ratkaisevan, keskeytymättömän pyyhkäisyn — ei aukkoja, ei vastarintaa.",
+      "voiceLines": {
+        "neutral": ["Odotettua.", "Ei poikkeamia."],
+        "playerAhead": ["Yrittäminen oli viisasta.", "Jatka."],
+        "playerBehind": ["Tämä päättyy tähän.", "Ei vaihtoehtoa."],
+        "endgame": ["Siinä kaikki.", "Valmis."]
+      }
+    }
+  }
+}

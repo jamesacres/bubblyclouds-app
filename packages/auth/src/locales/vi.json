@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Đăng nhập để tiếp tục",
+    "signInWith": "Đăng nhập bằng {{provider}}",
+    "emailTitle": "Đăng nhập bằng email",
+    "emailPlaceholder": "email.cua.ban@example.com",
+    "continue": "Tiếp tục",
+    "cancel": "Hủy",
+    "terms": "Điều khoản dịch vụ",
+    "privacy": "Chính sách quyền riêng tư"
+  },
+  "header": {
+    "signIn": "Đăng nhập"
+  },
+  "avatar": {
+    "alt": "người dùng"
+  },
+  "panel": {
+    "title": "Tài khoản",
+    "greeting": "Chào {{name}}!",
+    "fallbackName": "Người dùng",
+    "plusActive": "{{gameName}} {{plus}} đang hoạt động",
+    "joinGamePlus": "Tham gia {{gameName}} {{plus}}",
+    "joinPlus": "Tham gia {{plus}}",
+    "signOut": "Đăng xuất",
+    "privacy": "Chính sách quyền riêng tư",
+    "terms": "Điều khoản dịch vụ",
+    "credits": "Ghi công",
+    "deleteAccount": "Xóa tài khoản",
+    "poweredBy": "Được cung cấp bởi {{companyName}}",
+    "deleteUnavailable": "Chức năng xóa tài khoản hiện không khả dụng.",
+    "deleteFailed": "Không thể xóa tài khoản. Vui lòng thử lại sau."
+  },
+  "deleteDialog": {
+    "title": "Xóa tài khoản",
+    "warning": "Hành động này không thể hoàn tác. Toàn bộ dữ liệu của bạn trên tất cả ứng dụng của {{companyName}} sẽ bị xóa vĩnh viễn.",
+    "confirmation": "Tôi xác nhận muốn xóa toàn bộ tài khoản của mình, bao gồm mọi dữ liệu trên tất cả ứng dụng của {{companyName}}.",
+    "cancel": "Hủy",
+    "deleting": "Đang xóa...",
+    "submit": "Xóa tài khoản"
+  }
+}

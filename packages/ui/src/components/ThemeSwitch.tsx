@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { useTranslation } from 'react-i18next';
 import { SystemBars, SystemBarsStyle } from '@capacitor/core';
 
 interface ThemeSwitchProps {
@@ -9,6 +10,7 @@ interface ThemeSwitchProps {
 }
 
 const ThemeSwitch = ({ isCapacitor = () => false }: ThemeSwitchProps) => {
+  const { t } = useTranslation('ui');
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme, resolvedTheme } = useTheme();
 
@@ -47,7 +49,7 @@ const ThemeSwitch = ({ isCapacitor = () => false }: ThemeSwitchProps) => {
 
   return (
     <button
-      aria-label="Toggle Dark Mode"
+      aria-label={t('themeSwitch.toggleDarkMode')}
       onClick={() => {
         const newTheme =
           theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark';

@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Гонка Судоку",
+      "gameName": "Судоку",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Судоку Plus"
+    },
+    "terms": {
+      "race": "гонка",
+      "team": "команда",
+      "leaderboard": "таблица лидеров",
+      "hint": "подсказка",
+      "undo": "отмена",
+      "theme": "тема",
+      "dailyPuzzle": "ежедневная головоломка",
+      "monthlyCollection": "ежемесячный сборник головоломок",
+      "aiOpponent": "ИИ-соперник",
+      "monthly": "на месяц",
+      "lifetime": "навсегда",
+      "plusAccess": "Доступ Plus",
+      "plusFeatureLine": "Безлимит гонок, команды, темы и отмена"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Гонка пробок",
+      "gameName": "Гонка пробок",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "гонка",
+      "team": "команда",
+      "leaderboard": "таблица лидеров",
+      "hint": "подсказка",
+      "undo": "отмена",
+      "theme": "тема",
+      "dailyPuzzle": "ежедневная головоломка",
+      "monthlyCollection": "ежемесячная коллекция головоломок",
+      "aiOpponent": "ИИ-соперник",
+      "monthly": "на месяц",
+      "lifetime": "навсегда",
+      "plusAccess": "Доступ Plus",
+      "plusFeatureLine": "Безлимит гонок, команды, темы и отмена"
+    }
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "หนังสือ",
+    "defaultDetailNoun": "หนังสือปริศนา"
+  },
+  "collectionCover": {
+    "monthlyCollection": "ชุดปริศนาประจำเดือน"
+  },
+  "hintBox": {
+    "dismiss": "ปิดคำใบ้"
+  },
+  "lobbyButton": {
+    "opponents": "คู่แข่ง"
+  },
+  "nextPuzzlePanel": {
+    "continue": "ต่อไป — ปริศนาถัดไป",
+    "continueLocked": "ต่อไป ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}} เสร็จแล้ว {{completed}} จาก {{total}}"
+  },
+  "countdownOverlay": {
+    "getReady": "เตรียมตัว",
+    "go": "ลุย!"
+  },
+  "confirmDialog": {
+    "cancel": "ยกเลิก"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · เสร็จสิ้น",
+    "retry": "ลองใหม่",
+    "points": "+{{points}} แต้ม",
+    "leaderboardPoints": "คะแนนอันดับ"
+  },
+  "raceTimer": {
+    "time": "เวลา"
+  },
+  "stageTopBar": {
+    "previous": "ก่อนหน้า"
+  },
+  "raceHud": {
+    "opponents": "คู่แข่ง",
+    "stageOf": "ด่านที่ {{current}} จาก {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "เข้าเส้นชัย!",
+    "runComplete": "จบการแข่ง",
+    "leaderboardPoints": "คะแนนอันดับ",
+    "pointsSuffix": " แต้ม"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "อา.",
+      "monday": "จ.",
+      "tuesday": "อ.",
+      "wednesday": "พ.",
+      "thursday": "พฤ.",
+      "friday": "ศ.",
+      "saturday": "ส."
+    },
+    "dayStreak_other": "วันติดต่อกัน",
+    "thisMonth": "เดือนนี้"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(คุณ)",
+    "puzzles_other": "{{count}} ปริศนา",
+    "average": "เฉลี่ย: {{time}}",
+    "best": "ดีที่สุด: {{time}}",
+    "wins_other": "🏁 ชนะ {{count}} ครั้ง",
+    "points_other": "แต้ม"
+  },
+  "scoreBreakdown": {
+    "title": "รายละเอียดคะแนน",
+    "volumeBonus": {
+      "label": "โบนัสจำนวนปริศนา",
+      "detail_other": "เสร็จแล้ว {{count}} ปริศนา"
+    },
+    "dailyPuzzles": {
+      "label": "ปริศนาประจำวัน",
+      "detail_other": "{{count}} ปริศนาประจำวัน"
+    },
+    "collectionPuzzles": {
+      "label": "ปริศนา {{collection}}",
+      "detail": "{{count}} จาก {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "ปริศนาที่สแกน",
+      "detail_other": "นำเข้า {{count}} ปริศนา"
+    },
+    "difficultyBonus": {
+      "label": "โบนัสความยาก",
+      "detail": "ยิ่งยาก ยิ่งได้แต้มมาก"
+    },
+    "speedBonus": {
+      "label": "โบนัสความเร็ว",
+      "detail": "เร็วที่สุด: {{time}}"
+    },
+    "racingBonus": {
+      "label": "โบนัสการแข่ง",
+      "detail": "เอาชนะเพื่อนที่เล่นจบเหมือนกัน"
+    },
+    "dailyCombo": {
+      "label": "คอมโบรายวัน",
+      "detail": "ยิ่งเล่นมากต่อวัน ตัวคูณยิ่งสูง"
+    }
+  },
+  "leaderboard": {
+    "you": "คุณ",
+    "unknownUser": "ผู้ใช้ที่ไม่รู้จัก",
+    "title": "อันดับ",
+    "subtitleParty": "30 วันที่ผ่านมา · {{partyName}}",
+    "subtitleAllTeams": "30 วันที่ผ่านมา · ทุกทีม",
+    "howScoringWorks": "วิธีให้คะแนน"
+  },
+  "scoringLegend": {
+    "title": "วิธีให้คะแนน",
+    "subtitle": "{{gameName}} · 30 วันที่ผ่านมา",
+    "close": "ปิด",
+    "racingWins": {
+      "title": "ชนะการแข่ง",
+      "body": "รับ <points>+{{points}} แต้ม</points> ต่อเพื่อนแต่ละคนที่คุณเอาชนะในปริศนาเดียวกันที่เล่นจบ หากเข้าเส้นชัยเป็นคนแรกเหนือเพื่อน {{friends}} คน จะได้รับ <points>+{{total}} แต้ม</points>"
+    },
+    "basePoints": {
+      "title": "แต้มพื้นฐาน",
+      "anyPuzzle": "ปริศนาใดก็ได้",
+      "dailyPuzzle": "ปริศนาประจำวัน",
+      "collectionPuzzle": "ปริศนา {{collection}}",
+      "scannedPuzzle": "ปริศนาที่สแกน"
+    },
+    "difficultyMultipliers": {
+      "title": "ตัวคูณความยาก",
+      "daily": "{{gameName}} ประจำวัน",
+      "collection": "ปริศนา {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "โบนัสความเร็ว",
+      "lightning": "สายฟ้า",
+      "fast": "เร็ว",
+      "quick": "ไว",
+      "steady": "คงที่",
+      "under": "ภายใน {{threshold}}",
+      "seconds": "{{value}} วินาที",
+      "minutes": "{{value}} นาที"
+    },
+    "dailyCombo": {
+      "title": "คอมโบรายวัน",
+      "body": "ไขปริศนาให้มากขึ้นในวันเดียวกันเพื่อคูณแต้มของแต่ละปริศนา สูงสุด <max>{{max}}×</max>",
+      "puzzle": "ปริศนาที่ {{puzzle}} ของวัน",
+      "puzzleOrMore": "ปริศนาที่ {{puzzle}} ขึ้นไปของวัน"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "จบการแข่ง",
+    "raceProgress": "ความคืบหน้าการแข่ง",
+    "stagesProgress": "{{completed}}/{{total}} ด่าน",
+    "retryStage": "เล่นด่านใหม่",
+    "stageLabel": "ด่านที่ {{number}}",
+    "stageCompletedLabel": "ด่านที่ {{number}} เสร็จใน {{time}}",
+    "viewRacingStats": "ดูสถิติการแข่ง",
+    "total": "รวม"
+  },
+  "raceTrack": {
+    "you": "คุณ",
+    "viewFriends": "แตะเพื่อดูเพื่อน",
+    "start": "เริ่ม",
+    "finish": "เส้นชัย",
+    "inviteToRace": "เชิญเพื่อนมาแข่ง",
+    "opponents": "คู่แข่ง",
+    "racer": "นักแข่ง",
+    "stageBadge": "ด่าน {{number}}",
+    "total": "รวม",
+    "leaderboard": "อันดับ",
+    "puzzleBook": "หนังสือปริศนา",
+    "puzzleBookLabel": "หนังสือปริศนา",
+    "refreshScores": "รีเฟรชคะแนน",
+    "challengeFriends": "🏁 ท้าเพื่อนแข่ง",
+    "yourTime": "เวลาของคุณ:",
+    "inviteFriends": "เชิญเพื่อน",
+    "racingLabel": "กำลังแข่ง"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "ลับสมอง",
+      "easy": "ท้าทาย",
+      "intermediate": "ยาก",
+      "expert": "ผู้เชี่ยวชาญ"
+    },
+    "book": {
+      "veryEasy": "ง่ายมาก",
+      "easy": "ง่าย",
+      "moderatelyEasy": "ค่อนข้างง่าย",
+      "moderate": "ปานกลาง",
+      "moderatelyHard": "ค่อนข้างยาก",
+      "hard": "ยาก",
+      "vicious": "โหด",
+      "fiendish": "โหดมาก",
+      "devilish": "ร้ายกาจ",
+      "hell": "นรก",
+      "beyondHell": "เหนือนรก"
+    }
+  },
+  "techniques": {
+    "lastDigit": "ตัวเลขสุดท้าย",
+    "hiddenSingleBox": "ตัวเลขเดี่ยวซ่อน (กล่อง)",
+    "hiddenSingleLine": "ตัวเลขเดี่ยวซ่อน (แถว)",
+    "hiddenSingleVariantRegion": "ตัวเลขเดี่ยวซ่อน (บริเวณพิเศษ)",
+    "nakedSingle": "ตัวเลขเดี่ยวเปลือย",
+    "hiddenPair": "คู่ซ่อน",
+    "lockedCandidate": "ตัวเลือกที่ถูกล็อก",
+    "hiddenTriple": "สามตัวซ่อน",
+    "hiddenQuadruple": "สี่ตัวซ่อน",
+    "nakedPair": "คู่เปลือย",
+    "nakedTriple": "สามตัวเปลือย",
+    "nakedQuadruple": "สี่ตัวเปลือย",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String-Kite",
+    "crane": "Crane",
+    "simpleColoring": "การระบายสีแบบง่าย",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Finned/Sashimi X-Wing",
+    "emptyRectangle": "Empty Rectangle",
+    "uniqueRectangleType1": "Unique Rectangle แบบที่ 1",
+    "uniqueRectangleType2": "Unique Rectangle แบบที่ 2",
+    "uniqueRectangleType3": "Unique Rectangle แบบที่ 3",
+    "uniqueRectangleType4": "Unique Rectangle แบบที่ 4",
+    "uniqueRectangleType5": "Unique Rectangle แบบที่ 5",
+    "finnedSashimiSwordfish": "Finned/Sashimi Swordfish",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "X-Chain",
+    "groupedXChain": "Grouped X-Chain",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Finned/Sashimi Jellyfish",
+    "medusa3D": "3D Medusa",
+    "xyChain": "XY-Chain",
+    "alternatingInferenceChainAIC": "Alternating Inference Chain (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Grouped Alternating Inference Chain (AIC)",
+    "nishioForcingChain": "Nishio Forcing Chain",
+    "nishioForcingNet": "Nishio Forcing Net"
+  }
+}

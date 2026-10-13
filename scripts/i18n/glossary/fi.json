@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "Sudokukisa",
+      "gameName": "Sudoku",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "Sudoku Plus"
+    },
+    "terms": {
+      "race": "kisa",
+      "team": "tiimi",
+      "leaderboard": "tulostaulukko",
+      "hint": "vihje",
+      "undo": "kumoa",
+      "theme": "teema",
+      "dailyPuzzle": "päivittäinen pulma",
+      "monthlyCollection": "kuukausittainen sudokukirja",
+      "aiOpponent": "tekoälyvastustaja",
+      "monthly": "kuukausittainen",
+      "lifetime": "elinikäinen",
+      "plusAccess": "Plus-käyttö",
+      "plusFeatureLine": "Rajattomat kisat, tiimit, teemat ja kumoa"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "Vapauta Kisa",
+      "gameName": "Vapauta Kisa",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "kisa",
+      "team": "tiimi",
+      "leaderboard": "tulostaulukko",
+      "hint": "vihje",
+      "undo": "kumoa",
+      "theme": "teema",
+      "dailyPuzzle": "päivittäinen pulma",
+      "monthlyCollection": "kuukausittainen pulmakokoelma",
+      "aiOpponent": "tekoälyvastustaja",
+      "monthly": "kuukausittainen",
+      "lifetime": "elinikäinen",
+      "plusAccess": "Plus-käyttö",
+      "plusFeatureLine": "Rajattomat kisat, tiimit, teemat ja kumoa"
+    }
+  }
+}

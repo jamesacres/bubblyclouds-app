@@ -1,3 +1,4 @@
+import { getI18n } from 'react-i18next';
 import React from 'react';
 import { render, screen, fireEvent, act, within } from '@testing-library/react';
 import UnblockRace from './UnblockRace';
@@ -1711,6 +1712,7 @@ describe('UnblockRace', () => {
       emoji: string
     ): LocalAgent => ({
       id,
+      configId: name.toLowerCase(),
       name,
       emoji,
       skillLevel: DreyfusLevel.Novice,
@@ -1749,6 +1751,7 @@ describe('UnblockRace', () => {
       emoji: string
     ): LocalAgent => ({
       id,
+      configId: name.toLowerCase(),
       name,
       emoji,
       skillLevel: DreyfusLevel.Novice,
@@ -1786,6 +1789,17 @@ describe('UnblockRace', () => {
           expect.objectContaining({ name: 'Bumblebee', emoji: '🐝' }),
         ])
       );
+      expect(
+        lobbyProps.getAgentDisplay({
+          id: 'bumblebee',
+          name: 'Bumblebee',
+          emojiName: 'x',
+        })
+      ).toEqual({
+        name: 'Bumblebee',
+        personality: expect.stringContaining('Restless'),
+        emojiName: 'bee',
+      });
       // One random persona per Dreyfus level is pre-selected — the player
       // never has to opt in manually to race against AI opponents.
       expect(lobbyProps.defaultSelectedAgentNames).toHaveLength(5);
@@ -1825,6 +1839,42 @@ describe('UnblockRace', () => {
           percentage: 0,
         }),
       ]);
+    });
+
+    it('displays a persisted agent name through the locale while keeping its identity', async () => {
+      const i18n = getI18n();
+      i18n.addResourceBundle(
+        'en',
+        'unblockrace',
+        { agents: { bumblebee: { name: 'Abeille' } } },
+        true,
+        true
+      );
+      try {
+        mockCreateLocalAgents.mockResolvedValue([
+          testAgent('agent-Bumblebee', 'Bumblebee', '🐝'),
+        ]);
+
+        render(<UnblockRace {...defaultProps} />);
+        await act(async () => {
+          lastLobbyProps().onAgentMode(['Bumblebee']);
+        });
+
+        expect(lastTrackProps().localAgentProgress).toEqual([
+          expect.objectContaining({
+            agentId: 'agent-Bumblebee',
+            name: 'Abeille',
+          }),
+        ]);
+      } finally {
+        i18n.addResourceBundle(
+          'en',
+          'unblockrace',
+          { agents: { bumblebee: { name: 'Bumblebee' } } },
+          true,
+          true
+        );
+      }
     });
 
     it('advances the karts once the race starts and records the run leaderboard line at stage end', async () => {

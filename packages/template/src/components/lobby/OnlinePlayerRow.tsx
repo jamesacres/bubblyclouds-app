@@ -1,5 +1,6 @@
 import { ComponentType } from 'react';
 import { Clock, Trash } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Session } from '@bubblyclouds-app/types/serverTypes';
 import { StarRating } from '@bubblyclouds-app/ui/components/StarRating';
 import { BaseServerState } from '../../types/state';
@@ -74,6 +75,7 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
   getMovesDisplay,
   getStarRating,
 }: Props<ServerState>) {
+  const { t } = useTranslation('template');
   const pct = session
     ? calculateCompletionPercentageFromState(session.state)
     : 0;
@@ -105,7 +107,9 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
         : new Date(session.updatedAt).getTime()
       : undefined;
   const lastSeenLabel =
-    isAway && updatedAtMs !== undefined ? fmtElapsed(now - updatedAtMs) : null;
+    isAway && updatedAtMs !== undefined
+      ? fmtElapsed(now - updatedAtMs, t)
+      : null;
 
   const cardBg = isAway ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.04)';
   const cardBorder = isAway
@@ -116,16 +120,29 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
   // percentage only ever describes progress on whichever single stage
   // `session` happens to be for.
   const progressLabel = runProgress
-    ? `Stage ${Math.min(runProgress.completedStageCount + 1, runProgress.totalStages)} of ${runProgress.totalStages}`
+    ? t('lobby.stageProgress', {
+        current: Math.min(
+          runProgress.completedStageCount + 1,
+          runProgress.totalStages
+        ),
+        total: runProgress.totalStages,
+      })
     : `${Math.round(pct)}%`;
 
   const clockLabel = isFinished
     ? runProgress
-      ? `Finished the run in ${fmtClock(elapsedSeconds)}`
-      : `Solved in ${fmtClock(elapsedSeconds)}`
+      ? t('lobby.finishedRunIn', { time: fmtClock(elapsedSeconds) })
+      : t('lobby.solvedIn', { time: fmtClock(elapsedSeconds) })
     : isAway
-      ? `${progressLabel} · ${fmtClock(elapsedSeconds)} · last seen ${lastSeenLabel}`
-      : `${progressLabel} · ${fmtClock(elapsedSeconds)}`;
+      ? t('lobby.awayProgress', {
+          progress: progressLabel,
+          time: fmtClock(elapsedSeconds),
+          lastSeen: lastSeenLabel,
+        })
+      : t('lobby.activeProgress', {
+          progress: progressLabel,
+          time: fmtClock(elapsedSeconds),
+        });
 
   return (
     <div
@@ -134,8 +151,10 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
     >
       <PlayerAvatar name={memberNickname} muted={isAway && !isFinished} />
       <div className="min-w-0 flex-1">
-        <div className="mb-1 flex items-center gap-2">
-          <span className="text-sm font-bold text-white">{memberNickname}</span>
+        <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="min-w-0 break-words text-sm font-bold text-white">
+            {memberNickname}
+          </span>
           {parties.map((p) => (
             <PartyTag key={p.partyId} partyName={p.partyName} />
           ))}
@@ -146,7 +165,7 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
               }
               className="inline-flex cursor-pointer items-center justify-center"
               style={{ background: 'transparent', border: 'none' }}
-              aria-label={`Remove ${memberNickname}`}
+              aria-label={t('lobby.removeMember', { name: memberNickname })}
             >
               <Trash size={14} color="rgba(255,255,255,0.35)" />
             </button>
@@ -158,7 +177,7 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
               className="text-[12px] font-bold"
               style={{ color: 'var(--theme-primary-light)' }}
             >
-              In lobby
+              {t('lobby.inLobby')}
             </span>
           ) : isFinished ? (
             <FinishedBadge />
@@ -187,6 +206,7 @@ export function OnlinePlayerRow<ServerState extends BaseServerState>({
       </div>
       {!isInLobby && session && (
         <div
+          dir="ltr"
           className={[
             'pointer-events-none flex-shrink-0 overflow-hidden rounded-lg',
             isAway && !isFinished ? 'opacity-50' : '',

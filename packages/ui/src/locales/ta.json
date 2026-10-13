@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "மொழி",
+    "automatic": "தானியங்கி"
+  },
+  "header": {
+    "offline": "ஆஃப்லைன்",
+    "back": "பின்செல்"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "டார்க் மோடை மாற்றுங்கள்"
+  },
+  "starRating": {
+    "label_one": "நட்சத்திரம்: {{filled}} / {{count}}",
+    "label_other": "நட்சத்திரங்கள்: {{filled}} / {{count}}"
+  },
+  "timer": {
+    "go": "போ!"
+  },
+  "themeColor": {
+    "change": "தீம் நிறத்தை மாற்றுங்கள்",
+    "set": "தீம் நிறம்: {{color}}",
+    "setPremium": "தீம் நிறம்: {{color}} (பிரீமியம்)",
+    "colors": {
+      "blue": "நீலம்",
+      "red": "சிவப்பு",
+      "green": "பச்சை",
+      "purple": "ஊதா",
+      "amber": "ஆம்பர்",
+      "cyan": "சியான்",
+      "pink": "இளஞ்சிவப்பு",
+      "indigo": "இண்டிகோ",
+      "orange": "ஆரஞ்சு",
+      "teal": "டீல்",
+      "slate": "ஸ்லேட்",
+      "rose": "ரோஸ்",
+      "emerald": "மரகதம்",
+      "sky": "வான்நீலம்",
+      "violet": "வயலட்",
+      "lime": "எலுமிச்சை",
+      "fuchsia": "ஃபுக்சியா",
+      "yellow": "மஞ்சள்",
+      "stone": "கல் நிறம்",
+      "zinc": "ஜிங்க்"
+    }
+  },
+  "copyButton": {
+    "copied": "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!",
+    "share": "அழைப்பு இணைப்பைப் பகிருங்கள்",
+    "copy": "அழைப்பு இணைப்பை நகலெடுங்கள்"
+  },
+  "share": {
+    "joinTeam": "{{appName}} செயலியில் உள்ள ரேஸ் குழுவில் சேருங்கள்!",
+    "joinNamedTeam": "{{appName}} செயலியில் உள்ள {{partyName}} ரேஸ் குழுவில் சேருங்கள்!",
+    "dialogTitle": "அழைப்பைப் பகிருங்கள்"
+  }
+}

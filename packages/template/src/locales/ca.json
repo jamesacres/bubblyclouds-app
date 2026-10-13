@@ -1,0 +1,246 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone i iPad"
+  },
+  "errors": {
+    "generic": "S'ha produït un error inesperat. Torneu-ho a provar.",
+    "dismiss": "Tanqueu"
+  },
+  "errorBoundary": {
+    "title": "Ups! Alguna cosa ha anat malament",
+    "description": "Hem trobat un error inesperat. No us preocupeu, el vostre progrés està desat!",
+    "reload": "Torneu a carregar l'aplicació",
+    "clearStorage": "Esborreu l'emmagatzematge i torneu a carregar",
+    "contactSupport": "Si el problema persisteix, poseu-vos en contacte amb el suport."
+  },
+  "time": {
+    "minutesAgo_one": "fa {{count}} min",
+    "minutesAgo_many": "fa {{count}} min",
+    "minutesAgo_other": "fa {{count}} min",
+    "hoursAgo_one": "fa {{count}} h",
+    "hoursAgo_many": "fa {{count}} h",
+    "hoursAgo_other": "fa {{count}} h",
+    "daysAgo_one": "fa {{count}} d",
+    "daysAgo_many": "fa {{count}} d",
+    "daysAgo_other": "fa {{count}} d"
+  },
+  "tier": {
+    "novice": "Novell",
+    "advancedBeginner": "Principiant",
+    "competent": "Competent",
+    "proficient": "Hàbil",
+    "expert": "Expert"
+  },
+  "moves": {
+    "onPar": "moviments, igualant el par",
+    "overPar": "moviments, {{delta}} per sobre del par",
+    "underPar": "moviments, {{delta}} per sota del par"
+  },
+  "lobby": {
+    "title": "Sala de curses",
+    "close": "Tanqueu la sala",
+    "onlineOpponents": "Rivals en línia",
+    "refresh": "Actualitzeu els rivals en línia",
+    "noOpponents": "Cap rival en línia — convideu amics a fer una cursa!",
+    "away": "Absent",
+    "offlineTeams": "Sense connexió · als vostres equips",
+    "removeMember": "Elimineu {{name}}",
+    "aiOpponents": "Rivals d'IA",
+    "addAgent": "Afegiu",
+    "noAgents": "Encara no hi ha rivals d'IA — afegiu-ne un per tenir sempre algú amb qui competir.",
+    "ownClock": "Cada jugador competeix amb el seu propi cronòmetre",
+    "startSolving": "Comenceu a resoldre",
+    "finished": "Acabat",
+    "inLobby": "A la sala",
+    "stageProgress": "Etapa {{current}} de {{total}}",
+    "finishedRunIn": "Recorregut acabat en {{time}}",
+    "solvedIn": "Resolt en {{time}}",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · vist per última vegada {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Cursa en solitari — només vosaltres i el cronòmetre",
+      "friends_one": "{{count}} amic",
+      "friends_many": "{{count}} d'amics",
+      "friends_other": "{{count}} amics",
+      "aiOpponents_one": "{{count}} rival d'IA",
+      "aiOpponents_many": "{{count}} de rivals d'IA",
+      "aiOpponents_other": "{{count}} rivals d'IA",
+      "racing": "Competint amb {{opponents}}"
+    },
+    "invite": {
+      "button": "Convideu",
+      "eyebrow": "Munteu la vostra cursa",
+      "title": "Convideu rivals",
+      "close": "Tanqueu",
+      "existingTeam": "Convideu a un equip existent",
+      "editTeamName": "Editeu el nom de l'equip",
+      "deleteTeam": "Suprimiu l'equip",
+      "leaveTeam": "Deixeu l'equip",
+      "memberCount_one": "{{count}} membre",
+      "memberCount_many": "{{count}} de membres",
+      "memberCount_other": "{{count}} membres",
+      "createTeam": "Creeu un equip de curses nou",
+      "displayNameLabel": "Com us anomenen els membres de l'equip?",
+      "displayNamePlaceholder": "Nom visible",
+      "teamNameLabel": "Quin nom voleu posar a aquest equip?",
+      "teamNamePlaceholder": "Nom de l'equip (p. ex. Família)",
+      "createAndCopy": "Creeu i copieu l'enllaç",
+      "defaultTeamName": "Equip nou",
+      "defaultPlayerName": "Jugador"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Tanqueu el full",
+    "back": "Enrere",
+    "close": "Tanqueu",
+    "title": "Trieu els vostres rivals",
+    "subtitle": "Seleccioneu un o més rivals",
+    "selectAtLeastOne": "Seleccioneu almenys un rival",
+    "race_one": "Competiu contra {{count}} rival",
+    "race_many": "Competiu contra {{count}} de rivals",
+    "race_other": "Competiu contra {{count}} rivals",
+    "skill": {
+      "novice": "Novell",
+      "advancedBeginner": "Principiant",
+      "competent": "Competent",
+      "proficient": "Hàbil",
+      "expert": "Expert"
+    }
+  },
+  "agentParty": {
+    "title": "Rivals d'IA",
+    "rivalCount_one": "{{count}} rival",
+    "rivalCount_many": "{{count}} de rivals",
+    "rivalCount_other": "{{count}} rivals"
+  },
+  "party": {
+    "cancel": "Cancel·leu",
+    "editName": "Editeu el nom de l'equip",
+    "editMaxMembers": "Editeu el màxim de membres",
+    "memberCount_one": "{{count}} membre",
+    "memberCount_many": "{{count}} de membres",
+    "memberCount_other": "{{count}} membres",
+    "memberCountPremium_one": "{{count}} membre ✨ Premium",
+    "memberCountPremium_many": "{{count}} de membres ✨ Premium",
+    "memberCountPremium_other": "{{count}} membres ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} membre",
+    "membersOf_many": "{{current}}/{{count}} de membres",
+    "membersOf_other": "{{current}}/{{count}} membres",
+    "shareLink": "Compartiu aquest enllaç amb els membres actuals de l'equip perquè s'uneixin a aquest puzle",
+    "you": "(tu)",
+    "notStarted": "No ha començat! Demaneu-li que jugui"
+  },
+  "partyConfirmation": {
+    "cancel": "Cancel·leu",
+    "leaveAgentParty": {
+      "title": "Elimineu els rivals d'IA",
+      "action": "Elimineu",
+      "processing": "Eliminant...",
+      "message": "Esteu segurs que voleu eliminar tots els rivals d'IA? Ja no apareixeran a la cursa."
+    },
+    "removeAgent": {
+      "title": "Elimineu l'agent local",
+      "action": "Elimineu",
+      "processing": "Eliminant...",
+      "message": "Esteu segurs que voleu eliminar \"{{memberName}}\" de la cursa?"
+    },
+    "deleteParty": {
+      "title": "Suprimiu l'equip",
+      "action": "Suprimiu l'equip",
+      "processing": "Suprimint...",
+      "message": "Esteu segurs que voleu suprimir \"{{partyName}}\"? L'equip se suprimirà de manera permanent i tots els membres en perdran l'accés. Aquesta acció no es pot desfer."
+    },
+    "leave": {
+      "title": "Deixeu l'equip",
+      "action": "Sortiu",
+      "processing": "Sortint...",
+      "message": "Esteu segurs que voleu deixar \"{{partyName}}\"? Ja no veureu el progrés dels altres membres ni podreu participar en aquest equip."
+    },
+    "remove": {
+      "title": "Elimineu el membre",
+      "action": "Elimineu",
+      "processing": "Eliminant...",
+      "message": "Esteu segurs que voleu eliminar \"{{memberName}}\" de \"{{partyName}}\"? Ja no podrà participar en aquest equip."
+    }
+  },
+  "friends": {
+    "allTeams": "Tots els equips",
+    "refresh": "Actualitzeu",
+    "refreshing": "Actualitzant…",
+    "title": "Puzles dels amics",
+    "subtitle": "Toqueu un amic per veure els seus puzles recents i competir-hi.",
+    "memberCount_one": "{{count}} membre",
+    "memberCount_many": "{{count}} de membres",
+    "memberCount_other": "{{count}} membres",
+    "noRecentPuzzles": "Cap puzle recent — repteu-lo!",
+    "empty": {
+      "title": "Encara no hi ha equips de curses",
+      "description": "Convideu amics des de la sala de curses mentre resoleu un puzle"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Els vostres puzles dels darrers 30 dies.",
+    "empty": {
+      "title": "Encara no hi ha puzles",
+      "description": "Aneu a Nova cursa per resoldre el vostre primer puzle"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} funció més",
+    "moreFeatures_many": "+{{count}} de funcions més",
+    "moreFeatures_other": "+{{count}} funcions més"
+  },
+  "crossPromo": {
+    "whyNotTry": "Per què no proveu",
+    "tryItFree": "Proveu-lo gratis"
+  },
+  "rateApp": {
+    "prompt": "Us agrada {{appName}}?",
+    "rateIt": "Valoreu-lo",
+    "rateInSeconds": "Valoreu-lo en uns segons"
+  },
+  "plus": {
+    "close": "Tanqueu la finestra",
+    "appIconAlt": "Icona de l'aplicació",
+    "lifetime": "De per vida",
+    "monthly": "Mensual",
+    "perMonth": "{{price}}/mes",
+    "whatsIncluded": "Què inclou",
+    "continue": "Continueu",
+    "restorePurchases": "Restaureu les compres",
+    "cancel": "Cancel·leu"
+  },
+  "download": {
+    "title": "Continueu a l'aplicació",
+    "appStoreAlt": "Descarregueu-la a {{appStore}}",
+    "googlePlayAlt": "Obteniu-la a {{googlePlay}}",
+    "continueBrowser": "Continueu al navegador",
+    "continueDesktop": "Continueu a l'ordinador"
+  },
+  "session": {
+    "cheated": "Amb trampes",
+    "completedIn": "Completat en {{minutes}} min {{seconds}} s",
+    "percentComplete": "{{percentage}}% completat",
+    "duration": "{{minutes}} min {{seconds}} s",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_one": "{{count}}",
+    "dayOrdinal_ordinal_two": "{{count}}",
+    "dayOrdinal_ordinal_few": "{{count}}",
+    "dayOrdinal_ordinal_other": "{{count}}",
+    "puzzleNumber": "Puzle núm. {{number}}",
+    "daily": "Diari {{date}}",
+    "book": "Llibre {{month}} núm. {{number}}",
+    "collection": "Col·lecció {{month}} núm. {{number}}",
+    "scanned": "Puzle escanejat",
+    "you": "Tu",
+    "unknown": "Desconegut",
+    "unlockWith": "Desbloquegeu amb {{label}}",
+    "lockedPuzzle": "Puzle bloquejat",
+    "recommendedTechniques": "Tècniques recomanades:",
+    "loadingFriends": "Carregant amics..."
+  }
+}

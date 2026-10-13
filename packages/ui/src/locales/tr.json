@@ -1,0 +1,57 @@
+{
+  "language": {
+    "label": "Dil",
+    "automatic": "Otomatik"
+  },
+  "header": {
+    "offline": "Çevrimdışı",
+    "back": "Geri"
+  },
+  "themeSwitch": {
+    "toggleDarkMode": "Koyu modu aç/kapat"
+  },
+  "starRating": {
+    "label_one": "{{count}} yıldızdan {{filled}}",
+    "label_other": "{{count}} yıldızdan {{filled}}"
+  },
+  "timer": {
+    "go": "BAŞLA!"
+  },
+  "themeColor": {
+    "change": "Tema rengini değiştir",
+    "set": "Tema rengini şuna ayarla: {{color}}",
+    "setPremium": "Tema rengini şuna ayarla: {{color}} (Premium)",
+    "colors": {
+      "blue": "mavi",
+      "red": "kırmızı",
+      "green": "yeşil",
+      "purple": "mor",
+      "amber": "kehribar",
+      "cyan": "camgöbeği",
+      "pink": "pembe",
+      "indigo": "çivit mavisi",
+      "orange": "turuncu",
+      "teal": "petrol yeşili",
+      "slate": "arduvaz",
+      "rose": "gül kurusu",
+      "emerald": "zümrüt",
+      "sky": "gök mavisi",
+      "violet": "menekşe",
+      "lime": "limon yeşili",
+      "fuchsia": "fuşya",
+      "yellow": "sarı",
+      "stone": "taş grisi",
+      "zinc": "çinko"
+    }
+  },
+  "copyButton": {
+    "copied": "Panoya kopyalandı!",
+    "share": "Davet bağlantısını paylaş",
+    "copy": "Davet bağlantısını kopyala"
+  },
+  "share": {
+    "joinTeam": "{{appName}} uygulamasında yarış takımına katıl!",
+    "joinNamedTeam": "{{appName}} uygulamasında {{partyName}} yarış takımına katıl!",
+    "dialogTitle": "Daveti paylaş"
+  }
+}

@@ -11,6 +11,7 @@ patterns used in the Bubbly Clouds App monorepo.
 - [Just-in-Time Package Pattern](#just-in-time-package-pattern)
 - [Import Guidelines](#import-guidelines)
 - [Architectural Principles](#architectural-principles)
+- [Internationalisation](#internationalisation)
 
 ## Package Hierarchy
 
@@ -18,25 +19,25 @@ The monorepo is organized into two main categories: **packages** (reusable
 libraries) and **apps** (executable applications).
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                      Application Layer (L6)                            │
-│                                                                        │
-│ ┌──────────────────┐  ┌──────────────────┐  ┌─────────────┐ ┌────────┐│
-│ │  @app-sudoku     │  │@app-bubblyclouds │  │@app-        │ │@app-   ││
-│ │  (Next.js App)   │  │(Next.js Website) │  │jamesacres   │ │stephen ││
-│ └──────────────────┘  └──────────────────┘  │(Blog)       │ │esch    ││
-│                                              └─────────────┘ │(Blog)  ││
-│                                                              └────────┘│
-└────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                         Application Layer (L6)                               │
+│                                                                              │
+│ ┌─────────────┐ ┌──────────────────┐ ┌─────────────┐ ┌────────┐ ┌─────────┐│
+│ │ @app-sudoku │ │@app-bubblyclouds │ │@app-        │ │@app-   │ │@app-    ││
+│ │ (Next.js)   │ │(Next.js Website) │ │jamesacres   │ │stephen │ │unblock- ││
+│ └─────────────┘ └──────────────────┘ │(Blog)       │ │esch    │ │race     ││
+│                                      └─────────────┘ │(Blog)  │ │(Game)   ││
+│                                                       └────────┘ └─────────┘│
+└──────────────────────────────────────────────────────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                  Game-Specific Layer (L5)                       │
 │                                                                 │
-│  ┌────────────────────────────────────────────┐                │
-│  │              @sudoku                       │                │
-│  │         (Sudoku game logic)                │                │
-│  └────────────────────────────────────────────┘                │
+│  ┌────────────────────────┐  ┌────────────────────────┐        │
+│  │        @sudoku         │  │      @unblockrace      │        │
+│  │   (Sudoku game logic)  │  │  (Unblock Race logic)  │        │
+│  └────────────────────────┘  └────────────────────────┘        │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -89,7 +90,15 @@ libraries) and **apps** (executable applications).
   - Contains app-specific pages and routing
   - Platform builds: Web (static to S3/CloudFront), iOS, Android, Electron
   - `deploy/` directory contains AWS CDK stack for infrastructure
-  - Depends on: All packages
+  - Depends on: `@auth`, `@games`, `@sudoku`, `@template`, `@ui`, `@types`
+
+- **`@bubblyclouds-app/app-unblockrace`** - Production Unblock Race application
+  (Next.js)
+  - Consumes game and infrastructure packages
+  - Contains app-specific pages and routing for the sliding-block game
+  - Platform builds: Web (static to S3/CloudFront), iOS, Android, Electron
+  - `deploy/` directory contains AWS CDK stack for infrastructure
+  - Depends on: `@auth`, `@games`, `@unblockrace`, `@template`, `@ui`, `@types`
 
 - **`@bubblyclouds-app/app-bubblyclouds`** - Bubblyclouds website (Next.js)
   - Company website and landing page
@@ -98,14 +107,16 @@ libraries) and **apps** (executable applications).
   - `deploy/` directory contains AWS CDK stack for infrastructure
   - Depends on: `@auth`, `@ui`, `@types` (and other packages as needed)
 
-- **`@bubblyclouds-app/app-jamesacres`** - Personal blog and portfolio website (Next.js)
+- **`@bubblyclouds-app/app-jamesacres`** - Personal blog and portfolio website
+  (Next.js)
   - Blog content and articles using MDX
   - Personal portfolio and projects showcase
   - Platform builds: Web (static to S3/CloudFront)
   - `deploy/` directory contains AWS CDK stack for infrastructure
   - Depends on: `@blog`, `@ui`, `@types`
 
-- **`@bubblyclouds-app/app-stephenesch`** - Personal blog and portfolio website (Next.js)
+- **`@bubblyclouds-app/app-stephenesch`** - Personal blog and portfolio website
+  (Next.js)
   - Blog content and articles using MDX
   - Personal portfolio and projects showcase
   - Platform builds: Web (static to S3/CloudFront)
@@ -177,17 +188,24 @@ libraries) and **apps** (executable applications).
 
 **Foundation Layer Internal Dependencies:**
 
-The Foundation Layer (L0-L1) permits same-layer dependencies for feature-specific packages:
-- `@blog` depends on `@ui` because it provides blog-specific UI components and layouts
-- This is distinct from higher-layer dependencies, which follow strict top-down rules
-- Foundation packages are decoupled from business logic and remain reusable across applications
-- New content-type packages (e.g., `@docs`, `@wiki`) would follow the same pattern
+The Foundation Layer (L0-L1) permits same-layer dependencies for
+feature-specific packages:
+
+- `@blog` depends on `@ui` because it provides blog-specific UI components and
+  layouts
+- This is distinct from higher-layer dependencies, which follow strict top-down
+  rules
+- Foundation packages are decoupled from business logic and remain reusable
+  across applications
+- New content-type packages (e.g., `@docs`, `@wiki`) would follow the same
+  pattern
 
 ## Dependency Flow
 
 ### Foundation Layer Internal Structure
 
-The Foundation Layer (L0-L1) has a special structure allowing internal dependencies:
+The Foundation Layer (L0-L1) has a special structure allowing internal
+dependencies:
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -211,12 +229,16 @@ The Foundation Layer (L0-L1) has a special structure allowing internal dependenc
 ```
 
 This structure enables:
-- **Feature-specific foundation packages** that extend @ui for specialized use cases
+
+- **Feature-specific foundation packages** that extend @ui for specialized use
+  cases
 - **Reusable content packages** that combine content logic with UI
 - **Future content types** (@docs, @wiki, etc.) following the same pattern
 - **Clean separation** from higher-layer business logic
 
-Higher layers depend only on @ui, not on @blog or other content packages. Content-specific code is imported directly by applications (e.g., @app-jamesacres imports @blog).
+Higher layers depend only on @ui, not on @blog or other content packages.
+Content-specific code is imported directly by applications (e.g.,
+@app-jamesacres imports @blog).
 
 ### Dependency Rules
 
@@ -241,6 +263,34 @@ Higher layers depend only on @ui, not on @blog or other content packages. Conten
 │   ├── @ui
 │   └── @types
 ├── @sudoku
+│   ├── @auth
+│   ├── @games
+│   │   ├── @template
+│   │   ├── @ui
+│   │   └── @types
+│   ├── @template
+│   │   ├── @auth
+│   │   ├── @ui
+│   │   └── @types
+│   ├── @ui
+│   └── @types
+├── @template
+│   ├── @auth
+│   ├── @ui
+│   └── @types
+├── @ui
+└── @types
+
+@app-unblockrace
+├── @auth
+├── @games
+│   ├── @template
+│   │   ├── @auth
+│   │   ├── @ui
+│   │   └── @types
+│   ├── @ui
+│   └── @types
+├── @unblockrace
 │   ├── @auth
 │   ├── @games
 │   │   ├── @template
@@ -323,6 +373,8 @@ Each package declares its dependencies explicitly in its `package.json`:
 ┌──────────┐                  ┌──────────────┐
 │ apps/    │                  │  packages/   │
 │ sudoku/  │                  └──────┬───────┘
+│ unblock- │                         │
+│ race/    │                         │
 │ or       │                         │
 │ bubbly   │                         │
 │ clouds/  │                         │
@@ -331,15 +383,16 @@ Each package declares its dependencies explicitly in its `package.json`:
                            │                   │
                      Game-specific?     Game-agnostic?
                            │                   │
-             ┌─────────────┼────────┐          │
-             │             │        │          │
-         Sudoku-        Shared   Generic       │
-         specific?      game     game          │
-             │          logic?   helpers?      │
-             ▼             ▼        ▼          │
-      ┌──────────┐  ┌──────────┐ ┌─────────┐  │
-      │ @sudoku  │  │  @games  │ │ @games  │  │
-      └──────────┘  └──────────┘ └─────────┘  │
+             ┌─────────────┴──────┐            │
+             │                    │            │
+         Sudoku?          Unblock Race?        │
+             │                    │            │
+             ▼                    ▼            │
+      ┌──────────┐  ┌─────────────────┐        │
+      │ @sudoku  │  │  @unblockrace   │        │
+      └──────────┘  └─────────────────┘        │
+                              ↑                │
+                    Shared game helpers? → @games
                                                │
                       ┌────────────────────────┘
                       │
@@ -350,7 +403,7 @@ Each package declares its dependencies explicitly in its `package.json`:
             ▼                      ▼
       ┌──────────┐      ┌───────────────────┐
       │@template │      │ @ui, @auth,       │
-      └──────────┘      │ @types            │
+      └──────────┘      │ @types, @blog     │
                         └───────────────────┘
 ```
 
@@ -375,10 +428,10 @@ export interface Party {
 }
 
 export enum PlatformType {
-  WEB = "web",
-  IOS = "ios",
-  ANDROID = "android",
-  ELECTRON = "electron",
+  WEB = 'web',
+  IOS = 'ios',
+  ANDROID = 'android',
+  ELECTRON = 'electron',
 }
 ```
 
@@ -495,6 +548,43 @@ export enum PlatformType {
 - Generic game features (use `@games`)
 - Non-sudoku game logic
 - Generic components (use `@ui`)
+
+#### `@bubblyclouds-app/unblockrace`
+
+**Add here when:**
+
+- Implementing Unblock Race board rules and move validation
+- Creating Unblock Race-specific UI components
+- Building board state management for the sliding-block puzzle
+- Adding race-chain or multi-puzzle run state specific to this game
+
+**Examples:**
+
+- `UnblockBoard` - Board rendering component
+- `useBoardState` - Board state hook
+- Board string parsing and serialization utilities
+- Fixture puzzle data
+
+**Do NOT add:**
+
+- Generic game features (use `@games`)
+- Non-Unblock Race game logic
+- Generic components (use `@ui`)
+
+#### `apps/unblockrace`
+
+**Add here when:**
+
+- Creating Next.js pages and routes for the Unblock Race app
+- Implementing app-specific page layouts
+- Configuring app settings (Next.js config, Capacitor, etc.)
+- Creating one-off features specific to this app
+- Modifying the CDK deployment stack in `deploy/`
+
+**Do NOT add:**
+
+- Reusable components (extract to packages)
+- Business logic (belongs in packages)
 
 #### `apps/sudoku`
 
@@ -719,11 +809,11 @@ packages/games/
 
 ```typescript
 // ❌ BAD - Do not create packages/games/src/components/index.ts
-export { Leaderboard } from "./Leaderboard";
-export { ScoreBreakdown } from "./ScoreBreakdown";
+export { Leaderboard } from './Leaderboard';
+export { ScoreBreakdown } from './ScoreBreakdown';
 
 // ✅ GOOD - Import directly from source file
-import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
 ```
 
 Index files defeat the purpose of JIT by creating unnecessary re-exports.
@@ -737,10 +827,7 @@ Different file types require different export patterns:
   "exports": {
     "./components/*": "./src/components/*.tsx",
     "./helpers/*": "./src/helpers/*.ts",
-    "./config/*": [
-      "./src/config/*.ts",
-      "./src/config/*.tsx"
-    ]
+    "./config/*": ["./src/config/*.ts", "./src/config/*.tsx"]
   }
 }
 ```
@@ -755,11 +842,11 @@ Always use **relative imports**:
 
 ```typescript
 // ✅ GOOD - In packages/games/src/components/Leaderboard.tsx
-import { calculateScore } from "../helpers/scoringUtils";
-import type { ScoringResult } from "../types/scoringTypes";
+import { calculateScore } from '../helpers/scoringUtils';
+import type { ScoringResult } from '../types/scoringTypes';
 
 // ❌ BAD - Do not use package name for internal imports
-import { calculateScore } from "@bubblyclouds-app/games/helpers/scoringUtils";
+import { calculateScore } from '@bubblyclouds-app/games/helpers/scoringUtils';
 ```
 
 ### Cross-Package Imports
@@ -768,12 +855,12 @@ Always use **absolute package imports**:
 
 ```typescript
 // ✅ GOOD - In packages/sudoku/src/components/Sudoku.tsx
-import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
-import { useAuth } from "@bubblyclouds-app/auth/hooks/useAuth";
-import type { Party } from "@bubblyclouds-app/types/serverTypes";
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
+import { useAuth } from '@bubblyclouds-app/auth/hooks/useAuth';
+import type { Party } from '@bubblyclouds-app/types/serverTypes';
 
 // ❌ BAD - Do not use relative imports across packages
-import { Leaderboard } from "../../../games/src/components/Leaderboard";
+import { Leaderboard } from '../../../games/src/components/Leaderboard';
 ```
 
 ### Import from Source Files
@@ -782,11 +869,11 @@ Always import **directly from the source file**:
 
 ```typescript
 // ✅ GOOD - Direct file imports
-import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
-import { calculateScore } from "@bubblyclouds-app/games/helpers/scoringUtils";
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
+import { calculateScore } from '@bubblyclouds-app/games/helpers/scoringUtils';
 
 // ❌ BAD - Do not import from package root (unless explicitly exported)
-import { Leaderboard } from "@bubblyclouds-app/games";
+import { Leaderboard } from '@bubblyclouds-app/games';
 ```
 
 ### No Re-exports for Convenience
@@ -795,14 +882,14 @@ Do not create re-export files for convenience:
 
 ```typescript
 // ❌ BAD - Do not create packages/games/src/index.ts with:
-export { Leaderboard } from "./components/Leaderboard";
-export { ScoreBreakdown } from "./components/ScoreBreakdown";
-export { calculateScore } from "./helpers/scoringUtils";
+export { Leaderboard } from './components/Leaderboard';
+export { ScoreBreakdown } from './components/ScoreBreakdown';
+export { calculateScore } from './helpers/scoringUtils';
 
 // ✅ GOOD - Import directly from source
-import { Leaderboard } from "@bubblyclouds-app/games/components/Leaderboard";
-import { ScoreBreakdown } from "@bubblyclouds-app/games/components/ScoreBreakdown";
-import { calculateScore } from "@bubblyclouds-app/games/helpers/scoringUtils";
+import { Leaderboard } from '@bubblyclouds-app/games/components/Leaderboard';
+import { ScoreBreakdown } from '@bubblyclouds-app/games/components/ScoreBreakdown';
+import { calculateScore } from '@bubblyclouds-app/games/helpers/scoringUtils';
 ```
 
 ### Type-Only Imports
@@ -811,11 +898,11 @@ Use `type` keyword for type-only imports when possible:
 
 ```typescript
 // ✅ GOOD - Explicit type imports
-import type { Party } from "@bubblyclouds-app/types/serverTypes";
-import type { ScoringResult } from "@bubblyclouds-app/games/types/scoringTypes";
+import type { Party } from '@bubblyclouds-app/types/serverTypes';
+import type { ScoringResult } from '@bubblyclouds-app/games/types/scoringTypes';
 
 // ⚠️ ACCEPTABLE - But less explicit
-import { Party } from "@bubblyclouds-app/types/serverTypes";
+import { Party } from '@bubblyclouds-app/types/serverTypes';
 ```
 
 ## Architectural Principles
@@ -838,7 +925,7 @@ on abstractions (types):
 
 ```typescript
 // ✅ GOOD - Both depend on @types
-import type { Party } from "@bubblyclouds-app/types/serverTypes";
+import type { Party } from '@bubblyclouds-app/types/serverTypes';
 
 function createParty(): Party {
   // Implementation
@@ -852,10 +939,10 @@ of applications:
 
 ```typescript
 // ❌ BAD - In @template package
-import { SudokuGrid } from "@bubblyclouds-app/sudoku/components/SudokuGrid";
+import { SudokuGrid } from '@bubblyclouds-app/sudoku/components/SudokuGrid';
 
 // ✅ GOOD - Generic, reusable
-import { SessionsProvider } from "@bubblyclouds-app/template/providers/SessionsProvider";
+import { SessionsProvider } from '@bubblyclouds-app/template/providers/SessionsProvider';
 ```
 
 ### 4. Explicit Dependencies
@@ -878,9 +965,9 @@ All dependencies must be explicitly declared in `package.json`:
 Packages form a directed acyclic graph (DAG):
 
 ```
-Layer 6:  @app-sudoku, @app-bubblyclouds
+Layer 6:  @app-sudoku, @app-unblockrace, @app-bubblyclouds, @app-jamesacres, @app-stephenesch
               ↓
-Layer 5:  @sudoku
+Layer 5:  @sudoku, @unblockrace
               ↓
 Layer 4:  @games
               ↓
@@ -888,7 +975,7 @@ Layer 3:  @template
               ↓
 Layer 2:  @auth
               ↓
-Layer 0-1: @ui, @types
+Layer 0-1: @ui, @types, @blog
 ```
 
 The full dependency tree:
@@ -907,15 +994,19 @@ The full dependency tree:
 @games (depends on @template, @ui, @types)
   ↑
 @sudoku (depends on @games, @template, @auth, @ui, @types)
+@unblockrace (depends on @games, @template, @auth, @ui, @types)
   ↑
-@app-sudoku (depends on all packages)
+@app-sudoku (depends on @sudoku, @games, @template, @auth, @ui, @types)
+@app-unblockrace (depends on @unblockrace, @games, @template, @auth, @ui, @types)
 @app-bubblyclouds (depends on @auth, @ui, @types)
 @app-jamesacres (depends on @blog, @ui, @types)
+@app-stephenesch (depends on @blog, @ui, @types)
 ```
 
 Circular dependencies are prevented by:
 
-- Clear layering (L0-L1 Foundation → L2 Infrastructure → L3 Collaboration → L4 Game Features → L5 Game-Specific → L6 Applications)
+- Clear layering (L0-L1 Foundation → L2 Infrastructure → L3 Collaboration → L4
+  Game Features → L5 Game-Specific → L6 Applications)
 - Each package only depends on packages in lower layers
 - Dependency checking (`pnpm run circular`)
 - Code review
@@ -948,6 +1039,197 @@ const userId = user.id;
 await retryWithBackoff(() => api.call());
 ```
 
+## Internationalisation
+
+User-facing text is translated with `i18next` and `react-i18next`. English is
+bundled and initialised synchronously, so there is no loading state for the
+default locale; every other locale is a lazily loaded chunk (see Lazy loading).
+
+- **Core lives in `@ui`** (L1): `config/i18n.ts` (`createI18n`),
+  `helpers/resolveLocale.ts`, `providers/I18nProvider.tsx` (`useLocale`) and
+  `components/LanguageSelect.tsx`. `@ui` owns the `i18next` dependency.
+- **Locale files** are JSON at `src/locales/<locale>.json` in every package and
+  app, exported as `"./locales/*": "./src/locales/*.json"`. Keys are nested by
+  area then element with camelCase leaves.
+- **Namespaces** match the owner: `ui`, `auth`, `template`, `games`,
+  `sudoku`, `unblockrace` and `app` (per app). Components call
+  `useTranslation('<ns>')` for their own package namespace; packages never import
+  an app's bundle.
+- **Apps assemble resources** in `apps/<app>/src/i18n.ts`, which exports
+  `DEFAULT_LOCALE`, `resources` (English only), `localeLoaders` and
+  `supportedLocales` (`DEFAULT_LOCALE` plus the keys of `localeLoaders`) and
+  imports no React or browser APIs, so it is safe to use at build time (for
+  example in `generateMetadata`). `providers.tsx` wraps the tree in
+  `I18nProvider` and passes `localeLoaders`.
+- **Locale tags** are listed in `@ui/config/locales` (`LOCALE_TAGS`): base
+  languages plus `es-MX`, `fr-CA`, `pt-PT`, `zh-Hans` and `zh-Hant`. `nb` is
+  the tag for `no`/`nn`/`nb`, `pt` is Brazilian Portuguese, and `resolveLocale`
+  maps `zh`/`zh-CN`/`zh-SG` to `zh-Hans` and `zh-TW`/`zh-HK`/`zh-MO` to
+  `zh-Hant`. Regional tags fall back to their base and then `en`
+  (`createI18n` builds `fallbackLng` as a per-locale map).
+- **Lazy loading**: `localeLoaders` maps a tag to
+  `createLocaleLoader({ ui: () => import('@bubblyclouds-app/ui/locales/<tag>'), ... })`
+  (one entry per bundle: `ui`, `auth`, `template`, `games`, the game package and
+  `app`). `I18nProvider` renders `DEFAULT_LOCALE` first, then loads the chunk of
+  the detected or chosen locale, adds it with `addLocaleBundles` and switches. A
+  failed load keeps the current locale. To ship a locale add its
+  `src/locales/<tag>.json` files, one `localeLoaders` entry per app, and run
+  `pnpm run i18n:validate` and `pnpm run i18n:audit`.
+- **`<html lang>` and `dir`** are set by `I18nProvider` when the locale
+  changes (`dir` from `Intl.Locale#getTextInfo`, falling back to the static list
+  `ar`, `he`, `ur`, `fa`), and `document.title` follows `meta.title` of the
+  `app` namespace. Static metadata and the server-rendered `lang` stay on
+  `DEFAULT_LOCALE`.
+- **Right-to-left layout** uses logical Tailwind utilities only (`ms-*`, `me-*`,
+  `ps-*`, `pe-*`, `start-*`, `end-*`, `text-start`, `rounded-s-*`, `border-e-*`,
+  `space-x-*` which Tailwind v4 emits as logical margins). Directional icons
+  (chevrons, arrows, play, exit) carry `rtl:-scale-x-100`, and slides use an
+  `rtl:` counterpart. Game geometry, timers, scores, codes and email inputs are
+  left-to-right islands with `dir="ltr"`. Game data digits go through
+  `formatLatinNumber` (`@bubblyclouds-app/ui/helpers/latinNumber`), which forces
+  the `latn` numbering system. `packages/ui/src/helpers/physicalDirection.test.ts`
+  scans the sources of `ui`, `auth`, `template`, `games`, `sudoku`,
+  `unblockrace` and both apps (including `.css`) for physical direction
+  utilities and styles; deliberate exceptions are listed with a reason in
+  `physicalDirectionAllowlist.json` next to it.
+- **LTR islands** carry `dir="ltr"` and keep their geometry in every locale:
+  the sudoku grid (`Sudoku`, `SimpleSudoku`, so cells, notes and `BookCover`
+  mini grids), `NumberPad`, the unblock `Board` (an inner `dir="ltr"` layer so
+  the outer margins still mirror), `SimpleBoard`, `SudokuBoardPreview`,
+  `UnblockRaceBoardPreview`, `RaceLanesPreview`, the `RaceTrack` lane and its
+  Start/Finish labels, `StageTransition`'s track, the `StageResultPanel`
+  filmstrip, the `RaceHud` stage pips, `CountdownOverlay`, the victory lap in
+  `RaceCelebration`, timers, move counters and score numbers. Chrome around
+  them (headers, leaderboards, result sheets, controls) mirrors. Inside an
+  island use logical insets (`insetInlineStart`) or plain classes, never
+  `rtl:` variants: Tailwind's `rtl:` also matches through the `[dir=rtl] *`
+  selector, so it would flip content inside an island. An island that also
+  needs mirrored outer margins (the sudoku grid) pairs them with
+  `lg:rtl:ms-0 lg:rtl:me-auto`.
+- **Global CSS** (identical in both apps' `src/app/globals.css`):
+  `html { hyphens: auto; overflow-wrap: break-word }` so German and Finnish
+  words wrap; `letter-spacing: normal !important` and
+  `text-transform: none !important` for `ar`, `he` and `ur` (tracking and
+  uppercase break joining and case); a `--script-font` stack per `:lang()` and
+  rules that put it behind Outfit on `body` and behind Orbitron, Pacifico and
+  Creepster on `.font-orbitron`, `.font-pacifico` and `.font-creepster`; taller
+  line-height for Arabic, Urdu, Indic and Thai text on `leading-none`,
+  `leading-tight` and `leading-snug`.
+- **Fonts**: Outfit, Orbitron and Pacifico stay Latin subsets from
+  `next/font/google`; no webfonts are added. CJK, Arabic, Hebrew, Indic and
+  Thai text falls back to the platform system fonts named in `--script-font`
+  (Hiragino, PingFang, Apple SD Gothic Neo, Geeza Pro, Noto Nastaliq Urdu,
+  Kohinoor, Noto Sans, Thonburi, ...), so display headings in those scripts use
+  the system face. Cyrillic, Greek and Vietnamese have no `:lang()` rule: they
+  fall back from Outfit and Orbitron to `system-ui` per glyph.
+- **Text fit**: text-bearing slots use `min-w-*`/`min-h-*`, `break-words`,
+  `flex-wrap` and `min-w-0` rather than fixed sizes. Slots that deliberately
+  stay on one line (tracked pills, the `StageResultPanel` difficulty pill with
+  ellipsis and `title`, the day columns' 3-character labels) carry a budget in
+  `scripts/i18n/length-budgets.json`.
+- **Numerals**: game data (scores, multipliers, counts, ranks, timers) formats
+  through `formatLatinNumber`, never `toLocaleString`/`Intl.NumberFormat`
+  directly; month names and dates stay locale-native via `Intl`.
+- **Pseudo-locales** `en-XA` (accented, about 40 percent longer, bracketed) and
+  `ar-XB` (right-to-left, Arabic-script lookalikes with bidi marks) are generated
+  from each `en.json` by `pnpm run i18n:pseudo` into `src/locales/` and are
+  committed so the dev-only dynamic imports always resolve. Each app registers
+  them only when `NODE_ENV !== 'production'`; the audit and validator skip them
+  unless asked (`--locale en-XA`). Re-run the generator when `en.json` changes
+  (`node scripts/i18n/pseudo.mjs --check` reports stale files).
+- **Native shells** (`apps/<app>/ios`, `apps/<app>/android`) are generated by
+  `node scripts/i18n/native.mjs --write` from `scripts/i18n/glossary/<tag>.json`
+  (`brand.appName`), the tag -> iOS/Android code table at the top of that
+  script and `scripts/i18n/native-strings.json` (translated
+  `NS*UsageDescription` texts, keyed by plist key and tag; `en` must equal the
+  app's `Info.plist`). It writes `CFBundleLocalizations`, per-locale
+  `<code>.lproj/InfoPlist.strings` (display name plus usage descriptions) and
+  the `InfoPlist.strings` variant group and `knownRegions` in `project.pbxproj`
+  on iOS, and `res/values-<qualifier>/strings.xml` (`app_name`,
+  `title_activity_main`), `res/xml/locales_config.xml`,
+  `android:localeConfig` and `bundle { language { enableSplit = false } }` in
+  `build.gradle` on Android (`he` -> `iw`, `id` -> `in`, `zh-Hans` ->
+  `b+zh+Hans`, `pt` -> `pt-rBR`). `pnpm run i18n:native` is the `--check`
+  mode and fails when committed files differ. The home-screen label is the
+  short brand, never the 30-character store name, which truncates under the
+  icon. Adding a locale is a data change (mapping row, glossary, native string)
+  plus a re-run; a native release and `cap sync` are required for it to ship.
+- **Detection** order is the stored choice (`localStorage` key
+  `bubblyclouds.locale`), then `navigator.languages`, then `DEFAULT_LOCALE`.
+  The first render always uses `DEFAULT_LOCALE` and the detected locale is
+  applied after mount.
+- **Tests** get a shared instance from the root `jest.setup.i18n.js`, built
+  from every locale file of every package bundle (apps add their own `app`
+  bundles) and defaulting to `en`.
+- **Brand terms** live under `brand.*` in each app's `en.json` (`appName`,
+  `gameName`, `companyName`, `plus`, ...). `app.config.js` derives `appName`,
+  `gameName` and `companyName` from it with
+  `require('./src/locales/en.json').brand`, so native and build tooling
+  (`capacitor.config.ts`, `electron-builder.js`, `electron/main.mjs`) and React
+  share one source of truth. These identifiers are not runtime-translated, and
+  anything that loads `app.config.js` must be able to resolve
+  `src/locales/en.json` next to it (including the Electron packaging step).
+  `appDescription`, `mobileDescription` and `desktopDescription` no longer
+  exist in `app.config.js`; they are `meta.description`,
+  `puzzle.mobileDescription` and `puzzle.desktopDescription` in `en.json`.
+- **Metadata** is built at build time: `layout.tsx` exports
+  `generateMetadata()`, which creates a throwaway instance with `createI18n`
+  and reads `meta.title` / `meta.description`. `<html lang>` uses
+  `DEFAULT_LOCALE` (the apps are `output: 'export'`, so metadata cannot follow
+  a client-side language choice).
+- **Non-React helpers** never import an i18n singleton: they take a
+  `Translate` (`@bubblyclouds-app/games/types/i18n`,
+  `@bubblyclouds-app/template/types/i18n`) or return keys and params.
+- **Agents**: `AgentConfig` carries a stable `id`; `name` is the legacy
+  identity token (persisted `agentNames`, `agent-<name>` run ids) and is never
+  rendered. `AgentConfig` no longer has `personality` or `voiceLines`; those
+  are `agents.<id>.*` keys in the owning package namespace. Display names
+  resolve through `useAgentDisplayResolver(namespace)` and
+  `useAgentDisplay(namespace)` (`@games/hooks`), and agent progress/runs carry
+  `configId` to look the display up.
+- **Errors**: the UI never renders `error.message`; errors map to localised
+  keys (`errors.generic` fallback) and the raw error goes to `console.error`.
+  `GlobalErrorHandler` and `ErrorBoundary` render inside `I18nProvider` (the
+  apps' `Providers` wraps them).
+- **Apps without their own locale** (`bubblyclouds`, the blog apps via
+  `@blog` `Providers`) still wrap shared components in `I18nProvider` with the
+  `ui` (and `auth`/`template`) bundles; components using `useTranslation`
+  outside a provider would render raw keys.
+- `pnpm run i18n:audit` (`scripts/i18nAudit.sh` ->
+  `scripts/i18n_audit.py`) checks every package/app: missing keys, unused keys
+  (plural `_one`/`_other`/`_ordinal_*` and `<Trans i18nKey>` are understood),
+  `ns:`-prefixed keys and dynamic keys. Keys built dynamically
+  (`agents.<id>.*`, `techniques.*`, `bookCover.months.*`, ...) must be declared
+  with a justification in `scripts/i18n_audit.config.json`, which also
+  cross-checks that every generated key exists. Every non-English
+  `src/locales/<tag>.json` must have the same key set as `en.json`, except that
+  plural suffixes must equal the CLDR categories of `<tag>`
+  (`scripts/i18n/pluralCategories.mjs`, via `Intl.PluralRules`). It exits
+  non-zero on any problem.
+- `pnpm run i18n:validate` (`scripts/i18n/validate.mjs`, flags `--locale <tag>`
+  and `--app <sudoku|unblockrace>`) checks each non-English file against `en`:
+  key set and plural forms, `{{placeholder}}` names, `<tag>` structure, `$t()`
+  references, leading/trailing emoji, empty strings, and `brand.*` against
+  `scripts/i18n/glossary/<tag>.json` (`{ "<app>": { "brand": { ... } } }`) and
+  per-key limits from `scripts/i18n/length-budgets.json`
+  (`{ "<root>": { "<key>": number | { "max": number, "reason": string } } }`,
+  counted in code points) when those files exist. `pnpm run i18n:test` runs the
+  tests for these scripts.
+- **Glossary and budgets**: `scripts/i18n/glossary/<tag>.json` exists for `en`
+  and each of the 46 translated tags. Per app it has `brand` (validated; the
+  keys of that app's `brand.*` block) and `terms` (translator guidance only:
+  race, team, leaderboard, hint, undo, theme, dailyPuzzle, monthlyCollection,
+  aiOpponent, monthly, lifetime, plusAccess, plusFeatureLine). The store
+  localisations are the source of truth: `appName` is the short brand before
+  the colon in the App Store name, `plus` and the `terms` come from the store
+  product wording, and `plusName` / `plusProduct` are `gameName` + `plus`.
+  `or` has no store product strings, so its `plus` fields and `terms` that
+  derive from them are absent until the glossary is completed.
+  `length-budgets.json` lists only genuinely constrained slots (tab bar, pills
+  and badges, grid buttons, table headings, dialog buttons), each with a
+  `reason`; limits come from the slot, and `_other` is the only plural form
+  budgeted.
+
 ## Deployment
 
 All web apps are deployed as fully static sites. Next.js is configured with
@@ -966,8 +1248,9 @@ All web apps are deployed as fully static sites. Next.js is configured with
 
 Each app has a `deploy/` directory containing:
 
-- **`lib/app-stack.ts`** - CDK stack defining S3 bucket, CloudFront distribution,
-  and a CloudFront Function for URL rewrites (e.g. `/about` -> `/about.html`)
+- **`lib/app-stack.ts`** - CDK stack defining S3 bucket, CloudFront
+  distribution, and a CloudFront Function for URL rewrites (e.g. `/about` ->
+  `/about.html`)
 - **`bin/deploy.ts`** - CDK app entry point, reads configuration from `.env`
 - **`scripts/sync-s3.sh`** - Uploads static output to S3 and invalidates
   CloudFront cache
@@ -975,7 +1258,8 @@ Each app has a `deploy/` directory containing:
 
 ### Deploy Workflow
 
-1. **Infrastructure (one-time):** `npm run cdk:deploy` from `apps/<name>/deploy/`
+1. **Infrastructure (one-time):** `npm run cdk:deploy` from
+   `apps/<name>/deploy/`
 2. **Update `.env`** with the S3 bucket name and CloudFront distribution ID
 3. **Build:** `pnpm run build:<name>` from repo root
 4. **Deploy updates:** `npm run sync-s3` from `apps/<name>/deploy/`
@@ -983,8 +1267,8 @@ Each app has a `deploy/` directory containing:
 ### Platform-Specific Builds
 
 - **Web:** Static export to S3/CloudFront (all apps)
-- **iOS/Android:** Capacitor build (Sudoku app only)
-- **Desktop:** Electron build (Sudoku app only)
+- **iOS/Android:** Capacitor build (Sudoku and Unblock Race apps)
+- **Desktop:** Electron build (Sudoku and Unblock Race apps)
 
 ## Verification Commands
 
@@ -1006,23 +1290,26 @@ pnpm test
 
 ## Summary
 
-- **8 packages** organized in **7 layers** (L0-L6):
+- **9 packages** organized in **7 layers** (L0-L6):
   - L0-L1: Foundation (`@types`, `@ui`, `@blog`)
     - `@types`: Zero dependencies, foundational types
     - `@ui`: Generic UI components, depends on `@types`
     - `@blog`: Content utilities, depends on `@ui` and `@types`
-    - **Note:** Foundation Layer permits same-layer dependencies for feature packages
+    - **Note:** Foundation Layer permits same-layer dependencies for feature
+      packages
   - L2: Infrastructure (`@auth`)
   - L3: Collaboration (`@template`)
   - L4: Game Features (`@games`)
-  - L5: Game-Specific (`@sudoku`)
-  - L6: Applications (`@app-sudoku`, `@app-bubblyclouds`, `@app-jamesacres`, `@app-stephenesch`)
-- **4 apps** consuming packages as needed
+  - L5: Game-Specific (`@sudoku`, `@unblockrace`)
+  - L6: Applications (`@app-sudoku`, `@app-unblockrace`, `@app-bubblyclouds`,
+    `@app-jamesacres`, `@app-stephenesch`)
+- **5 apps** consuming packages as needed
 - **Just-in-Time pattern** for fast development without build steps
 - **Clear dependency flow** enforced by package.json and tooling
 - **Explicit guidelines** for where to add each type of code
 - **Direct source imports** from packages, no re-exports
-- **Content-specific packages** (like @blog) are extensible pattern for future use
+- **Content-specific packages** (like @blog) are extensible pattern for future
+  use
 
 This architecture enables:
 

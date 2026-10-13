@@ -1,36 +1,48 @@
 import { DifficultyDisplay } from '@bubblyclouds-app/games/types/difficultyDisplay';
+import { Translate } from '@bubblyclouds-app/games/types/i18n';
 
 // Emoji-free difficulty presentation for Unblock Race's own chrome. The
 // shared @games getDifficultyDisplay keeps its emoji styling for the sudoku
 // app and for shared surfaces like the Lobby; this maps the same difficulty
 // ids (see difficultyForMoves) to a clean label plus a chip class that
 // matches the neon aesthetic.
-const DIFFICULTY_DISPLAYS: { [key: string]: DifficultyDisplay } = {
+const DIFFICULTY_DISPLAYS: {
+  [key: string]: {
+    label: (t: Translate) => string;
+    chipClass: string;
+  };
+} = {
   beginner: {
-    label: 'Beginner',
+    label: (t) => t('difficulty.beginner'),
     chipClass: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
   },
   challenging: {
-    label: 'Challenging',
+    label: (t) => t('difficulty.challenging'),
     chipClass: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
   },
   hard: {
-    label: 'Hard',
+    label: (t) => t('difficulty.hard'),
     chipClass: 'bg-orange-500/15 text-orange-600 dark:text-orange-400',
   },
   expert: {
-    label: 'Expert',
+    label: (t) => t('difficulty.expert'),
     chipClass: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
   },
 };
 
 export const unblockDifficultyDisplay = (
-  difficulty: string
-): DifficultyDisplay =>
-  DIFFICULTY_DISPLAYS[difficulty] || {
-    label: difficulty,
-    chipClass: 'bg-stone-500/10 text-stone-500 dark:text-zinc-400',
-  };
+  difficulty: string,
+  t: Translate
+): DifficultyDisplay => {
+  const display = DIFFICULTY_DISPLAYS[difficulty];
+  if (!display) {
+    return {
+      label: difficulty,
+      chipClass: 'bg-stone-500/10 text-stone-500 dark:text-zinc-400',
+    };
+  }
+  return { label: display.label(t), chipClass: display.chipClass };
+};
 
 // Solid-fill badge variants for surfaces that render difficulty as a filled
 // pill (the collection tiles, My Puzzles, Friends), matching the shared
@@ -48,13 +60,14 @@ const BADGE_COLORS: { [key: string]: string } = {
 // from before the beginner/challenging/hard/expert rename, still present in
 // old sessions) so stale data doesn't surface as a raw-id badge.
 export const getUnblockDifficultyDisplay = (
-  difficulty: string
+  difficulty: string,
+  t: Translate
 ): { name: string; badgeColor: string } | undefined => {
   const badgeColor = BADGE_COLORS[difficulty];
   if (!badgeColor) {
     return undefined;
   }
-  return { name: unblockDifficultyDisplay(difficulty).label, badgeColor };
+  return { name: unblockDifficultyDisplay(difficulty, t).label, badgeColor };
 };
 
 // Unblock Race's own scoring difficulty multipliers — a clean 1x/2x/3x/4x

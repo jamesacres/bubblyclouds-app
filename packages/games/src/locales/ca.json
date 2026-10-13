@@ -1,0 +1,267 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Llibre",
+    "defaultDetailNoun": "llibres de puzles"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Col·lecció mensual"
+  },
+  "hintBox": {
+    "dismiss": "Tanqueu la pista"
+  },
+  "lobbyButton": {
+    "opponents": "Rivals"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Continueu — puzle següent",
+    "continueLocked": "Continueu ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{label}}: {{completed}} de {{total}} completats"
+  },
+  "countdownOverlay": {
+    "getReady": "Prepareu-vos",
+    "go": "JA!"
+  },
+  "confirmDialog": {
+    "cancel": "Cancel·leu"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · completat",
+    "retry": "Reintenteu",
+    "points": "+{{points}} pts",
+    "leaderboardPoints": "Punts de la classificació"
+  },
+  "raceTimer": {
+    "time": "Temps"
+  },
+  "stageTopBar": {
+    "previous": "Anterior"
+  },
+  "raceHud": {
+    "opponents": "Rivals",
+    "stageOf": "Etapa {{current}} de {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Meta!",
+    "runComplete": "Recorregut complet",
+    "leaderboardPoints": "Punts de la classificació",
+    "pointsSuffix": " pts"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "dg",
+      "monday": "dl",
+      "tuesday": "dt",
+      "wednesday": "dc",
+      "thursday": "dj",
+      "friday": "dv",
+      "saturday": "ds"
+    },
+    "dayStreak_one": "dia de ratxa",
+    "dayStreak_many": "dies de ratxa",
+    "dayStreak_other": "dies de ratxa",
+    "thisMonth": "aquest mes"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Tu)",
+    "puzzles_one": "{{count}} puzle",
+    "puzzles_many": "{{count}} de puzles",
+    "puzzles_other": "{{count}} puzles",
+    "average": "Mitjana: {{time}}",
+    "best": "Millor: {{time}}",
+    "wins_one": "🏁 {{count}} victòria",
+    "wins_many": "🏁 {{count}} de victòries",
+    "wins_other": "🏁 {{count}} victòries",
+    "points_one": "punt",
+    "points_many": "punts",
+    "points_other": "punts"
+  },
+  "scoreBreakdown": {
+    "title": "Desglossament de la puntuació",
+    "volumeBonus": {
+      "label": "Bonificació per volum",
+      "detail_one": "{{count}} puzle completat",
+      "detail_many": "{{count}} de puzles completats",
+      "detail_other": "{{count}} puzles completats"
+    },
+    "dailyPuzzles": {
+      "label": "Puzles diaris",
+      "detail_one": "{{count}} repte diari",
+      "detail_many": "{{count}} de reptes diaris",
+      "detail_other": "{{count}} reptes diaris"
+    },
+    "collectionPuzzles": {
+      "label": "Puzles de {{collection}}",
+      "detail": "{{collection}}: {{count}}"
+    },
+    "scannedPuzzles": {
+      "label": "Puzles escanejats",
+      "detail_one": "{{count}} puzle importat",
+      "detail_many": "{{count}} de puzles importats",
+      "detail_other": "{{count}} puzles importats"
+    },
+    "difficultyBonus": {
+      "label": "Bonificació per dificultat",
+      "detail": "Puzles més difícils = més punts"
+    },
+    "speedBonus": {
+      "label": "Bonificació per velocitat",
+      "detail": "El més ràpid: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Bonificació de cursa",
+      "detail": "Supereu els amics que també l'han completat"
+    },
+    "dailyCombo": {
+      "label": "Combo diari",
+      "detail": "Més puzles al dia = multiplicador més gran"
+    }
+  },
+  "leaderboard": {
+    "you": "Tu",
+    "unknownUser": "Usuari desconegut",
+    "title": "Classificació",
+    "subtitleParty": "Darrers 30 dies · {{partyName}}",
+    "subtitleAllTeams": "Darrers 30 dies · Tots els equips",
+    "howScoringWorks": "Com funciona la puntuació"
+  },
+  "scoringLegend": {
+    "title": "Com funciona la puntuació",
+    "subtitle": "{{gameName}} · Darrers 30 dies",
+    "close": "Tanqueu",
+    "racingWins": {
+      "title": "Victòries en cursa",
+      "body": "Guanyeu <points>+{{points}} pts</points> per cada amic que supereu en el mateix puzle completat. Arribeu primers entre {{friends}} amics i aconseguiu <points>+{{total}} pts</points>."
+    },
+    "basePoints": {
+      "title": "Punts base",
+      "anyPuzzle": "Qualsevol puzle",
+      "dailyPuzzle": "Puzle diari",
+      "collectionPuzzle": "Puzle de {{collection}}",
+      "scannedPuzzle": "Puzle escanejat"
+    },
+    "difficultyMultipliers": {
+      "title": "Multiplicadors de dificultat",
+      "daily": "{{gameName}} del dia",
+      "collection": "Puzles de {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Bonificacions de velocitat",
+      "lightning": "Llampec",
+      "fast": "Ràpid",
+      "quick": "Àgil",
+      "steady": "Constant",
+      "under": "menys de {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Combo diari",
+      "body": "Resoleu més puzles el mateix dia per multiplicar els punts de cada puzle, fins a <max>{{max}}×</max>.",
+      "puzzle": "Puzle {{puzzle}} del dia",
+      "puzzleOrMore": "Puzle {{puzzle}}+ del dia"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Recorregut complet",
+    "raceProgress": "Progrés de la cursa",
+    "stagesProgress": "{{completed}}/{{total}} etapes",
+    "retryStage": "Reintenteu l'etapa",
+    "stageLabel": "Etapa {{number}}",
+    "stageCompletedLabel": "Etapa {{number}}, completada en {{time}}",
+    "viewRacingStats": "Veieu les estadístiques de cursa",
+    "total": "Total"
+  },
+  "raceTrack": {
+    "you": "Tu",
+    "viewFriends": "Cliqueu per veure els amics",
+    "start": "Sortida",
+    "finish": "Meta",
+    "inviteToRace": "Convideu amics a competir",
+    "opponents": "Rivals",
+    "racer": "Corredor",
+    "stageBadge": "E{{number}}",
+    "total": "Total",
+    "leaderboard": "Classificació",
+    "puzzleBook": "Llibre de puzles",
+    "puzzleBookLabel": "llibre de puzles",
+    "refreshScores": "Actualitzeu les puntuacions",
+    "challengeFriends": "🏁 Repteu els amics",
+    "yourTime": "El vostre temps:",
+    "inviteFriends": "Convideu amics",
+    "racingLabel": "en cursa"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Complicat",
+      "easy": "Exigent",
+      "intermediate": "Difícil",
+      "expert": "Expert"
+    },
+    "book": {
+      "veryEasy": "Molt fàcil",
+      "easy": "Fàcil",
+      "moderatelyEasy": "Força fàcil",
+      "moderate": "Moderat",
+      "moderatelyHard": "Força difícil",
+      "hard": "Difícil",
+      "vicious": "Cruel",
+      "fiendish": "Diabòlic",
+      "devilish": "Endimoniat",
+      "hell": "Infern",
+      "beyondHell": "Pitjor que l'infern"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Darrer dígit",
+    "hiddenSingleBox": "Únic ocult (caixa)",
+    "hiddenSingleLine": "Únic ocult (línia)",
+    "hiddenSingleVariantRegion": "Únic ocult (regió de variant)",
+    "nakedSingle": "Únic nu",
+    "hiddenPair": "Parella oculta",
+    "lockedCandidate": "Candidat bloquejat",
+    "hiddenTriple": "Trio ocult",
+    "hiddenQuadruple": "Quàdruple ocult",
+    "nakedPair": "Parella nua",
+    "nakedTriple": "Trio nu",
+    "nakedQuadruple": "Quàdruple nu",
+    "xWing": "X-Wing",
+    "swordfish": "Swordfish",
+    "skyscraper": "Skyscraper",
+    "twoStringKite": "Two-String Kite",
+    "crane": "Crane",
+    "simpleColoring": "Coloració simple",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing amb aleta/Sashimi",
+    "emptyRectangle": "Rectangle buit",
+    "uniqueRectangleType1": "Rectangle únic (tipus 1)",
+    "uniqueRectangleType2": "Rectangle únic (tipus 2)",
+    "uniqueRectangleType3": "Rectangle únic (tipus 3)",
+    "uniqueRectangleType4": "Rectangle únic (tipus 4)",
+    "uniqueRectangleType5": "Rectangle únic (tipus 5)",
+    "finnedSashimiSwordfish": "Swordfish amb aleta/Sashimi",
+    "jellyfish": "Jellyfish",
+    "bugBinaryUniversalGrave": "BUG (Binary Universal Grave)",
+    "xChain": "Cadena X",
+    "groupedXChain": "Cadena X agrupada",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Jellyfish amb aleta/Sashimi",
+    "medusa3D": "Medusa 3D",
+    "xyChain": "Cadena XY",
+    "alternatingInferenceChainAIC": "Cadena d'inferència alternada (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Cadena d'inferència alternada agrupada (AIC)",
+    "nishioForcingChain": "Cadena forçada Nishio",
+    "nishioForcingNet": "Xarxa forçada Nishio"
+  }
+}

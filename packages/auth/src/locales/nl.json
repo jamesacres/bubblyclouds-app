@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Meld u aan om door te gaan",
+    "signInWith": "Aanmelden met {{provider}}",
+    "emailTitle": "Aanmelden met e-mail",
+    "emailPlaceholder": "uw@e-mail.nl",
+    "continue": "Doorgaan",
+    "cancel": "Annuleren",
+    "terms": "Servicevoorwaarden",
+    "privacy": "Privacybeleid"
+  },
+  "header": {
+    "signIn": "Aanmelden"
+  },
+  "avatar": {
+    "alt": "gebruiker"
+  },
+  "panel": {
+    "title": "Account",
+    "greeting": "Hallo, {{name}}!",
+    "fallbackName": "Gebruiker",
+    "plusActive": "{{gameName}} {{plus}} actief",
+    "joinGamePlus": "Word lid van {{gameName}} {{plus}}",
+    "joinPlus": "Word lid van {{plus}}",
+    "signOut": "Afmelden",
+    "privacy": "Privacybeleid",
+    "terms": "Servicevoorwaarden",
+    "credits": "Vermeldingen",
+    "deleteAccount": "Account verwijderen",
+    "poweredBy": "Mogelijk gemaakt door {{companyName}}",
+    "deleteUnavailable": "Account verwijderen is niet beschikbaar.",
+    "deleteFailed": "Account verwijderen is mislukt. Probeer het later opnieuw."
+  },
+  "deleteDialog": {
+    "title": "Account verwijderen",
+    "warning": "Deze actie kan niet ongedaan worden gemaakt. Al uw gegevens in alle {{companyName}}-apps worden definitief verwijderd.",
+    "confirmation": "Ik bevestig dat ik mijn volledige account wil verwijderen, inclusief alle gegevens in alle {{companyName}}-apps.",
+    "cancel": "Annuleren",
+    "deleting": "Verwijderen...",
+    "submit": "Account verwijderen"
+  }
+}

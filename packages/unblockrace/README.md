@@ -44,3 +44,26 @@ stored. The board string doubles as the puzzle id.
 
 L5 game-specific package. Depends on `@games`, `@template`, `@auth`, `@ui`,
 `@types`. Consumed by `apps/unblockrace`.
+
+## Localisation
+
+User-facing strings live in `src/locales/en.json` (namespace `unblockrace`, exported as
+`@bubblyclouds-app/unblockrace/locales/en`) and are read with
+`useTranslation('unblockrace')`. See Internationalisation in `ARCHITECTURE.md`.
+
+Helpers that return display text take a `Translate`
+(`@bubblyclouds-app/games/types/i18n`); callers pass the `t` from
+`useTranslation('unblockrace')`:
+
+- `unblockDifficultyDisplay(difficulty, t)`, `getUnblockDifficultyDisplay(difficulty, t)`
+- `calculateStatsDisplayFromState(state, t)`
+- `getDailyLabel(t, language)`, `getCollectionPuzzleLabel(puzzleId, t)`
+- `getMonthlyCollectionTheme(month, t)`, `localizedMonthName(month, language)`
+- `calculateRunResults({ ..., resolveAgentName })`
+
+Agents: `AgentConfig.name` stays the legacy identity token and is never
+rendered. `agents.<id>.name`, `.emojiName` and `.personality` (plus unused
+`.voiceLines.<mood>`) live in `en.json`. The lobby receives
+`DEFAULT_AGENT_CONFIGS` as `agentOptions` and `useAgentDisplay('unblockrace')`
+(from `@bubblyclouds-app/games`) as `getAgentDisplay`; the lobby/track opponent
+names are resolved at render from `AgentProgress.configId`.

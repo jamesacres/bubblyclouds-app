@@ -1,0 +1,42 @@
+{
+  "10": {
+    "title": "Track every race",
+    "subtitle": "See your history, completion rates and how your friends compared"
+  },
+  "01": {
+    "title": "Race and learn at the same time",
+    "subtitle": "Coaching for when you get stuck,\nFull technique explanation"
+  },
+  "02": {
+    "title": "Puzzle Book",
+    "subtitle": "A curated puzzle book of technique-focused challenges drops every month"
+  },
+  "03": {
+    "title": "Import any puzzle and share",
+    "subtitle": "Scan a sudoku from a book, challenge your friends"
+  },
+  "04": {
+    "title": "Sudoku just got competitive",
+    "subtitle": "Challenge friends and family to a live race — see who solves it fastest"
+  },
+  "05": {
+    "title": "Race others, AI or go solo",
+    "subtitle": "Share a link with friends and family,\nadd AI opponents, or you vs the clock"
+  },
+  "06": {
+    "title": "Climb the rankings",
+    "subtitle": "Every race earns points — track who reigns supreme across the last 30 days"
+  },
+  "07": {
+    "title": "Meet your rivals",
+    "subtitle": "Choose from unique AI opponents — each with their own personality and playing style"
+  },
+  "08": {
+    "title": "Your private racing teams",
+    "subtitle": "Invite family and friends, race together, and build your own leaderboard"
+  },
+  "09": {
+    "title": "One link. Everyone's in.",
+    "subtitle": "Share an invite link and your friends join the race in seconds"
+  }
+}

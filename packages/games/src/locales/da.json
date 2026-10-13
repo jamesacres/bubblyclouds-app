@@ -1,0 +1,260 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Bog",
+    "defaultDetailNoun": "puslespilsbøger"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Månedlig samling"
+  },
+  "hintBox": {
+    "dismiss": "Luk hint"
+  },
+  "lobbyButton": {
+    "opponents": "Modstandere"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Fortsæt — næste puslespil",
+    "continueLocked": "Fortsæt ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "{{completed}} af {{total}} {{label}} gennemført"
+  },
+  "countdownOverlay": {
+    "getReady": "Gør dig klar",
+    "go": "KØR!"
+  },
+  "confirmDialog": {
+    "cancel": "Annuller"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · gennemført",
+    "retry": "Prøv igen",
+    "points": "+{{points}} point",
+    "leaderboardPoints": "Ranglistepoint"
+  },
+  "raceTimer": {
+    "time": "Tid"
+  },
+  "stageTopBar": {
+    "previous": "Forrige"
+  },
+  "raceHud": {
+    "opponents": "Modstandere",
+    "stageOf": "Etape {{current}} af {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "Mål!",
+    "runComplete": "Løb gennemført",
+    "leaderboardPoints": "Ranglistepoint",
+    "pointsSuffix": " point"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "Sø",
+      "monday": "Ma",
+      "tuesday": "Ti",
+      "wednesday": "On",
+      "thursday": "To",
+      "friday": "Fr",
+      "saturday": "Lø"
+    },
+    "dayStreak_one": "dage i træk",
+    "dayStreak_other": "dage i træk",
+    "thisMonth": "denne måned"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Dig)",
+    "puzzles_one": "{{count}} puslespil",
+    "puzzles_other": "{{count}} puslespil",
+    "average": "Gns.: {{time}}",
+    "best": "Bedst: {{time}}",
+    "wins_one": "🏁 {{count}} sejr",
+    "wins_other": "🏁 {{count}} sejre",
+    "points_one": "point",
+    "points_other": "point"
+  },
+  "scoreBreakdown": {
+    "title": "Pointopdeling",
+    "volumeBonus": {
+      "label": "Mængdebonus",
+      "detail_one": "{{count}} puslespil gennemført",
+      "detail_other": "{{count}} puslespil gennemført"
+    },
+    "dailyPuzzles": {
+      "label": "Daglige puslespil",
+      "detail_one": "{{count}} daglig udfordring",
+      "detail_other": "{{count}} daglige udfordringer"
+    },
+    "collectionPuzzles": {
+      "label": "Puslespil fra {{collection}}",
+      "detail": "{{count}} fra {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Scannede puslespil",
+      "detail_one": "{{count}} importeret puslespil",
+      "detail_other": "{{count}} importerede puslespil"
+    },
+    "difficultyBonus": {
+      "label": "Sværhedsbonus",
+      "detail": "Sværere puslespil = flere point"
+    },
+    "speedBonus": {
+      "label": "Hastighedsbonus",
+      "detail": "Hurtigste: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Løbsbonus",
+      "detail": "Slå venner, der også er færdige"
+    },
+    "dailyCombo": {
+      "label": "Daglig kombo",
+      "detail": "Flere puslespil om dagen = større multiplikator"
+    }
+  },
+  "leaderboard": {
+    "you": "Dig",
+    "unknownUser": "Ukendt bruger",
+    "title": "Rangliste",
+    "subtitleParty": "Seneste 30 dage · {{partyName}}",
+    "subtitleAllTeams": "Seneste 30 dage · Alle hold",
+    "howScoringWorks": "Sådan fungerer point"
+  },
+  "scoringLegend": {
+    "title": "Sådan fungerer point",
+    "subtitle": "{{gameName}} · Seneste 30 dage",
+    "close": "Luk",
+    "racingWins": {
+      "title": "Løbssejre",
+      "body": "Få <points>+{{points}} point</points> for hver ven, du slår på det samme gennemførte puslespil. Bliv først blandt {{friends}} venner, og hent <points>+{{total}} point</points>."
+    },
+    "basePoints": {
+      "title": "Grundpoint",
+      "anyPuzzle": "Alle puslespil",
+      "dailyPuzzle": "Dagligt puslespil",
+      "collectionPuzzle": "Puslespil fra {{collection}}",
+      "scannedPuzzle": "Scannet puslespil"
+    },
+    "difficultyMultipliers": {
+      "title": "Sværhedsmultiplikatorer",
+      "daily": "Dagens {{gameName}}",
+      "collection": "Puslespil fra {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Hastighedsbonusser",
+      "lightning": "Lynhurtig",
+      "fast": "Hurtig",
+      "quick": "Rask",
+      "steady": "Jævn",
+      "under": "under {{threshold}}",
+      "seconds": "{{value}} sek.",
+      "minutes": "{{value}} min."
+    },
+    "dailyCombo": {
+      "title": "Daglig kombo",
+      "body": "Løs flere puslespil samme dag for at gange hvert puslespils point op til <max>{{max}}×</max>.",
+      "puzzle": "Dagens puslespil nr. {{puzzle}}",
+      "puzzleOrMore": "Dagens puslespil nr. {{puzzle}}+"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Løb gennemført",
+    "raceProgress": "Løbsfremskridt",
+    "stagesProgress": "{{completed}}/{{total}} etaper",
+    "retryStage": "Prøv etapen igen",
+    "stageLabel": "Etape {{number}}",
+    "stageCompletedLabel": "Etape {{number}}, gennemført på {{time}}",
+    "viewRacingStats": "Se løbsstatistik",
+    "total": "Samlet"
+  },
+  "raceTrack": {
+    "you": "Dig",
+    "viewFriends": "Klik for at se venner",
+    "start": "Start",
+    "finish": "Mål",
+    "inviteToRace": "Inviter venner til løb",
+    "opponents": "Modstandere",
+    "racer": "Deltager",
+    "stageBadge": "E{{number}}",
+    "total": "Samlet",
+    "leaderboard": "Rangliste",
+    "puzzleBook": "Puslespilsbog",
+    "puzzleBookLabel": "puslespilsbog",
+    "refreshScores": "Opdater resultater",
+    "challengeFriends": "🏁 Udfordr venner",
+    "yourTime": "Din tid:",
+    "inviteFriends": "Inviter venner",
+    "racingLabel": "løb"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Drilsk",
+      "easy": "Udfordrende",
+      "intermediate": "Svær",
+      "expert": "Ekspert"
+    },
+    "book": {
+      "veryEasy": "Meget let",
+      "easy": "Let",
+      "moderatelyEasy": "Ret let",
+      "moderate": "Middel",
+      "moderatelyHard": "Ret svær",
+      "hard": "Svær",
+      "vicious": "Ondskabsfuld",
+      "fiendish": "Djævelsk",
+      "devilish": "Diabolsk",
+      "hell": "Helvede",
+      "beyondHell": "Hinsides helvede"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Sidste ciffer",
+    "hiddenSingleBox": "Skjult enkelt (boks)",
+    "hiddenSingleLine": "Skjult enkelt (linje)",
+    "hiddenSingleVariantRegion": "Skjult enkelt (variantområde)",
+    "nakedSingle": "Nøgen enkelt",
+    "hiddenPair": "Skjult par",
+    "lockedCandidate": "Låst kandidat",
+    "hiddenTriple": "Skjult trio",
+    "hiddenQuadruple": "Skjult kvartet",
+    "nakedPair": "Nøgent par",
+    "nakedTriple": "Nøgen trio",
+    "nakedQuadruple": "Nøgen kvartet",
+    "xWing": "X-Wing",
+    "swordfish": "Sværdfisk",
+    "skyscraper": "Skyskraber",
+    "twoStringKite": "To-strengs drage",
+    "crane": "Trane",
+    "simpleColoring": "Simpel farvelægning",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "Finned/Sashimi X-Wing",
+    "emptyRectangle": "Tomt rektangel",
+    "uniqueRectangleType1": "Unikt rektangel type 1",
+    "uniqueRectangleType2": "Unikt rektangel type 2",
+    "uniqueRectangleType3": "Unikt rektangel type 3",
+    "uniqueRectangleType4": "Unikt rektangel type 4",
+    "uniqueRectangleType5": "Unikt rektangel type 5",
+    "finnedSashimiSwordfish": "Finned/Sashimi-sværdfisk",
+    "jellyfish": "Vandmand",
+    "bugBinaryUniversalGrave": "BUG (binær universalgrav)",
+    "xChain": "X-kæde",
+    "groupedXChain": "Grupperet X-kæde",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Finned/Sashimi-vandmand",
+    "medusa3D": "3D-Medusa",
+    "xyChain": "XY-kæde",
+    "alternatingInferenceChainAIC": "Alternerende slutningskæde (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Grupperet alternerende slutningskæde (AIC)",
+    "nishioForcingChain": "Nishio-forcing-kæde",
+    "nishioForcingNet": "Nishio-forcing-net"
+  }
+}

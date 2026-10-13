@@ -1,30 +1,42 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { AgentSelectSheet } from './AgentSelectSheet';
+import { AgentOption, AgentSelectSheet } from './AgentSelectSheet';
 
-const AGENT_OPTIONS = [
+const AGENT_OPTIONS: AgentOption[] = [
   {
+    id: 'bumblebee',
     name: 'Bumblebee',
     emoji: '🐝',
     emojiName: 'bee',
     skillLevel: 'novice',
-    personality: 'Restless and enthusiastic.',
   },
   {
+    id: 'sage',
     name: 'Sage',
     emoji: '🦉',
     emojiName: 'owl',
     skillLevel: 'expert',
-    personality: 'Calm and deliberate.',
   },
   {
+    id: 'ember',
     name: 'Ember',
     emoji: '🦊',
     emojiName: 'fox',
     skillLevel: 'proficient',
-    personality: 'Intense and competitive.',
   },
 ];
+
+const PERSONALITIES: Record<string, string> = {
+  bumblebee: 'Restless and enthusiastic.',
+  sage: 'Calm and deliberate.',
+  ember: 'Intense and competitive.',
+};
+
+const getAgentDisplay = (agent: AgentOption) => ({
+  name: agent.name,
+  personality: PERSONALITIES[agent.id] ?? '',
+  emojiName: agent.emojiName,
+});
 
 describe('AgentSelectSheet', () => {
   const mockOnClose = jest.fn();
@@ -40,6 +52,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={[]}
         onAgentMode={mockOnAgentMode}
       />
@@ -55,6 +68,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={[]}
         onAgentMode={mockOnAgentMode}
       />
@@ -71,6 +85,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={['Bumblebee', 'Sage']}
         onAgentMode={mockOnAgentMode}
       />
@@ -84,6 +99,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={[]}
         onAgentMode={mockOnAgentMode}
       />
@@ -100,6 +116,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={[]}
         onAgentMode={mockOnAgentMode}
       />
@@ -114,6 +131,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={['Bumblebee']}
         onAgentMode={mockOnAgentMode}
       />
@@ -129,6 +147,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={['Bumblebee']}
         onAgentMode={mockOnAgentMode}
       />
@@ -144,6 +163,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={[]}
         onAgentMode={mockOnAgentMode}
       />
@@ -158,6 +178,7 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={[]}
         onAgentMode={mockOnAgentMode}
       />
@@ -172,11 +193,48 @@ describe('AgentSelectSheet', () => {
         open={true}
         onClose={mockOnClose}
         agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
         defaultSelectedAgentNames={[]}
         onAgentMode={mockOnAgentMode}
       />
     );
     fireEvent.click(screen.getByLabelText('Close sheet'));
     expect(mockOnClose).toHaveBeenCalled();
+  });
+
+  it('renders agent text from getAgentDisplay rather than raw fields', () => {
+    render(
+      <AgentSelectSheet
+        open={true}
+        onClose={mockOnClose}
+        agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={(agent) => ({
+          name: `${agent.id}-localised`,
+          personality: `${agent.id}-personality`,
+          emojiName: agent.emojiName,
+        })}
+        defaultSelectedAgentNames={[]}
+        onAgentMode={mockOnAgentMode}
+      />
+    );
+    expect(screen.getByText('sage-localised')).toBeInTheDocument();
+    expect(screen.getByText('sage-personality')).toBeInTheDocument();
+    expect(screen.queryByText('Sage')).not.toBeInTheDocument();
+  });
+
+  it('points the back chevron the reading-direction way', () => {
+    render(
+      <AgentSelectSheet
+        open={true}
+        onClose={mockOnClose}
+        agentOptions={AGENT_OPTIONS}
+        getAgentDisplay={getAgentDisplay}
+        defaultSelectedAgentNames={[]}
+        onAgentMode={mockOnAgentMode}
+      />
+    );
+    const icon = screen.getByLabelText('Back').querySelector('svg');
+    expect(icon).toHaveClass('rotate-180');
+    expect(icon).toHaveClass('rtl:rotate-0');
   });
 });

@@ -1,0 +1,230 @@
+{
+  "brand": {
+    "plus": "Plus",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "android": "Android",
+    "iphoneAndIpad": "iPhone ve iPad"
+  },
+  "errors": {
+    "generic": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+    "dismiss": "Kapat"
+  },
+  "errorBoundary": {
+    "title": "Hata! Bir şeyler ters gitti",
+    "description": "Beklenmeyen bir hatayla karşılaştık. Merak etmeyin, ilerlemeniz kaydedildi!",
+    "reload": "Uygulamayı yeniden yükle",
+    "clearStorage": "Depolamayı temizle ve yeniden yükle",
+    "contactSupport": "Sorun devam ederse lütfen destekle iletişime geçin."
+  },
+  "time": {
+    "minutesAgo_one": "{{count}} dk önce",
+    "minutesAgo_other": "{{count}} dk önce",
+    "hoursAgo_one": "{{count}} sa önce",
+    "hoursAgo_other": "{{count}} sa önce",
+    "daysAgo_one": "{{count}} gün önce",
+    "daysAgo_other": "{{count}} gün önce"
+  },
+  "tier": {
+    "novice": "Acemi",
+    "advancedBeginner": "Başlangıç",
+    "competent": "Yetkin",
+    "proficient": "Usta",
+    "expert": "Uzman"
+  },
+  "moves": {
+    "onPar": "hamle, par değerinde",
+    "overPar": "hamle, par değerinin {{delta}} üzerinde",
+    "underPar": "hamle, par değerinin {{delta}} altında"
+  },
+  "lobby": {
+    "title": "Yarış lobisi",
+    "close": "Lobiyi kapat",
+    "onlineOpponents": "Çevrimiçi rakipler",
+    "refresh": "Çevrimiçi rakipleri yenile",
+    "noOpponents": "Çevrimiçi rakip yok — yarışmak için arkadaşlarınızı davet edin!",
+    "away": "Uzakta",
+    "offlineTeams": "Çevrimdışı · takımlarınızda",
+    "removeMember": "Çıkar: {{name}}",
+    "aiOpponents": "Yapay zekâ rakipleri",
+    "addAgent": "Ekle",
+    "noAgents": "Henüz yapay zekâ rakibi yok — her zaman yarışacak biri olması için bir tane ekleyin.",
+    "ownClock": "Her oyuncu kendi saatine karşı yarışır",
+    "startSolving": "Çözmeye başla",
+    "finished": "Bitirdi",
+    "inLobby": "Lobide",
+    "stageProgress": "Aşama {{current}}/{{total}}",
+    "finishedRunIn": "Tur {{time}} sürede bitirildi",
+    "solvedIn": "{{time}} sürede çözüldü",
+    "activeProgress": "{{progress}} · {{time}}",
+    "awayProgress": "{{progress}} · {{time}} · son görülme: {{lastSeen}}",
+    "raceSummary": {
+      "solo": "Tek kişilik yarış — yalnızca siz ve saat",
+      "friends_one": "{{count}} arkadaş",
+      "friends_other": "{{count}} arkadaş",
+      "aiOpponents_one": "{{count}} yapay zekâ rakibi",
+      "aiOpponents_other": "{{count}} yapay zekâ rakibi",
+      "racing": "Rakipler: {{opponents}}"
+    },
+    "invite": {
+      "button": "Davet et",
+      "eyebrow": "Yarışınızı kurun",
+      "title": "Rakipleri davet edin",
+      "close": "Kapat",
+      "existingTeam": "Mevcut takıma davet et",
+      "editTeamName": "Takım adını düzenle",
+      "deleteTeam": "Takımı sil",
+      "leaveTeam": "Takımdan ayrıl",
+      "memberCount_one": "{{count}} üye",
+      "memberCount_other": "{{count}} üye",
+      "createTeam": "Yeni yarış takımı oluştur",
+      "displayNameLabel": "Takım üyeleri size ne diyor?",
+      "displayNamePlaceholder": "Görünen ad",
+      "teamNameLabel": "Bu takıma ne ad verelim?",
+      "teamNamePlaceholder": "Takım adı (ör. Aile)",
+      "createAndCopy": "Oluştur ve bağlantıyı kopyala",
+      "defaultTeamName": "Yeni takım",
+      "defaultPlayerName": "Oyuncu"
+    }
+  },
+  "agentSelect": {
+    "closeSheet": "Paneli kapat",
+    "back": "Geri",
+    "close": "Kapat",
+    "title": "Rakiplerinizi seçin",
+    "subtitle": "Bir veya daha fazla rakip seçin",
+    "selectAtLeastOne": "En az bir rakip seçin",
+    "race_one": "{{count}} rakiple yarış",
+    "race_other": "{{count}} rakiple yarış",
+    "skill": {
+      "novice": "Acemi",
+      "advancedBeginner": "İleri başlangıç",
+      "competent": "Yetkin",
+      "proficient": "Usta",
+      "expert": "Uzman"
+    }
+  },
+  "agentParty": {
+    "title": "Yapay zekâ rakipleri",
+    "rivalCount_one": "{{count}} rakip",
+    "rivalCount_other": "{{count}} rakip"
+  },
+  "party": {
+    "cancel": "İptal",
+    "editName": "Takım adını düzenle",
+    "editMaxMembers": "Azami üye sayısını düzenle",
+    "memberCount_one": "{{count}} üye",
+    "memberCount_other": "{{count}} üye",
+    "memberCountPremium_one": "{{count}} üye ✨ Premium",
+    "memberCountPremium_other": "{{count}} üye ✨ Premium",
+    "membersOf_one": "{{current}}/{{count}} üye",
+    "membersOf_other": "{{current}}/{{count}} üye",
+    "shareLink": "Bu bulmacaya katılmaları için bu bağlantıyı mevcut takım üyeleriyle paylaşın",
+    "you": "(siz)",
+    "notStarted": "Başlamadı! Oynamalarını isteyin"
+  },
+  "partyConfirmation": {
+    "cancel": "İptal",
+    "leaveAgentParty": {
+      "title": "Yapay zekâ rakiplerini çıkar",
+      "action": "Çıkar",
+      "processing": "Çıkarılıyor...",
+      "message": "Tüm yapay zekâ rakiplerini çıkarmak istediğinizden emin misiniz? Artık yarışta görünmeyecekler."
+    },
+    "removeAgent": {
+      "title": "Yerel rakibi çıkar",
+      "action": "Çıkar",
+      "processing": "Çıkarılıyor...",
+      "message": "\"{{memberName}}\" adlı rakibi yarıştan çıkarmak istediğinizden emin misiniz?"
+    },
+    "deleteParty": {
+      "title": "Takımı sil",
+      "action": "Takımı sil",
+      "processing": "Siliniyor...",
+      "message": "\"{{partyName}}\" takımını silmek istediğinizden emin misiniz? Takım kalıcı olarak kaldırılır ve tüm üyeler erişimini kaybeder. Bu işlem geri alınamaz."
+    },
+    "leave": {
+      "title": "Takımdan ayrıl",
+      "action": "Ayrıl",
+      "processing": "Ayrılıyor...",
+      "message": "\"{{partyName}}\" takımından ayrılmak istediğinizden emin misiniz? Artık diğer üyelerin ilerleyişini göremez ve bu takıma katılamazsınız."
+    },
+    "remove": {
+      "title": "Üyeyi çıkar",
+      "action": "Çıkar",
+      "processing": "Çıkarılıyor...",
+      "message": "\"{{memberName}}\" adlı üyeyi \"{{partyName}}\" takımından çıkarmak istediğinizden emin misiniz? Artık bu takıma katılamayacak."
+    }
+  },
+  "friends": {
+    "allTeams": "Tüm takımlar",
+    "refresh": "Yenile",
+    "refreshing": "Yenileniyor…",
+    "title": "Arkadaşların bulmacaları",
+    "subtitle": "Son bulmacalarını görmek ve onlarla yarışmak için bir arkadaşa dokunun.",
+    "memberCount_one": "{{count}} üye",
+    "memberCount_other": "{{count}} üye",
+    "noRecentPuzzles": "Yakın zamanda bulmaca yok — onlara meydan okuyun!",
+    "empty": {
+      "title": "Henüz yarış takımı yok",
+      "description": "Bulmaca çözerken Yarışlar lobisinden arkadaşlarınızı davet edin"
+    }
+  },
+  "myPuzzles": {
+    "pastThirtyDays": "Son 30 gündeki bulmacalarınız.",
+    "empty": {
+      "title": "Henüz bulmaca yok",
+      "description": "İlk bulmacanızı çözmek için Yarışa Başla sekmesine gidin"
+    }
+  },
+  "premiumFeatures": {
+    "moreFeatures_one": "+{{count}} özellik daha",
+    "moreFeatures_other": "+{{count}} özellik daha"
+  },
+  "crossPromo": {
+    "whyNotTry": "Neden denemeyesiniz",
+    "tryItFree": "Ücretsiz deneyin"
+  },
+  "rateApp": {
+    "prompt": "{{appName}} hoşunuza gidiyor mu?",
+    "rateIt": "Puan verin",
+    "rateInSeconds": "Saniyeler içinde puan verin"
+  },
+  "plus": {
+    "close": "Pencereyi kapat",
+    "appIconAlt": "Uygulama simgesi",
+    "lifetime": "Ömür boyu",
+    "monthly": "Aylık",
+    "perMonth": "{{price}}/ay",
+    "whatsIncluded": "Neler dahil",
+    "continue": "Devam",
+    "restorePurchases": "Satın alımları geri yükle",
+    "cancel": "İptal"
+  },
+  "download": {
+    "title": "Uygulamada devam edin",
+    "appStoreAlt": "{{appStore}} üzerinden indirin",
+    "googlePlayAlt": "{{googlePlay}} üzerinden edinin",
+    "continueBrowser": "Tarayıcıda devam et",
+    "continueDesktop": "Masaüstünde devam et"
+  },
+  "session": {
+    "cheated": "Hile yapıldı",
+    "completedIn": "{{minutes}} dk {{seconds}} sn içinde tamamlandı",
+    "percentComplete": "%{{percentage}} tamamlandı",
+    "duration": "{{minutes}} dk {{seconds}} sn",
+    "shortDate": "{{day}} {{month}}",
+    "dayOrdinal_ordinal_other": "{{count}}.",
+    "puzzleNumber": "Bulmaca #{{number}}",
+    "daily": "Günlük {{date}}",
+    "book": "Kitap {{month}} #{{number}}",
+    "collection": "Koleksiyon {{month}} #{{number}}",
+    "scanned": "Taranan bulmaca",
+    "you": "Siz",
+    "unknown": "Bilinmiyor",
+    "unlockWith": "Kilidi aç: {{label}}",
+    "lockedPuzzle": "Kilitli bulmaca",
+    "recommendedTechniques": "Önerilen teknikler:",
+    "loadingFriends": "Arkadaşlar yükleniyor..."
+  }
+}

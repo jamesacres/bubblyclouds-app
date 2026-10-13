@@ -1,8 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, renderHook, screen } from '@testing-library/react';
+import { useTranslation } from 'react-i18next';
 import UnblockRacePlusModal from './UnblockRacePlusModal';
-import { PREMIUM_FEATURES } from '../config/premiumFeatures';
-import { SUBSCRIPTION_CONTEXT_MESSAGES } from '../config/subscriptionMessages';
+import { getPremiumFeatures } from '../config/premiumFeatures';
+import { getSubscriptionContextMessages } from '../config/subscriptionMessages';
 
 let receivedProps: Record<string, unknown> | undefined;
 
@@ -24,15 +25,21 @@ describe('UnblockRacePlusModal', () => {
   });
 
   it('passes the premium features and subscription context messages', () => {
+    const { result } = renderHook(() => useTranslation('app'));
     render(<UnblockRacePlusModal />);
-    expect(receivedProps?.features).toBe(PREMIUM_FEATURES);
-    expect(receivedProps?.contextMessages).toBe(SUBSCRIPTION_CONTEXT_MESSAGES);
+    expect(receivedProps?.features).toEqual(
+      getPremiumFeatures(result.current.t)
+    );
+    expect(Object.keys(receivedProps?.contextMessages ?? {})).toEqual(
+      Object.keys(getSubscriptionContextMessages(result.current.t))
+    );
   });
 
   it('describes the Unblock Race Plus benefits', () => {
     render(<UnblockRacePlusModal />);
     const description = receivedProps?.description as React.ReactElement;
     const { container } = render(description);
+    expect(container.textContent).toContain('Unblock Race Plus');
     expect(container.textContent).toContain('unlimited hints');
     expect(container.textContent).toContain('unlimited undos');
   });

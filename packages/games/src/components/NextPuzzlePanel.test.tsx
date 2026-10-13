@@ -49,6 +49,21 @@ describe('NextPuzzlePanel', () => {
     expect(cta).not.toHaveTextContent('next puzzle');
   });
 
+  it('uses the supplied Plus product name in the locked label', () => {
+    render(
+      <NextPuzzlePanel
+        isLocked
+        progressLabel="progress"
+        plusName="Premium"
+        onContinue={jest.fn()}
+      />
+    );
+
+    expect(screen.getByTestId('next-puzzle-continue')).toHaveTextContent(
+      'Continue (Premium)'
+    );
+  });
+
   it('still fires onContinue when locked (the deep-link gate catches it)', () => {
     const onContinue = jest.fn();
     render(

@@ -1,0 +1,300 @@
+{
+  "brand": {
+    "appName": "數獨競速",
+    "gameName": "數獨",
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "plusName": "數獨 Plus"
+  },
+  "meta": {
+    "title": "$t(brand.appName)",
+    "description": "分享並與朋友一起玩數獨競速。每日挑戰，跨裝置同步！"
+  },
+  "puzzle": {
+    "mobileDescription": "使用我們的 {{appName}} App，享受最佳競速體驗！",
+    "desktopDescription": "下載 {{appName}}",
+    "openInAppLabel": "開啟謎題"
+  },
+  "crossPromo": {
+    "gameName": "解鎖競速",
+    "tagline": "滑動積木，與朋友競速排除塞車。"
+  },
+  "notFound": {
+    "message": "找不到頁面"
+  },
+  "login": {
+    "dailyPuzzle": "登入後開始今天的謎題",
+    "puzzleBook": "登入後瀏覽謎題集",
+    "joinTeam": "登入後加入團隊",
+    "raceLobby": "登入後與他人競速",
+    "puzzleEntry": "登入後開始遊玩",
+    "valueProps": {
+      "saveProgress": "儲存您的進度",
+      "raceFriends": "與好友競速",
+      "trackStats": "追蹤您的數據"
+    }
+  },
+  "plusModal": {
+    "description": "加入 <badge>{{plusName}}</badge>，<emphasis>解除所有速度限制</emphasis>。挑戰好友，衝上排行榜，提升您的解題速度。全程無廣告。"
+  },
+  "premiumFeatures": {
+    "title": "進階功能",
+    "subtitle": "解鎖 {{appName}} 的完整體驗",
+    "unlimitedPlay": {
+      "title": "無限暢玩與競速",
+      "description": "每天不只一次與好友即時競速"
+    },
+    "unlimitedHints": {
+      "title": "無限提示",
+      "description": "再也不會卡關——需要時隨時取得提示"
+    },
+    "monthlyBook": {
+      "title": "每月謎題集全部解鎖",
+      "description": "所有難度的每一道謎題，全部開放"
+    },
+    "multipleTeams": {
+      "title": "多個競速團隊",
+      "description": "與朋友和家人舉辦私人比賽"
+    },
+    "teamManagement": {
+      "title": "團隊管理",
+      "description": "建立最多 15 人的大型團隊，並可移除團隊成員。"
+    },
+    "themes": {
+      "title": "解鎖全部主題",
+      "description": "打造專屬的競速體驗"
+    },
+    "unlimitedActions": {
+      "title": "無限復原、檢查與顯示答案",
+      "description": "取消每日復原、檢查與顯示答案的次數限制"
+    }
+  },
+  "subscription": {
+    "hint_other": "💡 <bold>您今天已用完 {{count}} 次免費提示。</bold>$t(brand.plus) 為您提供無限提示——再也不會卡關——並讓整個 App 保持無廣告。",
+    "undo_other": "📅 <bold>您已達到每日復原上限！</bold>每天可免費復原 {{count}} 次。上限將於明天重設，或訂閱後無限次復原。",
+    "checkGrid_other": "📅 <bold>您已達到每日網格檢查上限！</bold>每天可免費檢查網格 {{count}} 次。上限將於明天重設，或訂閱後無限次檢查。",
+    "reveal": "🔓 <bold>顯示網格答案是進階功能！</bold>訂閱後即可查看完整解答。",
+    "themeColor": "🎨 <bold>此主題為 $t(brand.plus) 專屬。</bold>升級即可解鎖所有精美的主題顏色，打造專屬的數獨體驗。",
+    "dailyPuzzleLimit_other": "🧩 <bold>您已達到每日謎題上限！</bold>免費使用者每天可玩 {{count}} 道謎題。上限將於明天重設，或訂閱後無限暢玩。",
+    "collectionLocked": "✨ <bold>這道謎題屬於 $t(brand.plus) 謎題集。</bold>$t(brand.plus) 可解鎖每個月謎題集中的所有謎題，並讓整個 App 保持無廣告。",
+    "removeMember": "👥 <bold>移除團隊成員是進階功能！</bold>訂閱後即可使用進階團隊管理功能，包括移除成員。",
+    "multipleParties": "🏘️ <bold>多個競速團隊是進階功能！</bold>免費使用者只能擁有一個團隊。訂閱後可建立並加入無限個團隊，與家人、朋友等一起玩。",
+    "partyMaxSize": "👥 <bold>大型團隊是進階功能！</bold>訂閱後即可使用進階團隊管理功能，包括大型團隊。"
+  },
+  "motivational": {
+    "messages": [
+      "您的朋友正等著迎接挑戰",
+      "今天您要和誰競速？",
+      "是時候展現您的速度了",
+      "接受挑戰嗎？",
+      "衝向終點線",
+      "誰是最快的解題高手？",
+      "準備好稱霸排行榜了嗎？",
+      "您的競速實力正待施展",
+      "是時候把他們遠遠甩在後頭了",
+      "準備好第一個衝過終點線了嗎？",
+      "賽道正等著您",
+      "是時候換上高速檔了",
+      "準備好在謎題網格上飆車了嗎？",
+      "您的對手已經在熱身了",
+      "今天就是刷新紀錄的日子",
+      "您的個人最佳紀錄等著被打破",
+      "每解一道題，您都會更快",
+      "連續紀錄從現在開始",
+      "是時候提升您的實力了",
+      "您的下一個突破只差一道謎題",
+      "準備好給自己一個驚喜了嗎？",
+      "讓他們看看您的真本事",
+      "是時候釋放您的潛力了",
+      "您最快的解題紀錄還在前方",
+      "準備好讓今天與眾不同了嗎？",
+      "競速中，每一秒都很關鍵",
+      "是時候挑戰極限了",
+      "您的進步之旅仍在繼續",
+      "準備好超越期待了嗎？",
+      "覺得自己撐得住壓力嗎？",
+      "是時候讓質疑者閉嘴了",
+      "準備好奪取勝利了嗎？",
+      "對手絕對想不到",
+      "是時候留下您的印記了",
+      "準備好成為焦點了嗎？",
+      "憑實力贏得的勝利，滋味更甜美",
+      "是時候證明誰才是老大了",
+      "準備好展現真正的實力了嗎？",
+      "冠軍心態，從這裡開始",
+      "是時候從人群中脫穎而出了",
+      "準備好書寫您的傳奇了嗎？",
+      "冠軍，就是在這樣的時刻誕生的",
+      "是時候把潛力化為實力了",
+      "新的謎題，新的機會",
+      "今天的挑戰等著您來征服",
+      "準備好讓今天成為最棒的一天了嗎？",
+      "新的一天，代表有新的紀錄等您打破",
+      "是時候再為您的戰績添一場勝利了",
+      "準備好開局強勢、收官更強了嗎？",
+      "準備好讓今天成為傳奇了嗎？",
+      "您每日的勝利感正等著您",
+      "策略與速度，在網格上相遇",
+      "準備好以智取勝、以快制勝了嗎？",
+      "您的解題功力在召喚",
+      "是時候將邏輯與閃電般的速度融為一體了",
+      "準備好精準解題了嗎？",
+      "完美組合：技巧加速度",
+      "您的分析優勢，就是您的競速優勢",
+      "是時候展示謎題王者風範了",
+      "準備好像冠軍一樣解題了嗎？",
+      "精準競速，始於清晰思考",
+      "您的朋友正等著再戰一場",
+      "今天誰來解題？",
+      "新的每日謎題已準備好",
+      "您的連續紀錄岌岌可危",
+      "新謎題，新開始",
+      "今天的挑戰已上線",
+      "在每日謎題上和朋友一較高下",
+      "新的一天，新的謎題",
+      "已經有人登上排行榜了",
+      "讓連續紀錄繼續下去",
+      "每日挑戰剛剛更新",
+      "您的團隊在等您",
+      "離榜首又近了一道謎題",
+      "今天的謎題正等著您",
+      "回來繼續競速吧"
+    ]
+  },
+  "home": {
+    "live": "即時",
+    "headline": "準備好競速了嗎？🏁",
+    "subtitle": "分享挑戰——邀請好友，看看誰是最快的數獨解題高手。",
+    "leaderboard": "排行榜",
+    "daily": {
+      "title": "每日挑戰",
+      "refreshes": "每日更新",
+      "moreLevels": "更多難度請見<bookLink>謎題集</bookLink>",
+      "difficulty": {
+        "simple": "棘手",
+        "easy": "具挑戰性",
+        "intermediate": "困難"
+      }
+    },
+    "book": {
+      "summary_other": "{{month}} · {{count}} 道謎題",
+      "title": "每月謎題集",
+      "browse": "瀏覽謎題"
+    },
+    "import": {
+      "title": "匯入任意謎題",
+      "description": "用相機掃描，或貼上謎題字串",
+      "desktopTitle": "與好友競速任意謎題",
+      "desktopDescription": "從書本或報紙上掃描"
+    },
+    "teams": {
+      "title": "競速團隊",
+      "withFriends": "與 {{friends}} 等人競速",
+      "noFriends": "向好友發起競速挑戰"
+    },
+    "tabs": {
+      "startRace": "開始競速",
+      "myPuzzles": "我的謎題",
+      "racingTeams": "競速團隊"
+    }
+  },
+  "book": {
+    "loading": {
+      "book": "載入謎題集中…",
+      "puzzles": "載入謎題中…",
+      "progress": "載入您的進度中…"
+    },
+    "tryAgain": "再試一次",
+    "backHome": "回到首頁",
+    "signInPrompt": "登入後即可存取謎題集。",
+    "signIn": "登入",
+    "noData": "目前沒有謎題集資料。",
+    "title": "{{month}}謎題集",
+    "puzzleCount_other": "{{count}} 道技巧專練謎題",
+    "completed": "已完成 {{count}} 道",
+    "inProgress": "進行中 {{count}} 道",
+    "unlockWithPlus": "使用 $t(brand.plus) 解鎖所有謎題",
+    "jumpToDifficulty": "跳到難度",
+    "scrollToTop": "回到頂端",
+    "difficulty": {
+      "veryEasy": "非常簡單",
+      "easy": "簡單",
+      "moderatelyEasy": "偏簡單",
+      "moderate": "中等",
+      "moderatelyHard": "偏困難",
+      "hard": "困難",
+      "vicious": "凶殘",
+      "fiendish": "邪惡",
+      "devilish": "魔鬼",
+      "hell": "地獄",
+      "beyondHell": "超越地獄"
+    }
+  },
+  "invite": {
+    "loading": "載入邀請中…",
+    "iconAlt": "{{gameName}}圖示",
+    "greeting": "👋 您好！",
+    "greetingNamed": "👋 您好，{{name}}！",
+    "invited": "您受到邀請了！",
+    "joinTeam": "加入競速團隊 <team/>",
+    "description": "一起解數獨謎題，即時查看彼此的進度！",
+    "proTip": "💡 <bold>小提示：</bold>您之後玩的所有謎題都會與團隊成員共享，展開友好競爭！",
+    "nicknameLabel": "您的競速團隊怎麼稱呼您？",
+    "nicknamePlaceholder": "輸入您的暱稱",
+    "joining": "加入團隊中…",
+    "join": "加入樂趣！🎉",
+    "signIn": "登入後繼續",
+    "bonus": {
+      "title": "🎉 好禮：獲贈{{duration}}的 {{plusName}}！",
+      "duration": {
+        "oneMonth": "一個月",
+        "oneYear": "一年",
+        "lifetime": "終身",
+        "premium": "進階"
+      },
+      "subtitle": "加入這個競速團隊，即可完全免費解鎖進階功能！",
+      "note": "💡 加入後，您的進階權益將自動啟用"
+    },
+    "expired": {
+      "title": "邀請已過期",
+      "body": "此邀請連結已失效。請向您的朋友索取新的邀請，或提高團隊人數上限。"
+    }
+  },
+  "import": {
+    "puzzleString": {
+      "title": "輸入謎題字串",
+      "help": "貼上 81 個字元的字串或 HoDoKu 網格——用數字 1–9 表示已知數字，用 0 或 . 表示空格。",
+      "submit": "匯入謎題"
+    },
+    "orScan": "或用相機掃描",
+    "cameraHelp": "將相機對準未解的數獨謎題，等待辨識完成。",
+    "errors": {
+      "parse": "無法解析謎題。請貼上 81 個字元的字串或 HoDoKu 網格。",
+      "solverLoading": "解題程式仍在載入——請再試一次。",
+      "noSolution": "找不到解答。請檢查謎題。",
+      "camera": "無法啟動相機。請檢查權限後再試一次。"
+    }
+  },
+  "credits": {
+    "title": "致謝與著作權標示",
+    "subtitle": "本 App 是建立在多個優秀專案之上",
+    "copyright": "著作權所有 (c) 2026 James Acres（{{companyName}}）",
+    "license": "本 App 採用 MIT 授權條款。詳情請參閱我們的 <licenseLink>LICENSE</licenseLink> 與 <creditsLink>CREDITS</creditsLink>。",
+    "items": {
+      "humanSudokuSolver": "使用人類解題技巧來求解數獨謎題的 TypeScript 函式庫。",
+      "qqwing": "每日數獨謎題產生",
+      "tdoku": "用於掃描謎題的快速數獨解題程式",
+      "arBrowserSudoku": "擴增實境掃描技術",
+      "sudokuCoach": "難度計算演算法的靈感來源",
+      "nextjs": "適用於正式環境的 React 框架",
+      "typescript": "JavaScript 的型別化超集",
+      "tailwind": "以工具類別為優先的 CSS 框架",
+      "capacitor": "原生行動應用程式執行環境",
+      "electron": "桌面應用程式框架",
+      "tensorflow": "用於 AR 功能的機器學習",
+      "revenuecat": "訂閱管理",
+      "react": "UI 元件函式庫",
+      "turborepo": "Monorepo 建置系統"
+    }
+  }
+}

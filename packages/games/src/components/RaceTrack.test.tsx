@@ -52,6 +52,7 @@ const agent = (
   overrides: Partial<AgentProgress<BaseServerState>>
 ): AgentProgress<BaseServerState> => ({
   agentId: 'agent-0',
+  configId: 'bumblebee',
   name: 'Bumblebee',
   emoji: '🐝',
   percentage: 40,

@@ -1,0 +1,270 @@
+{
+  "brand": {
+    "gameName": "Balap Bebas"
+  },
+  "controls": {
+    "hint": "Petunjuk",
+    "hintTitle": "Minta bantuan",
+    "undo": "Urungkan",
+    "redo": "Ulangi",
+    "reset": "Setel Ulang"
+  },
+  "labels": {
+    "time": "Waktu",
+    "moves": "Langkah",
+    "stageOf": "Tahap {{current}} dari {{total}}"
+  },
+  "stats": {
+    "moves_other": "{{count}} langkah",
+    "par": "par",
+    "overPar": "{{delta}} di atas par",
+    "underPar": "{{delta}} di bawah par"
+  },
+  "score": {
+    "moves": "langkah",
+    "srOnPar": "langkah, sesuai par",
+    "srOverPar": "langkah, {{delta}} di atas par",
+    "srUnderPar": "langkah, {{delta}} di bawah par",
+    "upcomingPar": "par {{par}}"
+  },
+  "daily": {
+    "label": "Harian · {{date}}"
+  },
+  "difficulty": {
+    "beginner": "Pemula",
+    "challenging": "Menantang",
+    "hard": "Sulit",
+    "expert": "Ahli"
+  },
+  "collection": {
+    "puzzleLabel": "Puzzle koleksi {{number}}",
+    "theme": {
+      "january": "Tahun baru, macet baru",
+      "february": "Macet membeku",
+      "march": "Terbuka lebar",
+      "april": "Hujan balok",
+      "may": "Jalur segar bermekaran",
+      "june": "Puncak kecepatan bebas",
+      "july": "Seri balapan musim panas",
+      "august": "Macet membara",
+      "september": "Kembali ke papan",
+      "october": "Macet berhantu",
+      "november": "Membebaskan jalur",
+      "december": "Macet musim liburan",
+      "default": "Koleksi bulanan"
+    },
+    "error": {
+      "offline": "Anda sedang offline, periksa koneksi Anda",
+      "loadFailed": "Gagal memuat koleksi puzzle"
+    }
+  },
+  "stageClear": {
+    "title": "Tahap {{stage}} selesai",
+    "onPar": "Sesuai par",
+    "pointsSuffix": " poin",
+    "leaderboardPoints": "Poin papan peringkat",
+    "nextStage": "Tahap berikutnya",
+    "progress": "Tahap {{stage}} dari {{total}} — {{remaining}} lagi"
+  },
+  "hint": {
+    "unsolvable": "Tidak ada jalan keluar dari sini — urungkan atau setel ulang untuk kembali ke jalur",
+    "dismiss": "Tutup pemberitahuan petunjuk"
+  },
+  "nextPuzzle": {
+    "streakMessage": "Pertahankan rentetan Anda di koleksi"
+  },
+  "raceTrack": {
+    "collection": "Koleksi"
+  },
+  "confirm": {
+    "retry": {
+      "title": "Ulangi tahap ini?",
+      "body": "Waktu dan langkah Anda saat ini akan diganti.",
+      "confirm": "Ulangi"
+    },
+    "reset": {
+      "title": "Setel ulang puzzle ini?",
+      "body": "Ini akan menghapus langkah Anda dan memulai puzzle dari awal.",
+      "confirm": "Setel Ulang"
+    }
+  },
+  "agents": {
+    "bumblebee": {
+      "name": "Bumblebee",
+      "emojiName": "lebah",
+      "personality": "Gelisah dan bersemangat. Menggeser balok dalam sentakan, lalu mandek. Menjelang pintu keluar, mempercepat terlalu dini dan menyumbat jalur tepat sebelum selesai.",
+      "voiceLines": {
+        "neutral": [
+          "Ooh! Yang ini bisa geser!",
+          "Tunggu—bukan, itu menghalangiku...",
+          "Dengung dengung! Bikin ruang!"
+        ],
+        "playerAhead": ["Hei, pelan-pelan!", "Aku lagi membuka jalan…"],
+        "playerBehind": ["Aku mengejar!", "Lihat aku menggeser!"],
+        "endgame": [
+          "Pintu keluar! Aku lihat!",
+          "Tunggu—siapa yang parkir di situ?!"
+        ]
+      }
+    },
+    "puddle": {
+      "name": "Puddle",
+      "emojiName": "bebek",
+      "personality": "Ceria dan tanpa arah. Pelan namun mantap dengan jeda panjang. Di akhir, hanyut keluar dari kemacetan nyaris tanpa sengaja.",
+      "voiceLines": {
+        "neutral": [
+          "Sekadar menyenggol pelan-pelan...",
+          "Hmm... mungkin balok ini."
+        ],
+        "playerAhead": ["Kamu hebat!", "Nanti juga keluar."],
+        "playerBehind": ["Oh! Yang itu bergerak!", "Asyik juga ini."],
+        "endgame": ["Itu pintu keluarnya?", "Oh! Jalannya terbuka sendiri."]
+      }
+    },
+    "flint": {
+      "name": "Flint",
+      "emojiName": "kadal",
+      "personality": "Berhati-hati dan jeli. Jeda panjang, lalu beberapa geseran kecil sekaligus. Di akhir, ragu sebelum setiap langkah.",
+      "voiceLines": {
+        "neutral": [
+          "Biar kuperiksa apa yang terbuka.",
+          "Geseran itu seharusnya aman."
+        ],
+        "playerAhead": [
+          "Aku harus hati-hati sekarang.",
+          "Jangan sampai menyumbat jalur."
+        ],
+        "playerBehind": ["Oke… mengejar.", "Masih ada waktu."],
+        "endgame": [
+          "Hati-hati sekarang...",
+          "Hampir keluar… tinggal memastikan."
+        ]
+      }
+    },
+    "tangle": {
+      "name": "Tangle",
+      "emojiName": "laba-laba",
+      "personality": "Teliti dan terstruktur. Membuka jalur dengan cermat, balok demi balok. Di akhir, rencananya runtuh — keraguan menyelinap seolah rutenya tak lagi berlaku.",
+      "voiceLines": {
+        "neutral": ["Itu membuka rutenya.", "Balok demi balok..."],
+        "playerAhead": [
+          "Rutenya tadi berhasil...",
+          "Aku harus merencanakan ulang..."
+        ],
+        "playerBehind": ["Masih bertahan.", "Ya… jalurnya mulai terbuka."],
+        "endgame": [
+          "Tunggu—bukan, itu mengurungku lagi.",
+          "Rute ini sudah kurencanakan..."
+        ]
+      }
+    },
+    "maple": {
+      "name": "Maple",
+      "emojiName": "rakun",
+      "personality": "Gigih dan oportunis. Ritmenya tak beraturan. Di akhir, menemukan momentum dan meluncur keluar lebih cepat dari dugaan.",
+      "voiceLines": {
+        "neutral": ["Itu menggesernya!", "Agak sempit, tapi lumayan."],
+        "playerAhead": ["Baik, saatnya mendorong.", "Belum terkurung."],
+        "playerBehind": ["Oh—celah bagus.", "Jalurnya mulai terbuka sekarang."],
+        "endgame": ["Yap, jalan di depan lapang.", "Sekarang melaju."]
+      }
+    },
+    "compass": {
+      "name": "Compass",
+      "emojiName": "pinguin",
+      "personality": "Terstruktur dan metodis. Kecepatan konsisten. Di akhir tetap tenang — tanpa panik, tanpa kebut-kebutan.",
+      "voiceLines": {
+        "neutral": ["Geseran itu sesuai rute.", "Tetap konsisten."],
+        "playerAhead": ["Jaga kecepatan.", "Tak perlu buru-buru di grid."],
+        "playerBehind": ["Masih di jalur.", "Jalurnya terbuka dengan stabil."],
+        "endgame": ["Hampir lolos.", "Keluar dengan rapi."]
+      }
+    },
+    "jinx": {
+      "name": "Jinx",
+      "emojiName": "monyet",
+      "personality": "Tak menentu dan meresahkan. Sentakan tak terduga. Di akhir, tiba-tiba melesat dengan cara yang terasa tidak adil.",
+      "voiceLines": {
+        "neutral": ["Heh… tak melihat celah itu?", "Oh, geseran yang menarik."],
+        "playerAhead": ["Jangan terlalu nyaman.", "Lihat langkah ini."],
+        "playerBehind": [
+          "Kadang lalu lintas terbelah sendiri.",
+          "Geseran beruntung… atau bukan?"
+        ],
+        "endgame": ["Wah—jalannya terbuka lebar.", "Cepat sekali terbuka."]
+      }
+    },
+    "drift": {
+      "name": "Drift",
+      "emojiName": "elang",
+      "personality": "Acuh dan mengalir. Geseran percaya diri dengan jeda lebar. Percepatan diam-diam di akhir.",
+      "voiceLines": {
+        "neutral": ["Rutenya sudah kulihat.", "Tinggal menggeser saja."],
+        "playerAhead": ["Tak mengubah rutenya.", "Pintu keluarnya tetap sama."],
+        "playerBehind": ["Ini sudah lapang, kok.", "Meluncur saja dari sini."],
+        "endgame": ["…hampir keluar.", "Meluncur ke pintu keluar."]
+      }
+    },
+    "ember": {
+      "name": "Ember",
+      "emojiName": "rubah",
+      "personality": "Intens dan kompetitif. Start cepat, tekanan terus-menerus. Lonjakan di akhir terasa agresif.",
+      "voiceLines": {
+        "neutral": ["Ayo kejar.", "Masih terjebak macet?"],
+        "playerAhead": [
+          "Jangan mandek sekarang.",
+          "Kamu bisa menggeser lebih cepat dari itu."
+        ],
+        "playerBehind": ["Terlalu lambat.", "Kamu terkurung."],
+        "endgame": ["Bebaskan jalurnya.", "Pintu keluar ini milikku."]
+      }
+    },
+    "latch": {
+      "name": "Latch",
+      "emojiName": "hiu",
+      "personality": "Sabar dan memangsa. Tetap dekat, lalu menerkam di akhir.",
+      "voiceLines": {
+        "neutral": ["Tepat di belakangmu.", "Belum."],
+        "playerAhead": ["Tetap di jalurmu.", "Aku sudah dekat."],
+        "playerBehind": ["Mendekat.", "Ada celahnya."],
+        "endgame": ["Sekarang kita meluncur keluar.", "Pintu keluar kudapat."]
+      }
+    },
+    "sage": {
+      "name": "Sage",
+      "emojiName": "burung hantu",
+      "personality": "Tenang dan penuh pertimbangan. Tempo mulus. Akhirnya bersih dan tak terelakkan.",
+      "voiceLines": {
+        "neutral": ["Seperti dugaan.", "Setiap balok di tempatnya."],
+        "playerAhead": ["Bagus.", "Kamu melihat rutenya."],
+        "playerBehind": ["Ikuti jalurnya.", "Bertahanlah."],
+        "endgame": ["Hampir lolos.", "Itu pintu keluarnya."]
+      }
+    },
+    "phantom": {
+      "name": "Phantom",
+      "emojiName": "kucing hitam",
+      "personality": "Hening dan tak manusiawi. Jeda minimal. Akhirnya berupa geseran cepat tanpa henti menuju pintu keluar.",
+      "voiceLines": {
+        "neutral": ["...", "..."],
+        "playerAhead": ["...", "…masih."],
+        "playerBehind": ["Terlambat.", "Kamu ragu."],
+        "endgame": ["…keluar.", "Keluar."]
+      }
+    },
+    "zenith": {
+      "name": "Zenith",
+      "emojiName": "naga",
+      "personality": "Tanpa usaha dan mutlak. Menjaga kendali sempurna sepanjang waktu. Di akhir, menyapu dengan tegas tanpa henti menuju pintu keluar — tanpa celah, tanpa perlawanan.",
+      "voiceLines": {
+        "neutral": ["Sudah diduga.", "Tanpa penyimpangan."],
+        "playerAhead": [
+          "Kamu memilih dengan baik untuk mencoba.",
+          "Lanjutkan."
+        ],
+        "playerBehind": ["Ini berakhir.", "Tak ada alternatif."],
+        "endgame": ["Itu saja.", "Lapang."]
+      }
+    }
+  }
+}

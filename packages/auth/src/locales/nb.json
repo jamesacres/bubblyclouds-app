@@ -1,0 +1,48 @@
+{
+  "brand": {
+    "companyName": "Bubbly Clouds",
+    "plus": "Plus",
+    "google": "Google",
+    "apple": "Apple"
+  },
+  "login": {
+    "title": "Logg inn for å fortsette",
+    "signInWith": "Logg inn med {{provider}}",
+    "emailTitle": "Logg inn med e-post",
+    "emailPlaceholder": "din@epost.no",
+    "continue": "Fortsett",
+    "cancel": "Avbryt",
+    "terms": "Vilkår for bruk",
+    "privacy": "Personvernerklæring"
+  },
+  "header": {
+    "signIn": "Logg inn"
+  },
+  "avatar": {
+    "alt": "bruker"
+  },
+  "panel": {
+    "title": "Konto",
+    "greeting": "Hei, {{name}}!",
+    "fallbackName": "Bruker",
+    "plusActive": "{{gameName}} {{plus}} er aktiv",
+    "joinGamePlus": "Bli med i {{gameName}} {{plus}}",
+    "joinPlus": "Bli med i {{plus}}",
+    "signOut": "Logg ut",
+    "privacy": "Personvernerklæring",
+    "terms": "Vilkår for bruk",
+    "credits": "Bidragsytere",
+    "deleteAccount": "Slett konto",
+    "poweredBy": "Drevet av {{companyName}}",
+    "deleteUnavailable": "Funksjonen for å slette konto er ikke tilgjengelig.",
+    "deleteFailed": "Kunne ikke slette kontoen. Prøv igjen senere."
+  },
+  "deleteDialog": {
+    "title": "Slett konto",
+    "warning": "Denne handlingen kan ikke angres. Alle dataene dine i alle apper fra {{companyName}} slettes permanent.",
+    "confirmation": "Jeg bekrefter at jeg vil slette hele kontoen min, inkludert alle data i alle apper fra {{companyName}}.",
+    "cancel": "Avbryt",
+    "deleting": "Sletter...",
+    "submit": "Slett konto"
+  }
+}

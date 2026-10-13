@@ -1,0 +1,267 @@
+{
+  "brand": {
+    "plus": "Plus"
+  },
+  "collection": {
+    "defaultLabel": "Libro",
+    "defaultDetailNoun": "libros de puzzles"
+  },
+  "collectionCover": {
+    "monthlyCollection": "Colección mensual"
+  },
+  "hintBox": {
+    "dismiss": "Descartar pista"
+  },
+  "lobbyButton": {
+    "opponents": "Rivales"
+  },
+  "nextPuzzlePanel": {
+    "continue": "Continuar: siguiente puzzle",
+    "continueLocked": "Continuar ({{plusName}})"
+  },
+  "nextPuzzleProgress": {
+    "bandComplete": "Progreso en {{label}}: {{completed}} de {{total}}"
+  },
+  "countdownOverlay": {
+    "getReady": "Prepárate",
+    "go": "¡YA!"
+  },
+  "confirmDialog": {
+    "cancel": "Cancelar"
+  },
+  "completionSummary": {
+    "complete": "{{label}} · completado",
+    "retry": "Reintentar",
+    "points": "+{{points}} pts",
+    "leaderboardPoints": "Puntos de la tabla de posiciones"
+  },
+  "raceTimer": {
+    "time": "Tiempo"
+  },
+  "stageTopBar": {
+    "previous": "Anterior"
+  },
+  "raceHud": {
+    "opponents": "Rivales",
+    "stageOf": "Etapa {{current}} de {{total}}"
+  },
+  "raceCelebration": {
+    "finish": "¡Meta!",
+    "runComplete": "Recorrido completado",
+    "leaderboardPoints": "Puntos de la tabla de posiciones",
+    "pointsSuffix": " pts"
+  },
+  "activityWidget": {
+    "days": {
+      "sunday": "D",
+      "monday": "L",
+      "tuesday": "M",
+      "wednesday": "X",
+      "thursday": "J",
+      "friday": "V",
+      "saturday": "S"
+    },
+    "dayStreak_one": "día seguido",
+    "dayStreak_many": "días seguidos",
+    "dayStreak_other": "días seguidos",
+    "thisMonth": "este mes"
+  },
+  "friendLeaderboardEntry": {
+    "you": "(Tú)",
+    "puzzles_one": "{{count}} puzzle",
+    "puzzles_many": "{{count}} de puzzles",
+    "puzzles_other": "{{count}} puzzles",
+    "average": "Promedio: {{time}}",
+    "best": "Mejor: {{time}}",
+    "wins_one": "🏁 {{count}} victoria",
+    "wins_many": "🏁 {{count}} de victorias",
+    "wins_other": "🏁 {{count}} victorias",
+    "points_one": "punto",
+    "points_many": "puntos",
+    "points_other": "puntos"
+  },
+  "scoreBreakdown": {
+    "title": "Desglose de puntos",
+    "volumeBonus": {
+      "label": "Bono por volumen",
+      "detail_one": "{{count}} puzzle completado",
+      "detail_many": "{{count}} de puzzles completados",
+      "detail_other": "{{count}} puzzles completados"
+    },
+    "dailyPuzzles": {
+      "label": "Puzzles diarios",
+      "detail_one": "{{count}} reto diario",
+      "detail_many": "{{count}} de retos diarios",
+      "detail_other": "{{count}} retos diarios"
+    },
+    "collectionPuzzles": {
+      "label": "Puzzles de {{collection}}",
+      "detail": "{{count}} de {{collection}}"
+    },
+    "scannedPuzzles": {
+      "label": "Puzzles escaneados",
+      "detail_one": "{{count}} puzzle importado",
+      "detail_many": "{{count}} de puzzles importados",
+      "detail_other": "{{count}} puzzles importados"
+    },
+    "difficultyBonus": {
+      "label": "Bono por dificultad",
+      "detail": "Puzzles más difíciles = más puntos"
+    },
+    "speedBonus": {
+      "label": "Bono por velocidad",
+      "detail": "Más rápido: {{time}}"
+    },
+    "racingBonus": {
+      "label": "Bono de carrera",
+      "detail": "Supera a los amigos que también completaron el puzzle"
+    },
+    "dailyCombo": {
+      "label": "Combo diario",
+      "detail": "Más puzzles al día = multiplicador mayor"
+    }
+  },
+  "leaderboard": {
+    "you": "Tú",
+    "unknownUser": "Usuario desconocido",
+    "title": "Tabla de posiciones",
+    "subtitleParty": "Últimos 30 días · {{partyName}}",
+    "subtitleAllTeams": "Últimos 30 días · Todos los equipos",
+    "howScoringWorks": "Cómo funciona la puntuación"
+  },
+  "scoringLegend": {
+    "title": "Cómo funciona la puntuación",
+    "subtitle": "{{gameName}} · Últimos 30 días",
+    "close": "Cerrar",
+    "racingWins": {
+      "title": "Victorias en carrera",
+      "body": "Gana <points>+{{points}} pts</points> por cada amigo al que superes en el mismo puzzle completado. Termina primero entre {{friends}} amigos y consigue <points>+{{total}} pts</points>."
+    },
+    "basePoints": {
+      "title": "Puntos base",
+      "anyPuzzle": "Cualquier puzzle",
+      "dailyPuzzle": "Puzzle diario",
+      "collectionPuzzle": "Puzzle de {{collection}}",
+      "scannedPuzzle": "Puzzle escaneado"
+    },
+    "difficultyMultipliers": {
+      "title": "Multiplicadores de dificultad",
+      "daily": "{{gameName}} del día",
+      "collection": "Puzzles de {{collection}}"
+    },
+    "speedBonuses": {
+      "title": "Bonos de velocidad",
+      "lightning": "Rayo",
+      "fast": "Rápido",
+      "quick": "Ágil",
+      "steady": "Constante",
+      "under": "menos de {{threshold}}",
+      "seconds": "{{value}} s",
+      "minutes": "{{value}} min"
+    },
+    "dailyCombo": {
+      "title": "Combo diario",
+      "body": "Resuelve más puzzles el mismo día para multiplicar los puntos de cada puzzle, hasta <max>{{max}}×</max>.",
+      "puzzle": "Puzzle {{puzzle}} del día",
+      "puzzleOrMore": "Puzzle {{puzzle}}+ del día"
+    }
+  },
+  "stageResultPanel": {
+    "runComplete": "Recorrido completado",
+    "raceProgress": "Progreso de la carrera",
+    "stagesProgress": "{{completed}}/{{total}} etapas",
+    "retryStage": "Reintentar etapa",
+    "stageLabel": "Etapa {{number}}",
+    "stageCompletedLabel": "Etapa {{number}}, completada en {{time}}",
+    "viewRacingStats": "Ver estadísticas de carrera",
+    "total": "Total"
+  },
+  "raceTrack": {
+    "you": "Tú",
+    "viewFriends": "Haz clic para ver a los amigos",
+    "start": "Salida",
+    "finish": "Meta",
+    "inviteToRace": "Invitar a amigos a competir",
+    "opponents": "Rivales",
+    "racer": "Corredor",
+    "stageBadge": "E{{number}}",
+    "total": "Total",
+    "leaderboard": "Tabla de posiciones",
+    "puzzleBook": "Libro de puzzles",
+    "puzzleBookLabel": "libro de puzzles",
+    "refreshScores": "Actualizar puntuaciones",
+    "challengeFriends": "🏁 Retar a amigos",
+    "yourTime": "Tu tiempo:",
+    "inviteFriends": "Invitar a amigos",
+    "racingLabel": "en carrera"
+  },
+  "difficulty": {
+    "daily": {
+      "simple": "Complicado",
+      "easy": "Desafiante",
+      "intermediate": "Difícil",
+      "expert": "Experto"
+    },
+    "book": {
+      "veryEasy": "Muy fácil",
+      "easy": "Fácil",
+      "moderatelyEasy": "Algo fácil",
+      "moderate": "Moderado",
+      "moderatelyHard": "Algo difícil",
+      "hard": "Difícil",
+      "vicious": "Cruel",
+      "fiendish": "Endiablado",
+      "devilish": "Diabólico",
+      "hell": "Infernal",
+      "beyondHell": "Infierno extremo"
+    }
+  },
+  "techniques": {
+    "lastDigit": "Último dígito",
+    "hiddenSingleBox": "Único oculto (caja)",
+    "hiddenSingleLine": "Único oculto (línea)",
+    "hiddenSingleVariantRegion": "Único oculto (región variante)",
+    "nakedSingle": "Único desnudo",
+    "hiddenPair": "Par oculto",
+    "lockedCandidate": "Candidato bloqueado",
+    "hiddenTriple": "Trío oculto",
+    "hiddenQuadruple": "Cuarteto oculto",
+    "nakedPair": "Par desnudo",
+    "nakedTriple": "Trío desnudo",
+    "nakedQuadruple": "Cuarteto desnudo",
+    "xWing": "X-Wing",
+    "swordfish": "Pez espada",
+    "skyscraper": "Rascacielos",
+    "twoStringKite": "Cometa de dos cuerdas",
+    "crane": "Grulla",
+    "simpleColoring": "Coloración simple",
+    "yWing": "Y-Wing",
+    "xYZWing": "XYZ-Wing",
+    "wWing": "W-Wing",
+    "finnedSashimiXWing": "X-Wing con aleta/Sashimi",
+    "emptyRectangle": "Rectángulo vacío",
+    "uniqueRectangleType1": "Rectángulo único tipo 1",
+    "uniqueRectangleType2": "Rectángulo único tipo 2",
+    "uniqueRectangleType3": "Rectángulo único tipo 3",
+    "uniqueRectangleType4": "Rectángulo único tipo 4",
+    "uniqueRectangleType5": "Rectángulo único tipo 5",
+    "finnedSashimiSwordfish": "Pez espada con aleta/Sashimi",
+    "jellyfish": "Medusa",
+    "bugBinaryUniversalGrave": "BUG (Tumba universal binaria)",
+    "xChain": "Cadena X",
+    "groupedXChain": "Cadena X agrupada",
+    "YWing4WXYZWing": "4-Y-Wing (WXYZ-Wing)",
+    "yWing5": "5-Y-Wing",
+    "yWing6": "6-Y-Wing",
+    "yWing7": "7-Y-Wing",
+    "yWing8": "8-Y-Wing",
+    "yWing9": "9-Y-Wing",
+    "finnedSashimiJellyfish": "Medusa con aleta/Sashimi",
+    "medusa3D": "Medusa 3D",
+    "xyChain": "Cadena XY",
+    "alternatingInferenceChainAIC": "Cadena de inferencia alterna (AIC)",
+    "groupedAlternatingInferenceChainAIC": "Cadena de inferencia alterna agrupada (AIC)",
+    "nishioForcingChain": "Cadena de forzado Nishio",
+    "nishioForcingNet": "Red de forzado Nishio"
+  }
+}

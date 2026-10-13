@@ -27,6 +27,20 @@ beforeAll(() => {
 });
 
 describe('Board', () => {
+  it('keeps its geometry left to right inside a mirrored page', () => {
+    render(
+      <Board
+        boardString={INITIAL}
+        initialBoardString={INITIAL}
+        onMove={() => {}}
+      />
+    );
+
+    const board = screen.getByTestId('unblock-board');
+    expect(board.querySelector('[dir="ltr"]')).not.toBeNull();
+    expect(screen.getByTestId('piece-A').closest('[dir="ltr"]')).not.toBeNull();
+  });
+
   it('renders every piece and wall', () => {
     render(<Board boardString={INITIAL} onMove={jest.fn()} />);
     expect(screen.getByTestId('piece-A')).toBeInTheDocument();
@@ -180,13 +194,13 @@ describe('Board', () => {
     );
 
     const ring = screen.getByTestId('hint-ring');
-    expect(ring.style.left).toBe(`${(0 / 6) * 100}%`);
+    expect(ring.style.insetInlineStart).toBe(`${(0 / 6) * 100}%`);
     expect(ring.style.top).toBe(`${(2 / 6) * 100}%`);
     expect(ring.style.width).toBe(`${(2 / 6) * 100}%`);
     expect(ring.style.height).toBe(`${(1 / 6) * 100}%`);
 
     const ghost = screen.getByTestId('hint-ghost');
-    expect(ghost.style.left).toBe(`${(1 / 6) * 100}%`);
+    expect(ghost.style.insetInlineStart).toBe(`${(1 / 6) * 100}%`);
     expect(ghost.style.top).toBe(`${(2 / 6) * 100}%`);
     expect(ghost.style.width).toBe(`${(2 / 6) * 100}%`);
     expect(ghost.style.height).toBe(`${(1 / 6) * 100}%`);
@@ -203,13 +217,13 @@ describe('Board', () => {
     );
 
     const ring = screen.getByTestId('hint-ring');
-    expect(ring.style.left).toBe(`${(3 / 6) * 100}%`);
+    expect(ring.style.insetInlineStart).toBe(`${(3 / 6) * 100}%`);
     expect(ring.style.top).toBe(`${(2 / 6) * 100}%`);
     expect(ring.style.width).toBe(`${(1 / 6) * 100}%`);
     expect(ring.style.height).toBe(`${(2 / 6) * 100}%`);
 
     const ghost = screen.getByTestId('hint-ghost');
-    expect(ghost.style.left).toBe(`${(3 / 6) * 100}%`);
+    expect(ghost.style.insetInlineStart).toBe(`${(3 / 6) * 100}%`);
     expect(ghost.style.top).toBe(`${(1 / 6) * 100}%`);
     expect(ghost.style.width).toBe(`${(1 / 6) * 100}%`);
     expect(ghost.style.height).toBe(`${(2 / 6) * 100}%`);

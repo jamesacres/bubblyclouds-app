@@ -1,0 +1,50 @@
+{
+  "sudoku": {
+    "brand": {
+      "appName": "數獨競速",
+      "gameName": "數獨",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusName": "數獨 Plus"
+    },
+    "terms": {
+      "race": "競速",
+      "team": "團隊",
+      "leaderboard": "排行榜",
+      "hint": "提示",
+      "undo": "復原",
+      "theme": "主題",
+      "dailyPuzzle": "每日謎題",
+      "monthlyCollection": "每月謎題集",
+      "aiOpponent": "AI 對手",
+      "monthly": "月度",
+      "lifetime": "終身版",
+      "plusAccess": "Plus 權益",
+      "plusFeatureLine": "無限競速、更多團隊、主題與復原"
+    }
+  },
+  "unblockrace": {
+    "brand": {
+      "appName": "解鎖競速",
+      "gameName": "解鎖競速",
+      "companyName": "Bubbly Clouds",
+      "plus": "Plus",
+      "plusProduct": "$t(brand.gameName) Plus"
+    },
+    "terms": {
+      "race": "競速",
+      "team": "團隊",
+      "leaderboard": "排行榜",
+      "hint": "提示",
+      "undo": "復原",
+      "theme": "主題",
+      "dailyPuzzle": "每日謎題",
+      "monthlyCollection": "每月謎題合集",
+      "aiOpponent": "AI 對手",
+      "monthly": "月度",
+      "lifetime": "終身版",
+      "plusAccess": "Plus 權益",
+      "plusFeatureLine": "無限競速、更多團隊、主題與復原"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ServerStateResult, Party } from '@bubblyclouds-app/types/serverTypes';
 import { UserProfile } from '@bubblyclouds-app/types/userProfile';
 import { UserSessions } from '@bubblyclouds-app/types/userSessions';
@@ -25,24 +26,28 @@ interface UnblockLeaderboardProps<
   gameName: string;
 }
 
-// Unblock Race's own difficulty tiers for the scoring legend, in place of
-// sudoku's default puzzle-book tiers. Used for both the daily and collection
-// sections since Unblock Race scores both puzzle types off the same
-// beginner/challenging/hard/expert multipliers (see UNBLOCK_DIFFICULTY_MULTIPLIERS).
-const UNBLOCK_DIFFICULTIES = [
+const UNBLOCK_DIFFICULTY_KEYS = [
   UnblockRaceDifficulty.BEGINNER,
   UnblockRaceDifficulty.CHALLENGING,
   UnblockRaceDifficulty.HARD,
   UnblockRaceDifficulty.EXPERT,
-].map((key) => ({
-  key,
-  label: unblockDifficultyDisplay(key).label,
-  multiplier: UNBLOCK_DIFFICULTY_MULTIPLIERS[key],
-}));
+];
 
 function UnblockLeaderboard<State extends BaseServerState = BaseServerState>(
   props: UnblockLeaderboardProps<State>
 ) {
+  const { t } = useTranslation('app');
+  const { t: tUnblock } = useTranslation('unblockrace');
+  const difficulties = useMemo(
+    () =>
+      UNBLOCK_DIFFICULTY_KEYS.map((key) => ({
+        key,
+        label: unblockDifficultyDisplay(key, tUnblock).label,
+        multiplier: UNBLOCK_DIFFICULTY_MULTIPLIERS[key],
+      })),
+    [tUnblock]
+  );
+
   return (
     <Leaderboard<State>
       {...props}
@@ -51,10 +56,10 @@ function UnblockLeaderboard<State extends BaseServerState = BaseServerState>(
         difficultyMultipliers: UNBLOCK_DIFFICULTY_MULTIPLIERS,
         speedThresholds: UNBLOCK_SPEED_THRESHOLDS,
       }}
-      dailyDifficulties={UNBLOCK_DIFFICULTIES}
-      collectionLabel="Collection"
-      collectionDetailNoun="collections"
-      collectionDifficulties={UNBLOCK_DIFFICULTIES}
+      dailyDifficulties={difficulties}
+      collectionLabel={t('leaderboard.collectionLabel')}
+      collectionDetailNoun={t('leaderboard.collectionDetailNoun')}
+      collectionDifficulties={difficulties}
       showScannedPuzzles={false}
     />
   );
